@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.19.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newCatSegmentsFunc(t Transport) CatSegments {
@@ -52,12 +53,14 @@ type CatSegments func(o ...func(*CatSegmentsRequest)) (*Response, error)
 type CatSegmentsRequest struct {
 	Index []string
 
-	Bytes  string
-	Format string
-	H      []string
-	Help   *bool
-	S      []string
-	V      *bool
+	Bytes         string
+	Format        string
+	H             []string
+	Help          *bool
+	Local         *bool
+	MasterTimeout time.Duration
+	S             []string
+	V             *bool
 
 	Pretty     bool
 	Human      bool
@@ -120,6 +123,14 @@ func (r CatSegmentsRequest) Do(providedCtx context.Context, transport Transport)
 
 	if r.Help != nil {
 		params["help"] = strconv.FormatBool(*r.Help)
+	}
+
+	if r.Local != nil {
+		params["local"] = strconv.FormatBool(*r.Local)
+	}
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if len(r.S) > 0 {
@@ -240,6 +251,20 @@ func (f CatSegments) WithH(v ...string) func(*CatSegmentsRequest) {
 func (f CatSegments) WithHelp(v bool) func(*CatSegmentsRequest) {
 	return func(r *CatSegmentsRequest) {
 		r.Help = &v
+	}
+}
+
+// WithLocal - return local information, do not retrieve the state from master node (default: false).
+func (f CatSegments) WithLocal(v bool) func(*CatSegmentsRequest) {
+	return func(r *CatSegmentsRequest) {
+		r.Local = &v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f CatSegments) WithMasterTimeout(v time.Duration) func(*CatSegmentsRequest) {
+	return func(r *CatSegmentsRequest) {
+		r.MasterTimeout = v
 	}
 }
 

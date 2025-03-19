@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // NodeInfoSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/info/types.ts#L69-L85
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/nodes/info/types.ts#L69-L85
 type NodeInfoSettings struct {
 	Action       *NodeInfoAction           `json:"action,omitempty"`
 	Bootstrap    *NodeInfoBootstrap        `json:"bootstrap,omitempty"`
@@ -47,3 +47,5 @@ func NewNodeInfoSettings() *NodeInfoSettings {
 
 	return r
 }
+
+// false

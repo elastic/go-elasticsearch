@@ -16,17 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package updateapikey
 
 // Response holds the response body struct for the package updateapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/update_api_key/Response.ts#L20-L28
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/security/update_api_key/Response.ts#L20-L28
 type Response struct {
 
 	// Updated If `true`, the API key was updated.
-	// If `false`, the API key didn’t change because no change was detected.
+	// If `false`, the API key didn't change because no change was detected.
 	Updated bool `json:"updated"`
 }
 

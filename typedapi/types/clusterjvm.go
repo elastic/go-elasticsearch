@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterJvm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/stats/types.ts#L275-L292
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/cluster/stats/types.ts#L275-L292
 type ClusterJvm struct {
 	// MaxUptimeInMillis Uptime duration, in milliseconds, since JVM last started.
 	MaxUptimeInMillis int64 `json:"max_uptime_in_millis"`
@@ -99,3 +99,5 @@ func NewClusterJvm() *ClusterJvm {
 
 	return r
 }
+
+// false

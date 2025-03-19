@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package putjob
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/put_job/MlPutJobRequest.ts#L30-L112
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/put_job/MlPutJobRequest.ts#L30-L157
 type Request struct {
 
 	// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when there
@@ -83,6 +83,10 @@ type Request struct {
 	Description *string `json:"description,omitempty"`
 	// Groups A list of job groups. A job can belong to no groups or many.
 	Groups []string `json:"groups,omitempty"`
+	// JobId The identifier for the anomaly detection job. This identifier can contain
+	// lowercase alphanumeric characters (a-z and 0-9), hyphens, and underscores. It
+	// must start and end with alphanumeric characters.
+	JobId *string `json:"job_id,omitempty"`
 	// ModelPlotConfig This advanced configuration option stores model information along with the
 	// results. It provides a more detailed view into anomaly detection. If you
 	// enable model plot it can add considerable overhead to the performance of the
@@ -224,6 +228,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "groups":
 			if err := dec.Decode(&s.Groups); err != nil {
 				return fmt.Errorf("%s | %w", "Groups", err)
+			}
+
+		case "job_id":
+			if err := dec.Decode(&s.JobId); err != nil {
+				return fmt.Errorf("%s | %w", "JobId", err)
 			}
 
 		case "model_plot_config":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,11 +31,14 @@ import (
 
 // ReadException type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ccr/_types/FollowIndexStats.ts#L71-L75
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ccr/_types/FollowIndexStats.ts#L111-L118
 type ReadException struct {
+	// Exception The exception that caused the read to fail.
 	Exception ErrorCause `json:"exception"`
-	FromSeqNo int64      `json:"from_seq_no"`
-	Retries   int        `json:"retries"`
+	// FromSeqNo The starting sequence number of the batch requested from the leader.
+	FromSeqNo int64 `json:"from_seq_no"`
+	// Retries The number of times the batch has been retried.
+	Retries int `json:"retries"`
 }
 
 func (s *ReadException) UnmarshalJSON(data []byte) error {
@@ -90,3 +93,5 @@ func NewReadException() *ReadException {
 
 	return r
 }
+
+// false

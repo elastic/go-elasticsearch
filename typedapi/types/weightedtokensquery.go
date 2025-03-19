@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // WeightedTokensQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/WeightedTokensQuery.ts#L27-L32
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/WeightedTokensQuery.ts#L25-L33
 type WeightedTokensQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -110,8 +110,18 @@ func (s *WeightedTokensQuery) UnmarshalJSON(data []byte) error {
 // NewWeightedTokensQuery returns a WeightedTokensQuery.
 func NewWeightedTokensQuery() *WeightedTokensQuery {
 	r := &WeightedTokensQuery{
-		Tokens: make(map[string]float32, 0),
+		Tokens: make(map[string]float32),
 	}
 
 	return r
+}
+
+// true
+
+type WeightedTokensQueryVariant interface {
+	WeightedTokensQueryCaster() *WeightedTokensQuery
+}
+
+func (s *WeightedTokensQuery) WeightedTokensQueryCaster() *WeightedTokensQuery {
+	return s
 }

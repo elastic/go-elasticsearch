@@ -15,14 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.19.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
@@ -50,9 +49,6 @@ type CatHelp func(o ...func(*CatHelpRequest)) (*Response, error)
 
 // CatHelpRequest configures the Cat Help API request.
 type CatHelpRequest struct {
-	Help *bool
-	S    []string
-
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -89,14 +85,6 @@ func (r CatHelpRequest) Do(providedCtx context.Context, transport Transport) (*R
 	path.WriteString("/_cat")
 
 	params = make(map[string]string)
-
-	if r.Help != nil {
-		params["help"] = strconv.FormatBool(*r.Help)
-	}
-
-	if len(r.S) > 0 {
-		params["s"] = strings.Join(r.S, ",")
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -173,20 +161,6 @@ func (r CatHelpRequest) Do(providedCtx context.Context, transport Transport) (*R
 func (f CatHelp) WithContext(v context.Context) func(*CatHelpRequest) {
 	return func(r *CatHelpRequest) {
 		r.ctx = v
-	}
-}
-
-// WithHelp - return help information.
-func (f CatHelp) WithHelp(v bool) func(*CatHelpRequest) {
-	return func(r *CatHelpRequest) {
-		r.Help = &v
-	}
-}
-
-// WithS - comma-separated list of column names or column aliases to sort by.
-func (f CatHelp) WithS(v ...string) func(*CatHelpRequest) {
-	return func(r *CatHelpRequest) {
-		r.S = v
 	}
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardQueryCache type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/stats/types.ts#L146-L154
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/stats/types.ts#L146-L154
 type ShardQueryCache struct {
 	CacheCount        int64 `json:"cache_count"`
 	CacheSize         int64 `json:"cache_size"`
@@ -173,3 +173,5 @@ func NewShardQueryCache() *ShardQueryCache {
 
 	return r
 }
+
+// false

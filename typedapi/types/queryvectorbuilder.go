@@ -16,20 +16,67 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // QueryVectorBuilder type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Knn.ts#L69-L72
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/Knn.ts#L89-L92
 type QueryVectorBuilder struct {
-	TextEmbedding *TextEmbedding `json:"text_embedding,omitempty"`
+	AdditionalQueryVectorBuilderProperty map[string]json.RawMessage `json:"-"`
+	TextEmbedding                        *TextEmbedding             `json:"text_embedding,omitempty"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s QueryVectorBuilder) MarshalJSON() ([]byte, error) {
+	type opt QueryVectorBuilder
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalQueryVectorBuilderProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalQueryVectorBuilderProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // NewQueryVectorBuilder returns a QueryVectorBuilder.
 func NewQueryVectorBuilder() *QueryVectorBuilder {
-	r := &QueryVectorBuilder{}
+	r := &QueryVectorBuilder{
+		AdditionalQueryVectorBuilderProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type QueryVectorBuilderVariant interface {
+	QueryVectorBuilderCaster() *QueryVectorBuilder
+}
+
+func (s *QueryVectorBuilder) QueryVectorBuilderCaster() *QueryVectorBuilder {
+	return s
 }

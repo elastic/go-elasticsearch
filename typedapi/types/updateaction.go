@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,26 +31,26 @@ import (
 
 // UpdateAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/bulk/types.ts#L169-L205
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/bulk/types.ts#L182-L217
 type UpdateAction struct {
-	// DetectNoop Set to false to disable setting 'result' in the response
-	// to 'noop' if no change to the document occurred.
+	// DetectNoop If true, the `result` in the response is set to 'noop' when no changes to the
+	// document occur.
 	DetectNoop *bool `json:"detect_noop,omitempty"`
 	// Doc A partial update to an existing document.
 	Doc json.RawMessage `json:"doc,omitempty"`
-	// DocAsUpsert Set to true to use the contents of 'doc' as the value of 'upsert'
+	// DocAsUpsert Set to `true` to use the contents of `doc` as the value of `upsert`.
 	DocAsUpsert *bool `json:"doc_as_upsert,omitempty"`
-	// Script Script to execute to update the document.
+	// Script The script to run to update the document.
 	Script *Script `json:"script,omitempty"`
-	// ScriptedUpsert Set to true to execute the script whether or not the document exists.
+	// ScriptedUpsert Set to `true` to run the script whether or not the document exists.
 	ScriptedUpsert *bool `json:"scripted_upsert,omitempty"`
-	// Source_ Set to false to disable source retrieval. You can also specify a
-	// comma-separated
-	// list of the fields you want to retrieve.
+	// Source_ If `false`, source retrieval is turned off.
+	// You can also specify a comma-separated list of the fields you want to
+	// retrieve.
 	Source_ SourceConfig `json:"_source,omitempty"`
-	// Upsert If the document does not already exist, the contents of 'upsert' are inserted
-	// as a
-	// new document. If the document exists, the 'script' is executed.
+	// Upsert If the document does not already exist, the contents of `upsert` are inserted
+	// as a new document.
+	// If the document exists, the `script` is run.
 	Upsert json.RawMessage `json:"upsert,omitempty"`
 }
 
@@ -172,4 +172,14 @@ func NewUpdateAction() *UpdateAction {
 	r := &UpdateAction{}
 
 	return r
+}
+
+// true
+
+type UpdateActionVariant interface {
+	UpdateActionCaster() *UpdateAction
+}
+
+func (s *UpdateAction) UpdateActionCaster() *UpdateAction {
+	return s
 }

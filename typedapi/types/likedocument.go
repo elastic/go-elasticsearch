@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // LikeDocument type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/specialized.ts#L171-L193
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/specialized.ts#L174-L196
 type LikeDocument struct {
 	// Doc A document not present in the index.
 	Doc    json.RawMessage `json:"doc,omitempty"`
@@ -114,8 +114,18 @@ func (s *LikeDocument) UnmarshalJSON(data []byte) error {
 // NewLikeDocument returns a LikeDocument.
 func NewLikeDocument() *LikeDocument {
 	r := &LikeDocument{
-		PerFieldAnalyzer: make(map[string]string, 0),
+		PerFieldAnalyzer: make(map[string]string),
 	}
 
 	return r
+}
+
+// true
+
+type LikeDocumentVariant interface {
+	LikeDocumentCaster() *LikeDocument
+}
+
+func (s *LikeDocument) LikeDocumentCaster() *LikeDocument {
+	return s
 }

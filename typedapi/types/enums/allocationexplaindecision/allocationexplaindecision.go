@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Package allocationexplaindecision
 package allocationexplaindecision
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/allocation_explain/types.ts#L32-L37
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/cluster/allocation_explain/types.ts#L33-L38
 type AllocationExplainDecision struct {
 	Name string
 }
@@ -45,13 +45,13 @@ func (a AllocationExplainDecision) MarshalText() (text []byte, err error) {
 func (a *AllocationExplainDecision) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "NO":
+	case "no":
 		*a = NO
-	case "YES":
+	case "yes":
 		*a = YES
-	case "THROTTLE":
+	case "throttle":
 		*a = THROTTLE
-	case "ALWAYS":
+	case "always":
 		*a = ALWAYS
 	default:
 		*a = AllocationExplainDecision{string(text)}

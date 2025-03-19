@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,8 +30,9 @@ import (
 
 // SpanQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/span.ts#L131-L173
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/span.ts#L158-L200
 type SpanQuery struct {
+	AdditionalSpanQueryProperty map[string]json.RawMessage `json:"-"`
 	// SpanContaining Accepts a list of span queries, but only returns those spans which also match
 	// a second span query.
 	SpanContaining *SpanContainingQuery `json:"span_containing,omitempty"`
@@ -126,16 +127,69 @@ func (s *SpanQuery) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "SpanWithin", err)
 			}
 
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.AdditionalSpanQueryProperty == nil {
+					s.AdditionalSpanQueryProperty = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "AdditionalSpanQueryProperty", err)
+				}
+				s.AdditionalSpanQueryProperty[key] = *raw
+			}
+
 		}
 	}
 	return nil
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s SpanQuery) MarshalJSON() ([]byte, error) {
+	type opt SpanQuery
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalSpanQueryProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalSpanQueryProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewSpanQuery returns a SpanQuery.
 func NewSpanQuery() *SpanQuery {
 	r := &SpanQuery{
-		SpanTerm: make(map[string]SpanTermQuery, 0),
+		AdditionalSpanQueryProperty: make(map[string]json.RawMessage),
+		SpanTerm:                    make(map[string]SpanTermQuery),
 	}
 
 	return r
+}
+
+// true
+
+type SpanQueryVariant interface {
+	SpanQueryCaster() *SpanQuery
+}
+
+func (s *SpanQuery) SpanQueryCaster() *SpanQuery {
+	return s
 }

@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Deletes a repository.
+// Delete snapshot repositories.
+// When a repository is unregistered, Elasticsearch removes only the reference
+// to the location where the repository is storing the snapshots.
+// The snapshots themselves are left untouched and in place.
 package deleterepository
 
 import (
@@ -76,9 +79,12 @@ func NewDeleteRepositoryFunc(tp elastictransport.Interface) NewDeleteRepository 
 	}
 }
 
-// Deletes a repository.
+// Delete snapshot repositories.
+// When a repository is unregistered, Elasticsearch removes only the reference
+// to the location where the repository is storing the snapshots.
+// The snapshots themselves are left untouched and in place.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-snapshots.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-snapshot-repo-api.html
 func New(tp elastictransport.Interface) *DeleteRepository {
 	r := &DeleteRepository{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package updateuserprofiledata
 
@@ -27,14 +27,20 @@ import (
 
 // Request holds the request body struct for the package updateuserprofiledata
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/update_user_profile_data/Request.ts#L27-L70
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/security/update_user_profile_data/Request.ts#L27-L98
 type Request struct {
 
 	// Data Non-searchable data that you want to associate with the user profile.
 	// This field supports a nested data structure.
+	// Within the `data` object, top-level keys cannot begin with an underscore
+	// (`_`) or contain a period (`.`).
+	// The data object is not searchable, but can be retrieved with the get user
+	// profile API.
 	Data map[string]json.RawMessage `json:"data,omitempty"`
-	// Labels Searchable data that you want to associate with the user profile. This
-	// field supports a nested data structure.
+	// Labels Searchable data that you want to associate with the user profile.
+	// This field supports a nested data structure.
+	// Within the labels object, top-level keys cannot begin with an underscore
+	// (`_`) or contain a period (`.`).
 	Labels map[string]json.RawMessage `json:"labels,omitempty"`
 }
 

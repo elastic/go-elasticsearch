@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Returns the snapshot repositories for a cluster.
+// Get snapshot repository information.
+//
+// Get a list of snapshot repositories for a cluster.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the get snapshot repository API.
@@ -71,7 +73,9 @@ func NewRepositoriesFunc(tp elastictransport.Interface) NewRepositories {
 	}
 }
 
-// Returns the snapshot repositories for a cluster.
+// Get snapshot repository information.
+//
+// Get a list of snapshot repositories for a cluster.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the get snapshot repository API.
@@ -282,15 +286,6 @@ func (r *Repositories) Header(key, value string) *Repositories {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
-// API name: format
-func (r *Repositories) Format(format string) *Repositories {
-	r.values.Set("format", format)
-
-	return r
-}
-
 // H List of columns to appear in the response. Supports simple wildcards.
 // API name: h
 func (r *Repositories) H(names ...string) *Repositories {
@@ -299,11 +294,12 @@ func (r *Repositories) H(names ...string) *Repositories {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
-// API name: help
-func (r *Repositories) Help(help bool) *Repositories {
-	r.values.Set("help", strconv.FormatBool(help))
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *Repositories) S(names ...string) *Repositories {
+	r.values.Set("s", strings.Join(names, ","))
 
 	return r
 }
@@ -327,12 +323,20 @@ func (r *Repositories) MasterTimeout(duration string) *Repositories {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *Repositories) S(names ...string) *Repositories {
-	r.values.Set("s", strings.Join(names, ","))
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *Repositories) Format(format string) *Repositories {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *Repositories) Help(help bool) *Repositories {
+	r.values.Set("help", strconv.FormatBool(help))
 
 	return r
 }

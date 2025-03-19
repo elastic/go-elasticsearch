@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // NestedAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/bucket.ts#L638-L643
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/aggregations/bucket.ts#L655-L660
 type NestedAggregation struct {
 	// Path The path to the field of type `nested`.
 	Path *string `json:"path,omitempty"`
@@ -66,4 +66,14 @@ func NewNestedAggregation() *NestedAggregation {
 	r := &NestedAggregation{}
 
 	return r
+}
+
+// true
+
+type NestedAggregationVariant interface {
+	NestedAggregationCaster() *NestedAggregation
+}
+
+func (s *NestedAggregation) NestedAggregationCaster() *NestedAggregation {
+	return s
 }

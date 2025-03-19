@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TopHitsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/metric.ts#L337-L397
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/aggregations/metric.ts#L346-L406
 type TopHitsAggregation struct {
 	// DocvalueFields Fields for which to return doc values.
 	DocvalueFields []FieldAndFormat `json:"docvalue_fields,omitempty"`
@@ -291,8 +291,18 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 // NewTopHitsAggregation returns a TopHitsAggregation.
 func NewTopHitsAggregation() *TopHitsAggregation {
 	r := &TopHitsAggregation{
-		ScriptFields: make(map[string]ScriptField, 0),
+		ScriptFields: make(map[string]ScriptField),
 	}
 
 	return r
+}
+
+// true
+
+type TopHitsAggregationVariant interface {
+	TopHitsAggregationCaster() *TopHitsAggregation
+}
+
+func (s *TopHitsAggregation) TopHitsAggregationCaster() *TopHitsAggregation {
+	return s
 }

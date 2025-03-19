@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package queryapikeys
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package queryapikeys
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/query_api_keys/QueryApiKeysRequest.ts#L26-L100
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/security/query_api_keys/QueryApiKeysRequest.ts#L26-L124
 type Request struct {
 
 	// Aggregations Any aggregations to run over the corpus of returned API keys.
@@ -45,9 +45,10 @@ type Request struct {
 	// Additionally, aggregations only run over the same subset of fields that query
 	// works with.
 	Aggregations map[string]types.ApiKeyAggregationContainer `json:"aggregations,omitempty"`
-	// From Starting document offset.
-	// By default, you cannot page through more than 10,000 hits using the from and
-	// size parameters.
+	// From The starting document offset.
+	// It must not be negative.
+	// By default, you cannot page through more than 10,000 hits using the `from`
+	// and `size` parameters.
 	// To page through more hits, use the `search_after` parameter.
 	From *int `json:"from,omitempty"`
 	// Query A query to filter which API keys to return.
@@ -59,15 +60,26 @@ type Request struct {
 	// `id`, `type`, `name`,
 	// `creation`, `expiration`, `invalidated`, `invalidation`, `username`, `realm`,
 	// and `metadata`.
+	//
+	// NOTE: The queryable string values associated with API keys are internally
+	// mapped as keywords.
+	// Consequently, if no `analyzer` parameter is specified for a `match` query,
+	// then the provided match query string is interpreted as a single keyword
+	// value.
+	// Such a match query is hence equivalent to a `term` query.
 	Query *types.ApiKeyQueryContainer `json:"query,omitempty"`
-	// SearchAfter Search after definition
+	// SearchAfter The search after definition.
 	SearchAfter []types.FieldValue `json:"search_after,omitempty"`
 	// Size The number of hits to return.
+	// It must not be negative.
+	// The `size` parameter can be set to `0`, in which case no API key matches are
+	// returned, only the aggregation results.
 	// By default, you cannot page through more than 10,000 hits using the `from`
 	// and `size` parameters.
 	// To page through more hits, use the `search_after` parameter.
 	Size *int `json:"size,omitempty"`
-	// Sort Other than `id`, all public fields of an API key are eligible for sorting.
+	// Sort The sort definition.
+	// Other than `id`, all public fields of an API key are eligible for sorting.
 	// In addition, sort can also be applied to the `_doc` field to sort by index
 	// order.
 	Sort []types.SortCombinations `json:"sort,omitempty"`

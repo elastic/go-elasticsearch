@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataStreamLifecycleExplain type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L31-L41
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L31-L41
 type DataStreamLifecycleExplain struct {
 	Error                   *string                          `json:"error,omitempty"`
 	GenerationTime          Duration                         `json:"generation_time,omitempty"`
@@ -131,3 +131,5 @@ func NewDataStreamLifecycleExplain() *DataStreamLifecycleExplain {
 
 	return r
 }
+
+// false

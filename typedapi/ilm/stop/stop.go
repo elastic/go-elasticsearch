@@ -16,10 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Halts all lifecycle management operations and stops the index lifecycle
-// management (ILM) plugin
+// Stop the ILM plugin.
+// Halt all lifecycle management operations and stop the index lifecycle
+// management plugin.
+// This is useful when you are performing maintenance on the cluster and need to
+// prevent ILM from performing any actions on your indices.
+//
+// The API returns as soon as the stop request has been acknowledged, but the
+// plugin might continue to run until in-progress operations complete and the
+// plugin can be safely stopped.
+// Use the get ILM status API to check whether ILM is running.
 package stop
 
 import (
@@ -69,8 +77,16 @@ func NewStopFunc(tp elastictransport.Interface) NewStop {
 	}
 }
 
-// Halts all lifecycle management operations and stops the index lifecycle
-// management (ILM) plugin
+// Stop the ILM plugin.
+// Halt all lifecycle management operations and stop the index lifecycle
+// management plugin.
+// This is useful when you are performing maintenance on the cluster and need to
+// prevent ILM from performing any actions on your indices.
+//
+// The API returns as soon as the stop request has been acknowledged, but the
+// plugin might continue to run until in-progress operations complete and the
+// plugin can be safely stopped.
+// Use the get ILM status API to check whether ILM is running.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-stop.html
 func New(tp elastictransport.Interface) *Stop {
@@ -278,6 +294,8 @@ func (r *Stop) Header(key, value string) *Stop {
 	return r
 }
 
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *Stop) MasterTimeout(duration string) *Stop {
 	r.values.Set("master_timeout", duration)
@@ -285,6 +303,8 @@ func (r *Stop) MasterTimeout(duration string) *Stop {
 	return r
 }
 
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *Stop) Timeout(duration string) *Stop {
 	r.values.Set("timeout", duration)

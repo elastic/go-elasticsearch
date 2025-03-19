@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -27,17 +27,20 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
 )
 
 // CurrentNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/allocation_explain/types.ts#L78-L84
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/cluster/allocation_explain/types.ts#L79-L90
 type CurrentNode struct {
-	Attributes       map[string]string `json:"attributes"`
-	Id               string            `json:"id"`
-	Name             string            `json:"name"`
-	TransportAddress string            `json:"transport_address"`
-	WeightRanking    int               `json:"weight_ranking"`
+	Attributes       map[string]string   `json:"attributes"`
+	Id               string              `json:"id"`
+	Name             string              `json:"name"`
+	Roles            []noderole.NodeRole `json:"roles"`
+	TransportAddress string              `json:"transport_address"`
+	WeightRanking    int                 `json:"weight_ranking"`
 }
 
 func (s *CurrentNode) UnmarshalJSON(data []byte) error {
@@ -73,6 +76,11 @@ func (s *CurrentNode) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
+		case "roles":
+			if err := dec.Decode(&s.Roles); err != nil {
+				return fmt.Errorf("%s | %w", "Roles", err)
+			}
+
 		case "transport_address":
 			if err := dec.Decode(&s.TransportAddress); err != nil {
 				return fmt.Errorf("%s | %w", "TransportAddress", err)
@@ -102,8 +110,10 @@ func (s *CurrentNode) UnmarshalJSON(data []byte) error {
 // NewCurrentNode returns a CurrentNode.
 func NewCurrentNode() *CurrentNode {
 	r := &CurrentNode{
-		Attributes: make(map[string]string, 0),
+		Attributes: make(map[string]string),
 	}
 
 	return r
 }
+
+// false

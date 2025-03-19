@@ -16,9 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Provides general information about the installed X-Pack features.
+// Get information.
+// The information provided by the API includes:
+//
+// * Build information including the build number and timestamp.
+// * License information about the currently installed license.
+// * Feature information for the features that are currently enabled and
+// available under the current license.
 package info
 
 import (
@@ -34,6 +40,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/xpackcategory"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -68,7 +75,13 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 	}
 }
 
-// Provides general information about the installed X-Pack features.
+// Get information.
+// The information provided by the API includes:
+//
+// * Build information including the build number and timestamp.
+// * License information about the currently installed license.
+// * Feature information for the features that are currently enabled and
+// available under the current license.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html
 func New(tp elastictransport.Interface) *Info {
@@ -275,9 +288,10 @@ func (r *Info) Header(key, value string) *Info {
 }
 
 // Categories A comma-separated list of the information categories to include in the
-// response. For example, `build,license,features`.
+// response.
+// For example, `build,license,features`.
 // API name: categories
-func (r *Info) Categories(categories ...string) *Info {
+func (r *Info) Categories(categories ...xpackcategory.XPackCategory) *Info {
 	tmp := []string{}
 	for _, item := range categories {
 		tmp = append(tmp, fmt.Sprintf("%v", item))
@@ -296,7 +310,8 @@ func (r *Info) AcceptEnterprise(acceptenterprise bool) *Info {
 }
 
 // Human Defines whether additional human-readable information is included in the
-// response. In particular, it adds descriptions and a tag line.
+// response.
+// In particular, it adds descriptions and a tag line.
 // API name: human
 func (r *Info) Human(human bool) *Info {
 	r.values.Set("human", strconv.FormatBool(human))

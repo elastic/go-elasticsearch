@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // UnratedDocument type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/rank_eval/types.ts#L150-L153
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/rank_eval/types.ts#L150-L153
 type UnratedDocument struct {
 	Id_    string `json:"_id"`
 	Index_ string `json:"_index"`
@@ -72,3 +72,5 @@ func NewUnratedDocument() *UnratedDocument {
 
 	return r
 }
+
+// false

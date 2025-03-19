@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Retrieves filters.
+// Get filters.
 // You can get a single filter or all filters.
 package getfilters
 
@@ -75,7 +75,7 @@ func NewGetFiltersFunc(tp elastictransport.Interface) NewGetFilters {
 	}
 }
 
-// Retrieves filters.
+// Get filters.
 // You can get a single filter or all filters.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-filter.html

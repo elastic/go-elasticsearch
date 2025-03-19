@@ -16,10 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Evicts users from the user cache. Can completely clear the cache or evict
-// specific users.
+// Clear the user cache.
+//
+// Evict users from the user cache.
+// You can completely clear the cache or evict specific users.
+//
+// User credentials are cached in memory on each node to avoid connecting to a
+// remote authentication service or hitting the disk for every incoming request.
+// There are realm settings that you can use to configure the user cache.
+// For more information, refer to the documentation about controlling the user
+// cache.
 package clearcachedrealms
 
 import (
@@ -77,8 +85,16 @@ func NewClearCachedRealmsFunc(tp elastictransport.Interface) NewClearCachedRealm
 	}
 }
 
-// Evicts users from the user cache. Can completely clear the cache or evict
-// specific users.
+// Clear the user cache.
+//
+// Evict users from the user cache.
+// You can completely clear the cache or evict specific users.
+//
+// User credentials are cached in memory on each node to avoid connecting to a
+// remote authentication service or hitting the disk for every incoming request.
+// There are realm settings that you can use to configure the user cache.
+// For more information, refer to the documentation about controlling the user
+// cache.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-cache.html
 func New(tp elastictransport.Interface) *ClearCachedRealms {
@@ -294,7 +310,9 @@ func (r *ClearCachedRealms) Header(key, value string) *ClearCachedRealms {
 	return r
 }
 
-// Realms Comma-separated list of realms to clear
+// Realms A comma-separated list of realms.
+// To clear all realms, use an asterisk (`*`).
+// It does not support other wildcard patterns.
 // API Name: realms
 func (r *ClearCachedRealms) _realms(realms string) *ClearCachedRealms {
 	r.paramSet |= realmsMask
@@ -303,7 +321,9 @@ func (r *ClearCachedRealms) _realms(realms string) *ClearCachedRealms {
 	return r
 }
 
-// Usernames Comma-separated list of usernames to clear from the cache
+// Usernames A comma-separated list of the users to clear from the cache.
+// If you do not specify this parameter, the API evicts all users from the user
+// cache.
 // API name: usernames
 func (r *ClearCachedRealms) Usernames(usernames ...string) *ClearCachedRealms {
 	tmp := []string{}

@@ -16,10 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Adds and updates users in the native realm. These users are commonly referred
-// to as native users.
+// Create or update users.
+//
+// Add and update users in the native realm.
+// A password is required for adding a new user but is optional when updating an
+// existing user.
+// To change a user's password without updating any other fields, use the change
+// password API.
 package putuser
 
 import (
@@ -83,8 +88,13 @@ func NewPutUserFunc(tp elastictransport.Interface) NewPutUser {
 	}
 }
 
-// Adds and updates users in the native realm. These users are commonly referred
-// to as native users.
+// Create or update users.
+//
+// Add and update users in the native realm.
+// A password is required for adding a new user but is optional when updating an
+// existing user.
+// To change a user's password without updating any other fields, use the change
+// password API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-user.html
 func New(tp elastictransport.Interface) *PutUser {
@@ -94,8 +104,6 @@ func New(tp elastictransport.Interface) *PutUser {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -309,7 +317,12 @@ func (r *PutUser) Header(key, value string) *PutUser {
 	return r
 }
 
-// Username The username of the User
+// Username An identifier for the user.
+//
+// NOTE: Usernames must be at least 1 and no more than 507 characters.
+// They can contain alphanumeric characters (a-z, A-Z, 0-9), spaces,
+// punctuation, and printable symbols in the Basic Latin (ASCII) block.
+// Leading or trailing whitespace is not allowed.
 // API Name: username
 func (r *PutUser) _username(username string) *PutUser {
 	r.paramSet |= usernameMask
@@ -318,9 +331,9 @@ func (r *PutUser) _username(username string) *PutUser {
 	return r
 }
 
-// Refresh If `true` (the default) then refresh the affected shards to make this
-// operation visible to search, if `wait_for` then wait for a refresh to make
-// this operation visible to search, if `false` then do nothing with refreshes.
+// Refresh Valid values are `true`, `false`, and `wait_for`.
+// These values have the same meaning as in the index API, but the default value
+// for this API is true.
 // API name: refresh
 func (r *PutUser) Refresh(refresh refresh.Refresh) *PutUser {
 	r.values.Set("refresh", refresh.String())
@@ -372,52 +385,111 @@ func (r *PutUser) Pretty(pretty bool) *PutUser {
 	return r
 }
 
+// The email of the user.
 // API name: email
 func (r *PutUser) Email(email string) *PutUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Email = &email
 
 	return r
 }
 
+// Specifies whether the user is enabled.
 // API name: enabled
 func (r *PutUser) Enabled(enabled bool) *PutUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Enabled = &enabled
 
 	return r
 }
 
+// The full name of the user.
 // API name: full_name
 func (r *PutUser) FullName(fullname string) *PutUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.FullName = &fullname
 
 	return r
 }
 
+// Arbitrary metadata that you want to associate with the user.
 // API name: metadata
-func (r *PutUser) Metadata(metadata types.Metadata) *PutUser {
-	r.req.Metadata = metadata
+func (r *PutUser) Metadata(metadata types.MetadataVariant) *PutUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Metadata = *metadata.MetadataCaster()
 
 	return r
 }
 
+// The user's password.
+// Passwords must be at least 6 characters long.
+// When adding a user, one of `password` or `password_hash` is required.
+// When updating an existing user, the password is optional, so that other
+// fields on the user (such as their roles) may be updated without modifying the
+// user's password
 // API name: password
 func (r *PutUser) Password(password string) *PutUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Password = &password
 
 	return r
 }
 
+// A hash of the user's password.
+// This must be produced using the same hashing algorithm as has been configured
+// for password storage.
+// For more details, see the explanation of the
+// `xpack.security.authc.password_hashing.algorithm` setting in the user cache
+// and password hash algorithm documentation.
+// Using this parameter allows the client to pre-hash the password for
+// performance and/or confidentiality reasons.
+// The `password` parameter and the `password_hash` parameter cannot be used in
+// the same request.
 // API name: password_hash
 func (r *PutUser) PasswordHash(passwordhash string) *PutUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.PasswordHash = &passwordhash
 
 	return r
 }
 
+// A set of roles the user has.
+// The roles determine the user's access permissions.
+// To create a user without any roles, specify an empty list (`[]`).
 // API name: roles
 func (r *PutUser) Roles(roles ...string) *PutUser {
-	r.req.Roles = roles
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range roles {
 
+		r.req.Roles = append(r.req.Roles, v)
+
+	}
 	return r
 }

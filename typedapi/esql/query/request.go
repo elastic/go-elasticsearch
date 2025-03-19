@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package query
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/esql/query/QueryRequest.ts#L26-L89
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/esql/query/QueryRequest.ts#L27-L105
 type Request struct {
 
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
@@ -40,7 +40,13 @@ type Request struct {
 	// Filter Specify a Query DSL query in the filter parameter to filter the set of
 	// documents that an ES|QL query runs on.
 	Filter *types.Query `json:"filter,omitempty"`
-	Locale *string      `json:"locale,omitempty"`
+	// IncludeCcsMetadata When set to `true` and performing a cross-cluster query, the response will
+	// include an extra `_clusters`
+	// object with information about the clusters that participated in the search
+	// along with info such as shards
+	// count.
+	IncludeCcsMetadata *bool   `json:"include_ccs_metadata,omitempty"`
+	Locale             *string `json:"locale,omitempty"`
 	// Params To avoid any attempts of hacking or code injection, extract the values in a
 	// separate list of parameters. Use question mark placeholders (?) in the query
 	// string for each of the parameters.

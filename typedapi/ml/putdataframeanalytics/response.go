@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package putdataframeanalytics
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package putdataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/put_data_frame_analytics/MlPutDataFrameAnalyticsResponse.ts#L31-L46
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/put_data_frame_analytics/MlPutDataFrameAnalyticsResponse.ts#L31-L47
 type Response struct {
 	AllowLazyStart   bool                                   `json:"allow_lazy_start"`
 	Analysis         types.DataframeAnalysisContainer       `json:"analysis"`
@@ -37,6 +37,7 @@ type Response struct {
 	Dest             types.DataframeAnalyticsDestination    `json:"dest"`
 	Id               string                                 `json:"id"`
 	MaxNumThreads    int                                    `json:"max_num_threads"`
+	Meta_            types.Metadata                         `json:"_meta,omitempty"`
 	ModelMemoryLimit string                                 `json:"model_memory_limit"`
 	Source           types.DataframeAnalyticsSource         `json:"source"`
 	Version          string                                 `json:"version"`

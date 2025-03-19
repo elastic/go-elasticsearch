@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -32,14 +32,19 @@ import (
 
 // WatchRecordStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/stats/types.ts#L54-L60
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/watcher/stats/types.ts#L79-L94
 type WatchRecordStats struct {
-	ExecutedActions []string                      `json:"executed_actions,omitempty"`
-	ExecutionPhase  executionphase.ExecutionPhase `json:"execution_phase"`
-	ExecutionTime   DateTime                      `json:"execution_time"`
-	TriggeredTime   DateTime                      `json:"triggered_time"`
-	WatchId         string                        `json:"watch_id"`
-	WatchRecordId   string                        `json:"watch_record_id"`
+	ExecutedActions []string `json:"executed_actions,omitempty"`
+	// ExecutionPhase The current watch execution phase.
+	ExecutionPhase executionphase.ExecutionPhase `json:"execution_phase"`
+	// ExecutionTime The time the watch was run.
+	// This is just before the input is being run.
+	ExecutionTime DateTime `json:"execution_time"`
+	// TriggeredTime The time the watch was triggered by the trigger engine.
+	TriggeredTime DateTime `json:"triggered_time"`
+	WatchId       string   `json:"watch_id"`
+	// WatchRecordId The watch record identifier.
+	WatchRecordId string `json:"watch_record_id"`
 }
 
 func (s *WatchRecordStats) UnmarshalJSON(data []byte) error {
@@ -98,3 +103,5 @@ func NewWatchRecordStats() *WatchRecordStats {
 
 	return r
 }
+
+// false

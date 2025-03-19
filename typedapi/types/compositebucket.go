@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // CompositeBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/Aggregate.ts#L629-L631
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/aggregations/Aggregate.ts#L705-L707
 type CompositeBucket struct {
 	Aggregations map[string]Aggregate  `json:"-"`
 	DocCount     int64                 `json:"doc_count"`
@@ -491,6 +491,13 @@ func (s *CompositeBucket) UnmarshalJSON(data []byte) error {
 							}
 							s.Aggregations[elems[1]] = o
 
+						case "time_series":
+							o := NewTimeSeriesAggregate()
+							if err := dec.Decode(&o); err != nil {
+								return fmt.Errorf("%s | %w", "Aggregations", err)
+							}
+							s.Aggregations[elems[1]] = o
+
 						case "scripted_metric":
 							o := NewScriptedMetricAggregate()
 							if err := dec.Decode(&o); err != nil {
@@ -624,8 +631,10 @@ func (s CompositeBucket) MarshalJSON() ([]byte, error) {
 // NewCompositeBucket returns a CompositeBucket.
 func NewCompositeBucket() *CompositeBucket {
 	r := &CompositeBucket{
-		Aggregations: make(map[string]Aggregate, 0),
+		Aggregations: make(map[string]Aggregate),
 	}
 
 	return r
 }
+
+// false

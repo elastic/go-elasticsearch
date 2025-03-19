@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,15 +31,16 @@ import (
 
 // MappingLimitSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/IndexSettings.ts#L411-L424
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/_types/IndexSettings.ts#L425-L439
 type MappingLimitSettings struct {
 	Coerce          *bool                                `json:"coerce,omitempty"`
 	Depth           *MappingLimitSettingsDepth           `json:"depth,omitempty"`
 	DimensionFields *MappingLimitSettingsDimensionFields `json:"dimension_fields,omitempty"`
 	FieldNameLength *MappingLimitSettingsFieldNameLength `json:"field_name_length,omitempty"`
-	IgnoreMalformed *bool                                `json:"ignore_malformed,omitempty"`
+	IgnoreMalformed string                               `json:"ignore_malformed,omitempty"`
 	NestedFields    *MappingLimitSettingsNestedFields    `json:"nested_fields,omitempty"`
 	NestedObjects   *MappingLimitSettingsNestedObjects   `json:"nested_objects,omitempty"`
+	Source          *MappingLimitSettingsSourceFields    `json:"source,omitempty"`
 	TotalFields     *MappingLimitSettingsTotalFields     `json:"total_fields,omitempty"`
 }
 
@@ -88,18 +89,16 @@ func (s *MappingLimitSettings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "ignore_malformed":
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseBool(v)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "IgnoreMalformed", err)
-				}
-				s.IgnoreMalformed = &value
-			case bool:
-				s.IgnoreMalformed = &v
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "IgnoreMalformed", err)
 			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.IgnoreMalformed = o
 
 		case "nested_fields":
 			if err := dec.Decode(&s.NestedFields); err != nil {
@@ -109,6 +108,11 @@ func (s *MappingLimitSettings) UnmarshalJSON(data []byte) error {
 		case "nested_objects":
 			if err := dec.Decode(&s.NestedObjects); err != nil {
 				return fmt.Errorf("%s | %w", "NestedObjects", err)
+			}
+
+		case "source":
+			if err := dec.Decode(&s.Source); err != nil {
+				return fmt.Errorf("%s | %w", "Source", err)
 			}
 
 		case "total_fields":
@@ -126,4 +130,14 @@ func NewMappingLimitSettings() *MappingLimitSettings {
 	r := &MappingLimitSettings{}
 
 	return r
+}
+
+// true
+
+type MappingLimitSettingsVariant interface {
+	MappingLimitSettingsCaster() *MappingLimitSettings
+}
+
+func (s *MappingLimitSettings) MappingLimitSettingsCaster() *MappingLimitSettings {
+	return s
 }

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Instantiates a filter.
+// Create a filter.
 // A filter contains a list of strings. It can be used by one or more anomaly
 // detection jobs.
 // Specifically, filters are referenced in the `custom_rules` property of
@@ -85,7 +85,7 @@ func NewPutFilterFunc(tp elastictransport.Interface) NewPutFilter {
 	}
 }
 
-// Instantiates a filter.
+// Create a filter.
 // A filter contains a list of strings. It can be used by one or more anomaly
 // detection jobs.
 // Specifically, filters are referenced in the `custom_rules` property of
@@ -99,8 +99,6 @@ func New(tp elastictransport.Interface) *PutFilter {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -367,21 +365,32 @@ func (r *PutFilter) Pretty(pretty bool) *PutFilter {
 	return r
 }
 
-// Description A description of the filter.
+// A description of the filter.
 // API name: description
 func (r *PutFilter) Description(description string) *PutFilter {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Description = &description
 
 	return r
 }
 
-// Items The items of the filter. A wildcard `*` can be used at the beginning or the
+// The items of the filter. A wildcard `*` can be used at the beginning or the
 // end of an item.
 // Up to 10000 items are allowed in each filter.
 // API name: items
 func (r *PutFilter) Items(items ...string) *PutFilter {
-	r.req.Items = items
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range items {
 
+		r.req.Items = append(r.req.Items, v)
+
+	}
 	return r
 }

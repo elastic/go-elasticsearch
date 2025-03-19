@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HistogramGrouping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/rollup/_types/Groupings.ts#L84-L97
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/rollup/_types/Groupings.ts#L84-L97
 type HistogramGrouping struct {
 	// Fields The set of fields that you wish to build histograms for.
 	// All fields specified must be some kind of numeric.
@@ -101,4 +101,14 @@ func NewHistogramGrouping() *HistogramGrouping {
 	r := &HistogramGrouping{}
 
 	return r
+}
+
+// true
+
+type HistogramGroupingVariant interface {
+	HistogramGroupingCaster() *HistogramGrouping
+}
+
+func (s *HistogramGrouping) HistogramGroupingCaster() *HistogramGrouping {
+	return s
 }

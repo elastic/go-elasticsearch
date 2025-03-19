@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.19.0: DO NOT EDIT
 
 package esapi
 
@@ -53,8 +53,8 @@ type ClusterStats func(o ...func(*ClusterStatsRequest)) (*Response, error)
 type ClusterStatsRequest struct {
 	NodeID []string
 
-	FlatSettings *bool
-	Timeout      time.Duration
+	IncludeRemotes *bool
+	Timeout        time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -101,8 +101,8 @@ func (r ClusterStatsRequest) Do(providedCtx context.Context, transport Transport
 
 	params = make(map[string]string)
 
-	if r.FlatSettings != nil {
-		params["flat_settings"] = strconv.FormatBool(*r.FlatSettings)
+	if r.IncludeRemotes != nil {
+		params["include_remotes"] = strconv.FormatBool(*r.IncludeRemotes)
 	}
 
 	if r.Timeout != 0 {
@@ -194,10 +194,10 @@ func (f ClusterStats) WithNodeID(v ...string) func(*ClusterStatsRequest) {
 	}
 }
 
-// WithFlatSettings - return settings in flat format (default: false).
-func (f ClusterStats) WithFlatSettings(v bool) func(*ClusterStatsRequest) {
+// WithIncludeRemotes - include remote cluster data into the response (default: false).
+func (f ClusterStats) WithIncludeRemotes(v bool) func(*ClusterStatsRequest) {
 	return func(r *ClusterStatsRequest) {
-		r.FlatSettings = &v
+		r.IncludeRemotes = &v
 	}
 }
 

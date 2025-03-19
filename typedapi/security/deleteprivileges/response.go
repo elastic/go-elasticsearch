@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package deleteprivileges
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package deleteprivileges
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/delete_privileges/SecurityDeletePrivilegesResponse.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/security/delete_privileges/SecurityDeletePrivilegesResponse.ts#L23-L26
 
 type Response map[string]map[string]types.FoundStatus
 

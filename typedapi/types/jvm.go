@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Jvm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/_types/Stats.ts#L811-L845
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/nodes/_types/Stats.ts#L882-L916
 type Jvm struct {
 	// BufferPools Contains statistics about JVM buffer pools for the node.
 	BufferPools map[string]NodeBufferPool `json:"buffer_pools,omitempty"`
@@ -145,8 +145,10 @@ func (s *Jvm) UnmarshalJSON(data []byte) error {
 // NewJvm returns a Jvm.
 func NewJvm() *Jvm {
 	r := &Jvm{
-		BufferPools: make(map[string]NodeBufferPool, 0),
+		BufferPools: make(map[string]NodeBufferPool),
 	}
 
 	return r
 }
+
+// false

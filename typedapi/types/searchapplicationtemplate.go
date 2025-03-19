@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // SearchApplicationTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/search_application/_types/SearchApplication.ts#L47-L52
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/search_application/_types/SearchApplicationTemplate.ts#L22-L27
 type SearchApplicationTemplate struct {
 	// Script The associated mustache template.
 	Script Script `json:"script"`
@@ -33,4 +33,14 @@ func NewSearchApplicationTemplate() *SearchApplicationTemplate {
 	r := &SearchApplicationTemplate{}
 
 	return r
+}
+
+// true
+
+type SearchApplicationTemplateVariant interface {
+	SearchApplicationTemplateCaster() *SearchApplicationTemplate
+}
+
+func (s *SearchApplicationTemplate) SearchApplicationTemplateCaster() *SearchApplicationTemplate {
+	return s
 }

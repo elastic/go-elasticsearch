@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.19.0: DO NOT EDIT
 
 package esapi
 
@@ -46,8 +46,6 @@ func newIndicesPutDataLifecycleFunc(t Transport) IndicesPutDataLifecycle {
 // ----- API Definition -------------------------------------------------------
 
 // IndicesPutDataLifecycle updates the data stream lifecycle of the selected data streams.
-//
-// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-put-lifecycle.html.
 type IndicesPutDataLifecycle func(name []string, o ...func(*IndicesPutDataLifecycleRequest)) (*Response, error)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package samlinvalidate
 
@@ -27,28 +27,28 @@ import (
 
 // Request holds the request body struct for the package samlinvalidate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/saml_invalidate/Request.ts#L22-L43
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/security/saml_invalidate/Request.ts#L22-L61
 type Request struct {
 
 	// Acs The Assertion Consumer Service URL that matches the one of the SAML realm in
 	// Elasticsearch that should be used. You must specify either this parameter or
-	// the realm parameter.
+	// the `realm` parameter.
 	Acs *string `json:"acs,omitempty"`
 	// QueryString The query part of the URL that the user was redirected to by the SAML IdP to
 	// initiate the Single Logout.
-	// This query should include a single parameter named SAMLRequest that contains
-	// a SAML logout request that is deflated and Base64 encoded.
+	// This query should include a single parameter named `SAMLRequest` that
+	// contains a SAML logout request that is deflated and Base64 encoded.
 	// If the SAML IdP has signed the logout request, the URL should include two
-	// extra parameters named SigAlg and Signature that contain the algorithm used
-	// for the signature and the signature value itself.
-	// In order for Elasticsearch to be able to verify the IdP’s signature, the
-	// value of the query_string field must be an exact match to the string provided
-	// by the browser.
+	// extra parameters named `SigAlg` and `Signature` that contain the algorithm
+	// used for the signature and the signature value itself.
+	// In order for Elasticsearch to be able to verify the IdP's signature, the
+	// value of the `query_string` field must be an exact match to the string
+	// provided by the browser.
 	// The client application must not attempt to parse or process the string in any
 	// way.
 	QueryString string `json:"query_string"`
 	// Realm The name of the SAML realm in Elasticsearch the configuration. You must
-	// specify either this parameter or the acs parameter.
+	// specify either this parameter or the `acs` parameter.
 	Realm *string `json:"realm,omitempty"`
 }
 

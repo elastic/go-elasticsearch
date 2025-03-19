@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ExecutionState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Action.ts#L120-L124
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/watcher/_types/Action.ts#L114-L118
 type ExecutionState struct {
 	Reason     *string  `json:"reason,omitempty"`
 	Successful bool     `json:"successful"`
@@ -94,4 +94,14 @@ func NewExecutionState() *ExecutionState {
 	r := &ExecutionState{}
 
 	return r
+}
+
+// true
+
+type ExecutionStateVariant interface {
+	ExecutionStateCaster() *ExecutionState
+}
+
+func (s *ExecutionState) ExecutionStateCaster() *ExecutionState {
+	return s
 }

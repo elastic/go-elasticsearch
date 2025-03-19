@@ -16,20 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // ShardStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Stats.ts#L54-L66
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/Stats.ts#L54-L69
 type ShardStatistics struct {
+	// Failed The number of shards the operation or search attempted to run on but failed.
 	Failed   uint           `json:"failed"`
 	Failures []ShardFailure `json:"failures,omitempty"`
 	Skipped  *uint          `json:"skipped,omitempty"`
-	// Successful Indicates how many shards have successfully run the search.
+	// Successful The number of shards the operation or search succeeded on.
 	Successful uint `json:"successful"`
-	// Total Indicates how many shards the search will run on overall.
+	// Total The number of shards the operation or search will run on overall.
 	Total uint `json:"total"`
 }
 
@@ -39,3 +40,5 @@ func NewShardStatistics() *ShardStatistics {
 
 	return r
 }
+
+// false

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.19.0: DO NOT EDIT
 
 package esapi
 
@@ -59,13 +59,14 @@ type CreateRequest struct {
 
 	Body io.Reader
 
-	Pipeline            string
-	Refresh             string
-	Routing             string
-	Timeout             time.Duration
-	Version             *int
-	VersionType         string
-	WaitForActiveShards string
+	IncludeSourceOnError *bool
+	Pipeline             string
+	Refresh              string
+	Routing              string
+	Timeout              time.Duration
+	Version              *int
+	VersionType          string
+	WaitForActiveShards  string
 
 	Pretty     bool
 	Human      bool
@@ -114,6 +115,10 @@ func (r CreateRequest) Do(providedCtx context.Context, transport Transport) (*Re
 	}
 
 	params = make(map[string]string)
+
+	if r.IncludeSourceOnError != nil {
+		params["include_source_on_error"] = strconv.FormatBool(*r.IncludeSourceOnError)
+	}
 
 	if r.Pipeline != "" {
 		params["pipeline"] = r.Pipeline
@@ -225,6 +230,13 @@ func (r CreateRequest) Do(providedCtx context.Context, transport Transport) (*Re
 func (f Create) WithContext(v context.Context) func(*CreateRequest) {
 	return func(r *CreateRequest) {
 		r.ctx = v
+	}
+}
+
+// WithIncludeSourceOnError - true or false if to include the document source in the error message in case of parsing errors. defaults to true..
+func (f Create) WithIncludeSourceOnError(v bool) func(*CreateRequest) {
+	return func(r *CreateRequest) {
+		r.IncludeSourceOnError = &v
 	}
 }
 

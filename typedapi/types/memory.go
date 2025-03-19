@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Memory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/get_memory_stats/types.ts#L25-L48
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/get_memory_stats/types.ts#L25-L48
 type Memory struct {
 	Attributes  map[string]string `json:"attributes"`
 	EphemeralId string            `json:"ephemeral_id"`
@@ -108,8 +108,10 @@ func (s *Memory) UnmarshalJSON(data []byte) error {
 // NewMemory returns a Memory.
 func NewMemory() *Memory {
 	r := &Memory{
-		Attributes: make(map[string]string, 0),
+		Attributes: make(map[string]string),
 	}
 
 	return r
 }
+
+// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SearchableSnapshotAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ilm/_types/Phase.ts#L131-L134
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ilm/_types/Phase.ts#L128-L131
 type SearchableSnapshotAction struct {
 	ForceMergeIndex    *bool  `json:"force_merge_index,omitempty"`
 	SnapshotRepository string `json:"snapshot_repository"`
@@ -88,4 +88,14 @@ func NewSearchableSnapshotAction() *SearchableSnapshotAction {
 	r := &SearchableSnapshotAction{}
 
 	return r
+}
+
+// true
+
+type SearchableSnapshotActionVariant interface {
+	SearchableSnapshotActionCaster() *SearchableSnapshotAction
+}
+
+func (s *SearchableSnapshotAction) SearchableSnapshotActionCaster() *SearchableSnapshotAction {
+	return s
 }

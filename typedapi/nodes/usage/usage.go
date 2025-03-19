@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Returns information on the usage of features.
+// Get feature usage information.
 package usage
 
 import (
@@ -77,7 +77,7 @@ func NewUsageFunc(tp elastictransport.Interface) NewUsage {
 	}
 }
 
-// Returns information on the usage of features.
+// Get feature usage information.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-usage.html
 func New(tp elastictransport.Interface) *Usage {

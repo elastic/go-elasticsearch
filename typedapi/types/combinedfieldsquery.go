@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // CombinedFieldsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/abstractions.ts#L465-L499
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/abstractions.ts#L472-L506
 type CombinedFieldsQuery struct {
 	// AutoGenerateSynonymsPhraseQuery If true, match phrase queries are automatically created for multi-term
 	// synonyms.
@@ -161,4 +161,14 @@ func NewCombinedFieldsQuery() *CombinedFieldsQuery {
 	r := &CombinedFieldsQuery{}
 
 	return r
+}
+
+// true
+
+type CombinedFieldsQueryVariant interface {
+	CombinedFieldsQueryCaster() *CombinedFieldsQuery
+}
+
+func (s *CombinedFieldsQuery) CombinedFieldsQueryCaster() *CombinedFieldsQuery {
+	return s
 }

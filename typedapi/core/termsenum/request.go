@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package termsenum
 
@@ -33,27 +33,33 @@ import (
 
 // Request holds the request body struct for the package termsenum
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L65
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L93
 type Request struct {
 
-	// CaseInsensitive When true the provided search string is matched against index terms without
-	// case sensitivity.
+	// CaseInsensitive When `true`, the provided search string is matched against index terms
+	// without case sensitivity.
 	CaseInsensitive *bool `json:"case_insensitive,omitempty"`
 	// Field The string to match at the start of indexed terms. If not provided, all terms
 	// in the field are considered.
 	Field string `json:"field"`
-	// IndexFilter Allows to filter an index shard if the provided query rewrites to match_none.
+	// IndexFilter Filter an index shard if the provided query rewrites to `match_none`.
 	IndexFilter *types.Query `json:"index_filter,omitempty"`
-	SearchAfter *string      `json:"search_after,omitempty"`
-	// Size How many matching terms to return.
+	// SearchAfter The string after which terms in the index should be returned.
+	// It allows for a form of pagination if the last result from one request is
+	// passed as the `search_after` parameter for a subsequent request.
+	SearchAfter *string `json:"search_after,omitempty"`
+	// Size The number of matching terms to return.
 	Size *int `json:"size,omitempty"`
-	// String The string after which terms in the index should be returned. Allows for a
-	// form of pagination if the last result from one request is passed as the
-	// search_after parameter for a subsequent request.
+	// String The string to match at the start of indexed terms.
+	// If it is not provided, all terms in the field are considered.
+	//
+	// > info
+	// > The prefix string cannot be larger than the largest possible keyword value,
+	// which is Lucene's term byte-length limit of 32766.
 	String *string `json:"string,omitempty"`
-	// Timeout The maximum length of time to spend collecting results. Defaults to "1s" (one
-	// second). If the timeout is exceeded the complete flag set to false in the
-	// response and the results may be partial or empty.
+	// Timeout The maximum length of time to spend collecting results.
+	// If the timeout is exceeded the `complete` flag set to `false` in the response
+	// and the results may be partial or empty.
 	Timeout types.Duration `json:"timeout,omitempty"`
 }
 

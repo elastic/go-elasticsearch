@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // ReloadResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/reload_search_analyzers/types.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/reload_search_analyzers/types.ts#L22-L25
 type ReloadResult struct {
 	ReloadDetails []ReloadDetails `json:"reload_details"`
 	Shards_       ShardStatistics `json:"_shards"`
@@ -34,3 +34,5 @@ func NewReloadResult() *ReloadResult {
 
 	return r
 }
+
+// false

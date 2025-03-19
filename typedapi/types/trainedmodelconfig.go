@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // TrainedModelConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/TrainedModel.ts#L165-L200
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/TrainedModel.ts#L203-L239
 type TrainedModelConfig struct {
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
 	// CreateTime The time when the trained model was created.
@@ -64,8 +64,9 @@ type TrainedModelConfig struct {
 	// created by data frame analytics contain analysis_config and input objects.
 	Metadata *TrainedModelConfigMetadata `json:"metadata,omitempty"`
 	// ModelId Identifier for the trained model.
-	ModelId        string   `json:"model_id"`
-	ModelSizeBytes ByteSize `json:"model_size_bytes,omitempty"`
+	ModelId        string              `json:"model_id"`
+	ModelPackage   *ModelPackageConfig `json:"model_package,omitempty"`
+	ModelSizeBytes ByteSize            `json:"model_size_bytes,omitempty"`
 	// ModelType The model type
 	ModelType     *trainedmodeltype.TrainedModelType `json:"model_type,omitempty"`
 	PrefixStrings *TrainedModelPrefixStrings         `json:"prefix_strings,omitempty"`
@@ -223,6 +224,11 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "ModelId", err)
 			}
 
+		case "model_package":
+			if err := dec.Decode(&s.ModelPackage); err != nil {
+				return fmt.Errorf("%s | %w", "ModelPackage", err)
+			}
+
 		case "model_size_bytes":
 			if err := dec.Decode(&s.ModelSizeBytes); err != nil {
 				return fmt.Errorf("%s | %w", "ModelSizeBytes", err)
@@ -256,8 +262,10 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 // NewTrainedModelConfig returns a TrainedModelConfig.
 func NewTrainedModelConfig() *TrainedModelConfig {
 	r := &TrainedModelConfig{
-		DefaultFieldMap: make(map[string]string, 0),
+		DefaultFieldMap: make(map[string]string),
 	}
 
 	return r
 }
+
+// false

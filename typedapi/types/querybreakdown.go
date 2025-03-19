@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // QueryBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/profile.ts#L97-L116
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/search/_types/profile.ts#L105-L126
 type QueryBreakdown struct {
 	Advance                     int64 `json:"advance"`
 	AdvanceCount                int64 `json:"advance_count"`
@@ -39,6 +39,8 @@ type QueryBreakdown struct {
 	BuildScorerCount            int64 `json:"build_scorer_count"`
 	ComputeMaxScore             int64 `json:"compute_max_score"`
 	ComputeMaxScoreCount        int64 `json:"compute_max_score_count"`
+	CountWeight                 int64 `json:"count_weight"`
+	CountWeightCount            int64 `json:"count_weight_count"`
 	CreateWeight                int64 `json:"create_weight"`
 	CreateWeightCount           int64 `json:"create_weight_count"`
 	Match                       int64 `json:"match"`
@@ -156,6 +158,36 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.ComputeMaxScoreCount = f
+			}
+
+		case "count_weight":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "CountWeight", err)
+				}
+				s.CountWeight = value
+			case float64:
+				f := int64(v)
+				s.CountWeight = f
+			}
+
+		case "count_weight_count":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "CountWeightCount", err)
+				}
+				s.CountWeightCount = value
+			case float64:
+				f := int64(v)
+				s.CountWeightCount = f
 			}
 
 		case "create_weight":
@@ -349,3 +381,5 @@ func NewQueryBreakdown() *QueryBreakdown {
 
 	return r
 }
+
+// false

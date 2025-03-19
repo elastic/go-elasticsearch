@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SlowlogSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/IndexSettings.ts#L490-L495
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/_types/IndexSettings.ts#L515-L520
 type SlowlogSettings struct {
 	Level     *string           `json:"level,omitempty"`
 	Reformat  *bool             `json:"reformat,omitempty"`
@@ -111,4 +111,14 @@ func NewSlowlogSettings() *SlowlogSettings {
 	r := &SlowlogSettings{}
 
 	return r
+}
+
+// true
+
+type SlowlogSettingsVariant interface {
+	SlowlogSettingsCaster() *SlowlogSettings
+}
+
+func (s *SlowlogSettings) SlowlogSettingsCaster() *SlowlogSettings {
+	return s
 }

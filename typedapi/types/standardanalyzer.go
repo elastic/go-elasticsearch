@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StandardAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/analyzers.ts#L95-L99
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/analysis/analyzers.ts#L332-L336
 type StandardAnalyzer struct {
 	MaxTokenLength *int     `json:"max_token_length,omitempty"`
 	Stopwords      []string `json:"stopwords,omitempty"`
@@ -114,4 +114,14 @@ func NewStandardAnalyzer() *StandardAnalyzer {
 	r := &StandardAnalyzer{}
 
 	return r
+}
+
+// true
+
+type StandardAnalyzerVariant interface {
+	StandardAnalyzerCaster() *StandardAnalyzer
+}
+
+func (s *StandardAnalyzer) StandardAnalyzerCaster() *StandardAnalyzer {
+	return s
 }

@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Retrieves one or more snapshot lifecycle policy definitions and information
-// about the latest snapshot attempts.
+// Get policy information.
+// Get snapshot lifecycle policy definitions and information about the latest
+// snapshot attempts.
 package getlifecycle
 
 import (
@@ -75,8 +76,9 @@ func NewGetLifecycleFunc(tp elastictransport.Interface) NewGetLifecycle {
 	}
 }
 
-// Retrieves one or more snapshot lifecycle policy definitions and information
-// about the latest snapshot attempts.
+// Get policy information.
+// Get snapshot lifecycle policy definitions and information about the latest
+// snapshot attempts.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get-policy.html
 func New(tp elastictransport.Interface) *GetLifecycle {
@@ -302,6 +304,26 @@ func (r *GetLifecycle) Header(key, value string) *GetLifecycle {
 func (r *GetLifecycle) PolicyId(policyid string) *GetLifecycle {
 	r.paramSet |= policyidMask
 	r.policyid = policyid
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: master_timeout
+func (r *GetLifecycle) MasterTimeout(duration string) *GetLifecycle {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout The period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: timeout
+func (r *GetLifecycle) Timeout(duration string) *GetLifecycle {
+	r.values.Set("timeout", duration)
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package reindex
 
@@ -30,14 +30,22 @@ import (
 
 // Request holds the request body struct for the package reindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/reindex/ReindexRequest.ts#L27-L103
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/reindex/ReindexRequest.ts#L27-L309
 type Request struct {
 
-	// Conflicts Set to proceed to continue reindexing even if there are conflicts.
+	// Conflicts Indicates whether to continue reindexing even when there are conflicts.
 	Conflicts *conflicts.Conflicts `json:"conflicts,omitempty"`
 	// Dest The destination you are copying to.
 	Dest types.ReindexDestination `json:"dest"`
 	// MaxDocs The maximum number of documents to reindex.
+	// By default, all documents are reindexed.
+	// If it is a value less then or equal to `scroll_size`, a scroll will not be
+	// used to retrieve the results for the operation.
+	//
+	// If `conflicts` is set to `proceed`, the reindex operation could attempt to
+	// reindex more documents from the source than `max_docs` until it has
+	// successfully indexed `max_docs` documents into the target or it has gone
+	// through every document in the source query.
 	MaxDocs *int64 `json:"max_docs,omitempty"`
 	// Script The script to run to update the document source or metadata when reindexing.
 	Script *types.Script `json:"script,omitempty"`

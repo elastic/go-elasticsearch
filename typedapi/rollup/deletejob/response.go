@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package deletejob
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package deletejob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/rollup/delete_job/DeleteRollupJobResponse.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/rollup/delete_job/DeleteRollupJobResponse.ts#L22-L27
 type Response struct {
 	Acknowledged bool                `json:"acknowledged"`
 	TaskFailures []types.TaskFailure `json:"task_failures,omitempty"`

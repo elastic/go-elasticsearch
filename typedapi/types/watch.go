@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Watch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Watch.ts#L37-L47
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/watcher/_types/Watch.ts#L37-L47
 type Watch struct {
 	Actions                map[string]WatcherAction `json:"actions"`
 	Condition              WatcherCondition         `json:"condition"`
@@ -114,8 +114,18 @@ func (s *Watch) UnmarshalJSON(data []byte) error {
 // NewWatch returns a Watch.
 func NewWatch() *Watch {
 	r := &Watch{
-		Actions: make(map[string]WatcherAction, 0),
+		Actions: make(map[string]WatcherAction),
 	}
 
 	return r
+}
+
+// true
+
+type WatchVariant interface {
+	WatchCaster() *Watch
+}
+
+func (s *Watch) WatchCaster() *Watch {
+	return s
 }

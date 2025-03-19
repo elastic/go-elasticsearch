@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,26 +31,37 @@ import (
 
 // ReindexSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/reindex/types.ts#L66-L97
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/reindex/types.ts#L69-L110
 type ReindexSource struct {
 	// Index The name of the data stream, index, or alias you are copying from.
-	// Accepts a comma-separated list to reindex from multiple sources.
+	// It accepts a comma-separated list to reindex from multiple sources.
 	Index []string `json:"index"`
-	// Query Specifies the documents to reindex using the Query DSL.
+	// Query The documents to reindex, which is defined with Query DSL.
 	Query *Query `json:"query,omitempty"`
 	// Remote A remote instance of Elasticsearch that you want to index from.
 	Remote          *RemoteSource `json:"remote,omitempty"`
 	RuntimeMappings RuntimeFields `json:"runtime_mappings,omitempty"`
 	// Size The number of documents to index per batch.
-	// Use when indexing from remote to ensure that the batches fit within the
-	// on-heap buffer, which defaults to a maximum size of 100 MB.
+	// Use it when you are indexing from remote to ensure that the batches fit
+	// within the on-heap buffer, which defaults to a maximum size of 100 MB.
 	Size *int `json:"size,omitempty"`
 	// Slice Slice the reindex request manually using the provided slice ID and total
 	// number of slices.
-	Slice *SlicedScroll      `json:"slice,omitempty"`
-	Sort  []SortCombinations `json:"sort,omitempty"`
-	// SourceFields_ If `true` reindexes all source fields.
-	// Set to a list to reindex select fields.
+	Slice *SlicedScroll `json:"slice,omitempty"`
+	// Sort A comma-separated list of `<field>:<direction>` pairs to sort by before
+	// indexing.
+	// Use it in conjunction with `max_docs` to control what documents are
+	// reindexed.
+	//
+	// WARNING: Sort in reindex is deprecated.
+	// Sorting in reindex was never guaranteed to index documents in order and
+	// prevents further development of reindex such as resilience and performance
+	// improvements.
+	// If used in combination with `max_docs`, consider using a query filter
+	// instead.
+	Sort []SortCombinations `json:"sort,omitempty"`
+	// SourceFields_ If `true`, reindex all source fields.
+	// Set it to a list to reindex select fields.
 	SourceFields_ []string `json:"_source,omitempty"`
 }
 
@@ -163,4 +174,14 @@ func NewReindexSource() *ReindexSource {
 	r := &ReindexSource{}
 
 	return r
+}
+
+// true
+
+type ReindexSourceVariant interface {
+	ReindexSourceCaster() *ReindexSource
+}
+
+func (s *ReindexSource) ReindexSourceCaster() *ReindexSource {
+	return s
 }

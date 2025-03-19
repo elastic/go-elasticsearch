@@ -16,27 +16,37 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // Hint type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/suggest_user_profiles/types.ts#L23-L34
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/security/suggest_user_profiles/types.ts#L23-L34
 type Hint struct {
 	// Labels A single key-value pair to match against the labels section
 	// of a profile. A profile is considered matching if it matches
 	// at least one of the strings.
 	Labels map[string][]string `json:"labels,omitempty"`
-	// Uids A list of Profile UIDs to match against.
+	// Uids A list of profile UIDs to match against.
 	Uids []string `json:"uids,omitempty"`
 }
 
 // NewHint returns a Hint.
 func NewHint() *Hint {
 	r := &Hint{
-		Labels: make(map[string][]string, 0),
+		Labels: make(map[string][]string),
 	}
 
 	return r
+}
+
+// true
+
+type HintVariant interface {
+	HintCaster() *Hint
+}
+
+func (s *Hint) HintCaster() *Hint {
+	return s
 }

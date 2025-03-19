@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // NodeUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/usage/types.ts#L25-L30
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/nodes/usage/types.ts#L25-L30
 type NodeUsage struct {
 	Aggregations map[string]json.RawMessage `json:"aggregations"`
 	RestActions  map[string]int             `json:"rest_actions"`
@@ -87,9 +87,11 @@ func (s *NodeUsage) UnmarshalJSON(data []byte) error {
 // NewNodeUsage returns a NodeUsage.
 func NewNodeUsage() *NodeUsage {
 	r := &NodeUsage{
-		Aggregations: make(map[string]json.RawMessage, 0),
-		RestActions:  make(map[string]int, 0),
+		Aggregations: make(map[string]json.RawMessage),
+		RestActions:  make(map[string]int),
 	}
 
 	return r
 }
+
+// false

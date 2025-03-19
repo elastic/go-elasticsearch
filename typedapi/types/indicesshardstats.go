@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // IndicesShardStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/stats/types.ts#L192-L223
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/stats/types.ts#L192-L223
 type IndicesShardStats struct {
 	Bulk            *BulkStats                 `json:"bulk,omitempty"`
 	Commit          *ShardCommit               `json:"commit,omitempty"`
@@ -59,8 +59,10 @@ type IndicesShardStats struct {
 // NewIndicesShardStats returns a IndicesShardStats.
 func NewIndicesShardStats() *IndicesShardStats {
 	r := &IndicesShardStats{
-		Shards: make(map[string]json.RawMessage, 0),
+		Shards: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Delete an alias.
 // Removes a data stream or index from an alias.
@@ -85,7 +85,7 @@ func NewDeleteAliasFunc(tp elastictransport.Interface) NewDeleteAlias {
 // Delete an alias.
 // Removes a data stream or index from an alias.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-alias.html
 func New(tp elastictransport.Interface) *DeleteAlias {
 	r := &DeleteAlias{
 		transport: tp,

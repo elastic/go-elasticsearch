@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Retrieve node-level cache statistics about searchable snapshots.
+// Get cache statistics.
+// Get statistics about the shared cache for partially mounted indices.
 package cachestats
 
 import (
@@ -74,9 +75,10 @@ func NewCacheStatsFunc(tp elastictransport.Interface) NewCacheStats {
 	}
 }
 
-// Retrieve node-level cache statistics about searchable snapshots.
+// Get cache statistics.
+// Get statistics about the shared cache for partially mounted indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/searchable-snapshots-apis.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/searchable-snapshots-api-cache-stats.html
 func New(tp elastictransport.Interface) *CacheStats {
 	r := &CacheStats{
 		transport: tp,
@@ -299,9 +301,7 @@ func (r *CacheStats) Header(key, value string) *CacheStats {
 	return r
 }
 
-// NodeId A comma-separated list of node IDs or names to limit the returned
-// information; use `_local` to return information from the node you're
-// connecting to, leave empty to get information from all nodes
+// NodeId The names of the nodes in the cluster to target.
 // API Name: nodeid
 func (r *CacheStats) NodeId(nodeid string) *CacheStats {
 	r.paramSet |= nodeidMask

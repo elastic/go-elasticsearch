@@ -16,15 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package clearscroll
 
 // Response holds the response body struct for the package clearscroll
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/clear_scroll/ClearScrollResponse.ts#L22-L36
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/clear_scroll/ClearScrollResponse.ts#L22-L43
 type Response struct {
-	NumFreed  int  `json:"num_freed"`
+
+	// NumFreed The number of scrolling search requests cleared.
+	NumFreed int `json:"num_freed"`
+	// Succeeded If `true`, the request succeeded.
+	// This does not indicate whether any scrolling search requests were cleared.
 	Succeeded bool `json:"succeeded"`
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package searchtemplate
 
@@ -31,13 +31,15 @@ import (
 
 // Request holds the request body struct for the package searchtemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search_template/SearchTemplateRequest.ts#L32-L134
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/search_template/SearchTemplateRequest.ts#L32-L153
 type Request struct {
 
 	// Explain If `true`, returns detailed information about score calculation as part of
 	// each hit.
+	// If you specify both this and the `explain` query parameter, the API uses only
+	// the query parameter.
 	Explain *bool `json:"explain,omitempty"`
-	// Id ID of the search template to use. If no source is specified,
+	// Id The ID of the search template to use. If no `source` is specified,
 	// this parameter is required.
 	Id *string `json:"id,omitempty"`
 	// Params Key-value pairs used to replace Mustache variables in the template.
@@ -47,7 +49,8 @@ type Request struct {
 	// Profile If `true`, the query execution is profiled.
 	Profile *bool `json:"profile,omitempty"`
 	// Source An inline search template. Supports the same parameters as the search API's
-	// request body. Also supports Mustache variables. If no id is specified, this
+	// request body. It also supports Mustache variables. If no `id` is specified,
+	// this
 	// parameter is required.
 	Source *string `json:"source,omitempty"`
 }

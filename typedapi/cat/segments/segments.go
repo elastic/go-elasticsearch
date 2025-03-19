@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Returns low-level information about the Lucene segments in index shards.
+// Get segment information.
+//
+// Get low-level information about the Lucene segments in index shards.
 // For data streams, the API returns information about the backing indices.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
@@ -79,7 +81,9 @@ func NewSegmentsFunc(tp elastictransport.Interface) NewSegments {
 	}
 }
 
-// Returns low-level information about the Lucene segments in index shards.
+// Get segment information.
+//
+// Get low-level information about the Lucene segments in index shards.
 // For data streams, the API returns information about the backing indices.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
@@ -325,15 +329,6 @@ func (r *Segments) Bytes(bytes bytes.Bytes) *Segments {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
-// API name: format
-func (r *Segments) Format(format string) *Segments {
-	r.values.Set("format", format)
-
-	return r
-}
-
 // H List of columns to appear in the response. Supports simple wildcards.
 // API name: h
 func (r *Segments) H(names ...string) *Segments {
@@ -342,11 +337,12 @@ func (r *Segments) H(names ...string) *Segments {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
-// API name: help
-func (r *Segments) Help(help bool) *Segments {
-	r.values.Set("help", strconv.FormatBool(help))
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *Segments) S(names ...string) *Segments {
+	r.values.Set("s", strings.Join(names, ","))
 
 	return r
 }
@@ -370,12 +366,20 @@ func (r *Segments) MasterTimeout(duration string) *Segments {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *Segments) S(names ...string) *Segments {
-	r.values.Set("s", strings.Join(names, ","))
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *Segments) Format(format string) *Segments {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *Segments) Help(help bool) *Segments {
+	r.values.Set("help", strconv.FormatBool(help))
 
 	return r
 }

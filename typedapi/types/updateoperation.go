@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -33,18 +33,20 @@ import (
 
 // UpdateOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/bulk/types.ts#L136-L143
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/bulk/types.ts#L146-L156
 type UpdateOperation struct {
 	// Id_ The document ID.
 	Id_           *string `json:"_id,omitempty"`
 	IfPrimaryTerm *int64  `json:"if_primary_term,omitempty"`
 	IfSeqNo       *int64  `json:"if_seq_no,omitempty"`
-	// Index_ Name of the index or index alias to perform the action on.
+	// Index_ The name of the index or index alias to perform the action on.
 	Index_ *string `json:"_index,omitempty"`
-	// RequireAlias If `true`, the request’s actions must target an index alias.
-	RequireAlias    *bool `json:"require_alias,omitempty"`
-	RetryOnConflict *int  `json:"retry_on_conflict,omitempty"`
-	// Routing Custom value used to route operations to a specific shard.
+	// RequireAlias If `true`, the request's actions must target an index alias.
+	RequireAlias *bool `json:"require_alias,omitempty"`
+	// RetryOnConflict The number of times an update should be retried in the case of a version
+	// conflict.
+	RetryOnConflict *int `json:"retry_on_conflict,omitempty"`
+	// Routing A custom value used to route operations to a specific shard.
 	Routing     *string                  `json:"routing,omitempty"`
 	Version     *int64                   `json:"version,omitempty"`
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
@@ -150,4 +152,14 @@ func NewUpdateOperation() *UpdateOperation {
 	r := &UpdateOperation{}
 
 	return r
+}
+
+// true
+
+type UpdateOperationVariant interface {
+	UpdateOperationCaster() *UpdateOperation
+}
+
+func (s *UpdateOperation) UpdateOperationCaster() *UpdateOperation {
+	return s
 }

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Returns defaults and limits used by machine learning.
+// Get machine learning information.
+// Get defaults and limits used by machine learning.
 // This endpoint is designed to be used by a user interface that needs to fully
 // understand machine learning configurations where some options are not
 // specified, meaning that the defaults should be used. This endpoint may be
@@ -74,7 +75,8 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 	}
 }
 
-// Returns defaults and limits used by machine learning.
+// Get machine learning information.
+// Get defaults and limits used by machine learning.
 // This endpoint is designed to be used by a user interface that needs to fully
 // understand machine learning configurations where some options are not
 // specified, meaning that the defaults should be used. This endpoint may be

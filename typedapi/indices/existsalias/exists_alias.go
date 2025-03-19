@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Check aliases.
-// Checks if one or more data stream or index aliases exist.
+//
+// Check if one or more data stream or index aliases exist.
 package existsalias
 
 import (
@@ -80,9 +81,10 @@ func NewExistsAliasFunc(tp elastictransport.Interface) NewExistsAlias {
 }
 
 // Check aliases.
-// Checks if one or more data stream or index aliases exist.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html
+// Check if one or more data stream or index aliases exist.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-exists-alias
 func New(tp elastictransport.Interface) *ExistsAlias {
 	r := &ExistsAlias{
 		transport: tp,

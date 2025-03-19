@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,9 +30,10 @@ import (
 
 // LifecycleExplainPhaseExecution type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ilm/explain_lifecycle/types.ts#L64-L68
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ilm/explain_lifecycle/types.ts#L69-L74
 type LifecycleExplainPhaseExecution struct {
 	ModifiedDateInMillis int64  `json:"modified_date_in_millis"`
+	PhaseDefinition      *Phase `json:"phase_definition,omitempty"`
 	Policy               string `json:"policy"`
 	Version              int64  `json:"version"`
 }
@@ -57,6 +58,11 @@ func (s *LifecycleExplainPhaseExecution) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "ModifiedDateInMillis", err)
 			}
 
+		case "phase_definition":
+			if err := dec.Decode(&s.PhaseDefinition); err != nil {
+				return fmt.Errorf("%s | %w", "PhaseDefinition", err)
+			}
+
 		case "policy":
 			if err := dec.Decode(&s.Policy); err != nil {
 				return fmt.Errorf("%s | %w", "Policy", err)
@@ -78,3 +84,5 @@ func NewLifecycleExplainPhaseExecution() *LifecycleExplainPhaseExecution {
 
 	return r
 }
+
+// false

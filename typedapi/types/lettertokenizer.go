@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // LetterTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/tokenizers.ts#L67-L69
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/analysis/tokenizers.ts#L76-L78
 type LetterTokenizer struct {
 	Type    string  `json:"type,omitempty"`
 	Version *string `json:"version,omitempty"`
@@ -84,4 +84,14 @@ func NewLetterTokenizer() *LetterTokenizer {
 	r := &LetterTokenizer{}
 
 	return r
+}
+
+// true
+
+type LetterTokenizerVariant interface {
+	LetterTokenizerCaster() *LetterTokenizer
+}
+
+func (s *LetterTokenizer) LetterTokenizerCaster() *LetterTokenizer {
+	return s
 }

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Retrieves configuration information for a trained model.
+// Get trained model configuration info.
 package gettrainedmodels
 
 import (
@@ -75,7 +75,7 @@ func NewGetTrainedModelsFunc(tp elastictransport.Interface) NewGetTrainedModels 
 	}
 }
 
-// Retrieves configuration information for a trained model.
+// Get trained model configuration info.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trained-models.html
 func New(tp elastictransport.Interface) *GetTrainedModels {
@@ -356,6 +356,14 @@ func (r *GetTrainedModels) From(from int) *GetTrainedModels {
 // API name: include
 func (r *GetTrainedModels) Include(include include.Include) *GetTrainedModels {
 	r.values.Set("include", include.String())
+
+	return r
+}
+
+// IncludeModelDefinition parameter is deprecated! Use [include=definition] instead
+// API name: include_model_definition
+func (r *GetTrainedModels) IncludeModelDefinition(includemodeldefinition bool) *GetTrainedModels {
+	r.values.Set("include_model_definition", strconv.FormatBool(includemodeldefinition))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package updateapikey
 
@@ -32,23 +32,32 @@ import (
 
 // Request holds the request body struct for the package updateapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/update_api_key/Request.ts#L26-L66
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/security/update_api_key/Request.ts#L26-L91
 type Request struct {
 
-	// Expiration Expiration time for the API key.
+	// Expiration The expiration time for the API key.
+	// By default, API keys never expire.
+	// This property can be omitted to leave the expiration unchanged.
 	Expiration types.Duration `json:"expiration,omitempty"`
-	// Metadata Arbitrary metadata that you want to associate with the API key. It supports
-	// nested data structure. Within the metadata object, keys beginning with _ are
-	// reserved for system usage.
+	// Metadata Arbitrary metadata that you want to associate with the API key.
+	// It supports a nested data structure.
+	// Within the metadata object, keys beginning with `_` are reserved for system
+	// usage.
+	// When specified, this value fully replaces the metadata previously associated
+	// with the API key.
 	Metadata types.Metadata `json:"metadata,omitempty"`
-	// RoleDescriptors An array of role descriptors for this API key. This parameter is optional.
-	// When it is not specified or is an empty array, then the API key will have a
-	// point in time snapshot of permissions of the authenticated user. If you
-	// supply role descriptors then the resultant permissions would be an
-	// intersection of API keys permissions and authenticated user’s permissions
-	// thereby limiting the access scope for API keys. The structure of role
-	// descriptor is the same as the request for create role API. For more details,
-	// see create or update roles API.
+	// RoleDescriptors The role descriptors to assign to this API key.
+	// The API key's effective permissions are an intersection of its assigned
+	// privileges and the point in time snapshot of permissions of the owner user.
+	// You can assign new privileges by specifying them in this parameter.
+	// To remove assigned privileges, you can supply an empty `role_descriptors`
+	// parameter, that is to say, an empty object `{}`.
+	// If an API key has no assigned privileges, it inherits the owner user's full
+	// permissions.
+	// The snapshot of the owner's permissions is always updated, whether you supply
+	// the `role_descriptors` parameter or not.
+	// The structure of a role descriptor is the same as the request for the create
+	// API keys API.
 	RoleDescriptors map[string]types.RoleDescriptor `json:"role_descriptors,omitempty"`
 }
 

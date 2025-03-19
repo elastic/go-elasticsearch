@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // TrainedModelConfigInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/TrainedModel.ts#L202-L205
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/TrainedModel.ts#L241-L244
 type TrainedModelConfigInput struct {
 	// FieldNames An array of input field names for the model.
 	FieldNames []string `json:"field_names"`
@@ -34,3 +34,5 @@ func NewTrainedModelConfigInput() *TrainedModelConfigInput {
 
 	return r
 }
+
+// false

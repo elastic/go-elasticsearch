@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // IndicesShardsStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L52-L55
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L52-L55
 type IndicesShardsStats struct {
 	AllFields FieldSummary            `json:"all_fields"`
 	Fields    map[string]FieldSummary `json:"fields"`
@@ -31,8 +31,10 @@ type IndicesShardsStats struct {
 // NewIndicesShardsStats returns a IndicesShardsStats.
 func NewIndicesShardsStats() *IndicesShardsStats {
 	r := &IndicesShardsStats{
-		Fields: make(map[string]FieldSummary, 0),
+		Fields: make(map[string]FieldSummary),
 	}
 
 	return r
 }
+
+// false

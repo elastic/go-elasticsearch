@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.19.0: DO NOT EDIT
 
 package esapi
 
@@ -43,8 +43,6 @@ func newInferenceGetFunc(t Transport) InferenceGet {
 // ----- API Definition -------------------------------------------------------
 
 // InferenceGet get an inference endpoint
-//
-// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html.
 type InferenceGet func(o ...func(*InferenceGetRequest)) (*Response, error)

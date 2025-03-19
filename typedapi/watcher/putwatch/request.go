@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package putwatch
 
@@ -26,22 +26,39 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package putwatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L30-L53
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L31-L110
 type Request struct {
-	Actions        map[string]types.WatcherAction `json:"actions,omitempty"`
-	Condition      *types.WatcherCondition        `json:"condition,omitempty"`
-	Input          *types.WatcherInput            `json:"input,omitempty"`
-	Metadata       types.Metadata                 `json:"metadata,omitempty"`
-	ThrottlePeriod *string                        `json:"throttle_period,omitempty"`
-	Transform      *types.TransformContainer      `json:"transform,omitempty"`
-	Trigger        *types.TriggerContainer        `json:"trigger,omitempty"`
+
+	// Actions The list of actions that will be run if the condition matches.
+	Actions map[string]types.WatcherAction `json:"actions,omitempty"`
+	// Condition The condition that defines if the actions should be run.
+	Condition *types.WatcherCondition `json:"condition,omitempty"`
+	// Input The input that defines the input that loads the data for the watch.
+	Input *types.WatcherInput `json:"input,omitempty"`
+	// Metadata Metadata JSON that will be copied into the history entries.
+	Metadata types.Metadata `json:"metadata,omitempty"`
+	// ThrottlePeriod The minimum time between actions being run.
+	// The default is 5 seconds.
+	// This default can be changed in the config file with the setting
+	// `xpack.watcher.throttle.period.default_period`.
+	// If both this value and the `throttle_period_in_millis` parameter are
+	// specified, Watcher uses the last parameter included in the request.
+	ThrottlePeriod types.Duration `json:"throttle_period,omitempty"`
+	// ThrottlePeriodInMillis Minimum time in milliseconds between actions being run. Defaults to 5000. If
+	// both this value and the throttle_period parameter are specified, Watcher uses
+	// the last parameter included in the request.
+	ThrottlePeriodInMillis *int64 `json:"throttle_period_in_millis,omitempty"`
+	// Transform The transform that processes the watch payload to prepare it for the watch
+	// actions.
+	Transform *types.TransformContainer `json:"transform,omitempty"`
+	// Trigger The trigger that defines when the watch should run.
+	Trigger *types.TriggerContainer `json:"trigger,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -103,16 +120,14 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "throttle_period":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.ThrottlePeriod); err != nil {
 				return fmt.Errorf("%s | %w", "ThrottlePeriod", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
+
+		case "throttle_period_in_millis":
+			if err := dec.Decode(&s.ThrottlePeriodInMillis); err != nil {
+				return fmt.Errorf("%s | %w", "ThrottlePeriodInMillis", err)
 			}
-			s.ThrottlePeriod = &o
 
 		case "transform":
 			if err := dec.Decode(&s.Transform); err != nil {

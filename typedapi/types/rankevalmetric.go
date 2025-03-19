@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // RankEvalMetric type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/rank_eval/types.ts#L90-L96
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/rank_eval/types.ts#L90-L96
 type RankEvalMetric struct {
 	Dcg                    *RankEvalMetricDiscountedCumulativeGain `json:"dcg,omitempty"`
 	ExpectedReciprocalRank *RankEvalMetricExpectedReciprocalRank   `json:"expected_reciprocal_rank,omitempty"`
@@ -36,4 +36,14 @@ func NewRankEvalMetric() *RankEvalMetric {
 	r := &RankEvalMetric{}
 
 	return r
+}
+
+// true
+
+type RankEvalMetricVariant interface {
+	RankEvalMetricCaster() *RankEvalMetric
+}
+
+func (s *RankEvalMetric) RankEvalMetricCaster() *RankEvalMetric {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ScriptProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L1005-L1025
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ingest/_types/Processors.ts#L1404-L1424
 type ScriptProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
@@ -172,8 +172,18 @@ func (s *ScriptProcessor) UnmarshalJSON(data []byte) error {
 // NewScriptProcessor returns a ScriptProcessor.
 func NewScriptProcessor() *ScriptProcessor {
 	r := &ScriptProcessor{
-		Params: make(map[string]json.RawMessage, 0),
+		Params: make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type ScriptProcessorVariant interface {
+	ScriptProcessorCaster() *ScriptProcessor
+}
+
+func (s *ScriptProcessor) ScriptProcessorCaster() *ScriptProcessor {
+	return s
 }

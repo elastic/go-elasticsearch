@@ -16,10 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Returns the current status and available results for an async SQL search or
-// stored synchronous SQL search
+// Get async SQL search results.
+// Get the current status and available results for an async SQL search or
+// stored synchronous SQL search.
+//
+// If the Elasticsearch security features are enabled, only the user who first
+// submitted the SQL search can retrieve the search using this API.
 package getasync
 
 import (
@@ -77,8 +81,12 @@ func NewGetAsyncFunc(tp elastictransport.Interface) NewGetAsync {
 	}
 }
 
-// Returns the current status and available results for an async SQL search or
-// stored synchronous SQL search
+// Get async SQL search results.
+// Get the current status and available results for an async SQL search or
+// stored synchronous SQL search.
+//
+// If the Elasticsearch security features are enabled, only the user who first
+// submitted the SQL search can retrieve the search using this API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-sql-search-api.html
 func New(tp elastictransport.Interface) *GetAsync {
@@ -292,7 +300,7 @@ func (r *GetAsync) Header(key, value string) *GetAsync {
 	return r
 }
 
-// Id Identifier for the search.
+// Id The identifier for the search.
 // API Name: id
 func (r *GetAsync) _id(id string) *GetAsync {
 	r.paramSet |= idMask
@@ -301,8 +309,8 @@ func (r *GetAsync) _id(id string) *GetAsync {
 	return r
 }
 
-// Delimiter Separator for CSV results. The API only supports this parameter for CSV
-// responses.
+// Delimiter The separator for CSV results.
+// The API supports this parameter only for CSV responses.
 // API name: delimiter
 func (r *GetAsync) Delimiter(delimiter string) *GetAsync {
 	r.values.Set("delimiter", delimiter)
@@ -310,9 +318,9 @@ func (r *GetAsync) Delimiter(delimiter string) *GetAsync {
 	return r
 }
 
-// Format Format for the response. You must specify a format using this parameter or
-// the
-// Accept HTTP header. If you specify both, the API uses this parameter.
+// Format The format for the response.
+// You must specify a format using this parameter or the `Accept` HTTP header.
+// If you specify both, the API uses this parameter.
 // API name: format
 func (r *GetAsync) Format(format string) *GetAsync {
 	r.values.Set("format", format)
@@ -320,8 +328,8 @@ func (r *GetAsync) Format(format string) *GetAsync {
 	return r
 }
 
-// KeepAlive Retention period for the search and its results. Defaults
-// to the `keep_alive` period for the original SQL search.
+// KeepAlive The retention period for the search and its results.
+// It defaults to the `keep_alive` period for the original SQL search.
 // API name: keep_alive
 func (r *GetAsync) KeepAlive(duration string) *GetAsync {
 	r.values.Set("keep_alive", duration)
@@ -329,8 +337,9 @@ func (r *GetAsync) KeepAlive(duration string) *GetAsync {
 	return r
 }
 
-// WaitForCompletionTimeout Period to wait for complete results. Defaults to no timeout,
-// meaning the request waits for complete search results.
+// WaitForCompletionTimeout The period to wait for complete results.
+// It defaults to no timeout, meaning the request waits for complete search
+// results.
 // API name: wait_for_completion_timeout
 func (r *GetAsync) WaitForCompletionTimeout(duration string) *GetAsync {
 	r.values.Set("wait_for_completion_timeout", duration)

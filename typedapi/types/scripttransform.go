@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ScriptTransform type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Transform.ts#L36-L44
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/Transform.ts#L36-L44
 type ScriptTransform struct {
 	Id     *string                    `json:"id,omitempty"`
 	Lang   *string                    `json:"lang,omitempty"`
@@ -106,8 +106,18 @@ func (s *ScriptTransform) UnmarshalJSON(data []byte) error {
 // NewScriptTransform returns a ScriptTransform.
 func NewScriptTransform() *ScriptTransform {
 	r := &ScriptTransform{
-		Params: make(map[string]json.RawMessage, 0),
+		Params: make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type ScriptTransformVariant interface {
+	ScriptTransformCaster() *ScriptTransform
+}
+
+func (s *ScriptTransform) ScriptTransformCaster() *ScriptTransform {
+	return s
 }

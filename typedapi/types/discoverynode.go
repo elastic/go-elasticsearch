@@ -16,82 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
-import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"fmt"
-	"io"
-)
-
-// DiscoveryNode type.
+// DiscoveryNode type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/DiscoveryNode.ts#L24-L30
-type DiscoveryNode struct {
-	Attributes       map[string]string `json:"attributes"`
-	EphemeralId      string            `json:"ephemeral_id"`
-	Id               string            `json:"id"`
-	Name             string            `json:"name"`
-	TransportAddress string            `json:"transport_address"`
-}
-
-func (s *DiscoveryNode) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "attributes":
-			if s.Attributes == nil {
-				s.Attributes = make(map[string]string, 0)
-			}
-			if err := dec.Decode(&s.Attributes); err != nil {
-				return fmt.Errorf("%s | %w", "Attributes", err)
-			}
-
-		case "ephemeral_id":
-			if err := dec.Decode(&s.EphemeralId); err != nil {
-				return fmt.Errorf("%s | %w", "EphemeralId", err)
-			}
-
-		case "id":
-			if err := dec.Decode(&s.Id); err != nil {
-				return fmt.Errorf("%s | %w", "Id", err)
-			}
-
-		case "name":
-			if err := dec.Decode(&s.Name); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-
-		case "transport_address":
-			if err := dec.Decode(&s.TransportAddress); err != nil {
-				return fmt.Errorf("%s | %w", "TransportAddress", err)
-			}
-
-		}
-	}
-	return nil
-}
-
-// NewDiscoveryNode returns a DiscoveryNode.
-func NewDiscoveryNode() *DiscoveryNode {
-	r := &DiscoveryNode{
-		Attributes: make(map[string]string, 0),
-	}
-
-	return r
-}
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/DiscoveryNode.ts#L25-L25
+type DiscoveryNode map[string]DiscoveryNodeContent

@@ -16,16 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Schedule a transform to start now.
-// Instantly runs a transform to process data.
 //
-// If you _schedule_now a transform, it will process the new data instantly,
-// without waiting for the configured frequency interval. After _schedule_now
-// API is called,
-// the transform will be processed again at now + frequency unless _schedule_now
-// API
+// Instantly run a transform to process data.
+// If you run this API, the transform will process the new data instantly,
+// without waiting for the configured frequency interval. After the API is
+// called,
+// the transform will be processed again at `now + frequency` unless the API
 // is called again in the meantime.
 package schedulenowtransform
 
@@ -85,13 +84,12 @@ func NewScheduleNowTransformFunc(tp elastictransport.Interface) NewScheduleNowTr
 }
 
 // Schedule a transform to start now.
-// Instantly runs a transform to process data.
 //
-// If you _schedule_now a transform, it will process the new data instantly,
-// without waiting for the configured frequency interval. After _schedule_now
-// API is called,
-// the transform will be processed again at now + frequency unless _schedule_now
-// API
+// Instantly run a transform to process data.
+// If you run this API, the transform will process the new data instantly,
+// without waiting for the configured frequency interval. After the API is
+// called,
+// the transform will be processed again at `now + frequency` unless the API
 // is called again in the meantime.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/schedule-now-transform.html

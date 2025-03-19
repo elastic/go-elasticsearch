@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Creates or updates a connector.
+// Create or update a connector.
 package put
 
 import (
@@ -79,7 +79,7 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 	}
 }
 
-// Creates or updates a connector.
+// Create or update a connector.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/create-connector-api.html
 func New(tp elastictransport.Interface) *Put {
@@ -89,8 +89,6 @@ func New(tp elastictransport.Interface) *Put {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -363,6 +361,10 @@ func (r *Put) Pretty(pretty bool) *Put {
 
 // API name: description
 func (r *Put) Description(description string) *Put {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Description = &description
 
@@ -371,6 +373,11 @@ func (r *Put) Description(description string) *Put {
 
 // API name: index_name
 func (r *Put) IndexName(indexname string) *Put {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.IndexName = &indexname
 
 	return r
@@ -378,6 +385,11 @@ func (r *Put) IndexName(indexname string) *Put {
 
 // API name: is_native
 func (r *Put) IsNative(isnative bool) *Put {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.IsNative = &isnative
 
 	return r
@@ -385,6 +397,10 @@ func (r *Put) IsNative(isnative bool) *Put {
 
 // API name: language
 func (r *Put) Language(language string) *Put {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Language = &language
 
@@ -393,6 +409,10 @@ func (r *Put) Language(language string) *Put {
 
 // API name: name
 func (r *Put) Name(name string) *Put {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Name = &name
 
@@ -401,6 +421,10 @@ func (r *Put) Name(name string) *Put {
 
 // API name: service_type
 func (r *Put) ServiceType(servicetype string) *Put {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.ServiceType = &servicetype
 

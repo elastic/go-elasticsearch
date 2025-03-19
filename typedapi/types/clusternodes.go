@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // ClusterNodes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/stats/types.ts#L369-L402
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/cluster/stats/types.ts#L369-L402
 type ClusterNodes struct {
 	// Count Contains counts for nodes selected by the request’s node filters.
 	Count ClusterNodeCount `json:"count"`
@@ -55,8 +55,10 @@ type ClusterNodes struct {
 // NewClusterNodes returns a ClusterNodes.
 func NewClusterNodes() *ClusterNodes {
 	r := &ClusterNodes{
-		DiscoveryTypes: make(map[string]int, 0),
+		DiscoveryTypes: make(map[string]int),
 	}
 
 	return r
 }
+
+// false

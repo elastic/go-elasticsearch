@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // TimeOfMonth type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Schedule.ts#L110-L113
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/watcher/_types/Schedule.ts#L111-L114
 type TimeOfMonth struct {
 	At []string `json:"at"`
 	On []int    `json:"on"`
@@ -33,4 +33,14 @@ func NewTimeOfMonth() *TimeOfMonth {
 	r := &TimeOfMonth{}
 
 	return r
+}
+
+// true
+
+type TimeOfMonthVariant interface {
+	TimeOfMonthCaster() *TimeOfMonth
+}
+
+func (s *TimeOfMonth) TimeOfMonthCaster() *TimeOfMonth {
+	return s
 }

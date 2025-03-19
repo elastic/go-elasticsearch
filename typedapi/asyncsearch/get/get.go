@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Retrieves the results of a previously submitted async search request given
-// its identifier.
+// Get async search results.
+//
+// Retrieve the results of a previously submitted asynchronous search request.
 // If the Elasticsearch security features are enabled, access to the results of
 // a specific async search is restricted to the user or API key that submitted
 // it.
@@ -80,8 +81,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	}
 }
 
-// Retrieves the results of a previously submitted async search request given
-// its identifier.
+// Get async search results.
+//
+// Retrieve the results of a previously submitted asynchronous search request.
 // If the Elasticsearch security features are enabled, access to the results of
 // a specific async search is restricted to the user or API key that submitted
 // it.
@@ -307,7 +309,7 @@ func (r *Get) _id(id string) *Get {
 	return r
 }
 
-// KeepAlive Specifies how long the async search should be available in the cluster.
+// KeepAlive The length of time that the async search should be available in the cluster.
 // When not specified, the `keep_alive` set with the corresponding submit async
 // request will be used.
 // Otherwise, it is possible to override the value and extend the validity of

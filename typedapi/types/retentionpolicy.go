@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // RetentionPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/transform/_types/Transform.ts#L88-L96
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/transform/_types/Transform.ts#L88-L96
 type RetentionPolicy struct {
 	// Field The date field that is used to calculate the age of the document.
 	Field string `json:"field"`
@@ -75,4 +75,14 @@ func NewRetentionPolicy() *RetentionPolicy {
 	r := &RetentionPolicy{}
 
 	return r
+}
+
+// true
+
+type RetentionPolicyVariant interface {
+	RetentionPolicyCaster() *RetentionPolicy
+}
+
+func (s *RetentionPolicy) RetentionPolicyCaster() *RetentionPolicy {
+	return s
 }

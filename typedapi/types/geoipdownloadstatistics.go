@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,10 +31,12 @@ import (
 
 // GeoIpDownloadStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/geo_ip_stats/types.ts#L24-L35
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ingest/geo_ip_stats/types.ts#L24-L37
 type GeoIpDownloadStatistics struct {
-	// DatabaseCount Current number of databases available for use.
-	DatabaseCount int `json:"database_count"`
+	// DatabasesCount Current number of databases available for use.
+	DatabasesCount int `json:"databases_count"`
+	// ExpiredDatabases Total number of databases not updated after 30 days
+	ExpiredDatabases int `json:"expired_databases"`
 	// FailedDownloads Total number of failed database downloads.
 	FailedDownloads int `json:"failed_downloads"`
 	// SkippedUpdates Total number of database updates skipped.
@@ -60,7 +62,7 @@ func (s *GeoIpDownloadStatistics) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "database_count":
+		case "databases_count":
 
 			var tmp any
 			dec.Decode(&tmp)
@@ -68,12 +70,28 @@ func (s *GeoIpDownloadStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return fmt.Errorf("%s | %w", "DatabaseCount", err)
+					return fmt.Errorf("%s | %w", "DatabasesCount", err)
 				}
-				s.DatabaseCount = value
+				s.DatabasesCount = value
 			case float64:
 				f := int(v)
-				s.DatabaseCount = f
+				s.DatabasesCount = f
+			}
+
+		case "expired_databases":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ExpiredDatabases", err)
+				}
+				s.ExpiredDatabases = value
+			case float64:
+				f := int(v)
+				s.ExpiredDatabases = f
 			}
 
 		case "failed_downloads":
@@ -140,3 +158,5 @@ func NewGeoIpDownloadStatistics() *GeoIpDownloadStatistics {
 
 	return r
 }
+
+// false

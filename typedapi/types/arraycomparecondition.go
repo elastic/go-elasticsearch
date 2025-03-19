@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // ArrayCompareCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Conditions.ts#L32-L39
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/watcher/_types/Conditions.ts#L32-L39
 type ArrayCompareCondition struct {
 	ArrayCompareCondition map[conditionop.ConditionOp]ArrayCompareOpParams `json:"-"`
 	Path                  string                                           `json:"path"`
@@ -121,8 +121,18 @@ func (s ArrayCompareCondition) MarshalJSON() ([]byte, error) {
 // NewArrayCompareCondition returns a ArrayCompareCondition.
 func NewArrayCompareCondition() *ArrayCompareCondition {
 	r := &ArrayCompareCondition{
-		ArrayCompareCondition: make(map[conditionop.ConditionOp]ArrayCompareOpParams, 0),
+		ArrayCompareCondition: make(map[conditionop.ConditionOp]ArrayCompareOpParams),
 	}
 
 	return r
+}
+
+// true
+
+type ArrayCompareConditionVariant interface {
+	ArrayCompareConditionCaster() *ArrayCompareCondition
+}
+
+func (s *ArrayCompareCondition) ArrayCompareConditionCaster() *ArrayCompareCondition {
+	return s
 }

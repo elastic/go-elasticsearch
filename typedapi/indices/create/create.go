@@ -16,10 +16,43 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Create an index.
-// Creates a new index.
+// You can use the create index API to add a new index to an Elasticsearch
+// cluster.
+// When creating an index, you can specify the following:
+//
+// * Settings for the index.
+// * Mappings for fields in the index.
+// * Index aliases
+//
+// **Wait for active shards**
+//
+// By default, index creation will only return a response to the client when the
+// primary copies of each shard have been started, or the request times out.
+// The index creation response will indicate what happened.
+// For example, `acknowledged` indicates whether the index was successfully
+// created in the cluster, `while shards_acknowledged` indicates whether the
+// requisite number of shard copies were started for each shard in the index
+// before timing out.
+// Note that it is still possible for either `acknowledged` or
+// `shards_acknowledged` to be `false`, but for the index creation to be
+// successful.
+// These values simply indicate whether the operation completed before the
+// timeout.
+// If `acknowledged` is false, the request timed out before the cluster state
+// was updated with the newly created index, but it probably will be created
+// sometime soon.
+// If `shards_acknowledged` is false, then the request timed out before the
+// requisite number of shards were started (by default just the primaries), even
+// if the cluster state was successfully updated to reflect the newly created
+// index (that is to say, `acknowledged` is `true`).
+//
+// You can change the default of only waiting for the primary shards to start
+// through the index setting `index.write.wait_for_active_shards`.
+// Note that changing this setting will also affect the `wait_for_active_shards`
+// value on all subsequent write operations.
 package create
 
 import (
@@ -83,7 +116,40 @@ func NewCreateFunc(tp elastictransport.Interface) NewCreate {
 }
 
 // Create an index.
-// Creates a new index.
+// You can use the create index API to add a new index to an Elasticsearch
+// cluster.
+// When creating an index, you can specify the following:
+//
+// * Settings for the index.
+// * Mappings for fields in the index.
+// * Index aliases
+//
+// **Wait for active shards**
+//
+// By default, index creation will only return a response to the client when the
+// primary copies of each shard have been started, or the request times out.
+// The index creation response will indicate what happened.
+// For example, `acknowledged` indicates whether the index was successfully
+// created in the cluster, `while shards_acknowledged` indicates whether the
+// requisite number of shard copies were started for each shard in the index
+// before timing out.
+// Note that it is still possible for either `acknowledged` or
+// `shards_acknowledged` to be `false`, but for the index creation to be
+// successful.
+// These values simply indicate whether the operation completed before the
+// timeout.
+// If `acknowledged` is false, the request timed out before the cluster state
+// was updated with the newly created index, but it probably will be created
+// sometime soon.
+// If `shards_acknowledged` is false, then the request timed out before the
+// requisite number of shards were started (by default just the primaries), even
+// if the cluster state was successfully updated to reflect the newly created
+// index (that is to say, `acknowledged` is `true`).
+//
+// You can change the default of only waiting for the primary shards to start
+// through the index setting `index.write.wait_for_active_shards`.
+// Note that changing this setting will also affect the `wait_for_active_shards`
+// value on all subsequent write operations.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html
 func New(tp elastictransport.Interface) *Create {
@@ -93,8 +159,6 @@ func New(tp elastictransport.Interface) *Create {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -388,32 +452,61 @@ func (r *Create) Pretty(pretty bool) *Create {
 	return r
 }
 
-// Aliases Aliases for the index.
+// Aliases for the index.
 // API name: aliases
 func (r *Create) Aliases(aliases map[string]types.Alias) *Create {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Aliases = aliases
-
 	return r
 }
 
-// Mappings Mapping for fields in the index. If specified, this mapping can include:
+func (r *Create) AddAlias(key string, value types.AliasVariant) *Create {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]types.Alias
+	if r.req.Aliases == nil {
+		r.req.Aliases = make(map[string]types.Alias)
+	} else {
+		tmp = r.req.Aliases
+	}
+
+	tmp[key] = *value.AliasCaster()
+
+	r.req.Aliases = tmp
+	return r
+}
+
+// Mapping for fields in the index. If specified, this mapping can include:
 // - Field names
 // - Field data types
 // - Mapping parameters
 // API name: mappings
-func (r *Create) Mappings(mappings *types.TypeMapping) *Create {
+func (r *Create) Mappings(mappings types.TypeMappingVariant) *Create {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Mappings = mappings
+	r.req.Mappings = mappings.TypeMappingCaster()
 
 	return r
 }
 
-// Settings Configuration options for the index.
+// Configuration options for the index.
 // API name: settings
-func (r *Create) Settings(settings *types.IndexSettings) *Create {
+func (r *Create) Settings(settings types.IndexSettingsVariant) *Create {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Settings = settings
+	r.req.Settings = settings.IndexSettingsCaster()
 
 	return r
 }

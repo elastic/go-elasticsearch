@@ -16,11 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Instantiates a data frame analytics job.
+// Create a data frame analytics job.
 // This API creates a data frame analytics job that performs an analysis on the
 // source indices and stores the outcome in a destination index.
+// By default, the query used in the source configuration is `{"match_all":
+// {}}`.
+//
+// If the destination index does not exist, it is created automatically when you
+// start the job.
+//
+// If you supply only a subset of the regression or classification parameters,
+// hyperparameter optimization occurs. It determines a value for each of the
+// undefined parameters.
 package putdataframeanalytics
 
 import (
@@ -83,9 +92,18 @@ func NewPutDataFrameAnalyticsFunc(tp elastictransport.Interface) NewPutDataFrame
 	}
 }
 
-// Instantiates a data frame analytics job.
+// Create a data frame analytics job.
 // This API creates a data frame analytics job that performs an analysis on the
 // source indices and stores the outcome in a destination index.
+// By default, the query used in the source configuration is `{"match_all":
+// {}}`.
+//
+// If the destination index does not exist, it is created automatically when you
+// start the job.
+//
+// If you supply only a subset of the regression or classification parameters,
+// hyperparameter optimization occurs. It determines a value for each of the
+// undefined parameters.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/put-dfanalytics.html
 func New(tp elastictransport.Interface) *PutDataFrameAnalytics {
@@ -95,8 +113,6 @@ func New(tp elastictransport.Interface) *PutDataFrameAnalytics {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -367,7 +383,7 @@ func (r *PutDataFrameAnalytics) Pretty(pretty bool) *PutDataFrameAnalytics {
 	return r
 }
 
-// AllowLazyStart Specifies whether this job can start when there is insufficient machine
+// Specifies whether this job can start when there is insufficient machine
 // learning node capacity for it to be immediately assigned to a node. If
 // set to `false` and a machine learning node with capacity to run the job
 // cannot be immediately found, the API returns an error. If set to `true`,
@@ -377,23 +393,32 @@ func (r *PutDataFrameAnalytics) Pretty(pretty bool) *PutDataFrameAnalytics {
 // `xpack.ml.max_lazy_ml_nodes` setting.
 // API name: allow_lazy_start
 func (r *PutDataFrameAnalytics) AllowLazyStart(allowlazystart bool) *PutDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.AllowLazyStart = &allowlazystart
 
 	return r
 }
 
-// Analysis The analysis configuration, which contains the information necessary to
+// The analysis configuration, which contains the information necessary to
 // perform one of the following types of analysis: classification, outlier
 // detection, or regression.
 // API name: analysis
-func (r *PutDataFrameAnalytics) Analysis(analysis *types.DataframeAnalysisContainer) *PutDataFrameAnalytics {
+func (r *PutDataFrameAnalytics) Analysis(analysis types.DataframeAnalysisContainerVariant) *PutDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Analysis = *analysis
+	r.req.Analysis = *analysis.DataframeAnalysisContainerCaster()
 
 	return r
 }
 
-// AnalyzedFields Specifies `includes` and/or `excludes` patterns to select which fields
+// Specifies `includes` and/or `excludes` patterns to select which fields
 // will be included in the analysis. The patterns specified in `excludes`
 // are applied last, therefore `excludes` takes precedence. In other words,
 // if the same field is specified in both `includes` and `excludes`, then
@@ -422,73 +447,120 @@ func (r *PutDataFrameAnalytics) Analysis(analysis *types.DataframeAnalysisContai
 // values to a single number. For example, in case of age ranges, you can
 // model the values as `0-14 = 0`, `15-24 = 1`, `25-34 = 2`, and so on.
 // API name: analyzed_fields
-func (r *PutDataFrameAnalytics) AnalyzedFields(analyzedfields *types.DataframeAnalysisAnalyzedFields) *PutDataFrameAnalytics {
+func (r *PutDataFrameAnalytics) AnalyzedFields(analyzedfields types.DataframeAnalysisAnalyzedFieldsVariant) *PutDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.AnalyzedFields = analyzedfields
+	r.req.AnalyzedFields = analyzedfields.DataframeAnalysisAnalyzedFieldsCaster()
 
 	return r
 }
 
-// Description A description of the job.
+// A description of the job.
 // API name: description
 func (r *PutDataFrameAnalytics) Description(description string) *PutDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Description = &description
 
 	return r
 }
 
-// Dest The destination configuration.
+// The destination configuration.
 // API name: dest
-func (r *PutDataFrameAnalytics) Dest(dest *types.DataframeAnalyticsDestination) *PutDataFrameAnalytics {
+func (r *PutDataFrameAnalytics) Dest(dest types.DataframeAnalyticsDestinationVariant) *PutDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Dest = *dest
+	r.req.Dest = *dest.DataframeAnalyticsDestinationCaster()
 
 	return r
 }
 
 // API name: headers
-func (r *PutDataFrameAnalytics) Headers(httpheaders types.HttpHeaders) *PutDataFrameAnalytics {
-	r.req.Headers = httpheaders
+func (r *PutDataFrameAnalytics) Headers(httpheaders types.HttpHeadersVariant) *PutDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Headers = *httpheaders.HttpHeadersCaster()
 
 	return r
 }
 
-// MaxNumThreads The maximum number of threads to be used by the analysis. Using more
+// The maximum number of threads to be used by the analysis. Using more
 // threads may decrease the time necessary to complete the analysis at the
 // cost of using more CPU. Note that the process may use additional threads
 // for operational functionality other than the analysis itself.
 // API name: max_num_threads
 func (r *PutDataFrameAnalytics) MaxNumThreads(maxnumthreads int) *PutDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.MaxNumThreads = &maxnumthreads
 
 	return r
 }
 
-// ModelMemoryLimit The approximate maximum amount of memory resources that are permitted for
+// API name: _meta
+func (r *PutDataFrameAnalytics) Meta_(metadata types.MetadataVariant) *PutDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Meta_ = *metadata.MetadataCaster()
+
+	return r
+}
+
+// The approximate maximum amount of memory resources that are permitted for
 // analytical processing. If your `elasticsearch.yml` file contains an
 // `xpack.ml.max_model_memory_limit` setting, an error occurs when you try
 // to create data frame analytics jobs that have `model_memory_limit` values
 // greater than that setting.
 // API name: model_memory_limit
 func (r *PutDataFrameAnalytics) ModelMemoryLimit(modelmemorylimit string) *PutDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.ModelMemoryLimit = &modelmemorylimit
 
 	return r
 }
 
-// Source The configuration of how to source the analysis data.
+// The configuration of how to source the analysis data.
 // API name: source
-func (r *PutDataFrameAnalytics) Source(source *types.DataframeAnalyticsSource) *PutDataFrameAnalytics {
+func (r *PutDataFrameAnalytics) Source(source types.DataframeAnalyticsSourceVariant) *PutDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Source = *source
+	r.req.Source = *source.DataframeAnalyticsSourceCaster()
 
 	return r
 }
 
 // API name: version
 func (r *PutDataFrameAnalytics) Version(versionstring string) *PutDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Version = &versionstring
 
 	return r

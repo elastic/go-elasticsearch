@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package search
 
@@ -34,9 +34,23 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/eql/search/EqlSearchRequest.ts#L28-L118
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/eql/search/EqlSearchRequest.ts#L28-L161
 type Request struct {
-	CaseSensitive *bool `json:"case_sensitive,omitempty"`
+
+	// AllowPartialSearchResults Allow query execution also in case of shard failures.
+	// If true, the query will keep running and will return results based on the
+	// available shards.
+	// For sequences, the behavior can be further refined using
+	// allow_partial_sequence_results
+	AllowPartialSearchResults *bool `json:"allow_partial_search_results,omitempty"`
+	// AllowPartialSequenceResults This flag applies only to sequences and has effect only if
+	// allow_partial_search_results=true.
+	// If true, the sequence query will return results based on the available
+	// shards, ignoring the others.
+	// If false, the sequence query will return successfully, but will always have
+	// empty results.
+	AllowPartialSequenceResults *bool `json:"allow_partial_sequence_results,omitempty"`
+	CaseSensitive               *bool `json:"case_sensitive,omitempty"`
 	// EventCategoryField Field containing the event classification, such as process, file, or network.
 	EventCategoryField *string `json:"event_category_field,omitempty"`
 	// FetchSize Maximum number of events to search at a time for sequence queries.
@@ -49,6 +63,12 @@ type Request struct {
 	Filter           []types.Query  `json:"filter,omitempty"`
 	KeepAlive        types.Duration `json:"keep_alive,omitempty"`
 	KeepOnCompletion *bool          `json:"keep_on_completion,omitempty"`
+	// MaxSamplesPerKey By default, the response of a sample query contains up to `10` samples, with
+	// one sample per unique set of join keys. Use the `size`
+	// parameter to get a smaller or larger set of samples. To retrieve more than
+	// one sample per set of join keys, use the
+	// `max_samples_per_key` parameter. Pipes are not supported for sample queries.
+	MaxSamplesPerKey *int `json:"max_samples_per_key,omitempty"`
 	// Query EQL query you wish to run.
 	Query           string                         `json:"query"`
 	ResultPosition  *resultposition.ResultPosition `json:"result_position,omitempty"`
@@ -95,6 +115,34 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "allow_partial_search_results":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "AllowPartialSearchResults", err)
+				}
+				s.AllowPartialSearchResults = &value
+			case bool:
+				s.AllowPartialSearchResults = &v
+			}
+
+		case "allow_partial_sequence_results":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "AllowPartialSequenceResults", err)
+				}
+				s.AllowPartialSequenceResults = &value
+			case bool:
+				s.AllowPartialSequenceResults = &v
+			}
 
 		case "case_sensitive":
 			var tmp any
@@ -169,6 +217,22 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.KeepOnCompletion = &value
 			case bool:
 				s.KeepOnCompletion = &v
+			}
+
+		case "max_samples_per_key":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxSamplesPerKey", err)
+				}
+				s.MaxSamplesPerKey = &value
+			case float64:
+				f := int(v)
+				s.MaxSamplesPerKey = &f
 			}
 
 		case "query":

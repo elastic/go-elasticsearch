@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CoreKnnQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/knn_search/_types/Knn.ts#L24-L33
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/knn_search/_types/Knn.ts#L24-L33
 type CoreKnnQuery struct {
 	// Field The name of the vector field to search against
 	Field string `json:"field"`
@@ -110,4 +110,14 @@ func NewCoreKnnQuery() *CoreKnnQuery {
 	r := &CoreKnnQuery{}
 
 	return r
+}
+
+// true
+
+type CoreKnnQueryVariant interface {
+	CoreKnnQueryCaster() *CoreKnnQuery
+}
+
+func (s *CoreKnnQuery) CoreKnnQueryCaster() *CoreKnnQuery {
+	return s
 }

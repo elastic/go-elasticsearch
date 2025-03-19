@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -25,5 +25,9 @@ package types
 //	string
 //	CategorizationAnalyzerDefinition
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/Analysis.ts#L181-L182
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/Analysis.ts#L181-L182
 type CategorizationAnalyzer any
+
+type CategorizationAnalyzerVariant interface {
+	CategorizationAnalyzerCaster() *CategorizationAnalyzer
+}

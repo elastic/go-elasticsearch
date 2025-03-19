@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // WildcardQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/term.ts#L273-L290
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/term.ts#L305-L325
 type WildcardQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -162,4 +162,14 @@ func NewWildcardQuery() *WildcardQuery {
 	r := &WildcardQuery{}
 
 	return r
+}
+
+// true
+
+type WildcardQueryVariant interface {
+	WildcardQueryCaster() *WildcardQuery
+}
+
+func (s *WildcardQuery) WildcardQueryCaster() *WildcardQuery {
+	return s
 }

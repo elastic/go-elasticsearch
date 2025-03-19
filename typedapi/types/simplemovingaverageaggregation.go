@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SimpleMovingAverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/pipeline.ts#L247-L250
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/aggregations/pipeline.ts#L273-L276
 type SimpleMovingAverageAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
@@ -172,4 +172,14 @@ func NewSimpleMovingAverageAggregation() *SimpleMovingAverageAggregation {
 	r := &SimpleMovingAverageAggregation{}
 
 	return r
+}
+
+// true
+
+type SimpleMovingAverageAggregationVariant interface {
+	SimpleMovingAverageAggregationCaster() *SimpleMovingAverageAggregation
+}
+
+func (s *SimpleMovingAverageAggregation) SimpleMovingAverageAggregationCaster() *SimpleMovingAverageAggregation {
+	return s
 }

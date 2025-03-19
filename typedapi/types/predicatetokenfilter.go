@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // PredicateTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/token_filters.ts#L298-L301
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/analysis/token_filters.ts#L297-L300
 type PredicateTokenFilter struct {
 	Script  Script  `json:"script"`
 	Type    string  `json:"type,omitempty"`
@@ -91,4 +91,14 @@ func NewPredicateTokenFilter() *PredicateTokenFilter {
 	r := &PredicateTokenFilter{}
 
 	return r
+}
+
+// true
+
+type PredicateTokenFilterVariant interface {
+	PredicateTokenFilterCaster() *PredicateTokenFilter
+}
+
+func (s *PredicateTokenFilter) PredicateTokenFilterCaster() *PredicateTokenFilter {
+	return s
 }

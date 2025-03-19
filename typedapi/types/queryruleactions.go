@@ -16,16 +16,27 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // QueryRuleActions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/query_rules/_types/QueryRuleset.ts#L69-L72
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/query_rules/_types/QueryRuleset.ts#L110-L126
 type QueryRuleActions struct {
+	// Docs The documents to apply the rule to.
+	// Only one of `ids` or `docs` may be specified and at least one must be
+	// specified.
+	// There is a maximum value of 100 documents in a rule.
+	// You can specify the following attributes for each document:
+	//
+	// * `_index`: The index of the document to pin.
+	// * `_id`: The unique document ID.
 	Docs []PinnedDoc `json:"docs,omitempty"`
-	Ids  []string    `json:"ids,omitempty"`
+	// Ids The unique document IDs of the documents to apply the rule to.
+	// Only one of `ids` or `docs` may be specified and at least one must be
+	// specified.
+	Ids []string `json:"ids,omitempty"`
 }
 
 // NewQueryRuleActions returns a QueryRuleActions.
@@ -33,4 +44,14 @@ func NewQueryRuleActions() *QueryRuleActions {
 	r := &QueryRuleActions{}
 
 	return r
+}
+
+// true
+
+type QueryRuleActionsVariant interface {
+	QueryRuleActionsCaster() *QueryRuleActions
+}
+
+func (s *QueryRuleActions) QueryRuleActionsCaster() *QueryRuleActions {
+	return s
 }

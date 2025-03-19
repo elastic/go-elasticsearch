@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DecayPlacement type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/compound.ts#L157-L176
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/compound.ts#L170-L189
 type DecayPlacement struct {
 	// Decay Defines how documents are scored at the distance given at scale.
 	Decay *Float64 `json:"decay,omitempty"`
@@ -102,4 +102,14 @@ func NewDecayPlacement() *DecayPlacement {
 	r := &DecayPlacement{}
 
 	return r
+}
+
+// true
+
+type DecayPlacementVariant interface {
+	DecayPlacementCaster() *DecayPlacement
+}
+
+func (s *DecayPlacement) DecayPlacementCaster() *DecayPlacement {
+	return s
 }

@@ -16,13 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Get async search status
-// Retrieves the status of a previously submitted async search request given its
+// Get the async search status.
+//
+// Get the status of a previously submitted async search request given its
 // identifier, without retrieving search results.
-// If the Elasticsearch security features are enabled, use of this API is
-// restricted to the `monitoring_user` role.
+// If the Elasticsearch security features are enabled, the access to the status
+// of a specific async search is restricted to:
+//
+// * The user or API key that submitted the original async search request.
+// * Users that have the `monitor` cluster privilege or greater privileges.
 package status
 
 import (
@@ -80,11 +84,15 @@ func NewStatusFunc(tp elastictransport.Interface) NewStatus {
 	}
 }
 
-// Get async search status
-// Retrieves the status of a previously submitted async search request given its
+// Get the async search status.
+//
+// Get the status of a previously submitted async search request given its
 // identifier, without retrieving search results.
-// If the Elasticsearch security features are enabled, use of this API is
-// restricted to the `monitoring_user` role.
+// If the Elasticsearch security features are enabled, the access to the status
+// of a specific async search is restricted to:
+//
+// * The user or API key that submitted the original async search request.
+// * Users that have the `monitor` cluster privilege or greater privileges.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html
 func New(tp elastictransport.Interface) *Status {
@@ -303,6 +311,16 @@ func (r *Status) Header(key, value string) *Status {
 func (r *Status) _id(id string) *Status {
 	r.paramSet |= idMask
 	r.id = id
+
+	return r
+}
+
+// KeepAlive The length of time that the async search needs to be available.
+// Ongoing async searches and any saved search results are deleted after this
+// period.
+// API name: keep_alive
+func (r *Status) KeepAlive(duration string) *Status {
+	r.values.Set("keep_alive", duration)
 
 	return r
 }

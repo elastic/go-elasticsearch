@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // QueryStringQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/fulltext.ts#L580-L700
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/fulltext.ts#L598-L721
 type QueryStringQuery struct {
 	// AllowLeadingWildcard If `true`, the wildcard characters `*` and `?` are allowed as the first
 	// character of the query string.
@@ -432,4 +432,14 @@ func NewQueryStringQuery() *QueryStringQuery {
 	r := &QueryStringQuery{}
 
 	return r
+}
+
+// true
+
+type QueryStringQueryVariant interface {
+	QueryStringQueryCaster() *QueryStringQuery
+}
+
+func (s *QueryStringQuery) QueryStringQueryCaster() *QueryStringQuery {
+	return s
 }

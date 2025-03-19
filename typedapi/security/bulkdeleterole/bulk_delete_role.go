@@ -16,8 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
+// Bulk delete roles.
+//
 // The role management APIs are generally the preferred way to manage roles,
 // rather than using file-based role management.
 // The bulk delete roles API cannot delete roles that are defined in roles
@@ -77,6 +79,8 @@ func NewBulkDeleteRoleFunc(tp elastictransport.Interface) NewBulkDeleteRole {
 	}
 }
 
+// Bulk delete roles.
+//
 // The role management APIs are generally the preferred way to manage roles,
 // rather than using file-based role management.
 // The bulk delete roles API cannot delete roles that are defined in roles
@@ -90,8 +94,6 @@ func New(tp elastictransport.Interface) *BulkDeleteRole {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -353,10 +355,17 @@ func (r *BulkDeleteRole) Pretty(pretty bool) *BulkDeleteRole {
 	return r
 }
 
-// Names An array of role names to delete
+// An array of role names to delete
 // API name: names
 func (r *BulkDeleteRole) Names(names ...string) *BulkDeleteRole {
-	r.req.Names = names
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range names {
 
+		r.req.Names = append(r.req.Names, v)
+
+	}
 	return r
 }

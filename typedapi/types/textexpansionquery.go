@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TextExpansionQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/TextExpansionQuery.ts#L23-L33
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/TextExpansionQuery.ts#L23-L36
 type TextExpansionQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -130,4 +130,14 @@ func NewTextExpansionQuery() *TextExpansionQuery {
 	r := &TextExpansionQuery{}
 
 	return r
+}
+
+// true
+
+type TextExpansionQueryVariant interface {
+	TextExpansionQueryCaster() *TextExpansionQuery
+}
+
+func (s *TextExpansionQuery) TextExpansionQueryCaster() *TextExpansionQuery {
+	return s
 }

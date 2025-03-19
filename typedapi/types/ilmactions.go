@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // IlmActions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ilm/_types/Phase.ts#L42-L96
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ilm/_types/Phase.ts#L39-L93
 type IlmActions struct {
 	// Allocate Phases allowed: warm, cold.
 	Allocate *AllocateAction `json:"allocate,omitempty"`
@@ -57,4 +57,14 @@ func NewIlmActions() *IlmActions {
 	r := &IlmActions{}
 
 	return r
+}
+
+// true
+
+type IlmActionsVariant interface {
+	IlmActionsCaster() *IlmActions
+}
+
+func (s *IlmActions) IlmActionsCaster() *IlmActions {
+	return s
 }

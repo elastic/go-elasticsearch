@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Clears the SQL cursor
+// Clear an SQL search cursor.
 package clearcursor
 
 import (
@@ -73,7 +73,7 @@ func NewClearCursorFunc(tp elastictransport.Interface) NewClearCursor {
 	}
 }
 
-// Clears the SQL cursor
+// Clear an SQL search cursor.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-sql-cursor-api.html
 func New(tp elastictransport.Interface) *ClearCursor {
@@ -83,8 +83,6 @@ func New(tp elastictransport.Interface) *ClearCursor {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -336,9 +334,13 @@ func (r *ClearCursor) Pretty(pretty bool) *ClearCursor {
 	return r
 }
 
-// Cursor Cursor to clear.
+// Cursor to clear.
 // API name: cursor
 func (r *ClearCursor) Cursor(cursor string) *ClearCursor {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Cursor = cursor
 

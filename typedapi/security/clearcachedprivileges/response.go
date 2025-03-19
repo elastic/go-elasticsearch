@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package clearcachedprivileges
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package clearcachedprivileges
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/clear_cached_privileges/SecurityClearCachedPrivilegesResponse.ts#L25-L32
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/security/clear_cached_privileges/SecurityClearCachedPrivilegesResponse.ts#L25-L32
 type Response struct {
 	ClusterName string                       `json:"cluster_name"`
 	NodeStats   types.NodeStatistics         `json:"_nodes"`

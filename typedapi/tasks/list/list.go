@@ -16,10 +16,77 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// The task management API returns information about tasks currently executing
-// on one or more nodes in the cluster.
+// Get all tasks.
+// Get information about the tasks currently running on one or more nodes in the
+// cluster.
+//
+// WARNING: The task management API is new and should still be considered a beta
+// feature.
+// The API may change in ways that are not backwards compatible.
+//
+// **Identifying running tasks**
+//
+// The `X-Opaque-Id header`, when provided on the HTTP request header, is going
+// to be returned as a header in the response as well as in the headers field
+// for in the task information.
+// This enables you to track certain calls or associate certain tasks with the
+// client that started them.
+// For example:
+//
+// ```
+// curl -i -H "X-Opaque-Id: 123456"
+// "http://localhost:9200/_tasks?group_by=parents"
+// ```
+//
+// The API returns the following result:
+//
+// ```
+// HTTP/1.1 200 OK
+// X-Opaque-Id: 123456
+// content-type: application/json; charset=UTF-8
+// content-length: 831
+//
+//	{
+//	  "tasks" : {
+//	    "u5lcZHqcQhu-rUoFaqDphA:45" : {
+//	      "node" : "u5lcZHqcQhu-rUoFaqDphA",
+//	      "id" : 45,
+//	      "type" : "transport",
+//	      "action" : "cluster:monitor/tasks/lists",
+//	      "start_time_in_millis" : 1513823752749,
+//	      "running_time_in_nanos" : 293139,
+//	      "cancellable" : false,
+//	      "headers" : {
+//	        "X-Opaque-Id" : "123456"
+//	      },
+//	      "children" : [
+//	        {
+//	          "node" : "u5lcZHqcQhu-rUoFaqDphA",
+//	          "id" : 46,
+//	          "type" : "direct",
+//	          "action" : "cluster:monitor/tasks/lists[n]",
+//	          "start_time_in_millis" : 1513823752750,
+//	          "running_time_in_nanos" : 92133,
+//	          "cancellable" : false,
+//	          "parent_task_id" : "u5lcZHqcQhu-rUoFaqDphA:45",
+//	          "headers" : {
+//	            "X-Opaque-Id" : "123456"
+//	          }
+//	        }
+//	      ]
+//	    }
+//	  }
+//	 }
+//
+// ```
+// In this example, `X-Opaque-Id: 123456` is the ID as a part of the response
+// header.
+// The `X-Opaque-Id` in the task `headers` is the ID for the task that was
+// initiated by the REST request.
+// The `X-Opaque-Id` in the children `headers` is the child task of the task
+// that was initiated by the REST request.
 package list
 
 import (
@@ -70,8 +137,75 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 	}
 }
 
-// The task management API returns information about tasks currently executing
-// on one or more nodes in the cluster.
+// Get all tasks.
+// Get information about the tasks currently running on one or more nodes in the
+// cluster.
+//
+// WARNING: The task management API is new and should still be considered a beta
+// feature.
+// The API may change in ways that are not backwards compatible.
+//
+// **Identifying running tasks**
+//
+// The `X-Opaque-Id header`, when provided on the HTTP request header, is going
+// to be returned as a header in the response as well as in the headers field
+// for in the task information.
+// This enables you to track certain calls or associate certain tasks with the
+// client that started them.
+// For example:
+//
+// ```
+// curl -i -H "X-Opaque-Id: 123456"
+// "http://localhost:9200/_tasks?group_by=parents"
+// ```
+//
+// The API returns the following result:
+//
+// ```
+// HTTP/1.1 200 OK
+// X-Opaque-Id: 123456
+// content-type: application/json; charset=UTF-8
+// content-length: 831
+//
+//	{
+//	  "tasks" : {
+//	    "u5lcZHqcQhu-rUoFaqDphA:45" : {
+//	      "node" : "u5lcZHqcQhu-rUoFaqDphA",
+//	      "id" : 45,
+//	      "type" : "transport",
+//	      "action" : "cluster:monitor/tasks/lists",
+//	      "start_time_in_millis" : 1513823752749,
+//	      "running_time_in_nanos" : 293139,
+//	      "cancellable" : false,
+//	      "headers" : {
+//	        "X-Opaque-Id" : "123456"
+//	      },
+//	      "children" : [
+//	        {
+//	          "node" : "u5lcZHqcQhu-rUoFaqDphA",
+//	          "id" : 46,
+//	          "type" : "direct",
+//	          "action" : "cluster:monitor/tasks/lists[n]",
+//	          "start_time_in_millis" : 1513823752750,
+//	          "running_time_in_nanos" : 92133,
+//	          "cancellable" : false,
+//	          "parent_task_id" : "u5lcZHqcQhu-rUoFaqDphA:45",
+//	          "headers" : {
+//	            "X-Opaque-Id" : "123456"
+//	          }
+//	        }
+//	      ]
+//	    }
+//	  }
+//	 }
+//
+// ```
+// In this example, `X-Opaque-Id: 123456` is the ID as a part of the response
+// header.
+// The `X-Opaque-Id` in the task `headers` is the ID for the task that was
+// initiated by the REST request.
+// The `X-Opaque-Id` in the children `headers` is the child task of the task
+// that was initiated by the REST request.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/tasks.html
 func New(tp elastictransport.Interface) *List {
@@ -277,8 +411,9 @@ func (r *List) Header(key, value string) *List {
 	return r
 }
 
-// Actions Comma-separated list or wildcard expression of actions used to limit the
+// Actions A comma-separated list or wildcard expression of actions used to limit the
 // request.
+// For example, you can use `cluser:*` to retrieve all cluster-related tasks.
 // API name: actions
 func (r *List) Actions(actions ...string) *List {
 	tmp := []string{}
@@ -290,7 +425,10 @@ func (r *List) Actions(actions ...string) *List {
 	return r
 }
 
-// Detailed If `true`, the response includes detailed information about shard recoveries.
+// Detailed If `true`, the response includes detailed information about the running
+// tasks.
+// This information is useful to distinguish tasks from each other but is more
+// costly to run.
 // API name: detailed
 func (r *List) Detailed(detailed bool) *List {
 	r.values.Set("detailed", strconv.FormatBool(detailed))
@@ -298,7 +436,8 @@ func (r *List) Detailed(detailed bool) *List {
 	return r
 }
 
-// GroupBy Key used to group tasks in the response.
+// GroupBy A key that is used to group tasks in the response.
+// The task lists can be grouped either by nodes or by parent tasks.
 // API name: group_by
 func (r *List) GroupBy(groupby groupby.GroupBy) *List {
 	r.values.Set("group_by", groupby.String())
@@ -306,20 +445,18 @@ func (r *List) GroupBy(groupby groupby.GroupBy) *List {
 	return r
 }
 
-// NodeId Comma-separated list of node IDs or names used to limit returned information.
-// API name: node_id
-func (r *List) NodeId(nodeids ...string) *List {
-	tmp := []string{}
-	for _, item := range nodeids {
-		tmp = append(tmp, fmt.Sprintf("%v", item))
-	}
-	r.values.Set("node_id", strings.Join(tmp, ","))
+// Nodes A comma-separated list of node IDs or names that is used to limit the
+// returned information.
+// API name: nodes
+func (r *List) Nodes(nodeids ...string) *List {
+	r.values.Set("nodes", strings.Join(nodeids, ","))
 
 	return r
 }
 
-// ParentTaskId Parent task ID used to limit returned information. To return all tasks, omit
-// this parameter or use a value of `-1`.
+// ParentTaskId A parent task identifier that is used to limit returned information.
+// To return all tasks, omit this parameter or use a value of `-1`.
+// If the parent task is not found, the API does not return a 404 response code.
 // API name: parent_task_id
 func (r *List) ParentTaskId(id string) *List {
 	r.values.Set("parent_task_id", id)
@@ -327,17 +464,10 @@ func (r *List) ParentTaskId(id string) *List {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an error.
-// API name: master_timeout
-func (r *List) MasterTimeout(duration string) *List {
-	r.values.Set("master_timeout", duration)
-
-	return r
-}
-
-// Timeout Period to wait for a response. If no response is received before the timeout
-// expires, the request fails and returns an error.
+// Timeout The period to wait for each node to respond.
+// If a node does not respond before its timeout expires, the response does not
+// include its information.
+// However, timed out nodes are included in the `node_failures` property.
 // API name: timeout
 func (r *List) Timeout(duration string) *List {
 	r.values.Set("timeout", duration)

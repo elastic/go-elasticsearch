@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // GeoDistanceSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/sort.ts#L59-L71
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/sort.ts#L58-L70
 type GeoDistanceSort struct {
 	DistanceType    *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
 	GeoDistanceSort map[string][]GeoLocation         `json:"-"`
@@ -161,8 +161,18 @@ func (s GeoDistanceSort) MarshalJSON() ([]byte, error) {
 // NewGeoDistanceSort returns a GeoDistanceSort.
 func NewGeoDistanceSort() *GeoDistanceSort {
 	r := &GeoDistanceSort{
-		GeoDistanceSort: make(map[string][]GeoLocation, 0),
+		GeoDistanceSort: make(map[string][]GeoLocation),
 	}
 
 	return r
+}
+
+// true
+
+type GeoDistanceSortVariant interface {
+	GeoDistanceSortCaster() *GeoDistanceSort
+}
+
+func (s *GeoDistanceSort) GeoDistanceSortCaster() *GeoDistanceSort {
+	return s
 }

@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// This API provides information about which features are currently enabled and
-// available under the current license and some usage statistics.
+// Get usage information.
+// Get information about the features that are currently enabled and available
+// under the current license.
+// The API also provides some usage statistics.
 package usage
 
 import (
@@ -69,8 +71,10 @@ func NewUsageFunc(tp elastictransport.Interface) NewUsage {
 	}
 }
 
-// This API provides information about which features are currently enabled and
-// available under the current license and some usage statistics.
+// Get usage information.
+// Get information about the features that are currently enabled and available
+// under the current license.
+// The API also provides some usage statistics.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/usage-api.html
 func New(tp elastictransport.Interface) *Usage {
@@ -278,8 +282,10 @@ func (r *Usage) Header(key, value string) *Usage {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an error.
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Usage) MasterTimeout(duration string) *Usage {
 	r.values.Set("master_timeout", duration)

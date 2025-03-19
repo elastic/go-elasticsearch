@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -33,30 +33,30 @@ import (
 
 // CreateOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/bulk/types.ts#L130-L130
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/bulk/types.ts#L140-L140
 type CreateOperation struct {
 	// DynamicTemplates A map from the full name of fields to the name of dynamic templates.
-	// Defaults to an empty map.
-	// If a name matches a dynamic template, then that template will be applied
+	// It defaults to an empty map.
+	// If a name matches a dynamic template, that template will be applied
 	// regardless of other match predicates defined in the template.
-	// If a field is already defined in the mapping, then this parameter won’t be
+	// If a field is already defined in the mapping, then this parameter won't be
 	// used.
 	DynamicTemplates map[string]string `json:"dynamic_templates,omitempty"`
 	// Id_ The document ID.
 	Id_           *string `json:"_id,omitempty"`
 	IfPrimaryTerm *int64  `json:"if_primary_term,omitempty"`
 	IfSeqNo       *int64  `json:"if_seq_no,omitempty"`
-	// Index_ Name of the index or index alias to perform the action on.
+	// Index_ The name of the index or index alias to perform the action on.
 	Index_ *string `json:"_index,omitempty"`
-	// Pipeline ID of the pipeline to use to preprocess incoming documents.
-	// If the index has a default ingest pipeline specified, then setting the value
-	// to `_none` disables the default ingest pipeline for this request.
-	// If a final pipeline is configured it will always run, regardless of the value
+	// Pipeline The ID of the pipeline to use to preprocess incoming documents.
+	// If the index has a default ingest pipeline specified, setting the value to
+	// `_none` turns off the default ingest pipeline for this request.
+	// If a final pipeline is configured, it will always run regardless of the value
 	// of this parameter.
 	Pipeline *string `json:"pipeline,omitempty"`
-	// RequireAlias If `true`, the request’s actions must target an index alias.
+	// RequireAlias If `true`, the request's actions must target an index alias.
 	RequireAlias *bool `json:"require_alias,omitempty"`
-	// Routing Custom value used to route operations to a specific shard.
+	// Routing A custom value used to route operations to a specific shard.
 	Routing     *string                  `json:"routing,omitempty"`
 	Version     *int64                   `json:"version,omitempty"`
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
@@ -164,8 +164,18 @@ func (s *CreateOperation) UnmarshalJSON(data []byte) error {
 // NewCreateOperation returns a CreateOperation.
 func NewCreateOperation() *CreateOperation {
 	r := &CreateOperation{
-		DynamicTemplates: make(map[string]string, 0),
+		DynamicTemplates: make(map[string]string),
 	}
 
 	return r
+}
+
+// true
+
+type CreateOperationVariant interface {
+	CreateOperationCaster() *CreateOperation
+}
+
+func (s *CreateOperation) CreateOperationCaster() *CreateOperation {
+	return s
 }

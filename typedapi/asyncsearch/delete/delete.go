@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Deletes an async search by identifier.
-// If the search is still running, the search request will be cancelled.
+// Delete an async search.
+//
+// If the asynchronous search is still running, it is cancelled.
 // Otherwise, the saved search results are deleted.
 // If the Elasticsearch security features are enabled, the deletion of a
 // specific async search is restricted to: the authenticated user that submitted
@@ -82,8 +83,9 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 	}
 }
 
-// Deletes an async search by identifier.
-// If the search is still running, the search request will be cancelled.
+// Delete an async search.
+//
+// If the asynchronous search is still running, it is cancelled.
 // Otherwise, the saved search results are deleted.
 // If the Elasticsearch security features are enabled, the deletion of a
 // specific async search is restricted to: the authenticated user that submitted

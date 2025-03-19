@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Cpu type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/_types/Stats.ts#L539-L548
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/nodes/_types/Stats.ts#L575-L584
 type Cpu struct {
 	LoadAverage   map[string]Float64 `json:"load_average,omitempty"`
 	Percent       *int               `json:"percent,omitempty"`
@@ -120,8 +120,10 @@ func (s *Cpu) UnmarshalJSON(data []byte) error {
 // NewCpu returns a Cpu.
 func NewCpu() *Cpu {
 	r := &Cpu{
-		LoadAverage: make(map[string]Float64, 0),
+		LoadAverage: make(map[string]Float64),
 	}
 
 	return r
 }
+
+// false

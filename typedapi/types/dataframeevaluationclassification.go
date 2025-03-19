@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DataframeEvaluationClassification type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/DataframeEvaluation.ts#L35-L44
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/DataframeEvaluation.ts#L35-L44
 type DataframeEvaluationClassification struct {
 	// ActualField The field of the index which contains the ground truth. The data type of this
 	// field can be boolean or integer. If the data type is integer, the value has
@@ -92,4 +92,14 @@ func NewDataframeEvaluationClassification() *DataframeEvaluationClassification {
 	r := &DataframeEvaluationClassification{}
 
 	return r
+}
+
+// true
+
+type DataframeEvaluationClassificationVariant interface {
+	DataframeEvaluationClassificationCaster() *DataframeEvaluationClassification
+}
+
+func (s *DataframeEvaluationClassification) DataframeEvaluationClassificationCaster() *DataframeEvaluationClassification {
+	return s
 }

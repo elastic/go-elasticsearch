@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package putscript
 
@@ -29,10 +29,10 @@ import (
 
 // Request holds the request body struct for the package putscript
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/put_script/PutScriptRequest.ts#L25-L65
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/put_script/PutScriptRequest.ts#L25-L87
 type Request struct {
 
-	// Script Contains the script or search template, its parameters, and its language.
+	// Script The script or search template, its parameters, and its language.
 	Script types.StoredScript `json:"script"`
 }
 

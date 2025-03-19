@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Updates the index_name in the connector document
+// Update the connector index name.
+//
+// Update the `index_name` field of a connector, specifying the index where the
+// data ingested by the connector is stored.
 package updateindexname
 
 import (
@@ -81,7 +84,10 @@ func NewUpdateIndexNameFunc(tp elastictransport.Interface) NewUpdateIndexName {
 	}
 }
 
-// Updates the index_name in the connector document
+// Update the connector index name.
+//
+// Update the `index_name` field of a connector, specifying the index where the
+// data ingested by the connector is stored.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-index-name-api.html
 func New(tp elastictransport.Interface) *UpdateIndexName {
@@ -91,8 +97,6 @@ func New(tp elastictransport.Interface) *UpdateIndexName {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -361,6 +365,11 @@ func (r *UpdateIndexName) Pretty(pretty bool) *UpdateIndexName {
 
 // API name: index_name
 func (r *UpdateIndexName) IndexName(indexname any) *UpdateIndexName {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.IndexName = indexname
 
 	return r

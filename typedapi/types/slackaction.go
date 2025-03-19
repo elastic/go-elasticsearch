@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SlackAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Actions.ts#L91-L94
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/watcher/_types/Actions.ts#L91-L94
 type SlackAction struct {
 	Account *string      `json:"account,omitempty"`
 	Message SlackMessage `json:"message"`
@@ -79,4 +79,14 @@ func NewSlackAction() *SlackAction {
 	r := &SlackAction{}
 
 	return r
+}
+
+// true
+
+type SlackActionVariant interface {
+	SlackActionCaster() *SlackAction
+}
+
+func (s *SlackAction) SlackActionCaster() *SlackAction {
+	return s
 }

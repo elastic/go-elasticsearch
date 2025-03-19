@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // ExecuteEnrichPolicyStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/enrich/execute_policy/types.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/enrich/execute_policy/types.ts#L20-L22
 type ExecuteEnrichPolicyStatus struct {
 	Phase enrichpolicyphase.EnrichPolicyPhase `json:"phase"`
 }
@@ -37,3 +37,5 @@ func NewExecuteEnrichPolicyStatus() *ExecuteEnrichPolicyStatus {
 
 	return r
 }
+
+// false

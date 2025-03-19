@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package create
 
@@ -27,16 +27,25 @@ import (
 
 // Response holds the response body struct for the package create
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/create/CreateResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/create/CreateResponse.ts#L22-L24
 type Response struct {
-	ForcedRefresh *bool                 `json:"forced_refresh,omitempty"`
-	Id_           string                `json:"_id"`
-	Index_        string                `json:"_index"`
-	PrimaryTerm_  *int64                `json:"_primary_term,omitempty"`
-	Result        result.Result         `json:"result"`
-	SeqNo_        *int64                `json:"_seq_no,omitempty"`
-	Shards_       types.ShardStatistics `json:"_shards"`
-	Version_      int64                 `json:"_version"`
+	ForcedRefresh *bool `json:"forced_refresh,omitempty"`
+	// Id_ The unique identifier for the added document.
+	Id_ string `json:"_id"`
+	// Index_ The name of the index the document was added to.
+	Index_ string `json:"_index"`
+	// PrimaryTerm_ The primary term assigned to the document for the indexing operation.
+	PrimaryTerm_ *int64 `json:"_primary_term,omitempty"`
+	// Result The result of the indexing operation: `created` or `updated`.
+	Result result.Result `json:"result"`
+	// SeqNo_ The sequence number assigned to the document for the indexing operation.
+	// Sequence numbers are used to ensure an older version of a document doesn't
+	// overwrite a newer version.
+	SeqNo_ *int64 `json:"_seq_no,omitempty"`
+	// Shards_ Information about the replication process of the operation.
+	Shards_ types.ShardStatistics `json:"_shards"`
+	// Version_ The document version, which is incremented each time the document is updated.
+	Version_ int64 `json:"_version"`
 }
 
 // NewResponse returns a Response

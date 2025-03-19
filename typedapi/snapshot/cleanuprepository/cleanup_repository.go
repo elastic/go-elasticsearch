@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Triggers the review of a snapshot repository’s contents and deletes any stale
-// data not referenced by existing snapshots.
+// Clean up the snapshot repository.
+// Trigger the review of the contents of a snapshot repository and delete any
+// stale data not referenced by existing snapshots.
 package cleanuprepository
 
 import (
@@ -77,8 +78,9 @@ func NewCleanupRepositoryFunc(tp elastictransport.Interface) NewCleanupRepositor
 	}
 }
 
-// Triggers the review of a snapshot repository’s contents and deletes any stale
-// data not referenced by existing snapshots.
+// Clean up the snapshot repository.
+// Trigger the review of the contents of a snapshot repository and delete any
+// stale data not referenced by existing snapshots.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/clean-up-snapshot-repo-api.html
 func New(tp elastictransport.Interface) *CleanupRepository {

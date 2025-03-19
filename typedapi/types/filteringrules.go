@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // FilteringRules type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/connector/_types/Connector.ts#L203-L207
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/connector/_types/Connector.ts#L203-L207
 type FilteringRules struct {
 	AdvancedSnippet FilteringAdvancedSnippet `json:"advanced_snippet"`
 	Rules           []FilteringRule          `json:"rules"`
@@ -34,4 +34,14 @@ func NewFilteringRules() *FilteringRules {
 	r := &FilteringRules{}
 
 	return r
+}
+
+// true
+
+type FilteringRulesVariant interface {
+	FilteringRulesCaster() *FilteringRules
+}
+
+func (s *FilteringRules) FilteringRulesCaster() *FilteringRules {
+	return s
 }

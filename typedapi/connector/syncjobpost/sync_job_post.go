@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Creates a connector sync job.
+// Create a connector sync job.
+//
+// Create a connector sync job document in the internal index and initialize its
+// counters and timestamps with default values.
 package syncjobpost
 
 import (
@@ -75,7 +78,10 @@ func NewSyncJobPostFunc(tp elastictransport.Interface) NewSyncJobPost {
 	}
 }
 
-// Creates a connector sync job.
+// Create a connector sync job.
+//
+// Create a connector sync job document in the internal index and initialize its
+// counters and timestamps with default values.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/create-connector-sync-job-api.html
 func New(tp elastictransport.Interface) *SyncJobPost {
@@ -85,8 +91,6 @@ func New(tp elastictransport.Interface) *SyncJobPost {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -338,9 +342,14 @@ func (r *SyncJobPost) Pretty(pretty bool) *SyncJobPost {
 	return r
 }
 
-// Id The id of the associated connector
+// The id of the associated connector
 // API name: id
 func (r *SyncJobPost) Id(id string) *SyncJobPost {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Id = id
 
 	return r
@@ -348,14 +357,20 @@ func (r *SyncJobPost) Id(id string) *SyncJobPost {
 
 // API name: job_type
 func (r *SyncJobPost) JobType(jobtype syncjobtype.SyncJobType) *SyncJobPost {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.JobType = &jobtype
-
 	return r
 }
 
 // API name: trigger_method
 func (r *SyncJobPost) TriggerMethod(triggermethod syncjobtriggermethod.SyncJobTriggerMethod) *SyncJobPost {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.TriggerMethod = &triggermethod
-
 	return r
 }

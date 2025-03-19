@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/token_filters.ts#L268-L273
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/analysis/token_filters.ts#L267-L272
 type NGramTokenFilter struct {
 	MaxGram          *int               `json:"max_gram,omitempty"`
 	MinGram          *int               `json:"min_gram,omitempty"`
@@ -128,4 +128,14 @@ func NewNGramTokenFilter() *NGramTokenFilter {
 	r := &NGramTokenFilter{}
 
 	return r
+}
+
+// true
+
+type NGramTokenFilterVariant interface {
+	NGramTokenFilterCaster() *NGramTokenFilter
+}
+
+func (s *NGramTokenFilter) NGramTokenFilterCaster() *NGramTokenFilter {
+	return s
 }

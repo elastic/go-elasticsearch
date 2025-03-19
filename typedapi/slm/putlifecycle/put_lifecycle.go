@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Creates or updates a snapshot lifecycle policy.
+// Create or update a policy.
+// Create or update a snapshot lifecycle policy.
+// If the policy already exists, this request increments the policy version.
+// Only the latest version of a policy is stored.
 package putlifecycle
 
 import (
@@ -81,7 +84,10 @@ func NewPutLifecycleFunc(tp elastictransport.Interface) NewPutLifecycle {
 	}
 }
 
-// Creates or updates a snapshot lifecycle policy.
+// Create or update a policy.
+// Create or update a snapshot lifecycle policy.
+// If the policy already exists, this request increments the policy version.
+// Only the latest version of a policy is stored.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-put-policy.html
 func New(tp elastictransport.Interface) *PutLifecycle {
@@ -91,8 +97,6 @@ func New(tp elastictransport.Interface) *PutLifecycle {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -306,7 +310,8 @@ func (r *PutLifecycle) Header(key, value string) *PutLifecycle {
 	return r
 }
 
-// PolicyId ID for the snapshot lifecycle policy you want to create or update.
+// PolicyId The identifier for the snapshot lifecycle policy you want to create or
+// update.
 // API Name: policyid
 func (r *PutLifecycle) _policyid(policyid string) *PutLifecycle {
 	r.paramSet |= policyidMask
@@ -315,8 +320,10 @@ func (r *PutLifecycle) _policyid(policyid string) *PutLifecycle {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an error.
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *PutLifecycle) MasterTimeout(duration string) *PutLifecycle {
 	r.values.Set("master_timeout", duration)
@@ -324,8 +331,10 @@ func (r *PutLifecycle) MasterTimeout(duration string) *PutLifecycle {
 	return r
 }
 
-// Timeout Period to wait for a response. If no response is received before the timeout
-// expires, the request fails and returns an error.
+// Timeout The period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: timeout
 func (r *PutLifecycle) Timeout(duration string) *PutLifecycle {
 	r.values.Set("timeout", duration)
@@ -377,49 +386,71 @@ func (r *PutLifecycle) Pretty(pretty bool) *PutLifecycle {
 	return r
 }
 
-// Config Configuration for each snapshot created by the policy.
+// Configuration for each snapshot created by the policy.
 // API name: config
-func (r *PutLifecycle) Config(config *types.Configuration) *PutLifecycle {
+func (r *PutLifecycle) Config(config types.ConfigurationVariant) *PutLifecycle {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Config = config
+	r.req.Config = config.ConfigurationCaster()
 
 	return r
 }
 
-// Name Name automatically assigned to each snapshot created by the policy. Date math
+// Name automatically assigned to each snapshot created by the policy. Date math
 // is supported. To prevent conflicting snapshot names, a UUID is automatically
 // appended to each snapshot name.
 // API name: name
 func (r *PutLifecycle) Name(name string) *PutLifecycle {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Name = &name
 
 	return r
 }
 
-// Repository Repository used to store snapshots created by this policy. This repository
+// Repository used to store snapshots created by this policy. This repository
 // must exist prior to the policy’s creation. You can create a repository using
 // the snapshot repository API.
 // API name: repository
 func (r *PutLifecycle) Repository(repository string) *PutLifecycle {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Repository = &repository
 
 	return r
 }
 
-// Retention Retention rules used to retain and delete snapshots created by the policy.
+// Retention rules used to retain and delete snapshots created by the policy.
 // API name: retention
-func (r *PutLifecycle) Retention(retention *types.Retention) *PutLifecycle {
+func (r *PutLifecycle) Retention(retention types.RetentionVariant) *PutLifecycle {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Retention = retention
+	r.req.Retention = retention.RetentionCaster()
 
 	return r
 }
 
-// Schedule Periodic or absolute schedule at which the policy creates snapshots. SLM
+// Periodic or absolute schedule at which the policy creates snapshots. SLM
 // applies schedule changes immediately.
 // API name: schedule
 func (r *PutLifecycle) Schedule(cronexpression string) *PutLifecycle {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Schedule = &cronexpression
 
 	return r

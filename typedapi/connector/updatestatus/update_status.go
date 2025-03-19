@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Updates the status of the connector
+// Update the connector status.
 package updatestatus
 
 import (
@@ -82,7 +82,7 @@ func NewUpdateStatusFunc(tp elastictransport.Interface) NewUpdateStatus {
 	}
 }
 
-// Updates the status of the connector
+// Update the connector status.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-status-api.html
 func New(tp elastictransport.Interface) *UpdateStatus {
@@ -92,8 +92,6 @@ func New(tp elastictransport.Interface) *UpdateStatus {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -362,7 +360,10 @@ func (r *UpdateStatus) Pretty(pretty bool) *UpdateStatus {
 
 // API name: status
 func (r *UpdateStatus) Status(status connectorstatus.ConnectorStatus) *UpdateStatus {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Status = status
-
 	return r
 }

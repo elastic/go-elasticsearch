@@ -16,10 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Acknowledges a watch, manually throttling the execution of the watch's
-// actions.
+// Acknowledge a watch.
+// Acknowledging a watch enables you to manually throttle the execution of the
+// watch's actions.
+//
+// The acknowledgement state of an action is stored in the
+// `status.actions.<id>.ack.state` structure.
+//
+// IMPORTANT: If the specified watch is currently being executed, this API will
+// return an error
+// The reason for this behavior is to prevent overwriting the watch status from
+// a watch execution.
+//
+// Acknowledging an action throttles further executions of that action until its
+// `ack.state` is reset to `awaits_successful_execution`.
+// This happens when the condition of the watch is not met (the condition
+// evaluates to false).
 package ackwatch
 
 import (
@@ -80,8 +94,22 @@ func NewAckWatchFunc(tp elastictransport.Interface) NewAckWatch {
 	}
 }
 
-// Acknowledges a watch, manually throttling the execution of the watch's
-// actions.
+// Acknowledge a watch.
+// Acknowledging a watch enables you to manually throttle the execution of the
+// watch's actions.
+//
+// The acknowledgement state of an action is stored in the
+// `status.actions.<id>.ack.state` structure.
+//
+// IMPORTANT: If the specified watch is currently being executed, this API will
+// return an error
+// The reason for this behavior is to prevent overwriting the watch status from
+// a watch execution.
+//
+// Acknowledging an action throttles further executions of that action until its
+// `ack.state` is reset to `awaits_successful_execution`.
+// This happens when the condition of the watch is not met (the condition
+// evaluates to false).
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-ack-watch.html
 func New(tp elastictransport.Interface) *AckWatch {
@@ -318,7 +346,7 @@ func (r *AckWatch) Header(key, value string) *AckWatch {
 	return r
 }
 
-// WatchId Watch ID
+// WatchId The watch identifier.
 // API Name: watchid
 func (r *AckWatch) _watchid(watchid string) *AckWatch {
 	r.paramSet |= watchidMask
@@ -327,7 +355,8 @@ func (r *AckWatch) _watchid(watchid string) *AckWatch {
 	return r
 }
 
-// ActionId A comma-separated list of the action ids to be acked
+// ActionId A comma-separated list of the action identifiers to acknowledge.
+// If you omit this parameter, all of the actions of the watch are acknowledged.
 // API Name: actionid
 func (r *AckWatch) ActionId(actionid string) *AckWatch {
 	r.paramSet |= actionidMask

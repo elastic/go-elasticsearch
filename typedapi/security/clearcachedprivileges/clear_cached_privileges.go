@@ -16,9 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Evicts application privileges from the native application privileges cache.
+// Clear the privileges cache.
+//
+// Evict privileges from the native application privilege cache.
+// The cache is also automatically cleared for applications that have their
+// privileges updated.
 package clearcachedprivileges
 
 import (
@@ -76,7 +80,11 @@ func NewClearCachedPrivilegesFunc(tp elastictransport.Interface) NewClearCachedP
 	}
 }
 
-// Evicts application privileges from the native application privileges cache.
+// Clear the privileges cache.
+//
+// Evict privileges from the native application privilege cache.
+// The cache is also automatically cleared for applications that have their
+// privileges updated.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-privilege-cache.html
 func New(tp elastictransport.Interface) *ClearCachedPrivileges {
@@ -292,7 +300,9 @@ func (r *ClearCachedPrivileges) Header(key, value string) *ClearCachedPrivileges
 	return r
 }
 
-// Application A comma-separated list of application names
+// Application A comma-separated list of applications.
+// To clear all applications, use an asterism (`*`).
+// It does not support other wildcard patterns.
 // API Name: application
 func (r *ClearCachedPrivileges) _application(application string) *ClearCachedPrivileges {
 	r.paramSet |= applicationMask

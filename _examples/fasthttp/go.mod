@@ -1,6 +1,7 @@
 module github.com/elastic/go-elasticsearch/v8/_examples/fasthttp
 
 go 1.21
+
 toolchain go1.21.0
 
 replace github.com/elastic/go-elasticsearch/v8 => ../..
@@ -12,7 +13,7 @@ require (
 
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
-	github.com/elastic/elastic-transport-go/v8 v8.6.0 // indirect
+	github.com/elastic/elastic-transport-go/v8 v8.6.1 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect

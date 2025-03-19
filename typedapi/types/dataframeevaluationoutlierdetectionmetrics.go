@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // DataframeEvaluationOutlierDetectionMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/DataframeEvaluation.ts#L80-L83
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/DataframeEvaluation.ts#L80-L83
 type DataframeEvaluationOutlierDetectionMetrics struct {
 	// AucRoc The AUC ROC (area under the curve of the receiver operating characteristic)
 	// score and optionally the curve. It is calculated for a specific class
@@ -43,10 +43,20 @@ type DataframeEvaluationOutlierDetectionMetrics struct {
 // NewDataframeEvaluationOutlierDetectionMetrics returns a DataframeEvaluationOutlierDetectionMetrics.
 func NewDataframeEvaluationOutlierDetectionMetrics() *DataframeEvaluationOutlierDetectionMetrics {
 	r := &DataframeEvaluationOutlierDetectionMetrics{
-		ConfusionMatrix: make(map[string]json.RawMessage, 0),
-		Precision:       make(map[string]json.RawMessage, 0),
-		Recall:          make(map[string]json.RawMessage, 0),
+		ConfusionMatrix: make(map[string]json.RawMessage),
+		Precision:       make(map[string]json.RawMessage),
+		Recall:          make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type DataframeEvaluationOutlierDetectionMetricsVariant interface {
+	DataframeEvaluationOutlierDetectionMetricsCaster() *DataframeEvaluationOutlierDetectionMetrics
+}
+
+func (s *DataframeEvaluationOutlierDetectionMetrics) DataframeEvaluationOutlierDetectionMetricsCaster() *DataframeEvaluationOutlierDetectionMetrics {
+	return s
 }
