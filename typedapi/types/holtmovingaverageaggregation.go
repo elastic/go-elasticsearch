@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // HoltMovingAverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/pipeline.ts#L283-L286
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/aggregations/pipeline.ts#L283-L286
 type HoltMovingAverageAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
@@ -172,4 +172,14 @@ func NewHoltMovingAverageAggregation() *HoltMovingAverageAggregation {
 	r := &HoltMovingAverageAggregation{}
 
 	return r
+}
+
+// true
+
+type HoltMovingAverageAggregationVariant interface {
+	HoltMovingAverageAggregationCaster() *HoltMovingAverageAggregation
+}
+
+func (s *HoltMovingAverageAggregation) HoltMovingAverageAggregationCaster() *HoltMovingAverageAggregation {
+	return s
 }

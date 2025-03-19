@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newIngestPutIPLocationDatabaseFunc(t Transport) IngestPutIPLocationDatabase {
@@ -53,6 +54,9 @@ type IngestPutIPLocationDatabaseRequest struct {
 	DocumentID string
 
 	Body io.Reader
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -100,6 +104,14 @@ func (r IngestPutIPLocationDatabaseRequest) Do(providedCtx context.Context, tran
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -183,6 +195,20 @@ func (r IngestPutIPLocationDatabaseRequest) Do(providedCtx context.Context, tran
 func (f IngestPutIPLocationDatabase) WithContext(v context.Context) func(*IngestPutIPLocationDatabaseRequest) {
 	return func(r *IngestPutIPLocationDatabaseRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f IngestPutIPLocationDatabase) WithMasterTimeout(v time.Duration) func(*IngestPutIPLocationDatabaseRequest) {
+	return func(r *IngestPutIPLocationDatabaseRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f IngestPutIPLocationDatabase) WithTimeout(v time.Duration) func(*IngestPutIPLocationDatabaseRequest) {
+	return func(r *IngestPutIPLocationDatabaseRequest) {
+		r.Timeout = v
 	}
 }
 

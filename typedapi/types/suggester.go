@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Suggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/search/_types/suggester.ts#L101-L107
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/search/_types/suggester.ts#L101-L107
 type Suggester struct {
 	Suggesters map[string]FieldSuggester `json:"-"`
 	// Text Global suggest text, to avoid repetition when the same text is used in
@@ -116,8 +116,18 @@ func (s Suggester) MarshalJSON() ([]byte, error) {
 // NewSuggester returns a Suggester.
 func NewSuggester() *Suggester {
 	r := &Suggester{
-		Suggesters: make(map[string]FieldSuggester, 0),
+		Suggesters: make(map[string]FieldSuggester),
 	}
 
 	return r
+}
+
+// true
+
+type SuggesterVariant interface {
+	SuggesterCaster() *Suggester
+}
+
+func (s *Suggester) SuggesterCaster() *Suggester {
+	return s
 }

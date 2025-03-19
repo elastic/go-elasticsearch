@@ -16,9 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Returns field usage information for each shard and field of an index.
+// Get field usage stats.
+// Get field usage information for each shard and field of an index.
+// Field usage statistics are automatically captured when queries are running on
+// a cluster.
+// A shard-level search request that accesses a given field, even if multiple
+// times during that request, is counted as a single use.
+//
+// The response body reports the per-shard usage count of the data structures
+// that back the fields in the index.
+// A given request will increment each count by a maximum value of 1, even if
+// the request accesses the same field multiple times.
 package fieldusagestats
 
 import (
@@ -77,9 +87,19 @@ func NewFieldUsageStatsFunc(tp elastictransport.Interface) NewFieldUsageStats {
 	}
 }
 
-// Returns field usage information for each shard and field of an index.
+// Get field usage stats.
+// Get field usage information for each shard and field of an index.
+// Field usage statistics are automatically captured when queries are running on
+// a cluster.
+// A shard-level search request that accesses a given field, even if multiple
+// times during that request, is counted as a single use.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/field-usage-stats.html
+// The response body reports the per-shard usage count of the data structures
+// that back the fields in the index.
+// A given request will increment each count by a maximum value of 1, even if
+// the request accesses the same field multiple times.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-field-usage-stats
 func New(tp elastictransport.Interface) *FieldUsageStats {
 	r := &FieldUsageStats{
 		transport: tp,
@@ -339,26 +359,6 @@ func (r *FieldUsageStats) IgnoreUnavailable(ignoreunavailable bool) *FieldUsageS
 // API name: fields
 func (r *FieldUsageStats) Fields(fields ...string) *FieldUsageStats {
 	r.values.Set("fields", strings.Join(fields, ","))
-
-	return r
-}
-
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
-// API name: master_timeout
-func (r *FieldUsageStats) MasterTimeout(duration string) *FieldUsageStats {
-	r.values.Set("master_timeout", duration)
-
-	return r
-}
-
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
-// API name: timeout
-func (r *FieldUsageStats) Timeout(duration string) *FieldUsageStats {
-	r.values.Set("timeout", duration)
 
 	return r
 }

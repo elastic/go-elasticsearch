@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
 // Definition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/put_trained_model/types.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/put_trained_model/types.ts#L24-L29
 type Definition struct {
 	// Preprocessors Collection of preprocessors
 	Preprocessors []Preprocessor `json:"preprocessors,omitempty"`
@@ -35,4 +35,14 @@ func NewDefinition() *Definition {
 	r := &Definition{}
 
 	return r
+}
+
+// true
+
+type DefinitionVariant interface {
+	DefinitionCaster() *Definition
+}
+
+func (s *Definition) DefinitionCaster() *Definition {
+	return s
 }

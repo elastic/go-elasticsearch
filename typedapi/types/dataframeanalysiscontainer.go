@@ -16,14 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // DataframeAnalysisContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/DataframeAnalytics.ts#L83-L100
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/DataframeAnalytics.ts#L84-L101
 type DataframeAnalysisContainer struct {
+	AdditionalDataframeAnalysisContainerProperty map[string]json.RawMessage `json:"-"`
 	// Classification The configuration information necessary to perform classification.
 	Classification *DataframeAnalysisClassification `json:"classification,omitempty"`
 	// OutlierDetection The configuration information necessary to perform outlier detection. NOTE:
@@ -40,9 +46,50 @@ type DataframeAnalysisContainer struct {
 	Regression *DataframeAnalysisRegression `json:"regression,omitempty"`
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s DataframeAnalysisContainer) MarshalJSON() ([]byte, error) {
+	type opt DataframeAnalysisContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalDataframeAnalysisContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalDataframeAnalysisContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewDataframeAnalysisContainer returns a DataframeAnalysisContainer.
 func NewDataframeAnalysisContainer() *DataframeAnalysisContainer {
-	r := &DataframeAnalysisContainer{}
+	r := &DataframeAnalysisContainer{
+		AdditionalDataframeAnalysisContainerProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type DataframeAnalysisContainerVariant interface {
+	DataframeAnalysisContainerCaster() *DataframeAnalysisContainer
+}
+
+func (s *DataframeAnalysisContainer) DataframeAnalysisContainerCaster() *DataframeAnalysisContainer {
+	return s
 }

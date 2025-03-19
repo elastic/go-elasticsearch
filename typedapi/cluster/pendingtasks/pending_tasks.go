@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Returns cluster-level changes (such as create index, update mapping, allocate
-// or fail shard) that have not yet been executed.
+// Get the pending cluster tasks.
+// Get information about cluster-level changes (such as create index, update
+// mapping, allocate or fail shard) that have not yet taken effect.
+//
 // NOTE: This API returns a list of any pending updates to the cluster state.
-// These are distinct from the tasks reported by the Task Management API which
+// These are distinct from the tasks reported by the task management API which
 // include periodic tasks and tasks initiated by the user, such as node stats,
 // search queries, or create index requests.
 // However, if a user-initiated task such as a create index command causes a
@@ -76,17 +78,19 @@ func NewPendingTasksFunc(tp elastictransport.Interface) NewPendingTasks {
 	}
 }
 
-// Returns cluster-level changes (such as create index, update mapping, allocate
-// or fail shard) that have not yet been executed.
+// Get the pending cluster tasks.
+// Get information about cluster-level changes (such as create index, update
+// mapping, allocate or fail shard) that have not yet taken effect.
+//
 // NOTE: This API returns a list of any pending updates to the cluster state.
-// These are distinct from the tasks reported by the Task Management API which
+// These are distinct from the tasks reported by the task management API which
 // include periodic tasks and tasks initiated by the user, such as node stats,
 // search queries, or create index requests.
 // However, if a user-initiated task such as a create index command causes a
 // cluster state update, the activity of this task might be reported by both
 // task api and pending cluster tasks API.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-pending.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-pending-tasks
 func New(tp elastictransport.Interface) *PendingTasks {
 	r := &PendingTasks{
 		transport: tp,

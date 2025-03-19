@@ -16,10 +16,27 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Promotes a data stream from a replicated data stream managed by CCR to a
-// regular data stream
+// Promote a data stream.
+// Promote a data stream from a replicated data stream managed by cross-cluster
+// replication (CCR) to a regular data stream.
+//
+// With CCR auto following, a data stream from a remote cluster can be
+// replicated to the local cluster.
+// These data streams can't be rolled over in the local cluster.
+// These replicated data streams roll over only if the upstream data stream
+// rolls over.
+// In the event that the remote cluster is no longer available, the data stream
+// in the local cluster can be promoted to a regular data stream, which allows
+// these data streams to be rolled over in the local cluster.
+//
+// NOTE: When promoting a data stream, ensure the local cluster has a data
+// stream enabled index template that matches the data stream.
+// If this is missing, the data stream will not be able to roll over until a
+// matching index template is created.
+// This will affect the lifecycle management of the data stream and interfere
+// with the data stream size and retention.
 package promotedatastream
 
 import (
@@ -77,10 +94,27 @@ func NewPromoteDataStreamFunc(tp elastictransport.Interface) NewPromoteDataStrea
 	}
 }
 
-// Promotes a data stream from a replicated data stream managed by CCR to a
-// regular data stream
+// Promote a data stream.
+// Promote a data stream from a replicated data stream managed by cross-cluster
+// replication (CCR) to a regular data stream.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html
+// With CCR auto following, a data stream from a remote cluster can be
+// replicated to the local cluster.
+// These data streams can't be rolled over in the local cluster.
+// These replicated data streams roll over only if the upstream data stream
+// rolls over.
+// In the event that the remote cluster is no longer available, the data stream
+// in the local cluster can be promoted to a regular data stream, which allows
+// these data streams to be rolled over in the local cluster.
+//
+// NOTE: When promoting a data stream, ensure the local cluster has a data
+// stream enabled index template that matches the data stream.
+// If this is missing, the data stream will not be able to roll over until a
+// matching index template is created.
+// This will affect the lifecycle management of the data stream and interfere
+// with the data stream size and retention.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-promote-data-stream
 func New(tp elastictransport.Interface) *PromoteDataStream {
 	r := &PromoteDataStream{
 		transport: tp,

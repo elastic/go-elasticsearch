@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LoggingAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/_types/Actions.ts#L281-L285
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/watcher/_types/Actions.ts#L281-L285
 type LoggingAction struct {
 	Category *string `json:"category,omitempty"`
 	Level    *string `json:"level,omitempty"`
@@ -99,4 +99,14 @@ func NewLoggingAction() *LoggingAction {
 	r := &LoggingAction{}
 
 	return r
+}
+
+// true
+
+type LoggingActionVariant interface {
+	LoggingActionCaster() *LoggingAction
+}
+
+func (s *LoggingAction) LoggingActionCaster() *LoggingAction {
+	return s
 }

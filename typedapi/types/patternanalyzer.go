@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,14 +31,25 @@ import (
 
 // PatternAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/analyzers.ts#L320-L327
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/analysis/analyzers.ts#L332-L365
 type PatternAnalyzer struct {
-	Flags     *string  `json:"flags,omitempty"`
-	Lowercase *bool    `json:"lowercase,omitempty"`
-	Pattern   string   `json:"pattern"`
+	// Flags Java regular expression flags. Flags should be pipe-separated, eg
+	// "CASE_INSENSITIVE|COMMENTS".
+	Flags *string `json:"flags,omitempty"`
+	// Lowercase Should terms be lowercased or not.
+	// Defaults to `true`.
+	Lowercase *bool `json:"lowercase,omitempty"`
+	// Pattern A Java regular expression.
+	// Defaults to `\W+`.
+	Pattern *string `json:"pattern,omitempty"`
+	// Stopwords A pre-defined stop words list like `_english_` or an array containing a list
+	// of stop words.
+	// Defaults to `_none_`.
 	Stopwords []string `json:"stopwords,omitempty"`
-	Type      string   `json:"type,omitempty"`
-	Version   *string  `json:"version,omitempty"`
+	// StopwordsPath The path to a file containing stop words.
+	StopwordsPath *string `json:"stopwords_path,omitempty"`
+	Type          string  `json:"type,omitempty"`
+	Version       *string `json:"version,omitempty"`
 }
 
 func (s *PatternAnalyzer) UnmarshalJSON(data []byte) error {
@@ -92,7 +103,7 @@ func (s *PatternAnalyzer) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Pattern = o
+			s.Pattern = &o
 
 		case "stopwords":
 			rawMsg := json.RawMessage{}
@@ -109,6 +120,18 @@ func (s *PatternAnalyzer) UnmarshalJSON(data []byte) error {
 					return fmt.Errorf("%s | %w", "Stopwords", err)
 				}
 			}
+
+		case "stopwords_path":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "StopwordsPath", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.StopwordsPath = &o
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
@@ -129,12 +152,13 @@ func (s *PatternAnalyzer) UnmarshalJSON(data []byte) error {
 func (s PatternAnalyzer) MarshalJSON() ([]byte, error) {
 	type innerPatternAnalyzer PatternAnalyzer
 	tmp := innerPatternAnalyzer{
-		Flags:     s.Flags,
-		Lowercase: s.Lowercase,
-		Pattern:   s.Pattern,
-		Stopwords: s.Stopwords,
-		Type:      s.Type,
-		Version:   s.Version,
+		Flags:         s.Flags,
+		Lowercase:     s.Lowercase,
+		Pattern:       s.Pattern,
+		Stopwords:     s.Stopwords,
+		StopwordsPath: s.StopwordsPath,
+		Type:          s.Type,
+		Version:       s.Version,
 	}
 
 	tmp.Type = "pattern"
@@ -147,4 +171,14 @@ func NewPatternAnalyzer() *PatternAnalyzer {
 	r := &PatternAnalyzer{}
 
 	return r
+}
+
+// true
+
+type PatternAnalyzerVariant interface {
+	PatternAnalyzerCaster() *PatternAnalyzer
+}
+
+func (s *PatternAnalyzer) PatternAnalyzerCaster() *PatternAnalyzer {
+	return s
 }

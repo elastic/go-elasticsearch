@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,11 +31,11 @@ import (
 
 // SpanContainingQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/span.ts#L25-L39
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/query_dsl/span.ts#L25-L39
 type SpanContainingQuery struct {
 	// Big Can be any span query.
 	// Matching spans from `big` that contain matches from `little` are returned.
-	Big *SpanQuery `json:"big,omitempty"`
+	Big SpanQuery `json:"big"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
 	// Boost values are relative to the default value of 1.0.
@@ -44,8 +44,8 @@ type SpanContainingQuery struct {
 	Boost *float32 `json:"boost,omitempty"`
 	// Little Can be any span query.
 	// Matching spans from `big` that contain matches from `little` are returned.
-	Little     *SpanQuery `json:"little,omitempty"`
-	QueryName_ *string    `json:"_name,omitempty"`
+	Little     SpanQuery `json:"little"`
+	QueryName_ *string   `json:"_name,omitempty"`
 }
 
 func (s *SpanContainingQuery) UnmarshalJSON(data []byte) error {
@@ -111,4 +111,14 @@ func NewSpanContainingQuery() *SpanContainingQuery {
 	r := &SpanContainingQuery{}
 
 	return r
+}
+
+// true
+
+type SpanContainingQueryVariant interface {
+	SpanContainingQueryCaster() *SpanContainingQuery
+}
+
+func (s *SpanContainingQuery) SpanContainingQueryCaster() *SpanContainingQuery {
+	return s
 }

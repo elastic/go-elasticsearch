@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Counter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/xpack/usage/types.ts#L33-L36
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/xpack/usage/types.ts#L32-L35
 type Counter struct {
 	Active int64 `json:"active"`
 	Total  int64 `json:"total"`
@@ -93,3 +93,5 @@ func NewCounter() *Counter {
 
 	return r
 }
+
+// false

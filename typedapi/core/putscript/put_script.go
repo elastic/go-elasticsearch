@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Create or update a script or search template.
 // Creates or updates a stored script or search template.
@@ -88,7 +88,7 @@ func NewPutScriptFunc(tp elastictransport.Interface) NewPutScript {
 // Create or update a script or search template.
 // Creates or updates a stored script or search template.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-scripting.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-put-script
 func New(tp elastictransport.Interface) *PutScript {
 	r := &PutScript{
 		transport: tp,
@@ -96,8 +96,6 @@ func New(tp elastictransport.Interface) *PutScript {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -326,8 +324,8 @@ func (r *PutScript) Header(key, value string) *PutScript {
 	return r
 }
 
-// Id Identifier for the stored script or search template.
-// Must be unique within the cluster.
+// Id The identifier for the stored script or search template.
+// It must be unique within the cluster.
 // API Name: id
 func (r *PutScript) _id(id string) *PutScript {
 	r.paramSet |= idMask
@@ -336,7 +334,7 @@ func (r *PutScript) _id(id string) *PutScript {
 	return r
 }
 
-// Context Context in which the script or search template should run.
+// Context The context in which the script or search template should run.
 // To prevent errors, the API immediately compiles the script or template in
 // this context.
 // API Name: context
@@ -347,9 +345,10 @@ func (r *PutScript) Context(context string) *PutScript {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
+// MasterTimeout The period to wait for a connection to the master node.
 // If no response is received before the timeout expires, the request fails and
 // returns an error.
+// It can also be set to `-1` to indicate that the request should never timeout.
 // API name: master_timeout
 func (r *PutScript) MasterTimeout(duration string) *PutScript {
 	r.values.Set("master_timeout", duration)
@@ -357,9 +356,10 @@ func (r *PutScript) MasterTimeout(duration string) *PutScript {
 	return r
 }
 
-// Timeout Period to wait for a response.
+// Timeout The period to wait for a response.
 // If no response is received before the timeout expires, the request fails and
 // returns an error.
+// It can also be set to `-1` to indicate that the request should never timeout.
 // API name: timeout
 func (r *PutScript) Timeout(duration string) *PutScript {
 	r.values.Set("timeout", duration)
@@ -411,11 +411,15 @@ func (r *PutScript) Pretty(pretty bool) *PutScript {
 	return r
 }
 
-// Script Contains the script or search template, its parameters, and its language.
+// The script or search template, its parameters, and its language.
 // API name: script
-func (r *PutScript) Script(script *types.StoredScript) *PutScript {
+func (r *PutScript) Script(script types.StoredScriptVariant) *PutScript {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Script = *script
+	r.req.Script = *script.StoredScriptCaster()
 
 	return r
 }

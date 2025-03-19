@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -30,18 +30,22 @@ import (
 
 // SnapshotLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/slm/_types/SnapshotLifecycle.ts#L38-L49
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/slm/_types/SnapshotLifecycle.ts#L38-L59
 type SnapshotLifecycle struct {
-	InProgress          *InProgress `json:"in_progress,omitempty"`
-	LastFailure         *Invocation `json:"last_failure,omitempty"`
-	LastSuccess         *Invocation `json:"last_success,omitempty"`
-	ModifiedDate        DateTime    `json:"modified_date,omitempty"`
-	ModifiedDateMillis  int64       `json:"modified_date_millis"`
-	NextExecution       DateTime    `json:"next_execution,omitempty"`
-	NextExecutionMillis int64       `json:"next_execution_millis"`
-	Policy              SLMPolicy   `json:"policy"`
-	Stats               Statistics  `json:"stats"`
-	Version             int64       `json:"version"`
+	InProgress  *InProgress `json:"in_progress,omitempty"`
+	LastFailure *Invocation `json:"last_failure,omitempty"`
+	LastSuccess *Invocation `json:"last_success,omitempty"`
+	// ModifiedDate The last time the policy was modified.
+	ModifiedDate       DateTime `json:"modified_date,omitempty"`
+	ModifiedDateMillis int64    `json:"modified_date_millis"`
+	// NextExecution The next time the policy will run.
+	NextExecution       DateTime   `json:"next_execution,omitempty"`
+	NextExecutionMillis int64      `json:"next_execution_millis"`
+	Policy              SLMPolicy  `json:"policy"`
+	Stats               Statistics `json:"stats"`
+	// Version The version of the snapshot policy.
+	// Only the latest version is stored and incremented when the policy is updated.
+	Version int64 `json:"version"`
 }
 
 func (s *SnapshotLifecycle) UnmarshalJSON(data []byte) error {
@@ -120,3 +124,5 @@ func NewSnapshotLifecycle() *SnapshotLifecycle {
 
 	return r
 }
+
+// false

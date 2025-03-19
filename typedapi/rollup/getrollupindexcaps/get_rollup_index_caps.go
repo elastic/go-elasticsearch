@@ -16,10 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Returns the rollup capabilities of all jobs inside of a rollup index (for
-// example, the index where rollup data is stored).
+// Get the rollup index capabilities.
+// Get the rollup capabilities of all jobs inside of a rollup index.
+// A single rollup index may store the data for multiple rollup jobs and may
+// have a variety of capabilities depending on those jobs. This API enables you
+// to determine:
+//
+// * What jobs are stored in an index (or indices specified via a pattern)?
+// * What target indices were rolled up, what fields were used in those rollups,
+// and what aggregations can be performed on each job?
 package getrollupindexcaps
 
 import (
@@ -77,10 +84,17 @@ func NewGetRollupIndexCapsFunc(tp elastictransport.Interface) NewGetRollupIndexC
 	}
 }
 
-// Returns the rollup capabilities of all jobs inside of a rollup index (for
-// example, the index where rollup data is stored).
+// Get the rollup index capabilities.
+// Get the rollup capabilities of all jobs inside of a rollup index.
+// A single rollup index may store the data for multiple rollup jobs and may
+// have a variety of capabilities depending on those jobs. This API enables you
+// to determine:
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/rollup-get-rollup-index-caps.html
+// * What jobs are stored in an index (or indices specified via a pattern)?
+// * What target indices were rolled up, what fields were used in those rollups,
+// and what aggregations can be performed on each job?
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-rollup-index-caps
 func New(tp elastictransport.Interface) *GetRollupIndexCaps {
 	r := &GetRollupIndexCaps{
 		transport: tp,

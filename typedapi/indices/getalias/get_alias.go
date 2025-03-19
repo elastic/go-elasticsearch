@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Get aliases.
 // Retrieves information for one or more data stream or index aliases.
@@ -83,7 +83,7 @@ func NewGetAliasFunc(tp elastictransport.Interface) NewGetAlias {
 // Get aliases.
 // Retrieves information for one or more data stream or index aliases.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-alias
 func New(tp elastictransport.Interface) *GetAlias {
 	r := &GetAlias{
 		transport: tp,
@@ -416,6 +416,16 @@ func (r *GetAlias) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildc
 // API name: ignore_unavailable
 func (r *GetAlias) IgnoreUnavailable(ignoreunavailable bool) *GetAlias {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: master_timeout
+func (r *GetAlias) MasterTimeout(duration string) *GetAlias {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

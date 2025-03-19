@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Deletes a repository.
+// Delete snapshot repositories.
+// When a repository is unregistered, Elasticsearch removes only the reference
+// to the location where the repository is storing the snapshots.
+// The snapshots themselves are left untouched and in place.
 package deleterepository
 
 import (
@@ -76,9 +79,12 @@ func NewDeleteRepositoryFunc(tp elastictransport.Interface) NewDeleteRepository 
 	}
 }
 
-// Deletes a repository.
+// Delete snapshot repositories.
+// When a repository is unregistered, Elasticsearch removes only the reference
+// to the location where the repository is storing the snapshots.
+// The snapshots themselves are left untouched and in place.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-snapshots.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-delete-repository
 func New(tp elastictransport.Interface) *DeleteRepository {
 	r := &DeleteRepository{
 		transport: tp,
@@ -288,8 +294,8 @@ func (r *DeleteRepository) Header(key, value string) *DeleteRepository {
 	return r
 }
 
-// Repository Name of the snapshot repository to unregister. Wildcard (`*`) patterns are
-// supported.
+// Repository The ame of the snapshot repositories to unregister.
+// Wildcard (`*`) patterns are supported.
 // API Name: repository
 func (r *DeleteRepository) _repository(repository string) *DeleteRepository {
 	r.paramSet |= repositoryMask
@@ -298,7 +304,10 @@ func (r *DeleteRepository) _repository(repository string) *DeleteRepository {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout The period to wait for the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *DeleteRepository) MasterTimeout(duration string) *DeleteRepository {
 	r.values.Set("master_timeout", duration)
@@ -306,7 +315,12 @@ func (r *DeleteRepository) MasterTimeout(duration string) *DeleteRepository {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout The period to wait for a response from all relevant nodes in the cluster
+// after updating the cluster metadata.
+// If no response is received before the timeout expires, the cluster metadata
+// update still applies but the response will indicate that it was not
+// completely acknowledged.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: timeout
 func (r *DeleteRepository) Timeout(duration string) *DeleteRepository {
 	r.values.Set("timeout", duration)

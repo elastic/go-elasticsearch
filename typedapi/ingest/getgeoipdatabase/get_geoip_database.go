@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Returns information about one or more geoip database configurations.
+// Get GeoIP database configurations.
+//
+// Get information about one or more IP geolocation database configurations.
 package getgeoipdatabase
 
 import (
@@ -74,9 +76,11 @@ func NewGetGeoipDatabaseFunc(tp elastictransport.Interface) NewGetGeoipDatabase 
 	}
 }
 
-// Returns information about one or more geoip database configurations.
+// Get GeoIP database configurations.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-geoip-database-api.html
+// Get information about one or more IP geolocation database configurations.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-geoip-database
 func New(tp elastictransport.Interface) *GetGeoipDatabase {
 	r := &GetGeoipDatabase{
 		transport: tp,
@@ -299,23 +303,13 @@ func (r *GetGeoipDatabase) Header(key, value string) *GetGeoipDatabase {
 	return r
 }
 
-// Id Comma-separated list of database configuration IDs to retrieve.
+// Id A comma-separated list of database configuration IDs to retrieve.
 // Wildcard (`*`) expressions are supported.
 // To get all database configurations, omit this parameter or use `*`.
 // API Name: id
 func (r *GetGeoipDatabase) Id(id string) *GetGeoipDatabase {
 	r.paramSet |= idMask
 	r.id = id
-
-	return r
-}
-
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
-// API name: master_timeout
-func (r *GetGeoipDatabase) MasterTimeout(duration string) *GetGeoipDatabase {
-	r.values.Set("master_timeout", duration)
 
 	return r
 }

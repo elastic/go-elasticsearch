@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // NestedQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/joining.ts#L112-L139
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/query_dsl/joining.ts#L112-L139
 type NestedQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -49,7 +49,7 @@ type NestedQuery struct {
 	// Path Path to the nested object you wish to search.
 	Path string `json:"path"`
 	// Query Query you wish to run on nested objects in the path.
-	Query      *Query  `json:"query,omitempty"`
+	Query      Query   `json:"query"`
 	QueryName_ *string `json:"_name,omitempty"`
 	// ScoreMode How scores for matching child objects affect the root parent document’s
 	// relevance score.
@@ -143,4 +143,14 @@ func NewNestedQuery() *NestedQuery {
 	r := &NestedQuery{}
 
 	return r
+}
+
+// true
+
+type NestedQueryVariant interface {
+	NestedQueryCaster() *NestedQuery
+}
+
+func (s *NestedQuery) NestedQueryCaster() *NestedQuery {
+	return s
 }

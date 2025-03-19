@@ -16,16 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Get a document count.
-// Provides quick access to a document count for a data stream, an index, or an
+//
+// Get quick access to a document count for a data stream, an index, or an
 // entire cluster.
 // The document count only includes live documents, not deleted documents which
 // have not yet been removed by the merge process.
 //
-// CAT APIs are only intended for human consumption using the command line or
-// Kibana console.
+// IMPORTANT: CAT APIs are only intended for human consumption using the command
+// line or Kibana console.
 // They are not intended for use by applications. For application consumption,
 // use the count API.
 package count
@@ -84,17 +85,18 @@ func NewCountFunc(tp elastictransport.Interface) NewCount {
 }
 
 // Get a document count.
-// Provides quick access to a document count for a data stream, an index, or an
+//
+// Get quick access to a document count for a data stream, an index, or an
 // entire cluster.
 // The document count only includes live documents, not deleted documents which
 // have not yet been removed by the merge process.
 //
-// CAT APIs are only intended for human consumption using the command line or
-// Kibana console.
+// IMPORTANT: CAT APIs are only intended for human consumption using the command
+// line or Kibana console.
 // They are not intended for use by applications. For application consumption,
 // use the count API.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-count.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-count
 func New(tp elastictransport.Interface) *Count {
 	r := &Count{
 		transport: tp,
@@ -313,14 +315,33 @@ func (r *Count) Header(key, value string) *Count {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases used to limit the
-// request.
-// Supports wildcards (`*`). To target all data streams and indices, omit this
-// parameter or use `*` or `_all`.
+// Index A comma-separated list of data streams, indices, and aliases used to limit
+// the request.
+// It supports wildcards (`*`).
+// To target all data streams and indices, omit this parameter or use `*` or
+// `_all`.
 // API Name: index
 func (r *Count) Index(index string) *Count {
 	r.paramSet |= indexMask
 	r.index = index
+
+	return r
+}
+
+// H List of columns to appear in the response. Supports simple wildcards.
+// API name: h
+func (r *Count) H(names ...string) *Count {
+	r.values.Set("h", strings.Join(names, ","))
+
+	return r
+}
+
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *Count) S(names ...string) *Count {
+	r.values.Set("s", strings.Join(names, ","))
 
 	return r
 }
@@ -334,48 +355,11 @@ func (r *Count) Format(format string) *Count {
 	return r
 }
 
-// H List of columns to appear in the response. Supports simple wildcards.
-// API name: h
-func (r *Count) H(names ...string) *Count {
-	r.values.Set("h", strings.Join(names, ","))
-
-	return r
-}
-
 // Help When set to `true` will output available columns. This option
 // can't be combined with any other query string option.
 // API name: help
 func (r *Count) Help(help bool) *Count {
 	r.values.Set("help", strconv.FormatBool(help))
-
-	return r
-}
-
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
-// API name: local
-func (r *Count) Local(local bool) *Count {
-	r.values.Set("local", strconv.FormatBool(local))
-
-	return r
-}
-
-// MasterTimeout Period to wait for a connection to the master node.
-// API name: master_timeout
-func (r *Count) MasterTimeout(duration string) *Count {
-	r.values.Set("master_timeout", duration)
-
-	return r
-}
-
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *Count) S(names ...string) *Count {
-	r.values.Set("s", strings.Join(names, ","))
 
 	return r
 }

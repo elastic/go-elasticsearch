@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Deletes a geoip database configuration.
+// Delete GeoIP database configurations.
+//
+// Delete one or more IP geolocation database configurations.
 package deletegeoipdatabase
 
 import (
@@ -76,9 +78,11 @@ func NewDeleteGeoipDatabaseFunc(tp elastictransport.Interface) NewDeleteGeoipDat
 	}
 }
 
-// Deletes a geoip database configuration.
+// Delete GeoIP database configurations.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-geoip-database-api.html
+// Delete one or more IP geolocation database configurations.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-delete-geoip-database
 func New(tp elastictransport.Interface) *DeleteGeoipDatabase {
 	r := &DeleteGeoipDatabase{
 		transport: tp,
@@ -301,7 +305,7 @@ func (r *DeleteGeoipDatabase) _id(id string) *DeleteGeoipDatabase {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
+// MasterTimeout The period to wait for a connection to the master node.
 // If no response is received before the timeout expires, the request fails and
 // returns an error.
 // API name: master_timeout
@@ -311,8 +315,8 @@ func (r *DeleteGeoipDatabase) MasterTimeout(duration string) *DeleteGeoipDatabas
 	return r
 }
 
-// Timeout Period to wait for a response. If no response is received before the timeout
-// expires, the request fails and returns an error.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error.
 // API name: timeout
 func (r *DeleteGeoipDatabase) Timeout(duration string) *DeleteGeoipDatabase {
 	r.values.Set("timeout", duration)

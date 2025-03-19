@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package gettrialstatus
 
 // Response holds the response body struct for the package gettrialstatus
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/license/get_trial_status/GetTrialLicenseStatusResponse.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/license/get_trial_status/GetTrialLicenseStatusResponse.ts#L20-L22
 type Response struct {
 	EligibleToStartTrial bool `json:"eligible_to_start_trial"`
 }

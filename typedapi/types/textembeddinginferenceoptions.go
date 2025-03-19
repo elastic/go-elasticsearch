@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TextEmbeddingInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/inference.ts#L237-L245
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/inference.ts#L221-L231
 type TextEmbeddingInferenceOptions struct {
 	// EmbeddingSize The number of dimensions in the embedding output
 	EmbeddingSize *int `json:"embedding_size,omitempty"`
@@ -40,6 +40,7 @@ type TextEmbeddingInferenceOptions struct {
 	ResultsField *string `json:"results_field,omitempty"`
 	// Tokenization The tokenization options
 	Tokenization *TokenizationConfigContainer `json:"tokenization,omitempty"`
+	Vocabulary   Vocabulary                   `json:"vocabulary"`
 }
 
 func (s *TextEmbeddingInferenceOptions) UnmarshalJSON(data []byte) error {
@@ -90,6 +91,11 @@ func (s *TextEmbeddingInferenceOptions) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Tokenization", err)
 			}
 
+		case "vocabulary":
+			if err := dec.Decode(&s.Vocabulary); err != nil {
+				return fmt.Errorf("%s | %w", "Vocabulary", err)
+			}
+
 		}
 	}
 	return nil
@@ -100,4 +106,14 @@ func NewTextEmbeddingInferenceOptions() *TextEmbeddingInferenceOptions {
 	r := &TextEmbeddingInferenceOptions{}
 
 	return r
+}
+
+// true
+
+type TextEmbeddingInferenceOptionsVariant interface {
+	TextEmbeddingInferenceOptionsCaster() *TextEmbeddingInferenceOptions
+}
+
+func (s *TextEmbeddingInferenceOptions) TextEmbeddingInferenceOptionsCaster() *TextEmbeddingInferenceOptions {
+	return s
 }

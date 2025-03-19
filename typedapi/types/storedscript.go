@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -33,12 +33,14 @@ import (
 
 // StoredScript type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Scripting.ts#L47-L57
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/Scripting.ts#L47-L59
 type StoredScript struct {
-	// Lang Specifies the language the script is written in.
+	// Lang The language the script is written in.
+	// For serach templates, use `mustache`.
 	Lang    scriptlanguage.ScriptLanguage `json:"lang"`
 	Options map[string]string             `json:"options,omitempty"`
 	// Source The script source.
+	// For search templates, an object containing the search template.
 	Source string `json:"source"`
 }
 
@@ -90,8 +92,18 @@ func (s *StoredScript) UnmarshalJSON(data []byte) error {
 // NewStoredScript returns a StoredScript.
 func NewStoredScript() *StoredScript {
 	r := &StoredScript{
-		Options: make(map[string]string, 0),
+		Options: make(map[string]string),
 	}
 
 	return r
+}
+
+// true
+
+type StoredScriptVariant interface {
+	StoredScriptCaster() *StoredScript
+}
+
+func (s *StoredScript) StoredScriptCaster() *StoredScript {
+	return s
 }

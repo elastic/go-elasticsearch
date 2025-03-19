@@ -16,10 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Get a document's source.
-// Returns the source of a document.
+//
+// Get the source of a document.
+// For example:
+//
+// ```
+// GET my-index-000001/_source/1
+// ```
+//
+// You can use the source filtering parameters to control which parts of the
+// `_source` are returned:
+//
+// ```
+// GET
+// my-index-000001/_source/1/?_source_includes=*.id&_source_excludes=entities
+// ```
 package getsource
 
 import (
@@ -84,9 +98,23 @@ func NewGetSourceFunc(tp elastictransport.Interface) NewGetSource {
 }
 
 // Get a document's source.
-// Returns the source of a document.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-get.html
+// Get the source of a document.
+// For example:
+//
+// ```
+// GET my-index-000001/_source/1
+// ```
+//
+// You can use the source filtering parameters to control which parts of the
+// `_source` are returned:
+//
+// ```
+// GET
+// my-index-000001/_source/1/?_source_includes=*.id&_source_excludes=entities
+// ```
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
 func New(tp elastictransport.Interface) *GetSource {
 	r := &GetSource{
 		transport: tp,
@@ -302,7 +330,7 @@ func (r *GetSource) Header(key, value string) *GetSource {
 	return r
 }
 
-// Id Unique identifier of the document.
+// Id A unique document identifier.
 // API Name: id
 func (r *GetSource) _id(id string) *GetSource {
 	r.paramSet |= idMask
@@ -311,7 +339,7 @@ func (r *GetSource) _id(id string) *GetSource {
 	return r
 }
 
-// Index Name of the index that contains the document.
+// Index The name of the index that contains the document.
 // API Name: index
 func (r *GetSource) _index(index string) *GetSource {
 	r.paramSet |= indexMask
@@ -320,8 +348,8 @@ func (r *GetSource) _index(index string) *GetSource {
 	return r
 }
 
-// Preference Specifies the node or shard the operation should be performed on. Random by
-// default.
+// Preference The node or shard the operation should be performed on.
+// By default, the operation is randomized between the shard replicas.
 // API name: preference
 func (r *GetSource) Preference(preference string) *GetSource {
 	r.values.Set("preference", preference)
@@ -329,7 +357,7 @@ func (r *GetSource) Preference(preference string) *GetSource {
 	return r
 }
 
-// Realtime Boolean) If true, the request is real-time as opposed to near-real-time.
+// Realtime If `true`, the request is real-time as opposed to near-real-time.
 // API name: realtime
 func (r *GetSource) Realtime(realtime bool) *GetSource {
 	r.values.Set("realtime", strconv.FormatBool(realtime))
@@ -337,8 +365,10 @@ func (r *GetSource) Realtime(realtime bool) *GetSource {
 	return r
 }
 
-// Refresh If true, Elasticsearch refreshes the affected shards to make this operation
-// visible to search. If false, do nothing with refreshes.
+// Refresh If `true`, the request refreshes the relevant shards before retrieving the
+// document.
+// Setting it to `true` should be done after careful thought and verification
+// that this does not cause a heavy load on the system (and slow down indexing).
 // API name: refresh
 func (r *GetSource) Refresh(refresh bool) *GetSource {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
@@ -346,7 +376,7 @@ func (r *GetSource) Refresh(refresh bool) *GetSource {
 	return r
 }
 
-// Routing Target the specified primary shard.
+// Routing A custom value used to route operations to a specific shard.
 // API name: routing
 func (r *GetSource) Routing(routing string) *GetSource {
 	r.values.Set("routing", routing)
@@ -354,8 +384,8 @@ func (r *GetSource) Routing(routing string) *GetSource {
 	return r
 }
 
-// Source_ True or false to return the _source field or not, or a list of fields to
-// return.
+// Source_ Indicates whether to return the `_source` field (`true` or `false`) or lists
+// the fields to return.
 // API name: _source
 func (r *GetSource) Source_(sourceconfigparam string) *GetSource {
 	r.values.Set("_source", sourceconfigparam)
@@ -379,6 +409,7 @@ func (r *GetSource) SourceIncludes_(fields ...string) *GetSource {
 	return r
 }
 
+// StoredFields A comma-separated list of stored fields to return as part of a hit.
 // API name: stored_fields
 func (r *GetSource) StoredFields(fields ...string) *GetSource {
 	r.values.Set("stored_fields", strings.Join(fields, ","))
@@ -386,8 +417,8 @@ func (r *GetSource) StoredFields(fields ...string) *GetSource {
 	return r
 }
 
-// Version Explicit version number for concurrency control. The specified version must
-// match the current version of the document for the request to succeed.
+// Version The version number for concurrency control.
+// It must match the current version of the document for the request to succeed.
 // API name: version
 func (r *GetSource) Version(versionnumber string) *GetSource {
 	r.values.Set("version", versionnumber)
@@ -395,7 +426,7 @@ func (r *GetSource) Version(versionnumber string) *GetSource {
 	return r
 }
 
-// VersionType Specific version type: internal, external, external_gte.
+// VersionType The version type.
 // API name: version_type
 func (r *GetSource) VersionType(versiontype versiontype.VersionType) *GetSource {
 	r.values.Set("version_type", versiontype.String())

@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Returns thread pool statistics for each node in a cluster.
+// Get thread pool statistics.
+//
+// Get thread pool statistics for each node in a cluster.
 // Returned information includes all built-in thread pools and custom thread
 // pools.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
@@ -80,14 +82,16 @@ func NewThreadPoolFunc(tp elastictransport.Interface) NewThreadPool {
 	}
 }
 
-// Returns thread pool statistics for each node in a cluster.
+// Get thread pool statistics.
+//
+// Get thread pool statistics for each node in a cluster.
 // Returned information includes all built-in thread pools and custom thread
 // pools.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the nodes info API.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-thread-pool.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-thread-pool
 func New(tp elastictransport.Interface) *ThreadPool {
 	r := &ThreadPool{
 		transport: tp,
@@ -316,23 +320,6 @@ func (r *ThreadPool) ThreadPoolPatterns(threadpoolpatterns string) *ThreadPool {
 	return r
 }
 
-// Time The unit used to display time values.
-// API name: time
-func (r *ThreadPool) Time(time timeunit.TimeUnit) *ThreadPool {
-	r.values.Set("time", time.String())
-
-	return r
-}
-
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
-// API name: format
-func (r *ThreadPool) Format(format string) *ThreadPool {
-	r.values.Set("format", format)
-
-	return r
-}
-
 // H List of columns to appear in the response. Supports simple wildcards.
 // API name: h
 func (r *ThreadPool) H(names ...string) *ThreadPool {
@@ -341,11 +328,20 @@ func (r *ThreadPool) H(names ...string) *ThreadPool {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
-// API name: help
-func (r *ThreadPool) Help(help bool) *ThreadPool {
-	r.values.Set("help", strconv.FormatBool(help))
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *ThreadPool) S(names ...string) *ThreadPool {
+	r.values.Set("s", strings.Join(names, ","))
+
+	return r
+}
+
+// Time The unit used to display time values.
+// API name: time
+func (r *ThreadPool) Time(time timeunit.TimeUnit) *ThreadPool {
+	r.values.Set("time", time.String())
 
 	return r
 }
@@ -369,12 +365,20 @@ func (r *ThreadPool) MasterTimeout(duration string) *ThreadPool {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *ThreadPool) S(names ...string) *ThreadPool {
-	r.values.Set("s", strings.Join(names, ","))
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *ThreadPool) Format(format string) *ThreadPool {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *ThreadPool) Help(help bool) *ThreadPool {
+	r.values.Set("help", strconv.FormatBool(help))
 
 	return r
 }

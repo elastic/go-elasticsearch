@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // IndexSegmentSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/IndexSegmentSort.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/indices/_types/IndexSegmentSort.ts#L22-L27
 type IndexSegmentSort struct {
 	Field   []string                                `json:"field,omitempty"`
 	Missing []segmentsortmissing.SegmentSortMissing `json:"missing,omitempty"`
@@ -131,4 +131,14 @@ func NewIndexSegmentSort() *IndexSegmentSort {
 	r := &IndexSegmentSort{}
 
 	return r
+}
+
+// true
+
+type IndexSegmentSortVariant interface {
+	IndexSegmentSortCaster() *IndexSegmentSort
+}
+
+func (s *IndexSegmentSort) IndexSegmentSortCaster() *IndexSegmentSort {
+	return s
 }

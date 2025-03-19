@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CacheQueries type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/IndexSettings.ts#L407-L409
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/indices/_types/IndexSettings.ts#L421-L423
 type CacheQueries struct {
 	Enabled bool `json:"enabled"`
 }
@@ -75,4 +75,14 @@ func NewCacheQueries() *CacheQueries {
 	r := &CacheQueries{}
 
 	return r
+}
+
+// true
+
+type CacheQueriesVariant interface {
+	CacheQueriesCaster() *CacheQueries
+}
+
+func (s *CacheQueries) CacheQueriesCaster() *CacheQueries {
+	return s
 }

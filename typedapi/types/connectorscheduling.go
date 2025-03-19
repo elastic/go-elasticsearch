@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ConnectorScheduling type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/connector/_types/Connector.ts#L106-L110
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/connector/_types/Connector.ts#L106-L110
 type ConnectorScheduling struct {
 	Enabled bool `json:"enabled"`
 	// Interval The interval is expressed using the crontab syntax
@@ -89,4 +89,14 @@ func NewConnectorScheduling() *ConnectorScheduling {
 	r := &ConnectorScheduling{}
 
 	return r
+}
+
+// true
+
+type ConnectorSchedulingVariant interface {
+	ConnectorSchedulingCaster() *ConnectorScheduling
+}
+
+func (s *ConnectorScheduling) ConnectorSchedulingCaster() *ConnectorScheduling {
+	return s
 }

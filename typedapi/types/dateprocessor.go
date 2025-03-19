@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DateProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ingest/_types/Processors.ts#L729-L762
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ingest/_types/Processors.ts#L770-L803
 type DateProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
@@ -43,7 +43,7 @@ type DateProcessor struct {
 	// UNIX_MS, or TAI64N.
 	Formats []string `json:"formats"`
 	// If Conditionally execute the processor.
-	If *string `json:"if,omitempty"`
+	If *Script `json:"if,omitempty"`
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
 	// Locale The locale to use when parsing the date, relevant when parsing month names or
@@ -103,16 +103,9 @@ func (s *DateProcessor) UnmarshalJSON(data []byte) error {
 			}
 
 		case "if":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.If); err != nil {
 				return fmt.Errorf("%s | %w", "If", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.If = &o
 
 		case "ignore_failure":
 			var tmp any
@@ -196,4 +189,14 @@ func NewDateProcessor() *DateProcessor {
 	r := &DateProcessor{}
 
 	return r
+}
+
+// true
+
+type DateProcessorVariant interface {
+	DateProcessorCaster() *DateProcessor
+}
+
+func (s *DateProcessor) DateProcessorCaster() *DateProcessor {
+	return s
 }

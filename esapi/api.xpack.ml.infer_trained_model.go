@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -88,7 +88,7 @@ func (r MLInferTrainedModelRequest) Do(providedCtx context.Context, transport Tr
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("deployment") + 1 + len("_infer"))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("_infer"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
@@ -99,8 +99,6 @@ func (r MLInferTrainedModelRequest) Do(providedCtx context.Context, transport Tr
 	if instrument, ok := r.instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "model_id", r.ModelID)
 	}
-	path.WriteString("/")
-	path.WriteString("deployment")
 	path.WriteString("/")
 	path.WriteString("_infer")
 

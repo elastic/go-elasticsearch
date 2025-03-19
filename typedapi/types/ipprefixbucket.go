@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // IpPrefixBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/Aggregate.ts#L715-L720
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/aggregations/Aggregate.ts#L715-L720
 type IpPrefixBucket struct {
 	Aggregations map[string]Aggregate `json:"-"`
 	DocCount     int64                `json:"doc_count"`
@@ -683,8 +683,10 @@ func (s IpPrefixBucket) MarshalJSON() ([]byte, error) {
 // NewIpPrefixBucket returns a IpPrefixBucket.
 func NewIpPrefixBucket() *IpPrefixBucket {
 	r := &IpPrefixBucket{
-		Aggregations: make(map[string]Aggregate, 0),
+		Aggregations: make(map[string]Aggregate),
 	}
 
 	return r
 }
+
+// false

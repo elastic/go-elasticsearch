@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Create or update an autoscaling policy.
 //
@@ -91,7 +91,7 @@ func NewPutAutoscalingPolicyFunc(tp elastictransport.Interface) NewPutAutoscalin
 // Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
 // supported.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-put-autoscaling-policy.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-put-autoscaling-policy
 func New(tp elastictransport.Interface) *PutAutoscalingPolicy {
 	r := &PutAutoscalingPolicy{
 		transport: tp,
@@ -99,8 +99,6 @@ func New(tp elastictransport.Interface) *PutAutoscalingPolicy {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -323,6 +321,25 @@ func (r *PutAutoscalingPolicy) _name(name string) *PutAutoscalingPolicy {
 	return r
 }
 
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: master_timeout
+func (r *PutAutoscalingPolicy) MasterTimeout(duration string) *PutAutoscalingPolicy {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
+// API name: timeout
+func (r *PutAutoscalingPolicy) Timeout(duration string) *PutAutoscalingPolicy {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -367,18 +384,46 @@ func (r *PutAutoscalingPolicy) Pretty(pretty bool) *PutAutoscalingPolicy {
 	return r
 }
 
-// Deciders Decider settings.
+// Decider settings.
 // API name: deciders
 func (r *PutAutoscalingPolicy) Deciders(deciders map[string]json.RawMessage) *PutAutoscalingPolicy {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Deciders = deciders
+	return r
+}
 
+func (r *PutAutoscalingPolicy) AddDecider(key string, value json.RawMessage) *PutAutoscalingPolicy {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]json.RawMessage
+	if r.req.Deciders == nil {
+		r.req.Deciders = make(map[string]json.RawMessage)
+	} else {
+		tmp = r.req.Deciders
+	}
+
+	tmp[key] = value
+
+	r.req.Deciders = tmp
 	return r
 }
 
 // API name: roles
 func (r *PutAutoscalingPolicy) Roles(roles ...string) *PutAutoscalingPolicy {
-	r.req.Roles = roles
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range roles {
 
+		r.req.Roles = append(r.req.Roles, v)
+
+	}
 	return r
 }

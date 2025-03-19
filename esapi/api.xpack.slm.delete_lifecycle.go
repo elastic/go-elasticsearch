@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newSlmDeleteLifecycleFunc(t Transport) SlmDeleteLifecycle {
@@ -50,6 +51,9 @@ type SlmDeleteLifecycle func(policy_id string, o ...func(*SlmDeleteLifecycleRequ
 // SlmDeleteLifecycleRequest configures the Slm Delete Lifecycle API request.
 type SlmDeleteLifecycleRequest struct {
 	PolicyID string
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +99,14 @@ func (r SlmDeleteLifecycleRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +183,20 @@ func (r SlmDeleteLifecycleRequest) Do(providedCtx context.Context, transport Tra
 func (f SlmDeleteLifecycle) WithContext(v context.Context) func(*SlmDeleteLifecycleRequest) {
 	return func(r *SlmDeleteLifecycleRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f SlmDeleteLifecycle) WithMasterTimeout(v time.Duration) func(*SlmDeleteLifecycleRequest) {
+	return func(r *SlmDeleteLifecycleRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f SlmDeleteLifecycle) WithTimeout(v time.Duration) func(*SlmDeleteLifecycleRequest) {
+	return func(r *SlmDeleteLifecycleRequest) {
+		r.Timeout = v
 	}
 }
 

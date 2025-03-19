@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package search
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/eql/search/EqlSearchResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/eql/search/EqlSearchResponse.ts#L22-L24
 type Response struct {
 
 	// Hits Contains matching events and sequences. Also contains related metadata.
@@ -37,6 +37,9 @@ type Response struct {
 	IsPartial *bool `json:"is_partial,omitempty"`
 	// IsRunning If true, the search request is still executing.
 	IsRunning *bool `json:"is_running,omitempty"`
+	// ShardFailures Contains information about shard failures (if any), in case
+	// allow_partial_search_results=true
+	ShardFailures []types.ShardFailure `json:"shard_failures,omitempty"`
 	// TimedOut If true, the request timed out before completion.
 	TimedOut *bool `json:"timed_out,omitempty"`
 	// Took Milliseconds it took Elasticsearch to execute the request.

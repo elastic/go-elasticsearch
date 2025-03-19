@@ -16,17 +16,28 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Create an API key.
 //
 // Create an API key for access without requiring basic authentication.
+//
+// IMPORTANT: If the credential that is used to authenticate this request is an
+// API key, the derived API key cannot have any privileges.
+// If you specify privileges, the API returns an error.
+//
 // A successful request returns a JSON structure that contains the API key, its
 // unique id, and its name.
 // If applicable, it also returns expiration information for the API key in
 // milliseconds.
+//
 // NOTE: By default, API keys never expire. You can specify expiration
 // information when you create the API keys.
+//
+// The API keys are created by the Elasticsearch API key service, which is
+// automatically enabled.
+// To configure or turn off the API key service, refer to API key service
+// setting documentation.
 package createapikey
 
 import (
@@ -85,14 +96,25 @@ func NewCreateApiKeyFunc(tp elastictransport.Interface) NewCreateApiKey {
 // Create an API key.
 //
 // Create an API key for access without requiring basic authentication.
+//
+// IMPORTANT: If the credential that is used to authenticate this request is an
+// API key, the derived API key cannot have any privileges.
+// If you specify privileges, the API returns an error.
+//
 // A successful request returns a JSON structure that contains the API key, its
 // unique id, and its name.
 // If applicable, it also returns expiration information for the API key in
 // milliseconds.
+//
 // NOTE: By default, API keys never expire. You can specify expiration
 // information when you create the API keys.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
+// The API keys are created by the Elasticsearch API key service, which is
+// automatically enabled.
+// To configure or turn off the API key service, refer to API key service
+// setting documentation.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key
 func New(tp elastictransport.Interface) *CreateApiKey {
 	r := &CreateApiKey{
 		transport: tp,
@@ -100,8 +122,6 @@ func New(tp elastictransport.Interface) *CreateApiKey {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -363,44 +383,90 @@ func (r *CreateApiKey) Pretty(pretty bool) *CreateApiKey {
 	return r
 }
 
-// Expiration Expiration time for the API key. By default, API keys never expire.
+// The expiration time for the API key.
+// By default, API keys never expire.
 // API name: expiration
-func (r *CreateApiKey) Expiration(duration types.Duration) *CreateApiKey {
-	r.req.Expiration = duration
+func (r *CreateApiKey) Expiration(duration types.DurationVariant) *CreateApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Expiration = *duration.DurationCaster()
 
 	return r
 }
 
-// Metadata Arbitrary metadata that you want to associate with the API key. It supports
+// Arbitrary metadata that you want to associate with the API key. It supports
 // nested data structure. Within the metadata object, keys beginning with `_`
 // are reserved for system usage.
 // API name: metadata
-func (r *CreateApiKey) Metadata(metadata types.Metadata) *CreateApiKey {
-	r.req.Metadata = metadata
+func (r *CreateApiKey) Metadata(metadata types.MetadataVariant) *CreateApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Metadata = *metadata.MetadataCaster()
 
 	return r
 }
 
-// Name Specifies the name for this API key.
+// A name for the API key.
 // API name: name
 func (r *CreateApiKey) Name(name string) *CreateApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Name = &name
 
 	return r
 }
 
-// RoleDescriptors An array of role descriptors for this API key. This parameter is optional.
-// When it is not specified or is an empty array, then the API key will have a
-// point in time snapshot of permissions of the authenticated user. If you
-// supply role descriptors then the resultant permissions would be an
-// intersection of API keys permissions and authenticated user’s permissions
-// thereby limiting the access scope for API keys. The structure of role
-// descriptor is the same as the request for create role API. For more details,
-// see create or update roles API.
+// An array of role descriptors for this API key.
+// When it is not specified or it is an empty array, the API key will have a
+// point in time snapshot of permissions of the authenticated user.
+// If you supply role descriptors, the resultant permissions are an intersection
+// of API keys permissions and the authenticated user's permissions thereby
+// limiting the access scope for API keys.
+// The structure of role descriptor is the same as the request for the create
+// role API.
+// For more details, refer to the create or update roles API.
+//
+// NOTE: Due to the way in which this permission intersection is calculated, it
+// is not possible to create an API key that is a child of another API key,
+// unless the derived key is created without any privileges.
+// In this case, you must explicitly specify a role descriptor with no
+// privileges.
+// The derived API key can be used for authentication; it will not have
+// authority to call Elasticsearch APIs.
 // API name: role_descriptors
 func (r *CreateApiKey) RoleDescriptors(roledescriptors map[string]types.RoleDescriptor) *CreateApiKey {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.RoleDescriptors = roledescriptors
+	return r
+}
 
+func (r *CreateApiKey) AddRoleDescriptor(key string, value types.RoleDescriptorVariant) *CreateApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]types.RoleDescriptor
+	if r.req.RoleDescriptors == nil {
+		r.req.RoleDescriptors = make(map[string]types.RoleDescriptor)
+	} else {
+		tmp = r.req.RoleDescriptors
+	}
+
+	tmp[key] = *value.RoleDescriptorCaster()
+
+	r.req.RoleDescriptors = tmp
 	return r
 }

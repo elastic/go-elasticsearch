@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Security type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/xpack/usage/types.ts#L432-L445
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/xpack/usage/types.ts#L440-L453
 type Security struct {
 	Anonymous          FeatureToggle               `json:"anonymous"`
 	ApiKeyService      FeatureToggle               `json:"api_key_service"`
@@ -166,9 +166,11 @@ func (s *Security) UnmarshalJSON(data []byte) error {
 // NewSecurity returns a Security.
 func NewSecurity() *Security {
 	r := &Security{
-		Realms:      make(map[string]XpackRealm, 0),
-		RoleMapping: make(map[string]XpackRoleMapping, 0),
+		Realms:      make(map[string]XpackRealm),
+		RoleMapping: make(map[string]XpackRoleMapping),
 	}
 
 	return r
 }
+
+// false

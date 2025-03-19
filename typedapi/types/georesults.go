@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,12 +31,12 @@ import (
 
 // GeoResults type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/Anomaly.ts#L145-L154
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/Anomaly.ts#L146-L155
 type GeoResults struct {
 	// ActualPoint The actual value for the bucket formatted as a `geo_point`.
-	ActualPoint string `json:"actual_point"`
+	ActualPoint *string `json:"actual_point,omitempty"`
 	// TypicalPoint The typical value for the bucket formatted as a `geo_point`.
-	TypicalPoint string `json:"typical_point"`
+	TypicalPoint *string `json:"typical_point,omitempty"`
 }
 
 func (s *GeoResults) UnmarshalJSON(data []byte) error {
@@ -64,7 +64,7 @@ func (s *GeoResults) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.ActualPoint = o
+			s.ActualPoint = &o
 
 		case "typical_point":
 			var tmp json.RawMessage
@@ -76,7 +76,7 @@ func (s *GeoResults) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.TypicalPoint = o
+			s.TypicalPoint = &o
 
 		}
 	}
@@ -89,3 +89,5 @@ func NewGeoResults() *GeoResults {
 
 	return r
 }
+
+// false

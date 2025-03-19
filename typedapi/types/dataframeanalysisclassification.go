@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeAnalysisClassification type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/DataframeAnalytics.ts#L226-L235
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/DataframeAnalytics.ts#L227-L236
 type DataframeAnalysisClassification struct {
 	// Alpha Advanced configuration option. Machine learning uses loss guided tree
 	// growing, which means that the decision trees grow where the regularized loss
@@ -459,4 +459,14 @@ func NewDataframeAnalysisClassification() *DataframeAnalysisClassification {
 	r := &DataframeAnalysisClassification{}
 
 	return r
+}
+
+// true
+
+type DataframeAnalysisClassificationVariant interface {
+	DataframeAnalysisClassificationCaster() *DataframeAnalysisClassification
+}
+
+func (s *DataframeAnalysisClassification) DataframeAnalysisClassificationCaster() *DataframeAnalysisClassification {
+	return s
 }

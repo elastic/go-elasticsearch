@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // FrequentItemSetsField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/bucket.ts#L1226-L1238
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/aggregations/bucket.ts#L1226-L1238
 type FrequentItemSetsField struct {
 	// Exclude Values to exclude.
 	// Can be regular expression strings or arrays of strings of exact terms.
@@ -123,4 +123,14 @@ func NewFrequentItemSetsField() *FrequentItemSetsField {
 	r := &FrequentItemSetsField{}
 
 	return r
+}
+
+// true
+
+type FrequentItemSetsFieldVariant interface {
+	FrequentItemSetsFieldCaster() *FrequentItemSetsField
+}
+
+func (s *FrequentItemSetsField) FrequentItemSetsFieldCaster() *FrequentItemSetsField {
+	return s
 }

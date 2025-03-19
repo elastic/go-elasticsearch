@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IpRangeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/bucket.ts#L567-L576
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/aggregations/bucket.ts#L567-L576
 type IpRangeAggregation struct {
 	// Field The date field whose values are used to build ranges.
 	Field *string `json:"field,omitempty"`
@@ -73,4 +73,14 @@ func NewIpRangeAggregation() *IpRangeAggregation {
 	r := &IpRangeAggregation{}
 
 	return r
+}
+
+// true
+
+type IpRangeAggregationVariant interface {
+	IpRangeAggregationCaster() *IpRangeAggregation
+}
+
+func (s *IpRangeAggregation) IpRangeAggregationCaster() *IpRangeAggregation {
+	return s
 }

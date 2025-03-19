@@ -16,31 +16,78 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // OperationContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/bulk/types.ts#L145-L167
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/bulk/types.ts#L158-L180
 type OperationContainer struct {
-	// Create Indexes the specified document if it does not already exist.
+	AdditionalOperationContainerProperty map[string]json.RawMessage `json:"-"`
+	// Create Index the specified document if it does not already exist.
 	// The following line must contain the source data to be indexed.
 	Create *CreateOperation `json:"create,omitempty"`
-	// Delete Removes the specified document from the index.
+	// Delete Remove the specified document from the index.
 	Delete *DeleteOperation `json:"delete,omitempty"`
-	// Index Indexes the specified document.
-	// If the document exists, replaces the document and increments the version.
+	// Index Index the specified document.
+	// If the document exists, it replaces the document and increments the version.
 	// The following line must contain the source data to be indexed.
 	Index *IndexOperation `json:"index,omitempty"`
-	// Update Performs a partial document update.
+	// Update Perform a partial document update.
 	// The following line must contain the partial document and update options.
 	Update *UpdateOperation `json:"update,omitempty"`
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s OperationContainer) MarshalJSON() ([]byte, error) {
+	type opt OperationContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalOperationContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalOperationContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewOperationContainer returns a OperationContainer.
 func NewOperationContainer() *OperationContainer {
-	r := &OperationContainer{}
+	r := &OperationContainer{
+		AdditionalOperationContainerProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type OperationContainerVariant interface {
+	OperationContainerCaster() *OperationContainer
+}
+
+func (s *OperationContainer) OperationContainerCaster() *OperationContainer {
+	return s
 }

@@ -1,0 +1,140 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+
+package esdsl
+
+import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+
+// This is provide all the types that are part of the union.
+type _settingsSimilarity struct {
+	v types.SettingsSimilarity
+}
+
+func NewSettingsSimilarity() *_settingsSimilarity {
+	return &_settingsSimilarity{v: nil}
+}
+
+func (u *_settingsSimilarity) SettingsSimilarityBm25(settingssimilaritybm25 types.SettingsSimilarityBm25Variant) *_settingsSimilarity {
+
+	u.v = &settingssimilaritybm25
+
+	return u
+}
+
+// Interface implementation for SettingsSimilarityBm25 in SettingsSimilarity union
+func (u *_settingsSimilarityBm25) SettingsSimilarityCaster() *types.SettingsSimilarity {
+	t := types.SettingsSimilarity(u.v)
+	return &t
+}
+
+func (u *_settingsSimilarity) SettingsSimilarityBoolean(settingssimilarityboolean types.SettingsSimilarityBooleanVariant) *_settingsSimilarity {
+
+	u.v = &settingssimilarityboolean
+
+	return u
+}
+
+// Interface implementation for SettingsSimilarityBoolean in SettingsSimilarity union
+func (u *_settingsSimilarityBoolean) SettingsSimilarityCaster() *types.SettingsSimilarity {
+	t := types.SettingsSimilarity(u.v)
+	return &t
+}
+
+func (u *_settingsSimilarity) SettingsSimilarityDfi(settingssimilaritydfi types.SettingsSimilarityDfiVariant) *_settingsSimilarity {
+
+	u.v = &settingssimilaritydfi
+
+	return u
+}
+
+// Interface implementation for SettingsSimilarityDfi in SettingsSimilarity union
+func (u *_settingsSimilarityDfi) SettingsSimilarityCaster() *types.SettingsSimilarity {
+	t := types.SettingsSimilarity(u.v)
+	return &t
+}
+
+func (u *_settingsSimilarity) SettingsSimilarityDfr(settingssimilaritydfr types.SettingsSimilarityDfrVariant) *_settingsSimilarity {
+
+	u.v = &settingssimilaritydfr
+
+	return u
+}
+
+// Interface implementation for SettingsSimilarityDfr in SettingsSimilarity union
+func (u *_settingsSimilarityDfr) SettingsSimilarityCaster() *types.SettingsSimilarity {
+	t := types.SettingsSimilarity(u.v)
+	return &t
+}
+
+func (u *_settingsSimilarity) SettingsSimilarityIb(settingssimilarityib types.SettingsSimilarityIbVariant) *_settingsSimilarity {
+
+	u.v = &settingssimilarityib
+
+	return u
+}
+
+// Interface implementation for SettingsSimilarityIb in SettingsSimilarity union
+func (u *_settingsSimilarityIb) SettingsSimilarityCaster() *types.SettingsSimilarity {
+	t := types.SettingsSimilarity(u.v)
+	return &t
+}
+
+func (u *_settingsSimilarity) SettingsSimilarityLmd(settingssimilaritylmd types.SettingsSimilarityLmdVariant) *_settingsSimilarity {
+
+	u.v = &settingssimilaritylmd
+
+	return u
+}
+
+// Interface implementation for SettingsSimilarityLmd in SettingsSimilarity union
+func (u *_settingsSimilarityLmd) SettingsSimilarityCaster() *types.SettingsSimilarity {
+	t := types.SettingsSimilarity(u.v)
+	return &t
+}
+
+func (u *_settingsSimilarity) SettingsSimilarityLmj(settingssimilaritylmj types.SettingsSimilarityLmjVariant) *_settingsSimilarity {
+
+	u.v = &settingssimilaritylmj
+
+	return u
+}
+
+// Interface implementation for SettingsSimilarityLmj in SettingsSimilarity union
+func (u *_settingsSimilarityLmj) SettingsSimilarityCaster() *types.SettingsSimilarity {
+	t := types.SettingsSimilarity(u.v)
+	return &t
+}
+
+func (u *_settingsSimilarity) SettingsSimilarityScripted(settingssimilarityscripted types.SettingsSimilarityScriptedVariant) *_settingsSimilarity {
+
+	u.v = &settingssimilarityscripted
+
+	return u
+}
+
+// Interface implementation for SettingsSimilarityScripted in SettingsSimilarity union
+func (u *_settingsSimilarityScripted) SettingsSimilarityCaster() *types.SettingsSimilarity {
+	t := types.SettingsSimilarity(u.v)
+	return &t
+}
+
+func (u *_settingsSimilarity) SettingsSimilarityCaster() *types.SettingsSimilarity {
+	return &u.v
+}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RecoveryOrigin type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/recovery/types.ts#L76-L89
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/indices/recovery/types.ts#L76-L89
 type RecoveryOrigin struct {
 	BootstrapNewHistoryUuid *bool   `json:"bootstrap_new_history_uuid,omitempty"`
 	Host                    *string `json:"host,omitempty"`
@@ -149,3 +149,5 @@ func NewRecoveryOrigin() *RecoveryOrigin {
 
 	return r
 }
+
+// false

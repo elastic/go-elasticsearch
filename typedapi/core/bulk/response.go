@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package bulk
 
@@ -27,12 +27,18 @@ import (
 
 // Response holds the response body struct for the package bulk
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/bulk/BulkResponse.ts#L24-L31
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/bulk/BulkResponse.ts#L24-L45
 type Response struct {
-	Errors     bool                                                 `json:"errors"`
-	IngestTook *int64                                               `json:"ingest_took,omitempty"`
-	Items      []map[operationtype.OperationType]types.ResponseItem `json:"items"`
-	Took       int64                                                `json:"took"`
+
+	// Errors If `true`, one or more of the operations in the bulk request did not complete
+	// successfully.
+	Errors     bool   `json:"errors"`
+	IngestTook *int64 `json:"ingest_took,omitempty"`
+	// Items The result of each operation in the bulk request, in the order they were
+	// submitted.
+	Items []map[operationtype.OperationType]types.ResponseItem `json:"items"`
+	// Took The length of time, in milliseconds, it took to process the bulk request.
+	Took int64 `json:"took"`
 }
 
 // NewResponse returns a Response

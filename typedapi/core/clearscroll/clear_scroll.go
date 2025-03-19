@@ -16,10 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Clear a scrolling search.
-//
 // Clear the search context and results for a scrolling search.
 package clearscroll
 
@@ -78,10 +77,9 @@ func NewClearScrollFunc(tp elastictransport.Interface) NewClearScroll {
 }
 
 // Clear a scrolling search.
-//
 // Clear the search context and results for a scrolling search.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-scroll-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-clear-scroll
 func New(tp elastictransport.Interface) *ClearScroll {
 	r := &ClearScroll{
 		transport: tp,
@@ -89,8 +87,6 @@ func New(tp elastictransport.Interface) *ClearScroll {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -378,10 +374,15 @@ func (r *ClearScroll) Pretty(pretty bool) *ClearScroll {
 	return r
 }
 
-// ScrollId Scroll IDs to clear.
+// The scroll IDs to clear.
 // To clear all scroll IDs, use `_all`.
 // API name: scroll_id
 func (r *ClearScroll) ScrollId(scrollids ...string) *ClearScroll {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.ScrollId = scrollids
 
 	return r

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MappingLimitSettingsTotalFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/IndexSettings.ts#L426-L443
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/indices/_types/IndexSettings.ts#L441-L458
 type MappingLimitSettingsTotalFields struct {
 	// IgnoreDynamicBeyondLimit This setting determines what happens when a dynamically mapped field would
 	// exceed the total fields limit. When set
@@ -43,14 +43,14 @@ type MappingLimitSettingsTotalFields struct {
 	// similar to dynamic: false.
 	// The fields that were not added to the mapping will be added to the _ignored
 	// field.
-	IgnoreDynamicBeyondLimit *bool `json:"ignore_dynamic_beyond_limit,omitempty"`
+	IgnoreDynamicBeyondLimit string `json:"ignore_dynamic_beyond_limit,omitempty"`
 	// Limit The maximum number of fields in an index. Field and object mappings, as well
 	// as field aliases count towards this limit.
 	// The limit is in place to prevent mappings and searches from becoming too
 	// large. Higher values can lead to performance
 	// degradations and memory issues, especially in clusters with a high load or
 	// few resources.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit string `json:"limit,omitempty"`
 }
 
 func (s *MappingLimitSettingsTotalFields) UnmarshalJSON(data []byte) error {
@@ -69,33 +69,28 @@ func (s *MappingLimitSettingsTotalFields) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "ignore_dynamic_beyond_limit":
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseBool(v)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "IgnoreDynamicBeyondLimit", err)
-				}
-				s.IgnoreDynamicBeyondLimit = &value
-			case bool:
-				s.IgnoreDynamicBeyondLimit = &v
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "IgnoreDynamicBeyondLimit", err)
 			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.IgnoreDynamicBeyondLimit = o
 
 		case "limit":
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseInt(v, 10, 64)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "Limit", err)
-				}
-				s.Limit = &value
-			case float64:
-				f := int64(v)
-				s.Limit = &f
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Limit", err)
 			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Limit = o
 
 		}
 	}
@@ -107,4 +102,14 @@ func NewMappingLimitSettingsTotalFields() *MappingLimitSettingsTotalFields {
 	r := &MappingLimitSettingsTotalFields{}
 
 	return r
+}
+
+// true
+
+type MappingLimitSettingsTotalFieldsVariant interface {
+	MappingLimitSettingsTotalFieldsCaster() *MappingLimitSettingsTotalFields
+}
+
+func (s *MappingLimitSettingsTotalFields) MappingLimitSettingsTotalFieldsCaster() *MappingLimitSettingsTotalFields {
+	return s
 }

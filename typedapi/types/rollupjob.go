@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
 // RollupJob type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/rollup/get_jobs/types.ts#L28-L32
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/rollup/get_jobs/types.ts#L28-L43
 type RollupJob struct {
+	// Config The rollup job configuration.
 	Config RollupJobConfiguration `json:"config"`
-	Stats  RollupJobStats         `json:"stats"`
-	Status RollupJobStatus        `json:"status"`
+	// Stats Transient statistics about the rollup job, such as how many documents have
+	// been processed and how many rollup summary docs have been indexed.
+	// These stats are not persisted.
+	// If a node is restarted, these stats are reset.
+	Stats RollupJobStats `json:"stats"`
+	// Status The current status of the indexer for the rollup job.
+	Status RollupJobStatus `json:"status"`
 }
 
 // NewRollupJob returns a RollupJob.
@@ -35,3 +41,5 @@ func NewRollupJob() *RollupJob {
 
 	return r
 }
+
+// false

@@ -16,22 +16,39 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Invalidates a refresh token and access token that was generated from the
-// OpenID Connect Authenticate API
+// Logout of OpenID Connect.
+//
+// Invalidate an access token and a refresh token that were generated as a
+// response to the `/_security/oidc/authenticate` API.
+//
+// If the OpenID Connect authentication realm in Elasticsearch is accordingly
+// configured, the response to this call will contain a URI pointing to the end
+// session endpoint of the OpenID Connect Provider in order to perform single
+// logout.
+//
+// Elasticsearch exposes all the necessary OpenID Connect related functionality
+// with the OpenID Connect APIs.
+// These APIs are used internally by Kibana in order to provide OpenID Connect
+// based authentication, but can also be used by other, custom web applications
+// or other clients.
 package oidclogout
 
 import (
+	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -45,6 +62,10 @@ type OidcLogout struct {
 	path    url.URL
 
 	raw io.Reader
+
+	req      *Request
+	deferred []func(request *Request) error
+	buf      *gobytes.Buffer
 
 	paramSet int
 
@@ -66,15 +87,30 @@ func NewOidcLogoutFunc(tp elastictransport.Interface) NewOidcLogout {
 	}
 }
 
-// Invalidates a refresh token and access token that was generated from the
-// OpenID Connect Authenticate API
+// Logout of OpenID Connect.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-logout.html
+// Invalidate an access token and a refresh token that were generated as a
+// response to the `/_security/oidc/authenticate` API.
+//
+// If the OpenID Connect authentication realm in Elasticsearch is accordingly
+// configured, the response to this call will contain a URI pointing to the end
+// session endpoint of the OpenID Connect Provider in order to perform single
+// logout.
+//
+// Elasticsearch exposes all the necessary OpenID Connect related functionality
+// with the OpenID Connect APIs.
+// These APIs are used internally by Kibana in order to provide OpenID Connect
+// based authentication, but can also be used by other, custom web applications
+// or other clients.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-logout
 func New(tp elastictransport.Interface) *OidcLogout {
 	r := &OidcLogout{
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
+
+		buf: gobytes.NewBuffer(nil),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -82,6 +118,21 @@ func New(tp elastictransport.Interface) *OidcLogout {
 			r.instrument = instrument
 		}
 	}
+
+	return r
+}
+
+// Raw takes a json payload as input which is then passed to the http.Request
+// If specified Raw takes precedence on Request method.
+func (r *OidcLogout) Raw(raw io.Reader) *OidcLogout {
+	r.raw = raw
+
+	return r
+}
+
+// Request allows to set the request property with the appropriate payload.
+func (r *OidcLogout) Request(req *Request) *OidcLogout {
+	r.req = req
 
 	return r
 }
@@ -94,6 +145,31 @@ func (r *OidcLogout) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var req *http.Request
 
 	var err error
+
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
+	if r.raw == nil && r.req != nil {
+
+		data, err := json.Marshal(r.req)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not serialise request for OidcLogout: %w", err)
+		}
+
+		r.buf.Write(data)
+
+	}
+
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
 
 	r.path.Scheme = "http"
 
@@ -184,13 +260,7 @@ func (r OidcLogout) Perform(providedCtx context.Context) (*http.Response, error)
 }
 
 // Do runs the request through the transport, handle the response and returns a oidclogout.Response
-func (r OidcLogout) Do(ctx context.Context) (bool, error) {
-	return r.IsSuccess(ctx)
-}
-
-// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
-// This only exists for endpoints without a request payload and allows for quick control flow.
-func (r OidcLogout) IsSuccess(providedCtx context.Context) (bool, error) {
+func (r OidcLogout) Do(providedCtx context.Context) (*Response, error) {
 	var ctx context.Context
 	r.spanStarted = true
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -201,35 +271,121 @@ func (r OidcLogout) IsSuccess(providedCtx context.Context) (bool, error) {
 		ctx = providedCtx
 	}
 
+	response := NewResponse()
+
 	res, err := r.Perform(ctx)
-
 	if err != nil {
-		return false, err
-	}
-	io.Copy(io.Discard, res.Body)
-	err = res.Body.Close()
-	if err != nil {
-		return false, err
-	}
-
-	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		return true, nil
-	}
-
-	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the OidcLogout query execution, status code: %d", res.StatusCode)
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
-		return false, err
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+				instrument.RecordError(ctx, err)
+			}
+			return nil, err
+		}
+
+		return response, nil
 	}
 
-	return false, nil
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.RecordError(ctx, errorResponse)
+	}
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the OidcLogout headers map.
 func (r *OidcLogout) Header(key, value string) *OidcLogout {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *OidcLogout) ErrorTrace(errortrace bool) *OidcLogout {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *OidcLogout) FilterPath(filterpaths ...string) *OidcLogout {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *OidcLogout) Human(human bool) *OidcLogout {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *OidcLogout) Pretty(pretty bool) *OidcLogout {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// The access token to be invalidated.
+// API name: access_token
+func (r *OidcLogout) AccessToken(accesstoken string) *OidcLogout {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.AccessToken = accesstoken
+
+	return r
+}
+
+// The refresh token to be invalidated.
+// API name: refresh_token
+func (r *OidcLogout) RefreshToken(refreshtoken string) *OidcLogout {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.RefreshToken = &refreshtoken
 
 	return r
 }

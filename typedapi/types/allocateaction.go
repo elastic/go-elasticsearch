@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AllocateAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ilm/_types/Phase.ts#L136-L142
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ilm/_types/Phase.ts#L133-L139
 type AllocateAction struct {
 	Exclude            map[string]string `json:"exclude,omitempty"`
 	Include            map[string]string `json:"include,omitempty"`
@@ -119,10 +119,20 @@ func (s *AllocateAction) UnmarshalJSON(data []byte) error {
 // NewAllocateAction returns a AllocateAction.
 func NewAllocateAction() *AllocateAction {
 	r := &AllocateAction{
-		Exclude: make(map[string]string, 0),
-		Include: make(map[string]string, 0),
-		Require: make(map[string]string, 0),
+		Exclude: make(map[string]string),
+		Include: make(map[string]string),
+		Require: make(map[string]string),
 	}
 
 	return r
+}
+
+// true
+
+type AllocateActionVariant interface {
+	AllocateActionCaster() *AllocateAction
+}
+
+func (s *AllocateAction) AllocateActionCaster() *AllocateAction {
+	return s
 }

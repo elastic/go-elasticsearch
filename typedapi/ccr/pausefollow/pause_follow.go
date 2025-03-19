@@ -16,10 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Pauses a follower index. The follower index will not fetch any additional
-// operations from the leader index.
+// Pause a follower.
+//
+// Pause a cross-cluster replication follower index.
+// The follower index will not fetch any additional operations from the leader
+// index.
+// You can resume following with the resume follower API.
+// You can pause and resume a follower index to change the configuration of the
+// following task.
 package pausefollow
 
 import (
@@ -77,10 +83,16 @@ func NewPauseFollowFunc(tp elastictransport.Interface) NewPauseFollow {
 	}
 }
 
-// Pauses a follower index. The follower index will not fetch any additional
-// operations from the leader index.
+// Pause a follower.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-pause-follow.html
+// Pause a cross-cluster replication follower index.
+// The follower index will not fetch any additional operations from the leader
+// index.
+// You can resume following with the resume follower API.
+// You can pause and resume a follower index to change the configuration of the
+// following task.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-pause-follow
 func New(tp elastictransport.Interface) *PauseFollow {
 	r := &PauseFollow{
 		transport: tp,
@@ -292,11 +304,22 @@ func (r *PauseFollow) Header(key, value string) *PauseFollow {
 	return r
 }
 
-// Index The name of the follower index that should pause following its leader index.
+// Index The name of the follower index.
 // API Name: index
 func (r *PauseFollow) _index(index string) *PauseFollow {
 	r.paramSet |= indexMask
 	r.index = index
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// It can also be set to `-1` to indicate that the request should never timeout.
+// API name: master_timeout
+func (r *PauseFollow) MasterTimeout(duration string) *PauseFollow {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

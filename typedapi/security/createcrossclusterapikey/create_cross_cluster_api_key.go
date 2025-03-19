@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Create a cross-cluster API key.
 //
@@ -131,7 +131,7 @@ func NewCreateCrossClusterApiKeyFunc(tp elastictransport.Interface) NewCreateCro
 // Attempting to update them with the update REST API key API or the bulk update
 // REST API keys API will result in an error.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-cross-cluster-api-key.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-cross-cluster-api-key
 func New(tp elastictransport.Interface) *CreateCrossClusterApiKey {
 	r := &CreateCrossClusterApiKey{
 		transport: tp,
@@ -139,8 +139,6 @@ func New(tp elastictransport.Interface) *CreateCrossClusterApiKey {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -394,7 +392,7 @@ func (r *CreateCrossClusterApiKey) Pretty(pretty bool) *CreateCrossClusterApiKey
 	return r
 }
 
-// Access The access to be granted to this API key.
+// The access to be granted to this API key.
 // The access is composed of permissions for cross-cluster search and
 // cross-cluster replication.
 // At least one of them must be specified.
@@ -404,36 +402,55 @@ func (r *CreateCrossClusterApiKey) Pretty(pretty bool) *CreateCrossClusterApiKey
 // The creation process automatically converts the access specification to a
 // role descriptor which has relevant privileges assigned accordingly.
 // API name: access
-func (r *CreateCrossClusterApiKey) Access(access *types.Access) *CreateCrossClusterApiKey {
+func (r *CreateCrossClusterApiKey) Access(access types.AccessVariant) *CreateCrossClusterApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Access = *access
+	r.req.Access = *access.AccessCaster()
 
 	return r
 }
 
-// Expiration Expiration time for the API key.
+// Expiration time for the API key.
 // By default, API keys never expire.
 // API name: expiration
-func (r *CreateCrossClusterApiKey) Expiration(duration types.Duration) *CreateCrossClusterApiKey {
-	r.req.Expiration = duration
+func (r *CreateCrossClusterApiKey) Expiration(duration types.DurationVariant) *CreateCrossClusterApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Expiration = *duration.DurationCaster()
 
 	return r
 }
 
-// Metadata Arbitrary metadata that you want to associate with the API key.
+// Arbitrary metadata that you want to associate with the API key.
 // It supports nested data structure.
 // Within the metadata object, keys beginning with `_` are reserved for system
 // usage.
 // API name: metadata
-func (r *CreateCrossClusterApiKey) Metadata(metadata types.Metadata) *CreateCrossClusterApiKey {
-	r.req.Metadata = metadata
+func (r *CreateCrossClusterApiKey) Metadata(metadata types.MetadataVariant) *CreateCrossClusterApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Metadata = *metadata.MetadataCaster()
 
 	return r
 }
 
-// Name Specifies the name for this API key.
+// Specifies the name for this API key.
 // API name: name
 func (r *CreateCrossClusterApiKey) Name(name string) *CreateCrossClusterApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Name = name
 
 	return r

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Create a calendar.
 package putcalendar
@@ -83,7 +83,7 @@ func NewPutCalendarFunc(tp elastictransport.Interface) NewPutCalendar {
 
 // Create a calendar.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-calendar.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar
 func New(tp elastictransport.Interface) *PutCalendar {
 	r := &PutCalendar{
 		transport: tp,
@@ -91,8 +91,6 @@ func New(tp elastictransport.Interface) *PutCalendar {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -359,19 +357,30 @@ func (r *PutCalendar) Pretty(pretty bool) *PutCalendar {
 	return r
 }
 
-// Description A description of the calendar.
+// A description of the calendar.
 // API name: description
 func (r *PutCalendar) Description(description string) *PutCalendar {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Description = &description
 
 	return r
 }
 
-// JobIds An array of anomaly detection job identifiers.
+// An array of anomaly detection job identifiers.
 // API name: job_ids
 func (r *PutCalendar) JobIds(jobids ...string) *PutCalendar {
-	r.req.JobIds = jobids
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range jobids {
 
+		r.req.JobIds = append(r.req.JobIds, v)
+
+	}
 	return r
 }

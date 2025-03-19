@@ -16,11 +16,177 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Search a vector tile.
 //
 // Search a vector tile for geospatial values.
+// Before using this API, you should be familiar with the Mapbox vector tile
+// specification.
+// The API returns results as a binary mapbox vector tile.
+//
+// Internally, Elasticsearch translates a vector tile search API request into a
+// search containing:
+//
+// * A `geo_bounding_box` query on the `<field>`. The query uses the
+// `<zoom>/<x>/<y>` tile as a bounding box.
+// * A `geotile_grid` or `geohex_grid` aggregation on the `<field>`. The
+// `grid_agg` parameter determines the aggregation type. The aggregation uses
+// the `<zoom>/<x>/<y>` tile as a bounding box.
+// * Optionally, a `geo_bounds` aggregation on the `<field>`. The search only
+// includes this aggregation if the `exact_bounds` parameter is `true`.
+// * If the optional parameter `with_labels` is `true`, the internal search will
+// include a dynamic runtime field that calls the `getLabelPosition` function of
+// the geometry doc value. This enables the generation of new point features
+// containing suggested geometry labels, so that, for example, multi-polygons
+// will have only one label.
+//
+// For example, Elasticsearch may translate a vector tile search API request
+// with a `grid_agg` argument of `geotile` and an `exact_bounds` argument of
+// `true` into the following search
+//
+// ```
+// GET my-index/_search
+//
+//	{
+//	  "size": 10000,
+//	  "query": {
+//	    "geo_bounding_box": {
+//	      "my-geo-field": {
+//	        "top_left": {
+//	          "lat": -40.979898069620134,
+//	          "lon": -45
+//	        },
+//	        "bottom_right": {
+//	          "lat": -66.51326044311186,
+//	          "lon": 0
+//	        }
+//	      }
+//	    }
+//	  },
+//	  "aggregations": {
+//	    "grid": {
+//	      "geotile_grid": {
+//	        "field": "my-geo-field",
+//	        "precision": 11,
+//	        "size": 65536,
+//	        "bounds": {
+//	          "top_left": {
+//	            "lat": -40.979898069620134,
+//	            "lon": -45
+//	          },
+//	          "bottom_right": {
+//	            "lat": -66.51326044311186,
+//	            "lon": 0
+//	          }
+//	        }
+//	      }
+//	    },
+//	    "bounds": {
+//	      "geo_bounds": {
+//	        "field": "my-geo-field",
+//	        "wrap_longitude": false
+//	      }
+//	    }
+//	  }
+//	}
+//
+// ```
+//
+// The API returns results as a binary Mapbox vector tile.
+// Mapbox vector tiles are encoded as Google Protobufs (PBF). By default, the
+// tile contains three layers:
+//
+// * A `hits` layer containing a feature for each `<field>` value matching the
+// `geo_bounding_box` query.
+// * An `aggs` layer containing a feature for each cell of the `geotile_grid` or
+// `geohex_grid`. The layer only contains features for cells with matching data.
+// * A meta layer containing:
+//   - A feature containing a bounding box. By default, this is the bounding box
+//
+// of the tile.
+//   - Value ranges for any sub-aggregations on the `geotile_grid` or
+//
+// `geohex_grid`.
+//   - Metadata for the search.
+//
+// The API only returns features that can display at its zoom level.
+// For example, if a polygon feature has no area at its zoom level, the API
+// omits it.
+// The API returns errors as UTF-8 encoded JSON.
+//
+// IMPORTANT: You can specify several options for this API as either a query
+// parameter or request body parameter.
+// If you specify both parameters, the query parameter takes precedence.
+//
+// **Grid precision for geotile**
+//
+// For a `grid_agg` of `geotile`, you can use cells in the `aggs` layer as tiles
+// for lower zoom levels.
+// `grid_precision` represents the additional zoom levels available through
+// these cells. The final precision is computed by as follows: `<zoom> +
+// grid_precision`.
+// For example, if `<zoom>` is 7 and `grid_precision` is 8, then the
+// `geotile_grid` aggregation will use a precision of 15.
+// The maximum final precision is 29.
+// The `grid_precision` also determines the number of cells for the grid as
+// follows: `(2^grid_precision) x (2^grid_precision)`.
+// For example, a value of 8 divides the tile into a grid of 256 x 256 cells.
+// The `aggs` layer only contains features for cells with matching data.
+//
+// **Grid precision for geohex**
+//
+// For a `grid_agg` of `geohex`, Elasticsearch uses `<zoom>` and
+// `grid_precision` to calculate a final precision as follows: `<zoom> +
+// grid_precision`.
+//
+// This precision determines the H3 resolution of the hexagonal cells produced
+// by the `geohex` aggregation.
+// The following table maps the H3 resolution for each precision.
+// For example, if `<zoom>` is 3 and `grid_precision` is 3, the precision is 6.
+// At a precision of 6, hexagonal cells have an H3 resolution of 2.
+// If `<zoom>` is 3 and `grid_precision` is 4, the precision is 7.
+// At a precision of 7, hexagonal cells have an H3 resolution of 3.
+//
+// | Precision | Unique tile bins | H3 resolution | Unique hex bins |	Ratio |
+// | --------- | ---------------- | ------------- | ----------------| ----- |
+// | 1  | 4                  | 0  | 122             | 30.5           |
+// | 2  | 16                 | 0  | 122             | 7.625          |
+// | 3  | 64                 | 1  | 842             | 13.15625       |
+// | 4  | 256                | 1  | 842             | 3.2890625      |
+// | 5  | 1024               | 2  | 5882            | 5.744140625    |
+// | 6  | 4096               | 2  | 5882            | 1.436035156    |
+// | 7  | 16384              | 3  | 41162           | 2.512329102    |
+// | 8  | 65536              | 3  | 41162           | 0.6280822754   |
+// | 9  | 262144             | 4  | 288122          | 1.099098206    |
+// | 10 | 1048576            | 4  | 288122          | 0.2747745514   |
+// | 11 | 4194304            | 5  | 2016842         | 0.4808526039   |
+// | 12 | 16777216           | 6  | 14117882        | 0.8414913416   |
+// | 13 | 67108864           | 6  | 14117882        | 0.2103728354   |
+// | 14 | 268435456          | 7  | 98825162        | 0.3681524172   |
+// | 15 | 1073741824         | 8  | 691776122       | 0.644266719    |
+// | 16 | 4294967296         | 8  | 691776122       | 0.1610666797   |
+// | 17 | 17179869184        | 9  | 4842432842      | 0.2818666889   |
+// | 18 | 68719476736        | 10 | 33897029882     | 0.4932667053   |
+// | 19 | 274877906944       | 11 | 237279209162    | 0.8632167343   |
+// | 20 | 1099511627776      | 11 | 237279209162    | 0.2158041836   |
+// | 21 | 4398046511104      | 12 | 1660954464122   | 0.3776573213   |
+// | 22 | 17592186044416     | 13 | 11626681248842  | 0.6609003122   |
+// | 23 | 70368744177664     | 13 | 11626681248842  | 0.165225078    |
+// | 24 | 281474976710656    | 14 | 81386768741882  | 0.2891438866   |
+// | 25 | 1125899906842620   | 15 | 569707381193162 | 0.5060018015   |
+// | 26 | 4503599627370500   | 15 | 569707381193162 | 0.1265004504   |
+// | 27 | 18014398509482000  | 15 | 569707381193162 | 0.03162511259  |
+// | 28 | 72057594037927900  | 15 | 569707381193162 | 0.007906278149 |
+// | 29 | 288230376151712000 | 15 | 569707381193162 | 0.001976569537 |
+//
+// Hexagonal cells don't align perfectly on a vector tile.
+// Some cells may intersect more than one vector tile.
+// To compute the H3 resolution for each precision, Elasticsearch compares the
+// average density of hexagonal bins at each resolution with the average density
+// of tile bins at each zoom level.
+// Elasticsearch uses the H3 resolution that is closest to the corresponding
+// geotile density.
 package searchmvt
 
 import (
@@ -108,8 +274,174 @@ func NewSearchMvtFunc(tp elastictransport.Interface) NewSearchMvt {
 // Search a vector tile.
 //
 // Search a vector tile for geospatial values.
+// Before using this API, you should be familiar with the Mapbox vector tile
+// specification.
+// The API returns results as a binary mapbox vector tile.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-vector-tile-api.html
+// Internally, Elasticsearch translates a vector tile search API request into a
+// search containing:
+//
+// * A `geo_bounding_box` query on the `<field>`. The query uses the
+// `<zoom>/<x>/<y>` tile as a bounding box.
+// * A `geotile_grid` or `geohex_grid` aggregation on the `<field>`. The
+// `grid_agg` parameter determines the aggregation type. The aggregation uses
+// the `<zoom>/<x>/<y>` tile as a bounding box.
+// * Optionally, a `geo_bounds` aggregation on the `<field>`. The search only
+// includes this aggregation if the `exact_bounds` parameter is `true`.
+// * If the optional parameter `with_labels` is `true`, the internal search will
+// include a dynamic runtime field that calls the `getLabelPosition` function of
+// the geometry doc value. This enables the generation of new point features
+// containing suggested geometry labels, so that, for example, multi-polygons
+// will have only one label.
+//
+// For example, Elasticsearch may translate a vector tile search API request
+// with a `grid_agg` argument of `geotile` and an `exact_bounds` argument of
+// `true` into the following search
+//
+// ```
+// GET my-index/_search
+//
+//	{
+//	  "size": 10000,
+//	  "query": {
+//	    "geo_bounding_box": {
+//	      "my-geo-field": {
+//	        "top_left": {
+//	          "lat": -40.979898069620134,
+//	          "lon": -45
+//	        },
+//	        "bottom_right": {
+//	          "lat": -66.51326044311186,
+//	          "lon": 0
+//	        }
+//	      }
+//	    }
+//	  },
+//	  "aggregations": {
+//	    "grid": {
+//	      "geotile_grid": {
+//	        "field": "my-geo-field",
+//	        "precision": 11,
+//	        "size": 65536,
+//	        "bounds": {
+//	          "top_left": {
+//	            "lat": -40.979898069620134,
+//	            "lon": -45
+//	          },
+//	          "bottom_right": {
+//	            "lat": -66.51326044311186,
+//	            "lon": 0
+//	          }
+//	        }
+//	      }
+//	    },
+//	    "bounds": {
+//	      "geo_bounds": {
+//	        "field": "my-geo-field",
+//	        "wrap_longitude": false
+//	      }
+//	    }
+//	  }
+//	}
+//
+// ```
+//
+// The API returns results as a binary Mapbox vector tile.
+// Mapbox vector tiles are encoded as Google Protobufs (PBF). By default, the
+// tile contains three layers:
+//
+// * A `hits` layer containing a feature for each `<field>` value matching the
+// `geo_bounding_box` query.
+// * An `aggs` layer containing a feature for each cell of the `geotile_grid` or
+// `geohex_grid`. The layer only contains features for cells with matching data.
+// * A meta layer containing:
+//   - A feature containing a bounding box. By default, this is the bounding box
+//
+// of the tile.
+//   - Value ranges for any sub-aggregations on the `geotile_grid` or
+//
+// `geohex_grid`.
+//   - Metadata for the search.
+//
+// The API only returns features that can display at its zoom level.
+// For example, if a polygon feature has no area at its zoom level, the API
+// omits it.
+// The API returns errors as UTF-8 encoded JSON.
+//
+// IMPORTANT: You can specify several options for this API as either a query
+// parameter or request body parameter.
+// If you specify both parameters, the query parameter takes precedence.
+//
+// **Grid precision for geotile**
+//
+// For a `grid_agg` of `geotile`, you can use cells in the `aggs` layer as tiles
+// for lower zoom levels.
+// `grid_precision` represents the additional zoom levels available through
+// these cells. The final precision is computed by as follows: `<zoom> +
+// grid_precision`.
+// For example, if `<zoom>` is 7 and `grid_precision` is 8, then the
+// `geotile_grid` aggregation will use a precision of 15.
+// The maximum final precision is 29.
+// The `grid_precision` also determines the number of cells for the grid as
+// follows: `(2^grid_precision) x (2^grid_precision)`.
+// For example, a value of 8 divides the tile into a grid of 256 x 256 cells.
+// The `aggs` layer only contains features for cells with matching data.
+//
+// **Grid precision for geohex**
+//
+// For a `grid_agg` of `geohex`, Elasticsearch uses `<zoom>` and
+// `grid_precision` to calculate a final precision as follows: `<zoom> +
+// grid_precision`.
+//
+// This precision determines the H3 resolution of the hexagonal cells produced
+// by the `geohex` aggregation.
+// The following table maps the H3 resolution for each precision.
+// For example, if `<zoom>` is 3 and `grid_precision` is 3, the precision is 6.
+// At a precision of 6, hexagonal cells have an H3 resolution of 2.
+// If `<zoom>` is 3 and `grid_precision` is 4, the precision is 7.
+// At a precision of 7, hexagonal cells have an H3 resolution of 3.
+//
+// | Precision | Unique tile bins | H3 resolution | Unique hex bins |	Ratio |
+// | --------- | ---------------- | ------------- | ----------------| ----- |
+// | 1  | 4                  | 0  | 122             | 30.5           |
+// | 2  | 16                 | 0  | 122             | 7.625          |
+// | 3  | 64                 | 1  | 842             | 13.15625       |
+// | 4  | 256                | 1  | 842             | 3.2890625      |
+// | 5  | 1024               | 2  | 5882            | 5.744140625    |
+// | 6  | 4096               | 2  | 5882            | 1.436035156    |
+// | 7  | 16384              | 3  | 41162           | 2.512329102    |
+// | 8  | 65536              | 3  | 41162           | 0.6280822754   |
+// | 9  | 262144             | 4  | 288122          | 1.099098206    |
+// | 10 | 1048576            | 4  | 288122          | 0.2747745514   |
+// | 11 | 4194304            | 5  | 2016842         | 0.4808526039   |
+// | 12 | 16777216           | 6  | 14117882        | 0.8414913416   |
+// | 13 | 67108864           | 6  | 14117882        | 0.2103728354   |
+// | 14 | 268435456          | 7  | 98825162        | 0.3681524172   |
+// | 15 | 1073741824         | 8  | 691776122       | 0.644266719    |
+// | 16 | 4294967296         | 8  | 691776122       | 0.1610666797   |
+// | 17 | 17179869184        | 9  | 4842432842      | 0.2818666889   |
+// | 18 | 68719476736        | 10 | 33897029882     | 0.4932667053   |
+// | 19 | 274877906944       | 11 | 237279209162    | 0.8632167343   |
+// | 20 | 1099511627776      | 11 | 237279209162    | 0.2158041836   |
+// | 21 | 4398046511104      | 12 | 1660954464122   | 0.3776573213   |
+// | 22 | 17592186044416     | 13 | 11626681248842  | 0.6609003122   |
+// | 23 | 70368744177664     | 13 | 11626681248842  | 0.165225078    |
+// | 24 | 281474976710656    | 14 | 81386768741882  | 0.2891438866   |
+// | 25 | 1125899906842620   | 15 | 569707381193162 | 0.5060018015   |
+// | 26 | 4503599627370500   | 15 | 569707381193162 | 0.1265004504   |
+// | 27 | 18014398509482000  | 15 | 569707381193162 | 0.03162511259  |
+// | 28 | 72057594037927900  | 15 | 569707381193162 | 0.007906278149 |
+// | 29 | 288230376151712000 | 15 | 569707381193162 | 0.001976569537 |
+//
+// Hexagonal cells don't align perfectly on a vector tile.
+// Some cells may intersect more than one vector tile.
+// To compute the H3 resolution for each precision, Elasticsearch compares the
+// average density of hexagonal bins at each resolution with the average density
+// of tile bins at each zoom level.
+// Elasticsearch uses the H3 resolution that is closest to the corresponding
+// geotile density.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
 func New(tp elastictransport.Interface) *SearchMvt {
 	r := &SearchMvt{
 		transport: tp,
@@ -117,8 +449,6 @@ func New(tp elastictransport.Interface) *SearchMvt {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -443,151 +773,263 @@ func (r *SearchMvt) Pretty(pretty bool) *SearchMvt {
 	return r
 }
 
-// Aggs Sub-aggregations for the geotile_grid.
+// Sub-aggregations for the geotile_grid.
 //
-// Supports the following aggregation types:
-// - avg
-// - cardinality
-// - max
-// - min
-// - sum
+// It supports the following aggregation types:
+//
+// - `avg`
+// - `boxplot`
+// - `cardinality`
+// - `extended stats`
+// - `max`
+// - `median absolute deviation`
+// - `min`
+// - `percentile`
+// - `percentile-rank`
+// - `stats`
+// - `sum`
+// - `value count`
+//
+// The aggregation names can't start with `_mvt_`. The `_mvt_` prefix is
+// reserved for internal aggregations.
 // API name: aggs
 func (r *SearchMvt) Aggs(aggs map[string]types.Aggregations) *SearchMvt {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Aggs = aggs
-
 	return r
 }
 
-// Buffer Size, in pixels, of a clipping buffer outside the tile. This allows renderers
+func (r *SearchMvt) AddAgg(key string, value types.AggregationsVariant) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]types.Aggregations
+	if r.req.Aggs == nil {
+		r.req.Aggs = make(map[string]types.Aggregations)
+	} else {
+		tmp = r.req.Aggs
+	}
+
+	tmp[key] = *value.AggregationsCaster()
+
+	r.req.Aggs = tmp
+	return r
+}
+
+// The size, in pixels, of a clipping buffer outside the tile. This allows
+// renderers
 // to avoid outline artifacts from geometries that extend past the extent of the
 // tile.
 // API name: buffer
 func (r *SearchMvt) Buffer(buffer int) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Buffer = &buffer
 
 	return r
 }
 
-// ExactBounds If false, the meta layer’s feature is the bounding box of the tile.
-// If true, the meta layer’s feature is a bounding box resulting from a
-// geo_bounds aggregation. The aggregation runs on <field> values that intersect
-// the <zoom>/<x>/<y> tile with wrap_longitude set to false. The resulting
+// If `false`, the meta layer's feature is the bounding box of the tile.
+// If `true`, the meta layer's feature is a bounding box resulting from a
+// `geo_bounds` aggregation. The aggregation runs on <field> values that
+// intersect
+// the `<zoom>/<x>/<y>` tile with `wrap_longitude` set to `false`. The resulting
 // bounding box may be larger than the vector tile.
 // API name: exact_bounds
 func (r *SearchMvt) ExactBounds(exactbounds bool) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.ExactBounds = &exactbounds
 
 	return r
 }
 
-// Extent Size, in pixels, of a side of the tile. Vector tiles are square with equal
-// sides.
+// The size, in pixels, of a side of the tile. Vector tiles are square with
+// equal sides.
 // API name: extent
 func (r *SearchMvt) Extent(extent int) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Extent = &extent
 
 	return r
 }
 
-// Fields Fields to return in the `hits` layer. Supports wildcards (`*`).
+// The fields to return in the `hits` layer.
+// It supports wildcards (`*`).
 // This parameter does not support fields with array values. Fields with array
 // values may return inconsistent results.
 // API name: fields
 func (r *SearchMvt) Fields(fields ...string) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Fields = fields
 
 	return r
 }
 
-// GridAgg Aggregation used to create a grid for the `field`.
+// The aggregation used to create a grid for the `field`.
 // API name: grid_agg
 func (r *SearchMvt) GridAgg(gridagg gridaggregationtype.GridAggregationType) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.GridAgg = &gridagg
-
 	return r
 }
 
-// GridPrecision Additional zoom levels available through the aggs layer. For example, if
-// <zoom> is 7
-// and grid_precision is 8, you can zoom in up to level 15. Accepts 0-8. If 0,
-// results
-// don’t include the aggs layer.
+// Additional zoom levels available through the aggs layer. For example, if
+// `<zoom>` is `7`
+// and `grid_precision` is `8`, you can zoom in up to level 15. Accepts 0-8. If
+// 0, results
+// don't include the aggs layer.
 // API name: grid_precision
 func (r *SearchMvt) GridPrecision(gridprecision int) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.GridPrecision = &gridprecision
 
 	return r
 }
 
-// GridType Determines the geometry type for features in the aggs layer. In the aggs
+// Determines the geometry type for features in the aggs layer. In the aggs
 // layer,
-// each feature represents a geotile_grid cell. If 'grid' each feature is a
-// Polygon
-// of the cells bounding box. If 'point' each feature is a Point that is the
+// each feature represents a `geotile_grid` cell. If `grid, each feature is a
+// polygon
+// of the cells bounding box. If `point`, each feature is a Point that is the
 // centroid
 // of the cell.
 // API name: grid_type
 func (r *SearchMvt) GridType(gridtype gridtype.GridType) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.GridType = &gridtype
-
 	return r
 }
 
-// Query Query DSL used to filter documents for the search.
+// The query DSL used to filter documents for the search.
 // API name: query
-func (r *SearchMvt) Query(query *types.Query) *SearchMvt {
+func (r *SearchMvt) Query(query types.QueryVariant) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Query = query
+	r.req.Query = query.QueryCaster()
 
 	return r
 }
 
-// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
+// Defines one or more runtime fields in the search request. These fields take
 // precedence over mapped fields with the same name.
 // API name: runtime_mappings
-func (r *SearchMvt) RuntimeMappings(runtimefields types.RuntimeFields) *SearchMvt {
-	r.req.RuntimeMappings = runtimefields
+func (r *SearchMvt) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
 
 	return r
 }
 
-// Size Maximum number of features to return in the hits layer. Accepts 0-10000.
-// If 0, results don’t include the hits layer.
+// The maximum number of features to return in the hits layer. Accepts 0-10000.
+// If 0, results don't include the hits layer.
 // API name: size
 func (r *SearchMvt) Size(size int) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Size = &size
 
 	return r
 }
 
-// Sort Sorts features in the hits layer. By default, the API calculates a bounding
-// box for each feature. It sorts features based on this box’s diagonal length,
+// Sort the features in the hits layer. By default, the API calculates a
+// bounding
+// box for each feature. It sorts features based on this box's diagonal length,
 // from longest to shortest.
 // API name: sort
-func (r *SearchMvt) Sort(sorts ...types.SortCombinations) *SearchMvt {
-	r.req.Sort = sorts
+func (r *SearchMvt) Sort(sorts ...types.SortCombinationsVariant) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	for _, v := range sorts {
+		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
+	}
 
 	return r
 }
 
-// TrackTotalHits Number of hits matching the query to count accurately. If `true`, the exact
-// number
+// The number of hits matching the query to count accurately. If `true`, the
+// exact number
 // of hits is returned at the cost of some performance. If `false`, the response
 // does
 // not include the total number of hits matching the query.
 // API name: track_total_hits
-func (r *SearchMvt) TrackTotalHits(trackhits types.TrackHits) *SearchMvt {
-	r.req.TrackTotalHits = trackhits
+func (r *SearchMvt) TrackTotalHits(trackhits types.TrackHitsVariant) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.TrackTotalHits = *trackhits.TrackHitsCaster()
 
 	return r
 }
 
-// WithLabels If `true`, the hits and aggs layers will contain additional point features
+// If `true`, the hits and aggs layers will contain additional point features
 // representing
 // suggested label positions for the original features.
+//
+// * `Point` and `MultiPoint` features will have one of the points selected.
+// * `Polygon` and `MultiPolygon` features will have a single point generated,
+// either the centroid, if it is within the polygon, or another point within the
+// polygon selected from the sorted triangle-tree.
+// * `LineString` features will likewise provide a roughly central point
+// selected from the triangle-tree.
+// * The aggregation results will provide one central point for each aggregation
+// bucket.
+//
+// All attributes from the original features will also be copied to the new
+// label features.
+// In addition, the new features will be distinguishable using the tag
+// `_mvt_label_position`.
 // API name: with_labels
 func (r *SearchMvt) WithLabels(withlabels bool) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.WithLabels = &withlabels
 
 	return r

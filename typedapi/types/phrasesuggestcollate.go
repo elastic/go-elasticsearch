@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PhraseSuggestCollate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/search/_types/suggester.ts#L333-L346
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/search/_types/suggester.ts#L333-L346
 type PhraseSuggestCollate struct {
 	// Params Parameters to use if the query is templated.
 	Params map[string]json.RawMessage `json:"params,omitempty"`
@@ -92,8 +92,18 @@ func (s *PhraseSuggestCollate) UnmarshalJSON(data []byte) error {
 // NewPhraseSuggestCollate returns a PhraseSuggestCollate.
 func NewPhraseSuggestCollate() *PhraseSuggestCollate {
 	r := &PhraseSuggestCollate{
-		Params: make(map[string]json.RawMessage, 0),
+		Params: make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type PhraseSuggestCollateVariant interface {
+	PhraseSuggestCollateCaster() *PhraseSuggestCollate
+}
+
+func (s *PhraseSuggestCollate) PhraseSuggestCollateCaster() *PhraseSuggestCollate {
+	return s
 }

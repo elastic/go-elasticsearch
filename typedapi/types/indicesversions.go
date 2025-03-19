@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndicesVersions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cluster/stats/types.ts#L263-L268
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/cluster/stats/types.ts#L263-L268
 type IndicesVersions struct {
 	IndexCount        int    `json:"index_count"`
 	PrimaryShardCount int    `json:"primary_shard_count"`
@@ -117,3 +117,5 @@ func NewIndicesVersions() *IndicesVersions {
 
 	return r
 }
+
+// false

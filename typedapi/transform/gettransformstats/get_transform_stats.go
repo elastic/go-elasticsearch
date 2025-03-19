@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Get transform stats.
-// Retrieves usage information for transforms.
+//
+// Get usage information for transforms.
 package gettransformstats
 
 import (
@@ -78,9 +79,10 @@ func NewGetTransformStatsFunc(tp elastictransport.Interface) NewGetTransformStat
 }
 
 // Get transform stats.
-// Retrieves usage information for transforms.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-stats.html
+// Get usage information for transforms.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-transform-stats
 func New(tp elastictransport.Interface) *GetTransformStats {
 	r := &GetTransformStats{
 		transport: tp,

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newShutdownDeleteNodeFunc(t Transport) ShutdownDeleteNode {
@@ -50,6 +51,9 @@ type ShutdownDeleteNode func(node_id string, o ...func(*ShutdownDeleteNodeReques
 // ShutdownDeleteNodeRequest configures the Shutdown Delete Node API request.
 type ShutdownDeleteNodeRequest struct {
 	NodeID string
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +99,14 @@ func (r ShutdownDeleteNodeRequest) Do(providedCtx context.Context, transport Tra
 	path.WriteString("shutdown")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +183,20 @@ func (r ShutdownDeleteNodeRequest) Do(providedCtx context.Context, transport Tra
 func (f ShutdownDeleteNode) WithContext(v context.Context) func(*ShutdownDeleteNodeRequest) {
 	return func(r *ShutdownDeleteNodeRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f ShutdownDeleteNode) WithMasterTimeout(v time.Duration) func(*ShutdownDeleteNodeRequest) {
+	return func(r *ShutdownDeleteNodeRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f ShutdownDeleteNode) WithTimeout(v time.Duration) func(*ShutdownDeleteNodeRequest) {
+	return func(r *ShutdownDeleteNodeRequest) {
+		r.Timeout = v
 	}
 }
 

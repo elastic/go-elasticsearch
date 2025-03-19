@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,13 +31,14 @@ import (
 
 // TextExpansionInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/inference.ts#L247-L253
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/inference.ts#L233-L240
 type TextExpansionInferenceOptions struct {
 	// ResultsField The field that is added to incoming documents to contain the inference
 	// prediction. Defaults to predicted_value.
 	ResultsField *string `json:"results_field,omitempty"`
 	// Tokenization The tokenization options
 	Tokenization *TokenizationConfigContainer `json:"tokenization,omitempty"`
+	Vocabulary   Vocabulary                   `json:"vocabulary"`
 }
 
 func (s *TextExpansionInferenceOptions) UnmarshalJSON(data []byte) error {
@@ -72,6 +73,11 @@ func (s *TextExpansionInferenceOptions) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Tokenization", err)
 			}
 
+		case "vocabulary":
+			if err := dec.Decode(&s.Vocabulary); err != nil {
+				return fmt.Errorf("%s | %w", "Vocabulary", err)
+			}
+
 		}
 	}
 	return nil
@@ -82,4 +88,14 @@ func NewTextExpansionInferenceOptions() *TextExpansionInferenceOptions {
 	r := &TextExpansionInferenceOptions{}
 
 	return r
+}
+
+// true
+
+type TextExpansionInferenceOptionsVariant interface {
+	TextExpansionInferenceOptionsCaster() *TextExpansionInferenceOptions
+}
+
+func (s *TextExpansionInferenceOptions) TextExpansionInferenceOptionsCaster() *TextExpansionInferenceOptions {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package search
 
@@ -34,22 +34,46 @@ import (
 
 // Response holds the response body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/search/SearchResponse.ts#L34-L36
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/search/SearchResponse.ts#L34-L36
 type Response struct {
-	Aggregations    map[string]types.Aggregate `json:"aggregations,omitempty"`
-	Clusters_       *types.ClusterStatistics   `json:"_clusters,omitempty"`
-	Fields          map[string]json.RawMessage `json:"fields,omitempty"`
-	Hits            types.HitsMetadata         `json:"hits"`
-	MaxScore        *types.Float64             `json:"max_score,omitempty"`
-	NumReducePhases *int64                     `json:"num_reduce_phases,omitempty"`
-	PitId           *string                    `json:"pit_id,omitempty"`
-	Profile         *types.Profile             `json:"profile,omitempty"`
-	ScrollId_       *string                    `json:"_scroll_id,omitempty"`
+	Aggregations map[string]types.Aggregate `json:"aggregations,omitempty"`
+	Clusters_    *types.ClusterStatistics   `json:"_clusters,omitempty"`
+	Fields       map[string]json.RawMessage `json:"fields,omitempty"`
+	// Hits The returned documents and metadata.
+	Hits            types.HitsMetadata `json:"hits"`
+	MaxScore        *types.Float64     `json:"max_score,omitempty"`
+	NumReducePhases *int64             `json:"num_reduce_phases,omitempty"`
+	PitId           *string            `json:"pit_id,omitempty"`
+	Profile         *types.Profile     `json:"profile,omitempty"`
+	// ScrollId_ The identifier for the search and its search context.
+	// You can use this scroll ID with the scroll API to retrieve the next batch of
+	// search results for the request.
+	// This property is returned only if the `scroll` query parameter is specified
+	// in the request.
+	ScrollId_ *string `json:"_scroll_id,omitempty"`
+	// Shards_ A count of shards used for the request.
 	Shards_         types.ShardStatistics      `json:"_shards"`
 	Suggest         map[string][]types.Suggest `json:"suggest,omitempty"`
 	TerminatedEarly *bool                      `json:"terminated_early,omitempty"`
-	TimedOut        bool                       `json:"timed_out"`
-	Took            int64                      `json:"took"`
+	// TimedOut If `true`, the request timed out before completion; returned results may be
+	// partial or empty.
+	TimedOut bool `json:"timed_out"`
+	// Took The number of milliseconds it took Elasticsearch to run the request.
+	// This value is calculated by measuring the time elapsed between receipt of a
+	// request on the coordinating node and the time at which the coordinating node
+	// is ready to send the response.
+	// It includes:
+	//
+	// * Communication time between the coordinating node and data nodes
+	// * Time the request spends in the search thread pool, queued for execution
+	// * Actual run time
+	//
+	// It does not include:
+	//
+	// * Time needed to send the request to Elasticsearch
+	// * Time needed to serialize the JSON response
+	// * Time needed to send the response to a client
+	Took int64 `json:"took"`
 }
 
 // NewResponse returns a Response

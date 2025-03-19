@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -209,7 +209,7 @@ func (f IndicesExistsTemplate) WithLocal(v bool) func(*IndicesExistsTemplateRequ
 	}
 }
 
-// WithMasterTimeout - explicit operation timeout for connection to master node.
+// WithMasterTimeout - timeout for waiting for new cluster state in case it is blocked.
 func (f IndicesExistsTemplate) WithMasterTimeout(v time.Duration) func(*IndicesExistsTemplateRequest) {
 	return func(r *IndicesExistsTemplateRequest) {
 		r.MasterTimeout = v

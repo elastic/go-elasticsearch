@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Delete an autoscaling policy.
 //
@@ -86,7 +86,7 @@ func NewDeleteAutoscalingPolicyFunc(tp elastictransport.Interface) NewDeleteAuto
 // Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
 // supported.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-delete-autoscaling-policy.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-delete-autoscaling-policy
 func New(tp elastictransport.Interface) *DeleteAutoscalingPolicy {
 	r := &DeleteAutoscalingPolicy{
 		transport: tp,
@@ -303,6 +303,25 @@ func (r *DeleteAutoscalingPolicy) Header(key, value string) *DeleteAutoscalingPo
 func (r *DeleteAutoscalingPolicy) _name(name string) *DeleteAutoscalingPolicy {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: master_timeout
+func (r *DeleteAutoscalingPolicy) MasterTimeout(duration string) *DeleteAutoscalingPolicy {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
+// API name: timeout
+func (r *DeleteAutoscalingPolicy) Timeout(duration string) *DeleteAutoscalingPolicy {
+	r.values.Set("timeout", duration)
 
 	return r
 }

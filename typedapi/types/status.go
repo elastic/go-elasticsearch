@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,16 +31,28 @@ import (
 
 // Status type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/snapshot/_types/SnapshotStatus.ts#L26-L35
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/snapshot/_types/SnapshotStatus.ts#L26-L60
 type Status struct {
+	// IncludeGlobalState Indicates whether the current cluster state is included in the snapshot.
 	IncludeGlobalState bool                          `json:"include_global_state"`
 	Indices            map[string]SnapshotIndexStats `json:"indices"`
-	Repository         string                        `json:"repository"`
-	ShardsStats        SnapshotShardsStats           `json:"shards_stats"`
-	Snapshot           string                        `json:"snapshot"`
-	State              string                        `json:"state"`
-	Stats              SnapshotStats                 `json:"stats"`
-	Uuid               string                        `json:"uuid"`
+	// Repository The name of the repository that includes the snapshot.
+	Repository string `json:"repository"`
+	// ShardsStats Statistics for the shards in the snapshot.
+	ShardsStats SnapshotShardsStats `json:"shards_stats"`
+	// Snapshot The name of the snapshot.
+	Snapshot string `json:"snapshot"`
+	// State The current snapshot state:
+	//
+	// * `FAILED`: The snapshot finished with an error and failed to store any data.
+	// * `STARTED`: The snapshot is currently running.
+	// * `SUCCESS`: The snapshot completed.
+	State string `json:"state"`
+	// Stats Details about the number (`file_count`) and size (`size_in_bytes`) of files
+	// included in the snapshot.
+	Stats SnapshotStats `json:"stats"`
+	// Uuid The universally unique identifier (UUID) for the snapshot.
+	Uuid string `json:"uuid"`
 }
 
 func (s *Status) UnmarshalJSON(data []byte) error {
@@ -139,8 +151,10 @@ func (s *Status) UnmarshalJSON(data []byte) error {
 // NewStatus returns a Status.
 func NewStatus() *Status {
 	r := &Status{
-		Indices: make(map[string]SnapshotIndexStats, 0),
+		Indices: make(map[string]SnapshotIndexStats),
 	}
 
 	return r
 }
+
+// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FingerprintTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/token_filters.ts#L195-L199
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/analysis/token_filters.ts#L195-L199
 type FingerprintTokenFilter struct {
 	MaxOutputSize *int    `json:"max_output_size,omitempty"`
 	Separator     *string `json:"separator,omitempty"`
@@ -117,4 +117,14 @@ func NewFingerprintTokenFilter() *FingerprintTokenFilter {
 	r := &FingerprintTokenFilter{}
 
 	return r
+}
+
+// true
+
+type FingerprintTokenFilterVariant interface {
+	FingerprintTokenFilterCaster() *FingerprintTokenFilter
+}
+
+func (s *FingerprintTokenFilter) FingerprintTokenFilterCaster() *FingerprintTokenFilter {
+	return s
 }

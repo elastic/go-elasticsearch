@@ -16,10 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// You can use this API to clear the archived repositories metering information
-// in the cluster.
+// Clear the archived repositories metering.
+// Clear the archived repositories metering information in the cluster.
 package clearrepositoriesmeteringarchive
 
 import (
@@ -82,10 +82,10 @@ func NewClearRepositoriesMeteringArchiveFunc(tp elastictransport.Interface) NewC
 	}
 }
 
-// You can use this API to clear the archived repositories metering information
-// in the cluster.
+// Clear the archived repositories metering.
+// Clear the archived repositories metering information in the cluster.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-repositories-metering-archive-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-clear-repositories-metering-archive
 func New(tp elastictransport.Interface) *ClearRepositoriesMeteringArchive {
 	r := &ClearRepositoriesMeteringArchive{
 		transport: tp,
@@ -304,8 +304,6 @@ func (r *ClearRepositoriesMeteringArchive) Header(key, value string) *ClearRepos
 }
 
 // NodeId Comma-separated list of node IDs or names used to limit returned information.
-// All the nodes selective options are explained
-// [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster.html#cluster-nodes).
 // API Name: nodeid
 func (r *ClearRepositoriesMeteringArchive) _nodeid(nodeid string) *ClearRepositoriesMeteringArchive {
 	r.paramSet |= nodeidMask
@@ -314,9 +312,7 @@ func (r *ClearRepositoriesMeteringArchive) _nodeid(nodeid string) *ClearReposito
 	return r
 }
 
-// MaxArchiveVersion Specifies the maximum
-// [archive_version](https://www.elastic.co/guide/en/elasticsearch/reference/current/get-repositories-metering-api.html#get-repositories-metering-api-response-body)
-// to be cleared from the archive.
+// MaxArchiveVersion Specifies the maximum `archive_version` to be cleared from the archive.
 // API Name: maxarchiveversion
 func (r *ClearRepositoriesMeteringArchive) _maxarchiveversion(maxarchiveversion string) *ClearRepositoriesMeteringArchive {
 	r.paramSet |= maxarchiveversionMask

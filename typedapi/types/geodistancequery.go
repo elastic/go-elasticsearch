@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoDistanceQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/geo.ts#L61-L93
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/query_dsl/geo.ts#L64-L96
 type GeoDistanceQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -183,8 +183,18 @@ func (s GeoDistanceQuery) MarshalJSON() ([]byte, error) {
 // NewGeoDistanceQuery returns a GeoDistanceQuery.
 func NewGeoDistanceQuery() *GeoDistanceQuery {
 	r := &GeoDistanceQuery{
-		GeoDistanceQuery: make(map[string]GeoLocation, 0),
+		GeoDistanceQuery: make(map[string]GeoLocation),
 	}
 
 	return r
+}
+
+// true
+
+type GeoDistanceQueryVariant interface {
+	GeoDistanceQueryCaster() *GeoDistanceQuery
+}
+
+func (s *GeoDistanceQuery) GeoDistanceQueryCaster() *GeoDistanceQuery {
+	return s
 }

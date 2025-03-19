@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Check user privileges.
 //
 // Determine whether the specified user has a specified list of privileges.
+// All users can use this API, but only to determine their own privileges.
+// To check the privileges of other users, you must use the run as feature.
 package hasprivileges
 
 import (
@@ -85,8 +87,10 @@ func NewHasPrivilegesFunc(tp elastictransport.Interface) NewHasPrivileges {
 // Check user privileges.
 //
 // Determine whether the specified user has a specified list of privileges.
+// All users can use this API, but only to determine their own privileges.
+// To check the privileges of other users, you must use the run as feature.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-has-privileges
 func New(tp elastictransport.Interface) *HasPrivileges {
 	r := &HasPrivileges{
 		transport: tp,
@@ -94,8 +98,6 @@ func New(tp elastictransport.Interface) *HasPrivileges {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -374,23 +376,44 @@ func (r *HasPrivileges) Pretty(pretty bool) *HasPrivileges {
 }
 
 // API name: application
-func (r *HasPrivileges) Application(applications ...types.ApplicationPrivilegesCheck) *HasPrivileges {
-	r.req.Application = applications
+func (r *HasPrivileges) Application(applications ...types.ApplicationPrivilegesCheckVariant) *HasPrivileges {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range applications {
 
+		r.req.Application = append(r.req.Application, *v.ApplicationPrivilegesCheckCaster())
+
+	}
 	return r
 }
 
-// Cluster A list of the cluster privileges that you want to check.
+// A list of the cluster privileges that you want to check.
 // API name: cluster
 func (r *HasPrivileges) Cluster(clusters ...clusterprivilege.ClusterPrivilege) *HasPrivileges {
-	r.req.Cluster = clusters
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range clusters {
 
+		r.req.Cluster = append(r.req.Cluster, v)
+
+	}
 	return r
 }
 
 // API name: index
-func (r *HasPrivileges) Index(indices ...types.IndexPrivilegesCheck) *HasPrivileges {
-	r.req.Index = indices
+func (r *HasPrivileges) Index(indices ...types.IndexPrivilegesCheckVariant) *HasPrivileges {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range indices {
 
+		r.req.Index = append(r.req.Index, *v.IndexPrivilegesCheckCaster())
+
+	}
 	return r
 }

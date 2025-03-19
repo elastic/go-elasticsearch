@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PatternTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/tokenizers.ts#L104-L109
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/analysis/tokenizers.ts#L104-L109
 type PatternTokenizer struct {
 	Flags   *string `json:"flags,omitempty"`
 	Group   *int    `json:"group,omitempty"`
@@ -131,4 +131,14 @@ func NewPatternTokenizer() *PatternTokenizer {
 	r := &PatternTokenizer{}
 
 	return r
+}
+
+// true
+
+type PatternTokenizerVariant interface {
+	PatternTokenizerCaster() *PatternTokenizer
+}
+
+func (s *PatternTokenizer) PatternTokenizerCaster() *PatternTokenizer {
+	return s
 }

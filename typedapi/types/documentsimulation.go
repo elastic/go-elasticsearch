@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -33,15 +33,15 @@ import (
 
 // DocumentSimulation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ingest/simulate/types.ts#L78-L108
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ingest/_types/Simulation.ts#L78-L108
 type DocumentSimulation struct {
 	DocumentSimulation map[string]string `json:"-"`
 	// Id_ Unique identifier for the document. This ID must be unique within the
 	// `_index`.
 	Id_ string `json:"_id"`
 	// Index_ Name of the index containing the document.
-	Index_  string         `json:"_index"`
-	Ingest_ SimulateIngest `json:"_ingest"`
+	Index_  string `json:"_index"`
+	Ingest_ Ingest `json:"_ingest"`
 	// Routing_ Value used to send the document to a specific primary shard.
 	Routing_ *string `json:"_routing,omitempty"`
 	// Source_ JSON body for the document.
@@ -160,9 +160,11 @@ func (s DocumentSimulation) MarshalJSON() ([]byte, error) {
 // NewDocumentSimulation returns a DocumentSimulation.
 func NewDocumentSimulation() *DocumentSimulation {
 	r := &DocumentSimulation{
-		DocumentSimulation: make(map[string]string, 0),
-		Source_:            make(map[string]json.RawMessage, 0),
+		DocumentSimulation: make(map[string]string),
+		Source_:            make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

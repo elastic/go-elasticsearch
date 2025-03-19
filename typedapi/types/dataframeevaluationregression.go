@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DataframeEvaluationRegression type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/DataframeEvaluation.ts#L55-L62
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/DataframeEvaluation.ts#L55-L62
 type DataframeEvaluationRegression struct {
 	// ActualField The field of the index which contains the ground truth. The data type of this
 	// field must be numerical.
@@ -84,4 +84,14 @@ func NewDataframeEvaluationRegression() *DataframeEvaluationRegression {
 	r := &DataframeEvaluationRegression{}
 
 	return r
+}
+
+// true
+
+type DataframeEvaluationRegressionVariant interface {
+	DataframeEvaluationRegressionCaster() *DataframeEvaluationRegression
+}
+
+func (s *DataframeEvaluationRegression) DataframeEvaluationRegressionCaster() *DataframeEvaluationRegression {
+	return s
 }

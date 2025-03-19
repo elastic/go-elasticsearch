@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IntervalsMatch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/fulltext.ts#L186-L216
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/query_dsl/fulltext.ts#L186-L216
 type IntervalsMatch struct {
 	// Analyzer Analyzer used to analyze terms in the query.
 	Analyzer *string `json:"analyzer,omitempty"`
@@ -140,4 +140,14 @@ func NewIntervalsMatch() *IntervalsMatch {
 	r := &IntervalsMatch{}
 
 	return r
+}
+
+// true
+
+type IntervalsMatchVariant interface {
+	IntervalsMatchCaster() *IntervalsMatch
+}
+
+func (s *IntervalsMatch) IntervalsMatchCaster() *IntervalsMatch {
+	return s
 }

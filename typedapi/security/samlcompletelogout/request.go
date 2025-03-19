@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package samlcompletelogout
 
@@ -31,14 +31,14 @@ import (
 
 // Request holds the request body struct for the package samlcompletelogout
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/saml_complete_logout/Request.ts#L23-L42
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/security/saml_complete_logout/Request.ts#L23-L61
 type Request struct {
 
 	// Content If the SAML IdP sends the logout response with the HTTP-Post binding, this
 	// field must be set to the value of the SAMLResponse form parameter from the
 	// logout response.
 	Content *string `json:"content,omitempty"`
-	// Ids A json array with all the valid SAML Request Ids that the caller of the API
+	// Ids A JSON array with all the valid SAML Request Ids that the caller of the API
 	// has for the current user.
 	Ids []string `json:"ids"`
 	// QueryString If the SAML IdP sends the logout response with the HTTP-Redirect binding,

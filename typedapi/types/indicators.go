@@ -16,16 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
 // Indicators type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/health_report/types.ts#L32-L41
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/health_report/types.ts#L32-L42
 type Indicators struct {
 	DataStreamLifecycle *DataStreamLifecycleIndicator `json:"data_stream_lifecycle,omitempty"`
 	Disk                *DiskIndicator                `json:"disk,omitempty"`
+	FileSettings        *FileSettingsIndicator        `json:"file_settings,omitempty"`
 	Ilm                 *IlmIndicator                 `json:"ilm,omitempty"`
 	MasterIsStable      *MasterIsStableIndicator      `json:"master_is_stable,omitempty"`
 	RepositoryIntegrity *RepositoryIntegrityIndicator `json:"repository_integrity,omitempty"`
@@ -40,3 +41,5 @@ func NewIndicators() *Indicators {
 
 	return r
 }
+
+// false

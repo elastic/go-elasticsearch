@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeInfoTransport type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/nodes/info/types.ts#L358-L362
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/nodes/info/types.ts#L358-L362
 type NodeInfoTransport struct {
 	BoundAddress   []string          `json:"bound_address"`
 	Profiles       map[string]string `json:"profiles"`
@@ -86,8 +86,10 @@ func (s *NodeInfoTransport) UnmarshalJSON(data []byte) error {
 // NewNodeInfoTransport returns a NodeInfoTransport.
 func NewNodeInfoTransport() *NodeInfoTransport {
 	r := &NodeInfoTransport{
-		Profiles: make(map[string]string, 0),
+		Profiles: make(map[string]string),
 	}
 
 	return r
 }
+
+// false

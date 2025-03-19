@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Delete a connector.
 //
@@ -90,7 +90,7 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 // indices associated with the connector.
 // These need to be removed manually.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-connector-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-delete
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,
@@ -314,6 +314,14 @@ func (r *Delete) _connectorid(connectorid string) *Delete {
 // API name: delete_sync_jobs
 func (r *Delete) DeleteSyncJobs(deletesyncjobs bool) *Delete {
 	r.values.Set("delete_sync_jobs", strconv.FormatBool(deletesyncjobs))
+
+	return r
+}
+
+// Hard A flag indicating if the connector should be hard deleted.
+// API name: hard
+func (r *Delete) Hard(hard bool) *Delete {
+	r.values.Set("hard", strconv.FormatBool(hard))
 
 	return r
 }

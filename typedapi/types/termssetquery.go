@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TermsSetQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/term.ts#L277-L299
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/query_dsl/term.ts#L277-L299
 type TermsSetQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -126,4 +126,14 @@ func NewTermsSetQuery() *TermsSetQuery {
 	r := &TermsSetQuery{}
 
 	return r
+}
+
+// true
+
+type TermsSetQueryVariant interface {
+	TermsSetQueryCaster() *TermsSetQuery
+}
+
+func (s *TermsSetQuery) TermsSetQueryCaster() *TermsSetQuery {
+	return s
 }

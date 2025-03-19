@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Retrieves the status of snapshot lifecycle management (SLM).
+// Get the snapshot lifecycle management status.
 package getstatus
 
 import (
@@ -68,9 +68,9 @@ func NewGetStatusFunc(tp elastictransport.Interface) NewGetStatus {
 	}
 }
 
-// Retrieves the status of snapshot lifecycle management (SLM).
+// Get the snapshot lifecycle management status.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get-status.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-status
 func New(tp elastictransport.Interface) *GetStatus {
 	r := &GetStatus{
 		transport: tp,
@@ -272,6 +272,28 @@ func (r GetStatus) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the GetStatus headers map.
 func (r *GetStatus) Header(key, value string) *GetStatus {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
+// API name: master_timeout
+func (r *GetStatus) MasterTimeout(duration string) *GetStatus {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout The period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
+// API name: timeout
+func (r *GetStatus) Timeout(duration string) *GetStatus {
+	r.values.Set("timeout", duration)
 
 	return r
 }

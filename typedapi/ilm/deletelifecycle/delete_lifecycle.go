@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Deletes the specified lifecycle policy definition. You cannot delete policies
-// that are currently in use. If the policy is being used to manage any indices,
-// the request fails and returns an error.
+// Delete a lifecycle policy.
+// You cannot delete policies that are currently in use. If the policy is being
+// used to manage any indices, the request fails and returns an error.
 package deletelifecycle
 
 import (
@@ -78,11 +78,11 @@ func NewDeleteLifecycleFunc(tp elastictransport.Interface) NewDeleteLifecycle {
 	}
 }
 
-// Deletes the specified lifecycle policy definition. You cannot delete policies
-// that are currently in use. If the policy is being used to manage any indices,
-// the request fails and returns an error.
+// Delete a lifecycle policy.
+// You cannot delete policies that are currently in use. If the policy is being
+// used to manage any indices, the request fails and returns an error.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-delete-lifecycle.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-delete-lifecycle
 func New(tp elastictransport.Interface) *DeleteLifecycle {
 	r := &DeleteLifecycle{
 		transport: tp,

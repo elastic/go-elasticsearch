@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // Detector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/Detector.ts#L25-L67
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/Detector.ts#L25-L67
 type Detector struct {
 	// ByFieldName The field used to split the data. In particular, this property is used for
 	// analyzing the splits with respect to their own history. It is used for
@@ -182,4 +182,14 @@ func NewDetector() *Detector {
 	r := &Detector{}
 
 	return r
+}
+
+// true
+
+type DetectorVariant interface {
+	DetectorCaster() *Detector
+}
+
+func (s *Detector) DetectorCaster() *Detector {
+	return s
 }

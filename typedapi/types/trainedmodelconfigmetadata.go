@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
 // TrainedModelConfigMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/TrainedModel.ts#L206-L214
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/TrainedModel.ts#L246-L254
 type TrainedModelConfigMetadata struct {
 	// FeatureImportanceBaseline An object that contains the baseline for feature importance values. For
 	// regression analysis, it is a single value. For classification analysis, there
@@ -42,8 +42,10 @@ type TrainedModelConfigMetadata struct {
 // NewTrainedModelConfigMetadata returns a TrainedModelConfigMetadata.
 func NewTrainedModelConfigMetadata() *TrainedModelConfigMetadata {
 	r := &TrainedModelConfigMetadata{
-		FeatureImportanceBaseline: make(map[string]string, 0),
+		FeatureImportanceBaseline: make(map[string]string),
 	}
 
 	return r
 }
+
+// false

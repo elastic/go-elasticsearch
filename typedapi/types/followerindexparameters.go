@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FollowerIndexParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ccr/follow_info/types.ts#L37-L83
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ccr/follow_info/types.ts#L42-L88
 type FollowerIndexParameters struct {
 	// MaxOutstandingReadRequests The maximum number of outstanding reads requests from the remote cluster.
 	MaxOutstandingReadRequests *int64 `json:"max_outstanding_read_requests,omitempty"`
@@ -198,3 +198,5 @@ func NewFollowerIndexParameters() *FollowerIndexParameters {
 
 	return r
 }
+
+// false

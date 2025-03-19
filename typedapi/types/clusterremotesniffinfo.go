@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,15 +31,31 @@ import (
 
 // ClusterRemoteSniffInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L32-L40
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L32-L56
 type ClusterRemoteSniffInfo struct {
-	Connected                bool     `json:"connected"`
-	InitialConnectTimeout    Duration `json:"initial_connect_timeout"`
-	MaxConnectionsPerCluster int      `json:"max_connections_per_cluster"`
-	Mode                     string   `json:"mode,omitempty"`
-	NumNodesConnected        int64    `json:"num_nodes_connected"`
-	Seeds                    []string `json:"seeds"`
-	SkipUnavailable          bool     `json:"skip_unavailable"`
+	// Connected If it is `true`, there is at least one open connection to the remote cluster.
+	// If it is `false`, it means that the cluster no longer has an open connection
+	// to the remote cluster.
+	// It does not necessarily mean that the remote cluster is down or unavailable,
+	// just that at some point a connection was lost.
+	Connected bool `json:"connected"`
+	// InitialConnectTimeout The initial connect timeout for remote cluster connections.
+	InitialConnectTimeout Duration `json:"initial_connect_timeout"`
+	// MaxConnectionsPerCluster The maximum number of connections maintained for the remote cluster when
+	// sniff mode is configured.
+	MaxConnectionsPerCluster int `json:"max_connections_per_cluster"`
+	// Mode The connection mode for the remote cluster.
+	Mode string `json:"mode,omitempty"`
+	// NumNodesConnected The number of connected nodes in the remote cluster when sniff mode is
+	// configured.
+	NumNodesConnected int64 `json:"num_nodes_connected"`
+	// Seeds The initial seed transport addresses of the remote cluster when sniff mode is
+	// configured.
+	Seeds []string `json:"seeds"`
+	// SkipUnavailable If `true`, cross-cluster search skips the remote cluster when its nodes are
+	// unavailable during the search and ignores errors returned by the remote
+	// cluster.
+	SkipUnavailable bool `json:"skip_unavailable"`
 }
 
 func (s *ClusterRemoteSniffInfo) UnmarshalJSON(data []byte) error {
@@ -160,3 +176,5 @@ func NewClusterRemoteSniffInfo() *ClusterRemoteSniffInfo {
 
 	return r
 }
+
+// false

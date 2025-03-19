@@ -16,9 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Retrieves the configuration, stats, and status of rollup jobs.
+// Get rollup job information.
+// Get the configuration, stats, and status of rollup jobs.
+//
+// NOTE: This API returns only active (both `STARTED` and `STOPPED`) jobs.
+// If a job was created, ran for a while, then was deleted, the API does not
+// return any details about it.
+// For details about a historical rollup job, the rollup capabilities API may be
+// more useful.
 package getjobs
 
 import (
@@ -74,9 +81,16 @@ func NewGetJobsFunc(tp elastictransport.Interface) NewGetJobs {
 	}
 }
 
-// Retrieves the configuration, stats, and status of rollup jobs.
+// Get rollup job information.
+// Get the configuration, stats, and status of rollup jobs.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/rollup-get-job.html
+// NOTE: This API returns only active (both `STARTED` and `STOPPED`) jobs.
+// If a job was created, ran for a while, then was deleted, the API does not
+// return any details about it.
+// For details about a historical rollup job, the rollup capabilities API may be
+// more useful.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-jobs
 func New(tp elastictransport.Interface) *GetJobs {
 	r := &GetJobs{
 		transport: tp,

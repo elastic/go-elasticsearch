@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GetUserProfileErrors type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/get_user_profile/types.ts#L25-L28
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/security/get_user_profile/types.ts#L25-L28
 type GetUserProfileErrors struct {
 	Count   int64                 `json:"count"`
 	Details map[string]ErrorCause `json:"details"`
@@ -83,8 +83,10 @@ func (s *GetUserProfileErrors) UnmarshalJSON(data []byte) error {
 // NewGetUserProfileErrors returns a GetUserProfileErrors.
 func NewGetUserProfileErrors() *GetUserProfileErrors {
 	r := &GetUserProfileErrors{
-		Details: make(map[string]ErrorCause, 0),
+		Details: make(map[string]ErrorCause),
 	}
 
 	return r
 }
+
+// false

@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Add an index block.
-// Limits the operations allowed on an index by blocking specific operation
-// types.
+//
+// Add an index block to an index.
+// Index blocks limit the operations allowed on an index by blocking specific
+// operation types.
 package addblock
 
 import (
@@ -85,10 +87,12 @@ func NewAddBlockFunc(tp elastictransport.Interface) NewAddBlock {
 }
 
 // Add an index block.
-// Limits the operations allowed on an index by blocking specific operation
-// types.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-blocks.html
+// Add an index block to an index.
+// Index blocks limit the operations allowed on an index by blocking specific
+// operation types.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-add-block
 func New(tp elastictransport.Interface) *AddBlock {
 	r := &AddBlock{
 		transport: tp,
@@ -304,7 +308,14 @@ func (r *AddBlock) Header(key, value string) *AddBlock {
 	return r
 }
 
-// Index A comma separated list of indices to add a block to
+// Index A comma-separated list or wildcard expression of index names used to limit
+// the request.
+// By default, you must explicitly name the indices you are adding blocks to.
+// To allow the adding of blocks to indices with `_all`, `*`, or other wildcard
+// expressions, change the `action.destructive_requires_name` setting to
+// `false`.
+// You can update this setting in the `elasticsearch.yml` file or by using the
+// cluster update settings API.
 // API Name: index
 func (r *AddBlock) _index(index string) *AddBlock {
 	r.paramSet |= indexMask
@@ -313,7 +324,7 @@ func (r *AddBlock) _index(index string) *AddBlock {
 	return r
 }
 
-// Block The block to add (one of read, write, read_only or metadata)
+// Block The block type to add to the index.
 // API Name: block
 func (r *AddBlock) _block(block string) *AddBlock {
 	r.paramSet |= blockMask
@@ -322,8 +333,11 @@ func (r *AddBlock) _block(block string) *AddBlock {
 	return r
 }
 
-// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
+// For example, a request targeting `foo*,bar*` returns an error if an index
+// starts with `foo` but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *AddBlock) AllowNoIndices(allownoindices bool) *AddBlock {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -331,8 +345,10 @@ func (r *AddBlock) AllowNoIndices(allownoindices bool) *AddBlock {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards The type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// It supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *AddBlock) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *AddBlock {
 	tmp := []string{}
@@ -344,8 +360,8 @@ func (r *AddBlock) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildc
 	return r
 }
 
-// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
-// (missing or closed)
+// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
+// index.
 // API name: ignore_unavailable
 func (r *AddBlock) IgnoreUnavailable(ignoreunavailable bool) *AddBlock {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -353,7 +369,10 @@ func (r *AddBlock) IgnoreUnavailable(ignoreunavailable bool) *AddBlock {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout The period to wait for the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// It can also be set to `-1` to indicate that the request should never timeout.
 // API name: master_timeout
 func (r *AddBlock) MasterTimeout(duration string) *AddBlock {
 	r.values.Set("master_timeout", duration)
@@ -361,7 +380,12 @@ func (r *AddBlock) MasterTimeout(duration string) *AddBlock {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout The period to wait for a response from all relevant nodes in the cluster
+// after updating the cluster metadata.
+// If no response is received before the timeout expires, the cluster metadata
+// update still applies but the response will indicate that it was not
+// completely acknowledged.
+// It can also be set to `-1` to indicate that the request should never timeout.
 // API name: timeout
 func (r *AddBlock) Timeout(duration string) *AddBlock {
 	r.values.Set("timeout", duration)

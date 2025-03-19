@@ -16,11 +16,33 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Authenticate SAML.
 //
-// Submits a SAML response message to Elasticsearch for consumption.
+// Submit a SAML response message to Elasticsearch for consumption.
+//
+// NOTE: This API is intended for use by custom web applications other than
+// Kibana.
+// If you are using Kibana, refer to the documentation for configuring SAML
+// single-sign-on on the Elastic Stack.
+//
+// The SAML message that is submitted can be:
+//
+// * A response to a SAML authentication request that was previously created
+// using the SAML prepare authentication API.
+// * An unsolicited SAML message in the case of an IdP-initiated single sign-on
+// (SSO) flow.
+//
+// In either case, the SAML message needs to be a base64 encoded XML document
+// with a root element of `<Response>`.
+//
+// After successful validation, Elasticsearch responds with an Elasticsearch
+// internal access token and refresh token that can be subsequently used for
+// authentication.
+// This API endpoint essentially exchanges SAML responses that indicate
+// successful authentication in the IdP for Elasticsearch access and refresh
+// tokens, which can be used for authentication against Elasticsearch.
 package samlauthenticate
 
 import (
@@ -77,9 +99,31 @@ func NewSamlAuthenticateFunc(tp elastictransport.Interface) NewSamlAuthenticate 
 
 // Authenticate SAML.
 //
-// Submits a SAML response message to Elasticsearch for consumption.
+// Submit a SAML response message to Elasticsearch for consumption.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-authenticate.html
+// NOTE: This API is intended for use by custom web applications other than
+// Kibana.
+// If you are using Kibana, refer to the documentation for configuring SAML
+// single-sign-on on the Elastic Stack.
+//
+// The SAML message that is submitted can be:
+//
+// * A response to a SAML authentication request that was previously created
+// using the SAML prepare authentication API.
+// * An unsolicited SAML message in the case of an IdP-initiated single sign-on
+// (SSO) flow.
+//
+// In either case, the SAML message needs to be a base64 encoded XML document
+// with a root element of `<Response>`.
+//
+// After successful validation, Elasticsearch responds with an Elasticsearch
+// internal access token and refresh token that can be subsequently used for
+// authentication.
+// This API endpoint essentially exchanges SAML responses that indicate
+// successful authentication in the IdP for Elasticsearch access and refresh
+// tokens, which can be used for authentication against Elasticsearch.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-authenticate
 func New(tp elastictransport.Interface) *SamlAuthenticate {
 	r := &SamlAuthenticate{
 		transport: tp,
@@ -87,8 +131,6 @@ func New(tp elastictransport.Interface) *SamlAuthenticate {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -342,29 +384,42 @@ func (r *SamlAuthenticate) Pretty(pretty bool) *SamlAuthenticate {
 	return r
 }
 
-// Content The SAML response as it was sent by the user’s browser, usually a Base64
+// The SAML response as it was sent by the user's browser, usually a Base64
 // encoded XML document.
 // API name: content
 func (r *SamlAuthenticate) Content(content string) *SamlAuthenticate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Content = content
 
 	return r
 }
 
-// Ids A json array with all the valid SAML Request Ids that the caller of the API
+// A JSON array with all the valid SAML Request Ids that the caller of the API
 // has for the current user.
 // API name: ids
 func (r *SamlAuthenticate) Ids(ids ...string) *SamlAuthenticate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Ids = ids
 
 	return r
 }
 
-// Realm The name of the realm that should authenticate the SAML response. Useful in
+// The name of the realm that should authenticate the SAML response. Useful in
 // cases where many SAML realms are defined.
 // API name: realm
 func (r *SamlAuthenticate) Realm(realm string) *SamlAuthenticate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Realm = &realm
 

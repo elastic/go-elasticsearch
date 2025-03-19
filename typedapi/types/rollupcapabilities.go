@@ -16,14 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
 // RollupCapabilities type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/rollup/get_rollup_caps/types.ts#L24-L26
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/rollup/get_rollup_caps/types.ts#L24-L29
 type RollupCapabilities struct {
+	// RollupJobs There can be multiple, independent jobs configured for a single index or
+	// index pattern. Each of these jobs may have different configurations, so the
+	// API returns a list of all the various configurations available.
 	RollupJobs []RollupCapabilitySummary `json:"rollup_jobs"`
 }
 
@@ -33,3 +36,5 @@ func NewRollupCapabilities() *RollupCapabilities {
 
 	return r
 }
+
+// false

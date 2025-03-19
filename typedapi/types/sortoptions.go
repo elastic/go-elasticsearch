@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // SortOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/sort.ts#L86-L96
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/sort.ts#L86-L96
 type SortOptions struct {
 	Doc_         *ScoreSort           `json:"_doc,omitempty"`
 	GeoDistance_ *GeoDistanceSort     `json:"_geo_distance,omitempty"`
@@ -68,8 +68,18 @@ func (s SortOptions) MarshalJSON() ([]byte, error) {
 // NewSortOptions returns a SortOptions.
 func NewSortOptions() *SortOptions {
 	r := &SortOptions{
-		SortOptions: make(map[string]FieldSort, 0),
+		SortOptions: make(map[string]FieldSort),
 	}
 
 	return r
+}
+
+// true
+
+type SortOptionsVariant interface {
+	SortOptionsCaster() *SortOptions
+}
+
+func (s *SortOptions) SortOptionsCaster() *SortOptions {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,16 +31,35 @@ import (
 
 // ClusterRemoteProxyInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L42-L51
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L58-L83
 type ClusterRemoteProxyInfo struct {
-	Connected                 bool     `json:"connected"`
-	InitialConnectTimeout     Duration `json:"initial_connect_timeout"`
-	MaxProxySocketConnections int      `json:"max_proxy_socket_connections"`
-	Mode                      string   `json:"mode,omitempty"`
-	NumProxySocketsConnected  int      `json:"num_proxy_sockets_connected"`
-	ProxyAddress              string   `json:"proxy_address"`
-	ServerName                string   `json:"server_name"`
-	SkipUnavailable           bool     `json:"skip_unavailable"`
+	// ClusterCredentials This field is present and has a value of `::es_redacted::` only when the
+	// remote cluster is configured with the API key based model. Otherwise, the
+	// field is not present.
+	ClusterCredentials *string `json:"cluster_credentials,omitempty"`
+	// Connected If it is `true`, there is at least one open connection to the remote cluster.
+	// If it is `false`, it means that the cluster no longer has an open connection
+	// to the remote cluster.
+	// It does not necessarily mean that the remote cluster is down or unavailable,
+	// just that at some point a connection was lost.
+	Connected bool `json:"connected"`
+	// InitialConnectTimeout The initial connect timeout for remote cluster connections.
+	InitialConnectTimeout Duration `json:"initial_connect_timeout"`
+	// MaxProxySocketConnections The maximum number of socket connections to the remote cluster when proxy
+	// mode is configured.
+	MaxProxySocketConnections int `json:"max_proxy_socket_connections"`
+	// Mode The connection mode for the remote cluster.
+	Mode string `json:"mode,omitempty"`
+	// NumProxySocketsConnected The number of open socket connections to the remote cluster when proxy mode
+	// is configured.
+	NumProxySocketsConnected int `json:"num_proxy_sockets_connected"`
+	// ProxyAddress The address for remote connections when proxy mode is configured.
+	ProxyAddress string `json:"proxy_address"`
+	ServerName   string `json:"server_name"`
+	// SkipUnavailable If `true`, cross-cluster search skips the remote cluster when its nodes are
+	// unavailable during the search and ignores errors returned by the remote
+	// cluster.
+	SkipUnavailable bool `json:"skip_unavailable"`
 }
 
 func (s *ClusterRemoteProxyInfo) UnmarshalJSON(data []byte) error {
@@ -57,6 +76,18 @@ func (s *ClusterRemoteProxyInfo) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "cluster_credentials":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ClusterCredentials", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ClusterCredentials = &o
 
 		case "connected":
 			var tmp any
@@ -161,6 +192,7 @@ func (s *ClusterRemoteProxyInfo) UnmarshalJSON(data []byte) error {
 func (s ClusterRemoteProxyInfo) MarshalJSON() ([]byte, error) {
 	type innerClusterRemoteProxyInfo ClusterRemoteProxyInfo
 	tmp := innerClusterRemoteProxyInfo{
+		ClusterCredentials:        s.ClusterCredentials,
 		Connected:                 s.Connected,
 		InitialConnectTimeout:     s.InitialConnectTimeout,
 		MaxProxySocketConnections: s.MaxProxySocketConnections,
@@ -182,3 +214,5 @@ func NewClusterRemoteProxyInfo() *ClusterRemoteProxyInfo {
 
 	return r
 }
+
+// false

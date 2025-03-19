@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Evaluate data frame analytics.
+//
 // The API packages together commonly used evaluation metrics for various types
 // of machine learning features. This has been designed for use on indexes
 // created by data frame analytics. Evaluation requires both a ground truth
@@ -78,12 +79,13 @@ func NewEvaluateDataFrameFunc(tp elastictransport.Interface) NewEvaluateDataFram
 }
 
 // Evaluate data frame analytics.
+//
 // The API packages together commonly used evaluation metrics for various types
 // of machine learning features. This has been designed for use on indexes
 // created by data frame analytics. Evaluation requires both a ground truth
 // field and an analytics result field to be present.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/evaluate-dfanalytics.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-evaluate-data-frame
 func New(tp elastictransport.Interface) *EvaluateDataFrame {
 	r := &EvaluateDataFrame{
 		transport: tp,
@@ -91,8 +93,6 @@ func New(tp elastictransport.Interface) *EvaluateDataFrame {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -346,28 +346,41 @@ func (r *EvaluateDataFrame) Pretty(pretty bool) *EvaluateDataFrame {
 	return r
 }
 
-// Evaluation Defines the type of evaluation you want to perform.
+// Defines the type of evaluation you want to perform.
 // API name: evaluation
-func (r *EvaluateDataFrame) Evaluation(evaluation *types.DataframeEvaluationContainer) *EvaluateDataFrame {
+func (r *EvaluateDataFrame) Evaluation(evaluation types.DataframeEvaluationContainerVariant) *EvaluateDataFrame {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Evaluation = *evaluation
+	r.req.Evaluation = *evaluation.DataframeEvaluationContainerCaster()
 
 	return r
 }
 
-// Index Defines the `index` in which the evaluation will be performed.
+// Defines the `index` in which the evaluation will be performed.
 // API name: index
 func (r *EvaluateDataFrame) Index(indexname string) *EvaluateDataFrame {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Index = indexname
 
 	return r
 }
 
-// Query A query clause that retrieves a subset of data from the source index.
+// A query clause that retrieves a subset of data from the source index.
 // API name: query
-func (r *EvaluateDataFrame) Query(query *types.Query) *EvaluateDataFrame {
+func (r *EvaluateDataFrame) Query(query types.QueryVariant) *EvaluateDataFrame {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Query = query
+	r.req.Query = query.QueryCaster()
 
 	return r
 }

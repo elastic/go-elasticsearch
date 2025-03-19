@@ -16,11 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Retrieves information about different cluster, node, and index level settings
-// that use deprecated features that will be removed or changed in the next
-// major version.
+// Get deprecation information.
+// Get information about different cluster, node, and index level settings that
+// use deprecated features that will be removed or changed in the next major
+// version.
+//
+// TIP: This APIs is designed for indirect use by the Upgrade Assistant.
+// You are strongly recommended to use the Upgrade Assistant.
 package deprecations
 
 import (
@@ -76,11 +80,15 @@ func NewDeprecationsFunc(tp elastictransport.Interface) NewDeprecations {
 	}
 }
 
-// Retrieves information about different cluster, node, and index level settings
-// that use deprecated features that will be removed or changed in the next
-// major version.
+// Get deprecation information.
+// Get information about different cluster, node, and index level settings that
+// use deprecated features that will be removed or changed in the next major
+// version.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-deprecation.html
+// TIP: This APIs is designed for indirect use by the Upgrade Assistant.
+// You are strongly recommended to use the Upgrade Assistant.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-deprecations
 func New(tp elastictransport.Interface) *Deprecations {
 	r := &Deprecations{
 		transport: tp,

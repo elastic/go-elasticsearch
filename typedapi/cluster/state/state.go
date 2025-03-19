@@ -16,9 +16,40 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Returns a comprehensive information about the state of the cluster.
+// Get the cluster state.
+// Get comprehensive information about the state of the cluster.
+//
+// The cluster state is an internal data structure which keeps track of a
+// variety of information needed by every node, including the identity and
+// attributes of the other nodes in the cluster; cluster-wide settings; index
+// metadata, including the mapping and settings for each index; the location and
+// status of every shard copy in the cluster.
+//
+// The elected master node ensures that every node in the cluster has a copy of
+// the same cluster state.
+// This API lets you retrieve a representation of this internal state for
+// debugging or diagnostic purposes.
+// You may need to consult the Elasticsearch source code to determine the
+// precise meaning of the response.
+//
+// By default the API will route requests to the elected master node since this
+// node is the authoritative source of cluster states.
+// You can also retrieve the cluster state held on the node handling the API
+// request by adding the `?local=true` query parameter.
+//
+// Elasticsearch may need to expend significant effort to compute a response to
+// this API in larger clusters, and the response may comprise a very large
+// quantity of data.
+// If you use this API repeatedly, your cluster may become unstable.
+//
+// WARNING: The response is a representation of an internal data structure.
+// Its format is not subject to the same compatibility guarantees as other more
+// stable APIs and may change from version to version.
+// Do not query this API using external monitoring tools.
+// Instead, obtain the information you require using other more stable cluster
+// APIs.
 package state
 
 import (
@@ -78,9 +109,40 @@ func NewStateFunc(tp elastictransport.Interface) NewState {
 	}
 }
 
-// Returns a comprehensive information about the state of the cluster.
+// Get the cluster state.
+// Get comprehensive information about the state of the cluster.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-state.html
+// The cluster state is an internal data structure which keeps track of a
+// variety of information needed by every node, including the identity and
+// attributes of the other nodes in the cluster; cluster-wide settings; index
+// metadata, including the mapping and settings for each index; the location and
+// status of every shard copy in the cluster.
+//
+// The elected master node ensures that every node in the cluster has a copy of
+// the same cluster state.
+// This API lets you retrieve a representation of this internal state for
+// debugging or diagnostic purposes.
+// You may need to consult the Elasticsearch source code to determine the
+// precise meaning of the response.
+//
+// By default the API will route requests to the elected master node since this
+// node is the authoritative source of cluster states.
+// You can also retrieve the cluster state held on the node handling the API
+// request by adding the `?local=true` query parameter.
+//
+// Elasticsearch may need to expend significant effort to compute a response to
+// this API in larger clusters, and the response may comprise a very large
+// quantity of data.
+// If you use this API repeatedly, your cluster may become unstable.
+//
+// WARNING: The response is a representation of an internal data structure.
+// Its format is not subject to the same compatibility guarantees as other more
+// stable APIs and may change from version to version.
+// Do not query this API using external monitoring tools.
+// Instead, obtain the information you require using other more stable cluster
+// APIs.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-state
 func New(tp elastictransport.Interface) *State {
 	r := &State{
 		transport: tp,

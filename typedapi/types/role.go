@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -26,19 +26,25 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/clusterprivilege"
 )
 
 // Role type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/get_role/types.ts#L29-L42
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/security/get_role/types.ts#L32-L54
 type Role struct {
 	Applications      []ApplicationPrivileges                   `json:"applications"`
-	Cluster           []string                                  `json:"cluster"`
+	Cluster           []clusterprivilege.ClusterPrivilege       `json:"cluster"`
+	Description       *string                                   `json:"description,omitempty"`
 	Global            map[string]map[string]map[string][]string `json:"global,omitempty"`
 	Indices           []IndicesPrivileges                       `json:"indices"`
 	Metadata          Metadata                                  `json:"metadata"`
+	RemoteCluster     []RemoteClusterPrivileges                 `json:"remote_cluster,omitempty"`
+	RemoteIndices     []RemoteIndicesPrivileges                 `json:"remote_indices,omitempty"`
 	RoleTemplates     []RoleTemplate                            `json:"role_templates,omitempty"`
-	RunAs             []string                                  `json:"run_as"`
+	RunAs             []string                                  `json:"run_as,omitempty"`
 	TransientMetadata map[string]json.RawMessage                `json:"transient_metadata,omitempty"`
 }
 
@@ -67,6 +73,18 @@ func (s *Role) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Cluster", err)
 			}
 
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Description", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Description = &o
+
 		case "global":
 			if s.Global == nil {
 				s.Global = make(map[string]map[string]map[string][]string, 0)
@@ -83,6 +101,16 @@ func (s *Role) UnmarshalJSON(data []byte) error {
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
 				return fmt.Errorf("%s | %w", "Metadata", err)
+			}
+
+		case "remote_cluster":
+			if err := dec.Decode(&s.RemoteCluster); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteCluster", err)
+			}
+
+		case "remote_indices":
+			if err := dec.Decode(&s.RemoteIndices); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteIndices", err)
 			}
 
 		case "role_templates":
@@ -111,9 +139,11 @@ func (s *Role) UnmarshalJSON(data []byte) error {
 // NewRole returns a Role.
 func NewRole() *Role {
 	r := &Role{
-		Global:            make(map[string]map[string]map[string][]string, 0),
-		TransientMetadata: make(map[string]json.RawMessage, 0),
+		Global:            make(map[string]map[string]map[string][]string),
+		TransientMetadata: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

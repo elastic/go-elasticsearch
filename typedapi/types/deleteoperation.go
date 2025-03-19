@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -33,15 +33,15 @@ import (
 
 // DeleteOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/bulk/types.ts#L134-L134
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/bulk/types.ts#L144-L144
 type DeleteOperation struct {
 	// Id_ The document ID.
 	Id_           *string `json:"_id,omitempty"`
 	IfPrimaryTerm *int64  `json:"if_primary_term,omitempty"`
 	IfSeqNo       *int64  `json:"if_seq_no,omitempty"`
-	// Index_ Name of the index or index alias to perform the action on.
+	// Index_ The name of the index or index alias to perform the action on.
 	Index_ *string `json:"_index,omitempty"`
-	// Routing Custom value used to route operations to a specific shard.
+	// Routing A custom value used to route operations to a specific shard.
 	Routing     *string                  `json:"routing,omitempty"`
 	Version     *int64                   `json:"version,omitempty"`
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
@@ -117,4 +117,14 @@ func NewDeleteOperation() *DeleteOperation {
 	r := &DeleteOperation{}
 
 	return r
+}
+
+// true
+
+type DeleteOperationVariant interface {
+	DeleteOperationCaster() *DeleteOperation
+}
+
+func (s *DeleteOperation) DeleteOperationCaster() *DeleteOperation {
+	return s
 }

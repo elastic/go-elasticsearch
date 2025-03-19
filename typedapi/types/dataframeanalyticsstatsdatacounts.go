@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeAnalyticsStatsDataCounts type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/DataframeAnalytics.ts#L363-L370
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/DataframeAnalytics.ts#L365-L372
 type DataframeAnalyticsStatsDataCounts struct {
 	// SkippedDocsCount The number of documents that are skipped during the analysis because they
 	// contained values that are not supported by the analysis. For example, outlier
@@ -120,3 +120,5 @@ func NewDataframeAnalyticsStatsDataCounts() *DataframeAnalyticsStatsDataCounts {
 
 	return r
 }
+
+// false

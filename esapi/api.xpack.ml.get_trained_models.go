@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -52,14 +52,13 @@ type MLGetTrainedModels func(o ...func(*MLGetTrainedModelsRequest)) (*Response, 
 type MLGetTrainedModelsRequest struct {
 	ModelID string
 
-	AllowNoMatch           *bool
-	DecompressDefinition   *bool
-	ExcludeGenerated       *bool
-	From                   *int
-	Include                string
-	IncludeModelDefinition *bool
-	Size                   *int
-	Tags                   []string
+	AllowNoMatch         *bool
+	DecompressDefinition *bool
+	ExcludeGenerated     *bool
+	From                 *int
+	Include              string
+	Size                 *int
+	Tags                 []string
 
 	Pretty     bool
 	Human      bool
@@ -126,10 +125,6 @@ func (r MLGetTrainedModelsRequest) Do(providedCtx context.Context, transport Tra
 
 	if r.Include != "" {
 		params["include"] = r.Include
-	}
-
-	if r.IncludeModelDefinition != nil {
-		params["include_model_definition"] = strconv.FormatBool(*r.IncludeModelDefinition)
 	}
 
 	if r.Size != nil {
@@ -257,13 +252,6 @@ func (f MLGetTrainedModels) WithFrom(v int) func(*MLGetTrainedModelsRequest) {
 func (f MLGetTrainedModels) WithInclude(v string) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.Include = v
-	}
-}
-
-// WithIncludeModelDefinition - should the full model definition be included in the results. these definitions can be large. so be cautious when including them. defaults to false..
-func (f MLGetTrainedModels) WithIncludeModelDefinition(v bool) func(*MLGetTrainedModelsRequest) {
-	return func(r *MLGetTrainedModelsRequest) {
-		r.IncludeModelDefinition = &v
 	}
 }
 

@@ -16,9 +16,37 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Closes an index.
+// Close an index.
+// A closed index is blocked for read or write operations and does not allow all
+// operations that opened indices allow.
+// It is not possible to index documents or to search for documents in a closed
+// index.
+// Closed indices do not have to maintain internal data structures for indexing
+// or searching documents, which results in a smaller overhead on the cluster.
+//
+// When opening or closing an index, the master node is responsible for
+// restarting the index shards to reflect the new state of the index.
+// The shards will then go through the normal recovery process.
+// The data of opened and closed indices is automatically replicated by the
+// cluster to ensure that enough shard copies are safely kept around at all
+// times.
+//
+// You can open and close multiple indices.
+// An error is thrown if the request explicitly refers to a missing index.
+// This behaviour can be turned off using the `ignore_unavailable=true`
+// parameter.
+//
+// By default, you must explicitly name the indices you are opening or closing.
+// To open or close indices with `_all`, `*`, or other wildcard expressions,
+// change the` action.destructive_requires_name` setting to `false`. This
+// setting can also be changed with the cluster update settings API.
+//
+// Closed indices consume a significant amount of disk-space which can cause
+// problems in managed environments.
+// Closing indices can be turned off with the cluster settings API by setting
+// `cluster.indices.close.enable` to `false`.
 package close
 
 import (
@@ -77,9 +105,37 @@ func NewCloseFunc(tp elastictransport.Interface) NewClose {
 	}
 }
 
-// Closes an index.
+// Close an index.
+// A closed index is blocked for read or write operations and does not allow all
+// operations that opened indices allow.
+// It is not possible to index documents or to search for documents in a closed
+// index.
+// Closed indices do not have to maintain internal data structures for indexing
+// or searching documents, which results in a smaller overhead on the cluster.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-close.html
+// When opening or closing an index, the master node is responsible for
+// restarting the index shards to reflect the new state of the index.
+// The shards will then go through the normal recovery process.
+// The data of opened and closed indices is automatically replicated by the
+// cluster to ensure that enough shard copies are safely kept around at all
+// times.
+//
+// You can open and close multiple indices.
+// An error is thrown if the request explicitly refers to a missing index.
+// This behaviour can be turned off using the `ignore_unavailable=true`
+// parameter.
+//
+// By default, you must explicitly name the indices you are opening or closing.
+// To open or close indices with `_all`, `*`, or other wildcard expressions,
+// change the` action.destructive_requires_name` setting to `false`. This
+// setting can also be changed with the cluster update settings API.
+//
+// Closed indices consume a significant amount of disk-space which can cause
+// problems in managed environments.
+// Closing indices can be turned off with the cluster settings API by setting
+// `cluster.indices.close.enable` to `false`.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-close
 func New(tp elastictransport.Interface) *Close {
 	r := &Close{
 		transport: tp,

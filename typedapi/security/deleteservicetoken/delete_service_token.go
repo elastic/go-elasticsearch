@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Delete service account tokens.
 //
@@ -93,7 +93,7 @@ func NewDeleteServiceTokenFunc(tp elastictransport.Interface) NewDeleteServiceTo
 //
 // Delete service account tokens for a service in a specified namespace.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-service-token.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-service-token
 func New(tp elastictransport.Interface) *DeleteServiceToken {
 	r := &DeleteServiceToken{
 		transport: tp,
@@ -321,7 +321,7 @@ func (r *DeleteServiceToken) Header(key, value string) *DeleteServiceToken {
 	return r
 }
 
-// Namespace An identifier for the namespace
+// Namespace The namespace, which is a top-level grouping of service accounts.
 // API Name: namespace
 func (r *DeleteServiceToken) _namespace(namespace string) *DeleteServiceToken {
 	r.paramSet |= namespaceMask
@@ -330,7 +330,7 @@ func (r *DeleteServiceToken) _namespace(namespace string) *DeleteServiceToken {
 	return r
 }
 
-// Service An identifier for the service name
+// Service The service name.
 // API Name: service
 func (r *DeleteServiceToken) _service(service string) *DeleteServiceToken {
 	r.paramSet |= serviceMask
@@ -339,7 +339,7 @@ func (r *DeleteServiceToken) _service(service string) *DeleteServiceToken {
 	return r
 }
 
-// Name An identifier for the token name
+// Name The name of the service account token.
 // API Name: name
 func (r *DeleteServiceToken) _name(name string) *DeleteServiceToken {
 	r.paramSet |= nameMask

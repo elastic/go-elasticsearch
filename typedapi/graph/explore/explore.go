@@ -16,10 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Extracts and summarizes information about the documents and terms in an
+// Explore graph analytics.
+// Extract and summarize information about the documents and terms in an
 // Elasticsearch data stream or index.
+// The easiest way to understand the behavior of this API is to use the Graph UI
+// to explore connections.
+// An initial request to the `_explore` API contains a seed query that
+// identifies the documents of interest and specifies the fields that define the
+// vertices and connections you want to include in the graph.
+// Subsequent requests enable you to spider out from one more vertices of
+// interest.
+// You can exclude vertices that have already been returned.
 package explore
 
 import (
@@ -82,10 +91,19 @@ func NewExploreFunc(tp elastictransport.Interface) NewExplore {
 	}
 }
 
-// Extracts and summarizes information about the documents and terms in an
+// Explore graph analytics.
+// Extract and summarize information about the documents and terms in an
 // Elasticsearch data stream or index.
+// The easiest way to understand the behavior of this API is to use the Graph UI
+// to explore connections.
+// An initial request to the `_explore` API contains a seed query that
+// identifies the documents of interest and specifies the fields that define the
+// vertices and connections you want to include in the graph.
+// Subsequent requests enable you to spider out from one more vertices of
+// interest.
+// You can exclude vertices that have already been returned.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/graph-explore-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-graph
 func New(tp elastictransport.Interface) *Explore {
 	r := &Explore{
 		transport: tp,
@@ -93,8 +111,6 @@ func New(tp elastictransport.Interface) *Explore {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -380,40 +396,59 @@ func (r *Explore) Pretty(pretty bool) *Explore {
 	return r
 }
 
-// Connections Specifies or more fields from which you want to extract terms that are
+// Specifies or more fields from which you want to extract terms that are
 // associated with the specified vertices.
 // API name: connections
-func (r *Explore) Connections(connections *types.Hop) *Explore {
+func (r *Explore) Connections(connections types.HopVariant) *Explore {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Connections = connections
+	r.req.Connections = connections.HopCaster()
 
 	return r
 }
 
-// Controls Direct the Graph API how to build the graph.
+// Direct the Graph API how to build the graph.
 // API name: controls
-func (r *Explore) Controls(controls *types.ExploreControls) *Explore {
+func (r *Explore) Controls(controls types.ExploreControlsVariant) *Explore {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Controls = controls
+	r.req.Controls = controls.ExploreControlsCaster()
 
 	return r
 }
 
-// Query A seed query that identifies the documents of interest. Can be any valid
+// A seed query that identifies the documents of interest. Can be any valid
 // Elasticsearch query.
 // API name: query
-func (r *Explore) Query(query *types.Query) *Explore {
+func (r *Explore) Query(query types.QueryVariant) *Explore {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Query = query
+	r.req.Query = query.QueryCaster()
 
 	return r
 }
 
-// Vertices Specifies one or more fields that contain the terms you want to include in
+// Specifies one or more fields that contain the terms you want to include in
 // the graph as vertices.
 // API name: vertices
-func (r *Explore) Vertices(vertices ...types.VertexDefinition) *Explore {
-	r.req.Vertices = vertices
+func (r *Explore) Vertices(vertices ...types.VertexDefinitionVariant) *Explore {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range vertices {
 
+		r.req.Vertices = append(r.req.Vertices, *v.VertexDefinitionCaster())
+
+	}
 	return r
 }

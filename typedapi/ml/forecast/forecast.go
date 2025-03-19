@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Predict future behavior of a time series.
 //
@@ -93,7 +93,7 @@ func NewForecastFunc(tp elastictransport.Interface) NewForecast {
 // `over_field_name` in its configuration. Forcasts predict future behavior
 // based on historical data.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-forecast.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-forecast
 func New(tp elastictransport.Interface) *Forecast {
 	r := &Forecast{
 		transport: tp,
@@ -101,8 +101,6 @@ func New(tp elastictransport.Interface) *Forecast {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -372,25 +370,39 @@ func (r *Forecast) Pretty(pretty bool) *Forecast {
 	return r
 }
 
-// Duration Refer to the description for the `duration` query parameter.
+// Refer to the description for the `duration` query parameter.
 // API name: duration
-func (r *Forecast) Duration(duration types.Duration) *Forecast {
-	r.req.Duration = duration
+func (r *Forecast) Duration(duration types.DurationVariant) *Forecast {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Duration = *duration.DurationCaster()
 
 	return r
 }
 
-// ExpiresIn Refer to the description for the `expires_in` query parameter.
+// Refer to the description for the `expires_in` query parameter.
 // API name: expires_in
-func (r *Forecast) ExpiresIn(duration types.Duration) *Forecast {
-	r.req.ExpiresIn = duration
+func (r *Forecast) ExpiresIn(duration types.DurationVariant) *Forecast {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ExpiresIn = *duration.DurationCaster()
 
 	return r
 }
 
-// MaxModelMemory Refer to the description for the `max_model_memory` query parameter.
+// Refer to the description for the `max_model_memory` query parameter.
 // API name: max_model_memory
 func (r *Forecast) MaxModelMemory(maxmodelmemory string) *Forecast {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.MaxModelMemory = &maxmodelmemory
 

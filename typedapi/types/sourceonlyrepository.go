@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -30,11 +30,13 @@ import (
 
 // SourceOnlyRepository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/snapshot/_types/SnapshotRepository.ts#L65-L68
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/snapshot/_types/SnapshotRepository.ts#L104-L114
 type SourceOnlyRepository struct {
+	// Settings The repository settings.
 	Settings SourceOnlyRepositorySettings `json:"settings"`
-	Type     string                       `json:"type,omitempty"`
-	Uuid     *string                      `json:"uuid,omitempty"`
+	// Type The source-only repository type.
+	Type string  `json:"type,omitempty"`
+	Uuid *string `json:"uuid,omitempty"`
 }
 
 func (s *SourceOnlyRepository) UnmarshalJSON(data []byte) error {
@@ -91,4 +93,14 @@ func NewSourceOnlyRepository() *SourceOnlyRepository {
 	r := &SourceOnlyRepository{}
 
 	return r
+}
+
+// true
+
+type SourceOnlyRepositoryVariant interface {
+	SourceOnlyRepositoryCaster() *SourceOnlyRepository
+}
+
+func (s *SourceOnlyRepository) SourceOnlyRepositoryCaster() *SourceOnlyRepository {
+	return s
 }

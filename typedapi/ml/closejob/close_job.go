@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Close anomaly detection jobs.
+//
 // A job can be opened and closed multiple times throughout its lifecycle. A
 // closed job cannot receive data or perform analysis operations, but you can
 // still explore and navigate results.
@@ -98,6 +99,7 @@ func NewCloseJobFunc(tp elastictransport.Interface) NewCloseJob {
 }
 
 // Close anomaly detection jobs.
+//
 // A job can be opened and closed multiple times throughout its lifecycle. A
 // closed job cannot receive data or perform analysis operations, but you can
 // still explore and navigate results.
@@ -115,7 +117,7 @@ func NewCloseJobFunc(tp elastictransport.Interface) NewCloseJob {
 // When a datafeed that has a specified end date stops, it automatically closes
 // its associated job.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-close-job.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-close-job
 func New(tp elastictransport.Interface) *CloseJob {
 	r := &CloseJob{
 		transport: tp,
@@ -123,8 +125,6 @@ func New(tp elastictransport.Interface) *CloseJob {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -397,26 +397,41 @@ func (r *CloseJob) Pretty(pretty bool) *CloseJob {
 	return r
 }
 
-// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
+// Refer to the description for the `allow_no_match` query parameter.
 // API name: allow_no_match
 func (r *CloseJob) AllowNoMatch(allownomatch bool) *CloseJob {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.AllowNoMatch = &allownomatch
 
 	return r
 }
 
-// Force Refer to the descriptiion for the `force` query parameter.
+// Refer to the descriptiion for the `force` query parameter.
 // API name: force
 func (r *CloseJob) Force(force bool) *CloseJob {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Force = &force
 
 	return r
 }
 
-// Timeout Refer to the description for the `timeout` query parameter.
+// Refer to the description for the `timeout` query parameter.
 // API name: timeout
-func (r *CloseJob) Timeout(duration types.Duration) *CloseJob {
-	r.req.Timeout = duration
+func (r *CloseJob) Timeout(duration types.DurationVariant) *CloseJob {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Timeout = *duration.DurationCaster()
 
 	return r
 }

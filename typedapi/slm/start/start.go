@@ -16,9 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Turns on snapshot lifecycle management (SLM).
+// Start snapshot lifecycle management.
+// Snapshot lifecycle management (SLM) starts automatically when a cluster is
+// formed.
+// Manually starting SLM is necessary only if it has been stopped using the stop
+// SLM API.
 package start
 
 import (
@@ -68,9 +72,13 @@ func NewStartFunc(tp elastictransport.Interface) NewStart {
 	}
 }
 
-// Turns on snapshot lifecycle management (SLM).
+// Start snapshot lifecycle management.
+// Snapshot lifecycle management (SLM) starts automatically when a cluster is
+// formed.
+// Manually starting SLM is necessary only if it has been stopped using the stop
+// SLM API.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-start.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-start
 func New(tp elastictransport.Interface) *Start {
 	r := &Start{
 		transport: tp,
@@ -272,6 +280,28 @@ func (r Start) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the Start headers map.
 func (r *Start) Header(key, value string) *Start {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
+// API name: master_timeout
+func (r *Start) MasterTimeout(duration string) *Start {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout The period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
+// API name: timeout
+func (r *Start) Timeout(duration string) *Start {
+	r.values.Set("timeout", duration)
 
 	return r
 }

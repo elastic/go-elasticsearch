@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package search
 
@@ -33,28 +33,27 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/search/SearchRequest.ts#L54-L531
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/search/SearchRequest.ts#L53-L584
 type Request struct {
 
 	// Aggregations Defines the aggregations that are run as part of the search request.
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	// Collapse Collapses search results the values of the specified field.
 	Collapse *types.FieldCollapse `json:"collapse,omitempty"`
-	// DocvalueFields Array of wildcard (`*`) patterns.
+	// DocvalueFields An array of wildcard (`*`) field patterns.
 	// The request returns doc values for field names matching these patterns in the
 	// `hits.fields` property of the response.
 	DocvalueFields []types.FieldAndFormat `json:"docvalue_fields,omitempty"`
-	// Explain If true, returns detailed information about score computation as part of a
-	// hit.
+	// Explain If `true`, the request returns detailed information about score computation
+	// as part of a hit.
 	Explain *bool `json:"explain,omitempty"`
 	// Ext Configuration of search extensions defined by Elasticsearch plugins.
 	Ext map[string]json.RawMessage `json:"ext,omitempty"`
-	// Fields Array of wildcard (`*`) patterns.
+	// Fields An array of wildcard (`*`) field patterns.
 	// The request returns values for field names matching these patterns in the
 	// `hits.fields` property of the response.
 	Fields []types.FieldAndFormat `json:"fields,omitempty"`
-	// From Starting document offset.
-	// Needs to be non-negative.
+	// From The starting document offset, which must be non-negative.
 	// By default, you cannot page through more than 10,000 hits using the `from`
 	// and `size` parameters.
 	// To page through more hits, use the `search_after` parameter.
@@ -62,14 +61,17 @@ type Request struct {
 	// Highlight Specifies the highlighter to use for retrieving highlighted snippets from one
 	// or more fields in your search results.
 	Highlight *types.Highlight `json:"highlight,omitempty"`
-	// IndicesBoost Boosts the _score of documents from specified indices.
+	// IndicesBoost Boost the `_score` of documents from specified indices.
+	// The boost value is the factor by which scores are multiplied.
+	// A boost value greater than `1.0` increases the score.
+	// A boost value between `0` and `1.0` decreases the score.
 	IndicesBoost []map[string]types.Float64 `json:"indices_boost,omitempty"`
-	// Knn Defines the approximate kNN search to run.
+	// Knn The approximate kNN search to run.
 	Knn []types.KnnSearch `json:"knn,omitempty"`
-	// MinScore Minimum `_score` for matching documents.
+	// MinScore The minimum `_score` for matching documents.
 	// Documents with a lower `_score` are not included in the search results.
 	MinScore *types.Float64 `json:"min_score,omitempty"`
-	// Pit Limits the search to a point in time (PIT).
+	// Pit Limit the search to a point in time (PIT).
 	// If you provide a PIT, you cannot specify an `<index>` in the request path.
 	Pit *types.PointInTimeReference `json:"pit,omitempty"`
 	// PostFilter Use the `post_filter` parameter to filter search results.
@@ -81,18 +83,19 @@ type Request struct {
 	// NOTE: This is a debugging tool and adds significant overhead to search
 	// execution.
 	Profile *bool `json:"profile,omitempty"`
-	// Query Defines the search definition using the Query DSL.
+	// Query The search definition using the Query DSL.
 	Query *types.Query `json:"query,omitempty"`
-	// Rank Defines the Reciprocal Rank Fusion (RRF) to use.
+	// Rank The Reciprocal Rank Fusion (RRF) to use.
 	Rank *types.RankContainer `json:"rank,omitempty"`
 	// Rescore Can be used to improve precision by reordering just the top (for example 100
 	// - 500) documents returned by the `query` and `post_filter` phases.
 	Rescore []types.Rescore `json:"rescore,omitempty"`
 	// Retriever A retriever is a specification to describe top documents returned from a
-	// search. A retriever replaces other elements of the search API that also
-	// return top documents such as query and knn.
+	// search.
+	// A retriever replaces other elements of the search API that also return top
+	// documents such as `query` and `knn`.
 	Retriever *types.RetrieverContainer `json:"retriever,omitempty"`
-	// RuntimeMappings Defines one or more runtime fields in the search request.
+	// RuntimeMappings One or more runtime fields in the search request.
 	// These fields take precedence over mapped fields with the same name.
 	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
 	// ScriptFields Retrieve a script evaluation (based on different fields) for each hit.
@@ -100,52 +103,57 @@ type Request struct {
 	// SearchAfter Used to retrieve the next page of hits using a set of sort values from the
 	// previous page.
 	SearchAfter []types.FieldValue `json:"search_after,omitempty"`
-	// SeqNoPrimaryTerm If `true`, returns sequence number and primary term of the last modification
-	// of each hit.
+	// SeqNoPrimaryTerm If `true`, the request returns sequence number and primary term of the last
+	// modification of each hit.
 	SeqNoPrimaryTerm *bool `json:"seq_no_primary_term,omitempty"`
-	// Size The number of hits to return.
+	// Size The number of hits to return, which must not be negative.
 	// By default, you cannot page through more than 10,000 hits using the `from`
 	// and `size` parameters.
-	// To page through more hits, use the `search_after` parameter.
+	// To page through more hits, use the `search_after` property.
 	Size *int `json:"size,omitempty"`
-	// Slice Can be used to split a scrolled search into multiple slices that can be
-	// consumed independently.
+	// Slice Split a scrolled search into multiple slices that can be consumed
+	// independently.
 	Slice *types.SlicedScroll `json:"slice,omitempty"`
 	// Sort A comma-separated list of <field>:<direction> pairs.
 	Sort []types.SortCombinations `json:"sort,omitempty"`
-	// Source_ Indicates which source fields are returned for matching documents.
-	// These fields are returned in the hits._source property of the search
+	// Source_ The source fields that are returned for matching documents.
+	// These fields are returned in the `hits._source` property of the search
 	// response.
+	// If the `stored_fields` property is specified, the `_source` property defaults
+	// to `false`.
+	// Otherwise, it defaults to `true`.
 	Source_ types.SourceConfig `json:"_source,omitempty"`
-	// Stats Stats groups to associate with the search.
+	// Stats The stats groups to associate with the search.
 	// Each group maintains a statistics aggregation for its associated searches.
 	// You can retrieve these stats using the indices stats API.
 	Stats []string `json:"stats,omitempty"`
-	// StoredFields List of stored fields to return as part of a hit.
+	// StoredFields A comma-separated list of stored fields to return as part of a hit.
 	// If no fields are specified, no stored fields are included in the response.
-	// If this field is specified, the `_source` parameter defaults to `false`.
+	// If this field is specified, the `_source` property defaults to `false`.
 	// You can pass `_source: true` to return both source fields and stored fields
 	// in the search response.
 	StoredFields []string `json:"stored_fields,omitempty"`
 	// Suggest Defines a suggester that provides similar looking terms based on a provided
 	// text.
 	Suggest *types.Suggester `json:"suggest,omitempty"`
-	// TerminateAfter Maximum number of documents to collect for each shard.
+	// TerminateAfter The maximum number of documents to collect for each shard.
 	// If a query reaches this limit, Elasticsearch terminates the query early.
 	// Elasticsearch collects documents before sorting.
-	// Use with caution.
-	// Elasticsearch applies this parameter to each shard handling the request.
+	//
+	// IMPORTANT: Use with caution.
+	// Elasticsearch applies this property to each shard handling the request.
 	// When possible, let Elasticsearch perform early termination automatically.
-	// Avoid specifying this parameter for requests that target data streams with
+	// Avoid specifying this property for requests that target data streams with
 	// backing indices across multiple data tiers.
+	//
 	// If set to `0` (default), the query does not terminate early.
 	TerminateAfter *int64 `json:"terminate_after,omitempty"`
-	// Timeout Specifies the period of time to wait for a response from each shard.
+	// Timeout The period of time to wait for a response from each shard.
 	// If no response is received before the timeout expires, the request fails and
 	// returns an error.
 	// Defaults to no timeout.
 	Timeout *string `json:"timeout,omitempty"`
-	// TrackScores If true, calculate and return document scores, even if the scores are not
+	// TrackScores If `true`, calculate and return document scores, even if the scores are not
 	// used for sorting.
 	TrackScores *bool `json:"track_scores,omitempty"`
 	// TrackTotalHits Number of hits matching the query to count accurately.
@@ -154,7 +162,7 @@ type Request struct {
 	// If `false`, the  response does not include the total number of hits matching
 	// the query.
 	TrackTotalHits types.TrackHits `json:"track_total_hits,omitempty"`
-	// Version If true, returns document version as part of a hit.
+	// Version If `true`, the request returns the document version as part of a hit.
 	Version *bool `json:"version,omitempty"`
 }
 

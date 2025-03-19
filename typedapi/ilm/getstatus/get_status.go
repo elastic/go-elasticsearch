@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Retrieves the current index lifecycle management (ILM) status.
+// Get the ILM status.
+//
+// Get the current index lifecycle management status.
 package getstatus
 
 import (
@@ -68,9 +70,11 @@ func NewGetStatusFunc(tp elastictransport.Interface) NewGetStatus {
 	}
 }
 
-// Retrieves the current index lifecycle management (ILM) status.
+// Get the ILM status.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-status.html
+// Get the current index lifecycle management status.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-get-status
 func New(tp elastictransport.Interface) *GetStatus {
 	r := &GetStatus{
 		transport: tp,

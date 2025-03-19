@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // GrantApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/grant_api_key/types.ts#L25-L46
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/security/grant_api_key/types.ts#L25-L45
 type GrantApiKey struct {
 	// Expiration Expiration time for the API key. By default, API keys never expire.
 	Expiration *string `json:"expiration,omitempty"`
@@ -41,7 +41,6 @@ type GrantApiKey struct {
 	Metadata Metadata `json:"metadata,omitempty"`
 	Name     string   `json:"name"`
 	// RoleDescriptors The role descriptors for this API key.
-	// This parameter is optional.
 	// When it is not specified or is an empty array, the API key has a point in
 	// time snapshot of permissions of the specified user or access token.
 	// If you supply role descriptors, the resultant permissions are an intersection
@@ -110,4 +109,14 @@ func NewGrantApiKey() *GrantApiKey {
 	r := &GrantApiKey{}
 
 	return r
+}
+
+// true
+
+type GrantApiKeyVariant interface {
+	GrantApiKeyCaster() *GrantApiKey
+}
+
+func (s *GrantApiKey) GrantApiKeyCaster() *GrantApiKey {
+	return s
 }

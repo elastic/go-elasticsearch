@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Get users.
 //
@@ -80,7 +80,7 @@ func NewGetUserFunc(tp elastictransport.Interface) NewGetUser {
 //
 // Get information about users in the native realm and built-in users.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user
 func New(tp elastictransport.Interface) *GetUser {
 	r := &GetUser{
 		transport: tp,
@@ -310,7 +310,8 @@ func (r *GetUser) Username(usernames ...string) *GetUser {
 	return r
 }
 
-// WithProfileUid If true will return the User Profile ID for a user, if any.
+// WithProfileUid Determines whether to retrieve the user profile UID, if it exists, for the
+// users.
 // API name: with_profile_uid
 func (r *GetUser) WithProfileUid(withprofileuid bool) *GetUser {
 	r.values.Set("with_profile_uid", strconv.FormatBool(withprofileuid))

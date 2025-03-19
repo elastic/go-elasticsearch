@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
 // Template type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/simulate_template/IndicesSimulateTemplateResponse.ts#L33-L37
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/indices/simulate_template/IndicesSimulateTemplateResponse.ts#L33-L37
 type Template struct {
 	Aliases  map[string]Alias `json:"aliases"`
 	Mappings TypeMapping      `json:"mappings"`
@@ -32,8 +32,10 @@ type Template struct {
 // NewTemplate returns a Template.
 func NewTemplate() *Template {
 	r := &Template{
-		Aliases: make(map[string]Alias, 0),
+		Aliases: make(map[string]Alias),
 	}
 
 	return r
 }
+
+// false

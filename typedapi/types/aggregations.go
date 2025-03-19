@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -30,8 +30,9 @@ import (
 
 // Aggregations type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/AggregationContainer.ts#L107-L533
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/aggregations/AggregationContainer.ts#L107-L533
 type Aggregations struct {
+	AdditionalAggregationsProperty map[string]json.RawMessage `json:"-"`
 	// AdjacencyMatrix A bucket aggregation returning a form of adjacency matrix.
 	// The request provides a collection of named filter expressions, similar to the
 	// `filters` aggregation.
@@ -563,36 +564,36 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 			case "linear":
 				o := NewLinearMovingAverageAggregation()
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "linear", err)
 				}
 				s.MovingAvg = *o
 			case "simple":
 				o := NewSimpleMovingAverageAggregation()
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "simple", err)
 				}
 				s.MovingAvg = *o
 			case "ewma":
 				o := NewEwmaMovingAverageAggregation()
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ewma", err)
 				}
 				s.MovingAvg = *o
 			case "holt":
 				o := NewHoltMovingAverageAggregation()
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "holt", err)
 				}
 				s.MovingAvg = *o
 			case "holt_winters":
 				o := NewHoltWintersMovingAverageAggregation()
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "holt_winters", err)
 				}
 				s.MovingAvg = *o
 			default:
 				if err := localDec.Decode(&s.MovingAvg); err != nil {
-					return err
+					return fmt.Errorf("MovingAvg | %w", err)
 				}
 			}
 
@@ -756,16 +757,69 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "WeightedAvg", err)
 			}
 
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.AdditionalAggregationsProperty == nil {
+					s.AdditionalAggregationsProperty = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "AdditionalAggregationsProperty", err)
+				}
+				s.AdditionalAggregationsProperty[key] = *raw
+			}
+
 		}
 	}
 	return nil
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s Aggregations) MarshalJSON() ([]byte, error) {
+	type opt Aggregations
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalAggregationsProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalAggregationsProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewAggregations returns a Aggregations.
 func NewAggregations() *Aggregations {
 	r := &Aggregations{
-		Aggregations: make(map[string]Aggregations, 0),
+		AdditionalAggregationsProperty: make(map[string]json.RawMessage),
+		Aggregations:                   make(map[string]Aggregations),
 	}
 
 	return r
+}
+
+// true
+
+type AggregationsVariant interface {
+	AggregationsCaster() *Aggregations
+}
+
+func (s *Aggregations) AggregationsCaster() *Aggregations {
+	return s
 }

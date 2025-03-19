@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/_types/Actions.ts#L256-L265
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/watcher/_types/Actions.ts#L256-L265
 type IndexAction struct {
 	DocId              *string          `json:"doc_id,omitempty"`
 	ExecutionTimeField *string          `json:"execution_time_field,omitempty"`
@@ -98,4 +98,14 @@ func NewIndexAction() *IndexAction {
 	r := &IndexAction{}
 
 	return r
+}
+
+// true
+
+type IndexActionVariant interface {
+	IndexActionCaster() *IndexAction
+}
+
+func (s *IndexAction) IndexActionCaster() *IndexAction {
+	return s
 }

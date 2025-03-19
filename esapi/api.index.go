@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -57,18 +57,19 @@ type IndexRequest struct {
 
 	Body io.Reader
 
-	IfPrimaryTerm       *int
-	IfSeqNo             *int
-	OpType              string
-	Pipeline            string
-	Refresh             string
-	RequireAlias        *bool
-	RequireDataStream   *bool
-	Routing             string
-	Timeout             time.Duration
-	Version             *int
-	VersionType         string
-	WaitForActiveShards string
+	IfPrimaryTerm        *int
+	IfSeqNo              *int
+	IncludeSourceOnError *bool
+	OpType               string
+	Pipeline             string
+	Refresh              string
+	RequireAlias         *bool
+	RequireDataStream    *bool
+	Routing              string
+	Timeout              time.Duration
+	Version              *int
+	VersionType          string
+	WaitForActiveShards  string
 
 	Pretty     bool
 	Human      bool
@@ -130,6 +131,10 @@ func (r IndexRequest) Do(providedCtx context.Context, transport Transport) (*Res
 
 	if r.IfSeqNo != nil {
 		params["if_seq_no"] = strconv.FormatInt(int64(*r.IfSeqNo), 10)
+	}
+
+	if r.IncludeSourceOnError != nil {
+		params["include_source_on_error"] = strconv.FormatBool(*r.IncludeSourceOnError)
 	}
 
 	if r.OpType != "" {
@@ -275,6 +280,13 @@ func (f Index) WithIfPrimaryTerm(v int) func(*IndexRequest) {
 func (f Index) WithIfSeqNo(v int) func(*IndexRequest) {
 	return func(r *IndexRequest) {
 		r.IfSeqNo = &v
+	}
+}
+
+// WithIncludeSourceOnError - true or false if to include the document source in the error message in case of parsing errors. defaults to true..
+func (f Index) WithIncludeSourceOnError(v bool) func(*IndexRequest) {
+	return func(r *IndexRequest) {
+		r.IncludeSourceOnError = &v
 	}
 }
 

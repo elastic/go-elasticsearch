@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Run a scrolling search.
 //
@@ -127,7 +127,7 @@ func NewScrollFunc(tp elastictransport.Interface) NewScroll {
 // the time of the initial search request. Subsequent indexing or document
 // changes only affect later search and scroll requests.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-scroll
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-scroll
 func New(tp elastictransport.Interface) *Scroll {
 	r := &Scroll{
 		transport: tp,
@@ -135,8 +135,6 @@ func New(tp elastictransport.Interface) *Scroll {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -397,17 +395,27 @@ func (r *Scroll) Pretty(pretty bool) *Scroll {
 	return r
 }
 
-// Scroll Period to retain the search context for scrolling.
+// The period to retain the search context for scrolling.
 // API name: scroll
-func (r *Scroll) Scroll(duration types.Duration) *Scroll {
-	r.req.Scroll = duration
+func (r *Scroll) Scroll(duration types.DurationVariant) *Scroll {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Scroll = *duration.DurationCaster()
 
 	return r
 }
 
-// ScrollId Scroll ID of the search.
+// The scroll ID of the search.
 // API name: scroll_id
 func (r *Scroll) ScrollId(scrollid string) *Scroll {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.ScrollId = scrollid
 
 	return r

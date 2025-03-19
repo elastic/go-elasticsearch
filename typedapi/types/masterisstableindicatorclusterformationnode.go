@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MasterIsStableIndicatorClusterFormationNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/health_report/types.ts#L99-L103
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/health_report/types.ts#L100-L104
 type MasterIsStableIndicatorClusterFormationNode struct {
 	ClusterFormationMessage string  `json:"cluster_formation_message"`
 	Name                    *string `json:"name,omitempty"`
@@ -100,3 +100,5 @@ func NewMasterIsStableIndicatorClusterFormationNode() *MasterIsStableIndicatorCl
 
 	return r
 }
+
+// false
