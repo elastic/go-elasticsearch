@@ -53,13 +53,13 @@ typedClient, err := elasticsearch.NewTypedClient(elasticsearch.Config{
 :::::::
 Your Elasticsearch endpoint can be found on the **My deployment** page of your deployment:
 
-:::{image} ../images/es-endpoint.jpg
+:::{image} images/es-endpoint.jpg
 :alt: Finding Elasticsearch endpoint
 :::
 
 You can generate an API key on the **Management** page under Security.
 
-:::{image} ../images/create-api-key.png
+:::{image} images/create-api-key.png
 :alt: Create API key
 :::
 
