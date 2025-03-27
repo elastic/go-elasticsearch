@@ -35,6 +35,14 @@ func (e ElasticsearchError) Error() string {
 	if e.ErrorCause.Reason != nil {
 		reason = *e.ErrorCause.Reason
 	}
+	for _, r := range e.ErrorCause.RootCause {
+		if r.Reason != nil {
+			if reason != "" {
+				reason += ": "
+			}
+			reason += *r.Reason
+		}
+	}
 	return fmt.Sprintf("status: %d, failed: [%s], reason: %s", e.Status, e.ErrorCause.Type, reason)
 }
 
