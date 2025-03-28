@@ -1,6 +1,5 @@
 toc:
   - file: index.md
-  # TO DO: Do we want these to be separate pages?
   - file: getting-started.md
   - file: installation.md
   - file: connecting.md
