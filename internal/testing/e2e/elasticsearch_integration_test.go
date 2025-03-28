@@ -43,6 +43,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/esdsl"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/some"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
@@ -237,12 +238,9 @@ func TestElasticsearchIntegration(t *testing.T) {
 			indexName := "test-index"
 			if exists, err := es.Indices.Exists(indexName).IsSuccess(context.Background()); !exists && err == nil {
 				res, err := es.Indices.Create(indexName).
-					Mappings(&types.TypeMapping{
-						Properties: map[string]types.Property{
-							"price": types.IntegerNumberProperty{},
-							"name":  types.KeywordProperty{},
-						},
-					}).
+					Mappings(esdsl.NewTypeMapping().
+						AddProperty("price", esdsl.NewIntegerNumberProperty()).
+						AddProperty("name", esdsl.NewKeywordProperty())).
 					Do(context.Background())
 				if err != nil {
 					t.Fatalf("error creating index test-index: %s", err)
@@ -339,11 +337,7 @@ func TestElasticsearchIntegration(t *testing.T) {
 			// Simple search matching name
 			res, err := es.Search().
 				Index(indexName).
-				Query(&types.Query{
-					Match: map[string]types.MatchQuery{
-						"name": {Query: "Foo"},
-					},
-				}).
+				Query(esdsl.NewMatchQuery("name", "Foo")).
 				Do(context.Background())
 
 			if err != nil {
@@ -367,13 +361,7 @@ func TestElasticsearchIntegration(t *testing.T) {
 			searchResponse, err := es.Search().
 				Index(indexName).
 				Size(0).
-				Aggregations(map[string]types.Aggregations{
-					"total_prices": {
-						Sum: &types.SumAggregation{
-							Field: some.String("price"),
-						},
-					},
-				}).
+				AddAggregation("total_prices", esdsl.NewSumAggregation().Field("price")).
 				Do(context.Background())
 
 			if err != nil {
@@ -394,19 +382,19 @@ func TestElasticsearchIntegration(t *testing.T) {
 			}
 
 			msearch := es.Msearch()
-			_ = msearch.AddSearch(types.MultisearchHeader{Index: []string{indexName}}, types.MultisearchBody{Query: &types.Query{
+			_ = msearch.AddSearch(types.MultisearchHeader{Index: []string{indexName}}, types.SearchRequestBody{Query: &types.Query{
 				Match: map[string]types.MatchQuery{
 					"name": {Query: "Foo"},
 				},
 			}})
-			_ = msearch.AddSearch(types.MultisearchHeader{Index: []string{indexName}}, types.MultisearchBody{Aggregations: map[string]types.Aggregations{
+			_ = msearch.AddSearch(types.MultisearchHeader{Index: []string{indexName}}, types.SearchRequestBody{Aggregations: map[string]types.Aggregations{
 				"total_prices": {
 					Sum: &types.SumAggregation{
 						Field: some.String("price"),
 					},
 				},
 			}})
-			_ = msearch.AddSearch(types.MultisearchHeader{Index: []string{"non-existent-index"}}, types.MultisearchBody{Query: &types.Query{Match: map[string]types.MatchQuery{
+			_ = msearch.AddSearch(types.MultisearchHeader{Index: []string{"non-existent-index"}}, types.SearchRequestBody{Query: &types.Query{Match: map[string]types.MatchQuery{
 				"foo": {Query: "bzz"},
 			}}})
 			msearchRes, err := msearch.Do(context.Background())
