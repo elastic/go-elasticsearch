@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package searchmvt
 
@@ -35,7 +35,7 @@ import (
 
 // Request holds the request body struct for the package searchmvt
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/search_mvt/SearchMvtRequest.ts#L33-L373
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/_global/search_mvt/SearchMvtRequest.ts#L33-L373
 type Request struct {
 
 	// Aggs Sub-aggregations for the geotile_grid.

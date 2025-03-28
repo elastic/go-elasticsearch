@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package deleteforecast
 
 // Response holds the response body struct for the package deleteforecast
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/delete_forecast/MlDeleteForecastResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/ml/delete_forecast/MlDeleteForecastResponse.ts#L22-L25
 type Response struct {
 
 	// Acknowledged For a successful response, this value is always true. On failure, an

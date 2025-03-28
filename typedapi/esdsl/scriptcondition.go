@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
@@ -24,6 +24,7 @@ import (
 	"encoding/json"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/scriptlanguage"
 )
 
 type _scriptCondition struct {
@@ -43,10 +44,9 @@ func (s *_scriptCondition) Id(id string) *_scriptCondition {
 	return s
 }
 
-func (s *_scriptCondition) Lang(lang string) *_scriptCondition {
+func (s *_scriptCondition) Lang(lang scriptlanguage.ScriptLanguage) *_scriptCondition {
 
 	s.v.Lang = &lang
-
 	return s
 }
 
@@ -71,9 +71,9 @@ func (s *_scriptCondition) AddParam(key string, value json.RawMessage) *_scriptC
 	return s
 }
 
-func (s *_scriptCondition) Source(source string) *_scriptCondition {
+func (s *_scriptCondition) Source(scriptsource types.ScriptSourceVariant) *_scriptCondition {
 
-	s.v.Source = &source
+	s.v.Source = *scriptsource.ScriptSourceCaster()
 
 	return s
 }

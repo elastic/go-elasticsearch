@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package putruleset
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package putruleset
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/query_rules/put_ruleset/QueryRulesetPutRequest.ts#L23-L59
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/query_rules/put_ruleset/QueryRulesetPutRequest.ts#L23-L59
 type Request struct {
 	Rules []types.QueryRule `json:"rules"`
 }

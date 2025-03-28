@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RateLimitSetting type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/inference/_types/Services.ts#L95-L100
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/inference/_types/Services.ts#L95-L100
 type RateLimitSetting struct {
 	// RequestsPerMinute The number of requests allowed per minute.
 	RequestsPerMinute *int `json:"requests_per_minute,omitempty"`

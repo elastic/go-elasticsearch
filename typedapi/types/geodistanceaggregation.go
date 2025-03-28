@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // GeoDistanceAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/aggregations/bucket.ts#L396-L419
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/_types/aggregations/bucket.ts#L369-L392
 type GeoDistanceAggregation struct {
 	// DistanceType The distance calculation type.
 	DistanceType *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
@@ -118,9 +118,18 @@ func (s *GeoDistanceAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "ranges":
-			if err := dec.Decode(&s.Ranges); err != nil {
+			var message json.RawMessage
+			err := dec.Decode(&message)
+			if err != nil {
+				return fmt.Errorf("%s | %w", "Range", err)
+			}
+
+			untyped := NewUntypedAggregationRange()
+			err = json.Unmarshal(message, &untyped)
+			if err != nil {
 				return fmt.Errorf("%s | %w", "Ranges", err)
 			}
+			s.Ranges = append(s.Ranges, untyped)
 
 		case "unit":
 			if err := dec.Decode(&s.Unit); err != nil {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GcsRepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/snapshot/_types/SnapshotRepository.ts#L198-L235
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/snapshot/_types/SnapshotRepository.ts#L198-L235
 type GcsRepositorySettings struct {
 	// ApplicationName The name used by the client when it uses the Google Cloud Storage service.
 	ApplicationName *string `json:"application_name,omitempty"`

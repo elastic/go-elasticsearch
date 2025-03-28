@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
@@ -26,6 +26,9 @@ type _missingAggregation struct {
 	v *types.MissingAggregation
 }
 
+// A field data based single bucket aggregation, that creates a bucket of all
+// documents in the current document set context that are missing a field value
+// (effectively, missing a field or having the configured NULL value set).
 func NewMissingAggregation() *_missingAggregation {
 
 	return &_missingAggregation{v: types.NewMissingAggregation()}

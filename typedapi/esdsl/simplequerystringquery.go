@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
@@ -29,8 +29,8 @@ type _simpleQueryStringQuery struct {
 	v *types.SimpleQueryStringQuery
 }
 
-// Returns roles based on a provided query string, using a parser with a limited
-// but fault-tolerant syntax.
+// Returns documents based on a provided query string, using a parser with a
+// limited but fault-tolerant syntax.
 func NewSimpleQueryStringQuery(query string) *_simpleQueryStringQuery {
 
 	tmp := &_simpleQueryStringQuery{v: types.NewSimpleQueryStringQuery()}

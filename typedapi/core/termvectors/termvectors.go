@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 // Get term vector information.
 //
@@ -447,55 +447,6 @@ func (r *Termvectors) Id(id string) *Termvectors {
 	return r
 }
 
-// Fields A comma-separated list or wildcard expressions of fields to include in the
-// statistics.
-// It is used as the default list unless a specific field list is provided in
-// the `completion_fields` or `fielddata_fields` parameters.
-// API name: fields
-func (r *Termvectors) Fields(fields ...string) *Termvectors {
-	r.values.Set("fields", strings.Join(fields, ","))
-
-	return r
-}
-
-// FieldStatistics If `true`, the response includes:
-//
-// * The document count (how many documents contain this field).
-// * The sum of document frequencies (the sum of document frequencies for all
-// terms in this field).
-// * The sum of total term frequencies (the sum of total term frequencies of
-// each term in this field).
-// API name: field_statistics
-func (r *Termvectors) FieldStatistics(fieldstatistics bool) *Termvectors {
-	r.values.Set("field_statistics", strconv.FormatBool(fieldstatistics))
-
-	return r
-}
-
-// Offsets If `true`, the response includes term offsets.
-// API name: offsets
-func (r *Termvectors) Offsets(offsets bool) *Termvectors {
-	r.values.Set("offsets", strconv.FormatBool(offsets))
-
-	return r
-}
-
-// Payloads If `true`, the response includes term payloads.
-// API name: payloads
-func (r *Termvectors) Payloads(payloads bool) *Termvectors {
-	r.values.Set("payloads", strconv.FormatBool(payloads))
-
-	return r
-}
-
-// Positions If `true`, the response includes term positions.
-// API name: positions
-func (r *Termvectors) Positions(positions bool) *Termvectors {
-	r.values.Set("positions", strconv.FormatBool(positions))
-
-	return r
-}
-
 // Preference The node or shard the operation should be performed on.
 // It is random by default.
 // API name: preference
@@ -509,45 +460,6 @@ func (r *Termvectors) Preference(preference string) *Termvectors {
 // API name: realtime
 func (r *Termvectors) Realtime(realtime bool) *Termvectors {
 	r.values.Set("realtime", strconv.FormatBool(realtime))
-
-	return r
-}
-
-// Routing A custom value that is used to route operations to a specific shard.
-// API name: routing
-func (r *Termvectors) Routing(routing string) *Termvectors {
-	r.values.Set("routing", routing)
-
-	return r
-}
-
-// TermStatistics If `true`, the response includes:
-//
-// * The total term frequency (how often a term occurs in all documents).
-// * The document frequency (the number of documents containing the current
-// term).
-//
-// By default these values are not returned since term statistics can have a
-// serious performance impact.
-// API name: term_statistics
-func (r *Termvectors) TermStatistics(termstatistics bool) *Termvectors {
-	r.values.Set("term_statistics", strconv.FormatBool(termstatistics))
-
-	return r
-}
-
-// Version If `true`, returns the document version as part of a hit.
-// API name: version
-func (r *Termvectors) Version(versionnumber string) *Termvectors {
-	r.values.Set("version", versionnumber)
-
-	return r
-}
-
-// VersionType The version type.
-// API name: version_type
-func (r *Termvectors) VersionType(versiontype versiontype.VersionType) *Termvectors {
-	r.values.Set("version_type", versiontype.String())
 
 	return r
 }
@@ -620,6 +532,40 @@ func (r *Termvectors) Doc(doc any) *Termvectors {
 	return r
 }
 
+// If `true`, the response includes:
+//
+// * The document count (how many documents contain this field).
+// * The sum of document frequencies (the sum of document frequencies for all
+// terms in this field).
+// * The sum of total term frequencies (the sum of total term frequencies of
+// each term in this field).
+// API name: field_statistics
+func (r *Termvectors) FieldStatistics(fieldstatistics bool) *Termvectors {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.FieldStatistics = &fieldstatistics
+
+	return r
+}
+
+// A list of fields to include in the statistics.
+// It is used as the default list unless a specific field list is provided in
+// the `completion_fields` or `fielddata_fields` parameters.
+// API name: fields
+func (r *Termvectors) Fields(fields ...string) *Termvectors {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Fields = fields
+
+	return r
+}
+
 // Filter terms based on their tf-idf scores.
 // This could be useful in order find out a good characteristic vector of a
 // document.
@@ -633,6 +579,32 @@ func (r *Termvectors) Filter(filter types.TermVectorsFilterVariant) *Termvectors
 	}
 
 	r.req.Filter = filter.TermVectorsFilterCaster()
+
+	return r
+}
+
+// If `true`, the response includes term offsets.
+// API name: offsets
+func (r *Termvectors) Offsets(offsets bool) *Termvectors {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Offsets = &offsets
+
+	return r
+}
+
+// If `true`, the response includes term payloads.
+// API name: payloads
+func (r *Termvectors) Payloads(payloads bool) *Termvectors {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Payloads = &payloads
 
 	return r
 }
@@ -668,5 +640,75 @@ func (r *Termvectors) AddPerFieldAnalyzer(key string, value string) *Termvectors
 	tmp[key] = value
 
 	r.req.PerFieldAnalyzer = tmp
+	return r
+}
+
+// If `true`, the response includes term positions.
+// API name: positions
+func (r *Termvectors) Positions(positions bool) *Termvectors {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Positions = &positions
+
+	return r
+}
+
+// A custom value that is used to route operations to a specific shard.
+// API name: routing
+func (r *Termvectors) Routing(routing string) *Termvectors {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Routing = &routing
+
+	return r
+}
+
+// If `true`, the response includes:
+//
+// * The total term frequency (how often a term occurs in all documents).
+// * The document frequency (the number of documents containing the current
+// term).
+//
+// By default these values are not returned since term statistics can have a
+// serious performance impact.
+// API name: term_statistics
+func (r *Termvectors) TermStatistics(termstatistics bool) *Termvectors {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.TermStatistics = &termstatistics
+
+	return r
+}
+
+// If `true`, returns the document version as part of a hit.
+// API name: version
+func (r *Termvectors) Version(versionnumber int64) *Termvectors {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Version = &versionnumber
+
+	return r
+}
+
+// The version type.
+// API name: version_type
+func (r *Termvectors) VersionType(versiontype versiontype.VersionType) *Termvectors {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.VersionType = &versiontype
 	return r
 }

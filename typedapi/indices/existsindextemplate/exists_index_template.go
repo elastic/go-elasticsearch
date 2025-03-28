@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 // Check index templates.
 //
@@ -247,6 +247,23 @@ func (r *ExistsIndexTemplate) Header(key, value string) *ExistsIndexTemplate {
 func (r *ExistsIndexTemplate) _name(name string) *ExistsIndexTemplate {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// Local If true, the request retrieves information from the local node only. Defaults
+// to false, which means information is retrieved from the master node.
+// API name: local
+func (r *ExistsIndexTemplate) Local(local bool) *ExistsIndexTemplate {
+	r.values.Set("local", strconv.FormatBool(local))
+
+	return r
+}
+
+// FlatSettings If true, returns settings in flat format.
+// API name: flat_settings
+func (r *ExistsIndexTemplate) FlatSettings(flatsettings bool) *ExistsIndexTemplate {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }

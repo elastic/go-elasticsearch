@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package postfeatureupgrade
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package postfeatureupgrade
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/migration/post_feature_upgrade/PostFeatureUpgradeResponse.ts#L20-L25
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/migration/post_feature_upgrade/PostFeatureUpgradeResponse.ts#L20-L25
 type Response struct {
 	Accepted bool                         `json:"accepted"`
 	Features []types.PostMigrationFeature `json:"features"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // QueryRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/query_rules/_types/QueryRuleset.ts#L36-L58
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/query_rules/_types/QueryRuleset.ts#L36-L58
 type QueryRule struct {
 	// Actions The actions to take when the rule is matched.
 	// The format of this action depends on the rule type.

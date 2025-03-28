@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package delete
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package delete
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/delete/DeleteResponse.ts#L22-L34
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/_global/delete/DeleteResponse.ts#L22-L35
 type Response struct {
 	ForcedRefresh *bool `json:"forced_refresh,omitempty"`
 	// Id_ The unique identifier for the added document.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
@@ -74,6 +74,13 @@ func (s *_tokenizationConfigContainer) Mpnet(mpnet types.NlpBertTokenizationConf
 func (s *_tokenizationConfigContainer) Roberta(roberta types.NlpRobertaTokenizationConfigVariant) *_tokenizationConfigContainer {
 
 	s.v.Roberta = roberta.NlpRobertaTokenizationConfigCaster()
+
+	return s
+}
+
+func (s *_tokenizationConfigContainer) XlmRoberta(xlmroberta types.XlmRobertaTokenizationConfigVariant) *_tokenizationConfigContainer {
+
+	s.v.XlmRoberta = xlmroberta.XlmRobertaTokenizationConfigCaster()
 
 	return s
 }

@@ -16,13 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/onscripterror"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/syntheticsourcekeepenum"
 )
 
@@ -98,6 +99,13 @@ func (s *_booleanProperty) IgnoreAbove(ignoreabove int) *_booleanProperty {
 	return s
 }
 
+func (s *_booleanProperty) IgnoreMalformed(ignoremalformed bool) *_booleanProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
 func (s *_booleanProperty) Index(index bool) *_booleanProperty {
 
 	s.v.Index = &index
@@ -134,6 +142,12 @@ func (s *_booleanProperty) NullValue(nullvalue bool) *_booleanProperty {
 	return s
 }
 
+func (s *_booleanProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_booleanProperty {
+
+	s.v.OnScriptError = &onscripterror
+	return s
+}
+
 func (s *_booleanProperty) Properties(properties map[string]types.Property) *_booleanProperty {
 
 	s.v.Properties = properties
@@ -155,6 +169,13 @@ func (s *_booleanProperty) AddProperty(key string, value types.PropertyVariant) 
 	return s
 }
 
+func (s *_booleanProperty) Script(script types.ScriptVariant) *_booleanProperty {
+
+	s.v.Script = script.ScriptCaster()
+
+	return s
+}
+
 func (s *_booleanProperty) Store(store bool) *_booleanProperty {
 
 	s.v.Store = &store
@@ -165,6 +186,15 @@ func (s *_booleanProperty) Store(store bool) *_booleanProperty {
 func (s *_booleanProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_booleanProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
+	return s
+}
+
+// For internal use by Elastic only. Marks the field as a time series dimension.
+// Defaults to false.
+func (s *_booleanProperty) TimeSeriesDimension(timeseriesdimension bool) *_booleanProperty {
+
+	s.v.TimeSeriesDimension = &timeseriesdimension
+
 	return s
 }
 

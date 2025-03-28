@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 // Simulate an index.
 // Get the index configuration that would be applied to the specified index from
@@ -305,6 +305,24 @@ func (r *SimulateIndexTemplate) Header(key, value string) *SimulateIndexTemplate
 func (r *SimulateIndexTemplate) _name(name string) *SimulateIndexTemplate {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// Create Whether the index template we optionally defined in the body should only be
+// dry-run added if new or can also replace an existing one
+// API name: create
+func (r *SimulateIndexTemplate) Create(create bool) *SimulateIndexTemplate {
+	r.values.Set("create", strconv.FormatBool(create))
+
+	return r
+}
+
+// Cause User defined reason for dry-run creating the new template for simulation
+// purposes
+// API name: cause
+func (r *SimulateIndexTemplate) Cause(cause string) *SimulateIndexTemplate {
+	r.values.Set("cause", cause)
 
 	return r
 }

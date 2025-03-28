@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package types
 
@@ -26,8 +26,11 @@ import (
 
 // TransformStatsHealth type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/transform/get_transform_stats/types.ts#L44-L46
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/transform/get_transform_stats/types.ts#L44-L49
 type TransformStatsHealth struct {
+	// Issues If a non-healthy status is returned, contains a list of issues of the
+	// transform.
+	Issues []TransformHealthIssue    `json:"issues,omitempty"`
 	Status healthstatus.HealthStatus `json:"status"`
 }
 

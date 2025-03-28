@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package getrecords
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package getrecords
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/get_records/MlGetAnomalyRecordsRequest.ts#L26-L135
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/ml/get_records/MlGetAnomalyRecordsRequest.ts#L26-L135
 type Request struct {
 
 	// Desc Refer to the description for the `desc` query parameter.

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package types
 
 // ConnectorFeatures type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/connector/_types/Connector.ts#L230-L244
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/connector/_types/Connector.ts#L230-L244
 type ConnectorFeatures struct {
 	// DocumentLevelSecurity Indicates whether document-level security is enabled.
 	DocumentLevelSecurity *FeatureEnabled `json:"document_level_security,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 // Create an OpenAI inference endpoint.
 //
@@ -48,7 +48,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/servicetype"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/openaiservicetype"
 )
 
 const (
@@ -115,7 +115,7 @@ func NewPutOpenaiFunc(tp elastictransport.Interface) NewPutOpenai {
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-openai.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openai
 func New(tp elastictransport.Interface) *PutOpenai {
 	r := &PutOpenai{
 		transport: tp,
@@ -420,7 +420,7 @@ func (r *PutOpenai) ChunkingSettings(chunkingsettings types.InferenceChunkingSet
 // The type of service supported for the specified task type. In this case,
 // `openai`.
 // API name: service
-func (r *PutOpenai) Service(service servicetype.ServiceType) *PutOpenai {
+func (r *PutOpenai) Service(service openaiservicetype.OpenAIServiceType) *PutOpenai {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()

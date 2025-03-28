@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // TokenizationConfigContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/inference.ts#L110-L131
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/ml/_types/inference.ts#L135-L158
 type TokenizationConfigContainer struct {
 	AdditionalTokenizationConfigContainerProperty map[string]json.RawMessage `json:"-"`
 	// Bert Indicates BERT tokenization and its options
@@ -37,7 +37,8 @@ type TokenizationConfigContainer struct {
 	// Mpnet Indicates MPNET tokenization and its options
 	Mpnet *NlpBertTokenizationConfig `json:"mpnet,omitempty"`
 	// Roberta Indicates RoBERTa tokenization and its options
-	Roberta *NlpRobertaTokenizationConfig `json:"roberta,omitempty"`
+	Roberta    *NlpRobertaTokenizationConfig `json:"roberta,omitempty"`
+	XlmRoberta *XlmRobertaTokenizationConfig `json:"xlm_roberta,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties

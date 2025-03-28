@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package types
 
 // FieldSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L57-L66
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L58-L67
 type FieldSummary struct {
 	Any           uint          `json:"any"`
 	DocValues     uint          `json:"doc_values"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DetailsInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/snapshot/repository_analyze/SnapshotAnalyzeRepositoryResponse.ts#L286-L321
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/snapshot/repository_analyze/SnapshotAnalyzeRepositoryResponse.ts#L286-L321
 type DetailsInfo struct {
 	// Blob A description of the blob that was written and read.
 	Blob BlobDetails `json:"blob"`

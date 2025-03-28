@@ -16,36 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 type _inferenceChunkingSettings struct {
 	v *types.InferenceChunkingSettings
 }
 
-func NewInferenceChunkingSettings(service string) *_inferenceChunkingSettings {
+func NewInferenceChunkingSettings() *_inferenceChunkingSettings {
 
-	tmp := &_inferenceChunkingSettings{v: types.NewInferenceChunkingSettings()}
+	return &_inferenceChunkingSettings{v: types.NewInferenceChunkingSettings()}
 
-	tmp.Service(service)
-
-	return tmp
-
-}
-
-// Chunking configuration object
-func (s *_inferenceChunkingSettings) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *_inferenceChunkingSettings {
-
-	s.v.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
-
-	return s
 }
 
 // The maximum size of a chunk in words.
@@ -78,34 +62,10 @@ func (s *_inferenceChunkingSettings) SentenceOverlap(sentenceoverlap int) *_infe
 	return s
 }
 
-// The service type
-func (s *_inferenceChunkingSettings) Service(service string) *_inferenceChunkingSettings {
-
-	s.v.Service = service
-
-	return s
-}
-
-// Settings specific to the service
-func (s *_inferenceChunkingSettings) ServiceSettings(servicesettings json.RawMessage) *_inferenceChunkingSettings {
-
-	s.v.ServiceSettings = servicesettings
-
-	return s
-}
-
 // The chunking strategy: `sentence` or `word`.
 func (s *_inferenceChunkingSettings) Strategy(strategy string) *_inferenceChunkingSettings {
 
 	s.v.Strategy = &strategy
-
-	return s
-}
-
-// Task settings specific to the service and task type
-func (s *_inferenceChunkingSettings) TaskSettings(tasksettings json.RawMessage) *_inferenceChunkingSettings {
-
-	s.v.TaskSettings = tasksettings
 
 	return s
 }

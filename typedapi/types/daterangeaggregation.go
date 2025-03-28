@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DateRangeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/aggregations/bucket.ts#L281-L307
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/_types/aggregations/bucket.ts#L281-L307
 type DateRangeAggregation struct {
 	// Field The date field whose values are use to build ranges.
 	Field *string `json:"field,omitempty"`
@@ -44,7 +44,7 @@ type DateRangeAggregation struct {
 	// By default, documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
 	// Ranges Array of date ranges.
-	Ranges []DateRangeExpression `json:"ranges,omitempty"`
+	Ranges []DateAggregationRange `json:"ranges,omitempty"`
 	// TimeZone Time zone used to convert dates from another time zone to UTC.
 	TimeZone *string `json:"time_zone,omitempty"`
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
@@ -31,7 +31,7 @@ type _matchQuery struct {
 	v *types.MatchQuery
 }
 
-// Returns roles that match a provided text, number, date or boolean value.
+// Returns documents that match a provided text, number, date or boolean value.
 // The provided text is analyzed before matching.
 func NewMatchQuery(field string, query string) *_matchQuery {
 	tmp := &_matchQuery{

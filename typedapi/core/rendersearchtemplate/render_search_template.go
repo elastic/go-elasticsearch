@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 // Render a search template.
 //
@@ -406,13 +406,13 @@ func (r *RenderSearchTemplate) AddParam(key string, value json.RawMessage) *Rend
 // These parameters also support Mustache variables.
 // If no `id` or `<templated-id>` is specified, this parameter is required.
 // API name: source
-func (r *RenderSearchTemplate) Source(source string) *RenderSearchTemplate {
+func (r *RenderSearchTemplate) Source(scriptsource types.ScriptSourceVariant) *RenderSearchTemplate {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Source = &source
+	r.req.Source = *scriptsource.ScriptSourceCaster()
 
 	return r
 }

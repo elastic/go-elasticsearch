@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
@@ -24,6 +24,7 @@ import (
 	"encoding/json"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/scriptlanguage"
 )
 
 type _scriptProcessor struct {
@@ -73,10 +74,9 @@ func (s *_scriptProcessor) IgnoreFailure(ignorefailure bool) *_scriptProcessor {
 }
 
 // Script language.
-func (s *_scriptProcessor) Lang(lang string) *_scriptProcessor {
+func (s *_scriptProcessor) Lang(lang scriptlanguage.ScriptLanguage) *_scriptProcessor {
 
 	s.v.Lang = &lang
-
 	return s
 }
 
@@ -115,9 +115,9 @@ func (s *_scriptProcessor) AddParam(key string, value json.RawMessage) *_scriptP
 
 // Inline script.
 // If no `id` is specified, this parameter is required.
-func (s *_scriptProcessor) Source(source string) *_scriptProcessor {
+func (s *_scriptProcessor) Source(scriptsource types.ScriptSourceVariant) *_scriptProcessor {
 
-	s.v.Source = &source
+	s.v.Source = *scriptsource.ScriptSourceCaster()
 
 	return s
 }

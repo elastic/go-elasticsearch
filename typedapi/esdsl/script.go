@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
@@ -33,13 +33,9 @@ type _script struct {
 
 // Script used to return matching documents.
 // This script must return a boolean value: `true` or `false`.
-func NewScript(source string) *_script {
+func NewScript() *_script {
 
-	tmp := &_script{v: types.NewScript()}
-
-	tmp.Source(source)
-
-	return tmp
+	return &_script{v: types.NewScript()}
 
 }
 
@@ -103,9 +99,9 @@ func (s *_script) AddParam(key string, value json.RawMessage) *_script {
 }
 
 // The script source.
-func (s *_script) Source(source string) *_script {
+func (s *_script) Source(scriptsource types.ScriptSourceVariant) *_script {
 
-	s.v.Source = &source
+	s.v.Source = *scriptsource.ScriptSourceCaster()
 
 	return s
 }

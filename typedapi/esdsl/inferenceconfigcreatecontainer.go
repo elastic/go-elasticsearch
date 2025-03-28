@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
@@ -58,6 +58,13 @@ func (s *_inferenceConfigCreateContainer) Classification(classification types.Cl
 func (s *_inferenceConfigCreateContainer) FillMask(fillmask types.FillMaskInferenceOptionsVariant) *_inferenceConfigCreateContainer {
 
 	s.v.FillMask = fillmask.FillMaskInferenceOptionsCaster()
+
+	return s
+}
+
+func (s *_inferenceConfigCreateContainer) LearningToRank(learningtorank types.LearningToRankConfigVariant) *_inferenceConfigCreateContainer {
+
+	s.v.LearningToRank = learningtorank.LearningToRankConfigCaster()
 
 	return s
 }

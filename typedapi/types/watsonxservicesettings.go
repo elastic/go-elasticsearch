@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // WatsonxServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/inference/put_watsonx/PutWatsonxRequest.ts#L80-L117
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/inference/_types/CommonTypes.ts#L1143-L1180
 type WatsonxServiceSettings struct {
 	// ApiKey A valid API key of your Watsonx account.
 	// You can find your Watsonx API keys or you can create a new one on the API

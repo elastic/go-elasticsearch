@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
@@ -26,7 +26,8 @@ type _spanOrQuery struct {
 	v *types.SpanOrQuery
 }
 
-// Matches the union of its span clauses.
+// Combines multiple span queries and returns documents which match any of the
+// specified queries.
 func NewSpanOrQuery() *_spanOrQuery {
 
 	return &_spanOrQuery{v: types.NewSpanOrQuery()}

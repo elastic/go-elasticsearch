@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
@@ -29,20 +29,18 @@ type _storedScript struct {
 	v *types.StoredScript
 }
 
-func NewStoredScript(lang scriptlanguage.ScriptLanguage, source string) *_storedScript {
+func NewStoredScript(lang scriptlanguage.ScriptLanguage) *_storedScript {
 
 	tmp := &_storedScript{v: types.NewStoredScript()}
 
 	tmp.Lang(lang)
-
-	tmp.Source(source)
 
 	return tmp
 
 }
 
 // The language the script is written in.
-// For serach templates, use `mustache`.
+// For search templates, use `mustache`.
 func (s *_storedScript) Lang(lang scriptlanguage.ScriptLanguage) *_storedScript {
 
 	s.v.Lang = lang
@@ -72,9 +70,9 @@ func (s *_storedScript) AddOption(key string, value string) *_storedScript {
 
 // The script source.
 // For search templates, an object containing the search template.
-func (s *_storedScript) Source(source string) *_storedScript {
+func (s *_storedScript) Source(scriptsource types.ScriptSourceVariant) *_storedScript {
 
-	s.v.Source = source
+	s.v.Source = *scriptsource.ScriptSourceCaster()
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 // Run an async ES|QL query.
 // Asynchronously run an ES|QL (Elasticsearch query language) query, monitor its
@@ -354,18 +354,6 @@ func (r *AsyncQuery) KeepOnCompletion(keeponcompletion bool) *AsyncQuery {
 	return r
 }
 
-// WaitForCompletionTimeout The period to wait for the request to finish.
-// By default, the request waits for 1 second for the query results.
-// If the query completes during this period, results are returned
-// Otherwise, a query ID is returned that can later be used to retrieve the
-// results.
-// API name: wait_for_completion_timeout
-func (r *AsyncQuery) WaitForCompletionTimeout(duration string) *AsyncQuery {
-	r.values.Set("wait_for_completion_timeout", duration)
-
-	return r
-}
-
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -527,5 +515,22 @@ func (r *AsyncQuery) Tables(tables map[string]map[string]types.TableValuesContai
 		r.req = NewRequest()
 	}
 	r.req.Tables = tables
+	return r
+}
+
+// The period to wait for the request to finish.
+// By default, the request waits for 1 second for the query results.
+// If the query completes during this period, results are returned
+// Otherwise, a query ID is returned that can later be used to retrieve the
+// results.
+// API name: wait_for_completion_timeout
+func (r *AsyncQuery) WaitForCompletionTimeout(duration types.DurationVariant) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.WaitForCompletionTimeout = *duration.DurationCaster()
+
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
@@ -44,15 +44,15 @@ func (u *_multisearchHeader) MsearchRequestItemCaster() *types.MsearchRequestIte
 	return &t
 }
 
-func (u *_msearchRequestItem) MultisearchBody(multisearchbody types.MultisearchBodyVariant) *_msearchRequestItem {
+func (u *_msearchRequestItem) SearchRequestBody(searchrequestbody types.SearchRequestBodyVariant) *_msearchRequestItem {
 
-	u.v = &multisearchbody
+	u.v = &searchrequestbody
 
 	return u
 }
 
-// Interface implementation for MultisearchBody in MsearchRequestItem union
-func (u *_multisearchBody) MsearchRequestItemCaster() *types.MsearchRequestItem {
+// Interface implementation for SearchRequestBody in MsearchRequestItem union
+func (u *_searchRequestBody) MsearchRequestItemCaster() *types.MsearchRequestItem {
 	t := types.MsearchRequestItem(u.v)
 	return &t
 }

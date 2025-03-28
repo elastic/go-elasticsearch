@@ -27,7 +27,7 @@ import (
 func TestMsearch_AddSearch(t *testing.T) {
 	type args struct {
 		header types.MultisearchHeader
-		body   types.MultisearchBody
+		body   types.SearchRequestBody
 	}
 	tests := []struct {
 		name    string
@@ -39,7 +39,7 @@ func TestMsearch_AddSearch(t *testing.T) {
 			name: "nominal test case",
 			args: args{
 				header: types.MultisearchHeader{Index: []string{"foo"}},
-				body:   types.MultisearchBody{Query: &types.Query{Term: map[string]types.TermQuery{"bar": {Value: "baz"}}}},
+				body:   types.SearchRequestBody{Query: &types.Query{Term: map[string]types.TermQuery{"bar": {Value: "baz"}}}},
 			},
 			expects: `{"index":["foo"]}
 {"query":{"term":{"bar":{"value":"baz"}}}}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package esdsl
 
@@ -90,9 +90,9 @@ func (s *_templateConfig) Profile(profile bool) *_templateConfig {
 // request body. It also supports Mustache variables. If no `id` is specified,
 // this
 // parameter is required.
-func (s *_templateConfig) Source(source string) *_templateConfig {
+func (s *_templateConfig) Source(scriptsource types.ScriptSourceVariant) *_templateConfig {
 
-	s.v.Source = &source
+	s.v.Source = *scriptsource.ScriptSourceCaster()
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
 
 package getdatalifecyclestats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getdatalifecyclestats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/indices/get_data_lifecycle_stats/IndicesGetDataLifecycleStatsResponse.ts#L24-L44
+// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/indices/get_data_lifecycle_stats/IndicesGetDataLifecycleStatsResponse.ts#L24-L44
 type Response struct {
 
 	// DataStreamCount The count of data streams currently being managed by the data stream
