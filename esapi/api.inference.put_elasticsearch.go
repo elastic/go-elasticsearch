@@ -23,14 +23,12 @@ import (
 	"context"
 	"io"
 	"net/http"
-	"strconv"
 	"strings"
-	"time"
 )
 
-func newIndicesPutTemplateFunc(t Transport) IndicesPutTemplate {
-	return func(name string, body io.Reader, o ...func(*IndicesPutTemplateRequest)) (*Response, error) {
-		var r = IndicesPutTemplateRequest{Name: name, Body: body}
+func newInferencePutElasticsearchFunc(t Transport) InferencePutElasticsearch {
+	return func(elasticsearch_inference_id string, task_type string, o ...func(*InferencePutElasticsearchRequest)) (*Response, error) {
+		var r = InferencePutElasticsearchRequest{ElasticsearchInferenceID: elasticsearch_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,21 +43,17 @@ func newIndicesPutTemplateFunc(t Transport) IndicesPutTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutTemplate creates or updates an index template.
+// InferencePutElasticsearch configure an Elasticsearch inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates-v1.html.
-type IndicesPutTemplate func(name string, body io.Reader, o ...func(*IndicesPutTemplateRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-elasticsearch.html.
+type InferencePutElasticsearch func(elasticsearch_inference_id string, task_type string, o ...func(*InferencePutElasticsearchRequest)) (*Response, error)
 
-// IndicesPutTemplateRequest configures the Indices Put Template API request.
-type IndicesPutTemplateRequest struct {
+// InferencePutElasticsearchRequest configures the Inference Put Elasticsearch API request.
+type InferencePutElasticsearchRequest struct {
 	Body io.Reader
 
-	Name string
-
-	Cause         string
-	Create        *bool
-	MasterTimeout time.Duration
-	Order         *int
+	ElasticsearchInferenceID string
+	TaskType                 string
 
 	Pretty     bool
 	Human      bool
@@ -74,7 +68,7 @@ type IndicesPutTemplateRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r InferencePutElasticsearchRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -83,7 +77,7 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "indices.put_template")
+		ctx = instrument.Start(providedCtx, "inference.put_elasticsearch")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -92,33 +86,22 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_template") + 1 + len(r.Name))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.ElasticsearchInferenceID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_template")
+	path.WriteString("_inference")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(r.TaskType)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", r.Name)
+		instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+	}
+	path.WriteString("/")
+	path.WriteString(r.ElasticsearchInferenceID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "elasticsearch_inference_id", r.ElasticsearchInferenceID)
 	}
 
 	params = make(map[string]string)
-
-	if r.Cause != "" {
-		params["cause"] = r.Cause
-	}
-
-	if r.Create != nil {
-		params["create"] = strconv.FormatBool(*r.Create)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
-
-	if r.Order != nil {
-		params["order"] = strconv.FormatInt(int64(*r.Order), 10)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -173,14 +156,14 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "indices.put_template")
-		if reader := instrument.RecordRequestBody(ctx, "indices.put_template", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "inference.put_elasticsearch")
+		if reader := instrument.RecordRequestBody(ctx, "inference.put_elasticsearch", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "indices.put_template")
+		instrument.AfterRequest(req, "elasticsearch", "inference.put_elasticsearch")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -199,71 +182,50 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-func (f IndicesPutTemplate) WithContext(v context.Context) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutElasticsearch) WithContext(v context.Context) func(*InferencePutElasticsearchRequest) {
+	return func(r *InferencePutElasticsearchRequest) {
 		r.ctx = v
 	}
 }
 
-// WithCause - user defined reason for creating/updating the index template.
-func (f IndicesPutTemplate) WithCause(v string) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
-		r.Cause = v
-	}
-}
-
-// WithCreate - whether the index template should only be added if new or can also replace an existing one.
-func (f IndicesPutTemplate) WithCreate(v bool) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
-		r.Create = &v
-	}
-}
-
-// WithMasterTimeout - specify timeout for connection to master.
-func (f IndicesPutTemplate) WithMasterTimeout(v time.Duration) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
-		r.MasterTimeout = v
-	}
-}
-
-// WithOrder - the order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers).
-func (f IndicesPutTemplate) WithOrder(v int) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
-		r.Order = &v
+// WithBody - The inference endpoint's task and service settings.
+func (f InferencePutElasticsearch) WithBody(v io.Reader) func(*InferencePutElasticsearchRequest) {
+	return func(r *InferencePutElasticsearchRequest) {
+		r.Body = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f IndicesPutTemplate) WithPretty() func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutElasticsearch) WithPretty() func(*InferencePutElasticsearchRequest) {
+	return func(r *InferencePutElasticsearchRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f IndicesPutTemplate) WithHuman() func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutElasticsearch) WithHuman() func(*InferencePutElasticsearchRequest) {
+	return func(r *InferencePutElasticsearchRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f IndicesPutTemplate) WithErrorTrace() func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutElasticsearch) WithErrorTrace() func(*InferencePutElasticsearchRequest) {
+	return func(r *InferencePutElasticsearchRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f IndicesPutTemplate) WithFilterPath(v ...string) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutElasticsearch) WithFilterPath(v ...string) func(*InferencePutElasticsearchRequest) {
+	return func(r *InferencePutElasticsearchRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f IndicesPutTemplate) WithHeader(h map[string]string) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutElasticsearch) WithHeader(h map[string]string) func(*InferencePutElasticsearchRequest) {
+	return func(r *InferencePutElasticsearchRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -274,8 +236,8 @@ func (f IndicesPutTemplate) WithHeader(h map[string]string) func(*IndicesPutTemp
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f IndicesPutTemplate) WithOpaqueID(s string) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutElasticsearch) WithOpaqueID(s string) func(*InferencePutElasticsearchRequest) {
+	return func(r *InferencePutElasticsearchRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

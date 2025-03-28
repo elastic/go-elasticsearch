@@ -23,14 +23,12 @@ import (
 	"context"
 	"io"
 	"net/http"
-	"strconv"
 	"strings"
-	"time"
 )
 
-func newIndicesPutTemplateFunc(t Transport) IndicesPutTemplate {
-	return func(name string, body io.Reader, o ...func(*IndicesPutTemplateRequest)) (*Response, error) {
-		var r = IndicesPutTemplateRequest{Name: name, Body: body}
+func newInferencePutHuggingFaceFunc(t Transport) InferencePutHuggingFace {
+	return func(huggingface_inference_id string, task_type string, o ...func(*InferencePutHuggingFaceRequest)) (*Response, error) {
+		var r = InferencePutHuggingFaceRequest{HuggingfaceInferenceID: huggingface_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,21 +43,17 @@ func newIndicesPutTemplateFunc(t Transport) IndicesPutTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutTemplate creates or updates an index template.
+// InferencePutHuggingFace configure a HuggingFace inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates-v1.html.
-type IndicesPutTemplate func(name string, body io.Reader, o ...func(*IndicesPutTemplateRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-hugging-face.html.
+type InferencePutHuggingFace func(huggingface_inference_id string, task_type string, o ...func(*InferencePutHuggingFaceRequest)) (*Response, error)
 
-// IndicesPutTemplateRequest configures the Indices Put Template API request.
-type IndicesPutTemplateRequest struct {
+// InferencePutHuggingFaceRequest configures the Inference Put Hugging Face API request.
+type InferencePutHuggingFaceRequest struct {
 	Body io.Reader
 
-	Name string
-
-	Cause         string
-	Create        *bool
-	MasterTimeout time.Duration
-	Order         *int
+	HuggingfaceInferenceID string
+	TaskType               string
 
 	Pretty     bool
 	Human      bool
@@ -74,7 +68,7 @@ type IndicesPutTemplateRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r InferencePutHuggingFaceRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -83,7 +77,7 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "indices.put_template")
+		ctx = instrument.Start(providedCtx, "inference.put_hugging_face")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -92,33 +86,22 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_template") + 1 + len(r.Name))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.HuggingfaceInferenceID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_template")
+	path.WriteString("_inference")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(r.TaskType)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", r.Name)
+		instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+	}
+	path.WriteString("/")
+	path.WriteString(r.HuggingfaceInferenceID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "huggingface_inference_id", r.HuggingfaceInferenceID)
 	}
 
 	params = make(map[string]string)
-
-	if r.Cause != "" {
-		params["cause"] = r.Cause
-	}
-
-	if r.Create != nil {
-		params["create"] = strconv.FormatBool(*r.Create)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
-
-	if r.Order != nil {
-		params["order"] = strconv.FormatInt(int64(*r.Order), 10)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -173,14 +156,14 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "indices.put_template")
-		if reader := instrument.RecordRequestBody(ctx, "indices.put_template", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "inference.put_hugging_face")
+		if reader := instrument.RecordRequestBody(ctx, "inference.put_hugging_face", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "indices.put_template")
+		instrument.AfterRequest(req, "elasticsearch", "inference.put_hugging_face")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -199,71 +182,50 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-func (f IndicesPutTemplate) WithContext(v context.Context) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutHuggingFace) WithContext(v context.Context) func(*InferencePutHuggingFaceRequest) {
+	return func(r *InferencePutHuggingFaceRequest) {
 		r.ctx = v
 	}
 }
 
-// WithCause - user defined reason for creating/updating the index template.
-func (f IndicesPutTemplate) WithCause(v string) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
-		r.Cause = v
-	}
-}
-
-// WithCreate - whether the index template should only be added if new or can also replace an existing one.
-func (f IndicesPutTemplate) WithCreate(v bool) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
-		r.Create = &v
-	}
-}
-
-// WithMasterTimeout - specify timeout for connection to master.
-func (f IndicesPutTemplate) WithMasterTimeout(v time.Duration) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
-		r.MasterTimeout = v
-	}
-}
-
-// WithOrder - the order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers).
-func (f IndicesPutTemplate) WithOrder(v int) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
-		r.Order = &v
+// WithBody - The inference endpoint's task and service settings.
+func (f InferencePutHuggingFace) WithBody(v io.Reader) func(*InferencePutHuggingFaceRequest) {
+	return func(r *InferencePutHuggingFaceRequest) {
+		r.Body = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f IndicesPutTemplate) WithPretty() func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutHuggingFace) WithPretty() func(*InferencePutHuggingFaceRequest) {
+	return func(r *InferencePutHuggingFaceRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f IndicesPutTemplate) WithHuman() func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutHuggingFace) WithHuman() func(*InferencePutHuggingFaceRequest) {
+	return func(r *InferencePutHuggingFaceRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f IndicesPutTemplate) WithErrorTrace() func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutHuggingFace) WithErrorTrace() func(*InferencePutHuggingFaceRequest) {
+	return func(r *InferencePutHuggingFaceRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f IndicesPutTemplate) WithFilterPath(v ...string) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutHuggingFace) WithFilterPath(v ...string) func(*InferencePutHuggingFaceRequest) {
+	return func(r *InferencePutHuggingFaceRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f IndicesPutTemplate) WithHeader(h map[string]string) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutHuggingFace) WithHeader(h map[string]string) func(*InferencePutHuggingFaceRequest) {
+	return func(r *InferencePutHuggingFaceRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -274,8 +236,8 @@ func (f IndicesPutTemplate) WithHeader(h map[string]string) func(*IndicesPutTemp
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f IndicesPutTemplate) WithOpaqueID(s string) func(*IndicesPutTemplateRequest) {
-	return func(r *IndicesPutTemplateRequest) {
+func (f InferencePutHuggingFace) WithOpaqueID(s string) func(*InferencePutHuggingFaceRequest) {
+	return func(r *InferencePutHuggingFaceRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

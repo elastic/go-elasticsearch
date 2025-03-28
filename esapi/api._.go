@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.0.0 (0c7ccb6): DO NOT EDIT
+// Code generated from specification version 9.0.0 (92f93ac): DO NOT EDIT
 
 package esapi
 
@@ -133,7 +133,23 @@ type API struct {
 	InferenceDelete                               InferenceDelete
 	InferenceGet                                  InferenceGet
 	InferenceInference                            InferenceInference
+	InferencePutAlibabacloud                      InferencePutAlibabacloud
+	InferencePutAmazonbedrock                     InferencePutAmazonbedrock
+	InferencePutAnthropic                         InferencePutAnthropic
+	InferencePutAzureaistudio                     InferencePutAzureaistudio
+	InferencePutAzureopenai                       InferencePutAzureopenai
+	InferencePutCohere                            InferencePutCohere
+	InferencePutElasticsearch                     InferencePutElasticsearch
+	InferencePutElser                             InferencePutElser
+	InferencePutGoogleaistudio                    InferencePutGoogleaistudio
+	InferencePutGooglevertexai                    InferencePutGooglevertexai
+	InferencePutHuggingFace                       InferencePutHuggingFace
+	InferencePutJinaai                            InferencePutJinaai
+	InferencePutMistral                           InferencePutMistral
+	InferencePutOpenai                            InferencePutOpenai
 	InferencePut                                  InferencePut
+	InferencePutVoyageai                          InferencePutVoyageai
+	InferencePutWatsonx                           InferencePutWatsonx
 	InferenceRerank                               InferenceRerank
 	InferenceSparseEmbedding                      InferenceSparseEmbedding
 	InferenceStreamCompletion                     InferenceStreamCompletion
@@ -755,7 +771,23 @@ func New(t Transport) *API {
 		InferenceDelete:                    newInferenceDeleteFunc(t),
 		InferenceGet:                       newInferenceGetFunc(t),
 		InferenceInference:                 newInferenceInferenceFunc(t),
+		InferencePutAlibabacloud:           newInferencePutAlibabacloudFunc(t),
+		InferencePutAmazonbedrock:          newInferencePutAmazonbedrockFunc(t),
+		InferencePutAnthropic:              newInferencePutAnthropicFunc(t),
+		InferencePutAzureaistudio:          newInferencePutAzureaistudioFunc(t),
+		InferencePutAzureopenai:            newInferencePutAzureopenaiFunc(t),
+		InferencePutCohere:                 newInferencePutCohereFunc(t),
+		InferencePutElasticsearch:          newInferencePutElasticsearchFunc(t),
+		InferencePutElser:                  newInferencePutElserFunc(t),
+		InferencePutGoogleaistudio:         newInferencePutGoogleaistudioFunc(t),
+		InferencePutGooglevertexai:         newInferencePutGooglevertexaiFunc(t),
+		InferencePutHuggingFace:            newInferencePutHuggingFaceFunc(t),
+		InferencePutJinaai:                 newInferencePutJinaaiFunc(t),
+		InferencePutMistral:                newInferencePutMistralFunc(t),
+		InferencePutOpenai:                 newInferencePutOpenaiFunc(t),
 		InferencePut:                       newInferencePutFunc(t),
+		InferencePutVoyageai:               newInferencePutVoyageaiFunc(t),
+		InferencePutWatsonx:                newInferencePutWatsonxFunc(t),
 		InferenceRerank:                    newInferenceRerankFunc(t),
 		InferenceSparseEmbedding:           newInferenceSparseEmbeddingFunc(t),
 		InferenceStreamCompletion:          newInferenceStreamCompletionFunc(t),
