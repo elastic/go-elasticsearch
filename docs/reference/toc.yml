@@ -2,7 +2,6 @@ toc:
   - file: index.md
   # TO DO: Do we want these to be separate pages?
   - file: getting-started.md
-  - file: getting-started-serverless.md
   - file: installation.md
   - file: connecting.md
   - file: typed-api.md
