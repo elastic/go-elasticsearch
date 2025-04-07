@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,8 +32,6 @@ func NewHop() *_hop {
 
 }
 
-// Specifies one or more fields from which you want to extract terms that are
-// associated with the specified vertices.
 func (s *_hop) Connections(connections types.HopVariant) *_hop {
 
 	s.v.Connections = connections.HopCaster()
@@ -41,8 +39,6 @@ func (s *_hop) Connections(connections types.HopVariant) *_hop {
 	return s
 }
 
-// An optional guiding query that constrains the Graph API as it explores
-// connected terms.
 func (s *_hop) Query(query types.QueryVariant) *_hop {
 
 	s.v.Query = query.QueryCaster()
@@ -50,7 +46,6 @@ func (s *_hop) Query(query types.QueryVariant) *_hop {
 	return s
 }
 
-// Contains the fields you are interested in.
 func (s *_hop) Vertices(vertices ...types.VertexDefinitionVariant) *_hop {
 
 	for _, v := range vertices {

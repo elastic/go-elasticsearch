@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,12 +36,6 @@ func NewDelayedDataCheckConfig(enabled bool) *_delayedDataCheckConfig {
 
 }
 
-// The window of time that is searched for late data. This window of time ends
-// with the latest finalized bucket.
-// It defaults to null, which causes an appropriate `check_window` to be
-// calculated when the real-time datafeed runs.
-// In particular, the default `check_window` span calculation is based on the
-// maximum of `2h` or `8 * bucket_span`.
 func (s *_delayedDataCheckConfig) CheckWindow(duration types.DurationVariant) *_delayedDataCheckConfig {
 
 	s.v.CheckWindow = *duration.DurationCaster()
@@ -49,7 +43,6 @@ func (s *_delayedDataCheckConfig) CheckWindow(duration types.DurationVariant) *_
 	return s
 }
 
-// Specifies whether the datafeed periodically checks for delayed data.
 func (s *_delayedDataCheckConfig) Enabled(enabled bool) *_delayedDataCheckConfig {
 
 	s.v.Enabled = enabled

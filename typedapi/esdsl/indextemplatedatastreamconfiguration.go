@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewIndexTemplateDataStreamConfiguration() *_indexTemplateDataStreamConfigur
 
 }
 
-// If true, the data stream supports custom routing.
 func (s *_indexTemplateDataStreamConfiguration) AllowCustomRouting(allowcustomrouting bool) *_indexTemplateDataStreamConfiguration {
 
 	s.v.AllowCustomRouting = &allowcustomrouting
@@ -40,7 +39,6 @@ func (s *_indexTemplateDataStreamConfiguration) AllowCustomRouting(allowcustomro
 	return s
 }
 
-// If true, the data stream is hidden.
 func (s *_indexTemplateDataStreamConfiguration) Hidden(hidden bool) *_indexTemplateDataStreamConfiguration {
 
 	s.v.Hidden = &hidden

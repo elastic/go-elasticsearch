@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 // Package executionphase
 package executionphase
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/watcher/_types/Execution.ts#L49-L58
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/watcher/_types/Execution.ts#L49-L58
 type ExecutionPhase struct {
 	Name string
 }

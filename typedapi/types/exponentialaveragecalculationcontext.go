@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ExponentialAverageCalculationContext type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/ml/_types/Datafeed.ts#L204-L208
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/ml/_types/Datafeed.ts#L204-L208
 type ExponentialAverageCalculationContext struct {
 	IncrementalMetricValueMs     Float64 `json:"incremental_metric_value_ms"`
 	LatestTimestamp              *int64  `json:"latest_timestamp,omitempty"`

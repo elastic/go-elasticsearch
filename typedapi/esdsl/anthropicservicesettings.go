@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewAnthropicServiceSettings(apikey string, modelid string) *_anthropicServi
 
 }
 
-// A valid API key for the Anthropic API.
 func (s *_anthropicServiceSettings) ApiKey(apikey string) *_anthropicServiceSettings {
 
 	s.v.ApiKey = apikey
@@ -46,8 +45,6 @@ func (s *_anthropicServiceSettings) ApiKey(apikey string) *_anthropicServiceSett
 	return s
 }
 
-// The name of the model to use for the inference task.
-// Refer to the Anthropic documentation for the list of supported models.
 func (s *_anthropicServiceSettings) ModelId(modelid string) *_anthropicServiceSettings {
 
 	s.v.ModelId = modelid
@@ -55,10 +52,6 @@ func (s *_anthropicServiceSettings) ModelId(modelid string) *_anthropicServiceSe
 	return s
 }
 
-// This setting helps to minimize the number of rate limit errors returned from
-// Anthropic.
-// By default, the `anthropic` service sets the number of requests allowed per
-// minute to 50.
 func (s *_anthropicServiceSettings) RateLimit(ratelimit types.RateLimitSettingVariant) *_anthropicServiceSettings {
 
 	s.v.RateLimit = ratelimit.RateLimitSettingCaster()

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewRegexOptions() *_regexOptions {
 
 }
 
-// Optional operators for the regular expression.
 func (s *_regexOptions) Flags(flags string) *_regexOptions {
 
 	s.v.Flags = flags
@@ -40,7 +39,6 @@ func (s *_regexOptions) Flags(flags string) *_regexOptions {
 	return s
 }
 
-// Maximum number of automaton states required for the query.
 func (s *_regexOptions) MaxDeterminizedStates(maxdeterminizedstates int) *_regexOptions {
 
 	s.v.MaxDeterminizedStates = &maxdeterminizedstates

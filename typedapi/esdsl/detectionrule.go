@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,8 +35,6 @@ func NewDetectionRule() *_detectionRule {
 
 }
 
-// The set of actions to be triggered when the rule applies. If more than one
-// action is specified the effects of all actions are combined.
 func (s *_detectionRule) Actions(actions ...ruleaction.RuleAction) *_detectionRule {
 
 	for _, v := range actions {
@@ -47,9 +45,6 @@ func (s *_detectionRule) Actions(actions ...ruleaction.RuleAction) *_detectionRu
 	return s
 }
 
-// An array of numeric conditions when the rule applies. A rule must either have
-// a non-empty scope or at least one condition. Multiple conditions are combined
-// together with a logical AND.
 func (s *_detectionRule) Conditions(conditions ...types.RuleConditionVariant) *_detectionRule {
 
 	for _, v := range conditions {
@@ -60,10 +55,6 @@ func (s *_detectionRule) Conditions(conditions ...types.RuleConditionVariant) *_
 	return s
 }
 
-// A scope of series where the rule applies. A rule must either have a non-empty
-// scope or at least one condition. By default, the scope includes all series.
-// Scoping is allowed for any of the fields that are also specified in
-// `by_field_name`, `over_field_name`, or `partition_field_name`.
 func (s *_detectionRule) Scope(scope map[string]types.FilterRef) *_detectionRule {
 
 	s.v.Scope = scope

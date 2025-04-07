@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewNumberAggregationRange() *_numberAggregationRange {
 
 }
 
-// Start of the range (inclusive).
 func (s *_numberAggregationRange) From(from types.Float64) *_numberAggregationRange {
 
 	s.v.From = &from
@@ -40,7 +39,6 @@ func (s *_numberAggregationRange) From(from types.Float64) *_numberAggregationRa
 	return s
 }
 
-// Custom key to return the range with.
 func (s *_numberAggregationRange) Key(key string) *_numberAggregationRange {
 
 	s.v.Key = &key
@@ -48,7 +46,6 @@ func (s *_numberAggregationRange) Key(key string) *_numberAggregationRange {
 	return s
 }
 
-// End of the range (exclusive).
 func (s *_numberAggregationRange) To(to types.Float64) *_numberAggregationRange {
 
 	s.v.To = &to

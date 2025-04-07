@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,12 +38,6 @@ func NewIndexOperation() *_indexOperation {
 
 }
 
-// A map from the full name of fields to the name of dynamic templates.
-// It defaults to an empty map.
-// If a name matches a dynamic template, that template will be applied
-// regardless of other match predicates defined in the template.
-// If a field is already defined in the mapping, then this parameter won't be
-// used.
 func (s *_indexOperation) DynamicTemplates(dynamictemplates map[string]string) *_indexOperation {
 
 	s.v.DynamicTemplates = dynamictemplates
@@ -65,7 +59,6 @@ func (s *_indexOperation) AddDynamicTemplate(key string, value string) *_indexOp
 	return s
 }
 
-// The document ID.
 func (s *_indexOperation) Id_(id string) *_indexOperation {
 
 	s.v.Id_ = &id
@@ -87,7 +80,6 @@ func (s *_indexOperation) IfSeqNo(sequencenumber int64) *_indexOperation {
 	return s
 }
 
-// The name of the index or index alias to perform the action on.
 func (s *_indexOperation) Index_(indexname string) *_indexOperation {
 
 	s.v.Index_ = &indexname
@@ -95,11 +87,6 @@ func (s *_indexOperation) Index_(indexname string) *_indexOperation {
 	return s
 }
 
-// The ID of the pipeline to use to preprocess incoming documents.
-// If the index has a default ingest pipeline specified, setting the value to
-// `_none` turns off the default ingest pipeline for this request.
-// If a final pipeline is configured, it will always run regardless of the value
-// of this parameter.
 func (s *_indexOperation) Pipeline(pipeline string) *_indexOperation {
 
 	s.v.Pipeline = &pipeline
@@ -107,7 +94,6 @@ func (s *_indexOperation) Pipeline(pipeline string) *_indexOperation {
 	return s
 }
 
-// If `true`, the request's actions must target an index alias.
 func (s *_indexOperation) RequireAlias(requirealias bool) *_indexOperation {
 
 	s.v.RequireAlias = &requirealias
@@ -115,7 +101,6 @@ func (s *_indexOperation) RequireAlias(requirealias bool) *_indexOperation {
 	return s
 }
 
-// A custom value used to route operations to a specific shard.
 func (s *_indexOperation) Routing(routing string) *_indexOperation {
 
 	s.v.Routing = &routing

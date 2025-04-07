@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewTrainedModelPrefixStrings() *_trainedModelPrefixStrings {
 
 }
 
-// String prepended to input at ingest
 func (s *_trainedModelPrefixStrings) Ingest(ingest string) *_trainedModelPrefixStrings {
 
 	s.v.Ingest = &ingest
@@ -40,7 +39,6 @@ func (s *_trainedModelPrefixStrings) Ingest(ingest string) *_trainedModelPrefixS
 	return s
 }
 
-// String prepended to input at search
 func (s *_trainedModelPrefixStrings) Search(search string) *_trainedModelPrefixStrings {
 
 	s.v.Search = &search

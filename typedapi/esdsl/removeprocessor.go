@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,8 +34,6 @@ func NewRemoveProcessor() *_removeProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_removeProcessor) Description(description string) *_removeProcessor {
 
 	s.v.Description = &description
@@ -43,7 +41,6 @@ func (s *_removeProcessor) Description(description string) *_removeProcessor {
 	return s
 }
 
-// Fields to be removed. Supports template snippets.
 func (s *_removeProcessor) Field(fields ...string) *_removeProcessor {
 
 	s.v.Field = fields
@@ -51,7 +48,6 @@ func (s *_removeProcessor) Field(fields ...string) *_removeProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_removeProcessor) If(if_ types.ScriptVariant) *_removeProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -59,7 +55,6 @@ func (s *_removeProcessor) If(if_ types.ScriptVariant) *_removeProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_removeProcessor) IgnoreFailure(ignorefailure bool) *_removeProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -67,8 +62,6 @@ func (s *_removeProcessor) IgnoreFailure(ignorefailure bool) *_removeProcessor {
 	return s
 }
 
-// If `true` and `field` does not exist or is `null`, the processor quietly
-// exits without modifying the document.
 func (s *_removeProcessor) IgnoreMissing(ignoremissing bool) *_removeProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -76,8 +69,6 @@ func (s *_removeProcessor) IgnoreMissing(ignoremissing bool) *_removeProcessor {
 	return s
 }
 
-// Fields to be kept. When set, all fields other than those specified are
-// removed.
 func (s *_removeProcessor) Keep(fields ...string) *_removeProcessor {
 
 	s.v.Keep = fields
@@ -85,7 +76,6 @@ func (s *_removeProcessor) Keep(fields ...string) *_removeProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_removeProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_removeProcessor {
 
 	for _, v := range onfailures {
@@ -96,8 +86,6 @@ func (s *_removeProcessor) OnFailure(onfailures ...types.ProcessorContainerVaria
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_removeProcessor) Tag(tag string) *_removeProcessor {
 
 	s.v.Tag = &tag

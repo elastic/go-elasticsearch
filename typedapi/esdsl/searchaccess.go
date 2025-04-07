@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,12 +32,6 @@ func NewSearchAccess() *_searchAccess {
 
 }
 
-// Set to `true` if using wildcard or regular expressions for patterns that
-// cover restricted indices. Implicitly, restricted indices have limited
-// privileges that can cause pattern tests to fail. If restricted indices are
-// explicitly included in the `names` list, Elasticsearch checks privileges
-// against these indices regardless of the value set for
-// `allow_restricted_indices`.
 func (s *_searchAccess) AllowRestrictedIndices(allowrestrictedindices bool) *_searchAccess {
 
 	s.v.AllowRestrictedIndices = &allowrestrictedindices
@@ -45,7 +39,6 @@ func (s *_searchAccess) AllowRestrictedIndices(allowrestrictedindices bool) *_se
 	return s
 }
 
-// The document fields that the owners of the role have read access to.
 func (s *_searchAccess) FieldSecurity(fieldsecurity types.FieldSecurityVariant) *_searchAccess {
 
 	s.v.FieldSecurity = fieldsecurity.FieldSecurityCaster()
@@ -53,8 +46,6 @@ func (s *_searchAccess) FieldSecurity(fieldsecurity types.FieldSecurityVariant) 
 	return s
 }
 
-// A list of indices (or index name patterns) to which the permissions in this
-// entry apply.
 func (s *_searchAccess) Names(names ...string) *_searchAccess {
 
 	s.v.Names = make([]string, len(names))
@@ -63,9 +54,6 @@ func (s *_searchAccess) Names(names ...string) *_searchAccess {
 	return s
 }
 
-// A search query that defines the documents the owners of the role have access
-// to. A document within the specified indices must match this query for it to
-// be accessible by the owners of the role.
 func (s *_searchAccess) Query(indicesprivilegesquery types.IndicesPrivilegesQueryVariant) *_searchAccess {
 
 	s.v.Query = *indicesprivilegesquery.IndicesPrivilegesQueryCaster()

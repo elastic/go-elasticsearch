@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,8 +32,6 @@ func NewAzureAiStudioTaskSettings() *_azureAiStudioTaskSettings {
 
 }
 
-// For a `completion` task, instruct the inference process to perform sampling.
-// It has no effect unless `temperature` or `top_p` is specified.
 func (s *_azureAiStudioTaskSettings) DoSample(dosample float32) *_azureAiStudioTaskSettings {
 
 	s.v.DoSample = &dosample
@@ -41,8 +39,6 @@ func (s *_azureAiStudioTaskSettings) DoSample(dosample float32) *_azureAiStudioT
 	return s
 }
 
-// For a `completion` task, provide a hint for the maximum number of output
-// tokens to be generated.
 func (s *_azureAiStudioTaskSettings) MaxNewTokens(maxnewtokens int) *_azureAiStudioTaskSettings {
 
 	s.v.MaxNewTokens = &maxnewtokens
@@ -50,10 +46,6 @@ func (s *_azureAiStudioTaskSettings) MaxNewTokens(maxnewtokens int) *_azureAiStu
 	return s
 }
 
-// For a `completion` task, control the apparent creativity of generated
-// completions with a sampling temperature.
-// It must be a number in the range of 0.0 to 2.0.
-// It should not be used if `top_p` is specified.
 func (s *_azureAiStudioTaskSettings) Temperature(temperature float32) *_azureAiStudioTaskSettings {
 
 	s.v.Temperature = &temperature
@@ -61,11 +53,6 @@ func (s *_azureAiStudioTaskSettings) Temperature(temperature float32) *_azureAiS
 	return s
 }
 
-// For a `completion` task, make the model consider the results of the tokens
-// with nucleus sampling probability.
-// It is an alternative value to `temperature` and must be a number in the range
-// of 0.0 to 2.0.
-// It should not be used if `temperature` is specified.
 func (s *_azureAiStudioTaskSettings) TopP(topp float32) *_azureAiStudioTaskSettings {
 
 	s.v.TopP = &topp
@@ -73,8 +60,6 @@ func (s *_azureAiStudioTaskSettings) TopP(topp float32) *_azureAiStudioTaskSetti
 	return s
 }
 
-// For a `text_embedding` task, specify the user issuing the request.
-// This information can be used for abuse detection.
 func (s *_azureAiStudioTaskSettings) User(user string) *_azureAiStudioTaskSettings {
 
 	s.v.User = &user

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,7 +37,6 @@ func NewIntervalsMatch(query string) *_intervalsMatch {
 
 }
 
-// Analyzer used to analyze terms in the query.
 func (s *_intervalsMatch) Analyzer(analyzer string) *_intervalsMatch {
 
 	s.v.Analyzer = &analyzer
@@ -45,7 +44,6 @@ func (s *_intervalsMatch) Analyzer(analyzer string) *_intervalsMatch {
 	return s
 }
 
-// An optional interval filter.
 func (s *_intervalsMatch) Filter(filter types.IntervalsFilterVariant) *_intervalsMatch {
 
 	s.v.Filter = filter.IntervalsFilterCaster()
@@ -53,8 +51,6 @@ func (s *_intervalsMatch) Filter(filter types.IntervalsFilterVariant) *_interval
 	return s
 }
 
-// Maximum number of positions between the matching terms.
-// Terms further apart than this are not considered matches.
 func (s *_intervalsMatch) MaxGaps(maxgaps int) *_intervalsMatch {
 
 	s.v.MaxGaps = &maxgaps
@@ -62,7 +58,6 @@ func (s *_intervalsMatch) MaxGaps(maxgaps int) *_intervalsMatch {
 	return s
 }
 
-// If `true`, matching terms must appear in their specified order.
 func (s *_intervalsMatch) Ordered(ordered bool) *_intervalsMatch {
 
 	s.v.Ordered = &ordered
@@ -70,7 +65,6 @@ func (s *_intervalsMatch) Ordered(ordered bool) *_intervalsMatch {
 	return s
 }
 
-// Text you wish to find in the provided field.
 func (s *_intervalsMatch) Query(query string) *_intervalsMatch {
 
 	s.v.Query = query
@@ -78,10 +72,6 @@ func (s *_intervalsMatch) Query(query string) *_intervalsMatch {
 	return s
 }
 
-// If specified, match intervals from this field rather than the top-level
-// field.
-// The `term` is normalized using the search analyzer from this field, unless
-// `analyzer` is specified separately.
 func (s *_intervalsMatch) UseField(field string) *_intervalsMatch {
 
 	s.v.UseField = &field

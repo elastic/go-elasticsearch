@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,7 +36,6 @@ func NewApplicationPrivileges(application string) *_applicationPrivileges {
 
 }
 
-// The name of the application to which this entry applies.
 func (s *_applicationPrivileges) Application(application string) *_applicationPrivileges {
 
 	s.v.Application = application
@@ -44,8 +43,6 @@ func (s *_applicationPrivileges) Application(application string) *_applicationPr
 	return s
 }
 
-// A list of strings, where each element is the name of an application privilege
-// or action.
 func (s *_applicationPrivileges) Privileges(privileges ...string) *_applicationPrivileges {
 
 	for _, v := range privileges {
@@ -56,7 +53,6 @@ func (s *_applicationPrivileges) Privileges(privileges ...string) *_applicationP
 	return s
 }
 
-// A list resources to which the privileges are applied.
 func (s *_applicationPrivileges) Resources(resources ...string) *_applicationPrivileges {
 
 	for _, v := range resources {

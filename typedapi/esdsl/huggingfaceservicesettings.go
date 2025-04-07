@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,15 +38,6 @@ func NewHuggingFaceServiceSettings(apikey string, url string) *_huggingFaceServi
 
 }
 
-// A valid access token for your HuggingFace account.
-// You can create or find your access tokens on the HuggingFace settings page.
-//
-// IMPORTANT: You need to provide the API key only once, during the inference
-// model creation.
-// The get inference endpoint API does not retrieve your API key.
-// After creating the inference model, you cannot change the associated API key.
-// If you want to use a different API key, delete the inference model and
-// recreate it with the same name and the updated API key.
 func (s *_huggingFaceServiceSettings) ApiKey(apikey string) *_huggingFaceServiceSettings {
 
 	s.v.ApiKey = apikey
@@ -54,10 +45,6 @@ func (s *_huggingFaceServiceSettings) ApiKey(apikey string) *_huggingFaceService
 	return s
 }
 
-// This setting helps to minimize the number of rate limit errors returned from
-// Hugging Face.
-// By default, the `hugging_face` service sets the number of requests allowed
-// per minute to 3000.
 func (s *_huggingFaceServiceSettings) RateLimit(ratelimit types.RateLimitSettingVariant) *_huggingFaceServiceSettings {
 
 	s.v.RateLimit = ratelimit.RateLimitSettingCaster()
@@ -65,7 +52,6 @@ func (s *_huggingFaceServiceSettings) RateLimit(ratelimit types.RateLimitSetting
 	return s
 }
 
-// The URL endpoint to use for the requests.
 func (s *_huggingFaceServiceSettings) Url(url string) *_huggingFaceServiceSettings {
 
 	s.v.Url = url

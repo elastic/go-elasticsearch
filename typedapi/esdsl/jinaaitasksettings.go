@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,7 +35,6 @@ func NewJinaAITaskSettings() *_jinaAITaskSettings {
 
 }
 
-// For a `rerank` task, return the doc text within the results.
 func (s *_jinaAITaskSettings) ReturnDocuments(returndocuments bool) *_jinaAITaskSettings {
 
 	s.v.ReturnDocuments = &returndocuments
@@ -43,25 +42,12 @@ func (s *_jinaAITaskSettings) ReturnDocuments(returndocuments bool) *_jinaAITask
 	return s
 }
 
-// For a `text_embedding` task, the task passed to the model.
-// Valid values are:
-//
-// * `classification`: Use it for embeddings passed through a text classifier.
-// * `clustering`: Use it for the embeddings run through a clustering algorithm.
-// * `ingest`: Use it for storing document embeddings in a vector database.
-// * `search`: Use it for storing embeddings of search queries run against a
-// vector database to find relevant documents.
 func (s *_jinaAITaskSettings) Task(task jinaaitextembeddingtask.JinaAITextEmbeddingTask) *_jinaAITaskSettings {
 
 	s.v.Task = &task
 	return s
 }
 
-// For a `rerank` task, the number of most relevant documents to return.
-// It defaults to the number of the documents.
-// If this inference endpoint is used in a `text_similarity_reranker` retriever
-// query and `top_n` is set, it must be greater than or equal to
-// `rank_window_size` in the query.
 func (s *_jinaAITaskSettings) TopN(topn int) *_jinaAITaskSettings {
 
 	s.v.TopN = &topn

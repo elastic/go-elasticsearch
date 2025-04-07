@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,7 +35,6 @@ func NewMgetOperation() *_mgetOperation {
 
 }
 
-// The unique document ID.
 func (s *_mgetOperation) Id_(id string) *_mgetOperation {
 
 	s.v.Id_ = id
@@ -43,7 +42,6 @@ func (s *_mgetOperation) Id_(id string) *_mgetOperation {
 	return s
 }
 
-// The index that contains the document.
 func (s *_mgetOperation) Index_(indexname string) *_mgetOperation {
 
 	s.v.Index_ = &indexname
@@ -51,8 +49,6 @@ func (s *_mgetOperation) Index_(indexname string) *_mgetOperation {
 	return s
 }
 
-// The key for the primary shard the document resides on. Required if routing is
-// used during indexing.
 func (s *_mgetOperation) Routing(routing string) *_mgetOperation {
 
 	s.v.Routing = &routing
@@ -60,7 +56,6 @@ func (s *_mgetOperation) Routing(routing string) *_mgetOperation {
 	return s
 }
 
-// If `false`, excludes all _source fields.
 func (s *_mgetOperation) Source_(sourceconfig types.SourceConfigVariant) *_mgetOperation {
 
 	s.v.Source_ = *sourceconfig.SourceConfigCaster()
@@ -68,7 +63,6 @@ func (s *_mgetOperation) Source_(sourceconfig types.SourceConfigVariant) *_mgetO
 	return s
 }
 
-// The stored fields you want to retrieve.
 func (s *_mgetOperation) StoredFields(fields ...string) *_mgetOperation {
 
 	s.v.StoredFields = fields

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,7 +36,6 @@ func NewDefinition(trainedmodel types.TrainedModelVariant) *_definition {
 
 }
 
-// Collection of preprocessors
 func (s *_definition) Preprocessors(preprocessors ...types.PreprocessorVariant) *_definition {
 
 	for _, v := range preprocessors {
@@ -47,7 +46,6 @@ func (s *_definition) Preprocessors(preprocessors ...types.PreprocessorVariant) 
 	return s
 }
 
-// The definition of the trained model.
 func (s *_definition) TrainedModel(trainedmodel types.TrainedModelVariant) *_definition {
 
 	s.v.TrainedModel = *trainedmodel.TrainedModelCaster()

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -40,9 +40,6 @@ func NewCommandAllocatePrimaryAction(acceptdataloss bool, node string, shard int
 
 }
 
-// If a node which has a copy of the data rejoins the cluster later on, that
-// data will be deleted. To ensure that these implications are well-understood,
-// this command requires the flag accept_data_loss to be explicitly set to true
 func (s *_commandAllocatePrimaryAction) AcceptDataLoss(acceptdataloss bool) *_commandAllocatePrimaryAction {
 
 	s.v.AcceptDataLoss = acceptdataloss

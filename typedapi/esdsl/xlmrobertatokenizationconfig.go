@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,7 +35,6 @@ func NewXlmRobertaTokenizationConfig() *_xlmRobertaTokenizationConfig {
 
 }
 
-// Should the tokenizer lower case the text
 func (s *_xlmRobertaTokenizationConfig) DoLowerCase(dolowercase bool) *_xlmRobertaTokenizationConfig {
 
 	s.v.DoLowerCase = &dolowercase
@@ -43,7 +42,6 @@ func (s *_xlmRobertaTokenizationConfig) DoLowerCase(dolowercase bool) *_xlmRober
 	return s
 }
 
-// Maximum input sequence length for the model
 func (s *_xlmRobertaTokenizationConfig) MaxSequenceLength(maxsequencelength int) *_xlmRobertaTokenizationConfig {
 
 	s.v.MaxSequenceLength = &maxsequencelength
@@ -51,8 +49,6 @@ func (s *_xlmRobertaTokenizationConfig) MaxSequenceLength(maxsequencelength int)
 	return s
 }
 
-// Tokenization spanning options. Special value of -1 indicates no spanning
-// takes place
 func (s *_xlmRobertaTokenizationConfig) Span(span int) *_xlmRobertaTokenizationConfig {
 
 	s.v.Span = &span
@@ -60,15 +56,12 @@ func (s *_xlmRobertaTokenizationConfig) Span(span int) *_xlmRobertaTokenizationC
 	return s
 }
 
-// Should tokenization input be automatically truncated before sending to the
-// model for inference
 func (s *_xlmRobertaTokenizationConfig) Truncate(truncate tokenizationtruncate.TokenizationTruncate) *_xlmRobertaTokenizationConfig {
 
 	s.v.Truncate = &truncate
 	return s
 }
 
-// Is tokenization completed with special tokens
 func (s *_xlmRobertaTokenizationConfig) WithSpecialTokens(withspecialtokens bool) *_xlmRobertaTokenizationConfig {
 
 	s.v.WithSpecialTokens = &withspecialtokens

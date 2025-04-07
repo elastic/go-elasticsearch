@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -30,7 +30,7 @@ type _termRangeQuery struct {
 	v *types.TermRangeQuery
 }
 
-// Returns documents that contain terms within a provided range.
+// Returns users that contain terms within a provided range.
 func NewTermRangeQuery(key string) *_termRangeQuery {
 	return &_termRangeQuery{
 		k: key,
@@ -38,11 +38,6 @@ func NewTermRangeQuery(key string) *_termRangeQuery {
 	}
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_termRangeQuery) Boost(boost float32) *_termRangeQuery {
 
 	s.v.Boost = &boost
@@ -57,7 +52,6 @@ func (s *_termRangeQuery) From(from string) *_termRangeQuery {
 	return s
 }
 
-// Greater than.
 func (s *_termRangeQuery) Gt(gt string) *_termRangeQuery {
 
 	s.v.Gt = &gt
@@ -65,7 +59,6 @@ func (s *_termRangeQuery) Gt(gt string) *_termRangeQuery {
 	return s
 }
 
-// Greater than or equal to.
 func (s *_termRangeQuery) Gte(gte string) *_termRangeQuery {
 
 	s.v.Gte = &gte
@@ -73,7 +66,6 @@ func (s *_termRangeQuery) Gte(gte string) *_termRangeQuery {
 	return s
 }
 
-// Less than.
 func (s *_termRangeQuery) Lt(lt string) *_termRangeQuery {
 
 	s.v.Lt = &lt
@@ -81,7 +73,6 @@ func (s *_termRangeQuery) Lt(lt string) *_termRangeQuery {
 	return s
 }
 
-// Less than or equal to.
 func (s *_termRangeQuery) Lte(lte string) *_termRangeQuery {
 
 	s.v.Lte = &lte
@@ -96,7 +87,6 @@ func (s *_termRangeQuery) QueryName_(queryname_ string) *_termRangeQuery {
 	return s
 }
 
-// Indicates how the range query matches values for `range` fields.
 func (s *_termRangeQuery) Relation(relation rangerelation.RangeRelation) *_termRangeQuery {
 
 	s.v.Relation = &relation

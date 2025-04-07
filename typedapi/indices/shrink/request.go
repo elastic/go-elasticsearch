@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package shrink
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package shrink
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/indices/shrink/IndicesShrinkRequest.ts#L27-L113
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/indices/shrink/IndicesShrinkRequest.ts#L27-L113
 type Request struct {
 
 	// Aliases The key is the alias name.

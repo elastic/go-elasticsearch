@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -26,7 +26,8 @@ type _spanWithinQuery struct {
 	v *types.SpanWithinQuery
 }
 
-// Returns matches which are enclosed inside another span query.
+// The result from a single span query is returned as long is its span falls
+// within the spans returned by a list of other span queries.
 func NewSpanWithinQuery(big types.SpanQueryVariant, little types.SpanQueryVariant) *_spanWithinQuery {
 
 	tmp := &_spanWithinQuery{v: types.NewSpanWithinQuery()}
@@ -39,8 +40,6 @@ func NewSpanWithinQuery(big types.SpanQueryVariant, little types.SpanQueryVarian
 
 }
 
-// Can be any span query.
-// Matching spans from `little` that are enclosed within `big` are returned.
 func (s *_spanWithinQuery) Big(big types.SpanQueryVariant) *_spanWithinQuery {
 
 	s.v.Big = *big.SpanQueryCaster()
@@ -48,11 +47,6 @@ func (s *_spanWithinQuery) Big(big types.SpanQueryVariant) *_spanWithinQuery {
 	return s
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_spanWithinQuery) Boost(boost float32) *_spanWithinQuery {
 
 	s.v.Boost = &boost
@@ -60,8 +54,6 @@ func (s *_spanWithinQuery) Boost(boost float32) *_spanWithinQuery {
 	return s
 }
 
-// Can be any span query.
-// Matching spans from `little` that are enclosed within `big` are returned.
 func (s *_spanWithinQuery) Little(little types.SpanQueryVariant) *_spanWithinQuery {
 
 	s.v.Little = *little.SpanQueryCaster()

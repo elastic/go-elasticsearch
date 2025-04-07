@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,8 +37,6 @@ func NewFingerprintProcessor() *_fingerprintProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_fingerprintProcessor) Description(description string) *_fingerprintProcessor {
 
 	s.v.Description = &description
@@ -46,9 +44,6 @@ func (s *_fingerprintProcessor) Description(description string) *_fingerprintPro
 	return s
 }
 
-// Array of fields to include in the fingerprint. For objects, the processor
-// hashes both the field key and value. For other fields, the processor hashes
-// only the field value.
 func (s *_fingerprintProcessor) Fields(fields ...string) *_fingerprintProcessor {
 
 	s.v.Fields = fields
@@ -56,7 +51,6 @@ func (s *_fingerprintProcessor) Fields(fields ...string) *_fingerprintProcessor 
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_fingerprintProcessor) If(if_ types.ScriptVariant) *_fingerprintProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -64,7 +58,6 @@ func (s *_fingerprintProcessor) If(if_ types.ScriptVariant) *_fingerprintProcess
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_fingerprintProcessor) IgnoreFailure(ignorefailure bool) *_fingerprintProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -72,8 +65,6 @@ func (s *_fingerprintProcessor) IgnoreFailure(ignorefailure bool) *_fingerprintP
 	return s
 }
 
-// If true, the processor ignores any missing fields. If all fields are
-// missing, the processor silently exits without modifying the document.
 func (s *_fingerprintProcessor) IgnoreMissing(ignoremissing bool) *_fingerprintProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -81,15 +72,12 @@ func (s *_fingerprintProcessor) IgnoreMissing(ignoremissing bool) *_fingerprintP
 	return s
 }
 
-// The hash method used to compute the fingerprint. Must be one of MD5, SHA-1,
-// SHA-256, SHA-512, or MurmurHash3.
 func (s *_fingerprintProcessor) Method(method fingerprintdigest.FingerprintDigest) *_fingerprintProcessor {
 
 	s.v.Method = &method
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_fingerprintProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_fingerprintProcessor {
 
 	for _, v := range onfailures {
@@ -100,7 +88,6 @@ func (s *_fingerprintProcessor) OnFailure(onfailures ...types.ProcessorContainer
 	return s
 }
 
-// Salt value for the hash function.
 func (s *_fingerprintProcessor) Salt(salt string) *_fingerprintProcessor {
 
 	s.v.Salt = &salt
@@ -108,8 +95,6 @@ func (s *_fingerprintProcessor) Salt(salt string) *_fingerprintProcessor {
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_fingerprintProcessor) Tag(tag string) *_fingerprintProcessor {
 
 	s.v.Tag = &tag
@@ -117,7 +102,6 @@ func (s *_fingerprintProcessor) Tag(tag string) *_fingerprintProcessor {
 	return s
 }
 
-// Output field for the fingerprint.
 func (s *_fingerprintProcessor) TargetField(field string) *_fingerprintProcessor {
 
 	s.v.TargetField = &field

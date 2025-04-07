@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,10 +32,6 @@ func NewDataStreamLifecycle() *_dataStreamLifecycle {
 
 }
 
-// If defined, every document added to this data stream will be stored at least
-// for this time frame.
-// Any time after this duration the document could be deleted.
-// When empty, every document in this data stream will be stored indefinitely.
 func (s *_dataStreamLifecycle) DataRetention(duration types.DurationVariant) *_dataStreamLifecycle {
 
 	s.v.DataRetention = *duration.DurationCaster()
@@ -43,8 +39,6 @@ func (s *_dataStreamLifecycle) DataRetention(duration types.DurationVariant) *_d
 	return s
 }
 
-// The downsampling configuration to execute for the managed backing index after
-// rollover.
 func (s *_dataStreamLifecycle) Downsampling(downsampling types.DataStreamLifecycleDownsamplingVariant) *_dataStreamLifecycle {
 
 	s.v.Downsampling = downsampling.DataStreamLifecycleDownsamplingCaster()
@@ -52,9 +46,6 @@ func (s *_dataStreamLifecycle) Downsampling(downsampling types.DataStreamLifecyc
 	return s
 }
 
-// If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
-// data stream. A data stream lifecycle
-// that's disabled (enabled: `false`) will have no effect on the data stream.
 func (s *_dataStreamLifecycle) Enabled(enabled bool) *_dataStreamLifecycle {
 
 	s.v.Enabled = &enabled

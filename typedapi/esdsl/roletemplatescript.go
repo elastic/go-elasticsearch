@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,7 +37,6 @@ func NewRoleTemplateScript() *_roleTemplateScript {
 
 }
 
-// The `id` for a stored script.
 func (s *_roleTemplateScript) Id(id string) *_roleTemplateScript {
 
 	s.v.Id = &id
@@ -45,7 +44,6 @@ func (s *_roleTemplateScript) Id(id string) *_roleTemplateScript {
 	return s
 }
 
-// Specifies the language the script is written in.
 func (s *_roleTemplateScript) Lang(lang scriptlanguage.ScriptLanguage) *_roleTemplateScript {
 
 	s.v.Lang = &lang
@@ -73,8 +71,6 @@ func (s *_roleTemplateScript) AddOption(key string, value string) *_roleTemplate
 	return s
 }
 
-// Specifies any named parameters that are passed into the script as variables.
-// Use parameters instead of hard-coded values to decrease compile time.
 func (s *_roleTemplateScript) Params(params map[string]json.RawMessage) *_roleTemplateScript {
 
 	s.v.Params = params

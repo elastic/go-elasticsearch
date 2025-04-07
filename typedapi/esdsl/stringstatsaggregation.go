@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,7 +34,6 @@ func NewStringStatsAggregation() *_stringStatsAggregation {
 
 }
 
-// The field on which to run the aggregation.
 func (s *_stringStatsAggregation) Field(field string) *_stringStatsAggregation {
 
 	s.v.Field = &field
@@ -42,8 +41,6 @@ func (s *_stringStatsAggregation) Field(field string) *_stringStatsAggregation {
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_stringStatsAggregation) Missing(missing types.MissingVariant) *_stringStatsAggregation {
 
 	s.v.Missing = *missing.MissingCaster()
@@ -58,7 +55,6 @@ func (s *_stringStatsAggregation) Script(script types.ScriptVariant) *_stringSta
 	return s
 }
 
-// Shows the probability distribution for all characters.
 func (s *_stringStatsAggregation) ShowDistribution(showdistribution bool) *_stringStatsAggregation {
 
 	s.v.ShowDistribution = &showdistribution

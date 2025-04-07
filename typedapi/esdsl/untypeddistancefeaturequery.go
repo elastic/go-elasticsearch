@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -46,11 +46,6 @@ func NewUntypedDistanceFeatureQuery(origin json.RawMessage, pivot json.RawMessag
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_untypedDistanceFeatureQuery) Boost(boost float32) *_untypedDistanceFeatureQuery {
 
 	s.v.Boost = &boost
@@ -58,11 +53,6 @@ func (s *_untypedDistanceFeatureQuery) Boost(boost float32) *_untypedDistanceFea
 	return s
 }
 
-// Name of the field used to calculate distances. This field must meet the
-// following criteria:
-// be a `date`, `date_nanos` or `geo_point` field;
-// have an `index` mapping parameter value of `true`, which is the default;
-// have an `doc_values` mapping parameter value of `true`, which is the default.
 func (s *_untypedDistanceFeatureQuery) Field(field string) *_untypedDistanceFeatureQuery {
 
 	s.v.Field = field
@@ -70,12 +60,6 @@ func (s *_untypedDistanceFeatureQuery) Field(field string) *_untypedDistanceFeat
 	return s
 }
 
-// Date or point of origin used to calculate distances.
-// If the `field` value is a `date` or `date_nanos` field, the `origin` value
-// must be a date.
-// Date Math, such as `now-1h`, is supported.
-// If the field value is a `geo_point` field, the `origin` value must be a
-// geopoint.
 func (s *_untypedDistanceFeatureQuery) Origin(origin json.RawMessage) *_untypedDistanceFeatureQuery {
 
 	s.v.Origin = origin
@@ -83,12 +67,6 @@ func (s *_untypedDistanceFeatureQuery) Origin(origin json.RawMessage) *_untypedD
 	return s
 }
 
-// Distance from the `origin` at which relevance scores receive half of the
-// `boost` value.
-// If the `field` value is a `date` or `date_nanos` field, the `pivot` value
-// must be a time unit, such as `1h` or `10d`. If the `field` value is a
-// `geo_point` field, the `pivot` value must be a distance unit, such as `1km`
-// or `12m`.
 func (s *_untypedDistanceFeatureQuery) Pivot(pivot json.RawMessage) *_untypedDistanceFeatureQuery {
 
 	s.v.Pivot = pivot

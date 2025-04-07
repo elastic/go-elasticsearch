@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,11 +34,6 @@ func NewIndicesModifyAction() *_indicesModifyAction {
 	return &_indicesModifyAction{v: types.NewIndicesModifyAction()}
 }
 
-// Adds an existing index as a backing index for a data stream.
-// The index is hidden as part of this operation.
-// WARNING: Adding indices with the `add_backing_index` action can potentially
-// result in improper data stream behavior.
-// This should be considered an expert level API.
 func (s *_indicesModifyAction) AddBackingIndex(addbackingindex types.IndexAndDataStreamActionVariant) *_indicesModifyAction {
 
 	s.v.AddBackingIndex = addbackingindex.IndexAndDataStreamActionCaster()
@@ -58,9 +53,6 @@ func (s *_indicesModifyAction) AdditionalIndicesModifyActionProperty(key string,
 	return s
 }
 
-// Removes a backing index from a data stream.
-// The index is unhidden as part of this operation.
-// A data stream’s write index cannot be removed.
 func (s *_indicesModifyAction) RemoveBackingIndex(removebackingindex types.IndexAndDataStreamActionVariant) *_indicesModifyAction {
 
 	s.v.RemoveBackingIndex = removebackingindex.IndexAndDataStreamActionCaster()

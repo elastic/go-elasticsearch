@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,9 +34,6 @@ func NewMedianAbsoluteDeviationAggregation() *_medianAbsoluteDeviationAggregatio
 
 }
 
-// Limits the maximum number of nodes used by the underlying TDigest algorithm
-// to `20 * compression`, enabling control of memory usage and approximation
-// error.
 func (s *_medianAbsoluteDeviationAggregation) Compression(compression types.Float64) *_medianAbsoluteDeviationAggregation {
 
 	s.v.Compression = &compression
@@ -44,7 +41,6 @@ func (s *_medianAbsoluteDeviationAggregation) Compression(compression types.Floa
 	return s
 }
 
-// The field on which to run the aggregation.
 func (s *_medianAbsoluteDeviationAggregation) Field(field string) *_medianAbsoluteDeviationAggregation {
 
 	s.v.Field = &field
@@ -59,8 +55,6 @@ func (s *_medianAbsoluteDeviationAggregation) Format(format string) *_medianAbso
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_medianAbsoluteDeviationAggregation) Missing(missing types.MissingVariant) *_medianAbsoluteDeviationAggregation {
 
 	s.v.Missing = *missing.MissingCaster()

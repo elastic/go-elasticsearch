@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewTestPopulation() *_testPopulation {
 
 }
 
-// The field to aggregate.
 func (s *_testPopulation) Field(field string) *_testPopulation {
 
 	s.v.Field = field
@@ -40,7 +39,6 @@ func (s *_testPopulation) Field(field string) *_testPopulation {
 	return s
 }
 
-// A filter used to define a set of records to run unpaired t-test on.
 func (s *_testPopulation) Filter(filter types.QueryVariant) *_testPopulation {
 
 	s.v.Filter = filter.QueryCaster()

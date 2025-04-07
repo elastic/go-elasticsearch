@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -46,7 +46,6 @@ func (s *_tokenizationConfigContainer) AdditionalTokenizationConfigContainerProp
 	return s
 }
 
-// Indicates BERT tokenization and its options
 func (s *_tokenizationConfigContainer) Bert(bert types.NlpBertTokenizationConfigVariant) *_tokenizationConfigContainer {
 
 	s.v.Bert = bert.NlpBertTokenizationConfigCaster()
@@ -54,7 +53,6 @@ func (s *_tokenizationConfigContainer) Bert(bert types.NlpBertTokenizationConfig
 	return s
 }
 
-// Indicates BERT Japanese tokenization and its options
 func (s *_tokenizationConfigContainer) BertJa(bertja types.NlpBertTokenizationConfigVariant) *_tokenizationConfigContainer {
 
 	s.v.BertJa = bertja.NlpBertTokenizationConfigCaster()
@@ -62,7 +60,6 @@ func (s *_tokenizationConfigContainer) BertJa(bertja types.NlpBertTokenizationCo
 	return s
 }
 
-// Indicates MPNET tokenization and its options
 func (s *_tokenizationConfigContainer) Mpnet(mpnet types.NlpBertTokenizationConfigVariant) *_tokenizationConfigContainer {
 
 	s.v.Mpnet = mpnet.NlpBertTokenizationConfigCaster()
@@ -70,7 +67,6 @@ func (s *_tokenizationConfigContainer) Mpnet(mpnet types.NlpBertTokenizationConf
 	return s
 }
 
-// Indicates RoBERTa tokenization and its options
 func (s *_tokenizationConfigContainer) Roberta(roberta types.NlpRobertaTokenizationConfigVariant) *_tokenizationConfigContainer {
 
 	s.v.Roberta = roberta.NlpRobertaTokenizationConfigCaster()

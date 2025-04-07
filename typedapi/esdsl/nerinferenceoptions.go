@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -33,7 +33,6 @@ func NewNerInferenceOptions() *_nerInferenceOptions {
 
 }
 
-// The token classification labels. Must be IOB formatted tags
 func (s *_nerInferenceOptions) ClassificationLabels(classificationlabels ...string) *_nerInferenceOptions {
 
 	for _, v := range classificationlabels {
@@ -44,8 +43,6 @@ func (s *_nerInferenceOptions) ClassificationLabels(classificationlabels ...stri
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_nerInferenceOptions) ResultsField(resultsfield string) *_nerInferenceOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -53,7 +50,6 @@ func (s *_nerInferenceOptions) ResultsField(resultsfield string) *_nerInferenceO
 	return s
 }
 
-// The tokenization options
 func (s *_nerInferenceOptions) Tokenization(tokenization types.TokenizationConfigContainerVariant) *_nerInferenceOptions {
 
 	s.v.Tokenization = tokenization.TokenizationConfigContainerCaster()

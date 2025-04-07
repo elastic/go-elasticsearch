@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,7 +34,6 @@ func NewFiltersAggregation() *_filtersAggregation {
 
 }
 
-// Collection of queries from which to build buckets.
 func (s *_filtersAggregation) Filters(bucketsquery types.BucketsQueryVariant) *_filtersAggregation {
 
 	s.v.Filters = *bucketsquery.BucketsQueryCaster()
@@ -42,8 +41,6 @@ func (s *_filtersAggregation) Filters(bucketsquery types.BucketsQueryVariant) *_
 	return s
 }
 
-// By default, the named filters aggregation returns the buckets as an object.
-// Set to `false` to return the buckets as an array of objects.
 func (s *_filtersAggregation) Keyed(keyed bool) *_filtersAggregation {
 
 	s.v.Keyed = &keyed
@@ -51,8 +48,6 @@ func (s *_filtersAggregation) Keyed(keyed bool) *_filtersAggregation {
 	return s
 }
 
-// Set to `true` to add a bucket to the response which will contain all
-// documents that do not match any of the given filters.
 func (s *_filtersAggregation) OtherBucket(otherbucket bool) *_filtersAggregation {
 
 	s.v.OtherBucket = &otherbucket
@@ -60,7 +55,6 @@ func (s *_filtersAggregation) OtherBucket(otherbucket bool) *_filtersAggregation
 	return s
 }
 
-// The key with which the other bucket is returned.
 func (s *_filtersAggregation) OtherBucketKey(otherbucketkey string) *_filtersAggregation {
 
 	s.v.OtherBucketKey = &otherbucketkey

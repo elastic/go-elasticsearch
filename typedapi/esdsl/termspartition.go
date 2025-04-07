@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewTermsPartition(numpartitions int64, partition int64) *_termsPartition {
 
 }
 
-// The number of partitions.
 func (s *_termsPartition) NumPartitions(numpartitions int64) *_termsPartition {
 
 	s.v.NumPartitions = numpartitions
@@ -46,7 +45,6 @@ func (s *_termsPartition) NumPartitions(numpartitions int64) *_termsPartition {
 	return s
 }
 
-// The partition number for this request.
 func (s *_termsPartition) Partition(partition int64) *_termsPartition {
 
 	s.v.Partition = partition

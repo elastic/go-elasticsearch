@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewDateAggregationRange() *_dateAggregationRange {
 
 }
 
-// Start of the range (inclusive).
 func (s *_dateAggregationRange) From(fielddatemath types.FieldDateMathVariant) *_dateAggregationRange {
 
 	s.v.From = *fielddatemath.FieldDateMathCaster()
@@ -40,7 +39,6 @@ func (s *_dateAggregationRange) From(fielddatemath types.FieldDateMathVariant) *
 	return s
 }
 
-// Custom key to return the range with.
 func (s *_dateAggregationRange) Key(key string) *_dateAggregationRange {
 
 	s.v.Key = &key
@@ -48,7 +46,6 @@ func (s *_dateAggregationRange) Key(key string) *_dateAggregationRange {
 	return s
 }
 
-// End of the range (exclusive).
 func (s *_dateAggregationRange) To(fielddatemath types.FieldDateMathVariant) *_dateAggregationRange {
 
 	s.v.To = *fielddatemath.FieldDateMathCaster()

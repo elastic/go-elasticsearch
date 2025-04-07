@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,7 +34,6 @@ func NewIpRangeAggregation() *_ipRangeAggregation {
 
 }
 
-// The date field whose values are used to build ranges.
 func (s *_ipRangeAggregation) Field(field string) *_ipRangeAggregation {
 
 	s.v.Field = &field
@@ -42,7 +41,6 @@ func (s *_ipRangeAggregation) Field(field string) *_ipRangeAggregation {
 	return s
 }
 
-// Array of IP ranges.
 func (s *_ipRangeAggregation) Ranges(ranges ...types.IpRangeAggregationRangeVariant) *_ipRangeAggregation {
 
 	for _, v := range ranges {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,9 +36,6 @@ func NewDataframeEvaluationOutlierDetectionMetrics() *_dataframeEvaluationOutlie
 
 }
 
-// The AUC ROC (area under the curve of the receiver operating characteristic)
-// score and optionally the curve. It is calculated for a specific class
-// (provided as "class_name") treated as positive.
 func (s *_dataframeEvaluationOutlierDetectionMetrics) AucRoc(aucroc types.DataframeEvaluationClassificationMetricsAucRocVariant) *_dataframeEvaluationOutlierDetectionMetrics {
 
 	s.v.AucRoc = aucroc.DataframeEvaluationClassificationMetricsAucRocCaster()
@@ -46,7 +43,6 @@ func (s *_dataframeEvaluationOutlierDetectionMetrics) AucRoc(aucroc types.Datafr
 	return s
 }
 
-// Accuracy of predictions (per-class and overall).
 func (s *_dataframeEvaluationOutlierDetectionMetrics) ConfusionMatrix(confusionmatrix map[string]json.RawMessage) *_dataframeEvaluationOutlierDetectionMetrics {
 
 	s.v.ConfusionMatrix = confusionmatrix
@@ -68,7 +64,6 @@ func (s *_dataframeEvaluationOutlierDetectionMetrics) AddConfusionMatrix(key str
 	return s
 }
 
-// Precision of predictions (per-class and average).
 func (s *_dataframeEvaluationOutlierDetectionMetrics) Precision(precision map[string]json.RawMessage) *_dataframeEvaluationOutlierDetectionMetrics {
 
 	s.v.Precision = precision
@@ -90,7 +85,6 @@ func (s *_dataframeEvaluationOutlierDetectionMetrics) AddPrecision(key string, v
 	return s
 }
 
-// Recall of predictions (per-class and average).
 func (s *_dataframeEvaluationOutlierDetectionMetrics) Recall(recall map[string]json.RawMessage) *_dataframeEvaluationOutlierDetectionMetrics {
 
 	s.v.Recall = recall

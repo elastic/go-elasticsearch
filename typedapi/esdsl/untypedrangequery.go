@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -40,11 +40,6 @@ func NewUntypedRangeQuery(key string) *_untypedRangeQuery {
 	}
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_untypedRangeQuery) Boost(boost float32) *_untypedRangeQuery {
 
 	s.v.Boost = &boost
@@ -52,7 +47,6 @@ func (s *_untypedRangeQuery) Boost(boost float32) *_untypedRangeQuery {
 	return s
 }
 
-// Date format used to convert `date` values in the query.
 func (s *_untypedRangeQuery) Format(dateformat string) *_untypedRangeQuery {
 
 	s.v.Format = &dateformat
@@ -67,7 +61,6 @@ func (s *_untypedRangeQuery) From(from json.RawMessage) *_untypedRangeQuery {
 	return s
 }
 
-// Greater than.
 func (s *_untypedRangeQuery) Gt(gt json.RawMessage) *_untypedRangeQuery {
 
 	s.v.Gt = gt
@@ -75,7 +68,6 @@ func (s *_untypedRangeQuery) Gt(gt json.RawMessage) *_untypedRangeQuery {
 	return s
 }
 
-// Greater than or equal to.
 func (s *_untypedRangeQuery) Gte(gte json.RawMessage) *_untypedRangeQuery {
 
 	s.v.Gte = gte
@@ -83,7 +75,6 @@ func (s *_untypedRangeQuery) Gte(gte json.RawMessage) *_untypedRangeQuery {
 	return s
 }
 
-// Less than.
 func (s *_untypedRangeQuery) Lt(lt json.RawMessage) *_untypedRangeQuery {
 
 	s.v.Lt = lt
@@ -91,7 +82,6 @@ func (s *_untypedRangeQuery) Lt(lt json.RawMessage) *_untypedRangeQuery {
 	return s
 }
 
-// Less than or equal to.
 func (s *_untypedRangeQuery) Lte(lte json.RawMessage) *_untypedRangeQuery {
 
 	s.v.Lte = lte
@@ -106,15 +96,12 @@ func (s *_untypedRangeQuery) QueryName_(queryname_ string) *_untypedRangeQuery {
 	return s
 }
 
-// Indicates how the range query matches values for `range` fields.
 func (s *_untypedRangeQuery) Relation(relation rangerelation.RangeRelation) *_untypedRangeQuery {
 
 	s.v.Relation = &relation
 	return s
 }
 
-// Coordinated Universal Time (UTC) offset or IANA time zone used to convert
-// `date` values in the query to UTC.
 func (s *_untypedRangeQuery) TimeZone(timezone string) *_untypedRangeQuery {
 
 	s.v.TimeZone = &timezone

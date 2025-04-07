@@ -16,11 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import (
+	"encoding/json"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+)
 
 // This is provide all the types that are part of the union.
 type _analyzer struct {
@@ -29,6 +33,13 @@ type _analyzer struct {
 
 func NewAnalyzer() *_analyzer {
 	return &_analyzer{v: nil}
+}
+
+// UnknownAnalyzer is used to set the unknown value of the union.
+// Highlited as @non_exhaustive in the specification.
+func (u *_analyzer) UnknownAnalyzer(unknown json.RawMessage) *_analyzer {
+	u.v = unknown
+	return u
 }
 
 func (u *_analyzer) CustomAnalyzer(customanalyzer types.CustomAnalyzerVariant) *_analyzer {

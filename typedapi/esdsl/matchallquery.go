@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -26,18 +26,13 @@ type _matchAllQuery struct {
 	v *types.MatchAllQuery
 }
 
-// Matches all users, giving them all a `_score` of 1.0.
+// Matches all documents, giving them all a `_score` of 1.0.
 func NewMatchAllQuery() *_matchAllQuery {
 
 	return &_matchAllQuery{v: types.NewMatchAllQuery()}
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_matchAllQuery) Boost(boost float32) *_matchAllQuery {
 
 	s.v.Boost = &boost

@@ -16,18 +16,42 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
-package posteischatcompletion
+package esdsl
 
-// Response holds the response body struct for the package posteischatcompletion
-//
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/inference/post_eis_chat_completion/PostEisChatCompletionResponse.ts#L22-L25
+import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
-type Response = []byte
+type _inputConfig struct {
+	v *types.InputConfig
+}
 
-// NewResponse returns a Response
-func NewResponse() Response {
-	r := Response{}
-	return r
+func NewInputConfig(inputfield string, outputfield string) *_inputConfig {
+
+	tmp := &_inputConfig{v: types.NewInputConfig()}
+
+	tmp.InputField(inputfield)
+
+	tmp.OutputField(outputfield)
+
+	return tmp
+
+}
+
+func (s *_inputConfig) InputField(inputfield string) *_inputConfig {
+
+	s.v.InputField = inputfield
+
+	return s
+}
+
+func (s *_inputConfig) OutputField(outputfield string) *_inputConfig {
+
+	s.v.OutputField = outputfield
+
+	return s
+}
+
+func (s *_inputConfig) InputConfigCaster() *types.InputConfig {
+	return s.v
 }

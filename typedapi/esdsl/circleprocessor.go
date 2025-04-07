@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -43,8 +43,6 @@ func NewCircleProcessor(errordistance types.Float64, shapetype shapetype.ShapeTy
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_circleProcessor) Description(description string) *_circleProcessor {
 
 	s.v.Description = &description
@@ -52,9 +50,6 @@ func (s *_circleProcessor) Description(description string) *_circleProcessor {
 	return s
 }
 
-// The difference between the resulting inscribed distance from center to side
-// and the circle’s radius (measured in meters for `geo_shape`, unit-less for
-// `shape`).
 func (s *_circleProcessor) ErrorDistance(errordistance types.Float64) *_circleProcessor {
 
 	s.v.ErrorDistance = errordistance
@@ -62,8 +57,6 @@ func (s *_circleProcessor) ErrorDistance(errordistance types.Float64) *_circlePr
 	return s
 }
 
-// The field to interpret as a circle. Either a string in WKT format or a map
-// for GeoJSON.
 func (s *_circleProcessor) Field(field string) *_circleProcessor {
 
 	s.v.Field = field
@@ -71,7 +64,6 @@ func (s *_circleProcessor) Field(field string) *_circleProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_circleProcessor) If(if_ types.ScriptVariant) *_circleProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -79,7 +71,6 @@ func (s *_circleProcessor) If(if_ types.ScriptVariant) *_circleProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_circleProcessor) IgnoreFailure(ignorefailure bool) *_circleProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -87,8 +78,6 @@ func (s *_circleProcessor) IgnoreFailure(ignorefailure bool) *_circleProcessor {
 	return s
 }
 
-// If `true` and `field` does not exist, the processor quietly exits without
-// modifying the document.
 func (s *_circleProcessor) IgnoreMissing(ignoremissing bool) *_circleProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -96,7 +85,6 @@ func (s *_circleProcessor) IgnoreMissing(ignoremissing bool) *_circleProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_circleProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_circleProcessor {
 
 	for _, v := range onfailures {
@@ -107,16 +95,12 @@ func (s *_circleProcessor) OnFailure(onfailures ...types.ProcessorContainerVaria
 	return s
 }
 
-// Which field mapping type is to be used when processing the circle:
-// `geo_shape` or `shape`.
 func (s *_circleProcessor) ShapeType(shapetype shapetype.ShapeType) *_circleProcessor {
 
 	s.v.ShapeType = shapetype
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_circleProcessor) Tag(tag string) *_circleProcessor {
 
 	s.v.Tag = &tag
@@ -124,8 +108,6 @@ func (s *_circleProcessor) Tag(tag string) *_circleProcessor {
 	return s
 }
 
-// The field to assign the polygon shape to
-// By default, the field is updated in-place.
 func (s *_circleProcessor) TargetField(field string) *_circleProcessor {
 
 	s.v.TargetField = &field

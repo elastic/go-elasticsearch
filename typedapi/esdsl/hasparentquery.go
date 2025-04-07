@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,11 +38,6 @@ func NewHasParentQuery(query types.QueryVariant) *_hasParentQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_hasParentQuery) Boost(boost float32) *_hasParentQuery {
 
 	s.v.Boost = &boost
@@ -50,10 +45,6 @@ func (s *_hasParentQuery) Boost(boost float32) *_hasParentQuery {
 	return s
 }
 
-// Indicates whether to ignore an unmapped `parent_type` and not return any
-// documents instead of an error.
-// You can use this parameter to query multiple indices that may not contain the
-// `parent_type`.
 func (s *_hasParentQuery) IgnoreUnmapped(ignoreunmapped bool) *_hasParentQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped
@@ -61,7 +52,6 @@ func (s *_hasParentQuery) IgnoreUnmapped(ignoreunmapped bool) *_hasParentQuery {
 	return s
 }
 
-// If defined, each search hit will contain inner hits.
 func (s *_hasParentQuery) InnerHits(innerhits types.InnerHitsVariant) *_hasParentQuery {
 
 	s.v.InnerHits = innerhits.InnerHitsCaster()
@@ -69,7 +59,6 @@ func (s *_hasParentQuery) InnerHits(innerhits types.InnerHitsVariant) *_hasParen
 	return s
 }
 
-// Name of the parent relationship mapped for the `join` field.
 func (s *_hasParentQuery) ParentType(relationname string) *_hasParentQuery {
 
 	s.v.ParentType = relationname
@@ -77,9 +66,6 @@ func (s *_hasParentQuery) ParentType(relationname string) *_hasParentQuery {
 	return s
 }
 
-// Query you wish to run on parent documents of the `parent_type` field.
-// If a parent document matches the search, the query returns its child
-// documents.
 func (s *_hasParentQuery) Query(query types.QueryVariant) *_hasParentQuery {
 
 	s.v.Query = *query.QueryCaster()
@@ -94,8 +80,6 @@ func (s *_hasParentQuery) QueryName_(queryname_ string) *_hasParentQuery {
 	return s
 }
 
-// Indicates whether the relevance score of a matching parent document is
-// aggregated into its child documents.
 func (s *_hasParentQuery) Score(score bool) *_hasParentQuery {
 
 	s.v.Score = &score

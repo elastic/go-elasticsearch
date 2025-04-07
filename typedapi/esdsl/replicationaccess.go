@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,8 +32,6 @@ func NewReplicationAccess() *_replicationAccess {
 
 }
 
-// This needs to be set to true if the patterns in the names field should cover
-// system indices.
 func (s *_replicationAccess) AllowRestrictedIndices(allowrestrictedindices bool) *_replicationAccess {
 
 	s.v.AllowRestrictedIndices = &allowrestrictedindices
@@ -41,8 +39,6 @@ func (s *_replicationAccess) AllowRestrictedIndices(allowrestrictedindices bool)
 	return s
 }
 
-// A list of indices (or index name patterns) to which the permissions in this
-// entry apply.
 func (s *_replicationAccess) Names(names ...string) *_replicationAccess {
 
 	s.v.Names = make([]string, len(names))

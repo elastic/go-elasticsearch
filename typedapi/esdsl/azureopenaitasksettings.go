@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,9 +32,6 @@ func NewAzureOpenAITaskSettings() *_azureOpenAITaskSettings {
 
 }
 
-// For a `completion` or `text_embedding` task, specify the user issuing the
-// request.
-// This information can be used for abuse detection.
 func (s *_azureOpenAITaskSettings) User(user string) *_azureOpenAITaskSettings {
 
 	s.v.User = &user

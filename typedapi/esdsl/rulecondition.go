@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -44,24 +44,18 @@ func NewRuleCondition(appliesto appliesto.AppliesTo, operator conditionoperator.
 
 }
 
-// Specifies the result property to which the condition applies. If your
-// detector uses `lat_long`, `metric`, `rare`, or `freq_rare` functions, you can
-// only specify conditions that apply to time.
 func (s *_ruleCondition) AppliesTo(appliesto appliesto.AppliesTo) *_ruleCondition {
 
 	s.v.AppliesTo = appliesto
 	return s
 }
 
-// Specifies the condition operator. The available options are greater than,
-// greater than or equals, less than, and less than or equals.
 func (s *_ruleCondition) Operator(operator conditionoperator.ConditionOperator) *_ruleCondition {
 
 	s.v.Operator = operator
 	return s
 }
 
-// The value that is compared against the `applies_to` field using the operator.
 func (s *_ruleCondition) Value(value types.Float64) *_ruleCondition {
 
 	s.v.Value = value

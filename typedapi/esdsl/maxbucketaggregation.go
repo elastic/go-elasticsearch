@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewMaxBucketAggregation() *_maxBucketAggregation {
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_maxBucketAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_maxBucketAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -46,9 +45,6 @@ func (s *_maxBucketAggregation) BucketsPath(bucketspath types.BucketsPathVariant
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_maxBucketAggregation) Format(format string) *_maxBucketAggregation {
 
 	s.v.Format = &format
@@ -56,7 +52,6 @@ func (s *_maxBucketAggregation) Format(format string) *_maxBucketAggregation {
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_maxBucketAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_maxBucketAggregation {
 
 	s.v.GapPolicy = &gappolicy

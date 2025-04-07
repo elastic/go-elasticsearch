@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,14 +39,6 @@ func NewJinaAIServiceSettings(apikey string) *_jinaAIServiceSettings {
 
 }
 
-// A valid API key of your JinaAI account.
-//
-// IMPORTANT: You need to provide the API key only once, during the inference
-// model creation.
-// The get inference endpoint API does not retrieve your API key.
-// After creating the inference model, you cannot change the associated API key.
-// If you want to use a different API key, delete the inference model and
-// recreate it with the same name and the updated API key.
 func (s *_jinaAIServiceSettings) ApiKey(apikey string) *_jinaAIServiceSettings {
 
 	s.v.ApiKey = apikey
@@ -54,9 +46,6 @@ func (s *_jinaAIServiceSettings) ApiKey(apikey string) *_jinaAIServiceSettings {
 	return s
 }
 
-// The name of the model to use for the inference task.
-// For a `rerank` task, it is required.
-// For a `text_embedding` task, it is optional.
 func (s *_jinaAIServiceSettings) ModelId(modelid string) *_jinaAIServiceSettings {
 
 	s.v.ModelId = &modelid
@@ -64,10 +53,6 @@ func (s *_jinaAIServiceSettings) ModelId(modelid string) *_jinaAIServiceSettings
 	return s
 }
 
-// This setting helps to minimize the number of rate limit errors returned from
-// JinaAI.
-// By default, the `jinaai` service sets the number of requests allowed per
-// minute to 2000 for all task types.
 func (s *_jinaAIServiceSettings) RateLimit(ratelimit types.RateLimitSettingVariant) *_jinaAIServiceSettings {
 
 	s.v.RateLimit = ratelimit.RateLimitSettingCaster()
@@ -75,11 +60,6 @@ func (s *_jinaAIServiceSettings) RateLimit(ratelimit types.RateLimitSettingVaria
 	return s
 }
 
-// For a `text_embedding` task, the similarity measure. One of cosine,
-// dot_product, l2_norm.
-// The default values varies with the embedding type.
-// For example, a float embedding type uses a `dot_product` similarity measure
-// by default.
 func (s *_jinaAIServiceSettings) Similarity(similarity jinaaisimilaritytype.JinaAISimilarityType) *_jinaAIServiceSettings {
 
 	s.v.Similarity = &similarity

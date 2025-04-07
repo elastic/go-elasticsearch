@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package typedapi
 
@@ -263,7 +263,6 @@ import (
 	inference_completion "github.com/elastic/go-elasticsearch/v8/typedapi/inference/completion"
 	inference_delete "github.com/elastic/go-elasticsearch/v8/typedapi/inference/delete"
 	inference_get "github.com/elastic/go-elasticsearch/v8/typedapi/inference/get"
-	inference_post_eis_chat_completion "github.com/elastic/go-elasticsearch/v8/typedapi/inference/posteischatcompletion"
 	inference_put "github.com/elastic/go-elasticsearch/v8/typedapi/inference/put"
 	inference_put_alibabacloud "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putalibabacloud"
 	inference_put_amazonbedrock "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putamazonbedrock"
@@ -271,7 +270,6 @@ import (
 	inference_put_azureaistudio "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putazureaistudio"
 	inference_put_azureopenai "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putazureopenai"
 	inference_put_cohere "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putcohere"
-	inference_put_eis "github.com/elastic/go-elasticsearch/v8/typedapi/inference/puteis"
 	inference_put_elasticsearch "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putelasticsearch"
 	inference_put_elser "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putelser"
 	inference_put_googleaistudio "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putgoogleaistudio"
@@ -4941,11 +4939,6 @@ type Inference struct {
 	// Get an inference endpoint
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-get
 	Get inference_get.NewGet
-	// Perform a chat completion task through the Elastic Inference Service (EIS).
-	//
-	// Perform a chat completion inference task with the `elastic` service.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-post-eis-chat-completion
-	PostEisChatCompletion inference_post_eis_chat_completion.NewPostEisChatCompletion
 	// Create an inference endpoint.
 	// When you create an inference endpoint, the associated machine learning model
 	// is automatically deployed if it is not already running.
@@ -5084,12 +5077,6 @@ type Inference struct {
 	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-cohere
 	PutCohere inference_put_cohere.NewPutCohere
-	// Create an Elastic Inference Service (EIS) inference endpoint.
-	//
-	// Create an inference endpoint to perform an inference task through the Elastic
-	// Inference Service (EIS).
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-eis
-	PutEis inference_put_eis.NewPutEis
 	// Create an Elasticsearch inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the
@@ -8536,7 +8523,13 @@ type Watcher struct {
 	// Update Watcher index settings.
 	// Update settings for the Watcher internal index (`.watches`).
 	// Only a subset of settings can be modified.
-	// This includes `index.auto_expand_replicas` and `index.number_of_replicas`.
+	// This includes `index.auto_expand_replicas`, `index.number_of_replicas`,
+	// `index.routing.allocation.exclude.*`,
+	// `index.routing.allocation.include.*` and
+	// `index.routing.allocation.require.*`.
+	// Modification of `index.routing.allocation.include._tier_preference` is an
+	// exception and is not allowed as the
+	// Watcher shards must always be in the `data_content` tier.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-update-settings
 	UpdateSettings watcher_update_settings.NewUpdateSettings
 }
@@ -10827,7 +10820,6 @@ func New(tp elastictransport.Interface) *API {
 			Completion:            inference_completion.NewCompletionFunc(tp),
 			Delete:                inference_delete.NewDeleteFunc(tp),
 			Get:                   inference_get.NewGetFunc(tp),
-			PostEisChatCompletion: inference_post_eis_chat_completion.NewPostEisChatCompletionFunc(tp),
 			Put:                   inference_put.NewPutFunc(tp),
 			PutAlibabacloud:       inference_put_alibabacloud.NewPutAlibabacloudFunc(tp),
 			PutAmazonbedrock:      inference_put_amazonbedrock.NewPutAmazonbedrockFunc(tp),
@@ -10835,7 +10827,6 @@ func New(tp elastictransport.Interface) *API {
 			PutAzureaistudio:      inference_put_azureaistudio.NewPutAzureaistudioFunc(tp),
 			PutAzureopenai:        inference_put_azureopenai.NewPutAzureopenaiFunc(tp),
 			PutCohere:             inference_put_cohere.NewPutCohereFunc(tp),
-			PutEis:                inference_put_eis.NewPutEisFunc(tp),
 			PutElasticsearch:      inference_put_elasticsearch.NewPutElasticsearchFunc(tp),
 			PutElser:              inference_put_elser.NewPutElserFunc(tp),
 			PutGoogleaistudio:     inference_put_googleaistudio.NewPutGoogleaistudioFunc(tp),

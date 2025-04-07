@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,8 +37,6 @@ func NewTextExpansionInferenceOptions(vocabulary types.VocabularyVariant) *_text
 
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_textExpansionInferenceOptions) ResultsField(resultsfield string) *_textExpansionInferenceOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -46,7 +44,6 @@ func (s *_textExpansionInferenceOptions) ResultsField(resultsfield string) *_tex
 	return s
 }
 
-// The tokenization options
 func (s *_textExpansionInferenceOptions) Tokenization(tokenization types.TokenizationConfigContainerVariant) *_textExpansionInferenceOptions {
 
 	s.v.Tokenization = tokenization.TokenizationConfigContainerCaster()

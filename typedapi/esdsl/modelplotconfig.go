@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,8 +32,6 @@ func NewModelPlotConfig() *_modelPlotConfig {
 
 }
 
-// If true, enables calculation and storage of the model change annotations for
-// each entity that is being analyzed.
 func (s *_modelPlotConfig) AnnotationsEnabled(annotationsenabled bool) *_modelPlotConfig {
 
 	s.v.AnnotationsEnabled = &annotationsenabled
@@ -41,8 +39,6 @@ func (s *_modelPlotConfig) AnnotationsEnabled(annotationsenabled bool) *_modelPl
 	return s
 }
 
-// If true, enables calculation and storage of the model bounds for each entity
-// that is being analyzed.
 func (s *_modelPlotConfig) Enabled(enabled bool) *_modelPlotConfig {
 
 	s.v.Enabled = &enabled
@@ -50,10 +46,6 @@ func (s *_modelPlotConfig) Enabled(enabled bool) *_modelPlotConfig {
 	return s
 }
 
-// Limits data collection to this comma separated list of partition or by field
-// values. If terms are not specified or it is an empty string, no filtering is
-// applied. Wildcards are not supported. Only the specified terms can be viewed
-// when using the Single Metric Viewer.
 func (s *_modelPlotConfig) Terms(field string) *_modelPlotConfig {
 
 	s.v.Terms = &field

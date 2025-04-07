@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // SyncContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/transform/_types/Transform.ts#L169-L175
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/transform/_types/Transform.ts#L169-L175
 type SyncContainer struct {
 	AdditionalSyncContainerProperty map[string]json.RawMessage `json:"-"`
 	// Time Specifies that the transform uses a time field to synchronize the source and

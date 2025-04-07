@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -27,7 +27,7 @@ type _wildcardQuery struct {
 	v *types.WildcardQuery
 }
 
-// Returns users that contain terms matching a wildcard pattern.
+// Returns documents that contain terms matching a wildcard pattern.
 func NewWildcardQuery(field string, value string) *_wildcardQuery {
 	tmp := &_wildcardQuery{
 		k: field,
@@ -38,11 +38,6 @@ func NewWildcardQuery(field string, value string) *_wildcardQuery {
 	return tmp
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_wildcardQuery) Boost(boost float32) *_wildcardQuery {
 
 	s.v.Boost = &boost
@@ -50,9 +45,6 @@ func (s *_wildcardQuery) Boost(boost float32) *_wildcardQuery {
 	return s
 }
 
-// Allows case insensitive matching of the pattern with the indexed field values
-// when set to true. Default is false which means the case sensitivity of
-// matching depends on the underlying field’s mapping.
 func (s *_wildcardQuery) CaseInsensitive(caseinsensitive bool) *_wildcardQuery {
 
 	s.v.CaseInsensitive = &caseinsensitive
@@ -67,7 +59,6 @@ func (s *_wildcardQuery) QueryName_(queryname_ string) *_wildcardQuery {
 	return s
 }
 
-// Method used to rewrite the query.
 func (s *_wildcardQuery) Rewrite(multitermqueryrewrite string) *_wildcardQuery {
 
 	s.v.Rewrite = &multitermqueryrewrite
@@ -75,8 +66,6 @@ func (s *_wildcardQuery) Rewrite(multitermqueryrewrite string) *_wildcardQuery {
 	return s
 }
 
-// Wildcard pattern for terms you wish to find in the provided field. Required,
-// when wildcard is not set.
 func (s *_wildcardQuery) Value(value string) *_wildcardQuery {
 
 	s.v.Value = &value
@@ -84,8 +73,6 @@ func (s *_wildcardQuery) Value(value string) *_wildcardQuery {
 	return s
 }
 
-// Wildcard pattern for terms you wish to find in the provided field. Required,
-// when value is not set.
 func (s *_wildcardQuery) Wildcard(wildcard string) *_wildcardQuery {
 
 	s.v.Wildcard = &wildcard

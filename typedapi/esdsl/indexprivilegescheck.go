@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,14 +35,6 @@ func NewIndexPrivilegesCheck() *_indexPrivilegesCheck {
 
 }
 
-// This needs to be set to `true` (default is `false`) if using wildcards or
-// regexps for patterns that cover restricted indices.
-// Implicitly, restricted indices do not match index patterns because restricted
-// indices usually have limited privileges and including them in pattern tests
-// would render most such tests false.
-// If restricted indices are explicitly included in the names list, privileges
-// will be checked against them regardless of the value of
-// `allow_restricted_indices`.
 func (s *_indexPrivilegesCheck) AllowRestrictedIndices(allowrestrictedindices bool) *_indexPrivilegesCheck {
 
 	s.v.AllowRestrictedIndices = &allowrestrictedindices
@@ -50,7 +42,6 @@ func (s *_indexPrivilegesCheck) AllowRestrictedIndices(allowrestrictedindices bo
 	return s
 }
 
-// A list of indices.
 func (s *_indexPrivilegesCheck) Names(indices ...string) *_indexPrivilegesCheck {
 
 	s.v.Names = indices
@@ -58,7 +49,6 @@ func (s *_indexPrivilegesCheck) Names(indices ...string) *_indexPrivilegesCheck 
 	return s
 }
 
-// A list of the privileges that you want to check for the specified indices.
 func (s *_indexPrivilegesCheck) Privileges(privileges ...indexprivilege.IndexPrivilege) *_indexPrivilegesCheck {
 
 	for _, v := range privileges {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -27,7 +27,7 @@ type _termQuery struct {
 	v *types.TermQuery
 }
 
-// Returns roles that contain an exact term in a provided field.
+// Returns documents that contain an exact term in a provided field.
 // To return a document, the query term must exactly match the queried field's
 // value, including whitespace and capitalization.
 func NewTermQuery(field string, value types.FieldValueVariant) *_termQuery {
@@ -40,11 +40,6 @@ func NewTermQuery(field string, value types.FieldValueVariant) *_termQuery {
 	return tmp
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_termQuery) Boost(boost float32) *_termQuery {
 
 	s.v.Boost = &boost
@@ -52,10 +47,6 @@ func (s *_termQuery) Boost(boost float32) *_termQuery {
 	return s
 }
 
-// Allows ASCII case insensitive matching of the value with the indexed field
-// values when set to `true`.
-// When `false`, the case sensitivity of matching depends on the underlying
-// field’s mapping.
 func (s *_termQuery) CaseInsensitive(caseinsensitive bool) *_termQuery {
 
 	s.v.CaseInsensitive = &caseinsensitive
@@ -70,7 +61,6 @@ func (s *_termQuery) QueryName_(queryname_ string) *_termQuery {
 	return s
 }
 
-// Term you wish to find in the provided field.
 func (s *_termQuery) Value(fieldvalue types.FieldValueVariant) *_termQuery {
 
 	s.v.Value = *fieldvalue.FieldValueCaster()

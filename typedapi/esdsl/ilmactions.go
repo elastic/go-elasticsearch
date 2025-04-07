@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewIlmActions() *_ilmActions {
 
 }
 
-// Phases allowed: warm, cold.
 func (s *_ilmActions) Allocate(allocate types.AllocateActionVariant) *_ilmActions {
 
 	s.v.Allocate = allocate.AllocateActionCaster()
@@ -40,7 +39,6 @@ func (s *_ilmActions) Allocate(allocate types.AllocateActionVariant) *_ilmAction
 	return s
 }
 
-// Phases allowed: delete.
 func (s *_ilmActions) Delete(delete types.DeleteActionVariant) *_ilmActions {
 
 	s.v.Delete = delete.DeleteActionCaster()
@@ -48,7 +46,6 @@ func (s *_ilmActions) Delete(delete types.DeleteActionVariant) *_ilmActions {
 	return s
 }
 
-// Phases allowed: hot, warm, cold.
 func (s *_ilmActions) Downsample(downsample types.DownsampleActionVariant) *_ilmActions {
 
 	s.v.Downsample = downsample.DownsampleActionCaster()
@@ -56,7 +53,6 @@ func (s *_ilmActions) Downsample(downsample types.DownsampleActionVariant) *_ilm
 	return s
 }
 
-// Phases allowed: hot, warm.
 func (s *_ilmActions) Forcemerge(forcemerge types.ForceMergeActionVariant) *_ilmActions {
 
 	s.v.Forcemerge = forcemerge.ForceMergeActionCaster()
@@ -64,7 +60,6 @@ func (s *_ilmActions) Forcemerge(forcemerge types.ForceMergeActionVariant) *_ilm
 	return s
 }
 
-// The freeze action is a noop in 8.x
 func (s *_ilmActions) Freeze(freeze types.EmptyObjectVariant) *_ilmActions {
 
 	s.v.Freeze = freeze.EmptyObjectCaster()
@@ -72,7 +67,6 @@ func (s *_ilmActions) Freeze(freeze types.EmptyObjectVariant) *_ilmActions {
 	return s
 }
 
-// Phases allowed: warm, cold.
 func (s *_ilmActions) Migrate(migrate types.MigrateActionVariant) *_ilmActions {
 
 	s.v.Migrate = migrate.MigrateActionCaster()
@@ -80,7 +74,6 @@ func (s *_ilmActions) Migrate(migrate types.MigrateActionVariant) *_ilmActions {
 	return s
 }
 
-// Phases allowed: hot, warm, cold.
 func (s *_ilmActions) Readonly(readonly types.EmptyObjectVariant) *_ilmActions {
 
 	s.v.Readonly = readonly.EmptyObjectCaster()
@@ -88,7 +81,6 @@ func (s *_ilmActions) Readonly(readonly types.EmptyObjectVariant) *_ilmActions {
 	return s
 }
 
-// Phases allowed: hot.
 func (s *_ilmActions) Rollover(rollover types.RolloverActionVariant) *_ilmActions {
 
 	s.v.Rollover = rollover.RolloverActionCaster()
@@ -96,7 +88,6 @@ func (s *_ilmActions) Rollover(rollover types.RolloverActionVariant) *_ilmAction
 	return s
 }
 
-// Phases allowed: hot, cold, frozen.
 func (s *_ilmActions) SearchableSnapshot(searchablesnapshot types.SearchableSnapshotActionVariant) *_ilmActions {
 
 	s.v.SearchableSnapshot = searchablesnapshot.SearchableSnapshotActionCaster()
@@ -104,7 +95,6 @@ func (s *_ilmActions) SearchableSnapshot(searchablesnapshot types.SearchableSnap
 	return s
 }
 
-// Phases allowed: hot, warm, cold.
 func (s *_ilmActions) SetPriority(setpriority types.SetPriorityActionVariant) *_ilmActions {
 
 	s.v.SetPriority = setpriority.SetPriorityActionCaster()
@@ -112,7 +102,6 @@ func (s *_ilmActions) SetPriority(setpriority types.SetPriorityActionVariant) *_
 	return s
 }
 
-// Phases allowed: hot, warm.
 func (s *_ilmActions) Shrink(shrink types.ShrinkActionVariant) *_ilmActions {
 
 	s.v.Shrink = shrink.ShrinkActionCaster()
@@ -120,7 +109,6 @@ func (s *_ilmActions) Shrink(shrink types.ShrinkActionVariant) *_ilmActions {
 	return s
 }
 
-// Phases allowed: hot, warm, cold, frozen.
 func (s *_ilmActions) Unfollow(unfollow types.EmptyObjectVariant) *_ilmActions {
 
 	s.v.Unfollow = unfollow.EmptyObjectCaster()
@@ -128,7 +116,6 @@ func (s *_ilmActions) Unfollow(unfollow types.EmptyObjectVariant) *_ilmActions {
 	return s
 }
 
-// Phases allowed: delete.
 func (s *_ilmActions) WaitForSnapshot(waitforsnapshot types.WaitForSnapshotActionVariant) *_ilmActions {
 
 	s.v.WaitForSnapshot = waitforsnapshot.WaitForSnapshotActionCaster()

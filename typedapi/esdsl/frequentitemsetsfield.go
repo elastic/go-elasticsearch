@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,8 +32,6 @@ func NewFrequentItemSetsField() *_frequentItemSetsField {
 
 }
 
-// Values to exclude.
-// Can be regular expression strings or arrays of strings of exact terms.
 func (s *_frequentItemSetsField) Exclude(termsexcludes ...string) *_frequentItemSetsField {
 
 	s.v.Exclude = termsexcludes
@@ -48,8 +46,6 @@ func (s *_frequentItemSetsField) Field(field string) *_frequentItemSetsField {
 	return s
 }
 
-// Values to include.
-// Can be regular expression strings or arrays of strings of exact terms.
 func (s *_frequentItemSetsField) Include(termsinclude types.TermsIncludeVariant) *_frequentItemSetsField {
 
 	s.v.Include = *termsinclude.TermsIncludeCaster()

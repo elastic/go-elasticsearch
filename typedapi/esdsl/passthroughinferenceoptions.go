@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -33,8 +33,6 @@ func NewPassThroughInferenceOptions() *_passThroughInferenceOptions {
 
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_passThroughInferenceOptions) ResultsField(resultsfield string) *_passThroughInferenceOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -42,7 +40,6 @@ func (s *_passThroughInferenceOptions) ResultsField(resultsfield string) *_passT
 	return s
 }
 
-// The tokenization options
 func (s *_passThroughInferenceOptions) Tokenization(tokenization types.TokenizationConfigContainerVariant) *_passThroughInferenceOptions {
 
 	s.v.Tokenization = tokenization.TokenizationConfigContainerCaster()

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,7 +37,6 @@ func NewInferenceAggregation() *_inferenceAggregation {
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_inferenceAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_inferenceAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -45,9 +44,6 @@ func (s *_inferenceAggregation) BucketsPath(bucketspath types.BucketsPathVariant
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_inferenceAggregation) Format(format string) *_inferenceAggregation {
 
 	s.v.Format = &format
@@ -55,14 +51,12 @@ func (s *_inferenceAggregation) Format(format string) *_inferenceAggregation {
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_inferenceAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_inferenceAggregation {
 
 	s.v.GapPolicy = &gappolicy
 	return s
 }
 
-// Contains the inference type and its options.
 func (s *_inferenceAggregation) InferenceConfig(inferenceconfig types.InferenceConfigContainerVariant) *_inferenceAggregation {
 
 	s.v.InferenceConfig = inferenceconfig.InferenceConfigContainerCaster()
@@ -70,7 +64,6 @@ func (s *_inferenceAggregation) InferenceConfig(inferenceconfig types.InferenceC
 	return s
 }
 
-// The ID or alias for the trained model.
 func (s *_inferenceAggregation) ModelId(name string) *_inferenceAggregation {
 
 	s.v.ModelId = name

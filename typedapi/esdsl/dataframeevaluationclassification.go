@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,9 +35,6 @@ func NewDataframeEvaluationClassification() *_dataframeEvaluationClassification 
 
 }
 
-// The field of the index which contains the ground truth. The data type of this
-// field can be boolean or integer. If the data type is integer, the value has
-// to be either 0 (false) or 1 (true).
 func (s *_dataframeEvaluationClassification) ActualField(field string) *_dataframeEvaluationClassification {
 
 	s.v.ActualField = field
@@ -45,7 +42,6 @@ func (s *_dataframeEvaluationClassification) ActualField(field string) *_datafra
 	return s
 }
 
-// Specifies the metrics that are used for the evaluation.
 func (s *_dataframeEvaluationClassification) Metrics(metrics types.DataframeEvaluationClassificationMetricsVariant) *_dataframeEvaluationClassification {
 
 	s.v.Metrics = metrics.DataframeEvaluationClassificationMetricsCaster()
@@ -53,8 +49,6 @@ func (s *_dataframeEvaluationClassification) Metrics(metrics types.DataframeEval
 	return s
 }
 
-// The field in the index which contains the predicted value, in other words the
-// results of the classification analysis.
 func (s *_dataframeEvaluationClassification) PredictedField(field string) *_dataframeEvaluationClassification {
 
 	s.v.PredictedField = &field
@@ -62,9 +56,6 @@ func (s *_dataframeEvaluationClassification) PredictedField(field string) *_data
 	return s
 }
 
-// The field of the index which is an array of documents of the form {
-// "class_name": XXX, "class_probability": YYY }. This field must be defined as
-// nested in the mappings.
 func (s *_dataframeEvaluationClassification) TopClassesField(field string) *_dataframeEvaluationClassification {
 
 	s.v.TopClassesField = &field

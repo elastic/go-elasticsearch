@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,9 +32,6 @@ func NewIndexingSlowlogTresholds() *_indexingSlowlogTresholds {
 
 }
 
-// The indexing slow log, similar in functionality to the search slow log. The
-// log file name ends with `_index_indexing_slowlog.json`.
-// Log and the thresholds are configured in the same way as the search slowlog.
 func (s *_indexingSlowlogTresholds) Index(index types.SlowlogTresholdLevelsVariant) *_indexingSlowlogTresholds {
 
 	s.v.Index = index.SlowlogTresholdLevelsCaster()

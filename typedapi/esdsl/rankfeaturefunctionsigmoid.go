@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewRankFeatureFunctionSigmoid(exponent float32, pivot float32) *_rankFeatur
 
 }
 
-// Configurable Exponent.
 func (s *_rankFeatureFunctionSigmoid) Exponent(exponent float32) *_rankFeatureFunctionSigmoid {
 
 	s.v.Exponent = exponent
@@ -46,7 +45,6 @@ func (s *_rankFeatureFunctionSigmoid) Exponent(exponent float32) *_rankFeatureFu
 	return s
 }
 
-// Configurable pivot value so that the result will be less than 0.5.
 func (s *_rankFeatureFunctionSigmoid) Pivot(pivot float32) *_rankFeatureFunctionSigmoid {
 
 	s.v.Pivot = pivot

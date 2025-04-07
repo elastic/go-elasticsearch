@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -33,8 +33,6 @@ func NewNerInferenceUpdateOptions() *_nerInferenceUpdateOptions {
 
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_nerInferenceUpdateOptions) ResultsField(resultsfield string) *_nerInferenceUpdateOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -42,7 +40,6 @@ func (s *_nerInferenceUpdateOptions) ResultsField(resultsfield string) *_nerInfe
 	return s
 }
 
-// The tokenization options to update when inferring
 func (s *_nerInferenceUpdateOptions) Tokenization(tokenization types.NlpTokenizationUpdateOptionsVariant) *_nerInferenceUpdateOptions {
 
 	s.v.Tokenization = tokenization.NlpTokenizationUpdateOptionsCaster()

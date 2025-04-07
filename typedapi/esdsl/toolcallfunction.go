@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewToolCallFunction(arguments string, name string) *_toolCallFunction {
 
 }
 
-// The arguments to call the function with in JSON format.
 func (s *_toolCallFunction) Arguments(arguments string) *_toolCallFunction {
 
 	s.v.Arguments = arguments
@@ -46,7 +45,6 @@ func (s *_toolCallFunction) Arguments(arguments string) *_toolCallFunction {
 	return s
 }
 
-// The name of the function to call.
 func (s *_toolCallFunction) Name(name string) *_toolCallFunction {
 
 	s.v.Name = name

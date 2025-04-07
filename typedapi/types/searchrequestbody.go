@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SearchRequestBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/_global/search/_types/SearchRequestBody.ts#L42-L238
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/_global/search/_types/SearchRequestBody.ts#L42-L238
 type SearchRequestBody struct {
 	// Aggregations Defines the aggregations that are run as part of the search request.
 	Aggregations map[string]Aggregations `json:"aggregations,omitempty"`
@@ -66,7 +66,8 @@ type SearchRequestBody struct {
 	// Knn The approximate kNN search to run.
 	Knn []KnnSearch `json:"knn,omitempty"`
 	// MinScore The minimum `_score` for matching documents.
-	// Documents with a lower `_score` are not included in the search results.
+	// Documents with a lower `_score` are not included in search results or results
+	// collected by aggregations.
 	MinScore *Float64 `json:"min_score,omitempty"`
 	// Pit Limit the search to a point in time (PIT).
 	// If you provide a PIT, you cannot specify an `<index>` in the request path.

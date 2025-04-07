@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,7 +36,6 @@ func NewDocumentRating(rating int) *_documentRating {
 
 }
 
-// The document ID.
 func (s *_documentRating) Id_(id string) *_documentRating {
 
 	s.v.Id_ = id
@@ -44,8 +43,6 @@ func (s *_documentRating) Id_(id string) *_documentRating {
 	return s
 }
 
-// The document’s index. For data streams, this should be the document’s backing
-// index.
 func (s *_documentRating) Index_(indexname string) *_documentRating {
 
 	s.v.Index_ = indexname
@@ -53,7 +50,6 @@ func (s *_documentRating) Index_(indexname string) *_documentRating {
 	return s
 }
 
-// The document’s relevance with regard to this search request.
 func (s *_documentRating) Rating(rating int) *_documentRating {
 
 	s.v.Rating = rating

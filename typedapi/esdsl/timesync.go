@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,7 +34,6 @@ func NewTimeSync() *_timeSync {
 
 }
 
-// The time delay between the current time and the latest input data time.
 func (s *_timeSync) Delay(duration types.DurationVariant) *_timeSync {
 
 	s.v.Delay = *duration.DurationCaster()
@@ -42,11 +41,6 @@ func (s *_timeSync) Delay(duration types.DurationVariant) *_timeSync {
 	return s
 }
 
-// The date field that is used to identify new documents in the source. In
-// general, it’s a good idea to use a field
-// that contains the ingest timestamp. If you use a different field, you might
-// need to set the delay such that it
-// accounts for data transmission delays.
 func (s *_timeSync) Field(field string) *_timeSync {
 
 	s.v.Field = field

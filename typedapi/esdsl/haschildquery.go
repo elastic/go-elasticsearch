@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -40,11 +40,6 @@ func NewHasChildQuery(query types.QueryVariant) *_hasChildQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_hasChildQuery) Boost(boost float32) *_hasChildQuery {
 
 	s.v.Boost = &boost
@@ -52,8 +47,6 @@ func (s *_hasChildQuery) Boost(boost float32) *_hasChildQuery {
 	return s
 }
 
-// Indicates whether to ignore an unmapped `type` and not return any documents
-// instead of an error.
 func (s *_hasChildQuery) IgnoreUnmapped(ignoreunmapped bool) *_hasChildQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped
@@ -61,7 +54,6 @@ func (s *_hasChildQuery) IgnoreUnmapped(ignoreunmapped bool) *_hasChildQuery {
 	return s
 }
 
-// If defined, each search hit will contain inner hits.
 func (s *_hasChildQuery) InnerHits(innerhits types.InnerHitsVariant) *_hasChildQuery {
 
 	s.v.InnerHits = innerhits.InnerHitsCaster()
@@ -69,10 +61,6 @@ func (s *_hasChildQuery) InnerHits(innerhits types.InnerHitsVariant) *_hasChildQ
 	return s
 }
 
-// Maximum number of child documents that match the query allowed for a returned
-// parent document.
-// If the parent document exceeds this limit, it is excluded from the search
-// results.
 func (s *_hasChildQuery) MaxChildren(maxchildren int) *_hasChildQuery {
 
 	s.v.MaxChildren = &maxchildren
@@ -80,10 +68,6 @@ func (s *_hasChildQuery) MaxChildren(maxchildren int) *_hasChildQuery {
 	return s
 }
 
-// Minimum number of child documents that match the query required to match the
-// query for a returned parent document.
-// If the parent document does not meet this limit, it is excluded from the
-// search results.
 func (s *_hasChildQuery) MinChildren(minchildren int) *_hasChildQuery {
 
 	s.v.MinChildren = &minchildren
@@ -91,9 +75,6 @@ func (s *_hasChildQuery) MinChildren(minchildren int) *_hasChildQuery {
 	return s
 }
 
-// Query you wish to run on child documents of the `type` field.
-// If a child document matches the search, the query returns the parent
-// document.
 func (s *_hasChildQuery) Query(query types.QueryVariant) *_hasChildQuery {
 
 	s.v.Query = *query.QueryCaster()
@@ -108,15 +89,12 @@ func (s *_hasChildQuery) QueryName_(queryname_ string) *_hasChildQuery {
 	return s
 }
 
-// Indicates how scores for matching child documents affect the root parent
-// document’s relevance score.
 func (s *_hasChildQuery) ScoreMode(scoremode childscoremode.ChildScoreMode) *_hasChildQuery {
 
 	s.v.ScoreMode = &scoremode
 	return s
 }
 
-// Name of the child relationship mapped for the `join` field.
 func (s *_hasChildQuery) Type(relationname string) *_hasChildQuery {
 
 	s.v.Type = relationname

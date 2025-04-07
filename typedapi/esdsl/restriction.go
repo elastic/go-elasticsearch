@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,9 +35,6 @@ func NewRestriction() *_restriction {
 
 }
 
-// A list of workflows to which the API key is restricted.
-// NOTE: In order to use a role restriction, an API key must be created with a
-// single role descriptor.
 func (s *_restriction) Workflows(workflows ...restrictionworkflow.RestrictionWorkflow) *_restriction {
 
 	for _, v := range workflows {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,8 +36,6 @@ func NewSignificantTextAggregation() *_significantTextAggregation {
 
 }
 
-// A background filter that can be used to focus in on significant terms within
-// a narrower context, instead of the entire index.
 func (s *_significantTextAggregation) BackgroundFilter(backgroundfilter types.QueryVariant) *_significantTextAggregation {
 
 	s.v.BackgroundFilter = backgroundfilter.QueryCaster()
@@ -45,8 +43,6 @@ func (s *_significantTextAggregation) BackgroundFilter(backgroundfilter types.Qu
 	return s
 }
 
-// Use Chi square, as described in "Information Retrieval", Manning et al.,
-// Chapter 13.5.2, as the significance score.
 func (s *_significantTextAggregation) ChiSquare(chisquare types.ChiSquareHeuristicVariant) *_significantTextAggregation {
 
 	s.v.ChiSquare = chisquare.ChiSquareHeuristicCaster()
@@ -54,7 +50,6 @@ func (s *_significantTextAggregation) ChiSquare(chisquare types.ChiSquareHeurist
 	return s
 }
 
-// Values to exclude.
 func (s *_significantTextAggregation) Exclude(termsexcludes ...string) *_significantTextAggregation {
 
 	s.v.Exclude = termsexcludes
@@ -62,15 +57,12 @@ func (s *_significantTextAggregation) Exclude(termsexcludes ...string) *_signifi
 	return s
 }
 
-// Determines whether the aggregation will use field values directly or global
-// ordinals.
 func (s *_significantTextAggregation) ExecutionHint(executionhint termsaggregationexecutionhint.TermsAggregationExecutionHint) *_significantTextAggregation {
 
 	s.v.ExecutionHint = &executionhint
 	return s
 }
 
-// The field from which to return significant text.
 func (s *_significantTextAggregation) Field(field string) *_significantTextAggregation {
 
 	s.v.Field = &field
@@ -78,7 +70,6 @@ func (s *_significantTextAggregation) Field(field string) *_significantTextAggre
 	return s
 }
 
-// Whether to out duplicate text to deal with noisy data.
 func (s *_significantTextAggregation) FilterDuplicateText(filterduplicatetext bool) *_significantTextAggregation {
 
 	s.v.FilterDuplicateText = &filterduplicatetext
@@ -86,8 +77,6 @@ func (s *_significantTextAggregation) FilterDuplicateText(filterduplicatetext bo
 	return s
 }
 
-// Use Google normalized distance as described in "The Google Similarity
-// Distance", Cilibrasi and Vitanyi, 2007, as the significance score.
 func (s *_significantTextAggregation) Gnd(gnd types.GoogleNormalizedDistanceHeuristicVariant) *_significantTextAggregation {
 
 	s.v.Gnd = gnd.GoogleNormalizedDistanceHeuristicCaster()
@@ -95,7 +84,6 @@ func (s *_significantTextAggregation) Gnd(gnd types.GoogleNormalizedDistanceHeur
 	return s
 }
 
-// Values to include.
 func (s *_significantTextAggregation) Include(termsinclude types.TermsIncludeVariant) *_significantTextAggregation {
 
 	s.v.Include = *termsinclude.TermsIncludeCaster()
@@ -103,7 +91,6 @@ func (s *_significantTextAggregation) Include(termsinclude types.TermsIncludeVar
 	return s
 }
 
-// Use JLH score as the significance score.
 func (s *_significantTextAggregation) Jlh(jlh types.EmptyObjectVariant) *_significantTextAggregation {
 
 	s.v.Jlh = jlh.EmptyObjectCaster()
@@ -111,7 +98,6 @@ func (s *_significantTextAggregation) Jlh(jlh types.EmptyObjectVariant) *_signif
 	return s
 }
 
-// Only return values that are found in more than `min_doc_count` hits.
 func (s *_significantTextAggregation) MinDocCount(mindoccount int64) *_significantTextAggregation {
 
 	s.v.MinDocCount = &mindoccount
@@ -119,8 +105,6 @@ func (s *_significantTextAggregation) MinDocCount(mindoccount int64) *_significa
 	return s
 }
 
-// Use mutual information as described in "Information Retrieval", Manning et
-// al., Chapter 13.5.1, as the significance score.
 func (s *_significantTextAggregation) MutualInformation(mutualinformation types.MutualInformationHeuristicVariant) *_significantTextAggregation {
 
 	s.v.MutualInformation = mutualinformation.MutualInformationHeuristicCaster()
@@ -128,8 +112,6 @@ func (s *_significantTextAggregation) MutualInformation(mutualinformation types.
 	return s
 }
 
-// A simple calculation of the number of documents in the foreground sample with
-// a term divided by the number of documents in the background with the term.
 func (s *_significantTextAggregation) Percentage(percentage types.PercentageScoreHeuristicVariant) *_significantTextAggregation {
 
 	s.v.Percentage = percentage.PercentageScoreHeuristicCaster()
@@ -137,7 +119,6 @@ func (s *_significantTextAggregation) Percentage(percentage types.PercentageScor
 	return s
 }
 
-// Customized score, implemented via a script.
 func (s *_significantTextAggregation) ScriptHeuristic(scriptheuristic types.ScriptedHeuristicVariant) *_significantTextAggregation {
 
 	s.v.ScriptHeuristic = scriptheuristic.ScriptedHeuristicCaster()
@@ -145,10 +126,6 @@ func (s *_significantTextAggregation) ScriptHeuristic(scriptheuristic types.Scri
 	return s
 }
 
-// Regulates the certainty a shard has if the values should actually be added to
-// the candidate list or not with respect to the min_doc_count.
-// Values will only be considered if their local shard frequency within the set
-// is higher than the `shard_min_doc_count`.
 func (s *_significantTextAggregation) ShardMinDocCount(shardmindoccount int64) *_significantTextAggregation {
 
 	s.v.ShardMinDocCount = &shardmindoccount
@@ -156,9 +133,6 @@ func (s *_significantTextAggregation) ShardMinDocCount(shardmindoccount int64) *
 	return s
 }
 
-// The number of candidate terms produced by each shard.
-// By default, `shard_size` will be automatically estimated based on the number
-// of shards and the `size` parameter.
 func (s *_significantTextAggregation) ShardSize(shardsize int) *_significantTextAggregation {
 
 	s.v.ShardSize = &shardsize
@@ -166,7 +140,6 @@ func (s *_significantTextAggregation) ShardSize(shardsize int) *_significantText
 	return s
 }
 
-// The number of buckets returned out of the overall terms list.
 func (s *_significantTextAggregation) Size(size int) *_significantTextAggregation {
 
 	s.v.Size = &size
@@ -174,7 +147,6 @@ func (s *_significantTextAggregation) Size(size int) *_significantTextAggregatio
 	return s
 }
 
-// Overrides the JSON `_source` fields from which text will be analyzed.
 func (s *_significantTextAggregation) SourceFields(fields ...string) *_significantTextAggregation {
 
 	s.v.SourceFields = fields

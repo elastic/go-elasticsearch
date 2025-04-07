@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // OperationContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/_global/bulk/types.ts#L158-L180
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/_global/bulk/types.ts#L158-L180
 type OperationContainer struct {
 	AdditionalOperationContainerProperty map[string]json.RawMessage `json:"-"`
 	// Create Index the specified document if it does not already exist.

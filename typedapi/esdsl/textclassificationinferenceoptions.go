@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -33,8 +33,6 @@ func NewTextClassificationInferenceOptions() *_textClassificationInferenceOption
 
 }
 
-// Classification labels to apply other than the stored labels. Must have the
-// same deminsions as the default configured labels
 func (s *_textClassificationInferenceOptions) ClassificationLabels(classificationlabels ...string) *_textClassificationInferenceOptions {
 
 	for _, v := range classificationlabels {
@@ -45,7 +43,6 @@ func (s *_textClassificationInferenceOptions) ClassificationLabels(classificatio
 	return s
 }
 
-// Specifies the number of top class predictions to return. Defaults to 0.
 func (s *_textClassificationInferenceOptions) NumTopClasses(numtopclasses int) *_textClassificationInferenceOptions {
 
 	s.v.NumTopClasses = &numtopclasses
@@ -53,8 +50,6 @@ func (s *_textClassificationInferenceOptions) NumTopClasses(numtopclasses int) *
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_textClassificationInferenceOptions) ResultsField(resultsfield string) *_textClassificationInferenceOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -62,7 +57,6 @@ func (s *_textClassificationInferenceOptions) ResultsField(resultsfield string) 
 	return s
 }
 
-// The tokenization options
 func (s *_textClassificationInferenceOptions) Tokenization(tokenization types.TokenizationConfigContainerVariant) *_textClassificationInferenceOptions {
 
 	s.v.Tokenization = tokenization.TokenizationConfigContainerCaster()

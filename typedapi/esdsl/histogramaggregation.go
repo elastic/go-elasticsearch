@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,7 +35,6 @@ func NewHistogramAggregation() *_histogramAggregation {
 
 }
 
-// Enables extending the bounds of the histogram beyond the data itself.
 func (s *_histogramAggregation) ExtendedBounds(extendedbounds types.ExtendedBoundsdoubleVariant) *_histogramAggregation {
 
 	s.v.ExtendedBounds = extendedbounds.ExtendedBoundsdoubleCaster()
@@ -43,7 +42,6 @@ func (s *_histogramAggregation) ExtendedBounds(extendedbounds types.ExtendedBoun
 	return s
 }
 
-// The name of the field to aggregate on.
 func (s *_histogramAggregation) Field(field string) *_histogramAggregation {
 
 	s.v.Field = &field
@@ -58,9 +56,6 @@ func (s *_histogramAggregation) Format(format string) *_histogramAggregation {
 	return s
 }
 
-// Limits the range of buckets in the histogram.
-// It is particularly useful in the case of open data ranges that can result in
-// a very large number of buckets.
 func (s *_histogramAggregation) HardBounds(hardbounds types.ExtendedBoundsdoubleVariant) *_histogramAggregation {
 
 	s.v.HardBounds = hardbounds.ExtendedBoundsdoubleCaster()
@@ -68,8 +63,6 @@ func (s *_histogramAggregation) HardBounds(hardbounds types.ExtendedBoundsdouble
 	return s
 }
 
-// The interval for the buckets.
-// Must be a positive decimal.
 func (s *_histogramAggregation) Interval(interval types.Float64) *_histogramAggregation {
 
 	s.v.Interval = &interval
@@ -77,8 +70,6 @@ func (s *_histogramAggregation) Interval(interval types.Float64) *_histogramAggr
 	return s
 }
 
-// If `true`, returns buckets as a hash instead of an array, keyed by the bucket
-// keys.
 func (s *_histogramAggregation) Keyed(keyed bool) *_histogramAggregation {
 
 	s.v.Keyed = &keyed
@@ -86,8 +77,6 @@ func (s *_histogramAggregation) Keyed(keyed bool) *_histogramAggregation {
 	return s
 }
 
-// Only returns buckets that have `min_doc_count` number of documents.
-// By default, the response will fill gaps in the histogram with empty buckets.
 func (s *_histogramAggregation) MinDocCount(mindoccount int) *_histogramAggregation {
 
 	s.v.MinDocCount = &mindoccount
@@ -95,8 +84,6 @@ func (s *_histogramAggregation) MinDocCount(mindoccount int) *_histogramAggregat
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_histogramAggregation) Missing(missing types.Float64) *_histogramAggregation {
 
 	s.v.Missing = &missing
@@ -104,9 +91,6 @@ func (s *_histogramAggregation) Missing(missing types.Float64) *_histogramAggreg
 	return s
 }
 
-// By default, the bucket keys start with 0 and then continue in even spaced
-// steps of `interval`.
-// The bucket boundaries can be shifted by using the `offset` option.
 func (s *_histogramAggregation) Offset(offset types.Float64) *_histogramAggregation {
 
 	s.v.Offset = &offset
@@ -114,8 +98,6 @@ func (s *_histogramAggregation) Offset(offset types.Float64) *_histogramAggregat
 	return s
 }
 
-// The sort order of the returned buckets.
-// By default, the returned buckets are sorted by their key ascending.
 func (s *_histogramAggregation) Order(aggregateorder types.AggregateOrderVariant) *_histogramAggregation {
 
 	s.v.Order = *aggregateorder.AggregateOrderCaster()

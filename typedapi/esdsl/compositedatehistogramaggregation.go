@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,7 +37,6 @@ func NewCompositeDateHistogramAggregation() *_compositeDateHistogramAggregation 
 
 }
 
-// Either `calendar_interval` or `fixed_interval` must be present
 func (s *_compositeDateHistogramAggregation) CalendarInterval(durationlarge string) *_compositeDateHistogramAggregation {
 
 	s.v.CalendarInterval = &durationlarge
@@ -45,7 +44,6 @@ func (s *_compositeDateHistogramAggregation) CalendarInterval(durationlarge stri
 	return s
 }
 
-// Either `field` or `script` must be present
 func (s *_compositeDateHistogramAggregation) Field(field string) *_compositeDateHistogramAggregation {
 
 	s.v.Field = &field
@@ -53,7 +51,6 @@ func (s *_compositeDateHistogramAggregation) Field(field string) *_compositeDate
 	return s
 }
 
-// Either `calendar_interval` or `fixed_interval` must be present
 func (s *_compositeDateHistogramAggregation) FixedInterval(durationlarge string) *_compositeDateHistogramAggregation {
 
 	s.v.FixedInterval = &durationlarge
@@ -94,7 +91,6 @@ func (s *_compositeDateHistogramAggregation) Order(order sortorder.SortOrder) *_
 	return s
 }
 
-// Either `field` or `script` must be present
 func (s *_compositeDateHistogramAggregation) Script(script types.ScriptVariant) *_compositeDateHistogramAggregation {
 
 	s.v.Script = script.ScriptCaster()

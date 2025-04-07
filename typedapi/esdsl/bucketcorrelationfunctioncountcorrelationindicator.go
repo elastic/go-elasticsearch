@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,11 +36,6 @@ func NewBucketCorrelationFunctionCountCorrelationIndicator(doccount int) *_bucke
 
 }
 
-// The total number of documents that initially created the expectations. It’s
-// required to be greater
-// than or equal to the sum of all values in the buckets_path as this is the
-// originating superset of data
-// to which the term values are correlated.
 func (s *_bucketCorrelationFunctionCountCorrelationIndicator) DocCount(doccount int) *_bucketCorrelationFunctionCountCorrelationIndicator {
 
 	s.v.DocCount = doccount
@@ -48,10 +43,6 @@ func (s *_bucketCorrelationFunctionCountCorrelationIndicator) DocCount(doccount 
 	return s
 }
 
-// An array of numbers with which to correlate the configured `bucket_path`
-// values.
-// The length of this value must always equal the number of buckets returned by
-// the `bucket_path`.
 func (s *_bucketCorrelationFunctionCountCorrelationIndicator) Expectations(expectations ...types.Float64) *_bucketCorrelationFunctionCountCorrelationIndicator {
 
 	for _, v := range expectations {
@@ -62,11 +53,6 @@ func (s *_bucketCorrelationFunctionCountCorrelationIndicator) Expectations(expec
 	return s
 }
 
-// An array of fractions to use when averaging and calculating variance. This
-// should be used if
-// the pre-calculated data and the buckets_path have known gaps. The length of
-// fractions, if provided,
-// must equal expectations.
 func (s *_bucketCorrelationFunctionCountCorrelationIndicator) Fractions(fractions ...types.Float64) *_bucketCorrelationFunctionCountCorrelationIndicator {
 
 	for _, v := range fractions {

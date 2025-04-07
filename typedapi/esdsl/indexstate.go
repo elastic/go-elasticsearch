@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -60,7 +60,6 @@ func (s *_indexState) DataStream(datastreamname string) *_indexState {
 	return s
 }
 
-// Default settings, included when the request's `include_default` is `true`.
 func (s *_indexState) Defaults(defaults types.IndexSettingsVariant) *_indexState {
 
 	s.v.Defaults = defaults.IndexSettingsCaster()
@@ -68,7 +67,6 @@ func (s *_indexState) Defaults(defaults types.IndexSettingsVariant) *_indexState
 	return s
 }
 
-// Data stream lifecycle applicable if this is a data stream.
 func (s *_indexState) Lifecycle(lifecycle types.DataStreamLifecycleVariant) *_indexState {
 
 	s.v.Lifecycle = lifecycle.DataStreamLifecycleCaster()

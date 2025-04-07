@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,11 +32,6 @@ func NewTransformDestination() *_transformDestination {
 
 }
 
-// The destination index for the transform. The mappings of the destination
-// index are deduced based on the source
-// fields when possible. If alternate mappings are required, use the create
-// index API prior to starting the
-// transform.
 func (s *_transformDestination) Index(indexname string) *_transformDestination {
 
 	s.v.Index = &indexname
@@ -44,7 +39,6 @@ func (s *_transformDestination) Index(indexname string) *_transformDestination {
 	return s
 }
 
-// The unique identifier for an ingest pipeline.
 func (s *_transformDestination) Pipeline(pipeline string) *_transformDestination {
 
 	s.v.Pipeline = &pipeline

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,8 +39,6 @@ func NewScriptProcessor() *_scriptProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_scriptProcessor) Description(description string) *_scriptProcessor {
 
 	s.v.Description = &description
@@ -48,8 +46,6 @@ func (s *_scriptProcessor) Description(description string) *_scriptProcessor {
 	return s
 }
 
-// ID of a stored script.
-// If no `source` is specified, this parameter is required.
 func (s *_scriptProcessor) Id(id string) *_scriptProcessor {
 
 	s.v.Id = &id
@@ -57,7 +53,6 @@ func (s *_scriptProcessor) Id(id string) *_scriptProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_scriptProcessor) If(if_ types.ScriptVariant) *_scriptProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -65,7 +60,6 @@ func (s *_scriptProcessor) If(if_ types.ScriptVariant) *_scriptProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_scriptProcessor) IgnoreFailure(ignorefailure bool) *_scriptProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -73,14 +67,12 @@ func (s *_scriptProcessor) IgnoreFailure(ignorefailure bool) *_scriptProcessor {
 	return s
 }
 
-// Script language.
 func (s *_scriptProcessor) Lang(lang scriptlanguage.ScriptLanguage) *_scriptProcessor {
 
 	s.v.Lang = &lang
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_scriptProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_scriptProcessor {
 
 	for _, v := range onfailures {
@@ -91,7 +83,6 @@ func (s *_scriptProcessor) OnFailure(onfailures ...types.ProcessorContainerVaria
 	return s
 }
 
-// Object containing parameters for the script.
 func (s *_scriptProcessor) Params(params map[string]json.RawMessage) *_scriptProcessor {
 
 	s.v.Params = params
@@ -113,8 +104,6 @@ func (s *_scriptProcessor) AddParam(key string, value json.RawMessage) *_scriptP
 	return s
 }
 
-// Inline script.
-// If no `id` is specified, this parameter is required.
 func (s *_scriptProcessor) Source(scriptsource types.ScriptSourceVariant) *_scriptProcessor {
 
 	s.v.Source = *scriptsource.ScriptSourceCaster()
@@ -122,8 +111,6 @@ func (s *_scriptProcessor) Source(scriptsource types.ScriptSourceVariant) *_scri
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_scriptProcessor) Tag(tag string) *_scriptProcessor {
 
 	s.v.Tag = &tag

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,8 +36,6 @@ func NewRegisteredDomainProcessor() *_registeredDomainProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_registeredDomainProcessor) Description(description string) *_registeredDomainProcessor {
 
 	s.v.Description = &description
@@ -45,7 +43,6 @@ func (s *_registeredDomainProcessor) Description(description string) *_registere
 	return s
 }
 
-// Field containing the source FQDN.
 func (s *_registeredDomainProcessor) Field(field string) *_registeredDomainProcessor {
 
 	s.v.Field = field
@@ -53,7 +50,6 @@ func (s *_registeredDomainProcessor) Field(field string) *_registeredDomainProce
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_registeredDomainProcessor) If(if_ types.ScriptVariant) *_registeredDomainProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -61,7 +57,6 @@ func (s *_registeredDomainProcessor) If(if_ types.ScriptVariant) *_registeredDom
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_registeredDomainProcessor) IgnoreFailure(ignorefailure bool) *_registeredDomainProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -69,8 +64,6 @@ func (s *_registeredDomainProcessor) IgnoreFailure(ignorefailure bool) *_registe
 	return s
 }
 
-// If true and any required fields are missing, the processor quietly exits
-// without modifying the document.
 func (s *_registeredDomainProcessor) IgnoreMissing(ignoremissing bool) *_registeredDomainProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -78,7 +71,6 @@ func (s *_registeredDomainProcessor) IgnoreMissing(ignoremissing bool) *_registe
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_registeredDomainProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_registeredDomainProcessor {
 
 	for _, v := range onfailures {
@@ -89,8 +81,6 @@ func (s *_registeredDomainProcessor) OnFailure(onfailures ...types.ProcessorCont
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_registeredDomainProcessor) Tag(tag string) *_registeredDomainProcessor {
 
 	s.v.Tag = &tag
@@ -98,8 +88,6 @@ func (s *_registeredDomainProcessor) Tag(tag string) *_registeredDomainProcessor
 	return s
 }
 
-// Object field containing extracted domain components. If an empty string,
-// the processor adds components to the document’s root.
 func (s *_registeredDomainProcessor) TargetField(field string) *_registeredDomainProcessor {
 
 	s.v.TargetField = &field

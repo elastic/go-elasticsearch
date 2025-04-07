@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package health
 
@@ -27,15 +27,18 @@ import (
 
 // Response holds the response body struct for the package health
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/cluster/health/ClusterHealthResponse.ts#L26-L38
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/cluster/health/ClusterHealthResponse.ts#L26-L38
 type Response struct {
 
 	// ActivePrimaryShards The number of active primary shards.
 	ActivePrimaryShards int `json:"active_primary_shards"`
 	// ActiveShards The total number of active primary and replica shards.
 	ActiveShards int `json:"active_shards"`
+	// ActiveShardsPercent The ratio of active shards in the cluster expressed as a string formatted
+	// percentage.
+	ActiveShardsPercent *string `json:"active_shards_percent,omitempty"`
 	// ActiveShardsPercentAsNumber The ratio of active shards in the cluster expressed as a percentage.
-	ActiveShardsPercentAsNumber types.Percentage `json:"active_shards_percent_as_number"`
+	ActiveShardsPercentAsNumber types.Float64 `json:"active_shards_percent_as_number"`
 	// ClusterName The name of the cluster.
 	ClusterName string `json:"cluster_name"`
 	// DelayedUnassignedShards The number of shards whose allocation has been delayed by the timeout

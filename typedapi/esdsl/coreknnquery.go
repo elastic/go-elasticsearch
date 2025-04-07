@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewCoreKnnQuery(k int, numcandidates int) *_coreKnnQuery {
 
 }
 
-// The name of the vector field to search against
 func (s *_coreKnnQuery) Field(field string) *_coreKnnQuery {
 
 	s.v.Field = field
@@ -46,7 +45,6 @@ func (s *_coreKnnQuery) Field(field string) *_coreKnnQuery {
 	return s
 }
 
-// The final number of nearest neighbors to return as top hits
 func (s *_coreKnnQuery) K(k int) *_coreKnnQuery {
 
 	s.v.K = k
@@ -54,7 +52,6 @@ func (s *_coreKnnQuery) K(k int) *_coreKnnQuery {
 	return s
 }
 
-// The number of nearest neighbor candidates to consider per shard
 func (s *_coreKnnQuery) NumCandidates(numcandidates int) *_coreKnnQuery {
 
 	s.v.NumCandidates = numcandidates
@@ -62,7 +59,6 @@ func (s *_coreKnnQuery) NumCandidates(numcandidates int) *_coreKnnQuery {
 	return s
 }
 
-// The query vector
 func (s *_coreKnnQuery) QueryVector(queryvectors ...float32) *_coreKnnQuery {
 
 	s.v.QueryVector = queryvectors

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,8 +36,6 @@ func NewDotExpanderProcessor() *_dotExpanderProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_dotExpanderProcessor) Description(description string) *_dotExpanderProcessor {
 
 	s.v.Description = &description
@@ -45,8 +43,6 @@ func (s *_dotExpanderProcessor) Description(description string) *_dotExpanderPro
 	return s
 }
 
-// The field to expand into an object field.
-// If set to `*`, all top-level fields will be expanded.
 func (s *_dotExpanderProcessor) Field(field string) *_dotExpanderProcessor {
 
 	s.v.Field = field
@@ -54,7 +50,6 @@ func (s *_dotExpanderProcessor) Field(field string) *_dotExpanderProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_dotExpanderProcessor) If(if_ types.ScriptVariant) *_dotExpanderProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -62,7 +57,6 @@ func (s *_dotExpanderProcessor) If(if_ types.ScriptVariant) *_dotExpanderProcess
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_dotExpanderProcessor) IgnoreFailure(ignorefailure bool) *_dotExpanderProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -70,7 +64,6 @@ func (s *_dotExpanderProcessor) IgnoreFailure(ignorefailure bool) *_dotExpanderP
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_dotExpanderProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_dotExpanderProcessor {
 
 	for _, v := range onfailures {
@@ -81,12 +74,6 @@ func (s *_dotExpanderProcessor) OnFailure(onfailures ...types.ProcessorContainer
 	return s
 }
 
-// Controls the behavior when there is already an existing nested object that
-// conflicts with the expanded field.
-// When `false`, the processor will merge conflicts by combining the old and the
-// new values into an array.
-// When `true`, the value from the expanded field will overwrite the existing
-// value.
 func (s *_dotExpanderProcessor) Override(override bool) *_dotExpanderProcessor {
 
 	s.v.Override = &override
@@ -94,9 +81,6 @@ func (s *_dotExpanderProcessor) Override(override bool) *_dotExpanderProcessor {
 	return s
 }
 
-// The field that contains the field to expand.
-// Only required if the field to expand is part another object field, because
-// the `field` option can only understand leaf fields.
 func (s *_dotExpanderProcessor) Path(path string) *_dotExpanderProcessor {
 
 	s.v.Path = &path
@@ -104,8 +88,6 @@ func (s *_dotExpanderProcessor) Path(path string) *_dotExpanderProcessor {
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_dotExpanderProcessor) Tag(tag string) *_dotExpanderProcessor {
 
 	s.v.Tag = &tag

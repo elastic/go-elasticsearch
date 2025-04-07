@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,7 +35,6 @@ func NewFilterRef() *_filterRef {
 
 }
 
-// The identifier for the filter.
 func (s *_filterRef) FilterId(id string) *_filterRef {
 
 	s.v.FilterId = id
@@ -43,8 +42,6 @@ func (s *_filterRef) FilterId(id string) *_filterRef {
 	return s
 }
 
-// If set to `include`, the rule applies for values in the filter. If set to
-// `exclude`, the rule applies for values not in the filter.
 func (s *_filterRef) FilterType(filtertype filtertype.FilterType) *_filterRef {
 
 	s.v.FilterType = &filtertype

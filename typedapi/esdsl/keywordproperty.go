@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -113,7 +113,6 @@ func (s *_keywordProperty) IndexOptions(indexoptions indexoptions.IndexOptions) 
 	return s
 }
 
-// Metadata about the field.
 func (s *_keywordProperty) Meta(meta map[string]string) *_keywordProperty {
 
 	s.v.Meta = meta
@@ -217,8 +216,6 @@ func (s *_keywordProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsour
 	return s
 }
 
-// For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
 func (s *_keywordProperty) TimeSeriesDimension(timeseriesdimension bool) *_keywordProperty {
 
 	s.v.TimeSeriesDimension = &timeseriesdimension

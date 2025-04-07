@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 // Clone a snapshot.
 // Clone part of all of a snapshot into another snapshot in the same repository.
@@ -210,12 +210,12 @@ func (r *Clone) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.raw != nil {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
 		}
 	}
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {
@@ -363,16 +363,6 @@ func (r *Clone) _targetsnapshot(targetsnapshot string) *Clone {
 // API name: master_timeout
 func (r *Clone) MasterTimeout(duration string) *Clone {
 	r.values.Set("master_timeout", duration)
-
-	return r
-}
-
-// Timeout The period of time to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
-// API name: timeout
-func (r *Clone) Timeout(duration string) *Clone {
-	r.values.Set("timeout", duration)
 
 	return r
 }

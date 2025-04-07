@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,8 +32,6 @@ func NewAmazonBedrockTaskSettings() *_amazonBedrockTaskSettings {
 
 }
 
-// For a `completion` task, it sets the maximum number for the output tokens to
-// be generated.
 func (s *_amazonBedrockTaskSettings) MaxNewTokens(maxnewtokens int) *_amazonBedrockTaskSettings {
 
 	s.v.MaxNewTokens = &maxnewtokens
@@ -41,11 +39,6 @@ func (s *_amazonBedrockTaskSettings) MaxNewTokens(maxnewtokens int) *_amazonBedr
 	return s
 }
 
-// For a `completion` task, it is a number between 0.0 and 1.0 that controls the
-// apparent creativity of the results.
-// At temperature 0.0 the model is most deterministic, at temperature 1.0 most
-// random.
-// It should not be used if `top_p` or `top_k` is specified.
 func (s *_amazonBedrockTaskSettings) Temperature(temperature float32) *_amazonBedrockTaskSettings {
 
 	s.v.Temperature = &temperature
@@ -53,11 +46,6 @@ func (s *_amazonBedrockTaskSettings) Temperature(temperature float32) *_amazonBe
 	return s
 }
 
-// For a `completion` task, it limits samples to the top-K most likely words,
-// balancing coherence and variability.
-// It is only available for anthropic, cohere, and mistral providers.
-// It is an alternative to `temperature`; it should not be used if `temperature`
-// is specified.
 func (s *_amazonBedrockTaskSettings) TopK(topk float32) *_amazonBedrockTaskSettings {
 
 	s.v.TopK = &topk
@@ -65,12 +53,6 @@ func (s *_amazonBedrockTaskSettings) TopK(topk float32) *_amazonBedrockTaskSetti
 	return s
 }
 
-// For a `completion` task, it is a number in the range of 0.0 to 1.0, to
-// eliminate low-probability tokens.
-// Top-p uses nucleus sampling to select top tokens whose sum of likelihoods
-// does not exceed a certain value, ensuring both variety and coherence.
-// It is an alternative to `temperature`; it should not be used if `temperature`
-// is specified.
 func (s *_amazonBedrockTaskSettings) TopP(topp float32) *_amazonBedrockTaskSettings {
 
 	s.v.TopP = &topp

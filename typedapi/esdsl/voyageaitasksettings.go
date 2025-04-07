@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,10 +32,6 @@ func NewVoyageAITaskSettings() *_voyageAITaskSettings {
 
 }
 
-// Type of the input text.
-// Permitted values: `ingest` (maps to `document` in the VoyageAI
-// documentation), `search` (maps to `query` in the VoyageAI documentation).
-// Only for the `text_embedding` task type.
 func (s *_voyageAITaskSettings) InputType(inputtype string) *_voyageAITaskSettings {
 
 	s.v.InputType = &inputtype
@@ -43,8 +39,6 @@ func (s *_voyageAITaskSettings) InputType(inputtype string) *_voyageAITaskSettin
 	return s
 }
 
-// Whether to return the source documents in the response.
-// Only for the `rerank` task type.
 func (s *_voyageAITaskSettings) ReturnDocuments(returndocuments bool) *_voyageAITaskSettings {
 
 	s.v.ReturnDocuments = &returndocuments
@@ -52,9 +46,6 @@ func (s *_voyageAITaskSettings) ReturnDocuments(returndocuments bool) *_voyageAI
 	return s
 }
 
-// The number of most relevant documents to return.
-// If not specified, the reranking results of all documents will be returned.
-// Only for the `rerank` task type.
 func (s *_voyageAITaskSettings) TopK(topk int) *_voyageAITaskSettings {
 
 	s.v.TopK = &topk
@@ -62,7 +53,6 @@ func (s *_voyageAITaskSettings) TopK(topk int) *_voyageAITaskSettings {
 	return s
 }
 
-// Whether to truncate the input texts to fit within the context length.
 func (s *_voyageAITaskSettings) Truncation(truncation bool) *_voyageAITaskSettings {
 
 	s.v.Truncation = &truncation

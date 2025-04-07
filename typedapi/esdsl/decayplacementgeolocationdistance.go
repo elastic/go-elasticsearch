@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewDecayPlacementGeoLocationDistance() *_decayPlacementGeoLocationDistance 
 
 }
 
-// Defines how documents are scored at the distance given at scale.
 func (s *_decayPlacementGeoLocationDistance) Decay(decay types.Float64) *_decayPlacementGeoLocationDistance {
 
 	s.v.Decay = &decay
@@ -40,8 +39,6 @@ func (s *_decayPlacementGeoLocationDistance) Decay(decay types.Float64) *_decayP
 	return s
 }
 
-// If defined, the decay function will only compute the decay function for
-// documents with a distance greater than the defined `offset`.
 func (s *_decayPlacementGeoLocationDistance) Offset(distance string) *_decayPlacementGeoLocationDistance {
 
 	s.v.Offset = &distance
@@ -49,8 +46,6 @@ func (s *_decayPlacementGeoLocationDistance) Offset(distance string) *_decayPlac
 	return s
 }
 
-// The point of origin used for calculating distance. Must be given as a number
-// for numeric field, date for date fields and geo point for geo fields.
 func (s *_decayPlacementGeoLocationDistance) Origin(geolocation types.GeoLocationVariant) *_decayPlacementGeoLocationDistance {
 
 	s.v.Origin = *geolocation.GeoLocationCaster()
@@ -58,8 +53,6 @@ func (s *_decayPlacementGeoLocationDistance) Origin(geolocation types.GeoLocatio
 	return s
 }
 
-// Defines the distance from origin + offset at which the computed score will
-// equal `decay` parameter.
 func (s *_decayPlacementGeoLocationDistance) Scale(distance string) *_decayPlacementGeoLocationDistance {
 
 	s.v.Scale = &distance

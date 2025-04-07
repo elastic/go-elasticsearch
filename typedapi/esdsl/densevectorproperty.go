@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,9 +38,6 @@ func NewDenseVectorProperty() *_denseVectorProperty {
 
 }
 
-// Number of vector dimensions. Can't exceed `4096`. If `dims` is not specified,
-// it will be set to the length of
-// the first vector added to the field.
 func (s *_denseVectorProperty) Dims(dims int) *_denseVectorProperty {
 
 	s.v.Dims = &dims
@@ -54,8 +51,6 @@ func (s *_denseVectorProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_
 	return s
 }
 
-// The data type used to encode vectors. The supported data types are `float`
-// (default), `byte`, and `bit`.
 func (s *_denseVectorProperty) ElementType(elementtype densevectorelementtype.DenseVectorElementType) *_denseVectorProperty {
 
 	s.v.ElementType = &elementtype
@@ -90,7 +85,6 @@ func (s *_denseVectorProperty) IgnoreAbove(ignoreabove int) *_denseVectorPropert
 	return s
 }
 
-// If `true`, you can search this field using the kNN search API.
 func (s *_denseVectorProperty) Index(index bool) *_denseVectorProperty {
 
 	s.v.Index = &index
@@ -98,13 +92,6 @@ func (s *_denseVectorProperty) Index(index bool) *_denseVectorProperty {
 	return s
 }
 
-// An optional section that configures the kNN indexing algorithm. The HNSW
-// algorithm has two internal parameters
-// that influence how the data structure is built. These can be adjusted to
-// improve the accuracy of results, at the
-// expense of slower indexing speed.
-//
-// This parameter can only be specified when `index` is `true`.
 func (s *_denseVectorProperty) IndexOptions(indexoptions types.DenseVectorIndexOptionsVariant) *_denseVectorProperty {
 
 	s.v.IndexOptions = indexoptions.DenseVectorIndexOptionsCaster()
@@ -112,7 +99,6 @@ func (s *_denseVectorProperty) IndexOptions(indexoptions types.DenseVectorIndexO
 	return s
 }
 
-// Metadata about the field.
 func (s *_denseVectorProperty) Meta(meta map[string]string) *_denseVectorProperty {
 
 	s.v.Meta = meta
@@ -155,20 +141,6 @@ func (s *_denseVectorProperty) AddProperty(key string, value types.PropertyVaria
 	return s
 }
 
-// The vector similarity metric to use in kNN search.
-//
-// Documents are ranked by their vector field's similarity to the query vector.
-// The `_score` of each document will
-// be derived from the similarity, in a way that ensures scores are positive and
-// that a larger score corresponds
-// to a higher ranking.
-//
-// Defaults to `l2_norm` when `element_type` is `bit` otherwise defaults to
-// `cosine`.
-//
-// `bit` vectors only support `l2_norm` as their similarity metric.
-//
-// This parameter can only be specified when `index` is `true`.
 func (s *_denseVectorProperty) Similarity(similarity densevectorsimilarity.DenseVectorSimilarity) *_denseVectorProperty {
 
 	s.v.Similarity = &similarity

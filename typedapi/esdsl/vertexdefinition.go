@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewVertexDefinition() *_vertexDefinition {
 
 }
 
-// Prevents the specified terms from being included in the results.
 func (s *_vertexDefinition) Exclude(excludes ...string) *_vertexDefinition {
 
 	for _, v := range excludes {
@@ -43,7 +42,6 @@ func (s *_vertexDefinition) Exclude(excludes ...string) *_vertexDefinition {
 	return s
 }
 
-// Identifies a field in the documents of interest.
 func (s *_vertexDefinition) Field(field string) *_vertexDefinition {
 
 	s.v.Field = field
@@ -51,8 +49,6 @@ func (s *_vertexDefinition) Field(field string) *_vertexDefinition {
 	return s
 }
 
-// Identifies the terms of interest that form the starting points from which you
-// want to spider out.
 func (s *_vertexDefinition) Include(includes ...types.VertexIncludeVariant) *_vertexDefinition {
 
 	for _, v := range includes {
@@ -63,9 +59,6 @@ func (s *_vertexDefinition) Include(includes ...types.VertexIncludeVariant) *_ve
 	return s
 }
 
-// Specifies how many documents must contain a pair of terms before it is
-// considered to be a useful connection.
-// This setting acts as a certainty threshold.
 func (s *_vertexDefinition) MinDocCount(mindoccount int64) *_vertexDefinition {
 
 	s.v.MinDocCount = &mindoccount
@@ -73,8 +66,6 @@ func (s *_vertexDefinition) MinDocCount(mindoccount int64) *_vertexDefinition {
 	return s
 }
 
-// Controls how many documents on a particular shard have to contain a pair of
-// terms before the connection is returned for global consideration.
 func (s *_vertexDefinition) ShardMinDocCount(shardmindoccount int64) *_vertexDefinition {
 
 	s.v.ShardMinDocCount = &shardmindoccount
@@ -82,7 +73,6 @@ func (s *_vertexDefinition) ShardMinDocCount(shardmindoccount int64) *_vertexDef
 	return s
 }
 
-// Specifies the maximum number of vertex terms returned for each field.
 func (s *_vertexDefinition) Size(size int) *_vertexDefinition {
 
 	s.v.Size = &size

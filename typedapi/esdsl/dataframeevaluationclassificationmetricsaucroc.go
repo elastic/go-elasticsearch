@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,10 +32,6 @@ func NewDataframeEvaluationClassificationMetricsAucRoc() *_dataframeEvaluationCl
 
 }
 
-// Name of the only class that is treated as positive during AUC ROC
-// calculation. Other classes are treated as negative ("one-vs-all" strategy).
-// All the evaluated documents must have class_name in the list of their top
-// classes.
 func (s *_dataframeEvaluationClassificationMetricsAucRoc) ClassName(name string) *_dataframeEvaluationClassificationMetricsAucRoc {
 
 	s.v.ClassName = &name
@@ -43,8 +39,6 @@ func (s *_dataframeEvaluationClassificationMetricsAucRoc) ClassName(name string)
 	return s
 }
 
-// Whether or not the curve should be returned in addition to the score. Default
-// value is false.
 func (s *_dataframeEvaluationClassificationMetricsAucRoc) IncludeCurve(includecurve bool) *_dataframeEvaluationClassificationMetricsAucRoc {
 
 	s.v.IncludeCurve = &includecurve

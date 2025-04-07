@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,8 +34,6 @@ func NewDataframeEvaluationRegression() *_dataframeEvaluationRegression {
 
 }
 
-// The field of the index which contains the ground truth. The data type of this
-// field must be numerical.
 func (s *_dataframeEvaluationRegression) ActualField(field string) *_dataframeEvaluationRegression {
 
 	s.v.ActualField = field
@@ -43,9 +41,6 @@ func (s *_dataframeEvaluationRegression) ActualField(field string) *_dataframeEv
 	return s
 }
 
-// Specifies the metrics that are used for the evaluation. For more information
-// on mse, msle, and huber, consult the Jupyter notebook on regression loss
-// functions.
 func (s *_dataframeEvaluationRegression) Metrics(metrics types.DataframeEvaluationRegressionMetricsVariant) *_dataframeEvaluationRegression {
 
 	s.v.Metrics = metrics.DataframeEvaluationRegressionMetricsCaster()
@@ -53,8 +48,6 @@ func (s *_dataframeEvaluationRegression) Metrics(metrics types.DataframeEvaluati
 	return s
 }
 
-// The field in the index that contains the predicted value, in other words the
-// results of the regression analysis.
 func (s *_dataframeEvaluationRegression) PredictedField(field string) *_dataframeEvaluationRegression {
 
 	s.v.PredictedField = field

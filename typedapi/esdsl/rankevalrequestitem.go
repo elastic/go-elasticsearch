@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,7 +36,6 @@ func NewRankEvalRequestItem() *_rankEvalRequestItem {
 
 }
 
-// The search request’s ID, used to group result details later.
 func (s *_rankEvalRequestItem) Id(id string) *_rankEvalRequestItem {
 
 	s.v.Id = id
@@ -44,7 +43,6 @@ func (s *_rankEvalRequestItem) Id(id string) *_rankEvalRequestItem {
 	return s
 }
 
-// The search template parameters.
 func (s *_rankEvalRequestItem) Params(params map[string]json.RawMessage) *_rankEvalRequestItem {
 
 	s.v.Params = params
@@ -66,7 +64,6 @@ func (s *_rankEvalRequestItem) AddParam(key string, value json.RawMessage) *_ran
 	return s
 }
 
-// List of document ratings
 func (s *_rankEvalRequestItem) Ratings(ratings ...types.DocumentRatingVariant) *_rankEvalRequestItem {
 
 	for _, v := range ratings {
@@ -77,7 +74,6 @@ func (s *_rankEvalRequestItem) Ratings(ratings ...types.DocumentRatingVariant) *
 	return s
 }
 
-// The query being evaluated.
 func (s *_rankEvalRequestItem) Request(request types.RankEvalQueryVariant) *_rankEvalRequestItem {
 
 	s.v.Request = request.RankEvalQueryCaster()
@@ -85,7 +81,6 @@ func (s *_rankEvalRequestItem) Request(request types.RankEvalQueryVariant) *_ran
 	return s
 }
 
-// The search template Id
 func (s *_rankEvalRequestItem) TemplateId(id string) *_rankEvalRequestItem {
 
 	s.v.TemplateId = &id

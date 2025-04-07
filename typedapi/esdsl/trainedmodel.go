@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewTrainedModel() *_trainedModel {
 
 }
 
-// The definition for an ensemble model
 func (s *_trainedModel) Ensemble(ensemble types.EnsembleVariant) *_trainedModel {
 
 	s.v.Ensemble = ensemble.EnsembleCaster()
@@ -40,7 +39,6 @@ func (s *_trainedModel) Ensemble(ensemble types.EnsembleVariant) *_trainedModel 
 	return s
 }
 
-// The definition for a binary decision tree.
 func (s *_trainedModel) Tree(tree types.TrainedModelTreeVariant) *_trainedModel {
 
 	s.v.Tree = tree.TrainedModelTreeCaster()
@@ -48,11 +46,6 @@ func (s *_trainedModel) Tree(tree types.TrainedModelTreeVariant) *_trainedModel 
 	return s
 }
 
-// The definition of a node in a tree.
-// There are two major types of nodes: leaf nodes and not-leaf nodes.
-// - Leaf nodes only need node_index and leaf_value defined.
-// - All other nodes need split_feature, left_child, right_child, threshold,
-// decision_type, and default_left defined.
 func (s *_trainedModel) TreeNode(treenode types.TrainedModelTreeNodeVariant) *_trainedModel {
 
 	s.v.TreeNode = treenode.TrainedModelTreeNodeCaster()

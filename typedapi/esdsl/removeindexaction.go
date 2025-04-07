@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,8 +34,6 @@ func NewRemoveIndexAction() *_removeIndexAction {
 
 }
 
-// Data stream or index for the action.
-// Supports wildcards (`*`).
 func (s *_removeIndexAction) Index(indexname string) *_removeIndexAction {
 
 	s.v.Index = &indexname
@@ -43,8 +41,6 @@ func (s *_removeIndexAction) Index(indexname string) *_removeIndexAction {
 	return s
 }
 
-// Data streams or indices for the action.
-// Supports wildcards (`*`).
 func (s *_removeIndexAction) Indices(indices ...string) *_removeIndexAction {
 
 	s.v.Indices = indices
@@ -52,7 +48,6 @@ func (s *_removeIndexAction) Indices(indices ...string) *_removeIndexAction {
 	return s
 }
 
-// If `true`, the alias must exist to perform the action.
 func (s *_removeIndexAction) MustExist(mustexist bool) *_removeIndexAction {
 
 	s.v.MustExist = &mustexist

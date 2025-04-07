@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewCompletionTool(function types.CompletionToolFunctionVariant, type_ strin
 
 }
 
-// The function definition.
 func (s *_completionTool) Function(function types.CompletionToolFunctionVariant) *_completionTool {
 
 	s.v.Function = *function.CompletionToolFunctionCaster()
@@ -46,7 +45,6 @@ func (s *_completionTool) Function(function types.CompletionToolFunctionVariant)
 	return s
 }
 
-// The type of tool.
 func (s *_completionTool) Type(type_ string) *_completionTool {
 
 	s.v.Type = type_

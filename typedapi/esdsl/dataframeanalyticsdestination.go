@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,8 +32,6 @@ func NewDataframeAnalyticsDestination() *_dataframeAnalyticsDestination {
 
 }
 
-// Defines the destination index to store the results of the data frame
-// analytics job.
 func (s *_dataframeAnalyticsDestination) Index(indexname string) *_dataframeAnalyticsDestination {
 
 	s.v.Index = indexname
@@ -41,8 +39,6 @@ func (s *_dataframeAnalyticsDestination) Index(indexname string) *_dataframeAnal
 	return s
 }
 
-// Defines the name of the field in which to store the results of the analysis.
-// Defaults to `ml`.
 func (s *_dataframeAnalyticsDestination) ResultsField(field string) *_dataframeAnalyticsDestination {
 
 	s.v.ResultsField = &field

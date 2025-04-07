@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,11 +37,6 @@ func NewDisMaxQuery() *_disMaxQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_disMaxQuery) Boost(boost float32) *_disMaxQuery {
 
 	s.v.Boost = &boost
@@ -49,10 +44,6 @@ func (s *_disMaxQuery) Boost(boost float32) *_disMaxQuery {
 	return s
 }
 
-// One or more query clauses.
-// Returned documents must match one or more of these queries.
-// If a document matches multiple queries, Elasticsearch uses the highest
-// relevance score.
 func (s *_disMaxQuery) Queries(queries ...types.QueryVariant) *_disMaxQuery {
 
 	for _, v := range queries {
@@ -70,8 +61,6 @@ func (s *_disMaxQuery) QueryName_(queryname_ string) *_disMaxQuery {
 	return s
 }
 
-// Floating point number between 0 and 1.0 used to increase the relevance scores
-// of documents matching multiple query clauses.
 func (s *_disMaxQuery) TieBreaker(tiebreaker types.Float64) *_disMaxQuery {
 
 	s.v.TieBreaker = &tiebreaker

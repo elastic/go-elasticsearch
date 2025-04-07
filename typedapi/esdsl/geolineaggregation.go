@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -41,8 +41,6 @@ func NewGeoLineAggregation(point types.GeoLinePointVariant, sort types.GeoLineSo
 
 }
 
-// When `true`, returns an additional array of the sort values in the feature
-// properties.
 func (s *_geoLineAggregation) IncludeSort(includesort bool) *_geoLineAggregation {
 
 	s.v.IncludeSort = &includesort
@@ -50,7 +48,6 @@ func (s *_geoLineAggregation) IncludeSort(includesort bool) *_geoLineAggregation
 	return s
 }
 
-// The name of the geo_point field.
 func (s *_geoLineAggregation) Point(point types.GeoLinePointVariant) *_geoLineAggregation {
 
 	s.v.Point = *point.GeoLinePointCaster()
@@ -58,8 +55,6 @@ func (s *_geoLineAggregation) Point(point types.GeoLinePointVariant) *_geoLineAg
 	return s
 }
 
-// The maximum length of the line represented in the aggregation.
-// Valid sizes are between 1 and 10000.
 func (s *_geoLineAggregation) Size(size int) *_geoLineAggregation {
 
 	s.v.Size = &size
@@ -67,10 +62,6 @@ func (s *_geoLineAggregation) Size(size int) *_geoLineAggregation {
 	return s
 }
 
-// The name of the numeric field to use as the sort key for ordering the points.
-// When the `geo_line` aggregation is nested inside a `time_series` aggregation,
-// this field defaults to `@timestamp`, and any other value will result in
-// error.
 func (s *_geoLineAggregation) Sort(sort types.GeoLineSortVariant) *_geoLineAggregation {
 
 	s.v.Sort = *sort.GeoLineSortCaster()
@@ -78,7 +69,6 @@ func (s *_geoLineAggregation) Sort(sort types.GeoLineSortVariant) *_geoLineAggre
 	return s
 }
 
-// The order in which the line is sorted (ascending or descending).
 func (s *_geoLineAggregation) SortOrder(sortorder sortorder.SortOrder) *_geoLineAggregation {
 
 	s.v.SortOrder = &sortorder

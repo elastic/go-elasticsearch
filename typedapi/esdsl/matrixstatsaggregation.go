@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewMatrixStatsAggregation() *_matrixStatsAggregation {
 
 }
 
-// An array of fields for computing the statistics.
 func (s *_matrixStatsAggregation) Fields(fields ...string) *_matrixStatsAggregation {
 
 	s.v.Fields = fields
@@ -46,8 +45,6 @@ func (s *_matrixStatsAggregation) Fields(fields ...string) *_matrixStatsAggregat
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_matrixStatsAggregation) Missing(missing map[string]types.Float64) *_matrixStatsAggregation {
 
 	s.v.Missing = missing
@@ -69,7 +66,6 @@ func (s *_matrixStatsAggregation) AddMissing(key string, value types.Float64) *_
 	return s
 }
 
-// Array value the aggregation will use for array or multi-valued fields.
 func (s *_matrixStatsAggregation) Mode(mode sortmode.SortMode) *_matrixStatsAggregation {
 
 	s.v.Mode = &mode

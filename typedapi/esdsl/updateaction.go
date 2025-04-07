@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,8 +36,6 @@ func NewUpdateAction() *_updateAction {
 
 }
 
-// If true, the `result` in the response is set to 'noop' when no changes to the
-// document occur.
 func (s *_updateAction) DetectNoop(detectnoop bool) *_updateAction {
 
 	s.v.DetectNoop = &detectnoop
@@ -45,7 +43,6 @@ func (s *_updateAction) DetectNoop(detectnoop bool) *_updateAction {
 	return s
 }
 
-// A partial update to an existing document.
 func (s *_updateAction) Doc(doc json.RawMessage) *_updateAction {
 
 	s.v.Doc = doc
@@ -53,7 +50,6 @@ func (s *_updateAction) Doc(doc json.RawMessage) *_updateAction {
 	return s
 }
 
-// Set to `true` to use the contents of `doc` as the value of `upsert`.
 func (s *_updateAction) DocAsUpsert(docasupsert bool) *_updateAction {
 
 	s.v.DocAsUpsert = &docasupsert
@@ -61,7 +57,6 @@ func (s *_updateAction) DocAsUpsert(docasupsert bool) *_updateAction {
 	return s
 }
 
-// The script to run to update the document.
 func (s *_updateAction) Script(script types.ScriptVariant) *_updateAction {
 
 	s.v.Script = script.ScriptCaster()
@@ -69,7 +64,6 @@ func (s *_updateAction) Script(script types.ScriptVariant) *_updateAction {
 	return s
 }
 
-// Set to `true` to run the script whether or not the document exists.
 func (s *_updateAction) ScriptedUpsert(scriptedupsert bool) *_updateAction {
 
 	s.v.ScriptedUpsert = &scriptedupsert
@@ -77,9 +71,6 @@ func (s *_updateAction) ScriptedUpsert(scriptedupsert bool) *_updateAction {
 	return s
 }
 
-// If `false`, source retrieval is turned off.
-// You can also specify a comma-separated list of the fields you want to
-// retrieve.
 func (s *_updateAction) Source_(sourceconfig types.SourceConfigVariant) *_updateAction {
 
 	s.v.Source_ = *sourceconfig.SourceConfigCaster()
@@ -87,9 +78,6 @@ func (s *_updateAction) Source_(sourceconfig types.SourceConfigVariant) *_update
 	return s
 }
 
-// If the document does not already exist, the contents of `upsert` are inserted
-// as a new document.
-// If the document exists, the `script` is run.
 func (s *_updateAction) Upsert(upsert json.RawMessage) *_updateAction {
 
 	s.v.Upsert = upsert

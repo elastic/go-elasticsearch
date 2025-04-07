@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,7 +36,6 @@ func NewDeleteOperation() *_deleteOperation {
 
 }
 
-// The document ID.
 func (s *_deleteOperation) Id_(id string) *_deleteOperation {
 
 	s.v.Id_ = &id
@@ -58,7 +57,6 @@ func (s *_deleteOperation) IfSeqNo(sequencenumber int64) *_deleteOperation {
 	return s
 }
 
-// The name of the index or index alias to perform the action on.
 func (s *_deleteOperation) Index_(indexname string) *_deleteOperation {
 
 	s.v.Index_ = &indexname
@@ -66,7 +64,6 @@ func (s *_deleteOperation) Index_(indexname string) *_deleteOperation {
 	return s
 }
 
-// A custom value used to route operations to a specific shard.
 func (s *_deleteOperation) Routing(routing string) *_deleteOperation {
 
 	s.v.Routing = &routing

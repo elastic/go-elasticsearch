@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,11 +32,6 @@ func NewIndicesIndexingPressureMemory() *_indicesIndexingPressureMemory {
 
 }
 
-// Number of outstanding bytes that may be consumed by indexing requests. When
-// this limit is reached or exceeded,
-// the node will reject new coordinating and primary operations. When replica
-// operations consume 1.5x this limit,
-// the node will reject new replica operations. Defaults to 10% of the heap.
 func (s *_indicesIndexingPressureMemory) Limit(limit int) *_indicesIndexingPressureMemory {
 
 	s.v.Limit = &limit

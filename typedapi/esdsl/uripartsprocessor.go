@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,8 +36,6 @@ func NewUriPartsProcessor() *_uriPartsProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_uriPartsProcessor) Description(description string) *_uriPartsProcessor {
 
 	s.v.Description = &description
@@ -45,7 +43,6 @@ func (s *_uriPartsProcessor) Description(description string) *_uriPartsProcessor
 	return s
 }
 
-// Field containing the URI string.
 func (s *_uriPartsProcessor) Field(field string) *_uriPartsProcessor {
 
 	s.v.Field = field
@@ -53,7 +50,6 @@ func (s *_uriPartsProcessor) Field(field string) *_uriPartsProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_uriPartsProcessor) If(if_ types.ScriptVariant) *_uriPartsProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -61,7 +57,6 @@ func (s *_uriPartsProcessor) If(if_ types.ScriptVariant) *_uriPartsProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_uriPartsProcessor) IgnoreFailure(ignorefailure bool) *_uriPartsProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -69,8 +64,6 @@ func (s *_uriPartsProcessor) IgnoreFailure(ignorefailure bool) *_uriPartsProcess
 	return s
 }
 
-// If `true` and `field` does not exist, the processor quietly exits without
-// modifying the document.
 func (s *_uriPartsProcessor) IgnoreMissing(ignoremissing bool) *_uriPartsProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -78,8 +71,6 @@ func (s *_uriPartsProcessor) IgnoreMissing(ignoremissing bool) *_uriPartsProcess
 	return s
 }
 
-// If `true`, the processor copies the unparsed URI to
-// `<target_field>.original`.
 func (s *_uriPartsProcessor) KeepOriginal(keeporiginal bool) *_uriPartsProcessor {
 
 	s.v.KeepOriginal = &keeporiginal
@@ -87,7 +78,6 @@ func (s *_uriPartsProcessor) KeepOriginal(keeporiginal bool) *_uriPartsProcessor
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_uriPartsProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_uriPartsProcessor {
 
 	for _, v := range onfailures {
@@ -98,8 +88,6 @@ func (s *_uriPartsProcessor) OnFailure(onfailures ...types.ProcessorContainerVar
 	return s
 }
 
-// If `true`, the processor removes the `field` after parsing the URI string.
-// If parsing fails, the processor does not remove the `field`.
 func (s *_uriPartsProcessor) RemoveIfSuccessful(removeifsuccessful bool) *_uriPartsProcessor {
 
 	s.v.RemoveIfSuccessful = &removeifsuccessful
@@ -107,8 +95,6 @@ func (s *_uriPartsProcessor) RemoveIfSuccessful(removeifsuccessful bool) *_uriPa
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_uriPartsProcessor) Tag(tag string) *_uriPartsProcessor {
 
 	s.v.Tag = &tag
@@ -116,7 +102,6 @@ func (s *_uriPartsProcessor) Tag(tag string) *_uriPartsProcessor {
 	return s
 }
 
-// Output field for the URI object.
 func (s *_uriPartsProcessor) TargetField(field string) *_uriPartsProcessor {
 
 	s.v.TargetField = &field

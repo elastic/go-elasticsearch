@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,24 +35,12 @@ func NewTranslog() *_translog {
 
 }
 
-// Whether or not to `fsync` and commit the translog after every index, delete,
-// update, or bulk request.
 func (s *_translog) Durability(durability translogdurability.TranslogDurability) *_translog {
 
 	s.v.Durability = &durability
 	return s
 }
 
-// The translog stores all operations that are not yet safely persisted in
-// Lucene (i.e., are not
-// part of a Lucene commit point). Although these operations are available for
-// reads, they will need
-// to be replayed if the shard was stopped and had to be recovered. This setting
-// controls the
-// maximum total size of these operations, to prevent recoveries from taking too
-// long. Once the
-// maximum size has been reached a flush will happen, generating a new Lucene
-// commit point.
 func (s *_translog) FlushThresholdSize(bytesize types.ByteSizeVariant) *_translog {
 
 	s.v.FlushThresholdSize = *bytesize.ByteSizeCaster()
@@ -67,9 +55,6 @@ func (s *_translog) Retention(retention types.TranslogRetentionVariant) *_transl
 	return s
 }
 
-// How often the translog is fsynced to disk and committed, regardless of write
-// operations.
-// Values less than 100ms are not allowed.
 func (s *_translog) SyncInterval(duration types.DurationVariant) *_translog {
 
 	s.v.SyncInterval = *duration.DurationCaster()

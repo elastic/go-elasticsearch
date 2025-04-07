@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -40,7 +40,6 @@ func NewPhraseSuggestCollate(query types.PhraseSuggestCollateQueryVariant) *_phr
 
 }
 
-// Parameters to use if the query is templated.
 func (s *_phraseSuggestCollate) Params(params map[string]json.RawMessage) *_phraseSuggestCollate {
 
 	s.v.Params = params
@@ -62,8 +61,6 @@ func (s *_phraseSuggestCollate) AddParam(key string, value json.RawMessage) *_ph
 	return s
 }
 
-// Returns all suggestions with an extra `collate_match` option indicating
-// whether the generated phrase matched any document.
 func (s *_phraseSuggestCollate) Prune(prune bool) *_phraseSuggestCollate {
 
 	s.v.Prune = &prune
@@ -71,7 +68,6 @@ func (s *_phraseSuggestCollate) Prune(prune bool) *_phraseSuggestCollate {
 	return s
 }
 
-// A collate query that is run once for every suggestion.
 func (s *_phraseSuggestCollate) Query(query types.PhraseSuggestCollateQueryVariant) *_phraseSuggestCollate {
 
 	s.v.Query = *query.PhraseSuggestCollateQueryCaster()

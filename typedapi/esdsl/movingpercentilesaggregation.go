@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,7 +37,6 @@ func NewMovingPercentilesAggregation() *_movingPercentilesAggregation {
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_movingPercentilesAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_movingPercentilesAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -45,9 +44,6 @@ func (s *_movingPercentilesAggregation) BucketsPath(bucketspath types.BucketsPat
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_movingPercentilesAggregation) Format(format string) *_movingPercentilesAggregation {
 
 	s.v.Format = &format
@@ -55,7 +51,6 @@ func (s *_movingPercentilesAggregation) Format(format string) *_movingPercentile
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_movingPercentilesAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_movingPercentilesAggregation {
 
 	s.v.GapPolicy = &gappolicy
@@ -69,10 +64,6 @@ func (s *_movingPercentilesAggregation) Keyed(keyed bool) *_movingPercentilesAgg
 	return s
 }
 
-// By default, the window consists of the last n values excluding the current
-// bucket.
-// Increasing `shift` by 1, moves the starting window position by 1 to the
-// right.
 func (s *_movingPercentilesAggregation) Shift(shift int) *_movingPercentilesAggregation {
 
 	s.v.Shift = &shift
@@ -80,7 +71,6 @@ func (s *_movingPercentilesAggregation) Shift(shift int) *_movingPercentilesAggr
 	return s
 }
 
-// The size of window to "slide" across the histogram.
 func (s *_movingPercentilesAggregation) Window(window int) *_movingPercentilesAggregation {
 
 	s.v.Window = &window

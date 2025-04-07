@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,14 +32,6 @@ func NewTransformSource() *_transformSource {
 
 }
 
-// The source indices for the transform. It can be a single index, an index
-// pattern (for example, `"my-index-*""`), an
-// array of indices (for example, `["my-index-000001", "my-index-000002"]`), or
-// an array of index patterns (for
-// example, `["my-index-*", "my-other-index-*"]`. For remote indices use the
-// syntax `"remote_name:index_name"`. If
-// any indices are in remote clusters then the master node and at least one
-// transform node must have the `remote_cluster_client` node role.
 func (s *_transformSource) Index(indices ...string) *_transformSource {
 
 	s.v.Index = indices
@@ -47,7 +39,6 @@ func (s *_transformSource) Index(indices ...string) *_transformSource {
 	return s
 }
 
-// A query clause that retrieves a subset of data from the source index.
 func (s *_transformSource) Query(query types.QueryVariant) *_transformSource {
 
 	s.v.Query = query.QueryCaster()
@@ -55,9 +46,6 @@ func (s *_transformSource) Query(query types.QueryVariant) *_transformSource {
 	return s
 }
 
-// Definitions of search-time runtime fields that can be used by the transform.
-// For search runtime fields all data
-// nodes, including remote nodes, must be 7.12 or later.
 func (s *_transformSource) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *_transformSource {
 
 	s.v.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()

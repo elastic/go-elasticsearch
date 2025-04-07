@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,7 +34,6 @@ func NewFrequentItemSetsAggregation() *_frequentItemSetsAggregation {
 
 }
 
-// Fields to analyze.
 func (s *_frequentItemSetsAggregation) Fields(fields ...types.FrequentItemSetsFieldVariant) *_frequentItemSetsAggregation {
 
 	for _, v := range fields {
@@ -45,7 +44,6 @@ func (s *_frequentItemSetsAggregation) Fields(fields ...types.FrequentItemSetsFi
 	return s
 }
 
-// Query that filters documents from analysis.
 func (s *_frequentItemSetsAggregation) Filter(filter types.QueryVariant) *_frequentItemSetsAggregation {
 
 	s.v.Filter = filter.QueryCaster()
@@ -53,7 +51,6 @@ func (s *_frequentItemSetsAggregation) Filter(filter types.QueryVariant) *_frequ
 	return s
 }
 
-// The minimum size of one item set.
 func (s *_frequentItemSetsAggregation) MinimumSetSize(minimumsetsize int) *_frequentItemSetsAggregation {
 
 	s.v.MinimumSetSize = &minimumsetsize
@@ -61,7 +58,6 @@ func (s *_frequentItemSetsAggregation) MinimumSetSize(minimumsetsize int) *_freq
 	return s
 }
 
-// The minimum support of one item set.
 func (s *_frequentItemSetsAggregation) MinimumSupport(minimumsupport types.Float64) *_frequentItemSetsAggregation {
 
 	s.v.MinimumSupport = &minimumsupport
@@ -69,7 +65,6 @@ func (s *_frequentItemSetsAggregation) MinimumSupport(minimumsupport types.Float
 	return s
 }
 
-// The number of top item sets to return.
 func (s *_frequentItemSetsAggregation) Size(size int) *_frequentItemSetsAggregation {
 
 	s.v.Size = &size

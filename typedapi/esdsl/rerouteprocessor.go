@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,20 +38,6 @@ func NewRerouteProcessor() *_rerouteProcessor {
 
 }
 
-// Field references or a static value for the dataset part of the data stream
-// name.
-// In addition to the criteria for index names, cannot contain - and must be no
-// longer than 100 characters.
-// Example values are nginx.access and nginx.error.
-//
-// Supports field references with a mustache-like syntax (denoted as {{double}}
-// or {{{triple}}} curly braces).
-// When resolving field references, the processor replaces invalid characters
-// with _. Uses the <dataset> part
-// of the index name as a fallback if all field references resolve to a null,
-// missing, or non-string value.
-//
-// default {{data_stream.dataset}}
 func (s *_rerouteProcessor) Dataset(datasets ...string) *_rerouteProcessor {
 
 	s.v.Dataset = make([]string, len(datasets))
@@ -60,8 +46,6 @@ func (s *_rerouteProcessor) Dataset(datasets ...string) *_rerouteProcessor {
 	return s
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_rerouteProcessor) Description(description string) *_rerouteProcessor {
 
 	s.v.Description = &description
@@ -69,8 +53,6 @@ func (s *_rerouteProcessor) Description(description string) *_rerouteProcessor {
 	return s
 }
 
-// A static value for the target. Can’t be set when the dataset or namespace
-// option is set.
 func (s *_rerouteProcessor) Destination(destination string) *_rerouteProcessor {
 
 	s.v.Destination = &destination
@@ -78,7 +60,6 @@ func (s *_rerouteProcessor) Destination(destination string) *_rerouteProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_rerouteProcessor) If(if_ types.ScriptVariant) *_rerouteProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -86,7 +67,6 @@ func (s *_rerouteProcessor) If(if_ types.ScriptVariant) *_rerouteProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_rerouteProcessor) IgnoreFailure(ignorefailure bool) *_rerouteProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -94,18 +74,6 @@ func (s *_rerouteProcessor) IgnoreFailure(ignorefailure bool) *_rerouteProcessor
 	return s
 }
 
-// Field references or a static value for the namespace part of the data stream
-// name. See the criteria for
-// index names for allowed characters. Must be no longer than 100 characters.
-//
-// Supports field references with a mustache-like syntax (denoted as {{double}}
-// or {{{triple}}} curly braces).
-// When resolving field references, the processor replaces invalid characters
-// with _. Uses the <namespace> part
-// of the index name as a fallback if all field references resolve to a null,
-// missing, or non-string value.
-//
-// default {{data_stream.namespace}}
 func (s *_rerouteProcessor) Namespace(namespaces ...string) *_rerouteProcessor {
 
 	s.v.Namespace = make([]string, len(namespaces))
@@ -114,7 +82,6 @@ func (s *_rerouteProcessor) Namespace(namespaces ...string) *_rerouteProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_rerouteProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_rerouteProcessor {
 
 	for _, v := range onfailures {
@@ -125,8 +92,6 @@ func (s *_rerouteProcessor) OnFailure(onfailures ...types.ProcessorContainerVari
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_rerouteProcessor) Tag(tag string) *_rerouteProcessor {
 
 	s.v.Tag = &tag

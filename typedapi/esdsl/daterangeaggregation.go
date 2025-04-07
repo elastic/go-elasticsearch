@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,7 +34,6 @@ func NewDateRangeAggregation() *_dateRangeAggregation {
 
 }
 
-// The date field whose values are use to build ranges.
 func (s *_dateRangeAggregation) Field(field string) *_dateRangeAggregation {
 
 	s.v.Field = &field
@@ -42,7 +41,6 @@ func (s *_dateRangeAggregation) Field(field string) *_dateRangeAggregation {
 	return s
 }
 
-// The date format used to format `from` and `to` in the response.
 func (s *_dateRangeAggregation) Format(format string) *_dateRangeAggregation {
 
 	s.v.Format = &format
@@ -50,8 +48,6 @@ func (s *_dateRangeAggregation) Format(format string) *_dateRangeAggregation {
 	return s
 }
 
-// Set to `true` to associate a unique string key with each bucket and returns
-// the ranges as a hash rather than an array.
 func (s *_dateRangeAggregation) Keyed(keyed bool) *_dateRangeAggregation {
 
 	s.v.Keyed = &keyed
@@ -59,8 +55,6 @@ func (s *_dateRangeAggregation) Keyed(keyed bool) *_dateRangeAggregation {
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_dateRangeAggregation) Missing(missing types.MissingVariant) *_dateRangeAggregation {
 
 	s.v.Missing = *missing.MissingCaster()
@@ -68,7 +62,6 @@ func (s *_dateRangeAggregation) Missing(missing types.MissingVariant) *_dateRang
 	return s
 }
 
-// Array of date ranges.
 func (s *_dateRangeAggregation) Ranges(ranges ...types.DateAggregationRangeVariant) *_dateRangeAggregation {
 
 	for _, v := range ranges {
@@ -79,7 +72,6 @@ func (s *_dateRangeAggregation) Ranges(ranges ...types.DateAggregationRangeVaria
 	return s
 }
 
-// Time zone used to convert dates from another time zone to UTC.
 func (s *_dateRangeAggregation) TimeZone(timezone string) *_dateRangeAggregation {
 
 	s.v.TimeZone = &timezone

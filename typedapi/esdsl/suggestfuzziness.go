@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewSuggestFuzziness() *_suggestFuzziness {
 
 }
 
-// The fuzziness factor.
 func (s *_suggestFuzziness) Fuzziness(fuzziness types.FuzzinessVariant) *_suggestFuzziness {
 
 	s.v.Fuzziness = *fuzziness.FuzzinessCaster()
@@ -40,7 +39,6 @@ func (s *_suggestFuzziness) Fuzziness(fuzziness types.FuzzinessVariant) *_sugges
 	return s
 }
 
-// Minimum length of the input before fuzzy suggestions are returned.
 func (s *_suggestFuzziness) MinLength(minlength int) *_suggestFuzziness {
 
 	s.v.MinLength = &minlength
@@ -48,7 +46,6 @@ func (s *_suggestFuzziness) MinLength(minlength int) *_suggestFuzziness {
 	return s
 }
 
-// Minimum length of the input, which is not checked for fuzzy alternatives.
 func (s *_suggestFuzziness) PrefixLength(prefixlength int) *_suggestFuzziness {
 
 	s.v.PrefixLength = &prefixlength
@@ -56,7 +53,6 @@ func (s *_suggestFuzziness) PrefixLength(prefixlength int) *_suggestFuzziness {
 	return s
 }
 
-// If set to `true`, transpositions are counted as one change instead of two.
 func (s *_suggestFuzziness) Transpositions(transpositions bool) *_suggestFuzziness {
 
 	s.v.Transpositions = &transpositions
@@ -64,9 +60,6 @@ func (s *_suggestFuzziness) Transpositions(transpositions bool) *_suggestFuzzine
 	return s
 }
 
-// If `true`, all measurements (like fuzzy edit distance, transpositions, and
-// lengths) are measured in Unicode code points instead of in bytes.
-// This is slightly slower than raw bytes.
 func (s *_suggestFuzziness) UnicodeAware(unicodeaware bool) *_suggestFuzziness {
 
 	s.v.UnicodeAware = &unicodeaware

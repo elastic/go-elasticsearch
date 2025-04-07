@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewPage() *_page {
 
 }
 
-// Skips the specified number of items.
 func (s *_page) From(from int) *_page {
 
 	s.v.From = &from
@@ -40,7 +39,6 @@ func (s *_page) From(from int) *_page {
 	return s
 }
 
-// Specifies the maximum number of items to obtain.
 func (s *_page) Size(size int) *_page {
 
 	s.v.Size = &size

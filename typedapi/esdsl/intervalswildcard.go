@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,8 +37,6 @@ func NewIntervalsWildcard(pattern string) *_intervalsWildcard {
 
 }
 
-// Analyzer used to analyze the `pattern`.
-// Defaults to the top-level field's analyzer.
 func (s *_intervalsWildcard) Analyzer(analyzer string) *_intervalsWildcard {
 
 	s.v.Analyzer = &analyzer
@@ -46,7 +44,6 @@ func (s *_intervalsWildcard) Analyzer(analyzer string) *_intervalsWildcard {
 	return s
 }
 
-// Wildcard pattern used to find matching terms.
 func (s *_intervalsWildcard) Pattern(pattern string) *_intervalsWildcard {
 
 	s.v.Pattern = pattern
@@ -54,10 +51,6 @@ func (s *_intervalsWildcard) Pattern(pattern string) *_intervalsWildcard {
 	return s
 }
 
-// If specified, match intervals from this field rather than the top-level
-// field.
-// The `pattern` is normalized using the search analyzer from this field, unless
-// `analyzer` is specified separately.
 func (s *_intervalsWildcard) UseField(field string) *_intervalsWildcard {
 
 	s.v.UseField = &field

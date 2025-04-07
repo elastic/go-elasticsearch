@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,7 +36,6 @@ func NewSearchRequestBody() *_searchRequestBody {
 
 }
 
-// Defines the aggregations that are run as part of the search request.
 func (s *_searchRequestBody) Aggregations(aggregations map[string]types.Aggregations) *_searchRequestBody {
 
 	s.v.Aggregations = aggregations
@@ -58,7 +57,6 @@ func (s *_searchRequestBody) AddAggregation(key string, value types.Aggregations
 	return s
 }
 
-// Collapses search results the values of the specified field.
 func (s *_searchRequestBody) Collapse(collapse types.FieldCollapseVariant) *_searchRequestBody {
 
 	s.v.Collapse = collapse.FieldCollapseCaster()
@@ -66,9 +64,6 @@ func (s *_searchRequestBody) Collapse(collapse types.FieldCollapseVariant) *_sea
 	return s
 }
 
-// An array of wildcard (`*`) field patterns.
-// The request returns doc values for field names matching these patterns in the
-// `hits.fields` property of the response.
 func (s *_searchRequestBody) DocvalueFields(docvaluefields ...types.FieldAndFormatVariant) *_searchRequestBody {
 
 	for _, v := range docvaluefields {
@@ -79,8 +74,6 @@ func (s *_searchRequestBody) DocvalueFields(docvaluefields ...types.FieldAndForm
 	return s
 }
 
-// If `true`, the request returns detailed information about score computation
-// as part of a hit.
 func (s *_searchRequestBody) Explain(explain bool) *_searchRequestBody {
 
 	s.v.Explain = &explain
@@ -88,7 +81,6 @@ func (s *_searchRequestBody) Explain(explain bool) *_searchRequestBody {
 	return s
 }
 
-// Configuration of search extensions defined by Elasticsearch plugins.
 func (s *_searchRequestBody) Ext(ext map[string]json.RawMessage) *_searchRequestBody {
 
 	s.v.Ext = ext
@@ -110,9 +102,6 @@ func (s *_searchRequestBody) AddExt(key string, value json.RawMessage) *_searchR
 	return s
 }
 
-// An array of wildcard (`*`) field patterns.
-// The request returns values for field names matching these patterns in the
-// `hits.fields` property of the response.
 func (s *_searchRequestBody) Fields(fields ...types.FieldAndFormatVariant) *_searchRequestBody {
 
 	for _, v := range fields {
@@ -123,10 +112,6 @@ func (s *_searchRequestBody) Fields(fields ...types.FieldAndFormatVariant) *_sea
 	return s
 }
 
-// The starting document offset, which must be non-negative.
-// By default, you cannot page through more than 10,000 hits using the `from`
-// and `size` parameters.
-// To page through more hits, use the `search_after` parameter.
 func (s *_searchRequestBody) From(from int) *_searchRequestBody {
 
 	s.v.From = &from
@@ -134,8 +119,6 @@ func (s *_searchRequestBody) From(from int) *_searchRequestBody {
 	return s
 }
 
-// Specifies the highlighter to use for retrieving highlighted snippets from one
-// or more fields in your search results.
 func (s *_searchRequestBody) Highlight(highlight types.HighlightVariant) *_searchRequestBody {
 
 	s.v.Highlight = highlight.HighlightCaster()
@@ -143,10 +126,6 @@ func (s *_searchRequestBody) Highlight(highlight types.HighlightVariant) *_searc
 	return s
 }
 
-// Boost the `_score` of documents from specified indices.
-// The boost value is the factor by which scores are multiplied.
-// A boost value greater than `1.0` increases the score.
-// A boost value between `0` and `1.0` decreases the score.
 func (s *_searchRequestBody) IndicesBoost(indicesboost []map[string]types.Float64) *_searchRequestBody {
 
 	s.v.IndicesBoost = indicesboost
@@ -154,7 +133,6 @@ func (s *_searchRequestBody) IndicesBoost(indicesboost []map[string]types.Float6
 	return s
 }
 
-// The approximate kNN search to run.
 func (s *_searchRequestBody) Knn(knns ...types.KnnSearchVariant) *_searchRequestBody {
 
 	s.v.Knn = make([]types.KnnSearch, len(knns))
@@ -165,8 +143,6 @@ func (s *_searchRequestBody) Knn(knns ...types.KnnSearchVariant) *_searchRequest
 	return s
 }
 
-// The minimum `_score` for matching documents.
-// Documents with a lower `_score` are not included in the search results.
 func (s *_searchRequestBody) MinScore(minscore types.Float64) *_searchRequestBody {
 
 	s.v.MinScore = &minscore
@@ -174,8 +150,6 @@ func (s *_searchRequestBody) MinScore(minscore types.Float64) *_searchRequestBod
 	return s
 }
 
-// Limit the search to a point in time (PIT).
-// If you provide a PIT, you cannot specify an `<index>` in the request path.
 func (s *_searchRequestBody) Pit(pit types.PointInTimeReferenceVariant) *_searchRequestBody {
 
 	s.v.Pit = pit.PointInTimeReferenceCaster()
@@ -183,9 +157,6 @@ func (s *_searchRequestBody) Pit(pit types.PointInTimeReferenceVariant) *_search
 	return s
 }
 
-// Use the `post_filter` parameter to filter search results.
-// The search hits are filtered after the aggregations are calculated.
-// A post filter has no impact on the aggregation results.
 func (s *_searchRequestBody) PostFilter(postfilter types.QueryVariant) *_searchRequestBody {
 
 	s.v.PostFilter = postfilter.QueryCaster()
@@ -193,10 +164,6 @@ func (s *_searchRequestBody) PostFilter(postfilter types.QueryVariant) *_searchR
 	return s
 }
 
-// Set to `true` to return detailed timing information about the execution of
-// individual components in a search request.
-// NOTE: This is a debugging tool and adds significant overhead to search
-// execution.
 func (s *_searchRequestBody) Profile(profile bool) *_searchRequestBody {
 
 	s.v.Profile = &profile
@@ -204,7 +171,6 @@ func (s *_searchRequestBody) Profile(profile bool) *_searchRequestBody {
 	return s
 }
 
-// The search definition using the Query DSL.
 func (s *_searchRequestBody) Query(query types.QueryVariant) *_searchRequestBody {
 
 	s.v.Query = query.QueryCaster()
@@ -212,7 +178,6 @@ func (s *_searchRequestBody) Query(query types.QueryVariant) *_searchRequestBody
 	return s
 }
 
-// The Reciprocal Rank Fusion (RRF) to use.
 func (s *_searchRequestBody) Rank(rank types.RankContainerVariant) *_searchRequestBody {
 
 	s.v.Rank = rank.RankContainerCaster()
@@ -220,8 +185,6 @@ func (s *_searchRequestBody) Rank(rank types.RankContainerVariant) *_searchReque
 	return s
 }
 
-// Can be used to improve precision by reordering just the top (for example 100
-// - 500) documents returned by the `query` and `post_filter` phases.
 func (s *_searchRequestBody) Rescore(rescores ...types.RescoreVariant) *_searchRequestBody {
 
 	s.v.Rescore = make([]types.Rescore, len(rescores))
@@ -232,10 +195,6 @@ func (s *_searchRequestBody) Rescore(rescores ...types.RescoreVariant) *_searchR
 	return s
 }
 
-// A retriever is a specification to describe top documents returned from a
-// search.
-// A retriever replaces other elements of the search API that also return top
-// documents such as `query` and `knn`.
 func (s *_searchRequestBody) Retriever(retriever types.RetrieverContainerVariant) *_searchRequestBody {
 
 	s.v.Retriever = retriever.RetrieverContainerCaster()
@@ -243,8 +202,6 @@ func (s *_searchRequestBody) Retriever(retriever types.RetrieverContainerVariant
 	return s
 }
 
-// One or more runtime fields in the search request.
-// These fields take precedence over mapped fields with the same name.
 func (s *_searchRequestBody) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *_searchRequestBody {
 
 	s.v.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
@@ -252,7 +209,6 @@ func (s *_searchRequestBody) RuntimeMappings(runtimefields types.RuntimeFieldsVa
 	return s
 }
 
-// Retrieve a script evaluation (based on different fields) for each hit.
 func (s *_searchRequestBody) ScriptFields(scriptfields map[string]types.ScriptField) *_searchRequestBody {
 
 	s.v.ScriptFields = scriptfields
@@ -274,8 +230,6 @@ func (s *_searchRequestBody) AddScriptField(key string, value types.ScriptFieldV
 	return s
 }
 
-// Used to retrieve the next page of hits using a set of sort values from the
-// previous page.
 func (s *_searchRequestBody) SearchAfter(sortresults ...types.FieldValueVariant) *_searchRequestBody {
 
 	for _, v := range sortresults {
@@ -285,8 +239,6 @@ func (s *_searchRequestBody) SearchAfter(sortresults ...types.FieldValueVariant)
 	return s
 }
 
-// If `true`, the request returns sequence number and primary term of the last
-// modification of each hit.
 func (s *_searchRequestBody) SeqNoPrimaryTerm(seqnoprimaryterm bool) *_searchRequestBody {
 
 	s.v.SeqNoPrimaryTerm = &seqnoprimaryterm
@@ -294,10 +246,6 @@ func (s *_searchRequestBody) SeqNoPrimaryTerm(seqnoprimaryterm bool) *_searchReq
 	return s
 }
 
-// The number of hits to return, which must not be negative.
-// By default, you cannot page through more than 10,000 hits using the `from`
-// and `size` parameters.
-// To page through more hits, use the `search_after` property.
 func (s *_searchRequestBody) Size(size int) *_searchRequestBody {
 
 	s.v.Size = &size
@@ -305,8 +253,6 @@ func (s *_searchRequestBody) Size(size int) *_searchRequestBody {
 	return s
 }
 
-// Split a scrolled search into multiple slices that can be consumed
-// independently.
 func (s *_searchRequestBody) Slice(slice types.SlicedScrollVariant) *_searchRequestBody {
 
 	s.v.Slice = slice.SlicedScrollCaster()
@@ -314,7 +260,6 @@ func (s *_searchRequestBody) Slice(slice types.SlicedScrollVariant) *_searchRequ
 	return s
 }
 
-// A comma-separated list of <field>:<direction> pairs.
 func (s *_searchRequestBody) Sort(sorts ...types.SortCombinationsVariant) *_searchRequestBody {
 
 	for _, v := range sorts {
@@ -324,12 +269,6 @@ func (s *_searchRequestBody) Sort(sorts ...types.SortCombinationsVariant) *_sear
 	return s
 }
 
-// The source fields that are returned for matching documents.
-// These fields are returned in the `hits._source` property of the search
-// response.
-// If the `stored_fields` property is specified, the `_source` property defaults
-// to `false`.
-// Otherwise, it defaults to `true`.
 func (s *_searchRequestBody) Source_(sourceconfig types.SourceConfigVariant) *_searchRequestBody {
 
 	s.v.Source_ = *sourceconfig.SourceConfigCaster()
@@ -337,9 +276,6 @@ func (s *_searchRequestBody) Source_(sourceconfig types.SourceConfigVariant) *_s
 	return s
 }
 
-// The stats groups to associate with the search.
-// Each group maintains a statistics aggregation for its associated searches.
-// You can retrieve these stats using the indices stats API.
 func (s *_searchRequestBody) Stats(stats ...string) *_searchRequestBody {
 
 	for _, v := range stats {
@@ -350,11 +286,6 @@ func (s *_searchRequestBody) Stats(stats ...string) *_searchRequestBody {
 	return s
 }
 
-// A comma-separated list of stored fields to return as part of a hit.
-// If no fields are specified, no stored fields are included in the response.
-// If this field is specified, the `_source` property defaults to `false`.
-// You can pass `_source: true` to return both source fields and stored fields
-// in the search response.
 func (s *_searchRequestBody) StoredFields(fields ...string) *_searchRequestBody {
 
 	s.v.StoredFields = fields
@@ -362,8 +293,6 @@ func (s *_searchRequestBody) StoredFields(fields ...string) *_searchRequestBody 
 	return s
 }
 
-// Defines a suggester that provides similar looking terms based on a provided
-// text.
 func (s *_searchRequestBody) Suggest(suggest types.SuggesterVariant) *_searchRequestBody {
 
 	s.v.Suggest = suggest.SuggesterCaster()
@@ -371,17 +300,6 @@ func (s *_searchRequestBody) Suggest(suggest types.SuggesterVariant) *_searchReq
 	return s
 }
 
-// The maximum number of documents to collect for each shard.
-// If a query reaches this limit, Elasticsearch terminates the query early.
-// Elasticsearch collects documents before sorting.
-//
-// IMPORTANT: Use with caution.
-// Elasticsearch applies this property to each shard handling the request.
-// When possible, let Elasticsearch perform early termination automatically.
-// Avoid specifying this property for requests that target data streams with
-// backing indices across multiple data tiers.
-//
-// If set to `0` (default), the query does not terminate early.
 func (s *_searchRequestBody) TerminateAfter(terminateafter int64) *_searchRequestBody {
 
 	s.v.TerminateAfter = &terminateafter
@@ -389,10 +307,6 @@ func (s *_searchRequestBody) TerminateAfter(terminateafter int64) *_searchReques
 	return s
 }
 
-// The period of time to wait for a response from each shard.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
-// Defaults to no timeout.
 func (s *_searchRequestBody) Timeout(timeout string) *_searchRequestBody {
 
 	s.v.Timeout = &timeout
@@ -400,8 +314,6 @@ func (s *_searchRequestBody) Timeout(timeout string) *_searchRequestBody {
 	return s
 }
 
-// If `true`, calculate and return document scores, even if the scores are not
-// used for sorting.
 func (s *_searchRequestBody) TrackScores(trackscores bool) *_searchRequestBody {
 
 	s.v.TrackScores = &trackscores
@@ -409,11 +321,6 @@ func (s *_searchRequestBody) TrackScores(trackscores bool) *_searchRequestBody {
 	return s
 }
 
-// Number of hits matching the query to count accurately.
-// If `true`, the exact number of hits is returned at the cost of some
-// performance.
-// If `false`, the  response does not include the total number of hits matching
-// the query.
 func (s *_searchRequestBody) TrackTotalHits(trackhits types.TrackHitsVariant) *_searchRequestBody {
 
 	s.v.TrackTotalHits = *trackhits.TrackHitsCaster()
@@ -421,7 +328,6 @@ func (s *_searchRequestBody) TrackTotalHits(trackhits types.TrackHitsVariant) *_
 	return s
 }
 
-// If `true`, the request returns the document version as part of a hit.
 func (s *_searchRequestBody) Version(version bool) *_searchRequestBody {
 
 	s.v.Version = &version

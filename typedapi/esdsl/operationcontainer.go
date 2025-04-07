@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -46,8 +46,6 @@ func (s *_operationContainer) AdditionalOperationContainerProperty(key string, v
 	return s
 }
 
-// Index the specified document if it does not already exist.
-// The following line must contain the source data to be indexed.
 func (s *_operationContainer) Create(create types.CreateOperationVariant) *_operationContainer {
 
 	s.v.Create = create.CreateOperationCaster()
@@ -55,7 +53,6 @@ func (s *_operationContainer) Create(create types.CreateOperationVariant) *_oper
 	return s
 }
 
-// Remove the specified document from the index.
 func (s *_operationContainer) Delete(delete types.DeleteOperationVariant) *_operationContainer {
 
 	s.v.Delete = delete.DeleteOperationCaster()
@@ -63,9 +60,6 @@ func (s *_operationContainer) Delete(delete types.DeleteOperationVariant) *_oper
 	return s
 }
 
-// Index the specified document.
-// If the document exists, it replaces the document and increments the version.
-// The following line must contain the source data to be indexed.
 func (s *_operationContainer) Index(index types.IndexOperationVariant) *_operationContainer {
 
 	s.v.Index = index.IndexOperationCaster()
@@ -73,8 +67,6 @@ func (s *_operationContainer) Index(index types.IndexOperationVariant) *_operati
 	return s
 }
 
-// Perform a partial document update.
-// The following line must contain the partial document and update options.
 func (s *_operationContainer) Update(update types.UpdateOperationVariant) *_operationContainer {
 
 	s.v.Update = update.UpdateOperationCaster()

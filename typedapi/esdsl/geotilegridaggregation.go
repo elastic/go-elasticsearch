@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,7 +35,6 @@ func NewGeoTileGridAggregation() *_geoTileGridAggregation {
 
 }
 
-// A bounding box to filter the geo-points or geo-shapes in each bucket.
 func (s *_geoTileGridAggregation) Bounds(geobounds types.GeoBoundsVariant) *_geoTileGridAggregation {
 
 	s.v.Bounds = *geobounds.GeoBoundsCaster()
@@ -43,8 +42,6 @@ func (s *_geoTileGridAggregation) Bounds(geobounds types.GeoBoundsVariant) *_geo
 	return s
 }
 
-// Field containing indexed `geo_point` or `geo_shape` values.
-// If the field contains an array, `geotile_grid` aggregates all array values.
 func (s *_geoTileGridAggregation) Field(field string) *_geoTileGridAggregation {
 
 	s.v.Field = &field
@@ -52,8 +49,6 @@ func (s *_geoTileGridAggregation) Field(field string) *_geoTileGridAggregation {
 	return s
 }
 
-// Integer zoom of the key used to define cells/buckets in the results.
-// Values outside of the range [0,29] will be rejected.
 func (s *_geoTileGridAggregation) Precision(geotileprecision int) *_geoTileGridAggregation {
 
 	s.v.Precision = &geotileprecision
@@ -61,10 +56,6 @@ func (s *_geoTileGridAggregation) Precision(geotileprecision int) *_geoTileGridA
 	return s
 }
 
-// Allows for more accurate counting of the top cells returned in the final
-// result the aggregation.
-// Defaults to returning `max(10,(size x number-of-shards))` buckets from each
-// shard.
 func (s *_geoTileGridAggregation) ShardSize(shardsize int) *_geoTileGridAggregation {
 
 	s.v.ShardSize = &shardsize
@@ -72,7 +63,6 @@ func (s *_geoTileGridAggregation) ShardSize(shardsize int) *_geoTileGridAggregat
 	return s
 }
 
-// The maximum number of buckets to return.
 func (s *_geoTileGridAggregation) Size(size int) *_geoTileGridAggregation {
 
 	s.v.Size = &size

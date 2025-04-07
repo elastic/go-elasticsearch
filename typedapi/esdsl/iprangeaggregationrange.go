@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewIpRangeAggregationRange() *_ipRangeAggregationRange {
 
 }
 
-// Start of the range.
 func (s *_ipRangeAggregationRange) From(from string) *_ipRangeAggregationRange {
 
 	s.v.From = &from
@@ -40,7 +39,6 @@ func (s *_ipRangeAggregationRange) From(from string) *_ipRangeAggregationRange {
 	return s
 }
 
-// IP range defined as a CIDR mask.
 func (s *_ipRangeAggregationRange) Mask(mask string) *_ipRangeAggregationRange {
 
 	s.v.Mask = &mask
@@ -48,7 +46,6 @@ func (s *_ipRangeAggregationRange) Mask(mask string) *_ipRangeAggregationRange {
 	return s
 }
 
-// End of the range.
 func (s *_ipRangeAggregationRange) To(to string) *_ipRangeAggregationRange {
 
 	s.v.To = &to

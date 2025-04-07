@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,7 +36,6 @@ func NewUntypedAggregationRange() *_untypedAggregationRange {
 
 }
 
-// Start of the range (inclusive).
 func (s *_untypedAggregationRange) From(from json.RawMessage) *_untypedAggregationRange {
 
 	s.v.From = from
@@ -44,7 +43,6 @@ func (s *_untypedAggregationRange) From(from json.RawMessage) *_untypedAggregati
 	return s
 }
 
-// Custom key to return the range with.
 func (s *_untypedAggregationRange) Key(key string) *_untypedAggregationRange {
 
 	s.v.Key = &key
@@ -52,7 +50,6 @@ func (s *_untypedAggregationRange) Key(key string) *_untypedAggregationRange {
 	return s
 }
 
-// End of the range (exclusive).
 func (s *_untypedAggregationRange) To(to json.RawMessage) *_untypedAggregationRange {
 
 	s.v.To = to

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,7 +37,6 @@ func NewCumulativeCardinalityAggregation() *_cumulativeCardinalityAggregation {
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_cumulativeCardinalityAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_cumulativeCardinalityAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -45,9 +44,6 @@ func (s *_cumulativeCardinalityAggregation) BucketsPath(bucketspath types.Bucket
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_cumulativeCardinalityAggregation) Format(format string) *_cumulativeCardinalityAggregation {
 
 	s.v.Format = &format
@@ -55,7 +51,6 @@ func (s *_cumulativeCardinalityAggregation) Format(format string) *_cumulativeCa
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_cumulativeCardinalityAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_cumulativeCardinalityAggregation {
 
 	s.v.GapPolicy = &gappolicy

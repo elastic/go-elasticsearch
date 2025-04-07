@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -46,7 +46,6 @@ func (s *_dataframeAnalysisContainer) AdditionalDataframeAnalysisContainerProper
 	return s
 }
 
-// The configuration information necessary to perform classification.
 func (s *_dataframeAnalysisContainer) Classification(classification types.DataframeAnalysisClassificationVariant) *_dataframeAnalysisContainer {
 
 	s.v.Classification = classification.DataframeAnalysisClassificationCaster()
@@ -54,11 +53,6 @@ func (s *_dataframeAnalysisContainer) Classification(classification types.Datafr
 	return s
 }
 
-// The configuration information necessary to perform outlier detection. NOTE:
-// Advanced parameters are for fine-tuning classification analysis. They are set
-// automatically by hyperparameter optimization to give the minimum validation
-// error. It is highly recommended to use the default values unless you fully
-// understand the function of these parameters.
 func (s *_dataframeAnalysisContainer) OutlierDetection(outlierdetection types.DataframeAnalysisOutlierDetectionVariant) *_dataframeAnalysisContainer {
 
 	s.v.OutlierDetection = outlierdetection.DataframeAnalysisOutlierDetectionCaster()
@@ -66,11 +60,6 @@ func (s *_dataframeAnalysisContainer) OutlierDetection(outlierdetection types.Da
 	return s
 }
 
-// The configuration information necessary to perform regression. NOTE: Advanced
-// parameters are for fine-tuning regression analysis. They are set
-// automatically by hyperparameter optimization to give the minimum validation
-// error. It is highly recommended to use the default values unless you fully
-// understand the function of these parameters.
 func (s *_dataframeAnalysisContainer) Regression(regression types.DataframeAnalysisRegressionVariant) *_dataframeAnalysisContainer {
 
 	s.v.Regression = regression.DataframeAnalysisRegressionCaster()

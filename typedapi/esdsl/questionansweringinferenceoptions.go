@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -33,7 +33,6 @@ func NewQuestionAnsweringInferenceOptions() *_questionAnsweringInferenceOptions 
 
 }
 
-// The maximum answer length to consider
 func (s *_questionAnsweringInferenceOptions) MaxAnswerLength(maxanswerlength int) *_questionAnsweringInferenceOptions {
 
 	s.v.MaxAnswerLength = &maxanswerlength
@@ -41,7 +40,6 @@ func (s *_questionAnsweringInferenceOptions) MaxAnswerLength(maxanswerlength int
 	return s
 }
 
-// Specifies the number of top class predictions to return. Defaults to 0.
 func (s *_questionAnsweringInferenceOptions) NumTopClasses(numtopclasses int) *_questionAnsweringInferenceOptions {
 
 	s.v.NumTopClasses = &numtopclasses
@@ -49,8 +47,6 @@ func (s *_questionAnsweringInferenceOptions) NumTopClasses(numtopclasses int) *_
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_questionAnsweringInferenceOptions) ResultsField(resultsfield string) *_questionAnsweringInferenceOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -58,7 +54,6 @@ func (s *_questionAnsweringInferenceOptions) ResultsField(resultsfield string) *
 	return s
 }
 
-// The tokenization options to update when inferring
 func (s *_questionAnsweringInferenceOptions) Tokenization(tokenization types.TokenizationConfigContainerVariant) *_questionAnsweringInferenceOptions {
 
 	s.v.Tokenization = tokenization.TokenizationConfigContainerCaster()

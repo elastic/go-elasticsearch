@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewCreateFrom() *_createFrom {
 
 }
 
-// Mappings overrides to be applied to the destination index (optional)
 func (s *_createFrom) MappingsOverride(mappingsoverride types.TypeMappingVariant) *_createFrom {
 
 	s.v.MappingsOverride = mappingsoverride.TypeMappingCaster()
@@ -40,7 +39,6 @@ func (s *_createFrom) MappingsOverride(mappingsoverride types.TypeMappingVariant
 	return s
 }
 
-// If index blocks should be removed when creating destination index (optional)
 func (s *_createFrom) RemoveIndexBlocks(removeindexblocks bool) *_createFrom {
 
 	s.v.RemoveIndexBlocks = &removeindexblocks
@@ -48,7 +46,6 @@ func (s *_createFrom) RemoveIndexBlocks(removeindexblocks bool) *_createFrom {
 	return s
 }
 
-// Settings overrides to be applied to the destination index (optional)
 func (s *_createFrom) SettingsOverride(settingsoverride types.IndexSettingsVariant) *_createFrom {
 
 	s.v.SettingsOverride = settingsoverride.IndexSettingsCaster()

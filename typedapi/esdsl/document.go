@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -40,8 +40,6 @@ func NewDocument(source_ json.RawMessage) *_document {
 
 }
 
-// Unique identifier for the document.
-// This ID must be unique within the `_index`.
 func (s *_document) Id_(id string) *_document {
 
 	s.v.Id_ = &id
@@ -49,7 +47,6 @@ func (s *_document) Id_(id string) *_document {
 	return s
 }
 
-// Name of the index containing the document.
 func (s *_document) Index_(indexname string) *_document {
 
 	s.v.Index_ = &indexname
@@ -57,7 +54,6 @@ func (s *_document) Index_(indexname string) *_document {
 	return s
 }
 
-// JSON body for the document.
 func (s *_document) Source_(source_ json.RawMessage) *_document {
 
 	s.v.Source_ = source_

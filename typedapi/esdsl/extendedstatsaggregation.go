@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,7 +34,6 @@ func NewExtendedStatsAggregation() *_extendedStatsAggregation {
 
 }
 
-// The field on which to run the aggregation.
 func (s *_extendedStatsAggregation) Field(field string) *_extendedStatsAggregation {
 
 	s.v.Field = &field
@@ -49,8 +48,6 @@ func (s *_extendedStatsAggregation) Format(format string) *_extendedStatsAggrega
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_extendedStatsAggregation) Missing(missing types.MissingVariant) *_extendedStatsAggregation {
 
 	s.v.Missing = *missing.MissingCaster()
@@ -65,7 +62,6 @@ func (s *_extendedStatsAggregation) Script(script types.ScriptVariant) *_extende
 	return s
 }
 
-// The number of standard deviations above/below the mean to display.
 func (s *_extendedStatsAggregation) Sigma(sigma types.Float64) *_extendedStatsAggregation {
 
 	s.v.Sigma = &sigma

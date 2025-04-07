@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewPhraseSuggestCollateQuery() *_phraseSuggestCollateQuery {
 
 }
 
-// The search template ID.
 func (s *_phraseSuggestCollateQuery) Id(id string) *_phraseSuggestCollateQuery {
 
 	s.v.Id = &id
@@ -40,7 +39,6 @@ func (s *_phraseSuggestCollateQuery) Id(id string) *_phraseSuggestCollateQuery {
 	return s
 }
 
-// The query source.
 func (s *_phraseSuggestCollateQuery) Source(scriptsource types.ScriptSourceVariant) *_phraseSuggestCollateQuery {
 
 	s.v.Source = *scriptsource.ScriptSourceCaster()

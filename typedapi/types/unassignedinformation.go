@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // UnassignedInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/cluster/allocation_explain/types.ts#L128-L136
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/cluster/allocation_explain/types.ts#L128-L136
 type UnassignedInformation struct {
 	AllocationStatus         *string                                                 `json:"allocation_status,omitempty"`
 	At                       DateTime                                                `json:"at"`

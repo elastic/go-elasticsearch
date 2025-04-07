@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewFieldLookup() *_fieldLookup {
 
 }
 
-// `id` of the document.
 func (s *_fieldLookup) Id(id string) *_fieldLookup {
 
 	s.v.Id = id
@@ -40,7 +39,6 @@ func (s *_fieldLookup) Id(id string) *_fieldLookup {
 	return s
 }
 
-// Index from which to retrieve the document.
 func (s *_fieldLookup) Index(indexname string) *_fieldLookup {
 
 	s.v.Index = &indexname
@@ -48,7 +46,6 @@ func (s *_fieldLookup) Index(indexname string) *_fieldLookup {
 	return s
 }
 
-// Name of the field.
 func (s *_fieldLookup) Path(field string) *_fieldLookup {
 
 	s.v.Path = &field
@@ -56,7 +53,6 @@ func (s *_fieldLookup) Path(field string) *_fieldLookup {
 	return s
 }
 
-// Custom routing value.
 func (s *_fieldLookup) Routing(routing string) *_fieldLookup {
 
 	s.v.Routing = &routing

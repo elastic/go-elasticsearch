@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -46,8 +46,6 @@ func (s *_syncContainer) AdditionalSyncContainerProperty(key string, value json.
 	return s
 }
 
-// Specifies that the transform uses a time field to synchronize the source and
-// destination indices.
 func (s *_syncContainer) Time(time types.TimeSyncVariant) *_syncContainer {
 
 	s.v.Time = time.TimeSyncCaster()

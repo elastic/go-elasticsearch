@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewWeightedAverageValue() *_weightedAverageValue {
 
 }
 
-// The field from which to extract the values or weights.
 func (s *_weightedAverageValue) Field(field string) *_weightedAverageValue {
 
 	s.v.Field = &field
@@ -40,7 +39,6 @@ func (s *_weightedAverageValue) Field(field string) *_weightedAverageValue {
 	return s
 }
 
-// A value or weight to use if the field is missing.
 func (s *_weightedAverageValue) Missing(missing types.Float64) *_weightedAverageValue {
 
 	s.v.Missing = &missing

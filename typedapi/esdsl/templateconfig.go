@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,8 +36,6 @@ func NewTemplateConfig() *_templateConfig {
 
 }
 
-// If `true`, returns detailed information about score calculation as part of
-// each hit.
 func (s *_templateConfig) Explain(explain bool) *_templateConfig {
 
 	s.v.Explain = &explain
@@ -45,8 +43,6 @@ func (s *_templateConfig) Explain(explain bool) *_templateConfig {
 	return s
 }
 
-// The ID of the search template to use. If no `source` is specified,
-// this parameter is required.
 func (s *_templateConfig) Id(id string) *_templateConfig {
 
 	s.v.Id = &id
@@ -54,9 +50,6 @@ func (s *_templateConfig) Id(id string) *_templateConfig {
 	return s
 }
 
-// Key-value pairs used to replace Mustache variables in the template.
-// The key is the variable name.
-// The value is the variable value.
 func (s *_templateConfig) Params(params map[string]json.RawMessage) *_templateConfig {
 
 	s.v.Params = params
@@ -78,7 +71,6 @@ func (s *_templateConfig) AddParam(key string, value json.RawMessage) *_template
 	return s
 }
 
-// If `true`, the query execution is profiled.
 func (s *_templateConfig) Profile(profile bool) *_templateConfig {
 
 	s.v.Profile = &profile
@@ -86,10 +78,6 @@ func (s *_templateConfig) Profile(profile bool) *_templateConfig {
 	return s
 }
 
-// An inline search template. Supports the same parameters as the search API's
-// request body. It also supports Mustache variables. If no `id` is specified,
-// this
-// parameter is required.
 func (s *_templateConfig) Source(scriptsource types.ScriptSourceVariant) *_templateConfig {
 
 	s.v.Source = *scriptsource.ScriptSourceCaster()

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -33,8 +33,6 @@ func NewStandardRetriever() *_standardRetriever {
 
 }
 
-// Collapses the top documents by a specified key into a single top document per
-// key.
 func (s *_standardRetriever) Collapse(collapse types.FieldCollapseVariant) *_standardRetriever {
 
 	s.v.Collapse = collapse.FieldCollapseCaster()
@@ -42,7 +40,6 @@ func (s *_standardRetriever) Collapse(collapse types.FieldCollapseVariant) *_sta
 	return s
 }
 
-// Query to filter the documents that can match.
 func (s *_standardRetriever) Filter(filters ...types.QueryVariant) *_standardRetriever {
 
 	s.v.Filter = make([]types.Query, len(filters))
@@ -53,8 +50,6 @@ func (s *_standardRetriever) Filter(filters ...types.QueryVariant) *_standardRet
 	return s
 }
 
-// Minimum _score for matching documents. Documents with a lower _score are not
-// included in the top documents.
 func (s *_standardRetriever) MinScore(minscore float32) *_standardRetriever {
 
 	s.v.MinScore = &minscore
@@ -62,7 +57,6 @@ func (s *_standardRetriever) MinScore(minscore float32) *_standardRetriever {
 	return s
 }
 
-// Defines a query to retrieve a set of top documents.
 func (s *_standardRetriever) Query(query types.QueryVariant) *_standardRetriever {
 
 	s.v.Query = query.QueryCaster()
@@ -70,7 +64,6 @@ func (s *_standardRetriever) Query(query types.QueryVariant) *_standardRetriever
 	return s
 }
 
-// Defines a search after object parameter used for pagination.
 func (s *_standardRetriever) SearchAfter(sortresults ...types.FieldValueVariant) *_standardRetriever {
 
 	for _, v := range sortresults {
@@ -80,7 +73,6 @@ func (s *_standardRetriever) SearchAfter(sortresults ...types.FieldValueVariant)
 	return s
 }
 
-// A sort object that that specifies the order of matching documents.
 func (s *_standardRetriever) Sort(sorts ...types.SortCombinationsVariant) *_standardRetriever {
 
 	for _, v := range sorts {
@@ -90,7 +82,6 @@ func (s *_standardRetriever) Sort(sorts ...types.SortCombinationsVariant) *_stan
 	return s
 }
 
-// Maximum number of documents to collect for each shard.
 func (s *_standardRetriever) TerminateAfter(terminateafter int) *_standardRetriever {
 
 	s.v.TerminateAfter = &terminateafter

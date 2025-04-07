@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,7 +37,6 @@ func NewUpdateOperation() *_updateOperation {
 
 }
 
-// The document ID.
 func (s *_updateOperation) Id_(id string) *_updateOperation {
 
 	s.v.Id_ = &id
@@ -59,7 +58,6 @@ func (s *_updateOperation) IfSeqNo(sequencenumber int64) *_updateOperation {
 	return s
 }
 
-// The name of the index or index alias to perform the action on.
 func (s *_updateOperation) Index_(indexname string) *_updateOperation {
 
 	s.v.Index_ = &indexname
@@ -67,7 +65,6 @@ func (s *_updateOperation) Index_(indexname string) *_updateOperation {
 	return s
 }
 
-// If `true`, the request's actions must target an index alias.
 func (s *_updateOperation) RequireAlias(requirealias bool) *_updateOperation {
 
 	s.v.RequireAlias = &requirealias
@@ -75,8 +72,6 @@ func (s *_updateOperation) RequireAlias(requirealias bool) *_updateOperation {
 	return s
 }
 
-// The number of times an update should be retried in the case of a version
-// conflict.
 func (s *_updateOperation) RetryOnConflict(retryonconflict int) *_updateOperation {
 
 	s.v.RetryOnConflict = &retryonconflict
@@ -84,7 +79,6 @@ func (s *_updateOperation) RetryOnConflict(retryonconflict int) *_updateOperatio
 	return s
 }
 
-// A custom value used to route operations to a specific shard.
 func (s *_updateOperation) Routing(routing string) *_updateOperation {
 
 	s.v.Routing = &routing

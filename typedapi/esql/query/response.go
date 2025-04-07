@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/509f88ad09a267354d02bf5f9e960503fa9236b7
 
 package query
 
 // Response holds the response body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/esql/query/QueryResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/509f88ad09a267354d02bf5f9e960503fa9236b7/specification/esql/query/QueryResponse.ts#L22-L25
 
 type Response = []byte
 

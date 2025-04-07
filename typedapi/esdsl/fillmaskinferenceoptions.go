@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,15 +37,6 @@ func NewFillMaskInferenceOptions(vocabulary types.VocabularyVariant) *_fillMaskI
 
 }
 
-// The string/token which will be removed from incoming documents and replaced
-// with the inference prediction(s).
-// In a response, this field contains the mask token for the specified
-// model/tokenizer. Each model and tokenizer
-// has a predefined mask token which cannot be changed. Thus, it is recommended
-// not to set this value in requests.
-// However, if this field is present in a request, its value must match the
-// predefined value for that model/tokenizer,
-// otherwise the request will fail.
 func (s *_fillMaskInferenceOptions) MaskToken(masktoken string) *_fillMaskInferenceOptions {
 
 	s.v.MaskToken = &masktoken
@@ -53,7 +44,6 @@ func (s *_fillMaskInferenceOptions) MaskToken(masktoken string) *_fillMaskInfere
 	return s
 }
 
-// Specifies the number of top class predictions to return. Defaults to 0.
 func (s *_fillMaskInferenceOptions) NumTopClasses(numtopclasses int) *_fillMaskInferenceOptions {
 
 	s.v.NumTopClasses = &numtopclasses
@@ -61,8 +51,6 @@ func (s *_fillMaskInferenceOptions) NumTopClasses(numtopclasses int) *_fillMaskI
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_fillMaskInferenceOptions) ResultsField(resultsfield string) *_fillMaskInferenceOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -70,7 +58,6 @@ func (s *_fillMaskInferenceOptions) ResultsField(resultsfield string) *_fillMask
 	return s
 }
 
-// The tokenization options to update when inferring
 func (s *_fillMaskInferenceOptions) Tokenization(tokenization types.TokenizationConfigContainerVariant) *_fillMaskInferenceOptions {
 
 	s.v.Tokenization = tokenization.TokenizationConfigContainerCaster()

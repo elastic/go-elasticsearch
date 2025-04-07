@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -46,7 +46,6 @@ func (s *_roleQueryContainer) AdditionalRoleQueryContainerProperty(key string, v
 	return s
 }
 
-// matches roles matching boolean combinations of other queries.
 func (s *_roleQueryContainer) Bool(bool types.BoolQueryVariant) *_roleQueryContainer {
 
 	s.v.Bool = bool.BoolQueryCaster()
@@ -54,7 +53,6 @@ func (s *_roleQueryContainer) Bool(bool types.BoolQueryVariant) *_roleQueryConta
 	return s
 }
 
-// Returns roles that contain an indexed value for a field.
 func (s *_roleQueryContainer) Exists(exists types.ExistsQueryVariant) *_roleQueryContainer {
 
 	s.v.Exists = exists.ExistsQueryCaster()
@@ -62,8 +60,6 @@ func (s *_roleQueryContainer) Exists(exists types.ExistsQueryVariant) *_roleQuer
 	return s
 }
 
-// Returns roles based on their IDs.
-// This query uses role document IDs stored in the `_id` field.
 func (s *_roleQueryContainer) Ids(ids types.IdsQueryVariant) *_roleQueryContainer {
 
 	s.v.Ids = ids.IdsQueryCaster()
@@ -71,8 +67,6 @@ func (s *_roleQueryContainer) Ids(ids types.IdsQueryVariant) *_roleQueryContaine
 	return s
 }
 
-// Returns roles that match a provided text, number, date or boolean value.
-// The provided text is analyzed before matching.
 // Match is a single key dictionnary.
 // It will replace the current value on each call.
 func (s *_roleQueryContainer) Match(key string, value types.MatchQueryVariant) *_roleQueryContainer {
@@ -85,7 +79,6 @@ func (s *_roleQueryContainer) Match(key string, value types.MatchQueryVariant) *
 	return s
 }
 
-// Matches all roles, giving them all a `_score` of 1.0.
 func (s *_roleQueryContainer) MatchAll(matchall types.MatchAllQueryVariant) *_roleQueryContainer {
 
 	s.v.MatchAll = matchall.MatchAllQueryCaster()
@@ -93,7 +86,6 @@ func (s *_roleQueryContainer) MatchAll(matchall types.MatchAllQueryVariant) *_ro
 	return s
 }
 
-// Returns roles that contain a specific prefix in a provided field.
 // Prefix is a single key dictionnary.
 // It will replace the current value on each call.
 func (s *_roleQueryContainer) Prefix(key string, value types.PrefixQueryVariant) *_roleQueryContainer {
@@ -106,7 +98,6 @@ func (s *_roleQueryContainer) Prefix(key string, value types.PrefixQueryVariant)
 	return s
 }
 
-// Returns roles that contain terms within a provided range.
 // Range is a single key dictionnary.
 // It will replace the current value on each call.
 func (s *_roleQueryContainer) Range(key string, value types.RangeQueryVariant) *_roleQueryContainer {
@@ -119,8 +110,6 @@ func (s *_roleQueryContainer) Range(key string, value types.RangeQueryVariant) *
 	return s
 }
 
-// Returns roles based on a provided query string, using a parser with a limited
-// but fault-tolerant syntax.
 func (s *_roleQueryContainer) SimpleQueryString(simplequerystring types.SimpleQueryStringQueryVariant) *_roleQueryContainer {
 
 	s.v.SimpleQueryString = simplequerystring.SimpleQueryStringQueryCaster()
@@ -128,9 +117,6 @@ func (s *_roleQueryContainer) SimpleQueryString(simplequerystring types.SimpleQu
 	return s
 }
 
-// Returns roles that contain an exact term in a provided field.
-// To return a document, the query term must exactly match the queried field's
-// value, including whitespace and capitalization.
 // Term is a single key dictionnary.
 // It will replace the current value on each call.
 func (s *_roleQueryContainer) Term(key string, value types.TermQueryVariant) *_roleQueryContainer {
@@ -143,9 +129,6 @@ func (s *_roleQueryContainer) Term(key string, value types.TermQueryVariant) *_r
 	return s
 }
 
-// Returns roles that contain one or more exact terms in a provided field.
-// To return a document, one or more terms must exactly match a field value,
-// including whitespace and capitalization.
 func (s *_roleQueryContainer) Terms(terms types.TermsQueryVariant) *_roleQueryContainer {
 
 	s.v.Terms = terms.TermsQueryCaster()
@@ -153,7 +136,6 @@ func (s *_roleQueryContainer) Terms(terms types.TermsQueryVariant) *_roleQueryCo
 	return s
 }
 
-// Returns roles that contain terms matching a wildcard pattern.
 // Wildcard is a single key dictionnary.
 // It will replace the current value on each call.
 func (s *_roleQueryContainer) Wildcard(key string, value types.WildcardQueryVariant) *_roleQueryContainer {

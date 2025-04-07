@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,8 +34,6 @@ func NewIndicesAction() *_indicesAction {
 	return &_indicesAction{v: types.NewIndicesAction()}
 }
 
-// Adds a data stream or index to an alias.
-// If the alias doesn’t exist, the `add` action creates it.
 func (s *_indicesAction) Add(add types.AddActionVariant) *_indicesAction {
 
 	s.v.Add = add.AddActionCaster()
@@ -55,7 +53,6 @@ func (s *_indicesAction) AdditionalIndicesActionProperty(key string, value json.
 	return s
 }
 
-// Removes a data stream or index from an alias.
 func (s *_indicesAction) Remove(remove types.RemoveActionVariant) *_indicesAction {
 
 	s.v.Remove = remove.RemoveActionCaster()
@@ -63,8 +60,6 @@ func (s *_indicesAction) Remove(remove types.RemoveActionVariant) *_indicesActio
 	return s
 }
 
-// Deletes an index.
-// You cannot use this action on aliases or data streams.
 func (s *_indicesAction) RemoveIndex(removeindex types.RemoveIndexActionVariant) *_indicesAction {
 
 	s.v.RemoveIndex = removeindex.RemoveIndexActionCaster()

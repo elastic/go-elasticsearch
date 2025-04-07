@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,9 +32,6 @@ func NewInferenceChunkingSettings() *_inferenceChunkingSettings {
 
 }
 
-// The maximum size of a chunk in words.
-// This value cannot be higher than `300` or lower than `20` (for `sentence`
-// strategy) or `10` (for `word` strategy).
 func (s *_inferenceChunkingSettings) MaxChunkSize(maxchunksize int) *_inferenceChunkingSettings {
 
 	s.v.MaxChunkSize = &maxchunksize
@@ -42,9 +39,6 @@ func (s *_inferenceChunkingSettings) MaxChunkSize(maxchunksize int) *_inferenceC
 	return s
 }
 
-// The number of overlapping words for chunks.
-// It is applicable only to a `word` chunking strategy.
-// This value cannot be higher than half the `max_chunk_size` value.
 func (s *_inferenceChunkingSettings) Overlap(overlap int) *_inferenceChunkingSettings {
 
 	s.v.Overlap = &overlap
@@ -52,9 +46,6 @@ func (s *_inferenceChunkingSettings) Overlap(overlap int) *_inferenceChunkingSet
 	return s
 }
 
-// The number of overlapping sentences for chunks.
-// It is applicable only for a `sentence` chunking strategy.
-// It can be either `1` or `0`.
 func (s *_inferenceChunkingSettings) SentenceOverlap(sentenceoverlap int) *_inferenceChunkingSettings {
 
 	s.v.SentenceOverlap = &sentenceoverlap
@@ -62,7 +53,6 @@ func (s *_inferenceChunkingSettings) SentenceOverlap(sentenceoverlap int) *_infe
 	return s
 }
 
-// The chunking strategy: `sentence` or `word`.
 func (s *_inferenceChunkingSettings) Strategy(strategy string) *_inferenceChunkingSettings {
 
 	s.v.Strategy = &strategy

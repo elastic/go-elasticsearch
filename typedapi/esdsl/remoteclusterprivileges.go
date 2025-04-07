@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,7 +35,6 @@ func NewRemoteClusterPrivileges() *_remoteClusterPrivileges {
 
 }
 
-// A list of cluster aliases to which the permissions in this entry apply.
 func (s *_remoteClusterPrivileges) Clusters(names ...string) *_remoteClusterPrivileges {
 
 	s.v.Clusters = names
@@ -43,8 +42,6 @@ func (s *_remoteClusterPrivileges) Clusters(names ...string) *_remoteClusterPriv
 	return s
 }
 
-// The cluster level privileges that owners of the role have on the remote
-// cluster.
 func (s *_remoteClusterPrivileges) Privileges(privileges ...remoteclusterprivilege.RemoteClusterPrivilege) *_remoteClusterPrivileges {
 
 	for _, v := range privileges {

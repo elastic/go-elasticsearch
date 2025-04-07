@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,7 +39,6 @@ func (s *_dataDescription) FieldDelimiter(fielddelimiter string) *_dataDescripti
 	return s
 }
 
-// Only JSON format is supported at this time.
 func (s *_dataDescription) Format(format string) *_dataDescription {
 
 	s.v.Format = &format
@@ -47,7 +46,6 @@ func (s *_dataDescription) Format(format string) *_dataDescription {
 	return s
 }
 
-// The name of the field that contains the timestamp.
 func (s *_dataDescription) TimeField(field string) *_dataDescription {
 
 	s.v.TimeField = &field
@@ -55,15 +53,6 @@ func (s *_dataDescription) TimeField(field string) *_dataDescription {
 	return s
 }
 
-// The time format, which can be `epoch`, `epoch_ms`, or a custom pattern. The
-// value `epoch` refers to UNIX or Epoch time (the number of seconds since 1 Jan
-// 1970). The value `epoch_ms` indicates that time is measured in milliseconds
-// since the epoch. The `epoch` and `epoch_ms` time formats accept either
-// integer or real values. Custom patterns must conform to the Java
-// DateTimeFormatter class. When you use date-time formatting patterns, it is
-// recommended that you provide the full date, time and time zone. For example:
-// `yyyy-MM-dd'T'HH:mm:ssX`. If the pattern that you specify is not sufficient
-// to produce a complete timestamp, job creation fails.
 func (s *_dataDescription) TimeFormat(timeformat string) *_dataDescription {
 
 	s.v.TimeFormat = &timeformat

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,7 +37,6 @@ func NewIntervalsPrefix(prefix string) *_intervalsPrefix {
 
 }
 
-// Analyzer used to analyze the `prefix`.
 func (s *_intervalsPrefix) Analyzer(analyzer string) *_intervalsPrefix {
 
 	s.v.Analyzer = &analyzer
@@ -45,7 +44,6 @@ func (s *_intervalsPrefix) Analyzer(analyzer string) *_intervalsPrefix {
 	return s
 }
 
-// Beginning characters of terms you wish to find in the top-level field.
 func (s *_intervalsPrefix) Prefix(prefix string) *_intervalsPrefix {
 
 	s.v.Prefix = prefix
@@ -53,10 +51,6 @@ func (s *_intervalsPrefix) Prefix(prefix string) *_intervalsPrefix {
 	return s
 }
 
-// If specified, match intervals from this field rather than the top-level
-// field.
-// The `prefix` is normalized using the search analyzer from this field, unless
-// `analyzer` is specified separately.
 func (s *_intervalsPrefix) UseField(field string) *_intervalsPrefix {
 
 	s.v.UseField = &field

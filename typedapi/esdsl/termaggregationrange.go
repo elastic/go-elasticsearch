@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewTermAggregationRange() *_termAggregationRange {
 
 }
 
-// Start of the range (inclusive).
 func (s *_termAggregationRange) From(from string) *_termAggregationRange {
 
 	s.v.From = &from
@@ -40,7 +39,6 @@ func (s *_termAggregationRange) From(from string) *_termAggregationRange {
 	return s
 }
 
-// Custom key to return the range with.
 func (s *_termAggregationRange) Key(key string) *_termAggregationRange {
 
 	s.v.Key = &key
@@ -48,7 +46,6 @@ func (s *_termAggregationRange) Key(key string) *_termAggregationRange {
 	return s
 }
 
-// End of the range (exclusive).
 func (s *_termAggregationRange) To(to string) *_termAggregationRange {
 
 	s.v.To = &to

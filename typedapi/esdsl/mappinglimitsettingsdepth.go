@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,10 +32,6 @@ func NewMappingLimitSettingsDepth() *_mappingLimitSettingsDepth {
 
 }
 
-// The maximum depth for a field, which is measured as the number of inner
-// objects. For instance, if all fields are defined
-// at the root object level, then the depth is 1. If there is one object
-// mapping, then the depth is 2, etc.
 func (s *_mappingLimitSettingsDepth) Limit(limit int64) *_mappingLimitSettingsDepth {
 
 	s.v.Limit = &limit

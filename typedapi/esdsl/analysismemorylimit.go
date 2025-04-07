@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,10 +36,6 @@ func NewAnalysisMemoryLimit(modelmemorylimit string) *_analysisMemoryLimit {
 
 }
 
-// Limits can be applied for the resources required to hold the mathematical
-// models in memory. These limits are approximate and can be set per job. They
-// do not control the memory used by other processes, for example the
-// Elasticsearch Java processes.
 func (s *_analysisMemoryLimit) ModelMemoryLimit(modelmemorylimit string) *_analysisMemoryLimit {
 
 	s.v.ModelMemoryLimit = modelmemorylimit

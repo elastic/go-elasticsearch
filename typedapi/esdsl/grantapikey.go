@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewGrantApiKey() *_grantApiKey {
 
 }
 
-// Expiration time for the API key. By default, API keys never expire.
 func (s *_grantApiKey) Expiration(durationlarge string) *_grantApiKey {
 
 	s.v.Expiration = &durationlarge
@@ -40,10 +39,6 @@ func (s *_grantApiKey) Expiration(durationlarge string) *_grantApiKey {
 	return s
 }
 
-// Arbitrary metadata that you want to associate with the API key.
-// It supports nested data structure.
-// Within the `metadata` object, keys beginning with `_` are reserved for system
-// usage.
 func (s *_grantApiKey) Metadata(metadata types.MetadataVariant) *_grantApiKey {
 
 	s.v.Metadata = *metadata.MetadataCaster()
@@ -58,11 +53,6 @@ func (s *_grantApiKey) Name(name string) *_grantApiKey {
 	return s
 }
 
-// The role descriptors for this API key.
-// When it is not specified or is an empty array, the API key has a point in
-// time snapshot of permissions of the specified user or access token.
-// If you supply role descriptors, the resultant permissions are an intersection
-// of API keys permissions and the permissions of the user or access token.
 func (s *_grantApiKey) RoleDescriptors(roledescriptors []map[string]types.RoleDescriptor) *_grantApiKey {
 
 	s.v.RoleDescriptors = roledescriptors

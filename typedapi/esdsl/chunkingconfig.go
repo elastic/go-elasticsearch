@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,20 +39,12 @@ func NewChunkingConfig(mode chunkingmode.ChunkingMode) *_chunkingConfig {
 
 }
 
-// If the mode is `auto`, the chunk size is dynamically calculated;
-// this is the recommended value when the datafeed does not use aggregations.
-// If the mode is `manual`, chunking is applied according to the specified
-// `time_span`;
-// use this mode when the datafeed uses aggregations. If the mode is `off`, no
-// chunking is applied.
 func (s *_chunkingConfig) Mode(mode chunkingmode.ChunkingMode) *_chunkingConfig {
 
 	s.v.Mode = mode
 	return s
 }
 
-// The time span that each search will be querying. This setting is applicable
-// only when the `mode` is set to `manual`.
 func (s *_chunkingConfig) TimeSpan(duration types.DurationVariant) *_chunkingConfig {
 
 	s.v.TimeSpan = *duration.DurationCaster()

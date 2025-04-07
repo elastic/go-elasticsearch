@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,11 +32,6 @@ func NewMappingLimitSettingsNestedFields() *_mappingLimitSettingsNestedFields {
 
 }
 
-// The maximum number of distinct nested mappings in an index. The nested type
-// should only be used in special cases, when
-// arrays of objects need to be queried independently of each other. To
-// safeguard against poorly designed mappings, this
-// setting limits the number of unique nested types per index.
 func (s *_mappingLimitSettingsNestedFields) Limit(limit int64) *_mappingLimitSettingsNestedFields {
 
 	s.v.Limit = &limit

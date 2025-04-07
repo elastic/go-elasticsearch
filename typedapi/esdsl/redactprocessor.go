@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,8 +39,6 @@ func NewRedactProcessor() *_redactProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_redactProcessor) Description(description string) *_redactProcessor {
 
 	s.v.Description = &description
@@ -48,7 +46,6 @@ func (s *_redactProcessor) Description(description string) *_redactProcessor {
 	return s
 }
 
-// The field to be redacted
 func (s *_redactProcessor) Field(field string) *_redactProcessor {
 
 	s.v.Field = field
@@ -56,7 +53,6 @@ func (s *_redactProcessor) Field(field string) *_redactProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_redactProcessor) If(if_ types.ScriptVariant) *_redactProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -64,7 +60,6 @@ func (s *_redactProcessor) If(if_ types.ScriptVariant) *_redactProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_redactProcessor) IgnoreFailure(ignorefailure bool) *_redactProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -72,8 +67,6 @@ func (s *_redactProcessor) IgnoreFailure(ignorefailure bool) *_redactProcessor {
 	return s
 }
 
-// If `true` and `field` does not exist or is `null`, the processor quietly
-// exits without modifying the document.
 func (s *_redactProcessor) IgnoreMissing(ignoremissing bool) *_redactProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -81,7 +74,6 @@ func (s *_redactProcessor) IgnoreMissing(ignoremissing bool) *_redactProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_redactProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_redactProcessor {
 
 	for _, v := range onfailures {
@@ -113,7 +105,6 @@ func (s *_redactProcessor) AddPatternDefinition(key string, value string) *_reda
 	return s
 }
 
-// A list of grok expressions to match and redact named captures with
 func (s *_redactProcessor) Patterns(patterns ...string) *_redactProcessor {
 
 	for _, v := range patterns {
@@ -124,7 +115,6 @@ func (s *_redactProcessor) Patterns(patterns ...string) *_redactProcessor {
 	return s
 }
 
-// Start a redacted section with this token
 func (s *_redactProcessor) Prefix(prefix string) *_redactProcessor {
 
 	s.v.Prefix = &prefix
@@ -132,8 +122,6 @@ func (s *_redactProcessor) Prefix(prefix string) *_redactProcessor {
 	return s
 }
 
-// If `true` and the current license does not support running redact processors,
-// then the processor quietly exits without modifying the document
 func (s *_redactProcessor) SkipIfUnlicensed(skipifunlicensed bool) *_redactProcessor {
 
 	s.v.SkipIfUnlicensed = &skipifunlicensed
@@ -141,7 +129,6 @@ func (s *_redactProcessor) SkipIfUnlicensed(skipifunlicensed bool) *_redactProce
 	return s
 }
 
-// End a redacted section with this token
 func (s *_redactProcessor) Suffix(suffix string) *_redactProcessor {
 
 	s.v.Suffix = &suffix
@@ -149,8 +136,6 @@ func (s *_redactProcessor) Suffix(suffix string) *_redactProcessor {
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_redactProcessor) Tag(tag string) *_redactProcessor {
 
 	s.v.Tag = &tag
@@ -158,8 +143,6 @@ func (s *_redactProcessor) Tag(tag string) *_redactProcessor {
 	return s
 }
 
-// If `true` then ingest metadata `_ingest._redact._is_redacted` is set to
-// `true` if the document has been redacted
 func (s *_redactProcessor) TraceRedact(traceredact bool) *_redactProcessor {
 
 	s.v.TraceRedact = &traceredact

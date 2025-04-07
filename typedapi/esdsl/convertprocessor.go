@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -42,8 +42,6 @@ func NewConvertProcessor(type_ converttype.ConvertType) *_convertProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_convertProcessor) Description(description string) *_convertProcessor {
 
 	s.v.Description = &description
@@ -51,7 +49,6 @@ func (s *_convertProcessor) Description(description string) *_convertProcessor {
 	return s
 }
 
-// The field whose value is to be converted.
 func (s *_convertProcessor) Field(field string) *_convertProcessor {
 
 	s.v.Field = field
@@ -59,7 +56,6 @@ func (s *_convertProcessor) Field(field string) *_convertProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_convertProcessor) If(if_ types.ScriptVariant) *_convertProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -67,7 +63,6 @@ func (s *_convertProcessor) If(if_ types.ScriptVariant) *_convertProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_convertProcessor) IgnoreFailure(ignorefailure bool) *_convertProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -75,8 +70,6 @@ func (s *_convertProcessor) IgnoreFailure(ignorefailure bool) *_convertProcessor
 	return s
 }
 
-// If `true` and `field` does not exist or is `null`, the processor quietly
-// exits without modifying the document.
 func (s *_convertProcessor) IgnoreMissing(ignoremissing bool) *_convertProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -84,7 +77,6 @@ func (s *_convertProcessor) IgnoreMissing(ignoremissing bool) *_convertProcessor
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_convertProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_convertProcessor {
 
 	for _, v := range onfailures {
@@ -95,8 +87,6 @@ func (s *_convertProcessor) OnFailure(onfailures ...types.ProcessorContainerVari
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_convertProcessor) Tag(tag string) *_convertProcessor {
 
 	s.v.Tag = &tag
@@ -104,8 +94,6 @@ func (s *_convertProcessor) Tag(tag string) *_convertProcessor {
 	return s
 }
 
-// The field to assign the converted value to.
-// By default, the `field` is updated in-place.
 func (s *_convertProcessor) TargetField(field string) *_convertProcessor {
 
 	s.v.TargetField = &field
@@ -113,7 +101,6 @@ func (s *_convertProcessor) TargetField(field string) *_convertProcessor {
 	return s
 }
 
-// The type to convert the existing value to.
 func (s *_convertProcessor) Type(type_ converttype.ConvertType) *_convertProcessor {
 
 	s.v.Type = type_

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,11 +39,6 @@ func NewSpanFirstQuery(end int, match types.SpanQueryVariant) *_spanFirstQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_spanFirstQuery) Boost(boost float32) *_spanFirstQuery {
 
 	s.v.Boost = &boost
@@ -51,7 +46,6 @@ func (s *_spanFirstQuery) Boost(boost float32) *_spanFirstQuery {
 	return s
 }
 
-// Controls the maximum end position permitted in a match.
 func (s *_spanFirstQuery) End(end int) *_spanFirstQuery {
 
 	s.v.End = end
@@ -59,7 +53,6 @@ func (s *_spanFirstQuery) End(end int) *_spanFirstQuery {
 	return s
 }
 
-// Can be any other span type query.
 func (s *_spanFirstQuery) Match(match types.SpanQueryVariant) *_spanFirstQuery {
 
 	s.v.Match = *match.SpanQueryCaster()

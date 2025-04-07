@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,7 +36,6 @@ func NewDownsamplingRound(config types.DownsampleConfigVariant) *_downsamplingRo
 
 }
 
-// The duration since rollover when this downsampling round should execute
 func (s *_downsamplingRound) After(duration types.DurationVariant) *_downsamplingRound {
 
 	s.v.After = *duration.DurationCaster()
@@ -44,7 +43,6 @@ func (s *_downsamplingRound) After(duration types.DurationVariant) *_downsamplin
 	return s
 }
 
-// The downsample configuration to execute.
 func (s *_downsamplingRound) Config(config types.DownsampleConfigVariant) *_downsamplingRound {
 
 	s.v.Config = *config.DownsampleConfigCaster()

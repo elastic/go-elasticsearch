@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -33,8 +33,6 @@ func NewRemoveAction() *_removeAction {
 
 }
 
-// Alias for the action.
-// Index alias names support date math.
 func (s *_removeAction) Alias(indexalias string) *_removeAction {
 
 	s.v.Alias = &indexalias
@@ -42,8 +40,6 @@ func (s *_removeAction) Alias(indexalias string) *_removeAction {
 	return s
 }
 
-// Aliases for the action.
-// Index alias names support date math.
 func (s *_removeAction) Aliases(aliases ...string) *_removeAction {
 
 	s.v.Aliases = make([]string, len(aliases))
@@ -52,8 +48,6 @@ func (s *_removeAction) Aliases(aliases ...string) *_removeAction {
 	return s
 }
 
-// Data stream or index for the action.
-// Supports wildcards (`*`).
 func (s *_removeAction) Index(indexname string) *_removeAction {
 
 	s.v.Index = &indexname
@@ -61,8 +55,6 @@ func (s *_removeAction) Index(indexname string) *_removeAction {
 	return s
 }
 
-// Data streams or indices for the action.
-// Supports wildcards (`*`).
 func (s *_removeAction) Indices(indices ...string) *_removeAction {
 
 	s.v.Indices = indices
@@ -70,7 +62,6 @@ func (s *_removeAction) Indices(indices ...string) *_removeAction {
 	return s
 }
 
-// If `true`, the alias must exist to perform the action.
 func (s *_removeAction) MustExist(mustexist bool) *_removeAction {
 
 	s.v.MustExist = &mustexist

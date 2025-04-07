@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,16 +32,12 @@ func NewHint() *_hint {
 
 }
 
-// A single key-value pair to match against the labels section
-// of a profile. A profile is considered matching if it matches
-// at least one of the strings.
 func (s *_hint) Labels(labels map[string][]string) *_hint {
 
 	s.v.Labels = labels
 	return s
 }
 
-// A list of profile UIDs to match against.
 func (s *_hint) Uids(uids ...string) *_hint {
 
 	for _, v := range uids {

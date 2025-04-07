@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,7 +35,6 @@ func NewVariableWidthHistogramAggregation() *_variableWidthHistogramAggregation 
 
 }
 
-// The target number of buckets.
 func (s *_variableWidthHistogramAggregation) Buckets(buckets int) *_variableWidthHistogramAggregation {
 
 	s.v.Buckets = &buckets
@@ -43,7 +42,6 @@ func (s *_variableWidthHistogramAggregation) Buckets(buckets int) *_variableWidt
 	return s
 }
 
-// The name of the field.
 func (s *_variableWidthHistogramAggregation) Field(field string) *_variableWidthHistogramAggregation {
 
 	s.v.Field = &field
@@ -51,9 +49,6 @@ func (s *_variableWidthHistogramAggregation) Field(field string) *_variableWidth
 	return s
 }
 
-// Specifies the number of individual documents that will be stored in memory on
-// a shard before the initial bucketing algorithm is run.
-// Defaults to `min(10 * shard_size, 50000)`.
 func (s *_variableWidthHistogramAggregation) InitialBuffer(initialbuffer int) *_variableWidthHistogramAggregation {
 
 	s.v.InitialBuffer = &initialbuffer
@@ -68,9 +63,6 @@ func (s *_variableWidthHistogramAggregation) Script(script types.ScriptVariant) 
 	return s
 }
 
-// The number of buckets that the coordinating node will request from each
-// shard.
-// Defaults to `buckets * 50`.
 func (s *_variableWidthHistogramAggregation) ShardSize(shardsize int) *_variableWidthHistogramAggregation {
 
 	s.v.ShardSize = &shardsize

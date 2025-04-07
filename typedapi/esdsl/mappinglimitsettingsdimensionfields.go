@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,10 +32,6 @@ func NewMappingLimitSettingsDimensionFields() *_mappingLimitSettingsDimensionFie
 
 }
 
-// [preview] This functionality is in technical preview and may be changed or
-// removed in a future release.
-// Elastic will work to fix any issues, but features in technical preview are
-// not subject to the support SLA of official GA features.
 func (s *_mappingLimitSettingsDimensionFields) Limit(limit int64) *_mappingLimitSettingsDimensionFields {
 
 	s.v.Limit = &limit

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,14 +36,6 @@ func NewS3Repository(settings types.S3RepositorySettingsVariant) *_s3Repository 
 
 }
 
-// The repository settings.
-//
-// NOTE: In addition to the specified settings, you can also use all non-secure
-// client settings in the repository settings.
-// In this case, the client settings found in the repository settings will be
-// merged with those of the named client used by the repository.
-// Conflicts between client and repository settings are resolved by the
-// repository settings taking precedence over client settings.
 func (s *_s3Repository) Settings(settings types.S3RepositorySettingsVariant) *_s3Repository {
 
 	s.v.Settings = *settings.S3RepositorySettingsCaster()

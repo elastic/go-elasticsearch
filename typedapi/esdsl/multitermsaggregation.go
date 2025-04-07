@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,14 +37,12 @@ func NewMultiTermsAggregation() *_multiTermsAggregation {
 
 }
 
-// Specifies the strategy for data collection.
 func (s *_multiTermsAggregation) CollectMode(collectmode termsaggregationcollectmode.TermsAggregationCollectMode) *_multiTermsAggregation {
 
 	s.v.CollectMode = &collectmode
 	return s
 }
 
-// The minimum number of documents in a bucket for it to be returned.
 func (s *_multiTermsAggregation) MinDocCount(mindoccount int64) *_multiTermsAggregation {
 
 	s.v.MinDocCount = &mindoccount
@@ -52,8 +50,6 @@ func (s *_multiTermsAggregation) MinDocCount(mindoccount int64) *_multiTermsAggr
 	return s
 }
 
-// Specifies the sort order of the buckets.
-// Defaults to sorting by descending document count.
 func (s *_multiTermsAggregation) Order(aggregateorder types.AggregateOrderVariant) *_multiTermsAggregation {
 
 	s.v.Order = *aggregateorder.AggregateOrderCaster()
@@ -61,8 +57,6 @@ func (s *_multiTermsAggregation) Order(aggregateorder types.AggregateOrderVarian
 	return s
 }
 
-// The minimum number of documents in a bucket on each shard for it to be
-// returned.
 func (s *_multiTermsAggregation) ShardMinDocCount(shardmindoccount int64) *_multiTermsAggregation {
 
 	s.v.ShardMinDocCount = &shardmindoccount
@@ -70,9 +64,6 @@ func (s *_multiTermsAggregation) ShardMinDocCount(shardmindoccount int64) *_mult
 	return s
 }
 
-// The number of candidate terms produced by each shard.
-// By default, `shard_size` will be automatically estimated based on the number
-// of shards and the `size` parameter.
 func (s *_multiTermsAggregation) ShardSize(shardsize int) *_multiTermsAggregation {
 
 	s.v.ShardSize = &shardsize
@@ -80,7 +71,6 @@ func (s *_multiTermsAggregation) ShardSize(shardsize int) *_multiTermsAggregatio
 	return s
 }
 
-// Calculates the doc count error on per term basis.
 func (s *_multiTermsAggregation) ShowTermDocCountError(showtermdoccounterror bool) *_multiTermsAggregation {
 
 	s.v.ShowTermDocCountError = &showtermdoccounterror
@@ -88,7 +78,6 @@ func (s *_multiTermsAggregation) ShowTermDocCountError(showtermdoccounterror boo
 	return s
 }
 
-// The number of term buckets should be returned out of the overall terms list.
 func (s *_multiTermsAggregation) Size(size int) *_multiTermsAggregation {
 
 	s.v.Size = &size
@@ -96,7 +85,6 @@ func (s *_multiTermsAggregation) Size(size int) *_multiTermsAggregation {
 	return s
 }
 
-// The field from which to generate sets of terms.
 func (s *_multiTermsAggregation) Terms(terms ...types.MultiTermLookupVariant) *_multiTermsAggregation {
 
 	for _, v := range terms {

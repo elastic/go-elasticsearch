@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,8 +37,6 @@ func NewGrokProcessor() *_grokProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_grokProcessor) Description(description string) *_grokProcessor {
 
 	s.v.Description = &description
@@ -46,8 +44,6 @@ func (s *_grokProcessor) Description(description string) *_grokProcessor {
 	return s
 }
 
-// Must be disabled or v1. If v1, the processor uses patterns with Elastic
-// Common Schema (ECS) field names.
 func (s *_grokProcessor) EcsCompatibility(ecscompatibility string) *_grokProcessor {
 
 	s.v.EcsCompatibility = &ecscompatibility
@@ -55,7 +51,6 @@ func (s *_grokProcessor) EcsCompatibility(ecscompatibility string) *_grokProcess
 	return s
 }
 
-// The field to use for grok expression parsing.
 func (s *_grokProcessor) Field(field string) *_grokProcessor {
 
 	s.v.Field = field
@@ -63,7 +58,6 @@ func (s *_grokProcessor) Field(field string) *_grokProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_grokProcessor) If(if_ types.ScriptVariant) *_grokProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -71,7 +65,6 @@ func (s *_grokProcessor) If(if_ types.ScriptVariant) *_grokProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_grokProcessor) IgnoreFailure(ignorefailure bool) *_grokProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -79,8 +72,6 @@ func (s *_grokProcessor) IgnoreFailure(ignorefailure bool) *_grokProcessor {
 	return s
 }
 
-// If `true` and `field` does not exist or is `null`, the processor quietly
-// exits without modifying the document.
 func (s *_grokProcessor) IgnoreMissing(ignoremissing bool) *_grokProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -88,7 +79,6 @@ func (s *_grokProcessor) IgnoreMissing(ignoremissing bool) *_grokProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_grokProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_grokProcessor {
 
 	for _, v := range onfailures {
@@ -99,9 +89,6 @@ func (s *_grokProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 	return s
 }
 
-// A map of pattern-name and pattern tuples defining custom patterns to be used
-// by the current processor.
-// Patterns matching existing names will override the pre-existing definition.
 func (s *_grokProcessor) PatternDefinitions(patterndefinitions map[string]string) *_grokProcessor {
 
 	s.v.PatternDefinitions = patterndefinitions
@@ -123,8 +110,6 @@ func (s *_grokProcessor) AddPatternDefinition(key string, value string) *_grokPr
 	return s
 }
 
-// An ordered list of grok expression to match and extract named captures with.
-// Returns on the first expression in the list that matches.
 func (s *_grokProcessor) Patterns(patterns ...string) *_grokProcessor {
 
 	for _, v := range patterns {
@@ -135,8 +120,6 @@ func (s *_grokProcessor) Patterns(patterns ...string) *_grokProcessor {
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_grokProcessor) Tag(tag string) *_grokProcessor {
 
 	s.v.Tag = &tag
@@ -144,9 +127,6 @@ func (s *_grokProcessor) Tag(tag string) *_grokProcessor {
 	return s
 }
 
-// When `true`, `_ingest._grok_match_index` will be inserted into your matched
-// document’s metadata with the index into the pattern found in `patterns` that
-// matched.
 func (s *_grokProcessor) TraceMatch(tracematch bool) *_grokProcessor {
 
 	s.v.TraceMatch = &tracematch

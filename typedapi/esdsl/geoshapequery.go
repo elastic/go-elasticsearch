@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,11 +34,6 @@ func NewGeoShapeQuery() *_geoShapeQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_geoShapeQuery) Boost(boost float32) *_geoShapeQuery {
 
 	s.v.Boost = &boost
@@ -67,9 +62,6 @@ func (s *_geoShapeQuery) AddGeoShapeQuery(key string, value types.GeoShapeFieldQ
 	return s
 }
 
-// Set to `true` to ignore an unmapped field and not match any documents for
-// this query.
-// Set to `false` to throw an exception if the field is not mapped.
 func (s *_geoShapeQuery) IgnoreUnmapped(ignoreunmapped bool) *_geoShapeQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped

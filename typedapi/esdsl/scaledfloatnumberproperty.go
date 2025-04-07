@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -114,7 +114,6 @@ func (s *_scaledFloatNumberProperty) Index(index bool) *_scaledFloatNumberProper
 	return s
 }
 
-// Metadata about the field.
 func (s *_scaledFloatNumberProperty) Meta(meta map[string]string) *_scaledFloatNumberProperty {
 
 	s.v.Meta = meta
@@ -197,8 +196,6 @@ func (s *_scaledFloatNumberProperty) SyntheticSourceKeep(syntheticsourcekeep syn
 	return s
 }
 
-// For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
 func (s *_scaledFloatNumberProperty) TimeSeriesDimension(timeseriesdimension bool) *_scaledFloatNumberProperty {
 
 	s.v.TimeSeriesDimension = &timeseriesdimension
@@ -206,8 +203,6 @@ func (s *_scaledFloatNumberProperty) TimeSeriesDimension(timeseriesdimension boo
 	return s
 }
 
-// For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
 func (s *_scaledFloatNumberProperty) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *_scaledFloatNumberProperty {
 
 	s.v.TimeSeriesMetric = &timeseriesmetric

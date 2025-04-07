@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -26,7 +26,8 @@ type _intervalsFuzzy struct {
 	v *types.IntervalsFuzzy
 }
 
-// Matches analyzed text.
+// Matches terms that are similar to the provided term, within an edit distance
+// defined by `fuzziness`.
 func NewIntervalsFuzzy(term string) *_intervalsFuzzy {
 
 	tmp := &_intervalsFuzzy{v: types.NewIntervalsFuzzy()}
@@ -37,7 +38,6 @@ func NewIntervalsFuzzy(term string) *_intervalsFuzzy {
 
 }
 
-// Analyzer used to normalize the term.
 func (s *_intervalsFuzzy) Analyzer(analyzer string) *_intervalsFuzzy {
 
 	s.v.Analyzer = &analyzer
@@ -45,7 +45,6 @@ func (s *_intervalsFuzzy) Analyzer(analyzer string) *_intervalsFuzzy {
 	return s
 }
 
-// Maximum edit distance allowed for matching.
 func (s *_intervalsFuzzy) Fuzziness(fuzziness types.FuzzinessVariant) *_intervalsFuzzy {
 
 	s.v.Fuzziness = *fuzziness.FuzzinessCaster()
@@ -53,7 +52,6 @@ func (s *_intervalsFuzzy) Fuzziness(fuzziness types.FuzzinessVariant) *_interval
 	return s
 }
 
-// Number of beginning characters left unchanged when creating expansions.
 func (s *_intervalsFuzzy) PrefixLength(prefixlength int) *_intervalsFuzzy {
 
 	s.v.PrefixLength = &prefixlength
@@ -61,7 +59,6 @@ func (s *_intervalsFuzzy) PrefixLength(prefixlength int) *_intervalsFuzzy {
 	return s
 }
 
-// The term to match.
 func (s *_intervalsFuzzy) Term(term string) *_intervalsFuzzy {
 
 	s.v.Term = term
@@ -69,8 +66,6 @@ func (s *_intervalsFuzzy) Term(term string) *_intervalsFuzzy {
 	return s
 }
 
-// Indicates whether edits include transpositions of two adjacent characters
-// (for example, `ab` to `ba`).
 func (s *_intervalsFuzzy) Transpositions(transpositions bool) *_intervalsFuzzy {
 
 	s.v.Transpositions = &transpositions
@@ -78,10 +73,6 @@ func (s *_intervalsFuzzy) Transpositions(transpositions bool) *_intervalsFuzzy {
 	return s
 }
 
-// If specified, match intervals from this field rather than the top-level
-// field.
-// The `term` is normalized using the search analyzer from this field, unless
-// `analyzer` is specified separately.
 func (s *_intervalsFuzzy) UseField(field string) *_intervalsFuzzy {
 
 	s.v.UseField = &field

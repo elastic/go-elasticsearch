@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -42,8 +42,6 @@ func NewGoogleVertexAIServiceSettings(location string, modelid string, projectid
 
 }
 
-// The name of the location to use for the inference task.
-// Refer to the Google documentation for the list of supported locations.
 func (s *_googleVertexAIServiceSettings) Location(location string) *_googleVertexAIServiceSettings {
 
 	s.v.Location = location
@@ -51,8 +49,6 @@ func (s *_googleVertexAIServiceSettings) Location(location string) *_googleVerte
 	return s
 }
 
-// The name of the model to use for the inference task.
-// Refer to the Google documentation for the list of supported models.
 func (s *_googleVertexAIServiceSettings) ModelId(modelid string) *_googleVertexAIServiceSettings {
 
 	s.v.ModelId = modelid
@@ -60,7 +56,6 @@ func (s *_googleVertexAIServiceSettings) ModelId(modelid string) *_googleVertexA
 	return s
 }
 
-// The name of the project to use for the inference task.
 func (s *_googleVertexAIServiceSettings) ProjectId(projectid string) *_googleVertexAIServiceSettings {
 
 	s.v.ProjectId = projectid
@@ -68,10 +63,6 @@ func (s *_googleVertexAIServiceSettings) ProjectId(projectid string) *_googleVer
 	return s
 }
 
-// This setting helps to minimize the number of rate limit errors returned from
-// Google Vertex AI.
-// By default, the `googlevertexai` service sets the number of requests allowed
-// per minute to 30.000.
 func (s *_googleVertexAIServiceSettings) RateLimit(ratelimit types.RateLimitSettingVariant) *_googleVertexAIServiceSettings {
 
 	s.v.RateLimit = ratelimit.RateLimitSettingCaster()
@@ -79,7 +70,6 @@ func (s *_googleVertexAIServiceSettings) RateLimit(ratelimit types.RateLimitSett
 	return s
 }
 
-// A valid service account in JSON format for the Google Vertex AI API.
 func (s *_googleVertexAIServiceSettings) ServiceAccountJson(serviceaccountjson string) *_googleVertexAIServiceSettings {
 
 	s.v.ServiceAccountJson = serviceaccountjson

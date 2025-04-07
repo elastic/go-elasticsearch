@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package getstats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getstats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/slm/get_stats/GetSnapshotLifecycleStatsResponse.ts#L23-L36
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/slm/get_stats/GetSnapshotLifecycleStatsResponse.ts#L23-L36
 type Response struct {
 	PolicyStats                   []string       `json:"policy_stats"`
 	RetentionDeletionTime         types.Duration `json:"retention_deletion_time"`

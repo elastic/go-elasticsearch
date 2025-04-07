@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,7 +37,6 @@ func NewCompositeTermsAggregation() *_compositeTermsAggregation {
 
 }
 
-// Either `field` or `script` must be present
 func (s *_compositeTermsAggregation) Field(field string) *_compositeTermsAggregation {
 
 	s.v.Field = &field
@@ -64,7 +63,6 @@ func (s *_compositeTermsAggregation) Order(order sortorder.SortOrder) *_composit
 	return s
 }
 
-// Either `field` or `script` must be present
 func (s *_compositeTermsAggregation) Script(script types.ScriptVariant) *_compositeTermsAggregation {
 
 	s.v.Script = script.ScriptCaster()

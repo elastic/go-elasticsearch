@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,9 +32,6 @@ func NewDataframeEvaluationRegressionMetricsHuber() *_dataframeEvaluationRegress
 
 }
 
-// Approximates 1/2 (prediction - actual)2 for values much less than delta and
-// approximates a straight line with slope delta for values much larger than
-// delta. Defaults to 1. Delta needs to be greater than 0.
 func (s *_dataframeEvaluationRegressionMetricsHuber) Delta(delta types.Float64) *_dataframeEvaluationRegressionMetricsHuber {
 
 	s.v.Delta = &delta

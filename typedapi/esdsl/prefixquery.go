@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -27,7 +27,7 @@ type _prefixQuery struct {
 	v *types.PrefixQuery
 }
 
-// Returns documents that contain a specific prefix in a provided field.
+// Returns roles that contain a specific prefix in a provided field.
 func NewPrefixQuery(field string, value string) *_prefixQuery {
 	tmp := &_prefixQuery{
 		k: field,
@@ -38,11 +38,6 @@ func NewPrefixQuery(field string, value string) *_prefixQuery {
 	return tmp
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_prefixQuery) Boost(boost float32) *_prefixQuery {
 
 	s.v.Boost = &boost
@@ -50,10 +45,6 @@ func (s *_prefixQuery) Boost(boost float32) *_prefixQuery {
 	return s
 }
 
-// Allows ASCII case insensitive matching of the value with the indexed field
-// values when set to `true`.
-// Default is `false` which means the case sensitivity of matching depends on
-// the underlying field’s mapping.
 func (s *_prefixQuery) CaseInsensitive(caseinsensitive bool) *_prefixQuery {
 
 	s.v.CaseInsensitive = &caseinsensitive
@@ -68,7 +59,6 @@ func (s *_prefixQuery) QueryName_(queryname_ string) *_prefixQuery {
 	return s
 }
 
-// Method used to rewrite the query.
 func (s *_prefixQuery) Rewrite(multitermqueryrewrite string) *_prefixQuery {
 
 	s.v.Rewrite = &multitermqueryrewrite
@@ -76,7 +66,6 @@ func (s *_prefixQuery) Rewrite(multitermqueryrewrite string) *_prefixQuery {
 	return s
 }
 
-// Beginning characters of terms you wish to find in the provided field.
 func (s *_prefixQuery) Value(value string) *_prefixQuery {
 
 	s.v.Value = value

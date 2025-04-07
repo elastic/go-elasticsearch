@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,9 +39,6 @@ func NewRandomSamplerAggregation(probability types.Float64) *_randomSamplerAggre
 
 }
 
-// The probability that a document will be included in the aggregated data.
-// Must be greater than 0, less than 0.5, or exactly 1.
-// The lower the probability, the fewer documents are matched.
 func (s *_randomSamplerAggregation) Probability(probability types.Float64) *_randomSamplerAggregation {
 
 	s.v.Probability = probability
@@ -49,9 +46,6 @@ func (s *_randomSamplerAggregation) Probability(probability types.Float64) *_ran
 	return s
 }
 
-// The seed to generate the random sampling of documents.
-// When a seed is provided, the random subset of documents is the same between
-// calls.
 func (s *_randomSamplerAggregation) Seed(seed int) *_randomSamplerAggregation {
 
 	s.v.Seed = &seed
@@ -59,8 +53,6 @@ func (s *_randomSamplerAggregation) Seed(seed int) *_randomSamplerAggregation {
 	return s
 }
 
-// When combined with seed, setting shard_seed ensures 100% consistent sampling
-// over shards where data is exactly the same.
 func (s *_randomSamplerAggregation) ShardSeed(shardseed int) *_randomSamplerAggregation {
 
 	s.v.ShardSeed = &shardseed

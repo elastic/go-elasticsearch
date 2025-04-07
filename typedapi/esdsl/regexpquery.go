@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,11 +38,6 @@ func NewRegexpQuery(field string, value string) *_regexpQuery {
 	return tmp
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_regexpQuery) Boost(boost float32) *_regexpQuery {
 
 	s.v.Boost = &boost
@@ -50,10 +45,6 @@ func (s *_regexpQuery) Boost(boost float32) *_regexpQuery {
 	return s
 }
 
-// Allows case insensitive matching of the regular expression value with the
-// indexed field values when set to `true`.
-// When `false`, case sensitivity of matching depends on the underlying field’s
-// mapping.
 func (s *_regexpQuery) CaseInsensitive(caseinsensitive bool) *_regexpQuery {
 
 	s.v.CaseInsensitive = &caseinsensitive
@@ -61,7 +52,6 @@ func (s *_regexpQuery) CaseInsensitive(caseinsensitive bool) *_regexpQuery {
 	return s
 }
 
-// Enables optional operators for the regular expression.
 func (s *_regexpQuery) Flags(flags string) *_regexpQuery {
 
 	s.v.Flags = &flags
@@ -69,7 +59,6 @@ func (s *_regexpQuery) Flags(flags string) *_regexpQuery {
 	return s
 }
 
-// Maximum number of automaton states required for the query.
 func (s *_regexpQuery) MaxDeterminizedStates(maxdeterminizedstates int) *_regexpQuery {
 
 	s.v.MaxDeterminizedStates = &maxdeterminizedstates
@@ -84,7 +73,6 @@ func (s *_regexpQuery) QueryName_(queryname_ string) *_regexpQuery {
 	return s
 }
 
-// Method used to rewrite the query.
 func (s *_regexpQuery) Rewrite(multitermqueryrewrite string) *_regexpQuery {
 
 	s.v.Rewrite = &multitermqueryrewrite
@@ -92,7 +80,6 @@ func (s *_regexpQuery) Rewrite(multitermqueryrewrite string) *_regexpQuery {
 	return s
 }
 
-// Regular expression for terms you wish to find in the provided field.
 func (s *_regexpQuery) Value(value string) *_regexpQuery {
 
 	s.v.Value = value

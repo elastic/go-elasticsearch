@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -41,14 +41,12 @@ func NewMigrateReindex(mode modeenum.ModeEnum, source types.SourceIndexVariant) 
 
 }
 
-// Reindex mode. Currently only 'upgrade' is supported.
 func (s *_migrateReindex) Mode(mode modeenum.ModeEnum) *_migrateReindex {
 
 	s.v.Mode = mode
 	return s
 }
 
-// The source index or data stream (only data streams are currently supported).
 func (s *_migrateReindex) Source(source types.SourceIndexVariant) *_migrateReindex {
 
 	s.v.Source = *source.SourceIndexCaster()

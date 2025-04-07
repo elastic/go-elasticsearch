@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -40,16 +40,12 @@ func NewDateHistogramAggregation() *_dateHistogramAggregation {
 
 }
 
-// Calendar-aware interval.
-// Can be specified using the unit name, such as `month`, or as a single unit
-// quantity, such as `1M`.
 func (s *_dateHistogramAggregation) CalendarInterval(calendarinterval calendarinterval.CalendarInterval) *_dateHistogramAggregation {
 
 	s.v.CalendarInterval = &calendarinterval
 	return s
 }
 
-// Enables extending the bounds of the histogram beyond the data itself.
 func (s *_dateHistogramAggregation) ExtendedBounds(extendedbounds types.ExtendedBoundsFieldDateMathVariant) *_dateHistogramAggregation {
 
 	s.v.ExtendedBounds = extendedbounds.ExtendedBoundsFieldDateMathCaster()
@@ -57,7 +53,6 @@ func (s *_dateHistogramAggregation) ExtendedBounds(extendedbounds types.Extended
 	return s
 }
 
-// The date field whose values are use to build a histogram.
 func (s *_dateHistogramAggregation) Field(field string) *_dateHistogramAggregation {
 
 	s.v.Field = &field
@@ -65,8 +60,6 @@ func (s *_dateHistogramAggregation) Field(field string) *_dateHistogramAggregati
 	return s
 }
 
-// Fixed intervals: a fixed number of SI units and never deviate, regardless of
-// where they fall on the calendar.
 func (s *_dateHistogramAggregation) FixedInterval(duration types.DurationVariant) *_dateHistogramAggregation {
 
 	s.v.FixedInterval = *duration.DurationCaster()
@@ -74,9 +67,6 @@ func (s *_dateHistogramAggregation) FixedInterval(duration types.DurationVariant
 	return s
 }
 
-// The date format used to format `key_as_string` in the response.
-// If no `format` is specified, the first date format specified in the field
-// mapping is used.
 func (s *_dateHistogramAggregation) Format(format string) *_dateHistogramAggregation {
 
 	s.v.Format = &format
@@ -84,7 +74,6 @@ func (s *_dateHistogramAggregation) Format(format string) *_dateHistogramAggrega
 	return s
 }
 
-// Limits the histogram to specified bounds.
 func (s *_dateHistogramAggregation) HardBounds(hardbounds types.ExtendedBoundsFieldDateMathVariant) *_dateHistogramAggregation {
 
 	s.v.HardBounds = hardbounds.ExtendedBoundsFieldDateMathCaster()
@@ -99,8 +88,6 @@ func (s *_dateHistogramAggregation) Interval(duration types.DurationVariant) *_d
 	return s
 }
 
-// Set to `true` to associate a unique string key with each bucket and return
-// the ranges as a hash rather than an array.
 func (s *_dateHistogramAggregation) Keyed(keyed bool) *_dateHistogramAggregation {
 
 	s.v.Keyed = &keyed
@@ -108,9 +95,6 @@ func (s *_dateHistogramAggregation) Keyed(keyed bool) *_dateHistogramAggregation
 	return s
 }
 
-// Only returns buckets that have `min_doc_count` number of documents.
-// By default, all buckets between the first bucket that matches documents and
-// the last one are returned.
 func (s *_dateHistogramAggregation) MinDocCount(mindoccount int) *_dateHistogramAggregation {
 
 	s.v.MinDocCount = &mindoccount
@@ -118,8 +102,6 @@ func (s *_dateHistogramAggregation) MinDocCount(mindoccount int) *_dateHistogram
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_dateHistogramAggregation) Missing(datetime types.DateTimeVariant) *_dateHistogramAggregation {
 
 	s.v.Missing = *datetime.DateTimeCaster()
@@ -127,8 +109,6 @@ func (s *_dateHistogramAggregation) Missing(datetime types.DateTimeVariant) *_da
 	return s
 }
 
-// Changes the start value of each bucket by the specified positive (`+`) or
-// negative offset (`-`) duration.
 func (s *_dateHistogramAggregation) Offset(duration types.DurationVariant) *_dateHistogramAggregation {
 
 	s.v.Offset = *duration.DurationCaster()
@@ -136,7 +116,6 @@ func (s *_dateHistogramAggregation) Offset(duration types.DurationVariant) *_dat
 	return s
 }
 
-// The sort order of the returned buckets.
 func (s *_dateHistogramAggregation) Order(aggregateorder types.AggregateOrderVariant) *_dateHistogramAggregation {
 
 	s.v.Order = *aggregateorder.AggregateOrderCaster()
@@ -172,8 +151,6 @@ func (s *_dateHistogramAggregation) Script(script types.ScriptVariant) *_dateHis
 	return s
 }
 
-// Time zone used for bucketing and rounding.
-// Defaults to Coordinated Universal Time (UTC).
 func (s *_dateHistogramAggregation) TimeZone(timezone string) *_dateHistogramAggregation {
 
 	s.v.TimeZone = &timezone

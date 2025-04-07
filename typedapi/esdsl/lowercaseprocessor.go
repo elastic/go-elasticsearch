@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,8 +35,6 @@ func NewLowercaseProcessor() *_lowercaseProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_lowercaseProcessor) Description(description string) *_lowercaseProcessor {
 
 	s.v.Description = &description
@@ -44,7 +42,6 @@ func (s *_lowercaseProcessor) Description(description string) *_lowercaseProcess
 	return s
 }
 
-// The field to make lowercase.
 func (s *_lowercaseProcessor) Field(field string) *_lowercaseProcessor {
 
 	s.v.Field = field
@@ -52,7 +49,6 @@ func (s *_lowercaseProcessor) Field(field string) *_lowercaseProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_lowercaseProcessor) If(if_ types.ScriptVariant) *_lowercaseProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -60,7 +56,6 @@ func (s *_lowercaseProcessor) If(if_ types.ScriptVariant) *_lowercaseProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_lowercaseProcessor) IgnoreFailure(ignorefailure bool) *_lowercaseProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -68,8 +63,6 @@ func (s *_lowercaseProcessor) IgnoreFailure(ignorefailure bool) *_lowercaseProce
 	return s
 }
 
-// If `true` and `field` does not exist or is `null`, the processor quietly
-// exits without modifying the document.
 func (s *_lowercaseProcessor) IgnoreMissing(ignoremissing bool) *_lowercaseProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -77,7 +70,6 @@ func (s *_lowercaseProcessor) IgnoreMissing(ignoremissing bool) *_lowercaseProce
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_lowercaseProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_lowercaseProcessor {
 
 	for _, v := range onfailures {
@@ -88,8 +80,6 @@ func (s *_lowercaseProcessor) OnFailure(onfailures ...types.ProcessorContainerVa
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_lowercaseProcessor) Tag(tag string) *_lowercaseProcessor {
 
 	s.v.Tag = &tag
@@ -97,8 +87,6 @@ func (s *_lowercaseProcessor) Tag(tag string) *_lowercaseProcessor {
 	return s
 }
 
-// The field to assign the converted value to.
-// By default, the field is updated in-place.
 func (s *_lowercaseProcessor) TargetField(field string) *_lowercaseProcessor {
 
 	s.v.TargetField = &field

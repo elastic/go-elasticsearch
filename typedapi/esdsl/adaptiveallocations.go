@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewAdaptiveAllocations() *_adaptiveAllocations {
 
 }
 
-// Turn on `adaptive_allocations`.
 func (s *_adaptiveAllocations) Enabled(enabled bool) *_adaptiveAllocations {
 
 	s.v.Enabled = &enabled
@@ -40,8 +39,6 @@ func (s *_adaptiveAllocations) Enabled(enabled bool) *_adaptiveAllocations {
 	return s
 }
 
-// The maximum number of allocations to scale to.
-// If set, it must be greater than or equal to `min_number_of_allocations`.
 func (s *_adaptiveAllocations) MaxNumberOfAllocations(maxnumberofallocations int) *_adaptiveAllocations {
 
 	s.v.MaxNumberOfAllocations = &maxnumberofallocations
@@ -49,9 +46,6 @@ func (s *_adaptiveAllocations) MaxNumberOfAllocations(maxnumberofallocations int
 	return s
 }
 
-// The minimum number of allocations to scale to.
-// If set, it must be greater than or equal to 0.
-// If not defined, the deployment scales to 0.
 func (s *_adaptiveAllocations) MinNumberOfAllocations(minnumberofallocations int) *_adaptiveAllocations {
 
 	s.v.MinNumberOfAllocations = &minnumberofallocations

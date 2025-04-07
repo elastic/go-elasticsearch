@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CustomSchedulingConfigurationOverrides type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/connector/_types/Connector.ts#L112-L118
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/connector/_types/Connector.ts#L112-L118
 type CustomSchedulingConfigurationOverrides struct {
 	DomainAllowlist          []string `json:"domain_allowlist,omitempty"`
 	MaxCrawlDepth            *int     `json:"max_crawl_depth,omitempty"`

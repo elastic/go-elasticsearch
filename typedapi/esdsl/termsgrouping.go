@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,9 +32,6 @@ func NewTermsGrouping() *_termsGrouping {
 
 }
 
-// The set of fields that you wish to collect terms for.
-// This array can contain fields that are both keyword and numerics.
-// Order does not matter.
 func (s *_termsGrouping) Fields(fields ...string) *_termsGrouping {
 
 	s.v.Fields = fields

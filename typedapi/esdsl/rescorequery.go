@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,9 +39,6 @@ func NewRescoreQuery(query types.QueryVariant) *_rescoreQuery {
 
 }
 
-// The query to use for rescoring.
-// This query is only run on the Top-K results returned by the `query` and
-// `post_filter` phases.
 func (s *_rescoreQuery) Query(query types.QueryVariant) *_rescoreQuery {
 
 	s.v.Query = *query.QueryCaster()
@@ -49,7 +46,6 @@ func (s *_rescoreQuery) Query(query types.QueryVariant) *_rescoreQuery {
 	return s
 }
 
-// Relative importance of the original query versus the rescore query.
 func (s *_rescoreQuery) QueryWeight(queryweight types.Float64) *_rescoreQuery {
 
 	s.v.QueryWeight = &queryweight
@@ -57,7 +53,6 @@ func (s *_rescoreQuery) QueryWeight(queryweight types.Float64) *_rescoreQuery {
 	return s
 }
 
-// Relative importance of the rescore query versus the original query.
 func (s *_rescoreQuery) RescoreQueryWeight(rescorequeryweight types.Float64) *_rescoreQuery {
 
 	s.v.RescoreQueryWeight = &rescorequeryweight
@@ -65,7 +60,6 @@ func (s *_rescoreQuery) RescoreQueryWeight(rescorequeryweight types.Float64) *_r
 	return s
 }
 
-// Determines how scores are combined.
 func (s *_rescoreQuery) ScoreMode(scoremode scoremode.ScoreMode) *_rescoreQuery {
 
 	s.v.ScoreMode = &scoremode

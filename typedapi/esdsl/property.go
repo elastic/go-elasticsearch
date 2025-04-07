@@ -16,11 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import (
+	"encoding/json"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+)
 
 // This is provide all the types that are part of the union.
 type _property struct {
@@ -29,6 +33,13 @@ type _property struct {
 
 func NewProperty() *_property {
 	return &_property{v: nil}
+}
+
+// UnknownProperty is used to set the unknown value of the union.
+// Highlited as @non_exhaustive in the specification.
+func (u *_property) UnknownProperty(unknown json.RawMessage) *_property {
+	u.v = unknown
+	return u
 }
 
 func (u *_property) BinaryProperty(binaryproperty types.BinaryPropertyVariant) *_property {

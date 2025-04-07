@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,8 +32,6 @@ func NewRequestChatCompletion() *_requestChatCompletion {
 
 }
 
-// The upper bound limit for the number of tokens that can be generated for a
-// completion request.
 func (s *_requestChatCompletion) MaxCompletionTokens(maxcompletiontokens int64) *_requestChatCompletion {
 
 	s.v.MaxCompletionTokens = &maxcompletiontokens
@@ -41,7 +39,6 @@ func (s *_requestChatCompletion) MaxCompletionTokens(maxcompletiontokens int64) 
 	return s
 }
 
-// A list of objects representing the conversation.
 func (s *_requestChatCompletion) Messages(messages ...types.MessageVariant) *_requestChatCompletion {
 
 	for _, v := range messages {
@@ -52,7 +49,6 @@ func (s *_requestChatCompletion) Messages(messages ...types.MessageVariant) *_re
 	return s
 }
 
-// The ID of the model to use.
 func (s *_requestChatCompletion) Model(model string) *_requestChatCompletion {
 
 	s.v.Model = &model
@@ -60,8 +56,6 @@ func (s *_requestChatCompletion) Model(model string) *_requestChatCompletion {
 	return s
 }
 
-// A sequence of strings to control when the model should stop generating
-// additional tokens.
 func (s *_requestChatCompletion) Stop(stops ...string) *_requestChatCompletion {
 
 	for _, v := range stops {
@@ -72,7 +66,6 @@ func (s *_requestChatCompletion) Stop(stops ...string) *_requestChatCompletion {
 	return s
 }
 
-// The sampling temperature to use.
 func (s *_requestChatCompletion) Temperature(temperature float32) *_requestChatCompletion {
 
 	s.v.Temperature = &temperature
@@ -80,7 +73,6 @@ func (s *_requestChatCompletion) Temperature(temperature float32) *_requestChatC
 	return s
 }
 
-// Controls which tool is called by the model.
 func (s *_requestChatCompletion) ToolChoice(completiontooltype types.CompletionToolTypeVariant) *_requestChatCompletion {
 
 	s.v.ToolChoice = *completiontooltype.CompletionToolTypeCaster()
@@ -88,7 +80,6 @@ func (s *_requestChatCompletion) ToolChoice(completiontooltype types.CompletionT
 	return s
 }
 
-// A list of tools that the model can call.
 func (s *_requestChatCompletion) Tools(tools ...types.CompletionToolVariant) *_requestChatCompletion {
 
 	for _, v := range tools {
@@ -99,7 +90,6 @@ func (s *_requestChatCompletion) Tools(tools ...types.CompletionToolVariant) *_r
 	return s
 }
 
-// Nucleus sampling, an alternative to sampling with temperature.
 func (s *_requestChatCompletion) TopP(topp float32) *_requestChatCompletion {
 
 	s.v.TopP = &topp

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,9 +32,6 @@ func NewSynonymRule() *_synonymRule {
 
 }
 
-// The identifier for the synonym rule.
-// If you do not specify a synonym rule ID when you create a rule, an identifier
-// is created automatically by Elasticsearch.
 func (s *_synonymRule) Id(id string) *_synonymRule {
 
 	s.v.Id = &id
@@ -42,7 +39,6 @@ func (s *_synonymRule) Id(id string) *_synonymRule {
 	return s
 }
 
-// The synonyms that conform the synonym rule in Solr format.
 func (s *_synonymRule) Synonyms(synonymstring string) *_synonymRule {
 
 	s.v.Synonyms = synonymstring

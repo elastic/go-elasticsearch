@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,8 +35,6 @@ func NewRenameProcessor() *_renameProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_renameProcessor) Description(description string) *_renameProcessor {
 
 	s.v.Description = &description
@@ -44,8 +42,6 @@ func (s *_renameProcessor) Description(description string) *_renameProcessor {
 	return s
 }
 
-// The field to be renamed.
-// Supports template snippets.
 func (s *_renameProcessor) Field(field string) *_renameProcessor {
 
 	s.v.Field = field
@@ -53,7 +49,6 @@ func (s *_renameProcessor) Field(field string) *_renameProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_renameProcessor) If(if_ types.ScriptVariant) *_renameProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -61,7 +56,6 @@ func (s *_renameProcessor) If(if_ types.ScriptVariant) *_renameProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_renameProcessor) IgnoreFailure(ignorefailure bool) *_renameProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -69,8 +63,6 @@ func (s *_renameProcessor) IgnoreFailure(ignorefailure bool) *_renameProcessor {
 	return s
 }
 
-// If `true` and `field` does not exist, the processor quietly exits without
-// modifying the document.
 func (s *_renameProcessor) IgnoreMissing(ignoremissing bool) *_renameProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -78,7 +70,6 @@ func (s *_renameProcessor) IgnoreMissing(ignoremissing bool) *_renameProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_renameProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_renameProcessor {
 
 	for _, v := range onfailures {
@@ -89,8 +80,6 @@ func (s *_renameProcessor) OnFailure(onfailures ...types.ProcessorContainerVaria
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_renameProcessor) Tag(tag string) *_renameProcessor {
 
 	s.v.Tag = &tag
@@ -98,8 +87,6 @@ func (s *_renameProcessor) Tag(tag string) *_renameProcessor {
 	return s
 }
 
-// The new name of the field.
-// Supports template snippets.
 func (s *_renameProcessor) TargetField(field string) *_renameProcessor {
 
 	s.v.TargetField = field

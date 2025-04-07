@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,9 +34,6 @@ func NewDataframeEvaluationOutlierDetection() *_dataframeEvaluationOutlierDetect
 
 }
 
-// The field of the index which contains the ground truth. The data type of this
-// field can be boolean or integer. If the data type is integer, the value has
-// to be either 0 (false) or 1 (true).
 func (s *_dataframeEvaluationOutlierDetection) ActualField(field string) *_dataframeEvaluationOutlierDetection {
 
 	s.v.ActualField = field
@@ -44,7 +41,6 @@ func (s *_dataframeEvaluationOutlierDetection) ActualField(field string) *_dataf
 	return s
 }
 
-// Specifies the metrics that are used for the evaluation.
 func (s *_dataframeEvaluationOutlierDetection) Metrics(metrics types.DataframeEvaluationOutlierDetectionMetricsVariant) *_dataframeEvaluationOutlierDetection {
 
 	s.v.Metrics = metrics.DataframeEvaluationOutlierDetectionMetricsCaster()
@@ -52,9 +48,6 @@ func (s *_dataframeEvaluationOutlierDetection) Metrics(metrics types.DataframeEv
 	return s
 }
 
-// The field of the index that defines the probability of whether the item
-// belongs to the class in question or not. It’s the field that contains the
-// results of the analysis.
 func (s *_dataframeEvaluationOutlierDetection) PredictedProbabilityField(field string) *_dataframeEvaluationOutlierDetection {
 
 	s.v.PredictedProbabilityField = field

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewCompositeAggregationSource() *_compositeAggregationSource {
 
 }
 
-// A date histogram aggregation.
 func (s *_compositeAggregationSource) DateHistogram(datehistogram types.CompositeDateHistogramAggregationVariant) *_compositeAggregationSource {
 
 	s.v.DateHistogram = datehistogram.CompositeDateHistogramAggregationCaster()
@@ -40,7 +39,6 @@ func (s *_compositeAggregationSource) DateHistogram(datehistogram types.Composit
 	return s
 }
 
-// A geotile grid aggregation.
 func (s *_compositeAggregationSource) GeotileGrid(geotilegrid types.CompositeGeoTileGridAggregationVariant) *_compositeAggregationSource {
 
 	s.v.GeotileGrid = geotilegrid.CompositeGeoTileGridAggregationCaster()
@@ -48,7 +46,6 @@ func (s *_compositeAggregationSource) GeotileGrid(geotilegrid types.CompositeGeo
 	return s
 }
 
-// A histogram aggregation.
 func (s *_compositeAggregationSource) Histogram(histogram types.CompositeHistogramAggregationVariant) *_compositeAggregationSource {
 
 	s.v.Histogram = histogram.CompositeHistogramAggregationCaster()
@@ -56,7 +53,6 @@ func (s *_compositeAggregationSource) Histogram(histogram types.CompositeHistogr
 	return s
 }
 
-// A terms aggregation.
 func (s *_compositeAggregationSource) Terms(terms types.CompositeTermsAggregationVariant) *_compositeAggregationSource {
 
 	s.v.Terms = terms.CompositeTermsAggregationCaster()

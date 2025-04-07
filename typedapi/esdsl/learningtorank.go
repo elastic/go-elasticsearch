@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -40,7 +40,6 @@ func NewLearningToRank(modelid string) *_learningToRank {
 
 }
 
-// The unique identifier of the trained model uploaded to Elasticsearch
 func (s *_learningToRank) ModelId(modelid string) *_learningToRank {
 
 	s.v.ModelId = modelid
@@ -48,7 +47,6 @@ func (s *_learningToRank) ModelId(modelid string) *_learningToRank {
 	return s
 }
 
-// Named parameters to be passed to the query templates used for feature
 func (s *_learningToRank) Params(params map[string]json.RawMessage) *_learningToRank {
 
 	s.v.Params = params

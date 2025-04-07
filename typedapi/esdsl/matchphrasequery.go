@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -41,7 +41,6 @@ func NewMatchPhraseQuery(field string, query string) *_matchPhraseQuery {
 	return tmp
 }
 
-// Analyzer used to convert the text in the query value into tokens.
 func (s *_matchPhraseQuery) Analyzer(analyzer string) *_matchPhraseQuery {
 
 	s.v.Analyzer = &analyzer
@@ -49,11 +48,6 @@ func (s *_matchPhraseQuery) Analyzer(analyzer string) *_matchPhraseQuery {
 	return s
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_matchPhraseQuery) Boost(boost float32) *_matchPhraseQuery {
 
 	s.v.Boost = &boost
@@ -61,7 +55,6 @@ func (s *_matchPhraseQuery) Boost(boost float32) *_matchPhraseQuery {
 	return s
 }
 
-// Query terms that are analyzed and turned into a phrase query.
 func (s *_matchPhraseQuery) Query(query string) *_matchPhraseQuery {
 
 	s.v.Query = query
@@ -76,7 +69,6 @@ func (s *_matchPhraseQuery) QueryName_(queryname_ string) *_matchPhraseQuery {
 	return s
 }
 
-// Maximum number of positions allowed between matching tokens.
 func (s *_matchPhraseQuery) Slop(slop int) *_matchPhraseQuery {
 
 	s.v.Slop = &slop
@@ -84,8 +76,6 @@ func (s *_matchPhraseQuery) Slop(slop int) *_matchPhraseQuery {
 	return s
 }
 
-// Indicates whether no documents are returned if the `analyzer` removes all
-// tokens, such as when using a `stop` filter.
 func (s *_matchPhraseQuery) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *_matchPhraseQuery {
 
 	s.v.ZeroTermsQuery = &zerotermsquery

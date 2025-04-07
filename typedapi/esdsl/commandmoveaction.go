@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -40,7 +40,6 @@ func NewCommandMoveAction(fromnode string, shard int, tonode string) *_commandMo
 
 }
 
-// The node to move the shard from
 func (s *_commandMoveAction) FromNode(fromnode string) *_commandMoveAction {
 
 	s.v.FromNode = fromnode
@@ -62,7 +61,6 @@ func (s *_commandMoveAction) Shard(shard int) *_commandMoveAction {
 	return s
 }
 
-// The node to move the shard to
 func (s *_commandMoveAction) ToNode(tonode string) *_commandMoveAction {
 
 	s.v.ToNode = tonode

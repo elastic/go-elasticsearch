@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -42,8 +42,6 @@ func NewCombinedFieldsQuery(query string) *_combinedFieldsQuery {
 
 }
 
-// If true, match phrase queries are automatically created for multi-term
-// synonyms.
 func (s *_combinedFieldsQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsphrasequery bool) *_combinedFieldsQuery {
 
 	s.v.AutoGenerateSynonymsPhraseQuery = &autogeneratesynonymsphrasequery
@@ -51,11 +49,6 @@ func (s *_combinedFieldsQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynon
 	return s
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_combinedFieldsQuery) Boost(boost float32) *_combinedFieldsQuery {
 
 	s.v.Boost = &boost
@@ -63,8 +56,6 @@ func (s *_combinedFieldsQuery) Boost(boost float32) *_combinedFieldsQuery {
 	return s
 }
 
-// List of fields to search. Field wildcard patterns are allowed. Only `text`
-// fields are supported, and they must all have the same search `analyzer`.
 func (s *_combinedFieldsQuery) Fields(fields ...string) *_combinedFieldsQuery {
 
 	for _, v := range fields {
@@ -75,7 +66,6 @@ func (s *_combinedFieldsQuery) Fields(fields ...string) *_combinedFieldsQuery {
 	return s
 }
 
-// Minimum number of clauses that must match for a document to be returned.
 func (s *_combinedFieldsQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumShouldMatchVariant) *_combinedFieldsQuery {
 
 	s.v.MinimumShouldMatch = *minimumshouldmatch.MinimumShouldMatchCaster()
@@ -83,16 +73,12 @@ func (s *_combinedFieldsQuery) MinimumShouldMatch(minimumshouldmatch types.Minim
 	return s
 }
 
-// Boolean logic used to interpret text in the query value.
 func (s *_combinedFieldsQuery) Operator(operator combinedfieldsoperator.CombinedFieldsOperator) *_combinedFieldsQuery {
 
 	s.v.Operator = &operator
 	return s
 }
 
-// Text to search for in the provided `fields`.
-// The `combined_fields` query analyzes the provided text before performing a
-// search.
 func (s *_combinedFieldsQuery) Query(query string) *_combinedFieldsQuery {
 
 	s.v.Query = query
@@ -107,8 +93,6 @@ func (s *_combinedFieldsQuery) QueryName_(queryname_ string) *_combinedFieldsQue
 	return s
 }
 
-// Indicates whether no documents are returned if the analyzer removes all
-// tokens, such as when using a `stop` filter.
 func (s *_combinedFieldsQuery) ZeroTermsQuery(zerotermsquery combinedfieldszeroterms.CombinedFieldsZeroTerms) *_combinedFieldsQuery {
 
 	s.v.ZeroTermsQuery = &zerotermsquery

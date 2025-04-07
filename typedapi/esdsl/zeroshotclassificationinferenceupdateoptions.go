@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -33,7 +33,6 @@ func NewZeroShotClassificationInferenceUpdateOptions() *_zeroShotClassificationI
 
 }
 
-// The labels to predict.
 func (s *_zeroShotClassificationInferenceUpdateOptions) Labels(labels ...string) *_zeroShotClassificationInferenceUpdateOptions {
 
 	for _, v := range labels {
@@ -44,8 +43,6 @@ func (s *_zeroShotClassificationInferenceUpdateOptions) Labels(labels ...string)
 	return s
 }
 
-// Update the configured multi label option. Indicates if more than one true
-// label exists. Defaults to the configured value.
 func (s *_zeroShotClassificationInferenceUpdateOptions) MultiLabel(multilabel bool) *_zeroShotClassificationInferenceUpdateOptions {
 
 	s.v.MultiLabel = &multilabel
@@ -53,8 +50,6 @@ func (s *_zeroShotClassificationInferenceUpdateOptions) MultiLabel(multilabel bo
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_zeroShotClassificationInferenceUpdateOptions) ResultsField(resultsfield string) *_zeroShotClassificationInferenceUpdateOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -62,7 +57,6 @@ func (s *_zeroShotClassificationInferenceUpdateOptions) ResultsField(resultsfiel
 	return s
 }
 
-// The tokenization options to update when inferring
 func (s *_zeroShotClassificationInferenceUpdateOptions) Tokenization(tokenization types.NlpTokenizationUpdateOptionsVariant) *_zeroShotClassificationInferenceUpdateOptions {
 
 	s.v.Tokenization = tokenization.NlpTokenizationUpdateOptionsCaster()

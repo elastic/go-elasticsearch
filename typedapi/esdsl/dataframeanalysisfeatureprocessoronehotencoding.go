@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,7 +37,6 @@ func NewDataframeAnalysisFeatureProcessorOneHotEncoding(hotmap string) *_datafra
 
 }
 
-// The name of the field to encode.
 func (s *_dataframeAnalysisFeatureProcessorOneHotEncoding) Field(field string) *_dataframeAnalysisFeatureProcessorOneHotEncoding {
 
 	s.v.Field = field
@@ -45,7 +44,6 @@ func (s *_dataframeAnalysisFeatureProcessorOneHotEncoding) Field(field string) *
 	return s
 }
 
-// The one hot map mapping the field value with the column name.
 func (s *_dataframeAnalysisFeatureProcessorOneHotEncoding) HotMap(hotmap string) *_dataframeAnalysisFeatureProcessorOneHotEncoding {
 
 	s.v.HotMap = hotmap

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,8 +39,6 @@ func NewFailProcessor(message string) *_failProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_failProcessor) Description(description string) *_failProcessor {
 
 	s.v.Description = &description
@@ -48,7 +46,6 @@ func (s *_failProcessor) Description(description string) *_failProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_failProcessor) If(if_ types.ScriptVariant) *_failProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -56,7 +53,6 @@ func (s *_failProcessor) If(if_ types.ScriptVariant) *_failProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_failProcessor) IgnoreFailure(ignorefailure bool) *_failProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -64,8 +60,6 @@ func (s *_failProcessor) IgnoreFailure(ignorefailure bool) *_failProcessor {
 	return s
 }
 
-// The error message thrown by the processor.
-// Supports template snippets.
 func (s *_failProcessor) Message(message string) *_failProcessor {
 
 	s.v.Message = message
@@ -73,7 +67,6 @@ func (s *_failProcessor) Message(message string) *_failProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_failProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_failProcessor {
 
 	for _, v := range onfailures {
@@ -84,8 +77,6 @@ func (s *_failProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_failProcessor) Tag(tag string) *_failProcessor {
 
 	s.v.Tag = &tag

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewToolCall(function types.ToolCallFunctionVariant, type_ string) *_toolCal
 
 }
 
-// The function that the model called.
 func (s *_toolCall) Function(function types.ToolCallFunctionVariant) *_toolCall {
 
 	s.v.Function = *function.ToolCallFunctionCaster()
@@ -46,7 +45,6 @@ func (s *_toolCall) Function(function types.ToolCallFunctionVariant) *_toolCall 
 	return s
 }
 
-// The identifier of the tool call.
 func (s *_toolCall) Id(id string) *_toolCall {
 
 	s.v.Id = id
@@ -54,7 +52,6 @@ func (s *_toolCall) Id(id string) *_toolCall {
 	return s
 }
 
-// The type of the tool call.
 func (s *_toolCall) Type(type_ string) *_toolCall {
 
 	s.v.Type = type_

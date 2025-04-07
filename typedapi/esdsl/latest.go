@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewLatest() *_latest {
 
 }
 
-// Specifies the date field that is used to identify the latest documents.
 func (s *_latest) Sort(field string) *_latest {
 
 	s.v.Sort = field
@@ -40,7 +39,6 @@ func (s *_latest) Sort(field string) *_latest {
 	return s
 }
 
-// Specifies an array of one or more fields that are used to group the data.
 func (s *_latest) UniqueKey(uniquekeys ...string) *_latest {
 
 	for _, v := range uniquekeys {

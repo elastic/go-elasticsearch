@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,14 +39,12 @@ func NewDiversifiedSamplerAggregation() *_diversifiedSamplerAggregation {
 
 }
 
-// The type of value used for de-duplication.
 func (s *_diversifiedSamplerAggregation) ExecutionHint(executionhint sampleraggregationexecutionhint.SamplerAggregationExecutionHint) *_diversifiedSamplerAggregation {
 
 	s.v.ExecutionHint = &executionhint
 	return s
 }
 
-// The field used to provide values used for de-duplication.
 func (s *_diversifiedSamplerAggregation) Field(field string) *_diversifiedSamplerAggregation {
 
 	s.v.Field = &field
@@ -54,7 +52,6 @@ func (s *_diversifiedSamplerAggregation) Field(field string) *_diversifiedSample
 	return s
 }
 
-// Limits how many documents are permitted per choice of de-duplicating value.
 func (s *_diversifiedSamplerAggregation) MaxDocsPerValue(maxdocspervalue int) *_diversifiedSamplerAggregation {
 
 	s.v.MaxDocsPerValue = &maxdocspervalue
@@ -69,8 +66,6 @@ func (s *_diversifiedSamplerAggregation) Script(script types.ScriptVariant) *_di
 	return s
 }
 
-// Limits how many top-scoring documents are collected in the sample processed
-// on each shard.
 func (s *_diversifiedSamplerAggregation) ShardSize(shardsize int) *_diversifiedSamplerAggregation {
 
 	s.v.ShardSize = &shardsize

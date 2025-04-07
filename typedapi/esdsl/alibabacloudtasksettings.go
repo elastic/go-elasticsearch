@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,13 +32,6 @@ func NewAlibabaCloudTaskSettings() *_alibabaCloudTaskSettings {
 
 }
 
-// For a `sparse_embedding` or `text_embedding` task, specify the type of input
-// passed to the model.
-// Valid values are:
-//
-// * `ingest` for storing document embeddings in a vector database.
-// * `search` for storing embeddings of search queries run against a vector
-// database to find relevant documents.
 func (s *_alibabaCloudTaskSettings) InputType(inputtype string) *_alibabaCloudTaskSettings {
 
 	s.v.InputType = &inputtype
@@ -46,10 +39,6 @@ func (s *_alibabaCloudTaskSettings) InputType(inputtype string) *_alibabaCloudTa
 	return s
 }
 
-// For a `sparse_embedding` task, it affects whether the token name will be
-// returned in the response.
-// It defaults to `false`, which means only the token ID will be returned in the
-// response.
 func (s *_alibabaCloudTaskSettings) ReturnToken(returntoken bool) *_alibabaCloudTaskSettings {
 
 	s.v.ReturnToken = &returntoken

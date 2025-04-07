@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,7 +37,6 @@ func NewDerivativeAggregation() *_derivativeAggregation {
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_derivativeAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_derivativeAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -45,9 +44,6 @@ func (s *_derivativeAggregation) BucketsPath(bucketspath types.BucketsPathVarian
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_derivativeAggregation) Format(format string) *_derivativeAggregation {
 
 	s.v.Format = &format
@@ -55,7 +51,6 @@ func (s *_derivativeAggregation) Format(format string) *_derivativeAggregation {
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_derivativeAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_derivativeAggregation {
 
 	s.v.GapPolicy = &gappolicy

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -35,8 +35,6 @@ func NewTimeSeriesAggregation() *_timeSeriesAggregation {
 
 }
 
-// Set to `true` to associate a unique string key with each bucket and returns
-// the ranges as a hash rather than an array.
 func (s *_timeSeriesAggregation) Keyed(keyed bool) *_timeSeriesAggregation {
 
 	s.v.Keyed = &keyed
@@ -44,7 +42,6 @@ func (s *_timeSeriesAggregation) Keyed(keyed bool) *_timeSeriesAggregation {
 	return s
 }
 
-// The maximum number of results to return.
 func (s *_timeSeriesAggregation) Size(size int) *_timeSeriesAggregation {
 
 	s.v.Size = &size

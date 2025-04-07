@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,8 +32,6 @@ func NewFieldAndFormat() *_fieldAndFormat {
 
 }
 
-// A wildcard pattern. The request returns values for field names matching this
-// pattern.
 func (s *_fieldAndFormat) Field(field string) *_fieldAndFormat {
 
 	s.v.Field = field
@@ -41,7 +39,6 @@ func (s *_fieldAndFormat) Field(field string) *_fieldAndFormat {
 	return s
 }
 
-// The format in which the values are returned.
 func (s *_fieldAndFormat) Format(format string) *_fieldAndFormat {
 
 	s.v.Format = &format

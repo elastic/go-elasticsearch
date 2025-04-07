@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,9 +32,6 @@ func NewIndexSettingsLifecycleStep() *_indexSettingsLifecycleStep {
 
 }
 
-// Time to wait for the cluster to resolve allocation issues during an ILM
-// shrink action. Must be greater than 1h (1 hour).
-// See Shard allocation for shrink.
 func (s *_indexSettingsLifecycleStep) WaitTimeThreshold(duration types.DurationVariant) *_indexSettingsLifecycleStep {
 
 	s.v.WaitTimeThreshold = *duration.DurationCaster()

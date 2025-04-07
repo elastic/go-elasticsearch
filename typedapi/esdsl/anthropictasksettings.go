@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,8 +36,6 @@ func NewAnthropicTaskSettings(maxtokens int) *_anthropicTaskSettings {
 
 }
 
-// For a `completion` task, it is the maximum number of tokens to generate
-// before stopping.
 func (s *_anthropicTaskSettings) MaxTokens(maxtokens int) *_anthropicTaskSettings {
 
 	s.v.MaxTokens = maxtokens
@@ -45,9 +43,6 @@ func (s *_anthropicTaskSettings) MaxTokens(maxtokens int) *_anthropicTaskSetting
 	return s
 }
 
-// For a `completion` task, it is the amount of randomness injected into the
-// response.
-// For more details about the supported range, refer to Anthropic documentation.
 func (s *_anthropicTaskSettings) Temperature(temperature float32) *_anthropicTaskSettings {
 
 	s.v.Temperature = &temperature
@@ -55,10 +50,6 @@ func (s *_anthropicTaskSettings) Temperature(temperature float32) *_anthropicTas
 	return s
 }
 
-// For a `completion` task, it specifies to only sample from the top K options
-// for each subsequent token.
-// It is recommended for advanced use cases only.
-// You usually only need to use `temperature`.
 func (s *_anthropicTaskSettings) TopK(topk int) *_anthropicTaskSettings {
 
 	s.v.TopK = &topk
@@ -66,13 +57,6 @@ func (s *_anthropicTaskSettings) TopK(topk int) *_anthropicTaskSettings {
 	return s
 }
 
-// For a `completion` task, it specifies to use Anthropic's nucleus sampling.
-// In nucleus sampling, Anthropic computes the cumulative distribution over all
-// the options for each subsequent token in decreasing probability order and
-// cuts it off once it reaches the specified probability.
-// You should either alter `temperature` or `top_p`, but not both.
-// It is recommended for advanced use cases only.
-// You usually only need to use `temperature`.
 func (s *_anthropicTaskSettings) TopP(topp float32) *_anthropicTaskSettings {
 
 	s.v.TopP = &topp

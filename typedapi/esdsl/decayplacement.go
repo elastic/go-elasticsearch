@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,7 +36,6 @@ func NewDecayPlacement() *_decayPlacement {
 
 }
 
-// Defines how documents are scored at the distance given at scale.
 func (s *_decayPlacement) Decay(decay types.Float64) *_decayPlacement {
 
 	s.v.Decay = &decay
@@ -44,8 +43,6 @@ func (s *_decayPlacement) Decay(decay types.Float64) *_decayPlacement {
 	return s
 }
 
-// If defined, the decay function will only compute the decay function for
-// documents with a distance greater than the defined `offset`.
 func (s *_decayPlacement) Offset(offset json.RawMessage) *_decayPlacement {
 
 	s.v.Offset = offset
@@ -53,8 +50,6 @@ func (s *_decayPlacement) Offset(offset json.RawMessage) *_decayPlacement {
 	return s
 }
 
-// The point of origin used for calculating distance. Must be given as a number
-// for numeric field, date for date fields and geo point for geo fields.
 func (s *_decayPlacement) Origin(origin json.RawMessage) *_decayPlacement {
 
 	s.v.Origin = origin
@@ -62,8 +57,6 @@ func (s *_decayPlacement) Origin(origin json.RawMessage) *_decayPlacement {
 	return s
 }
 
-// Defines the distance from origin + offset at which the computed score will
-// equal `decay` parameter.
 func (s *_decayPlacement) Scale(scale json.RawMessage) *_decayPlacement {
 
 	s.v.Scale = scale

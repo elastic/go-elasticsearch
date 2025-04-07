@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,9 +32,6 @@ func NewPerPartitionCategorization() *_perPartitionCategorization {
 
 }
 
-// To enable this setting, you must also set the `partition_field_name` property
-// to the same value in every detector that uses the keyword `mlcategory`.
-// Otherwise, job creation fails.
 func (s *_perPartitionCategorization) Enabled(enabled bool) *_perPartitionCategorization {
 
 	s.v.Enabled = &enabled
@@ -42,12 +39,6 @@ func (s *_perPartitionCategorization) Enabled(enabled bool) *_perPartitionCatego
 	return s
 }
 
-// This setting can be set to true only if per-partition categorization is
-// enabled. If true, both categorization and subsequent anomaly detection stops
-// for partitions where the categorization status changes to warn. This setting
-// makes it viable to have a job where it is expected that categorization works
-// well for some partitions but not others; you do not pay the cost of bad
-// categorization forever in the partitions where it works badly.
 func (s *_perPartitionCategorization) StopOnWarn(stoponwarn bool) *_perPartitionCategorization {
 
 	s.v.StopOnWarn = &stoponwarn

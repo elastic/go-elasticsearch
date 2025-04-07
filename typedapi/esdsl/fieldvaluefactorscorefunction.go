@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewFieldValueFactorScoreFunction() *_fieldValueFactorScoreFunction {
 
 }
 
-// Optional factor to multiply the field value with.
 func (s *_fieldValueFactorScoreFunction) Factor(factor types.Float64) *_fieldValueFactorScoreFunction {
 
 	s.v.Factor = &factor
@@ -46,7 +45,6 @@ func (s *_fieldValueFactorScoreFunction) Factor(factor types.Float64) *_fieldVal
 	return s
 }
 
-// Field to be extracted from the document.
 func (s *_fieldValueFactorScoreFunction) Field(field string) *_fieldValueFactorScoreFunction {
 
 	s.v.Field = field
@@ -54,9 +52,6 @@ func (s *_fieldValueFactorScoreFunction) Field(field string) *_fieldValueFactorS
 	return s
 }
 
-// Value used if the document doesn’t have that field.
-// The modifier and factor are still applied to it as though it were read from
-// the document.
 func (s *_fieldValueFactorScoreFunction) Missing(missing types.Float64) *_fieldValueFactorScoreFunction {
 
 	s.v.Missing = &missing
@@ -64,7 +59,6 @@ func (s *_fieldValueFactorScoreFunction) Missing(missing types.Float64) *_fieldV
 	return s
 }
 
-// Modifier to apply to the field value.
 func (s *_fieldValueFactorScoreFunction) Modifier(modifier fieldvaluefactormodifier.FieldValueFactorModifier) *_fieldValueFactorScoreFunction {
 
 	s.v.Modifier = &modifier

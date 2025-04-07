@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,14 +39,12 @@ func NewGeoDistanceAggregation() *_geoDistanceAggregation {
 
 }
 
-// The distance calculation type.
 func (s *_geoDistanceAggregation) DistanceType(distancetype geodistancetype.GeoDistanceType) *_geoDistanceAggregation {
 
 	s.v.DistanceType = &distancetype
 	return s
 }
 
-// A field of type `geo_point` used to evaluate the distance.
 func (s *_geoDistanceAggregation) Field(field string) *_geoDistanceAggregation {
 
 	s.v.Field = &field
@@ -54,7 +52,6 @@ func (s *_geoDistanceAggregation) Field(field string) *_geoDistanceAggregation {
 	return s
 }
 
-// The origin  used to evaluate the distance.
 func (s *_geoDistanceAggregation) Origin(geolocation types.GeoLocationVariant) *_geoDistanceAggregation {
 
 	s.v.Origin = *geolocation.GeoLocationCaster()
@@ -62,7 +59,6 @@ func (s *_geoDistanceAggregation) Origin(geolocation types.GeoLocationVariant) *
 	return s
 }
 
-// An array of ranges used to bucket documents.
 func (s *_geoDistanceAggregation) Ranges(ranges ...types.AggregationRangeVariant) *_geoDistanceAggregation {
 
 	for _, v := range ranges {
@@ -73,7 +69,6 @@ func (s *_geoDistanceAggregation) Ranges(ranges ...types.AggregationRangeVariant
 	return s
 }
 
-// The distance unit.
 func (s *_geoDistanceAggregation) Unit(unit distanceunit.DistanceUnit) *_geoDistanceAggregation {
 
 	s.v.Unit = &unit

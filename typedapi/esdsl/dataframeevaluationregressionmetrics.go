@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,7 +36,6 @@ func NewDataframeEvaluationRegressionMetrics() *_dataframeEvaluationRegressionMe
 
 }
 
-// Pseudo Huber loss function.
 func (s *_dataframeEvaluationRegressionMetrics) Huber(huber types.DataframeEvaluationRegressionMetricsHuberVariant) *_dataframeEvaluationRegressionMetrics {
 
 	s.v.Huber = huber.DataframeEvaluationRegressionMetricsHuberCaster()
@@ -44,8 +43,6 @@ func (s *_dataframeEvaluationRegressionMetrics) Huber(huber types.DataframeEvalu
 	return s
 }
 
-// Average squared difference between the predicted values and the actual
-// (ground truth) value. For more information, read this wiki article.
 func (s *_dataframeEvaluationRegressionMetrics) Mse(mse map[string]json.RawMessage) *_dataframeEvaluationRegressionMetrics {
 
 	s.v.Mse = mse
@@ -67,8 +64,6 @@ func (s *_dataframeEvaluationRegressionMetrics) AddMse(key string, value json.Ra
 	return s
 }
 
-// Average squared difference between the logarithm of the predicted values and
-// the logarithm of the actual (ground truth) value.
 func (s *_dataframeEvaluationRegressionMetrics) Msle(msle types.DataframeEvaluationRegressionMetricsMsleVariant) *_dataframeEvaluationRegressionMetrics {
 
 	s.v.Msle = msle.DataframeEvaluationRegressionMetricsMsleCaster()
@@ -76,8 +71,6 @@ func (s *_dataframeEvaluationRegressionMetrics) Msle(msle types.DataframeEvaluat
 	return s
 }
 
-// Proportion of the variance in the dependent variable that is predictable from
-// the independent variables.
 func (s *_dataframeEvaluationRegressionMetrics) RSquared(rsquared map[string]json.RawMessage) *_dataframeEvaluationRegressionMetrics {
 
 	s.v.RSquared = rsquared

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewTokenPruningConfig() *_tokenPruningConfig {
 
 }
 
-// Whether to only score pruned tokens, vs only scoring kept tokens.
 func (s *_tokenPruningConfig) OnlyScorePrunedTokens(onlyscoreprunedtokens bool) *_tokenPruningConfig {
 
 	s.v.OnlyScorePrunedTokens = &onlyscoreprunedtokens
@@ -46,9 +45,6 @@ func (s *_tokenPruningConfig) OnlyScorePrunedTokens(onlyscoreprunedtokens bool) 
 	return s
 }
 
-// Tokens whose frequency is more than this threshold times the average
-// frequency of all tokens in the specified field are considered outliers and
-// pruned.
 func (s *_tokenPruningConfig) TokensFreqRatioThreshold(tokensfreqratiothreshold int) *_tokenPruningConfig {
 
 	s.v.TokensFreqRatioThreshold = &tokensfreqratiothreshold
@@ -56,8 +52,6 @@ func (s *_tokenPruningConfig) TokensFreqRatioThreshold(tokensfreqratiothreshold 
 	return s
 }
 
-// Tokens whose weight is less than this threshold are considered nonsignificant
-// and pruned.
 func (s *_tokenPruningConfig) TokensWeightThreshold(tokensweightthreshold float32) *_tokenPruningConfig {
 
 	s.v.TokensWeightThreshold = &tokensweightthreshold

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,11 +38,6 @@ func NewGeoDistanceQuery() *_geoDistanceQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_geoDistanceQuery) Boost(boost float32) *_geoDistanceQuery {
 
 	s.v.Boost = &boost
@@ -50,8 +45,6 @@ func (s *_geoDistanceQuery) Boost(boost float32) *_geoDistanceQuery {
 	return s
 }
 
-// The radius of the circle centred on the specified location.
-// Points which fall into this circle are considered to be matches.
 func (s *_geoDistanceQuery) Distance(distance string) *_geoDistanceQuery {
 
 	s.v.Distance = distance
@@ -59,9 +52,6 @@ func (s *_geoDistanceQuery) Distance(distance string) *_geoDistanceQuery {
 	return s
 }
 
-// How to compute the distance.
-// Set to `plane` for a faster calculation that's inaccurate on long distances
-// and close to the poles.
 func (s *_geoDistanceQuery) DistanceType(distancetype geodistancetype.GeoDistanceType) *_geoDistanceQuery {
 
 	s.v.DistanceType = &distancetype
@@ -89,9 +79,6 @@ func (s *_geoDistanceQuery) AddGeoDistanceQuery(key string, value types.GeoLocat
 	return s
 }
 
-// Set to `true` to ignore an unmapped field and not match any documents for
-// this query.
-// Set to `false` to throw an exception if the field is not mapped.
 func (s *_geoDistanceQuery) IgnoreUnmapped(ignoreunmapped bool) *_geoDistanceQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped
@@ -106,9 +93,6 @@ func (s *_geoDistanceQuery) QueryName_(queryname_ string) *_geoDistanceQuery {
 	return s
 }
 
-// Set to `IGNORE_MALFORMED` to accept geo points with invalid latitude or
-// longitude.
-// Set to `COERCE` to also try to infer correct latitude or longitude.
 func (s *_geoDistanceQuery) ValidationMethod(validationmethod geovalidationmethod.GeoValidationMethod) *_geoDistanceQuery {
 
 	s.v.ValidationMethod = &validationmethod

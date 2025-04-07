@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewGoogleAiStudioServiceSettings(apikey string, modelid string) *_googleAiS
 
 }
 
-// A valid API key of your Google Gemini account.
 func (s *_googleAiStudioServiceSettings) ApiKey(apikey string) *_googleAiStudioServiceSettings {
 
 	s.v.ApiKey = apikey
@@ -46,8 +45,6 @@ func (s *_googleAiStudioServiceSettings) ApiKey(apikey string) *_googleAiStudioS
 	return s
 }
 
-// The name of the model to use for the inference task.
-// Refer to the Google documentation for the list of supported models.
 func (s *_googleAiStudioServiceSettings) ModelId(modelid string) *_googleAiStudioServiceSettings {
 
 	s.v.ModelId = modelid
@@ -55,10 +52,6 @@ func (s *_googleAiStudioServiceSettings) ModelId(modelid string) *_googleAiStudi
 	return s
 }
 
-// This setting helps to minimize the number of rate limit errors returned from
-// Google AI Studio.
-// By default, the `googleaistudio` service sets the number of requests allowed
-// per minute to 360.
 func (s *_googleAiStudioServiceSettings) RateLimit(ratelimit types.RateLimitSettingVariant) *_googleAiStudioServiceSettings {
 
 	s.v.RateLimit = ratelimit.RateLimitSettingCaster()

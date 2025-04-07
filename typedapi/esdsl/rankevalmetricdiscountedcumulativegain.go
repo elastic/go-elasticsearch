@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,8 +32,6 @@ func NewRankEvalMetricDiscountedCumulativeGain() *_rankEvalMetricDiscountedCumul
 
 }
 
-// Sets the maximum number of documents retrieved per query. This value will act
-// in place of the usual size parameter in the query.
 func (s *_rankEvalMetricDiscountedCumulativeGain) K(k int) *_rankEvalMetricDiscountedCumulativeGain {
 
 	s.v.K = &k
@@ -41,7 +39,6 @@ func (s *_rankEvalMetricDiscountedCumulativeGain) K(k int) *_rankEvalMetricDisco
 	return s
 }
 
-// If set to true, this metric will calculate the Normalized DCG.
 func (s *_rankEvalMetricDiscountedCumulativeGain) Normalize(normalize bool) *_rankEvalMetricDiscountedCumulativeGain {
 
 	s.v.Normalize = &normalize

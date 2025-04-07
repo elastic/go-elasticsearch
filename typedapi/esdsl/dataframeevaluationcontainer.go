@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -46,9 +46,6 @@ func (s *_dataframeEvaluationContainer) AdditionalDataframeEvaluationContainerPr
 	return s
 }
 
-// Classification evaluation evaluates the results of a classification analysis
-// which outputs a prediction that identifies to which of the classes each
-// document belongs.
 func (s *_dataframeEvaluationContainer) Classification(classification types.DataframeEvaluationClassificationVariant) *_dataframeEvaluationContainer {
 
 	s.v.Classification = classification.DataframeEvaluationClassificationCaster()
@@ -56,8 +53,6 @@ func (s *_dataframeEvaluationContainer) Classification(classification types.Data
 	return s
 }
 
-// Outlier detection evaluates the results of an outlier detection analysis
-// which outputs the probability that each document is an outlier.
 func (s *_dataframeEvaluationContainer) OutlierDetection(outlierdetection types.DataframeEvaluationOutlierDetectionVariant) *_dataframeEvaluationContainer {
 
 	s.v.OutlierDetection = outlierdetection.DataframeEvaluationOutlierDetectionCaster()
@@ -65,8 +60,6 @@ func (s *_dataframeEvaluationContainer) OutlierDetection(outlierdetection types.
 	return s
 }
 
-// Regression evaluation evaluates the results of a regression analysis which
-// outputs a prediction of values.
 func (s *_dataframeEvaluationContainer) Regression(regression types.DataframeEvaluationRegressionVariant) *_dataframeEvaluationContainer {
 
 	s.v.Regression = regression.DataframeEvaluationRegressionCaster()

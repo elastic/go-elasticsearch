@@ -16,12 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 // Update Watcher index settings.
 // Update settings for the Watcher internal index (`.watches`).
 // Only a subset of settings can be modified.
-// This includes `index.auto_expand_replicas` and `index.number_of_replicas`.
+// This includes `index.auto_expand_replicas`, `index.number_of_replicas`,
+// `index.routing.allocation.exclude.*`,
+// `index.routing.allocation.include.*` and
+// `index.routing.allocation.require.*`.
+// Modification of `index.routing.allocation.include._tier_preference` is an
+// exception and is not allowed as the
+// Watcher shards must always be in the `data_content` tier.
 package updatesettings
 
 import (
@@ -79,7 +85,13 @@ func NewUpdateSettingsFunc(tp elastictransport.Interface) NewUpdateSettings {
 // Update Watcher index settings.
 // Update settings for the Watcher internal index (`.watches`).
 // Only a subset of settings can be modified.
-// This includes `index.auto_expand_replicas` and `index.number_of_replicas`.
+// This includes `index.auto_expand_replicas`, `index.number_of_replicas`,
+// `index.routing.allocation.exclude.*`,
+// `index.routing.allocation.include.*` and
+// `index.routing.allocation.require.*`.
+// Modification of `index.routing.allocation.include._tier_preference` is an
+// exception and is not allowed as the
+// Watcher shards must always be in the `data_content` tier.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-update-settings
 func New(tp elastictransport.Interface) *UpdateSettings {
@@ -178,12 +190,12 @@ func (r *UpdateSettings) HttpRequest(ctx context.Context) (*http.Request, error)
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.raw != nil {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
 		}
 	}
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {

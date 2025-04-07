@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -46,7 +46,6 @@ func (s *_fieldSuggester) AdditionalFieldSuggesterProperty(key string, value jso
 	return s
 }
 
-// Provides auto-complete/search-as-you-type functionality.
 func (s *_fieldSuggester) Completion(completion types.CompletionSuggesterVariant) *_fieldSuggester {
 
 	s.v.Completion = completion.CompletionSuggesterCaster()
@@ -54,8 +53,6 @@ func (s *_fieldSuggester) Completion(completion types.CompletionSuggesterVariant
 	return s
 }
 
-// Provides access to word alternatives on a per token basis within a certain
-// string distance.
 func (s *_fieldSuggester) Phrase(phrase types.PhraseSuggesterVariant) *_fieldSuggester {
 
 	s.v.Phrase = phrase.PhraseSuggesterCaster()
@@ -63,7 +60,6 @@ func (s *_fieldSuggester) Phrase(phrase types.PhraseSuggesterVariant) *_fieldSug
 	return s
 }
 
-// Prefix used to search for suggestions.
 func (s *_fieldSuggester) Prefix(prefix string) *_fieldSuggester {
 
 	s.v.Prefix = &prefix
@@ -71,7 +67,6 @@ func (s *_fieldSuggester) Prefix(prefix string) *_fieldSuggester {
 	return s
 }
 
-// A prefix expressed as a regular expression.
 func (s *_fieldSuggester) Regex(regex string) *_fieldSuggester {
 
 	s.v.Regex = &regex
@@ -79,7 +74,6 @@ func (s *_fieldSuggester) Regex(regex string) *_fieldSuggester {
 	return s
 }
 
-// Suggests terms based on edit distance.
 func (s *_fieldSuggester) Term(term types.TermSuggesterVariant) *_fieldSuggester {
 
 	s.v.Term = term.TermSuggesterCaster()
@@ -87,8 +81,6 @@ func (s *_fieldSuggester) Term(term types.TermSuggesterVariant) *_fieldSuggester
 	return s
 }
 
-// The text to use as input for the suggester.
-// Needs to be set globally or per suggestion.
 func (s *_fieldSuggester) Text(text string) *_fieldSuggester {
 
 	s.v.Text = &text

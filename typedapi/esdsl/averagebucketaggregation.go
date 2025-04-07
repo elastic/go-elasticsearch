@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,7 +39,6 @@ func NewAverageBucketAggregation() *_averageBucketAggregation {
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_averageBucketAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_averageBucketAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -47,9 +46,6 @@ func (s *_averageBucketAggregation) BucketsPath(bucketspath types.BucketsPathVar
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_averageBucketAggregation) Format(format string) *_averageBucketAggregation {
 
 	s.v.Format = &format
@@ -57,7 +53,6 @@ func (s *_averageBucketAggregation) Format(format string) *_averageBucketAggrega
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_averageBucketAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_averageBucketAggregation {
 
 	s.v.GapPolicy = &gappolicy

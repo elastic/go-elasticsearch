@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -36,9 +36,6 @@ func NewHistogramGrouping(interval int64) *_histogramGrouping {
 
 }
 
-// The set of fields that you wish to build histograms for.
-// All fields specified must be some kind of numeric.
-// Order does not matter.
 func (s *_histogramGrouping) Fields(fields ...string) *_histogramGrouping {
 
 	s.v.Fields = fields
@@ -46,11 +43,6 @@ func (s *_histogramGrouping) Fields(fields ...string) *_histogramGrouping {
 	return s
 }
 
-// The interval of histogram buckets to be generated when rolling up.
-// For example, a value of `5` creates buckets that are five units wide (`0-5`,
-// `5-10`, etc).
-// Note that only one interval can be specified in the histogram group, meaning
-// that all fields being grouped via the histogram must share the same interval.
 func (s *_histogramGrouping) Interval(interval int64) *_histogramGrouping {
 
 	s.v.Interval = interval

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -46,7 +46,6 @@ func (s *_intervals) AdditionalIntervalsProperty(key string, value json.RawMessa
 	return s
 }
 
-// Returns matches that span a combination of other rules.
 func (s *_intervals) AllOf(allof types.IntervalsAllOfVariant) *_intervals {
 
 	s.v.AllOf = allof.IntervalsAllOfCaster()
@@ -54,7 +53,6 @@ func (s *_intervals) AllOf(allof types.IntervalsAllOfVariant) *_intervals {
 	return s
 }
 
-// Returns intervals produced by any of its sub-rules.
 func (s *_intervals) AnyOf(anyof types.IntervalsAnyOfVariant) *_intervals {
 
 	s.v.AnyOf = anyof.IntervalsAnyOfCaster()
@@ -62,7 +60,6 @@ func (s *_intervals) AnyOf(anyof types.IntervalsAnyOfVariant) *_intervals {
 	return s
 }
 
-// Matches analyzed text.
 func (s *_intervals) Fuzzy(fuzzy types.IntervalsFuzzyVariant) *_intervals {
 
 	s.v.Fuzzy = fuzzy.IntervalsFuzzyCaster()
@@ -70,7 +67,6 @@ func (s *_intervals) Fuzzy(fuzzy types.IntervalsFuzzyVariant) *_intervals {
 	return s
 }
 
-// Matches analyzed text.
 func (s *_intervals) Match(match types.IntervalsMatchVariant) *_intervals {
 
 	s.v.Match = match.IntervalsMatchCaster()
@@ -78,7 +74,6 @@ func (s *_intervals) Match(match types.IntervalsMatchVariant) *_intervals {
 	return s
 }
 
-// Matches terms that start with a specified set of characters.
 func (s *_intervals) Prefix(prefix types.IntervalsPrefixVariant) *_intervals {
 
 	s.v.Prefix = prefix.IntervalsPrefixCaster()
@@ -86,7 +81,6 @@ func (s *_intervals) Prefix(prefix types.IntervalsPrefixVariant) *_intervals {
 	return s
 }
 
-// Matches terms using a wildcard pattern.
 func (s *_intervals) Wildcard(wildcard types.IntervalsWildcardVariant) *_intervals {
 
 	s.v.Wildcard = wildcard.IntervalsWildcardCaster()

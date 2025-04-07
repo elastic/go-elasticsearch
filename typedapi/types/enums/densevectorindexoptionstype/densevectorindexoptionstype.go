@@ -16,19 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 // Package densevectorindexoptionstype
 package densevectorindexoptionstype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/_types/mapping/DenseVectorProperty.ts#L164-L197
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/_types/mapping/DenseVectorProperty.ts#L164-L209
 type DenseVectorIndexOptionsType struct {
 	Name string
 }
 
 var (
+	Bbqflat = DenseVectorIndexOptionsType{"bbq_flat"}
+
+	Bbqhnsw = DenseVectorIndexOptionsType{"bbq_hnsw"}
+
 	Flat = DenseVectorIndexOptionsType{"flat"}
 
 	Hnsw = DenseVectorIndexOptionsType{"hnsw"}
@@ -49,6 +53,10 @@ func (d DenseVectorIndexOptionsType) MarshalText() (text []byte, err error) {
 func (d *DenseVectorIndexOptionsType) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
+	case "bbq_flat":
+		*d = Bbqflat
+	case "bbq_hnsw":
+		*d = Bbqhnsw
 	case "flat":
 		*d = Flat
 	case "hnsw":

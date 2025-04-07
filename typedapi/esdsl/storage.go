@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,13 +39,6 @@ func NewStorage(type_ storagetype.StorageType) *_storage {
 
 }
 
-// You can restrict the use of the mmapfs and the related hybridfs store type
-// via the setting node.store.allow_mmap.
-// This is a boolean setting indicating whether or not memory-mapping is
-// allowed. The default is to allow it. This
-// setting is useful, for example, if you are in an environment where you can
-// not control the ability to create a lot
-// of memory maps so you need disable the ability to use memory-mapping.
 func (s *_storage) AllowMmap(allowmmap bool) *_storage {
 
 	s.v.AllowMmap = &allowmmap

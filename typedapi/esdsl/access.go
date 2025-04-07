@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewAccess() *_access {
 
 }
 
-// A list of indices permission entries for cross-cluster replication.
 func (s *_access) Replication(replications ...types.ReplicationAccessVariant) *_access {
 
 	for _, v := range replications {
@@ -43,7 +42,6 @@ func (s *_access) Replication(replications ...types.ReplicationAccessVariant) *_
 	return s
 }
 
-// A list of indices permission entries for cross-cluster search.
 func (s *_access) Search(searches ...types.SearchAccessVariant) *_access {
 
 	for _, v := range searches {

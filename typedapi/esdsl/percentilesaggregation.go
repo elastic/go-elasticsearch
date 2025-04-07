@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,7 +34,6 @@ func NewPercentilesAggregation() *_percentilesAggregation {
 
 }
 
-// The field on which to run the aggregation.
 func (s *_percentilesAggregation) Field(field string) *_percentilesAggregation {
 
 	s.v.Field = &field
@@ -49,8 +48,6 @@ func (s *_percentilesAggregation) Format(format string) *_percentilesAggregation
 	return s
 }
 
-// Uses the alternative High Dynamic Range Histogram algorithm to calculate
-// percentiles.
 func (s *_percentilesAggregation) Hdr(hdr types.HdrMethodVariant) *_percentilesAggregation {
 
 	s.v.Hdr = hdr.HdrMethodCaster()
@@ -58,9 +55,6 @@ func (s *_percentilesAggregation) Hdr(hdr types.HdrMethodVariant) *_percentilesA
 	return s
 }
 
-// By default, the aggregation associates a unique string key with each bucket
-// and returns the ranges as a hash rather than an array.
-// Set to `false` to disable this behavior.
 func (s *_percentilesAggregation) Keyed(keyed bool) *_percentilesAggregation {
 
 	s.v.Keyed = &keyed
@@ -68,8 +62,6 @@ func (s *_percentilesAggregation) Keyed(keyed bool) *_percentilesAggregation {
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_percentilesAggregation) Missing(missing types.MissingVariant) *_percentilesAggregation {
 
 	s.v.Missing = *missing.MissingCaster()
@@ -77,7 +69,6 @@ func (s *_percentilesAggregation) Missing(missing types.MissingVariant) *_percen
 	return s
 }
 
-// The percentiles to calculate.
 func (s *_percentilesAggregation) Percents(percents ...types.Float64) *_percentilesAggregation {
 
 	for _, v := range percents {
@@ -95,8 +86,6 @@ func (s *_percentilesAggregation) Script(script types.ScriptVariant) *_percentil
 	return s
 }
 
-// Sets parameters for the default TDigest algorithm used to calculate
-// percentiles.
 func (s *_percentilesAggregation) Tdigest(tdigest types.TDigestVariant) *_percentilesAggregation {
 
 	s.v.Tdigest = tdigest.TDigestCaster()

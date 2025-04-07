@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package types
 
 // GeoIpNodeDatabases type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/ingest/geo_ip_stats/types.ts#L39-L45
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/ingest/geo_ip_stats/types.ts#L39-L45
 type GeoIpNodeDatabases struct {
 	// Databases Downloaded databases for the node.
 	Databases []GeoIpNodeDatabaseName `json:"databases"`

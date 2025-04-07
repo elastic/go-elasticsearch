@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,9 +32,6 @@ func NewIndexSettingsLifecycle() *_indexSettingsLifecycle {
 
 }
 
-// Indicates whether or not the index has been rolled over. Automatically set to
-// true when ILM completes the rollover action.
-// You can explicitly set it to skip rollover.
 func (s *_indexSettingsLifecycle) IndexingComplete(stringifiedboolean types.StringifiedbooleanVariant) *_indexSettingsLifecycle {
 
 	s.v.IndexingComplete = *stringifiedboolean.StringifiedbooleanCaster()
@@ -42,8 +39,6 @@ func (s *_indexSettingsLifecycle) IndexingComplete(stringifiedboolean types.Stri
 	return s
 }
 
-// The name of the policy to use to manage the index. For information about how
-// Elasticsearch applies policy changes, see Policy updates.
 func (s *_indexSettingsLifecycle) Name(name string) *_indexSettingsLifecycle {
 
 	s.v.Name = &name
@@ -51,11 +46,6 @@ func (s *_indexSettingsLifecycle) Name(name string) *_indexSettingsLifecycle {
 	return s
 }
 
-// If specified, this is the timestamp used to calculate the index age for its
-// phase transitions. Use this setting
-// if you create a new index that contains old data and want to use the original
-// creation date to calculate the index
-// age. Specified as a Unix epoch value in milliseconds.
 func (s *_indexSettingsLifecycle) OriginationDate(originationdate int64) *_indexSettingsLifecycle {
 
 	s.v.OriginationDate = &originationdate
@@ -63,14 +53,6 @@ func (s *_indexSettingsLifecycle) OriginationDate(originationdate int64) *_index
 	return s
 }
 
-// Set to true to parse the origination date from the index name. This
-// origination date is used to calculate the index age
-// for its phase transitions. The index name must match the pattern
-// ^.*-{date_format}-\\d+, where the date_format is
-// yyyy.MM.dd and the trailing digits are optional. An index that was rolled
-// over would normally match the full format,
-// for example logs-2016.10.31-000002). If the index name doesn’t match the
-// pattern, index creation fails.
 func (s *_indexSettingsLifecycle) ParseOriginationDate(parseoriginationdate bool) *_indexSettingsLifecycle {
 
 	s.v.ParseOriginationDate = &parseoriginationdate
@@ -78,9 +60,6 @@ func (s *_indexSettingsLifecycle) ParseOriginationDate(parseoriginationdate bool
 	return s
 }
 
-// Preference for the system that manages a data stream backing index
-// (preferring ILM when both ILM and DLM are
-// applicable for an index).
 func (s *_indexSettingsLifecycle) PreferIlm(preferilm string) *_indexSettingsLifecycle {
 
 	s.v.PreferIlm = preferilm
@@ -88,11 +67,6 @@ func (s *_indexSettingsLifecycle) PreferIlm(preferilm string) *_indexSettingsLif
 	return s
 }
 
-// The index alias to update when the index rolls over. Specify when using a
-// policy that contains a rollover action.
-// When the index rolls over, the alias is updated to reflect that the index is
-// no longer the write index. For more
-// information about rolling indices, see Rollover.
 func (s *_indexSettingsLifecycle) RolloverAlias(rolloveralias string) *_indexSettingsLifecycle {
 
 	s.v.RolloverAlias = &rolloveralias

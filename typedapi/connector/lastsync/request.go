@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package lastsync
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package lastsync
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cd5cc9962e79198ac2daf9110c00808293977f13/specification/connector/last_sync/ConnectorUpdateLastSyncRequest.ts#L26-L66
+// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/connector/last_sync/ConnectorUpdateLastSyncRequest.ts#L26-L66
 type Request struct {
 	LastAccessControlSyncError       *string                `json:"last_access_control_sync_error,omitempty"`
 	LastAccessControlSyncScheduledAt types.DateTime         `json:"last_access_control_sync_scheduled_at,omitempty"`

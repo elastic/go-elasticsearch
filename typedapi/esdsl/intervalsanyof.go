@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -33,7 +33,6 @@ func NewIntervalsAnyOf() *_intervalsAnyOf {
 
 }
 
-// Rule used to filter returned intervals.
 func (s *_intervalsAnyOf) Filter(filter types.IntervalsFilterVariant) *_intervalsAnyOf {
 
 	s.v.Filter = filter.IntervalsFilterCaster()
@@ -41,7 +40,6 @@ func (s *_intervalsAnyOf) Filter(filter types.IntervalsFilterVariant) *_interval
 	return s
 }
 
-// An array of rules to match.
 func (s *_intervalsAnyOf) Intervals(intervals ...types.IntervalsVariant) *_intervalsAnyOf {
 
 	for _, v := range intervals {

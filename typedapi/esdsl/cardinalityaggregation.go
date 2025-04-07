@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,14 +37,12 @@ func NewCardinalityAggregation() *_cardinalityAggregation {
 
 }
 
-// Mechanism by which cardinality aggregations is run.
 func (s *_cardinalityAggregation) ExecutionHint(executionhint cardinalityexecutionmode.CardinalityExecutionMode) *_cardinalityAggregation {
 
 	s.v.ExecutionHint = &executionhint
 	return s
 }
 
-// The field on which to run the aggregation.
 func (s *_cardinalityAggregation) Field(field string) *_cardinalityAggregation {
 
 	s.v.Field = &field
@@ -52,8 +50,6 @@ func (s *_cardinalityAggregation) Field(field string) *_cardinalityAggregation {
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_cardinalityAggregation) Missing(missing types.MissingVariant) *_cardinalityAggregation {
 
 	s.v.Missing = *missing.MissingCaster()
@@ -61,8 +57,6 @@ func (s *_cardinalityAggregation) Missing(missing types.MissingVariant) *_cardin
 	return s
 }
 
-// A unique count below which counts are expected to be close to accurate.
-// This allows to trade memory for accuracy.
 func (s *_cardinalityAggregation) PrecisionThreshold(precisionthreshold int) *_cardinalityAggregation {
 
 	s.v.PrecisionThreshold = &precisionthreshold

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,8 +32,6 @@ func NewPatternAnalyzer() *_patternAnalyzer {
 
 }
 
-// Java regular expression flags. Flags should be pipe-separated, eg
-// "CASE_INSENSITIVE|COMMENTS".
 func (s *_patternAnalyzer) Flags(flags string) *_patternAnalyzer {
 
 	s.v.Flags = &flags
@@ -41,8 +39,6 @@ func (s *_patternAnalyzer) Flags(flags string) *_patternAnalyzer {
 	return s
 }
 
-// Should terms be lowercased or not.
-// Defaults to `true`.
 func (s *_patternAnalyzer) Lowercase(lowercase bool) *_patternAnalyzer {
 
 	s.v.Lowercase = &lowercase
@@ -50,8 +46,6 @@ func (s *_patternAnalyzer) Lowercase(lowercase bool) *_patternAnalyzer {
 	return s
 }
 
-// A Java regular expression.
-// Defaults to `\W+`.
 func (s *_patternAnalyzer) Pattern(pattern string) *_patternAnalyzer {
 
 	s.v.Pattern = &pattern
@@ -59,9 +53,6 @@ func (s *_patternAnalyzer) Pattern(pattern string) *_patternAnalyzer {
 	return s
 }
 
-// A pre-defined stop words list like `_english_` or an array containing a list
-// of stop words.
-// Defaults to `_none_`.
 func (s *_patternAnalyzer) Stopwords(stopwords ...string) *_patternAnalyzer {
 
 	s.v.Stopwords = stopwords
@@ -69,7 +60,6 @@ func (s *_patternAnalyzer) Stopwords(stopwords ...string) *_patternAnalyzer {
 	return s
 }
 
-// The path to a file containing stop words.
 func (s *_patternAnalyzer) StopwordsPath(stopwordspath string) *_patternAnalyzer {
 
 	s.v.StopwordsPath = &stopwordspath

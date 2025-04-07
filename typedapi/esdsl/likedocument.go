@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -37,7 +37,6 @@ func NewLikeDocument() *_likeDocument {
 
 }
 
-// A document not present in the index.
 func (s *_likeDocument) Doc(doc json.RawMessage) *_likeDocument {
 
 	s.v.Doc = doc
@@ -55,7 +54,6 @@ func (s *_likeDocument) Fields(fields ...string) *_likeDocument {
 	return s
 }
 
-// ID of a document.
 func (s *_likeDocument) Id_(id string) *_likeDocument {
 
 	s.v.Id_ = &id
@@ -63,7 +61,6 @@ func (s *_likeDocument) Id_(id string) *_likeDocument {
 	return s
 }
 
-// Index of a document.
 func (s *_likeDocument) Index_(indexname string) *_likeDocument {
 
 	s.v.Index_ = &indexname
@@ -71,7 +68,6 @@ func (s *_likeDocument) Index_(indexname string) *_likeDocument {
 	return s
 }
 
-// Overrides the default analyzer.
 func (s *_likeDocument) PerFieldAnalyzer(perfieldanalyzer map[string]string) *_likeDocument {
 
 	s.v.PerFieldAnalyzer = perfieldanalyzer

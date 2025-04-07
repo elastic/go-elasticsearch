@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewSyncRulesFeature() *_syncRulesFeature {
 
 }
 
-// Indicates whether advanced sync rules are enabled.
 func (s *_syncRulesFeature) Advanced(advanced types.FeatureEnabledVariant) *_syncRulesFeature {
 
 	s.v.Advanced = advanced.FeatureEnabledCaster()
@@ -40,7 +39,6 @@ func (s *_syncRulesFeature) Advanced(advanced types.FeatureEnabledVariant) *_syn
 	return s
 }
 
-// Indicates whether basic sync rules are enabled.
 func (s *_syncRulesFeature) Basic(basic types.FeatureEnabledVariant) *_syncRulesFeature {
 
 	s.v.Basic = basic.FeatureEnabledCaster()

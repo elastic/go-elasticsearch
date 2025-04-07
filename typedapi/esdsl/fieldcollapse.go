@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,7 +39,6 @@ func (s *_fieldCollapse) Collapse(collapse types.FieldCollapseVariant) *_fieldCo
 	return s
 }
 
-// The field to collapse the result set on
 func (s *_fieldCollapse) Field(field string) *_fieldCollapse {
 
 	s.v.Field = field
@@ -47,7 +46,6 @@ func (s *_fieldCollapse) Field(field string) *_fieldCollapse {
 	return s
 }
 
-// The number of inner hits and their sort order
 func (s *_fieldCollapse) InnerHits(innerhits ...types.InnerHitsVariant) *_fieldCollapse {
 
 	s.v.InnerHits = make([]types.InnerHits, len(innerhits))
@@ -58,8 +56,6 @@ func (s *_fieldCollapse) InnerHits(innerhits ...types.InnerHitsVariant) *_fieldC
 	return s
 }
 
-// The number of concurrent requests allowed to retrieve the inner_hits per
-// group
 func (s *_fieldCollapse) MaxConcurrentGroupSearches(maxconcurrentgroupsearches int) *_fieldCollapse {
 
 	s.v.MaxConcurrentGroupSearches = &maxconcurrentgroupsearches

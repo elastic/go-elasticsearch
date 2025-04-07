@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewBucketCorrelationAggregation(function types.BucketCorrelationFunctionVar
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_bucketCorrelationAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_bucketCorrelationAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -46,7 +45,6 @@ func (s *_bucketCorrelationAggregation) BucketsPath(bucketspath types.BucketsPat
 	return s
 }
 
-// The correlation function to execute.
 func (s *_bucketCorrelationAggregation) Function(function types.BucketCorrelationFunctionVariant) *_bucketCorrelationAggregation {
 
 	s.v.Function = *function.BucketCorrelationFunctionCaster()

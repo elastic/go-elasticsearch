@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -33,8 +33,6 @@ func NewRrfRank() *_rrfRank {
 
 }
 
-// How much influence documents in individual result sets per query have over
-// the final ranked result set
 func (s *_rrfRank) RankConstant(rankconstant int64) *_rrfRank {
 
 	s.v.RankConstant = &rankconstant
@@ -42,7 +40,6 @@ func (s *_rrfRank) RankConstant(rankconstant int64) *_rrfRank {
 	return s
 }
 
-// Size of the individual result sets per query
 func (s *_rrfRank) RankWindowSize(rankwindowsize int64) *_rrfRank {
 
 	s.v.RankWindowSize = &rankwindowsize

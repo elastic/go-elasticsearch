@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -39,7 +39,6 @@ func NewRuntimeField(type_ runtimefieldtype.RuntimeFieldType) *_runtimeField {
 
 }
 
-// For type `lookup`
 func (s *_runtimeField) FetchFields(fetchfields ...types.RuntimeFieldFetchFieldsVariant) *_runtimeField {
 
 	for _, v := range fetchfields {
@@ -50,7 +49,6 @@ func (s *_runtimeField) FetchFields(fetchfields ...types.RuntimeFieldFetchFields
 	return s
 }
 
-// For type `composite`
 func (s *_runtimeField) Fields(fields map[string]types.CompositeSubField) *_runtimeField {
 
 	s.v.Fields = fields
@@ -72,7 +70,6 @@ func (s *_runtimeField) AddField(key string, value types.CompositeSubFieldVarian
 	return s
 }
 
-// A custom format for `date` type runtime fields.
 func (s *_runtimeField) Format(format string) *_runtimeField {
 
 	s.v.Format = &format
@@ -80,7 +77,6 @@ func (s *_runtimeField) Format(format string) *_runtimeField {
 	return s
 }
 
-// For type `lookup`
 func (s *_runtimeField) InputField(field string) *_runtimeField {
 
 	s.v.InputField = &field
@@ -88,7 +84,6 @@ func (s *_runtimeField) InputField(field string) *_runtimeField {
 	return s
 }
 
-// Painless script executed at query time.
 func (s *_runtimeField) Script(script types.ScriptVariant) *_runtimeField {
 
 	s.v.Script = script.ScriptCaster()
@@ -96,7 +91,6 @@ func (s *_runtimeField) Script(script types.ScriptVariant) *_runtimeField {
 	return s
 }
 
-// For type `lookup`
 func (s *_runtimeField) TargetField(field string) *_runtimeField {
 
 	s.v.TargetField = &field
@@ -104,7 +98,6 @@ func (s *_runtimeField) TargetField(field string) *_runtimeField {
 	return s
 }
 
-// For type `lookup`
 func (s *_runtimeField) TargetIndex(indexname string) *_runtimeField {
 
 	s.v.TargetIndex = &indexname
@@ -112,8 +105,6 @@ func (s *_runtimeField) TargetIndex(indexname string) *_runtimeField {
 	return s
 }
 
-// Field type, which can be: `boolean`, `composite`, `date`, `double`,
-// `geo_point`, `ip`,`keyword`, `long`, or `lookup`.
 func (s *_runtimeField) Type(type_ runtimefieldtype.RuntimeFieldType) *_runtimeField {
 
 	s.v.Type = type_

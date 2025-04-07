@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,8 +32,6 @@ func NewGoogleVertexAITaskSettings() *_googleVertexAITaskSettings {
 
 }
 
-// For a `text_embedding` task, truncate inputs longer than the maximum token
-// length automatically.
 func (s *_googleVertexAITaskSettings) AutoTruncate(autotruncate bool) *_googleVertexAITaskSettings {
 
 	s.v.AutoTruncate = &autotruncate
@@ -41,8 +39,6 @@ func (s *_googleVertexAITaskSettings) AutoTruncate(autotruncate bool) *_googleVe
 	return s
 }
 
-// For a `rerank` task, the number of the top N documents that should be
-// returned.
 func (s *_googleVertexAITaskSettings) TopN(topn int) *_googleVertexAITaskSettings {
 
 	s.v.TopN = &topn

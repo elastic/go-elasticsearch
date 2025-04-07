@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -33,7 +33,6 @@ func NewInferenceConfigRegression() *_inferenceConfigRegression {
 
 }
 
-// Specifies the maximum number of feature importance values per document.
 func (s *_inferenceConfigRegression) NumTopFeatureImportanceValues(numtopfeatureimportancevalues int) *_inferenceConfigRegression {
 
 	s.v.NumTopFeatureImportanceValues = &numtopfeatureimportancevalues
@@ -41,8 +40,6 @@ func (s *_inferenceConfigRegression) NumTopFeatureImportanceValues(numtopfeature
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction.
 func (s *_inferenceConfigRegression) ResultsField(field string) *_inferenceConfigRegression {
 
 	s.v.ResultsField = &field

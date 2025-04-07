@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -33,11 +33,6 @@ func NewBoolQuery() *_boolQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_boolQuery) Boost(boost float32) *_boolQuery {
 
 	s.v.Boost = &boost
@@ -45,8 +40,6 @@ func (s *_boolQuery) Boost(boost float32) *_boolQuery {
 	return s
 }
 
-// The clause (query) must appear in matching documents.
-// However, unlike `must`, the score of the query will be ignored.
 func (s *_boolQuery) Filter(filters ...types.QueryVariant) *_boolQuery {
 
 	s.v.Filter = make([]types.Query, len(filters))
@@ -57,8 +50,6 @@ func (s *_boolQuery) Filter(filters ...types.QueryVariant) *_boolQuery {
 	return s
 }
 
-// Specifies the number or percentage of `should` clauses returned documents
-// must match.
 func (s *_boolQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumShouldMatchVariant) *_boolQuery {
 
 	s.v.MinimumShouldMatch = *minimumshouldmatch.MinimumShouldMatchCaster()
@@ -66,8 +57,6 @@ func (s *_boolQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumShouldMa
 	return s
 }
 
-// The clause (query) must appear in matching documents and will contribute to
-// the score.
 func (s *_boolQuery) Must(musts ...types.QueryVariant) *_boolQuery {
 
 	s.v.Must = make([]types.Query, len(musts))
@@ -78,8 +67,6 @@ func (s *_boolQuery) Must(musts ...types.QueryVariant) *_boolQuery {
 	return s
 }
 
-// The clause (query) must not appear in the matching documents.
-// Because scoring is ignored, a score of `0` is returned for all documents.
 func (s *_boolQuery) MustNot(mustnots ...types.QueryVariant) *_boolQuery {
 
 	s.v.MustNot = make([]types.Query, len(mustnots))
@@ -97,7 +84,6 @@ func (s *_boolQuery) QueryName_(queryname_ string) *_boolQuery {
 	return s
 }
 
-// The clause (query) should appear in the matching document.
 func (s *_boolQuery) Should(shoulds ...types.QueryVariant) *_boolQuery {
 
 	s.v.Should = make([]types.Query, len(shoulds))

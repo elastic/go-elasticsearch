@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -38,7 +38,6 @@ func NewTTestAggregation() *_tTestAggregation {
 
 }
 
-// Test population A.
 func (s *_tTestAggregation) A(a types.TestPopulationVariant) *_tTestAggregation {
 
 	s.v.A = a.TestPopulationCaster()
@@ -46,7 +45,6 @@ func (s *_tTestAggregation) A(a types.TestPopulationVariant) *_tTestAggregation 
 	return s
 }
 
-// Test population B.
 func (s *_tTestAggregation) B(b types.TestPopulationVariant) *_tTestAggregation {
 
 	s.v.B = b.TestPopulationCaster()
@@ -54,7 +52,6 @@ func (s *_tTestAggregation) B(b types.TestPopulationVariant) *_tTestAggregation 
 	return s
 }
 
-// The type of test.
 func (s *_tTestAggregation) Type(type_ ttesttype.TTestType) *_tTestAggregation {
 
 	s.v.Type = &type_

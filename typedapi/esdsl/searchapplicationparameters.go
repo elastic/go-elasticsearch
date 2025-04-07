@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -32,7 +32,6 @@ func NewSearchApplicationParameters() *_searchApplicationParameters {
 
 }
 
-// Analytics collection associated to the Search Application.
 func (s *_searchApplicationParameters) AnalyticsCollectionName(name string) *_searchApplicationParameters {
 
 	s.v.AnalyticsCollectionName = &name
@@ -40,7 +39,6 @@ func (s *_searchApplicationParameters) AnalyticsCollectionName(name string) *_se
 	return s
 }
 
-// Indices that are part of the Search Application.
 func (s *_searchApplicationParameters) Indices(indices ...string) *_searchApplicationParameters {
 
 	for _, v := range indices {
@@ -51,7 +49,6 @@ func (s *_searchApplicationParameters) Indices(indices ...string) *_searchApplic
 	return s
 }
 
-// Search template to use on search operations.
 func (s *_searchApplicationParameters) Template(template types.SearchApplicationTemplateVariant) *_searchApplicationParameters {
 
 	s.v.Template = template.SearchApplicationTemplateCaster()

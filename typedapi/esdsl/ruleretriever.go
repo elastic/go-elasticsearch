@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -43,7 +43,6 @@ func NewRuleRetriever(matchcriteria json.RawMessage, retriever types.RetrieverCo
 
 }
 
-// Query to filter the documents that can match.
 func (s *_ruleRetriever) Filter(filters ...types.QueryVariant) *_ruleRetriever {
 
 	s.v.Filter = make([]types.Query, len(filters))
@@ -54,8 +53,6 @@ func (s *_ruleRetriever) Filter(filters ...types.QueryVariant) *_ruleRetriever {
 	return s
 }
 
-// The match criteria that will determine if a rule in the provided rulesets
-// should be applied.
 func (s *_ruleRetriever) MatchCriteria(matchcriteria json.RawMessage) *_ruleRetriever {
 
 	s.v.MatchCriteria = matchcriteria
@@ -63,8 +60,6 @@ func (s *_ruleRetriever) MatchCriteria(matchcriteria json.RawMessage) *_ruleRetr
 	return s
 }
 
-// Minimum _score for matching documents. Documents with a lower _score are not
-// included in the top documents.
 func (s *_ruleRetriever) MinScore(minscore float32) *_ruleRetriever {
 
 	s.v.MinScore = &minscore
@@ -72,7 +67,6 @@ func (s *_ruleRetriever) MinScore(minscore float32) *_ruleRetriever {
 	return s
 }
 
-// This value determines the size of the individual result set.
 func (s *_ruleRetriever) RankWindowSize(rankwindowsize int) *_ruleRetriever {
 
 	s.v.RankWindowSize = &rankwindowsize
@@ -80,7 +74,6 @@ func (s *_ruleRetriever) RankWindowSize(rankwindowsize int) *_ruleRetriever {
 	return s
 }
 
-// The retriever whose results rules should be applied to.
 func (s *_ruleRetriever) Retriever(retriever types.RetrieverContainerVariant) *_ruleRetriever {
 
 	s.v.Retriever = *retriever.RetrieverContainerCaster()
@@ -88,7 +81,6 @@ func (s *_ruleRetriever) Retriever(retriever types.RetrieverContainerVariant) *_
 	return s
 }
 
-// The ruleset IDs containing the rules this retriever is evaluating against.
 func (s *_ruleRetriever) RulesetIds(rulesetids ...string) *_ruleRetriever {
 
 	for _, v := range rulesetids {

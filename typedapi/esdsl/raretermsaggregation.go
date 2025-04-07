@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cd5cc9962e79198ac2daf9110c00808293977f13
+// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
 
 package esdsl
 
@@ -34,7 +34,6 @@ func NewRareTermsAggregation() *_rareTermsAggregation {
 
 }
 
-// Terms that should be excluded from the aggregation.
 func (s *_rareTermsAggregation) Exclude(termsexcludes ...string) *_rareTermsAggregation {
 
 	s.v.Exclude = termsexcludes
@@ -42,7 +41,6 @@ func (s *_rareTermsAggregation) Exclude(termsexcludes ...string) *_rareTermsAggr
 	return s
 }
 
-// The field from which to return rare terms.
 func (s *_rareTermsAggregation) Field(field string) *_rareTermsAggregation {
 
 	s.v.Field = &field
@@ -50,7 +48,6 @@ func (s *_rareTermsAggregation) Field(field string) *_rareTermsAggregation {
 	return s
 }
 
-// Terms that should be included in the aggregation.
 func (s *_rareTermsAggregation) Include(termsinclude types.TermsIncludeVariant) *_rareTermsAggregation {
 
 	s.v.Include = *termsinclude.TermsIncludeCaster()
@@ -58,7 +55,6 @@ func (s *_rareTermsAggregation) Include(termsinclude types.TermsIncludeVariant) 
 	return s
 }
 
-// The maximum number of documents a term should appear in.
 func (s *_rareTermsAggregation) MaxDocCount(maxdoccount int64) *_rareTermsAggregation {
 
 	s.v.MaxDocCount = &maxdoccount
@@ -66,8 +62,6 @@ func (s *_rareTermsAggregation) MaxDocCount(maxdoccount int64) *_rareTermsAggreg
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_rareTermsAggregation) Missing(missing types.MissingVariant) *_rareTermsAggregation {
 
 	s.v.Missing = *missing.MissingCaster()
@@ -75,8 +69,6 @@ func (s *_rareTermsAggregation) Missing(missing types.MissingVariant) *_rareTerm
 	return s
 }
 
-// The precision of the internal CuckooFilters.
-// Smaller precision leads to better approximation, but higher memory usage.
 func (s *_rareTermsAggregation) Precision(precision types.Float64) *_rareTermsAggregation {
 
 	s.v.Precision = &precision
