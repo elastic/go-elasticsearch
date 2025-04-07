@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/scriptlanguage"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/scriptlanguage"
 )
 
 type _script struct {
@@ -33,17 +33,12 @@ type _script struct {
 
 // Script used to return matching documents.
 // This script must return a boolean value: `true` or `false`.
-func NewScript(source string) *_script {
+func NewScript() *_script {
 
-	tmp := &_script{v: types.NewScript()}
-
-	tmp.Source(source)
-
-	return tmp
+	return &_script{v: types.NewScript()}
 
 }
 
-// The `id` for a stored script.
 func (s *_script) Id(id string) *_script {
 
 	s.v.Id = &id
@@ -51,7 +46,6 @@ func (s *_script) Id(id string) *_script {
 	return s
 }
 
-// Specifies the language the script is written in.
 func (s *_script) Lang(lang scriptlanguage.ScriptLanguage) *_script {
 
 	s.v.Lang = &lang
@@ -79,8 +73,6 @@ func (s *_script) AddOption(key string, value string) *_script {
 	return s
 }
 
-// Specifies any named parameters that are passed into the script as variables.
-// Use parameters instead of hard-coded values to decrease compile time.
 func (s *_script) Params(params map[string]json.RawMessage) *_script {
 
 	s.v.Params = params
@@ -102,10 +94,9 @@ func (s *_script) AddParam(key string, value json.RawMessage) *_script {
 	return s
 }
 
-// The script source.
-func (s *_script) Source(source string) *_script {
+func (s *_script) Source(scriptsource types.ScriptSourceVariant) *_script {
 
-	s.v.Source = &source
+	s.v.Source = *scriptsource.ScriptSourceCaster()
 
 	return s
 }

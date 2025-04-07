@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -28,14 +28,14 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/categorizationstatus"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/jobstate"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/memorystatus"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/categorizationstatus"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/jobstate"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/memorystatus"
 )
 
 // JobsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/cat/ml_jobs/types.ts#L24-L347
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/cat/ml_jobs/types.ts#L24-L347
 type JobsRecord struct {
 	// AssignmentExplanation For open anomaly detection jobs only, contains messages relating to the
 	// selection of a node to run the job.

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geoexecution"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geovalidationmethod"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/geoexecution"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/geovalidationmethod"
 )
 
 type _geoBoundingBoxQuery struct {
@@ -37,11 +37,6 @@ func NewGeoBoundingBoxQuery() *_geoBoundingBoxQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_geoBoundingBoxQuery) Boost(boost float32) *_geoBoundingBoxQuery {
 
 	s.v.Boost = &boost
@@ -70,9 +65,6 @@ func (s *_geoBoundingBoxQuery) AddGeoBoundingBoxQuery(key string, value types.Ge
 	return s
 }
 
-// Set to `true` to ignore an unmapped field and not match any documents for
-// this query.
-// Set to `false` to throw an exception if the field is not mapped.
 func (s *_geoBoundingBoxQuery) IgnoreUnmapped(ignoreunmapped bool) *_geoBoundingBoxQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped
@@ -93,9 +85,6 @@ func (s *_geoBoundingBoxQuery) Type(type_ geoexecution.GeoExecution) *_geoBoundi
 	return s
 }
 
-// Set to `IGNORE_MALFORMED` to accept geo points with invalid latitude or
-// longitude.
-// Set to `COERCE` to also try to infer correct latitude or longitude.
 func (s *_geoBoundingBoxQuery) ValidationMethod(validationmethod geovalidationmethod.GeoValidationMethod) *_geoBoundingBoxQuery {
 
 	s.v.ValidationMethod = &validationmethod

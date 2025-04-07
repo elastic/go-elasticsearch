@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _connectorFeatures struct {
 	v *types.ConnectorFeatures
@@ -32,7 +32,6 @@ func NewConnectorFeatures() *_connectorFeatures {
 
 }
 
-// Indicates whether document-level security is enabled.
 func (s *_connectorFeatures) DocumentLevelSecurity(documentlevelsecurity types.FeatureEnabledVariant) *_connectorFeatures {
 
 	s.v.DocumentLevelSecurity = documentlevelsecurity.FeatureEnabledCaster()
@@ -40,7 +39,6 @@ func (s *_connectorFeatures) DocumentLevelSecurity(documentlevelsecurity types.F
 	return s
 }
 
-// Indicates whether incremental syncs are enabled.
 func (s *_connectorFeatures) IncrementalSync(incrementalsync types.FeatureEnabledVariant) *_connectorFeatures {
 
 	s.v.IncrementalSync = incrementalsync.FeatureEnabledCaster()
@@ -48,7 +46,6 @@ func (s *_connectorFeatures) IncrementalSync(incrementalsync types.FeatureEnable
 	return s
 }
 
-// Indicates whether managed connector API keys are enabled.
 func (s *_connectorFeatures) NativeConnectorApiKeys(nativeconnectorapikeys types.FeatureEnabledVariant) *_connectorFeatures {
 
 	s.v.NativeConnectorApiKeys = nativeconnectorapikeys.FeatureEnabledCaster()

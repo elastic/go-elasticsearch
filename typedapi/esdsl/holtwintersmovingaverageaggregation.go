@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gappolicy"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/gappolicy"
 )
 
 type _holtWintersMovingAverageAggregation struct {
@@ -39,7 +39,6 @@ func NewHoltWintersMovingAverageAggregation(settings types.HoltWintersModelSetti
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_holtWintersMovingAverageAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_holtWintersMovingAverageAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -47,9 +46,6 @@ func (s *_holtWintersMovingAverageAggregation) BucketsPath(bucketspath types.Buc
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_holtWintersMovingAverageAggregation) Format(format string) *_holtWintersMovingAverageAggregation {
 
 	s.v.Format = &format
@@ -57,7 +53,6 @@ func (s *_holtWintersMovingAverageAggregation) Format(format string) *_holtWinte
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_holtWintersMovingAverageAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_holtWintersMovingAverageAggregation {
 
 	s.v.GapPolicy = &gappolicy

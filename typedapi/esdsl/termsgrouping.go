@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _termsGrouping struct {
 	v *types.TermsGrouping
@@ -32,9 +32,6 @@ func NewTermsGrouping() *_termsGrouping {
 
 }
 
-// The set of fields that you wish to collect terms for.
-// This array can contain fields that are both keyword and numerics.
-// Order does not matter.
 func (s *_termsGrouping) Fields(fields ...string) *_termsGrouping {
 
 	s.v.Fields = fields

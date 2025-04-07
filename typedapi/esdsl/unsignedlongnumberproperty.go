@@ -16,16 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/onscripterror"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/syntheticsourcekeepenum"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeseriesmetrictype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/onscripterror"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeseriesmetrictype"
 )
 
 type _unsignedLongNumberProperty struct {
@@ -114,7 +114,6 @@ func (s *_unsignedLongNumberProperty) Index(index bool) *_unsignedLongNumberProp
 	return s
 }
 
-// Metadata about the field.
 func (s *_unsignedLongNumberProperty) Meta(meta map[string]string) *_unsignedLongNumberProperty {
 
 	s.v.Meta = meta
@@ -190,8 +189,6 @@ func (s *_unsignedLongNumberProperty) SyntheticSourceKeep(syntheticsourcekeep sy
 	return s
 }
 
-// For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
 func (s *_unsignedLongNumberProperty) TimeSeriesDimension(timeseriesdimension bool) *_unsignedLongNumberProperty {
 
 	s.v.TimeSeriesDimension = &timeseriesdimension
@@ -199,8 +196,6 @@ func (s *_unsignedLongNumberProperty) TimeSeriesDimension(timeseriesdimension bo
 	return s
 }
 
-// For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
 func (s *_unsignedLongNumberProperty) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *_unsignedLongNumberProperty {
 
 	s.v.TimeSeriesMetric = &timeseriesmetric

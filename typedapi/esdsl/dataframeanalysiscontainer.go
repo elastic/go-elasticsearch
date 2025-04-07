@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _dataframeAnalysisContainer struct {
@@ -46,7 +46,6 @@ func (s *_dataframeAnalysisContainer) AdditionalDataframeAnalysisContainerProper
 	return s
 }
 
-// The configuration information necessary to perform classification.
 func (s *_dataframeAnalysisContainer) Classification(classification types.DataframeAnalysisClassificationVariant) *_dataframeAnalysisContainer {
 
 	s.v.Classification = classification.DataframeAnalysisClassificationCaster()
@@ -54,11 +53,6 @@ func (s *_dataframeAnalysisContainer) Classification(classification types.Datafr
 	return s
 }
 
-// The configuration information necessary to perform outlier detection. NOTE:
-// Advanced parameters are for fine-tuning classification analysis. They are set
-// automatically by hyperparameter optimization to give the minimum validation
-// error. It is highly recommended to use the default values unless you fully
-// understand the function of these parameters.
 func (s *_dataframeAnalysisContainer) OutlierDetection(outlierdetection types.DataframeAnalysisOutlierDetectionVariant) *_dataframeAnalysisContainer {
 
 	s.v.OutlierDetection = outlierdetection.DataframeAnalysisOutlierDetectionCaster()
@@ -66,11 +60,6 @@ func (s *_dataframeAnalysisContainer) OutlierDetection(outlierdetection types.Da
 	return s
 }
 
-// The configuration information necessary to perform regression. NOTE: Advanced
-// parameters are for fine-tuning regression analysis. They are set
-// automatically by hyperparameter optimization to give the minimum validation
-// error. It is highly recommended to use the default values unless you fully
-// understand the function of these parameters.
 func (s *_dataframeAnalysisContainer) Regression(regression types.DataframeAnalysisRegressionVariant) *_dataframeAnalysisContainer {
 
 	s.v.Regression = regression.DataframeAnalysisRegressionCaster()

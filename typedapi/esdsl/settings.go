@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _settings struct {
 	v *types.Settings
@@ -32,13 +32,6 @@ func NewSettings() *_settings {
 
 }
 
-// Specifies whether the transform checkpoint ranges should be optimized for
-// performance. Such optimization can align
-// checkpoint ranges with the date histogram interval when date histogram is
-// specified as a group source in the
-// transform config. As a result, less document updates in the destination index
-// will be performed thus improving
-// overall performance.
 func (s *_settings) AlignCheckpoints(aligncheckpoints bool) *_settings {
 
 	s.v.AlignCheckpoints = &aligncheckpoints
@@ -46,10 +39,6 @@ func (s *_settings) AlignCheckpoints(aligncheckpoints bool) *_settings {
 	return s
 }
 
-// Defines if dates in the ouput should be written as ISO formatted string or as
-// millis since epoch. epoch_millis was
-// the default for transforms created before version 7.11. For compatible output
-// set this value to `true`.
 func (s *_settings) DatesAsEpochMillis(datesasepochmillis bool) *_settings {
 
 	s.v.DatesAsEpochMillis = &datesasepochmillis
@@ -57,8 +46,6 @@ func (s *_settings) DatesAsEpochMillis(datesasepochmillis bool) *_settings {
 	return s
 }
 
-// Specifies whether the transform should deduce the destination index mappings
-// from the transform configuration.
 func (s *_settings) DeduceMappings(deducemappings bool) *_settings {
 
 	s.v.DeduceMappings = &deducemappings
@@ -66,10 +53,6 @@ func (s *_settings) DeduceMappings(deducemappings bool) *_settings {
 	return s
 }
 
-// Specifies a limit on the number of input documents per second. This setting
-// throttles the transform by adding a
-// wait time between search requests. The default value is null, which disables
-// throttling.
 func (s *_settings) DocsPerSecond(docspersecond float32) *_settings {
 
 	s.v.DocsPerSecond = &docspersecond
@@ -77,11 +60,6 @@ func (s *_settings) DocsPerSecond(docspersecond float32) *_settings {
 	return s
 }
 
-// Defines the initial page size to use for the composite aggregation for each
-// checkpoint. If circuit breaker
-// exceptions occur, the page size is dynamically adjusted to a lower value. The
-// minimum value is `10` and the
-// maximum is `65,536`.
 func (s *_settings) MaxPageSearchSize(maxpagesearchsize int) *_settings {
 
 	s.v.MaxPageSearchSize = &maxpagesearchsize
@@ -89,11 +67,6 @@ func (s *_settings) MaxPageSearchSize(maxpagesearchsize int) *_settings {
 	return s
 }
 
-// If `true`, the transform runs in unattended mode. In unattended mode, the
-// transform retries indefinitely in case
-// of an error which means the transform never fails. Setting the number of
-// retries other than infinite fails in
-// validation.
 func (s *_settings) Unattended(unattended bool) *_settings {
 
 	s.v.Unattended = &unattended

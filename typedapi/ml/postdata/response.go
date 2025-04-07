@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package postdata
 
 // Response holds the response body struct for the package postdata
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/post_data/MlPostJobDataResponse.ts#L24-L45
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/ml/post_data/MlPostJobDataResponse.ts#L24-L45
 type Response struct {
 	BucketCount                 int64  `json:"bucket_count"`
 	EarliestRecordTimestamp     *int64 `json:"earliest_record_timestamp,omitempty"`

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _rankFeatureQuery struct {
 	v *types.RankFeatureQuery
@@ -34,11 +34,6 @@ func NewRankFeatureQuery() *_rankFeatureQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_rankFeatureQuery) Boost(boost float32) *_rankFeatureQuery {
 
 	s.v.Boost = &boost
@@ -46,7 +41,6 @@ func (s *_rankFeatureQuery) Boost(boost float32) *_rankFeatureQuery {
 	return s
 }
 
-// `rank_feature` or `rank_features` field used to boost relevance scores.
 func (s *_rankFeatureQuery) Field(field string) *_rankFeatureQuery {
 
 	s.v.Field = field
@@ -54,8 +48,6 @@ func (s *_rankFeatureQuery) Field(field string) *_rankFeatureQuery {
 	return s
 }
 
-// Linear function used to boost relevance scores based on the value of the rank
-// feature `field`.
 func (s *_rankFeatureQuery) Linear(linear types.RankFeatureFunctionLinearVariant) *_rankFeatureQuery {
 
 	s.v.Linear = linear.RankFeatureFunctionLinearCaster()
@@ -63,8 +55,6 @@ func (s *_rankFeatureQuery) Linear(linear types.RankFeatureFunctionLinearVariant
 	return s
 }
 
-// Logarithmic function used to boost relevance scores based on the value of the
-// rank feature `field`.
 func (s *_rankFeatureQuery) Log(log types.RankFeatureFunctionLogarithmVariant) *_rankFeatureQuery {
 
 	s.v.Log = log.RankFeatureFunctionLogarithmCaster()
@@ -79,8 +69,6 @@ func (s *_rankFeatureQuery) QueryName_(queryname_ string) *_rankFeatureQuery {
 	return s
 }
 
-// Saturation function used to boost relevance scores based on the value of the
-// rank feature `field`.
 func (s *_rankFeatureQuery) Saturation(saturation types.RankFeatureFunctionSaturationVariant) *_rankFeatureQuery {
 
 	s.v.Saturation = saturation.RankFeatureFunctionSaturationCaster()
@@ -88,8 +76,6 @@ func (s *_rankFeatureQuery) Saturation(saturation types.RankFeatureFunctionSatur
 	return s
 }
 
-// Sigmoid function used to boost relevance scores based on the value of the
-// rank feature `field`.
 func (s *_rankFeatureQuery) Sigmoid(sigmoid types.RankFeatureFunctionSigmoidVariant) *_rankFeatureQuery {
 
 	s.v.Sigmoid = sigmoid.RankFeatureFunctionSigmoidCaster()

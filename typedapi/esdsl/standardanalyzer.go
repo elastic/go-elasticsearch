@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _standardAnalyzer struct {
 	v *types.StandardAnalyzer
@@ -32,9 +32,6 @@ func NewStandardAnalyzer() *_standardAnalyzer {
 
 }
 
-// The maximum token length. If a token is seen that exceeds this length then it
-// is split at `max_token_length` intervals.
-// Defaults to `255`.
 func (s *_standardAnalyzer) MaxTokenLength(maxtokenlength int) *_standardAnalyzer {
 
 	s.v.MaxTokenLength = &maxtokenlength
@@ -42,9 +39,6 @@ func (s *_standardAnalyzer) MaxTokenLength(maxtokenlength int) *_standardAnalyze
 	return s
 }
 
-// A pre-defined stop words list like `_english_` or an array containing a list
-// of stop words.
-// Defaults to `_none_`.
 func (s *_standardAnalyzer) Stopwords(stopwords ...string) *_standardAnalyzer {
 
 	s.v.Stopwords = stopwords
@@ -52,7 +46,6 @@ func (s *_standardAnalyzer) Stopwords(stopwords ...string) *_standardAnalyzer {
 	return s
 }
 
-// The path to a file containing stop words.
 func (s *_standardAnalyzer) StopwordsPath(stopwordspath string) *_standardAnalyzer {
 
 	s.v.StopwordsPath = &stopwordspath

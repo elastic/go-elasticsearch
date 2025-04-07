@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _termsPartition struct {
 	v *types.TermsPartition
@@ -38,7 +38,6 @@ func NewTermsPartition(numpartitions int64, partition int64) *_termsPartition {
 
 }
 
-// The number of partitions.
 func (s *_termsPartition) NumPartitions(numpartitions int64) *_termsPartition {
 
 	s.v.NumPartitions = numpartitions
@@ -46,7 +45,6 @@ func (s *_termsPartition) NumPartitions(numpartitions int64) *_termsPartition {
 	return s
 }
 
-// The partition number for this request.
 func (s *_termsPartition) Partition(partition int64) *_termsPartition {
 
 	s.v.Partition = partition

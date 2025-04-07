@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _pivot struct {
 	v *types.Pivot
@@ -32,13 +32,6 @@ func NewPivot() *_pivot {
 
 }
 
-// Defines how to aggregate the grouped data. The following aggregations are
-// currently supported: average, bucket
-// script, bucket selector, cardinality, filter, geo bounds, geo centroid, geo
-// line, max, median absolute deviation,
-// min, missing, percentiles, rare terms, scripted metric, stats, sum, terms,
-// top metrics, value count, weighted
-// average.
 func (s *_pivot) Aggregations(aggregations map[string]types.Aggregations) *_pivot {
 
 	s.v.Aggregations = aggregations
@@ -60,9 +53,6 @@ func (s *_pivot) AddAggregation(key string, value types.AggregationsVariant) *_p
 	return s
 }
 
-// Defines how to group the data. More than one grouping can be defined per
-// pivot. The following groupings are
-// currently supported: date histogram, geotile grid, histogram, terms.
 func (s *_pivot) GroupBy(groupby map[string]types.PivotGroupByContainer) *_pivot {
 
 	s.v.GroupBy = groupby

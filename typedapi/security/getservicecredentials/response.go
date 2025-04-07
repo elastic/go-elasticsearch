@@ -16,17 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package getservicecredentials
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Response holds the response body struct for the package getservicecredentials
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/get_service_credentials/GetServiceCredentialsResponse.ts#L25-L34
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/security/get_service_credentials/GetServiceCredentialsResponse.ts#L25-L34
 type Response struct {
 	Count int `json:"count"`
 	// NodesCredentials Service account credentials collected from all nodes of the cluster.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package syncjobpost
 
@@ -27,13 +27,13 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/syncjobtriggermethod"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/syncjobtype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syncjobtriggermethod"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syncjobtype"
 )
 
 // Request holds the request body struct for the package syncjobpost
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/connector/sync_job_post/SyncJobPostRequest.ts#L23-L51
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/connector/sync_job_post/SyncJobPostRequest.ts#L23-L51
 type Request struct {
 
 	// Id The id of the associated connector

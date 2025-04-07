@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndexingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Stats.ts#L146-L162
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/_types/Stats.ts#L146-L164
 type IndexingStats struct {
 	DeleteCurrent        int64                    `json:"delete_current"`
 	DeleteTime           Duration                 `json:"delete_time,omitempty"`
@@ -44,6 +44,8 @@ type IndexingStats struct {
 	IndexTotal           int64                    `json:"index_total"`
 	IsThrottled          bool                     `json:"is_throttled"`
 	NoopUpdateTotal      int64                    `json:"noop_update_total"`
+	PeakWriteLoad        *Float64                 `json:"peak_write_load,omitempty"`
+	RecentWriteLoad      *Float64                 `json:"recent_write_load,omitempty"`
 	ThrottleTime         Duration                 `json:"throttle_time,omitempty"`
 	ThrottleTimeInMillis int64                    `json:"throttle_time_in_millis"`
 	Types                map[string]IndexingStats `json:"types,omitempty"`
@@ -187,6 +189,38 @@ func (s *IndexingStats) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.NoopUpdateTotal = f
+			}
+
+		case "peak_write_load":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "PeakWriteLoad", err)
+				}
+				f := Float64(value)
+				s.PeakWriteLoad = &f
+			case float64:
+				f := Float64(v)
+				s.PeakWriteLoad = &f
+			}
+
+		case "recent_write_load":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "RecentWriteLoad", err)
+				}
+				f := Float64(value)
+				s.RecentWriteLoad = &f
+			case float64:
+				f := Float64(v)
+				s.RecentWriteLoad = &f
 			}
 
 		case "throttle_time":

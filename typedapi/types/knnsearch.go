@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Knn.ts#L35-L62
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/_types/Knn.ts#L35-L62
 type KnnSearch struct {
 	// Boost Boost value to apply to kNN scores
 	Boost *float32 `json:"boost,omitempty"`
@@ -50,7 +50,7 @@ type KnnSearch struct {
 	// QueryVectorBuilder The query vector builder. You must provide a query_vector_builder or
 	// query_vector, but not both.
 	QueryVectorBuilder *QueryVectorBuilder `json:"query_vector_builder,omitempty"`
-	// RescoreVector Apply oversampling and rescoring to quantized vectors *
+	// RescoreVector Apply oversampling and rescoring to quantized vectors
 	RescoreVector *RescoreVector `json:"rescore_vector,omitempty"`
 	// Similarity The minimum similarity for a vector to be considered a match
 	Similarity *float32 `json:"similarity,omitempty"`

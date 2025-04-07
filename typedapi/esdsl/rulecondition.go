@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/appliesto"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/conditionoperator"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/appliesto"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/conditionoperator"
 )
 
 type _ruleCondition struct {
@@ -44,24 +44,18 @@ func NewRuleCondition(appliesto appliesto.AppliesTo, operator conditionoperator.
 
 }
 
-// Specifies the result property to which the condition applies. If your
-// detector uses `lat_long`, `metric`, `rare`, or `freq_rare` functions, you can
-// only specify conditions that apply to time.
 func (s *_ruleCondition) AppliesTo(appliesto appliesto.AppliesTo) *_ruleCondition {
 
 	s.v.AppliesTo = appliesto
 	return s
 }
 
-// Specifies the condition operator. The available options are greater than,
-// greater than or equals, less than, and less than or equals.
 func (s *_ruleCondition) Operator(operator conditionoperator.ConditionOperator) *_ruleCondition {
 
 	s.v.Operator = operator
 	return s
 }
 
-// The value that is compared against the `applies_to` field using the operator.
 func (s *_ruleCondition) Value(value types.Float64) *_ruleCondition {
 
 	s.v.Value = value

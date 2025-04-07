@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _csvProcessor struct {
@@ -38,8 +38,6 @@ func NewCsvProcessor() *_csvProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_csvProcessor) Description(description string) *_csvProcessor {
 
 	s.v.Description = &description
@@ -47,10 +45,6 @@ func (s *_csvProcessor) Description(description string) *_csvProcessor {
 	return s
 }
 
-// Value used to fill empty fields.
-// Empty fields are skipped if this is not provided.
-// An empty field is one with no value (2 consecutive separators) or empty
-// quotes (`""`).
 func (s *_csvProcessor) EmptyValue(emptyvalue json.RawMessage) *_csvProcessor {
 
 	s.v.EmptyValue = emptyvalue
@@ -58,7 +52,6 @@ func (s *_csvProcessor) EmptyValue(emptyvalue json.RawMessage) *_csvProcessor {
 	return s
 }
 
-// The field to extract data from.
 func (s *_csvProcessor) Field(field string) *_csvProcessor {
 
 	s.v.Field = field
@@ -66,7 +59,6 @@ func (s *_csvProcessor) Field(field string) *_csvProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_csvProcessor) If(if_ types.ScriptVariant) *_csvProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -74,7 +66,6 @@ func (s *_csvProcessor) If(if_ types.ScriptVariant) *_csvProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_csvProcessor) IgnoreFailure(ignorefailure bool) *_csvProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -82,8 +73,6 @@ func (s *_csvProcessor) IgnoreFailure(ignorefailure bool) *_csvProcessor {
 	return s
 }
 
-// If `true` and `field` does not exist, the processor quietly exits without
-// modifying the document.
 func (s *_csvProcessor) IgnoreMissing(ignoremissing bool) *_csvProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -91,7 +80,6 @@ func (s *_csvProcessor) IgnoreMissing(ignoremissing bool) *_csvProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_csvProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_csvProcessor {
 
 	for _, v := range onfailures {
@@ -102,7 +90,6 @@ func (s *_csvProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant)
 	return s
 }
 
-// Quote used in CSV, has to be single character string.
 func (s *_csvProcessor) Quote(quote string) *_csvProcessor {
 
 	s.v.Quote = &quote
@@ -110,7 +97,6 @@ func (s *_csvProcessor) Quote(quote string) *_csvProcessor {
 	return s
 }
 
-// Separator used in CSV, has to be single character string.
 func (s *_csvProcessor) Separator(separator string) *_csvProcessor {
 
 	s.v.Separator = &separator
@@ -118,8 +104,6 @@ func (s *_csvProcessor) Separator(separator string) *_csvProcessor {
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_csvProcessor) Tag(tag string) *_csvProcessor {
 
 	s.v.Tag = &tag
@@ -127,7 +111,6 @@ func (s *_csvProcessor) Tag(tag string) *_csvProcessor {
 	return s
 }
 
-// The array of fields to assign extracted values to.
 func (s *_csvProcessor) TargetFields(fields ...string) *_csvProcessor {
 
 	s.v.TargetFields = fields
@@ -135,7 +118,6 @@ func (s *_csvProcessor) TargetFields(fields ...string) *_csvProcessor {
 	return s
 }
 
-// Trim whitespaces in unquoted fields.
 func (s *_csvProcessor) Trim(trim bool) *_csvProcessor {
 
 	s.v.Trim = &trim

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _applicationPrivileges struct {
 	v *types.ApplicationPrivileges
@@ -36,7 +36,6 @@ func NewApplicationPrivileges(application string) *_applicationPrivileges {
 
 }
 
-// The name of the application to which this entry applies.
 func (s *_applicationPrivileges) Application(application string) *_applicationPrivileges {
 
 	s.v.Application = application
@@ -44,8 +43,6 @@ func (s *_applicationPrivileges) Application(application string) *_applicationPr
 	return s
 }
 
-// A list of strings, where each element is the name of an application privilege
-// or action.
 func (s *_applicationPrivileges) Privileges(privileges ...string) *_applicationPrivileges {
 
 	for _, v := range privileges {
@@ -56,7 +53,6 @@ func (s *_applicationPrivileges) Privileges(privileges ...string) *_applicationP
 	return s
 }
 
-// A list resources to which the privileges are applied.
 func (s *_applicationPrivileges) Resources(resources ...string) *_applicationPrivileges {
 
 	for _, v := range resources {

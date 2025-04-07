@@ -16,17 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/ruleaction"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/ruleaction"
 )
 
 // DetectionRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/Rule.ts#L25-L39
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/ml/_types/Rule.ts#L25-L39
 type DetectionRule struct {
 	// Actions The set of actions to be triggered when the rule applies. If more than one
 	// action is specified the effects of all actions are combined.

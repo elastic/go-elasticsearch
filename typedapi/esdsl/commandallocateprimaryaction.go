@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _commandAllocatePrimaryAction struct {
 	v *types.CommandAllocatePrimaryAction
@@ -40,9 +40,6 @@ func NewCommandAllocatePrimaryAction(acceptdataloss bool, node string, shard int
 
 }
 
-// If a node which has a copy of the data rejoins the cluster later on, that
-// data will be deleted. To ensure that these implications are well-understood,
-// this command requires the flag accept_data_loss to be explicitly set to true
 func (s *_commandAllocatePrimaryAction) AcceptDataLoss(acceptdataloss bool) *_commandAllocatePrimaryAction {
 
 	s.v.AcceptDataLoss = acceptdataloss

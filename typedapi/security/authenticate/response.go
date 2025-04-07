@@ -16,17 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package authenticate
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Response holds the response body struct for the package authenticate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/authenticate/SecurityAuthenticateResponse.ts#L24-L42
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/security/authenticate/SecurityAuthenticateResponse.ts#L24-L42
 type Response struct {
 	ApiKey              *types.AuthenticateApiKey `json:"api_key,omitempty"`
 	AuthenticationRealm types.RealmInfo           `json:"authentication_realm"`

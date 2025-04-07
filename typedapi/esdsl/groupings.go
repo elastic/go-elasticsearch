@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _groupings struct {
 	v *types.Groupings
@@ -32,9 +32,6 @@ func NewGroupings() *_groupings {
 
 }
 
-// A date histogram group aggregates a date field into time-based buckets.
-// This group is mandatory; you currently cannot roll up documents without a
-// timestamp and a `date_histogram` group.
 func (s *_groupings) DateHistogram(datehistogram types.DateHistogramGroupingVariant) *_groupings {
 
 	s.v.DateHistogram = datehistogram.DateHistogramGroupingCaster()
@@ -42,8 +39,6 @@ func (s *_groupings) DateHistogram(datehistogram types.DateHistogramGroupingVari
 	return s
 }
 
-// The histogram group aggregates one or more numeric fields into numeric
-// histogram intervals.
 func (s *_groupings) Histogram(histogram types.HistogramGroupingVariant) *_groupings {
 
 	s.v.Histogram = histogram.HistogramGroupingCaster()
@@ -51,11 +46,6 @@ func (s *_groupings) Histogram(histogram types.HistogramGroupingVariant) *_group
 	return s
 }
 
-// The terms group can be used on keyword or numeric fields to allow bucketing
-// via the terms aggregation at a later point.
-// The indexer enumerates and stores all values of a field for each time-period.
-// This can be potentially costly for high-cardinality groups such as IP
-// addresses, especially if the time-bucket is particularly sparse.
 func (s *_groupings) Terms(terms types.TermsGroupingVariant) *_groupings {
 
 	s.v.Terms = terms.TermsGroupingCaster()

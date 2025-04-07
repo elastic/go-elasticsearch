@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _toolCall struct {
 	v *types.ToolCall
@@ -38,7 +38,6 @@ func NewToolCall(function types.ToolCallFunctionVariant, type_ string) *_toolCal
 
 }
 
-// The function that the model called.
 func (s *_toolCall) Function(function types.ToolCallFunctionVariant) *_toolCall {
 
 	s.v.Function = *function.ToolCallFunctionCaster()
@@ -46,7 +45,6 @@ func (s *_toolCall) Function(function types.ToolCallFunctionVariant) *_toolCall 
 	return s
 }
 
-// The identifier of the tool call.
 func (s *_toolCall) Id(id string) *_toolCall {
 
 	s.v.Id = id
@@ -54,7 +52,6 @@ func (s *_toolCall) Id(id string) *_toolCall {
 	return s
 }
 
-// The type of the tool call.
 func (s *_toolCall) Type(type_ string) *_toolCall {
 
 	s.v.Type = type_

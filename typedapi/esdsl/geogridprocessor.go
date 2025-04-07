@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geogridtargetformat"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geogridtiletype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/geogridtargetformat"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/geogridtiletype"
 )
 
 type _geoGridProcessor struct {
@@ -46,8 +46,6 @@ func NewGeoGridProcessor(field string, tiletype geogridtiletype.GeoGridTileType)
 
 }
 
-// If specified and children tiles exist, save those tile addresses to this
-// field as an array of strings.
 func (s *_geoGridProcessor) ChildrenField(field string) *_geoGridProcessor {
 
 	s.v.ChildrenField = &field
@@ -55,8 +53,6 @@ func (s *_geoGridProcessor) ChildrenField(field string) *_geoGridProcessor {
 	return s
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_geoGridProcessor) Description(description string) *_geoGridProcessor {
 
 	s.v.Description = &description
@@ -64,8 +60,6 @@ func (s *_geoGridProcessor) Description(description string) *_geoGridProcessor {
 	return s
 }
 
-// The field to interpret as a geo-tile.=
-// The field format is determined by the `tile_type`.
 func (s *_geoGridProcessor) Field(field string) *_geoGridProcessor {
 
 	s.v.Field = field
@@ -73,7 +67,6 @@ func (s *_geoGridProcessor) Field(field string) *_geoGridProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_geoGridProcessor) If(if_ types.ScriptVariant) *_geoGridProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -81,7 +74,6 @@ func (s *_geoGridProcessor) If(if_ types.ScriptVariant) *_geoGridProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_geoGridProcessor) IgnoreFailure(ignorefailure bool) *_geoGridProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -89,8 +81,6 @@ func (s *_geoGridProcessor) IgnoreFailure(ignorefailure bool) *_geoGridProcessor
 	return s
 }
 
-// If `true` and `field` does not exist, the processor quietly exits without
-// modifying the document.
 func (s *_geoGridProcessor) IgnoreMissing(ignoremissing bool) *_geoGridProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -98,8 +88,6 @@ func (s *_geoGridProcessor) IgnoreMissing(ignoremissing bool) *_geoGridProcessor
 	return s
 }
 
-// If specified and intersecting non-child tiles exist, save their addresses to
-// this field as an array of strings.
 func (s *_geoGridProcessor) NonChildrenField(field string) *_geoGridProcessor {
 
 	s.v.NonChildrenField = &field
@@ -107,7 +95,6 @@ func (s *_geoGridProcessor) NonChildrenField(field string) *_geoGridProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_geoGridProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_geoGridProcessor {
 
 	for _, v := range onfailures {
@@ -118,7 +105,6 @@ func (s *_geoGridProcessor) OnFailure(onfailures ...types.ProcessorContainerVari
 	return s
 }
 
-// If specified and a parent tile exists, save that tile address to this field.
 func (s *_geoGridProcessor) ParentField(field string) *_geoGridProcessor {
 
 	s.v.ParentField = &field
@@ -126,7 +112,6 @@ func (s *_geoGridProcessor) ParentField(field string) *_geoGridProcessor {
 	return s
 }
 
-// If specified, save the tile precision (zoom) as an integer to this field.
 func (s *_geoGridProcessor) PrecisionField(field string) *_geoGridProcessor {
 
 	s.v.PrecisionField = &field
@@ -134,8 +119,6 @@ func (s *_geoGridProcessor) PrecisionField(field string) *_geoGridProcessor {
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_geoGridProcessor) Tag(tag string) *_geoGridProcessor {
 
 	s.v.Tag = &tag
@@ -143,8 +126,6 @@ func (s *_geoGridProcessor) Tag(tag string) *_geoGridProcessor {
 	return s
 }
 
-// The field to assign the polygon shape to, by default, the `field` is updated
-// in-place.
 func (s *_geoGridProcessor) TargetField(field string) *_geoGridProcessor {
 
 	s.v.TargetField = &field
@@ -152,14 +133,12 @@ func (s *_geoGridProcessor) TargetField(field string) *_geoGridProcessor {
 	return s
 }
 
-// Which format to save the generated polygon in.
 func (s *_geoGridProcessor) TargetFormat(targetformat geogridtargetformat.GeoGridTargetFormat) *_geoGridProcessor {
 
 	s.v.TargetFormat = &targetformat
 	return s
 }
 
-// Three tile formats are understood: geohash, geotile and geohex.
 func (s *_geoGridProcessor) TileType(tiletype geogridtiletype.GeoGridTileType) *_geoGridProcessor {
 
 	s.v.TileType = tiletype

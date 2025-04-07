@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _semanticQuery struct {
 	v *types.SemanticQuery
@@ -39,11 +39,6 @@ func NewSemanticQuery(field string, query string) *_semanticQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_semanticQuery) Boost(boost float32) *_semanticQuery {
 
 	s.v.Boost = &boost
@@ -51,7 +46,6 @@ func (s *_semanticQuery) Boost(boost float32) *_semanticQuery {
 	return s
 }
 
-// The field to query, which must be a semantic_text field type
 func (s *_semanticQuery) Field(field string) *_semanticQuery {
 
 	s.v.Field = field
@@ -59,7 +53,6 @@ func (s *_semanticQuery) Field(field string) *_semanticQuery {
 	return s
 }
 
-// The query text
 func (s *_semanticQuery) Query(query string) *_semanticQuery {
 
 	s.v.Query = query

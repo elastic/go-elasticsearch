@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // IndicesModifyAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/modify_data_stream/types.ts#L22-L37
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/indices/modify_data_stream/types.ts#L22-L37
 type IndicesModifyAction struct {
 	// AddBackingIndex Adds an existing index as a backing index for a data stream.
 	// The index is hidden as part of this operation.

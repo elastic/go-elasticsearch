@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -31,12 +31,12 @@ import (
 
 // ScriptTransform type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Transform.ts#L36-L44
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/_types/Transform.ts#L37-L45
 type ScriptTransform struct {
 	Id     *string                    `json:"id,omitempty"`
 	Lang   *string                    `json:"lang,omitempty"`
 	Params map[string]json.RawMessage `json:"params,omitempty"`
-	Source *string                    `json:"source,omitempty"`
+	Source ScriptSource               `json:"source,omitempty"`
 }
 
 func (s *ScriptTransform) UnmarshalJSON(data []byte) error {
@@ -87,16 +87,40 @@ func (s *ScriptTransform) UnmarshalJSON(data []byte) error {
 			}
 
 		case "source":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return fmt.Errorf("%s | %w", "Source", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		source_field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "Source", err)
+				}
+
+				switch t {
+
+				case "aggregations", "collapse", "docvalue_fields", "explain", "ext", "fields", "from", "highlight", "indices_boost", "knn", "min_score", "pit", "post_filter", "profile", "query", "rank", "rescore", "retriever", "runtime_mappings", "script_fields", "search_after", "seq_no_primary_term", "size", "slice", "sort", "_source", "stats", "stored_fields", "suggest", "terminate_after", "timeout", "track_scores", "track_total_hits", "version":
+					o := NewSearchRequestBody()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Source", err)
+					}
+					s.Source = o
+					break source_field
+
+				}
 			}
-			s.Source = &o
+			if s.Source == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.Source); err != nil {
+					return fmt.Errorf("%s | %w", "Source", err)
+				}
+			}
 
 		}
 	}

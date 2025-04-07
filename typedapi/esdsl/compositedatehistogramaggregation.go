@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/missingorder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/valuetype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/missingorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/valuetype"
 )
 
 type _compositeDateHistogramAggregation struct {
@@ -37,7 +37,6 @@ func NewCompositeDateHistogramAggregation() *_compositeDateHistogramAggregation 
 
 }
 
-// Either `calendar_interval` or `fixed_interval` must be present
 func (s *_compositeDateHistogramAggregation) CalendarInterval(durationlarge string) *_compositeDateHistogramAggregation {
 
 	s.v.CalendarInterval = &durationlarge
@@ -45,7 +44,6 @@ func (s *_compositeDateHistogramAggregation) CalendarInterval(durationlarge stri
 	return s
 }
 
-// Either `field` or `script` must be present
 func (s *_compositeDateHistogramAggregation) Field(field string) *_compositeDateHistogramAggregation {
 
 	s.v.Field = &field
@@ -53,7 +51,6 @@ func (s *_compositeDateHistogramAggregation) Field(field string) *_compositeDate
 	return s
 }
 
-// Either `calendar_interval` or `fixed_interval` must be present
 func (s *_compositeDateHistogramAggregation) FixedInterval(durationlarge string) *_compositeDateHistogramAggregation {
 
 	s.v.FixedInterval = &durationlarge
@@ -94,7 +91,6 @@ func (s *_compositeDateHistogramAggregation) Order(order sortorder.SortOrder) *_
 	return s
 }
 
-// Either `field` or `script` must be present
 func (s *_compositeDateHistogramAggregation) Script(script types.ScriptVariant) *_compositeDateHistogramAggregation {
 
 	s.v.Script = script.ScriptCaster()

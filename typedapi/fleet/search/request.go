@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package search
 
@@ -28,12 +28,12 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/fleet/search/SearchRequest.ts#L54-L266
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/fleet/search/SearchRequest.ts#L54-L266
 type Request struct {
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Collapse     *types.FieldCollapse          `json:"collapse,omitempty"`
@@ -57,7 +57,7 @@ type Request struct {
 	// IndicesBoost Boosts the _score of documents from specified indices.
 	IndicesBoost []map[string]types.Float64 `json:"indices_boost,omitempty"`
 	// MinScore Minimum _score for matching documents. Documents with a lower _score are
-	// not included in the search results.
+	// not included in search results and results collected by aggregations.
 	MinScore *types.Float64 `json:"min_score,omitempty"`
 	// Pit Limits the search to a point in time (PIT). If you provide a PIT, you
 	// cannot specify an <index> in the request path.

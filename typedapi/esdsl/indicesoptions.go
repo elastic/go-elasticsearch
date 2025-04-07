@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
 )
 
 type _indicesOptions struct {
@@ -35,12 +35,6 @@ func NewIndicesOptions() *_indicesOptions {
 
 }
 
-// If false, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only
-// missing or closed indices. This behavior applies even if the request targets
-// other open indices. For example,
-// a request targeting `foo*,bar*` returns an error if an index starts with
-// `foo` but no index starts with `bar`.
 func (s *_indicesOptions) AllowNoIndices(allownoindices bool) *_indicesOptions {
 
 	s.v.AllowNoIndices = &allownoindices
@@ -48,11 +42,6 @@ func (s *_indicesOptions) AllowNoIndices(allownoindices bool) *_indicesOptions {
 	return s
 }
 
-// Type of index that wildcard patterns can match. If the request can target
-// data streams, this argument
-// determines whether wildcard expressions match hidden data streams. Supports
-// comma-separated values,
-// such as `open,hidden`.
 func (s *_indicesOptions) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *_indicesOptions {
 
 	s.v.ExpandWildcards = expandwildcards
@@ -60,7 +49,6 @@ func (s *_indicesOptions) ExpandWildcards(expandwildcards ...expandwildcard.Expa
 	return s
 }
 
-// If true, concrete, expanded or aliased indices are ignored when frozen.
 func (s *_indicesOptions) IgnoreThrottled(ignorethrottled bool) *_indicesOptions {
 
 	s.v.IgnoreThrottled = &ignorethrottled
@@ -68,7 +56,6 @@ func (s *_indicesOptions) IgnoreThrottled(ignorethrottled bool) *_indicesOptions
 	return s
 }
 
-// If true, missing or closed indices are not included in the response.
 func (s *_indicesOptions) IgnoreUnavailable(ignoreunavailable bool) *_indicesOptions {
 
 	s.v.IgnoreUnavailable = &ignoreunavailable

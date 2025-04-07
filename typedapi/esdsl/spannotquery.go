@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _spanNotQuery struct {
 	v *types.SpanNotQuery
@@ -41,11 +41,6 @@ func NewSpanNotQuery(exclude types.SpanQueryVariant, include types.SpanQueryVari
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_spanNotQuery) Boost(boost float32) *_spanNotQuery {
 
 	s.v.Boost = &boost
@@ -53,9 +48,6 @@ func (s *_spanNotQuery) Boost(boost float32) *_spanNotQuery {
 	return s
 }
 
-// The number of tokens from within the include span that can’t have overlap
-// with the exclude span.
-// Equivalent to setting both `pre` and `post`.
 func (s *_spanNotQuery) Dist(dist int) *_spanNotQuery {
 
 	s.v.Dist = &dist
@@ -63,7 +55,6 @@ func (s *_spanNotQuery) Dist(dist int) *_spanNotQuery {
 	return s
 }
 
-// Span query whose matches must not overlap those returned.
 func (s *_spanNotQuery) Exclude(exclude types.SpanQueryVariant) *_spanNotQuery {
 
 	s.v.Exclude = *exclude.SpanQueryCaster()
@@ -71,7 +62,6 @@ func (s *_spanNotQuery) Exclude(exclude types.SpanQueryVariant) *_spanNotQuery {
 	return s
 }
 
-// Span query whose matches are filtered.
 func (s *_spanNotQuery) Include(include types.SpanQueryVariant) *_spanNotQuery {
 
 	s.v.Include = *include.SpanQueryCaster()
@@ -79,8 +69,6 @@ func (s *_spanNotQuery) Include(include types.SpanQueryVariant) *_spanNotQuery {
 	return s
 }
 
-// The number of tokens after the include span that can’t have overlap with the
-// exclude span.
 func (s *_spanNotQuery) Post(post int) *_spanNotQuery {
 
 	s.v.Post = &post
@@ -88,8 +76,6 @@ func (s *_spanNotQuery) Post(post int) *_spanNotQuery {
 	return s
 }
 
-// The number of tokens before the include span that can’t have overlap with the
-// exclude span.
 func (s *_spanNotQuery) Pre(pre int) *_spanNotQuery {
 
 	s.v.Pre = &pre

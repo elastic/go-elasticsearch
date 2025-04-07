@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tokenizationtruncate"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/tokenizationtruncate"
 )
 
 type _nlpRobertaTokenizationConfig struct {
@@ -36,7 +36,6 @@ func NewNlpRobertaTokenizationConfig() *_nlpRobertaTokenizationConfig {
 
 }
 
-// Should the tokenizer prefix input with a space character
 func (s *_nlpRobertaTokenizationConfig) AddPrefixSpace(addprefixspace bool) *_nlpRobertaTokenizationConfig {
 
 	s.v.AddPrefixSpace = &addprefixspace
@@ -44,7 +43,6 @@ func (s *_nlpRobertaTokenizationConfig) AddPrefixSpace(addprefixspace bool) *_nl
 	return s
 }
 
-// Should the tokenizer lower case the text
 func (s *_nlpRobertaTokenizationConfig) DoLowerCase(dolowercase bool) *_nlpRobertaTokenizationConfig {
 
 	s.v.DoLowerCase = &dolowercase
@@ -52,7 +50,6 @@ func (s *_nlpRobertaTokenizationConfig) DoLowerCase(dolowercase bool) *_nlpRober
 	return s
 }
 
-// Maximum input sequence length for the model
 func (s *_nlpRobertaTokenizationConfig) MaxSequenceLength(maxsequencelength int) *_nlpRobertaTokenizationConfig {
 
 	s.v.MaxSequenceLength = &maxsequencelength
@@ -60,8 +57,6 @@ func (s *_nlpRobertaTokenizationConfig) MaxSequenceLength(maxsequencelength int)
 	return s
 }
 
-// Tokenization spanning options. Special value of -1 indicates no spanning
-// takes place
 func (s *_nlpRobertaTokenizationConfig) Span(span int) *_nlpRobertaTokenizationConfig {
 
 	s.v.Span = &span
@@ -69,15 +64,12 @@ func (s *_nlpRobertaTokenizationConfig) Span(span int) *_nlpRobertaTokenizationC
 	return s
 }
 
-// Should tokenization input be automatically truncated before sending to the
-// model for inference
 func (s *_nlpRobertaTokenizationConfig) Truncate(truncate tokenizationtruncate.TokenizationTruncate) *_nlpRobertaTokenizationConfig {
 
 	s.v.Truncate = &truncate
 	return s
 }
 
-// Is tokenization completed with special tokens
 func (s *_nlpRobertaTokenizationConfig) WithSpecialTokens(withspecialtokens bool) *_nlpRobertaTokenizationConfig {
 
 	s.v.WithSpecialTokens = &withspecialtokens

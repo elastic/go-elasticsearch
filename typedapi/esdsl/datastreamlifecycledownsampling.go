@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dataStreamLifecycleDownsampling struct {
 	v *types.DataStreamLifecycleDownsampling
@@ -32,8 +32,6 @@ func NewDataStreamLifecycleDownsampling() *_dataStreamLifecycleDownsampling {
 
 }
 
-// The list of downsampling rounds to execute as part of this downsampling
-// configuration
 func (s *_dataStreamLifecycleDownsampling) Rounds(rounds ...types.DownsamplingRoundVariant) *_dataStreamLifecycleDownsampling {
 
 	for _, v := range rounds {

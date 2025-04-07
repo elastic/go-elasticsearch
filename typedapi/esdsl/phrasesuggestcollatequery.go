@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _phraseSuggestCollateQuery struct {
 	v *types.PhraseSuggestCollateQuery
@@ -32,7 +32,6 @@ func NewPhraseSuggestCollateQuery() *_phraseSuggestCollateQuery {
 
 }
 
-// The search template ID.
 func (s *_phraseSuggestCollateQuery) Id(id string) *_phraseSuggestCollateQuery {
 
 	s.v.Id = &id
@@ -40,10 +39,9 @@ func (s *_phraseSuggestCollateQuery) Id(id string) *_phraseSuggestCollateQuery {
 	return s
 }
 
-// The query source.
-func (s *_phraseSuggestCollateQuery) Source(source string) *_phraseSuggestCollateQuery {
+func (s *_phraseSuggestCollateQuery) Source(scriptsource types.ScriptSourceVariant) *_phraseSuggestCollateQuery {
 
-	s.v.Source = &source
+	s.v.Source = *scriptsource.ScriptSourceCaster()
 
 	return s
 }

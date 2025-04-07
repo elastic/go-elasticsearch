@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _rankEvalMetricPrecision struct {
 	v *types.RankEvalMetricPrecision
@@ -32,9 +32,6 @@ func NewRankEvalMetricPrecision() *_rankEvalMetricPrecision {
 
 }
 
-// Controls how unlabeled documents in the search results are counted. If set to
-// true, unlabeled documents are ignored and neither count as relevant or
-// irrelevant. Set to false (the default), they are treated as irrelevant.
 func (s *_rankEvalMetricPrecision) IgnoreUnlabeled(ignoreunlabeled bool) *_rankEvalMetricPrecision {
 
 	s.v.IgnoreUnlabeled = &ignoreunlabeled
@@ -42,8 +39,6 @@ func (s *_rankEvalMetricPrecision) IgnoreUnlabeled(ignoreunlabeled bool) *_rankE
 	return s
 }
 
-// Sets the maximum number of documents retrieved per query. This value will act
-// in place of the usual size parameter in the query.
 func (s *_rankEvalMetricPrecision) K(k int) *_rankEvalMetricPrecision {
 
 	s.v.K = &k
@@ -51,8 +46,6 @@ func (s *_rankEvalMetricPrecision) K(k int) *_rankEvalMetricPrecision {
 	return s
 }
 
-// Sets the rating threshold above which documents are considered to be
-// "relevant".
 func (s *_rankEvalMetricPrecision) RelevantRatingThreshold(relevantratingthreshold int) *_rankEvalMetricPrecision {
 
 	s.v.RelevantRatingThreshold = &relevantratingthreshold

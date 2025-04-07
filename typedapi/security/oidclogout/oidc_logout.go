@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 // Logout of OpenID Connect.
 //
@@ -48,7 +48,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -202,12 +202,12 @@ func (r *OidcLogout) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.raw != nil {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
 		}
 	}
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {
@@ -364,19 +364,6 @@ func (r *OidcLogout) Pretty(pretty bool) *OidcLogout {
 	return r
 }
 
-// The access token to be invalidated.
-// API name: access_token
-func (r *OidcLogout) AccessToken(accesstoken string) *OidcLogout {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.AccessToken = accesstoken
-
-	return r
-}
-
 // The refresh token to be invalidated.
 // API name: refresh_token
 func (r *OidcLogout) RefreshToken(refreshtoken string) *OidcLogout {
@@ -386,6 +373,19 @@ func (r *OidcLogout) RefreshToken(refreshtoken string) *OidcLogout {
 	}
 
 	r.req.RefreshToken = &refreshtoken
+
+	return r
+}
+
+// The access token to be invalidated.
+// API name: token
+func (r *OidcLogout) Token(token string) *OidcLogout {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Token = token
 
 	return r
 }

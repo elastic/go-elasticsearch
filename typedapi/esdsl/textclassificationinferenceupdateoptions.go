@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _textClassificationInferenceUpdateOptions struct {
 	v *types.TextClassificationInferenceUpdateOptions
@@ -33,8 +33,6 @@ func NewTextClassificationInferenceUpdateOptions() *_textClassificationInference
 
 }
 
-// Classification labels to apply other than the stored labels. Must have the
-// same deminsions as the default configured labels
 func (s *_textClassificationInferenceUpdateOptions) ClassificationLabels(classificationlabels ...string) *_textClassificationInferenceUpdateOptions {
 
 	for _, v := range classificationlabels {
@@ -45,7 +43,6 @@ func (s *_textClassificationInferenceUpdateOptions) ClassificationLabels(classif
 	return s
 }
 
-// Specifies the number of top class predictions to return. Defaults to 0.
 func (s *_textClassificationInferenceUpdateOptions) NumTopClasses(numtopclasses int) *_textClassificationInferenceUpdateOptions {
 
 	s.v.NumTopClasses = &numtopclasses
@@ -53,8 +50,6 @@ func (s *_textClassificationInferenceUpdateOptions) NumTopClasses(numtopclasses 
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_textClassificationInferenceUpdateOptions) ResultsField(resultsfield string) *_textClassificationInferenceUpdateOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -62,7 +57,6 @@ func (s *_textClassificationInferenceUpdateOptions) ResultsField(resultsfield st
 	return s
 }
 
-// The tokenization options to update when inferring
 func (s *_textClassificationInferenceUpdateOptions) Tokenization(tokenization types.NlpTokenizationUpdateOptionsVariant) *_textClassificationInferenceUpdateOptions {
 
 	s.v.Tokenization = tokenization.NlpTokenizationUpdateOptionsCaster()

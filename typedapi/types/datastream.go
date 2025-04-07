@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -28,14 +28,14 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/healthstatus"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexmode"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/managedby"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/healthstatus"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indexmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/managedby"
 )
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/_types/DataStream.ts#L53-L139
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/indices/_types/DataStream.ts#L53-L139
 type DataStream struct {
 	// AllowCustomRouting If `true`, the data stream allows custom routing on write request.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _indicesIndexingPressureMemory struct {
 	v *types.IndicesIndexingPressureMemory
@@ -32,11 +32,6 @@ func NewIndicesIndexingPressureMemory() *_indicesIndexingPressureMemory {
 
 }
 
-// Number of outstanding bytes that may be consumed by indexing requests. When
-// this limit is reached or exceeded,
-// the node will reject new coordinating and primary operations. When replica
-// operations consume 1.5x this limit,
-// the node will reject new replica operations. Defaults to 10% of the heap.
 func (s *_indicesIndexingPressureMemory) Limit(limit int) *_indicesIndexingPressureMemory {
 
 	s.v.Limit = &limit

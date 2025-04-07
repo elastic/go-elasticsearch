@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gappolicy"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/gappolicy"
 )
 
 type _bucketScriptAggregation struct {
@@ -37,7 +37,6 @@ func NewBucketScriptAggregation() *_bucketScriptAggregation {
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_bucketScriptAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_bucketScriptAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -45,9 +44,6 @@ func (s *_bucketScriptAggregation) BucketsPath(bucketspath types.BucketsPathVari
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_bucketScriptAggregation) Format(format string) *_bucketScriptAggregation {
 
 	s.v.Format = &format
@@ -55,14 +51,12 @@ func (s *_bucketScriptAggregation) Format(format string) *_bucketScriptAggregati
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_bucketScriptAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_bucketScriptAggregation {
 
 	s.v.GapPolicy = &gappolicy
 	return s
 }
 
-// The script to run for this aggregation.
 func (s *_bucketScriptAggregation) Script(script types.ScriptVariant) *_bucketScriptAggregation {
 
 	s.v.Script = script.ScriptCaster()

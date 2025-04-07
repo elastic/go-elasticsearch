@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _indexTemplateSummary struct {
 	v *types.IndexTemplateSummary
@@ -32,12 +32,6 @@ func NewIndexTemplateSummary() *_indexTemplateSummary {
 
 }
 
-// Aliases to add.
-// If the index template includes a `data_stream` object, these are data stream
-// aliases.
-// Otherwise, these are index aliases.
-// Data stream aliases ignore the `index_routing`, `routing`, and
-// `search_routing` options.
 func (s *_indexTemplateSummary) Aliases(aliases map[string]types.Alias) *_indexTemplateSummary {
 
 	s.v.Aliases = aliases
@@ -66,9 +60,6 @@ func (s *_indexTemplateSummary) Lifecycle(lifecycle types.DataStreamLifecycleWit
 	return s
 }
 
-// Mapping for fields in the index.
-// If specified, this mapping can include field names, field data types, and
-// mapping parameters.
 func (s *_indexTemplateSummary) Mappings(mappings types.TypeMappingVariant) *_indexTemplateSummary {
 
 	s.v.Mappings = mappings.TypeMappingCaster()
@@ -76,7 +67,6 @@ func (s *_indexTemplateSummary) Mappings(mappings types.TypeMappingVariant) *_in
 	return s
 }
 
-// Configuration options for the index.
 func (s *_indexTemplateSummary) Settings(settings types.IndexSettingsVariant) *_indexTemplateSummary {
 
 	s.v.Settings = settings.IndexSettingsCaster()

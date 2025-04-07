@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _setSecurityUserProcessor struct {
 	v *types.SetSecurityUserProcessor
@@ -35,8 +35,6 @@ func NewSetSecurityUserProcessor() *_setSecurityUserProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_setSecurityUserProcessor) Description(description string) *_setSecurityUserProcessor {
 
 	s.v.Description = &description
@@ -44,7 +42,6 @@ func (s *_setSecurityUserProcessor) Description(description string) *_setSecurit
 	return s
 }
 
-// The field to store the user information into.
 func (s *_setSecurityUserProcessor) Field(field string) *_setSecurityUserProcessor {
 
 	s.v.Field = field
@@ -52,7 +49,6 @@ func (s *_setSecurityUserProcessor) Field(field string) *_setSecurityUserProcess
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_setSecurityUserProcessor) If(if_ types.ScriptVariant) *_setSecurityUserProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -60,7 +56,6 @@ func (s *_setSecurityUserProcessor) If(if_ types.ScriptVariant) *_setSecurityUse
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_setSecurityUserProcessor) IgnoreFailure(ignorefailure bool) *_setSecurityUserProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -68,7 +63,6 @@ func (s *_setSecurityUserProcessor) IgnoreFailure(ignorefailure bool) *_setSecur
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_setSecurityUserProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_setSecurityUserProcessor {
 
 	for _, v := range onfailures {
@@ -79,7 +73,6 @@ func (s *_setSecurityUserProcessor) OnFailure(onfailures ...types.ProcessorConta
 	return s
 }
 
-// Controls what user related properties are added to the field.
 func (s *_setSecurityUserProcessor) Properties(properties ...string) *_setSecurityUserProcessor {
 
 	for _, v := range properties {
@@ -90,8 +83,6 @@ func (s *_setSecurityUserProcessor) Properties(properties ...string) *_setSecuri
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_setSecurityUserProcessor) Tag(tag string) *_setSecurityUserProcessor {
 
 	s.v.Tag = &tag

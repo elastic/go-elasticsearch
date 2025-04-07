@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _regressionInferenceOptions struct {
 	v *types.RegressionInferenceOptions
@@ -33,7 +33,6 @@ func NewRegressionInferenceOptions() *_regressionInferenceOptions {
 
 }
 
-// Specifies the maximum number of feature importance values per document.
 func (s *_regressionInferenceOptions) NumTopFeatureImportanceValues(numtopfeatureimportancevalues int) *_regressionInferenceOptions {
 
 	s.v.NumTopFeatureImportanceValues = &numtopfeatureimportancevalues
@@ -41,8 +40,6 @@ func (s *_regressionInferenceOptions) NumTopFeatureImportanceValues(numtopfeatur
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_regressionInferenceOptions) ResultsField(field string) *_regressionInferenceOptions {
 
 	s.v.ResultsField = &field

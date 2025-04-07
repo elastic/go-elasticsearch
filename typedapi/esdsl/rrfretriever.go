@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _rRFRetriever struct {
 	v *types.RRFRetriever
@@ -33,7 +33,6 @@ func NewRRFRetriever() *_rRFRetriever {
 
 }
 
-// Query to filter the documents that can match.
 func (s *_rRFRetriever) Filter(filters ...types.QueryVariant) *_rRFRetriever {
 
 	s.v.Filter = make([]types.Query, len(filters))
@@ -44,8 +43,6 @@ func (s *_rRFRetriever) Filter(filters ...types.QueryVariant) *_rRFRetriever {
 	return s
 }
 
-// Minimum _score for matching documents. Documents with a lower _score are not
-// included in the top documents.
 func (s *_rRFRetriever) MinScore(minscore float32) *_rRFRetriever {
 
 	s.v.MinScore = &minscore
@@ -53,8 +50,6 @@ func (s *_rRFRetriever) MinScore(minscore float32) *_rRFRetriever {
 	return s
 }
 
-// This value determines how much influence documents in individual result sets
-// per query have over the final ranked result set.
 func (s *_rRFRetriever) RankConstant(rankconstant int) *_rRFRetriever {
 
 	s.v.RankConstant = &rankconstant
@@ -62,7 +57,6 @@ func (s *_rRFRetriever) RankConstant(rankconstant int) *_rRFRetriever {
 	return s
 }
 
-// This value determines the size of the individual result sets per query.
 func (s *_rRFRetriever) RankWindowSize(rankwindowsize int) *_rRFRetriever {
 
 	s.v.RankWindowSize = &rankwindowsize
@@ -70,8 +64,6 @@ func (s *_rRFRetriever) RankWindowSize(rankwindowsize int) *_rRFRetriever {
 	return s
 }
 
-// A list of child retrievers to specify which sets of returned top documents
-// will have the RRF formula applied to them.
 func (s *_rRFRetriever) Retrievers(retrievers ...types.RetrieverContainerVariant) *_rRFRetriever {
 
 	for _, v := range retrievers {

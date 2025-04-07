@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package rendersearchtemplate
 
@@ -27,11 +27,13 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Request holds the request body struct for the package rendersearchtemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_global/render_search_template/RenderSearchTemplateRequest.ts#L25-L76
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/_global/render_search_template/RenderSearchTemplateRequest.ts#L26-L77
 type Request struct {
 	File *string `json:"file,omitempty"`
 	// Id The ID of the search template to render.
@@ -48,7 +50,7 @@ type Request struct {
 	// It supports the same parameters as the search API's request body.
 	// These parameters also support Mustache variables.
 	// If no `id` or `<templated-id>` is specified, this parameter is required.
-	Source *string `json:"source,omitempty"`
+	Source types.ScriptSource `json:"source,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -112,16 +114,40 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "source":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return fmt.Errorf("%s | %w", "Source", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		source_field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "Source", err)
+				}
+
+				switch t {
+
+				case "aggregations", "collapse", "docvalue_fields", "explain", "ext", "fields", "from", "highlight", "indices_boost", "knn", "min_score", "pit", "post_filter", "profile", "query", "rank", "rescore", "retriever", "runtime_mappings", "script_fields", "search_after", "seq_no_primary_term", "size", "slice", "sort", "_source", "stats", "stored_fields", "suggest", "terminate_after", "timeout", "track_scores", "track_total_hits", "version":
+					o := types.NewSearchRequestBody()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Source", err)
+					}
+					s.Source = o
+					break source_field
+
+				}
 			}
-			s.Source = &o
+			if s.Source == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.Source); err != nil {
+					return fmt.Errorf("%s | %w", "Source", err)
+				}
+			}
 
 		}
 	}

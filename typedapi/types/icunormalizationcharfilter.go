@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -27,13 +27,13 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icunormalizationmode"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icunormalizationtype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/icunormalizationmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/icunormalizationtype"
 )
 
 // IcuNormalizationCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/analysis/icu-plugin.ts#L40-L44
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/_types/analysis/icu-plugin.ts#L40-L44
 type IcuNormalizationCharFilter struct {
 	Mode    *icunormalizationmode.IcuNormalizationMode `json:"mode,omitempty"`
 	Name    *icunormalizationtype.IcuNormalizationType `json:"name,omitempty"`

@@ -16,18 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _spanMultiTermQuery struct {
 	v *types.SpanMultiTermQuery
 }
 
-// Allows you to wrap a multi term query (one of `wildcard`, `fuzzy`, `prefix`,
-// `range`, or `regexp` query) as a `span` query, so it can be nested.
+// Wraps a `term`, `range`, `prefix`, `wildcard`, `regexp`, or `fuzzy` query.
 func NewSpanMultiTermQuery(match types.QueryVariant) *_spanMultiTermQuery {
 
 	tmp := &_spanMultiTermQuery{v: types.NewSpanMultiTermQuery()}
@@ -38,11 +37,6 @@ func NewSpanMultiTermQuery(match types.QueryVariant) *_spanMultiTermQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_spanMultiTermQuery) Boost(boost float32) *_spanMultiTermQuery {
 
 	s.v.Boost = &boost
@@ -50,8 +44,6 @@ func (s *_spanMultiTermQuery) Boost(boost float32) *_spanMultiTermQuery {
 	return s
 }
 
-// Should be a multi term query (one of `wildcard`, `fuzzy`, `prefix`, `range`,
-// or `regexp` query).
 func (s *_spanMultiTermQuery) Match(match types.QueryVariant) *_spanMultiTermQuery {
 
 	s.v.Match = *match.QueryCaster()

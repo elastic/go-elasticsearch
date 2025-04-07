@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _geoBoundsAggregation struct {
 	v *types.GeoBoundsAggregation
@@ -34,7 +34,6 @@ func NewGeoBoundsAggregation() *_geoBoundsAggregation {
 
 }
 
-// The field on which to run the aggregation.
 func (s *_geoBoundsAggregation) Field(field string) *_geoBoundsAggregation {
 
 	s.v.Field = &field
@@ -42,8 +41,6 @@ func (s *_geoBoundsAggregation) Field(field string) *_geoBoundsAggregation {
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_geoBoundsAggregation) Missing(missing types.MissingVariant) *_geoBoundsAggregation {
 
 	s.v.Missing = *missing.MissingCaster()
@@ -58,8 +55,6 @@ func (s *_geoBoundsAggregation) Script(script types.ScriptVariant) *_geoBoundsAg
 	return s
 }
 
-// Specifies whether the bounding box should be allowed to overlap the
-// international date line.
 func (s *_geoBoundsAggregation) WrapLongitude(wraplongitude bool) *_geoBoundsAggregation {
 
 	s.v.WrapLongitude = &wraplongitude

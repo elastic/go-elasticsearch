@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _createFrom struct {
 	v *types.CreateFrom
@@ -32,7 +32,6 @@ func NewCreateFrom() *_createFrom {
 
 }
 
-// Mappings overrides to be applied to the destination index (optional)
 func (s *_createFrom) MappingsOverride(mappingsoverride types.TypeMappingVariant) *_createFrom {
 
 	s.v.MappingsOverride = mappingsoverride.TypeMappingCaster()
@@ -40,7 +39,6 @@ func (s *_createFrom) MappingsOverride(mappingsoverride types.TypeMappingVariant
 	return s
 }
 
-// If index blocks should be removed when creating destination index (optional)
 func (s *_createFrom) RemoveIndexBlocks(removeindexblocks bool) *_createFrom {
 
 	s.v.RemoveIndexBlocks = &removeindexblocks
@@ -48,7 +46,6 @@ func (s *_createFrom) RemoveIndexBlocks(removeindexblocks bool) *_createFrom {
 	return s
 }
 
-// Settings overrides to be applied to the destination index (optional)
 func (s *_createFrom) SettingsOverride(settingsoverride types.IndexSettingsVariant) *_createFrom {
 
 	s.v.SettingsOverride = settingsoverride.IndexSettingsCaster()

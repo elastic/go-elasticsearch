@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _geoHashGridAggregation struct {
 	v *types.GeoHashGridAggregation
@@ -35,7 +35,6 @@ func NewGeoHashGridAggregation() *_geoHashGridAggregation {
 
 }
 
-// The bounding box to filter the points in each bucket.
 func (s *_geoHashGridAggregation) Bounds(geobounds types.GeoBoundsVariant) *_geoHashGridAggregation {
 
 	s.v.Bounds = *geobounds.GeoBoundsCaster()
@@ -43,8 +42,6 @@ func (s *_geoHashGridAggregation) Bounds(geobounds types.GeoBoundsVariant) *_geo
 	return s
 }
 
-// Field containing indexed `geo_point` or `geo_shape` values.
-// If the field contains an array, `geohash_grid` aggregates all array values.
 func (s *_geoHashGridAggregation) Field(field string) *_geoHashGridAggregation {
 
 	s.v.Field = &field
@@ -52,8 +49,6 @@ func (s *_geoHashGridAggregation) Field(field string) *_geoHashGridAggregation {
 	return s
 }
 
-// The string length of the geohashes used to define cells/buckets in the
-// results.
 func (s *_geoHashGridAggregation) Precision(geohashprecision types.GeoHashPrecisionVariant) *_geoHashGridAggregation {
 
 	s.v.Precision = *geohashprecision.GeoHashPrecisionCaster()
@@ -61,10 +56,6 @@ func (s *_geoHashGridAggregation) Precision(geohashprecision types.GeoHashPrecis
 	return s
 }
 
-// Allows for more accurate counting of the top cells returned in the final
-// result the aggregation.
-// Defaults to returning `max(10,(size x number-of-shards))` buckets from each
-// shard.
 func (s *_geoHashGridAggregation) ShardSize(shardsize int) *_geoHashGridAggregation {
 
 	s.v.ShardSize = &shardsize
@@ -72,7 +63,6 @@ func (s *_geoHashGridAggregation) ShardSize(shardsize int) *_geoHashGridAggregat
 	return s
 }
 
-// The maximum number of geohash buckets to return.
 func (s *_geoHashGridAggregation) Size(size int) *_geoHashGridAggregation {
 
 	s.v.Size = &size

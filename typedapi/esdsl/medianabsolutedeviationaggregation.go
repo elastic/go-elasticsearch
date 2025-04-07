@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _medianAbsoluteDeviationAggregation struct {
 	v *types.MedianAbsoluteDeviationAggregation
@@ -34,9 +34,6 @@ func NewMedianAbsoluteDeviationAggregation() *_medianAbsoluteDeviationAggregatio
 
 }
 
-// Limits the maximum number of nodes used by the underlying TDigest algorithm
-// to `20 * compression`, enabling control of memory usage and approximation
-// error.
 func (s *_medianAbsoluteDeviationAggregation) Compression(compression types.Float64) *_medianAbsoluteDeviationAggregation {
 
 	s.v.Compression = &compression
@@ -44,7 +41,6 @@ func (s *_medianAbsoluteDeviationAggregation) Compression(compression types.Floa
 	return s
 }
 
-// The field on which to run the aggregation.
 func (s *_medianAbsoluteDeviationAggregation) Field(field string) *_medianAbsoluteDeviationAggregation {
 
 	s.v.Field = &field
@@ -59,8 +55,6 @@ func (s *_medianAbsoluteDeviationAggregation) Format(format string) *_medianAbso
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_medianAbsoluteDeviationAggregation) Missing(missing types.MissingVariant) *_medianAbsoluteDeviationAggregation {
 
 	s.v.Missing = *missing.MissingCaster()

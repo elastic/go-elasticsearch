@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -31,11 +31,11 @@ import (
 
 // OpenAITaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/inference/put_openai/PutOpenAiRequest.ts#L138-L144
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/inference/_types/CommonTypes.ts#L1057-L1063
 type OpenAITaskSettings struct {
 	// User For a `completion` or `text_embedding` task, specify the user issuing the
 	// request.
-	// This informaiton can be used for abuse detection.
+	// This information can be used for abuse detection.
 	User *string `json:"user,omitempty"`
 }
 

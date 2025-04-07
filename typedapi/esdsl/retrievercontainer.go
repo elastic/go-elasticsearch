@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _retrieverContainer struct {
@@ -46,7 +46,6 @@ func (s *_retrieverContainer) AdditionalRetrieverContainerProperty(key string, v
 	return s
 }
 
-// A retriever that replaces the functionality  of a knn search.
 func (s *_retrieverContainer) Knn(knn types.KnnRetrieverVariant) *_retrieverContainer {
 
 	s.v.Knn = knn.KnnRetrieverCaster()
@@ -54,7 +53,6 @@ func (s *_retrieverContainer) Knn(knn types.KnnRetrieverVariant) *_retrieverCont
 	return s
 }
 
-// A retriever that produces top documents from reciprocal rank fusion (RRF).
 func (s *_retrieverContainer) Rrf(rrf types.RRFRetrieverVariant) *_retrieverContainer {
 
 	s.v.Rrf = rrf.RRFRetrieverCaster()
@@ -62,7 +60,6 @@ func (s *_retrieverContainer) Rrf(rrf types.RRFRetrieverVariant) *_retrieverCont
 	return s
 }
 
-// A retriever that replaces the functionality of a rule query.
 func (s *_retrieverContainer) Rule(rule types.RuleRetrieverVariant) *_retrieverContainer {
 
 	s.v.Rule = rule.RuleRetrieverCaster()
@@ -70,7 +67,6 @@ func (s *_retrieverContainer) Rule(rule types.RuleRetrieverVariant) *_retrieverC
 	return s
 }
 
-// A retriever that replaces the functionality of a traditional query.
 func (s *_retrieverContainer) Standard(standard types.StandardRetrieverVariant) *_retrieverContainer {
 
 	s.v.Standard = standard.StandardRetrieverCaster()
@@ -78,8 +74,6 @@ func (s *_retrieverContainer) Standard(standard types.StandardRetrieverVariant) 
 	return s
 }
 
-// A retriever that reranks the top documents based on a reranking model using
-// the InferenceAPI
 func (s *_retrieverContainer) TextSimilarityReranker(textsimilarityreranker types.TextSimilarityRerankerVariant) *_retrieverContainer {
 
 	s.v.TextSimilarityReranker = textsimilarityreranker.TextSimilarityRerankerCaster()

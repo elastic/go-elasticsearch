@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _searchAccess struct {
 	v *types.SearchAccess
@@ -32,12 +32,6 @@ func NewSearchAccess() *_searchAccess {
 
 }
 
-// Set to `true` if using wildcard or regular expressions for patterns that
-// cover restricted indices. Implicitly, restricted indices have limited
-// privileges that can cause pattern tests to fail. If restricted indices are
-// explicitly included in the `names` list, Elasticsearch checks privileges
-// against these indices regardless of the value set for
-// `allow_restricted_indices`.
 func (s *_searchAccess) AllowRestrictedIndices(allowrestrictedindices bool) *_searchAccess {
 
 	s.v.AllowRestrictedIndices = &allowrestrictedindices
@@ -45,7 +39,6 @@ func (s *_searchAccess) AllowRestrictedIndices(allowrestrictedindices bool) *_se
 	return s
 }
 
-// The document fields that the owners of the role have read access to.
 func (s *_searchAccess) FieldSecurity(fieldsecurity types.FieldSecurityVariant) *_searchAccess {
 
 	s.v.FieldSecurity = fieldsecurity.FieldSecurityCaster()
@@ -53,8 +46,6 @@ func (s *_searchAccess) FieldSecurity(fieldsecurity types.FieldSecurityVariant) 
 	return s
 }
 
-// A list of indices (or index name patterns) to which the permissions in this
-// entry apply.
 func (s *_searchAccess) Names(names ...string) *_searchAccess {
 
 	s.v.Names = make([]string, len(names))
@@ -63,9 +54,6 @@ func (s *_searchAccess) Names(names ...string) *_searchAccess {
 	return s
 }
 
-// A search query that defines the documents the owners of the role have access
-// to. A document within the specified indices must match this query for it to
-// be accessible by the owners of the role.
 func (s *_searchAccess) Query(indicesprivilegesquery types.IndicesPrivilegesQueryVariant) *_searchAccess {
 
 	s.v.Query = *indicesprivilegesquery.IndicesPrivilegesQueryCaster()

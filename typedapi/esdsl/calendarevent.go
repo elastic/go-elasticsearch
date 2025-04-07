@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _calendarEvent struct {
 	v *types.CalendarEvent
@@ -36,7 +36,6 @@ func NewCalendarEvent(description string) *_calendarEvent {
 
 }
 
-// A string that uniquely identifies a calendar.
 func (s *_calendarEvent) CalendarId(id string) *_calendarEvent {
 
 	s.v.CalendarId = &id
@@ -44,7 +43,6 @@ func (s *_calendarEvent) CalendarId(id string) *_calendarEvent {
 	return s
 }
 
-// A description of the scheduled event.
 func (s *_calendarEvent) Description(description string) *_calendarEvent {
 
 	s.v.Description = description
@@ -52,8 +50,6 @@ func (s *_calendarEvent) Description(description string) *_calendarEvent {
 	return s
 }
 
-// The timestamp for the end of the scheduled event in milliseconds since the
-// epoch or ISO 8601 format.
 func (s *_calendarEvent) EndTime(datetime types.DateTimeVariant) *_calendarEvent {
 
 	s.v.EndTime = *datetime.DateTimeCaster()
@@ -68,8 +64,6 @@ func (s *_calendarEvent) EventId(id string) *_calendarEvent {
 	return s
 }
 
-// Shift time by this many seconds. For example adjust time for daylight savings
-// changes
 func (s *_calendarEvent) ForceTimeShift(forcetimeshift int) *_calendarEvent {
 
 	s.v.ForceTimeShift = &forcetimeshift
@@ -77,7 +71,6 @@ func (s *_calendarEvent) ForceTimeShift(forcetimeshift int) *_calendarEvent {
 	return s
 }
 
-// When true the model will not be updated for this calendar period.
 func (s *_calendarEvent) SkipModelUpdate(skipmodelupdate bool) *_calendarEvent {
 
 	s.v.SkipModelUpdate = &skipmodelupdate
@@ -85,7 +78,6 @@ func (s *_calendarEvent) SkipModelUpdate(skipmodelupdate bool) *_calendarEvent {
 	return s
 }
 
-// When true the model will not create results for this calendar period.
 func (s *_calendarEvent) SkipResult(skipresult bool) *_calendarEvent {
 
 	s.v.SkipResult = &skipresult
@@ -93,8 +85,6 @@ func (s *_calendarEvent) SkipResult(skipresult bool) *_calendarEvent {
 	return s
 }
 
-// The timestamp for the beginning of the scheduled event in milliseconds since
-// the epoch or ISO 8601 format.
 func (s *_calendarEvent) StartTime(datetime types.DateTimeVariant) *_calendarEvent {
 
 	s.v.StartTime = *datetime.DateTimeCaster()

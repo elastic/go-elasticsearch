@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package putwatsonx
 
@@ -24,18 +24,18 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/servicetype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/watsonxservicetype"
 )
 
 // Request holds the request body struct for the package putwatsonx
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/inference/put_watsonx/PutWatsonxRequest.ts#L24-L70
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/inference/put_watsonx/PutWatsonxRequest.ts#L28-L74
 type Request struct {
 
 	// Service The type of service supported for the specified task type. In this case,
 	// `watsonxai`.
-	Service servicetype.ServiceType `json:"service"`
+	Service watsonxservicetype.WatsonxServiceType `json:"service"`
 	// ServiceSettings Settings used to install the inference model. These settings are specific to
 	// the `watsonxai` service.
 	ServiceSettings types.WatsonxServiceSettings `json:"service_settings"`

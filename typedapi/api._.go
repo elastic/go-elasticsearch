@@ -16,539 +16,553 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package typedapi
 
 import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	async_search_delete "github.com/elastic/go-elasticsearch/v8/typedapi/asyncsearch/delete"
-	async_search_get "github.com/elastic/go-elasticsearch/v8/typedapi/asyncsearch/get"
-	async_search_status "github.com/elastic/go-elasticsearch/v8/typedapi/asyncsearch/status"
-	async_search_submit "github.com/elastic/go-elasticsearch/v8/typedapi/asyncsearch/submit"
-	autoscaling_delete_autoscaling_policy "github.com/elastic/go-elasticsearch/v8/typedapi/autoscaling/deleteautoscalingpolicy"
-	autoscaling_get_autoscaling_capacity "github.com/elastic/go-elasticsearch/v8/typedapi/autoscaling/getautoscalingcapacity"
-	autoscaling_get_autoscaling_policy "github.com/elastic/go-elasticsearch/v8/typedapi/autoscaling/getautoscalingpolicy"
-	autoscaling_put_autoscaling_policy "github.com/elastic/go-elasticsearch/v8/typedapi/autoscaling/putautoscalingpolicy"
-	capabilities "github.com/elastic/go-elasticsearch/v8/typedapi/capabilities"
-	cat_aliases "github.com/elastic/go-elasticsearch/v8/typedapi/cat/aliases"
-	cat_allocation "github.com/elastic/go-elasticsearch/v8/typedapi/cat/allocation"
-	cat_component_templates "github.com/elastic/go-elasticsearch/v8/typedapi/cat/componenttemplates"
-	cat_count "github.com/elastic/go-elasticsearch/v8/typedapi/cat/count"
-	cat_fielddata "github.com/elastic/go-elasticsearch/v8/typedapi/cat/fielddata"
-	cat_health "github.com/elastic/go-elasticsearch/v8/typedapi/cat/health"
-	cat_help "github.com/elastic/go-elasticsearch/v8/typedapi/cat/help"
-	cat_indices "github.com/elastic/go-elasticsearch/v8/typedapi/cat/indices"
-	cat_master "github.com/elastic/go-elasticsearch/v8/typedapi/cat/master"
-	cat_ml_datafeeds "github.com/elastic/go-elasticsearch/v8/typedapi/cat/mldatafeeds"
-	cat_ml_data_frame_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/cat/mldataframeanalytics"
-	cat_ml_jobs "github.com/elastic/go-elasticsearch/v8/typedapi/cat/mljobs"
-	cat_ml_trained_models "github.com/elastic/go-elasticsearch/v8/typedapi/cat/mltrainedmodels"
-	cat_nodeattrs "github.com/elastic/go-elasticsearch/v8/typedapi/cat/nodeattrs"
-	cat_nodes "github.com/elastic/go-elasticsearch/v8/typedapi/cat/nodes"
-	cat_pending_tasks "github.com/elastic/go-elasticsearch/v8/typedapi/cat/pendingtasks"
-	cat_plugins "github.com/elastic/go-elasticsearch/v8/typedapi/cat/plugins"
-	cat_recovery "github.com/elastic/go-elasticsearch/v8/typedapi/cat/recovery"
-	cat_repositories "github.com/elastic/go-elasticsearch/v8/typedapi/cat/repositories"
-	cat_segments "github.com/elastic/go-elasticsearch/v8/typedapi/cat/segments"
-	cat_shards "github.com/elastic/go-elasticsearch/v8/typedapi/cat/shards"
-	cat_snapshots "github.com/elastic/go-elasticsearch/v8/typedapi/cat/snapshots"
-	cat_tasks "github.com/elastic/go-elasticsearch/v8/typedapi/cat/tasks"
-	cat_templates "github.com/elastic/go-elasticsearch/v8/typedapi/cat/templates"
-	cat_thread_pool "github.com/elastic/go-elasticsearch/v8/typedapi/cat/threadpool"
-	cat_transforms "github.com/elastic/go-elasticsearch/v8/typedapi/cat/transforms"
-	ccr_delete_auto_follow_pattern "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/deleteautofollowpattern"
-	ccr_follow "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/follow"
-	ccr_follow_info "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/followinfo"
-	ccr_follow_stats "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/followstats"
-	ccr_forget_follower "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/forgetfollower"
-	ccr_get_auto_follow_pattern "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/getautofollowpattern"
-	ccr_pause_auto_follow_pattern "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/pauseautofollowpattern"
-	ccr_pause_follow "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/pausefollow"
-	ccr_put_auto_follow_pattern "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/putautofollowpattern"
-	ccr_resume_auto_follow_pattern "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/resumeautofollowpattern"
-	ccr_resume_follow "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/resumefollow"
-	ccr_stats "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/stats"
-	ccr_unfollow "github.com/elastic/go-elasticsearch/v8/typedapi/ccr/unfollow"
-	cluster_allocation_explain "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/allocationexplain"
-	cluster_delete_component_template "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/deletecomponenttemplate"
-	cluster_delete_voting_config_exclusions "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/deletevotingconfigexclusions"
-	cluster_exists_component_template "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/existscomponenttemplate"
-	cluster_get_component_template "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/getcomponenttemplate"
-	cluster_get_settings "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/getsettings"
-	cluster_health "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/health"
-	cluster_info "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/info"
-	cluster_pending_tasks "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/pendingtasks"
-	cluster_post_voting_config_exclusions "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/postvotingconfigexclusions"
-	cluster_put_component_template "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/putcomponenttemplate"
-	cluster_put_settings "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/putsettings"
-	cluster_remote_info "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/remoteinfo"
-	cluster_reroute "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/reroute"
-	cluster_state "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/state"
-	cluster_stats "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/stats"
-	connector_check_in "github.com/elastic/go-elasticsearch/v8/typedapi/connector/checkin"
-	connector_delete "github.com/elastic/go-elasticsearch/v8/typedapi/connector/delete"
-	connector_get "github.com/elastic/go-elasticsearch/v8/typedapi/connector/get"
-	connector_last_sync "github.com/elastic/go-elasticsearch/v8/typedapi/connector/lastsync"
-	connector_list "github.com/elastic/go-elasticsearch/v8/typedapi/connector/list"
-	connector_post "github.com/elastic/go-elasticsearch/v8/typedapi/connector/post"
-	connector_put "github.com/elastic/go-elasticsearch/v8/typedapi/connector/put"
-	connector_secret_post "github.com/elastic/go-elasticsearch/v8/typedapi/connector/secretpost"
-	connector_sync_job_cancel "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobcancel"
-	connector_sync_job_check_in "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobcheckin"
-	connector_sync_job_claim "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobclaim"
-	connector_sync_job_delete "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobdelete"
-	connector_sync_job_error "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjoberror"
-	connector_sync_job_get "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobget"
-	connector_sync_job_list "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjoblist"
-	connector_sync_job_post "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobpost"
-	connector_sync_job_update_stats "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobupdatestats"
-	connector_update_active_filtering "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateactivefiltering"
-	connector_update_api_key_id "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateapikeyid"
-	connector_update_configuration "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateconfiguration"
-	connector_update_error "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateerror"
-	connector_update_features "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatefeatures"
-	connector_update_filtering "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatefiltering"
-	connector_update_filtering_validation "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatefilteringvalidation"
-	connector_update_index_name "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateindexname"
-	connector_update_name "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatename"
-	connector_update_native "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatenative"
-	connector_update_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatepipeline"
-	connector_update_scheduling "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatescheduling"
-	connector_update_service_type "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateservicetype"
-	connector_update_status "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatestatus"
-	core_bulk "github.com/elastic/go-elasticsearch/v8/typedapi/core/bulk"
-	core_clear_scroll "github.com/elastic/go-elasticsearch/v8/typedapi/core/clearscroll"
-	core_close_point_in_time "github.com/elastic/go-elasticsearch/v8/typedapi/core/closepointintime"
-	core_count "github.com/elastic/go-elasticsearch/v8/typedapi/core/count"
-	core_create "github.com/elastic/go-elasticsearch/v8/typedapi/core/create"
-	core_delete "github.com/elastic/go-elasticsearch/v8/typedapi/core/delete"
-	core_delete_by_query "github.com/elastic/go-elasticsearch/v8/typedapi/core/deletebyquery"
-	core_delete_by_query_rethrottle "github.com/elastic/go-elasticsearch/v8/typedapi/core/deletebyqueryrethrottle"
-	core_delete_script "github.com/elastic/go-elasticsearch/v8/typedapi/core/deletescript"
-	core_exists "github.com/elastic/go-elasticsearch/v8/typedapi/core/exists"
-	core_exists_source "github.com/elastic/go-elasticsearch/v8/typedapi/core/existssource"
-	core_explain "github.com/elastic/go-elasticsearch/v8/typedapi/core/explain"
-	core_field_caps "github.com/elastic/go-elasticsearch/v8/typedapi/core/fieldcaps"
-	core_get "github.com/elastic/go-elasticsearch/v8/typedapi/core/get"
-	core_get_script "github.com/elastic/go-elasticsearch/v8/typedapi/core/getscript"
-	core_get_script_context "github.com/elastic/go-elasticsearch/v8/typedapi/core/getscriptcontext"
-	core_get_script_languages "github.com/elastic/go-elasticsearch/v8/typedapi/core/getscriptlanguages"
-	core_get_source "github.com/elastic/go-elasticsearch/v8/typedapi/core/getsource"
-	core_health_report "github.com/elastic/go-elasticsearch/v8/typedapi/core/healthreport"
-	core_index "github.com/elastic/go-elasticsearch/v8/typedapi/core/index"
-	core_info "github.com/elastic/go-elasticsearch/v8/typedapi/core/info"
-	core_knn_search "github.com/elastic/go-elasticsearch/v8/typedapi/core/knnsearch"
-	core_mget "github.com/elastic/go-elasticsearch/v8/typedapi/core/mget"
-	core_msearch "github.com/elastic/go-elasticsearch/v8/typedapi/core/msearch"
-	core_msearch_template "github.com/elastic/go-elasticsearch/v8/typedapi/core/msearchtemplate"
-	core_mtermvectors "github.com/elastic/go-elasticsearch/v8/typedapi/core/mtermvectors"
-	core_open_point_in_time "github.com/elastic/go-elasticsearch/v8/typedapi/core/openpointintime"
-	core_ping "github.com/elastic/go-elasticsearch/v8/typedapi/core/ping"
-	core_put_script "github.com/elastic/go-elasticsearch/v8/typedapi/core/putscript"
-	core_rank_eval "github.com/elastic/go-elasticsearch/v8/typedapi/core/rankeval"
-	core_reindex "github.com/elastic/go-elasticsearch/v8/typedapi/core/reindex"
-	core_reindex_rethrottle "github.com/elastic/go-elasticsearch/v8/typedapi/core/reindexrethrottle"
-	core_render_search_template "github.com/elastic/go-elasticsearch/v8/typedapi/core/rendersearchtemplate"
-	core_scripts_painless_execute "github.com/elastic/go-elasticsearch/v8/typedapi/core/scriptspainlessexecute"
-	core_scroll "github.com/elastic/go-elasticsearch/v8/typedapi/core/scroll"
-	core_search "github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
-	core_search_mvt "github.com/elastic/go-elasticsearch/v8/typedapi/core/searchmvt"
-	core_search_shards "github.com/elastic/go-elasticsearch/v8/typedapi/core/searchshards"
-	core_search_template "github.com/elastic/go-elasticsearch/v8/typedapi/core/searchtemplate"
-	core_terms_enum "github.com/elastic/go-elasticsearch/v8/typedapi/core/termsenum"
-	core_termvectors "github.com/elastic/go-elasticsearch/v8/typedapi/core/termvectors"
-	core_update "github.com/elastic/go-elasticsearch/v8/typedapi/core/update"
-	core_update_by_query "github.com/elastic/go-elasticsearch/v8/typedapi/core/updatebyquery"
-	core_update_by_query_rethrottle "github.com/elastic/go-elasticsearch/v8/typedapi/core/updatebyqueryrethrottle"
-	dangling_indices_delete_dangling_index "github.com/elastic/go-elasticsearch/v8/typedapi/danglingindices/deletedanglingindex"
-	dangling_indices_import_dangling_index "github.com/elastic/go-elasticsearch/v8/typedapi/danglingindices/importdanglingindex"
-	dangling_indices_list_dangling_indices "github.com/elastic/go-elasticsearch/v8/typedapi/danglingindices/listdanglingindices"
-	enrich_delete_policy "github.com/elastic/go-elasticsearch/v8/typedapi/enrich/deletepolicy"
-	enrich_execute_policy "github.com/elastic/go-elasticsearch/v8/typedapi/enrich/executepolicy"
-	enrich_get_policy "github.com/elastic/go-elasticsearch/v8/typedapi/enrich/getpolicy"
-	enrich_put_policy "github.com/elastic/go-elasticsearch/v8/typedapi/enrich/putpolicy"
-	enrich_stats "github.com/elastic/go-elasticsearch/v8/typedapi/enrich/stats"
-	eql_delete "github.com/elastic/go-elasticsearch/v8/typedapi/eql/delete"
-	eql_get "github.com/elastic/go-elasticsearch/v8/typedapi/eql/get"
-	eql_get_status "github.com/elastic/go-elasticsearch/v8/typedapi/eql/getstatus"
-	eql_search "github.com/elastic/go-elasticsearch/v8/typedapi/eql/search"
-	esql_async_query "github.com/elastic/go-elasticsearch/v8/typedapi/esql/asyncquery"
-	esql_async_query_delete "github.com/elastic/go-elasticsearch/v8/typedapi/esql/asyncquerydelete"
-	esql_async_query_get "github.com/elastic/go-elasticsearch/v8/typedapi/esql/asyncqueryget"
-	esql_async_query_stop "github.com/elastic/go-elasticsearch/v8/typedapi/esql/asyncquerystop"
-	esql_query "github.com/elastic/go-elasticsearch/v8/typedapi/esql/query"
-	features_get_features "github.com/elastic/go-elasticsearch/v8/typedapi/features/getfeatures"
-	features_reset_features "github.com/elastic/go-elasticsearch/v8/typedapi/features/resetfeatures"
-	fleet_global_checkpoints "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/globalcheckpoints"
-	fleet_msearch "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/msearch"
-	fleet_post_secret "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/postsecret"
-	fleet_search "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/search"
-	graph_explore "github.com/elastic/go-elasticsearch/v8/typedapi/graph/explore"
-	ilm_delete_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/ilm/deletelifecycle"
-	ilm_explain_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/ilm/explainlifecycle"
-	ilm_get_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/ilm/getlifecycle"
-	ilm_get_status "github.com/elastic/go-elasticsearch/v8/typedapi/ilm/getstatus"
-	ilm_migrate_to_data_tiers "github.com/elastic/go-elasticsearch/v8/typedapi/ilm/migratetodatatiers"
-	ilm_move_to_step "github.com/elastic/go-elasticsearch/v8/typedapi/ilm/movetostep"
-	ilm_put_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/ilm/putlifecycle"
-	ilm_remove_policy "github.com/elastic/go-elasticsearch/v8/typedapi/ilm/removepolicy"
-	ilm_retry "github.com/elastic/go-elasticsearch/v8/typedapi/ilm/retry"
-	ilm_start "github.com/elastic/go-elasticsearch/v8/typedapi/ilm/start"
-	ilm_stop "github.com/elastic/go-elasticsearch/v8/typedapi/ilm/stop"
-	indices_add_block "github.com/elastic/go-elasticsearch/v8/typedapi/indices/addblock"
-	indices_analyze "github.com/elastic/go-elasticsearch/v8/typedapi/indices/analyze"
-	indices_cancel_migrate_reindex "github.com/elastic/go-elasticsearch/v8/typedapi/indices/cancelmigratereindex"
-	indices_clear_cache "github.com/elastic/go-elasticsearch/v8/typedapi/indices/clearcache"
-	indices_clone "github.com/elastic/go-elasticsearch/v8/typedapi/indices/clone"
-	indices_close "github.com/elastic/go-elasticsearch/v8/typedapi/indices/close"
-	indices_create "github.com/elastic/go-elasticsearch/v8/typedapi/indices/create"
-	indices_create_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/createdatastream"
-	indices_create_from "github.com/elastic/go-elasticsearch/v8/typedapi/indices/createfrom"
-	indices_data_streams_stats "github.com/elastic/go-elasticsearch/v8/typedapi/indices/datastreamsstats"
-	indices_delete "github.com/elastic/go-elasticsearch/v8/typedapi/indices/delete"
-	indices_delete_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletealias"
-	indices_delete_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletedatalifecycle"
-	indices_delete_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletedatastream"
-	indices_delete_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deleteindextemplate"
-	indices_delete_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletetemplate"
-	indices_disk_usage "github.com/elastic/go-elasticsearch/v8/typedapi/indices/diskusage"
-	indices_downsample "github.com/elastic/go-elasticsearch/v8/typedapi/indices/downsample"
-	indices_exists "github.com/elastic/go-elasticsearch/v8/typedapi/indices/exists"
-	indices_exists_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/existsalias"
-	indices_exists_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/existsindextemplate"
-	indices_exists_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/existstemplate"
-	indices_explain_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/explaindatalifecycle"
-	indices_field_usage_stats "github.com/elastic/go-elasticsearch/v8/typedapi/indices/fieldusagestats"
-	indices_flush "github.com/elastic/go-elasticsearch/v8/typedapi/indices/flush"
-	indices_forcemerge "github.com/elastic/go-elasticsearch/v8/typedapi/indices/forcemerge"
-	indices_get "github.com/elastic/go-elasticsearch/v8/typedapi/indices/get"
-	indices_get_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getalias"
-	indices_get_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatalifecycle"
-	indices_get_data_lifecycle_stats "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatalifecyclestats"
-	indices_get_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatastream"
-	indices_get_field_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getfieldmapping"
-	indices_get_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getindextemplate"
-	indices_get_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getmapping"
-	indices_get_migrate_reindex_status "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getmigratereindexstatus"
-	indices_get_settings "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getsettings"
-	indices_get_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/gettemplate"
-	indices_migrate_reindex "github.com/elastic/go-elasticsearch/v8/typedapi/indices/migratereindex"
-	indices_migrate_to_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/migratetodatastream"
-	indices_modify_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/modifydatastream"
-	indices_open "github.com/elastic/go-elasticsearch/v8/typedapi/indices/open"
-	indices_promote_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/promotedatastream"
-	indices_put_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putalias"
-	indices_put_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putdatalifecycle"
-	indices_put_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putindextemplate"
-	indices_put_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putmapping"
-	indices_put_settings "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putsettings"
-	indices_put_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/puttemplate"
-	indices_recovery "github.com/elastic/go-elasticsearch/v8/typedapi/indices/recovery"
-	indices_refresh "github.com/elastic/go-elasticsearch/v8/typedapi/indices/refresh"
-	indices_reload_search_analyzers "github.com/elastic/go-elasticsearch/v8/typedapi/indices/reloadsearchanalyzers"
-	indices_resolve_cluster "github.com/elastic/go-elasticsearch/v8/typedapi/indices/resolvecluster"
-	indices_resolve_index "github.com/elastic/go-elasticsearch/v8/typedapi/indices/resolveindex"
-	indices_rollover "github.com/elastic/go-elasticsearch/v8/typedapi/indices/rollover"
-	indices_segments "github.com/elastic/go-elasticsearch/v8/typedapi/indices/segments"
-	indices_shard_stores "github.com/elastic/go-elasticsearch/v8/typedapi/indices/shardstores"
-	indices_shrink "github.com/elastic/go-elasticsearch/v8/typedapi/indices/shrink"
-	indices_simulate_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/simulateindextemplate"
-	indices_simulate_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/simulatetemplate"
-	indices_split "github.com/elastic/go-elasticsearch/v8/typedapi/indices/split"
-	indices_stats "github.com/elastic/go-elasticsearch/v8/typedapi/indices/stats"
-	indices_update_aliases "github.com/elastic/go-elasticsearch/v8/typedapi/indices/updatealiases"
-	indices_validate_query "github.com/elastic/go-elasticsearch/v8/typedapi/indices/validatequery"
-	inference_chat_completion_unified "github.com/elastic/go-elasticsearch/v8/typedapi/inference/chatcompletionunified"
-	inference_completion "github.com/elastic/go-elasticsearch/v8/typedapi/inference/completion"
-	inference_delete "github.com/elastic/go-elasticsearch/v8/typedapi/inference/delete"
-	inference_get "github.com/elastic/go-elasticsearch/v8/typedapi/inference/get"
-	inference_put "github.com/elastic/go-elasticsearch/v8/typedapi/inference/put"
-	inference_put_openai "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putopenai"
-	inference_put_watsonx "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putwatsonx"
-	inference_rerank "github.com/elastic/go-elasticsearch/v8/typedapi/inference/rerank"
-	inference_sparse_embedding "github.com/elastic/go-elasticsearch/v8/typedapi/inference/sparseembedding"
-	inference_stream_completion "github.com/elastic/go-elasticsearch/v8/typedapi/inference/streamcompletion"
-	inference_text_embedding "github.com/elastic/go-elasticsearch/v8/typedapi/inference/textembedding"
-	inference_update "github.com/elastic/go-elasticsearch/v8/typedapi/inference/update"
-	ingest_delete_geoip_database "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/deletegeoipdatabase"
-	ingest_delete_ip_location_database "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/deleteiplocationdatabase"
-	ingest_delete_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/deletepipeline"
-	ingest_geo_ip_stats "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/geoipstats"
-	ingest_get_geoip_database "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/getgeoipdatabase"
-	ingest_get_ip_location_database "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/getiplocationdatabase"
-	ingest_get_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/getpipeline"
-	ingest_processor_grok "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/processorgrok"
-	ingest_put_geoip_database "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/putgeoipdatabase"
-	ingest_put_ip_location_database "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/putiplocationdatabase"
-	ingest_put_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/putpipeline"
-	ingest_simulate "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/simulate"
-	license_delete "github.com/elastic/go-elasticsearch/v8/typedapi/license/delete"
-	license_get "github.com/elastic/go-elasticsearch/v8/typedapi/license/get"
-	license_get_basic_status "github.com/elastic/go-elasticsearch/v8/typedapi/license/getbasicstatus"
-	license_get_trial_status "github.com/elastic/go-elasticsearch/v8/typedapi/license/gettrialstatus"
-	license_post "github.com/elastic/go-elasticsearch/v8/typedapi/license/post"
-	license_post_start_basic "github.com/elastic/go-elasticsearch/v8/typedapi/license/poststartbasic"
-	license_post_start_trial "github.com/elastic/go-elasticsearch/v8/typedapi/license/poststarttrial"
-	logstash_delete_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/logstash/deletepipeline"
-	logstash_get_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/logstash/getpipeline"
-	logstash_put_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/logstash/putpipeline"
-	migration_deprecations "github.com/elastic/go-elasticsearch/v8/typedapi/migration/deprecations"
-	migration_get_feature_upgrade_status "github.com/elastic/go-elasticsearch/v8/typedapi/migration/getfeatureupgradestatus"
-	migration_post_feature_upgrade "github.com/elastic/go-elasticsearch/v8/typedapi/migration/postfeatureupgrade"
-	ml_clear_trained_model_deployment_cache "github.com/elastic/go-elasticsearch/v8/typedapi/ml/cleartrainedmodeldeploymentcache"
-	ml_close_job "github.com/elastic/go-elasticsearch/v8/typedapi/ml/closejob"
-	ml_delete_calendar "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deletecalendar"
-	ml_delete_calendar_event "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deletecalendarevent"
-	ml_delete_calendar_job "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deletecalendarjob"
-	ml_delete_datafeed "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deletedatafeed"
-	ml_delete_data_frame_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deletedataframeanalytics"
-	ml_delete_expired_data "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deleteexpireddata"
-	ml_delete_filter "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deletefilter"
-	ml_delete_forecast "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deleteforecast"
-	ml_delete_job "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deletejob"
-	ml_delete_model_snapshot "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deletemodelsnapshot"
-	ml_delete_trained_model "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deletetrainedmodel"
-	ml_delete_trained_model_alias "github.com/elastic/go-elasticsearch/v8/typedapi/ml/deletetrainedmodelalias"
-	ml_estimate_model_memory "github.com/elastic/go-elasticsearch/v8/typedapi/ml/estimatemodelmemory"
-	ml_evaluate_data_frame "github.com/elastic/go-elasticsearch/v8/typedapi/ml/evaluatedataframe"
-	ml_explain_data_frame_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/ml/explaindataframeanalytics"
-	ml_flush_job "github.com/elastic/go-elasticsearch/v8/typedapi/ml/flushjob"
-	ml_forecast "github.com/elastic/go-elasticsearch/v8/typedapi/ml/forecast"
-	ml_get_buckets "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getbuckets"
-	ml_get_calendar_events "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getcalendarevents"
-	ml_get_calendars "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getcalendars"
-	ml_get_categories "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getcategories"
-	ml_get_datafeeds "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getdatafeeds"
-	ml_get_datafeed_stats "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getdatafeedstats"
-	ml_get_data_frame_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getdataframeanalytics"
-	ml_get_data_frame_analytics_stats "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getdataframeanalyticsstats"
-	ml_get_filters "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getfilters"
-	ml_get_influencers "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getinfluencers"
-	ml_get_jobs "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getjobs"
-	ml_get_job_stats "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getjobstats"
-	ml_get_memory_stats "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getmemorystats"
-	ml_get_model_snapshots "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getmodelsnapshots"
-	ml_get_model_snapshot_upgrade_stats "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getmodelsnapshotupgradestats"
-	ml_get_overall_buckets "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getoverallbuckets"
-	ml_get_records "github.com/elastic/go-elasticsearch/v8/typedapi/ml/getrecords"
-	ml_get_trained_models "github.com/elastic/go-elasticsearch/v8/typedapi/ml/gettrainedmodels"
-	ml_get_trained_models_stats "github.com/elastic/go-elasticsearch/v8/typedapi/ml/gettrainedmodelsstats"
-	ml_infer_trained_model "github.com/elastic/go-elasticsearch/v8/typedapi/ml/infertrainedmodel"
-	ml_info "github.com/elastic/go-elasticsearch/v8/typedapi/ml/info"
-	ml_open_job "github.com/elastic/go-elasticsearch/v8/typedapi/ml/openjob"
-	ml_post_calendar_events "github.com/elastic/go-elasticsearch/v8/typedapi/ml/postcalendarevents"
-	ml_post_data "github.com/elastic/go-elasticsearch/v8/typedapi/ml/postdata"
-	ml_preview_datafeed "github.com/elastic/go-elasticsearch/v8/typedapi/ml/previewdatafeed"
-	ml_preview_data_frame_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/ml/previewdataframeanalytics"
-	ml_put_calendar "github.com/elastic/go-elasticsearch/v8/typedapi/ml/putcalendar"
-	ml_put_calendar_job "github.com/elastic/go-elasticsearch/v8/typedapi/ml/putcalendarjob"
-	ml_put_datafeed "github.com/elastic/go-elasticsearch/v8/typedapi/ml/putdatafeed"
-	ml_put_data_frame_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/ml/putdataframeanalytics"
-	ml_put_filter "github.com/elastic/go-elasticsearch/v8/typedapi/ml/putfilter"
-	ml_put_job "github.com/elastic/go-elasticsearch/v8/typedapi/ml/putjob"
-	ml_put_trained_model "github.com/elastic/go-elasticsearch/v8/typedapi/ml/puttrainedmodel"
-	ml_put_trained_model_alias "github.com/elastic/go-elasticsearch/v8/typedapi/ml/puttrainedmodelalias"
-	ml_put_trained_model_definition_part "github.com/elastic/go-elasticsearch/v8/typedapi/ml/puttrainedmodeldefinitionpart"
-	ml_put_trained_model_vocabulary "github.com/elastic/go-elasticsearch/v8/typedapi/ml/puttrainedmodelvocabulary"
-	ml_reset_job "github.com/elastic/go-elasticsearch/v8/typedapi/ml/resetjob"
-	ml_revert_model_snapshot "github.com/elastic/go-elasticsearch/v8/typedapi/ml/revertmodelsnapshot"
-	ml_set_upgrade_mode "github.com/elastic/go-elasticsearch/v8/typedapi/ml/setupgrademode"
-	ml_start_datafeed "github.com/elastic/go-elasticsearch/v8/typedapi/ml/startdatafeed"
-	ml_start_data_frame_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/ml/startdataframeanalytics"
-	ml_start_trained_model_deployment "github.com/elastic/go-elasticsearch/v8/typedapi/ml/starttrainedmodeldeployment"
-	ml_stop_datafeed "github.com/elastic/go-elasticsearch/v8/typedapi/ml/stopdatafeed"
-	ml_stop_data_frame_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/ml/stopdataframeanalytics"
-	ml_stop_trained_model_deployment "github.com/elastic/go-elasticsearch/v8/typedapi/ml/stoptrainedmodeldeployment"
-	ml_update_datafeed "github.com/elastic/go-elasticsearch/v8/typedapi/ml/updatedatafeed"
-	ml_update_data_frame_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/ml/updatedataframeanalytics"
-	ml_update_filter "github.com/elastic/go-elasticsearch/v8/typedapi/ml/updatefilter"
-	ml_update_job "github.com/elastic/go-elasticsearch/v8/typedapi/ml/updatejob"
-	ml_update_model_snapshot "github.com/elastic/go-elasticsearch/v8/typedapi/ml/updatemodelsnapshot"
-	ml_update_trained_model_deployment "github.com/elastic/go-elasticsearch/v8/typedapi/ml/updatetrainedmodeldeployment"
-	ml_upgrade_job_snapshot "github.com/elastic/go-elasticsearch/v8/typedapi/ml/upgradejobsnapshot"
-	ml_validate "github.com/elastic/go-elasticsearch/v8/typedapi/ml/validate"
-	ml_validate_detector "github.com/elastic/go-elasticsearch/v8/typedapi/ml/validatedetector"
-	monitoring_bulk "github.com/elastic/go-elasticsearch/v8/typedapi/monitoring/bulk"
-	nodes_clear_repositories_metering_archive "github.com/elastic/go-elasticsearch/v8/typedapi/nodes/clearrepositoriesmeteringarchive"
-	nodes_get_repositories_metering_info "github.com/elastic/go-elasticsearch/v8/typedapi/nodes/getrepositoriesmeteringinfo"
-	nodes_hot_threads "github.com/elastic/go-elasticsearch/v8/typedapi/nodes/hotthreads"
-	nodes_info "github.com/elastic/go-elasticsearch/v8/typedapi/nodes/info"
-	nodes_reload_secure_settings "github.com/elastic/go-elasticsearch/v8/typedapi/nodes/reloadsecuresettings"
-	nodes_stats "github.com/elastic/go-elasticsearch/v8/typedapi/nodes/stats"
-	nodes_usage "github.com/elastic/go-elasticsearch/v8/typedapi/nodes/usage"
-	profiling_flamegraph "github.com/elastic/go-elasticsearch/v8/typedapi/profiling/flamegraph"
-	profiling_stacktraces "github.com/elastic/go-elasticsearch/v8/typedapi/profiling/stacktraces"
-	profiling_status "github.com/elastic/go-elasticsearch/v8/typedapi/profiling/status"
-	profiling_topn_functions "github.com/elastic/go-elasticsearch/v8/typedapi/profiling/topnfunctions"
-	query_rules_delete_rule "github.com/elastic/go-elasticsearch/v8/typedapi/queryrules/deleterule"
-	query_rules_delete_ruleset "github.com/elastic/go-elasticsearch/v8/typedapi/queryrules/deleteruleset"
-	query_rules_get_rule "github.com/elastic/go-elasticsearch/v8/typedapi/queryrules/getrule"
-	query_rules_get_ruleset "github.com/elastic/go-elasticsearch/v8/typedapi/queryrules/getruleset"
-	query_rules_list_rulesets "github.com/elastic/go-elasticsearch/v8/typedapi/queryrules/listrulesets"
-	query_rules_put_rule "github.com/elastic/go-elasticsearch/v8/typedapi/queryrules/putrule"
-	query_rules_put_ruleset "github.com/elastic/go-elasticsearch/v8/typedapi/queryrules/putruleset"
-	query_rules_test "github.com/elastic/go-elasticsearch/v8/typedapi/queryrules/test"
-	rollup_delete_job "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/deletejob"
-	rollup_get_jobs "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/getjobs"
-	rollup_get_rollup_caps "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/getrollupcaps"
-	rollup_get_rollup_index_caps "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/getrollupindexcaps"
-	rollup_put_job "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/putjob"
-	rollup_rollup_search "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/rollupsearch"
-	rollup_start_job "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/startjob"
-	rollup_stop_job "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/stopjob"
-	searchable_snapshots_cache_stats "github.com/elastic/go-elasticsearch/v8/typedapi/searchablesnapshots/cachestats"
-	searchable_snapshots_clear_cache "github.com/elastic/go-elasticsearch/v8/typedapi/searchablesnapshots/clearcache"
-	searchable_snapshots_mount "github.com/elastic/go-elasticsearch/v8/typedapi/searchablesnapshots/mount"
-	searchable_snapshots_stats "github.com/elastic/go-elasticsearch/v8/typedapi/searchablesnapshots/stats"
-	search_application_delete "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/delete"
-	search_application_delete_behavioral_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/deletebehavioralanalytics"
-	search_application_get "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/get"
-	search_application_get_behavioral_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/getbehavioralanalytics"
-	search_application_list "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/list"
-	search_application_post_behavioral_analytics_event "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/postbehavioralanalyticsevent"
-	search_application_put "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/put"
-	search_application_put_behavioral_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/putbehavioralanalytics"
-	search_application_render_query "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/renderquery"
-	search_application_search "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/search"
-	security_activate_user_profile "github.com/elastic/go-elasticsearch/v8/typedapi/security/activateuserprofile"
-	security_authenticate "github.com/elastic/go-elasticsearch/v8/typedapi/security/authenticate"
-	security_bulk_delete_role "github.com/elastic/go-elasticsearch/v8/typedapi/security/bulkdeleterole"
-	security_bulk_put_role "github.com/elastic/go-elasticsearch/v8/typedapi/security/bulkputrole"
-	security_bulk_update_api_keys "github.com/elastic/go-elasticsearch/v8/typedapi/security/bulkupdateapikeys"
-	security_change_password "github.com/elastic/go-elasticsearch/v8/typedapi/security/changepassword"
-	security_clear_api_key_cache "github.com/elastic/go-elasticsearch/v8/typedapi/security/clearapikeycache"
-	security_clear_cached_privileges "github.com/elastic/go-elasticsearch/v8/typedapi/security/clearcachedprivileges"
-	security_clear_cached_realms "github.com/elastic/go-elasticsearch/v8/typedapi/security/clearcachedrealms"
-	security_clear_cached_roles "github.com/elastic/go-elasticsearch/v8/typedapi/security/clearcachedroles"
-	security_clear_cached_service_tokens "github.com/elastic/go-elasticsearch/v8/typedapi/security/clearcachedservicetokens"
-	security_create_api_key "github.com/elastic/go-elasticsearch/v8/typedapi/security/createapikey"
-	security_create_cross_cluster_api_key "github.com/elastic/go-elasticsearch/v8/typedapi/security/createcrossclusterapikey"
-	security_create_service_token "github.com/elastic/go-elasticsearch/v8/typedapi/security/createservicetoken"
-	security_delegate_pki "github.com/elastic/go-elasticsearch/v8/typedapi/security/delegatepki"
-	security_delete_privileges "github.com/elastic/go-elasticsearch/v8/typedapi/security/deleteprivileges"
-	security_delete_role "github.com/elastic/go-elasticsearch/v8/typedapi/security/deleterole"
-	security_delete_role_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/security/deleterolemapping"
-	security_delete_service_token "github.com/elastic/go-elasticsearch/v8/typedapi/security/deleteservicetoken"
-	security_delete_user "github.com/elastic/go-elasticsearch/v8/typedapi/security/deleteuser"
-	security_disable_user "github.com/elastic/go-elasticsearch/v8/typedapi/security/disableuser"
-	security_disable_user_profile "github.com/elastic/go-elasticsearch/v8/typedapi/security/disableuserprofile"
-	security_enable_user "github.com/elastic/go-elasticsearch/v8/typedapi/security/enableuser"
-	security_enable_user_profile "github.com/elastic/go-elasticsearch/v8/typedapi/security/enableuserprofile"
-	security_enroll_kibana "github.com/elastic/go-elasticsearch/v8/typedapi/security/enrollkibana"
-	security_enroll_node "github.com/elastic/go-elasticsearch/v8/typedapi/security/enrollnode"
-	security_get_api_key "github.com/elastic/go-elasticsearch/v8/typedapi/security/getapikey"
-	security_get_builtin_privileges "github.com/elastic/go-elasticsearch/v8/typedapi/security/getbuiltinprivileges"
-	security_get_privileges "github.com/elastic/go-elasticsearch/v8/typedapi/security/getprivileges"
-	security_get_role "github.com/elastic/go-elasticsearch/v8/typedapi/security/getrole"
-	security_get_role_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/security/getrolemapping"
-	security_get_service_accounts "github.com/elastic/go-elasticsearch/v8/typedapi/security/getserviceaccounts"
-	security_get_service_credentials "github.com/elastic/go-elasticsearch/v8/typedapi/security/getservicecredentials"
-	security_get_settings "github.com/elastic/go-elasticsearch/v8/typedapi/security/getsettings"
-	security_get_token "github.com/elastic/go-elasticsearch/v8/typedapi/security/gettoken"
-	security_get_user "github.com/elastic/go-elasticsearch/v8/typedapi/security/getuser"
-	security_get_user_privileges "github.com/elastic/go-elasticsearch/v8/typedapi/security/getuserprivileges"
-	security_get_user_profile "github.com/elastic/go-elasticsearch/v8/typedapi/security/getuserprofile"
-	security_grant_api_key "github.com/elastic/go-elasticsearch/v8/typedapi/security/grantapikey"
-	security_has_privileges "github.com/elastic/go-elasticsearch/v8/typedapi/security/hasprivileges"
-	security_has_privileges_user_profile "github.com/elastic/go-elasticsearch/v8/typedapi/security/hasprivilegesuserprofile"
-	security_invalidate_api_key "github.com/elastic/go-elasticsearch/v8/typedapi/security/invalidateapikey"
-	security_invalidate_token "github.com/elastic/go-elasticsearch/v8/typedapi/security/invalidatetoken"
-	security_oidc_authenticate "github.com/elastic/go-elasticsearch/v8/typedapi/security/oidcauthenticate"
-	security_oidc_logout "github.com/elastic/go-elasticsearch/v8/typedapi/security/oidclogout"
-	security_oidc_prepare_authentication "github.com/elastic/go-elasticsearch/v8/typedapi/security/oidcprepareauthentication"
-	security_put_privileges "github.com/elastic/go-elasticsearch/v8/typedapi/security/putprivileges"
-	security_put_role "github.com/elastic/go-elasticsearch/v8/typedapi/security/putrole"
-	security_put_role_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/security/putrolemapping"
-	security_put_user "github.com/elastic/go-elasticsearch/v8/typedapi/security/putuser"
-	security_query_api_keys "github.com/elastic/go-elasticsearch/v8/typedapi/security/queryapikeys"
-	security_query_role "github.com/elastic/go-elasticsearch/v8/typedapi/security/queryrole"
-	security_query_user "github.com/elastic/go-elasticsearch/v8/typedapi/security/queryuser"
-	security_saml_authenticate "github.com/elastic/go-elasticsearch/v8/typedapi/security/samlauthenticate"
-	security_saml_complete_logout "github.com/elastic/go-elasticsearch/v8/typedapi/security/samlcompletelogout"
-	security_saml_invalidate "github.com/elastic/go-elasticsearch/v8/typedapi/security/samlinvalidate"
-	security_saml_logout "github.com/elastic/go-elasticsearch/v8/typedapi/security/samllogout"
-	security_saml_prepare_authentication "github.com/elastic/go-elasticsearch/v8/typedapi/security/samlprepareauthentication"
-	security_saml_service_provider_metadata "github.com/elastic/go-elasticsearch/v8/typedapi/security/samlserviceprovidermetadata"
-	security_suggest_user_profiles "github.com/elastic/go-elasticsearch/v8/typedapi/security/suggestuserprofiles"
-	security_update_api_key "github.com/elastic/go-elasticsearch/v8/typedapi/security/updateapikey"
-	security_update_cross_cluster_api_key "github.com/elastic/go-elasticsearch/v8/typedapi/security/updatecrossclusterapikey"
-	security_update_settings "github.com/elastic/go-elasticsearch/v8/typedapi/security/updatesettings"
-	security_update_user_profile_data "github.com/elastic/go-elasticsearch/v8/typedapi/security/updateuserprofiledata"
-	shutdown_delete_node "github.com/elastic/go-elasticsearch/v8/typedapi/shutdown/deletenode"
-	shutdown_get_node "github.com/elastic/go-elasticsearch/v8/typedapi/shutdown/getnode"
-	shutdown_put_node "github.com/elastic/go-elasticsearch/v8/typedapi/shutdown/putnode"
-	simulate_ingest "github.com/elastic/go-elasticsearch/v8/typedapi/simulate/ingest"
-	slm_delete_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/slm/deletelifecycle"
-	slm_execute_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/slm/executelifecycle"
-	slm_execute_retention "github.com/elastic/go-elasticsearch/v8/typedapi/slm/executeretention"
-	slm_get_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/slm/getlifecycle"
-	slm_get_stats "github.com/elastic/go-elasticsearch/v8/typedapi/slm/getstats"
-	slm_get_status "github.com/elastic/go-elasticsearch/v8/typedapi/slm/getstatus"
-	slm_put_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/slm/putlifecycle"
-	slm_start "github.com/elastic/go-elasticsearch/v8/typedapi/slm/start"
-	slm_stop "github.com/elastic/go-elasticsearch/v8/typedapi/slm/stop"
-	snapshot_cleanup_repository "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/cleanuprepository"
-	snapshot_clone "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/clone"
-	snapshot_create "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/create"
-	snapshot_create_repository "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/createrepository"
-	snapshot_delete "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/delete"
-	snapshot_delete_repository "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/deleterepository"
-	snapshot_get "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/get"
-	snapshot_get_repository "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/getrepository"
-	snapshot_repository_analyze "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/repositoryanalyze"
-	snapshot_repository_verify_integrity "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/repositoryverifyintegrity"
-	snapshot_restore "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/restore"
-	snapshot_status "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/status"
-	snapshot_verify_repository "github.com/elastic/go-elasticsearch/v8/typedapi/snapshot/verifyrepository"
-	sql_clear_cursor "github.com/elastic/go-elasticsearch/v8/typedapi/sql/clearcursor"
-	sql_delete_async "github.com/elastic/go-elasticsearch/v8/typedapi/sql/deleteasync"
-	sql_get_async "github.com/elastic/go-elasticsearch/v8/typedapi/sql/getasync"
-	sql_get_async_status "github.com/elastic/go-elasticsearch/v8/typedapi/sql/getasyncstatus"
-	sql_query "github.com/elastic/go-elasticsearch/v8/typedapi/sql/query"
-	sql_translate "github.com/elastic/go-elasticsearch/v8/typedapi/sql/translate"
-	ssl_certificates "github.com/elastic/go-elasticsearch/v8/typedapi/ssl/certificates"
-	synonyms_delete_synonym "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/deletesynonym"
-	synonyms_delete_synonym_rule "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/deletesynonymrule"
-	synonyms_get_synonym "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/getsynonym"
-	synonyms_get_synonym_rule "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/getsynonymrule"
-	synonyms_get_synonyms_sets "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/getsynonymssets"
-	synonyms_put_synonym "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/putsynonym"
-	synonyms_put_synonym_rule "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/putsynonymrule"
-	tasks_cancel "github.com/elastic/go-elasticsearch/v8/typedapi/tasks/cancel"
-	tasks_get "github.com/elastic/go-elasticsearch/v8/typedapi/tasks/get"
-	tasks_list "github.com/elastic/go-elasticsearch/v8/typedapi/tasks/list"
-	text_structure_find_field_structure "github.com/elastic/go-elasticsearch/v8/typedapi/textstructure/findfieldstructure"
-	text_structure_find_message_structure "github.com/elastic/go-elasticsearch/v8/typedapi/textstructure/findmessagestructure"
-	text_structure_find_structure "github.com/elastic/go-elasticsearch/v8/typedapi/textstructure/findstructure"
-	text_structure_test_grok_pattern "github.com/elastic/go-elasticsearch/v8/typedapi/textstructure/testgrokpattern"
-	transform_delete_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/deletetransform"
-	transform_get_node_stats "github.com/elastic/go-elasticsearch/v8/typedapi/transform/getnodestats"
-	transform_get_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/gettransform"
-	transform_get_transform_stats "github.com/elastic/go-elasticsearch/v8/typedapi/transform/gettransformstats"
-	transform_preview_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/previewtransform"
-	transform_put_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/puttransform"
-	transform_reset_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/resettransform"
-	transform_schedule_now_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/schedulenowtransform"
-	transform_start_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/starttransform"
-	transform_stop_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/stoptransform"
-	transform_update_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/updatetransform"
-	transform_upgrade_transforms "github.com/elastic/go-elasticsearch/v8/typedapi/transform/upgradetransforms"
-	watcher_ack_watch "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/ackwatch"
-	watcher_activate_watch "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/activatewatch"
-	watcher_deactivate_watch "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/deactivatewatch"
-	watcher_delete_watch "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/deletewatch"
-	watcher_execute_watch "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/executewatch"
-	watcher_get_settings "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/getsettings"
-	watcher_get_watch "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/getwatch"
-	watcher_put_watch "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/putwatch"
-	watcher_query_watches "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/querywatches"
-	watcher_start "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/start"
-	watcher_stats "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/stats"
-	watcher_stop "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/stop"
-	watcher_update_settings "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/updatesettings"
-	xpack_info "github.com/elastic/go-elasticsearch/v8/typedapi/xpack/info"
-	xpack_usage "github.com/elastic/go-elasticsearch/v8/typedapi/xpack/usage"
+	async_search_delete "github.com/elastic/go-elasticsearch/v9/typedapi/asyncsearch/delete"
+	async_search_get "github.com/elastic/go-elasticsearch/v9/typedapi/asyncsearch/get"
+	async_search_status "github.com/elastic/go-elasticsearch/v9/typedapi/asyncsearch/status"
+	async_search_submit "github.com/elastic/go-elasticsearch/v9/typedapi/asyncsearch/submit"
+	autoscaling_delete_autoscaling_policy "github.com/elastic/go-elasticsearch/v9/typedapi/autoscaling/deleteautoscalingpolicy"
+	autoscaling_get_autoscaling_capacity "github.com/elastic/go-elasticsearch/v9/typedapi/autoscaling/getautoscalingcapacity"
+	autoscaling_get_autoscaling_policy "github.com/elastic/go-elasticsearch/v9/typedapi/autoscaling/getautoscalingpolicy"
+	autoscaling_put_autoscaling_policy "github.com/elastic/go-elasticsearch/v9/typedapi/autoscaling/putautoscalingpolicy"
+	capabilities "github.com/elastic/go-elasticsearch/v9/typedapi/capabilities"
+	cat_aliases "github.com/elastic/go-elasticsearch/v9/typedapi/cat/aliases"
+	cat_allocation "github.com/elastic/go-elasticsearch/v9/typedapi/cat/allocation"
+	cat_component_templates "github.com/elastic/go-elasticsearch/v9/typedapi/cat/componenttemplates"
+	cat_count "github.com/elastic/go-elasticsearch/v9/typedapi/cat/count"
+	cat_fielddata "github.com/elastic/go-elasticsearch/v9/typedapi/cat/fielddata"
+	cat_health "github.com/elastic/go-elasticsearch/v9/typedapi/cat/health"
+	cat_help "github.com/elastic/go-elasticsearch/v9/typedapi/cat/help"
+	cat_indices "github.com/elastic/go-elasticsearch/v9/typedapi/cat/indices"
+	cat_master "github.com/elastic/go-elasticsearch/v9/typedapi/cat/master"
+	cat_ml_datafeeds "github.com/elastic/go-elasticsearch/v9/typedapi/cat/mldatafeeds"
+	cat_ml_data_frame_analytics "github.com/elastic/go-elasticsearch/v9/typedapi/cat/mldataframeanalytics"
+	cat_ml_jobs "github.com/elastic/go-elasticsearch/v9/typedapi/cat/mljobs"
+	cat_ml_trained_models "github.com/elastic/go-elasticsearch/v9/typedapi/cat/mltrainedmodels"
+	cat_nodeattrs "github.com/elastic/go-elasticsearch/v9/typedapi/cat/nodeattrs"
+	cat_nodes "github.com/elastic/go-elasticsearch/v9/typedapi/cat/nodes"
+	cat_pending_tasks "github.com/elastic/go-elasticsearch/v9/typedapi/cat/pendingtasks"
+	cat_plugins "github.com/elastic/go-elasticsearch/v9/typedapi/cat/plugins"
+	cat_recovery "github.com/elastic/go-elasticsearch/v9/typedapi/cat/recovery"
+	cat_repositories "github.com/elastic/go-elasticsearch/v9/typedapi/cat/repositories"
+	cat_segments "github.com/elastic/go-elasticsearch/v9/typedapi/cat/segments"
+	cat_shards "github.com/elastic/go-elasticsearch/v9/typedapi/cat/shards"
+	cat_snapshots "github.com/elastic/go-elasticsearch/v9/typedapi/cat/snapshots"
+	cat_tasks "github.com/elastic/go-elasticsearch/v9/typedapi/cat/tasks"
+	cat_templates "github.com/elastic/go-elasticsearch/v9/typedapi/cat/templates"
+	cat_thread_pool "github.com/elastic/go-elasticsearch/v9/typedapi/cat/threadpool"
+	cat_transforms "github.com/elastic/go-elasticsearch/v9/typedapi/cat/transforms"
+	ccr_delete_auto_follow_pattern "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/deleteautofollowpattern"
+	ccr_follow "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/follow"
+	ccr_follow_info "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/followinfo"
+	ccr_follow_stats "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/followstats"
+	ccr_forget_follower "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/forgetfollower"
+	ccr_get_auto_follow_pattern "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/getautofollowpattern"
+	ccr_pause_auto_follow_pattern "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/pauseautofollowpattern"
+	ccr_pause_follow "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/pausefollow"
+	ccr_put_auto_follow_pattern "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/putautofollowpattern"
+	ccr_resume_auto_follow_pattern "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/resumeautofollowpattern"
+	ccr_resume_follow "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/resumefollow"
+	ccr_stats "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/stats"
+	ccr_unfollow "github.com/elastic/go-elasticsearch/v9/typedapi/ccr/unfollow"
+	cluster_allocation_explain "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/allocationexplain"
+	cluster_delete_component_template "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/deletecomponenttemplate"
+	cluster_delete_voting_config_exclusions "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/deletevotingconfigexclusions"
+	cluster_exists_component_template "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/existscomponenttemplate"
+	cluster_get_component_template "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/getcomponenttemplate"
+	cluster_get_settings "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/getsettings"
+	cluster_health "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/health"
+	cluster_info "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/info"
+	cluster_pending_tasks "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/pendingtasks"
+	cluster_post_voting_config_exclusions "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/postvotingconfigexclusions"
+	cluster_put_component_template "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/putcomponenttemplate"
+	cluster_put_settings "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/putsettings"
+	cluster_remote_info "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/remoteinfo"
+	cluster_reroute "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/reroute"
+	cluster_state "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/state"
+	cluster_stats "github.com/elastic/go-elasticsearch/v9/typedapi/cluster/stats"
+	connector_check_in "github.com/elastic/go-elasticsearch/v9/typedapi/connector/checkin"
+	connector_delete "github.com/elastic/go-elasticsearch/v9/typedapi/connector/delete"
+	connector_get "github.com/elastic/go-elasticsearch/v9/typedapi/connector/get"
+	connector_last_sync "github.com/elastic/go-elasticsearch/v9/typedapi/connector/lastsync"
+	connector_list "github.com/elastic/go-elasticsearch/v9/typedapi/connector/list"
+	connector_post "github.com/elastic/go-elasticsearch/v9/typedapi/connector/post"
+	connector_put "github.com/elastic/go-elasticsearch/v9/typedapi/connector/put"
+	connector_secret_post "github.com/elastic/go-elasticsearch/v9/typedapi/connector/secretpost"
+	connector_sync_job_cancel "github.com/elastic/go-elasticsearch/v9/typedapi/connector/syncjobcancel"
+	connector_sync_job_check_in "github.com/elastic/go-elasticsearch/v9/typedapi/connector/syncjobcheckin"
+	connector_sync_job_claim "github.com/elastic/go-elasticsearch/v9/typedapi/connector/syncjobclaim"
+	connector_sync_job_delete "github.com/elastic/go-elasticsearch/v9/typedapi/connector/syncjobdelete"
+	connector_sync_job_error "github.com/elastic/go-elasticsearch/v9/typedapi/connector/syncjoberror"
+	connector_sync_job_get "github.com/elastic/go-elasticsearch/v9/typedapi/connector/syncjobget"
+	connector_sync_job_list "github.com/elastic/go-elasticsearch/v9/typedapi/connector/syncjoblist"
+	connector_sync_job_post "github.com/elastic/go-elasticsearch/v9/typedapi/connector/syncjobpost"
+	connector_sync_job_update_stats "github.com/elastic/go-elasticsearch/v9/typedapi/connector/syncjobupdatestats"
+	connector_update_active_filtering "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updateactivefiltering"
+	connector_update_api_key_id "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updateapikeyid"
+	connector_update_configuration "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updateconfiguration"
+	connector_update_error "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updateerror"
+	connector_update_features "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updatefeatures"
+	connector_update_filtering "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updatefiltering"
+	connector_update_filtering_validation "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updatefilteringvalidation"
+	connector_update_index_name "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updateindexname"
+	connector_update_name "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updatename"
+	connector_update_native "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updatenative"
+	connector_update_pipeline "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updatepipeline"
+	connector_update_scheduling "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updatescheduling"
+	connector_update_service_type "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updateservicetype"
+	connector_update_status "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updatestatus"
+	core_bulk "github.com/elastic/go-elasticsearch/v9/typedapi/core/bulk"
+	core_clear_scroll "github.com/elastic/go-elasticsearch/v9/typedapi/core/clearscroll"
+	core_close_point_in_time "github.com/elastic/go-elasticsearch/v9/typedapi/core/closepointintime"
+	core_count "github.com/elastic/go-elasticsearch/v9/typedapi/core/count"
+	core_create "github.com/elastic/go-elasticsearch/v9/typedapi/core/create"
+	core_delete "github.com/elastic/go-elasticsearch/v9/typedapi/core/delete"
+	core_delete_by_query "github.com/elastic/go-elasticsearch/v9/typedapi/core/deletebyquery"
+	core_delete_by_query_rethrottle "github.com/elastic/go-elasticsearch/v9/typedapi/core/deletebyqueryrethrottle"
+	core_delete_script "github.com/elastic/go-elasticsearch/v9/typedapi/core/deletescript"
+	core_exists "github.com/elastic/go-elasticsearch/v9/typedapi/core/exists"
+	core_exists_source "github.com/elastic/go-elasticsearch/v9/typedapi/core/existssource"
+	core_explain "github.com/elastic/go-elasticsearch/v9/typedapi/core/explain"
+	core_field_caps "github.com/elastic/go-elasticsearch/v9/typedapi/core/fieldcaps"
+	core_get "github.com/elastic/go-elasticsearch/v9/typedapi/core/get"
+	core_get_script "github.com/elastic/go-elasticsearch/v9/typedapi/core/getscript"
+	core_get_script_context "github.com/elastic/go-elasticsearch/v9/typedapi/core/getscriptcontext"
+	core_get_script_languages "github.com/elastic/go-elasticsearch/v9/typedapi/core/getscriptlanguages"
+	core_get_source "github.com/elastic/go-elasticsearch/v9/typedapi/core/getsource"
+	core_health_report "github.com/elastic/go-elasticsearch/v9/typedapi/core/healthreport"
+	core_index "github.com/elastic/go-elasticsearch/v9/typedapi/core/index"
+	core_info "github.com/elastic/go-elasticsearch/v9/typedapi/core/info"
+	core_knn_search "github.com/elastic/go-elasticsearch/v9/typedapi/core/knnsearch"
+	core_mget "github.com/elastic/go-elasticsearch/v9/typedapi/core/mget"
+	core_msearch "github.com/elastic/go-elasticsearch/v9/typedapi/core/msearch"
+	core_msearch_template "github.com/elastic/go-elasticsearch/v9/typedapi/core/msearchtemplate"
+	core_mtermvectors "github.com/elastic/go-elasticsearch/v9/typedapi/core/mtermvectors"
+	core_open_point_in_time "github.com/elastic/go-elasticsearch/v9/typedapi/core/openpointintime"
+	core_ping "github.com/elastic/go-elasticsearch/v9/typedapi/core/ping"
+	core_put_script "github.com/elastic/go-elasticsearch/v9/typedapi/core/putscript"
+	core_rank_eval "github.com/elastic/go-elasticsearch/v9/typedapi/core/rankeval"
+	core_reindex "github.com/elastic/go-elasticsearch/v9/typedapi/core/reindex"
+	core_reindex_rethrottle "github.com/elastic/go-elasticsearch/v9/typedapi/core/reindexrethrottle"
+	core_render_search_template "github.com/elastic/go-elasticsearch/v9/typedapi/core/rendersearchtemplate"
+	core_scripts_painless_execute "github.com/elastic/go-elasticsearch/v9/typedapi/core/scriptspainlessexecute"
+	core_scroll "github.com/elastic/go-elasticsearch/v9/typedapi/core/scroll"
+	core_search "github.com/elastic/go-elasticsearch/v9/typedapi/core/search"
+	core_search_mvt "github.com/elastic/go-elasticsearch/v9/typedapi/core/searchmvt"
+	core_search_shards "github.com/elastic/go-elasticsearch/v9/typedapi/core/searchshards"
+	core_search_template "github.com/elastic/go-elasticsearch/v9/typedapi/core/searchtemplate"
+	core_terms_enum "github.com/elastic/go-elasticsearch/v9/typedapi/core/termsenum"
+	core_termvectors "github.com/elastic/go-elasticsearch/v9/typedapi/core/termvectors"
+	core_update "github.com/elastic/go-elasticsearch/v9/typedapi/core/update"
+	core_update_by_query "github.com/elastic/go-elasticsearch/v9/typedapi/core/updatebyquery"
+	core_update_by_query_rethrottle "github.com/elastic/go-elasticsearch/v9/typedapi/core/updatebyqueryrethrottle"
+	dangling_indices_delete_dangling_index "github.com/elastic/go-elasticsearch/v9/typedapi/danglingindices/deletedanglingindex"
+	dangling_indices_import_dangling_index "github.com/elastic/go-elasticsearch/v9/typedapi/danglingindices/importdanglingindex"
+	dangling_indices_list_dangling_indices "github.com/elastic/go-elasticsearch/v9/typedapi/danglingindices/listdanglingindices"
+	enrich_delete_policy "github.com/elastic/go-elasticsearch/v9/typedapi/enrich/deletepolicy"
+	enrich_execute_policy "github.com/elastic/go-elasticsearch/v9/typedapi/enrich/executepolicy"
+	enrich_get_policy "github.com/elastic/go-elasticsearch/v9/typedapi/enrich/getpolicy"
+	enrich_put_policy "github.com/elastic/go-elasticsearch/v9/typedapi/enrich/putpolicy"
+	enrich_stats "github.com/elastic/go-elasticsearch/v9/typedapi/enrich/stats"
+	eql_delete "github.com/elastic/go-elasticsearch/v9/typedapi/eql/delete"
+	eql_get "github.com/elastic/go-elasticsearch/v9/typedapi/eql/get"
+	eql_get_status "github.com/elastic/go-elasticsearch/v9/typedapi/eql/getstatus"
+	eql_search "github.com/elastic/go-elasticsearch/v9/typedapi/eql/search"
+	esql_async_query "github.com/elastic/go-elasticsearch/v9/typedapi/esql/asyncquery"
+	esql_async_query_delete "github.com/elastic/go-elasticsearch/v9/typedapi/esql/asyncquerydelete"
+	esql_async_query_get "github.com/elastic/go-elasticsearch/v9/typedapi/esql/asyncqueryget"
+	esql_async_query_stop "github.com/elastic/go-elasticsearch/v9/typedapi/esql/asyncquerystop"
+	esql_query "github.com/elastic/go-elasticsearch/v9/typedapi/esql/query"
+	features_get_features "github.com/elastic/go-elasticsearch/v9/typedapi/features/getfeatures"
+	features_reset_features "github.com/elastic/go-elasticsearch/v9/typedapi/features/resetfeatures"
+	fleet_global_checkpoints "github.com/elastic/go-elasticsearch/v9/typedapi/fleet/globalcheckpoints"
+	fleet_msearch "github.com/elastic/go-elasticsearch/v9/typedapi/fleet/msearch"
+	fleet_post_secret "github.com/elastic/go-elasticsearch/v9/typedapi/fleet/postsecret"
+	fleet_search "github.com/elastic/go-elasticsearch/v9/typedapi/fleet/search"
+	graph_explore "github.com/elastic/go-elasticsearch/v9/typedapi/graph/explore"
+	ilm_delete_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/ilm/deletelifecycle"
+	ilm_explain_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/ilm/explainlifecycle"
+	ilm_get_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/ilm/getlifecycle"
+	ilm_get_status "github.com/elastic/go-elasticsearch/v9/typedapi/ilm/getstatus"
+	ilm_migrate_to_data_tiers "github.com/elastic/go-elasticsearch/v9/typedapi/ilm/migratetodatatiers"
+	ilm_move_to_step "github.com/elastic/go-elasticsearch/v9/typedapi/ilm/movetostep"
+	ilm_put_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/ilm/putlifecycle"
+	ilm_remove_policy "github.com/elastic/go-elasticsearch/v9/typedapi/ilm/removepolicy"
+	ilm_retry "github.com/elastic/go-elasticsearch/v9/typedapi/ilm/retry"
+	ilm_start "github.com/elastic/go-elasticsearch/v9/typedapi/ilm/start"
+	ilm_stop "github.com/elastic/go-elasticsearch/v9/typedapi/ilm/stop"
+	indices_add_block "github.com/elastic/go-elasticsearch/v9/typedapi/indices/addblock"
+	indices_analyze "github.com/elastic/go-elasticsearch/v9/typedapi/indices/analyze"
+	indices_cancel_migrate_reindex "github.com/elastic/go-elasticsearch/v9/typedapi/indices/cancelmigratereindex"
+	indices_clear_cache "github.com/elastic/go-elasticsearch/v9/typedapi/indices/clearcache"
+	indices_clone "github.com/elastic/go-elasticsearch/v9/typedapi/indices/clone"
+	indices_close "github.com/elastic/go-elasticsearch/v9/typedapi/indices/close"
+	indices_create "github.com/elastic/go-elasticsearch/v9/typedapi/indices/create"
+	indices_create_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/createdatastream"
+	indices_create_from "github.com/elastic/go-elasticsearch/v9/typedapi/indices/createfrom"
+	indices_data_streams_stats "github.com/elastic/go-elasticsearch/v9/typedapi/indices/datastreamsstats"
+	indices_delete "github.com/elastic/go-elasticsearch/v9/typedapi/indices/delete"
+	indices_delete_alias "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletealias"
+	indices_delete_data_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletedatalifecycle"
+	indices_delete_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletedatastream"
+	indices_delete_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deleteindextemplate"
+	indices_delete_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletetemplate"
+	indices_disk_usage "github.com/elastic/go-elasticsearch/v9/typedapi/indices/diskusage"
+	indices_downsample "github.com/elastic/go-elasticsearch/v9/typedapi/indices/downsample"
+	indices_exists "github.com/elastic/go-elasticsearch/v9/typedapi/indices/exists"
+	indices_exists_alias "github.com/elastic/go-elasticsearch/v9/typedapi/indices/existsalias"
+	indices_exists_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/existsindextemplate"
+	indices_exists_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/existstemplate"
+	indices_explain_data_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/indices/explaindatalifecycle"
+	indices_field_usage_stats "github.com/elastic/go-elasticsearch/v9/typedapi/indices/fieldusagestats"
+	indices_flush "github.com/elastic/go-elasticsearch/v9/typedapi/indices/flush"
+	indices_forcemerge "github.com/elastic/go-elasticsearch/v9/typedapi/indices/forcemerge"
+	indices_get "github.com/elastic/go-elasticsearch/v9/typedapi/indices/get"
+	indices_get_alias "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getalias"
+	indices_get_data_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatalifecycle"
+	indices_get_data_lifecycle_stats "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatalifecyclestats"
+	indices_get_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastream"
+	indices_get_field_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getfieldmapping"
+	indices_get_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getindextemplate"
+	indices_get_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getmapping"
+	indices_get_migrate_reindex_status "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getmigratereindexstatus"
+	indices_get_settings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getsettings"
+	indices_get_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/gettemplate"
+	indices_migrate_reindex "github.com/elastic/go-elasticsearch/v9/typedapi/indices/migratereindex"
+	indices_migrate_to_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/migratetodatastream"
+	indices_modify_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/modifydatastream"
+	indices_open "github.com/elastic/go-elasticsearch/v9/typedapi/indices/open"
+	indices_promote_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/promotedatastream"
+	indices_put_alias "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putalias"
+	indices_put_data_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatalifecycle"
+	indices_put_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putindextemplate"
+	indices_put_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putmapping"
+	indices_put_settings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putsettings"
+	indices_put_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/puttemplate"
+	indices_recovery "github.com/elastic/go-elasticsearch/v9/typedapi/indices/recovery"
+	indices_refresh "github.com/elastic/go-elasticsearch/v9/typedapi/indices/refresh"
+	indices_reload_search_analyzers "github.com/elastic/go-elasticsearch/v9/typedapi/indices/reloadsearchanalyzers"
+	indices_resolve_cluster "github.com/elastic/go-elasticsearch/v9/typedapi/indices/resolvecluster"
+	indices_resolve_index "github.com/elastic/go-elasticsearch/v9/typedapi/indices/resolveindex"
+	indices_rollover "github.com/elastic/go-elasticsearch/v9/typedapi/indices/rollover"
+	indices_segments "github.com/elastic/go-elasticsearch/v9/typedapi/indices/segments"
+	indices_shard_stores "github.com/elastic/go-elasticsearch/v9/typedapi/indices/shardstores"
+	indices_shrink "github.com/elastic/go-elasticsearch/v9/typedapi/indices/shrink"
+	indices_simulate_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/simulateindextemplate"
+	indices_simulate_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/simulatetemplate"
+	indices_split "github.com/elastic/go-elasticsearch/v9/typedapi/indices/split"
+	indices_stats "github.com/elastic/go-elasticsearch/v9/typedapi/indices/stats"
+	indices_update_aliases "github.com/elastic/go-elasticsearch/v9/typedapi/indices/updatealiases"
+	indices_validate_query "github.com/elastic/go-elasticsearch/v9/typedapi/indices/validatequery"
+	inference_chat_completion_unified "github.com/elastic/go-elasticsearch/v9/typedapi/inference/chatcompletionunified"
+	inference_completion "github.com/elastic/go-elasticsearch/v9/typedapi/inference/completion"
+	inference_delete "github.com/elastic/go-elasticsearch/v9/typedapi/inference/delete"
+	inference_get "github.com/elastic/go-elasticsearch/v9/typedapi/inference/get"
+	inference_put "github.com/elastic/go-elasticsearch/v9/typedapi/inference/put"
+	inference_put_alibabacloud "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putalibabacloud"
+	inference_put_amazonbedrock "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putamazonbedrock"
+	inference_put_anthropic "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putanthropic"
+	inference_put_azureaistudio "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putazureaistudio"
+	inference_put_azureopenai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putazureopenai"
+	inference_put_cohere "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putcohere"
+	inference_put_elasticsearch "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putelasticsearch"
+	inference_put_elser "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putelser"
+	inference_put_googleaistudio "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putgoogleaistudio"
+	inference_put_googlevertexai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putgooglevertexai"
+	inference_put_hugging_face "github.com/elastic/go-elasticsearch/v9/typedapi/inference/puthuggingface"
+	inference_put_jinaai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putjinaai"
+	inference_put_mistral "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putmistral"
+	inference_put_openai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putopenai"
+	inference_put_voyageai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putvoyageai"
+	inference_put_watsonx "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putwatsonx"
+	inference_rerank "github.com/elastic/go-elasticsearch/v9/typedapi/inference/rerank"
+	inference_sparse_embedding "github.com/elastic/go-elasticsearch/v9/typedapi/inference/sparseembedding"
+	inference_stream_completion "github.com/elastic/go-elasticsearch/v9/typedapi/inference/streamcompletion"
+	inference_text_embedding "github.com/elastic/go-elasticsearch/v9/typedapi/inference/textembedding"
+	inference_update "github.com/elastic/go-elasticsearch/v9/typedapi/inference/update"
+	ingest_delete_geoip_database "github.com/elastic/go-elasticsearch/v9/typedapi/ingest/deletegeoipdatabase"
+	ingest_delete_ip_location_database "github.com/elastic/go-elasticsearch/v9/typedapi/ingest/deleteiplocationdatabase"
+	ingest_delete_pipeline "github.com/elastic/go-elasticsearch/v9/typedapi/ingest/deletepipeline"
+	ingest_geo_ip_stats "github.com/elastic/go-elasticsearch/v9/typedapi/ingest/geoipstats"
+	ingest_get_geoip_database "github.com/elastic/go-elasticsearch/v9/typedapi/ingest/getgeoipdatabase"
+	ingest_get_ip_location_database "github.com/elastic/go-elasticsearch/v9/typedapi/ingest/getiplocationdatabase"
+	ingest_get_pipeline "github.com/elastic/go-elasticsearch/v9/typedapi/ingest/getpipeline"
+	ingest_processor_grok "github.com/elastic/go-elasticsearch/v9/typedapi/ingest/processorgrok"
+	ingest_put_geoip_database "github.com/elastic/go-elasticsearch/v9/typedapi/ingest/putgeoipdatabase"
+	ingest_put_ip_location_database "github.com/elastic/go-elasticsearch/v9/typedapi/ingest/putiplocationdatabase"
+	ingest_put_pipeline "github.com/elastic/go-elasticsearch/v9/typedapi/ingest/putpipeline"
+	ingest_simulate "github.com/elastic/go-elasticsearch/v9/typedapi/ingest/simulate"
+	license_delete "github.com/elastic/go-elasticsearch/v9/typedapi/license/delete"
+	license_get "github.com/elastic/go-elasticsearch/v9/typedapi/license/get"
+	license_get_basic_status "github.com/elastic/go-elasticsearch/v9/typedapi/license/getbasicstatus"
+	license_get_trial_status "github.com/elastic/go-elasticsearch/v9/typedapi/license/gettrialstatus"
+	license_post "github.com/elastic/go-elasticsearch/v9/typedapi/license/post"
+	license_post_start_basic "github.com/elastic/go-elasticsearch/v9/typedapi/license/poststartbasic"
+	license_post_start_trial "github.com/elastic/go-elasticsearch/v9/typedapi/license/poststarttrial"
+	logstash_delete_pipeline "github.com/elastic/go-elasticsearch/v9/typedapi/logstash/deletepipeline"
+	logstash_get_pipeline "github.com/elastic/go-elasticsearch/v9/typedapi/logstash/getpipeline"
+	logstash_put_pipeline "github.com/elastic/go-elasticsearch/v9/typedapi/logstash/putpipeline"
+	migration_deprecations "github.com/elastic/go-elasticsearch/v9/typedapi/migration/deprecations"
+	migration_get_feature_upgrade_status "github.com/elastic/go-elasticsearch/v9/typedapi/migration/getfeatureupgradestatus"
+	migration_post_feature_upgrade "github.com/elastic/go-elasticsearch/v9/typedapi/migration/postfeatureupgrade"
+	ml_clear_trained_model_deployment_cache "github.com/elastic/go-elasticsearch/v9/typedapi/ml/cleartrainedmodeldeploymentcache"
+	ml_close_job "github.com/elastic/go-elasticsearch/v9/typedapi/ml/closejob"
+	ml_delete_calendar "github.com/elastic/go-elasticsearch/v9/typedapi/ml/deletecalendar"
+	ml_delete_calendar_event "github.com/elastic/go-elasticsearch/v9/typedapi/ml/deletecalendarevent"
+	ml_delete_calendar_job "github.com/elastic/go-elasticsearch/v9/typedapi/ml/deletecalendarjob"
+	ml_delete_datafeed "github.com/elastic/go-elasticsearch/v9/typedapi/ml/deletedatafeed"
+	ml_delete_data_frame_analytics "github.com/elastic/go-elasticsearch/v9/typedapi/ml/deletedataframeanalytics"
+	ml_delete_expired_data "github.com/elastic/go-elasticsearch/v9/typedapi/ml/deleteexpireddata"
+	ml_delete_filter "github.com/elastic/go-elasticsearch/v9/typedapi/ml/deletefilter"
+	ml_delete_forecast "github.com/elastic/go-elasticsearch/v9/typedapi/ml/deleteforecast"
+	ml_delete_job "github.com/elastic/go-elasticsearch/v9/typedapi/ml/deletejob"
+	ml_delete_model_snapshot "github.com/elastic/go-elasticsearch/v9/typedapi/ml/deletemodelsnapshot"
+	ml_delete_trained_model "github.com/elastic/go-elasticsearch/v9/typedapi/ml/deletetrainedmodel"
+	ml_delete_trained_model_alias "github.com/elastic/go-elasticsearch/v9/typedapi/ml/deletetrainedmodelalias"
+	ml_estimate_model_memory "github.com/elastic/go-elasticsearch/v9/typedapi/ml/estimatemodelmemory"
+	ml_evaluate_data_frame "github.com/elastic/go-elasticsearch/v9/typedapi/ml/evaluatedataframe"
+	ml_explain_data_frame_analytics "github.com/elastic/go-elasticsearch/v9/typedapi/ml/explaindataframeanalytics"
+	ml_flush_job "github.com/elastic/go-elasticsearch/v9/typedapi/ml/flushjob"
+	ml_forecast "github.com/elastic/go-elasticsearch/v9/typedapi/ml/forecast"
+	ml_get_buckets "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getbuckets"
+	ml_get_calendar_events "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getcalendarevents"
+	ml_get_calendars "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getcalendars"
+	ml_get_categories "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getcategories"
+	ml_get_datafeeds "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getdatafeeds"
+	ml_get_datafeed_stats "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getdatafeedstats"
+	ml_get_data_frame_analytics "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getdataframeanalytics"
+	ml_get_data_frame_analytics_stats "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getdataframeanalyticsstats"
+	ml_get_filters "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getfilters"
+	ml_get_influencers "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getinfluencers"
+	ml_get_jobs "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getjobs"
+	ml_get_job_stats "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getjobstats"
+	ml_get_memory_stats "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getmemorystats"
+	ml_get_model_snapshots "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getmodelsnapshots"
+	ml_get_model_snapshot_upgrade_stats "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getmodelsnapshotupgradestats"
+	ml_get_overall_buckets "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getoverallbuckets"
+	ml_get_records "github.com/elastic/go-elasticsearch/v9/typedapi/ml/getrecords"
+	ml_get_trained_models "github.com/elastic/go-elasticsearch/v9/typedapi/ml/gettrainedmodels"
+	ml_get_trained_models_stats "github.com/elastic/go-elasticsearch/v9/typedapi/ml/gettrainedmodelsstats"
+	ml_infer_trained_model "github.com/elastic/go-elasticsearch/v9/typedapi/ml/infertrainedmodel"
+	ml_info "github.com/elastic/go-elasticsearch/v9/typedapi/ml/info"
+	ml_open_job "github.com/elastic/go-elasticsearch/v9/typedapi/ml/openjob"
+	ml_post_calendar_events "github.com/elastic/go-elasticsearch/v9/typedapi/ml/postcalendarevents"
+	ml_post_data "github.com/elastic/go-elasticsearch/v9/typedapi/ml/postdata"
+	ml_preview_datafeed "github.com/elastic/go-elasticsearch/v9/typedapi/ml/previewdatafeed"
+	ml_preview_data_frame_analytics "github.com/elastic/go-elasticsearch/v9/typedapi/ml/previewdataframeanalytics"
+	ml_put_calendar "github.com/elastic/go-elasticsearch/v9/typedapi/ml/putcalendar"
+	ml_put_calendar_job "github.com/elastic/go-elasticsearch/v9/typedapi/ml/putcalendarjob"
+	ml_put_datafeed "github.com/elastic/go-elasticsearch/v9/typedapi/ml/putdatafeed"
+	ml_put_data_frame_analytics "github.com/elastic/go-elasticsearch/v9/typedapi/ml/putdataframeanalytics"
+	ml_put_filter "github.com/elastic/go-elasticsearch/v9/typedapi/ml/putfilter"
+	ml_put_job "github.com/elastic/go-elasticsearch/v9/typedapi/ml/putjob"
+	ml_put_trained_model "github.com/elastic/go-elasticsearch/v9/typedapi/ml/puttrainedmodel"
+	ml_put_trained_model_alias "github.com/elastic/go-elasticsearch/v9/typedapi/ml/puttrainedmodelalias"
+	ml_put_trained_model_definition_part "github.com/elastic/go-elasticsearch/v9/typedapi/ml/puttrainedmodeldefinitionpart"
+	ml_put_trained_model_vocabulary "github.com/elastic/go-elasticsearch/v9/typedapi/ml/puttrainedmodelvocabulary"
+	ml_reset_job "github.com/elastic/go-elasticsearch/v9/typedapi/ml/resetjob"
+	ml_revert_model_snapshot "github.com/elastic/go-elasticsearch/v9/typedapi/ml/revertmodelsnapshot"
+	ml_set_upgrade_mode "github.com/elastic/go-elasticsearch/v9/typedapi/ml/setupgrademode"
+	ml_start_datafeed "github.com/elastic/go-elasticsearch/v9/typedapi/ml/startdatafeed"
+	ml_start_data_frame_analytics "github.com/elastic/go-elasticsearch/v9/typedapi/ml/startdataframeanalytics"
+	ml_start_trained_model_deployment "github.com/elastic/go-elasticsearch/v9/typedapi/ml/starttrainedmodeldeployment"
+	ml_stop_datafeed "github.com/elastic/go-elasticsearch/v9/typedapi/ml/stopdatafeed"
+	ml_stop_data_frame_analytics "github.com/elastic/go-elasticsearch/v9/typedapi/ml/stopdataframeanalytics"
+	ml_stop_trained_model_deployment "github.com/elastic/go-elasticsearch/v9/typedapi/ml/stoptrainedmodeldeployment"
+	ml_update_datafeed "github.com/elastic/go-elasticsearch/v9/typedapi/ml/updatedatafeed"
+	ml_update_data_frame_analytics "github.com/elastic/go-elasticsearch/v9/typedapi/ml/updatedataframeanalytics"
+	ml_update_filter "github.com/elastic/go-elasticsearch/v9/typedapi/ml/updatefilter"
+	ml_update_job "github.com/elastic/go-elasticsearch/v9/typedapi/ml/updatejob"
+	ml_update_model_snapshot "github.com/elastic/go-elasticsearch/v9/typedapi/ml/updatemodelsnapshot"
+	ml_update_trained_model_deployment "github.com/elastic/go-elasticsearch/v9/typedapi/ml/updatetrainedmodeldeployment"
+	ml_upgrade_job_snapshot "github.com/elastic/go-elasticsearch/v9/typedapi/ml/upgradejobsnapshot"
+	ml_validate "github.com/elastic/go-elasticsearch/v9/typedapi/ml/validate"
+	ml_validate_detector "github.com/elastic/go-elasticsearch/v9/typedapi/ml/validatedetector"
+	monitoring_bulk "github.com/elastic/go-elasticsearch/v9/typedapi/monitoring/bulk"
+	nodes_clear_repositories_metering_archive "github.com/elastic/go-elasticsearch/v9/typedapi/nodes/clearrepositoriesmeteringarchive"
+	nodes_get_repositories_metering_info "github.com/elastic/go-elasticsearch/v9/typedapi/nodes/getrepositoriesmeteringinfo"
+	nodes_hot_threads "github.com/elastic/go-elasticsearch/v9/typedapi/nodes/hotthreads"
+	nodes_info "github.com/elastic/go-elasticsearch/v9/typedapi/nodes/info"
+	nodes_reload_secure_settings "github.com/elastic/go-elasticsearch/v9/typedapi/nodes/reloadsecuresettings"
+	nodes_stats "github.com/elastic/go-elasticsearch/v9/typedapi/nodes/stats"
+	nodes_usage "github.com/elastic/go-elasticsearch/v9/typedapi/nodes/usage"
+	profiling_flamegraph "github.com/elastic/go-elasticsearch/v9/typedapi/profiling/flamegraph"
+	profiling_stacktraces "github.com/elastic/go-elasticsearch/v9/typedapi/profiling/stacktraces"
+	profiling_status "github.com/elastic/go-elasticsearch/v9/typedapi/profiling/status"
+	profiling_topn_functions "github.com/elastic/go-elasticsearch/v9/typedapi/profiling/topnfunctions"
+	query_rules_delete_rule "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/deleterule"
+	query_rules_delete_ruleset "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/deleteruleset"
+	query_rules_get_rule "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/getrule"
+	query_rules_get_ruleset "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/getruleset"
+	query_rules_list_rulesets "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/listrulesets"
+	query_rules_put_rule "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/putrule"
+	query_rules_put_ruleset "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/putruleset"
+	query_rules_test "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/test"
+	rollup_delete_job "github.com/elastic/go-elasticsearch/v9/typedapi/rollup/deletejob"
+	rollup_get_jobs "github.com/elastic/go-elasticsearch/v9/typedapi/rollup/getjobs"
+	rollup_get_rollup_caps "github.com/elastic/go-elasticsearch/v9/typedapi/rollup/getrollupcaps"
+	rollup_get_rollup_index_caps "github.com/elastic/go-elasticsearch/v9/typedapi/rollup/getrollupindexcaps"
+	rollup_put_job "github.com/elastic/go-elasticsearch/v9/typedapi/rollup/putjob"
+	rollup_rollup_search "github.com/elastic/go-elasticsearch/v9/typedapi/rollup/rollupsearch"
+	rollup_start_job "github.com/elastic/go-elasticsearch/v9/typedapi/rollup/startjob"
+	rollup_stop_job "github.com/elastic/go-elasticsearch/v9/typedapi/rollup/stopjob"
+	searchable_snapshots_cache_stats "github.com/elastic/go-elasticsearch/v9/typedapi/searchablesnapshots/cachestats"
+	searchable_snapshots_clear_cache "github.com/elastic/go-elasticsearch/v9/typedapi/searchablesnapshots/clearcache"
+	searchable_snapshots_mount "github.com/elastic/go-elasticsearch/v9/typedapi/searchablesnapshots/mount"
+	searchable_snapshots_stats "github.com/elastic/go-elasticsearch/v9/typedapi/searchablesnapshots/stats"
+	search_application_delete "github.com/elastic/go-elasticsearch/v9/typedapi/searchapplication/delete"
+	search_application_delete_behavioral_analytics "github.com/elastic/go-elasticsearch/v9/typedapi/searchapplication/deletebehavioralanalytics"
+	search_application_get "github.com/elastic/go-elasticsearch/v9/typedapi/searchapplication/get"
+	search_application_get_behavioral_analytics "github.com/elastic/go-elasticsearch/v9/typedapi/searchapplication/getbehavioralanalytics"
+	search_application_list "github.com/elastic/go-elasticsearch/v9/typedapi/searchapplication/list"
+	search_application_post_behavioral_analytics_event "github.com/elastic/go-elasticsearch/v9/typedapi/searchapplication/postbehavioralanalyticsevent"
+	search_application_put "github.com/elastic/go-elasticsearch/v9/typedapi/searchapplication/put"
+	search_application_put_behavioral_analytics "github.com/elastic/go-elasticsearch/v9/typedapi/searchapplication/putbehavioralanalytics"
+	search_application_render_query "github.com/elastic/go-elasticsearch/v9/typedapi/searchapplication/renderquery"
+	search_application_search "github.com/elastic/go-elasticsearch/v9/typedapi/searchapplication/search"
+	security_activate_user_profile "github.com/elastic/go-elasticsearch/v9/typedapi/security/activateuserprofile"
+	security_authenticate "github.com/elastic/go-elasticsearch/v9/typedapi/security/authenticate"
+	security_bulk_delete_role "github.com/elastic/go-elasticsearch/v9/typedapi/security/bulkdeleterole"
+	security_bulk_put_role "github.com/elastic/go-elasticsearch/v9/typedapi/security/bulkputrole"
+	security_bulk_update_api_keys "github.com/elastic/go-elasticsearch/v9/typedapi/security/bulkupdateapikeys"
+	security_change_password "github.com/elastic/go-elasticsearch/v9/typedapi/security/changepassword"
+	security_clear_api_key_cache "github.com/elastic/go-elasticsearch/v9/typedapi/security/clearapikeycache"
+	security_clear_cached_privileges "github.com/elastic/go-elasticsearch/v9/typedapi/security/clearcachedprivileges"
+	security_clear_cached_realms "github.com/elastic/go-elasticsearch/v9/typedapi/security/clearcachedrealms"
+	security_clear_cached_roles "github.com/elastic/go-elasticsearch/v9/typedapi/security/clearcachedroles"
+	security_clear_cached_service_tokens "github.com/elastic/go-elasticsearch/v9/typedapi/security/clearcachedservicetokens"
+	security_create_api_key "github.com/elastic/go-elasticsearch/v9/typedapi/security/createapikey"
+	security_create_cross_cluster_api_key "github.com/elastic/go-elasticsearch/v9/typedapi/security/createcrossclusterapikey"
+	security_create_service_token "github.com/elastic/go-elasticsearch/v9/typedapi/security/createservicetoken"
+	security_delegate_pki "github.com/elastic/go-elasticsearch/v9/typedapi/security/delegatepki"
+	security_delete_privileges "github.com/elastic/go-elasticsearch/v9/typedapi/security/deleteprivileges"
+	security_delete_role "github.com/elastic/go-elasticsearch/v9/typedapi/security/deleterole"
+	security_delete_role_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/security/deleterolemapping"
+	security_delete_service_token "github.com/elastic/go-elasticsearch/v9/typedapi/security/deleteservicetoken"
+	security_delete_user "github.com/elastic/go-elasticsearch/v9/typedapi/security/deleteuser"
+	security_disable_user "github.com/elastic/go-elasticsearch/v9/typedapi/security/disableuser"
+	security_disable_user_profile "github.com/elastic/go-elasticsearch/v9/typedapi/security/disableuserprofile"
+	security_enable_user "github.com/elastic/go-elasticsearch/v9/typedapi/security/enableuser"
+	security_enable_user_profile "github.com/elastic/go-elasticsearch/v9/typedapi/security/enableuserprofile"
+	security_enroll_kibana "github.com/elastic/go-elasticsearch/v9/typedapi/security/enrollkibana"
+	security_enroll_node "github.com/elastic/go-elasticsearch/v9/typedapi/security/enrollnode"
+	security_get_api_key "github.com/elastic/go-elasticsearch/v9/typedapi/security/getapikey"
+	security_get_builtin_privileges "github.com/elastic/go-elasticsearch/v9/typedapi/security/getbuiltinprivileges"
+	security_get_privileges "github.com/elastic/go-elasticsearch/v9/typedapi/security/getprivileges"
+	security_get_role "github.com/elastic/go-elasticsearch/v9/typedapi/security/getrole"
+	security_get_role_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/security/getrolemapping"
+	security_get_service_accounts "github.com/elastic/go-elasticsearch/v9/typedapi/security/getserviceaccounts"
+	security_get_service_credentials "github.com/elastic/go-elasticsearch/v9/typedapi/security/getservicecredentials"
+	security_get_settings "github.com/elastic/go-elasticsearch/v9/typedapi/security/getsettings"
+	security_get_token "github.com/elastic/go-elasticsearch/v9/typedapi/security/gettoken"
+	security_get_user "github.com/elastic/go-elasticsearch/v9/typedapi/security/getuser"
+	security_get_user_privileges "github.com/elastic/go-elasticsearch/v9/typedapi/security/getuserprivileges"
+	security_get_user_profile "github.com/elastic/go-elasticsearch/v9/typedapi/security/getuserprofile"
+	security_grant_api_key "github.com/elastic/go-elasticsearch/v9/typedapi/security/grantapikey"
+	security_has_privileges "github.com/elastic/go-elasticsearch/v9/typedapi/security/hasprivileges"
+	security_has_privileges_user_profile "github.com/elastic/go-elasticsearch/v9/typedapi/security/hasprivilegesuserprofile"
+	security_invalidate_api_key "github.com/elastic/go-elasticsearch/v9/typedapi/security/invalidateapikey"
+	security_invalidate_token "github.com/elastic/go-elasticsearch/v9/typedapi/security/invalidatetoken"
+	security_oidc_authenticate "github.com/elastic/go-elasticsearch/v9/typedapi/security/oidcauthenticate"
+	security_oidc_logout "github.com/elastic/go-elasticsearch/v9/typedapi/security/oidclogout"
+	security_oidc_prepare_authentication "github.com/elastic/go-elasticsearch/v9/typedapi/security/oidcprepareauthentication"
+	security_put_privileges "github.com/elastic/go-elasticsearch/v9/typedapi/security/putprivileges"
+	security_put_role "github.com/elastic/go-elasticsearch/v9/typedapi/security/putrole"
+	security_put_role_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/security/putrolemapping"
+	security_put_user "github.com/elastic/go-elasticsearch/v9/typedapi/security/putuser"
+	security_query_api_keys "github.com/elastic/go-elasticsearch/v9/typedapi/security/queryapikeys"
+	security_query_role "github.com/elastic/go-elasticsearch/v9/typedapi/security/queryrole"
+	security_query_user "github.com/elastic/go-elasticsearch/v9/typedapi/security/queryuser"
+	security_saml_authenticate "github.com/elastic/go-elasticsearch/v9/typedapi/security/samlauthenticate"
+	security_saml_complete_logout "github.com/elastic/go-elasticsearch/v9/typedapi/security/samlcompletelogout"
+	security_saml_invalidate "github.com/elastic/go-elasticsearch/v9/typedapi/security/samlinvalidate"
+	security_saml_logout "github.com/elastic/go-elasticsearch/v9/typedapi/security/samllogout"
+	security_saml_prepare_authentication "github.com/elastic/go-elasticsearch/v9/typedapi/security/samlprepareauthentication"
+	security_saml_service_provider_metadata "github.com/elastic/go-elasticsearch/v9/typedapi/security/samlserviceprovidermetadata"
+	security_suggest_user_profiles "github.com/elastic/go-elasticsearch/v9/typedapi/security/suggestuserprofiles"
+	security_update_api_key "github.com/elastic/go-elasticsearch/v9/typedapi/security/updateapikey"
+	security_update_cross_cluster_api_key "github.com/elastic/go-elasticsearch/v9/typedapi/security/updatecrossclusterapikey"
+	security_update_settings "github.com/elastic/go-elasticsearch/v9/typedapi/security/updatesettings"
+	security_update_user_profile_data "github.com/elastic/go-elasticsearch/v9/typedapi/security/updateuserprofiledata"
+	shutdown_delete_node "github.com/elastic/go-elasticsearch/v9/typedapi/shutdown/deletenode"
+	shutdown_get_node "github.com/elastic/go-elasticsearch/v9/typedapi/shutdown/getnode"
+	shutdown_put_node "github.com/elastic/go-elasticsearch/v9/typedapi/shutdown/putnode"
+	simulate_ingest "github.com/elastic/go-elasticsearch/v9/typedapi/simulate/ingest"
+	slm_delete_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/slm/deletelifecycle"
+	slm_execute_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/slm/executelifecycle"
+	slm_execute_retention "github.com/elastic/go-elasticsearch/v9/typedapi/slm/executeretention"
+	slm_get_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/slm/getlifecycle"
+	slm_get_stats "github.com/elastic/go-elasticsearch/v9/typedapi/slm/getstats"
+	slm_get_status "github.com/elastic/go-elasticsearch/v9/typedapi/slm/getstatus"
+	slm_put_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/slm/putlifecycle"
+	slm_start "github.com/elastic/go-elasticsearch/v9/typedapi/slm/start"
+	slm_stop "github.com/elastic/go-elasticsearch/v9/typedapi/slm/stop"
+	snapshot_cleanup_repository "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/cleanuprepository"
+	snapshot_clone "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/clone"
+	snapshot_create "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/create"
+	snapshot_create_repository "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/createrepository"
+	snapshot_delete "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/delete"
+	snapshot_delete_repository "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/deleterepository"
+	snapshot_get "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/get"
+	snapshot_get_repository "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/getrepository"
+	snapshot_repository_analyze "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/repositoryanalyze"
+	snapshot_repository_verify_integrity "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/repositoryverifyintegrity"
+	snapshot_restore "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/restore"
+	snapshot_status "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/status"
+	snapshot_verify_repository "github.com/elastic/go-elasticsearch/v9/typedapi/snapshot/verifyrepository"
+	sql_clear_cursor "github.com/elastic/go-elasticsearch/v9/typedapi/sql/clearcursor"
+	sql_delete_async "github.com/elastic/go-elasticsearch/v9/typedapi/sql/deleteasync"
+	sql_get_async "github.com/elastic/go-elasticsearch/v9/typedapi/sql/getasync"
+	sql_get_async_status "github.com/elastic/go-elasticsearch/v9/typedapi/sql/getasyncstatus"
+	sql_query "github.com/elastic/go-elasticsearch/v9/typedapi/sql/query"
+	sql_translate "github.com/elastic/go-elasticsearch/v9/typedapi/sql/translate"
+	ssl_certificates "github.com/elastic/go-elasticsearch/v9/typedapi/ssl/certificates"
+	synonyms_delete_synonym "github.com/elastic/go-elasticsearch/v9/typedapi/synonyms/deletesynonym"
+	synonyms_delete_synonym_rule "github.com/elastic/go-elasticsearch/v9/typedapi/synonyms/deletesynonymrule"
+	synonyms_get_synonym "github.com/elastic/go-elasticsearch/v9/typedapi/synonyms/getsynonym"
+	synonyms_get_synonym_rule "github.com/elastic/go-elasticsearch/v9/typedapi/synonyms/getsynonymrule"
+	synonyms_get_synonyms_sets "github.com/elastic/go-elasticsearch/v9/typedapi/synonyms/getsynonymssets"
+	synonyms_put_synonym "github.com/elastic/go-elasticsearch/v9/typedapi/synonyms/putsynonym"
+	synonyms_put_synonym_rule "github.com/elastic/go-elasticsearch/v9/typedapi/synonyms/putsynonymrule"
+	tasks_cancel "github.com/elastic/go-elasticsearch/v9/typedapi/tasks/cancel"
+	tasks_get "github.com/elastic/go-elasticsearch/v9/typedapi/tasks/get"
+	tasks_list "github.com/elastic/go-elasticsearch/v9/typedapi/tasks/list"
+	text_structure_find_field_structure "github.com/elastic/go-elasticsearch/v9/typedapi/textstructure/findfieldstructure"
+	text_structure_find_message_structure "github.com/elastic/go-elasticsearch/v9/typedapi/textstructure/findmessagestructure"
+	text_structure_find_structure "github.com/elastic/go-elasticsearch/v9/typedapi/textstructure/findstructure"
+	text_structure_test_grok_pattern "github.com/elastic/go-elasticsearch/v9/typedapi/textstructure/testgrokpattern"
+	transform_delete_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/deletetransform"
+	transform_get_node_stats "github.com/elastic/go-elasticsearch/v9/typedapi/transform/getnodestats"
+	transform_get_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/gettransform"
+	transform_get_transform_stats "github.com/elastic/go-elasticsearch/v9/typedapi/transform/gettransformstats"
+	transform_preview_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/previewtransform"
+	transform_put_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/puttransform"
+	transform_reset_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/resettransform"
+	transform_schedule_now_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/schedulenowtransform"
+	transform_start_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/starttransform"
+	transform_stop_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/stoptransform"
+	transform_update_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/updatetransform"
+	transform_upgrade_transforms "github.com/elastic/go-elasticsearch/v9/typedapi/transform/upgradetransforms"
+	watcher_ack_watch "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/ackwatch"
+	watcher_activate_watch "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/activatewatch"
+	watcher_deactivate_watch "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/deactivatewatch"
+	watcher_delete_watch "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/deletewatch"
+	watcher_execute_watch "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/executewatch"
+	watcher_get_settings "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/getsettings"
+	watcher_get_watch "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/getwatch"
+	watcher_put_watch "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/putwatch"
+	watcher_query_watches "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/querywatches"
+	watcher_start "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/start"
+	watcher_stats "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/stats"
+	watcher_stop "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/stop"
+	watcher_update_settings "github.com/elastic/go-elasticsearch/v9/typedapi/watcher/updatesettings"
+	xpack_info "github.com/elastic/go-elasticsearch/v9/typedapi/xpack/info"
+	xpack_usage "github.com/elastic/go-elasticsearch/v9/typedapi/xpack/usage"
 )
 
 type AsyncSearch struct {
@@ -4947,9 +4961,109 @@ type Inference struct {
 	// APIs.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put
 	Put inference_put.NewPut
-	// Create an OpenAI inference endpoint.
+	// Create an AlibabaCloud AI Search inference endpoint.
 	//
-	// Create an inference endpoint to perform an inference task with the `openai`
+	// Create an inference endpoint to perform an inference task with the
+	// `alibabacloud-ai-search` service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-alibabacloud
+	PutAlibabacloud inference_put_alibabacloud.NewPutAlibabacloud
+	// Create an Amazon Bedrock inference endpoint.
+	//
+	// Creates an inference endpoint to perform an inference task with the
+	// `amazonbedrock` service.
+	//
+	// >info
+	// > You need to provide the access and secret keys only once, during the
+	// inference model creation. The get inference API does not retrieve your access
+	// or secret keys. After creating the inference model, you cannot change the
+	// associated key pairs. If you want to use a different access and secret key
+	// pair, delete the inference model and recreate it with the same name and the
+	// updated keys.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonbedrock
+	PutAmazonbedrock inference_put_amazonbedrock.NewPutAmazonbedrock
+	// Create an Anthropic inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `anthropic` service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-anthropic
+	PutAnthropic inference_put_anthropic.NewPutAnthropic
+	// Create an Azure AI studio inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `azureaistudio` service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureaistudio
+	PutAzureaistudio inference_put_azureaistudio.NewPutAzureaistudio
+	// Create an Azure OpenAI inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `azureopenai` service.
+	//
+	// The list of chat completion models that you can choose from in your Azure
+	// OpenAI deployment include:
+	//
+	// * [GPT-4 and GPT-4 Turbo
+	// models](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-4-and-gpt-4-turbo-models)
+	// *
+	// [GPT-3.5](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-35)
+	//
+	// The list of embeddings models that you can choose from in your deployment can
+	// be found in the [Azure models
+	// documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#embeddings).
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureopenai
+	PutAzureopenai inference_put_azureopenai.NewPutAzureopenai
+	// Create a Cohere inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the `cohere`
 	// service.
 	//
 	// When you create an inference endpoint, the associated machine learning model
@@ -4961,8 +5075,195 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-openai.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-cohere
+	PutCohere inference_put_cohere.NewPutCohere
+	// Create an Elasticsearch inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `elasticsearch` service.
+	//
+	// > info
+	// > Your Elasticsearch deployment contains preconfigured ELSER and E5 inference
+	// endpoints, you only need to create the enpoints using the API if you want to
+	// customize the settings.
+	//
+	// If you use the ELSER or the E5 model through the `elasticsearch` service, the
+	// API request will automatically download and deploy the model if it isn't
+	// downloaded yet.
+	//
+	// > info
+	// > You might see a 502 bad gateway error in the response when using the Kibana
+	// Console. This error usually just reflects a timeout, while the model
+	// downloads in the background. You can check the download progress in the
+	// Machine Learning UI. If using the Python client, you can set the timeout
+	// parameter to a higher value.
+	//
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elasticsearch
+	PutElasticsearch inference_put_elasticsearch.NewPutElasticsearch
+	// Create an ELSER inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the `elser`
+	// service.
+	// You can also deploy ELSER by using the Elasticsearch inference integration.
+	//
+	// > info
+	// > Your Elasticsearch deployment contains a preconfigured ELSER inference
+	// endpoint, you only need to create the enpoint using the API if you want to
+	// customize the settings.
+	//
+	// The API request will automatically download and deploy the ELSER model if it
+	// isn't already downloaded.
+	//
+	// > info
+	// > You might see a 502 bad gateway error in the response when using the Kibana
+	// Console. This error usually just reflects a timeout, while the model
+	// downloads in the background. You can check the download progress in the
+	// Machine Learning UI. If using the Python client, you can set the timeout
+	// parameter to a higher value.
+	//
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elser
+	PutElser inference_put_elser.NewPutElser
+	// Create an Google AI Studio inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `googleaistudio` service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googleaistudio
+	PutGoogleaistudio inference_put_googleaistudio.NewPutGoogleaistudio
+	// Create a Google Vertex AI inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `googlevertexai` service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googlevertexai
+	PutGooglevertexai inference_put_googlevertexai.NewPutGooglevertexai
+	// Create a Hugging Face inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `hugging_face` service.
+	//
+	// You must first create an inference endpoint on the Hugging Face endpoint page
+	// to get an endpoint URL.
+	// Select the model you want to use on the new endpoint creation page (for
+	// example `intfloat/e5-small-v2`), then select the sentence embeddings task
+	// under the advanced configuration section.
+	// Create the endpoint and copy the URL after the endpoint initialization has
+	// been finished.
+	//
+	// The following models are recommended for the Hugging Face service:
+	//
+	// * `all-MiniLM-L6-v2`
+	// * `all-MiniLM-L12-v2`
+	// * `all-mpnet-base-v2`
+	// * `e5-base-v2`
+	// * `e5-small-v2`
+	// * `multilingual-e5-base`
+	// * `multilingual-e5-small`
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-hugging-face
+	PutHuggingFace inference_put_hugging_face.NewPutHuggingFace
+	// Create an JinaAI inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the `jinaai`
+	// service.
+	//
+	// To review the available `rerank` models, refer to <https://jina.ai/reranker>.
+	// To review the available `text_embedding` models, refer to the
+	// <https://jina.ai/embeddings/>.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-jinaai
+	PutJinaai inference_put_jinaai.NewPutJinaai
+	// Create a Mistral inference endpoint.
+	//
+	// Creates an inference endpoint to perform an inference task with the `mistral`
+	// service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-mistral
+	PutMistral inference_put_mistral.NewPutMistral
+	// Create an OpenAI inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the `openai`
+	// service or `openai` compatible APIs.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openai
 	PutOpenai inference_put_openai.NewPutOpenai
+	// Create a VoyageAI inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the `voyageai`
+	// service.
+	//
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-voyageai
+	PutVoyageai inference_put_voyageai.NewPutVoyageai
 	// Create a Watsonx inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the
@@ -8222,7 +8523,13 @@ type Watcher struct {
 	// Update Watcher index settings.
 	// Update settings for the Watcher internal index (`.watches`).
 	// Only a subset of settings can be modified.
-	// This includes `index.auto_expand_replicas` and `index.number_of_replicas`.
+	// This includes `index.auto_expand_replicas`, `index.number_of_replicas`,
+	// `index.routing.allocation.exclude.*`,
+	// `index.routing.allocation.include.*` and
+	// `index.routing.allocation.require.*`.
+	// Modification of `index.routing.allocation.include._tier_preference` is an
+	// exception and is not allowed as the
+	// Watcher shards must always be in the `data_content` tier.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-update-settings
 	UpdateSettings watcher_update_settings.NewUpdateSettings
 }
@@ -10514,7 +10821,21 @@ func New(tp elastictransport.Interface) *API {
 			Delete:                inference_delete.NewDeleteFunc(tp),
 			Get:                   inference_get.NewGetFunc(tp),
 			Put:                   inference_put.NewPutFunc(tp),
+			PutAlibabacloud:       inference_put_alibabacloud.NewPutAlibabacloudFunc(tp),
+			PutAmazonbedrock:      inference_put_amazonbedrock.NewPutAmazonbedrockFunc(tp),
+			PutAnthropic:          inference_put_anthropic.NewPutAnthropicFunc(tp),
+			PutAzureaistudio:      inference_put_azureaistudio.NewPutAzureaistudioFunc(tp),
+			PutAzureopenai:        inference_put_azureopenai.NewPutAzureopenaiFunc(tp),
+			PutCohere:             inference_put_cohere.NewPutCohereFunc(tp),
+			PutElasticsearch:      inference_put_elasticsearch.NewPutElasticsearchFunc(tp),
+			PutElser:              inference_put_elser.NewPutElserFunc(tp),
+			PutGoogleaistudio:     inference_put_googleaistudio.NewPutGoogleaistudioFunc(tp),
+			PutGooglevertexai:     inference_put_googlevertexai.NewPutGooglevertexaiFunc(tp),
+			PutHuggingFace:        inference_put_hugging_face.NewPutHuggingFaceFunc(tp),
+			PutJinaai:             inference_put_jinaai.NewPutJinaaiFunc(tp),
+			PutMistral:            inference_put_mistral.NewPutMistralFunc(tp),
 			PutOpenai:             inference_put_openai.NewPutOpenaiFunc(tp),
+			PutVoyageai:           inference_put_voyageai.NewPutVoyageaiFunc(tp),
 			PutWatsonx:            inference_put_watsonx.NewPutWatsonxFunc(tp),
 			Rerank:                inference_rerank.NewRerankFunc(tp),
 			SparseEmbedding:       inference_sparse_embedding.NewSparseEmbeddingFunc(tp),

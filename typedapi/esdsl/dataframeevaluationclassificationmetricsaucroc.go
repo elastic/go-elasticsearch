@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dataframeEvaluationClassificationMetricsAucRoc struct {
 	v *types.DataframeEvaluationClassificationMetricsAucRoc
@@ -32,10 +32,6 @@ func NewDataframeEvaluationClassificationMetricsAucRoc() *_dataframeEvaluationCl
 
 }
 
-// Name of the only class that is treated as positive during AUC ROC
-// calculation. Other classes are treated as negative ("one-vs-all" strategy).
-// All the evaluated documents must have class_name in the list of their top
-// classes.
 func (s *_dataframeEvaluationClassificationMetricsAucRoc) ClassName(name string) *_dataframeEvaluationClassificationMetricsAucRoc {
 
 	s.v.ClassName = &name
@@ -43,8 +39,6 @@ func (s *_dataframeEvaluationClassificationMetricsAucRoc) ClassName(name string)
 	return s
 }
 
-// Whether or not the curve should be returned in addition to the score. Default
-// value is false.
 func (s *_dataframeEvaluationClassificationMetricsAucRoc) IncludeCurve(includecurve bool) *_dataframeEvaluationClassificationMetricsAucRoc {
 
 	s.v.IncludeCurve = &includecurve

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // TableValuesContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/esql/_types/TableValuesContainer.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/esql/_types/TableValuesContainer.ts#L22-L28
 type TableValuesContainer struct {
 	AdditionalTableValuesContainerProperty map[string]json.RawMessage `json:"-"`
 	Float64                                [][]Float64                `json:"double,omitempty"`

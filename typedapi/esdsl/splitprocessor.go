@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _splitProcessor struct {
 	v *types.SplitProcessor
@@ -38,8 +38,6 @@ func NewSplitProcessor(separator string) *_splitProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_splitProcessor) Description(description string) *_splitProcessor {
 
 	s.v.Description = &description
@@ -47,7 +45,6 @@ func (s *_splitProcessor) Description(description string) *_splitProcessor {
 	return s
 }
 
-// The field to split.
 func (s *_splitProcessor) Field(field string) *_splitProcessor {
 
 	s.v.Field = field
@@ -55,7 +52,6 @@ func (s *_splitProcessor) Field(field string) *_splitProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_splitProcessor) If(if_ types.ScriptVariant) *_splitProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -63,7 +59,6 @@ func (s *_splitProcessor) If(if_ types.ScriptVariant) *_splitProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_splitProcessor) IgnoreFailure(ignorefailure bool) *_splitProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -71,8 +66,6 @@ func (s *_splitProcessor) IgnoreFailure(ignorefailure bool) *_splitProcessor {
 	return s
 }
 
-// If `true` and `field` does not exist, the processor quietly exits without
-// modifying the document.
 func (s *_splitProcessor) IgnoreMissing(ignoremissing bool) *_splitProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -80,7 +73,6 @@ func (s *_splitProcessor) IgnoreMissing(ignoremissing bool) *_splitProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_splitProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_splitProcessor {
 
 	for _, v := range onfailures {
@@ -91,7 +83,6 @@ func (s *_splitProcessor) OnFailure(onfailures ...types.ProcessorContainerVarian
 	return s
 }
 
-// Preserves empty trailing fields, if any.
 func (s *_splitProcessor) PreserveTrailing(preservetrailing bool) *_splitProcessor {
 
 	s.v.PreserveTrailing = &preservetrailing
@@ -99,7 +90,6 @@ func (s *_splitProcessor) PreserveTrailing(preservetrailing bool) *_splitProcess
 	return s
 }
 
-// A regex which matches the separator, for example, `,` or `\s+`.
 func (s *_splitProcessor) Separator(separator string) *_splitProcessor {
 
 	s.v.Separator = separator
@@ -107,8 +97,6 @@ func (s *_splitProcessor) Separator(separator string) *_splitProcessor {
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_splitProcessor) Tag(tag string) *_splitProcessor {
 
 	s.v.Tag = &tag
@@ -116,8 +104,6 @@ func (s *_splitProcessor) Tag(tag string) *_splitProcessor {
 	return s
 }
 
-// The field to assign the split value to.
-// By default, the field is updated in-place.
 func (s *_splitProcessor) TargetField(field string) *_splitProcessor {
 
 	s.v.TargetField = &field

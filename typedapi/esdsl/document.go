@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _document struct {
@@ -40,8 +40,6 @@ func NewDocument(source_ json.RawMessage) *_document {
 
 }
 
-// Unique identifier for the document.
-// This ID must be unique within the `_index`.
 func (s *_document) Id_(id string) *_document {
 
 	s.v.Id_ = &id
@@ -49,7 +47,6 @@ func (s *_document) Id_(id string) *_document {
 	return s
 }
 
-// Name of the index containing the document.
 func (s *_document) Index_(indexname string) *_document {
 
 	s.v.Index_ = &indexname
@@ -57,7 +54,6 @@ func (s *_document) Index_(indexname string) *_document {
 	return s
 }
 
-// JSON body for the document.
 func (s *_document) Source_(source_ json.RawMessage) *_document {
 
 	s.v.Source_ = source_

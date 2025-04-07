@@ -16,17 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package clearrepositoriesmeteringarchive
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Response holds the response body struct for the package clearrepositoriesmeteringarchive
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/nodes/clear_repositories_metering_archive/ClearRepositoriesMeteringArchiveResponse.ts#L37-L39
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/nodes/clear_repositories_metering_archive/ClearRepositoriesMeteringArchiveResponse.ts#L37-L40
 type Response struct {
 
 	// ClusterName Name of the cluster. Based on the `cluster.name` setting.

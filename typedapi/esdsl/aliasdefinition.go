@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _aliasDefinition struct {
 	v *types.AliasDefinition
@@ -32,7 +32,6 @@ func NewAliasDefinition() *_aliasDefinition {
 
 }
 
-// Query used to limit documents the alias can access.
 func (s *_aliasDefinition) Filter(filter types.QueryVariant) *_aliasDefinition {
 
 	s.v.Filter = filter.QueryCaster()
@@ -40,8 +39,6 @@ func (s *_aliasDefinition) Filter(filter types.QueryVariant) *_aliasDefinition {
 	return s
 }
 
-// Value used to route indexing operations to a specific shard.
-// If specified, this overwrites the `routing` value for indexing operations.
 func (s *_aliasDefinition) IndexRouting(indexrouting string) *_aliasDefinition {
 
 	s.v.IndexRouting = &indexrouting
@@ -49,8 +46,6 @@ func (s *_aliasDefinition) IndexRouting(indexrouting string) *_aliasDefinition {
 	return s
 }
 
-// If `true`, the alias is hidden.
-// All indices for the alias must have the same `is_hidden` value.
 func (s *_aliasDefinition) IsHidden(ishidden bool) *_aliasDefinition {
 
 	s.v.IsHidden = &ishidden
@@ -58,7 +53,6 @@ func (s *_aliasDefinition) IsHidden(ishidden bool) *_aliasDefinition {
 	return s
 }
 
-// If `true`, the index is the write index for the alias.
 func (s *_aliasDefinition) IsWriteIndex(iswriteindex bool) *_aliasDefinition {
 
 	s.v.IsWriteIndex = &iswriteindex
@@ -66,7 +60,6 @@ func (s *_aliasDefinition) IsWriteIndex(iswriteindex bool) *_aliasDefinition {
 	return s
 }
 
-// Value used to route indexing and search operations to a specific shard.
 func (s *_aliasDefinition) Routing(routing string) *_aliasDefinition {
 
 	s.v.Routing = &routing
@@ -74,8 +67,6 @@ func (s *_aliasDefinition) Routing(routing string) *_aliasDefinition {
 	return s
 }
 
-// Value used to route search operations to a specific shard.
-// If specified, this overwrites the `routing` value for search operations.
 func (s *_aliasDefinition) SearchRouting(searchrouting string) *_aliasDefinition {
 
 	s.v.SearchRouting = &searchrouting

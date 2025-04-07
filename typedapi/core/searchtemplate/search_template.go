@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 // Run a search with a search template.
 package searchtemplate
@@ -34,9 +34,9 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/searchtype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/searchtype"
 )
 
 const (
@@ -193,12 +193,12 @@ func (r *SearchTemplate) HttpRequest(ctx context.Context) (*http.Request, error)
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.raw != nil {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
 		}
 	}
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {
@@ -554,13 +554,13 @@ func (r *SearchTemplate) Profile(profile bool) *SearchTemplate {
 // this
 // parameter is required.
 // API name: source
-func (r *SearchTemplate) Source(source string) *SearchTemplate {
+func (r *SearchTemplate) Source(scriptsource types.ScriptSourceVariant) *SearchTemplate {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Source = &source
+	r.req.Source = *scriptsource.ScriptSourceCaster()
 
 	return r
 }

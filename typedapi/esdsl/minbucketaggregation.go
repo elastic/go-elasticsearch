@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gappolicy"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/gappolicy"
 )
 
 type _minBucketAggregation struct {
@@ -38,7 +38,6 @@ func NewMinBucketAggregation() *_minBucketAggregation {
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_minBucketAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_minBucketAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -46,9 +45,6 @@ func (s *_minBucketAggregation) BucketsPath(bucketspath types.BucketsPathVariant
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_minBucketAggregation) Format(format string) *_minBucketAggregation {
 
 	s.v.Format = &format
@@ -56,7 +52,6 @@ func (s *_minBucketAggregation) Format(format string) *_minBucketAggregation {
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_minBucketAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_minBucketAggregation {
 
 	s.v.GapPolicy = &gappolicy

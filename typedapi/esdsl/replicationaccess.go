@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _replicationAccess struct {
 	v *types.ReplicationAccess
@@ -32,8 +32,6 @@ func NewReplicationAccess() *_replicationAccess {
 
 }
 
-// This needs to be set to true if the patterns in the names field should cover
-// system indices.
 func (s *_replicationAccess) AllowRestrictedIndices(allowrestrictedindices bool) *_replicationAccess {
 
 	s.v.AllowRestrictedIndices = &allowrestrictedindices
@@ -41,8 +39,6 @@ func (s *_replicationAccess) AllowRestrictedIndices(allowrestrictedindices bool)
 	return s
 }
 
-// A list of indices (or index name patterns) to which the permissions in this
-// entry apply.
 func (s *_replicationAccess) Names(names ...string) *_replicationAccess {
 
 	s.v.Names = make([]string, len(names))

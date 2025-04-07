@@ -21,11 +21,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // AddSearch is a helper function to add a new search to the buffer of the current msearch request.
-func (r *Msearch) AddSearch(header types.MultisearchHeader, body types.MultisearchBody) error {
+func (r *Msearch) AddSearch(header types.MultisearchHeader, body types.SearchRequestBody) error {
 	h, err := json.Marshal(header)
 	if err != nil {
 		return fmt.Errorf("msearch.AddSearch cannot serialize header: %w", err)

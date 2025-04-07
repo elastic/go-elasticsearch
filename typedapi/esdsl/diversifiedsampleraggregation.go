@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sampleraggregationexecutionhint"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sampleraggregationexecutionhint"
 )
 
 type _diversifiedSamplerAggregation struct {
@@ -39,14 +39,12 @@ func NewDiversifiedSamplerAggregation() *_diversifiedSamplerAggregation {
 
 }
 
-// The type of value used for de-duplication.
 func (s *_diversifiedSamplerAggregation) ExecutionHint(executionhint sampleraggregationexecutionhint.SamplerAggregationExecutionHint) *_diversifiedSamplerAggregation {
 
 	s.v.ExecutionHint = &executionhint
 	return s
 }
 
-// The field used to provide values used for de-duplication.
 func (s *_diversifiedSamplerAggregation) Field(field string) *_diversifiedSamplerAggregation {
 
 	s.v.Field = &field
@@ -54,7 +52,6 @@ func (s *_diversifiedSamplerAggregation) Field(field string) *_diversifiedSample
 	return s
 }
 
-// Limits how many documents are permitted per choice of de-duplicating value.
 func (s *_diversifiedSamplerAggregation) MaxDocsPerValue(maxdocspervalue int) *_diversifiedSamplerAggregation {
 
 	s.v.MaxDocsPerValue = &maxdocspervalue
@@ -69,8 +66,6 @@ func (s *_diversifiedSamplerAggregation) Script(script types.ScriptVariant) *_di
 	return s
 }
 
-// Limits how many top-scoring documents are collected in the sample processed
-// on each shard.
 func (s *_diversifiedSamplerAggregation) ShardSize(shardsize int) *_diversifiedSamplerAggregation {
 
 	s.v.ShardSize = &shardsize

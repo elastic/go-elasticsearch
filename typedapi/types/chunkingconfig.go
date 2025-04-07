@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -27,12 +27,12 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/chunkingmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/chunkingmode"
 )
 
 // ChunkingConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/Datafeed.ts#L251-L264
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/ml/_types/Datafeed.ts#L251-L264
 type ChunkingConfig struct {
 	// Mode If the mode is `auto`, the chunk size is dynamically calculated;
 	// this is the recommended value when the datafeed does not use aggregations.

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/versiontype"
 )
 
 type _deleteOperation struct {
@@ -36,7 +36,6 @@ func NewDeleteOperation() *_deleteOperation {
 
 }
 
-// The document ID.
 func (s *_deleteOperation) Id_(id string) *_deleteOperation {
 
 	s.v.Id_ = &id
@@ -58,7 +57,6 @@ func (s *_deleteOperation) IfSeqNo(sequencenumber int64) *_deleteOperation {
 	return s
 }
 
-// The name of the index or index alias to perform the action on.
 func (s *_deleteOperation) Index_(indexname string) *_deleteOperation {
 
 	s.v.Index_ = &indexname
@@ -66,7 +64,6 @@ func (s *_deleteOperation) Index_(indexname string) *_deleteOperation {
 	return s
 }
 
-// A custom value used to route operations to a specific shard.
 func (s *_deleteOperation) Routing(routing string) *_deleteOperation {
 
 	s.v.Routing = &routing

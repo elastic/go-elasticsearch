@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _boostingQuery struct {
 	v *types.BoostingQuery
@@ -42,11 +42,6 @@ func NewBoostingQuery(negative types.QueryVariant, negativeboost types.Float64, 
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_boostingQuery) Boost(boost float32) *_boostingQuery {
 
 	s.v.Boost = &boost
@@ -54,7 +49,6 @@ func (s *_boostingQuery) Boost(boost float32) *_boostingQuery {
 	return s
 }
 
-// Query used to decrease the relevance score of matching documents.
 func (s *_boostingQuery) Negative(negative types.QueryVariant) *_boostingQuery {
 
 	s.v.Negative = *negative.QueryCaster()
@@ -62,8 +56,6 @@ func (s *_boostingQuery) Negative(negative types.QueryVariant) *_boostingQuery {
 	return s
 }
 
-// Floating point number between 0 and 1.0 used to decrease the relevance scores
-// of documents matching the `negative` query.
 func (s *_boostingQuery) NegativeBoost(negativeboost types.Float64) *_boostingQuery {
 
 	s.v.NegativeBoost = negativeboost
@@ -71,7 +63,6 @@ func (s *_boostingQuery) NegativeBoost(negativeboost types.Float64) *_boostingQu
 	return s
 }
 
-// Any returned documents must match this query.
 func (s *_boostingQuery) Positive(positive types.QueryVariant) *_boostingQuery {
 
 	s.v.Positive = *positive.QueryCaster()

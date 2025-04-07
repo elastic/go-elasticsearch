@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -24,12 +24,12 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/multivaluemode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/multivaluemode"
 )
 
 // UntypedDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/query_dsl/compound.ts#L204-L207
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/_types/query_dsl/compound.ts#L204-L207
 type UntypedDecayFunction struct {
 	DecayFunctionBase map[string]DecayPlacement `json:"-"`
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the

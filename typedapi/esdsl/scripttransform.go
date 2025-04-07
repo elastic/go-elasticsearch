@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _scriptTransform struct {
@@ -71,9 +71,9 @@ func (s *_scriptTransform) AddParam(key string, value json.RawMessage) *_scriptT
 	return s
 }
 
-func (s *_scriptTransform) Source(source string) *_scriptTransform {
+func (s *_scriptTransform) Source(scriptsource types.ScriptSourceVariant) *_scriptTransform {
 
-	s.v.Source = &source
+	s.v.Source = *scriptsource.ScriptSourceCaster()
 
 	return s
 }

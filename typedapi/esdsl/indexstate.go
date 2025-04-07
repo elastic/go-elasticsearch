@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _indexState struct {
 	v *types.IndexState
@@ -60,7 +60,6 @@ func (s *_indexState) DataStream(datastreamname string) *_indexState {
 	return s
 }
 
-// Default settings, included when the request's `include_default` is `true`.
 func (s *_indexState) Defaults(defaults types.IndexSettingsVariant) *_indexState {
 
 	s.v.Defaults = defaults.IndexSettingsCaster()
@@ -68,7 +67,6 @@ func (s *_indexState) Defaults(defaults types.IndexSettingsVariant) *_indexState
 	return s
 }
 
-// Data stream lifecycle applicable if this is a data stream.
 func (s *_indexState) Lifecycle(lifecycle types.DataStreamLifecycleVariant) *_indexState {
 
 	s.v.Lifecycle = lifecycle.DataStreamLifecycleCaster()

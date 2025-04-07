@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _adaptiveAllocationsSettings struct {
 	v *types.AdaptiveAllocationsSettings
@@ -36,7 +36,6 @@ func NewAdaptiveAllocationsSettings(enabled bool) *_adaptiveAllocationsSettings 
 
 }
 
-// If true, adaptive_allocations is enabled
 func (s *_adaptiveAllocationsSettings) Enabled(enabled bool) *_adaptiveAllocationsSettings {
 
 	s.v.Enabled = enabled
@@ -44,8 +43,6 @@ func (s *_adaptiveAllocationsSettings) Enabled(enabled bool) *_adaptiveAllocatio
 	return s
 }
 
-// Specifies the maximum number of allocations to scale to.
-// If set, it must be greater than or equal to min_number_of_allocations.
 func (s *_adaptiveAllocationsSettings) MaxNumberOfAllocations(maxnumberofallocations int) *_adaptiveAllocationsSettings {
 
 	s.v.MaxNumberOfAllocations = &maxnumberofallocations
@@ -53,9 +50,6 @@ func (s *_adaptiveAllocationsSettings) MaxNumberOfAllocations(maxnumberofallocat
 	return s
 }
 
-// Specifies the minimum number of allocations to scale to.
-// If set, it must be greater than or equal to 0.
-// If not defined, the deployment scales to 0.
 func (s *_adaptiveAllocationsSettings) MinNumberOfAllocations(minnumberofallocations int) *_adaptiveAllocationsSettings {
 
 	s.v.MinNumberOfAllocations = &minnumberofallocations

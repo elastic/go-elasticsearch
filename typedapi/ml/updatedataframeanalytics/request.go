@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package updatedataframeanalytics
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package updatedataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/update_data_frame_analytics/MlUpdateDataFrameAnalyticsRequest.ts#L24-L80
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/ml/update_data_frame_analytics/MlUpdateDataFrameAnalyticsRequest.ts#L24-L80
 type Request struct {
 
 	// AllowLazyStart Specifies whether this job can start when there is insufficient machine

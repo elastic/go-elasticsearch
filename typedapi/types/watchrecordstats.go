@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -27,12 +27,12 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/executionphase"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/executionphase"
 )
 
 // WatchRecordStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/watcher/stats/types.ts#L79-L94
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/watcher/stats/types.ts#L79-L94
 type WatchRecordStats struct {
 	ExecutedActions []string `json:"executed_actions,omitempty"`
 	// ExecutionPhase The current watch execution phase.

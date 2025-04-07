@@ -16,19 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationalternate"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationcasefirst"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationdecomposition"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationstrength"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexoptions"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/syntheticsourcekeepenum"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/icucollationalternate"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/icucollationcasefirst"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/icucollationdecomposition"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/icucollationstrength"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indexoptions"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
 )
 
 type _icuCollationProperty struct {
@@ -128,7 +128,6 @@ func (s *_icuCollationProperty) IgnoreAbove(ignoreabove int) *_icuCollationPrope
 	return s
 }
 
-// Should the field be searchable?
 func (s *_icuCollationProperty) Index(index bool) *_icuCollationProperty {
 
 	s.v.Index = &index
@@ -149,7 +148,6 @@ func (s *_icuCollationProperty) Language(language string) *_icuCollationProperty
 	return s
 }
 
-// Metadata about the field.
 func (s *_icuCollationProperty) Meta(meta map[string]string) *_icuCollationProperty {
 
 	s.v.Meta = meta
@@ -178,8 +176,6 @@ func (s *_icuCollationProperty) Norms(norms bool) *_icuCollationProperty {
 	return s
 }
 
-// Accepts a string value which is substituted for any explicit null values.
-// Defaults to null, which means the field is treated as missing.
 func (s *_icuCollationProperty) NullValue(nullvalue string) *_icuCollationProperty {
 
 	s.v.NullValue = &nullvalue

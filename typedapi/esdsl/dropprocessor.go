@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dropProcessor struct {
 	v *types.DropProcessor
@@ -35,8 +35,6 @@ func NewDropProcessor() *_dropProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_dropProcessor) Description(description string) *_dropProcessor {
 
 	s.v.Description = &description
@@ -44,7 +42,6 @@ func (s *_dropProcessor) Description(description string) *_dropProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_dropProcessor) If(if_ types.ScriptVariant) *_dropProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -52,7 +49,6 @@ func (s *_dropProcessor) If(if_ types.ScriptVariant) *_dropProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_dropProcessor) IgnoreFailure(ignorefailure bool) *_dropProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -60,7 +56,6 @@ func (s *_dropProcessor) IgnoreFailure(ignorefailure bool) *_dropProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_dropProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_dropProcessor {
 
 	for _, v := range onfailures {
@@ -71,8 +66,6 @@ func (s *_dropProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_dropProcessor) Tag(tag string) *_dropProcessor {
 
 	s.v.Tag = &tag

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _appendProcessor struct {
@@ -42,8 +42,6 @@ func NewAppendProcessor() *_appendProcessor {
 
 }
 
-// If `false`, the processor does not append values already present in the
-// field.
 func (s *_appendProcessor) AllowDuplicates(allowduplicates bool) *_appendProcessor {
 
 	s.v.AllowDuplicates = &allowduplicates
@@ -51,8 +49,6 @@ func (s *_appendProcessor) AllowDuplicates(allowduplicates bool) *_appendProcess
 	return s
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_appendProcessor) Description(description string) *_appendProcessor {
 
 	s.v.Description = &description
@@ -60,8 +56,6 @@ func (s *_appendProcessor) Description(description string) *_appendProcessor {
 	return s
 }
 
-// The field to be appended to.
-// Supports template snippets.
 func (s *_appendProcessor) Field(field string) *_appendProcessor {
 
 	s.v.Field = field
@@ -69,7 +63,6 @@ func (s *_appendProcessor) Field(field string) *_appendProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_appendProcessor) If(if_ types.ScriptVariant) *_appendProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -77,7 +70,6 @@ func (s *_appendProcessor) If(if_ types.ScriptVariant) *_appendProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_appendProcessor) IgnoreFailure(ignorefailure bool) *_appendProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -85,7 +77,6 @@ func (s *_appendProcessor) IgnoreFailure(ignorefailure bool) *_appendProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_appendProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_appendProcessor {
 
 	for _, v := range onfailures {
@@ -96,8 +87,6 @@ func (s *_appendProcessor) OnFailure(onfailures ...types.ProcessorContainerVaria
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_appendProcessor) Tag(tag string) *_appendProcessor {
 
 	s.v.Tag = &tag
@@ -105,7 +94,6 @@ func (s *_appendProcessor) Tag(tag string) *_appendProcessor {
 	return s
 }
 
-// The value to be appended. Supports template snippets.
 func (s *_appendProcessor) Value(values ...json.RawMessage) *_appendProcessor {
 
 	s.v.Value = make([]json.RawMessage, len(values))

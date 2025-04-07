@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _dataframeEvaluationOutlierDetectionMetrics struct {
@@ -36,9 +36,6 @@ func NewDataframeEvaluationOutlierDetectionMetrics() *_dataframeEvaluationOutlie
 
 }
 
-// The AUC ROC (area under the curve of the receiver operating characteristic)
-// score and optionally the curve. It is calculated for a specific class
-// (provided as "class_name") treated as positive.
 func (s *_dataframeEvaluationOutlierDetectionMetrics) AucRoc(aucroc types.DataframeEvaluationClassificationMetricsAucRocVariant) *_dataframeEvaluationOutlierDetectionMetrics {
 
 	s.v.AucRoc = aucroc.DataframeEvaluationClassificationMetricsAucRocCaster()
@@ -46,7 +43,6 @@ func (s *_dataframeEvaluationOutlierDetectionMetrics) AucRoc(aucroc types.Datafr
 	return s
 }
 
-// Accuracy of predictions (per-class and overall).
 func (s *_dataframeEvaluationOutlierDetectionMetrics) ConfusionMatrix(confusionmatrix map[string]json.RawMessage) *_dataframeEvaluationOutlierDetectionMetrics {
 
 	s.v.ConfusionMatrix = confusionmatrix
@@ -68,7 +64,6 @@ func (s *_dataframeEvaluationOutlierDetectionMetrics) AddConfusionMatrix(key str
 	return s
 }
 
-// Precision of predictions (per-class and average).
 func (s *_dataframeEvaluationOutlierDetectionMetrics) Precision(precision map[string]json.RawMessage) *_dataframeEvaluationOutlierDetectionMetrics {
 
 	s.v.Precision = precision
@@ -90,7 +85,6 @@ func (s *_dataframeEvaluationOutlierDetectionMetrics) AddPrecision(key string, v
 	return s
 }
 
-// Recall of predictions (per-class and average).
 func (s *_dataframeEvaluationOutlierDetectionMetrics) Recall(recall map[string]json.RawMessage) *_dataframeEvaluationOutlierDetectionMetrics {
 
 	s.v.Recall = recall

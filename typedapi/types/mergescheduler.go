@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // MergeScheduler type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/_types/IndexSettings.ts#L350-L353
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/indices/_types/IndexSettings.ts#L350-L353
 type MergeScheduler struct {
 	MaxMergeCount  Stringifiedinteger `json:"max_merge_count,omitempty"`
 	MaxThreadCount Stringifiedinteger `json:"max_thread_count,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -28,12 +28,12 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/versiontype"
 )
 
 // MoreLikeThisQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/query_dsl/specialized.ts#L87-L172
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/_types/query_dsl/specialized.ts#L87-L172
 type MoreLikeThisQuery struct {
 	// Analyzer The analyzer that is used to analyze the free form text.
 	// Defaults to the analyzer associated with the first field in fields.

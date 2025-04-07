@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _terminateProcessor struct {
 	v *types.TerminateProcessor
@@ -35,8 +35,6 @@ func NewTerminateProcessor() *_terminateProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_terminateProcessor) Description(description string) *_terminateProcessor {
 
 	s.v.Description = &description
@@ -44,7 +42,6 @@ func (s *_terminateProcessor) Description(description string) *_terminateProcess
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_terminateProcessor) If(if_ types.ScriptVariant) *_terminateProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -52,7 +49,6 @@ func (s *_terminateProcessor) If(if_ types.ScriptVariant) *_terminateProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_terminateProcessor) IgnoreFailure(ignorefailure bool) *_terminateProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -60,7 +56,6 @@ func (s *_terminateProcessor) IgnoreFailure(ignorefailure bool) *_terminateProce
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_terminateProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_terminateProcessor {
 
 	for _, v := range onfailures {
@@ -71,8 +66,6 @@ func (s *_terminateProcessor) OnFailure(onfailures ...types.ProcessorContainerVa
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_terminateProcessor) Tag(tag string) *_terminateProcessor {
 
 	s.v.Tag = &tag

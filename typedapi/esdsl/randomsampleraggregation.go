@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _randomSamplerAggregation struct {
 	v *types.RandomSamplerAggregation
@@ -39,9 +39,6 @@ func NewRandomSamplerAggregation(probability types.Float64) *_randomSamplerAggre
 
 }
 
-// The probability that a document will be included in the aggregated data.
-// Must be greater than 0, less than 0.5, or exactly 1.
-// The lower the probability, the fewer documents are matched.
 func (s *_randomSamplerAggregation) Probability(probability types.Float64) *_randomSamplerAggregation {
 
 	s.v.Probability = probability
@@ -49,9 +46,6 @@ func (s *_randomSamplerAggregation) Probability(probability types.Float64) *_ran
 	return s
 }
 
-// The seed to generate the random sampling of documents.
-// When a seed is provided, the random subset of documents is the same between
-// calls.
 func (s *_randomSamplerAggregation) Seed(seed int) *_randomSamplerAggregation {
 
 	s.v.Seed = &seed
@@ -59,8 +53,6 @@ func (s *_randomSamplerAggregation) Seed(seed int) *_randomSamplerAggregation {
 	return s
 }
 
-// When combined with seed, setting shard_seed ensures 100% consistent sampling
-// over shards where data is exactly the same.
 func (s *_randomSamplerAggregation) ShardSeed(shardseed int) *_randomSamplerAggregation {
 
 	s.v.ShardSeed = &shardseed

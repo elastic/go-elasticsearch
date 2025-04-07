@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _foreachProcessor struct {
 	v *types.ForeachProcessor
@@ -37,8 +37,6 @@ func NewForeachProcessor(processor types.ProcessorContainerVariant) *_foreachPro
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_foreachProcessor) Description(description string) *_foreachProcessor {
 
 	s.v.Description = &description
@@ -46,7 +44,6 @@ func (s *_foreachProcessor) Description(description string) *_foreachProcessor {
 	return s
 }
 
-// Field containing array or object values.
 func (s *_foreachProcessor) Field(field string) *_foreachProcessor {
 
 	s.v.Field = field
@@ -54,7 +51,6 @@ func (s *_foreachProcessor) Field(field string) *_foreachProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_foreachProcessor) If(if_ types.ScriptVariant) *_foreachProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -62,7 +58,6 @@ func (s *_foreachProcessor) If(if_ types.ScriptVariant) *_foreachProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_foreachProcessor) IgnoreFailure(ignorefailure bool) *_foreachProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -70,8 +65,6 @@ func (s *_foreachProcessor) IgnoreFailure(ignorefailure bool) *_foreachProcessor
 	return s
 }
 
-// If `true`, the processor silently exits without changing the document if the
-// `field` is `null` or missing.
 func (s *_foreachProcessor) IgnoreMissing(ignoremissing bool) *_foreachProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -79,7 +72,6 @@ func (s *_foreachProcessor) IgnoreMissing(ignoremissing bool) *_foreachProcessor
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_foreachProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_foreachProcessor {
 
 	for _, v := range onfailures {
@@ -90,7 +82,6 @@ func (s *_foreachProcessor) OnFailure(onfailures ...types.ProcessorContainerVari
 	return s
 }
 
-// Ingest processor to run on each element.
 func (s *_foreachProcessor) Processor(processor types.ProcessorContainerVariant) *_foreachProcessor {
 
 	s.v.Processor = *processor.ProcessorContainerCaster()
@@ -98,8 +89,6 @@ func (s *_foreachProcessor) Processor(processor types.ProcessorContainerVariant)
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_foreachProcessor) Tag(tag string) *_foreachProcessor {
 
 	s.v.Tag = &tag

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _rankEvalMetricMeanReciprocalRank struct {
 	v *types.RankEvalMetricMeanReciprocalRank
@@ -32,8 +32,6 @@ func NewRankEvalMetricMeanReciprocalRank() *_rankEvalMetricMeanReciprocalRank {
 
 }
 
-// Sets the maximum number of documents retrieved per query. This value will act
-// in place of the usual size parameter in the query.
 func (s *_rankEvalMetricMeanReciprocalRank) K(k int) *_rankEvalMetricMeanReciprocalRank {
 
 	s.v.K = &k
@@ -41,8 +39,6 @@ func (s *_rankEvalMetricMeanReciprocalRank) K(k int) *_rankEvalMetricMeanRecipro
 	return s
 }
 
-// Sets the rating threshold above which documents are considered to be
-// "relevant".
 func (s *_rankEvalMetricMeanReciprocalRank) RelevantRatingThreshold(relevantratingthreshold int) *_rankEvalMetricMeanReciprocalRank {
 
 	s.v.RelevantRatingThreshold = &relevantratingthreshold

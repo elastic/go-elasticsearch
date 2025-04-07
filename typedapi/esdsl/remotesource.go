@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _remoteSource struct {
 	v *types.RemoteSource
@@ -32,7 +32,6 @@ func NewRemoteSource() *_remoteSource {
 
 }
 
-// The remote connection timeout.
 func (s *_remoteSource) ConnectTimeout(duration types.DurationVariant) *_remoteSource {
 
 	s.v.ConnectTimeout = *duration.DurationCaster()
@@ -40,7 +39,6 @@ func (s *_remoteSource) ConnectTimeout(duration types.DurationVariant) *_remoteS
 	return s
 }
 
-// An object containing the headers of the request.
 func (s *_remoteSource) Headers(headers map[string]string) *_remoteSource {
 
 	s.v.Headers = headers
@@ -62,8 +60,6 @@ func (s *_remoteSource) AddHeader(key string, value string) *_remoteSource {
 	return s
 }
 
-// The URL for the remote instance of Elasticsearch that you want to index from.
-// This information is required when you're indexing from remote.
 func (s *_remoteSource) Host(host string) *_remoteSource {
 
 	s.v.Host = host
@@ -71,7 +67,6 @@ func (s *_remoteSource) Host(host string) *_remoteSource {
 	return s
 }
 
-// The password to use for authentication with the remote host.
 func (s *_remoteSource) Password(password string) *_remoteSource {
 
 	s.v.Password = &password
@@ -79,7 +74,6 @@ func (s *_remoteSource) Password(password string) *_remoteSource {
 	return s
 }
 
-// The remote socket read timeout.
 func (s *_remoteSource) SocketTimeout(duration types.DurationVariant) *_remoteSource {
 
 	s.v.SocketTimeout = *duration.DurationCaster()
@@ -87,7 +81,6 @@ func (s *_remoteSource) SocketTimeout(duration types.DurationVariant) *_remoteSo
 	return s
 }
 
-// The username to use for authentication with the remote host.
 func (s *_remoteSource) Username(username string) *_remoteSource {
 
 	s.v.Username = &username

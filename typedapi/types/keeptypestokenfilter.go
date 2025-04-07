@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -27,12 +27,12 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/keeptypesmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/keeptypesmode"
 )
 
 // KeepTypesTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/analysis/token_filters.ts#L219-L223
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/_types/analysis/token_filters.ts#L219-L223
 type KeepTypesTokenFilter struct {
 	Mode    *keeptypesmode.KeepTypesMode `json:"mode,omitempty"`
 	Type    string                       `json:"type,omitempty"`

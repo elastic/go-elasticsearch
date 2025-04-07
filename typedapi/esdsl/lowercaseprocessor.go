@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _lowercaseProcessor struct {
 	v *types.LowercaseProcessor
@@ -35,8 +35,6 @@ func NewLowercaseProcessor() *_lowercaseProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_lowercaseProcessor) Description(description string) *_lowercaseProcessor {
 
 	s.v.Description = &description
@@ -44,7 +42,6 @@ func (s *_lowercaseProcessor) Description(description string) *_lowercaseProcess
 	return s
 }
 
-// The field to make lowercase.
 func (s *_lowercaseProcessor) Field(field string) *_lowercaseProcessor {
 
 	s.v.Field = field
@@ -52,7 +49,6 @@ func (s *_lowercaseProcessor) Field(field string) *_lowercaseProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_lowercaseProcessor) If(if_ types.ScriptVariant) *_lowercaseProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -60,7 +56,6 @@ func (s *_lowercaseProcessor) If(if_ types.ScriptVariant) *_lowercaseProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_lowercaseProcessor) IgnoreFailure(ignorefailure bool) *_lowercaseProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -68,8 +63,6 @@ func (s *_lowercaseProcessor) IgnoreFailure(ignorefailure bool) *_lowercaseProce
 	return s
 }
 
-// If `true` and `field` does not exist or is `null`, the processor quietly
-// exits without modifying the document.
 func (s *_lowercaseProcessor) IgnoreMissing(ignoremissing bool) *_lowercaseProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -77,7 +70,6 @@ func (s *_lowercaseProcessor) IgnoreMissing(ignoremissing bool) *_lowercaseProce
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_lowercaseProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_lowercaseProcessor {
 
 	for _, v := range onfailures {
@@ -88,8 +80,6 @@ func (s *_lowercaseProcessor) OnFailure(onfailures ...types.ProcessorContainerVa
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_lowercaseProcessor) Tag(tag string) *_lowercaseProcessor {
 
 	s.v.Tag = &tag
@@ -97,8 +87,6 @@ func (s *_lowercaseProcessor) Tag(tag string) *_lowercaseProcessor {
 	return s
 }
 
-// The field to assign the converted value to.
-// By default, the field is updated in-place.
 func (s *_lowercaseProcessor) TargetField(field string) *_lowercaseProcessor {
 
 	s.v.TargetField = &field
