@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _zeroShotClassificationInferenceUpdateOptions struct {
 	v *types.ZeroShotClassificationInferenceUpdateOptions
@@ -33,7 +33,6 @@ func NewZeroShotClassificationInferenceUpdateOptions() *_zeroShotClassificationI
 
 }
 
-// The labels to predict.
 func (s *_zeroShotClassificationInferenceUpdateOptions) Labels(labels ...string) *_zeroShotClassificationInferenceUpdateOptions {
 
 	for _, v := range labels {
@@ -44,8 +43,6 @@ func (s *_zeroShotClassificationInferenceUpdateOptions) Labels(labels ...string)
 	return s
 }
 
-// Update the configured multi label option. Indicates if more than one true
-// label exists. Defaults to the configured value.
 func (s *_zeroShotClassificationInferenceUpdateOptions) MultiLabel(multilabel bool) *_zeroShotClassificationInferenceUpdateOptions {
 
 	s.v.MultiLabel = &multilabel
@@ -53,8 +50,6 @@ func (s *_zeroShotClassificationInferenceUpdateOptions) MultiLabel(multilabel bo
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_zeroShotClassificationInferenceUpdateOptions) ResultsField(resultsfield string) *_zeroShotClassificationInferenceUpdateOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -62,7 +57,6 @@ func (s *_zeroShotClassificationInferenceUpdateOptions) ResultsField(resultsfiel
 	return s
 }
 
-// The tokenization options to update when inferring
 func (s *_zeroShotClassificationInferenceUpdateOptions) Tokenization(tokenization types.NlpTokenizationUpdateOptionsVariant) *_zeroShotClassificationInferenceUpdateOptions {
 
 	s.v.Tokenization = tokenization.NlpTokenizationUpdateOptionsCaster()

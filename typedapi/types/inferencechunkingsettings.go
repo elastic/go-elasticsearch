@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -31,10 +31,8 @@ import (
 
 // InferenceChunkingSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/inference/_types/Services.ts#L60-L89
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/inference/_types/Services.ts#L60-L89
 type InferenceChunkingSettings struct {
-	// ChunkingSettings Chunking configuration object
-	ChunkingSettings *InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// MaxChunkSize The maximum size of a chunk in words.
 	// This value cannot be higher than `300` or lower than `20` (for `sentence`
 	// strategy) or `10` (for `word` strategy).
@@ -47,14 +45,8 @@ type InferenceChunkingSettings struct {
 	// It is applicable only for a `sentence` chunking strategy.
 	// It can be either `1` or `0`.
 	SentenceOverlap *int `json:"sentence_overlap,omitempty"`
-	// Service The service type
-	Service string `json:"service"`
-	// ServiceSettings Settings specific to the service
-	ServiceSettings json.RawMessage `json:"service_settings"`
 	// Strategy The chunking strategy: `sentence` or `word`.
 	Strategy *string `json:"strategy,omitempty"`
-	// TaskSettings Task settings specific to the service and task type
-	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 }
 
 func (s *InferenceChunkingSettings) UnmarshalJSON(data []byte) error {
@@ -71,11 +63,6 @@ func (s *InferenceChunkingSettings) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
-
-		case "chunking_settings":
-			if err := dec.Decode(&s.ChunkingSettings); err != nil {
-				return fmt.Errorf("%s | %w", "ChunkingSettings", err)
-			}
 
 		case "max_chunk_size":
 
@@ -125,23 +112,6 @@ func (s *InferenceChunkingSettings) UnmarshalJSON(data []byte) error {
 				s.SentenceOverlap = &f
 			}
 
-		case "service":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Service", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Service = o
-
-		case "service_settings":
-			if err := dec.Decode(&s.ServiceSettings); err != nil {
-				return fmt.Errorf("%s | %w", "ServiceSettings", err)
-			}
-
 		case "strategy":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -153,11 +123,6 @@ func (s *InferenceChunkingSettings) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Strategy = &o
-
-		case "task_settings":
-			if err := dec.Decode(&s.TaskSettings); err != nil {
-				return fmt.Errorf("%s | %w", "TaskSettings", err)
-			}
 
 		}
 	}

@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geoshaperelation"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/geoshaperelation"
 )
 
 type _geoShapeFieldQuery struct {
@@ -37,8 +37,6 @@ func NewGeoShapeFieldQuery() *_geoShapeFieldQuery {
 
 }
 
-// Query using an indexed shape retrieved from the the specified document and
-// path.
 func (s *_geoShapeFieldQuery) IndexedShape(indexedshape types.FieldLookupVariant) *_geoShapeFieldQuery {
 
 	s.v.IndexedShape = indexedshape.FieldLookupCaster()
@@ -46,7 +44,6 @@ func (s *_geoShapeFieldQuery) IndexedShape(indexedshape types.FieldLookupVariant
 	return s
 }
 
-// Spatial relation operator used to search a geo field.
 func (s *_geoShapeFieldQuery) Relation(relation geoshaperelation.GeoShapeRelation) *_geoShapeFieldQuery {
 
 	s.v.Relation = &relation

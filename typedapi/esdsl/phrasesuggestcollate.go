@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _phraseSuggestCollate struct {
@@ -40,7 +40,6 @@ func NewPhraseSuggestCollate(query types.PhraseSuggestCollateQueryVariant) *_phr
 
 }
 
-// Parameters to use if the query is templated.
 func (s *_phraseSuggestCollate) Params(params map[string]json.RawMessage) *_phraseSuggestCollate {
 
 	s.v.Params = params
@@ -62,8 +61,6 @@ func (s *_phraseSuggestCollate) AddParam(key string, value json.RawMessage) *_ph
 	return s
 }
 
-// Returns all suggestions with an extra `collate_match` option indicating
-// whether the generated phrase matched any document.
 func (s *_phraseSuggestCollate) Prune(prune bool) *_phraseSuggestCollate {
 
 	s.v.Prune = &prune
@@ -71,7 +68,6 @@ func (s *_phraseSuggestCollate) Prune(prune bool) *_phraseSuggestCollate {
 	return s
 }
 
-// A collate query that is run once for every suggestion.
 func (s *_phraseSuggestCollate) Query(query types.PhraseSuggestCollateQueryVariant) *_phraseSuggestCollate {
 
 	s.v.Query = *query.PhraseSuggestCollateQueryCaster()

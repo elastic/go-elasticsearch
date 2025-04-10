@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _spanFirstQuery struct {
 	v *types.SpanFirstQuery
@@ -39,11 +39,6 @@ func NewSpanFirstQuery(end int, match types.SpanQueryVariant) *_spanFirstQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_spanFirstQuery) Boost(boost float32) *_spanFirstQuery {
 
 	s.v.Boost = &boost
@@ -51,7 +46,6 @@ func (s *_spanFirstQuery) Boost(boost float32) *_spanFirstQuery {
 	return s
 }
 
-// Controls the maximum end position permitted in a match.
 func (s *_spanFirstQuery) End(end int) *_spanFirstQuery {
 
 	s.v.End = end
@@ -59,7 +53,6 @@ func (s *_spanFirstQuery) End(end int) *_spanFirstQuery {
 	return s
 }
 
-// Can be any other span type query.
 func (s *_spanFirstQuery) Match(match types.SpanQueryVariant) *_spanFirstQuery {
 
 	s.v.Match = *match.SpanQueryCaster()

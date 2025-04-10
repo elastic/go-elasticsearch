@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _userQueryContainer struct {
@@ -46,7 +46,6 @@ func (s *_userQueryContainer) AdditionalUserQueryContainerProperty(key string, v
 	return s
 }
 
-// matches users matching boolean combinations of other queries.
 func (s *_userQueryContainer) Bool(bool types.BoolQueryVariant) *_userQueryContainer {
 
 	s.v.Bool = bool.BoolQueryCaster()
@@ -54,7 +53,6 @@ func (s *_userQueryContainer) Bool(bool types.BoolQueryVariant) *_userQueryConta
 	return s
 }
 
-// Returns users that contain an indexed value for a field.
 func (s *_userQueryContainer) Exists(exists types.ExistsQueryVariant) *_userQueryContainer {
 
 	s.v.Exists = exists.ExistsQueryCaster()
@@ -62,8 +60,6 @@ func (s *_userQueryContainer) Exists(exists types.ExistsQueryVariant) *_userQuer
 	return s
 }
 
-// Returns users based on their IDs.
-// This query uses the user document IDs stored in the `_id` field.
 func (s *_userQueryContainer) Ids(ids types.IdsQueryVariant) *_userQueryContainer {
 
 	s.v.Ids = ids.IdsQueryCaster()
@@ -71,8 +67,6 @@ func (s *_userQueryContainer) Ids(ids types.IdsQueryVariant) *_userQueryContaine
 	return s
 }
 
-// Returns users that match a provided text, number, date or boolean value.
-// The provided text is analyzed before matching.
 // Match is a single key dictionnary.
 // It will replace the current value on each call.
 func (s *_userQueryContainer) Match(key string, value types.MatchQueryVariant) *_userQueryContainer {
@@ -85,7 +79,6 @@ func (s *_userQueryContainer) Match(key string, value types.MatchQueryVariant) *
 	return s
 }
 
-// Matches all users, giving them all a `_score` of 1.0.
 func (s *_userQueryContainer) MatchAll(matchall types.MatchAllQueryVariant) *_userQueryContainer {
 
 	s.v.MatchAll = matchall.MatchAllQueryCaster()
@@ -93,7 +86,6 @@ func (s *_userQueryContainer) MatchAll(matchall types.MatchAllQueryVariant) *_us
 	return s
 }
 
-// Returns users that contain a specific prefix in a provided field.
 // Prefix is a single key dictionnary.
 // It will replace the current value on each call.
 func (s *_userQueryContainer) Prefix(key string, value types.PrefixQueryVariant) *_userQueryContainer {
@@ -106,7 +98,6 @@ func (s *_userQueryContainer) Prefix(key string, value types.PrefixQueryVariant)
 	return s
 }
 
-// Returns users that contain terms within a provided range.
 // Range is a single key dictionnary.
 // It will replace the current value on each call.
 func (s *_userQueryContainer) Range(key string, value types.RangeQueryVariant) *_userQueryContainer {
@@ -119,8 +110,6 @@ func (s *_userQueryContainer) Range(key string, value types.RangeQueryVariant) *
 	return s
 }
 
-// Returns users based on a provided query string, using a parser with a limited
-// but fault-tolerant syntax.
 func (s *_userQueryContainer) SimpleQueryString(simplequerystring types.SimpleQueryStringQueryVariant) *_userQueryContainer {
 
 	s.v.SimpleQueryString = simplequerystring.SimpleQueryStringQueryCaster()
@@ -128,9 +117,6 @@ func (s *_userQueryContainer) SimpleQueryString(simplequerystring types.SimpleQu
 	return s
 }
 
-// Returns users that contain an exact term in a provided field.
-// To return a document, the query term must exactly match the queried field's
-// value, including whitespace and capitalization.
 // Term is a single key dictionnary.
 // It will replace the current value on each call.
 func (s *_userQueryContainer) Term(key string, value types.TermQueryVariant) *_userQueryContainer {
@@ -143,9 +129,6 @@ func (s *_userQueryContainer) Term(key string, value types.TermQueryVariant) *_u
 	return s
 }
 
-// Returns users that contain one or more exact terms in a provided field.
-// To return a document, one or more terms must exactly match a field value,
-// including whitespace and capitalization.
 func (s *_userQueryContainer) Terms(terms types.TermsQueryVariant) *_userQueryContainer {
 
 	s.v.Terms = terms.TermsQueryCaster()
@@ -153,7 +136,6 @@ func (s *_userQueryContainer) Terms(terms types.TermsQueryVariant) *_userQueryCo
 	return s
 }
 
-// Returns users that contain terms matching a wildcard pattern.
 // Wildcard is a single key dictionnary.
 // It will replace the current value on each call.
 func (s *_userQueryContainer) Wildcard(key string, value types.WildcardQueryVariant) *_userQueryContainer {

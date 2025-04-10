@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 // Create or update a document in an index.
 //
@@ -232,10 +232,10 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/optype"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/optype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/refresh"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/versiontype"
 )
 
 const (
@@ -610,12 +610,12 @@ func (r *Index) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.raw != nil {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
 		}
 	}
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {

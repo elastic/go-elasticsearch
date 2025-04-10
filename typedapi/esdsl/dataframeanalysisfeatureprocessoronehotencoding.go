@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dataframeAnalysisFeatureProcessorOneHotEncoding struct {
 	v *types.DataframeAnalysisFeatureProcessorOneHotEncoding
@@ -37,7 +37,6 @@ func NewDataframeAnalysisFeatureProcessorOneHotEncoding(hotmap string) *_datafra
 
 }
 
-// The name of the field to encode.
 func (s *_dataframeAnalysisFeatureProcessorOneHotEncoding) Field(field string) *_dataframeAnalysisFeatureProcessorOneHotEncoding {
 
 	s.v.Field = field
@@ -45,7 +44,6 @@ func (s *_dataframeAnalysisFeatureProcessorOneHotEncoding) Field(field string) *
 	return s
 }
 
-// The one hot map mapping the field value with the column name.
 func (s *_dataframeAnalysisFeatureProcessorOneHotEncoding) HotMap(hotmap string) *_dataframeAnalysisFeatureProcessorOneHotEncoding {
 
 	s.v.HotMap = hotmap

@@ -22,7 +22,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
+	"github.com/elastic/go-elasticsearch/v9/internal/build/cmd"
 	"io"
 	"io/ioutil"
 	"os"
@@ -34,7 +34,7 @@ import (
 	"github.com/spf13/cobra"
 	"golang.org/x/tools/imports"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/elastic/go-elasticsearch/v9/internal/build/utils"
 )
 
 var (
@@ -110,7 +110,6 @@ var genexamplesDocCmd = &cobra.Command{
 }
 
 // SrcCommand represents the command for generating Go source code.
-//
 type SrcCommand struct {
 	Input          string
 	Output         string
@@ -120,7 +119,6 @@ type SrcCommand struct {
 }
 
 // DocCommand represents the command for generating ASCIIDoc examples.
-//
 type DocCommand struct {
 	Input       string
 	Output      string
@@ -128,7 +126,6 @@ type DocCommand struct {
 }
 
 // Execute runs the command.
-//
 func (cmd *SrcCommand) Execute() error {
 	var (
 		processed  int
@@ -316,7 +313,6 @@ func (cmd *SrcCommand) processExample(e Example) error {
 }
 
 // Execute runs the command.
-//
 func (cmd *DocCommand) Execute() error {
 	var (
 		processed int

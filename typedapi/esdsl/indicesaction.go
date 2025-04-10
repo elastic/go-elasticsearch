@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _indicesAction struct {
@@ -34,8 +34,6 @@ func NewIndicesAction() *_indicesAction {
 	return &_indicesAction{v: types.NewIndicesAction()}
 }
 
-// Adds a data stream or index to an alias.
-// If the alias doesn’t exist, the `add` action creates it.
 func (s *_indicesAction) Add(add types.AddActionVariant) *_indicesAction {
 
 	s.v.Add = add.AddActionCaster()
@@ -55,7 +53,6 @@ func (s *_indicesAction) AdditionalIndicesActionProperty(key string, value json.
 	return s
 }
 
-// Removes a data stream or index from an alias.
 func (s *_indicesAction) Remove(remove types.RemoveActionVariant) *_indicesAction {
 
 	s.v.Remove = remove.RemoveActionCaster()
@@ -63,8 +60,6 @@ func (s *_indicesAction) Remove(remove types.RemoveActionVariant) *_indicesActio
 	return s
 }
 
-// Deletes an index.
-// You cannot use this action on aliases or data streams.
 func (s *_indicesAction) RemoveIndex(removeindex types.RemoveIndexActionVariant) *_indicesAction {
 
 	s.v.RemoveIndex = removeindex.RemoveIndexActionCaster()

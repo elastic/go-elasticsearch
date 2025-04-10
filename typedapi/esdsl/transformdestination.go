@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _transformDestination struct {
 	v *types.TransformDestination
@@ -32,11 +32,6 @@ func NewTransformDestination() *_transformDestination {
 
 }
 
-// The destination index for the transform. The mappings of the destination
-// index are deduced based on the source
-// fields when possible. If alternate mappings are required, use the create
-// index API prior to starting the
-// transform.
 func (s *_transformDestination) Index(indexname string) *_transformDestination {
 
 	s.v.Index = &indexname
@@ -44,7 +39,6 @@ func (s *_transformDestination) Index(indexname string) *_transformDestination {
 	return s
 }
 
-// The unique identifier for an ingest pipeline.
 func (s *_transformDestination) Pipeline(pipeline string) *_transformDestination {
 
 	s.v.Pipeline = &pipeline

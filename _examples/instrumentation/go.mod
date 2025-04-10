@@ -1,14 +1,14 @@
-module github.com/elastic/go-elasticsearch/v8/_examples/instrumentation/opencensus
+module github.com/elastic/go-elasticsearch/v9/_examples/instrumentation/opencensus
 
-go 1.22
+go 1.23
 
-toolchain go1.22.0
+toolchain go1.24.2
 
-replace github.com/elastic/go-elasticsearch/v8 => ../..
+replace github.com/elastic/go-elasticsearch/v9 => ../..
 
 require (
 	github.com/elastic/elastic-transport-go/v8 v8.6.1
-	github.com/elastic/go-elasticsearch/v8 v8.0.0-20191002063538-b491ce54d752
+	github.com/elastic/go-elasticsearch/v9 v9.0.0-00010101000000-000000000000
 	github.com/fatih/color v1.7.0
 	go.elastic.co/apm v1.11.0
 	go.elastic.co/apm/module/apmelasticsearch v1.5.0
@@ -30,9 +30,10 @@ require (
 	github.com/santhosh-tekuri/jsonschema v1.2.4 // indirect
 	go.elastic.co/apm/module/apmhttp v1.5.0 // indirect
 	go.elastic.co/fastjson v1.1.0 // indirect
-	go.opentelemetry.io/otel v1.28.0 // indirect
-	go.opentelemetry.io/otel/metric v1.28.0 // indirect
-	go.opentelemetry.io/otel/trace v1.28.0 // indirect
+	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
+	go.opentelemetry.io/otel v1.35.0 // indirect
+	go.opentelemetry.io/otel/metric v1.35.0 // indirect
+	go.opentelemetry.io/otel/trace v1.35.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/term v0.27.0 // indirect
 	howett.net/plist v0.0.0-20181124034731-591f970eefbb // indirect

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _nerInferenceUpdateOptions struct {
 	v *types.NerInferenceUpdateOptions
@@ -33,8 +33,6 @@ func NewNerInferenceUpdateOptions() *_nerInferenceUpdateOptions {
 
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_nerInferenceUpdateOptions) ResultsField(resultsfield string) *_nerInferenceUpdateOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -42,7 +40,6 @@ func (s *_nerInferenceUpdateOptions) ResultsField(resultsfield string) *_nerInfe
 	return s
 }
 
-// The tokenization options to update when inferring
 func (s *_nerInferenceUpdateOptions) Tokenization(tokenization types.NlpTokenizationUpdateOptionsVariant) *_nerInferenceUpdateOptions {
 
 	s.v.Tokenization = tokenization.NlpTokenizationUpdateOptionsCaster()

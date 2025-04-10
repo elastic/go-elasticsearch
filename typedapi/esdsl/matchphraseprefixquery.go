@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/zerotermsquery"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/zerotermsquery"
 )
 
 type _matchPhrasePrefixQuery struct {
@@ -44,7 +44,6 @@ func NewMatchPhrasePrefixQuery(field string, query string) *_matchPhrasePrefixQu
 	return tmp
 }
 
-// Analyzer used to convert text in the query value into tokens.
 func (s *_matchPhrasePrefixQuery) Analyzer(analyzer string) *_matchPhrasePrefixQuery {
 
 	s.v.Analyzer = &analyzer
@@ -52,11 +51,6 @@ func (s *_matchPhrasePrefixQuery) Analyzer(analyzer string) *_matchPhrasePrefixQ
 	return s
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_matchPhrasePrefixQuery) Boost(boost float32) *_matchPhrasePrefixQuery {
 
 	s.v.Boost = &boost
@@ -64,8 +58,6 @@ func (s *_matchPhrasePrefixQuery) Boost(boost float32) *_matchPhrasePrefixQuery 
 	return s
 }
 
-// Maximum number of terms to which the last provided term of the query value
-// will expand.
 func (s *_matchPhrasePrefixQuery) MaxExpansions(maxexpansions int) *_matchPhrasePrefixQuery {
 
 	s.v.MaxExpansions = &maxexpansions
@@ -73,7 +65,6 @@ func (s *_matchPhrasePrefixQuery) MaxExpansions(maxexpansions int) *_matchPhrase
 	return s
 }
 
-// Text you wish to find in the provided field.
 func (s *_matchPhrasePrefixQuery) Query(query string) *_matchPhrasePrefixQuery {
 
 	s.v.Query = query
@@ -88,7 +79,6 @@ func (s *_matchPhrasePrefixQuery) QueryName_(queryname_ string) *_matchPhrasePre
 	return s
 }
 
-// Maximum number of positions allowed between matching tokens.
 func (s *_matchPhrasePrefixQuery) Slop(slop int) *_matchPhrasePrefixQuery {
 
 	s.v.Slop = &slop
@@ -96,8 +86,6 @@ func (s *_matchPhrasePrefixQuery) Slop(slop int) *_matchPhrasePrefixQuery {
 	return s
 }
 
-// Indicates whether no documents are returned if the analyzer removes all
-// tokens, such as when using a `stop` filter.
 func (s *_matchPhrasePrefixQuery) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *_matchPhrasePrefixQuery {
 
 	s.v.ZeroTermsQuery = &zerotermsquery

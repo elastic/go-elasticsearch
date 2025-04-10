@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geoshaperelation"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/geoshaperelation"
 )
 
 type _shapeFieldQuery struct {
@@ -37,7 +37,6 @@ func NewShapeFieldQuery() *_shapeFieldQuery {
 
 }
 
-// Queries using a pre-indexed shape.
 func (s *_shapeFieldQuery) IndexedShape(indexedshape types.FieldLookupVariant) *_shapeFieldQuery {
 
 	s.v.IndexedShape = indexedshape.FieldLookupCaster()
@@ -45,15 +44,12 @@ func (s *_shapeFieldQuery) IndexedShape(indexedshape types.FieldLookupVariant) *
 	return s
 }
 
-// Spatial relation between the query shape and the document shape.
 func (s *_shapeFieldQuery) Relation(relation geoshaperelation.GeoShapeRelation) *_shapeFieldQuery {
 
 	s.v.Relation = &relation
 	return s
 }
 
-// Queries using an inline shape definition in GeoJSON or Well Known Text (WKT)
-// format.
 func (s *_shapeFieldQuery) Shape(geoshape json.RawMessage) *_shapeFieldQuery {
 
 	s.v.Shape = geoshape

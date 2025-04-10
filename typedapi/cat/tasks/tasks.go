@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 // Get task information.
 //
@@ -38,8 +38,8 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -135,7 +135,7 @@ func (r *Tasks) HttpRequest(ctx context.Context) (*http.Request, error) {
 	req.Header = r.headers.Clone()
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {

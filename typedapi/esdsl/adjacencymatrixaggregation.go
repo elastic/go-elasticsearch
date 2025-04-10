@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _adjacencyMatrixAggregation struct {
 	v *types.AdjacencyMatrixAggregation
@@ -37,8 +37,6 @@ func NewAdjacencyMatrixAggregation() *_adjacencyMatrixAggregation {
 
 }
 
-// Filters used to create buckets.
-// At least one filter is required.
 func (s *_adjacencyMatrixAggregation) Filters(filters map[string]types.Query) *_adjacencyMatrixAggregation {
 
 	s.v.Filters = filters
@@ -60,7 +58,6 @@ func (s *_adjacencyMatrixAggregation) AddFilter(key string, value types.QueryVar
 	return s
 }
 
-// Separator used to concatenate filter names. Defaults to &.
 func (s *_adjacencyMatrixAggregation) Separator(separator string) *_adjacencyMatrixAggregation {
 
 	s.v.Separator = &separator

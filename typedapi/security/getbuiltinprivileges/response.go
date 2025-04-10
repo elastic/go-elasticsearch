@@ -16,18 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package getbuiltinprivileges
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/clusterprivilege"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/remoteclusterprivilege"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/clusterprivilege"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/remoteclusterprivilege"
 )
 
 // Response holds the response body struct for the package getbuiltinprivileges
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/get_builtin_privileges/SecurityGetBuiltinPrivilegesResponse.ts#L26-L42
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/security/get_builtin_privileges/SecurityGetBuiltinPrivilegesResponse.ts#L26-L42
 type Response struct {
 
 	// Cluster The list of cluster privileges that are understood by this version of

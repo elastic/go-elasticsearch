@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package rollover
 
 // Response holds the response body struct for the package rollover
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/rollover/IndicesRolloverResponse.ts#L22-L32
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/indices/rollover/IndicesRolloverResponse.ts#L22-L32
 type Response struct {
 	Acknowledged       bool            `json:"acknowledged"`
 	Conditions         map[string]bool `json:"conditions"`

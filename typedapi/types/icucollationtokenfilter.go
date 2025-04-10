@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -28,15 +28,15 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationalternate"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationcasefirst"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationdecomposition"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationstrength"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/icucollationalternate"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/icucollationcasefirst"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/icucollationdecomposition"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/icucollationstrength"
 )
 
 // IcuCollationTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/analysis/icu-plugin.ts#L51-L65
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/_types/analysis/icu-plugin.ts#L51-L65
 type IcuCollationTokenFilter struct {
 	Alternate              *icucollationalternate.IcuCollationAlternate         `json:"alternate,omitempty"`
 	CaseFirst              *icucollationcasefirst.IcuCollationCaseFirst         `json:"case_first,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -28,12 +28,12 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/actionstatusoptions"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/actionstatusoptions"
 )
 
 // PipelineSimulation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ingest/_types/Simulation.ts#L52-L60
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/ingest/_types/Simulation.ts#L52-L60
 type PipelineSimulation struct {
 	Description   *string                                  `json:"description,omitempty"`
 	Doc           *DocumentSimulation                      `json:"doc,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -28,12 +28,12 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/densevectorindexoptionstype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/densevectorindexoptionstype"
 )
 
 // DenseVectorIndexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/mapping/DenseVectorProperty.ts#L129-L162
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/_types/mapping/DenseVectorProperty.ts#L129-L166
 type DenseVectorIndexOptions struct {
 	// ConfidenceInterval The confidence interval to use when quantizing the vectors. Can be any value
 	// between and including `0.90` and
@@ -56,12 +56,18 @@ type DenseVectorIndexOptions struct {
 	// EfConstruction The number of candidates to track while assembling the list of nearest
 	// neighbors for each new node.
 	//
-	// Only applicable to `hnsw`, `int8_hnsw`, and `int4_hnsw` index types.
+	// Only applicable to `hnsw`, `int8_hnsw`, `bbq_hnsw`, and `int4_hnsw` index
+	// types.
 	EfConstruction *int `json:"ef_construction,omitempty"`
 	// M The number of neighbors each node will be connected to in the HNSW graph.
 	//
-	// Only applicable to `hnsw`, `int8_hnsw`, and `int4_hnsw` index types.
+	// Only applicable to `hnsw`, `int8_hnsw`, `bbq_hnsw`, and `int4_hnsw` index
+	// types.
 	M *int `json:"m,omitempty"`
+	// RescoreVector The rescore vector options. This is only applicable to `bbq_hnsw`,
+	// `int4_hnsw`, `int8_hnsw`, `bbq_flat`, `int4_flat`, and `int8_flat` index
+	// types.
+	RescoreVector *DenseVectorIndexOptionsRescoreVector `json:"rescore_vector,omitempty"`
 	// Type The type of kNN algorithm to use.
 	Type densevectorindexoptionstype.DenseVectorIndexOptionsType `json:"type"`
 }
@@ -127,6 +133,11 @@ func (s *DenseVectorIndexOptions) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int(v)
 				s.M = &f
+			}
+
+		case "rescore_vector":
+			if err := dec.Decode(&s.RescoreVector); err != nil {
+				return fmt.Errorf("%s | %w", "RescoreVector", err)
 			}
 
 		case "type":

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gappolicy"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/gappolicy"
 )
 
 type _movingFunctionAggregation struct {
@@ -39,7 +39,6 @@ func NewMovingFunctionAggregation() *_movingFunctionAggregation {
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_movingFunctionAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_movingFunctionAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -47,9 +46,6 @@ func (s *_movingFunctionAggregation) BucketsPath(bucketspath types.BucketsPathVa
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_movingFunctionAggregation) Format(format string) *_movingFunctionAggregation {
 
 	s.v.Format = &format
@@ -57,14 +53,12 @@ func (s *_movingFunctionAggregation) Format(format string) *_movingFunctionAggre
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_movingFunctionAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_movingFunctionAggregation {
 
 	s.v.GapPolicy = &gappolicy
 	return s
 }
 
-// The script that should be executed on each window of data.
 func (s *_movingFunctionAggregation) Script(script string) *_movingFunctionAggregation {
 
 	s.v.Script = &script
@@ -72,10 +66,6 @@ func (s *_movingFunctionAggregation) Script(script string) *_movingFunctionAggre
 	return s
 }
 
-// By default, the window consists of the last n values excluding the current
-// bucket.
-// Increasing `shift` by 1, moves the starting window position by 1 to the
-// right.
 func (s *_movingFunctionAggregation) Shift(shift int) *_movingFunctionAggregation {
 
 	s.v.Shift = &shift
@@ -83,7 +73,6 @@ func (s *_movingFunctionAggregation) Shift(shift int) *_movingFunctionAggregatio
 	return s
 }
 
-// The size of window to "slide" across the histogram.
 func (s *_movingFunctionAggregation) Window(window int) *_movingFunctionAggregation {
 
 	s.v.Window = &window

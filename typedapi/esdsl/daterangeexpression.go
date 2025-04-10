@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dateRangeExpression struct {
 	v *types.DateRangeExpression
@@ -32,7 +32,6 @@ func NewDateRangeExpression() *_dateRangeExpression {
 
 }
 
-// Start of the range (inclusive).
 func (s *_dateRangeExpression) From(fielddatemath types.FieldDateMathVariant) *_dateRangeExpression {
 
 	s.v.From = *fielddatemath.FieldDateMathCaster()
@@ -40,7 +39,6 @@ func (s *_dateRangeExpression) From(fielddatemath types.FieldDateMathVariant) *_
 	return s
 }
 
-// Custom key to return the range with.
 func (s *_dateRangeExpression) Key(key string) *_dateRangeExpression {
 
 	s.v.Key = &key
@@ -48,7 +46,6 @@ func (s *_dateRangeExpression) Key(key string) *_dateRangeExpression {
 	return s
 }
 
-// End of the range (exclusive).
 func (s *_dateRangeExpression) To(fielddatemath types.FieldDateMathVariant) *_dateRangeExpression {
 
 	s.v.To = *fielddatemath.FieldDateMathCaster()

@@ -32,10 +32,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi"
+	"github.com/elastic/go-elasticsearch/v9/typedapi"
 
-	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/go-elasticsearch/v8/internal/version"
+	"github.com/elastic/go-elasticsearch/v9/esapi"
+	"github.com/elastic/go-elasticsearch/v9/internal/version"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	tpversion "github.com/elastic/elastic-transport-go/v8/elastictransport/version"
@@ -52,7 +52,7 @@ const (
 	// each request to Elasticsearch.
 	HeaderClientMeta = "x-elastic-client-meta"
 
-	compatibilityHeader = "application/vnd.elasticsearch+json;compatible-with=8"
+	compatibilityHeader = "application/vnd.elasticsearch+json;compatible-with=9"
 )
 
 var (

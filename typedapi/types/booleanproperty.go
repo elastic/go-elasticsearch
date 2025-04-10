@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -28,29 +28,36 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/syntheticsourcekeepenum"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/onscripterror"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
 )
 
 // BooleanProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/mapping/core.ts#L58-L64
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/_types/mapping/core.ts#L58-L73
 type BooleanProperty struct {
-	Boost       *Float64                       `json:"boost,omitempty"`
-	CopyTo      []string                       `json:"copy_to,omitempty"`
-	DocValues   *bool                          `json:"doc_values,omitempty"`
-	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fielddata   *NumericFielddata              `json:"fielddata,omitempty"`
-	Fields      map[string]Property            `json:"fields,omitempty"`
-	IgnoreAbove *int                           `json:"ignore_above,omitempty"`
-	Index       *bool                          `json:"index,omitempty"`
+	Boost           *Float64                       `json:"boost,omitempty"`
+	CopyTo          []string                       `json:"copy_to,omitempty"`
+	DocValues       *bool                          `json:"doc_values,omitempty"`
+	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	Fielddata       *NumericFielddata              `json:"fielddata,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
+	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
+	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
+	Index           *bool                          `json:"index,omitempty"`
 	// Meta Metadata about the field.
 	Meta                map[string]string                                `json:"meta,omitempty"`
 	NullValue           *bool                                            `json:"null_value,omitempty"`
+	OnScriptError       *onscripterror.OnScriptError                     `json:"on_script_error,omitempty"`
 	Properties          map[string]Property                              `json:"properties,omitempty"`
+	Script              *Script                                          `json:"script,omitempty"`
 	Store               *bool                                            `json:"store,omitempty"`
 	SyntheticSourceKeep *syntheticsourcekeepenum.SyntheticSourceKeepEnum `json:"synthetic_source_keep,omitempty"`
-	Type                string                                           `json:"type,omitempty"`
+	// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
+	// Defaults to false.
+	TimeSeriesDimension *bool  `json:"time_series_dimension,omitempty"`
+	Type                string `json:"type,omitempty"`
 }
 
 func (s *BooleanProperty) UnmarshalJSON(data []byte) error {
@@ -471,6 +478,20 @@ func (s *BooleanProperty) UnmarshalJSON(data []byte) error {
 				s.IgnoreAbove = &f
 			}
 
+		case "ignore_malformed":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IgnoreMalformed", err)
+				}
+				s.IgnoreMalformed = &value
+			case bool:
+				s.IgnoreMalformed = &v
+			}
+
 		case "index":
 			var tmp any
 			dec.Decode(&tmp)
@@ -505,6 +526,11 @@ func (s *BooleanProperty) UnmarshalJSON(data []byte) error {
 				s.NullValue = &value
 			case bool:
 				s.NullValue = &v
+			}
+
+		case "on_script_error":
+			if err := dec.Decode(&s.OnScriptError); err != nil {
+				return fmt.Errorf("%s | %w", "OnScriptError", err)
 			}
 
 		case "properties":
@@ -838,6 +864,11 @@ func (s *BooleanProperty) UnmarshalJSON(data []byte) error {
 				}
 			}
 
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return fmt.Errorf("%s | %w", "Script", err)
+			}
+
 		case "store":
 			var tmp any
 			dec.Decode(&tmp)
@@ -855,6 +886,20 @@ func (s *BooleanProperty) UnmarshalJSON(data []byte) error {
 		case "synthetic_source_keep":
 			if err := dec.Decode(&s.SyntheticSourceKeep); err != nil {
 				return fmt.Errorf("%s | %w", "SyntheticSourceKeep", err)
+			}
+
+		case "time_series_dimension":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "TimeSeriesDimension", err)
+				}
+				s.TimeSeriesDimension = &value
+			case bool:
+				s.TimeSeriesDimension = &v
 			}
 
 		case "type":
@@ -878,12 +923,16 @@ func (s BooleanProperty) MarshalJSON() ([]byte, error) {
 		Fielddata:           s.Fielddata,
 		Fields:              s.Fields,
 		IgnoreAbove:         s.IgnoreAbove,
+		IgnoreMalformed:     s.IgnoreMalformed,
 		Index:               s.Index,
 		Meta:                s.Meta,
 		NullValue:           s.NullValue,
+		OnScriptError:       s.OnScriptError,
 		Properties:          s.Properties,
+		Script:              s.Script,
 		Store:               s.Store,
 		SyntheticSourceKeep: s.SyntheticSourceKeep,
+		TimeSeriesDimension: s.TimeSeriesDimension,
 		Type:                s.Type,
 	}
 

@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/textquerytype"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/zerotermsquery"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/operator"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/textquerytype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/zerotermsquery"
 )
 
 type _multiMatchQuery struct {
@@ -44,7 +44,6 @@ func NewMultiMatchQuery(query string) *_multiMatchQuery {
 
 }
 
-// Analyzer used to convert the text in the query value into tokens.
 func (s *_multiMatchQuery) Analyzer(analyzer string) *_multiMatchQuery {
 
 	s.v.Analyzer = &analyzer
@@ -52,8 +51,6 @@ func (s *_multiMatchQuery) Analyzer(analyzer string) *_multiMatchQuery {
 	return s
 }
 
-// If `true`, match phrase queries are automatically created for multi-term
-// synonyms.
 func (s *_multiMatchQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsphrasequery bool) *_multiMatchQuery {
 
 	s.v.AutoGenerateSynonymsPhraseQuery = &autogeneratesynonymsphrasequery
@@ -61,11 +58,6 @@ func (s *_multiMatchQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsp
 	return s
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_multiMatchQuery) Boost(boost float32) *_multiMatchQuery {
 
 	s.v.Boost = &boost
@@ -80,9 +72,6 @@ func (s *_multiMatchQuery) CutoffFrequency(cutofffrequency types.Float64) *_mult
 	return s
 }
 
-// The fields to be queried.
-// Defaults to the `index.query.default_field` index settings, which in turn
-// defaults to `*`.
 func (s *_multiMatchQuery) Fields(fields ...string) *_multiMatchQuery {
 
 	s.v.Fields = fields
@@ -90,7 +79,6 @@ func (s *_multiMatchQuery) Fields(fields ...string) *_multiMatchQuery {
 	return s
 }
 
-// Maximum edit distance allowed for matching.
 func (s *_multiMatchQuery) Fuzziness(fuzziness types.FuzzinessVariant) *_multiMatchQuery {
 
 	s.v.Fuzziness = *fuzziness.FuzzinessCaster()
@@ -98,7 +86,6 @@ func (s *_multiMatchQuery) Fuzziness(fuzziness types.FuzzinessVariant) *_multiMa
 	return s
 }
 
-// Method used to rewrite the query.
 func (s *_multiMatchQuery) FuzzyRewrite(multitermqueryrewrite string) *_multiMatchQuery {
 
 	s.v.FuzzyRewrite = &multitermqueryrewrite
@@ -106,10 +93,6 @@ func (s *_multiMatchQuery) FuzzyRewrite(multitermqueryrewrite string) *_multiMat
 	return s
 }
 
-// If `true`, edits for fuzzy matching include transpositions of two adjacent
-// characters (for example, `ab` to `ba`).
-// Can be applied to the term subqueries constructed for all terms but the final
-// term.
 func (s *_multiMatchQuery) FuzzyTranspositions(fuzzytranspositions bool) *_multiMatchQuery {
 
 	s.v.FuzzyTranspositions = &fuzzytranspositions
@@ -117,8 +100,6 @@ func (s *_multiMatchQuery) FuzzyTranspositions(fuzzytranspositions bool) *_multi
 	return s
 }
 
-// If `true`, format-based errors, such as providing a text query value for a
-// numeric field, are ignored.
 func (s *_multiMatchQuery) Lenient(lenient bool) *_multiMatchQuery {
 
 	s.v.Lenient = &lenient
@@ -126,7 +107,6 @@ func (s *_multiMatchQuery) Lenient(lenient bool) *_multiMatchQuery {
 	return s
 }
 
-// Maximum number of terms to which the query will expand.
 func (s *_multiMatchQuery) MaxExpansions(maxexpansions int) *_multiMatchQuery {
 
 	s.v.MaxExpansions = &maxexpansions
@@ -134,7 +114,6 @@ func (s *_multiMatchQuery) MaxExpansions(maxexpansions int) *_multiMatchQuery {
 	return s
 }
 
-// Minimum number of clauses that must match for a document to be returned.
 func (s *_multiMatchQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumShouldMatchVariant) *_multiMatchQuery {
 
 	s.v.MinimumShouldMatch = *minimumshouldmatch.MinimumShouldMatchCaster()
@@ -142,14 +121,12 @@ func (s *_multiMatchQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumSh
 	return s
 }
 
-// Boolean logic used to interpret text in the query value.
 func (s *_multiMatchQuery) Operator(operator operator.Operator) *_multiMatchQuery {
 
 	s.v.Operator = &operator
 	return s
 }
 
-// Number of beginning characters left unchanged for fuzzy matching.
 func (s *_multiMatchQuery) PrefixLength(prefixlength int) *_multiMatchQuery {
 
 	s.v.PrefixLength = &prefixlength
@@ -157,7 +134,6 @@ func (s *_multiMatchQuery) PrefixLength(prefixlength int) *_multiMatchQuery {
 	return s
 }
 
-// Text, number, boolean value or date you wish to find in the provided field.
 func (s *_multiMatchQuery) Query(query string) *_multiMatchQuery {
 
 	s.v.Query = query
@@ -172,7 +148,6 @@ func (s *_multiMatchQuery) QueryName_(queryname_ string) *_multiMatchQuery {
 	return s
 }
 
-// Maximum number of positions allowed between matching tokens.
 func (s *_multiMatchQuery) Slop(slop int) *_multiMatchQuery {
 
 	s.v.Slop = &slop
@@ -180,8 +155,6 @@ func (s *_multiMatchQuery) Slop(slop int) *_multiMatchQuery {
 	return s
 }
 
-// Determines how scores for each per-term blended query and scores across
-// groups are combined.
 func (s *_multiMatchQuery) TieBreaker(tiebreaker types.Float64) *_multiMatchQuery {
 
 	s.v.TieBreaker = &tiebreaker
@@ -189,15 +162,12 @@ func (s *_multiMatchQuery) TieBreaker(tiebreaker types.Float64) *_multiMatchQuer
 	return s
 }
 
-// How `the` multi_match query is executed internally.
 func (s *_multiMatchQuery) Type(type_ textquerytype.TextQueryType) *_multiMatchQuery {
 
 	s.v.Type = &type_
 	return s
 }
 
-// Indicates whether no documents are returned if the `analyzer` removes all
-// tokens, such as when using a `stop` filter.
 func (s *_multiMatchQuery) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *_multiMatchQuery {
 
 	s.v.ZeroTermsQuery = &zerotermsquery

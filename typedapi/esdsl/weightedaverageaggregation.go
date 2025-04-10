@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/valuetype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/valuetype"
 )
 
 type _weightedAverageAggregation struct {
@@ -37,7 +37,6 @@ func NewWeightedAverageAggregation() *_weightedAverageAggregation {
 
 }
 
-// A numeric response formatter.
 func (s *_weightedAverageAggregation) Format(format string) *_weightedAverageAggregation {
 
 	s.v.Format = &format
@@ -45,7 +44,6 @@ func (s *_weightedAverageAggregation) Format(format string) *_weightedAverageAgg
 	return s
 }
 
-// Configuration for the field that provides the values.
 func (s *_weightedAverageAggregation) Value(value types.WeightedAverageValueVariant) *_weightedAverageAggregation {
 
 	s.v.Value = value.WeightedAverageValueCaster()
@@ -59,7 +57,6 @@ func (s *_weightedAverageAggregation) ValueType(valuetype valuetype.ValueType) *
 	return s
 }
 
-// Configuration for the field or script that provides the weights.
 func (s *_weightedAverageAggregation) Weight(weight types.WeightedAverageValueVariant) *_weightedAverageAggregation {
 
 	s.v.Weight = weight.WeightedAverageValueCaster()

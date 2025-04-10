@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DanglingIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/dangling_indices/list_dangling_indices/ListDanglingIndicesResponse.ts#L29-L34
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/dangling_indices/list_dangling_indices/ListDanglingIndicesResponse.ts#L29-L34
 type DanglingIndex struct {
 	CreationDateMillis int64    `json:"creation_date_millis"`
 	IndexName          string   `json:"index_name"`

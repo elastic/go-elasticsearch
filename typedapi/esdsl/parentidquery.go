@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _parentIdQuery struct {
 	v *types.ParentIdQuery
@@ -33,11 +33,6 @@ func NewParentIdQuery() *_parentIdQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_parentIdQuery) Boost(boost float32) *_parentIdQuery {
 
 	s.v.Boost = &boost
@@ -45,7 +40,6 @@ func (s *_parentIdQuery) Boost(boost float32) *_parentIdQuery {
 	return s
 }
 
-// ID of the parent document.
 func (s *_parentIdQuery) Id(id string) *_parentIdQuery {
 
 	s.v.Id = &id
@@ -53,8 +47,6 @@ func (s *_parentIdQuery) Id(id string) *_parentIdQuery {
 	return s
 }
 
-// Indicates whether to ignore an unmapped `type` and not return any documents
-// instead of an error.
 func (s *_parentIdQuery) IgnoreUnmapped(ignoreunmapped bool) *_parentIdQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped
@@ -69,7 +61,6 @@ func (s *_parentIdQuery) QueryName_(queryname_ string) *_parentIdQuery {
 	return s
 }
 
-// Name of the child relationship mapped for the `join` field.
 func (s *_parentIdQuery) Type(relationname string) *_parentIdQuery {
 
 	s.v.Type = &relationname

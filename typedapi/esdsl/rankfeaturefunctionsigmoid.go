@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _rankFeatureFunctionSigmoid struct {
 	v *types.RankFeatureFunctionSigmoid
@@ -38,7 +38,6 @@ func NewRankFeatureFunctionSigmoid(exponent float32, pivot float32) *_rankFeatur
 
 }
 
-// Configurable Exponent.
 func (s *_rankFeatureFunctionSigmoid) Exponent(exponent float32) *_rankFeatureFunctionSigmoid {
 
 	s.v.Exponent = exponent
@@ -46,7 +45,6 @@ func (s *_rankFeatureFunctionSigmoid) Exponent(exponent float32) *_rankFeatureFu
 	return s
 }
 
-// Configurable pivot value so that the result will be less than 0.5.
 func (s *_rankFeatureFunctionSigmoid) Pivot(pivot float32) *_rankFeatureFunctionSigmoid {
 
 	s.v.Pivot = pivot

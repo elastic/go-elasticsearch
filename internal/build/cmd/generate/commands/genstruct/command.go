@@ -20,7 +20,7 @@ package genstruct
 import (
 	"bytes"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
+	"github.com/elastic/go-elasticsearch/v9/internal/build/cmd"
 	"go/types"
 	"io"
 	"os"
@@ -32,7 +32,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/elastic/go-elasticsearch/v9/internal/build/utils"
 )
 
 var (
@@ -56,7 +56,7 @@ func init() {
 		pkgNames = strings.Split(pkgNamesEnv, ",")
 	} else {
 		pkgNames = []string{
-			"github.com/elastic/go-elasticsearch/v8/esapi",
+			"github.com/elastic/go-elasticsearch/v9/esapi",
 		}
 	}
 
@@ -89,7 +89,6 @@ var genapiCmd = &cobra.Command{
 }
 
 // Command represents the "genapi" command.
-//
 type Command struct {
 	Output         string
 	Gofmt          bool
@@ -98,7 +97,6 @@ type Command struct {
 }
 
 // Execute runs the command.
-//
 func (cmd *Command) Execute() (err error) {
 	EsVersion, err = utils.EsVersion("")
 	if err != nil {

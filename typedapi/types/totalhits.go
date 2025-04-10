@@ -22,7 +22,7 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/totalhitsrelation"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/totalhitsrelation"
 )
 
 // TotalHits type.

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _communityIDProcessor struct {
 	v *types.CommunityIDProcessor
@@ -35,8 +35,6 @@ func NewCommunityIDProcessor() *_communityIDProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_communityIDProcessor) Description(description string) *_communityIDProcessor {
 
 	s.v.Description = &description
@@ -44,7 +42,6 @@ func (s *_communityIDProcessor) Description(description string) *_communityIDPro
 	return s
 }
 
-// Field containing the destination IP address.
 func (s *_communityIDProcessor) DestinationIp(field string) *_communityIDProcessor {
 
 	s.v.DestinationIp = &field
@@ -52,7 +49,6 @@ func (s *_communityIDProcessor) DestinationIp(field string) *_communityIDProcess
 	return s
 }
 
-// Field containing the destination port.
 func (s *_communityIDProcessor) DestinationPort(field string) *_communityIDProcessor {
 
 	s.v.DestinationPort = &field
@@ -60,7 +56,6 @@ func (s *_communityIDProcessor) DestinationPort(field string) *_communityIDProce
 	return s
 }
 
-// Field containing the IANA number.
 func (s *_communityIDProcessor) IanaNumber(field string) *_communityIDProcessor {
 
 	s.v.IanaNumber = &field
@@ -68,7 +63,6 @@ func (s *_communityIDProcessor) IanaNumber(field string) *_communityIDProcessor 
 	return s
 }
 
-// Field containing the ICMP code.
 func (s *_communityIDProcessor) IcmpCode(field string) *_communityIDProcessor {
 
 	s.v.IcmpCode = &field
@@ -76,7 +70,6 @@ func (s *_communityIDProcessor) IcmpCode(field string) *_communityIDProcessor {
 	return s
 }
 
-// Field containing the ICMP type.
 func (s *_communityIDProcessor) IcmpType(field string) *_communityIDProcessor {
 
 	s.v.IcmpType = &field
@@ -84,7 +77,6 @@ func (s *_communityIDProcessor) IcmpType(field string) *_communityIDProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_communityIDProcessor) If(if_ types.ScriptVariant) *_communityIDProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -92,7 +84,6 @@ func (s *_communityIDProcessor) If(if_ types.ScriptVariant) *_communityIDProcess
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_communityIDProcessor) IgnoreFailure(ignorefailure bool) *_communityIDProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -100,8 +91,6 @@ func (s *_communityIDProcessor) IgnoreFailure(ignorefailure bool) *_communityIDP
 	return s
 }
 
-// If true and any required fields are missing, the processor quietly exits
-// without modifying the document.
 func (s *_communityIDProcessor) IgnoreMissing(ignoremissing bool) *_communityIDProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -109,7 +98,6 @@ func (s *_communityIDProcessor) IgnoreMissing(ignoremissing bool) *_communityIDP
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_communityIDProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_communityIDProcessor {
 
 	for _, v := range onfailures {
@@ -120,9 +108,6 @@ func (s *_communityIDProcessor) OnFailure(onfailures ...types.ProcessorContainer
 	return s
 }
 
-// Seed for the community ID hash. Must be between 0 and 65535 (inclusive). The
-// seed can prevent hash collisions between network domains, such as a staging
-// and production network that use the same addressing scheme.
 func (s *_communityIDProcessor) Seed(seed int) *_communityIDProcessor {
 
 	s.v.Seed = &seed
@@ -130,7 +115,6 @@ func (s *_communityIDProcessor) Seed(seed int) *_communityIDProcessor {
 	return s
 }
 
-// Field containing the source IP address.
 func (s *_communityIDProcessor) SourceIp(field string) *_communityIDProcessor {
 
 	s.v.SourceIp = &field
@@ -138,7 +122,6 @@ func (s *_communityIDProcessor) SourceIp(field string) *_communityIDProcessor {
 	return s
 }
 
-// Field containing the source port.
 func (s *_communityIDProcessor) SourcePort(field string) *_communityIDProcessor {
 
 	s.v.SourcePort = &field
@@ -146,8 +129,6 @@ func (s *_communityIDProcessor) SourcePort(field string) *_communityIDProcessor 
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_communityIDProcessor) Tag(tag string) *_communityIDProcessor {
 
 	s.v.Tag = &tag
@@ -155,7 +136,6 @@ func (s *_communityIDProcessor) Tag(tag string) *_communityIDProcessor {
 	return s
 }
 
-// Output field for the community ID.
 func (s *_communityIDProcessor) TargetField(field string) *_communityIDProcessor {
 
 	s.v.TargetField = &field
@@ -163,10 +143,6 @@ func (s *_communityIDProcessor) TargetField(field string) *_communityIDProcessor
 	return s
 }
 
-// Field containing the transport protocol name or number. Used only when the
-// iana_number field is not present. The following protocol names are currently
-// supported: eigrp, gre, icmp, icmpv6, igmp, ipv6-icmp, ospf, pim, sctp, tcp,
-// udp
 func (s *_communityIDProcessor) Transport(field string) *_communityIDProcessor {
 
 	s.v.Transport = &field

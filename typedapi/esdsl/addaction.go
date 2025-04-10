@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _addAction struct {
 	v *types.AddAction
@@ -34,8 +34,6 @@ func NewAddAction() *_addAction {
 
 }
 
-// Alias for the action.
-// Index alias names support date math.
 func (s *_addAction) Alias(indexalias string) *_addAction {
 
 	s.v.Alias = &indexalias
@@ -43,8 +41,6 @@ func (s *_addAction) Alias(indexalias string) *_addAction {
 	return s
 }
 
-// Aliases for the action.
-// Index alias names support date math.
 func (s *_addAction) Aliases(aliases ...string) *_addAction {
 
 	s.v.Aliases = make([]string, len(aliases))
@@ -53,7 +49,6 @@ func (s *_addAction) Aliases(aliases ...string) *_addAction {
 	return s
 }
 
-// Query used to limit documents the alias can access.
 func (s *_addAction) Filter(filter types.QueryVariant) *_addAction {
 
 	s.v.Filter = filter.QueryCaster()
@@ -61,8 +56,6 @@ func (s *_addAction) Filter(filter types.QueryVariant) *_addAction {
 	return s
 }
 
-// Data stream or index for the action.
-// Supports wildcards (`*`).
 func (s *_addAction) Index(indexname string) *_addAction {
 
 	s.v.Index = &indexname
@@ -70,9 +63,6 @@ func (s *_addAction) Index(indexname string) *_addAction {
 	return s
 }
 
-// Value used to route indexing operations to a specific shard.
-// If specified, this overwrites the `routing` value for indexing operations.
-// Data stream aliases don’t support this parameter.
 func (s *_addAction) IndexRouting(routing string) *_addAction {
 
 	s.v.IndexRouting = &routing
@@ -80,8 +70,6 @@ func (s *_addAction) IndexRouting(routing string) *_addAction {
 	return s
 }
 
-// Data streams or indices for the action.
-// Supports wildcards (`*`).
 func (s *_addAction) Indices(indices ...string) *_addAction {
 
 	s.v.Indices = indices
@@ -89,7 +77,6 @@ func (s *_addAction) Indices(indices ...string) *_addAction {
 	return s
 }
 
-// If `true`, the alias is hidden.
 func (s *_addAction) IsHidden(ishidden bool) *_addAction {
 
 	s.v.IsHidden = &ishidden
@@ -97,7 +84,6 @@ func (s *_addAction) IsHidden(ishidden bool) *_addAction {
 	return s
 }
 
-// If `true`, sets the write index or data stream for the alias.
 func (s *_addAction) IsWriteIndex(iswriteindex bool) *_addAction {
 
 	s.v.IsWriteIndex = &iswriteindex
@@ -105,7 +91,6 @@ func (s *_addAction) IsWriteIndex(iswriteindex bool) *_addAction {
 	return s
 }
 
-// If `true`, the alias must exist to perform the action.
 func (s *_addAction) MustExist(mustexist bool) *_addAction {
 
 	s.v.MustExist = &mustexist
@@ -113,8 +98,6 @@ func (s *_addAction) MustExist(mustexist bool) *_addAction {
 	return s
 }
 
-// Value used to route indexing and search operations to a specific shard.
-// Data stream aliases don’t support this parameter.
 func (s *_addAction) Routing(routing string) *_addAction {
 
 	s.v.Routing = &routing
@@ -122,9 +105,6 @@ func (s *_addAction) Routing(routing string) *_addAction {
 	return s
 }
 
-// Value used to route search operations to a specific shard.
-// If specified, this overwrites the `routing` value for search operations.
-// Data stream aliases don’t support this parameter.
 func (s *_addAction) SearchRouting(routing string) *_addAction {
 
 	s.v.SearchRouting = &routing

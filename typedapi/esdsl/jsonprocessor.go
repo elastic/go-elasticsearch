@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/jsonprocessorconflictstrategy"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/jsonprocessorconflictstrategy"
 )
 
 type _jsonProcessor struct {
@@ -36,9 +36,6 @@ func NewJsonProcessor() *_jsonProcessor {
 
 }
 
-// Flag that forces the parsed JSON to be added at the top level of the
-// document.
-// `target_field` must not be set when this option is chosen.
 func (s *_jsonProcessor) AddToRoot(addtoroot bool) *_jsonProcessor {
 
 	s.v.AddToRoot = &addtoroot
@@ -46,19 +43,12 @@ func (s *_jsonProcessor) AddToRoot(addtoroot bool) *_jsonProcessor {
 	return s
 }
 
-// When set to `replace`, root fields that conflict with fields from the parsed
-// JSON will be overridden.
-// When set to `merge`, conflicting fields will be merged.
-// Only applicable `if add_to_root` is set to true.
 func (s *_jsonProcessor) AddToRootConflictStrategy(addtorootconflictstrategy jsonprocessorconflictstrategy.JsonProcessorConflictStrategy) *_jsonProcessor {
 
 	s.v.AddToRootConflictStrategy = &addtorootconflictstrategy
 	return s
 }
 
-// When set to `true`, the JSON parser will not fail if the JSON contains
-// duplicate keys.
-// Instead, the last encountered value for any duplicate key wins.
 func (s *_jsonProcessor) AllowDuplicateKeys(allowduplicatekeys bool) *_jsonProcessor {
 
 	s.v.AllowDuplicateKeys = &allowduplicatekeys
@@ -66,8 +56,6 @@ func (s *_jsonProcessor) AllowDuplicateKeys(allowduplicatekeys bool) *_jsonProce
 	return s
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_jsonProcessor) Description(description string) *_jsonProcessor {
 
 	s.v.Description = &description
@@ -75,7 +63,6 @@ func (s *_jsonProcessor) Description(description string) *_jsonProcessor {
 	return s
 }
 
-// The field to be parsed.
 func (s *_jsonProcessor) Field(field string) *_jsonProcessor {
 
 	s.v.Field = field
@@ -83,7 +70,6 @@ func (s *_jsonProcessor) Field(field string) *_jsonProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_jsonProcessor) If(if_ types.ScriptVariant) *_jsonProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -91,7 +77,6 @@ func (s *_jsonProcessor) If(if_ types.ScriptVariant) *_jsonProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_jsonProcessor) IgnoreFailure(ignorefailure bool) *_jsonProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -99,7 +84,6 @@ func (s *_jsonProcessor) IgnoreFailure(ignorefailure bool) *_jsonProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_jsonProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_jsonProcessor {
 
 	for _, v := range onfailures {
@@ -110,8 +94,6 @@ func (s *_jsonProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_jsonProcessor) Tag(tag string) *_jsonProcessor {
 
 	s.v.Tag = &tag
@@ -119,8 +101,6 @@ func (s *_jsonProcessor) Tag(tag string) *_jsonProcessor {
 	return s
 }
 
-// The field that the converted structured object will be written into.
-// Any existing content in this field will be overwritten.
 func (s *_jsonProcessor) TargetField(field string) *_jsonProcessor {
 
 	s.v.TargetField = &field

@@ -16,16 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/onscripterror"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/syntheticsourcekeepenum"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeseriesmetrictype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/onscripterror"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeseriesmetrictype"
 )
 
 type _byteNumberProperty struct {
@@ -114,7 +114,6 @@ func (s *_byteNumberProperty) Index(index bool) *_byteNumberProperty {
 	return s
 }
 
-// Metadata about the field.
 func (s *_byteNumberProperty) Meta(meta map[string]string) *_byteNumberProperty {
 
 	s.v.Meta = meta
@@ -190,8 +189,6 @@ func (s *_byteNumberProperty) SyntheticSourceKeep(syntheticsourcekeep synthetics
 	return s
 }
 
-// For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
 func (s *_byteNumberProperty) TimeSeriesDimension(timeseriesdimension bool) *_byteNumberProperty {
 
 	s.v.TimeSeriesDimension = &timeseriesdimension
@@ -199,8 +196,6 @@ func (s *_byteNumberProperty) TimeSeriesDimension(timeseriesdimension bool) *_by
 	return s
 }
 
-// For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
 func (s *_byteNumberProperty) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *_byteNumberProperty {
 
 	s.v.TimeSeriesMetric = &timeseriesmetric

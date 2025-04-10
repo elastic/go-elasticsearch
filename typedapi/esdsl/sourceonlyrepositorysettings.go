@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _sourceOnlyRepositorySettings struct {
 	v *types.SourceOnlyRepositorySettings
@@ -32,16 +32,6 @@ func NewSourceOnlyRepositorySettings() *_sourceOnlyRepositorySettings {
 
 }
 
-// Big files can be broken down into multiple smaller blobs in the blob store
-// during snapshotting.
-// It is not recommended to change this value from its default unless there is
-// an explicit reason for limiting the size of blobs in the repository.
-// Setting a value lower than the default can result in an increased number of
-// API calls to the blob store during snapshot create and restore operations
-// compared to using the default value and thus make both operations slower and
-// more costly.
-// Specify the chunk size as a byte unit, for example: `10MB`, `5KB`, 500B.
-// The default varies by repository type.
 func (s *_sourceOnlyRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
 
 	s.v.ChunkSize = *bytesize.ByteSizeCaster()
@@ -49,9 +39,6 @@ func (s *_sourceOnlyRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant
 	return s
 }
 
-// When set to `true`, metadata files are stored in compressed format.
-// This setting doesn't affect index files that are already compressed by
-// default.
 func (s *_sourceOnlyRepositorySettings) Compress(compress bool) *_sourceOnlyRepositorySettings {
 
 	s.v.Compress = &compress
@@ -59,10 +46,6 @@ func (s *_sourceOnlyRepositorySettings) Compress(compress bool) *_sourceOnlyRepo
 	return s
 }
 
-// The delegated repository type. For valid values, refer to the `type`
-// parameter.
-// Source repositories can use `settings` properties for its delegated
-// repository type.
 func (s *_sourceOnlyRepositorySettings) DelegateType(delegatetype string) *_sourceOnlyRepositorySettings {
 
 	s.v.DelegateType = &delegatetype
@@ -70,8 +53,6 @@ func (s *_sourceOnlyRepositorySettings) DelegateType(delegatetype string) *_sour
 	return s
 }
 
-// The maximum number of snapshots the repository can contain.
-// The default is `Integer.MAX_VALUE`, which is 2^31-1 or `2147483647`.
 func (s *_sourceOnlyRepositorySettings) MaxNumberOfSnapshots(maxnumberofsnapshots int) *_sourceOnlyRepositorySettings {
 
 	s.v.MaxNumberOfSnapshots = &maxnumberofsnapshots
@@ -79,9 +60,6 @@ func (s *_sourceOnlyRepositorySettings) MaxNumberOfSnapshots(maxnumberofsnapshot
 	return s
 }
 
-// The maximum snapshot restore rate per node.
-// It defaults to unlimited.
-// Note that restores are also throttled through recovery settings.
 func (s *_sourceOnlyRepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
 
 	s.v.MaxRestoreBytesPerSec = *bytesize.ByteSizeCaster()
@@ -89,11 +67,6 @@ func (s *_sourceOnlyRepositorySettings) MaxRestoreBytesPerSec(bytesize types.Byt
 	return s
 }
 
-// The maximum snapshot creation rate per node.
-// It defaults to 40mb per second.
-// Note that if the recovery settings for managed services are set, then it
-// defaults to unlimited, and the rate is additionally throttled through
-// recovery settings.
 func (s *_sourceOnlyRepositorySettings) MaxSnapshotBytesPerSec(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
 
 	s.v.MaxSnapshotBytesPerSec = *bytesize.ByteSizeCaster()
@@ -101,21 +74,6 @@ func (s *_sourceOnlyRepositorySettings) MaxSnapshotBytesPerSec(bytesize types.By
 	return s
 }
 
-// If `true`, the repository is read-only.
-// The cluster can retrieve and restore snapshots from the repository but not
-// write to the repository or create snapshots in it.
-//
-// Only a cluster with write access can create snapshots in the repository.
-// All other clusters connected to the repository should have the `readonly`
-// parameter set to `true`.
-//
-// If `false`, the cluster can write to the repository and create snapshots in
-// it.
-//
-// IMPORTANT: If you register the same snapshot repository with multiple
-// clusters, only one cluster should have write access to the repository.
-// Having multiple clusters write to the repository at the same time risks
-// corrupting the contents of the repository.
 func (s *_sourceOnlyRepositorySettings) ReadOnly(readonly bool) *_sourceOnlyRepositorySettings {
 
 	s.v.ReadOnly = &readonly

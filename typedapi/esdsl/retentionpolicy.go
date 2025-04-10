@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _retentionPolicy struct {
 	v *types.RetentionPolicy
@@ -33,7 +33,6 @@ func NewRetentionPolicy() *_retentionPolicy {
 
 }
 
-// The date field that is used to calculate the age of the document.
 func (s *_retentionPolicy) Field(field string) *_retentionPolicy {
 
 	s.v.Field = field
@@ -41,9 +40,6 @@ func (s *_retentionPolicy) Field(field string) *_retentionPolicy {
 	return s
 }
 
-// Specifies the maximum age of a document in the destination index. Documents
-// that are older than the configured
-// value are removed from the destination index.
 func (s *_retentionPolicy) MaxAge(duration types.DurationVariant) *_retentionPolicy {
 
 	s.v.MaxAge = *duration.DurationCaster()

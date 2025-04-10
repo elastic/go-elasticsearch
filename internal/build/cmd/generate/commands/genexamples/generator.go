@@ -25,14 +25,12 @@ import (
 )
 
 // SrcGenerator represents the generator for Go source files.
-//
 type SrcGenerator struct {
 	b       bytes.Buffer
 	Example Example
 }
 
 // DocGenerator represents the generator for Go source files.
-//
 type DocGenerator struct {
 	b        bytes.Buffer
 	Source   io.Reader
@@ -75,7 +73,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v9"
 )
 
 var (

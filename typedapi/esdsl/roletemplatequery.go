@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _roleTemplateQuery struct {
 	v *types.RoleTemplateQuery
@@ -32,14 +32,6 @@ func NewRoleTemplateQuery() *_roleTemplateQuery {
 
 }
 
-// When you create a role, you can specify a query that defines the document
-// level security permissions. You can optionally
-// use Mustache templates in the role query to insert the username of the
-// current authenticated user into the role.
-// Like other places in Elasticsearch that support templating or scripting, you
-// can specify inline, stored, or file-based
-// templates and define custom parameters. You access the details for the
-// current authenticated user through the _user parameter.
 func (s *_roleTemplateQuery) Template(template types.RoleTemplateScriptVariant) *_roleTemplateQuery {
 
 	s.v.Template = template.RoleTemplateScriptCaster()

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _samplerAggregation struct {
 	v *types.SamplerAggregation
@@ -34,8 +34,6 @@ func NewSamplerAggregation() *_samplerAggregation {
 
 }
 
-// Limits how many top-scoring documents are collected in the sample processed
-// on each shard.
 func (s *_samplerAggregation) ShardSize(shardsize int) *_samplerAggregation {
 
 	s.v.ShardSize = &shardsize

@@ -27,7 +27,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v9"
 )
 
 func main() {

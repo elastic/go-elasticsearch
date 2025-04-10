@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/fieldvaluefactormodifier"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/fieldvaluefactormodifier"
 )
 
 type _fieldValueFactorScoreFunction struct {
@@ -38,7 +38,6 @@ func NewFieldValueFactorScoreFunction() *_fieldValueFactorScoreFunction {
 
 }
 
-// Optional factor to multiply the field value with.
 func (s *_fieldValueFactorScoreFunction) Factor(factor types.Float64) *_fieldValueFactorScoreFunction {
 
 	s.v.Factor = &factor
@@ -46,7 +45,6 @@ func (s *_fieldValueFactorScoreFunction) Factor(factor types.Float64) *_fieldVal
 	return s
 }
 
-// Field to be extracted from the document.
 func (s *_fieldValueFactorScoreFunction) Field(field string) *_fieldValueFactorScoreFunction {
 
 	s.v.Field = field
@@ -54,9 +52,6 @@ func (s *_fieldValueFactorScoreFunction) Field(field string) *_fieldValueFactorS
 	return s
 }
 
-// Value used if the document doesn’t have that field.
-// The modifier and factor are still applied to it as though it were read from
-// the document.
 func (s *_fieldValueFactorScoreFunction) Missing(missing types.Float64) *_fieldValueFactorScoreFunction {
 
 	s.v.Missing = &missing
@@ -64,7 +59,6 @@ func (s *_fieldValueFactorScoreFunction) Missing(missing types.Float64) *_fieldV
 	return s
 }
 
-// Modifier to apply to the field value.
 func (s *_fieldValueFactorScoreFunction) Modifier(modifier fieldvaluefactormodifier.FieldValueFactorModifier) *_fieldValueFactorScoreFunction {
 
 	s.v.Modifier = &modifier

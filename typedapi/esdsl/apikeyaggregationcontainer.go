@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _apiKeyAggregationContainer struct {
@@ -46,8 +46,6 @@ func (s *_apiKeyAggregationContainer) AdditionalApiKeyAggregationContainerProper
 	return s
 }
 
-// Sub-aggregations for this aggregation.
-// Only applies to bucket aggregations.
 func (s *_apiKeyAggregationContainer) Aggregations(aggregations map[string]types.ApiKeyAggregationContainer) *_apiKeyAggregationContainer {
 
 	s.v.Aggregations = aggregations
@@ -69,8 +67,6 @@ func (s *_apiKeyAggregationContainer) AddAggregation(key string, value types.Api
 	return s
 }
 
-// A single-value metrics aggregation that calculates an approximate count of
-// distinct values.
 func (s *_apiKeyAggregationContainer) Cardinality(cardinality types.CardinalityAggregationVariant) *_apiKeyAggregationContainer {
 
 	s.v.Cardinality = cardinality.CardinalityAggregationCaster()
@@ -78,11 +74,6 @@ func (s *_apiKeyAggregationContainer) Cardinality(cardinality types.CardinalityA
 	return s
 }
 
-// A multi-bucket aggregation that creates composite buckets from different
-// sources.
-// Unlike the other multi-bucket aggregations, you can use the `composite`
-// aggregation to paginate *all* buckets from a multi-level aggregation
-// efficiently.
 func (s *_apiKeyAggregationContainer) Composite(composite types.CompositeAggregationVariant) *_apiKeyAggregationContainer {
 
 	s.v.Composite = composite.CompositeAggregationCaster()
@@ -90,8 +81,6 @@ func (s *_apiKeyAggregationContainer) Composite(composite types.CompositeAggrega
 	return s
 }
 
-// A multi-bucket value source based aggregation that enables the user to define
-// a set of date ranges - each representing a bucket.
 func (s *_apiKeyAggregationContainer) DateRange(daterange types.DateRangeAggregationVariant) *_apiKeyAggregationContainer {
 
 	s.v.DateRange = daterange.DateRangeAggregationCaster()
@@ -99,8 +88,6 @@ func (s *_apiKeyAggregationContainer) DateRange(daterange types.DateRangeAggrega
 	return s
 }
 
-// A single bucket aggregation that narrows the set of documents to those that
-// match a query.
 func (s *_apiKeyAggregationContainer) Filter(filter types.ApiKeyQueryContainerVariant) *_apiKeyAggregationContainer {
 
 	s.v.Filter = filter.ApiKeyQueryContainerCaster()
@@ -108,8 +95,6 @@ func (s *_apiKeyAggregationContainer) Filter(filter types.ApiKeyQueryContainerVa
 	return s
 }
 
-// A multi-bucket aggregation where each bucket contains the documents that
-// match a query.
 func (s *_apiKeyAggregationContainer) Filters(filters types.ApiKeyFiltersAggregationVariant) *_apiKeyAggregationContainer {
 
 	s.v.Filters = filters.ApiKeyFiltersAggregationCaster()
@@ -131,8 +116,6 @@ func (s *_apiKeyAggregationContainer) Missing(missing types.MissingAggregationVa
 	return s
 }
 
-// A multi-bucket value source based aggregation that enables the user to define
-// a set of ranges - each representing a bucket.
 func (s *_apiKeyAggregationContainer) Range(range_ types.RangeAggregationVariant) *_apiKeyAggregationContainer {
 
 	s.v.Range = range_.RangeAggregationCaster()
@@ -140,8 +123,6 @@ func (s *_apiKeyAggregationContainer) Range(range_ types.RangeAggregationVariant
 	return s
 }
 
-// A multi-bucket value source based aggregation where buckets are dynamically
-// built - one per unique value.
 func (s *_apiKeyAggregationContainer) Terms(terms types.TermsAggregationVariant) *_apiKeyAggregationContainer {
 
 	s.v.Terms = terms.TermsAggregationCaster()
@@ -149,8 +130,6 @@ func (s *_apiKeyAggregationContainer) Terms(terms types.TermsAggregationVariant)
 	return s
 }
 
-// A single-value metrics aggregation that counts the number of values that are
-// extracted from the aggregated documents.
 func (s *_apiKeyAggregationContainer) ValueCount(valuecount types.ValueCountAggregationVariant) *_apiKeyAggregationContainer {
 
 	s.v.ValueCount = valuecount.ValueCountAggregationCaster()

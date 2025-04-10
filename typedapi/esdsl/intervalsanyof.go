@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _intervalsAnyOf struct {
 	v *types.IntervalsAnyOf
@@ -33,7 +33,6 @@ func NewIntervalsAnyOf() *_intervalsAnyOf {
 
 }
 
-// Rule used to filter returned intervals.
 func (s *_intervalsAnyOf) Filter(filter types.IntervalsFilterVariant) *_intervalsAnyOf {
 
 	s.v.Filter = filter.IntervalsFilterCaster()
@@ -41,7 +40,6 @@ func (s *_intervalsAnyOf) Filter(filter types.IntervalsFilterVariant) *_interval
 	return s
 }
 
-// An array of rules to match.
 func (s *_intervalsAnyOf) Intervals(intervals ...types.IntervalsVariant) *_intervalsAnyOf {
 
 	for _, v := range intervals {

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gappolicy"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/gappolicy"
 )
 
 type _bucketSortAggregation struct {
@@ -37,7 +37,6 @@ func NewBucketSortAggregation() *_bucketSortAggregation {
 
 }
 
-// Buckets in positions prior to `from` will be truncated.
 func (s *_bucketSortAggregation) From(from int) *_bucketSortAggregation {
 
 	s.v.From = &from
@@ -45,15 +44,12 @@ func (s *_bucketSortAggregation) From(from int) *_bucketSortAggregation {
 	return s
 }
 
-// The policy to apply when gaps are found in the data.
 func (s *_bucketSortAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_bucketSortAggregation {
 
 	s.v.GapPolicy = &gappolicy
 	return s
 }
 
-// The number of buckets to return.
-// Defaults to all buckets of the parent aggregation.
 func (s *_bucketSortAggregation) Size(size int) *_bucketSortAggregation {
 
 	s.v.Size = &size
@@ -61,7 +57,6 @@ func (s *_bucketSortAggregation) Size(size int) *_bucketSortAggregation {
 	return s
 }
 
-// The list of fields to sort on.
 func (s *_bucketSortAggregation) Sort(sorts ...types.SortCombinationsVariant) *_bucketSortAggregation {
 
 	for _, v := range sorts {

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _hint struct {
 	v *types.Hint
@@ -32,16 +32,12 @@ func NewHint() *_hint {
 
 }
 
-// A single key-value pair to match against the labels section
-// of a profile. A profile is considered matching if it matches
-// at least one of the strings.
 func (s *_hint) Labels(labels map[string][]string) *_hint {
 
 	s.v.Labels = labels
 	return s
 }
 
-// A list of profile UIDs to match against.
 func (s *_hint) Uids(uids ...string) *_hint {
 
 	for _, v := range uids {

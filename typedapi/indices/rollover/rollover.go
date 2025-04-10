@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 // Roll over to a new index.
 // TIP: It is recommended to use the index lifecycle rollover action to automate
@@ -88,7 +88,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 const (
@@ -312,12 +312,12 @@ func (r *Rollover) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.raw != nil {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
 		}
 	}
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {
@@ -486,6 +486,16 @@ func (r *Rollover) Timeout(duration string) *Rollover {
 // API name: wait_for_active_shards
 func (r *Rollover) WaitForActiveShards(waitforactiveshards string) *Rollover {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
+
+	return r
+}
+
+// Lazy If set to true, the rollover action will only mark a data stream to signal
+// that it needs to be rolled over at the next write.
+// Only allowed on data streams.
+// API name: lazy
+func (r *Rollover) Lazy(lazy bool) *Rollover {
+	r.values.Set("lazy", strconv.FormatBool(lazy))
 
 	return r
 }

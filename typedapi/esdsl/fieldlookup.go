@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _fieldLookup struct {
 	v *types.FieldLookup
@@ -32,7 +32,6 @@ func NewFieldLookup() *_fieldLookup {
 
 }
 
-// `id` of the document.
 func (s *_fieldLookup) Id(id string) *_fieldLookup {
 
 	s.v.Id = id
@@ -40,7 +39,6 @@ func (s *_fieldLookup) Id(id string) *_fieldLookup {
 	return s
 }
 
-// Index from which to retrieve the document.
 func (s *_fieldLookup) Index(indexname string) *_fieldLookup {
 
 	s.v.Index = &indexname
@@ -48,7 +46,6 @@ func (s *_fieldLookup) Index(indexname string) *_fieldLookup {
 	return s
 }
 
-// Name of the field.
 func (s *_fieldLookup) Path(field string) *_fieldLookup {
 
 	s.v.Path = &field
@@ -56,7 +53,6 @@ func (s *_fieldLookup) Path(field string) *_fieldLookup {
 	return s
 }
 
-// Custom routing value.
 func (s *_fieldLookup) Routing(routing string) *_fieldLookup {
 
 	s.v.Routing = &routing

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/versiontype"
 )
 
 type _updateOperation struct {
@@ -37,7 +37,6 @@ func NewUpdateOperation() *_updateOperation {
 
 }
 
-// The document ID.
 func (s *_updateOperation) Id_(id string) *_updateOperation {
 
 	s.v.Id_ = &id
@@ -59,7 +58,6 @@ func (s *_updateOperation) IfSeqNo(sequencenumber int64) *_updateOperation {
 	return s
 }
 
-// The name of the index or index alias to perform the action on.
 func (s *_updateOperation) Index_(indexname string) *_updateOperation {
 
 	s.v.Index_ = &indexname
@@ -67,7 +65,6 @@ func (s *_updateOperation) Index_(indexname string) *_updateOperation {
 	return s
 }
 
-// If `true`, the request's actions must target an index alias.
 func (s *_updateOperation) RequireAlias(requirealias bool) *_updateOperation {
 
 	s.v.RequireAlias = &requirealias
@@ -75,8 +72,6 @@ func (s *_updateOperation) RequireAlias(requirealias bool) *_updateOperation {
 	return s
 }
 
-// The number of times an update should be retried in the case of a version
-// conflict.
 func (s *_updateOperation) RetryOnConflict(retryonconflict int) *_updateOperation {
 
 	s.v.RetryOnConflict = &retryonconflict
@@ -84,7 +79,6 @@ func (s *_updateOperation) RetryOnConflict(retryonconflict int) *_updateOperatio
 	return s
 }
 
-// A custom value used to route operations to a specific shard.
 func (s *_updateOperation) Routing(routing string) *_updateOperation {
 
 	s.v.Routing = &routing

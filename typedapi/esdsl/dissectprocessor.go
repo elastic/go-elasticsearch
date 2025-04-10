@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dissectProcessor struct {
 	v *types.DissectProcessor
@@ -38,7 +38,6 @@ func NewDissectProcessor(pattern string) *_dissectProcessor {
 
 }
 
-// The character(s) that separate the appended fields.
 func (s *_dissectProcessor) AppendSeparator(appendseparator string) *_dissectProcessor {
 
 	s.v.AppendSeparator = &appendseparator
@@ -46,8 +45,6 @@ func (s *_dissectProcessor) AppendSeparator(appendseparator string) *_dissectPro
 	return s
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_dissectProcessor) Description(description string) *_dissectProcessor {
 
 	s.v.Description = &description
@@ -55,7 +52,6 @@ func (s *_dissectProcessor) Description(description string) *_dissectProcessor {
 	return s
 }
 
-// The field to dissect.
 func (s *_dissectProcessor) Field(field string) *_dissectProcessor {
 
 	s.v.Field = field
@@ -63,7 +59,6 @@ func (s *_dissectProcessor) Field(field string) *_dissectProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_dissectProcessor) If(if_ types.ScriptVariant) *_dissectProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -71,7 +66,6 @@ func (s *_dissectProcessor) If(if_ types.ScriptVariant) *_dissectProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_dissectProcessor) IgnoreFailure(ignorefailure bool) *_dissectProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -79,8 +73,6 @@ func (s *_dissectProcessor) IgnoreFailure(ignorefailure bool) *_dissectProcessor
 	return s
 }
 
-// If `true` and `field` does not exist or is `null`, the processor quietly
-// exits without modifying the document.
 func (s *_dissectProcessor) IgnoreMissing(ignoremissing bool) *_dissectProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -88,7 +80,6 @@ func (s *_dissectProcessor) IgnoreMissing(ignoremissing bool) *_dissectProcessor
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_dissectProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_dissectProcessor {
 
 	for _, v := range onfailures {
@@ -99,7 +90,6 @@ func (s *_dissectProcessor) OnFailure(onfailures ...types.ProcessorContainerVari
 	return s
 }
 
-// The pattern to apply to the field.
 func (s *_dissectProcessor) Pattern(pattern string) *_dissectProcessor {
 
 	s.v.Pattern = pattern
@@ -107,8 +97,6 @@ func (s *_dissectProcessor) Pattern(pattern string) *_dissectProcessor {
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_dissectProcessor) Tag(tag string) *_dissectProcessor {
 
 	s.v.Tag = &tag

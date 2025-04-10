@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 // Check index templates.
 //
@@ -138,7 +138,7 @@ func (r *ExistsIndexTemplate) HttpRequest(ctx context.Context) (*http.Request, e
 	req.Header = r.headers.Clone()
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {
@@ -247,6 +247,23 @@ func (r *ExistsIndexTemplate) Header(key, value string) *ExistsIndexTemplate {
 func (r *ExistsIndexTemplate) _name(name string) *ExistsIndexTemplate {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// Local If true, the request retrieves information from the local node only. Defaults
+// to false, which means information is retrieved from the master node.
+// API name: local
+func (r *ExistsIndexTemplate) Local(local bool) *ExistsIndexTemplate {
+	r.values.Set("local", strconv.FormatBool(local))
+
+	return r
+}
+
+// FlatSettings If true, returns settings in flat format.
+// API name: flat_settings
+func (r *ExistsIndexTemplate) FlatSettings(flatsettings bool) *ExistsIndexTemplate {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }

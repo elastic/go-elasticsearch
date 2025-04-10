@@ -19,18 +19,17 @@
 //
 // Deploy the function with the gcloud command:
 //
-//   $ go mod vendor
-//   $ gcloud functions deploy clusterstatus \
-//   	    --entry-point Health \
-//   	    --runtime go111 \
-//   	    --trigger-http \
-//   	    --memory 128MB \
-//   	    --set-env-vars ELASTICSEARCH_URL=https://...cloud.es.io:9243
+//	$ go mod vendor
+//	$ gcloud functions deploy clusterstatus \
+//		    --entry-point Health \
+//		    --runtime go111 \
+//		    --trigger-http \
+//		    --memory 128MB \
+//		    --set-env-vars ELASTICSEARCH_URL=https://...cloud.es.io:9243
 //
 // Invoke your function over HTTP:
 //
-//   $ curl https://...cloudfunctions.net/clusterstatus
-//
+//	$ curl https://...cloudfunctions.net/clusterstatus
 package clusterstatus
 
 import (
@@ -39,13 +38,12 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v9"
 )
 
 // ES holds a reference to the Elasticsearch client
 //
 // See: https://cloud.google.com/functions/docs/concepts/go-runtime#one-time_initialization
-//
 var ES *elasticsearch.Client
 
 func init() {
@@ -59,7 +57,6 @@ func init() {
 }
 
 // Health returns the status of the cluster (red, yellow, green).
-//
 func Health(w http.ResponseWriter, r *http.Request) {
 	var j map[string]interface{}
 

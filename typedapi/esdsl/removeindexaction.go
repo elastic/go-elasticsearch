@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _removeIndexAction struct {
 	v *types.RemoveIndexAction
@@ -34,8 +34,6 @@ func NewRemoveIndexAction() *_removeIndexAction {
 
 }
 
-// Data stream or index for the action.
-// Supports wildcards (`*`).
 func (s *_removeIndexAction) Index(indexname string) *_removeIndexAction {
 
 	s.v.Index = &indexname
@@ -43,8 +41,6 @@ func (s *_removeIndexAction) Index(indexname string) *_removeIndexAction {
 	return s
 }
 
-// Data streams or indices for the action.
-// Supports wildcards (`*`).
 func (s *_removeIndexAction) Indices(indices ...string) *_removeIndexAction {
 
 	s.v.Indices = indices
@@ -52,7 +48,6 @@ func (s *_removeIndexAction) Indices(indices ...string) *_removeIndexAction {
 	return s
 }
 
-// If `true`, the alias must exist to perform the action.
 func (s *_removeIndexAction) MustExist(mustexist bool) *_removeIndexAction {
 
 	s.v.MustExist = &mustexist

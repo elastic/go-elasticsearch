@@ -16,19 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package findmessagestructure
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/ecscompatibilitytype"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/formattype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/ecscompatibilitytype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/formattype"
 )
 
 // Response holds the response body struct for the package findmessagestructure
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/text_structure/find_message_structure/FindMessageStructureResponse.ts#L31-L49
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/text_structure/find_message_structure/FindMessageStructureResponse.ts#L31-L49
 type Response struct {
 	Charset               string                                     `json:"charset"`
 	EcsCompatibility      *ecscompatibilitytype.EcsCompatibilityType `json:"ecs_compatibility,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package puttrainedmodel
 
@@ -28,13 +28,13 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/trainedmodeltype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/trainedmodeltype"
 )
 
 // Response holds the response body struct for the package puttrainedmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/put_trained_model/MlPutTrainedModelResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/ml/put_trained_model/MlPutTrainedModelResponse.ts#L22-L25
 type Response struct {
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
 	// CreateTime The time when the trained model was created.
@@ -69,8 +69,9 @@ type Response struct {
 	ModelPackage   *types.ModelPackageConfig `json:"model_package,omitempty"`
 	ModelSizeBytes types.ByteSize            `json:"model_size_bytes,omitempty"`
 	// ModelType The model type
-	ModelType     *trainedmodeltype.TrainedModelType `json:"model_type,omitempty"`
-	PrefixStrings *types.TrainedModelPrefixStrings   `json:"prefix_strings,omitempty"`
+	ModelType            *trainedmodeltype.TrainedModelType `json:"model_type,omitempty"`
+	PlatformArchitecture *string                            `json:"platform_architecture,omitempty"`
+	PrefixStrings        *types.TrainedModelPrefixStrings   `json:"prefix_strings,omitempty"`
 	// Tags A comma delimited string of tags. A trained model can have many tags, or
 	// none.
 	Tags []string `json:"tags"`
@@ -246,6 +247,18 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.ModelType); err != nil {
 				return fmt.Errorf("%s | %w", "ModelType", err)
 			}
+
+		case "platform_architecture":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "PlatformArchitecture", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.PlatformArchitecture = &o
 
 		case "prefix_strings":
 			if err := dec.Decode(&s.PrefixStrings); err != nil {

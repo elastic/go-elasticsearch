@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/missingorder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/valuetype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/missingorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/valuetype"
 )
 
 type _compositeHistogramAggregation struct {
@@ -41,7 +41,6 @@ func NewCompositeHistogramAggregation(interval types.Float64) *_compositeHistogr
 
 }
 
-// Either `field` or `script` must be present
 func (s *_compositeHistogramAggregation) Field(field string) *_compositeHistogramAggregation {
 
 	s.v.Field = &field
@@ -75,7 +74,6 @@ func (s *_compositeHistogramAggregation) Order(order sortorder.SortOrder) *_comp
 	return s
 }
 
-// Either `field` or `script` must be present
 func (s *_compositeHistogramAggregation) Script(script types.ScriptVariant) *_compositeHistogramAggregation {
 
 	s.v.Script = script.ScriptCaster()

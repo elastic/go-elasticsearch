@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _percentileRanksAggregation struct {
 	v *types.PercentileRanksAggregation
@@ -34,7 +34,6 @@ func NewPercentileRanksAggregation() *_percentileRanksAggregation {
 
 }
 
-// The field on which to run the aggregation.
 func (s *_percentileRanksAggregation) Field(field string) *_percentileRanksAggregation {
 
 	s.v.Field = &field
@@ -49,8 +48,6 @@ func (s *_percentileRanksAggregation) Format(format string) *_percentileRanksAgg
 	return s
 }
 
-// Uses the alternative High Dynamic Range Histogram algorithm to calculate
-// percentile ranks.
 func (s *_percentileRanksAggregation) Hdr(hdr types.HdrMethodVariant) *_percentileRanksAggregation {
 
 	s.v.Hdr = hdr.HdrMethodCaster()
@@ -58,9 +55,6 @@ func (s *_percentileRanksAggregation) Hdr(hdr types.HdrMethodVariant) *_percenti
 	return s
 }
 
-// By default, the aggregation associates a unique string key with each bucket
-// and returns the ranges as a hash rather than an array.
-// Set to `false` to disable this behavior.
 func (s *_percentileRanksAggregation) Keyed(keyed bool) *_percentileRanksAggregation {
 
 	s.v.Keyed = &keyed
@@ -68,8 +62,6 @@ func (s *_percentileRanksAggregation) Keyed(keyed bool) *_percentileRanksAggrega
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_percentileRanksAggregation) Missing(missing types.MissingVariant) *_percentileRanksAggregation {
 
 	s.v.Missing = *missing.MissingCaster()
@@ -84,8 +76,6 @@ func (s *_percentileRanksAggregation) Script(script types.ScriptVariant) *_perce
 	return s
 }
 
-// Sets parameters for the default TDigest algorithm used to calculate
-// percentile ranks.
 func (s *_percentileRanksAggregation) Tdigest(tdigest types.TDigestVariant) *_percentileRanksAggregation {
 
 	s.v.Tdigest = tdigest.TDigestCaster()
@@ -93,7 +83,6 @@ func (s *_percentileRanksAggregation) Tdigest(tdigest types.TDigestVariant) *_pe
 	return s
 }
 
-// An array of values for which to calculate the percentile ranks.
 func (s *_percentileRanksAggregation) Values(values []types.Float64) *_percentileRanksAggregation {
 
 	s.v.Values = &values

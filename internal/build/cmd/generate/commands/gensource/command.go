@@ -20,7 +20,7 @@ package gensource
 import (
 	"bytes"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
+	"github.com/elastic/go-elasticsearch/v9/internal/build/cmd"
 	"io"
 	"os"
 	"path/filepath"
@@ -29,7 +29,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/elastic/go-elasticsearch/v9/internal/build/utils"
 )
 
 var (
@@ -83,7 +83,6 @@ var gensourceCmd = &cobra.Command{
 }
 
 // Command represents the "gensource" command.
-//
 type Command struct {
 	Input          string
 	Output         string
@@ -94,7 +93,6 @@ type Command struct {
 }
 
 // Execute runs the command.
-//
 func (cmd *Command) Execute() (err error) {
 	var inputFiles []string
 

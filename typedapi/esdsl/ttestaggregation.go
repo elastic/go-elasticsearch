@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/ttesttype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/ttesttype"
 )
 
 type _tTestAggregation struct {
@@ -38,7 +38,6 @@ func NewTTestAggregation() *_tTestAggregation {
 
 }
 
-// Test population A.
 func (s *_tTestAggregation) A(a types.TestPopulationVariant) *_tTestAggregation {
 
 	s.v.A = a.TestPopulationCaster()
@@ -46,7 +45,6 @@ func (s *_tTestAggregation) A(a types.TestPopulationVariant) *_tTestAggregation 
 	return s
 }
 
-// Test population B.
 func (s *_tTestAggregation) B(b types.TestPopulationVariant) *_tTestAggregation {
 
 	s.v.B = b.TestPopulationCaster()
@@ -54,7 +52,6 @@ func (s *_tTestAggregation) B(b types.TestPopulationVariant) *_tTestAggregation 
 	return s
 }
 
-// The type of test.
 func (s *_tTestAggregation) Type(type_ ttesttype.TTestType) *_tTestAggregation {
 
 	s.v.Type = &type_

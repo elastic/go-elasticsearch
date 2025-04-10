@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 // Simulate an index.
 // Get the index configuration that would be applied to the specified index from
@@ -35,7 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 const (
@@ -143,12 +143,12 @@ func (r *SimulateIndexTemplate) HttpRequest(ctx context.Context) (*http.Request,
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.raw != nil {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
 		}
 	}
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {
@@ -305,6 +305,24 @@ func (r *SimulateIndexTemplate) Header(key, value string) *SimulateIndexTemplate
 func (r *SimulateIndexTemplate) _name(name string) *SimulateIndexTemplate {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// Create Whether the index template we optionally defined in the body should only be
+// dry-run added if new or can also replace an existing one
+// API name: create
+func (r *SimulateIndexTemplate) Create(create bool) *SimulateIndexTemplate {
+	r.values.Set("create", strconv.FormatBool(create))
+
+	return r
+}
+
+// Cause User defined reason for dry-run creating the new template for simulation
+// purposes
+// API name: cause
+func (r *SimulateIndexTemplate) Cause(cause string) *SimulateIndexTemplate {
+	r.values.Set("cause", cause)
 
 	return r
 }

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dateIndexNameProcessor struct {
 	v *types.DateIndexNameProcessor
@@ -39,10 +39,6 @@ func NewDateIndexNameProcessor(daterounding string) *_dateIndexNameProcessor {
 
 }
 
-// An array of the expected date formats for parsing dates / timestamps in the
-// document being preprocessed.
-// Can be a java time pattern or one of the following formats: ISO8601, UNIX,
-// UNIX_MS, or TAI64N.
 func (s *_dateIndexNameProcessor) DateFormats(dateformats ...string) *_dateIndexNameProcessor {
 
 	for _, v := range dateformats {
@@ -53,11 +49,6 @@ func (s *_dateIndexNameProcessor) DateFormats(dateformats ...string) *_dateIndex
 	return s
 }
 
-// How to round the date when formatting the date into the index name. Valid
-// values are:
-// `y` (year), `M` (month), `w` (week), `d` (day), `h` (hour), `m` (minute) and
-// `s` (second).
-// Supports template snippets.
 func (s *_dateIndexNameProcessor) DateRounding(daterounding string) *_dateIndexNameProcessor {
 
 	s.v.DateRounding = daterounding
@@ -65,8 +56,6 @@ func (s *_dateIndexNameProcessor) DateRounding(daterounding string) *_dateIndexN
 	return s
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_dateIndexNameProcessor) Description(description string) *_dateIndexNameProcessor {
 
 	s.v.Description = &description
@@ -74,7 +63,6 @@ func (s *_dateIndexNameProcessor) Description(description string) *_dateIndexNam
 	return s
 }
 
-// The field to get the date or timestamp from.
 func (s *_dateIndexNameProcessor) Field(field string) *_dateIndexNameProcessor {
 
 	s.v.Field = field
@@ -82,7 +70,6 @@ func (s *_dateIndexNameProcessor) Field(field string) *_dateIndexNameProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_dateIndexNameProcessor) If(if_ types.ScriptVariant) *_dateIndexNameProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -90,7 +77,6 @@ func (s *_dateIndexNameProcessor) If(if_ types.ScriptVariant) *_dateIndexNamePro
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_dateIndexNameProcessor) IgnoreFailure(ignorefailure bool) *_dateIndexNameProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -98,9 +84,6 @@ func (s *_dateIndexNameProcessor) IgnoreFailure(ignorefailure bool) *_dateIndexN
 	return s
 }
 
-// The format to be used when printing the parsed date into the index name.
-// A valid java time pattern is expected here.
-// Supports template snippets.
 func (s *_dateIndexNameProcessor) IndexNameFormat(indexnameformat string) *_dateIndexNameProcessor {
 
 	s.v.IndexNameFormat = &indexnameformat
@@ -108,8 +91,6 @@ func (s *_dateIndexNameProcessor) IndexNameFormat(indexnameformat string) *_date
 	return s
 }
 
-// A prefix of the index name to be prepended before the printed date.
-// Supports template snippets.
 func (s *_dateIndexNameProcessor) IndexNamePrefix(indexnameprefix string) *_dateIndexNameProcessor {
 
 	s.v.IndexNamePrefix = &indexnameprefix
@@ -117,8 +98,6 @@ func (s *_dateIndexNameProcessor) IndexNamePrefix(indexnameprefix string) *_date
 	return s
 }
 
-// The locale to use when parsing the date from the document being preprocessed,
-// relevant when parsing month names or week days.
 func (s *_dateIndexNameProcessor) Locale(locale string) *_dateIndexNameProcessor {
 
 	s.v.Locale = &locale
@@ -126,7 +105,6 @@ func (s *_dateIndexNameProcessor) Locale(locale string) *_dateIndexNameProcessor
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_dateIndexNameProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_dateIndexNameProcessor {
 
 	for _, v := range onfailures {
@@ -137,8 +115,6 @@ func (s *_dateIndexNameProcessor) OnFailure(onfailures ...types.ProcessorContain
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_dateIndexNameProcessor) Tag(tag string) *_dateIndexNameProcessor {
 
 	s.v.Tag = &tag
@@ -146,8 +122,6 @@ func (s *_dateIndexNameProcessor) Tag(tag string) *_dateIndexNameProcessor {
 	return s
 }
 
-// The timezone to use when parsing the date and when date math index supports
-// resolves expressions into concrete index names.
 func (s *_dateIndexNameProcessor) Timezone(timezone string) *_dateIndexNameProcessor {
 
 	s.v.Timezone = &timezone

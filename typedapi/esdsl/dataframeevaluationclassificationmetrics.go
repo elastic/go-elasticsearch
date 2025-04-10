@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _dataframeEvaluationClassificationMetrics struct {
@@ -36,7 +36,6 @@ func NewDataframeEvaluationClassificationMetrics() *_dataframeEvaluationClassifi
 
 }
 
-// Accuracy of predictions (per-class and overall).
 func (s *_dataframeEvaluationClassificationMetrics) Accuracy(accuracy map[string]json.RawMessage) *_dataframeEvaluationClassificationMetrics {
 
 	s.v.Accuracy = accuracy
@@ -58,9 +57,6 @@ func (s *_dataframeEvaluationClassificationMetrics) AddAccuracy(key string, valu
 	return s
 }
 
-// The AUC ROC (area under the curve of the receiver operating characteristic)
-// score and optionally the curve. It is calculated for a specific class
-// (provided as "class_name") treated as positive.
 func (s *_dataframeEvaluationClassificationMetrics) AucRoc(aucroc types.DataframeEvaluationClassificationMetricsAucRocVariant) *_dataframeEvaluationClassificationMetrics {
 
 	s.v.AucRoc = aucroc.DataframeEvaluationClassificationMetricsAucRocCaster()
@@ -68,7 +64,6 @@ func (s *_dataframeEvaluationClassificationMetrics) AucRoc(aucroc types.Datafram
 	return s
 }
 
-// Multiclass confusion matrix.
 func (s *_dataframeEvaluationClassificationMetrics) MulticlassConfusionMatrix(multiclassconfusionmatrix map[string]json.RawMessage) *_dataframeEvaluationClassificationMetrics {
 
 	s.v.MulticlassConfusionMatrix = multiclassconfusionmatrix
@@ -90,7 +85,6 @@ func (s *_dataframeEvaluationClassificationMetrics) AddMulticlassConfusionMatrix
 	return s
 }
 
-// Precision of predictions (per-class and average).
 func (s *_dataframeEvaluationClassificationMetrics) Precision(precision map[string]json.RawMessage) *_dataframeEvaluationClassificationMetrics {
 
 	s.v.Precision = precision
@@ -112,7 +106,6 @@ func (s *_dataframeEvaluationClassificationMetrics) AddPrecision(key string, val
 	return s
 }
 
-// Recall of predictions (per-class and average).
 func (s *_dataframeEvaluationClassificationMetrics) Recall(recall map[string]json.RawMessage) *_dataframeEvaluationClassificationMetrics {
 
 	s.v.Recall = recall

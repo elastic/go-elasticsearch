@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Retriever.ts#L64-L82
+// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/_types/Retriever.ts#L64-L82
 type KnnRetriever struct {
 	// Field The name of the vector field to search against.
 	Field string `json:"field"`
@@ -50,7 +50,7 @@ type KnnRetriever struct {
 	QueryVector []float32 `json:"query_vector,omitempty"`
 	// QueryVectorBuilder Defines a model to build a query vector.
 	QueryVectorBuilder *QueryVectorBuilder `json:"query_vector_builder,omitempty"`
-	// RescoreVector Apply oversampling and rescoring to quantized vectors *
+	// RescoreVector Apply oversampling and rescoring to quantized vectors
 	RescoreVector *RescoreVector `json:"rescore_vector,omitempty"`
 	// Similarity The minimum similarity required for a document to be considered a match.
 	Similarity *float32 `json:"similarity,omitempty"`

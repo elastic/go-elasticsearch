@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _smoothingModelContainer struct {
@@ -46,8 +46,6 @@ func (s *_smoothingModelContainer) AdditionalSmoothingModelContainerProperty(key
 	return s
 }
 
-// A smoothing model that uses an additive smoothing where a constant (typically
-// `1.0` or smaller) is added to all counts to balance weights.
 func (s *_smoothingModelContainer) Laplace(laplace types.LaplaceSmoothingModelVariant) *_smoothingModelContainer {
 
 	s.v.Laplace = laplace.LaplaceSmoothingModelCaster()
@@ -55,8 +53,6 @@ func (s *_smoothingModelContainer) Laplace(laplace types.LaplaceSmoothingModelVa
 	return s
 }
 
-// A smoothing model that takes the weighted mean of the unigrams, bigrams, and
-// trigrams based on user supplied weights (lambdas).
 func (s *_smoothingModelContainer) LinearInterpolation(linearinterpolation types.LinearInterpolationSmoothingModelVariant) *_smoothingModelContainer {
 
 	s.v.LinearInterpolation = linearinterpolation.LinearInterpolationSmoothingModelCaster()
@@ -64,9 +60,6 @@ func (s *_smoothingModelContainer) LinearInterpolation(linearinterpolation types
 	return s
 }
 
-// A simple backoff model that backs off to lower order n-gram models if the
-// higher order count is `0` and discounts the lower order n-gram model by a
-// constant factor.
 func (s *_smoothingModelContainer) StupidBackoff(stupidbackoff types.StupidBackoffSmoothingModelVariant) *_smoothingModelContainer {
 
 	s.v.StupidBackoff = stupidbackoff.StupidBackoffSmoothingModelCaster()

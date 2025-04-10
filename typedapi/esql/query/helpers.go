@@ -25,7 +25,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/esqlformat"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/esqlformat"
 )
 
 type metadata struct {

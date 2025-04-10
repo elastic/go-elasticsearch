@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _setProcessor struct {
@@ -39,10 +39,6 @@ func NewSetProcessor() *_setProcessor {
 
 }
 
-// The origin field which will be copied to `field`, cannot set `value`
-// simultaneously.
-// Supported data types are `boolean`, `number`, `array`, `object`, `string`,
-// `date`, etc.
 func (s *_setProcessor) CopyFrom(field string) *_setProcessor {
 
 	s.v.CopyFrom = &field
@@ -50,8 +46,6 @@ func (s *_setProcessor) CopyFrom(field string) *_setProcessor {
 	return s
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_setProcessor) Description(description string) *_setProcessor {
 
 	s.v.Description = &description
@@ -59,8 +53,6 @@ func (s *_setProcessor) Description(description string) *_setProcessor {
 	return s
 }
 
-// The field to insert, upsert, or update.
-// Supports template snippets.
 func (s *_setProcessor) Field(field string) *_setProcessor {
 
 	s.v.Field = field
@@ -68,7 +60,6 @@ func (s *_setProcessor) Field(field string) *_setProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_setProcessor) If(if_ types.ScriptVariant) *_setProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -76,8 +67,6 @@ func (s *_setProcessor) If(if_ types.ScriptVariant) *_setProcessor {
 	return s
 }
 
-// If `true` and `value` is a template snippet that evaluates to `null` or the
-// empty string, the processor quietly exits without modifying the document.
 func (s *_setProcessor) IgnoreEmptyValue(ignoreemptyvalue bool) *_setProcessor {
 
 	s.v.IgnoreEmptyValue = &ignoreemptyvalue
@@ -85,7 +74,6 @@ func (s *_setProcessor) IgnoreEmptyValue(ignoreemptyvalue bool) *_setProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_setProcessor) IgnoreFailure(ignorefailure bool) *_setProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -93,10 +81,6 @@ func (s *_setProcessor) IgnoreFailure(ignorefailure bool) *_setProcessor {
 	return s
 }
 
-// The media type for encoding `value`.
-// Applies only when value is a template snippet.
-// Must be one of `application/json`, `text/plain`, or
-// `application/x-www-form-urlencoded`.
 func (s *_setProcessor) MediaType(mediatype string) *_setProcessor {
 
 	s.v.MediaType = &mediatype
@@ -104,7 +88,6 @@ func (s *_setProcessor) MediaType(mediatype string) *_setProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_setProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_setProcessor {
 
 	for _, v := range onfailures {
@@ -115,9 +98,6 @@ func (s *_setProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant)
 	return s
 }
 
-// If `true` processor will update fields with pre-existing non-null-valued
-// field.
-// When set to `false`, such fields will not be touched.
 func (s *_setProcessor) Override(override bool) *_setProcessor {
 
 	s.v.Override = &override
@@ -125,8 +105,6 @@ func (s *_setProcessor) Override(override bool) *_setProcessor {
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_setProcessor) Tag(tag string) *_setProcessor {
 
 	s.v.Tag = &tag
@@ -134,9 +112,6 @@ func (s *_setProcessor) Tag(tag string) *_setProcessor {
 	return s
 }
 
-// The value to be set for the field.
-// Supports template snippets.
-// May specify only one of `value` or `copy_from`.
 func (s *_setProcessor) Value(value json.RawMessage) *_setProcessor {
 
 	s.v.Value = value

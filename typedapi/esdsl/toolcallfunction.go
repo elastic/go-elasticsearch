@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _toolCallFunction struct {
 	v *types.ToolCallFunction
@@ -38,7 +38,6 @@ func NewToolCallFunction(arguments string, name string) *_toolCallFunction {
 
 }
 
-// The arguments to call the function with in JSON format.
 func (s *_toolCallFunction) Arguments(arguments string) *_toolCallFunction {
 
 	s.v.Arguments = arguments
@@ -46,7 +45,6 @@ func (s *_toolCallFunction) Arguments(arguments string) *_toolCallFunction {
 	return s
 }
 
-// The name of the function to call.
 func (s *_toolCallFunction) Name(name string) *_toolCallFunction {
 
 	s.v.Name = name

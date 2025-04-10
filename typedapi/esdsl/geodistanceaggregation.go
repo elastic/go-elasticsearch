@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/distanceunit"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geodistancetype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/distanceunit"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/geodistancetype"
 )
 
 type _geoDistanceAggregation struct {
@@ -39,14 +39,12 @@ func NewGeoDistanceAggregation() *_geoDistanceAggregation {
 
 }
 
-// The distance calculation type.
 func (s *_geoDistanceAggregation) DistanceType(distancetype geodistancetype.GeoDistanceType) *_geoDistanceAggregation {
 
 	s.v.DistanceType = &distancetype
 	return s
 }
 
-// A field of type `geo_point` used to evaluate the distance.
 func (s *_geoDistanceAggregation) Field(field string) *_geoDistanceAggregation {
 
 	s.v.Field = &field
@@ -54,7 +52,6 @@ func (s *_geoDistanceAggregation) Field(field string) *_geoDistanceAggregation {
 	return s
 }
 
-// The origin  used to evaluate the distance.
 func (s *_geoDistanceAggregation) Origin(geolocation types.GeoLocationVariant) *_geoDistanceAggregation {
 
 	s.v.Origin = *geolocation.GeoLocationCaster()
@@ -62,7 +59,6 @@ func (s *_geoDistanceAggregation) Origin(geolocation types.GeoLocationVariant) *
 	return s
 }
 
-// An array of ranges used to bucket documents.
 func (s *_geoDistanceAggregation) Ranges(ranges ...types.AggregationRangeVariant) *_geoDistanceAggregation {
 
 	for _, v := range ranges {
@@ -73,7 +69,6 @@ func (s *_geoDistanceAggregation) Ranges(ranges ...types.AggregationRangeVariant
 	return s
 }
 
-// The distance unit.
 func (s *_geoDistanceAggregation) Unit(unit distanceunit.DistanceUnit) *_geoDistanceAggregation {
 
 	s.v.Unit = &unit

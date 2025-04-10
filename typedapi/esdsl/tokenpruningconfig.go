@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _tokenPruningConfig struct {
 	v *types.TokenPruningConfig
@@ -38,7 +38,6 @@ func NewTokenPruningConfig() *_tokenPruningConfig {
 
 }
 
-// Whether to only score pruned tokens, vs only scoring kept tokens.
 func (s *_tokenPruningConfig) OnlyScorePrunedTokens(onlyscoreprunedtokens bool) *_tokenPruningConfig {
 
 	s.v.OnlyScorePrunedTokens = &onlyscoreprunedtokens
@@ -46,9 +45,6 @@ func (s *_tokenPruningConfig) OnlyScorePrunedTokens(onlyscoreprunedtokens bool) 
 	return s
 }
 
-// Tokens whose frequency is more than this threshold times the average
-// frequency of all tokens in the specified field are considered outliers and
-// pruned.
 func (s *_tokenPruningConfig) TokensFreqRatioThreshold(tokensfreqratiothreshold int) *_tokenPruningConfig {
 
 	s.v.TokensFreqRatioThreshold = &tokensfreqratiothreshold
@@ -56,8 +52,6 @@ func (s *_tokenPruningConfig) TokensFreqRatioThreshold(tokensfreqratiothreshold 
 	return s
 }
 
-// Tokens whose weight is less than this threshold are considered nonsignificant
-// and pruned.
 func (s *_tokenPruningConfig) TokensWeightThreshold(tokensweightthreshold float32) *_tokenPruningConfig {
 
 	s.v.TokensWeightThreshold = &tokensweightthreshold

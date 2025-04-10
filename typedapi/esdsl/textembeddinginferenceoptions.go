@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _textEmbeddingInferenceOptions struct {
 	v *types.TextEmbeddingInferenceOptions
@@ -37,7 +37,6 @@ func NewTextEmbeddingInferenceOptions(vocabulary types.VocabularyVariant) *_text
 
 }
 
-// The number of dimensions in the embedding output
 func (s *_textEmbeddingInferenceOptions) EmbeddingSize(embeddingsize int) *_textEmbeddingInferenceOptions {
 
 	s.v.EmbeddingSize = &embeddingsize
@@ -45,8 +44,6 @@ func (s *_textEmbeddingInferenceOptions) EmbeddingSize(embeddingsize int) *_text
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_textEmbeddingInferenceOptions) ResultsField(resultsfield string) *_textEmbeddingInferenceOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -54,7 +51,6 @@ func (s *_textEmbeddingInferenceOptions) ResultsField(resultsfield string) *_tex
 	return s
 }
 
-// The tokenization options
 func (s *_textEmbeddingInferenceOptions) Tokenization(tokenization types.TokenizationConfigContainerVariant) *_textEmbeddingInferenceOptions {
 
 	s.v.Tokenization = tokenization.TokenizationConfigContainerCaster()

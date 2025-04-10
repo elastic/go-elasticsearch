@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 // Run multiple Fleet searches.
 // Run several Fleet searches with a single API request.
@@ -38,9 +38,9 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/searchtype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/searchtype"
 )
 
 const (
@@ -206,12 +206,12 @@ func (r *Msearch) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.raw != nil {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+x-ndjson;compatible-with=8")
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+x-ndjson;compatible-with=9")
 		}
 	}
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {
@@ -389,8 +389,8 @@ func (r *Msearch) IgnoreUnavailable(ignoreunavailable bool) *Msearch {
 
 // MaxConcurrentSearches Maximum number of concurrent searches the multi search API can execute.
 // API name: max_concurrent_searches
-func (r *Msearch) MaxConcurrentSearches(maxconcurrentsearches string) *Msearch {
-	r.values.Set("max_concurrent_searches", maxconcurrentsearches)
+func (r *Msearch) MaxConcurrentSearches(maxconcurrentsearches int) *Msearch {
+	r.values.Set("max_concurrent_searches", strconv.Itoa(maxconcurrentsearches))
 
 	return r
 }
@@ -398,8 +398,8 @@ func (r *Msearch) MaxConcurrentSearches(maxconcurrentsearches string) *Msearch {
 // MaxConcurrentShardRequests Maximum number of concurrent shard requests that each sub-search request
 // executes per node.
 // API name: max_concurrent_shard_requests
-func (r *Msearch) MaxConcurrentShardRequests(maxconcurrentshardrequests string) *Msearch {
-	r.values.Set("max_concurrent_shard_requests", maxconcurrentshardrequests)
+func (r *Msearch) MaxConcurrentShardRequests(maxconcurrentshardrequests int) *Msearch {
+	r.values.Set("max_concurrent_shard_requests", strconv.Itoa(maxconcurrentshardrequests))
 
 	return r
 }

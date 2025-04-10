@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 // Reload search analyzers.
 // Reload an index's search analyzers and their resources.
@@ -56,8 +56,8 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -183,7 +183,7 @@ func (r *ReloadSearchAnalyzers) HttpRequest(ctx context.Context) (*http.Request,
 	req.Header = r.headers.Clone()
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {
@@ -371,6 +371,14 @@ func (r *ReloadSearchAnalyzers) ExpandWildcards(expandwildcards ...expandwildcar
 // API name: ignore_unavailable
 func (r *ReloadSearchAnalyzers) IgnoreUnavailable(ignoreunavailable bool) *ReloadSearchAnalyzers {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
+// Resource Changed resource to reload analyzers from if applicable
+// API name: resource
+func (r *ReloadSearchAnalyzers) Resource(resource string) *ReloadSearchAnalyzers {
+	r.values.Set("resource", resource)
 
 	return r
 }

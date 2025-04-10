@@ -26,7 +26,7 @@ import (
 	"github.com/segmentio/kafka-go"
 	"go.elastic.co/apm"
 
-	"github.com/elastic/go-elasticsearch/v8/esutil"
+	"github.com/elastic/go-elasticsearch/v9/esutil"
 )
 
 type Consumer struct {

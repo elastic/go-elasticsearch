@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _attachmentProcessor struct {
 	v *types.AttachmentProcessor
@@ -35,8 +35,6 @@ func NewAttachmentProcessor() *_attachmentProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_attachmentProcessor) Description(description string) *_attachmentProcessor {
 
 	s.v.Description = &description
@@ -44,7 +42,6 @@ func (s *_attachmentProcessor) Description(description string) *_attachmentProce
 	return s
 }
 
-// The field to get the base64 encoded field from.
 func (s *_attachmentProcessor) Field(field string) *_attachmentProcessor {
 
 	s.v.Field = field
@@ -52,7 +49,6 @@ func (s *_attachmentProcessor) Field(field string) *_attachmentProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_attachmentProcessor) If(if_ types.ScriptVariant) *_attachmentProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -60,7 +56,6 @@ func (s *_attachmentProcessor) If(if_ types.ScriptVariant) *_attachmentProcessor
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_attachmentProcessor) IgnoreFailure(ignorefailure bool) *_attachmentProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -68,8 +63,6 @@ func (s *_attachmentProcessor) IgnoreFailure(ignorefailure bool) *_attachmentPro
 	return s
 }
 
-// If `true` and field does not exist, the processor quietly exits without
-// modifying the document.
 func (s *_attachmentProcessor) IgnoreMissing(ignoremissing bool) *_attachmentProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -77,8 +70,6 @@ func (s *_attachmentProcessor) IgnoreMissing(ignoremissing bool) *_attachmentPro
 	return s
 }
 
-// The number of chars being used for extraction to prevent huge fields.
-// Use `-1` for no limit.
 func (s *_attachmentProcessor) IndexedChars(indexedchars int64) *_attachmentProcessor {
 
 	s.v.IndexedChars = &indexedchars
@@ -86,8 +77,6 @@ func (s *_attachmentProcessor) IndexedChars(indexedchars int64) *_attachmentProc
 	return s
 }
 
-// Field name from which you can overwrite the number of chars being used for
-// extraction.
 func (s *_attachmentProcessor) IndexedCharsField(field string) *_attachmentProcessor {
 
 	s.v.IndexedCharsField = &field
@@ -95,7 +84,6 @@ func (s *_attachmentProcessor) IndexedCharsField(field string) *_attachmentProce
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_attachmentProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_attachmentProcessor {
 
 	for _, v := range onfailures {
@@ -106,9 +94,6 @@ func (s *_attachmentProcessor) OnFailure(onfailures ...types.ProcessorContainerV
 	return s
 }
 
-// Array of properties to select to be stored.
-// Can be `content`, `title`, `name`, `author`, `keywords`, `date`,
-// `content_type`, `content_length`, `language`.
 func (s *_attachmentProcessor) Properties(properties ...string) *_attachmentProcessor {
 
 	for _, v := range properties {
@@ -119,7 +104,6 @@ func (s *_attachmentProcessor) Properties(properties ...string) *_attachmentProc
 	return s
 }
 
-// If true, the binary field will be removed from the document
 func (s *_attachmentProcessor) RemoveBinary(removebinary bool) *_attachmentProcessor {
 
 	s.v.RemoveBinary = &removebinary
@@ -127,9 +111,6 @@ func (s *_attachmentProcessor) RemoveBinary(removebinary bool) *_attachmentProce
 	return s
 }
 
-// Field containing the name of the resource to decode.
-// If specified, the processor passes this resource name to the underlying Tika
-// library to enable Resource Name Based Detection.
 func (s *_attachmentProcessor) ResourceName(resourcename string) *_attachmentProcessor {
 
 	s.v.ResourceName = &resourcename
@@ -137,8 +118,6 @@ func (s *_attachmentProcessor) ResourceName(resourcename string) *_attachmentPro
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_attachmentProcessor) Tag(tag string) *_attachmentProcessor {
 
 	s.v.Tag = &tag
@@ -146,7 +125,6 @@ func (s *_attachmentProcessor) Tag(tag string) *_attachmentProcessor {
 	return s
 }
 
-// The field that will hold the attachment information.
 func (s *_attachmentProcessor) TargetField(field string) *_attachmentProcessor {
 
 	s.v.TargetField = &field

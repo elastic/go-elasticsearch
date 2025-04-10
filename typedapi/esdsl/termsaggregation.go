@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/missingorder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/termsaggregationcollectmode"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/termsaggregationexecutionhint"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/missingorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/termsaggregationcollectmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/termsaggregationexecutionhint"
 )
 
 type _termsAggregation struct {
@@ -39,16 +39,12 @@ func NewTermsAggregation() *_termsAggregation {
 
 }
 
-// Determines how child aggregations should be calculated: breadth-first or
-// depth-first.
 func (s *_termsAggregation) CollectMode(collectmode termsaggregationcollectmode.TermsAggregationCollectMode) *_termsAggregation {
 
 	s.v.CollectMode = &collectmode
 	return s
 }
 
-// Values to exclude.
-// Accepts regular expressions and partitions.
 func (s *_termsAggregation) Exclude(termsexcludes ...string) *_termsAggregation {
 
 	s.v.Exclude = termsexcludes
@@ -56,15 +52,12 @@ func (s *_termsAggregation) Exclude(termsexcludes ...string) *_termsAggregation 
 	return s
 }
 
-// Determines whether the aggregation will use field values directly or global
-// ordinals.
 func (s *_termsAggregation) ExecutionHint(executionhint termsaggregationexecutionhint.TermsAggregationExecutionHint) *_termsAggregation {
 
 	s.v.ExecutionHint = &executionhint
 	return s
 }
 
-// The field from which to return terms.
 func (s *_termsAggregation) Field(field string) *_termsAggregation {
 
 	s.v.Field = &field
@@ -79,8 +72,6 @@ func (s *_termsAggregation) Format(format string) *_termsAggregation {
 	return s
 }
 
-// Values to include.
-// Accepts regular expressions and partitions.
 func (s *_termsAggregation) Include(termsinclude types.TermsIncludeVariant) *_termsAggregation {
 
 	s.v.Include = *termsinclude.TermsIncludeCaster()
@@ -88,7 +79,6 @@ func (s *_termsAggregation) Include(termsinclude types.TermsIncludeVariant) *_te
 	return s
 }
 
-// Only return values that are found in more than `min_doc_count` hits.
 func (s *_termsAggregation) MinDocCount(mindoccount int) *_termsAggregation {
 
 	s.v.MinDocCount = &mindoccount
@@ -96,8 +86,6 @@ func (s *_termsAggregation) MinDocCount(mindoccount int) *_termsAggregation {
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_termsAggregation) Missing(missing types.MissingVariant) *_termsAggregation {
 
 	s.v.Missing = *missing.MissingCaster()
@@ -118,8 +106,6 @@ func (s *_termsAggregation) MissingOrder(missingorder missingorder.MissingOrder)
 	return s
 }
 
-// Specifies the sort order of the buckets.
-// Defaults to sorting by descending document count.
 func (s *_termsAggregation) Order(aggregateorder types.AggregateOrderVariant) *_termsAggregation {
 
 	s.v.Order = *aggregateorder.AggregateOrderCaster()
@@ -134,10 +120,6 @@ func (s *_termsAggregation) Script(script types.ScriptVariant) *_termsAggregatio
 	return s
 }
 
-// Regulates the certainty a shard has if the term should actually be added to
-// the candidate list or not with respect to the `min_doc_count`.
-// Terms will only be considered if their local shard frequency within the set
-// is higher than the `shard_min_doc_count`.
 func (s *_termsAggregation) ShardMinDocCount(shardmindoccount int64) *_termsAggregation {
 
 	s.v.ShardMinDocCount = &shardmindoccount
@@ -145,9 +127,6 @@ func (s *_termsAggregation) ShardMinDocCount(shardmindoccount int64) *_termsAggr
 	return s
 }
 
-// The number of candidate terms produced by each shard.
-// By default, `shard_size` will be automatically estimated based on the number
-// of shards and the `size` parameter.
 func (s *_termsAggregation) ShardSize(shardsize int) *_termsAggregation {
 
 	s.v.ShardSize = &shardsize
@@ -155,8 +134,6 @@ func (s *_termsAggregation) ShardSize(shardsize int) *_termsAggregation {
 	return s
 }
 
-// Set to `true` to return the `doc_count_error_upper_bound`, which is an upper
-// bound to the error on the `doc_count` returned by each shard.
 func (s *_termsAggregation) ShowTermDocCountError(showtermdoccounterror bool) *_termsAggregation {
 
 	s.v.ShowTermDocCountError = &showtermdoccounterror
@@ -164,7 +141,6 @@ func (s *_termsAggregation) ShowTermDocCountError(showtermdoccounterror bool) *_
 	return s
 }
 
-// The number of buckets returned out of the overall terms list.
 func (s *_termsAggregation) Size(size int) *_termsAggregation {
 
 	s.v.Size = &size
@@ -172,7 +148,6 @@ func (s *_termsAggregation) Size(size int) *_termsAggregation {
 	return s
 }
 
-// Coerced unmapped fields into the specified type.
 func (s *_termsAggregation) ValueType(valuetype string) *_termsAggregation {
 
 	s.v.ValueType = &valuetype

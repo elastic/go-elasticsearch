@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _mutualInformationHeuristic struct {
 	v *types.MutualInformationHeuristic
@@ -32,8 +32,6 @@ func NewMutualInformationHeuristic() *_mutualInformationHeuristic {
 
 }
 
-// Set to `false` if you defined a custom background filter that represents a
-// different set of documents that you want to compare to.
 func (s *_mutualInformationHeuristic) BackgroundIsSuperset(backgroundissuperset bool) *_mutualInformationHeuristic {
 
 	s.v.BackgroundIsSuperset = &backgroundissuperset
@@ -41,8 +39,6 @@ func (s *_mutualInformationHeuristic) BackgroundIsSuperset(backgroundissuperset 
 	return s
 }
 
-// Set to `false` to filter out the terms that appear less often in the subset
-// than in documents outside the subset.
 func (s *_mutualInformationHeuristic) IncludeNegatives(includenegatives bool) *_mutualInformationHeuristic {
 
 	s.v.IncludeNegatives = &includenegatives

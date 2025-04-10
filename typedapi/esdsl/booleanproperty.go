@@ -16,14 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/syntheticsourcekeepenum"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/onscripterror"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
 )
 
 type _booleanProperty struct {
@@ -98,6 +99,13 @@ func (s *_booleanProperty) IgnoreAbove(ignoreabove int) *_booleanProperty {
 	return s
 }
 
+func (s *_booleanProperty) IgnoreMalformed(ignoremalformed bool) *_booleanProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
 func (s *_booleanProperty) Index(index bool) *_booleanProperty {
 
 	s.v.Index = &index
@@ -105,7 +113,6 @@ func (s *_booleanProperty) Index(index bool) *_booleanProperty {
 	return s
 }
 
-// Metadata about the field.
 func (s *_booleanProperty) Meta(meta map[string]string) *_booleanProperty {
 
 	s.v.Meta = meta
@@ -134,6 +141,12 @@ func (s *_booleanProperty) NullValue(nullvalue bool) *_booleanProperty {
 	return s
 }
 
+func (s *_booleanProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_booleanProperty {
+
+	s.v.OnScriptError = &onscripterror
+	return s
+}
+
 func (s *_booleanProperty) Properties(properties map[string]types.Property) *_booleanProperty {
 
 	s.v.Properties = properties
@@ -155,6 +168,13 @@ func (s *_booleanProperty) AddProperty(key string, value types.PropertyVariant) 
 	return s
 }
 
+func (s *_booleanProperty) Script(script types.ScriptVariant) *_booleanProperty {
+
+	s.v.Script = script.ScriptCaster()
+
+	return s
+}
+
 func (s *_booleanProperty) Store(store bool) *_booleanProperty {
 
 	s.v.Store = &store
@@ -165,6 +185,13 @@ func (s *_booleanProperty) Store(store bool) *_booleanProperty {
 func (s *_booleanProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_booleanProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
+	return s
+}
+
+func (s *_booleanProperty) TimeSeriesDimension(timeseriesdimension bool) *_booleanProperty {
+
+	s.v.TimeSeriesDimension = &timeseriesdimension
+
 	return s
 }
 

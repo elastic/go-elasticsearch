@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _alias struct {
 	v *types.Alias
@@ -32,7 +32,6 @@ func NewAlias() *_alias {
 
 }
 
-// Query used to limit documents the alias can access.
 func (s *_alias) Filter(filter types.QueryVariant) *_alias {
 
 	s.v.Filter = filter.QueryCaster()
@@ -40,8 +39,6 @@ func (s *_alias) Filter(filter types.QueryVariant) *_alias {
 	return s
 }
 
-// Value used to route indexing operations to a specific shard.
-// If specified, this overwrites the `routing` value for indexing operations.
 func (s *_alias) IndexRouting(routing string) *_alias {
 
 	s.v.IndexRouting = &routing
@@ -49,8 +46,6 @@ func (s *_alias) IndexRouting(routing string) *_alias {
 	return s
 }
 
-// If `true`, the alias is hidden.
-// All indices for the alias must have the same `is_hidden` value.
 func (s *_alias) IsHidden(ishidden bool) *_alias {
 
 	s.v.IsHidden = &ishidden
@@ -58,7 +53,6 @@ func (s *_alias) IsHidden(ishidden bool) *_alias {
 	return s
 }
 
-// If `true`, the index is the write index for the alias.
 func (s *_alias) IsWriteIndex(iswriteindex bool) *_alias {
 
 	s.v.IsWriteIndex = &iswriteindex
@@ -66,7 +60,6 @@ func (s *_alias) IsWriteIndex(iswriteindex bool) *_alias {
 	return s
 }
 
-// Value used to route indexing and search operations to a specific shard.
 func (s *_alias) Routing(routing string) *_alias {
 
 	s.v.Routing = &routing
@@ -74,8 +67,6 @@ func (s *_alias) Routing(routing string) *_alias {
 	return s
 }
 
-// Value used to route search operations to a specific shard.
-// If specified, this overwrites the `routing` value for search operations.
 func (s *_alias) SearchRouting(routing string) *_alias {
 
 	s.v.SearchRouting = &routing
