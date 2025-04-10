@@ -30,7 +30,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/elastic/go-elasticsearch/v9/internal/build/utils"
 )
 
 const testCheck = "\t" + `if err != nil {            // SKIP
@@ -42,7 +42,6 @@ const testCheck = "\t" + `if err != nil {            // SKIP
 var _ = log.Print
 
 // ConsoleToGo contains translation rules.
-//
 var ConsoleToGo = []TranslateRule{
 
 	{ // ----- Info() -----------------------------------------------------------
@@ -1496,20 +1495,17 @@ var ConsoleToGo = []TranslateRule{
 }
 
 // Translator represents converter from Console source code to Go source code.
-//
 type Translator struct {
 	Example Example
 }
 
 // TranslateRule represents a rule for translating code from Console to Go.
-//
 type TranslateRule struct {
 	Pattern string
 	Func    func(string) (string, error)
 }
 
 // IsTranslated returns true when a rule for translating the Console example to Go source code exists.
-//
 func (t Translator) IsTranslated() bool {
 	var translated bool
 
@@ -1530,7 +1526,6 @@ func (t Translator) IsTranslated() bool {
 }
 
 // Translate returns the Console code translated to Go.
-//
 func (t Translator) Translate() (string, error) {
 	var out strings.Builder
 
@@ -1579,14 +1574,12 @@ func (t Translator) Translate() (string, error) {
 }
 
 // Match returns true when the input matches the rule pattern.
-//
 func (r TranslateRule) Match(input string) bool {
 	matched, _ := regexp.MatchString(r.Pattern, input)
 	return matched
 }
 
 // queryToParams extracts the URL params.
-//
 func queryToParams(input string) (url.Values, error) {
 	input = strings.TrimPrefix(input, "/")
 	input = strings.TrimPrefix(input, "?")
@@ -1594,7 +1587,6 @@ func queryToParams(input string) (url.Values, error) {
 }
 
 // paramsToArguments converts params to API arguments.
-//
 func paramsToArguments(api string, params url.Values) (string, error) {
 	var b strings.Builder
 
@@ -1662,7 +1654,6 @@ func paramsToArguments(api string, params url.Values) (string, error) {
 }
 
 // bodyStringToReader reformats input JSON string and returns it wrapped in strings.NewReader.
-//
 func bodyStringToReader(input string) (string, error) {
 	var body bytes.Buffer
 	err := json.Indent(&body, []byte(input), "\t\t", "  ")

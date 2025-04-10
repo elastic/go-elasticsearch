@@ -7,7 +7,7 @@ or
 **[sign-up](https://cloud.elastic.co/registration?elektra=en-ess-sign-up-page)**
 **for a free trial of Elastic Cloud**.
 
-[![Go Reference](https://pkg.go.dev/github.com/elastic/go-elasticsearch?status.svg)](https://pkg.go.dev/github.com/elastic/go-elasticsearch/v8)
+[![Go Reference](https://pkg.go.dev/github.com/elastic/go-elasticsearch?status.svg)](https://pkg.go.dev/github.com/elastic/go-elasticsearch/v9)
 [![Go Report Card](https://goreportcard.com/badge/github.com/elastic/go-elasticsearch)](https://goreportcard.com/report/github.com/elastic/go-elasticsearch)
 [![codecov.io](https://codecov.io/github/elastic/go-elasticsearch/coverage.svg?branch=main)](https://codecov.io/gh/elastic/go-elasticsearch?branch=main)
 [![Build](https://github.com/elastic/go-elasticsearch/workflows/Build/badge.svg)](https://github.com/elastic/go-elasticsearch/actions?query=branch%3Amain)
@@ -28,23 +28,23 @@ Elasticsearch language clients are only backwards compatible with default distri
 
 When using Go modules, include the version in the import path, and specify either an explicit version or a branch:
 
-    require github.com/elastic/go-elasticsearch/v8 v8.0.0
-    require github.com/elastic/go-elasticsearch/v7 7.17
+    require github.com/elastic/go-elasticsearch/v9 v9.x.x
+    require github.com/elastic/go-elasticsearch/v8 v8.x.x
 
 It's possible to use multiple versions of the client in a single project:
 
     // go.mod
-    github.com/elastic/go-elasticsearch/v7 v7.17.0
-    github.com/elastic/go-elasticsearch/v8 v8.0.0
+    github.com/elastic/go-elasticsearch/v8 v8.18.0
+    github.com/elastic/go-elasticsearch/v9 v9.0.0
 
     // main.go
     import (
-      elasticsearch7 "github.com/elastic/go-elasticsearch/v7"
-      elasticsearch8 "github.com/elastic/go-elasticsearch/v8"
+      elasticsearch7 "github.com/elastic/go-elasticsearch/v8"
+      elasticsearch8 "github.com/elastic/go-elasticsearch/v9"
     )
     // ...
-    es7, _ := elasticsearch7.NewDefaultClient()
-    es8, _ := elasticsearch8.NewDefaultClient()
+    es8, _ := elasticsearch7.NewDefaultClient()
+    es9, _ := elasticsearch8.NewDefaultClient()
 
 The `main` branch of the client is compatible with the current `master` branch of Elasticsearch.
 

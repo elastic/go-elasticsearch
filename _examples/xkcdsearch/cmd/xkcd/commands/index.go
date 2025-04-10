@@ -31,9 +31,9 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/spf13/cobra"
 
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v9"
 
-	"github.com/elastic/go-elasticsearch/v8/_examples/xkcdsearch"
+	"github.com/elastic/go-elasticsearch/v9/_examples/xkcdsearch"
 )
 
 var (
@@ -103,7 +103,6 @@ var indexCmd = &cobra.Command{
 }
 
 // Crawler allows to crawl and index comics from xkcd.com.
-//
 type Crawler struct {
 	store *xkcdsearch.Store
 	log   zerolog.Logger
@@ -117,7 +116,6 @@ type Crawler struct {
 }
 
 // Run launches the crawler.
-//
 func (c *Crawler) Run() {
 	var (
 		wg      sync.WaitGroup
@@ -162,7 +160,6 @@ func (c *Crawler) Run() {
 }
 
 // ProcessURL parses the JSON data and stores document.
-//
 func (c *Crawler) ProcessURL(url string) (doc xkcdsearch.Document) {
 	c.log.Debug().Str("URL", url).Msg("Processing URL")
 
@@ -212,7 +209,6 @@ func (c *Crawler) ProcessURL(url string) (doc xkcdsearch.Document) {
 }
 
 // NextURL returns the next URL or an empty string.
-//
 func (c *Crawler) NextURL(url string) string {
 	return c.nextURL(c, url)
 }

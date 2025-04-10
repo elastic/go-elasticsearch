@@ -29,7 +29,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v9"
 )
 
 // This example demonstrates how to provide a custom transport implementation to the client
@@ -41,13 +41,11 @@ import (
 //
 // Since it implements the `http.RoundTripper` interface, it can be passed
 // to the client as a custom HTTP transport implementation.
-//
 type CountingTransport struct {
 	count uint64
 }
 
 // RoundTrip executes a request and returns a response.
-//
 func (t *CountingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	var b bytes.Buffer
 

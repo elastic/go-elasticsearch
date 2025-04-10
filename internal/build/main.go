@@ -18,13 +18,13 @@
 package main
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
+	"github.com/elastic/go-elasticsearch/v9/internal/build/cmd"
 
-	_ "github.com/elastic/go-elasticsearch/v8/internal/build/cmd/generate/commands/genexamples"
-	_ "github.com/elastic/go-elasticsearch/v8/internal/build/cmd/generate/commands/gensource"
-	_ "github.com/elastic/go-elasticsearch/v8/internal/build/cmd/generate/commands/genstruct"
-	_ "github.com/elastic/go-elasticsearch/v8/internal/build/cmd/generate/commands/gentests"
-	_ "github.com/elastic/go-elasticsearch/v8/internal/build/cmd/tools/commands/spec"
+	_ "github.com/elastic/go-elasticsearch/v9/internal/build/cmd/generate/commands/genexamples"
+	_ "github.com/elastic/go-elasticsearch/v9/internal/build/cmd/generate/commands/gensource"
+	_ "github.com/elastic/go-elasticsearch/v9/internal/build/cmd/generate/commands/genstruct"
+	_ "github.com/elastic/go-elasticsearch/v9/internal/build/cmd/generate/commands/gentests"
+	_ "github.com/elastic/go-elasticsearch/v9/internal/build/cmd/tools/commands/spec"
 )
 
 func main() {

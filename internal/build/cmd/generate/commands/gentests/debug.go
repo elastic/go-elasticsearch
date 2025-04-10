@@ -21,11 +21,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/elastic/go-elasticsearch/v9/internal/build/utils"
 )
 
 // DebugInfo returns information about the endpoint as a string.
-//
 func (tg TestSuite) DebugInfo() string {
 	var out strings.Builder
 

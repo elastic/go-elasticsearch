@@ -40,15 +40,15 @@ import (
 	"time"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/esdsl"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/some"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/result"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
+	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/esapi"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/core/search"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/some"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/refresh"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/result"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortorder"
 
 	"github.com/testcontainers/testcontainers-go"
 	tces "github.com/testcontainers/testcontainers-go/modules/elasticsearch"
@@ -238,9 +238,12 @@ func TestElasticsearchIntegration(t *testing.T) {
 			indexName := "test-index"
 			if exists, err := es.Indices.Exists(indexName).IsSuccess(context.Background()); !exists && err == nil {
 				res, err := es.Indices.Create(indexName).
-					Mappings(esdsl.NewTypeMapping().
-						AddProperty("price", esdsl.NewIntegerNumberProperty()).
-						AddProperty("name", esdsl.NewKeywordProperty())).
+					Mappings(&types.TypeMapping{
+						Properties: map[string]types.Property{
+							"price": types.IntegerNumberProperty{},
+							"name":  types.KeywordProperty{},
+						},
+					}).
 					Do(context.Background())
 				if err != nil {
 					t.Fatalf("error creating index test-index: %s", err)
@@ -337,7 +340,11 @@ func TestElasticsearchIntegration(t *testing.T) {
 			// Simple search matching name
 			res, err := es.Search().
 				Index(indexName).
-				Query(esdsl.NewMatchQuery("name", "Foo")).
+				Query(&types.Query{
+					Match: map[string]types.MatchQuery{
+						"name": {Query: "Foo"},
+					},
+				}).
 				Do(context.Background())
 
 			if err != nil {
@@ -357,11 +364,51 @@ func TestElasticsearchIntegration(t *testing.T) {
 				t.Fatalf("unexpected search result")
 			}
 
+			query := esdsl.NewBoolQuery().
+				Must(
+					esdsl.NewMatchQuery("description", "wireless"),
+					esdsl.NewNumberRangeQuery("price").Gte(100).Lt(500),
+				).
+				Filter(
+					esdsl.NewTermQuery("brand", esdsl.NewFieldValue().String("Samsung")),
+					esdsl.NewTermsQuery().TermsQuery(
+						map[string]types.TermsQueryField{
+							"category": []string{"electronics", "home-appliances"},
+						},
+					),
+				)
+
+			termAgg := esdsl.NewTermsAggregation().
+				Field("category.keyword").
+				Size(10)
+
+			agg := esdsl.NewAggregations().
+				Terms(termAgg).
+				AddAggregation("avg_price", esdsl.NewAverageAggregation().Field("price"))
+
+			sort := esdsl.NewSortOptions().
+				AddSortOption("_score", esdsl.NewFieldSort(sortorder.Desc)).
+				AddSortOption("popularity", esdsl.NewFieldSort(sortorder.Desc))
+
+			es.Search().
+				Index(indexName).
+				Query(query).
+				AddAggregation("categories", agg).
+				Sort(sort).
+				From(0).Size(10).
+				Do(context.Background())
+
 			// Aggregate prices with a SumAggregation
 			searchResponse, err := es.Search().
 				Index(indexName).
 				Size(0).
-				AddAggregation("total_prices", esdsl.NewSumAggregation().Field("price")).
+				Aggregations(map[string]types.Aggregations{
+					"total_prices": {
+						Sum: &types.SumAggregation{
+							Field: some.String("price"),
+						},
+					},
+				}).
 				Do(context.Background())
 
 			if err != nil {

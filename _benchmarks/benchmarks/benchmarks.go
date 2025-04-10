@@ -20,7 +20,7 @@ package benchmarks
 import (
 	"bytes"
 
-	"github.com/elastic/go-elasticsearch/v8/benchmarks/runner"
+	"github.com/elastic/go-elasticsearch/v9/benchmarks/runner"
 )
 
 var (
@@ -32,7 +32,6 @@ var (
 )
 
 // Action represents a benchmarked action.
-//
 type Action struct {
 	Name           string
 	Category       string
@@ -45,7 +44,6 @@ type Action struct {
 }
 
 // Register appends op to the list of operations.
-//
 func Register(a Action) error {
 	Actions = append(Actions, a)
 	return nil

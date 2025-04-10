@@ -31,7 +31,7 @@ import (
 	"github.com/fatih/color"
 	"golang.org/x/crypto/ssh/terminal"
 
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v9"
 
 	"go.opencensus.io/plugin/ochttp"
 	"go.opencensus.io/stats/view"
@@ -58,11 +58,9 @@ func init() {
 }
 
 // ConsoleExporter prints stats and traces to STDOUT.
-//
 type ConsoleExporter struct{}
 
 // ExportView prints the stats.
-//
 func (e *ConsoleExporter) ExportView(vd *view.Data) {
 	fmt.Println(strings.Repeat("─", tWidth))
 	for _, row := range vd.Rows {
@@ -89,7 +87,6 @@ func (e *ConsoleExporter) ExportView(vd *view.Data) {
 }
 
 // ExportSpan prints the traces.
-//
 func (e *ConsoleExporter) ExportSpan(sd *trace.SpanData) {
 	var c *color.Color
 	if sd.Status.Code > 0 {
