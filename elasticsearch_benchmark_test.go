@@ -265,7 +265,7 @@ func BenchmarkAllocsSearch(t *testing.B) {
 			},
 		})
 
-		for b.Loop() {
+		for i := 0; i < b.N; i++ {
 			s := c.Search()
 			s.Index("foo")
 			s.Query(&types.Query{
@@ -289,7 +289,7 @@ func BenchmarkAllocsSearch(t *testing.B) {
 			},
 		})
 
-		for b.Loop() {
+		for i := 0; i < b.N; i++ {
 			s := c.Search()
 			s.Index("foo")
 			s.Query(esdsl.NewMatchAllQuery())
