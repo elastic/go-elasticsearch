@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -29,19 +29,15 @@ import (
 	"strconv"
 )
 
-// TermAggregationRange type.
+// EsqlColumnInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/_types/aggregations/bucket.ts#L691-L691
-type TermAggregationRange struct {
-	// From Start of the range (inclusive).
-	From *string `json:"from,omitempty"`
-	// Key Custom key to return the range with.
-	Key *string `json:"key,omitempty"`
-	// To End of the range (exclusive).
-	To *string `json:"to,omitempty"`
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/esql/_types/EsqlResult.ts#L50-L53
+type EsqlColumnInfo struct {
+	Name string `json:"name"`
+	Type string `json:"type"`
 }
 
-func (s *TermAggregationRange) UnmarshalJSON(data []byte) error {
+func (s *EsqlColumnInfo) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -56,60 +52,40 @@ func (s *TermAggregationRange) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "from":
+		case "name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "From", err)
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.From = &o
+			s.Name = o
 
-		case "key":
+		case "type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Key", err)
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Key = &o
-
-		case "to":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "To", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.To = &o
+			s.Type = o
 
 		}
 	}
 	return nil
 }
 
-// NewTermAggregationRange returns a TermAggregationRange.
-func NewTermAggregationRange() *TermAggregationRange {
-	r := &TermAggregationRange{}
+// NewEsqlColumnInfo returns a EsqlColumnInfo.
+func NewEsqlColumnInfo() *EsqlColumnInfo {
+	r := &EsqlColumnInfo{}
 
 	return r
 }
 
-// true
-
-type TermAggregationRangeVariant interface {
-	TermAggregationRangeCaster() *TermAggregationRange
-}
-
-func (s *TermAggregationRange) TermAggregationRangeCaster() *TermAggregationRange {
-	return s
-}
+// false

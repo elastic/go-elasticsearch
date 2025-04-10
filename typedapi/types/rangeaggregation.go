@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RangeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/_types/aggregations/bucket.ts#L642-L662
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/_types/aggregations/bucket.ts#L669-L689
 type RangeAggregation struct {
 	// Field The date field whose values are use to build ranges.
 	Field  *string `json:"field,omitempty"`
@@ -110,18 +110,9 @@ func (s *RangeAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "ranges":
-			var message json.RawMessage
-			err := dec.Decode(&message)
-			if err != nil {
-				return fmt.Errorf("%s | %w", "Range", err)
-			}
-
-			untyped := NewUntypedAggregationRange()
-			err = json.Unmarshal(message, &untyped)
-			if err != nil {
+			if err := dec.Decode(&s.Ranges); err != nil {
 				return fmt.Errorf("%s | %w", "Ranges", err)
 			}
-			s.Ranges = append(s.Ranges, untyped)
 
 		case "script":
 			if err := dec.Decode(&s.Script); err != nil {

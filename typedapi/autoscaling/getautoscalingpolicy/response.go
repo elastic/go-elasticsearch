@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package getautoscalingpolicy
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getautoscalingpolicy
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/autoscaling/get_autoscaling_policy/GetAutoscalingPolicyResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/autoscaling/get_autoscaling_policy/GetAutoscalingPolicyResponse.ts#L22-L25
 type Response struct {
 
 	// Deciders Decider settings.

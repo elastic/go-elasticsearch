@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/catdatafeedcolumn"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catdatafeedcolumn"
 )
 
 // CatDatafeedColumns type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/cat/_types/CatBase.ts#L559-L559
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/cat/_types/CatBase.ts#L559-L559
 type CatDatafeedColumns []catdatafeedcolumn.CatDatafeedColumn

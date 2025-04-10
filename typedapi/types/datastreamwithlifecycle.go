@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DataStreamWithLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/indices/get_data_lifecycle/IndicesGetDataLifecycleResponse.ts#L27-L30
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/indices/get_data_lifecycle/IndicesGetDataLifecycleResponse.ts#L27-L30
 type DataStreamWithLifecycle struct {
 	Lifecycle *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
 	Name      string                           `json:"name"`

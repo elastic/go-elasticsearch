@@ -16,18 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _spanWithinQuery struct {
 	v *types.SpanWithinQuery
 }
 
-// The result from a single span query is returned as long is its span falls
-// within the spans returned by a list of other span queries.
+// Returns matches which are enclosed inside another span query.
 func NewSpanWithinQuery(big types.SpanQueryVariant, little types.SpanQueryVariant) *_spanWithinQuery {
 
 	tmp := &_spanWithinQuery{v: types.NewSpanWithinQuery()}

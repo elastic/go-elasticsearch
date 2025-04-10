@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -28,13 +28,13 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/functionboostmode"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/functionscoremode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/functionboostmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/functionscoremode"
 )
 
 // FunctionScoreQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/_types/query_dsl/compound.ts#L105-L135
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/_types/query_dsl/compound.ts#L105-L135
 type FunctionScoreQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.

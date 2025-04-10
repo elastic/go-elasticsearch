@@ -19,7 +19,7 @@
 // on primitive types for the TypedAPI.
 package some
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 // String returns a pointer to a string
 func String(value string) *string {

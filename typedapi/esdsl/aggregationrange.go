@@ -16,73 +16,43 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
-// This is provide all the types that are part of the union.
 type _aggregationRange struct {
-	v types.AggregationRange
+	v *types.AggregationRange
 }
 
 func NewAggregationRange() *_aggregationRange {
-	return &_aggregationRange{v: nil}
+
+	return &_aggregationRange{v: types.NewAggregationRange()}
+
 }
 
-func (u *_aggregationRange) UntypedAggregationRange(untypedaggregationrange types.UntypedAggregationRangeVariant) *_aggregationRange {
+func (s *_aggregationRange) From(from types.Float64) *_aggregationRange {
 
-	u.v = &untypedaggregationrange
+	s.v.From = &from
 
-	return u
+	return s
 }
 
-// Interface implementation for UntypedAggregationRange in AggregationRange union
-func (u *_untypedAggregationRange) AggregationRangeCaster() *types.AggregationRange {
-	t := types.AggregationRange(u.v)
-	return &t
+func (s *_aggregationRange) Key(key string) *_aggregationRange {
+
+	s.v.Key = &key
+
+	return s
 }
 
-func (u *_aggregationRange) DateAggregationRange(dateaggregationrange types.DateAggregationRangeVariant) *_aggregationRange {
+func (s *_aggregationRange) To(to types.Float64) *_aggregationRange {
 
-	u.v = &dateaggregationrange
+	s.v.To = &to
 
-	return u
+	return s
 }
 
-// Interface implementation for DateAggregationRange in AggregationRange union
-func (u *_dateAggregationRange) AggregationRangeCaster() *types.AggregationRange {
-	t := types.AggregationRange(u.v)
-	return &t
-}
-
-func (u *_aggregationRange) NumberAggregationRange(numberaggregationrange types.NumberAggregationRangeVariant) *_aggregationRange {
-
-	u.v = &numberaggregationrange
-
-	return u
-}
-
-// Interface implementation for NumberAggregationRange in AggregationRange union
-func (u *_numberAggregationRange) AggregationRangeCaster() *types.AggregationRange {
-	t := types.AggregationRange(u.v)
-	return &t
-}
-
-func (u *_aggregationRange) TermAggregationRange(termaggregationrange types.TermAggregationRangeVariant) *_aggregationRange {
-
-	u.v = &termaggregationrange
-
-	return u
-}
-
-// Interface implementation for TermAggregationRange in AggregationRange union
-func (u *_termAggregationRange) AggregationRangeCaster() *types.AggregationRange {
-	t := types.AggregationRange(u.v)
-	return &t
-}
-
-func (u *_aggregationRange) AggregationRangeCaster() *types.AggregationRange {
-	return &u.v
+func (s *_aggregationRange) AggregationRangeCaster() *types.AggregationRange {
+	return s.v
 }

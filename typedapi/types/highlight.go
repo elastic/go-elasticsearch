@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -28,17 +28,17 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/boundaryscanner"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterencoder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterfragmenter"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterorder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlightertagsschema"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlightertype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/boundaryscanner"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/highlighterencoder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/highlighterfragmenter"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/highlighterorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/highlightertagsschema"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/highlightertype"
 )
 
 // Highlight type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/_global/search/_types/highlighting.ts#L152-L155
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/_global/search/_types/highlighting.ts#L152-L155
 type Highlight struct {
 	// BoundaryChars A string that contains each boundary character.
 	BoundaryChars *string `json:"boundary_chars,omitempty"`

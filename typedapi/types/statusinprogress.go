@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StatusInProgress type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/indices/get_migrate_reindex_status/MigrateGetReindexStatusResponse.ts#L38-L42
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/indices/get_migrate_reindex_status/MigrateGetReindexStatusResponse.ts#L38-L42
 type StatusInProgress struct {
 	Index             string `json:"index"`
 	ReindexedDocCount int64  `json:"reindexed_doc_count"`

@@ -16,20 +16,86 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
-// AggregationRange holds the union for the following types:
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"strconv"
+)
+
+// AggregationRange type.
 //
-//	UntypedAggregationRange
-//	DateAggregationRange
-//	NumberAggregationRange
-//	TermAggregationRange
-//
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/_types/aggregations/bucket.ts#L664-L672
-type AggregationRange any
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/_types/aggregations/bucket.ts#L691-L704
+type AggregationRange struct {
+	// From Start of the range (inclusive).
+	From *Float64 `json:"from,omitempty"`
+	// Key Custom key to return the range with.
+	Key *string `json:"key,omitempty"`
+	// To End of the range (exclusive).
+	To *Float64 `json:"to,omitempty"`
+}
+
+func (s *AggregationRange) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "from":
+			if err := dec.Decode(&s.From); err != nil {
+				return fmt.Errorf("%s | %w", "From", err)
+			}
+
+		case "key":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Key", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Key = &o
+
+		case "to":
+			if err := dec.Decode(&s.To); err != nil {
+				return fmt.Errorf("%s | %w", "To", err)
+			}
+
+		}
+	}
+	return nil
+}
+
+// NewAggregationRange returns a AggregationRange.
+func NewAggregationRange() *AggregationRange {
+	r := &AggregationRange{}
+
+	return r
+}
+
+// true
 
 type AggregationRangeVariant interface {
 	AggregationRangeCaster() *AggregationRange
+}
+
+func (s *AggregationRange) AggregationRangeCaster() *AggregationRange {
+	return s
 }

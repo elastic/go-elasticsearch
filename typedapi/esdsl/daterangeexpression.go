@@ -16,47 +16,43 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import (
-	"encoding/json"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-)
-
-type _untypedAggregationRange struct {
-	v *types.UntypedAggregationRange
+type _dateRangeExpression struct {
+	v *types.DateRangeExpression
 }
 
-func NewUntypedAggregationRange() *_untypedAggregationRange {
+func NewDateRangeExpression() *_dateRangeExpression {
 
-	return &_untypedAggregationRange{v: types.NewUntypedAggregationRange()}
+	return &_dateRangeExpression{v: types.NewDateRangeExpression()}
 
 }
 
-func (s *_untypedAggregationRange) From(from json.RawMessage) *_untypedAggregationRange {
+func (s *_dateRangeExpression) From(fielddatemath types.FieldDateMathVariant) *_dateRangeExpression {
 
-	s.v.From = from
+	s.v.From = *fielddatemath.FieldDateMathCaster()
 
 	return s
 }
 
-func (s *_untypedAggregationRange) Key(key string) *_untypedAggregationRange {
+func (s *_dateRangeExpression) Key(key string) *_dateRangeExpression {
 
 	s.v.Key = &key
 
 	return s
 }
 
-func (s *_untypedAggregationRange) To(to json.RawMessage) *_untypedAggregationRange {
+func (s *_dateRangeExpression) To(fielddatemath types.FieldDateMathVariant) *_dateRangeExpression {
 
-	s.v.To = to
+	s.v.To = *fielddatemath.FieldDateMathCaster()
 
 	return s
 }
 
-func (s *_untypedAggregationRange) UntypedAggregationRangeCaster() *types.UntypedAggregationRange {
+func (s *_dateRangeExpression) DateRangeExpressionCaster() *types.DateRangeExpression {
 	return s.v
 }

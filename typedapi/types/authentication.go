@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Authentication type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/security/delegate_pki/SecurityDelegatePkiResponse.ts#L43-L55
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/security/delegate_pki/SecurityDelegatePkiResponse.ts#L43-L55
 type Authentication struct {
 	ApiKey              map[string]string   `json:"api_key,omitempty"`
 	AuthenticationRealm AuthenticationRealm `json:"authentication_realm"`

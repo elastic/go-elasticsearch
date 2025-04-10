@@ -16,17 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/filteringvalidationstate"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/filteringvalidationstate"
 )
 
 // FilteringRulesValidation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/connector/_types/Connector.ts#L198-L201
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/connector/_types/Connector.ts#L198-L201
 type FilteringRulesValidation struct {
 	Errors []FilteringValidation                             `json:"errors"`
 	State  filteringvalidationstate.FilteringValidationState `json:"state"`

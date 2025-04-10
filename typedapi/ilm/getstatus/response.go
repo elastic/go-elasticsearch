@@ -16,17 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package getstatus
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/lifecycleoperationmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/lifecycleoperationmode"
 )
 
 // Response holds the response body struct for the package getstatus
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/ilm/get_status/GetIlmStatusResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/ilm/get_status/GetIlmStatusResponse.ts#L22-L24
 type Response struct {
 	OperationMode lifecycleoperationmode.LifecycleOperationMode `json:"operation_mode"`
 }

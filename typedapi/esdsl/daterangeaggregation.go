@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dateRangeAggregation struct {
 	v *types.DateRangeAggregation
@@ -62,11 +62,11 @@ func (s *_dateRangeAggregation) Missing(missing types.MissingVariant) *_dateRang
 	return s
 }
 
-func (s *_dateRangeAggregation) Ranges(ranges ...types.DateAggregationRangeVariant) *_dateRangeAggregation {
+func (s *_dateRangeAggregation) Ranges(ranges ...types.DateRangeExpressionVariant) *_dateRangeAggregation {
 
 	for _, v := range ranges {
 
-		s.v.Ranges = append(s.v.Ranges, *v.DateAggregationRangeCaster())
+		s.v.Ranges = append(s.v.Ranges, *v.DateRangeExpressionCaster())
 
 	}
 	return s

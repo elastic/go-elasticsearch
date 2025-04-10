@@ -16,17 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/shutdownstatus"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/shutdownstatus"
 )
 
 // PluginsStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L60-L62
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L60-L62
 type PluginsStatus struct {
 	Status shutdownstatus.ShutdownStatus `json:"status"`
 }

@@ -16,20 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/boundaryscanner"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterencoder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterfragmenter"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterorder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlightertagsschema"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlightertype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/boundaryscanner"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/highlighterencoder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/highlighterfragmenter"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/highlighterorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/highlightertagsschema"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/highlightertype"
 )
 
 type _highlight struct {

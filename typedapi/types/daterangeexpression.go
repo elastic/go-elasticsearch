@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -29,19 +29,19 @@ import (
 	"strconv"
 )
 
-// UntypedAggregationRange type.
+// DateRangeExpression type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/_types/aggregations/bucket.ts#L693-L693
-type UntypedAggregationRange struct {
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/_types/aggregations/bucket.ts#L318-L331
+type DateRangeExpression struct {
 	// From Start of the range (inclusive).
-	From json.RawMessage `json:"from,omitempty"`
+	From FieldDateMath `json:"from,omitempty"`
 	// Key Custom key to return the range with.
 	Key *string `json:"key,omitempty"`
 	// To End of the range (exclusive).
-	To json.RawMessage `json:"to,omitempty"`
+	To FieldDateMath `json:"to,omitempty"`
 }
 
-func (s *UntypedAggregationRange) UnmarshalJSON(data []byte) error {
+func (s *DateRangeExpression) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -83,19 +83,19 @@ func (s *UntypedAggregationRange) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewUntypedAggregationRange returns a UntypedAggregationRange.
-func NewUntypedAggregationRange() *UntypedAggregationRange {
-	r := &UntypedAggregationRange{}
+// NewDateRangeExpression returns a DateRangeExpression.
+func NewDateRangeExpression() *DateRangeExpression {
+	r := &DateRangeExpression{}
 
 	return r
 }
 
 // true
 
-type UntypedAggregationRangeVariant interface {
-	UntypedAggregationRangeCaster() *UntypedAggregationRange
+type DateRangeExpressionVariant interface {
+	DateRangeExpressionCaster() *DateRangeExpression
 }
 
-func (s *UntypedAggregationRange) UntypedAggregationRangeCaster() *UntypedAggregationRange {
+func (s *DateRangeExpression) DateRangeExpressionCaster() *DateRangeExpression {
 	return s
 }

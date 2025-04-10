@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -27,14 +27,14 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/segmentsortmissing"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/segmentsortmode"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/segmentsortorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/segmentsortmissing"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/segmentsortmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/segmentsortorder"
 )
 
 // IndexSegmentSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/60a81659be928bfe6cec53708c7f7613555a5eaf/specification/indices/_types/IndexSegmentSort.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/indices/_types/IndexSegmentSort.ts#L22-L27
 type IndexSegmentSort struct {
 	Field   []string                                `json:"field,omitempty"`
 	Missing []segmentsortmissing.SegmentSortMissing `json:"missing,omitempty"`

@@ -16,18 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/60a81659be928bfe6cec53708c7f7613555a5eaf
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _intervalsFuzzy struct {
 	v *types.IntervalsFuzzy
 }
 
-// Matches terms that are similar to the provided term, within an edit distance
-// defined by `fuzziness`.
+// Matches analyzed text.
 func NewIntervalsFuzzy(term string) *_intervalsFuzzy {
 
 	tmp := &_intervalsFuzzy{v: types.NewIntervalsFuzzy()}
