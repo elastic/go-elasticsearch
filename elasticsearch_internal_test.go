@@ -27,8 +27,8 @@ import (
 	"crypto/x509"
 	"encoding/base64"
 	"errors"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/esapi"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -646,7 +646,7 @@ func TestCompatibilityHeader(t *testing.T) {
 			bodyPresent:         false,
 			envVar:              true,
 			configVar:           false,
-			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=8"},
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=9"},
 		},
 		{
 			name:                "Compatibility header enabled with body with env var",
@@ -654,7 +654,7 @@ func TestCompatibilityHeader(t *testing.T) {
 			bodyPresent:         true,
 			envVar:              true,
 			configVar:           false,
-			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=8"},
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=9"},
 		},
 		{
 			name:                "Compatibility header enabled in conf",
@@ -662,7 +662,7 @@ func TestCompatibilityHeader(t *testing.T) {
 			bodyPresent:         false,
 			envVar:              false,
 			configVar:           true,
-			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=8"},
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=9"},
 		},
 		{
 			name:                "Compatibility header enabled with body in conf",
@@ -670,7 +670,7 @@ func TestCompatibilityHeader(t *testing.T) {
 			bodyPresent:         true,
 			envVar:              false,
 			configVar:           true,
-			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=8"},
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=9"},
 		},
 	}
 

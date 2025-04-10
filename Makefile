@@ -33,7 +33,7 @@ endif
 ifdef race
 	$(eval testintegargs += "-race")
 endif
-	$(eval testintegargs += "-cover" "-coverpkg=github.com/elastic/go-elasticsearch/v8,github.com/elastic/go-elasticsearch/v8/esutil,github.com/elastic/go-elasticsearch/v8/typedapi" "-coverprofile=$(PWD)/tmp/integration-client.cov" "-tags='$(testintegtags)'" "-timeout=1h")
+	$(eval testintegargs += "-cover" "-coverpkg=github.com/elastic/go-elasticsearch/v9,github.com/elastic/go-elasticsearch/v9/esutil,github.com/elastic/go-elasticsearch/v9/typedapi" "-coverprofile=$(PWD)/tmp/integration-client.cov" "-tags='$(testintegtags)'" "-timeout=1h")
 	@if which gotestsum > /dev/null 2>&1 ; then \
   		cd internal/testing/e2e; \
 		echo "gotestsum --format=short-verbose --junitfile=$(PWD)/tmp/integration-report.xml --" $(testintegargs); \
@@ -49,7 +49,7 @@ test-api:  ## Run generated API integration tests
 ifdef race
 	$(eval testapiargs += "-race")
 endif
-	$(eval testapiargs += "-cover" "-coverpkg=github.com/elastic/go-elasticsearch/v8/esapi" "-coverprofile=$(PWD)/tmp/integration-api.cov" "-tags='integration'" "-timeout=1h")
+	$(eval testapiargs += "-cover" "-coverpkg=github.com/elastic/go-elasticsearch/v9/esapi" "-coverprofile=$(PWD)/tmp/integration-api.cov" "-tags='integration'" "-timeout=1h")
 ifdef flavor
 else
 	$(eval flavor='free')
@@ -101,7 +101,6 @@ test-examples: ## Execute the _examples
 	@printf "\033[2m→ Testing the examples...\033[0m\n"
 	@{ \
 		set -e ; \
-		trap "test -d .git && git checkout --quiet _examples/**/go.mod" INT TERM EXIT; \
 		for d in _examples/*/; do \
 			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\n"; \
 			printf "\033[1mUpdating dependencies for $$d\033[0m\n"; \
@@ -266,9 +265,9 @@ endif
 
 godoc: ## Display documentation for the package
 	@printf "\033[2m→ Generating documentation...\033[0m\n"
-	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v8"
-	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v8/esapi"
-	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v8/esutil"
+	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v9"
+	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v9/esapi"
+	@echo "* http://localhost:6060/pkg/github.com/elastic/go-elasticsearch/v9/esutil"
 	@printf "\n"
 	godoc --http=localhost:6060 --play
 

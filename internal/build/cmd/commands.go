@@ -22,7 +22,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/elastic/go-elasticsearch/v9/internal/build/utils"
 )
 
 var rootCmd = &cobra.Command{
@@ -31,7 +31,6 @@ var rootCmd = &cobra.Command{
 }
 
 // Execute launches the CLI application.
-//
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		utils.PrintErr(err)
@@ -40,7 +39,6 @@ func Execute() {
 }
 
 // RegisterCmd adds a command to rootCmd.
-//
 func RegisterCmd(cmd *cobra.Command) {
 	rootCmd.AddCommand(cmd)
 }

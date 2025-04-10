@@ -26,7 +26,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/elastic/go-elasticsearch/v9/internal/build/utils"
 )
 
 var reFilename = regexp.MustCompile(`\d*_?(.+)\.ya?ml`)
@@ -143,7 +143,7 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 					switch utils.MapKeys(vv)[0] {
 					case "skip":
 						var (
-							ok     bool
+							ok    bool
 							skipV string
 							skipR string
 						)

@@ -32,27 +32,24 @@ import (
 	"os"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/esapi"
 )
 
 const port = "9209"
 
 // ExtendedClient allows to call regular and custom APIs.
-//
 type ExtendedClient struct {
 	*elasticsearch.Client
 	Custom *ExtendedAPI
 }
 
 // ExtendedAPI contains custom APIs.
-//
 type ExtendedAPI struct {
 	*elasticsearch.Client
 }
 
 // Example calls a custom REST API, "/_cat/example".
-//
 func (c *ExtendedAPI) Example() (*esapi.Response, error) {
 	req, _ := http.NewRequest("GET", "/_cat/example", nil) // errcheck exclude
 

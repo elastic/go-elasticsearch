@@ -25,19 +25,17 @@ import (
 	"io"
 	"strings"
 
-	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/esapi"
 )
 
 // SearchResults wraps the Elasticsearch search response.
-//
 type SearchResults struct {
 	Total int    `json:"total"`
 	Hits  []*Hit `json:"hits"`
 }
 
 // Hit wraps the document returned in search response.
-//
 type Hit struct {
 	Document
 	URL        string        `json:"url"`
@@ -50,21 +48,18 @@ type Hit struct {
 }
 
 // StoreConfig configures the store.
-//
 type StoreConfig struct {
 	Client    *elasticsearch.Client
 	IndexName string
 }
 
 // Store allows to index and search documents.
-//
 type Store struct {
 	es        *elasticsearch.Client
 	indexName string
 }
 
 // NewStore returns a new instance of the store.
-//
 func NewStore(c StoreConfig) (*Store, error) {
 	indexName := c.IndexName
 	if indexName == "" {
@@ -76,7 +71,6 @@ func NewStore(c StoreConfig) (*Store, error) {
 }
 
 // CreateIndex creates a new index with mapping.
-//
 func (s *Store) CreateIndex(mapping string) error {
 	res, err := s.es.Indices.Create(s.indexName, s.es.Indices.Create.WithBody(strings.NewReader(mapping)))
 	if err != nil {
@@ -89,7 +83,6 @@ func (s *Store) CreateIndex(mapping string) error {
 }
 
 // Create indexes a new document into store.
-//
 func (s *Store) Create(item *Document) error {
 	payload, err := json.Marshal(item)
 	if err != nil {
@@ -119,7 +112,6 @@ func (s *Store) Create(item *Document) error {
 }
 
 // Exists returns true when a document with id already exists in the store.
-//
 func (s *Store) Exists(id string) (bool, error) {
 	res, err := s.es.Exists(s.indexName, id)
 	if err != nil {
@@ -136,7 +128,6 @@ func (s *Store) Exists(id string) (bool, error) {
 }
 
 // Search returns results matching a query, paginated by after.
-//
 func (s *Store) Search(query string, after ...string) (*SearchResults, error) {
 	var results SearchResults
 

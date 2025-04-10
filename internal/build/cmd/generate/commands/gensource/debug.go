@@ -23,11 +23,10 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/elastic/go-elasticsearch/v9/internal/build/utils"
 )
 
 // DebugInfo returns information about the endpoint as a string.
-//
 func (e *Endpoint) DebugInfo() string {
 	var out strings.Builder
 	w := tabwriter.NewWriter(&out, 0, 0, 1, ' ', 0)

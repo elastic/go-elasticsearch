@@ -22,14 +22,16 @@ package elasticsearch_test
 
 import (
 	"context"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"io/ioutil"
 	"net/http"
 	"strconv"
 	"strings"
 	"testing"
 
-	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/esapi"
 )
 
 var defaultResponse = http.Response{
@@ -236,6 +238,62 @@ func BenchmarkClientAPI(b *testing.B) {
 			if err != nil {
 				b.Errorf("Unexpected error when getting a response: %s", err)
 			}
+		}
+	})
+}
+
+type mockTransp struct {
+	RoundTripFunc func(request *http.Request) (*http.Response, error)
+}
+
+func (m mockTransp) RoundTrip(request *http.Request) (*http.Response, error) {
+	return m.RoundTripFunc(request)
+}
+
+func BenchmarkAllocsSearch(t *testing.B) {
+	t.Run("struct search", func(b *testing.B) {
+		c, _ := elasticsearch.NewTypedClient(elasticsearch.Config{
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       ioutil.NopCloser(strings.NewReader("{}")),
+					}, nil
+				},
+			},
+		})
+
+		for b.Loop() {
+			s := c.Search()
+			s.Index("foo")
+			s.Query(&types.Query{
+				MatchAll: types.NewMatchAllQuery(),
+			})
+			s.Do(context.Background())
+		}
+	})
+
+	t.Run("esdsl search", func(b *testing.B) {
+		c, _ := elasticsearch.NewTypedClient(elasticsearch.Config{
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       ioutil.NopCloser(strings.NewReader("{}")),
+					}, nil
+				},
+			},
+		})
+
+		for b.Loop() {
+			s := c.Search()
+			s.Index("foo")
+			s.Query(esdsl.NewMatchAllQuery())
+			s.Do(context.Background())
 		}
 	})
 }

@@ -1,13 +1,13 @@
-module github.com/elastic/go-elasticsearch/v8/_examples/fasthttp
+module github.com/elastic/go-elasticsearch/v9/_examples/fasthttp
 
-go 1.22
+go 1.23
 
-toolchain go1.22.0
+toolchain go1.24.2
 
-replace github.com/elastic/go-elasticsearch/v8 => ../..
+replace github.com/elastic/go-elasticsearch/v9 => ../..
 
 require (
-	github.com/elastic/go-elasticsearch/v8 v8.0.0-20210817150010-57d659deaca7
+	github.com/elastic/go-elasticsearch/v9 v9.0.0-00010101000000-000000000000
 	github.com/valyala/fasthttp v1.34.0
 )
 
@@ -18,7 +18,8 @@ require (
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	go.opentelemetry.io/otel v1.28.0 // indirect
-	go.opentelemetry.io/otel/metric v1.28.0 // indirect
-	go.opentelemetry.io/otel/trace v1.28.0 // indirect
+	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
+	go.opentelemetry.io/otel v1.35.0 // indirect
+	go.opentelemetry.io/otel/metric v1.35.0 // indirect
+	go.opentelemetry.io/otel/trace v1.35.0 // indirect
 )
