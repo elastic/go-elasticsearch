@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/metric"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/metric"
 )
 
 type _fieldMetric struct {
@@ -35,7 +35,6 @@ func NewFieldMetric() *_fieldMetric {
 
 }
 
-// The field to collect metrics for. This must be a numeric of some kind.
 func (s *_fieldMetric) Field(field string) *_fieldMetric {
 
 	s.v.Field = field
@@ -43,8 +42,6 @@ func (s *_fieldMetric) Field(field string) *_fieldMetric {
 	return s
 }
 
-// An array of metrics to collect for the field. At least one metric must be
-// configured.
 func (s *_fieldMetric) Metrics(metrics ...metric.Metric) *_fieldMetric {
 
 	for _, v := range metrics {

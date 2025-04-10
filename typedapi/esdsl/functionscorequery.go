@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/functionboostmode"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/functionscoremode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/functionboostmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/functionscoremode"
 )
 
 type _functionScoreQuery struct {
@@ -38,11 +38,6 @@ func NewFunctionScoreQuery() *_functionScoreQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_functionScoreQuery) Boost(boost float32) *_functionScoreQuery {
 
 	s.v.Boost = &boost
@@ -50,15 +45,12 @@ func (s *_functionScoreQuery) Boost(boost float32) *_functionScoreQuery {
 	return s
 }
 
-// Defines how he newly computed score is combined with the score of the query
 func (s *_functionScoreQuery) BoostMode(boostmode functionboostmode.FunctionBoostMode) *_functionScoreQuery {
 
 	s.v.BoostMode = &boostmode
 	return s
 }
 
-// One or more functions that compute a new score for each document returned by
-// the query.
 func (s *_functionScoreQuery) Functions(functions ...types.FunctionScoreVariant) *_functionScoreQuery {
 
 	for _, v := range functions {
@@ -69,7 +61,6 @@ func (s *_functionScoreQuery) Functions(functions ...types.FunctionScoreVariant)
 	return s
 }
 
-// Restricts the new score to not exceed the provided limit.
 func (s *_functionScoreQuery) MaxBoost(maxboost types.Float64) *_functionScoreQuery {
 
 	s.v.MaxBoost = &maxboost
@@ -77,7 +68,6 @@ func (s *_functionScoreQuery) MaxBoost(maxboost types.Float64) *_functionScoreQu
 	return s
 }
 
-// Excludes documents that do not meet the provided score threshold.
 func (s *_functionScoreQuery) MinScore(minscore types.Float64) *_functionScoreQuery {
 
 	s.v.MinScore = &minscore
@@ -85,7 +75,6 @@ func (s *_functionScoreQuery) MinScore(minscore types.Float64) *_functionScoreQu
 	return s
 }
 
-// A query that determines the documents for which a new score is computed.
 func (s *_functionScoreQuery) Query(query types.QueryVariant) *_functionScoreQuery {
 
 	s.v.Query = query.QueryCaster()
@@ -100,7 +89,6 @@ func (s *_functionScoreQuery) QueryName_(queryname_ string) *_functionScoreQuery
 	return s
 }
 
-// Specifies how the computed scores are combined
 func (s *_functionScoreQuery) ScoreMode(scoremode functionscoremode.FunctionScoreMode) *_functionScoreQuery {
 
 	s.v.ScoreMode = &scoremode

@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/onscripterror"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/syntheticsourcekeepenum"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/onscripterror"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
 )
 
 type _ipProperty struct {
@@ -106,7 +106,6 @@ func (s *_ipProperty) Index(index bool) *_ipProperty {
 	return s
 }
 
-// Metadata about the field.
 func (s *_ipProperty) Meta(meta map[string]string) *_ipProperty {
 
 	s.v.Meta = meta
@@ -182,8 +181,6 @@ func (s *_ipProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekee
 	return s
 }
 
-// For internal use by Elastic only. Marks the field as a time series dimension.
-// Defaults to false.
 func (s *_ipProperty) TimeSeriesDimension(timeseriesdimension bool) *_ipProperty {
 
 	s.v.TimeSeriesDimension = &timeseriesdimension

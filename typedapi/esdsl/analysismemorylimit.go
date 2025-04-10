@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _analysisMemoryLimit struct {
 	v *types.AnalysisMemoryLimit
@@ -36,10 +36,6 @@ func NewAnalysisMemoryLimit(modelmemorylimit string) *_analysisMemoryLimit {
 
 }
 
-// Limits can be applied for the resources required to hold the mathematical
-// models in memory. These limits are approximate and can be set per job. They
-// do not control the memory used by other processes, for example the
-// Elasticsearch Java processes.
 func (s *_analysisMemoryLimit) ModelMemoryLimit(modelmemorylimit string) *_analysisMemoryLimit {
 
 	s.v.ModelMemoryLimit = modelmemorylimit

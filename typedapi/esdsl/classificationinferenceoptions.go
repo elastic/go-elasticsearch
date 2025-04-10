@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _classificationInferenceOptions struct {
 	v *types.ClassificationInferenceOptions
@@ -33,7 +33,6 @@ func NewClassificationInferenceOptions() *_classificationInferenceOptions {
 
 }
 
-// Specifies the number of top class predictions to return. Defaults to 0.
 func (s *_classificationInferenceOptions) NumTopClasses(numtopclasses int) *_classificationInferenceOptions {
 
 	s.v.NumTopClasses = &numtopclasses
@@ -41,7 +40,6 @@ func (s *_classificationInferenceOptions) NumTopClasses(numtopclasses int) *_cla
 	return s
 }
 
-// Specifies the maximum number of feature importance values per document.
 func (s *_classificationInferenceOptions) NumTopFeatureImportanceValues(numtopfeatureimportancevalues int) *_classificationInferenceOptions {
 
 	s.v.NumTopFeatureImportanceValues = &numtopfeatureimportancevalues
@@ -49,9 +47,6 @@ func (s *_classificationInferenceOptions) NumTopFeatureImportanceValues(numtopfe
 	return s
 }
 
-// Specifies the type of the predicted field to write. Acceptable values are:
-// string, number, boolean. When boolean is provided 1.0 is transformed to true
-// and 0.0 to false.
 func (s *_classificationInferenceOptions) PredictionFieldType(predictionfieldtype string) *_classificationInferenceOptions {
 
 	s.v.PredictionFieldType = &predictionfieldtype
@@ -59,8 +54,6 @@ func (s *_classificationInferenceOptions) PredictionFieldType(predictionfieldtyp
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_classificationInferenceOptions) ResultsField(resultsfield string) *_classificationInferenceOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -68,8 +61,6 @@ func (s *_classificationInferenceOptions) ResultsField(resultsfield string) *_cl
 	return s
 }
 
-// Specifies the field to which the top classes are written. Defaults to
-// top_classes.
 func (s *_classificationInferenceOptions) TopClassesResultsField(topclassesresultsfield string) *_classificationInferenceOptions {
 
 	s.v.TopClassesResultsField = &topclassesresultsfield

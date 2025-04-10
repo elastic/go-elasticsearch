@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/childscoremode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/childscoremode"
 )
 
 type _nestedQuery struct {
@@ -42,11 +42,6 @@ func NewNestedQuery(query types.QueryVariant) *_nestedQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_nestedQuery) Boost(boost float32) *_nestedQuery {
 
 	s.v.Boost = &boost
@@ -54,8 +49,6 @@ func (s *_nestedQuery) Boost(boost float32) *_nestedQuery {
 	return s
 }
 
-// Indicates whether to ignore an unmapped path and not return any documents
-// instead of an error.
 func (s *_nestedQuery) IgnoreUnmapped(ignoreunmapped bool) *_nestedQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped
@@ -63,7 +56,6 @@ func (s *_nestedQuery) IgnoreUnmapped(ignoreunmapped bool) *_nestedQuery {
 	return s
 }
 
-// If defined, each search hit will contain inner hits.
 func (s *_nestedQuery) InnerHits(innerhits types.InnerHitsVariant) *_nestedQuery {
 
 	s.v.InnerHits = innerhits.InnerHitsCaster()
@@ -71,7 +63,6 @@ func (s *_nestedQuery) InnerHits(innerhits types.InnerHitsVariant) *_nestedQuery
 	return s
 }
 
-// Path to the nested object you wish to search.
 func (s *_nestedQuery) Path(field string) *_nestedQuery {
 
 	s.v.Path = field
@@ -79,7 +70,6 @@ func (s *_nestedQuery) Path(field string) *_nestedQuery {
 	return s
 }
 
-// Query you wish to run on nested objects in the path.
 func (s *_nestedQuery) Query(query types.QueryVariant) *_nestedQuery {
 
 	s.v.Query = *query.QueryCaster()
@@ -94,8 +84,6 @@ func (s *_nestedQuery) QueryName_(queryname_ string) *_nestedQuery {
 	return s
 }
 
-// How scores for matching child objects affect the root parent document’s
-// relevance score.
 func (s *_nestedQuery) ScoreMode(scoremode childscoremode.ChildScoreMode) *_nestedQuery {
 
 	s.v.ScoreMode = &scoremode

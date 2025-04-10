@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 // Run a Fleet search.
 // The purpose of the Fleet search API is to provide an API where the search
@@ -38,11 +38,11 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/searchtype"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/suggestmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/operator"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/searchtype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/suggestmode"
 )
 
 const (
@@ -198,12 +198,12 @@ func (r *Search) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.raw != nil {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
 		}
 	}
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {
@@ -410,8 +410,8 @@ func (r *Search) Lenient(lenient bool) *Search {
 }
 
 // API name: max_concurrent_shard_requests
-func (r *Search) MaxConcurrentShardRequests(maxconcurrentshardrequests string) *Search {
-	r.values.Set("max_concurrent_shard_requests", maxconcurrentshardrequests)
+func (r *Search) MaxConcurrentShardRequests(maxconcurrentshardrequests int) *Search {
+	r.values.Set("max_concurrent_shard_requests", strconv.Itoa(maxconcurrentshardrequests))
 
 	return r
 }
@@ -756,7 +756,7 @@ func (r *Search) IndicesBoost(indicesboost []map[string]types.Float64) *Search {
 }
 
 // Minimum _score for matching documents. Documents with a lower _score are
-// not included in the search results.
+// not included in search results and results collected by aggregations.
 // API name: min_score
 func (r *Search) MinScore(minscore types.Float64) *Search {
 	// Initialize the request if it is not already initialized

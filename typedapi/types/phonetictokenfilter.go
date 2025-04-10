@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -28,15 +28,15 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/phoneticencoder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/phoneticlanguage"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/phoneticnametype"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/phoneticruletype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/phoneticencoder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/phoneticlanguage"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/phoneticnametype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/phoneticruletype"
 )
 
 // PhoneticTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/analysis/phonetic-plugin.ts#L64-L72
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/_types/analysis/phonetic-plugin.ts#L64-L72
 type PhoneticTokenFilter struct {
 	Encoder     phoneticencoder.PhoneticEncoder     `json:"encoder"`
 	Languageset []phoneticlanguage.PhoneticLanguage `json:"languageset,omitempty"`

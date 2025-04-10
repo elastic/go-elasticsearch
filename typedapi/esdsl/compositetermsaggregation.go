@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/missingorder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/valuetype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/missingorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/valuetype"
 )
 
 type _compositeTermsAggregation struct {
@@ -37,7 +37,6 @@ func NewCompositeTermsAggregation() *_compositeTermsAggregation {
 
 }
 
-// Either `field` or `script` must be present
 func (s *_compositeTermsAggregation) Field(field string) *_compositeTermsAggregation {
 
 	s.v.Field = &field
@@ -64,7 +63,6 @@ func (s *_compositeTermsAggregation) Order(order sortorder.SortOrder) *_composit
 	return s
 }
 
-// Either `field` or `script` must be present
 func (s *_compositeTermsAggregation) Script(script types.ScriptVariant) *_compositeTermsAggregation {
 
 	s.v.Script = script.ScriptCaster()

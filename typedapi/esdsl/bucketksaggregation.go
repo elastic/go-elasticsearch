@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _bucketKsAggregation struct {
 	v *types.BucketKsAggregation
@@ -35,12 +35,6 @@ func NewBucketKsAggregation() *_bucketKsAggregation {
 
 }
 
-// A list of string values indicating which K-S test alternative to calculate.
-// The valid values
-// are: "greater", "less", "two_sided". This parameter is key for determining
-// the K-S statistic used
-// when calculating the K-S test. Default value is all possible alternative
-// hypotheses.
 func (s *_bucketKsAggregation) Alternative(alternatives ...string) *_bucketKsAggregation {
 
 	for _, v := range alternatives {
@@ -51,7 +45,6 @@ func (s *_bucketKsAggregation) Alternative(alternatives ...string) *_bucketKsAgg
 	return s
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_bucketKsAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_bucketKsAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -59,15 +52,6 @@ func (s *_bucketKsAggregation) BucketsPath(bucketspath types.BucketsPathVariant)
 	return s
 }
 
-// A list of doubles indicating the distribution of the samples with which to
-// compare to the `buckets_path` results.
-// In typical usage this is the overall proportion of documents in each bucket,
-// which is compared with the actual
-// document proportions in each bucket from the sibling aggregation counts. The
-// default is to assume that overall
-// documents are uniformly distributed on these buckets, which they would be if
-// one used equal percentiles of a
-// metric to define the bucket end points.
 func (s *_bucketKsAggregation) Fractions(fractions ...types.Float64) *_bucketKsAggregation {
 
 	for _, v := range fractions {
@@ -78,13 +62,6 @@ func (s *_bucketKsAggregation) Fractions(fractions ...types.Float64) *_bucketKsA
 	return s
 }
 
-// Indicates the sampling methodology when calculating the K-S test. Note, this
-// is sampling of the returned values.
-// This determines the cumulative distribution function (CDF) points used
-// comparing the two samples. Default is
-// `upper_tail`, which emphasizes the upper end of the CDF points. Valid options
-// are: `upper_tail`, `uniform`,
-// and `lower_tail`.
 func (s *_bucketKsAggregation) SamplingMethod(samplingmethod string) *_bucketKsAggregation {
 
 	s.v.SamplingMethod = &samplingmethod

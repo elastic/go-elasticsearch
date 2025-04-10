@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _functionScore struct {
@@ -46,8 +46,6 @@ func (s *_functionScore) AdditionalFunctionScoreProperty(key string, value json.
 	return s
 }
 
-// Function that scores a document with a exponential decay, depending on the
-// distance of a numeric field value of the document from an origin.
 func (s *_functionScore) Exp(decayfunction types.DecayFunctionVariant) *_functionScore {
 
 	s.v.Exp = *decayfunction.DecayFunctionCaster()
@@ -55,9 +53,6 @@ func (s *_functionScore) Exp(decayfunction types.DecayFunctionVariant) *_functio
 	return s
 }
 
-// Function allows you to use a field from a document to influence the score.
-// It’s similar to using the script_score function, however, it avoids the
-// overhead of scripting.
 func (s *_functionScore) FieldValueFactor(fieldvaluefactor types.FieldValueFactorScoreFunctionVariant) *_functionScore {
 
 	s.v.FieldValueFactor = fieldvaluefactor.FieldValueFactorScoreFunctionCaster()
@@ -72,8 +67,6 @@ func (s *_functionScore) Filter(filter types.QueryVariant) *_functionScore {
 	return s
 }
 
-// Function that scores a document with a normal decay, depending on the
-// distance of a numeric field value of the document from an origin.
 func (s *_functionScore) Gauss(decayfunction types.DecayFunctionVariant) *_functionScore {
 
 	s.v.Gauss = *decayfunction.DecayFunctionCaster()
@@ -81,8 +74,6 @@ func (s *_functionScore) Gauss(decayfunction types.DecayFunctionVariant) *_funct
 	return s
 }
 
-// Function that scores a document with a linear decay, depending on the
-// distance of a numeric field value of the document from an origin.
 func (s *_functionScore) Linear(decayfunction types.DecayFunctionVariant) *_functionScore {
 
 	s.v.Linear = *decayfunction.DecayFunctionCaster()
@@ -90,10 +81,6 @@ func (s *_functionScore) Linear(decayfunction types.DecayFunctionVariant) *_func
 	return s
 }
 
-// Generates scores that are uniformly distributed from 0 up to but not
-// including 1.
-// In case you want scores to be reproducible, it is possible to provide a
-// `seed` and `field`.
 func (s *_functionScore) RandomScore(randomscore types.RandomScoreFunctionVariant) *_functionScore {
 
 	s.v.RandomScore = randomscore.RandomScoreFunctionCaster()
@@ -101,9 +88,6 @@ func (s *_functionScore) RandomScore(randomscore types.RandomScoreFunctionVarian
 	return s
 }
 
-// Enables you to wrap another query and customize the scoring of it optionally
-// with a computation derived from other numeric field values in the doc using a
-// script expression.
 func (s *_functionScore) ScriptScore(scriptscore types.ScriptScoreFunctionVariant) *_functionScore {
 
 	s.v.ScriptScore = scriptscore.ScriptScoreFunctionCaster()

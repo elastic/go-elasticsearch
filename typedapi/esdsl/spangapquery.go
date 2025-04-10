@@ -16,19 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
-// This is provide an API for type alias.
 type _spanGapQuery struct {
 	v types.SpanGapQuery
 }
 
 func NewSpanGapQuery(spangapquery map[string]int) *_spanGapQuery {
-	return &_spanGapQuery{v: make(map[string]int, 0)}
+	return &_spanGapQuery{v: spangapquery}
 }
 
 func (u *_spanGapQuery) SpanGapQueryCaster() *types.SpanGapQuery {

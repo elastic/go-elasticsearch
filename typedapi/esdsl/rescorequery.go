@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/scoremode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/scoremode"
 )
 
 type _rescoreQuery struct {
@@ -39,9 +39,6 @@ func NewRescoreQuery(query types.QueryVariant) *_rescoreQuery {
 
 }
 
-// The query to use for rescoring.
-// This query is only run on the Top-K results returned by the `query` and
-// `post_filter` phases.
 func (s *_rescoreQuery) Query(query types.QueryVariant) *_rescoreQuery {
 
 	s.v.Query = *query.QueryCaster()
@@ -49,7 +46,6 @@ func (s *_rescoreQuery) Query(query types.QueryVariant) *_rescoreQuery {
 	return s
 }
 
-// Relative importance of the original query versus the rescore query.
 func (s *_rescoreQuery) QueryWeight(queryweight types.Float64) *_rescoreQuery {
 
 	s.v.QueryWeight = &queryweight
@@ -57,7 +53,6 @@ func (s *_rescoreQuery) QueryWeight(queryweight types.Float64) *_rescoreQuery {
 	return s
 }
 
-// Relative importance of the rescore query versus the original query.
 func (s *_rescoreQuery) RescoreQueryWeight(rescorequeryweight types.Float64) *_rescoreQuery {
 
 	s.v.RescoreQueryWeight = &rescorequeryweight
@@ -65,7 +60,6 @@ func (s *_rescoreQuery) RescoreQueryWeight(rescorequeryweight types.Float64) *_r
 	return s
 }
 
-// Determines how scores are combined.
 func (s *_rescoreQuery) ScoreMode(scoremode scoremode.ScoreMode) *_rescoreQuery {
 
 	s.v.ScoreMode = &scoremode

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _indexAndDataStreamAction struct {
 	v *types.IndexAndDataStreamAction
@@ -35,7 +35,6 @@ func NewIndexAndDataStreamAction() *_indexAndDataStreamAction {
 
 }
 
-// Data stream targeted by the action.
 func (s *_indexAndDataStreamAction) DataStream(datastreamname string) *_indexAndDataStreamAction {
 
 	s.v.DataStream = datastreamname
@@ -43,7 +42,6 @@ func (s *_indexAndDataStreamAction) DataStream(datastreamname string) *_indexAnd
 	return s
 }
 
-// Index for the action.
 func (s *_indexAndDataStreamAction) Index(indexname string) *_indexAndDataStreamAction {
 
 	s.v.Index = indexname

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _zeroShotClassificationInferenceOptions struct {
 	v *types.ZeroShotClassificationInferenceOptions
@@ -33,9 +33,6 @@ func NewZeroShotClassificationInferenceOptions() *_zeroShotClassificationInferen
 
 }
 
-// The zero shot classification labels indicating entailment, neutral, and
-// contradiction
-// Must contain exactly and only entailment, neutral, and contradiction
 func (s *_zeroShotClassificationInferenceOptions) ClassificationLabels(classificationlabels ...string) *_zeroShotClassificationInferenceOptions {
 
 	for _, v := range classificationlabels {
@@ -46,7 +43,6 @@ func (s *_zeroShotClassificationInferenceOptions) ClassificationLabels(classific
 	return s
 }
 
-// Hypothesis template used when tokenizing labels for prediction
 func (s *_zeroShotClassificationInferenceOptions) HypothesisTemplate(hypothesistemplate string) *_zeroShotClassificationInferenceOptions {
 
 	s.v.HypothesisTemplate = &hypothesistemplate
@@ -54,7 +50,6 @@ func (s *_zeroShotClassificationInferenceOptions) HypothesisTemplate(hypothesist
 	return s
 }
 
-// The labels to predict.
 func (s *_zeroShotClassificationInferenceOptions) Labels(labels ...string) *_zeroShotClassificationInferenceOptions {
 
 	for _, v := range labels {
@@ -65,7 +60,6 @@ func (s *_zeroShotClassificationInferenceOptions) Labels(labels ...string) *_zer
 	return s
 }
 
-// Indicates if more than one true label exists.
 func (s *_zeroShotClassificationInferenceOptions) MultiLabel(multilabel bool) *_zeroShotClassificationInferenceOptions {
 
 	s.v.MultiLabel = &multilabel
@@ -73,8 +67,6 @@ func (s *_zeroShotClassificationInferenceOptions) MultiLabel(multilabel bool) *_
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_zeroShotClassificationInferenceOptions) ResultsField(resultsfield string) *_zeroShotClassificationInferenceOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -82,7 +74,6 @@ func (s *_zeroShotClassificationInferenceOptions) ResultsField(resultsfield stri
 	return s
 }
 
-// The tokenization options to update when inferring
 func (s *_zeroShotClassificationInferenceOptions) Tokenization(tokenization types.TokenizationConfigContainerVariant) *_zeroShotClassificationInferenceOptions {
 
 	s.v.Tokenization = tokenization.TokenizationConfigContainerCaster()

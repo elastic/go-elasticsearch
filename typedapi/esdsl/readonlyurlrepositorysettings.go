@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _readOnlyUrlRepositorySettings struct {
 	v *types.ReadOnlyUrlRepositorySettings
@@ -36,16 +36,6 @@ func NewReadOnlyUrlRepositorySettings(url string) *_readOnlyUrlRepositorySetting
 
 }
 
-// Big files can be broken down into multiple smaller blobs in the blob store
-// during snapshotting.
-// It is not recommended to change this value from its default unless there is
-// an explicit reason for limiting the size of blobs in the repository.
-// Setting a value lower than the default can result in an increased number of
-// API calls to the blob store during snapshot create and restore operations
-// compared to using the default value and thus make both operations slower and
-// more costly.
-// Specify the chunk size as a byte unit, for example: `10MB`, `5KB`, 500B.
-// The default varies by repository type.
 func (s *_readOnlyUrlRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_readOnlyUrlRepositorySettings {
 
 	s.v.ChunkSize = *bytesize.ByteSizeCaster()
@@ -53,9 +43,6 @@ func (s *_readOnlyUrlRepositorySettings) ChunkSize(bytesize types.ByteSizeVarian
 	return s
 }
 
-// When set to `true`, metadata files are stored in compressed format.
-// This setting doesn't affect index files that are already compressed by
-// default.
 func (s *_readOnlyUrlRepositorySettings) Compress(compress bool) *_readOnlyUrlRepositorySettings {
 
 	s.v.Compress = &compress
@@ -63,7 +50,6 @@ func (s *_readOnlyUrlRepositorySettings) Compress(compress bool) *_readOnlyUrlRe
 	return s
 }
 
-// The maximum number of retries for HTTP and HTTPS URLs.
 func (s *_readOnlyUrlRepositorySettings) HttpMaxRetries(httpmaxretries int) *_readOnlyUrlRepositorySettings {
 
 	s.v.HttpMaxRetries = &httpmaxretries
@@ -71,7 +57,6 @@ func (s *_readOnlyUrlRepositorySettings) HttpMaxRetries(httpmaxretries int) *_re
 	return s
 }
 
-// The maximum wait time for data transfers over a connection.
 func (s *_readOnlyUrlRepositorySettings) HttpSocketTimeout(duration types.DurationVariant) *_readOnlyUrlRepositorySettings {
 
 	s.v.HttpSocketTimeout = *duration.DurationCaster()
@@ -79,8 +64,6 @@ func (s *_readOnlyUrlRepositorySettings) HttpSocketTimeout(duration types.Durati
 	return s
 }
 
-// The maximum number of snapshots the repository can contain.
-// The default is `Integer.MAX_VALUE`, which is 2^31-1 or `2147483647`.
 func (s *_readOnlyUrlRepositorySettings) MaxNumberOfSnapshots(maxnumberofsnapshots int) *_readOnlyUrlRepositorySettings {
 
 	s.v.MaxNumberOfSnapshots = &maxnumberofsnapshots
@@ -88,9 +71,6 @@ func (s *_readOnlyUrlRepositorySettings) MaxNumberOfSnapshots(maxnumberofsnapsho
 	return s
 }
 
-// The maximum snapshot restore rate per node.
-// It defaults to unlimited.
-// Note that restores are also throttled through recovery settings.
 func (s *_readOnlyUrlRepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSizeVariant) *_readOnlyUrlRepositorySettings {
 
 	s.v.MaxRestoreBytesPerSec = *bytesize.ByteSizeCaster()
@@ -98,11 +78,6 @@ func (s *_readOnlyUrlRepositorySettings) MaxRestoreBytesPerSec(bytesize types.By
 	return s
 }
 
-// The maximum snapshot creation rate per node.
-// It defaults to 40mb per second.
-// Note that if the recovery settings for managed services are set, then it
-// defaults to unlimited, and the rate is additionally throttled through
-// recovery settings.
 func (s *_readOnlyUrlRepositorySettings) MaxSnapshotBytesPerSec(bytesize types.ByteSizeVariant) *_readOnlyUrlRepositorySettings {
 
 	s.v.MaxSnapshotBytesPerSec = *bytesize.ByteSizeCaster()
@@ -110,25 +85,6 @@ func (s *_readOnlyUrlRepositorySettings) MaxSnapshotBytesPerSec(bytesize types.B
 	return s
 }
 
-// The URL location of the root of the shared filesystem repository.
-// The following protocols are supported:
-//
-// * `file`
-// * `ftp`
-// * `http`
-// * `https`
-// * `jar`
-//
-// URLs using the HTTP, HTTPS, or FTP protocols must be explicitly allowed with
-// the `repositories.url.allowed_urls` cluster setting.
-// This setting supports wildcards in the place of a host, path, query, or
-// fragment in the URL.
-//
-// URLs using the file protocol must point to the location of a shared
-// filesystem accessible to all master and data nodes in the cluster.
-// This location must be registered in the `path.repo` setting.
-// You don't need to register URLs using the FTP, HTTP, HTTPS, or JAR protocols
-// in the `path.repo` setting.
 func (s *_readOnlyUrlRepositorySettings) Url(url string) *_readOnlyUrlRepositorySettings {
 
 	s.v.Url = url

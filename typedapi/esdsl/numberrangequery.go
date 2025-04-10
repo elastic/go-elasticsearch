@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/rangerelation"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/rangerelation"
 )
 
 type _numberRangeQuery struct {
@@ -38,11 +38,6 @@ func NewNumberRangeQuery(key string) *_numberRangeQuery {
 	}
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_numberRangeQuery) Boost(boost float32) *_numberRangeQuery {
 
 	s.v.Boost = &boost
@@ -57,7 +52,6 @@ func (s *_numberRangeQuery) From(from types.Float64) *_numberRangeQuery {
 	return s
 }
 
-// Greater than.
 func (s *_numberRangeQuery) Gt(gt types.Float64) *_numberRangeQuery {
 
 	s.v.Gt = &gt
@@ -65,7 +59,6 @@ func (s *_numberRangeQuery) Gt(gt types.Float64) *_numberRangeQuery {
 	return s
 }
 
-// Greater than or equal to.
 func (s *_numberRangeQuery) Gte(gte types.Float64) *_numberRangeQuery {
 
 	s.v.Gte = &gte
@@ -73,7 +66,6 @@ func (s *_numberRangeQuery) Gte(gte types.Float64) *_numberRangeQuery {
 	return s
 }
 
-// Less than.
 func (s *_numberRangeQuery) Lt(lt types.Float64) *_numberRangeQuery {
 
 	s.v.Lt = &lt
@@ -81,7 +73,6 @@ func (s *_numberRangeQuery) Lt(lt types.Float64) *_numberRangeQuery {
 	return s
 }
 
-// Less than or equal to.
 func (s *_numberRangeQuery) Lte(lte types.Float64) *_numberRangeQuery {
 
 	s.v.Lte = &lte
@@ -96,7 +87,6 @@ func (s *_numberRangeQuery) QueryName_(queryname_ string) *_numberRangeQuery {
 	return s
 }
 
-// Indicates how the range query matches values for `range` fields.
 func (s *_numberRangeQuery) Relation(relation rangerelation.RangeRelation) *_numberRangeQuery {
 
 	s.v.Relation = &relation

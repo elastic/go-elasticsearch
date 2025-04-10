@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _extendedBoundsdouble struct {
 	v *types.ExtendedBoundsdouble
@@ -32,7 +32,6 @@ func NewExtendedBoundsdouble() *_extendedBoundsdouble {
 
 }
 
-// Maximum value for the bound.
 func (s *_extendedBoundsdouble) Max(max types.Float64) *_extendedBoundsdouble {
 
 	s.v.Max = &max
@@ -40,7 +39,6 @@ func (s *_extendedBoundsdouble) Max(max types.Float64) *_extendedBoundsdouble {
 	return s
 }
 
-// Minimum value for the bound.
 func (s *_extendedBoundsdouble) Min(min types.Float64) *_extendedBoundsdouble {
 
 	s.v.Min = &min

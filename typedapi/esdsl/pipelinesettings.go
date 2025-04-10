@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _pipelineSettings struct {
 	v *types.PipelineSettings
@@ -48,8 +48,6 @@ func NewPipelineSettings(pipelinebatchdelay int, pipelinebatchsize int, pipeline
 
 }
 
-// When creating pipeline event batches, how long in milliseconds to wait for
-// each event before dispatching an undersized batch to pipeline workers.
 func (s *_pipelineSettings) PipelineBatchDelay(pipelinebatchdelay int) *_pipelineSettings {
 
 	s.v.PipelineBatchDelay = pipelinebatchdelay
@@ -57,8 +55,6 @@ func (s *_pipelineSettings) PipelineBatchDelay(pipelinebatchdelay int) *_pipelin
 	return s
 }
 
-// The maximum number of events an individual worker thread will collect from
-// inputs before attempting to execute its filters and outputs.
 func (s *_pipelineSettings) PipelineBatchSize(pipelinebatchsize int) *_pipelineSettings {
 
 	s.v.PipelineBatchSize = pipelinebatchsize
@@ -66,8 +62,6 @@ func (s *_pipelineSettings) PipelineBatchSize(pipelinebatchsize int) *_pipelineS
 	return s
 }
 
-// The number of workers that will, in parallel, execute the filter and output
-// stages of the pipeline.
 func (s *_pipelineSettings) PipelineWorkers(pipelineworkers int) *_pipelineSettings {
 
 	s.v.PipelineWorkers = pipelineworkers
@@ -75,8 +69,6 @@ func (s *_pipelineSettings) PipelineWorkers(pipelineworkers int) *_pipelineSetti
 	return s
 }
 
-// The maximum number of written events before forcing a checkpoint when
-// persistent queues are enabled (`queue.type: persisted`).
 func (s *_pipelineSettings) QueueCheckpointWrites(queuecheckpointwrites int) *_pipelineSettings {
 
 	s.v.QueueCheckpointWrites = queuecheckpointwrites
@@ -84,7 +76,6 @@ func (s *_pipelineSettings) QueueCheckpointWrites(queuecheckpointwrites int) *_p
 	return s
 }
 
-// The total capacity of the queue (`queue.type: persisted`) in number of bytes.
 func (s *_pipelineSettings) QueueMaxBytesNumber(queuemaxbytesnumber int) *_pipelineSettings {
 
 	s.v.QueueMaxBytesNumber = queuemaxbytesnumber
@@ -92,8 +83,6 @@ func (s *_pipelineSettings) QueueMaxBytesNumber(queuemaxbytesnumber int) *_pipel
 	return s
 }
 
-// The total capacity of the queue (`queue.type: persisted`) in terms of units
-// of bytes.
 func (s *_pipelineSettings) QueueMaxBytesUnits(queuemaxbytesunits string) *_pipelineSettings {
 
 	s.v.QueueMaxBytesUnits = queuemaxbytesunits
@@ -101,7 +90,6 @@ func (s *_pipelineSettings) QueueMaxBytesUnits(queuemaxbytesunits string) *_pipe
 	return s
 }
 
-// The internal queuing model to use for event buffering.
 func (s *_pipelineSettings) QueueType(queuetype string) *_pipelineSettings {
 
 	s.v.QueueType = queuetype

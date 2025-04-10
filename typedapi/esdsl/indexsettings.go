@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexcheckonstartup"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indexcheckonstartup"
 )
 
 type _indexSettings struct {
@@ -44,8 +44,6 @@ func (s *_indexSettings) Analysis(analysis types.IndexSettingsAnalysisVariant) *
 	return s
 }
 
-// Settings to define analyzers, tokenizers, token filters and character
-// filters.
 func (s *_indexSettings) Analyze(analyze types.SettingsAnalyzeVariant) *_indexSettings {
 
 	s.v.Analyze = analyze.SettingsAnalyzeCaster()
@@ -164,7 +162,6 @@ func (s *_indexSettings) AddIndexSetting(key string, value json.RawMessage) *_in
 	return s
 }
 
-// Configure indexing back pressure limits.
 func (s *_indexSettings) IndexingPressure(indexingpressure types.IndicesIndexingPressureVariant) *_indexSettings {
 
 	s.v.IndexingPressure = indexingpressure.IndicesIndexingPressureCaster()
@@ -193,7 +190,6 @@ func (s *_indexSettings) LoadFixedBitsetFiltersEagerly(loadfixedbitsetfilterseag
 	return s
 }
 
-// Enable or disable dynamic mapping for an index.
 func (s *_indexSettings) Mapping(mapping types.MappingLimitSettingsVariant) *_indexSettings {
 
 	s.v.Mapping = mapping.MappingLimitSettingsCaster()
@@ -384,8 +380,6 @@ func (s *_indexSettings) Settings(settings types.IndexSettingsVariant) *_indexSe
 	return s
 }
 
-// Configure custom similarity settings to customize how search results are
-// scored.
 func (s *_indexSettings) Similarity(similarity map[string]types.SettingsSimilarity) *_indexSettings {
 
 	s.v.Similarity = similarity
@@ -421,8 +415,6 @@ func (s *_indexSettings) Sort(sort types.IndexSegmentSortVariant) *_indexSetting
 	return s
 }
 
-// The store module allows you to control how index data is stored and accessed
-// on disk.
 func (s *_indexSettings) Store(store types.StorageVariant) *_indexSettings {
 
 	s.v.Store = store.StorageCaster()

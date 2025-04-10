@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _detectorUpdate struct {
 	v *types.DetectorUpdate
@@ -36,11 +36,6 @@ func NewDetectorUpdate(detectorindex int) *_detectorUpdate {
 
 }
 
-// An array of custom rule objects, which enable you to customize the way
-// detectors operate.
-// For example, a rule may dictate to the detector conditions under which
-// results should be skipped.
-// Kibana refers to custom rules as job rules.
 func (s *_detectorUpdate) CustomRules(customrules ...types.DetectionRuleVariant) *_detectorUpdate {
 
 	for _, v := range customrules {
@@ -51,7 +46,6 @@ func (s *_detectorUpdate) CustomRules(customrules ...types.DetectionRuleVariant)
 	return s
 }
 
-// A description of the detector.
 func (s *_detectorUpdate) Description(description string) *_detectorUpdate {
 
 	s.v.Description = &description
@@ -59,9 +53,6 @@ func (s *_detectorUpdate) Description(description string) *_detectorUpdate {
 	return s
 }
 
-// A unique identifier for the detector.
-// This identifier is based on the order of the detectors in the
-// `analysis_config`, starting at zero.
 func (s *_detectorUpdate) DetectorIndex(detectorindex int) *_detectorUpdate {
 
 	s.v.DetectorIndex = detectorindex

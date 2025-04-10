@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _downsamplingRound struct {
 	v *types.DownsamplingRound
@@ -36,7 +36,6 @@ func NewDownsamplingRound(config types.DownsampleConfigVariant) *_downsamplingRo
 
 }
 
-// The duration since rollover when this downsampling round should execute
 func (s *_downsamplingRound) After(duration types.DurationVariant) *_downsamplingRound {
 
 	s.v.After = *duration.DurationCaster()
@@ -44,7 +43,6 @@ func (s *_downsamplingRound) After(duration types.DurationVariant) *_downsamplin
 	return s
 }
 
-// The downsample configuration to execute.
 func (s *_downsamplingRound) Config(config types.DownsampleConfigVariant) *_downsamplingRound {
 
 	s.v.Config = *config.DownsampleConfigCaster()

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _percolateQuery struct {
@@ -37,11 +37,6 @@ func NewPercolateQuery() *_percolateQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_percolateQuery) Boost(boost float32) *_percolateQuery {
 
 	s.v.Boost = &boost
@@ -49,7 +44,6 @@ func (s *_percolateQuery) Boost(boost float32) *_percolateQuery {
 	return s
 }
 
-// The source of the document being percolated.
 func (s *_percolateQuery) Document(document json.RawMessage) *_percolateQuery {
 
 	s.v.Document = document
@@ -57,7 +51,6 @@ func (s *_percolateQuery) Document(document json.RawMessage) *_percolateQuery {
 	return s
 }
 
-// An array of sources of the documents being percolated.
 func (s *_percolateQuery) Documents(documents ...json.RawMessage) *_percolateQuery {
 
 	for _, v := range documents {
@@ -68,8 +61,6 @@ func (s *_percolateQuery) Documents(documents ...json.RawMessage) *_percolateQue
 	return s
 }
 
-// Field that holds the indexed queries. The field must use the `percolator`
-// mapping type.
 func (s *_percolateQuery) Field(field string) *_percolateQuery {
 
 	s.v.Field = field
@@ -77,7 +68,6 @@ func (s *_percolateQuery) Field(field string) *_percolateQuery {
 	return s
 }
 
-// The ID of a stored document to percolate.
 func (s *_percolateQuery) Id(id string) *_percolateQuery {
 
 	s.v.Id = &id
@@ -85,7 +75,6 @@ func (s *_percolateQuery) Id(id string) *_percolateQuery {
 	return s
 }
 
-// The index of a stored document to percolate.
 func (s *_percolateQuery) Index(indexname string) *_percolateQuery {
 
 	s.v.Index = &indexname
@@ -93,8 +82,6 @@ func (s *_percolateQuery) Index(indexname string) *_percolateQuery {
 	return s
 }
 
-// The suffix used for the `_percolator_document_slot` field when multiple
-// `percolate` queries are specified.
 func (s *_percolateQuery) Name(name string) *_percolateQuery {
 
 	s.v.Name = &name
@@ -102,7 +89,6 @@ func (s *_percolateQuery) Name(name string) *_percolateQuery {
 	return s
 }
 
-// Preference used to fetch document to percolate.
 func (s *_percolateQuery) Preference(preference string) *_percolateQuery {
 
 	s.v.Preference = &preference
@@ -117,7 +103,6 @@ func (s *_percolateQuery) QueryName_(queryname_ string) *_percolateQuery {
 	return s
 }
 
-// Routing used to fetch document to percolate.
 func (s *_percolateQuery) Routing(routing string) *_percolateQuery {
 
 	s.v.Routing = &routing
@@ -125,7 +110,6 @@ func (s *_percolateQuery) Routing(routing string) *_percolateQuery {
 	return s
 }
 
-// The expected version of a stored document to percolate.
 func (s *_percolateQuery) Version(versionnumber int64) *_percolateQuery {
 
 	s.v.Version = &versionnumber

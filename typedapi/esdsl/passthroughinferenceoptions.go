@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _passThroughInferenceOptions struct {
 	v *types.PassThroughInferenceOptions
@@ -33,8 +33,6 @@ func NewPassThroughInferenceOptions() *_passThroughInferenceOptions {
 
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_passThroughInferenceOptions) ResultsField(resultsfield string) *_passThroughInferenceOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -42,7 +40,6 @@ func (s *_passThroughInferenceOptions) ResultsField(resultsfield string) *_passT
 	return s
 }
 
-// The tokenization options
 func (s *_passThroughInferenceOptions) Tokenization(tokenization types.TokenizationConfigContainerVariant) *_passThroughInferenceOptions {
 
 	s.v.Tokenization = tokenization.TokenizationConfigContainerCaster()

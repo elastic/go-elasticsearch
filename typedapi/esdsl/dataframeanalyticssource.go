@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dataframeAnalyticsSource struct {
 	v *types.DataframeAnalyticsSource
@@ -32,10 +32,6 @@ func NewDataframeAnalyticsSource() *_dataframeAnalyticsSource {
 
 }
 
-// Index or indices on which to perform the analysis. It can be a single index
-// or index pattern as well as an array of indices or patterns. NOTE: If your
-// source indices contain documents with the same IDs, only the document that is
-// indexed last appears in the destination index.
 func (s *_dataframeAnalyticsSource) Index(indices ...string) *_dataframeAnalyticsSource {
 
 	s.v.Index = indices
@@ -43,11 +39,6 @@ func (s *_dataframeAnalyticsSource) Index(indices ...string) *_dataframeAnalytic
 	return s
 }
 
-// The Elasticsearch query domain-specific language (DSL). This value
-// corresponds to the query object in an Elasticsearch search POST body. All the
-// options that are supported by Elasticsearch can be used, as this object is
-// passed verbatim to Elasticsearch. By default, this property has the following
-// value: {"match_all": {}}.
 func (s *_dataframeAnalyticsSource) Query(query types.QueryVariant) *_dataframeAnalyticsSource {
 
 	s.v.Query = query.QueryCaster()
@@ -55,8 +46,6 @@ func (s *_dataframeAnalyticsSource) Query(query types.QueryVariant) *_dataframeA
 	return s
 }
 
-// Definitions of runtime fields that will become part of the mapping of the
-// destination index.
 func (s *_dataframeAnalyticsSource) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *_dataframeAnalyticsSource {
 
 	s.v.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
@@ -64,9 +53,6 @@ func (s *_dataframeAnalyticsSource) RuntimeMappings(runtimefields types.RuntimeF
 	return s
 }
 
-// Specify `includes` and/or `excludes patterns to select which fields will be
-// present in the destination. Fields that are excluded cannot be included in
-// the analysis.
 func (s *_dataframeAnalyticsSource) Source_(source_ types.DataframeAnalysisAnalyzedFieldsVariant) *_dataframeAnalyticsSource {
 
 	s.v.Source_ = source_.DataframeAnalysisAnalyzedFieldsCaster()

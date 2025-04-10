@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/suggestmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/suggestmode"
 )
 
 type _directGenerator struct {
@@ -35,8 +35,6 @@ func NewDirectGenerator() *_directGenerator {
 
 }
 
-// The field to fetch the candidate suggestions from.
-// Needs to be set globally or per suggestion.
 func (s *_directGenerator) Field(field string) *_directGenerator {
 
 	s.v.Field = field
@@ -44,9 +42,6 @@ func (s *_directGenerator) Field(field string) *_directGenerator {
 	return s
 }
 
-// The maximum edit distance candidate suggestions can have in order to be
-// considered as a suggestion.
-// Can only be `1` or `2`.
 func (s *_directGenerator) MaxEdits(maxedits int) *_directGenerator {
 
 	s.v.MaxEdits = &maxedits
@@ -54,9 +49,6 @@ func (s *_directGenerator) MaxEdits(maxedits int) *_directGenerator {
 	return s
 }
 
-// A factor that is used to multiply with the shard_size in order to inspect
-// more candidate spelling corrections on the shard level.
-// Can improve accuracy at the cost of performance.
 func (s *_directGenerator) MaxInspections(maxinspections float32) *_directGenerator {
 
 	s.v.MaxInspections = &maxinspections
@@ -64,13 +56,6 @@ func (s *_directGenerator) MaxInspections(maxinspections float32) *_directGenera
 	return s
 }
 
-// The maximum threshold in number of documents in which a suggest text token
-// can exist in order to be included.
-// This can be used to exclude high frequency terms — which are usually spelled
-// correctly — from being spellchecked.
-// Can be a relative percentage number (for example `0.4`) or an absolute number
-// to represent document frequencies.
-// If a value higher than 1 is specified, then fractional can not be specified.
 func (s *_directGenerator) MaxTermFreq(maxtermfreq float32) *_directGenerator {
 
 	s.v.MaxTermFreq = &maxtermfreq
@@ -78,11 +63,6 @@ func (s *_directGenerator) MaxTermFreq(maxtermfreq float32) *_directGenerator {
 	return s
 }
 
-// The minimal threshold in number of documents a suggestion should appear in.
-// This can improve quality by only suggesting high frequency terms.
-// Can be specified as an absolute number or as a relative percentage of number
-// of documents.
-// If a value higher than 1 is specified, the number cannot be fractional.
 func (s *_directGenerator) MinDocFreq(mindocfreq float32) *_directGenerator {
 
 	s.v.MinDocFreq = &mindocfreq
@@ -90,7 +70,6 @@ func (s *_directGenerator) MinDocFreq(mindocfreq float32) *_directGenerator {
 	return s
 }
 
-// The minimum length a suggest text term must have in order to be included.
 func (s *_directGenerator) MinWordLength(minwordlength int) *_directGenerator {
 
 	s.v.MinWordLength = &minwordlength
@@ -98,8 +77,6 @@ func (s *_directGenerator) MinWordLength(minwordlength int) *_directGenerator {
 	return s
 }
 
-// A filter (analyzer) that is applied to each of the generated tokens before
-// they are passed to the actual phrase scorer.
 func (s *_directGenerator) PostFilter(postfilter string) *_directGenerator {
 
 	s.v.PostFilter = &postfilter
@@ -107,9 +84,6 @@ func (s *_directGenerator) PostFilter(postfilter string) *_directGenerator {
 	return s
 }
 
-// A filter (analyzer) that is applied to each of the tokens passed to this
-// candidate generator.
-// This filter is applied to the original token before candidates are generated.
 func (s *_directGenerator) PreFilter(prefilter string) *_directGenerator {
 
 	s.v.PreFilter = &prefilter
@@ -117,9 +91,6 @@ func (s *_directGenerator) PreFilter(prefilter string) *_directGenerator {
 	return s
 }
 
-// The number of minimal prefix characters that must match in order be a
-// candidate suggestions.
-// Increasing this number improves spellcheck performance.
 func (s *_directGenerator) PrefixLength(prefixlength int) *_directGenerator {
 
 	s.v.PrefixLength = &prefixlength
@@ -127,7 +98,6 @@ func (s *_directGenerator) PrefixLength(prefixlength int) *_directGenerator {
 	return s
 }
 
-// The maximum corrections to be returned per suggest text token.
 func (s *_directGenerator) Size(size int) *_directGenerator {
 
 	s.v.Size = &size
@@ -135,8 +105,6 @@ func (s *_directGenerator) Size(size int) *_directGenerator {
 	return s
 }
 
-// Controls what suggestions are included on the suggestions generated on each
-// shard.
 func (s *_directGenerator) SuggestMode(suggestmode suggestmode.SuggestMode) *_directGenerator {
 
 	s.v.SuggestMode = &suggestmode

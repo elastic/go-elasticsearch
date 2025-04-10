@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _questionAnsweringInferenceUpdateOptions struct {
 	v *types.QuestionAnsweringInferenceUpdateOptions
@@ -37,7 +37,6 @@ func NewQuestionAnsweringInferenceUpdateOptions(question string) *_questionAnswe
 
 }
 
-// The maximum answer length to consider for extraction
 func (s *_questionAnsweringInferenceUpdateOptions) MaxAnswerLength(maxanswerlength int) *_questionAnsweringInferenceUpdateOptions {
 
 	s.v.MaxAnswerLength = &maxanswerlength
@@ -45,7 +44,6 @@ func (s *_questionAnsweringInferenceUpdateOptions) MaxAnswerLength(maxanswerleng
 	return s
 }
 
-// Specifies the number of top class predictions to return. Defaults to 0.
 func (s *_questionAnsweringInferenceUpdateOptions) NumTopClasses(numtopclasses int) *_questionAnsweringInferenceUpdateOptions {
 
 	s.v.NumTopClasses = &numtopclasses
@@ -53,7 +51,6 @@ func (s *_questionAnsweringInferenceUpdateOptions) NumTopClasses(numtopclasses i
 	return s
 }
 
-// The question to answer given the inference context
 func (s *_questionAnsweringInferenceUpdateOptions) Question(question string) *_questionAnsweringInferenceUpdateOptions {
 
 	s.v.Question = question
@@ -61,8 +58,6 @@ func (s *_questionAnsweringInferenceUpdateOptions) Question(question string) *_q
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_questionAnsweringInferenceUpdateOptions) ResultsField(resultsfield string) *_questionAnsweringInferenceUpdateOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -70,7 +65,6 @@ func (s *_questionAnsweringInferenceUpdateOptions) ResultsField(resultsfield str
 	return s
 }
 
-// The tokenization options to update when inferring
 func (s *_questionAnsweringInferenceUpdateOptions) Tokenization(tokenization types.NlpTokenizationUpdateOptionsVariant) *_questionAnsweringInferenceUpdateOptions {
 
 	s.v.Tokenization = tokenization.NlpTokenizationUpdateOptionsCaster()

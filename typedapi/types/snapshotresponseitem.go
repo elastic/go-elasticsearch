@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SnapshotResponseItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/snapshot/get/SnapshotGetResponse.ts#L49-L53
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/snapshot/get/SnapshotGetResponse.ts#L49-L53
 type SnapshotResponseItem struct {
 	Error      *ErrorCause    `json:"error,omitempty"`
 	Repository string         `json:"repository"`

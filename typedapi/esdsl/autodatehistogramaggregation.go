@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/minimuminterval"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/minimuminterval"
 )
 
 type _autoDateHistogramAggregation struct {
@@ -40,7 +40,6 @@ func NewAutoDateHistogramAggregation() *_autoDateHistogramAggregation {
 
 }
 
-// The target number of buckets.
 func (s *_autoDateHistogramAggregation) Buckets(buckets int) *_autoDateHistogramAggregation {
 
 	s.v.Buckets = &buckets
@@ -48,7 +47,6 @@ func (s *_autoDateHistogramAggregation) Buckets(buckets int) *_autoDateHistogram
 	return s
 }
 
-// The field on which to run the aggregation.
 func (s *_autoDateHistogramAggregation) Field(field string) *_autoDateHistogramAggregation {
 
 	s.v.Field = &field
@@ -56,9 +54,6 @@ func (s *_autoDateHistogramAggregation) Field(field string) *_autoDateHistogramA
 	return s
 }
 
-// The date format used to format `key_as_string` in the response.
-// If no `format` is specified, the first date format specified in the field
-// mapping is used.
 func (s *_autoDateHistogramAggregation) Format(format string) *_autoDateHistogramAggregation {
 
 	s.v.Format = &format
@@ -66,17 +61,12 @@ func (s *_autoDateHistogramAggregation) Format(format string) *_autoDateHistogra
 	return s
 }
 
-// The minimum rounding interval.
-// This can make the collection process more efficient, as the aggregation will
-// not attempt to round at any interval lower than `minimum_interval`.
 func (s *_autoDateHistogramAggregation) MinimumInterval(minimuminterval minimuminterval.MinimumInterval) *_autoDateHistogramAggregation {
 
 	s.v.MinimumInterval = &minimuminterval
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_autoDateHistogramAggregation) Missing(datetime types.DateTimeVariant) *_autoDateHistogramAggregation {
 
 	s.v.Missing = *datetime.DateTimeCaster()
@@ -84,7 +74,6 @@ func (s *_autoDateHistogramAggregation) Missing(datetime types.DateTimeVariant) 
 	return s
 }
 
-// Time zone specified as a ISO 8601 UTC offset.
 func (s *_autoDateHistogramAggregation) Offset(offset string) *_autoDateHistogramAggregation {
 
 	s.v.Offset = &offset
@@ -120,7 +109,6 @@ func (s *_autoDateHistogramAggregation) Script(script types.ScriptVariant) *_aut
 	return s
 }
 
-// Time zone ID.
 func (s *_autoDateHistogramAggregation) TimeZone(timezone string) *_autoDateHistogramAggregation {
 
 	s.v.TimeZone = &timezone

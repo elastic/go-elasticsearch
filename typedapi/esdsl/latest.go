@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _latest struct {
 	v *types.Latest
@@ -32,7 +32,6 @@ func NewLatest() *_latest {
 
 }
 
-// Specifies the date field that is used to identify the latest documents.
 func (s *_latest) Sort(field string) *_latest {
 
 	s.v.Sort = field
@@ -40,7 +39,6 @@ func (s *_latest) Sort(field string) *_latest {
 	return s
 }
 
-// Specifies an array of one or more fields that are used to group the data.
 func (s *_latest) UniqueKey(uniquekeys ...string) *_latest {
 
 	for _, v := range uniquekeys {

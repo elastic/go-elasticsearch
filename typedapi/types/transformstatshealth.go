@@ -16,18 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/healthstatus"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/healthstatus"
 )
 
 // TransformStatsHealth type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/transform/get_transform_stats/types.ts#L44-L46
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/transform/get_transform_stats/types.ts#L44-L49
 type TransformStatsHealth struct {
+	// Issues If a non-healthy status is returned, contains a list of issues of the
+	// transform.
+	Issues []TransformHealthIssue    `json:"issues,omitempty"`
 	Status healthstatus.HealthStatus `json:"status"`
 }
 

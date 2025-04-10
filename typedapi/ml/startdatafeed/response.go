@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package startdatafeed
 
@@ -31,7 +31,7 @@ import (
 
 // Response holds the response body struct for the package startdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/start_datafeed/MlStartDatafeedResponse.ts#L22-L34
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/ml/start_datafeed/MlStartDatafeedResponse.ts#L22-L34
 type Response struct {
 
 	// Node The ID of the node that the job was started on. In serverless this will be

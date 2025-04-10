@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _frequentItemSetsField struct {
 	v *types.FrequentItemSetsField
@@ -32,8 +32,6 @@ func NewFrequentItemSetsField() *_frequentItemSetsField {
 
 }
 
-// Values to exclude.
-// Can be regular expression strings or arrays of strings of exact terms.
 func (s *_frequentItemSetsField) Exclude(termsexcludes ...string) *_frequentItemSetsField {
 
 	s.v.Exclude = termsexcludes
@@ -48,8 +46,6 @@ func (s *_frequentItemSetsField) Field(field string) *_frequentItemSetsField {
 	return s
 }
 
-// Values to include.
-// Can be regular expression strings or arrays of strings of exact terms.
 func (s *_frequentItemSetsField) Include(termsinclude types.TermsIncludeVariant) *_frequentItemSetsField {
 
 	s.v.Include = *termsinclude.TermsIncludeCaster()

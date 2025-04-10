@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -28,13 +28,13 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/deploymentassignmentstate"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/trainingpriority"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/deploymentassignmentstate"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/trainingpriority"
 )
 
 // TrainedModelDeploymentStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/TrainedModel.ts#L62-L107
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/ml/_types/TrainedModel.ts#L62-L107
 type TrainedModelDeploymentStats struct {
 	AdaptiveAllocations *AdaptiveAllocationsSettings `json:"adaptive_allocations,omitempty"`
 	// AllocationStatus The detailed allocation status for the deployment.

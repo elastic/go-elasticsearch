@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _dataframeAnalysisFeatureProcessorTargetMeanEncoding struct {
@@ -41,7 +41,6 @@ func NewDataframeAnalysisFeatureProcessorTargetMeanEncoding(defaultvalue int) *_
 
 }
 
-// The default value if field value is not found in the target_map.
 func (s *_dataframeAnalysisFeatureProcessorTargetMeanEncoding) DefaultValue(defaultvalue int) *_dataframeAnalysisFeatureProcessorTargetMeanEncoding {
 
 	s.v.DefaultValue = defaultvalue
@@ -49,7 +48,6 @@ func (s *_dataframeAnalysisFeatureProcessorTargetMeanEncoding) DefaultValue(defa
 	return s
 }
 
-// The resulting feature name.
 func (s *_dataframeAnalysisFeatureProcessorTargetMeanEncoding) FeatureName(name string) *_dataframeAnalysisFeatureProcessorTargetMeanEncoding {
 
 	s.v.FeatureName = name
@@ -57,7 +55,6 @@ func (s *_dataframeAnalysisFeatureProcessorTargetMeanEncoding) FeatureName(name 
 	return s
 }
 
-// The name of the field to encode.
 func (s *_dataframeAnalysisFeatureProcessorTargetMeanEncoding) Field(field string) *_dataframeAnalysisFeatureProcessorTargetMeanEncoding {
 
 	s.v.Field = field
@@ -65,7 +62,6 @@ func (s *_dataframeAnalysisFeatureProcessorTargetMeanEncoding) Field(field strin
 	return s
 }
 
-// The field value to target mean transition map.
 func (s *_dataframeAnalysisFeatureProcessorTargetMeanEncoding) TargetMap(targetmap map[string]json.RawMessage) *_dataframeAnalysisFeatureProcessorTargetMeanEncoding {
 
 	s.v.TargetMap = targetmap

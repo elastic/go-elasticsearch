@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _retention struct {
 	v *types.Retention
@@ -38,8 +38,6 @@ func NewRetention(maxcount int, mincount int) *_retention {
 
 }
 
-// Time period after which a snapshot is considered expired and eligible for
-// deletion. SLM deletes expired snapshots based on the slm.retention_schedule.
 func (s *_retention) ExpireAfter(duration types.DurationVariant) *_retention {
 
 	s.v.ExpireAfter = *duration.DurationCaster()
@@ -47,9 +45,6 @@ func (s *_retention) ExpireAfter(duration types.DurationVariant) *_retention {
 	return s
 }
 
-// Maximum number of snapshots to retain, even if the snapshots have not yet
-// expired. If the number of snapshots in the repository exceeds this limit, the
-// policy retains the most recent snapshots and deletes older snapshots.
 func (s *_retention) MaxCount(maxcount int) *_retention {
 
 	s.v.MaxCount = maxcount
@@ -57,7 +52,6 @@ func (s *_retention) MaxCount(maxcount int) *_retention {
 	return s
 }
 
-// Minimum number of snapshots to retain, even if the snapshots have expired.
 func (s *_retention) MinCount(mincount int) *_retention {
 
 	s.v.MinCount = mincount

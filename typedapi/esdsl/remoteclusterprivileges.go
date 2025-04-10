@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/remoteclusterprivilege"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/remoteclusterprivilege"
 )
 
 type _remoteClusterPrivileges struct {
@@ -35,7 +35,6 @@ func NewRemoteClusterPrivileges() *_remoteClusterPrivileges {
 
 }
 
-// A list of cluster aliases to which the permissions in this entry apply.
 func (s *_remoteClusterPrivileges) Clusters(names ...string) *_remoteClusterPrivileges {
 
 	s.v.Clusters = names
@@ -43,8 +42,6 @@ func (s *_remoteClusterPrivileges) Clusters(names ...string) *_remoteClusterPriv
 	return s
 }
 
-// The cluster level privileges that owners of the role have on the remote
-// cluster.
 func (s *_remoteClusterPrivileges) Privileges(privileges ...remoteclusterprivilege.RemoteClusterPrivilege) *_remoteClusterPrivileges {
 
 	for _, v := range privileges {

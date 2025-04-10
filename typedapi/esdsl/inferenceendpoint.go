@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _inferenceEndpoint struct {
@@ -40,7 +40,6 @@ func NewInferenceEndpoint(service string) *_inferenceEndpoint {
 
 }
 
-// Chunking configuration object
 func (s *_inferenceEndpoint) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *_inferenceEndpoint {
 
 	s.v.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
@@ -48,7 +47,6 @@ func (s *_inferenceEndpoint) ChunkingSettings(chunkingsettings types.InferenceCh
 	return s
 }
 
-// The service type
 func (s *_inferenceEndpoint) Service(service string) *_inferenceEndpoint {
 
 	s.v.Service = service
@@ -56,7 +54,6 @@ func (s *_inferenceEndpoint) Service(service string) *_inferenceEndpoint {
 	return s
 }
 
-// Settings specific to the service
 func (s *_inferenceEndpoint) ServiceSettings(servicesettings json.RawMessage) *_inferenceEndpoint {
 
 	s.v.ServiceSettings = servicesettings
@@ -64,7 +61,6 @@ func (s *_inferenceEndpoint) ServiceSettings(servicesettings json.RawMessage) *_
 	return s
 }
 
-// Task settings specific to the service and task type
 func (s *_inferenceEndpoint) TaskSettings(tasksettings json.RawMessage) *_inferenceEndpoint {
 
 	s.v.TaskSettings = tasksettings

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _completionToolFunction struct {
@@ -40,8 +40,6 @@ func NewCompletionToolFunction(name string) *_completionToolFunction {
 
 }
 
-// A description of what the function does.
-// This is used by the model to choose when and how to call the function.
 func (s *_completionToolFunction) Description(description string) *_completionToolFunction {
 
 	s.v.Description = &description
@@ -49,7 +47,6 @@ func (s *_completionToolFunction) Description(description string) *_completionTo
 	return s
 }
 
-// The name of the function.
 func (s *_completionToolFunction) Name(name string) *_completionToolFunction {
 
 	s.v.Name = name
@@ -57,8 +54,6 @@ func (s *_completionToolFunction) Name(name string) *_completionToolFunction {
 	return s
 }
 
-// The parameters the functional accepts. This should be formatted as a JSON
-// object.
 func (s *_completionToolFunction) Parameters(parameters json.RawMessage) *_completionToolFunction {
 
 	s.v.Parameters = parameters
@@ -66,7 +61,6 @@ func (s *_completionToolFunction) Parameters(parameters json.RawMessage) *_compl
 	return s
 }
 
-// Whether to enable schema adherence when generating the function call.
 func (s *_completionToolFunction) Strict(strict bool) *_completionToolFunction {
 
 	s.v.Strict = &strict

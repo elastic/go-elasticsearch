@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dateRangeAggregation struct {
 	v *types.DateRangeAggregation
@@ -34,7 +34,6 @@ func NewDateRangeAggregation() *_dateRangeAggregation {
 
 }
 
-// The date field whose values are use to build ranges.
 func (s *_dateRangeAggregation) Field(field string) *_dateRangeAggregation {
 
 	s.v.Field = &field
@@ -42,7 +41,6 @@ func (s *_dateRangeAggregation) Field(field string) *_dateRangeAggregation {
 	return s
 }
 
-// The date format used to format `from` and `to` in the response.
 func (s *_dateRangeAggregation) Format(format string) *_dateRangeAggregation {
 
 	s.v.Format = &format
@@ -50,8 +48,6 @@ func (s *_dateRangeAggregation) Format(format string) *_dateRangeAggregation {
 	return s
 }
 
-// Set to `true` to associate a unique string key with each bucket and returns
-// the ranges as a hash rather than an array.
 func (s *_dateRangeAggregation) Keyed(keyed bool) *_dateRangeAggregation {
 
 	s.v.Keyed = &keyed
@@ -59,8 +55,6 @@ func (s *_dateRangeAggregation) Keyed(keyed bool) *_dateRangeAggregation {
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_dateRangeAggregation) Missing(missing types.MissingVariant) *_dateRangeAggregation {
 
 	s.v.Missing = *missing.MissingCaster()
@@ -68,7 +62,6 @@ func (s *_dateRangeAggregation) Missing(missing types.MissingVariant) *_dateRang
 	return s
 }
 
-// Array of date ranges.
 func (s *_dateRangeAggregation) Ranges(ranges ...types.DateRangeExpressionVariant) *_dateRangeAggregation {
 
 	for _, v := range ranges {
@@ -79,7 +72,6 @@ func (s *_dateRangeAggregation) Ranges(ranges ...types.DateRangeExpressionVarian
 	return s
 }
 
-// Time zone used to convert dates from another time zone to UTC.
 func (s *_dateRangeAggregation) TimeZone(timezone string) *_dateRangeAggregation {
 
 	s.v.TimeZone = &timezone

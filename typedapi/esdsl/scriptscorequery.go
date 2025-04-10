@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _scriptScoreQuery struct {
 	v *types.ScriptScoreQuery
@@ -39,11 +39,6 @@ func NewScriptScoreQuery(query types.QueryVariant, script types.ScriptVariant) *
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_scriptScoreQuery) Boost(boost float32) *_scriptScoreQuery {
 
 	s.v.Boost = &boost
@@ -51,8 +46,6 @@ func (s *_scriptScoreQuery) Boost(boost float32) *_scriptScoreQuery {
 	return s
 }
 
-// Documents with a score lower than this floating point number are excluded
-// from the search results.
 func (s *_scriptScoreQuery) MinScore(minscore float32) *_scriptScoreQuery {
 
 	s.v.MinScore = &minscore
@@ -60,7 +53,6 @@ func (s *_scriptScoreQuery) MinScore(minscore float32) *_scriptScoreQuery {
 	return s
 }
 
-// Query used to return documents.
 func (s *_scriptScoreQuery) Query(query types.QueryVariant) *_scriptScoreQuery {
 
 	s.v.Query = *query.QueryCaster()
@@ -75,9 +67,6 @@ func (s *_scriptScoreQuery) QueryName_(queryname_ string) *_scriptScoreQuery {
 	return s
 }
 
-// Script used to compute the score of documents returned by the query.
-// Important: final relevance scores from the `script_score` query cannot be
-// negative.
 func (s *_scriptScoreQuery) Script(script types.ScriptVariant) *_scriptScoreQuery {
 
 	s.v.Script = *script.ScriptCaster()

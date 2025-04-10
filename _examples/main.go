@@ -15,9 +15,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-//go:build ignore
-// +build ignore
-
 // This example demonstrates a basic usage of the Elasticsearch Go client.
 //
 // It fetches the version information from the cluster, indexes a couple
@@ -34,8 +31,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/esapi"
 )
 
 func main() {

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _categorizeTextAggregation struct {
 	v *types.CategorizeTextAggregation
@@ -33,13 +33,6 @@ func NewCategorizeTextAggregation() *_categorizeTextAggregation {
 
 }
 
-// The categorization analyzer specifies how the text is analyzed and tokenized
-// before being categorized.
-// The syntax is very similar to that used to define the analyzer in the
-// [Analyze
-// endpoint](https://www.elastic.co/guide/en/elasticsearch/reference/8.0/indices-analyze.html).
-// This property
-// cannot be used at the same time as categorization_filters.
 func (s *_categorizeTextAggregation) CategorizationAnalyzer(categorizetextanalyzer types.CategorizeTextAnalyzerVariant) *_categorizeTextAggregation {
 
 	s.v.CategorizationAnalyzer = *categorizetextanalyzer.CategorizeTextAnalyzerCaster()
@@ -47,20 +40,6 @@ func (s *_categorizeTextAggregation) CategorizationAnalyzer(categorizetextanalyz
 	return s
 }
 
-// This property expects an array of regular expressions. The expressions are
-// used to filter out matching
-// sequences from the categorization field values. You can use this
-// functionality to fine tune the categorization
-// by excluding sequences from consideration when categories are defined. For
-// example, you can exclude SQL
-// statements that appear in your log files. This property cannot be used at the
-// same time as categorization_analyzer.
-// If you only want to define simple regular expression filters that are applied
-// prior to tokenization, setting
-// this property is the easiest method. If you also want to customize the
-// tokenizer or post-tokenization filtering,
-// use the categorization_analyzer property instead and include the filters as
-// pattern_replace character filters.
 func (s *_categorizeTextAggregation) CategorizationFilters(categorizationfilters ...string) *_categorizeTextAggregation {
 
 	for _, v := range categorizationfilters {
@@ -71,7 +50,6 @@ func (s *_categorizeTextAggregation) CategorizationFilters(categorizationfilters
 	return s
 }
 
-// The semi-structured text field to categorize.
 func (s *_categorizeTextAggregation) Field(field string) *_categorizeTextAggregation {
 
 	s.v.Field = field
@@ -79,10 +57,6 @@ func (s *_categorizeTextAggregation) Field(field string) *_categorizeTextAggrega
 	return s
 }
 
-// The maximum number of token positions to match on before attempting to merge
-// categories. Larger
-// values will use more memory and create narrower categories. Max allowed value
-// is 100.
 func (s *_categorizeTextAggregation) MaxMatchedTokens(maxmatchedtokens int) *_categorizeTextAggregation {
 
 	s.v.MaxMatchedTokens = &maxmatchedtokens
@@ -90,11 +64,6 @@ func (s *_categorizeTextAggregation) MaxMatchedTokens(maxmatchedtokens int) *_ca
 	return s
 }
 
-// The maximum number of unique tokens at any position up to max_matched_tokens.
-// Must be larger than 1.
-// Smaller values use less memory and create fewer categories. Larger values
-// will use more memory and
-// create narrower categories. Max allowed value is 100.
 func (s *_categorizeTextAggregation) MaxUniqueTokens(maxuniquetokens int) *_categorizeTextAggregation {
 
 	s.v.MaxUniqueTokens = &maxuniquetokens
@@ -102,7 +71,6 @@ func (s *_categorizeTextAggregation) MaxUniqueTokens(maxuniquetokens int) *_cate
 	return s
 }
 
-// The minimum number of documents in a bucket to be returned to the results.
 func (s *_categorizeTextAggregation) MinDocCount(mindoccount int) *_categorizeTextAggregation {
 
 	s.v.MinDocCount = &mindoccount
@@ -110,8 +78,6 @@ func (s *_categorizeTextAggregation) MinDocCount(mindoccount int) *_categorizeTe
 	return s
 }
 
-// The minimum number of documents in a bucket to be returned from the shard
-// before merging.
 func (s *_categorizeTextAggregation) ShardMinDocCount(shardmindoccount int) *_categorizeTextAggregation {
 
 	s.v.ShardMinDocCount = &shardmindoccount
@@ -119,8 +85,6 @@ func (s *_categorizeTextAggregation) ShardMinDocCount(shardmindoccount int) *_ca
 	return s
 }
 
-// The number of categorization buckets to return from each shard before merging
-// all the results.
 func (s *_categorizeTextAggregation) ShardSize(shardsize int) *_categorizeTextAggregation {
 
 	s.v.ShardSize = &shardsize
@@ -128,11 +92,6 @@ func (s *_categorizeTextAggregation) ShardSize(shardsize int) *_categorizeTextAg
 	return s
 }
 
-// The minimum percentage of tokens that must match for text to be added to the
-// category bucket. Must
-// be between 1 and 100. The larger the value the narrower the categories.
-// Larger values will increase memory
-// usage and create narrower categories.
 func (s *_categorizeTextAggregation) SimilarityThreshold(similaritythreshold int) *_categorizeTextAggregation {
 
 	s.v.SimilarityThreshold = &similaritythreshold
@@ -140,7 +99,6 @@ func (s *_categorizeTextAggregation) SimilarityThreshold(similaritythreshold int
 	return s
 }
 
-// The number of buckets to return.
 func (s *_categorizeTextAggregation) Size(size int) *_categorizeTextAggregation {
 
 	s.v.Size = &size

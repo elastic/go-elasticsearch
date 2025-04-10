@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _bytesProcessor struct {
 	v *types.BytesProcessor
@@ -40,8 +40,6 @@ func NewBytesProcessor() *_bytesProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_bytesProcessor) Description(description string) *_bytesProcessor {
 
 	s.v.Description = &description
@@ -49,7 +47,6 @@ func (s *_bytesProcessor) Description(description string) *_bytesProcessor {
 	return s
 }
 
-// The field to convert.
 func (s *_bytesProcessor) Field(field string) *_bytesProcessor {
 
 	s.v.Field = field
@@ -57,7 +54,6 @@ func (s *_bytesProcessor) Field(field string) *_bytesProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_bytesProcessor) If(if_ types.ScriptVariant) *_bytesProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -65,7 +61,6 @@ func (s *_bytesProcessor) If(if_ types.ScriptVariant) *_bytesProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_bytesProcessor) IgnoreFailure(ignorefailure bool) *_bytesProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -73,8 +68,6 @@ func (s *_bytesProcessor) IgnoreFailure(ignorefailure bool) *_bytesProcessor {
 	return s
 }
 
-// If `true` and `field` does not exist or is `null`, the processor quietly
-// exits without modifying the document.
 func (s *_bytesProcessor) IgnoreMissing(ignoremissing bool) *_bytesProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -82,7 +75,6 @@ func (s *_bytesProcessor) IgnoreMissing(ignoremissing bool) *_bytesProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_bytesProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_bytesProcessor {
 
 	for _, v := range onfailures {
@@ -93,8 +85,6 @@ func (s *_bytesProcessor) OnFailure(onfailures ...types.ProcessorContainerVarian
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_bytesProcessor) Tag(tag string) *_bytesProcessor {
 
 	s.v.Tag = &tag
@@ -102,8 +92,6 @@ func (s *_bytesProcessor) Tag(tag string) *_bytesProcessor {
 	return s
 }
 
-// The field to assign the converted value to.
-// By default, the field is updated in-place.
 func (s *_bytesProcessor) TargetField(field string) *_bytesProcessor {
 
 	s.v.TargetField = &field

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dataframeAnalysisFeatureProcessorFrequencyEncoding struct {
 	v *types.DataframeAnalysisFeatureProcessorFrequencyEncoding
@@ -33,7 +33,6 @@ func NewDataframeAnalysisFeatureProcessorFrequencyEncoding() *_dataframeAnalysis
 
 }
 
-// The resulting feature name.
 func (s *_dataframeAnalysisFeatureProcessorFrequencyEncoding) FeatureName(name string) *_dataframeAnalysisFeatureProcessorFrequencyEncoding {
 
 	s.v.FeatureName = name
@@ -48,8 +47,6 @@ func (s *_dataframeAnalysisFeatureProcessorFrequencyEncoding) Field(field string
 	return s
 }
 
-// The resulting frequency map for the field value. If the field value is
-// missing from the frequency_map, the resulting value is 0.
 func (s *_dataframeAnalysisFeatureProcessorFrequencyEncoding) FrequencyMap(frequencymap map[string]types.Float64) *_dataframeAnalysisFeatureProcessorFrequencyEncoding {
 
 	s.v.FrequencyMap = frequencymap

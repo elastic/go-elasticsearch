@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/missingorder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/valuetype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/missingorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/valuetype"
 )
 
 type _compositeGeoTileGridAggregation struct {
@@ -44,7 +44,6 @@ func (s *_compositeGeoTileGridAggregation) Bounds(geobounds types.GeoBoundsVaria
 	return s
 }
 
-// Either `field` or `script` must be present
 func (s *_compositeGeoTileGridAggregation) Field(field string) *_compositeGeoTileGridAggregation {
 
 	s.v.Field = &field
@@ -78,7 +77,6 @@ func (s *_compositeGeoTileGridAggregation) Precision(precision int) *_compositeG
 	return s
 }
 
-// Either `field` or `script` must be present
 func (s *_compositeGeoTileGridAggregation) Script(script types.ScriptVariant) *_compositeGeoTileGridAggregation {
 
 	s.v.Script = script.ScriptCaster()

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package estimatemodelmemory
 
 // Response holds the response body struct for the package estimatemodelmemory
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/estimate_model_memory/MlEstimateModelMemoryResponse.ts#L20-L24
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/ml/estimate_model_memory/MlEstimateModelMemoryResponse.ts#L20-L24
 type Response struct {
 	ModelMemoryEstimate string `json:"model_memory_estimate"`
 }

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _rankEvalMetricRecall struct {
 	v *types.RankEvalMetricRecall
@@ -32,8 +32,6 @@ func NewRankEvalMetricRecall() *_rankEvalMetricRecall {
 
 }
 
-// Sets the maximum number of documents retrieved per query. This value will act
-// in place of the usual size parameter in the query.
 func (s *_rankEvalMetricRecall) K(k int) *_rankEvalMetricRecall {
 
 	s.v.K = &k
@@ -41,8 +39,6 @@ func (s *_rankEvalMetricRecall) K(k int) *_rankEvalMetricRecall {
 	return s
 }
 
-// Sets the rating threshold above which documents are considered to be
-// "relevant".
 func (s *_rankEvalMetricRecall) RelevantRatingThreshold(relevantratingthreshold int) *_rankEvalMetricRecall {
 
 	s.v.RelevantRatingThreshold = &relevantratingthreshold

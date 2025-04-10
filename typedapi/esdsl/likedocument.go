@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/versiontype"
 )
 
 type _likeDocument struct {
@@ -37,7 +37,6 @@ func NewLikeDocument() *_likeDocument {
 
 }
 
-// A document not present in the index.
 func (s *_likeDocument) Doc(doc json.RawMessage) *_likeDocument {
 
 	s.v.Doc = doc
@@ -55,7 +54,6 @@ func (s *_likeDocument) Fields(fields ...string) *_likeDocument {
 	return s
 }
 
-// ID of a document.
 func (s *_likeDocument) Id_(id string) *_likeDocument {
 
 	s.v.Id_ = &id
@@ -63,7 +61,6 @@ func (s *_likeDocument) Id_(id string) *_likeDocument {
 	return s
 }
 
-// Index of a document.
 func (s *_likeDocument) Index_(indexname string) *_likeDocument {
 
 	s.v.Index_ = &indexname
@@ -71,7 +68,6 @@ func (s *_likeDocument) Index_(indexname string) *_likeDocument {
 	return s
 }
 
-// Overrides the default analyzer.
 func (s *_likeDocument) PerFieldAnalyzer(perfieldanalyzer map[string]string) *_likeDocument {
 
 	s.v.PerFieldAnalyzer = perfieldanalyzer

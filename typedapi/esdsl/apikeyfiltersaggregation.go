@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _apiKeyFiltersAggregation struct {
 	v *types.ApiKeyFiltersAggregation
@@ -34,7 +34,6 @@ func NewApiKeyFiltersAggregation() *_apiKeyFiltersAggregation {
 
 }
 
-// Collection of queries from which to build buckets.
 func (s *_apiKeyFiltersAggregation) Filters(bucketsapikeyquerycontainer types.BucketsApiKeyQueryContainerVariant) *_apiKeyFiltersAggregation {
 
 	s.v.Filters = *bucketsapikeyquerycontainer.BucketsApiKeyQueryContainerCaster()
@@ -42,8 +41,6 @@ func (s *_apiKeyFiltersAggregation) Filters(bucketsapikeyquerycontainer types.Bu
 	return s
 }
 
-// By default, the named filters aggregation returns the buckets as an object.
-// Set to `false` to return the buckets as an array of objects.
 func (s *_apiKeyFiltersAggregation) Keyed(keyed bool) *_apiKeyFiltersAggregation {
 
 	s.v.Keyed = &keyed
@@ -51,8 +48,6 @@ func (s *_apiKeyFiltersAggregation) Keyed(keyed bool) *_apiKeyFiltersAggregation
 	return s
 }
 
-// Set to `true` to add a bucket to the response which will contain all
-// documents that do not match any of the given filters.
 func (s *_apiKeyFiltersAggregation) OtherBucket(otherbucket bool) *_apiKeyFiltersAggregation {
 
 	s.v.OtherBucket = &otherbucket
@@ -60,7 +55,6 @@ func (s *_apiKeyFiltersAggregation) OtherBucket(otherbucket bool) *_apiKeyFilter
 	return s
 }
 
-// The key with which the other bucket is returned.
 func (s *_apiKeyFiltersAggregation) OtherBucketKey(otherbucketkey string) *_apiKeyFiltersAggregation {
 
 	s.v.OtherBucketKey = &otherbucketkey

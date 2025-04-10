@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _geohexGridAggregation struct {
 	v *types.GeohexGridAggregation
@@ -36,7 +36,6 @@ func NewGeohexGridAggregation() *_geohexGridAggregation {
 
 }
 
-// Bounding box used to filter the geo-points in each bucket.
 func (s *_geohexGridAggregation) Bounds(geobounds types.GeoBoundsVariant) *_geohexGridAggregation {
 
 	s.v.Bounds = *geobounds.GeoBoundsCaster()
@@ -44,8 +43,6 @@ func (s *_geohexGridAggregation) Bounds(geobounds types.GeoBoundsVariant) *_geoh
 	return s
 }
 
-// Field containing indexed `geo_point` or `geo_shape` values.
-// If the field contains an array, `geohex_grid` aggregates all array values.
 func (s *_geohexGridAggregation) Field(field string) *_geohexGridAggregation {
 
 	s.v.Field = field
@@ -53,8 +50,6 @@ func (s *_geohexGridAggregation) Field(field string) *_geohexGridAggregation {
 	return s
 }
 
-// Integer zoom of the key used to defined cells or buckets
-// in the results. Value should be between 0-15.
 func (s *_geohexGridAggregation) Precision(precision int) *_geohexGridAggregation {
 
 	s.v.Precision = &precision
@@ -62,7 +57,6 @@ func (s *_geohexGridAggregation) Precision(precision int) *_geohexGridAggregatio
 	return s
 }
 
-// Number of buckets returned from each shard.
 func (s *_geohexGridAggregation) ShardSize(shardsize int) *_geohexGridAggregation {
 
 	s.v.ShardSize = &shardsize
@@ -70,7 +64,6 @@ func (s *_geohexGridAggregation) ShardSize(shardsize int) *_geohexGridAggregatio
 	return s
 }
 
-// Maximum number of buckets to return.
 func (s *_geohexGridAggregation) Size(size int) *_geohexGridAggregation {
 
 	s.v.Size = &size

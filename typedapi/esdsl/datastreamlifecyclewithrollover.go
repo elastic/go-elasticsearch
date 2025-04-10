@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dataStreamLifecycleWithRollover struct {
 	v *types.DataStreamLifecycleWithRollover
@@ -32,10 +32,6 @@ func NewDataStreamLifecycleWithRollover() *_dataStreamLifecycleWithRollover {
 
 }
 
-// If defined, every document added to this data stream will be stored at least
-// for this time frame.
-// Any time after this duration the document could be deleted.
-// When empty, every document in this data stream will be stored indefinitely.
 func (s *_dataStreamLifecycleWithRollover) DataRetention(duration types.DurationVariant) *_dataStreamLifecycleWithRollover {
 
 	s.v.DataRetention = *duration.DurationCaster()
@@ -43,8 +39,6 @@ func (s *_dataStreamLifecycleWithRollover) DataRetention(duration types.Duration
 	return s
 }
 
-// The downsampling configuration to execute for the managed backing index after
-// rollover.
 func (s *_dataStreamLifecycleWithRollover) Downsampling(downsampling types.DataStreamLifecycleDownsamplingVariant) *_dataStreamLifecycleWithRollover {
 
 	s.v.Downsampling = downsampling.DataStreamLifecycleDownsamplingCaster()
@@ -52,9 +46,6 @@ func (s *_dataStreamLifecycleWithRollover) Downsampling(downsampling types.DataS
 	return s
 }
 
-// If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
-// data stream. A data stream lifecycle
-// that's disabled (enabled: `false`) will have no effect on the data stream.
 func (s *_dataStreamLifecycleWithRollover) Enabled(enabled bool) *_dataStreamLifecycleWithRollover {
 
 	s.v.Enabled = &enabled
@@ -62,11 +53,6 @@ func (s *_dataStreamLifecycleWithRollover) Enabled(enabled bool) *_dataStreamLif
 	return s
 }
 
-// The conditions which will trigger the rollover of a backing index as
-// configured by the cluster setting `cluster.lifecycle.default.rollover`.
-// This property is an implementation detail and it will only be retrieved when
-// the query param `include_defaults` is set to true.
-// The contents of this field are subject to change.
 func (s *_dataStreamLifecycleWithRollover) Rollover(rollover types.DataStreamLifecycleRolloverConditionsVariant) *_dataStreamLifecycleWithRollover {
 
 	s.v.Rollover = rollover.DataStreamLifecycleRolloverConditionsCaster()

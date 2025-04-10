@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _intervals struct {
@@ -46,7 +46,6 @@ func (s *_intervals) AdditionalIntervalsProperty(key string, value json.RawMessa
 	return s
 }
 
-// Returns matches that span a combination of other rules.
 func (s *_intervals) AllOf(allof types.IntervalsAllOfVariant) *_intervals {
 
 	s.v.AllOf = allof.IntervalsAllOfCaster()
@@ -54,7 +53,6 @@ func (s *_intervals) AllOf(allof types.IntervalsAllOfVariant) *_intervals {
 	return s
 }
 
-// Returns intervals produced by any of its sub-rules.
 func (s *_intervals) AnyOf(anyof types.IntervalsAnyOfVariant) *_intervals {
 
 	s.v.AnyOf = anyof.IntervalsAnyOfCaster()
@@ -62,7 +60,6 @@ func (s *_intervals) AnyOf(anyof types.IntervalsAnyOfVariant) *_intervals {
 	return s
 }
 
-// Matches analyzed text.
 func (s *_intervals) Fuzzy(fuzzy types.IntervalsFuzzyVariant) *_intervals {
 
 	s.v.Fuzzy = fuzzy.IntervalsFuzzyCaster()
@@ -70,7 +67,6 @@ func (s *_intervals) Fuzzy(fuzzy types.IntervalsFuzzyVariant) *_intervals {
 	return s
 }
 
-// Matches analyzed text.
 func (s *_intervals) Match(match types.IntervalsMatchVariant) *_intervals {
 
 	s.v.Match = match.IntervalsMatchCaster()
@@ -78,7 +74,6 @@ func (s *_intervals) Match(match types.IntervalsMatchVariant) *_intervals {
 	return s
 }
 
-// Matches terms that start with a specified set of characters.
 func (s *_intervals) Prefix(prefix types.IntervalsPrefixVariant) *_intervals {
 
 	s.v.Prefix = prefix.IntervalsPrefixCaster()
@@ -86,7 +81,6 @@ func (s *_intervals) Prefix(prefix types.IntervalsPrefixVariant) *_intervals {
 	return s
 }
 
-// Matches terms using a wildcard pattern.
 func (s *_intervals) Wildcard(wildcard types.IntervalsWildcardVariant) *_intervals {
 
 	s.v.Wildcard = wildcard.IntervalsWildcardCaster()

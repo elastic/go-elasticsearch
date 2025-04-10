@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -28,13 +28,13 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/filteringpolicy"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/filteringrulerule"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/filteringpolicy"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/filteringrulerule"
 )
 
 // FilteringRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/connector/_types/Connector.ts#L170-L179
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/connector/_types/Connector.ts#L170-L179
 type FilteringRule struct {
 	CreatedAt DateTime                            `json:"created_at,omitempty"`
 	Field     string                              `json:"field"`

@@ -16,33 +16,29 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/scriptlanguage"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/scriptlanguage"
 )
 
 type _storedScript struct {
 	v *types.StoredScript
 }
 
-func NewStoredScript(lang scriptlanguage.ScriptLanguage, source string) *_storedScript {
+func NewStoredScript(lang scriptlanguage.ScriptLanguage) *_storedScript {
 
 	tmp := &_storedScript{v: types.NewStoredScript()}
 
 	tmp.Lang(lang)
 
-	tmp.Source(source)
-
 	return tmp
 
 }
 
-// The language the script is written in.
-// For serach templates, use `mustache`.
 func (s *_storedScript) Lang(lang scriptlanguage.ScriptLanguage) *_storedScript {
 
 	s.v.Lang = lang
@@ -70,11 +66,9 @@ func (s *_storedScript) AddOption(key string, value string) *_storedScript {
 	return s
 }
 
-// The script source.
-// For search templates, an object containing the search template.
-func (s *_storedScript) Source(source string) *_storedScript {
+func (s *_storedScript) Source(scriptsource types.ScriptSourceVariant) *_storedScript {
 
-	s.v.Source = source
+	s.v.Source = *scriptsource.ScriptSourceCaster()
 
 	return s
 }

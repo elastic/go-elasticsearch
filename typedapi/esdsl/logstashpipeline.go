@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _logstashPipeline struct {
 	v *types.LogstashPipeline
@@ -44,8 +44,6 @@ func NewLogstashPipeline(description string, pipeline string, pipelinemetadata t
 
 }
 
-// A description of the pipeline.
-// This description is not used by Elasticsearch or Logstash.
 func (s *_logstashPipeline) Description(description string) *_logstashPipeline {
 
 	s.v.Description = description
@@ -53,8 +51,6 @@ func (s *_logstashPipeline) Description(description string) *_logstashPipeline {
 	return s
 }
 
-// The date the pipeline was last updated.
-// It must be in the `yyyy-MM-dd'T'HH:mm:ss.SSSZZ` strict_date_time format.
 func (s *_logstashPipeline) LastModified(datetime types.DateTimeVariant) *_logstashPipeline {
 
 	s.v.LastModified = *datetime.DateTimeCaster()
@@ -62,7 +58,6 @@ func (s *_logstashPipeline) LastModified(datetime types.DateTimeVariant) *_logst
 	return s
 }
 
-// The configuration for the pipeline.
 func (s *_logstashPipeline) Pipeline(pipeline string) *_logstashPipeline {
 
 	s.v.Pipeline = pipeline
@@ -70,8 +65,6 @@ func (s *_logstashPipeline) Pipeline(pipeline string) *_logstashPipeline {
 	return s
 }
 
-// Optional metadata about the pipeline, which can have any contents.
-// This metadata is not generated or used by Elasticsearch or Logstash.
 func (s *_logstashPipeline) PipelineMetadata(pipelinemetadata types.PipelineMetadataVariant) *_logstashPipeline {
 
 	s.v.PipelineMetadata = *pipelinemetadata.PipelineMetadataCaster()
@@ -79,8 +72,6 @@ func (s *_logstashPipeline) PipelineMetadata(pipelinemetadata types.PipelineMeta
 	return s
 }
 
-// Settings for the pipeline.
-// It supports only flat keys in dot notation.
 func (s *_logstashPipeline) PipelineSettings(pipelinesettings types.PipelineSettingsVariant) *_logstashPipeline {
 
 	s.v.PipelineSettings = *pipelinesettings.PipelineSettingsCaster()
@@ -88,7 +79,6 @@ func (s *_logstashPipeline) PipelineSettings(pipelinesettings types.PipelineSett
 	return s
 }
 
-// The user who last updated the pipeline.
 func (s *_logstashPipeline) Username(username string) *_logstashPipeline {
 
 	s.v.Username = username

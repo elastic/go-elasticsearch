@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _spanQuery struct {
@@ -46,8 +46,6 @@ func (s *_spanQuery) AdditionalSpanQueryProperty(key string, value json.RawMessa
 	return s
 }
 
-// Accepts a list of span queries, but only returns those spans which also match
-// a second span query.
 func (s *_spanQuery) SpanContaining(spancontaining types.SpanContainingQueryVariant) *_spanQuery {
 
 	s.v.SpanContaining = spancontaining.SpanContainingQueryCaster()
@@ -55,7 +53,6 @@ func (s *_spanQuery) SpanContaining(spancontaining types.SpanContainingQueryVari
 	return s
 }
 
-// Allows queries like `span_near` or `span_or` across different fields.
 func (s *_spanQuery) SpanFieldMasking(spanfieldmasking types.SpanFieldMaskingQueryVariant) *_spanQuery {
 
 	s.v.SpanFieldMasking = spanfieldmasking.SpanFieldMaskingQueryCaster()
@@ -63,8 +60,6 @@ func (s *_spanQuery) SpanFieldMasking(spanfieldmasking types.SpanFieldMaskingQue
 	return s
 }
 
-// Accepts another span query whose matches must appear within the first N
-// positions of the field.
 func (s *_spanQuery) SpanFirst(spanfirst types.SpanFirstQueryVariant) *_spanQuery {
 
 	s.v.SpanFirst = spanfirst.SpanFirstQueryCaster()
@@ -79,7 +74,6 @@ func (s *_spanQuery) SpanGap(spangapquery types.SpanGapQueryVariant) *_spanQuery
 	return s
 }
 
-// Wraps a `term`, `range`, `prefix`, `wildcard`, `regexp`, or `fuzzy` query.
 func (s *_spanQuery) SpanMulti(spanmulti types.SpanMultiTermQueryVariant) *_spanQuery {
 
 	s.v.SpanMulti = spanmulti.SpanMultiTermQueryCaster()
@@ -87,8 +81,6 @@ func (s *_spanQuery) SpanMulti(spanmulti types.SpanMultiTermQueryVariant) *_span
 	return s
 }
 
-// Accepts multiple span queries whose matches must be within the specified
-// distance of each other, and possibly in the same order.
 func (s *_spanQuery) SpanNear(spannear types.SpanNearQueryVariant) *_spanQuery {
 
 	s.v.SpanNear = spannear.SpanNearQueryCaster()
@@ -96,7 +88,6 @@ func (s *_spanQuery) SpanNear(spannear types.SpanNearQueryVariant) *_spanQuery {
 	return s
 }
 
-// Wraps another span query, and excludes any documents which match that query.
 func (s *_spanQuery) SpanNot(spannot types.SpanNotQueryVariant) *_spanQuery {
 
 	s.v.SpanNot = spannot.SpanNotQueryCaster()
@@ -104,8 +95,6 @@ func (s *_spanQuery) SpanNot(spannot types.SpanNotQueryVariant) *_spanQuery {
 	return s
 }
 
-// Combines multiple span queries and returns documents which match any of the
-// specified queries.
 func (s *_spanQuery) SpanOr(spanor types.SpanOrQueryVariant) *_spanQuery {
 
 	s.v.SpanOr = spanor.SpanOrQueryCaster()
@@ -113,7 +102,6 @@ func (s *_spanQuery) SpanOr(spanor types.SpanOrQueryVariant) *_spanQuery {
 	return s
 }
 
-// The equivalent of the `term` query but for use with other span queries.
 // SpanTerm is a single key dictionnary.
 // It will replace the current value on each call.
 func (s *_spanQuery) SpanTerm(key string, value types.SpanTermQueryVariant) *_spanQuery {
@@ -126,8 +114,6 @@ func (s *_spanQuery) SpanTerm(key string, value types.SpanTermQueryVariant) *_sp
 	return s
 }
 
-// The result from a single span query is returned as long is its span falls
-// within the spans returned by a list of other span queries.
 func (s *_spanQuery) SpanWithin(spanwithin types.SpanWithinQueryVariant) *_spanQuery {
 
 	s.v.SpanWithin = spanwithin.SpanWithinQueryCaster()

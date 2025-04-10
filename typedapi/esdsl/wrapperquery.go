@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _wrapperQuery struct {
 	v *types.WrapperQuery
@@ -37,11 +37,6 @@ func NewWrapperQuery(query string) *_wrapperQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_wrapperQuery) Boost(boost float32) *_wrapperQuery {
 
 	s.v.Boost = &boost
@@ -49,8 +44,6 @@ func (s *_wrapperQuery) Boost(boost float32) *_wrapperQuery {
 	return s
 }
 
-// A base64 encoded query.
-// The binary data format can be any of JSON, YAML, CBOR or SMILE encodings
 func (s *_wrapperQuery) Query(query string) *_wrapperQuery {
 
 	s.v.Query = query

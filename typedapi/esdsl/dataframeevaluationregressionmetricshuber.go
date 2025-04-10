@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dataframeEvaluationRegressionMetricsHuber struct {
 	v *types.DataframeEvaluationRegressionMetricsHuber
@@ -32,9 +32,6 @@ func NewDataframeEvaluationRegressionMetricsHuber() *_dataframeEvaluationRegress
 
 }
 
-// Approximates 1/2 (prediction - actual)2 for values much less than delta and
-// approximates a straight line with slope delta for values much larger than
-// delta. Defaults to 1. Delta needs to be greater than 0.
 func (s *_dataframeEvaluationRegressionMetricsHuber) Delta(delta types.Float64) *_dataframeEvaluationRegressionMetricsHuber {
 
 	s.v.Delta = &delta

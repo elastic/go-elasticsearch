@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _intervalsFuzzy struct {
 	v *types.IntervalsFuzzy
@@ -37,7 +37,6 @@ func NewIntervalsFuzzy(term string) *_intervalsFuzzy {
 
 }
 
-// Analyzer used to normalize the term.
 func (s *_intervalsFuzzy) Analyzer(analyzer string) *_intervalsFuzzy {
 
 	s.v.Analyzer = &analyzer
@@ -45,7 +44,6 @@ func (s *_intervalsFuzzy) Analyzer(analyzer string) *_intervalsFuzzy {
 	return s
 }
 
-// Maximum edit distance allowed for matching.
 func (s *_intervalsFuzzy) Fuzziness(fuzziness types.FuzzinessVariant) *_intervalsFuzzy {
 
 	s.v.Fuzziness = *fuzziness.FuzzinessCaster()
@@ -53,7 +51,6 @@ func (s *_intervalsFuzzy) Fuzziness(fuzziness types.FuzzinessVariant) *_interval
 	return s
 }
 
-// Number of beginning characters left unchanged when creating expansions.
 func (s *_intervalsFuzzy) PrefixLength(prefixlength int) *_intervalsFuzzy {
 
 	s.v.PrefixLength = &prefixlength
@@ -61,7 +58,6 @@ func (s *_intervalsFuzzy) PrefixLength(prefixlength int) *_intervalsFuzzy {
 	return s
 }
 
-// The term to match.
 func (s *_intervalsFuzzy) Term(term string) *_intervalsFuzzy {
 
 	s.v.Term = term
@@ -69,8 +65,6 @@ func (s *_intervalsFuzzy) Term(term string) *_intervalsFuzzy {
 	return s
 }
 
-// Indicates whether edits include transpositions of two adjacent characters
-// (for example, `ab` to `ba`).
 func (s *_intervalsFuzzy) Transpositions(transpositions bool) *_intervalsFuzzy {
 
 	s.v.Transpositions = &transpositions
@@ -78,10 +72,6 @@ func (s *_intervalsFuzzy) Transpositions(transpositions bool) *_intervalsFuzzy {
 	return s
 }
 
-// If specified, match intervals from this field rather than the top-level
-// field.
-// The `term` is normalized using the search analyzer from this field, unless
-// `analyzer` is specified separately.
 func (s *_intervalsFuzzy) UseField(field string) *_intervalsFuzzy {
 
 	s.v.UseField = &field

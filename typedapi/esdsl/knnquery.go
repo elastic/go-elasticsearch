@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _knnQuery struct {
 	v *types.KnnQuery
@@ -35,11 +35,6 @@ func NewKnnQuery() *_knnQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_knnQuery) Boost(boost float32) *_knnQuery {
 
 	s.v.Boost = &boost
@@ -47,7 +42,6 @@ func (s *_knnQuery) Boost(boost float32) *_knnQuery {
 	return s
 }
 
-// The name of the vector field to search against
 func (s *_knnQuery) Field(field string) *_knnQuery {
 
 	s.v.Field = field
@@ -55,7 +49,6 @@ func (s *_knnQuery) Field(field string) *_knnQuery {
 	return s
 }
 
-// Filters for the kNN search query
 func (s *_knnQuery) Filter(filters ...types.QueryVariant) *_knnQuery {
 
 	s.v.Filter = make([]types.Query, len(filters))
@@ -66,7 +59,6 @@ func (s *_knnQuery) Filter(filters ...types.QueryVariant) *_knnQuery {
 	return s
 }
 
-// The final number of nearest neighbors to return as top hits
 func (s *_knnQuery) K(k int) *_knnQuery {
 
 	s.v.K = &k
@@ -74,7 +66,6 @@ func (s *_knnQuery) K(k int) *_knnQuery {
 	return s
 }
 
-// The number of nearest neighbor candidates to consider per shard
 func (s *_knnQuery) NumCandidates(numcandidates int) *_knnQuery {
 
 	s.v.NumCandidates = &numcandidates
@@ -89,7 +80,6 @@ func (s *_knnQuery) QueryName_(queryname_ string) *_knnQuery {
 	return s
 }
 
-// The query vector
 func (s *_knnQuery) QueryVector(queryvectors ...float32) *_knnQuery {
 
 	s.v.QueryVector = queryvectors
@@ -97,8 +87,6 @@ func (s *_knnQuery) QueryVector(queryvectors ...float32) *_knnQuery {
 	return s
 }
 
-// The query vector builder. You must provide a query_vector_builder or
-// query_vector, but not both.
 func (s *_knnQuery) QueryVectorBuilder(queryvectorbuilder types.QueryVectorBuilderVariant) *_knnQuery {
 
 	s.v.QueryVectorBuilder = queryvectorbuilder.QueryVectorBuilderCaster()
@@ -106,7 +94,6 @@ func (s *_knnQuery) QueryVectorBuilder(queryvectorbuilder types.QueryVectorBuild
 	return s
 }
 
-// Apply oversampling and rescoring to quantized vectors *
 func (s *_knnQuery) RescoreVector(rescorevector types.RescoreVectorVariant) *_knnQuery {
 
 	s.v.RescoreVector = rescorevector.RescoreVectorCaster()
@@ -114,7 +101,6 @@ func (s *_knnQuery) RescoreVector(rescorevector types.RescoreVectorVariant) *_kn
 	return s
 }
 
-// The minimum similarity for a vector to be considered a match
 func (s *_knnQuery) Similarity(similarity float32) *_knnQuery {
 
 	s.v.Similarity = &similarity

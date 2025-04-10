@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _applicationPrivilegesCheck struct {
 	v *types.ApplicationPrivilegesCheck
@@ -36,7 +36,6 @@ func NewApplicationPrivilegesCheck(application string) *_applicationPrivilegesCh
 
 }
 
-// The name of the application.
 func (s *_applicationPrivilegesCheck) Application(application string) *_applicationPrivilegesCheck {
 
 	s.v.Application = application
@@ -44,9 +43,6 @@ func (s *_applicationPrivilegesCheck) Application(application string) *_applicat
 	return s
 }
 
-// A list of the privileges that you want to check for the specified resources.
-// It may be either application privilege names or the names of actions that are
-// granted by those privileges
 func (s *_applicationPrivilegesCheck) Privileges(privileges ...string) *_applicationPrivilegesCheck {
 
 	for _, v := range privileges {
@@ -57,7 +53,6 @@ func (s *_applicationPrivilegesCheck) Privileges(privileges ...string) *_applica
 	return s
 }
 
-// A list of resource names against which the privileges should be checked.
 func (s *_applicationPrivilegesCheck) Resources(resources ...string) *_applicationPrivilegesCheck {
 
 	for _, v := range resources {

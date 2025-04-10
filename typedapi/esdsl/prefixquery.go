@@ -16,18 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _prefixQuery struct {
 	k string
 	v *types.PrefixQuery
 }
 
-// Returns users that contain a specific prefix in a provided field.
+// Returns documents that contain a specific prefix in a provided field.
 func NewPrefixQuery(field string, value string) *_prefixQuery {
 	tmp := &_prefixQuery{
 		k: field,
@@ -38,11 +38,6 @@ func NewPrefixQuery(field string, value string) *_prefixQuery {
 	return tmp
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_prefixQuery) Boost(boost float32) *_prefixQuery {
 
 	s.v.Boost = &boost
@@ -50,10 +45,6 @@ func (s *_prefixQuery) Boost(boost float32) *_prefixQuery {
 	return s
 }
 
-// Allows ASCII case insensitive matching of the value with the indexed field
-// values when set to `true`.
-// Default is `false` which means the case sensitivity of matching depends on
-// the underlying field’s mapping.
 func (s *_prefixQuery) CaseInsensitive(caseinsensitive bool) *_prefixQuery {
 
 	s.v.CaseInsensitive = &caseinsensitive
@@ -68,7 +59,6 @@ func (s *_prefixQuery) QueryName_(queryname_ string) *_prefixQuery {
 	return s
 }
 
-// Method used to rewrite the query.
 func (s *_prefixQuery) Rewrite(multitermqueryrewrite string) *_prefixQuery {
 
 	s.v.Rewrite = &multitermqueryrewrite
@@ -76,7 +66,6 @@ func (s *_prefixQuery) Rewrite(multitermqueryrewrite string) *_prefixQuery {
 	return s
 }
 
-// Beginning characters of terms you wish to find in the provided field.
 func (s *_prefixQuery) Value(value string) *_prefixQuery {
 
 	s.v.Value = value

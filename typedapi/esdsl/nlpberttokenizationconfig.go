@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tokenizationtruncate"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/tokenizationtruncate"
 )
 
 type _nlpBertTokenizationConfig struct {
@@ -36,7 +36,6 @@ func NewNlpBertTokenizationConfig() *_nlpBertTokenizationConfig {
 
 }
 
-// Should the tokenizer lower case the text
 func (s *_nlpBertTokenizationConfig) DoLowerCase(dolowercase bool) *_nlpBertTokenizationConfig {
 
 	s.v.DoLowerCase = &dolowercase
@@ -44,7 +43,6 @@ func (s *_nlpBertTokenizationConfig) DoLowerCase(dolowercase bool) *_nlpBertToke
 	return s
 }
 
-// Maximum input sequence length for the model
 func (s *_nlpBertTokenizationConfig) MaxSequenceLength(maxsequencelength int) *_nlpBertTokenizationConfig {
 
 	s.v.MaxSequenceLength = &maxsequencelength
@@ -52,8 +50,6 @@ func (s *_nlpBertTokenizationConfig) MaxSequenceLength(maxsequencelength int) *_
 	return s
 }
 
-// Tokenization spanning options. Special value of -1 indicates no spanning
-// takes place
 func (s *_nlpBertTokenizationConfig) Span(span int) *_nlpBertTokenizationConfig {
 
 	s.v.Span = &span
@@ -61,15 +57,12 @@ func (s *_nlpBertTokenizationConfig) Span(span int) *_nlpBertTokenizationConfig 
 	return s
 }
 
-// Should tokenization input be automatically truncated before sending to the
-// model for inference
 func (s *_nlpBertTokenizationConfig) Truncate(truncate tokenizationtruncate.TokenizationTruncate) *_nlpBertTokenizationConfig {
 
 	s.v.Truncate = &truncate
 	return s
 }
 
-// Is tokenization completed with special tokens
 func (s *_nlpBertTokenizationConfig) WithSpecialTokens(withspecialtokens bool) *_nlpBertTokenizationConfig {
 
 	s.v.WithSpecialTokens = &withspecialtokens

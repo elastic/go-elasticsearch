@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _indexingSlowlogTresholds struct {
 	v *types.IndexingSlowlogTresholds
@@ -32,9 +32,6 @@ func NewIndexingSlowlogTresholds() *_indexingSlowlogTresholds {
 
 }
 
-// The indexing slow log, similar in functionality to the search slow log. The
-// log file name ends with `_index_indexing_slowlog.json`.
-// Log and the thresholds are configured in the same way as the search slowlog.
 func (s *_indexingSlowlogTresholds) Index(index types.SlowlogTresholdLevelsVariant) *_indexingSlowlogTresholds {
 
 	s.v.Index = index.SlowlogTresholdLevelsCaster()

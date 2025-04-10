@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _innerHits struct {
 	v *types.InnerHits
@@ -63,7 +63,6 @@ func (s *_innerHits) Fields(fields ...string) *_innerHits {
 	return s
 }
 
-// Inner hit starting document offset.
 func (s *_innerHits) From(from int) *_innerHits {
 
 	s.v.From = &from
@@ -85,8 +84,6 @@ func (s *_innerHits) IgnoreUnmapped(ignoreunmapped bool) *_innerHits {
 	return s
 }
 
-// The name for the particular inner hit definition in the response.
-// Useful when a search request contains multiple inner hits.
 func (s *_innerHits) Name(name string) *_innerHits {
 
 	s.v.Name = &name
@@ -122,7 +119,6 @@ func (s *_innerHits) SeqNoPrimaryTerm(seqnoprimaryterm bool) *_innerHits {
 	return s
 }
 
-// The maximum number of hits to return per `inner_hits`.
 func (s *_innerHits) Size(size int) *_innerHits {
 
 	s.v.Size = &size
@@ -130,8 +126,6 @@ func (s *_innerHits) Size(size int) *_innerHits {
 	return s
 }
 
-// How the inner hits should be sorted per `inner_hits`.
-// By default, inner hits are sorted by score.
 func (s *_innerHits) Sort(sorts ...types.SortCombinationsVariant) *_innerHits {
 
 	for _, v := range sorts {

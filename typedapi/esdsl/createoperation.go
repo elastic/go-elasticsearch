@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/versiontype"
 )
 
 type _createOperation struct {
@@ -37,12 +37,6 @@ func NewCreateOperation() *_createOperation {
 
 }
 
-// A map from the full name of fields to the name of dynamic templates.
-// It defaults to an empty map.
-// If a name matches a dynamic template, that template will be applied
-// regardless of other match predicates defined in the template.
-// If a field is already defined in the mapping, then this parameter won't be
-// used.
 func (s *_createOperation) DynamicTemplates(dynamictemplates map[string]string) *_createOperation {
 
 	s.v.DynamicTemplates = dynamictemplates
@@ -64,7 +58,6 @@ func (s *_createOperation) AddDynamicTemplate(key string, value string) *_create
 	return s
 }
 
-// The document ID.
 func (s *_createOperation) Id_(id string) *_createOperation {
 
 	s.v.Id_ = &id
@@ -86,7 +79,6 @@ func (s *_createOperation) IfSeqNo(sequencenumber int64) *_createOperation {
 	return s
 }
 
-// The name of the index or index alias to perform the action on.
 func (s *_createOperation) Index_(indexname string) *_createOperation {
 
 	s.v.Index_ = &indexname
@@ -94,11 +86,6 @@ func (s *_createOperation) Index_(indexname string) *_createOperation {
 	return s
 }
 
-// The ID of the pipeline to use to preprocess incoming documents.
-// If the index has a default ingest pipeline specified, setting the value to
-// `_none` turns off the default ingest pipeline for this request.
-// If a final pipeline is configured, it will always run regardless of the value
-// of this parameter.
 func (s *_createOperation) Pipeline(pipeline string) *_createOperation {
 
 	s.v.Pipeline = &pipeline
@@ -106,7 +93,6 @@ func (s *_createOperation) Pipeline(pipeline string) *_createOperation {
 	return s
 }
 
-// If `true`, the request's actions must target an index alias.
 func (s *_createOperation) RequireAlias(requirealias bool) *_createOperation {
 
 	s.v.RequireAlias = &requirealias
@@ -114,7 +100,6 @@ func (s *_createOperation) RequireAlias(requirealias bool) *_createOperation {
 	return s
 }
 
-// A custom value used to route operations to a specific shard.
 func (s *_createOperation) Routing(routing string) *_createOperation {
 
 	s.v.Routing = &routing

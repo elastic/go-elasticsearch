@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _multiTermLookup struct {
 	v *types.MultiTermLookup
@@ -32,7 +32,6 @@ func NewMultiTermLookup() *_multiTermLookup {
 
 }
 
-// A fields from which to retrieve terms.
 func (s *_multiTermLookup) Field(field string) *_multiTermLookup {
 
 	s.v.Field = field
@@ -40,8 +39,6 @@ func (s *_multiTermLookup) Field(field string) *_multiTermLookup {
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_multiTermLookup) Missing(missing types.MissingVariant) *_multiTermLookup {
 
 	s.v.Missing = *missing.MissingCaster()

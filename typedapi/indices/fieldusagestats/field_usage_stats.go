@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 // Get field usage stats.
 // Get field usage information for each shard and field of an index.
@@ -43,8 +43,8 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -157,7 +157,7 @@ func (r *FieldUsageStats) HttpRequest(ctx context.Context) (*http.Request, error
 	req.Header = r.headers.Clone()
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {
@@ -359,17 +359,6 @@ func (r *FieldUsageStats) IgnoreUnavailable(ignoreunavailable bool) *FieldUsageS
 // API name: fields
 func (r *FieldUsageStats) Fields(fields ...string) *FieldUsageStats {
 	r.values.Set("fields", strings.Join(fields, ","))
-
-	return r
-}
-
-// WaitForActiveShards The number of shard copies that must be active before proceeding with the
-// operation.
-// Set to all or any positive integer up to the total number of shards in the
-// index (`number_of_replicas+1`).
-// API name: wait_for_active_shards
-func (r *FieldUsageStats) WaitForActiveShards(waitforactiveshards string) *FieldUsageStats {
-	r.values.Set("wait_for_active_shards", waitforactiveshards)
 
 	return r
 }

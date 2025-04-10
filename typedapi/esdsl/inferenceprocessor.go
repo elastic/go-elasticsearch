@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _inferenceProcessor struct {
@@ -39,8 +39,6 @@ func NewInferenceProcessor() *_inferenceProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_inferenceProcessor) Description(description string) *_inferenceProcessor {
 
 	s.v.Description = &description
@@ -48,9 +46,6 @@ func (s *_inferenceProcessor) Description(description string) *_inferenceProcess
 	return s
 }
 
-// Maps the document field names to the known field names of the model.
-// This mapping takes precedence over any default mappings provided in the model
-// configuration.
 func (s *_inferenceProcessor) FieldMap(fieldmap map[string]json.RawMessage) *_inferenceProcessor {
 
 	s.v.FieldMap = fieldmap
@@ -72,7 +67,6 @@ func (s *_inferenceProcessor) AddFieldMap(key string, value json.RawMessage) *_i
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_inferenceProcessor) If(if_ types.ScriptVariant) *_inferenceProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -80,7 +74,6 @@ func (s *_inferenceProcessor) If(if_ types.ScriptVariant) *_inferenceProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_inferenceProcessor) IgnoreFailure(ignorefailure bool) *_inferenceProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -88,7 +81,13 @@ func (s *_inferenceProcessor) IgnoreFailure(ignorefailure bool) *_inferenceProce
 	return s
 }
 
-// Contains the inference type and its options.
+func (s *_inferenceProcessor) IgnoreMissing(ignoremissing bool) *_inferenceProcessor {
+
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
 func (s *_inferenceProcessor) InferenceConfig(inferenceconfig types.InferenceConfigVariant) *_inferenceProcessor {
 
 	s.v.InferenceConfig = inferenceconfig.InferenceConfigCaster()
@@ -96,7 +95,16 @@ func (s *_inferenceProcessor) InferenceConfig(inferenceconfig types.InferenceCon
 	return s
 }
 
-// The ID or alias for the trained model, or the ID of the deployment.
+func (s *_inferenceProcessor) InputOutput(inputoutputs ...types.InputConfigVariant) *_inferenceProcessor {
+
+	s.v.InputOutput = make([]types.InputConfig, len(inputoutputs))
+	for i, v := range inputoutputs {
+		s.v.InputOutput[i] = *v.InputConfigCaster()
+	}
+
+	return s
+}
+
 func (s *_inferenceProcessor) ModelId(id string) *_inferenceProcessor {
 
 	s.v.ModelId = id
@@ -104,7 +112,6 @@ func (s *_inferenceProcessor) ModelId(id string) *_inferenceProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_inferenceProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_inferenceProcessor {
 
 	for _, v := range onfailures {
@@ -115,8 +122,6 @@ func (s *_inferenceProcessor) OnFailure(onfailures ...types.ProcessorContainerVa
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_inferenceProcessor) Tag(tag string) *_inferenceProcessor {
 
 	s.v.Tag = &tag
@@ -124,7 +129,6 @@ func (s *_inferenceProcessor) Tag(tag string) *_inferenceProcessor {
 	return s
 }
 
-// Field added to incoming documents to contain results objects.
 func (s *_inferenceProcessor) TargetField(field string) *_inferenceProcessor {
 
 	s.v.TargetField = &field

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _gsubProcessor struct {
 	v *types.GsubProcessor
@@ -43,8 +43,6 @@ func NewGsubProcessor(pattern string, replacement string) *_gsubProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_gsubProcessor) Description(description string) *_gsubProcessor {
 
 	s.v.Description = &description
@@ -52,7 +50,6 @@ func (s *_gsubProcessor) Description(description string) *_gsubProcessor {
 	return s
 }
 
-// The field to apply the replacement to.
 func (s *_gsubProcessor) Field(field string) *_gsubProcessor {
 
 	s.v.Field = field
@@ -60,7 +57,6 @@ func (s *_gsubProcessor) Field(field string) *_gsubProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_gsubProcessor) If(if_ types.ScriptVariant) *_gsubProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -68,7 +64,6 @@ func (s *_gsubProcessor) If(if_ types.ScriptVariant) *_gsubProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_gsubProcessor) IgnoreFailure(ignorefailure bool) *_gsubProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -76,8 +71,6 @@ func (s *_gsubProcessor) IgnoreFailure(ignorefailure bool) *_gsubProcessor {
 	return s
 }
 
-// If `true` and `field` does not exist or is `null`, the processor quietly
-// exits without modifying the document.
 func (s *_gsubProcessor) IgnoreMissing(ignoremissing bool) *_gsubProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -85,7 +78,6 @@ func (s *_gsubProcessor) IgnoreMissing(ignoremissing bool) *_gsubProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_gsubProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_gsubProcessor {
 
 	for _, v := range onfailures {
@@ -96,7 +88,6 @@ func (s *_gsubProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 	return s
 }
 
-// The pattern to be replaced.
 func (s *_gsubProcessor) Pattern(pattern string) *_gsubProcessor {
 
 	s.v.Pattern = pattern
@@ -104,7 +95,6 @@ func (s *_gsubProcessor) Pattern(pattern string) *_gsubProcessor {
 	return s
 }
 
-// The string to replace the matching patterns with.
 func (s *_gsubProcessor) Replacement(replacement string) *_gsubProcessor {
 
 	s.v.Replacement = replacement
@@ -112,8 +102,6 @@ func (s *_gsubProcessor) Replacement(replacement string) *_gsubProcessor {
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_gsubProcessor) Tag(tag string) *_gsubProcessor {
 
 	s.v.Tag = &tag
@@ -121,8 +109,6 @@ func (s *_gsubProcessor) Tag(tag string) *_gsubProcessor {
 	return s
 }
 
-// The field to assign the converted value to
-// By default, the `field` is updated in-place.
 func (s *_gsubProcessor) TargetField(field string) *_gsubProcessor {
 
 	s.v.TargetField = &field

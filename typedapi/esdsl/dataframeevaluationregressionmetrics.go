@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _dataframeEvaluationRegressionMetrics struct {
@@ -36,7 +36,6 @@ func NewDataframeEvaluationRegressionMetrics() *_dataframeEvaluationRegressionMe
 
 }
 
-// Pseudo Huber loss function.
 func (s *_dataframeEvaluationRegressionMetrics) Huber(huber types.DataframeEvaluationRegressionMetricsHuberVariant) *_dataframeEvaluationRegressionMetrics {
 
 	s.v.Huber = huber.DataframeEvaluationRegressionMetricsHuberCaster()
@@ -44,8 +43,6 @@ func (s *_dataframeEvaluationRegressionMetrics) Huber(huber types.DataframeEvalu
 	return s
 }
 
-// Average squared difference between the predicted values and the actual
-// (ground truth) value. For more information, read this wiki article.
 func (s *_dataframeEvaluationRegressionMetrics) Mse(mse map[string]json.RawMessage) *_dataframeEvaluationRegressionMetrics {
 
 	s.v.Mse = mse
@@ -67,8 +64,6 @@ func (s *_dataframeEvaluationRegressionMetrics) AddMse(key string, value json.Ra
 	return s
 }
 
-// Average squared difference between the logarithm of the predicted values and
-// the logarithm of the actual (ground truth) value.
 func (s *_dataframeEvaluationRegressionMetrics) Msle(msle types.DataframeEvaluationRegressionMetricsMsleVariant) *_dataframeEvaluationRegressionMetrics {
 
 	s.v.Msle = msle.DataframeEvaluationRegressionMetricsMsleCaster()
@@ -76,8 +71,6 @@ func (s *_dataframeEvaluationRegressionMetrics) Msle(msle types.DataframeEvaluat
 	return s
 }
 
-// Proportion of the variance in the dependent variable that is predictable from
-// the independent variables.
 func (s *_dataframeEvaluationRegressionMetrics) RSquared(rsquared map[string]json.RawMessage) *_dataframeEvaluationRegressionMetrics {
 
 	s.v.RSquared = rsquared

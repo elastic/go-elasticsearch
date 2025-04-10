@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dataframeAnalyticsDestination struct {
 	v *types.DataframeAnalyticsDestination
@@ -32,8 +32,6 @@ func NewDataframeAnalyticsDestination() *_dataframeAnalyticsDestination {
 
 }
 
-// Defines the destination index to store the results of the data frame
-// analytics job.
 func (s *_dataframeAnalyticsDestination) Index(indexname string) *_dataframeAnalyticsDestination {
 
 	s.v.Index = indexname
@@ -41,8 +39,6 @@ func (s *_dataframeAnalyticsDestination) Index(indexname string) *_dataframeAnal
 	return s
 }
 
-// Defines the name of the field in which to store the results of the analysis.
-// Defaults to `ml`.
 func (s *_dataframeAnalyticsDestination) ResultsField(field string) *_dataframeAnalyticsDestination {
 
 	s.v.ResultsField = &field

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _reindexSource struct {
 	v *types.ReindexSource
@@ -32,8 +32,6 @@ func NewReindexSource() *_reindexSource {
 
 }
 
-// The name of the data stream, index, or alias you are copying from.
-// It accepts a comma-separated list to reindex from multiple sources.
 func (s *_reindexSource) Index(indices ...string) *_reindexSource {
 
 	s.v.Index = indices
@@ -41,7 +39,6 @@ func (s *_reindexSource) Index(indices ...string) *_reindexSource {
 	return s
 }
 
-// The documents to reindex, which is defined with Query DSL.
 func (s *_reindexSource) Query(query types.QueryVariant) *_reindexSource {
 
 	s.v.Query = query.QueryCaster()
@@ -49,7 +46,6 @@ func (s *_reindexSource) Query(query types.QueryVariant) *_reindexSource {
 	return s
 }
 
-// A remote instance of Elasticsearch that you want to index from.
 func (s *_reindexSource) Remote(remote types.RemoteSourceVariant) *_reindexSource {
 
 	s.v.Remote = remote.RemoteSourceCaster()
@@ -64,9 +60,6 @@ func (s *_reindexSource) RuntimeMappings(runtimefields types.RuntimeFieldsVarian
 	return s
 }
 
-// The number of documents to index per batch.
-// Use it when you are indexing from remote to ensure that the batches fit
-// within the on-heap buffer, which defaults to a maximum size of 100 MB.
 func (s *_reindexSource) Size(size int) *_reindexSource {
 
 	s.v.Size = &size
@@ -74,8 +67,6 @@ func (s *_reindexSource) Size(size int) *_reindexSource {
 	return s
 }
 
-// Slice the reindex request manually using the provided slice ID and total
-// number of slices.
 func (s *_reindexSource) Slice(slice types.SlicedScrollVariant) *_reindexSource {
 
 	s.v.Slice = slice.SlicedScrollCaster()
@@ -83,17 +74,6 @@ func (s *_reindexSource) Slice(slice types.SlicedScrollVariant) *_reindexSource 
 	return s
 }
 
-// A comma-separated list of `<field>:<direction>` pairs to sort by before
-// indexing.
-// Use it in conjunction with `max_docs` to control what documents are
-// reindexed.
-//
-// WARNING: Sort in reindex is deprecated.
-// Sorting in reindex was never guaranteed to index documents in order and
-// prevents further development of reindex such as resilience and performance
-// improvements.
-// If used in combination with `max_docs`, consider using a query filter
-// instead.
 func (s *_reindexSource) Sort(sorts ...types.SortCombinationsVariant) *_reindexSource {
 
 	for _, v := range sorts {
@@ -103,8 +83,6 @@ func (s *_reindexSource) Sort(sorts ...types.SortCombinationsVariant) *_reindexS
 	return s
 }
 
-// If `true`, reindex all source fields.
-// Set it to a list to reindex select fields.
 func (s *_reindexSource) SourceFields_(fields ...string) *_reindexSource {
 
 	s.v.SourceFields_ = fields

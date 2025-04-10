@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -27,12 +27,12 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/followerindexstatus"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/followerindexstatus"
 )
 
 // FollowerIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ccr/follow_info/types.ts#L24-L35
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/ccr/follow_info/types.ts#L24-L35
 type FollowerIndex struct {
 	// FollowerIndex The name of the follower index.
 	FollowerIndex string `json:"follower_index"`

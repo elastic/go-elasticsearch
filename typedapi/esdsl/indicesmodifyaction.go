@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _indicesModifyAction struct {
@@ -34,11 +34,6 @@ func NewIndicesModifyAction() *_indicesModifyAction {
 	return &_indicesModifyAction{v: types.NewIndicesModifyAction()}
 }
 
-// Adds an existing index as a backing index for a data stream.
-// The index is hidden as part of this operation.
-// WARNING: Adding indices with the `add_backing_index` action can potentially
-// result in improper data stream behavior.
-// This should be considered an expert level API.
 func (s *_indicesModifyAction) AddBackingIndex(addbackingindex types.IndexAndDataStreamActionVariant) *_indicesModifyAction {
 
 	s.v.AddBackingIndex = addbackingindex.IndexAndDataStreamActionCaster()
@@ -58,9 +53,6 @@ func (s *_indicesModifyAction) AdditionalIndicesModifyActionProperty(key string,
 	return s
 }
 
-// Removes a backing index from a data stream.
-// The index is unhidden as part of this operation.
-// A data stream’s write index cannot be removed.
 func (s *_indicesModifyAction) RemoveBackingIndex(removebackingindex types.IndexAndDataStreamActionVariant) *_indicesModifyAction {
 
 	s.v.RemoveBackingIndex = removebackingindex.IndexAndDataStreamActionCaster()

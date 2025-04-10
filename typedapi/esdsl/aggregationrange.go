@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _aggregationRange struct {
 	v *types.AggregationRange
@@ -32,7 +32,6 @@ func NewAggregationRange() *_aggregationRange {
 
 }
 
-// Start of the range (inclusive).
 func (s *_aggregationRange) From(from types.Float64) *_aggregationRange {
 
 	s.v.From = &from
@@ -40,7 +39,6 @@ func (s *_aggregationRange) From(from types.Float64) *_aggregationRange {
 	return s
 }
 
-// Custom key to return the range with.
 func (s *_aggregationRange) Key(key string) *_aggregationRange {
 
 	s.v.Key = &key
@@ -48,7 +46,6 @@ func (s *_aggregationRange) Key(key string) *_aggregationRange {
 	return s
 }
 
-// End of the range (exclusive).
 func (s *_aggregationRange) To(to types.Float64) *_aggregationRange {
 
 	s.v.To = &to

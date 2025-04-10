@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/rangerelation"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/rangerelation"
 )
 
 type _dateRangeQuery struct {
@@ -38,11 +38,6 @@ func NewDateRangeQuery(key string) *_dateRangeQuery {
 	}
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_dateRangeQuery) Boost(boost float32) *_dateRangeQuery {
 
 	s.v.Boost = &boost
@@ -50,7 +45,6 @@ func (s *_dateRangeQuery) Boost(boost float32) *_dateRangeQuery {
 	return s
 }
 
-// Date format used to convert `date` values in the query.
 func (s *_dateRangeQuery) Format(dateformat string) *_dateRangeQuery {
 
 	s.v.Format = &dateformat
@@ -65,7 +59,6 @@ func (s *_dateRangeQuery) From(from string) *_dateRangeQuery {
 	return s
 }
 
-// Greater than.
 func (s *_dateRangeQuery) Gt(datemath string) *_dateRangeQuery {
 
 	s.v.Gt = &datemath
@@ -73,7 +66,6 @@ func (s *_dateRangeQuery) Gt(datemath string) *_dateRangeQuery {
 	return s
 }
 
-// Greater than or equal to.
 func (s *_dateRangeQuery) Gte(datemath string) *_dateRangeQuery {
 
 	s.v.Gte = &datemath
@@ -81,7 +73,6 @@ func (s *_dateRangeQuery) Gte(datemath string) *_dateRangeQuery {
 	return s
 }
 
-// Less than.
 func (s *_dateRangeQuery) Lt(datemath string) *_dateRangeQuery {
 
 	s.v.Lt = &datemath
@@ -89,7 +80,6 @@ func (s *_dateRangeQuery) Lt(datemath string) *_dateRangeQuery {
 	return s
 }
 
-// Less than or equal to.
 func (s *_dateRangeQuery) Lte(datemath string) *_dateRangeQuery {
 
 	s.v.Lte = &datemath
@@ -104,15 +94,12 @@ func (s *_dateRangeQuery) QueryName_(queryname_ string) *_dateRangeQuery {
 	return s
 }
 
-// Indicates how the range query matches values for `range` fields.
 func (s *_dateRangeQuery) Relation(relation rangerelation.RangeRelation) *_dateRangeQuery {
 
 	s.v.Relation = &relation
 	return s
 }
 
-// Coordinated Universal Time (UTC) offset or IANA time zone used to convert
-// `date` values in the query to UTC.
 func (s *_dateRangeQuery) TimeZone(timezone string) *_dateRangeQuery {
 
 	s.v.TimeZone = &timezone

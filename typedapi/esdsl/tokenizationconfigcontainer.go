@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _tokenizationConfigContainer struct {
@@ -46,7 +46,6 @@ func (s *_tokenizationConfigContainer) AdditionalTokenizationConfigContainerProp
 	return s
 }
 
-// Indicates BERT tokenization and its options
 func (s *_tokenizationConfigContainer) Bert(bert types.NlpBertTokenizationConfigVariant) *_tokenizationConfigContainer {
 
 	s.v.Bert = bert.NlpBertTokenizationConfigCaster()
@@ -54,7 +53,6 @@ func (s *_tokenizationConfigContainer) Bert(bert types.NlpBertTokenizationConfig
 	return s
 }
 
-// Indicates BERT Japanese tokenization and its options
 func (s *_tokenizationConfigContainer) BertJa(bertja types.NlpBertTokenizationConfigVariant) *_tokenizationConfigContainer {
 
 	s.v.BertJa = bertja.NlpBertTokenizationConfigCaster()
@@ -62,7 +60,6 @@ func (s *_tokenizationConfigContainer) BertJa(bertja types.NlpBertTokenizationCo
 	return s
 }
 
-// Indicates MPNET tokenization and its options
 func (s *_tokenizationConfigContainer) Mpnet(mpnet types.NlpBertTokenizationConfigVariant) *_tokenizationConfigContainer {
 
 	s.v.Mpnet = mpnet.NlpBertTokenizationConfigCaster()
@@ -70,10 +67,16 @@ func (s *_tokenizationConfigContainer) Mpnet(mpnet types.NlpBertTokenizationConf
 	return s
 }
 
-// Indicates RoBERTa tokenization and its options
 func (s *_tokenizationConfigContainer) Roberta(roberta types.NlpRobertaTokenizationConfigVariant) *_tokenizationConfigContainer {
 
 	s.v.Roberta = roberta.NlpRobertaTokenizationConfigCaster()
+
+	return s
+}
+
+func (s *_tokenizationConfigContainer) XlmRoberta(xlmroberta types.XlmRobertaTokenizationConfigVariant) *_tokenizationConfigContainer {
+
+	s.v.XlmRoberta = xlmroberta.XlmRobertaTokenizationConfigCaster()
 
 	return s
 }

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _decayPlacementdoubledouble struct {
 	v *types.DecayPlacementdoubledouble
@@ -32,7 +32,6 @@ func NewDecayPlacementdoubledouble() *_decayPlacementdoubledouble {
 
 }
 
-// Defines how documents are scored at the distance given at scale.
 func (s *_decayPlacementdoubledouble) Decay(decay types.Float64) *_decayPlacementdoubledouble {
 
 	s.v.Decay = &decay
@@ -40,8 +39,6 @@ func (s *_decayPlacementdoubledouble) Decay(decay types.Float64) *_decayPlacemen
 	return s
 }
 
-// If defined, the decay function will only compute the decay function for
-// documents with a distance greater than the defined `offset`.
 func (s *_decayPlacementdoubledouble) Offset(offset types.Float64) *_decayPlacementdoubledouble {
 
 	s.v.Offset = &offset
@@ -49,8 +46,6 @@ func (s *_decayPlacementdoubledouble) Offset(offset types.Float64) *_decayPlacem
 	return s
 }
 
-// The point of origin used for calculating distance. Must be given as a number
-// for numeric field, date for date fields and geo point for geo fields.
 func (s *_decayPlacementdoubledouble) Origin(origin types.Float64) *_decayPlacementdoubledouble {
 
 	s.v.Origin = &origin
@@ -58,8 +53,6 @@ func (s *_decayPlacementdoubledouble) Origin(origin types.Float64) *_decayPlacem
 	return s
 }
 
-// Defines the distance from origin + offset at which the computed score will
-// equal `decay` parameter.
 func (s *_decayPlacementdoubledouble) Scale(scale types.Float64) *_decayPlacementdoubledouble {
 
 	s.v.Scale = &scale

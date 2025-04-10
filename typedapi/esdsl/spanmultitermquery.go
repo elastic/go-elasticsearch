@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _spanMultiTermQuery struct {
 	v *types.SpanMultiTermQuery
@@ -38,11 +38,6 @@ func NewSpanMultiTermQuery(match types.QueryVariant) *_spanMultiTermQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_spanMultiTermQuery) Boost(boost float32) *_spanMultiTermQuery {
 
 	s.v.Boost = &boost
@@ -50,8 +45,6 @@ func (s *_spanMultiTermQuery) Boost(boost float32) *_spanMultiTermQuery {
 	return s
 }
 
-// Should be a multi term query (one of `wildcard`, `fuzzy`, `prefix`, `range`,
-// or `regexp` query).
 func (s *_spanMultiTermQuery) Match(match types.QueryVariant) *_spanMultiTermQuery {
 
 	s.v.Match = *match.QueryCaster()

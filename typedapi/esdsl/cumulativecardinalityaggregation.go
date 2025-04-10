@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gappolicy"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/gappolicy"
 )
 
 type _cumulativeCardinalityAggregation struct {
@@ -37,7 +37,6 @@ func NewCumulativeCardinalityAggregation() *_cumulativeCardinalityAggregation {
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_cumulativeCardinalityAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_cumulativeCardinalityAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -45,9 +44,6 @@ func (s *_cumulativeCardinalityAggregation) BucketsPath(bucketspath types.Bucket
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_cumulativeCardinalityAggregation) Format(format string) *_cumulativeCardinalityAggregation {
 
 	s.v.Format = &format
@@ -55,7 +51,6 @@ func (s *_cumulativeCardinalityAggregation) Format(format string) *_cumulativeCa
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_cumulativeCardinalityAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_cumulativeCardinalityAggregation {
 
 	s.v.GapPolicy = &gappolicy

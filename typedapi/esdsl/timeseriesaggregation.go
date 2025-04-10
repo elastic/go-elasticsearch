@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _timeSeriesAggregation struct {
 	v *types.TimeSeriesAggregation
@@ -35,8 +35,6 @@ func NewTimeSeriesAggregation() *_timeSeriesAggregation {
 
 }
 
-// Set to `true` to associate a unique string key with each bucket and returns
-// the ranges as a hash rather than an array.
 func (s *_timeSeriesAggregation) Keyed(keyed bool) *_timeSeriesAggregation {
 
 	s.v.Keyed = &keyed
@@ -44,7 +42,6 @@ func (s *_timeSeriesAggregation) Keyed(keyed bool) *_timeSeriesAggregation {
 	return s
 }
 
-// The maximum number of results to return.
 func (s *_timeSeriesAggregation) Size(size int) *_timeSeriesAggregation {
 
 	s.v.Size = &size

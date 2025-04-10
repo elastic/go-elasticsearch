@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _matchOnlyTextProperty struct {
 	v *types.MatchOnlyTextProperty
@@ -32,8 +32,6 @@ func NewMatchOnlyTextProperty() *_matchOnlyTextProperty {
 
 }
 
-// Allows you to copy the values of multiple fields into a group
-// field, which can then be queried as a single field.
 func (s *_matchOnlyTextProperty) CopyTo(fields ...string) *_matchOnlyTextProperty {
 
 	s.v.CopyTo = fields
@@ -41,10 +39,6 @@ func (s *_matchOnlyTextProperty) CopyTo(fields ...string) *_matchOnlyTextPropert
 	return s
 }
 
-// Multi-fields allow the same string value to be indexed in multiple ways for
-// different purposes, such as one
-// field for search and a multi-field for sorting and aggregations, or the same
-// string value analyzed by different analyzers.
 func (s *_matchOnlyTextProperty) Fields(fields map[string]types.Property) *_matchOnlyTextProperty {
 
 	s.v.Fields = fields
@@ -66,7 +60,6 @@ func (s *_matchOnlyTextProperty) AddField(key string, value types.PropertyVarian
 	return s
 }
 
-// Metadata about the field.
 func (s *_matchOnlyTextProperty) Meta(meta map[string]string) *_matchOnlyTextProperty {
 
 	s.v.Meta = meta

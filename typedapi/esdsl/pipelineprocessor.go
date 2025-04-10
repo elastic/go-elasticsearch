@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _pipelineProcessor struct {
 	v *types.PipelineProcessor
@@ -33,8 +33,6 @@ func NewPipelineProcessor() *_pipelineProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_pipelineProcessor) Description(description string) *_pipelineProcessor {
 
 	s.v.Description = &description
@@ -42,7 +40,6 @@ func (s *_pipelineProcessor) Description(description string) *_pipelineProcessor
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_pipelineProcessor) If(if_ types.ScriptVariant) *_pipelineProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -50,7 +47,6 @@ func (s *_pipelineProcessor) If(if_ types.ScriptVariant) *_pipelineProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_pipelineProcessor) IgnoreFailure(ignorefailure bool) *_pipelineProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -58,7 +54,6 @@ func (s *_pipelineProcessor) IgnoreFailure(ignorefailure bool) *_pipelineProcess
 	return s
 }
 
-// Whether to ignore missing pipelines instead of failing.
 func (s *_pipelineProcessor) IgnoreMissingPipeline(ignoremissingpipeline bool) *_pipelineProcessor {
 
 	s.v.IgnoreMissingPipeline = &ignoremissingpipeline
@@ -66,8 +61,6 @@ func (s *_pipelineProcessor) IgnoreMissingPipeline(ignoremissingpipeline bool) *
 	return s
 }
 
-// The name of the pipeline to execute.
-// Supports template snippets.
 func (s *_pipelineProcessor) Name(name string) *_pipelineProcessor {
 
 	s.v.Name = name
@@ -75,7 +68,6 @@ func (s *_pipelineProcessor) Name(name string) *_pipelineProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_pipelineProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_pipelineProcessor {
 
 	for _, v := range onfailures {
@@ -86,8 +78,6 @@ func (s *_pipelineProcessor) OnFailure(onfailures ...types.ProcessorContainerVar
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_pipelineProcessor) Tag(tag string) *_pipelineProcessor {
 
 	s.v.Tag = &tag

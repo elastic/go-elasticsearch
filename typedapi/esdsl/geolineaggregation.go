@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortorder"
 )
 
 type _geoLineAggregation struct {
@@ -41,8 +41,6 @@ func NewGeoLineAggregation(point types.GeoLinePointVariant, sort types.GeoLineSo
 
 }
 
-// When `true`, returns an additional array of the sort values in the feature
-// properties.
 func (s *_geoLineAggregation) IncludeSort(includesort bool) *_geoLineAggregation {
 
 	s.v.IncludeSort = &includesort
@@ -50,7 +48,6 @@ func (s *_geoLineAggregation) IncludeSort(includesort bool) *_geoLineAggregation
 	return s
 }
 
-// The name of the geo_point field.
 func (s *_geoLineAggregation) Point(point types.GeoLinePointVariant) *_geoLineAggregation {
 
 	s.v.Point = *point.GeoLinePointCaster()
@@ -58,8 +55,6 @@ func (s *_geoLineAggregation) Point(point types.GeoLinePointVariant) *_geoLineAg
 	return s
 }
 
-// The maximum length of the line represented in the aggregation.
-// Valid sizes are between 1 and 10000.
 func (s *_geoLineAggregation) Size(size int) *_geoLineAggregation {
 
 	s.v.Size = &size
@@ -67,10 +62,6 @@ func (s *_geoLineAggregation) Size(size int) *_geoLineAggregation {
 	return s
 }
 
-// The name of the numeric field to use as the sort key for ordering the points.
-// When the `geo_line` aggregation is nested inside a `time_series` aggregation,
-// this field defaults to `@timestamp`, and any other value will result in
-// error.
 func (s *_geoLineAggregation) Sort(sort types.GeoLineSortVariant) *_geoLineAggregation {
 
 	s.v.Sort = *sort.GeoLineSortCaster()
@@ -78,7 +69,6 @@ func (s *_geoLineAggregation) Sort(sort types.GeoLineSortVariant) *_geoLineAggre
 	return s
 }
 
-// The order in which the line is sorted (ascending or descending).
 func (s *_geoLineAggregation) SortOrder(sortorder sortorder.SortOrder) *_geoLineAggregation {
 
 	s.v.SortOrder = &sortorder

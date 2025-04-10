@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _ipLocationProcessor struct {
 	v *types.IpLocationProcessor
@@ -33,9 +33,6 @@ func NewIpLocationProcessor() *_ipLocationProcessor {
 
 }
 
-// The database filename referring to a database the module ships with
-// (GeoLite2-City.mmdb, GeoLite2-Country.mmdb, or GeoLite2-ASN.mmdb) or a custom
-// database in the ingest-geoip config directory.
 func (s *_ipLocationProcessor) DatabaseFile(databasefile string) *_ipLocationProcessor {
 
 	s.v.DatabaseFile = &databasefile
@@ -43,8 +40,6 @@ func (s *_ipLocationProcessor) DatabaseFile(databasefile string) *_ipLocationPro
 	return s
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_ipLocationProcessor) Description(description string) *_ipLocationProcessor {
 
 	s.v.Description = &description
@@ -52,10 +47,6 @@ func (s *_ipLocationProcessor) Description(description string) *_ipLocationProce
 	return s
 }
 
-// If `true` (and if `ingest.geoip.downloader.eager.download` is `false`), the
-// missing database is downloaded when the pipeline is created.
-// Else, the download is triggered by when the pipeline is used as the
-// `default_pipeline` or `final_pipeline` in an index.
 func (s *_ipLocationProcessor) DownloadDatabaseOnPipelineCreation(downloaddatabaseonpipelinecreation bool) *_ipLocationProcessor {
 
 	s.v.DownloadDatabaseOnPipelineCreation = &downloaddatabaseonpipelinecreation
@@ -63,7 +54,6 @@ func (s *_ipLocationProcessor) DownloadDatabaseOnPipelineCreation(downloaddataba
 	return s
 }
 
-// The field to get the ip address from for the geographical lookup.
 func (s *_ipLocationProcessor) Field(field string) *_ipLocationProcessor {
 
 	s.v.Field = field
@@ -71,8 +61,6 @@ func (s *_ipLocationProcessor) Field(field string) *_ipLocationProcessor {
 	return s
 }
 
-// If `true`, only the first found IP location data will be returned, even if
-// the field contains an array.
 func (s *_ipLocationProcessor) FirstOnly(firstonly bool) *_ipLocationProcessor {
 
 	s.v.FirstOnly = &firstonly
@@ -80,7 +68,6 @@ func (s *_ipLocationProcessor) FirstOnly(firstonly bool) *_ipLocationProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_ipLocationProcessor) If(if_ types.ScriptVariant) *_ipLocationProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -88,7 +75,6 @@ func (s *_ipLocationProcessor) If(if_ types.ScriptVariant) *_ipLocationProcessor
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_ipLocationProcessor) IgnoreFailure(ignorefailure bool) *_ipLocationProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -96,8 +82,6 @@ func (s *_ipLocationProcessor) IgnoreFailure(ignorefailure bool) *_ipLocationPro
 	return s
 }
 
-// If `true` and `field` does not exist, the processor quietly exits without
-// modifying the document.
 func (s *_ipLocationProcessor) IgnoreMissing(ignoremissing bool) *_ipLocationProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -105,7 +89,6 @@ func (s *_ipLocationProcessor) IgnoreMissing(ignoremissing bool) *_ipLocationPro
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_ipLocationProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_ipLocationProcessor {
 
 	for _, v := range onfailures {
@@ -116,8 +99,6 @@ func (s *_ipLocationProcessor) OnFailure(onfailures ...types.ProcessorContainerV
 	return s
 }
 
-// Controls what properties are added to the `target_field` based on the IP
-// location lookup.
 func (s *_ipLocationProcessor) Properties(properties ...string) *_ipLocationProcessor {
 
 	for _, v := range properties {
@@ -128,8 +109,6 @@ func (s *_ipLocationProcessor) Properties(properties ...string) *_ipLocationProc
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_ipLocationProcessor) Tag(tag string) *_ipLocationProcessor {
 
 	s.v.Tag = &tag
@@ -137,8 +116,6 @@ func (s *_ipLocationProcessor) Tag(tag string) *_ipLocationProcessor {
 	return s
 }
 
-// The field that will hold the geographical information looked up from the
-// MaxMind database.
 func (s *_ipLocationProcessor) TargetField(field string) *_ipLocationProcessor {
 
 	s.v.TargetField = &field

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/modeenum"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/modeenum"
 )
 
 type _migrateReindex struct {
@@ -41,14 +41,12 @@ func NewMigrateReindex(mode modeenum.ModeEnum, source types.SourceIndexVariant) 
 
 }
 
-// Reindex mode. Currently only 'upgrade' is supported.
 func (s *_migrateReindex) Mode(mode modeenum.ModeEnum) *_migrateReindex {
 
 	s.v.Mode = mode
 	return s
 }
 
-// The source index or data stream (only data streams are currently supported).
 func (s *_migrateReindex) Source(source types.SourceIndexVariant) *_migrateReindex {
 
 	s.v.Source = *source.SourceIndexCaster()

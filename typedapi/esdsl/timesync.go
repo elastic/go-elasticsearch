@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _timeSync struct {
 	v *types.TimeSync
@@ -34,7 +34,6 @@ func NewTimeSync() *_timeSync {
 
 }
 
-// The time delay between the current time and the latest input data time.
 func (s *_timeSync) Delay(duration types.DurationVariant) *_timeSync {
 
 	s.v.Delay = *duration.DurationCaster()
@@ -42,11 +41,6 @@ func (s *_timeSync) Delay(duration types.DurationVariant) *_timeSync {
 	return s
 }
 
-// The date field that is used to identify new documents in the source. In
-// general, it’s a good idea to use a field
-// that contains the ingest timestamp. If you use a different field, you might
-// need to set the delay such that it
-// accounts for data transmission delays.
 func (s *_timeSync) Field(field string) *_timeSync {
 
 	s.v.Field = field

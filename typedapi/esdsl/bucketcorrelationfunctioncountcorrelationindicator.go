@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _bucketCorrelationFunctionCountCorrelationIndicator struct {
 	v *types.BucketCorrelationFunctionCountCorrelationIndicator
@@ -36,11 +36,6 @@ func NewBucketCorrelationFunctionCountCorrelationIndicator(doccount int) *_bucke
 
 }
 
-// The total number of documents that initially created the expectations. It’s
-// required to be greater
-// than or equal to the sum of all values in the buckets_path as this is the
-// originating superset of data
-// to which the term values are correlated.
 func (s *_bucketCorrelationFunctionCountCorrelationIndicator) DocCount(doccount int) *_bucketCorrelationFunctionCountCorrelationIndicator {
 
 	s.v.DocCount = doccount
@@ -48,10 +43,6 @@ func (s *_bucketCorrelationFunctionCountCorrelationIndicator) DocCount(doccount 
 	return s
 }
 
-// An array of numbers with which to correlate the configured `bucket_path`
-// values.
-// The length of this value must always equal the number of buckets returned by
-// the `bucket_path`.
 func (s *_bucketCorrelationFunctionCountCorrelationIndicator) Expectations(expectations ...types.Float64) *_bucketCorrelationFunctionCountCorrelationIndicator {
 
 	for _, v := range expectations {
@@ -62,11 +53,6 @@ func (s *_bucketCorrelationFunctionCountCorrelationIndicator) Expectations(expec
 	return s
 }
 
-// An array of fractions to use when averaging and calculating variance. This
-// should be used if
-// the pre-calculated data and the buckets_path have known gaps. The length of
-// fractions, if provided,
-// must equal expectations.
 func (s *_bucketCorrelationFunctionCountCorrelationIndicator) Fractions(fractions ...types.Float64) *_bucketCorrelationFunctionCountCorrelationIndicator {
 
 	for _, v := range fractions {

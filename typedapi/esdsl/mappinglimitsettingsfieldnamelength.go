@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _mappingLimitSettingsFieldNameLength struct {
 	v *types.MappingLimitSettingsFieldNameLength
@@ -32,12 +32,6 @@ func NewMappingLimitSettingsFieldNameLength() *_mappingLimitSettingsFieldNameLen
 
 }
 
-// Setting for the maximum length of a field name. This setting isn’t really
-// something that addresses mappings explosion but
-// might still be useful if you want to limit the field length. It usually
-// shouldn’t be necessary to set this setting. The
-// default is okay unless a user starts to add a huge number of fields with
-// really long names. Default is `Long.MAX_VALUE` (no limit).
 func (s *_mappingLimitSettingsFieldNameLength) Limit(limit int64) *_mappingLimitSettingsFieldNameLength {
 
 	s.v.Limit = &limit

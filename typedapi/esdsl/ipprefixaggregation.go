@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _ipPrefixAggregation struct {
 	v *types.IpPrefixAggregation
@@ -38,8 +38,6 @@ func NewIpPrefixAggregation(prefixlength int) *_ipPrefixAggregation {
 
 }
 
-// Defines whether the prefix length is appended to IP address keys in the
-// response.
 func (s *_ipPrefixAggregation) AppendPrefixLength(appendprefixlength bool) *_ipPrefixAggregation {
 
 	s.v.AppendPrefixLength = &appendprefixlength
@@ -47,7 +45,6 @@ func (s *_ipPrefixAggregation) AppendPrefixLength(appendprefixlength bool) *_ipP
 	return s
 }
 
-// The IP address field to aggregation on. The field mapping type must be `ip`.
 func (s *_ipPrefixAggregation) Field(field string) *_ipPrefixAggregation {
 
 	s.v.Field = field
@@ -55,7 +52,6 @@ func (s *_ipPrefixAggregation) Field(field string) *_ipPrefixAggregation {
 	return s
 }
 
-// Defines whether the prefix applies to IPv6 addresses.
 func (s *_ipPrefixAggregation) IsIpv6(isipv6 bool) *_ipPrefixAggregation {
 
 	s.v.IsIpv6 = &isipv6
@@ -63,8 +59,6 @@ func (s *_ipPrefixAggregation) IsIpv6(isipv6 bool) *_ipPrefixAggregation {
 	return s
 }
 
-// Defines whether buckets are returned as a hash rather than an array in the
-// response.
 func (s *_ipPrefixAggregation) Keyed(keyed bool) *_ipPrefixAggregation {
 
 	s.v.Keyed = &keyed
@@ -72,8 +66,6 @@ func (s *_ipPrefixAggregation) Keyed(keyed bool) *_ipPrefixAggregation {
 	return s
 }
 
-// Minimum number of documents in a bucket for it to be included in the
-// response.
 func (s *_ipPrefixAggregation) MinDocCount(mindoccount int64) *_ipPrefixAggregation {
 
 	s.v.MinDocCount = &mindoccount
@@ -81,9 +73,6 @@ func (s *_ipPrefixAggregation) MinDocCount(mindoccount int64) *_ipPrefixAggregat
 	return s
 }
 
-// Length of the network prefix. For IPv4 addresses the accepted range is [0,
-// 32].
-// For IPv6 addresses the accepted range is [0, 128].
 func (s *_ipPrefixAggregation) PrefixLength(prefixlength int) *_ipPrefixAggregation {
 
 	s.v.PrefixLength = prefixlength

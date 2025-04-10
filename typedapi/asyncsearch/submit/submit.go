@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 // Run an async search.
 //
@@ -46,11 +46,11 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/searchtype"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/suggestmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/operator"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/searchtype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/suggestmode"
 )
 
 const (
@@ -215,12 +215,12 @@ func (r *Submit) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.raw != nil {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
 		}
 	}
 
 	if req.Header.Get("Accept") == "" {
-		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
 	}
 
 	if err != nil {
@@ -489,8 +489,8 @@ func (r *Submit) Lenient(lenient bool) *Submit {
 // concurrently. This value should be used to limit the impact of the search on
 // the cluster in order to limit the number of concurrent shard requests
 // API name: max_concurrent_shard_requests
-func (r *Submit) MaxConcurrentShardRequests(maxconcurrentshardrequests string) *Submit {
-	r.values.Set("max_concurrent_shard_requests", maxconcurrentshardrequests)
+func (r *Submit) MaxConcurrentShardRequests(maxconcurrentshardrequests int) *Submit {
+	r.values.Set("max_concurrent_shard_requests", strconv.Itoa(maxconcurrentshardrequests))
 
 	return r
 }
@@ -821,7 +821,7 @@ func (r *Submit) Knn(knns ...types.KnnSearchVariant) *Submit {
 }
 
 // Minimum _score for matching documents. Documents with a lower _score are
-// not included in the search results.
+// not included in search results and results collected by aggregations.
 // API name: min_score
 func (r *Submit) MinScore(minscore types.Float64) *Submit {
 	// Initialize the request if it is not already initialized

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/zerotermsquery"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/operator"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/zerotermsquery"
 )
 
 type _matchQuery struct {
@@ -31,7 +31,7 @@ type _matchQuery struct {
 	v *types.MatchQuery
 }
 
-// Returns roles that match a provided text, number, date or boolean value.
+// Returns documents that match a provided text, number, date or boolean value.
 // The provided text is analyzed before matching.
 func NewMatchQuery(field string, query string) *_matchQuery {
 	tmp := &_matchQuery{
@@ -43,7 +43,6 @@ func NewMatchQuery(field string, query string) *_matchQuery {
 	return tmp
 }
 
-// Analyzer used to convert the text in the query value into tokens.
 func (s *_matchQuery) Analyzer(analyzer string) *_matchQuery {
 
 	s.v.Analyzer = &analyzer
@@ -51,8 +50,6 @@ func (s *_matchQuery) Analyzer(analyzer string) *_matchQuery {
 	return s
 }
 
-// If `true`, match phrase queries are automatically created for multi-term
-// synonyms.
 func (s *_matchQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsphrasequery bool) *_matchQuery {
 
 	s.v.AutoGenerateSynonymsPhraseQuery = &autogeneratesynonymsphrasequery
@@ -60,11 +57,6 @@ func (s *_matchQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsphrase
 	return s
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_matchQuery) Boost(boost float32) *_matchQuery {
 
 	s.v.Boost = &boost
@@ -79,7 +71,6 @@ func (s *_matchQuery) CutoffFrequency(cutofffrequency types.Float64) *_matchQuer
 	return s
 }
 
-// Maximum edit distance allowed for matching.
 func (s *_matchQuery) Fuzziness(fuzziness types.FuzzinessVariant) *_matchQuery {
 
 	s.v.Fuzziness = *fuzziness.FuzzinessCaster()
@@ -87,7 +78,6 @@ func (s *_matchQuery) Fuzziness(fuzziness types.FuzzinessVariant) *_matchQuery {
 	return s
 }
 
-// Method used to rewrite the query.
 func (s *_matchQuery) FuzzyRewrite(multitermqueryrewrite string) *_matchQuery {
 
 	s.v.FuzzyRewrite = &multitermqueryrewrite
@@ -95,8 +85,6 @@ func (s *_matchQuery) FuzzyRewrite(multitermqueryrewrite string) *_matchQuery {
 	return s
 }
 
-// If `true`, edits for fuzzy matching include transpositions of two adjacent
-// characters (for example, `ab` to `ba`).
 func (s *_matchQuery) FuzzyTranspositions(fuzzytranspositions bool) *_matchQuery {
 
 	s.v.FuzzyTranspositions = &fuzzytranspositions
@@ -104,8 +92,6 @@ func (s *_matchQuery) FuzzyTranspositions(fuzzytranspositions bool) *_matchQuery
 	return s
 }
 
-// If `true`, format-based errors, such as providing a text query value for a
-// numeric field, are ignored.
 func (s *_matchQuery) Lenient(lenient bool) *_matchQuery {
 
 	s.v.Lenient = &lenient
@@ -113,7 +99,6 @@ func (s *_matchQuery) Lenient(lenient bool) *_matchQuery {
 	return s
 }
 
-// Maximum number of terms to which the query will expand.
 func (s *_matchQuery) MaxExpansions(maxexpansions int) *_matchQuery {
 
 	s.v.MaxExpansions = &maxexpansions
@@ -121,7 +106,6 @@ func (s *_matchQuery) MaxExpansions(maxexpansions int) *_matchQuery {
 	return s
 }
 
-// Minimum number of clauses that must match for a document to be returned.
 func (s *_matchQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumShouldMatchVariant) *_matchQuery {
 
 	s.v.MinimumShouldMatch = *minimumshouldmatch.MinimumShouldMatchCaster()
@@ -129,14 +113,12 @@ func (s *_matchQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumShouldM
 	return s
 }
 
-// Boolean logic used to interpret text in the query value.
 func (s *_matchQuery) Operator(operator operator.Operator) *_matchQuery {
 
 	s.v.Operator = &operator
 	return s
 }
 
-// Number of beginning characters left unchanged for fuzzy matching.
 func (s *_matchQuery) PrefixLength(prefixlength int) *_matchQuery {
 
 	s.v.PrefixLength = &prefixlength
@@ -144,7 +126,6 @@ func (s *_matchQuery) PrefixLength(prefixlength int) *_matchQuery {
 	return s
 }
 
-// Text, number, boolean value or date you wish to find in the provided field.
 func (s *_matchQuery) Query(query string) *_matchQuery {
 
 	s.v.Query = query
@@ -159,8 +140,6 @@ func (s *_matchQuery) QueryName_(queryname_ string) *_matchQuery {
 	return s
 }
 
-// Indicates whether no documents are returned if the `analyzer` removes all
-// tokens, such as when using a `stop` filter.
 func (s *_matchQuery) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *_matchQuery {
 
 	s.v.ZeroTermsQuery = &zerotermsquery

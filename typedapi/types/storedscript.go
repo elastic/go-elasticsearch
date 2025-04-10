@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -26,22 +26,21 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/scriptlanguage"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/scriptlanguage"
 )
 
 // StoredScript type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/Scripting.ts#L47-L59
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/_types/Scripting.ts#L51-L63
 type StoredScript struct {
 	// Lang The language the script is written in.
-	// For serach templates, use `mustache`.
+	// For search templates, use `mustache`.
 	Lang    scriptlanguage.ScriptLanguage `json:"lang"`
 	Options map[string]string             `json:"options,omitempty"`
 	// Source The script source.
 	// For search templates, an object containing the search template.
-	Source string `json:"source"`
+	Source ScriptSource `json:"source"`
 }
 
 func (s *StoredScript) UnmarshalJSON(data []byte) error {
@@ -73,16 +72,40 @@ func (s *StoredScript) UnmarshalJSON(data []byte) error {
 			}
 
 		case "source":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return fmt.Errorf("%s | %w", "Source", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		source_field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "Source", err)
+				}
+
+				switch t {
+
+				case "aggregations", "collapse", "docvalue_fields", "explain", "ext", "fields", "from", "highlight", "indices_boost", "knn", "min_score", "pit", "post_filter", "profile", "query", "rank", "rescore", "retriever", "runtime_mappings", "script_fields", "search_after", "seq_no_primary_term", "size", "slice", "sort", "_source", "stats", "stored_fields", "suggest", "terminate_after", "timeout", "track_scores", "track_total_hits", "version":
+					o := NewSearchRequestBody()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Source", err)
+					}
+					s.Source = o
+					break source_field
+
+				}
 			}
-			s.Source = o
+			if s.Source == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.Source); err != nil {
+					return fmt.Errorf("%s | %w", "Source", err)
+				}
+			}
 
 		}
 	}

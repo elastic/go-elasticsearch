@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/cardinalityexecutionmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/cardinalityexecutionmode"
 )
 
 type _cardinalityAggregation struct {
@@ -37,14 +37,12 @@ func NewCardinalityAggregation() *_cardinalityAggregation {
 
 }
 
-// Mechanism by which cardinality aggregations is run.
 func (s *_cardinalityAggregation) ExecutionHint(executionhint cardinalityexecutionmode.CardinalityExecutionMode) *_cardinalityAggregation {
 
 	s.v.ExecutionHint = &executionhint
 	return s
 }
 
-// The field on which to run the aggregation.
 func (s *_cardinalityAggregation) Field(field string) *_cardinalityAggregation {
 
 	s.v.Field = &field
@@ -52,8 +50,6 @@ func (s *_cardinalityAggregation) Field(field string) *_cardinalityAggregation {
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_cardinalityAggregation) Missing(missing types.MissingVariant) *_cardinalityAggregation {
 
 	s.v.Missing = *missing.MissingCaster()
@@ -61,8 +57,6 @@ func (s *_cardinalityAggregation) Missing(missing types.MissingVariant) *_cardin
 	return s
 }
 
-// A unique count below which counts are expected to be close to accurate.
-// This allows to trade memory for accuracy.
 func (s *_cardinalityAggregation) PrecisionThreshold(precisionthreshold int) *_cardinalityAggregation {
 
 	s.v.PrecisionThreshold = &precisionthreshold

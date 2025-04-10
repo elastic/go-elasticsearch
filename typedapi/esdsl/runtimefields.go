@@ -16,19 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
-// This is provide an API for type alias.
 type _runtimeFields struct {
 	v types.RuntimeFields
 }
 
-func NewRuntimeFields(runtimefields types.RuntimeFieldVariant) *_runtimeFields {
-	return &_runtimeFields{v: make(map[string]types.RuntimeField, 0)}
+func NewRuntimeFields(runtimefields map[string]types.RuntimeField) *_runtimeFields {
+	return &_runtimeFields{v: runtimefields}
 }
 
 func (u *_runtimeFields) RuntimeFieldsCaster() *types.RuntimeFields {

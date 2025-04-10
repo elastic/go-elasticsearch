@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortorder"
 )
 
 type _sortProcessor struct {
@@ -40,8 +40,6 @@ func NewSortProcessor() *_sortProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_sortProcessor) Description(description string) *_sortProcessor {
 
 	s.v.Description = &description
@@ -49,7 +47,6 @@ func (s *_sortProcessor) Description(description string) *_sortProcessor {
 	return s
 }
 
-// The field to be sorted.
 func (s *_sortProcessor) Field(field string) *_sortProcessor {
 
 	s.v.Field = field
@@ -57,7 +54,6 @@ func (s *_sortProcessor) Field(field string) *_sortProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_sortProcessor) If(if_ types.ScriptVariant) *_sortProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -65,7 +61,6 @@ func (s *_sortProcessor) If(if_ types.ScriptVariant) *_sortProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_sortProcessor) IgnoreFailure(ignorefailure bool) *_sortProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -73,7 +68,6 @@ func (s *_sortProcessor) IgnoreFailure(ignorefailure bool) *_sortProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_sortProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_sortProcessor {
 
 	for _, v := range onfailures {
@@ -84,16 +78,12 @@ func (s *_sortProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 	return s
 }
 
-// The sort order to use.
-// Accepts `"asc"` or `"desc"`.
 func (s *_sortProcessor) Order(order sortorder.SortOrder) *_sortProcessor {
 
 	s.v.Order = &order
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_sortProcessor) Tag(tag string) *_sortProcessor {
 
 	s.v.Tag = &tag
@@ -101,8 +91,6 @@ func (s *_sortProcessor) Tag(tag string) *_sortProcessor {
 	return s
 }
 
-// The field to assign the sorted value to.
-// By default, the field is updated in-place.
 func (s *_sortProcessor) TargetField(field string) *_sortProcessor {
 
 	s.v.TargetField = &field

@@ -33,7 +33,7 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v9"
 )
 
 // CustomLogger implements the elastictransport.Logger interface.

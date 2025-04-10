@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _histogramGrouping struct {
 	v *types.HistogramGrouping
@@ -36,9 +36,6 @@ func NewHistogramGrouping(interval int64) *_histogramGrouping {
 
 }
 
-// The set of fields that you wish to build histograms for.
-// All fields specified must be some kind of numeric.
-// Order does not matter.
 func (s *_histogramGrouping) Fields(fields ...string) *_histogramGrouping {
 
 	s.v.Fields = fields
@@ -46,11 +43,6 @@ func (s *_histogramGrouping) Fields(fields ...string) *_histogramGrouping {
 	return s
 }
 
-// The interval of histogram buckets to be generated when rolling up.
-// For example, a value of `5` creates buckets that are five units wide (`0-5`,
-// `5-10`, etc).
-// Note that only one interval can be specified in the histogram group, meaning
-// that all fields being grouped via the histogram must share the same interval.
 func (s *_histogramGrouping) Interval(interval int64) *_histogramGrouping {
 
 	s.v.Interval = interval

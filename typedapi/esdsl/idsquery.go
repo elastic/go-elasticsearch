@@ -16,29 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _idsQuery struct {
 	v *types.IdsQuery
 }
 
-// Returns roles based on their IDs.
-// This query uses role document IDs stored in the `_id` field.
+// Returns documents based on their IDs.
+// This query uses document IDs stored in the `_id` field.
 func NewIdsQuery() *_idsQuery {
 
 	return &_idsQuery{v: types.NewIdsQuery()}
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_idsQuery) Boost(boost float32) *_idsQuery {
 
 	s.v.Boost = &boost
@@ -53,7 +48,6 @@ func (s *_idsQuery) QueryName_(queryname_ string) *_idsQuery {
 	return s
 }
 
-// An array of document IDs.
 func (s *_idsQuery) Values(ids ...string) *_idsQuery {
 
 	s.v.Values = ids

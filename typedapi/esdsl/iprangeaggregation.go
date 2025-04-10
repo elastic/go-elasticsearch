@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _ipRangeAggregation struct {
 	v *types.IpRangeAggregation
@@ -34,7 +34,6 @@ func NewIpRangeAggregation() *_ipRangeAggregation {
 
 }
 
-// The date field whose values are used to build ranges.
 func (s *_ipRangeAggregation) Field(field string) *_ipRangeAggregation {
 
 	s.v.Field = &field
@@ -42,7 +41,6 @@ func (s *_ipRangeAggregation) Field(field string) *_ipRangeAggregation {
 	return s
 }
 
-// Array of IP ranges.
 func (s *_ipRangeAggregation) Ranges(ranges ...types.IpRangeAggregationRangeVariant) *_ipRangeAggregation {
 
 	for _, v := range ranges {

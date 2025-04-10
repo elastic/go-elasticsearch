@@ -16,11 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import (
+	"encoding/json"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+)
 
 // This is provide all the types that are part of the union.
 type _repository struct {
@@ -29,6 +33,13 @@ type _repository struct {
 
 func NewRepository() *_repository {
 	return &_repository{v: nil}
+}
+
+// UnknownRepository is used to set the unknown value of the union.
+// Highlited as @non_exhaustive in the specification.
+func (u *_repository) UnknownRepository(unknown json.RawMessage) *_repository {
+	u.v = unknown
+	return u
 }
 
 func (u *_repository) AzureRepository(azurerepository types.AzureRepositoryVariant) *_repository {

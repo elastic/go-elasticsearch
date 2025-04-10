@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _commandMoveAction struct {
 	v *types.CommandMoveAction
@@ -40,7 +40,6 @@ func NewCommandMoveAction(fromnode string, shard int, tonode string) *_commandMo
 
 }
 
-// The node to move the shard from
 func (s *_commandMoveAction) FromNode(fromnode string) *_commandMoveAction {
 
 	s.v.FromNode = fromnode
@@ -62,7 +61,6 @@ func (s *_commandMoveAction) Shard(shard int) *_commandMoveAction {
 	return s
 }
 
-// The node to move the shard to
 func (s *_commandMoveAction) ToNode(tonode string) *_commandMoveAction {
 
 	s.v.ToNode = tonode

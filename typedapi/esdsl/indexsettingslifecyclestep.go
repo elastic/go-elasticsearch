@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _indexSettingsLifecycleStep struct {
 	v *types.IndexSettingsLifecycleStep
@@ -32,9 +32,6 @@ func NewIndexSettingsLifecycleStep() *_indexSettingsLifecycleStep {
 
 }
 
-// Time to wait for the cluster to resolve allocation issues during an ILM
-// shrink action. Must be greater than 1h (1 hour).
-// See Shard allocation for shrink.
 func (s *_indexSettingsLifecycleStep) WaitTimeThreshold(duration types.DurationVariant) *_indexSettingsLifecycleStep {
 
 	s.v.WaitTimeThreshold = *duration.DurationCaster()

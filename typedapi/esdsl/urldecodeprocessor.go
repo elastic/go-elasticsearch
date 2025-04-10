@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _urlDecodeProcessor struct {
 	v *types.UrlDecodeProcessor
@@ -35,8 +35,6 @@ func NewUrlDecodeProcessor() *_urlDecodeProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_urlDecodeProcessor) Description(description string) *_urlDecodeProcessor {
 
 	s.v.Description = &description
@@ -44,7 +42,6 @@ func (s *_urlDecodeProcessor) Description(description string) *_urlDecodeProcess
 	return s
 }
 
-// The field to decode.
 func (s *_urlDecodeProcessor) Field(field string) *_urlDecodeProcessor {
 
 	s.v.Field = field
@@ -52,7 +49,6 @@ func (s *_urlDecodeProcessor) Field(field string) *_urlDecodeProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_urlDecodeProcessor) If(if_ types.ScriptVariant) *_urlDecodeProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -60,7 +56,6 @@ func (s *_urlDecodeProcessor) If(if_ types.ScriptVariant) *_urlDecodeProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_urlDecodeProcessor) IgnoreFailure(ignorefailure bool) *_urlDecodeProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -68,8 +63,6 @@ func (s *_urlDecodeProcessor) IgnoreFailure(ignorefailure bool) *_urlDecodeProce
 	return s
 }
 
-// If `true` and `field` does not exist or is `null`, the processor quietly
-// exits without modifying the document.
 func (s *_urlDecodeProcessor) IgnoreMissing(ignoremissing bool) *_urlDecodeProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -77,7 +70,6 @@ func (s *_urlDecodeProcessor) IgnoreMissing(ignoremissing bool) *_urlDecodeProce
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_urlDecodeProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_urlDecodeProcessor {
 
 	for _, v := range onfailures {
@@ -88,8 +80,6 @@ func (s *_urlDecodeProcessor) OnFailure(onfailures ...types.ProcessorContainerVa
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_urlDecodeProcessor) Tag(tag string) *_urlDecodeProcessor {
 
 	s.v.Tag = &tag
@@ -97,8 +87,6 @@ func (s *_urlDecodeProcessor) Tag(tag string) *_urlDecodeProcessor {
 	return s
 }
 
-// The field to assign the converted value to.
-// By default, the field is updated in-place.
 func (s *_urlDecodeProcessor) TargetField(field string) *_urlDecodeProcessor {
 
 	s.v.TargetField = &field

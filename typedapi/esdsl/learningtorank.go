@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _learningToRank struct {
@@ -40,7 +40,6 @@ func NewLearningToRank(modelid string) *_learningToRank {
 
 }
 
-// The unique identifier of the trained model uploaded to Elasticsearch
 func (s *_learningToRank) ModelId(modelid string) *_learningToRank {
 
 	s.v.ModelId = modelid
@@ -48,7 +47,6 @@ func (s *_learningToRank) ModelId(modelid string) *_learningToRank {
 	return s
 }
 
-// Named parameters to be passed to the query templates used for feature
 func (s *_learningToRank) Params(params map[string]json.RawMessage) *_learningToRank {
 
 	s.v.Params = params

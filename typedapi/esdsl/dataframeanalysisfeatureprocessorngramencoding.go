@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dataframeAnalysisFeatureProcessorNGramEncoding struct {
 	v *types.DataframeAnalysisFeatureProcessorNGramEncoding
@@ -43,7 +43,6 @@ func (s *_dataframeAnalysisFeatureProcessorNGramEncoding) Custom(custom bool) *_
 	return s
 }
 
-// The feature name prefix. Defaults to ngram_<start>_<length>.
 func (s *_dataframeAnalysisFeatureProcessorNGramEncoding) FeaturePrefix(featureprefix string) *_dataframeAnalysisFeatureProcessorNGramEncoding {
 
 	s.v.FeaturePrefix = &featureprefix
@@ -51,7 +50,6 @@ func (s *_dataframeAnalysisFeatureProcessorNGramEncoding) FeaturePrefix(featurep
 	return s
 }
 
-// The name of the text field to encode.
 func (s *_dataframeAnalysisFeatureProcessorNGramEncoding) Field(field string) *_dataframeAnalysisFeatureProcessorNGramEncoding {
 
 	s.v.Field = field
@@ -59,8 +57,6 @@ func (s *_dataframeAnalysisFeatureProcessorNGramEncoding) Field(field string) *_
 	return s
 }
 
-// Specifies the length of the n-gram substring. Defaults to 50. Must be greater
-// than 0.
 func (s *_dataframeAnalysisFeatureProcessorNGramEncoding) Length(length int) *_dataframeAnalysisFeatureProcessorNGramEncoding {
 
 	s.v.Length = &length
@@ -68,8 +64,6 @@ func (s *_dataframeAnalysisFeatureProcessorNGramEncoding) Length(length int) *_d
 	return s
 }
 
-// Specifies which n-grams to gather. It’s an array of integer values where the
-// minimum value is 1, and a maximum value is 5.
 func (s *_dataframeAnalysisFeatureProcessorNGramEncoding) NGrams(ngrams ...int) *_dataframeAnalysisFeatureProcessorNGramEncoding {
 
 	for _, v := range ngrams {
@@ -80,8 +74,6 @@ func (s *_dataframeAnalysisFeatureProcessorNGramEncoding) NGrams(ngrams ...int) 
 	return s
 }
 
-// Specifies the zero-indexed start of the n-gram substring. Negative values are
-// allowed for encoding n-grams of string suffixes. Defaults to 0.
 func (s *_dataframeAnalysisFeatureProcessorNGramEncoding) Start(start int) *_dataframeAnalysisFeatureProcessorNGramEncoding {
 
 	s.v.Start = &start

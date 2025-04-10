@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _textSimilarityReranker struct {
 	v *types.TextSimilarityReranker
@@ -38,8 +38,6 @@ func NewTextSimilarityReranker(retriever types.RetrieverContainerVariant) *_text
 
 }
 
-// The document field to be used for text similarity comparisons. This field
-// should contain the text that will be evaluated against the inference_text
 func (s *_textSimilarityReranker) Field(field string) *_textSimilarityReranker {
 
 	s.v.Field = &field
@@ -47,7 +45,6 @@ func (s *_textSimilarityReranker) Field(field string) *_textSimilarityReranker {
 	return s
 }
 
-// Query to filter the documents that can match.
 func (s *_textSimilarityReranker) Filter(filters ...types.QueryVariant) *_textSimilarityReranker {
 
 	s.v.Filter = make([]types.Query, len(filters))
@@ -58,7 +55,6 @@ func (s *_textSimilarityReranker) Filter(filters ...types.QueryVariant) *_textSi
 	return s
 }
 
-// Unique identifier of the inference endpoint created using the inference API.
 func (s *_textSimilarityReranker) InferenceId(inferenceid string) *_textSimilarityReranker {
 
 	s.v.InferenceId = &inferenceid
@@ -66,7 +62,6 @@ func (s *_textSimilarityReranker) InferenceId(inferenceid string) *_textSimilari
 	return s
 }
 
-// The text snippet used as the basis for similarity comparison
 func (s *_textSimilarityReranker) InferenceText(inferencetext string) *_textSimilarityReranker {
 
 	s.v.InferenceText = &inferencetext
@@ -74,8 +69,6 @@ func (s *_textSimilarityReranker) InferenceText(inferencetext string) *_textSimi
 	return s
 }
 
-// Minimum _score for matching documents. Documents with a lower _score are not
-// included in the top documents.
 func (s *_textSimilarityReranker) MinScore(minscore float32) *_textSimilarityReranker {
 
 	s.v.MinScore = &minscore
@@ -83,8 +76,6 @@ func (s *_textSimilarityReranker) MinScore(minscore float32) *_textSimilarityRer
 	return s
 }
 
-// This value determines how many documents we will consider from the nested
-// retriever.
 func (s *_textSimilarityReranker) RankWindowSize(rankwindowsize int) *_textSimilarityReranker {
 
 	s.v.RankWindowSize = &rankwindowsize
@@ -92,8 +83,6 @@ func (s *_textSimilarityReranker) RankWindowSize(rankwindowsize int) *_textSimil
 	return s
 }
 
-// The nested retriever which will produce the first-level results, that will
-// later be used for reranking.
 func (s *_textSimilarityReranker) Retriever(retriever types.RetrieverContainerVariant) *_textSimilarityReranker {
 
 	s.v.Retriever = *retriever.RetrieverContainerCaster()

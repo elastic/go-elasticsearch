@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _s3Repository struct {
 	v *types.S3Repository
@@ -36,14 +36,6 @@ func NewS3Repository(settings types.S3RepositorySettingsVariant) *_s3Repository 
 
 }
 
-// The repository settings.
-//
-// NOTE: In addition to the specified settings, you can also use all non-secure
-// client settings in the repository settings.
-// In this case, the client settings found in the repository settings will be
-// merged with those of the named client used by the repository.
-// Conflicts between client and repository settings are resolved by the
-// repository settings taking precedence over client settings.
 func (s *_s3Repository) Settings(settings types.S3RepositorySettingsVariant) *_s3Repository {
 
 	s.v.Settings = *settings.S3RepositorySettingsCaster()

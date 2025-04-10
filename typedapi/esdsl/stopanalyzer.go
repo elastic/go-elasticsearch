@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _stopAnalyzer struct {
 	v *types.StopAnalyzer
@@ -32,9 +32,6 @@ func NewStopAnalyzer() *_stopAnalyzer {
 
 }
 
-// A pre-defined stop words list like `_english_` or an array containing a list
-// of stop words.
-// Defaults to `_none_`.
 func (s *_stopAnalyzer) Stopwords(stopwords ...string) *_stopAnalyzer {
 
 	s.v.Stopwords = stopwords
@@ -42,7 +39,6 @@ func (s *_stopAnalyzer) Stopwords(stopwords ...string) *_stopAnalyzer {
 	return s
 }
 
-// The path to a file containing stop words.
 func (s *_stopAnalyzer) StopwordsPath(stopwordspath string) *_stopAnalyzer {
 
 	s.v.StopwordsPath = &stopwordspath

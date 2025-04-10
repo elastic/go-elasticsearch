@@ -16,20 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/operator"
 )
 
 type _simpleQueryStringQuery struct {
 	v *types.SimpleQueryStringQuery
 }
 
-// Returns roles based on a provided query string, using a parser with a limited
+// Returns users based on a provided query string, using a parser with a limited
 // but fault-tolerant syntax.
 func NewSimpleQueryStringQuery(query string) *_simpleQueryStringQuery {
 
@@ -41,7 +41,6 @@ func NewSimpleQueryStringQuery(query string) *_simpleQueryStringQuery {
 
 }
 
-// If `true`, the query attempts to analyze wildcard terms in the query string.
 func (s *_simpleQueryStringQuery) AnalyzeWildcard(analyzewildcard bool) *_simpleQueryStringQuery {
 
 	s.v.AnalyzeWildcard = &analyzewildcard
@@ -49,7 +48,6 @@ func (s *_simpleQueryStringQuery) AnalyzeWildcard(analyzewildcard bool) *_simple
 	return s
 }
 
-// Analyzer used to convert text in the query string into tokens.
 func (s *_simpleQueryStringQuery) Analyzer(analyzer string) *_simpleQueryStringQuery {
 
 	s.v.Analyzer = &analyzer
@@ -57,8 +55,6 @@ func (s *_simpleQueryStringQuery) Analyzer(analyzer string) *_simpleQueryStringQ
 	return s
 }
 
-// If `true`, the parser creates a match_phrase query for each multi-position
-// token.
 func (s *_simpleQueryStringQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsphrasequery bool) *_simpleQueryStringQuery {
 
 	s.v.AutoGenerateSynonymsPhraseQuery = &autogeneratesynonymsphrasequery
@@ -66,11 +62,6 @@ func (s *_simpleQueryStringQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesy
 	return s
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_simpleQueryStringQuery) Boost(boost float32) *_simpleQueryStringQuery {
 
 	s.v.Boost = &boost
@@ -78,20 +69,12 @@ func (s *_simpleQueryStringQuery) Boost(boost float32) *_simpleQueryStringQuery 
 	return s
 }
 
-// Default boolean logic used to interpret text in the query string if no
-// operators are specified.
 func (s *_simpleQueryStringQuery) DefaultOperator(defaultoperator operator.Operator) *_simpleQueryStringQuery {
 
 	s.v.DefaultOperator = &defaultoperator
 	return s
 }
 
-// Array of fields you wish to search.
-// Accepts wildcard expressions.
-// You also can boost relevance scores for matches to particular fields using a
-// caret (`^`) notation.
-// Defaults to the `index.query.default_field index` setting, which has a
-// default value of `*`.
 func (s *_simpleQueryStringQuery) Fields(fields ...string) *_simpleQueryStringQuery {
 
 	for _, v := range fields {
@@ -102,7 +85,6 @@ func (s *_simpleQueryStringQuery) Fields(fields ...string) *_simpleQueryStringQu
 	return s
 }
 
-// List of enabled operators for the simple query string syntax.
 func (s *_simpleQueryStringQuery) Flags(simplequerystringflags types.PipeSeparatedFlagsSimpleQueryStringFlag) *_simpleQueryStringQuery {
 
 	s.v.Flags = simplequerystringflags
@@ -110,7 +92,6 @@ func (s *_simpleQueryStringQuery) Flags(simplequerystringflags types.PipeSeparat
 	return s
 }
 
-// Maximum number of terms to which the query expands for fuzzy matching.
 func (s *_simpleQueryStringQuery) FuzzyMaxExpansions(fuzzymaxexpansions int) *_simpleQueryStringQuery {
 
 	s.v.FuzzyMaxExpansions = &fuzzymaxexpansions
@@ -118,7 +99,6 @@ func (s *_simpleQueryStringQuery) FuzzyMaxExpansions(fuzzymaxexpansions int) *_s
 	return s
 }
 
-// Number of beginning characters left unchanged for fuzzy matching.
 func (s *_simpleQueryStringQuery) FuzzyPrefixLength(fuzzyprefixlength int) *_simpleQueryStringQuery {
 
 	s.v.FuzzyPrefixLength = &fuzzyprefixlength
@@ -126,8 +106,6 @@ func (s *_simpleQueryStringQuery) FuzzyPrefixLength(fuzzyprefixlength int) *_sim
 	return s
 }
 
-// If `true`, edits for fuzzy matching include transpositions of two adjacent
-// characters (for example, `ab` to `ba`).
 func (s *_simpleQueryStringQuery) FuzzyTranspositions(fuzzytranspositions bool) *_simpleQueryStringQuery {
 
 	s.v.FuzzyTranspositions = &fuzzytranspositions
@@ -135,8 +113,6 @@ func (s *_simpleQueryStringQuery) FuzzyTranspositions(fuzzytranspositions bool) 
 	return s
 }
 
-// If `true`, format-based errors, such as providing a text value for a numeric
-// field, are ignored.
 func (s *_simpleQueryStringQuery) Lenient(lenient bool) *_simpleQueryStringQuery {
 
 	s.v.Lenient = &lenient
@@ -144,7 +120,6 @@ func (s *_simpleQueryStringQuery) Lenient(lenient bool) *_simpleQueryStringQuery
 	return s
 }
 
-// Minimum number of clauses that must match for a document to be returned.
 func (s *_simpleQueryStringQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumShouldMatchVariant) *_simpleQueryStringQuery {
 
 	s.v.MinimumShouldMatch = *minimumshouldmatch.MinimumShouldMatchCaster()
@@ -152,8 +127,6 @@ func (s *_simpleQueryStringQuery) MinimumShouldMatch(minimumshouldmatch types.Mi
 	return s
 }
 
-// Query string in the simple query string syntax you wish to parse and use for
-// search.
 func (s *_simpleQueryStringQuery) Query(query string) *_simpleQueryStringQuery {
 
 	s.v.Query = query
@@ -168,7 +141,6 @@ func (s *_simpleQueryStringQuery) QueryName_(queryname_ string) *_simpleQueryStr
 	return s
 }
 
-// Suffix appended to quoted text in the query string.
 func (s *_simpleQueryStringQuery) QuoteFieldSuffix(quotefieldsuffix string) *_simpleQueryStringQuery {
 
 	s.v.QuoteFieldSuffix = &quotefieldsuffix

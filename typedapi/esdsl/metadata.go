@@ -16,23 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
-// This is provide an API for type alias.
 type _metadata struct {
 	v types.Metadata
 }
 
 func NewMetadata(metadata map[string]json.RawMessage) *_metadata {
-	return &_metadata{v: make(map[string]json.RawMessage, 0)}
+	return &_metadata{v: metadata}
 }
 
 func (u *_metadata) MetadataCaster() *types.Metadata {

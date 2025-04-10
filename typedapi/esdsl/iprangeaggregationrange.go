@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _ipRangeAggregationRange struct {
 	v *types.IpRangeAggregationRange
@@ -32,7 +32,6 @@ func NewIpRangeAggregationRange() *_ipRangeAggregationRange {
 
 }
 
-// Start of the range.
 func (s *_ipRangeAggregationRange) From(from string) *_ipRangeAggregationRange {
 
 	s.v.From = &from
@@ -40,7 +39,6 @@ func (s *_ipRangeAggregationRange) From(from string) *_ipRangeAggregationRange {
 	return s
 }
 
-// IP range defined as a CIDR mask.
 func (s *_ipRangeAggregationRange) Mask(mask string) *_ipRangeAggregationRange {
 
 	s.v.Mask = &mask
@@ -48,7 +46,6 @@ func (s *_ipRangeAggregationRange) Mask(mask string) *_ipRangeAggregationRange {
 	return s
 }
 
-// End of the range.
 func (s *_ipRangeAggregationRange) To(to string) *_ipRangeAggregationRange {
 
 	s.v.To = &to

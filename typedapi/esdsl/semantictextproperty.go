@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _semanticTextProperty struct {
 	v *types.SemanticTextProperty
@@ -32,11 +32,6 @@ func NewSemanticTextProperty() *_semanticTextProperty {
 
 }
 
-// Inference endpoint that will be used to generate embeddings for the field.
-// This parameter cannot be updated. Use the Create inference API to create the
-// endpoint.
-// If `search_inference_id` is specified, the inference endpoint will only be
-// used at index time.
 func (s *_semanticTextProperty) InferenceId(id string) *_semanticTextProperty {
 
 	s.v.InferenceId = &id
@@ -65,11 +60,6 @@ func (s *_semanticTextProperty) AddMeta(key string, value string) *_semanticText
 	return s
 }
 
-// Inference endpoint that will be used to generate embeddings at query time.
-// You can update this parameter by using the Update mapping API. Use the Create
-// inference API to create the endpoint.
-// If not specified, the inference endpoint defined by inference_id will be used
-// at both index and query time.
 func (s *_semanticTextProperty) SearchInferenceId(id string) *_semanticTextProperty {
 
 	s.v.SearchInferenceId = &id

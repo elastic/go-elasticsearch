@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _syncContainer struct {
@@ -46,8 +46,6 @@ func (s *_syncContainer) AdditionalSyncContainerProperty(key string, value json.
 	return s
 }
 
-// Specifies that the transform uses a time field to synchronize the source and
-// destination indices.
 func (s *_syncContainer) Time(time types.TimeSyncVariant) *_syncContainer {
 
 	s.v.Time = time.TimeSyncCaster()

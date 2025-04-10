@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _mappingLimitSettingsDimensionFields struct {
 	v *types.MappingLimitSettingsDimensionFields
@@ -32,10 +32,6 @@ func NewMappingLimitSettingsDimensionFields() *_mappingLimitSettingsDimensionFie
 
 }
 
-// [preview] This functionality is in technical preview and may be changed or
-// removed in a future release.
-// Elastic will work to fix any issues, but features in technical preview are
-// not subject to the support SLA of official GA features.
 func (s *_mappingLimitSettingsDimensionFields) Limit(limit int64) *_mappingLimitSettingsDimensionFields {
 
 	s.v.Limit = &limit

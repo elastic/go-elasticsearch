@@ -16,41 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _inferenceChunkingSettings struct {
 	v *types.InferenceChunkingSettings
 }
 
-func NewInferenceChunkingSettings(service string) *_inferenceChunkingSettings {
+func NewInferenceChunkingSettings() *_inferenceChunkingSettings {
 
-	tmp := &_inferenceChunkingSettings{v: types.NewInferenceChunkingSettings()}
-
-	tmp.Service(service)
-
-	return tmp
+	return &_inferenceChunkingSettings{v: types.NewInferenceChunkingSettings()}
 
 }
 
-// Chunking configuration object
-func (s *_inferenceChunkingSettings) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *_inferenceChunkingSettings {
-
-	s.v.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
-
-	return s
-}
-
-// The maximum size of a chunk in words.
-// This value cannot be higher than `300` or lower than `20` (for `sentence`
-// strategy) or `10` (for `word` strategy).
 func (s *_inferenceChunkingSettings) MaxChunkSize(maxchunksize int) *_inferenceChunkingSettings {
 
 	s.v.MaxChunkSize = &maxchunksize
@@ -58,9 +39,6 @@ func (s *_inferenceChunkingSettings) MaxChunkSize(maxchunksize int) *_inferenceC
 	return s
 }
 
-// The number of overlapping words for chunks.
-// It is applicable only to a `word` chunking strategy.
-// This value cannot be higher than half the `max_chunk_size` value.
 func (s *_inferenceChunkingSettings) Overlap(overlap int) *_inferenceChunkingSettings {
 
 	s.v.Overlap = &overlap
@@ -68,9 +46,6 @@ func (s *_inferenceChunkingSettings) Overlap(overlap int) *_inferenceChunkingSet
 	return s
 }
 
-// The number of overlapping sentences for chunks.
-// It is applicable only for a `sentence` chunking strategy.
-// It can be either `1` or `0`.
 func (s *_inferenceChunkingSettings) SentenceOverlap(sentenceoverlap int) *_inferenceChunkingSettings {
 
 	s.v.SentenceOverlap = &sentenceoverlap
@@ -78,34 +53,9 @@ func (s *_inferenceChunkingSettings) SentenceOverlap(sentenceoverlap int) *_infe
 	return s
 }
 
-// The service type
-func (s *_inferenceChunkingSettings) Service(service string) *_inferenceChunkingSettings {
-
-	s.v.Service = service
-
-	return s
-}
-
-// Settings specific to the service
-func (s *_inferenceChunkingSettings) ServiceSettings(servicesettings json.RawMessage) *_inferenceChunkingSettings {
-
-	s.v.ServiceSettings = servicesettings
-
-	return s
-}
-
-// The chunking strategy: `sentence` or `word`.
 func (s *_inferenceChunkingSettings) Strategy(strategy string) *_inferenceChunkingSettings {
 
 	s.v.Strategy = &strategy
-
-	return s
-}
-
-// Task settings specific to the service and task type
-func (s *_inferenceChunkingSettings) TaskSettings(tasksettings json.RawMessage) *_inferenceChunkingSettings {
-
-	s.v.TaskSettings = tasksettings
 
 	return s
 }

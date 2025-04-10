@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geoshaperelation"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/geoshaperelation"
 )
 
 type _enrichProcessor struct {
@@ -40,8 +40,6 @@ func NewEnrichProcessor(policyname string) *_enrichProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_enrichProcessor) Description(description string) *_enrichProcessor {
 
 	s.v.Description = &description
@@ -49,9 +47,6 @@ func (s *_enrichProcessor) Description(description string) *_enrichProcessor {
 	return s
 }
 
-// The field in the input document that matches the policies match_field used to
-// retrieve the enrichment data.
-// Supports template snippets.
 func (s *_enrichProcessor) Field(field string) *_enrichProcessor {
 
 	s.v.Field = field
@@ -59,7 +54,6 @@ func (s *_enrichProcessor) Field(field string) *_enrichProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_enrichProcessor) If(if_ types.ScriptVariant) *_enrichProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -67,7 +61,6 @@ func (s *_enrichProcessor) If(if_ types.ScriptVariant) *_enrichProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_enrichProcessor) IgnoreFailure(ignorefailure bool) *_enrichProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -75,8 +68,6 @@ func (s *_enrichProcessor) IgnoreFailure(ignorefailure bool) *_enrichProcessor {
 	return s
 }
 
-// If `true` and `field` does not exist, the processor quietly exits without
-// modifying the document.
 func (s *_enrichProcessor) IgnoreMissing(ignoremissing bool) *_enrichProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -84,12 +75,6 @@ func (s *_enrichProcessor) IgnoreMissing(ignoremissing bool) *_enrichProcessor {
 	return s
 }
 
-// The maximum number of matched documents to include under the configured
-// target field.
-// The `target_field` will be turned into a json array if `max_matches` is
-// higher than 1, otherwise `target_field` will become a json object.
-// In order to avoid documents getting too large, the maximum allowed value is
-// 128.
 func (s *_enrichProcessor) MaxMatches(maxmatches int) *_enrichProcessor {
 
 	s.v.MaxMatches = &maxmatches
@@ -97,7 +82,6 @@ func (s *_enrichProcessor) MaxMatches(maxmatches int) *_enrichProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_enrichProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_enrichProcessor {
 
 	for _, v := range onfailures {
@@ -108,8 +92,6 @@ func (s *_enrichProcessor) OnFailure(onfailures ...types.ProcessorContainerVaria
 	return s
 }
 
-// If processor will update fields with pre-existing non-null-valued field.
-// When set to `false`, such fields will not be touched.
 func (s *_enrichProcessor) Override(override bool) *_enrichProcessor {
 
 	s.v.Override = &override
@@ -117,7 +99,6 @@ func (s *_enrichProcessor) Override(override bool) *_enrichProcessor {
 	return s
 }
 
-// The name of the enrich policy to use.
 func (s *_enrichProcessor) PolicyName(policyname string) *_enrichProcessor {
 
 	s.v.PolicyName = policyname
@@ -125,17 +106,12 @@ func (s *_enrichProcessor) PolicyName(policyname string) *_enrichProcessor {
 	return s
 }
 
-// A spatial relation operator used to match the geoshape of incoming documents
-// to documents in the enrich index.
-// This option is only used for `geo_match` enrich policy types.
 func (s *_enrichProcessor) ShapeRelation(shaperelation geoshaperelation.GeoShapeRelation) *_enrichProcessor {
 
 	s.v.ShapeRelation = &shaperelation
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_enrichProcessor) Tag(tag string) *_enrichProcessor {
 
 	s.v.Tag = &tag
@@ -143,9 +119,6 @@ func (s *_enrichProcessor) Tag(tag string) *_enrichProcessor {
 	return s
 }
 
-// Field added to incoming documents to contain enrich data. This field contains
-// both the `match_field` and `enrich_fields` specified in the enrich policy.
-// Supports template snippets.
 func (s *_enrichProcessor) TargetField(field string) *_enrichProcessor {
 
 	s.v.TargetField = field

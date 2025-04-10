@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _completionTool struct {
 	v *types.CompletionTool
@@ -38,7 +38,6 @@ func NewCompletionTool(function types.CompletionToolFunctionVariant, type_ strin
 
 }
 
-// The function definition.
 func (s *_completionTool) Function(function types.CompletionToolFunctionVariant) *_completionTool {
 
 	s.v.Function = *function.CompletionToolFunctionCaster()
@@ -46,7 +45,6 @@ func (s *_completionTool) Function(function types.CompletionToolFunctionVariant)
 	return s
 }
 
-// The type of tool.
 func (s *_completionTool) Type(type_ string) *_completionTool {
 
 	s.v.Type = type_

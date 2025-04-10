@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _compositeAggregation struct {
 	v *types.CompositeAggregation
@@ -37,8 +37,6 @@ func NewCompositeAggregation() *_compositeAggregation {
 
 }
 
-// When paginating, use the `after_key` value returned in the previous response
-// to retrieve the next page.
 func (s *_compositeAggregation) After(compositeaggregatekey types.CompositeAggregateKeyVariant) *_compositeAggregation {
 
 	s.v.After = *compositeaggregatekey.CompositeAggregateKeyCaster()
@@ -46,7 +44,6 @@ func (s *_compositeAggregation) After(compositeaggregatekey types.CompositeAggre
 	return s
 }
 
-// The number of composite buckets that should be returned.
 func (s *_compositeAggregation) Size(size int) *_compositeAggregation {
 
 	s.v.Size = &size
@@ -54,8 +51,6 @@ func (s *_compositeAggregation) Size(size int) *_compositeAggregation {
 	return s
 }
 
-// The value sources used to build composite buckets.
-// Keys are returned in the order of the `sources` definition.
 func (s *_compositeAggregation) Sources(sources []map[string]types.CompositeAggregationSource) *_compositeAggregation {
 
 	s.v.Sources = sources

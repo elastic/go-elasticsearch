@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _delayedDataCheckConfig struct {
 	v *types.DelayedDataCheckConfig
@@ -36,12 +36,6 @@ func NewDelayedDataCheckConfig(enabled bool) *_delayedDataCheckConfig {
 
 }
 
-// The window of time that is searched for late data. This window of time ends
-// with the latest finalized bucket.
-// It defaults to null, which causes an appropriate `check_window` to be
-// calculated when the real-time datafeed runs.
-// In particular, the default `check_window` span calculation is based on the
-// maximum of `2h` or `8 * bucket_span`.
 func (s *_delayedDataCheckConfig) CheckWindow(duration types.DurationVariant) *_delayedDataCheckConfig {
 
 	s.v.CheckWindow = *duration.DurationCaster()
@@ -49,7 +43,6 @@ func (s *_delayedDataCheckConfig) CheckWindow(duration types.DurationVariant) *_
 	return s
 }
 
-// Specifies whether the datafeed periodically checks for delayed data.
 func (s *_delayedDataCheckConfig) Enabled(enabled bool) *_delayedDataCheckConfig {
 
 	s.v.Enabled = enabled

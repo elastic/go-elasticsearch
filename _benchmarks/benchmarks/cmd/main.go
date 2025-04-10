@@ -32,12 +32,12 @@ import (
 	"github.com/montanaflynn/stats"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v9"
 
-	"github.com/elastic/go-elasticsearch/v8/benchmarks"
-	"github.com/elastic/go-elasticsearch/v8/benchmarks/runner"
+	"github.com/elastic/go-elasticsearch/v9/benchmarks"
+	"github.com/elastic/go-elasticsearch/v9/benchmarks/runner"
 
-	_ "github.com/elastic/go-elasticsearch/v8/benchmarks/actions"
+	_ "github.com/elastic/go-elasticsearch/v9/benchmarks/actions"
 )
 
 var (

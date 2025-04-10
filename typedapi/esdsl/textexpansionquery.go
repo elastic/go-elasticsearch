@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _textExpansionQuery struct {
 	k string
@@ -37,11 +37,6 @@ func NewTextExpansionQuery(key string) *_textExpansionQuery {
 	}
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_textExpansionQuery) Boost(boost float32) *_textExpansionQuery {
 
 	s.v.Boost = &boost
@@ -49,7 +44,6 @@ func (s *_textExpansionQuery) Boost(boost float32) *_textExpansionQuery {
 	return s
 }
 
-// The text expansion NLP model to use
 func (s *_textExpansionQuery) ModelId(modelid string) *_textExpansionQuery {
 
 	s.v.ModelId = modelid
@@ -57,7 +51,6 @@ func (s *_textExpansionQuery) ModelId(modelid string) *_textExpansionQuery {
 	return s
 }
 
-// The query text
 func (s *_textExpansionQuery) ModelText(modeltext string) *_textExpansionQuery {
 
 	s.v.ModelText = modeltext
@@ -65,7 +58,6 @@ func (s *_textExpansionQuery) ModelText(modeltext string) *_textExpansionQuery {
 	return s
 }
 
-// Token pruning configurations
 func (s *_textExpansionQuery) PruningConfig(pruningconfig types.TokenPruningConfigVariant) *_textExpansionQuery {
 
 	s.v.PruningConfig = pruningconfig.TokenPruningConfigCaster()

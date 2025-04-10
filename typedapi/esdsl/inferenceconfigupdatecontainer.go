@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _inferenceConfigUpdateContainer struct {
@@ -46,7 +46,6 @@ func (s *_inferenceConfigUpdateContainer) AdditionalInferenceConfigUpdateContain
 	return s
 }
 
-// Classification configuration for inference.
 func (s *_inferenceConfigUpdateContainer) Classification(classification types.ClassificationInferenceOptionsVariant) *_inferenceConfigUpdateContainer {
 
 	s.v.Classification = classification.ClassificationInferenceOptionsCaster()
@@ -54,7 +53,6 @@ func (s *_inferenceConfigUpdateContainer) Classification(classification types.Cl
 	return s
 }
 
-// Fill mask configuration for inference.
 func (s *_inferenceConfigUpdateContainer) FillMask(fillmask types.FillMaskInferenceUpdateOptionsVariant) *_inferenceConfigUpdateContainer {
 
 	s.v.FillMask = fillmask.FillMaskInferenceUpdateOptionsCaster()
@@ -62,7 +60,6 @@ func (s *_inferenceConfigUpdateContainer) FillMask(fillmask types.FillMaskInfere
 	return s
 }
 
-// Named entity recognition configuration for inference.
 func (s *_inferenceConfigUpdateContainer) Ner(ner types.NerInferenceUpdateOptionsVariant) *_inferenceConfigUpdateContainer {
 
 	s.v.Ner = ner.NerInferenceUpdateOptionsCaster()
@@ -70,7 +67,6 @@ func (s *_inferenceConfigUpdateContainer) Ner(ner types.NerInferenceUpdateOption
 	return s
 }
 
-// Pass through configuration for inference.
 func (s *_inferenceConfigUpdateContainer) PassThrough(passthrough types.PassThroughInferenceUpdateOptionsVariant) *_inferenceConfigUpdateContainer {
 
 	s.v.PassThrough = passthrough.PassThroughInferenceUpdateOptionsCaster()
@@ -78,7 +74,6 @@ func (s *_inferenceConfigUpdateContainer) PassThrough(passthrough types.PassThro
 	return s
 }
 
-// Question answering configuration for inference
 func (s *_inferenceConfigUpdateContainer) QuestionAnswering(questionanswering types.QuestionAnsweringInferenceUpdateOptionsVariant) *_inferenceConfigUpdateContainer {
 
 	s.v.QuestionAnswering = questionanswering.QuestionAnsweringInferenceUpdateOptionsCaster()
@@ -86,7 +81,6 @@ func (s *_inferenceConfigUpdateContainer) QuestionAnswering(questionanswering ty
 	return s
 }
 
-// Regression configuration for inference.
 func (s *_inferenceConfigUpdateContainer) Regression(regression types.RegressionInferenceOptionsVariant) *_inferenceConfigUpdateContainer {
 
 	s.v.Regression = regression.RegressionInferenceOptionsCaster()
@@ -94,7 +88,6 @@ func (s *_inferenceConfigUpdateContainer) Regression(regression types.Regression
 	return s
 }
 
-// Text classification configuration for inference.
 func (s *_inferenceConfigUpdateContainer) TextClassification(textclassification types.TextClassificationInferenceUpdateOptionsVariant) *_inferenceConfigUpdateContainer {
 
 	s.v.TextClassification = textclassification.TextClassificationInferenceUpdateOptionsCaster()
@@ -102,7 +95,6 @@ func (s *_inferenceConfigUpdateContainer) TextClassification(textclassification 
 	return s
 }
 
-// Text embedding configuration for inference.
 func (s *_inferenceConfigUpdateContainer) TextEmbedding(textembedding types.TextEmbeddingInferenceUpdateOptionsVariant) *_inferenceConfigUpdateContainer {
 
 	s.v.TextEmbedding = textembedding.TextEmbeddingInferenceUpdateOptionsCaster()
@@ -110,7 +102,6 @@ func (s *_inferenceConfigUpdateContainer) TextEmbedding(textembedding types.Text
 	return s
 }
 
-// Text expansion configuration for inference.
 func (s *_inferenceConfigUpdateContainer) TextExpansion(textexpansion types.TextExpansionInferenceUpdateOptionsVariant) *_inferenceConfigUpdateContainer {
 
 	s.v.TextExpansion = textexpansion.TextExpansionInferenceUpdateOptionsCaster()
@@ -118,7 +109,6 @@ func (s *_inferenceConfigUpdateContainer) TextExpansion(textexpansion types.Text
 	return s
 }
 
-// Zeroshot classification configuration for inference.
 func (s *_inferenceConfigUpdateContainer) ZeroShotClassification(zeroshotclassification types.ZeroShotClassificationInferenceUpdateOptionsVariant) *_inferenceConfigUpdateContainer {
 
 	s.v.ZeroShotClassification = zeroshotclassification.ZeroShotClassificationInferenceUpdateOptionsCaster()

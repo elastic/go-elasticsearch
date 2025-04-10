@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _chiSquareHeuristic struct {
 	v *types.ChiSquareHeuristic
@@ -38,8 +38,6 @@ func NewChiSquareHeuristic(backgroundissuperset bool, includenegatives bool) *_c
 
 }
 
-// Set to `false` if you defined a custom background filter that represents a
-// different set of documents that you want to compare to.
 func (s *_chiSquareHeuristic) BackgroundIsSuperset(backgroundissuperset bool) *_chiSquareHeuristic {
 
 	s.v.BackgroundIsSuperset = backgroundissuperset
@@ -47,8 +45,6 @@ func (s *_chiSquareHeuristic) BackgroundIsSuperset(backgroundissuperset bool) *_
 	return s
 }
 
-// Set to `false` to filter out the terms that appear less often in the subset
-// than in documents outside the subset.
 func (s *_chiSquareHeuristic) IncludeNegatives(includenegatives bool) *_chiSquareHeuristic {
 
 	s.v.IncludeNegatives = includenegatives

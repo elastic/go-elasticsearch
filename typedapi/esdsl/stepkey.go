@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _stepKey struct {
 	v *types.StepKey
@@ -36,7 +36,6 @@ func NewStepKey(phase string) *_stepKey {
 
 }
 
-// The optional action to which the index will be moved.
 func (s *_stepKey) Action(action string) *_stepKey {
 
 	s.v.Action = &action
@@ -44,7 +43,6 @@ func (s *_stepKey) Action(action string) *_stepKey {
 	return s
 }
 
-// The optional step name to which the index will be moved.
 func (s *_stepKey) Name(name string) *_stepKey {
 
 	s.v.Name = &name

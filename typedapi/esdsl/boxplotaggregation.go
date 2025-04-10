@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _boxplotAggregation struct {
 	v *types.BoxplotAggregation
@@ -34,9 +34,6 @@ func NewBoxplotAggregation() *_boxplotAggregation {
 
 }
 
-// Limits the maximum number of nodes used by the underlying TDigest algorithm
-// to `20 * compression`, enabling control of memory usage and approximation
-// error.
 func (s *_boxplotAggregation) Compression(compression types.Float64) *_boxplotAggregation {
 
 	s.v.Compression = &compression
@@ -44,7 +41,6 @@ func (s *_boxplotAggregation) Compression(compression types.Float64) *_boxplotAg
 	return s
 }
 
-// The field on which to run the aggregation.
 func (s *_boxplotAggregation) Field(field string) *_boxplotAggregation {
 
 	s.v.Field = &field
@@ -52,8 +48,6 @@ func (s *_boxplotAggregation) Field(field string) *_boxplotAggregation {
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_boxplotAggregation) Missing(missing types.MissingVariant) *_boxplotAggregation {
 
 	s.v.Missing = *missing.MissingCaster()

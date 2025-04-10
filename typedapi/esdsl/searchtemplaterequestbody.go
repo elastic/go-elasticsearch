@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _searchTemplateRequestBody struct {
@@ -43,8 +43,6 @@ func (s *_searchTemplateRequestBody) Explain(explain bool) *_searchTemplateReque
 	return s
 }
 
-// ID of the search template to use. If no source is specified,
-// this parameter is required.
 func (s *_searchTemplateRequestBody) Id(id string) *_searchTemplateRequestBody {
 
 	s.v.Id = &id
@@ -80,9 +78,6 @@ func (s *_searchTemplateRequestBody) Profile(profile bool) *_searchTemplateReque
 	return s
 }
 
-// An inline search template. Supports the same parameters as the search API's
-// request body. Also supports Mustache variables. If no id is specified, this
-// parameter is required.
 func (s *_searchTemplateRequestBody) Source(source string) *_searchTemplateRequestBody {
 
 	s.v.Source = &source

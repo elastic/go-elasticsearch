@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _bucketCorrelationAggregation struct {
 	v *types.BucketCorrelationAggregation
@@ -38,7 +38,6 @@ func NewBucketCorrelationAggregation(function types.BucketCorrelationFunctionVar
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_bucketCorrelationAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_bucketCorrelationAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -46,7 +45,6 @@ func (s *_bucketCorrelationAggregation) BucketsPath(bucketspath types.BucketsPat
 	return s
 }
 
-// The correlation function to execute.
 func (s *_bucketCorrelationAggregation) Function(function types.BucketCorrelationFunctionVariant) *_bucketCorrelationAggregation {
 
 	s.v.Function = *function.BucketCorrelationFunctionCaster()

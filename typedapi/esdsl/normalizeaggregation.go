@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gappolicy"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/normalizemethod"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/gappolicy"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/normalizemethod"
 )
 
 type _normalizeAggregation struct {
@@ -38,7 +38,6 @@ func NewNormalizeAggregation() *_normalizeAggregation {
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_normalizeAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_normalizeAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -46,9 +45,6 @@ func (s *_normalizeAggregation) BucketsPath(bucketspath types.BucketsPathVariant
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_normalizeAggregation) Format(format string) *_normalizeAggregation {
 
 	s.v.Format = &format
@@ -56,14 +52,12 @@ func (s *_normalizeAggregation) Format(format string) *_normalizeAggregation {
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_normalizeAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_normalizeAggregation {
 
 	s.v.GapPolicy = &gappolicy
 	return s
 }
 
-// The specific method to apply.
 func (s *_normalizeAggregation) Method(method normalizemethod.NormalizeMethod) *_normalizeAggregation {
 
 	s.v.Method = &method

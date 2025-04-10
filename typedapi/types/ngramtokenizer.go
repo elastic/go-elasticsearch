@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -28,12 +28,12 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tokenchar"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/tokenchar"
 )
 
 // NGramTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/analysis/tokenizers.ts#L84-L93
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/_types/analysis/tokenizers.ts#L84-L93
 type NGramTokenizer struct {
 	CustomTokenChars *string               `json:"custom_token_chars,omitempty"`
 	MaxGram          *int                  `json:"max_gram,omitempty"`

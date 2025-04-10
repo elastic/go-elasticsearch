@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _definition struct {
 	v *types.Definition
@@ -36,7 +36,6 @@ func NewDefinition(trainedmodel types.TrainedModelVariant) *_definition {
 
 }
 
-// Collection of preprocessors
 func (s *_definition) Preprocessors(preprocessors ...types.PreprocessorVariant) *_definition {
 
 	for _, v := range preprocessors {
@@ -47,7 +46,6 @@ func (s *_definition) Preprocessors(preprocessors ...types.PreprocessorVariant) 
 	return s
 }
 
-// The definition of the trained model.
 func (s *_definition) TrainedModel(trainedmodel types.TrainedModelVariant) *_definition {
 
 	s.v.TrainedModel = *trainedmodel.TrainedModelCaster()

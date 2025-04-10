@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _scriptScoreFunction struct {
 	v *types.ScriptScoreFunction
@@ -39,7 +39,6 @@ func NewScriptScoreFunction(script types.ScriptVariant) *_scriptScoreFunction {
 
 }
 
-// A script that computes a score.
 func (s *_scriptScoreFunction) Script(script types.ScriptVariant) *_scriptScoreFunction {
 
 	s.v.Script = *script.ScriptCaster()

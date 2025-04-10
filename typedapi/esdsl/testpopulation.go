@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _testPopulation struct {
 	v *types.TestPopulation
@@ -32,7 +32,6 @@ func NewTestPopulation() *_testPopulation {
 
 }
 
-// The field to aggregate.
 func (s *_testPopulation) Field(field string) *_testPopulation {
 
 	s.v.Field = field
@@ -40,7 +39,6 @@ func (s *_testPopulation) Field(field string) *_testPopulation {
 	return s
 }
 
-// A filter used to define a set of records to run unpaired t-test on.
 func (s *_testPopulation) Filter(filter types.QueryVariant) *_testPopulation {
 
 	s.v.Filter = filter.QueryCaster()

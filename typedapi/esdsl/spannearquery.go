@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _spanNearQuery struct {
 	v *types.SpanNearQuery
@@ -35,11 +35,6 @@ func NewSpanNearQuery() *_spanNearQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_spanNearQuery) Boost(boost float32) *_spanNearQuery {
 
 	s.v.Boost = &boost
@@ -47,7 +42,6 @@ func (s *_spanNearQuery) Boost(boost float32) *_spanNearQuery {
 	return s
 }
 
-// Array of one or more other span type queries.
 func (s *_spanNearQuery) Clauses(clauses ...types.SpanQueryVariant) *_spanNearQuery {
 
 	for _, v := range clauses {
@@ -58,7 +52,6 @@ func (s *_spanNearQuery) Clauses(clauses ...types.SpanQueryVariant) *_spanNearQu
 	return s
 }
 
-// Controls whether matches are required to be in-order.
 func (s *_spanNearQuery) InOrder(inorder bool) *_spanNearQuery {
 
 	s.v.InOrder = &inorder
@@ -73,7 +66,6 @@ func (s *_spanNearQuery) QueryName_(queryname_ string) *_spanNearQuery {
 	return s
 }
 
-// Controls the maximum number of intervening unmatched positions permitted.
 func (s *_spanNearQuery) Slop(slop int) *_spanNearQuery {
 
 	s.v.Slop = &slop

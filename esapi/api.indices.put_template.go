@@ -56,6 +56,7 @@ type IndicesPutTemplateRequest struct {
 
 	Name string
 
+	Cause         string
 	Create        *bool
 	MasterTimeout time.Duration
 	Order         *int
@@ -102,6 +103,10 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	params = make(map[string]string)
+
+	if r.Cause != "" {
+		params["cause"] = r.Cause
+	}
 
 	if r.Create != nil {
 		params["create"] = strconv.FormatBool(*r.Create)
@@ -197,6 +202,13 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 func (f IndicesPutTemplate) WithContext(v context.Context) func(*IndicesPutTemplateRequest) {
 	return func(r *IndicesPutTemplateRequest) {
 		r.ctx = v
+	}
+}
+
+// WithCause - user defined reason for creating/updating the index template.
+func (f IndicesPutTemplate) WithCause(v string) func(*IndicesPutTemplateRequest) {
+	return func(r *IndicesPutTemplateRequest) {
+		r.Cause = v
 	}
 }
 

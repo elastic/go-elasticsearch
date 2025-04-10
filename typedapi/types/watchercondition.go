@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -24,12 +24,12 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/conditionop"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/conditionop"
 )
 
 // WatcherCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/watcher/_types/Conditions.ts#L50-L62
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/watcher/_types/Conditions.ts#L51-L63
 type WatcherCondition struct {
 	AdditionalWatcherConditionProperty map[string]json.RawMessage                        `json:"-"`
 	Always                             *AlwaysCondition                                  `json:"always,omitempty"`

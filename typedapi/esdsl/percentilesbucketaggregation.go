@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gappolicy"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/gappolicy"
 )
 
 type _percentilesBucketAggregation struct {
@@ -37,7 +37,6 @@ func NewPercentilesBucketAggregation() *_percentilesBucketAggregation {
 
 }
 
-// Path to the buckets that contain one set of values to correlate.
 func (s *_percentilesBucketAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_percentilesBucketAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -45,9 +44,6 @@ func (s *_percentilesBucketAggregation) BucketsPath(bucketspath types.BucketsPat
 	return s
 }
 
-// `DecimalFormat` pattern for the output value.
-// If specified, the formatted value is returned in the aggregation’s
-// `value_as_string` property.
 func (s *_percentilesBucketAggregation) Format(format string) *_percentilesBucketAggregation {
 
 	s.v.Format = &format
@@ -55,14 +51,12 @@ func (s *_percentilesBucketAggregation) Format(format string) *_percentilesBucke
 	return s
 }
 
-// Policy to apply when gaps are found in the data.
 func (s *_percentilesBucketAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_percentilesBucketAggregation {
 
 	s.v.GapPolicy = &gappolicy
 	return s
 }
 
-// The list of percentiles to calculate.
 func (s *_percentilesBucketAggregation) Percents(percents ...types.Float64) *_percentilesBucketAggregation {
 
 	for _, v := range percents {

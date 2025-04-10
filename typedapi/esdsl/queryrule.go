@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/queryruletype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/queryruletype"
 )
 
 type _queryRule struct {
@@ -41,8 +41,6 @@ func NewQueryRule(actions types.QueryRuleActionsVariant, type_ queryruletype.Que
 
 }
 
-// The actions to take when the rule is matched.
-// The format of this action depends on the rule type.
 func (s *_queryRule) Actions(actions types.QueryRuleActionsVariant) *_queryRule {
 
 	s.v.Actions = *actions.QueryRuleActionsCaster()
@@ -50,9 +48,6 @@ func (s *_queryRule) Actions(actions types.QueryRuleActionsVariant) *_queryRule 
 	return s
 }
 
-// The criteria that must be met for the rule to be applied.
-// If multiple criteria are specified for a rule, all criteria must be met for
-// the rule to be applied.
 func (s *_queryRule) Criteria(criteria ...types.QueryRuleCriteriaVariant) *_queryRule {
 
 	s.v.Criteria = make([]types.QueryRuleCriteria, len(criteria))
@@ -70,7 +65,6 @@ func (s *_queryRule) Priority(priority int) *_queryRule {
 	return s
 }
 
-// A unique identifier for the rule.
 func (s *_queryRule) RuleId(id string) *_queryRule {
 
 	s.v.RuleId = id
@@ -78,10 +72,6 @@ func (s *_queryRule) RuleId(id string) *_queryRule {
 	return s
 }
 
-// The type of rule.
-// `pinned` will identify and pin specific documents to the top of search
-// results.
-// `exclude` will exclude specific documents from search results.
 func (s *_queryRule) Type(type_ queryruletype.QueryRuleType) *_queryRule {
 
 	s.v.Type = type_

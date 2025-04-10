@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/filtertype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/filtertype"
 )
 
 type _filterRef struct {
@@ -35,7 +35,6 @@ func NewFilterRef() *_filterRef {
 
 }
 
-// The identifier for the filter.
 func (s *_filterRef) FilterId(id string) *_filterRef {
 
 	s.v.FilterId = id
@@ -43,8 +42,6 @@ func (s *_filterRef) FilterId(id string) *_filterRef {
 	return s
 }
 
-// If set to `include`, the rule applies for values in the filter. If set to
-// `exclude`, the rule applies for values not in the filter.
 func (s *_filterRef) FilterType(filtertype filtertype.FilterType) *_filterRef {
 
 	s.v.FilterType = &filtertype

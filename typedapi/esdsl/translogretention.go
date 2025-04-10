@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _translogRetention struct {
 	v *types.TranslogRetention
@@ -32,15 +32,6 @@ func NewTranslogRetention() *_translogRetention {
 
 }
 
-// This controls the maximum duration for which translog files are kept by each
-// shard. Keeping more
-// translog files increases the chance of performing an operation based sync
-// when recovering replicas. If
-// the translog files are not sufficient, replica recovery will fall back to a
-// file based sync. This setting
-// is ignored, and should not be set, if soft deletes are enabled. Soft deletes
-// are enabled by default in
-// indices created in Elasticsearch versions 7.0.0 and later.
 func (s *_translogRetention) Age(duration types.DurationVariant) *_translogRetention {
 
 	s.v.Age = *duration.DurationCaster()
@@ -48,15 +39,6 @@ func (s *_translogRetention) Age(duration types.DurationVariant) *_translogReten
 	return s
 }
 
-// This controls the total size of translog files to keep for each shard.
-// Keeping more translog files increases
-// the chance of performing an operation based sync when recovering a replica.
-// If the translog files are not
-// sufficient, replica recovery will fall back to a file based sync. This
-// setting is ignored, and should not be
-// set, if soft deletes are enabled. Soft deletes are enabled by default in
-// indices created in Elasticsearch
-// versions 7.0.0 and later.
 func (s *_translogRetention) Size(bytesize types.ByteSizeVariant) *_translogRetention {
 
 	s.v.Size = *bytesize.ByteSizeCaster()

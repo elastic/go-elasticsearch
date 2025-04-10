@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _rangeAggregation struct {
 	v *types.RangeAggregation
@@ -34,7 +34,6 @@ func NewRangeAggregation() *_rangeAggregation {
 
 }
 
-// The date field whose values are use to build ranges.
 func (s *_rangeAggregation) Field(field string) *_rangeAggregation {
 
 	s.v.Field = &field
@@ -49,8 +48,6 @@ func (s *_rangeAggregation) Format(format string) *_rangeAggregation {
 	return s
 }
 
-// Set to `true` to associate a unique string key with each bucket and return
-// the ranges as a hash rather than an array.
 func (s *_rangeAggregation) Keyed(keyed bool) *_rangeAggregation {
 
 	s.v.Keyed = &keyed
@@ -58,8 +55,6 @@ func (s *_rangeAggregation) Keyed(keyed bool) *_rangeAggregation {
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_rangeAggregation) Missing(missing int) *_rangeAggregation {
 
 	s.v.Missing = &missing
@@ -67,7 +62,6 @@ func (s *_rangeAggregation) Missing(missing int) *_rangeAggregation {
 	return s
 }
 
-// An array of ranges used to bucket documents.
 func (s *_rangeAggregation) Ranges(ranges ...types.AggregationRangeVariant) *_rangeAggregation {
 
 	for _, v := range ranges {

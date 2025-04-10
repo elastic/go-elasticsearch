@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _completionContext struct {
 	v *types.CompletionContext
@@ -32,8 +32,6 @@ func NewCompletionContext() *_completionContext {
 
 }
 
-// The factor by which the score of the suggestion should be boosted.
-// The score is computed by multiplying the boost with the suggestion weight.
 func (s *_completionContext) Boost(boost types.Float64) *_completionContext {
 
 	s.v.Boost = &boost
@@ -41,7 +39,6 @@ func (s *_completionContext) Boost(boost types.Float64) *_completionContext {
 	return s
 }
 
-// The value of the category to filter/boost on.
 func (s *_completionContext) Context(context types.ContextVariant) *_completionContext {
 
 	s.v.Context = *context.ContextCaster()
@@ -49,11 +46,6 @@ func (s *_completionContext) Context(context types.ContextVariant) *_completionC
 	return s
 }
 
-// An array of precision values at which neighboring geohashes should be taken
-// into account.
-// Precision value can be a distance value (`5m`, `10km`, etc.) or a raw geohash
-// precision (`1`..`12`).
-// Defaults to generating neighbors for index time precision level.
 func (s *_completionContext) Neighbours(neighbours ...types.GeoHashPrecisionVariant) *_completionContext {
 
 	for _, v := range neighbours {
@@ -64,10 +56,6 @@ func (s *_completionContext) Neighbours(neighbours ...types.GeoHashPrecisionVari
 	return s
 }
 
-// The precision of the geohash to encode the query geo point.
-// Can be specified as a distance value (`5m`, `10km`, etc.), or as a raw
-// geohash precision (`1`..`12`).
-// Defaults to index time precision level.
 func (s *_completionContext) Precision(geohashprecision types.GeoHashPrecisionVariant) *_completionContext {
 
 	s.v.Precision = *geohashprecision.GeoHashPrecisionCaster()
@@ -75,7 +63,6 @@ func (s *_completionContext) Precision(geohashprecision types.GeoHashPrecisionVa
 	return s
 }
 
-// Whether the category value should be treated as a prefix or not.
 func (s *_completionContext) Prefix(prefix bool) *_completionContext {
 
 	s.v.Prefix = &prefix

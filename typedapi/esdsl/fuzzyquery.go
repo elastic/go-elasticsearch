@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _fuzzyQuery struct {
 	k string
@@ -39,11 +39,6 @@ func NewFuzzyQuery(field string, value string) *_fuzzyQuery {
 	return tmp
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_fuzzyQuery) Boost(boost float32) *_fuzzyQuery {
 
 	s.v.Boost = &boost
@@ -51,7 +46,6 @@ func (s *_fuzzyQuery) Boost(boost float32) *_fuzzyQuery {
 	return s
 }
 
-// Maximum edit distance allowed for matching.
 func (s *_fuzzyQuery) Fuzziness(fuzziness types.FuzzinessVariant) *_fuzzyQuery {
 
 	s.v.Fuzziness = *fuzziness.FuzzinessCaster()
@@ -59,7 +53,6 @@ func (s *_fuzzyQuery) Fuzziness(fuzziness types.FuzzinessVariant) *_fuzzyQuery {
 	return s
 }
 
-// Maximum number of variations created.
 func (s *_fuzzyQuery) MaxExpansions(maxexpansions int) *_fuzzyQuery {
 
 	s.v.MaxExpansions = &maxexpansions
@@ -67,7 +60,6 @@ func (s *_fuzzyQuery) MaxExpansions(maxexpansions int) *_fuzzyQuery {
 	return s
 }
 
-// Number of beginning characters left unchanged when creating expansions.
 func (s *_fuzzyQuery) PrefixLength(prefixlength int) *_fuzzyQuery {
 
 	s.v.PrefixLength = &prefixlength
@@ -82,7 +74,6 @@ func (s *_fuzzyQuery) QueryName_(queryname_ string) *_fuzzyQuery {
 	return s
 }
 
-// Number of beginning characters left unchanged when creating expansions.
 func (s *_fuzzyQuery) Rewrite(multitermqueryrewrite string) *_fuzzyQuery {
 
 	s.v.Rewrite = &multitermqueryrewrite
@@ -90,8 +81,6 @@ func (s *_fuzzyQuery) Rewrite(multitermqueryrewrite string) *_fuzzyQuery {
 	return s
 }
 
-// Indicates whether edits include transpositions of two adjacent characters
-// (for example `ab` to `ba`).
 func (s *_fuzzyQuery) Transpositions(transpositions bool) *_fuzzyQuery {
 
 	s.v.Transpositions = &transpositions
@@ -99,7 +88,6 @@ func (s *_fuzzyQuery) Transpositions(transpositions bool) *_fuzzyQuery {
 	return s
 }
 
-// Term you wish to find in the provided field.
 func (s *_fuzzyQuery) Value(value string) *_fuzzyQuery {
 
 	s.v.Value = value

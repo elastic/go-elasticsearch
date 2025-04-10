@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _bucketCorrelationFunction struct {
 	v *types.BucketCorrelationFunction
@@ -36,8 +36,6 @@ func NewBucketCorrelationFunction(countcorrelation types.BucketCorrelationFuncti
 
 }
 
-// The configuration to calculate a count correlation. This function is designed
-// for determining the correlation of a term value and a given metric.
 func (s *_bucketCorrelationFunction) CountCorrelation(countcorrelation types.BucketCorrelationFunctionCountCorrelationVariant) *_bucketCorrelationFunction {
 
 	s.v.CountCorrelation = *countcorrelation.BucketCorrelationFunctionCountCorrelationCaster()

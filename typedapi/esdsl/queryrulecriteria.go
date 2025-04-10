@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/queryrulecriteriatype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/queryrulecriteriatype"
 )
 
 type _queryRuleCriteria struct {
@@ -41,10 +41,6 @@ func NewQueryRuleCriteria(type_ queryrulecriteriatype.QueryRuleCriteriaType) *_q
 
 }
 
-// The metadata field to match against.
-// This metadata will be used to match against `match_criteria` sent in the
-// rule.
-// It is required for all criteria types except `always`.
 func (s *_queryRuleCriteria) Metadata(metadata string) *_queryRuleCriteria {
 
 	s.v.Metadata = &metadata
@@ -52,37 +48,12 @@ func (s *_queryRuleCriteria) Metadata(metadata string) *_queryRuleCriteria {
 	return s
 }
 
-// The type of criteria. The following criteria types are supported:
-//
-// * `always`: Matches all queries, regardless of input.
-// * `contains`: Matches that contain this value anywhere in the field meet the
-// criteria defined by the rule. Only applicable for string values.
-// * `exact`: Only exact matches meet the criteria defined by the rule.
-// Applicable for string or numerical values.
-// * `fuzzy`: Exact matches or matches within the allowed Levenshtein Edit
-// Distance meet the criteria defined by the rule. Only applicable for string
-// values.
-// * `gt`: Matches with a value greater than this value meet the criteria
-// defined by the rule. Only applicable for numerical values.
-// * `gte`: Matches with a value greater than or equal to this value meet the
-// criteria defined by the rule. Only applicable for numerical values.
-// * `lt`: Matches with a value less than this value meet the criteria defined
-// by the rule. Only applicable for numerical values.
-// * `lte`: Matches with a value less than or equal to this value meet the
-// criteria defined by the rule. Only applicable for numerical values.
-// * `prefix`: Matches that start with this value meet the criteria defined by
-// the rule. Only applicable for string values.
-// * `suffix`: Matches that end with this value meet the criteria defined by the
-// rule. Only applicable for string values.
 func (s *_queryRuleCriteria) Type(type_ queryrulecriteriatype.QueryRuleCriteriaType) *_queryRuleCriteria {
 
 	s.v.Type = type_
 	return s
 }
 
-// The values to match against the `metadata` field.
-// Only one value must match for the criteria to be met.
-// It is required for all criteria types except `always`.
 func (s *_queryRuleCriteria) Values(values ...json.RawMessage) *_queryRuleCriteria {
 
 	for _, v := range values {

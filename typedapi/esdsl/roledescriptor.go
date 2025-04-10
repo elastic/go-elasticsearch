@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/clusterprivilege"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/clusterprivilege"
 )
 
 type _roleDescriptor struct {
@@ -37,7 +37,6 @@ func NewRoleDescriptor() *_roleDescriptor {
 
 }
 
-// A list of application privilege entries
 func (s *_roleDescriptor) Applications(applications ...types.ApplicationPrivilegesVariant) *_roleDescriptor {
 
 	for _, v := range applications {
@@ -48,8 +47,6 @@ func (s *_roleDescriptor) Applications(applications ...types.ApplicationPrivileg
 	return s
 }
 
-// A list of cluster privileges. These privileges define the cluster level
-// actions that API keys are able to execute.
 func (s *_roleDescriptor) Cluster(clusters ...clusterprivilege.ClusterPrivilege) *_roleDescriptor {
 
 	for _, v := range clusters {
@@ -60,7 +57,6 @@ func (s *_roleDescriptor) Cluster(clusters ...clusterprivilege.ClusterPrivilege)
 	return s
 }
 
-// Optional description of the role descriptor
 func (s *_roleDescriptor) Description(description string) *_roleDescriptor {
 
 	s.v.Description = &description
@@ -68,9 +64,6 @@ func (s *_roleDescriptor) Description(description string) *_roleDescriptor {
 	return s
 }
 
-// An object defining global privileges. A global privilege is a form of cluster
-// privilege that is request-aware. Support for global privileges is currently
-// limited to the management of application privileges.
 func (s *_roleDescriptor) Global(globals ...types.GlobalPrivilegeVariant) *_roleDescriptor {
 
 	s.v.Global = make([]types.GlobalPrivilege, len(globals))
@@ -81,7 +74,6 @@ func (s *_roleDescriptor) Global(globals ...types.GlobalPrivilegeVariant) *_role
 	return s
 }
 
-// A list of indices permissions entries.
 func (s *_roleDescriptor) Indices(indices ...types.IndicesPrivilegesVariant) *_roleDescriptor {
 
 	for _, v := range indices {
@@ -92,8 +84,6 @@ func (s *_roleDescriptor) Indices(indices ...types.IndicesPrivilegesVariant) *_r
 	return s
 }
 
-// Optional meta-data. Within the metadata object, keys that begin with `_` are
-// reserved for system usage.
 func (s *_roleDescriptor) Metadata(metadata types.MetadataVariant) *_roleDescriptor {
 
 	s.v.Metadata = *metadata.MetadataCaster()
@@ -101,8 +91,6 @@ func (s *_roleDescriptor) Metadata(metadata types.MetadataVariant) *_roleDescrip
 	return s
 }
 
-// A list of cluster permissions for remote clusters.
-// NOTE: This is limited a subset of the cluster permissions.
 func (s *_roleDescriptor) RemoteCluster(remoteclusters ...types.RemoteClusterPrivilegesVariant) *_roleDescriptor {
 
 	for _, v := range remoteclusters {
@@ -113,7 +101,6 @@ func (s *_roleDescriptor) RemoteCluster(remoteclusters ...types.RemoteClusterPri
 	return s
 }
 
-// A list of indices permissions for remote clusters.
 func (s *_roleDescriptor) RemoteIndices(remoteindices ...types.RemoteIndicesPrivilegesVariant) *_roleDescriptor {
 
 	for _, v := range remoteindices {
@@ -124,7 +111,6 @@ func (s *_roleDescriptor) RemoteIndices(remoteindices ...types.RemoteIndicesPriv
 	return s
 }
 
-// Restriction for when the role descriptor is allowed to be effective.
 func (s *_roleDescriptor) Restriction(restriction types.RestrictionVariant) *_roleDescriptor {
 
 	s.v.Restriction = restriction.RestrictionCaster()
@@ -132,10 +118,6 @@ func (s *_roleDescriptor) Restriction(restriction types.RestrictionVariant) *_ro
 	return s
 }
 
-// A list of users that the API keys can impersonate.
-// NOTE: In Elastic Cloud Serverless, the run-as feature is disabled.
-// For API compatibility, you can still specify an empty `run_as` field, but a
-// non-empty list will be rejected.
 func (s *_roleDescriptor) RunAs(runas ...string) *_roleDescriptor {
 
 	for _, v := range runas {

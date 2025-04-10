@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/storagetype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/storagetype"
 )
 
 type _storage struct {
@@ -39,13 +39,6 @@ func NewStorage(type_ storagetype.StorageType) *_storage {
 
 }
 
-// You can restrict the use of the mmapfs and the related hybridfs store type
-// via the setting node.store.allow_mmap.
-// This is a boolean setting indicating whether or not memory-mapping is
-// allowed. The default is to allow it. This
-// setting is useful, for example, if you are in an environment where you can
-// not control the ability to create a lot
-// of memory maps so you need disable the ability to use memory-mapping.
 func (s *_storage) AllowMmap(allowmmap bool) *_storage {
 
 	s.v.AllowMmap = &allowmmap

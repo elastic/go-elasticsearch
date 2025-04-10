@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _hop struct {
 	v *types.Hop
@@ -32,8 +32,6 @@ func NewHop() *_hop {
 
 }
 
-// Specifies one or more fields from which you want to extract terms that are
-// associated with the specified vertices.
 func (s *_hop) Connections(connections types.HopVariant) *_hop {
 
 	s.v.Connections = connections.HopCaster()
@@ -41,8 +39,6 @@ func (s *_hop) Connections(connections types.HopVariant) *_hop {
 	return s
 }
 
-// An optional guiding query that constrains the Graph API as it explores
-// connected terms.
 func (s *_hop) Query(query types.QueryVariant) *_hop {
 
 	s.v.Query = query.QueryCaster()
@@ -50,7 +46,6 @@ func (s *_hop) Query(query types.QueryVariant) *_hop {
 	return s
 }
 
-// Contains the fields you are interested in.
 func (s *_hop) Vertices(vertices ...types.VertexDefinitionVariant) *_hop {
 
 	for _, v := range vertices {

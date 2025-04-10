@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _queryRuleActions struct {
 	v *types.QueryRuleActions
@@ -32,14 +32,6 @@ func NewQueryRuleActions() *_queryRuleActions {
 
 }
 
-// The documents to apply the rule to.
-// Only one of `ids` or `docs` may be specified and at least one must be
-// specified.
-// There is a maximum value of 100 documents in a rule.
-// You can specify the following attributes for each document:
-//
-// * `_index`: The index of the document to pin.
-// * `_id`: The unique document ID.
 func (s *_queryRuleActions) Docs(docs ...types.PinnedDocVariant) *_queryRuleActions {
 
 	for _, v := range docs {
@@ -50,9 +42,6 @@ func (s *_queryRuleActions) Docs(docs ...types.PinnedDocVariant) *_queryRuleActi
 	return s
 }
 
-// The unique document IDs of the documents to apply the rule to.
-// Only one of `ids` or `docs` may be specified and at least one must be
-// specified.
 func (s *_queryRuleActions) Ids(ids ...string) *_queryRuleActions {
 
 	for _, v := range ids {

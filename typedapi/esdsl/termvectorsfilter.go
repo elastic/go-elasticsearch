@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _termVectorsFilter struct {
 	v *types.TermVectorsFilter
@@ -32,8 +32,6 @@ func NewTermVectorsFilter() *_termVectorsFilter {
 
 }
 
-// Ignore words which occur in more than this many docs.
-// Defaults to unbounded.
 func (s *_termVectorsFilter) MaxDocFreq(maxdocfreq int) *_termVectorsFilter {
 
 	s.v.MaxDocFreq = &maxdocfreq
@@ -41,7 +39,6 @@ func (s *_termVectorsFilter) MaxDocFreq(maxdocfreq int) *_termVectorsFilter {
 	return s
 }
 
-// The maximum number of terms that must be returned per field.
 func (s *_termVectorsFilter) MaxNumTerms(maxnumterms int) *_termVectorsFilter {
 
 	s.v.MaxNumTerms = &maxnumterms
@@ -49,8 +46,6 @@ func (s *_termVectorsFilter) MaxNumTerms(maxnumterms int) *_termVectorsFilter {
 	return s
 }
 
-// Ignore words with more than this frequency in the source doc.
-// It defaults to unbounded.
 func (s *_termVectorsFilter) MaxTermFreq(maxtermfreq int) *_termVectorsFilter {
 
 	s.v.MaxTermFreq = &maxtermfreq
@@ -58,8 +53,6 @@ func (s *_termVectorsFilter) MaxTermFreq(maxtermfreq int) *_termVectorsFilter {
 	return s
 }
 
-// The maximum word length above which words will be ignored.
-// Defaults to unbounded.
 func (s *_termVectorsFilter) MaxWordLength(maxwordlength int) *_termVectorsFilter {
 
 	s.v.MaxWordLength = &maxwordlength
@@ -67,7 +60,6 @@ func (s *_termVectorsFilter) MaxWordLength(maxwordlength int) *_termVectorsFilte
 	return s
 }
 
-// Ignore terms which do not occur in at least this many docs.
 func (s *_termVectorsFilter) MinDocFreq(mindocfreq int) *_termVectorsFilter {
 
 	s.v.MinDocFreq = &mindocfreq
@@ -75,7 +67,6 @@ func (s *_termVectorsFilter) MinDocFreq(mindocfreq int) *_termVectorsFilter {
 	return s
 }
 
-// Ignore words with less than this frequency in the source doc.
 func (s *_termVectorsFilter) MinTermFreq(mintermfreq int) *_termVectorsFilter {
 
 	s.v.MinTermFreq = &mintermfreq
@@ -83,7 +74,6 @@ func (s *_termVectorsFilter) MinTermFreq(mintermfreq int) *_termVectorsFilter {
 	return s
 }
 
-// The minimum word length below which words will be ignored.
 func (s *_termVectorsFilter) MinWordLength(minwordlength int) *_termVectorsFilter {
 
 	s.v.MinWordLength = &minwordlength

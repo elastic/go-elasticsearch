@@ -16,17 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _termsQuery struct {
 	v *types.TermsQuery
 }
 
-// Returns users that contain one or more exact terms in a provided field.
+// Returns documents that contain one or more exact terms in a provided field.
 // To return a document, one or more terms must exactly match a field value,
 // including whitespace and capitalization.
 func NewTermsQuery() *_termsQuery {
@@ -35,11 +35,6 @@ func NewTermsQuery() *_termsQuery {
 
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_termsQuery) Boost(boost float32) *_termsQuery {
 
 	s.v.Boost = &boost

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _failProcessor struct {
 	v *types.FailProcessor
@@ -39,8 +39,6 @@ func NewFailProcessor(message string) *_failProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_failProcessor) Description(description string) *_failProcessor {
 
 	s.v.Description = &description
@@ -48,7 +46,6 @@ func (s *_failProcessor) Description(description string) *_failProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_failProcessor) If(if_ types.ScriptVariant) *_failProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -56,7 +53,6 @@ func (s *_failProcessor) If(if_ types.ScriptVariant) *_failProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_failProcessor) IgnoreFailure(ignorefailure bool) *_failProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -64,8 +60,6 @@ func (s *_failProcessor) IgnoreFailure(ignorefailure bool) *_failProcessor {
 	return s
 }
 
-// The error message thrown by the processor.
-// Supports template snippets.
 func (s *_failProcessor) Message(message string) *_failProcessor {
 
 	s.v.Message = message
@@ -73,7 +67,6 @@ func (s *_failProcessor) Message(message string) *_failProcessor {
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_failProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_failProcessor {
 
 	for _, v := range onfailures {
@@ -84,8 +77,6 @@ func (s *_failProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_failProcessor) Tag(tag string) *_failProcessor {
 
 	s.v.Tag = &tag

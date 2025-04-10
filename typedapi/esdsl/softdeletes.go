@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _softDeletes struct {
 	v *types.SoftDeletes
@@ -32,7 +32,6 @@ func NewSoftDeletes() *_softDeletes {
 
 }
 
-// Indicates whether soft deletes are enabled on the index.
 func (s *_softDeletes) Enabled(enabled bool) *_softDeletes {
 
 	s.v.Enabled = &enabled
@@ -40,13 +39,6 @@ func (s *_softDeletes) Enabled(enabled bool) *_softDeletes {
 	return s
 }
 
-// The maximum period to retain a shard history retention lease before it is
-// considered expired.
-// Shard history retention leases ensure that soft deletes are retained during
-// merges on the Lucene
-// index. If a soft delete is merged away before it can be replicated to a
-// follower the following
-// process will fail due to incomplete history on the leader.
 func (s *_softDeletes) RetentionLease(retentionlease types.RetentionLeaseVariant) *_softDeletes {
 
 	s.v.RetentionLease = retentionlease.RetentionLeaseCaster()

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _knnRetriever struct {
 	v *types.KnnRetriever
@@ -41,7 +41,6 @@ func NewKnnRetriever(field string, k int, numcandidates int) *_knnRetriever {
 
 }
 
-// The name of the vector field to search against.
 func (s *_knnRetriever) Field(field string) *_knnRetriever {
 
 	s.v.Field = field
@@ -49,7 +48,6 @@ func (s *_knnRetriever) Field(field string) *_knnRetriever {
 	return s
 }
 
-// Query to filter the documents that can match.
 func (s *_knnRetriever) Filter(filters ...types.QueryVariant) *_knnRetriever {
 
 	s.v.Filter = make([]types.Query, len(filters))
@@ -60,7 +58,6 @@ func (s *_knnRetriever) Filter(filters ...types.QueryVariant) *_knnRetriever {
 	return s
 }
 
-// Number of nearest neighbors to return as top hits.
 func (s *_knnRetriever) K(k int) *_knnRetriever {
 
 	s.v.K = k
@@ -68,8 +65,6 @@ func (s *_knnRetriever) K(k int) *_knnRetriever {
 	return s
 }
 
-// Minimum _score for matching documents. Documents with a lower _score are not
-// included in the top documents.
 func (s *_knnRetriever) MinScore(minscore float32) *_knnRetriever {
 
 	s.v.MinScore = &minscore
@@ -77,7 +72,6 @@ func (s *_knnRetriever) MinScore(minscore float32) *_knnRetriever {
 	return s
 }
 
-// Number of nearest neighbor candidates to consider per shard.
 func (s *_knnRetriever) NumCandidates(numcandidates int) *_knnRetriever {
 
 	s.v.NumCandidates = numcandidates
@@ -85,9 +79,6 @@ func (s *_knnRetriever) NumCandidates(numcandidates int) *_knnRetriever {
 	return s
 }
 
-// Query vector. Must have the same number of dimensions as the vector field you
-// are searching against. You must provide a query_vector_builder or
-// query_vector, but not both.
 func (s *_knnRetriever) QueryVector(queryvectors ...float32) *_knnRetriever {
 
 	s.v.QueryVector = queryvectors
@@ -95,7 +86,6 @@ func (s *_knnRetriever) QueryVector(queryvectors ...float32) *_knnRetriever {
 	return s
 }
 
-// Defines a model to build a query vector.
 func (s *_knnRetriever) QueryVectorBuilder(queryvectorbuilder types.QueryVectorBuilderVariant) *_knnRetriever {
 
 	s.v.QueryVectorBuilder = queryvectorbuilder.QueryVectorBuilderCaster()
@@ -103,7 +93,6 @@ func (s *_knnRetriever) QueryVectorBuilder(queryvectorbuilder types.QueryVectorB
 	return s
 }
 
-// Apply oversampling and rescoring to quantized vectors *
 func (s *_knnRetriever) RescoreVector(rescorevector types.RescoreVectorVariant) *_knnRetriever {
 
 	s.v.RescoreVector = rescorevector.RescoreVectorCaster()
@@ -111,7 +100,6 @@ func (s *_knnRetriever) RescoreVector(rescorevector types.RescoreVectorVariant) 
 	return s
 }
 
-// The minimum similarity required for a document to be considered a match.
 func (s *_knnRetriever) Similarity(similarity float32) *_knnRetriever {
 
 	s.v.Similarity = &similarity

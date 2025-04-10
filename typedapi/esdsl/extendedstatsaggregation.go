@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _extendedStatsAggregation struct {
 	v *types.ExtendedStatsAggregation
@@ -34,7 +34,6 @@ func NewExtendedStatsAggregation() *_extendedStatsAggregation {
 
 }
 
-// The field on which to run the aggregation.
 func (s *_extendedStatsAggregation) Field(field string) *_extendedStatsAggregation {
 
 	s.v.Field = &field
@@ -49,8 +48,6 @@ func (s *_extendedStatsAggregation) Format(format string) *_extendedStatsAggrega
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_extendedStatsAggregation) Missing(missing types.MissingVariant) *_extendedStatsAggregation {
 
 	s.v.Missing = *missing.MissingCaster()
@@ -65,7 +62,6 @@ func (s *_extendedStatsAggregation) Script(script types.ScriptVariant) *_extende
 	return s
 }
 
-// The number of standard deviations above/below the mean to display.
 func (s *_extendedStatsAggregation) Sigma(sigma types.Float64) *_extendedStatsAggregation {
 
 	s.v.Sigma = &sigma

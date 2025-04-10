@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortmode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortmode"
 )
 
 type _matrixStatsAggregation struct {
@@ -38,7 +38,6 @@ func NewMatrixStatsAggregation() *_matrixStatsAggregation {
 
 }
 
-// An array of fields for computing the statistics.
 func (s *_matrixStatsAggregation) Fields(fields ...string) *_matrixStatsAggregation {
 
 	s.v.Fields = fields
@@ -46,8 +45,6 @@ func (s *_matrixStatsAggregation) Fields(fields ...string) *_matrixStatsAggregat
 	return s
 }
 
-// The value to apply to documents that do not have a value.
-// By default, documents without a value are ignored.
 func (s *_matrixStatsAggregation) Missing(missing map[string]types.Float64) *_matrixStatsAggregation {
 
 	s.v.Missing = missing
@@ -69,7 +66,6 @@ func (s *_matrixStatsAggregation) AddMissing(key string, value types.Float64) *_
 	return s
 }
 
-// Array value the aggregation will use for array or multi-valued fields.
 func (s *_matrixStatsAggregation) Mode(mode sortmode.SortMode) *_matrixStatsAggregation {
 
 	s.v.Mode = &mode

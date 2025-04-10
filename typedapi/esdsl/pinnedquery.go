@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _pinnedQuery struct {
@@ -46,11 +46,6 @@ func (s *_pinnedQuery) AdditionalPinnedQueryProperty(key string, value json.RawM
 	return s
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_pinnedQuery) Boost(boost float32) *_pinnedQuery {
 
 	s.v.Boost = &boost
@@ -58,8 +53,6 @@ func (s *_pinnedQuery) Boost(boost float32) *_pinnedQuery {
 	return s
 }
 
-// Documents listed in the order they are to appear in results.
-// Required if `ids` is not specified.
 func (s *_pinnedQuery) Docs(docs ...types.PinnedDocVariant) *_pinnedQuery {
 
 	for _, v := range docs {
@@ -70,8 +63,6 @@ func (s *_pinnedQuery) Docs(docs ...types.PinnedDocVariant) *_pinnedQuery {
 	return s
 }
 
-// Document IDs listed in the order they are to appear in results.
-// Required if `docs` is not specified.
 func (s *_pinnedQuery) Ids(ids ...string) *_pinnedQuery {
 
 	for _, v := range ids {
@@ -82,8 +73,6 @@ func (s *_pinnedQuery) Ids(ids ...string) *_pinnedQuery {
 	return s
 }
 
-// Any choice of query used to rank documents which will be ranked below the
-// "pinned" documents.
 func (s *_pinnedQuery) Organic(organic types.QueryVariant) *_pinnedQuery {
 
 	s.v.Organic = *organic.QueryCaster()

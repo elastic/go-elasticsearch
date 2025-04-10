@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _phraseSuggestHighlight struct {
 	v *types.PhraseSuggestHighlight
@@ -38,8 +38,6 @@ func NewPhraseSuggestHighlight(posttag string, pretag string) *_phraseSuggestHig
 
 }
 
-// Use in conjunction with `pre_tag` to define the HTML tags to use for the
-// highlighted text.
 func (s *_phraseSuggestHighlight) PostTag(posttag string) *_phraseSuggestHighlight {
 
 	s.v.PostTag = posttag
@@ -47,8 +45,6 @@ func (s *_phraseSuggestHighlight) PostTag(posttag string) *_phraseSuggestHighlig
 	return s
 }
 
-// Use in conjunction with `post_tag` to define the HTML tags to use for the
-// highlighted text.
 func (s *_phraseSuggestHighlight) PreTag(pretag string) *_phraseSuggestHighlight {
 
 	s.v.PreTag = pretag

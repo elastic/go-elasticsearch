@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/multivaluemode"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/multivaluemode"
 )
 
 type _geoDecayFunction struct {
@@ -58,8 +58,6 @@ func (s *_geoDecayFunction) AddDecayFunctionBaseGeoLocationDistance(key string, 
 	return s
 }
 
-// Determines how the distance is calculated when a field used for computing the
-// decay contains multiple values.
 func (s *_geoDecayFunction) MultiValueMode(multivaluemode multivaluemode.MultiValueMode) *_geoDecayFunction {
 
 	s.v.MultiValueMode = &multivaluemode

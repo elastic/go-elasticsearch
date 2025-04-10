@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _intervalsWildcard struct {
 	v *types.IntervalsWildcard
@@ -37,8 +37,6 @@ func NewIntervalsWildcard(pattern string) *_intervalsWildcard {
 
 }
 
-// Analyzer used to analyze the `pattern`.
-// Defaults to the top-level field's analyzer.
 func (s *_intervalsWildcard) Analyzer(analyzer string) *_intervalsWildcard {
 
 	s.v.Analyzer = &analyzer
@@ -46,7 +44,6 @@ func (s *_intervalsWildcard) Analyzer(analyzer string) *_intervalsWildcard {
 	return s
 }
 
-// Wildcard pattern used to find matching terms.
 func (s *_intervalsWildcard) Pattern(pattern string) *_intervalsWildcard {
 
 	s.v.Pattern = pattern
@@ -54,10 +51,6 @@ func (s *_intervalsWildcard) Pattern(pattern string) *_intervalsWildcard {
 	return s
 }
 
-// If specified, match intervals from this field rather than the top-level
-// field.
-// The `pattern` is normalized using the search analyzer from this field, unless
-// `analyzer` is specified separately.
 func (s *_intervalsWildcard) UseField(field string) *_intervalsWildcard {
 
 	s.v.UseField = &field

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _termsSetQuery struct {
 	k string
@@ -38,11 +38,6 @@ func NewTermsSetQuery(key string) *_termsSetQuery {
 	}
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_termsSetQuery) Boost(boost float32) *_termsSetQuery {
 
 	s.v.Boost = &boost
@@ -50,8 +45,6 @@ func (s *_termsSetQuery) Boost(boost float32) *_termsSetQuery {
 	return s
 }
 
-// Specification describing number of matching terms required to return a
-// document.
 func (s *_termsSetQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumShouldMatchVariant) *_termsSetQuery {
 
 	s.v.MinimumShouldMatch = *minimumshouldmatch.MinimumShouldMatchCaster()
@@ -59,8 +52,6 @@ func (s *_termsSetQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumShou
 	return s
 }
 
-// Numeric field containing the number of matching terms required to return a
-// document.
 func (s *_termsSetQuery) MinimumShouldMatchField(field string) *_termsSetQuery {
 
 	s.v.MinimumShouldMatchField = &field
@@ -68,8 +59,6 @@ func (s *_termsSetQuery) MinimumShouldMatchField(field string) *_termsSetQuery {
 	return s
 }
 
-// Custom script containing the number of matching terms required to return a
-// document.
 func (s *_termsSetQuery) MinimumShouldMatchScript(minimumshouldmatchscript types.ScriptVariant) *_termsSetQuery {
 
 	s.v.MinimumShouldMatchScript = minimumshouldmatchscript.ScriptCaster()
@@ -84,7 +73,6 @@ func (s *_termsSetQuery) QueryName_(queryname_ string) *_termsSetQuery {
 	return s
 }
 
-// Array of terms you wish to find in the provided field.
 func (s *_termsSetQuery) Terms(terms ...types.FieldValueVariant) *_termsSetQuery {
 
 	for _, v := range terms {

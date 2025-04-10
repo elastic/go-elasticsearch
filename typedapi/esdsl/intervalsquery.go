@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _intervalsQuery struct {
@@ -46,7 +46,6 @@ func (s *_intervalsQuery) AdditionalIntervalsQueryProperty(key string, value jso
 	return s
 }
 
-// Returns matches that span a combination of other rules.
 func (s *_intervalsQuery) AllOf(allof types.IntervalsAllOfVariant) *_intervalsQuery {
 
 	s.v.AllOf = allof.IntervalsAllOfCaster()
@@ -54,7 +53,6 @@ func (s *_intervalsQuery) AllOf(allof types.IntervalsAllOfVariant) *_intervalsQu
 	return s
 }
 
-// Returns intervals produced by any of its sub-rules.
 func (s *_intervalsQuery) AnyOf(anyof types.IntervalsAnyOfVariant) *_intervalsQuery {
 
 	s.v.AnyOf = anyof.IntervalsAnyOfCaster()
@@ -62,11 +60,6 @@ func (s *_intervalsQuery) AnyOf(anyof types.IntervalsAnyOfVariant) *_intervalsQu
 	return s
 }
 
-// Floating point number used to decrease or increase the relevance scores of
-// the query.
-// Boost values are relative to the default value of 1.0.
-// A boost value between 0 and 1.0 decreases the relevance score.
-// A value greater than 1.0 increases the relevance score.
 func (s *_intervalsQuery) Boost(boost float32) *_intervalsQuery {
 
 	s.v.Boost = &boost
@@ -74,8 +67,6 @@ func (s *_intervalsQuery) Boost(boost float32) *_intervalsQuery {
 	return s
 }
 
-// Matches terms that are similar to the provided term, within an edit distance
-// defined by `fuzziness`.
 func (s *_intervalsQuery) Fuzzy(fuzzy types.IntervalsFuzzyVariant) *_intervalsQuery {
 
 	s.v.Fuzzy = fuzzy.IntervalsFuzzyCaster()
@@ -83,7 +74,6 @@ func (s *_intervalsQuery) Fuzzy(fuzzy types.IntervalsFuzzyVariant) *_intervalsQu
 	return s
 }
 
-// Matches analyzed text.
 func (s *_intervalsQuery) Match(match types.IntervalsMatchVariant) *_intervalsQuery {
 
 	s.v.Match = match.IntervalsMatchCaster()
@@ -91,7 +81,6 @@ func (s *_intervalsQuery) Match(match types.IntervalsMatchVariant) *_intervalsQu
 	return s
 }
 
-// Matches terms that start with a specified set of characters.
 func (s *_intervalsQuery) Prefix(prefix types.IntervalsPrefixVariant) *_intervalsQuery {
 
 	s.v.Prefix = prefix.IntervalsPrefixCaster()
@@ -106,7 +95,6 @@ func (s *_intervalsQuery) QueryName_(queryname_ string) *_intervalsQuery {
 	return s
 }
 
-// Matches terms using a wildcard pattern.
 func (s *_intervalsQuery) Wildcard(wildcard types.IntervalsWildcardVariant) *_intervalsQuery {
 
 	s.v.Wildcard = wildcard.IntervalsWildcardCaster()

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _contentObject struct {
 	v *types.ContentObject
@@ -38,7 +38,6 @@ func NewContentObject(text string, type_ string) *_contentObject {
 
 }
 
-// The text content.
 func (s *_contentObject) Text(text string) *_contentObject {
 
 	s.v.Text = text
@@ -46,7 +45,6 @@ func (s *_contentObject) Text(text string) *_contentObject {
 	return s
 }
 
-// The type of content.
 func (s *_contentObject) Type(type_ string) *_contentObject {
 
 	s.v.Type = type_

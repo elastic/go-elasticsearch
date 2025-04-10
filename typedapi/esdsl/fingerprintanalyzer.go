@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _fingerprintAnalyzer struct {
 	v *types.FingerprintAnalyzer
@@ -32,9 +32,6 @@ func NewFingerprintAnalyzer() *_fingerprintAnalyzer {
 
 }
 
-// The maximum token size to emit. Tokens larger than this size will be
-// discarded.
-// Defaults to `255`
 func (s *_fingerprintAnalyzer) MaxOutputSize(maxoutputsize int) *_fingerprintAnalyzer {
 
 	s.v.MaxOutputSize = &maxoutputsize
@@ -42,8 +39,6 @@ func (s *_fingerprintAnalyzer) MaxOutputSize(maxoutputsize int) *_fingerprintAna
 	return s
 }
 
-// The character to use to concatenate the terms.
-// Defaults to a space.
 func (s *_fingerprintAnalyzer) Separator(separator string) *_fingerprintAnalyzer {
 
 	s.v.Separator = &separator
@@ -51,9 +46,6 @@ func (s *_fingerprintAnalyzer) Separator(separator string) *_fingerprintAnalyzer
 	return s
 }
 
-// A pre-defined stop words list like `_english_` or an array containing a list
-// of stop words.
-// Defaults to `_none_`.
 func (s *_fingerprintAnalyzer) Stopwords(stopwords ...string) *_fingerprintAnalyzer {
 
 	s.v.Stopwords = stopwords
@@ -61,7 +53,6 @@ func (s *_fingerprintAnalyzer) Stopwords(stopwords ...string) *_fingerprintAnaly
 	return s
 }
 
-// The path to a file containing stop words.
 func (s *_fingerprintAnalyzer) StopwordsPath(stopwordspath string) *_fingerprintAnalyzer {
 
 	s.v.StopwordsPath = &stopwordspath

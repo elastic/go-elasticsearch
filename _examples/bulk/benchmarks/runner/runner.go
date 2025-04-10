@@ -32,18 +32,16 @@ import (
 	"github.com/dustin/go-humanize"
 	"github.com/montanaflynn/stats"
 
-	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/esutil"
+	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/esutil"
 )
 
 // NewRunner returns new BulkIndexer benchmarking runner.
-//
 func NewRunner(cfg Config) (*Runner, error) {
 	return &Runner{config: cfg}, nil
 }
 
 // Runner represents the BulkIndexer benchmarking runner.
-//
 type Runner struct {
 	config Config
 
@@ -55,7 +53,6 @@ type Runner struct {
 }
 
 // Config represents configuration for Runner.
-//
 type Config struct {
 	IndexName   string
 	DatasetName string
@@ -74,7 +71,6 @@ type Config struct {
 }
 
 // Report prints statistics from the benchmark runs.
-//
 func (r *Runner) Report() error {
 	r.throughput = map[string]float64{
 		"min": func() float64 { v, _ := stats.Min(r.samples); return v }(),
@@ -120,7 +116,6 @@ func (r *Runner) Report() error {
 }
 
 // Run executes the benchmark runs.
-//
 func (r *Runner) Run() error {
 	for n := 1; n <= r.config.NumWarmupRuns; n++ {
 		if err := r.run(n, false); err != nil {
@@ -138,7 +133,6 @@ func (r *Runner) Run() error {
 }
 
 // setup re-creates the index for a benchmark run.
-//
 func (r *Runner) setup() error {
 	fm, err := os.Open(filepath.Join("data", r.config.DatasetName, "mapping.json"))
 	if err != nil {
@@ -189,7 +183,6 @@ func (r *Runner) setup() error {
 }
 
 // run executes a single benchmark run n, recording stats when measure is true.
-//
 func (r *Runner) run(n int, measure bool) error {
 	if err := r.setup(); err != nil {
 		return fmt.Errorf("run: %s", err)
@@ -259,7 +252,6 @@ func (r *Runner) run(n int, measure bool) error {
 }
 
 // formatInt returns a number like 123456 as a string like 123.45K
-//
 func formatInt(i int) string {
 	return strings.ReplaceAll(strings.ToUpper(humanize.SIWithDigits(float64(i), 2, "")), " ", "")
 }

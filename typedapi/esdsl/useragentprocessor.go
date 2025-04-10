@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/useragentproperty"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/useragentproperty"
 )
 
 type _userAgentProcessor struct {
@@ -38,8 +38,6 @@ func NewUserAgentProcessor() *_userAgentProcessor {
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_userAgentProcessor) Description(description string) *_userAgentProcessor {
 
 	s.v.Description = &description
@@ -47,7 +45,6 @@ func (s *_userAgentProcessor) Description(description string) *_userAgentProcess
 	return s
 }
 
-// Extracts device type from the user agent string on a best-effort basis.
 func (s *_userAgentProcessor) ExtractDeviceType(extractdevicetype bool) *_userAgentProcessor {
 
 	s.v.ExtractDeviceType = &extractdevicetype
@@ -55,7 +52,6 @@ func (s *_userAgentProcessor) ExtractDeviceType(extractdevicetype bool) *_userAg
 	return s
 }
 
-// The field containing the user agent string.
 func (s *_userAgentProcessor) Field(field string) *_userAgentProcessor {
 
 	s.v.Field = field
@@ -63,7 +59,6 @@ func (s *_userAgentProcessor) Field(field string) *_userAgentProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_userAgentProcessor) If(if_ types.ScriptVariant) *_userAgentProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -71,7 +66,6 @@ func (s *_userAgentProcessor) If(if_ types.ScriptVariant) *_userAgentProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_userAgentProcessor) IgnoreFailure(ignorefailure bool) *_userAgentProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -79,8 +73,6 @@ func (s *_userAgentProcessor) IgnoreFailure(ignorefailure bool) *_userAgentProce
 	return s
 }
 
-// If `true` and `field` does not exist, the processor quietly exits without
-// modifying the document.
 func (s *_userAgentProcessor) IgnoreMissing(ignoremissing bool) *_userAgentProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -88,7 +80,6 @@ func (s *_userAgentProcessor) IgnoreMissing(ignoremissing bool) *_userAgentProce
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_userAgentProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_userAgentProcessor {
 
 	for _, v := range onfailures {
@@ -99,7 +90,6 @@ func (s *_userAgentProcessor) OnFailure(onfailures ...types.ProcessorContainerVa
 	return s
 }
 
-// Controls what properties are added to `target_field`.
 func (s *_userAgentProcessor) Properties(properties ...useragentproperty.UserAgentProperty) *_userAgentProcessor {
 
 	for _, v := range properties {
@@ -110,11 +100,6 @@ func (s *_userAgentProcessor) Properties(properties ...useragentproperty.UserAge
 	return s
 }
 
-// The name of the file in the `config/ingest-user-agent` directory containing
-// the regular expressions for parsing the user agent string. Both the directory
-// and the file have to be created before starting Elasticsearch. If not
-// specified, ingest-user-agent will use the `regexes.yaml` from uap-core it
-// ships with.
 func (s *_userAgentProcessor) RegexFile(regexfile string) *_userAgentProcessor {
 
 	s.v.RegexFile = &regexfile
@@ -122,8 +107,6 @@ func (s *_userAgentProcessor) RegexFile(regexfile string) *_userAgentProcessor {
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_userAgentProcessor) Tag(tag string) *_userAgentProcessor {
 
 	s.v.Tag = &tag
@@ -131,7 +114,6 @@ func (s *_userAgentProcessor) Tag(tag string) *_userAgentProcessor {
 	return s
 }
 
-// The field that will be filled with the user agent details.
 func (s *_userAgentProcessor) TargetField(field string) *_userAgentProcessor {
 
 	s.v.TargetField = &field

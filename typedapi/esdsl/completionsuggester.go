@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _completionSuggester struct {
 	v *types.CompletionSuggester
@@ -33,8 +33,6 @@ func NewCompletionSuggester() *_completionSuggester {
 
 }
 
-// The analyzer to analyze the suggest text with.
-// Defaults to the search analyzer of the suggest field.
 func (s *_completionSuggester) Analyzer(analyzer string) *_completionSuggester {
 
 	s.v.Analyzer = &analyzer
@@ -42,16 +40,12 @@ func (s *_completionSuggester) Analyzer(analyzer string) *_completionSuggester {
 	return s
 }
 
-// A value, geo point object, or a geo hash string to filter or boost the
-// suggestion on.
 func (s *_completionSuggester) Contexts(contexts map[string][]types.CompletionContext) *_completionSuggester {
 
 	s.v.Contexts = contexts
 	return s
 }
 
-// The field to fetch the candidate suggestions from.
-// Needs to be set globally or per suggestion.
 func (s *_completionSuggester) Field(field string) *_completionSuggester {
 
 	s.v.Field = field
@@ -59,8 +53,6 @@ func (s *_completionSuggester) Field(field string) *_completionSuggester {
 	return s
 }
 
-// Enables fuzziness, meaning you can have a typo in your search and still get
-// results back.
 func (s *_completionSuggester) Fuzzy(fuzzy types.SuggestFuzzinessVariant) *_completionSuggester {
 
 	s.v.Fuzzy = fuzzy.SuggestFuzzinessCaster()
@@ -68,7 +60,6 @@ func (s *_completionSuggester) Fuzzy(fuzzy types.SuggestFuzzinessVariant) *_comp
 	return s
 }
 
-// A regex query that expresses a prefix as a regular expression.
 func (s *_completionSuggester) Regex(regex types.RegexOptionsVariant) *_completionSuggester {
 
 	s.v.Regex = regex.RegexOptionsCaster()
@@ -76,7 +67,6 @@ func (s *_completionSuggester) Regex(regex types.RegexOptionsVariant) *_completi
 	return s
 }
 
-// The maximum corrections to be returned per suggest text token.
 func (s *_completionSuggester) Size(size int) *_completionSuggester {
 
 	s.v.Size = &size
@@ -84,7 +74,6 @@ func (s *_completionSuggester) Size(size int) *_completionSuggester {
 	return s
 }
 
-// Whether duplicate suggestions should be filtered out.
 func (s *_completionSuggester) SkipDuplicates(skipduplicates bool) *_completionSuggester {
 
 	s.v.SkipDuplicates = &skipduplicates

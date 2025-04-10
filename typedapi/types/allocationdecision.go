@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package types
 
@@ -28,12 +28,12 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/allocationexplaindecision"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/allocationexplaindecision"
 )
 
 // AllocationDecision type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/cluster/allocation_explain/types.ts#L27-L31
+// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/cluster/allocation_explain/types.ts#L27-L31
 type AllocationDecision struct {
 	Decider     string                                              `json:"decider"`
 	Decision    allocationexplaindecision.AllocationExplainDecision `json:"decision"`

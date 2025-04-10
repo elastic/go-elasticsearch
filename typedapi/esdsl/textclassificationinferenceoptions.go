@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _textClassificationInferenceOptions struct {
 	v *types.TextClassificationInferenceOptions
@@ -33,8 +33,6 @@ func NewTextClassificationInferenceOptions() *_textClassificationInferenceOption
 
 }
 
-// Classification labels to apply other than the stored labels. Must have the
-// same deminsions as the default configured labels
 func (s *_textClassificationInferenceOptions) ClassificationLabels(classificationlabels ...string) *_textClassificationInferenceOptions {
 
 	for _, v := range classificationlabels {
@@ -45,7 +43,6 @@ func (s *_textClassificationInferenceOptions) ClassificationLabels(classificatio
 	return s
 }
 
-// Specifies the number of top class predictions to return. Defaults to 0.
 func (s *_textClassificationInferenceOptions) NumTopClasses(numtopclasses int) *_textClassificationInferenceOptions {
 
 	s.v.NumTopClasses = &numtopclasses
@@ -53,8 +50,6 @@ func (s *_textClassificationInferenceOptions) NumTopClasses(numtopclasses int) *
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_textClassificationInferenceOptions) ResultsField(resultsfield string) *_textClassificationInferenceOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -62,10 +57,16 @@ func (s *_textClassificationInferenceOptions) ResultsField(resultsfield string) 
 	return s
 }
 
-// The tokenization options
 func (s *_textClassificationInferenceOptions) Tokenization(tokenization types.TokenizationConfigContainerVariant) *_textClassificationInferenceOptions {
 
 	s.v.Tokenization = tokenization.TokenizationConfigContainerCaster()
+
+	return s
+}
+
+func (s *_textClassificationInferenceOptions) Vocabulary(vocabulary types.VocabularyVariant) *_textClassificationInferenceOptions {
+
+	s.v.Vocabulary = vocabulary.VocabularyCaster()
 
 	return s
 }

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 type _inferenceConfigContainer struct {
@@ -46,7 +46,6 @@ func (s *_inferenceConfigContainer) AdditionalInferenceConfigContainerProperty(k
 	return s
 }
 
-// Classification configuration for inference.
 func (s *_inferenceConfigContainer) Classification(classification types.ClassificationInferenceOptionsVariant) *_inferenceConfigContainer {
 
 	s.v.Classification = classification.ClassificationInferenceOptionsCaster()
@@ -54,7 +53,6 @@ func (s *_inferenceConfigContainer) Classification(classification types.Classifi
 	return s
 }
 
-// Regression configuration for inference.
 func (s *_inferenceConfigContainer) Regression(regression types.RegressionInferenceOptionsVariant) *_inferenceConfigContainer {
 
 	s.v.Regression = regression.RegressionInferenceOptionsCaster()

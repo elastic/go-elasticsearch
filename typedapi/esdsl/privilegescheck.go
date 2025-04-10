@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/clusterprivilege"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/clusterprivilege"
 )
 
 type _privilegesCheck struct {
@@ -45,7 +45,6 @@ func (s *_privilegesCheck) Application(applications ...types.ApplicationPrivileg
 	return s
 }
 
-// A list of the cluster privileges that you want to check.
 func (s *_privilegesCheck) Cluster(clusters ...clusterprivilege.ClusterPrivilege) *_privilegesCheck {
 
 	for _, v := range clusters {

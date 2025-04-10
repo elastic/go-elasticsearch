@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _intervalsPrefix struct {
 	v *types.IntervalsPrefix
@@ -37,7 +37,6 @@ func NewIntervalsPrefix(prefix string) *_intervalsPrefix {
 
 }
 
-// Analyzer used to analyze the `prefix`.
 func (s *_intervalsPrefix) Analyzer(analyzer string) *_intervalsPrefix {
 
 	s.v.Analyzer = &analyzer
@@ -45,7 +44,6 @@ func (s *_intervalsPrefix) Analyzer(analyzer string) *_intervalsPrefix {
 	return s
 }
 
-// Beginning characters of terms you wish to find in the top-level field.
 func (s *_intervalsPrefix) Prefix(prefix string) *_intervalsPrefix {
 
 	s.v.Prefix = prefix
@@ -53,10 +51,6 @@ func (s *_intervalsPrefix) Prefix(prefix string) *_intervalsPrefix {
 	return s
 }
 
-// If specified, match intervals from this field rather than the top-level
-// field.
-// The `prefix` is normalized using the search analyzer from this field, unless
-// `analyzer` is specified separately.
 func (s *_intervalsPrefix) UseField(field string) *_intervalsPrefix {
 
 	s.v.UseField = &field

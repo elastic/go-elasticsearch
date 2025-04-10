@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _fillMaskInferenceUpdateOptions struct {
 	v *types.FillMaskInferenceUpdateOptions
@@ -33,7 +33,6 @@ func NewFillMaskInferenceUpdateOptions() *_fillMaskInferenceUpdateOptions {
 
 }
 
-// Specifies the number of top class predictions to return. Defaults to 0.
 func (s *_fillMaskInferenceUpdateOptions) NumTopClasses(numtopclasses int) *_fillMaskInferenceUpdateOptions {
 
 	s.v.NumTopClasses = &numtopclasses
@@ -41,8 +40,6 @@ func (s *_fillMaskInferenceUpdateOptions) NumTopClasses(numtopclasses int) *_fil
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
 func (s *_fillMaskInferenceUpdateOptions) ResultsField(resultsfield string) *_fillMaskInferenceUpdateOptions {
 
 	s.v.ResultsField = &resultsfield
@@ -50,7 +47,6 @@ func (s *_fillMaskInferenceUpdateOptions) ResultsField(resultsfield string) *_fi
 	return s
 }
 
-// The tokenization options to update when inferring
 func (s *_fillMaskInferenceUpdateOptions) Tokenization(tokenization types.NlpTokenizationUpdateOptionsVariant) *_fillMaskInferenceUpdateOptions {
 
 	s.v.Tokenization = tokenization.NlpTokenizationUpdateOptionsCaster()

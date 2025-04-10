@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _inferenceConfigClassification struct {
 	v *types.InferenceConfigClassification
@@ -33,7 +33,6 @@ func NewInferenceConfigClassification() *_inferenceConfigClassification {
 
 }
 
-// Specifies the number of top class predictions to return.
 func (s *_inferenceConfigClassification) NumTopClasses(numtopclasses int) *_inferenceConfigClassification {
 
 	s.v.NumTopClasses = &numtopclasses
@@ -41,7 +40,6 @@ func (s *_inferenceConfigClassification) NumTopClasses(numtopclasses int) *_infe
 	return s
 }
 
-// Specifies the maximum number of feature importance values per document.
 func (s *_inferenceConfigClassification) NumTopFeatureImportanceValues(numtopfeatureimportancevalues int) *_inferenceConfigClassification {
 
 	s.v.NumTopFeatureImportanceValues = &numtopfeatureimportancevalues
@@ -49,8 +47,6 @@ func (s *_inferenceConfigClassification) NumTopFeatureImportanceValues(numtopfea
 	return s
 }
 
-// Specifies the type of the predicted field to write.
-// Valid values are: `string`, `number`, `boolean`.
 func (s *_inferenceConfigClassification) PredictionFieldType(predictionfieldtype string) *_inferenceConfigClassification {
 
 	s.v.PredictionFieldType = &predictionfieldtype
@@ -58,8 +54,6 @@ func (s *_inferenceConfigClassification) PredictionFieldType(predictionfieldtype
 	return s
 }
 
-// The field that is added to incoming documents to contain the inference
-// prediction.
 func (s *_inferenceConfigClassification) ResultsField(field string) *_inferenceConfigClassification {
 
 	s.v.ResultsField = &field
@@ -67,7 +61,6 @@ func (s *_inferenceConfigClassification) ResultsField(field string) *_inferenceC
 	return s
 }
 
-// Specifies the field to which the top classes are written.
 func (s *_inferenceConfigClassification) TopClassesResultsField(field string) *_inferenceConfigClassification {
 
 	s.v.TopClassesResultsField = &field

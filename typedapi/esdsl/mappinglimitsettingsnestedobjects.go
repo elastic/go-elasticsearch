@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _mappingLimitSettingsNestedObjects struct {
 	v *types.MappingLimitSettingsNestedObjects
@@ -32,10 +32,6 @@ func NewMappingLimitSettingsNestedObjects() *_mappingLimitSettingsNestedObjects 
 
 }
 
-// The maximum number of nested JSON objects that a single document can contain
-// across all nested types. This limit helps
-// to prevent out of memory errors when a document contains too many nested
-// objects.
 func (s *_mappingLimitSettingsNestedObjects) Limit(limit int64) *_mappingLimitSettingsNestedObjects {
 
 	s.v.Limit = &limit

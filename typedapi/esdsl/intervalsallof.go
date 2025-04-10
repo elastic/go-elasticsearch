@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _intervalsAllOf struct {
 	v *types.IntervalsAllOf
@@ -33,7 +33,6 @@ func NewIntervalsAllOf() *_intervalsAllOf {
 
 }
 
-// Rule used to filter returned intervals.
 func (s *_intervalsAllOf) Filter(filter types.IntervalsFilterVariant) *_intervalsAllOf {
 
 	s.v.Filter = filter.IntervalsFilterCaster()
@@ -41,8 +40,6 @@ func (s *_intervalsAllOf) Filter(filter types.IntervalsFilterVariant) *_interval
 	return s
 }
 
-// An array of rules to combine. All rules must produce a match in a document
-// for the overall source to match.
 func (s *_intervalsAllOf) Intervals(intervals ...types.IntervalsVariant) *_intervalsAllOf {
 
 	for _, v := range intervals {
@@ -53,9 +50,6 @@ func (s *_intervalsAllOf) Intervals(intervals ...types.IntervalsVariant) *_inter
 	return s
 }
 
-// Maximum number of positions between the matching terms.
-// Intervals produced by the rules further apart than this are not considered
-// matches.
 func (s *_intervalsAllOf) MaxGaps(maxgaps int) *_intervalsAllOf {
 
 	s.v.MaxGaps = &maxgaps
@@ -63,8 +57,6 @@ func (s *_intervalsAllOf) MaxGaps(maxgaps int) *_intervalsAllOf {
 	return s
 }
 
-// If `true`, intervals produced by the rules should appear in the order in
-// which they are specified.
 func (s *_intervalsAllOf) Ordered(ordered bool) *_intervalsAllOf {
 
 	s.v.Ordered = &ordered

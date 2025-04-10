@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _keyValueProcessor struct {
 	v *types.KeyValueProcessor
@@ -40,8 +40,6 @@ func NewKeyValueProcessor(fieldsplit string, valuesplit string) *_keyValueProces
 
 }
 
-// Description of the processor.
-// Useful for describing the purpose of the processor or its configuration.
 func (s *_keyValueProcessor) Description(description string) *_keyValueProcessor {
 
 	s.v.Description = &description
@@ -49,7 +47,6 @@ func (s *_keyValueProcessor) Description(description string) *_keyValueProcessor
 	return s
 }
 
-// List of keys to exclude from document.
 func (s *_keyValueProcessor) ExcludeKeys(excludekeys ...string) *_keyValueProcessor {
 
 	for _, v := range excludekeys {
@@ -60,8 +57,6 @@ func (s *_keyValueProcessor) ExcludeKeys(excludekeys ...string) *_keyValueProces
 	return s
 }
 
-// The field to be parsed.
-// Supports template snippets.
 func (s *_keyValueProcessor) Field(field string) *_keyValueProcessor {
 
 	s.v.Field = field
@@ -69,7 +64,6 @@ func (s *_keyValueProcessor) Field(field string) *_keyValueProcessor {
 	return s
 }
 
-// Regex pattern to use for splitting key-value pairs.
 func (s *_keyValueProcessor) FieldSplit(fieldsplit string) *_keyValueProcessor {
 
 	s.v.FieldSplit = fieldsplit
@@ -77,7 +71,6 @@ func (s *_keyValueProcessor) FieldSplit(fieldsplit string) *_keyValueProcessor {
 	return s
 }
 
-// Conditionally execute the processor.
 func (s *_keyValueProcessor) If(if_ types.ScriptVariant) *_keyValueProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -85,7 +78,6 @@ func (s *_keyValueProcessor) If(if_ types.ScriptVariant) *_keyValueProcessor {
 	return s
 }
 
-// Ignore failures for the processor.
 func (s *_keyValueProcessor) IgnoreFailure(ignorefailure bool) *_keyValueProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
@@ -93,8 +85,6 @@ func (s *_keyValueProcessor) IgnoreFailure(ignorefailure bool) *_keyValueProcess
 	return s
 }
 
-// If `true` and `field` does not exist or is `null`, the processor quietly
-// exits without modifying the document.
 func (s *_keyValueProcessor) IgnoreMissing(ignoremissing bool) *_keyValueProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -102,8 +92,6 @@ func (s *_keyValueProcessor) IgnoreMissing(ignoremissing bool) *_keyValueProcess
 	return s
 }
 
-// List of keys to filter and insert into document.
-// Defaults to including all keys.
 func (s *_keyValueProcessor) IncludeKeys(includekeys ...string) *_keyValueProcessor {
 
 	for _, v := range includekeys {
@@ -114,7 +102,6 @@ func (s *_keyValueProcessor) IncludeKeys(includekeys ...string) *_keyValueProces
 	return s
 }
 
-// Handle failures for the processor.
 func (s *_keyValueProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_keyValueProcessor {
 
 	for _, v := range onfailures {
@@ -125,7 +112,6 @@ func (s *_keyValueProcessor) OnFailure(onfailures ...types.ProcessorContainerVar
 	return s
 }
 
-// Prefix to be added to extracted keys.
 func (s *_keyValueProcessor) Prefix(prefix string) *_keyValueProcessor {
 
 	s.v.Prefix = &prefix
@@ -133,8 +119,6 @@ func (s *_keyValueProcessor) Prefix(prefix string) *_keyValueProcessor {
 	return s
 }
 
-// If `true`. strip brackets `()`, `<>`, `[]` as well as quotes `'` and `"` from
-// extracted values.
 func (s *_keyValueProcessor) StripBrackets(stripbrackets bool) *_keyValueProcessor {
 
 	s.v.StripBrackets = &stripbrackets
@@ -142,8 +126,6 @@ func (s *_keyValueProcessor) StripBrackets(stripbrackets bool) *_keyValueProcess
 	return s
 }
 
-// Identifier for the processor.
-// Useful for debugging and metrics.
 func (s *_keyValueProcessor) Tag(tag string) *_keyValueProcessor {
 
 	s.v.Tag = &tag
@@ -151,9 +133,6 @@ func (s *_keyValueProcessor) Tag(tag string) *_keyValueProcessor {
 	return s
 }
 
-// The field to insert the extracted keys into.
-// Defaults to the root of the document.
-// Supports template snippets.
 func (s *_keyValueProcessor) TargetField(field string) *_keyValueProcessor {
 
 	s.v.TargetField = &field
@@ -161,7 +140,6 @@ func (s *_keyValueProcessor) TargetField(field string) *_keyValueProcessor {
 	return s
 }
 
-// String of characters to trim from extracted keys.
 func (s *_keyValueProcessor) TrimKey(trimkey string) *_keyValueProcessor {
 
 	s.v.TrimKey = &trimkey
@@ -169,7 +147,6 @@ func (s *_keyValueProcessor) TrimKey(trimkey string) *_keyValueProcessor {
 	return s
 }
 
-// String of characters to trim from extracted values.
 func (s *_keyValueProcessor) TrimValue(trimvalue string) *_keyValueProcessor {
 
 	s.v.TrimValue = &trimvalue
@@ -177,8 +154,6 @@ func (s *_keyValueProcessor) TrimValue(trimvalue string) *_keyValueProcessor {
 	return s
 }
 
-// Regex pattern to use for splitting the key from the value within a key-value
-// pair.
 func (s *_keyValueProcessor) ValueSplit(valuesplit string) *_keyValueProcessor {
 
 	s.v.ValueSplit = valuesplit
