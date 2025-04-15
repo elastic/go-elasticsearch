@@ -287,7 +287,7 @@ type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
 	g.w("\n\n\tHeader\thttp.Header\n")
 
 	g.w("\n\tctx context.Context\n")
-	g.w("\n\tinstrument Instrumentation\n")
+	g.w("\n\tInstrument Instrumentation\n")
 	g.w("}\n")
 }
 
