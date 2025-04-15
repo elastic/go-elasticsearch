@@ -21,13 +21,16 @@ Full documentation is hosted at [GitHub](https://github.com/elastic/go-elasticse
 
 ## Usage [_usage]
 
+:::::::{tab-set}
+
+::::::{tab-item} Low-level API
 ```go
 package main
 
 import (
   "log"
 
-  "github.com/elastic/go-elasticsearch/v7"
+  "github.com/elastic/go-elasticsearch/v9"
 )
 
 func main() {
@@ -35,6 +38,29 @@ func main() {
   log.Println(es.Info())
 }
 ```
+::::::
+
+::::::{tab-item} Fully-typed API
+```go
+package main
+
+import (
+	"context"
+	"log"
+
+	"github.com/elastic/go-elasticsearch/v9"
+)
+
+func main() {
+	es, _ := elasticsearch.NewTypedClient(elasticsearch.Config{
+		Addresses: []string{"http://localhost:9200"},
+	})
+	log.Println(es.Info().Do(context.Background()))
+}
+```
+::::::
+
+:::::::
 
 ::::{note}
 Please have a look at the collection of comprehensive examples in the repository at [https://github.com/elastic/go-elasticsearch/tree/master/_examples](https://github.com/elastic/go-elasticsearch/tree/master/_examples).
