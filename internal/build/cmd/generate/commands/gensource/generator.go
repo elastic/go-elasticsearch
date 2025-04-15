@@ -137,7 +137,7 @@ func new` + g.Endpoint.MethodWithNamespace() + `Func(t Transport) ` + g.Endpoint
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -341,6 +341,8 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithContext(v context.Context)
 			pDesc = strings.Replace(pDesc, "use `_all` or empty string", "use _all", -1)
 		}
 
+		pDesc = strings.Replace(pDesc, "\n", "", -1)
+
 		// Generate annotation
 		b.WriteString("\n// With" + pFieldName)
 		if typ == "*gensource.Part" {
@@ -509,7 +511,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 		ctx     context.Context
 	)` + "\n\n")
 
-	g.w(`if instrument, ok := r.instrument.(Instrumentation); ok {
+	g.w(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 			ctx = instrument.Start(providedCtx, "` + g.Endpoint.Name + `")
 			defer instrument.Close(ctx)
 	}
@@ -655,27 +657,27 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 							requiredArgsValidation.WriteString(`if r.` + p + ` == nil { return nil, errors.New("` + a.Name + ` is required and cannot be nil") }` + "\n")
 							pathGrow.WriteString(`len(strconv.Itoa(*r.` + p + `)) + `)
 							pathContent.WriteString(`	path.WriteString(strconv.Itoa(*r.` + p + `))` + "\n")
-							pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", strconv.Itoa(*r.` + p + `))
 							}` + "\n")
 						case "string":
 							pathGrow.WriteString(`len(r.` + p + `) + `)
 							pathContent.WriteString(`	path.WriteString(r.` + p + `)` + "\n")
-							pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", r.` + p + `)
 							}` + "\n")
 						case "list":
 							requiredArgsValidation.WriteString(`if len(r.` + p + `) == 0 { return nil, errors.New("` + a.Name + ` is required and cannot be nil or empty") }` + "\n")
 							pathGrow.WriteString(`len(strings.Join(r.` + p + `, ",")) + `)
 							pathContent.WriteString(`	path.WriteString(strings.Join(r.` + p + `, ","))` + "\n")
-							pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", strings.Join(r.` + p + `, ","))
 							}` + "\n")
 						case "long":
 							requiredArgsValidation.WriteString(`if r.` + p + ` == nil { return nil, errors.New("` + a.Name + ` is required and cannot be nil") }` + "\n")
 							pathGrow.WriteString(`len(strconv.Itoa(*r.` + p + `)) + `)
 							pathContent.WriteString(`	path.WriteString(strconv.Itoa(*r.` + p + `))` + "\n")
-							pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", strconv.Itoa(*r.` + p + `))
 							}` + "\n")
 						default:
@@ -698,7 +700,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 								pathContent.WriteString(`	if r.` + p + ` != "" {` + "\n")
 								pathContent.WriteString(`		path.WriteString("/")` + "\n")
 								pathContent.WriteString(`		path.WriteString(r.` + p + `)` + "\n")
-								pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+								pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", r.` + p + `)
 							}` + "\n")
 								pathContent.WriteString(`	}` + "\n")
@@ -707,7 +709,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 								pathContent.WriteString(`	if len(r.` + p + `) > 0 {` + "\n")
 								pathContent.WriteString(`		path.WriteString("/")` + "\n")
 								pathContent.WriteString(`		path.WriteString(strings.Join(r.` + p + `, ","))` + "\n")
-								pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+								pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", strings.Join(r.` + p + `, ","))
 							}` + "\n")
 								pathContent.WriteString(`	}` + "\n")
@@ -717,7 +719,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 								pathContent.WriteString(`		path.Grow(1 + len(value))` + "\n")
 								pathContent.WriteString(`		path.WriteString("/")` + "\n")
 								pathContent.WriteString(`		path.WriteString(value)` + "\n")
-								pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+								pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", value)
 							}` + "\n")
 								pathContent.WriteString(`	}` + "\n")
@@ -857,7 +859,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 	g.w(`req, err := newRequest(method, path.String(), ` + httpBody + `)` + "\n")
 
 	g.w(`if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -894,7 +896,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 	}` + "\n\n")
 
 	g.w(`
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "` + g.Endpoint.Name + `")
 		`)
 	if g.Endpoint.Body != nil {
@@ -906,11 +908,11 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 	g.w(`}`)
 	g.w(`
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "` + g.Endpoint.Name + `")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
