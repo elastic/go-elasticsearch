@@ -10,7 +10,7 @@ require (
 	github.com/alecthomas/chroma v0.10.0
 	github.com/elastic/go-elasticsearch/v9 v9.0.0-00010101000000-000000000000
 	github.com/spf13/cobra v1.8.0
-	golang.org/x/crypto v0.19.0
+	golang.org/x/crypto v0.37.0
 	golang.org/x/tools v0.32.0
 	gopkg.in/yaml.v2 v2.4.0
 )
@@ -22,5 +22,5 @@ require (
 	golang.org/x/mod v0.24.0 // indirect
 	golang.org/x/sync v0.13.0 // indirect
 	golang.org/x/sys v0.32.0 // indirect
-	golang.org/x/term v0.17.0 // indirect
+	golang.org/x/term v0.31.0 // indirect
 )
