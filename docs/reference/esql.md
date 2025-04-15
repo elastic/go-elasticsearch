@@ -59,8 +59,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/esql/query"
+	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/esql/query"
 )
 
 type Book struct {

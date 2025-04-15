@@ -236,7 +236,7 @@ This section illustrates the best practices for leveraging the {{es}} client in 
 package httpexample
 
 import (
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v9"
 )
 
 var client *elasticsearch.Client
@@ -264,7 +264,7 @@ package httpexample
 
 import (
 	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v9"
 )
 
 var client *elasticsearch.Client
