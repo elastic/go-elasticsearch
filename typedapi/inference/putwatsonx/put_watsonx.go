@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
 
 // Create a Watsonx inference endpoint.
 //
@@ -52,7 +52,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/servicetype"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/watsonxservicetype"
 )
 
 const (
@@ -414,7 +414,7 @@ func (r *PutWatsonx) Pretty(pretty bool) *PutWatsonx {
 // The type of service supported for the specified task type. In this case,
 // `watsonxai`.
 // API name: service
-func (r *PutWatsonx) Service(service servicetype.ServiceType) *PutWatsonx {
+func (r *PutWatsonx) Service(service watsonxservicetype.WatsonxServiceType) *PutWatsonx {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()

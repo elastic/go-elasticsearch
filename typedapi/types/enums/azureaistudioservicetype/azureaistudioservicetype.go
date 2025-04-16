@@ -16,38 +16,38 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
 
-// Package servicetype
-package servicetype
+// Package azureaistudioservicetype
+package azureaistudioservicetype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/inference/put_watsonx/PutWatsonxRequest.ts#L76-L78
-type ServiceType struct {
+// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/inference/_types/CommonTypes.ts#L504-L506
+type AzureAiStudioServiceType struct {
 	Name string
 }
 
 var (
-	Watsonxai = ServiceType{"watsonxai"}
+	Azureaistudio = AzureAiStudioServiceType{"azureaistudio"}
 )
 
-func (s ServiceType) MarshalText() (text []byte, err error) {
-	return []byte(s.String()), nil
+func (a AzureAiStudioServiceType) MarshalText() (text []byte, err error) {
+	return []byte(a.String()), nil
 }
 
-func (s *ServiceType) UnmarshalText(text []byte) error {
+func (a *AzureAiStudioServiceType) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "watsonxai":
-		*s = Watsonxai
+	case "azureaistudio":
+		*a = Azureaistudio
 	default:
-		*s = ServiceType{string(text)}
+		*a = AzureAiStudioServiceType{string(text)}
 	}
 
 	return nil
 }
 
-func (s ServiceType) String() string {
-	return s.Name
+func (a AzureAiStudioServiceType) String() string {
+	return a.Name
 }

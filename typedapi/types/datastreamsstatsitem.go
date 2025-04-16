@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataStreamsStatsItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/data_streams_stats/IndicesDataStreamsStatsResponse.ts#L45-L65
+// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/indices/data_streams_stats/IndicesDataStreamsStatsResponse.ts#L45-L65
 type DataStreamsStatsItem struct {
 	// BackingIndices Current number of backing indices for the data stream.
 	BackingIndices int `json:"backing_indices"`

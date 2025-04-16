@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // TokenCountProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/mapping/specialized.ts#L94-L101
+// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/mapping/specialized.ts#L94-L101
 type TokenCountProperty struct {
 	Analyzer                 *string                        `json:"analyzer,omitempty"`
 	Boost                    *Float64                       `json:"boost,omitempty"`
