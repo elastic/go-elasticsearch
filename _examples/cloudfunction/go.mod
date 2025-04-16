@@ -9,7 +9,7 @@ replace github.com/elastic/go-elasticsearch/v9 => ../..
 require github.com/elastic/go-elasticsearch/v9 v9.0.0-00010101000000-000000000000
 
 require (
-	github.com/elastic/elastic-transport-go/v8 v8.6.1 // indirect
+	github.com/elastic/elastic-transport-go/v8 v8.7.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
