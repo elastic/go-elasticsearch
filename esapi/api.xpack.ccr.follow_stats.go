@@ -35,7 +35,7 @@ func newCCRFollowStatsFunc(t Transport) CCRFollowStats {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -64,7 +64,7 @@ type CCRFollowStatsRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -76,7 +76,7 @@ func (r CCRFollowStatsRequest) Do(providedCtx context.Context, transport Transpo
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ccr.follow_stats")
 		defer instrument.Close(ctx)
 	}
@@ -94,7 +94,7 @@ func (r CCRFollowStatsRequest) Do(providedCtx context.Context, transport Transpo
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Index, ","))
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
@@ -126,7 +126,7 @@ func (r CCRFollowStatsRequest) Do(providedCtx context.Context, transport Transpo
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -156,15 +156,15 @@ func (r CCRFollowStatsRequest) Do(providedCtx context.Context, transport Transpo
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ccr.follow_stats")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ccr.follow_stats")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

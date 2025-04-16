@@ -33,7 +33,7 @@ func newIngestGetGeoipDatabaseFunc(t Transport) IngestGetGeoipDatabase {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -60,7 +60,7 @@ type IngestGetGeoipDatabaseRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -72,7 +72,7 @@ func (r IngestGetGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ingest.get_geoip_database")
 		defer instrument.Close(ctx)
 	}
@@ -93,7 +93,7 @@ func (r IngestGetGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 	if len(r.DocumentID) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.DocumentID, ","))
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "id", strings.Join(r.DocumentID, ","))
 		}
 	}
@@ -118,7 +118,7 @@ func (r IngestGetGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -148,15 +148,15 @@ func (r IngestGetGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ingest.get_geoip_database")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ingest.get_geoip_database")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

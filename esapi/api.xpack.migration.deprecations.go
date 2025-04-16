@@ -33,7 +33,7 @@ func newMigrationDeprecationsFunc(t Transport) MigrationDeprecations {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -60,7 +60,7 @@ type MigrationDeprecationsRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -72,7 +72,7 @@ func (r MigrationDeprecationsRequest) Do(providedCtx context.Context, transport 
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "migration.deprecations")
 		defer instrument.Close(ctx)
 	}
@@ -87,7 +87,7 @@ func (r MigrationDeprecationsRequest) Do(providedCtx context.Context, transport 
 	if r.Index != "" {
 		path.WriteString("/")
 		path.WriteString(r.Index)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "index", r.Index)
 		}
 	}
@@ -116,7 +116,7 @@ func (r MigrationDeprecationsRequest) Do(providedCtx context.Context, transport 
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -146,15 +146,15 @@ func (r MigrationDeprecationsRequest) Do(providedCtx context.Context, transport 
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "migration.deprecations")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "migration.deprecations")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

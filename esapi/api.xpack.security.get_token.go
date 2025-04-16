@@ -34,7 +34,7 @@ func newSecurityGetTokenFunc(t Transport) SecurityGetToken {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -61,7 +61,7 @@ type SecurityGetTokenRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -73,7 +73,7 @@ func (r SecurityGetTokenRequest) Do(providedCtx context.Context, transport Trans
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "security.get_token")
 		defer instrument.Close(ctx)
 	}
@@ -107,7 +107,7 @@ func (r SecurityGetTokenRequest) Do(providedCtx context.Context, transport Trans
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -141,18 +141,18 @@ func (r SecurityGetTokenRequest) Do(providedCtx context.Context, transport Trans
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "security.get_token")
 		if reader := instrument.RecordRequestBody(ctx, "security.get_token", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "security.get_token")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

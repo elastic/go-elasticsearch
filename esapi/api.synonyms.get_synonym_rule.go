@@ -33,7 +33,7 @@ func newSynonymsGetSynonymRuleFunc(t Transport) SynonymsGetSynonymRule {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -61,7 +61,7 @@ type SynonymsGetSynonymRuleRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -73,7 +73,7 @@ func (r SynonymsGetSynonymRuleRequest) Do(providedCtx context.Context, transport
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "synonyms.get_synonym_rule")
 		defer instrument.Close(ctx)
 	}
@@ -89,12 +89,12 @@ func (r SynonymsGetSynonymRuleRequest) Do(providedCtx context.Context, transport
 	path.WriteString("_synonyms")
 	path.WriteString("/")
 	path.WriteString(r.SetID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "set_id", r.SetID)
 	}
 	path.WriteString("/")
 	path.WriteString(r.RuleID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "rule_id", r.RuleID)
 	}
 
@@ -118,7 +118,7 @@ func (r SynonymsGetSynonymRuleRequest) Do(providedCtx context.Context, transport
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -148,15 +148,15 @@ func (r SynonymsGetSynonymRuleRequest) Do(providedCtx context.Context, transport
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "synonyms.get_synonym_rule")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "synonyms.get_synonym_rule")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

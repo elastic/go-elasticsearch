@@ -36,7 +36,7 @@ func newIndicesPutDataLifecycleFunc(t Transport) IndicesPutDataLifecycle {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -69,7 +69,7 @@ type IndicesPutDataLifecycleRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -81,7 +81,7 @@ func (r IndicesPutDataLifecycleRequest) Do(providedCtx context.Context, transpor
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "indices.put_data_lifecycle")
 		defer instrument.Close(ctx)
 	}
@@ -101,7 +101,7 @@ func (r IndicesPutDataLifecycleRequest) Do(providedCtx context.Context, transpor
 	path.WriteString("_data_stream")
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Name, ","))
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
 	}
 	path.WriteString("/")
@@ -139,7 +139,7 @@ func (r IndicesPutDataLifecycleRequest) Do(providedCtx context.Context, transpor
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -173,18 +173,18 @@ func (r IndicesPutDataLifecycleRequest) Do(providedCtx context.Context, transpor
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "indices.put_data_lifecycle")
 		if reader := instrument.RecordRequestBody(ctx, "indices.put_data_lifecycle", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "indices.put_data_lifecycle")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

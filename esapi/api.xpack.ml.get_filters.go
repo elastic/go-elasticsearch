@@ -34,7 +34,7 @@ func newMLGetFiltersFunc(t Transport) MLGetFilters {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -64,7 +64,7 @@ type MLGetFiltersRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -76,7 +76,7 @@ func (r MLGetFiltersRequest) Do(providedCtx context.Context, transport Transport
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ml.get_filters")
 		defer instrument.Close(ctx)
 	}
@@ -95,7 +95,7 @@ func (r MLGetFiltersRequest) Do(providedCtx context.Context, transport Transport
 	if r.FilterID != "" {
 		path.WriteString("/")
 		path.WriteString(r.FilterID)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "filter_id", r.FilterID)
 		}
 	}
@@ -128,7 +128,7 @@ func (r MLGetFiltersRequest) Do(providedCtx context.Context, transport Transport
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -158,15 +158,15 @@ func (r MLGetFiltersRequest) Do(providedCtx context.Context, transport Transport
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ml.get_filters")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ml.get_filters")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

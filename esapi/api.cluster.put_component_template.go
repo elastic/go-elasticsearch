@@ -36,7 +36,7 @@ func newClusterPutComponentTemplateFunc(t Transport) ClusterPutComponentTemplate
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -69,7 +69,7 @@ type ClusterPutComponentTemplateRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -81,7 +81,7 @@ func (r ClusterPutComponentTemplateRequest) Do(providedCtx context.Context, tran
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "cluster.put_component_template")
 		defer instrument.Close(ctx)
 	}
@@ -97,7 +97,7 @@ func (r ClusterPutComponentTemplateRequest) Do(providedCtx context.Context, tran
 	path.WriteString("_component_template")
 	path.WriteString("/")
 	path.WriteString(r.Name)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "name", r.Name)
 	}
 
@@ -133,7 +133,7 @@ func (r ClusterPutComponentTemplateRequest) Do(providedCtx context.Context, tran
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -167,18 +167,18 @@ func (r ClusterPutComponentTemplateRequest) Do(providedCtx context.Context, tran
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "cluster.put_component_template")
 		if reader := instrument.RecordRequestBody(ctx, "cluster.put_component_template", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "cluster.put_component_template")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

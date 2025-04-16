@@ -34,7 +34,7 @@ func newSQLGetAsyncFunc(t Transport) SQLGetAsync {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -66,7 +66,7 @@ type SQLGetAsyncRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -78,7 +78,7 @@ func (r SQLGetAsyncRequest) Do(providedCtx context.Context, transport Transport)
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "sql.get_async")
 		defer instrument.Close(ctx)
 	}
@@ -96,7 +96,7 @@ func (r SQLGetAsyncRequest) Do(providedCtx context.Context, transport Transport)
 	path.WriteString("async")
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "id", r.DocumentID)
 	}
 
@@ -136,7 +136,7 @@ func (r SQLGetAsyncRequest) Do(providedCtx context.Context, transport Transport)
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -166,15 +166,15 @@ func (r SQLGetAsyncRequest) Do(providedCtx context.Context, transport Transport)
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "sql.get_async")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "sql.get_async")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

@@ -35,7 +35,7 @@ func newSnapshotDeleteRepositoryFunc(t Transport) SnapshotDeleteRepository {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -65,7 +65,7 @@ type SnapshotDeleteRepositoryRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -77,7 +77,7 @@ func (r SnapshotDeleteRepositoryRequest) Do(providedCtx context.Context, transpo
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "snapshot.delete_repository")
 		defer instrument.Close(ctx)
 	}
@@ -97,7 +97,7 @@ func (r SnapshotDeleteRepositoryRequest) Do(providedCtx context.Context, transpo
 	path.WriteString("_snapshot")
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Repository, ","))
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "repository", strings.Join(r.Repository, ","))
 	}
 
@@ -129,7 +129,7 @@ func (r SnapshotDeleteRepositoryRequest) Do(providedCtx context.Context, transpo
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -159,15 +159,15 @@ func (r SnapshotDeleteRepositoryRequest) Do(providedCtx context.Context, transpo
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "snapshot.delete_repository")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "snapshot.delete_repository")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

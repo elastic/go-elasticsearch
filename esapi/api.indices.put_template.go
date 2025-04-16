@@ -36,7 +36,7 @@ func newIndicesPutTemplateFunc(t Transport) IndicesPutTemplate {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -70,7 +70,7 @@ type IndicesPutTemplateRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -82,7 +82,7 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "indices.put_template")
 		defer instrument.Close(ctx)
 	}
@@ -98,7 +98,7 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 	path.WriteString("_template")
 	path.WriteString("/")
 	path.WriteString(r.Name)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "name", r.Name)
 	}
 
@@ -138,7 +138,7 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -172,18 +172,18 @@ func (r IndicesPutTemplateRequest) Do(providedCtx context.Context, transport Tra
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "indices.put_template")
 		if reader := instrument.RecordRequestBody(ctx, "indices.put_template", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "indices.put_template")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
