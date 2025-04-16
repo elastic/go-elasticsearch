@@ -5,7 +5,7 @@ go 1.22.0
 replace github.com/elastic/go-elasticsearch/v8 => ./../..
 
 require (
-	github.com/elastic/elastic-transport-go/v8 v8.6.1
+	github.com/elastic/elastic-transport-go/v8 v8.7.0
 	github.com/elastic/go-elasticsearch/v8 v8.14.0
 	github.com/testcontainers/testcontainers-go v0.34.0
 	github.com/testcontainers/testcontainers-go/modules/elasticsearch v0.34.0
