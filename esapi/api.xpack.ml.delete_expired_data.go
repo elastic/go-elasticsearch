@@ -36,7 +36,7 @@ func newMLDeleteExpiredDataFunc(t Transport) MLDeleteExpiredData {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -68,7 +68,7 @@ type MLDeleteExpiredDataRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -80,7 +80,7 @@ func (r MLDeleteExpiredDataRequest) Do(providedCtx context.Context, transport Tr
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ml.delete_expired_data")
 		defer instrument.Close(ctx)
 	}
@@ -99,7 +99,7 @@ func (r MLDeleteExpiredDataRequest) Do(providedCtx context.Context, transport Tr
 	if r.JobID != "" {
 		path.WriteString("/")
 		path.WriteString(r.JobID)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "job_id", r.JobID)
 		}
 	}
@@ -132,7 +132,7 @@ func (r MLDeleteExpiredDataRequest) Do(providedCtx context.Context, transport Tr
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -166,18 +166,18 @@ func (r MLDeleteExpiredDataRequest) Do(providedCtx context.Context, transport Tr
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ml.delete_expired_data")
 		if reader := instrument.RecordRequestBody(ctx, "ml.delete_expired_data", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ml.delete_expired_data")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

@@ -16,56 +16,56 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 package esdsl
 
 import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
-type _coreKnnQuery struct {
-	v *types.CoreKnnQuery
+type _chunkingSettings struct {
+	v *types.ChunkingSettings
 }
 
-func NewCoreKnnQuery(k int, numcandidates int) *_coreKnnQuery {
+func NewChunkingSettings(maxchunksize int, strategy string) *_chunkingSettings {
 
-	tmp := &_coreKnnQuery{v: types.NewCoreKnnQuery()}
+	tmp := &_chunkingSettings{v: types.NewChunkingSettings()}
 
-	tmp.K(k)
+	tmp.MaxChunkSize(maxchunksize)
 
-	tmp.NumCandidates(numcandidates)
+	tmp.Strategy(strategy)
 
 	return tmp
 
 }
 
-func (s *_coreKnnQuery) Field(field string) *_coreKnnQuery {
+func (s *_chunkingSettings) MaxChunkSize(maxchunksize int) *_chunkingSettings {
 
-	s.v.Field = field
-
-	return s
-}
-
-func (s *_coreKnnQuery) K(k int) *_coreKnnQuery {
-
-	s.v.K = k
+	s.v.MaxChunkSize = maxchunksize
 
 	return s
 }
 
-func (s *_coreKnnQuery) NumCandidates(numcandidates int) *_coreKnnQuery {
+func (s *_chunkingSettings) Overlap(overlap int) *_chunkingSettings {
 
-	s.v.NumCandidates = numcandidates
-
-	return s
-}
-
-func (s *_coreKnnQuery) QueryVector(queryvectors ...float32) *_coreKnnQuery {
-
-	s.v.QueryVector = queryvectors
+	s.v.Overlap = &overlap
 
 	return s
 }
 
-func (s *_coreKnnQuery) CoreKnnQueryCaster() *types.CoreKnnQuery {
+func (s *_chunkingSettings) SentenceOverlap(sentenceoverlap int) *_chunkingSettings {
+
+	s.v.SentenceOverlap = &sentenceoverlap
+
+	return s
+}
+
+func (s *_chunkingSettings) Strategy(strategy string) *_chunkingSettings {
+
+	s.v.Strategy = strategy
+
+	return s
+}
+
+func (s *_chunkingSettings) ChunkingSettingsCaster() *types.ChunkingSettings {
 	return s.v
 }

@@ -35,7 +35,7 @@ func newNodesStatsFunc(t Transport) NodesStats {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -74,7 +74,7 @@ type NodesStatsRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -86,7 +86,7 @@ func (r NodesStatsRequest) Do(providedCtx context.Context, transport Transport) 
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "nodes.stats")
 		defer instrument.Close(ctx)
 	}
@@ -103,7 +103,7 @@ func (r NodesStatsRequest) Do(providedCtx context.Context, transport Transport) 
 	if len(r.NodeID) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.NodeID, ","))
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "node_id", strings.Join(r.NodeID, ","))
 		}
 	}
@@ -112,14 +112,14 @@ func (r NodesStatsRequest) Do(providedCtx context.Context, transport Transport) 
 	if len(r.Metric) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Metric, ","))
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "metric", strings.Join(r.Metric, ","))
 		}
 	}
 	if len(r.IndexMetric) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.IndexMetric, ","))
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "index_metric", strings.Join(r.IndexMetric, ","))
 		}
 	}
@@ -180,7 +180,7 @@ func (r NodesStatsRequest) Do(providedCtx context.Context, transport Transport) 
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -210,15 +210,15 @@ func (r NodesStatsRequest) Do(providedCtx context.Context, transport Transport) 
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "nodes.stats")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "nodes.stats")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

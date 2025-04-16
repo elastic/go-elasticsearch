@@ -36,7 +36,7 @@ func newMLStopDatafeedFunc(t Transport) MLStopDatafeed {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -69,7 +69,7 @@ type MLStopDatafeedRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -81,7 +81,7 @@ func (r MLStopDatafeedRequest) Do(providedCtx context.Context, transport Transpo
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ml.stop_datafeed")
 		defer instrument.Close(ctx)
 	}
@@ -99,7 +99,7 @@ func (r MLStopDatafeedRequest) Do(providedCtx context.Context, transport Transpo
 	path.WriteString("datafeeds")
 	path.WriteString("/")
 	path.WriteString(r.DatafeedID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "datafeed_id", r.DatafeedID)
 	}
 	path.WriteString("/")
@@ -137,7 +137,7 @@ func (r MLStopDatafeedRequest) Do(providedCtx context.Context, transport Transpo
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -171,18 +171,18 @@ func (r MLStopDatafeedRequest) Do(providedCtx context.Context, transport Transpo
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ml.stop_datafeed")
 		if reader := instrument.RecordRequestBody(ctx, "ml.stop_datafeed", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ml.stop_datafeed")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 package getruleset
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getruleset
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/query_rules/get_ruleset/QueryRulesetGetResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/query_rules/get_ruleset/QueryRulesetGetResponse.ts#L22-L25
 type Response struct {
 
 	// Rules Rules associated with the query ruleset.

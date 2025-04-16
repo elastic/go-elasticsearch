@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 // Run an ES|QL query.
 // Get search results for an ES|QL (Elasticsearch query language) query.
@@ -78,7 +78,7 @@ func NewQueryFunc(tp elastictransport.Interface) NewQuery {
 // Run an ES|QL query.
 // Get search results for an ES|QL (Elasticsearch query language) query.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-rest.html
+// https://www.elastic.co/docs/explore-analyze/query-filter/languages/esql-rest
 func New(tp elastictransport.Interface) *Query {
 	r := &Query{
 		transport: tp,

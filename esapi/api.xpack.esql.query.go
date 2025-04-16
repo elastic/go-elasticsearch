@@ -35,7 +35,7 @@ func newEsqlQueryFunc(t Transport) EsqlQuery {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -53,9 +53,10 @@ type EsqlQuery func(body io.Reader, o ...func(*EsqlQueryRequest)) (*Response, er
 type EsqlQueryRequest struct {
 	Body io.Reader
 
-	Delimiter       string
-	DropNullColumns *bool
-	Format          string
+	AllowPartialResults *bool
+	Delimiter           string
+	DropNullColumns     *bool
+	Format              string
 
 	Pretty     bool
 	Human      bool
@@ -66,7 +67,7 @@ type EsqlQueryRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -78,7 +79,7 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "esql.query")
 		defer instrument.Close(ctx)
 	}
@@ -93,6 +94,10 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 	path.WriteString("/_query")
 
 	params = make(map[string]string)
+
+	if r.AllowPartialResults != nil {
+		params["allow_partial_results"] = strconv.FormatBool(*r.AllowPartialResults)
+	}
 
 	if r.Delimiter != "" {
 		params["delimiter"] = r.Delimiter
@@ -124,7 +129,7 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -158,18 +163,18 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "esql.query")
 		if reader := instrument.RecordRequestBody(ctx, "esql.query", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "esql.query")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -188,6 +193,13 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 func (f EsqlQuery) WithContext(v context.Context) func(*EsqlQueryRequest) {
 	return func(r *EsqlQueryRequest) {
 		r.ctx = v
+	}
+}
+
+// WithAllowPartialResults - if `true`, partial results will be returned if there are shard failures, butthe query can continue to execute on other clusters and shards.if `false`, the entire query will fail if there areany failures..
+func (f EsqlQuery) WithAllowPartialResults(v bool) func(*EsqlQueryRequest) {
+	return func(r *EsqlQueryRequest) {
+		r.AllowPartialResults = &v
 	}
 }
 

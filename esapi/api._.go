@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0 (e653547): DO NOT EDIT
+// Code generated from specification version 9.1.0 (5383f0f): DO NOT EDIT
 
 package esapi
 
@@ -107,6 +107,8 @@ type API struct {
 	EsqlAsyncQueryGet                             EsqlAsyncQueryGet
 	EsqlAsyncQuery                                EsqlAsyncQuery
 	EsqlAsyncQueryStop                            EsqlAsyncQueryStop
+	EsqlGetQuery                                  EsqlGetQuery
+	EsqlListQueries                               EsqlListQueries
 	EsqlQuery                                     EsqlQuery
 	Exists                                        Exists
 	ExistsSource                                  ExistsSource
@@ -133,15 +135,29 @@ type API struct {
 	InferenceDelete                               InferenceDelete
 	InferenceGet                                  InferenceGet
 	InferenceInference                            InferenceInference
+	InferencePutAlibabacloud                      InferencePutAlibabacloud
+	InferencePutAmazonbedrock                     InferencePutAmazonbedrock
+	InferencePutAnthropic                         InferencePutAnthropic
+	InferencePutAzureaistudio                     InferencePutAzureaistudio
+	InferencePutAzureopenai                       InferencePutAzureopenai
+	InferencePutCohere                            InferencePutCohere
+	InferencePutElasticsearch                     InferencePutElasticsearch
+	InferencePutElser                             InferencePutElser
+	InferencePutGoogleaistudio                    InferencePutGoogleaistudio
+	InferencePutGooglevertexai                    InferencePutGooglevertexai
+	InferencePutHuggingFace                       InferencePutHuggingFace
+	InferencePutJinaai                            InferencePutJinaai
+	InferencePutMistral                           InferencePutMistral
+	InferencePutOpenai                            InferencePutOpenai
 	InferencePut                                  InferencePut
+	InferencePutVoyageai                          InferencePutVoyageai
+	InferencePutWatsonx                           InferencePutWatsonx
 	InferenceRerank                               InferenceRerank
 	InferenceSparseEmbedding                      InferenceSparseEmbedding
 	InferenceStreamCompletion                     InferenceStreamCompletion
-	InferenceStreamInference                      InferenceStreamInference
 	InferenceTextEmbedding                        InferenceTextEmbedding
 	InferenceUpdate                               InferenceUpdate
 	Info                                          Info
-	KnnSearch                                     KnnSearch
 	LogstashDeletePipeline                        LogstashDeletePipeline
 	LogstashGetPipeline                           LogstashGetPipeline
 	LogstashPutPipeline                           LogstashPutPipeline
@@ -295,6 +311,7 @@ type Indices struct {
 	DataStreamsStats        IndicesDataStreamsStats
 	DeleteAlias             IndicesDeleteAlias
 	DeleteDataLifecycle     IndicesDeleteDataLifecycle
+	DeleteDataStreamOptions IndicesDeleteDataStreamOptions
 	DeleteDataStream        IndicesDeleteDataStream
 	DeleteIndexTemplate     IndicesDeleteIndexTemplate
 	Delete                  IndicesDelete
@@ -312,6 +329,7 @@ type Indices struct {
 	GetAlias                IndicesGetAlias
 	GetDataLifecycle        IndicesGetDataLifecycle
 	GetDataLifecycleStats   IndicesGetDataLifecycleStats
+	GetDataStreamOptions    IndicesGetDataStreamOptions
 	GetDataStream           IndicesGetDataStream
 	GetFieldMapping         IndicesGetFieldMapping
 	GetIndexTemplate        IndicesGetIndexTemplate
@@ -327,6 +345,7 @@ type Indices struct {
 	PromoteDataStream       IndicesPromoteDataStream
 	PutAlias                IndicesPutAlias
 	PutDataLifecycle        IndicesPutDataLifecycle
+	PutDataStreamOptions    IndicesPutDataStreamOptions
 	PutIndexTemplate        IndicesPutIndexTemplate
 	PutMapping              IndicesPutMapping
 	PutSettings             IndicesPutSettings
@@ -344,7 +363,6 @@ type Indices struct {
 	SimulateTemplate        IndicesSimulateTemplate
 	Split                   IndicesSplit
 	Stats                   IndicesStats
-	Unfreeze                IndicesUnfreeze
 	UpdateAliases           IndicesUpdateAliases
 	ValidateQuery           IndicesValidateQuery
 }
@@ -729,6 +747,8 @@ func New(t Transport) *API {
 		EsqlAsyncQueryGet:                  newEsqlAsyncQueryGetFunc(t),
 		EsqlAsyncQuery:                     newEsqlAsyncQueryFunc(t),
 		EsqlAsyncQueryStop:                 newEsqlAsyncQueryStopFunc(t),
+		EsqlGetQuery:                       newEsqlGetQueryFunc(t),
+		EsqlListQueries:                    newEsqlListQueriesFunc(t),
 		EsqlQuery:                          newEsqlQueryFunc(t),
 		Exists:                             newExistsFunc(t),
 		ExistsSource:                       newExistsSourceFunc(t),
@@ -755,15 +775,29 @@ func New(t Transport) *API {
 		InferenceDelete:                    newInferenceDeleteFunc(t),
 		InferenceGet:                       newInferenceGetFunc(t),
 		InferenceInference:                 newInferenceInferenceFunc(t),
+		InferencePutAlibabacloud:           newInferencePutAlibabacloudFunc(t),
+		InferencePutAmazonbedrock:          newInferencePutAmazonbedrockFunc(t),
+		InferencePutAnthropic:              newInferencePutAnthropicFunc(t),
+		InferencePutAzureaistudio:          newInferencePutAzureaistudioFunc(t),
+		InferencePutAzureopenai:            newInferencePutAzureopenaiFunc(t),
+		InferencePutCohere:                 newInferencePutCohereFunc(t),
+		InferencePutElasticsearch:          newInferencePutElasticsearchFunc(t),
+		InferencePutElser:                  newInferencePutElserFunc(t),
+		InferencePutGoogleaistudio:         newInferencePutGoogleaistudioFunc(t),
+		InferencePutGooglevertexai:         newInferencePutGooglevertexaiFunc(t),
+		InferencePutHuggingFace:            newInferencePutHuggingFaceFunc(t),
+		InferencePutJinaai:                 newInferencePutJinaaiFunc(t),
+		InferencePutMistral:                newInferencePutMistralFunc(t),
+		InferencePutOpenai:                 newInferencePutOpenaiFunc(t),
 		InferencePut:                       newInferencePutFunc(t),
+		InferencePutVoyageai:               newInferencePutVoyageaiFunc(t),
+		InferencePutWatsonx:                newInferencePutWatsonxFunc(t),
 		InferenceRerank:                    newInferenceRerankFunc(t),
 		InferenceSparseEmbedding:           newInferenceSparseEmbeddingFunc(t),
 		InferenceStreamCompletion:          newInferenceStreamCompletionFunc(t),
-		InferenceStreamInference:           newInferenceStreamInferenceFunc(t),
 		InferenceTextEmbedding:             newInferenceTextEmbeddingFunc(t),
 		InferenceUpdate:                    newInferenceUpdateFunc(t),
 		Info:                               newInfoFunc(t),
-		KnnSearch:                          newKnnSearchFunc(t),
 		LogstashDeletePipeline:             newLogstashDeletePipelineFunc(t),
 		LogstashGetPipeline:                newLogstashGetPipelineFunc(t),
 		LogstashPutPipeline:                newLogstashPutPipelineFunc(t),
@@ -910,6 +944,7 @@ func New(t Transport) *API {
 			DataStreamsStats:        newIndicesDataStreamsStatsFunc(t),
 			DeleteAlias:             newIndicesDeleteAliasFunc(t),
 			DeleteDataLifecycle:     newIndicesDeleteDataLifecycleFunc(t),
+			DeleteDataStreamOptions: newIndicesDeleteDataStreamOptionsFunc(t),
 			DeleteDataStream:        newIndicesDeleteDataStreamFunc(t),
 			DeleteIndexTemplate:     newIndicesDeleteIndexTemplateFunc(t),
 			Delete:                  newIndicesDeleteFunc(t),
@@ -927,6 +962,7 @@ func New(t Transport) *API {
 			GetAlias:                newIndicesGetAliasFunc(t),
 			GetDataLifecycle:        newIndicesGetDataLifecycleFunc(t),
 			GetDataLifecycleStats:   newIndicesGetDataLifecycleStatsFunc(t),
+			GetDataStreamOptions:    newIndicesGetDataStreamOptionsFunc(t),
 			GetDataStream:           newIndicesGetDataStreamFunc(t),
 			GetFieldMapping:         newIndicesGetFieldMappingFunc(t),
 			GetIndexTemplate:        newIndicesGetIndexTemplateFunc(t),
@@ -942,6 +978,7 @@ func New(t Transport) *API {
 			PromoteDataStream:       newIndicesPromoteDataStreamFunc(t),
 			PutAlias:                newIndicesPutAliasFunc(t),
 			PutDataLifecycle:        newIndicesPutDataLifecycleFunc(t),
+			PutDataStreamOptions:    newIndicesPutDataStreamOptionsFunc(t),
 			PutIndexTemplate:        newIndicesPutIndexTemplateFunc(t),
 			PutMapping:              newIndicesPutMappingFunc(t),
 			PutSettings:             newIndicesPutSettingsFunc(t),
@@ -959,7 +996,6 @@ func New(t Transport) *API {
 			SimulateTemplate:        newIndicesSimulateTemplateFunc(t),
 			Split:                   newIndicesSplitFunc(t),
 			Stats:                   newIndicesStatsFunc(t),
-			Unfreeze:                newIndicesUnfreezeFunc(t),
 			UpdateAliases:           newIndicesUpdateAliasesFunc(t),
 			ValidateQuery:           newIndicesValidateQueryFunc(t),
 		},

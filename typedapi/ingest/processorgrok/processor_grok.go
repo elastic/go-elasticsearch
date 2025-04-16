@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 // Run a grok processor.
 // Extract structured fields out of a single text field within a document.
@@ -80,7 +80,7 @@ func NewProcessorGrokFunc(tp elastictransport.Interface) NewProcessorGrok {
 // A grok pattern is like a regular expression that supports aliased expressions
 // that can be reused.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/grok-processor.html
+// https://www.elastic.co/docs/reference/enrich-processor/grok-processor
 func New(tp elastictransport.Interface) *ProcessorGrok {
 	r := &ProcessorGrok{
 		transport: tp,

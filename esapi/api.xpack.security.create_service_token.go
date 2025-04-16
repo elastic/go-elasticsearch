@@ -33,7 +33,7 @@ func newSecurityCreateServiceTokenFunc(t Transport) SecurityCreateServiceToken {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -64,7 +64,7 @@ type SecurityCreateServiceTokenRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -76,7 +76,7 @@ func (r SecurityCreateServiceTokenRequest) Do(providedCtx context.Context, trans
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "security.create_service_token")
 		defer instrument.Close(ctx)
 	}
@@ -98,12 +98,12 @@ func (r SecurityCreateServiceTokenRequest) Do(providedCtx context.Context, trans
 	path.WriteString("service")
 	path.WriteString("/")
 	path.WriteString(r.Namespace)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "namespace", r.Namespace)
 	}
 	path.WriteString("/")
 	path.WriteString(r.Service)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "service", r.Service)
 	}
 	path.WriteString("/")
@@ -113,7 +113,7 @@ func (r SecurityCreateServiceTokenRequest) Do(providedCtx context.Context, trans
 	if r.Name != "" {
 		path.WriteString("/")
 		path.WriteString(r.Name)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "name", r.Name)
 		}
 	}
@@ -142,7 +142,7 @@ func (r SecurityCreateServiceTokenRequest) Do(providedCtx context.Context, trans
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -172,15 +172,15 @@ func (r SecurityCreateServiceTokenRequest) Do(providedCtx context.Context, trans
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "security.create_service_token")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "security.create_service_token")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

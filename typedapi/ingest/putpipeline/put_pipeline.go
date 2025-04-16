@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 // Create or update a pipeline.
 // Changes made using this API take effect immediately.
@@ -85,7 +85,7 @@ func NewPutPipelineFunc(tp elastictransport.Interface) NewPutPipeline {
 // Create or update a pipeline.
 // Changes made using this API take effect immediately.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ingest.html
+// https://www.elastic.co/docs/manage-data/ingest/transform-enrich/ingest-pipelines
 func New(tp elastictransport.Interface) *PutPipeline {
 	r := &PutPipeline{
 		transport: tp,

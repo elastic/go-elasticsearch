@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 package putcalendar
 
@@ -31,7 +31,7 @@ import (
 
 // Response holds the response body struct for the package putcalendar
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/ml/put_calendar/MlPutCalendarResponse.ts#L22-L31
+// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/ml/put_calendar/MlPutCalendarResponse.ts#L22-L31
 type Response struct {
 
 	// CalendarId A string that uniquely identifies a calendar.

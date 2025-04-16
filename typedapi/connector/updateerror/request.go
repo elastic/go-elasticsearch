@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 package updateerror
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package updateerror
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/connector/update_error/ConnectorUpdateErrorRequest.ts#L23-L54
+// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/connector/update_error/ConnectorUpdateErrorRequest.ts#L23-L54
 type Request struct {
 	Error any `json:"error"`
 }
