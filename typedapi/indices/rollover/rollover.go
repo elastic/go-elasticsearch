@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Roll over to a new index.
 // TIP: It is recommended to use the index lifecycle rollover action to automate
@@ -486,6 +486,16 @@ func (r *Rollover) Timeout(duration string) *Rollover {
 // API name: wait_for_active_shards
 func (r *Rollover) WaitForActiveShards(waitforactiveshards string) *Rollover {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
+
+	return r
+}
+
+// Lazy If set to true, the rollover action will only mark a data stream to signal
+// that it needs to be rolled over at the next write.
+// Only allowed on data streams.
+// API name: lazy
+func (r *Rollover) Lazy(lazy bool) *Rollover {
+	r.values.Set("lazy", strconv.FormatBool(lazy))
 
 	return r
 }

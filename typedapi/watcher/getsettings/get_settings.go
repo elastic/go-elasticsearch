@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Get Watcher index settings.
 // Get settings for the Watcher internal index (`.watches`).
@@ -76,7 +76,7 @@ func NewGetSettingsFunc(tp elastictransport.Interface) NewGetSettings {
 // Only a subset of settings are shown, for example `index.auto_expand_replicas`
 // and `index.number_of_replicas`.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-settings.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-get-settings
 func New(tp elastictransport.Interface) *GetSettings {
 	r := &GetSettings{
 		transport: tp,

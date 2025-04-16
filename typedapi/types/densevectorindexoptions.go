@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DenseVectorIndexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/mapping/DenseVectorProperty.ts#L129-L162
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/mapping/DenseVectorProperty.ts#L129-L162
 type DenseVectorIndexOptions struct {
 	// ConfidenceInterval The confidence interval to use when quantizing the vectors. Can be any value
 	// between and including `0.90` and
@@ -56,11 +56,13 @@ type DenseVectorIndexOptions struct {
 	// EfConstruction The number of candidates to track while assembling the list of nearest
 	// neighbors for each new node.
 	//
-	// Only applicable to `hnsw`, `int8_hnsw`, and `int4_hnsw` index types.
+	// Only applicable to `hnsw`, `int8_hnsw`, `bbq_hnsw`, and `int4_hnsw` index
+	// types.
 	EfConstruction *int `json:"ef_construction,omitempty"`
 	// M The number of neighbors each node will be connected to in the HNSW graph.
 	//
-	// Only applicable to `hnsw`, `int8_hnsw`, and `int4_hnsw` index types.
+	// Only applicable to `hnsw`, `int8_hnsw`, `bbq_hnsw`, and `int4_hnsw` index
+	// types.
 	M *int `json:"m,omitempty"`
 	// Type The type of kNN algorithm to use.
 	Type densevectorindexoptionstype.DenseVectorIndexOptionsType `json:"type"`

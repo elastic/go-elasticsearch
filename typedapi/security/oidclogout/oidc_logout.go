@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Logout of OpenID Connect.
 //
@@ -364,19 +364,6 @@ func (r *OidcLogout) Pretty(pretty bool) *OidcLogout {
 	return r
 }
 
-// The access token to be invalidated.
-// API name: access_token
-func (r *OidcLogout) AccessToken(accesstoken string) *OidcLogout {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.AccessToken = accesstoken
-
-	return r
-}
-
 // The refresh token to be invalidated.
 // API name: refresh_token
 func (r *OidcLogout) RefreshToken(refreshtoken string) *OidcLogout {
@@ -386,6 +373,19 @@ func (r *OidcLogout) RefreshToken(refreshtoken string) *OidcLogout {
 	}
 
 	r.req.RefreshToken = &refreshtoken
+
+	return r
+}
+
+// The access token to be invalidated.
+// API name: token
+func (r *OidcLogout) Token(token string) *OidcLogout {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Token = token
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Stop the watch service.
 // Stop the Watcher service if it is running.
@@ -72,7 +72,7 @@ func NewStopFunc(tp elastictransport.Interface) NewStop {
 // Stop the watch service.
 // Stop the Watcher service if it is running.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stop.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-stop
 func New(tp elastictransport.Interface) *Stop {
 	r := &Stop{
 		transport: tp,

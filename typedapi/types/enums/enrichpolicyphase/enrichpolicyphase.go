@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Package enrichpolicyphase
 package enrichpolicyphase
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/enrich/execute_policy/types.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/enrich/execute_policy/types.ts#L25-L31
 type EnrichPolicyPhase struct {
 	Name string
 }
@@ -36,6 +36,8 @@ var (
 	COMPLETE = EnrichPolicyPhase{"COMPLETE"}
 
 	FAILED = EnrichPolicyPhase{"FAILED"}
+
+	CANCELLED = EnrichPolicyPhase{"CANCELLED"}
 )
 
 func (e EnrichPolicyPhase) MarshalText() (text []byte, err error) {
@@ -53,6 +55,8 @@ func (e *EnrichPolicyPhase) UnmarshalText(text []byte) error {
 		*e = COMPLETE
 	case "failed":
 		*e = FAILED
+	case "cancelled":
+		*e = CANCELLED
 	default:
 		*e = EnrichPolicyPhase{string(text)}
 	}

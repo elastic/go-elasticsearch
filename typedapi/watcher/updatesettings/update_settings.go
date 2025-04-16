@@ -16,12 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Update Watcher index settings.
 // Update settings for the Watcher internal index (`.watches`).
 // Only a subset of settings can be modified.
-// This includes `index.auto_expand_replicas` and `index.number_of_replicas`.
+// This includes `index.auto_expand_replicas`, `index.number_of_replicas`,
+// `index.routing.allocation.exclude.*`,
+// `index.routing.allocation.include.*` and
+// `index.routing.allocation.require.*`.
+// Modification of `index.routing.allocation.include._tier_preference` is an
+// exception and is not allowed as the
+// Watcher shards must always be in the `data_content` tier.
 package updatesettings
 
 import (
@@ -79,9 +85,15 @@ func NewUpdateSettingsFunc(tp elastictransport.Interface) NewUpdateSettings {
 // Update Watcher index settings.
 // Update settings for the Watcher internal index (`.watches`).
 // Only a subset of settings can be modified.
-// This includes `index.auto_expand_replicas` and `index.number_of_replicas`.
+// This includes `index.auto_expand_replicas`, `index.number_of_replicas`,
+// `index.routing.allocation.exclude.*`,
+// `index.routing.allocation.include.*` and
+// `index.routing.allocation.require.*`.
+// Modification of `index.routing.allocation.include._tier_preference` is an
+// exception and is not allowed as the
+// Watcher shards must always be in the `data_content` tier.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-update-settings.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-update-settings
 func New(tp elastictransport.Interface) *UpdateSettings {
 	r := &UpdateSettings{
 		transport: tp,

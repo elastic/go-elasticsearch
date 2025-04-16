@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MultisearchBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/msearch/types.ts#L70-L204
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/msearch/types.ts#L70-L204
 type MultisearchBody struct {
 	Aggregations map[string]Aggregations `json:"aggregations,omitempty"`
 	Collapse     *FieldCollapse          `json:"collapse,omitempty"`
@@ -56,8 +56,9 @@ type MultisearchBody struct {
 	IndicesBoost []map[string]Float64 `json:"indices_boost,omitempty"`
 	// Knn Defines the approximate kNN search to run.
 	Knn []KnnSearch `json:"knn,omitempty"`
-	// MinScore Minimum _score for matching documents. Documents with a lower _score are
-	// not included in the search results.
+	// MinScore The minimum `_score` for matching documents.
+	// Documents with a lower `_score` are not included in search results and
+	// results collected by aggregations.
 	MinScore *Float64 `json:"min_score,omitempty"`
 	// Pit Limits the search to a point in time (PIT). If you provide a PIT, you
 	// cannot specify an <index> in the request path.

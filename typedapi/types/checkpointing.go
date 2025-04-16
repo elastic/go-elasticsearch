@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package types
 
@@ -31,14 +31,15 @@ import (
 
 // Checkpointing type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/transform/get_transform_stats/types.ts#L85-L92
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/transform/get_transform_stats/types.ts#L102-L110
 type Checkpointing struct {
-	ChangesLastDetectedAt         *int64           `json:"changes_last_detected_at,omitempty"`
-	ChangesLastDetectedAtDateTime DateTime         `json:"changes_last_detected_at_date_time,omitempty"`
-	Last                          CheckpointStats  `json:"last"`
-	LastSearchTime                *int64           `json:"last_search_time,omitempty"`
-	Next                          *CheckpointStats `json:"next,omitempty"`
-	OperationsBehind              *int64           `json:"operations_behind,omitempty"`
+	ChangesLastDetectedAt       *int64           `json:"changes_last_detected_at,omitempty"`
+	ChangesLastDetectedAtString DateTime         `json:"changes_last_detected_at_string,omitempty"`
+	Last                        CheckpointStats  `json:"last"`
+	LastSearchTime              *int64           `json:"last_search_time,omitempty"`
+	LastSearchTimeString        DateTime         `json:"last_search_time_string,omitempty"`
+	Next                        *CheckpointStats `json:"next,omitempty"`
+	OperationsBehind            *int64           `json:"operations_behind,omitempty"`
 }
 
 func (s *Checkpointing) UnmarshalJSON(data []byte) error {
@@ -71,9 +72,9 @@ func (s *Checkpointing) UnmarshalJSON(data []byte) error {
 				s.ChangesLastDetectedAt = &f
 			}
 
-		case "changes_last_detected_at_date_time":
-			if err := dec.Decode(&s.ChangesLastDetectedAtDateTime); err != nil {
-				return fmt.Errorf("%s | %w", "ChangesLastDetectedAtDateTime", err)
+		case "changes_last_detected_at_string":
+			if err := dec.Decode(&s.ChangesLastDetectedAtString); err != nil {
+				return fmt.Errorf("%s | %w", "ChangesLastDetectedAtString", err)
 			}
 
 		case "last":
@@ -94,6 +95,11 @@ func (s *Checkpointing) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.LastSearchTime = &f
+			}
+
+		case "last_search_time_string":
+			if err := dec.Decode(&s.LastSearchTimeString); err != nil {
+				return fmt.Errorf("%s | %w", "LastSearchTimeString", err)
 			}
 
 		case "next":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package delegatepki
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package delegatepki
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/security/delegate_pki/SecurityDelegatePkiResponse.ts#L24-L41
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/security/delegate_pki/SecurityDelegatePkiResponse.ts#L24-L41
 type Response struct {
 
 	// AccessToken An access token associated with the subject distinguished name of the

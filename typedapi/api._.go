@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package typedapi
 
@@ -264,8 +264,23 @@ import (
 	inference_completion "github.com/elastic/go-elasticsearch/v8/typedapi/inference/completion"
 	inference_delete "github.com/elastic/go-elasticsearch/v8/typedapi/inference/delete"
 	inference_get "github.com/elastic/go-elasticsearch/v8/typedapi/inference/get"
+	inference_inference "github.com/elastic/go-elasticsearch/v8/typedapi/inference/inference"
 	inference_put "github.com/elastic/go-elasticsearch/v8/typedapi/inference/put"
+	inference_put_alibabacloud "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putalibabacloud"
+	inference_put_amazonbedrock "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putamazonbedrock"
+	inference_put_anthropic "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putanthropic"
+	inference_put_azureaistudio "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putazureaistudio"
+	inference_put_azureopenai "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putazureopenai"
+	inference_put_cohere "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putcohere"
+	inference_put_elasticsearch "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putelasticsearch"
+	inference_put_elser "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putelser"
+	inference_put_googleaistudio "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putgoogleaistudio"
+	inference_put_googlevertexai "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putgooglevertexai"
+	inference_put_hugging_face "github.com/elastic/go-elasticsearch/v8/typedapi/inference/puthuggingface"
+	inference_put_jinaai "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putjinaai"
+	inference_put_mistral "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putmistral"
 	inference_put_openai "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putopenai"
+	inference_put_voyageai "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putvoyageai"
 	inference_put_watsonx "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putwatsonx"
 	inference_rerank "github.com/elastic/go-elasticsearch/v8/typedapi/inference/rerank"
 	inference_sparse_embedding "github.com/elastic/go-elasticsearch/v8/typedapi/inference/sparseembedding"
@@ -1091,7 +1106,7 @@ type Cluster struct {
 	DeleteComponentTemplate cluster_delete_component_template.NewDeleteComponentTemplate
 	// Clear cluster voting config exclusions.
 	// Remove master-eligible nodes from the voting configuration exclusion list.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/voting-config-exclusions.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-cluster-post-voting-config-exclusions
 	DeleteVotingConfigExclusions cluster_delete_voting_config_exclusions.NewDeleteVotingConfigExclusions
 	// Check component templates.
 	// Returns information about whether a particular component template exists.
@@ -1179,7 +1194,7 @@ type Cluster struct {
 	// the master-eligible nodes from a cluster in a short time period.
 	// They are not required when removing master-ineligible nodes or when removing
 	// fewer than half of the master-eligible nodes.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/voting-config-exclusions.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-cluster-post-voting-config-exclusions
 	PostVotingConfigExclusions cluster_post_voting_config_exclusions.NewPostVotingConfigExclusions
 	// Create or update a component template.
 	// Component templates are building blocks for constructing index templates that
@@ -4932,6 +4947,28 @@ type Inference struct {
 	// Get an inference endpoint
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference-api.html
 	Get inference_get.NewGet
+	// Perform inference on the service.
+	//
+	// This API enables you to use machine learning models to perform specific tasks
+	// on data that you provide as an input.
+	// It returns a response with the results of the tasks.
+	// The inference endpoint you use can perform one specific task that has been
+	// defined when the endpoint was created with the create inference API.
+	//
+	// For details about using this API with a service, such as Amazon Bedrock,
+	// Anthropic, or HuggingFace, refer to the service-specific documentation.
+	//
+	// > info
+	// > The inference APIs enable you to use certain services, such as built-in
+	// machine learning models (ELSER, E5), models uploaded through Eland, Cohere,
+	// OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic, Watsonx.ai, or
+	// Hugging Face. For built-in models and models uploaded through Eland, the
+	// inference APIs offer an alternative way to use and manage trained models.
+	// However, if you do not plan to use the inference APIs to use these models or
+	// if you want to use non-NLP models, use the machine learning trained model
+	// APIs.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/post-inference-api.html
+	Inference inference_inference.NewInference
 	// Create an inference endpoint.
 	// When you create an inference endpoint, the associated machine learning model
 	// is automatically deployed if it is not already running.
@@ -4954,10 +4991,288 @@ type Inference struct {
 	// APIs.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-inference-api.html
 	Put inference_put.NewPut
+	// Create an AlibabaCloud AI Search inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `alibabacloud-ai-search` service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-alibabacloud-ai-search.html
+	PutAlibabacloud inference_put_alibabacloud.NewPutAlibabacloud
+	// Create an Amazon Bedrock inference endpoint.
+	//
+	// Creates an inference endpoint to perform an inference task with the
+	// `amazonbedrock` service.
+	//
+	// >info
+	// > You need to provide the access and secret keys only once, during the
+	// inference model creation. The get inference API does not retrieve your access
+	// or secret keys. After creating the inference model, you cannot change the
+	// associated key pairs. If you want to use a different access and secret key
+	// pair, delete the inference model and recreate it with the same name and the
+	// updated keys.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-amazon-bedrock.html
+	PutAmazonbedrock inference_put_amazonbedrock.NewPutAmazonbedrock
+	// Create an Anthropic inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `anthropic` service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-anthropic.html
+	PutAnthropic inference_put_anthropic.NewPutAnthropic
+	// Create an Azure AI studio inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `azureaistudio` service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-azure-ai-studio.html
+	PutAzureaistudio inference_put_azureaistudio.NewPutAzureaistudio
+	// Create an Azure OpenAI inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `azureopenai` service.
+	//
+	// The list of chat completion models that you can choose from in your Azure
+	// OpenAI deployment include:
+	//
+	// * [GPT-4 and GPT-4 Turbo
+	// models](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-4-and-gpt-4-turbo-models)
+	// *
+	// [GPT-3.5](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-35)
+	//
+	// The list of embeddings models that you can choose from in your deployment can
+	// be found in the [Azure models
+	// documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#embeddings).
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-azure-openai.html
+	PutAzureopenai inference_put_azureopenai.NewPutAzureopenai
+	// Create a Cohere inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the `cohere`
+	// service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-cohere.html
+	PutCohere inference_put_cohere.NewPutCohere
+	// Create an Elasticsearch inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `elasticsearch` service.
+	//
+	// > info
+	// > Your Elasticsearch deployment contains preconfigured ELSER and E5 inference
+	// endpoints, you only need to create the enpoints using the API if you want to
+	// customize the settings.
+	//
+	// If you use the ELSER or the E5 model through the `elasticsearch` service, the
+	// API request will automatically download and deploy the model if it isn't
+	// downloaded yet.
+	//
+	// > info
+	// > You might see a 502 bad gateway error in the response when using the Kibana
+	// Console. This error usually just reflects a timeout, while the model
+	// downloads in the background. You can check the download progress in the
+	// Machine Learning UI. If using the Python client, you can set the timeout
+	// parameter to a higher value.
+	//
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-elasticsearch.html
+	PutElasticsearch inference_put_elasticsearch.NewPutElasticsearch
+	// Create an ELSER inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the `elser`
+	// service.
+	// You can also deploy ELSER by using the Elasticsearch inference integration.
+	//
+	// > info
+	// > Your Elasticsearch deployment contains a preconfigured ELSER inference
+	// endpoint, you only need to create the enpoint using the API if you want to
+	// customize the settings.
+	//
+	// The API request will automatically download and deploy the ELSER model if it
+	// isn't already downloaded.
+	//
+	// > info
+	// > You might see a 502 bad gateway error in the response when using the Kibana
+	// Console. This error usually just reflects a timeout, while the model
+	// downloads in the background. You can check the download progress in the
+	// Machine Learning UI. If using the Python client, you can set the timeout
+	// parameter to a higher value.
+	//
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-elser.html
+	PutElser inference_put_elser.NewPutElser
+	// Create an Google AI Studio inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `googleaistudio` service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-google-ai-studio.html
+	PutGoogleaistudio inference_put_googleaistudio.NewPutGoogleaistudio
+	// Create a Google Vertex AI inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `googlevertexai` service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-google-vertex-ai.html
+	PutGooglevertexai inference_put_googlevertexai.NewPutGooglevertexai
+	// Create a Hugging Face inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `hugging_face` service.
+	//
+	// You must first create an inference endpoint on the Hugging Face endpoint page
+	// to get an endpoint URL.
+	// Select the model you want to use on the new endpoint creation page (for
+	// example `intfloat/e5-small-v2`), then select the sentence embeddings task
+	// under the advanced configuration section.
+	// Create the endpoint and copy the URL after the endpoint initialization has
+	// been finished.
+	//
+	// The following models are recommended for the Hugging Face service:
+	//
+	// * `all-MiniLM-L6-v2`
+	// * `all-MiniLM-L12-v2`
+	// * `all-mpnet-base-v2`
+	// * `e5-base-v2`
+	// * `e5-small-v2`
+	// * `multilingual-e5-base`
+	// * `multilingual-e5-small`
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-hugging-face.html
+	PutHuggingFace inference_put_hugging_face.NewPutHuggingFace
+	// Create an JinaAI inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the `jinaai`
+	// service.
+	//
+	// To review the available `rerank` models, refer to <https://jina.ai/reranker>.
+	// To review the available `text_embedding` models, refer to the
+	// <https://jina.ai/embeddings/>.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-jinaai.html
+	PutJinaai inference_put_jinaai.NewPutJinaai
+	// Create a Mistral inference endpoint.
+	//
+	// Creates an inference endpoint to perform an inference task with the `mistral`
+	// service.
+	//
+	// When you create an inference endpoint, the associated machine learning model
+	// is automatically deployed if it is not already running.
+	// After creating the endpoint, wait for the model deployment to complete before
+	// using it.
+	// To verify the deployment status, use the get trained model statistics API.
+	// Look for `"state": "fully_allocated"` in the response and ensure that the
+	// `"allocation_count"` matches the `"target_allocation_count"`.
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-mistral.html
+	PutMistral inference_put_mistral.NewPutMistral
 	// Create an OpenAI inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the `openai`
-	// service.
+	// service or `openai` compatible APIs.
 	//
 	// When you create an inference endpoint, the associated machine learning model
 	// is automatically deployed if it is not already running.
@@ -4970,6 +5285,15 @@ type Inference struct {
 	// endpoint consumes significant resources.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-openai.html
 	PutOpenai inference_put_openai.NewPutOpenai
+	// Create a VoyageAI inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the `voyageai`
+	// service.
+	//
+	// Avoid creating multiple endpoints for the same model unless required, as each
+	// endpoint consumes significant resources.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-voyageai.html
+	PutVoyageai inference_put_voyageai.NewPutVoyageai
 	// Create a Watsonx inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the
@@ -5140,7 +5464,7 @@ type License struct {
 	// before you install the license.
 	// If the operator privileges feature is enabled, only operator users can use
 	// this API.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-license.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-license-post
 	Post license_post.NewPost
 	// Start a basic license.
 	//
@@ -5719,7 +6043,7 @@ type Ml struct {
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/stop-trained-model-deployment.html
 	StopTrainedModelDeployment ml_stop_trained_model_deployment.NewStopTrainedModelDeployment
 	// Update a data frame analytics job.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-dfanalytics.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-ml-update-data-frame-analytics
 	UpdateDataFrameAnalytics ml_update_data_frame_analytics.NewUpdateDataFrameAnalytics
 	// Update a datafeed.
 	// You must stop and start the datafeed for the changes to be applied.
@@ -5744,7 +6068,7 @@ type Ml struct {
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-snapshot.html
 	UpdateModelSnapshot ml_update_model_snapshot.NewUpdateModelSnapshot
 	// Update a trained model deployment.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-trained-model-deployment.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-ml-update-trained-model-deployment
 	UpdateTrainedModelDeployment ml_update_trained_model_deployment.NewUpdateTrainedModelDeployment
 	// Upgrade a snapshot.
 	// Upgrade an anomaly detection model snapshot to the latest major version.
@@ -8045,7 +8369,7 @@ type Transform struct {
 	// Elasticsearch security features are enabled, the transform remembers which
 	// roles the user who updated it had at the
 	// time of update and runs with those privileges.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-transform.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-transform-update-transform
 	UpdateTransform transform_update_transform.NewUpdateTransform
 	// Upgrade all transforms.
 	//
@@ -8071,7 +8395,7 @@ type Transform struct {
 	// of the cluster – for example, from 7.16 to 8.0 – it is recommended to upgrade
 	// transforms before upgrading the cluster.
 	// You may want to perform a recent cluster backup prior to the upgrade.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/upgrade-transforms.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-transform-upgrade-transforms
 	UpgradeTransforms transform_upgrade_transforms.NewUpgradeTransforms
 }
 
@@ -8092,15 +8416,15 @@ type Watcher struct {
 	// `ack.state` is reset to `awaits_successful_execution`.
 	// This happens when the condition of the watch is not met (the condition
 	// evaluates to false).
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-ack-watch.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-ack-watch
 	AckWatch watcher_ack_watch.NewAckWatch
 	// Activate a watch.
 	// A watch can be either active or inactive.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-activate-watch.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-activate-watch
 	ActivateWatch watcher_activate_watch.NewActivateWatch
 	// Deactivate a watch.
 	// A watch can be either active or inactive.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-deactivate-watch.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-deactivate-watch
 	DeactivateWatch watcher_deactivate_watch.NewDeactivateWatch
 	// Delete a watch.
 	// When the watch is removed, the document representing the watch in the
@@ -8114,7 +8438,7 @@ type Watcher struct {
 	// Elasticsearch delete document API
 	// When Elasticsearch security features are enabled, make sure no write
 	// privileges are granted to anyone for the `.watches` index.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-delete-watch.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-delete-watch
 	DeleteWatch watcher_delete_watch.NewDeleteWatch
 	// Run a watch.
 	// This API can be used to force execution of the watch outside of its
@@ -8140,16 +8464,16 @@ type Watcher struct {
 	// When using the run watch API, the authorization data of the user that called
 	// the API will be used as a base, instead of the information who stored the
 	// watch.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-execute-watch.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-execute-watch
 	ExecuteWatch watcher_execute_watch.NewExecuteWatch
 	// Get Watcher index settings.
 	// Get settings for the Watcher internal index (`.watches`).
 	// Only a subset of settings are shown, for example `index.auto_expand_replicas`
 	// and `index.number_of_replicas`.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-settings.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-get-settings
 	GetSettings watcher_get_settings.NewGetSettings
 	// Get a watch.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-watch.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-get-watch
 	GetWatch watcher_get_watch.NewGetWatch
 	// Create or update a watch.
 	// When a watch is registered, a new document that represents the watch is added
@@ -8171,33 +8495,39 @@ type Watcher struct {
 	// privileges.
 	// If the user is able to read index `a`, but not index `b`, the same will apply
 	// when the watch runs.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-put-watch.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-put-watch
 	PutWatch watcher_put_watch.NewPutWatch
 	// Query watches.
 	// Get all registered watches in a paginated manner and optionally filter
 	// watches by a query.
 	//
 	// Note that only the `_id` and `metadata.*` fields are queryable or sortable.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-query-watches.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-query-watches
 	QueryWatches watcher_query_watches.NewQueryWatches
 	// Start the watch service.
 	// Start the Watcher service if it is not already running.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-start.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-start
 	Start watcher_start.NewStart
 	// Get Watcher statistics.
 	// This API always returns basic metrics.
 	// You retrieve more metrics by using the metric parameter.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stats.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-stats
 	Stats watcher_stats.NewStats
 	// Stop the watch service.
 	// Stop the Watcher service if it is running.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stop.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-stop
 	Stop watcher_stop.NewStop
 	// Update Watcher index settings.
 	// Update settings for the Watcher internal index (`.watches`).
 	// Only a subset of settings can be modified.
-	// This includes `index.auto_expand_replicas` and `index.number_of_replicas`.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-update-settings.html
+	// This includes `index.auto_expand_replicas`, `index.number_of_replicas`,
+	// `index.routing.allocation.exclude.*`,
+	// `index.routing.allocation.include.*` and
+	// `index.routing.allocation.require.*`.
+	// Modification of `index.routing.allocation.include._tier_preference` is an
+	// exception and is not allowed as the
+	// Watcher shards must always be in the `data_content` tier.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-update-settings
 	UpdateSettings watcher_update_settings.NewUpdateSettings
 }
 
@@ -8215,7 +8545,7 @@ type Xpack struct {
 	// Get information about the features that are currently enabled and available
 	// under the current license.
 	// The API also provides some usage statistics.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/usage-api.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v8/group/endpoint-xpack
 	Usage xpack_usage.NewUsage
 }
 
@@ -10488,8 +10818,23 @@ func New(tp elastictransport.Interface) *API {
 			Completion:            inference_completion.NewCompletionFunc(tp),
 			Delete:                inference_delete.NewDeleteFunc(tp),
 			Get:                   inference_get.NewGetFunc(tp),
+			Inference:             inference_inference.NewInferenceFunc(tp),
 			Put:                   inference_put.NewPutFunc(tp),
+			PutAlibabacloud:       inference_put_alibabacloud.NewPutAlibabacloudFunc(tp),
+			PutAmazonbedrock:      inference_put_amazonbedrock.NewPutAmazonbedrockFunc(tp),
+			PutAnthropic:          inference_put_anthropic.NewPutAnthropicFunc(tp),
+			PutAzureaistudio:      inference_put_azureaistudio.NewPutAzureaistudioFunc(tp),
+			PutAzureopenai:        inference_put_azureopenai.NewPutAzureopenaiFunc(tp),
+			PutCohere:             inference_put_cohere.NewPutCohereFunc(tp),
+			PutElasticsearch:      inference_put_elasticsearch.NewPutElasticsearchFunc(tp),
+			PutElser:              inference_put_elser.NewPutElserFunc(tp),
+			PutGoogleaistudio:     inference_put_googleaistudio.NewPutGoogleaistudioFunc(tp),
+			PutGooglevertexai:     inference_put_googlevertexai.NewPutGooglevertexaiFunc(tp),
+			PutHuggingFace:        inference_put_hugging_face.NewPutHuggingFaceFunc(tp),
+			PutJinaai:             inference_put_jinaai.NewPutJinaaiFunc(tp),
+			PutMistral:            inference_put_mistral.NewPutMistralFunc(tp),
 			PutOpenai:             inference_put_openai.NewPutOpenaiFunc(tp),
+			PutVoyageai:           inference_put_voyageai.NewPutVoyageaiFunc(tp),
 			PutWatsonx:            inference_put_watsonx.NewPutWatsonxFunc(tp),
 			Rerank:                inference_rerank.NewRerankFunc(tp),
 			SparseEmbedding:       inference_sparse_embedding.NewSparseEmbeddingFunc(tp),

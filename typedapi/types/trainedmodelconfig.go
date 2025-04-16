@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // TrainedModelConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/TrainedModel.ts#L203-L239
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/TrainedModel.ts#L203-L240
 type TrainedModelConfig struct {
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
 	// CreateTime The time when the trained model was created.
@@ -68,8 +68,9 @@ type TrainedModelConfig struct {
 	ModelPackage   *ModelPackageConfig `json:"model_package,omitempty"`
 	ModelSizeBytes ByteSize            `json:"model_size_bytes,omitempty"`
 	// ModelType The model type
-	ModelType     *trainedmodeltype.TrainedModelType `json:"model_type,omitempty"`
-	PrefixStrings *TrainedModelPrefixStrings         `json:"prefix_strings,omitempty"`
+	ModelType            *trainedmodeltype.TrainedModelType `json:"model_type,omitempty"`
+	PlatformArchitecture *string                            `json:"platform_architecture,omitempty"`
+	PrefixStrings        *TrainedModelPrefixStrings         `json:"prefix_strings,omitempty"`
 	// Tags A comma delimited string of tags. A trained model can have many tags, or
 	// none.
 	Tags []string `json:"tags"`
@@ -238,6 +239,18 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.ModelType); err != nil {
 				return fmt.Errorf("%s | %w", "ModelType", err)
 			}
+
+		case "platform_architecture":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "PlatformArchitecture", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.PlatformArchitecture = &o
 
 		case "prefix_strings":
 			if err := dec.Decode(&s.PrefixStrings); err != nil {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Update index settings.
 // Changes dynamic index settings in real time.
@@ -423,6 +423,16 @@ func (r *PutSettings) MasterTimeout(duration string) *PutSettings {
 // API name: preserve_existing
 func (r *PutSettings) PreserveExisting(preserveexisting bool) *PutSettings {
 	r.values.Set("preserve_existing", strconv.FormatBool(preserveexisting))
+
+	return r
+}
+
+// Reopen Whether to close and reopen the index to apply non-dynamic settings.
+// If set to `true` the indices to which the settings are being applied
+// will be closed temporarily and then reopened in order to apply the changes.
+// API name: reopen
+func (r *PutSettings) Reopen(reopen bool) *PutSettings {
+	r.values.Set("reopen", strconv.FormatBool(reopen))
 
 	return r
 }

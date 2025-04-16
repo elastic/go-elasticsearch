@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package textembedding
 
@@ -28,7 +28,7 @@ import (
 
 // Response holds the response body struct for the package textembedding
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/inference/text_embedding/TextEmbeddingResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/text_embedding/TextEmbeddingResponse.ts#L22-L24
 type Response struct {
 	AdditionalTextEmbeddingInferenceResultProperty map[string]json.RawMessage      `json:"-"`
 	TextEmbedding                                  []types.TextEmbeddingResult     `json:"text_embedding,omitempty"`

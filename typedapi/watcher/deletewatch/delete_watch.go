@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Delete a watch.
 // When the watch is removed, the document representing the watch in the
@@ -100,7 +100,7 @@ func NewDeleteWatchFunc(tp elastictransport.Interface) NewDeleteWatch {
 // When Elasticsearch security features are enabled, make sure no write
 // privileges are granted to anyone for the `.watches` index.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-delete-watch.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-delete-watch
 func New(tp elastictransport.Interface) *DeleteWatch {
 	r := &DeleteWatch{
 		transport: tp,
