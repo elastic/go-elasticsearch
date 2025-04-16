@@ -33,7 +33,7 @@ func newSecurityGetPrivilegesFunc(t Transport) SecurityGetPrivileges {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -61,7 +61,7 @@ type SecurityGetPrivilegesRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -73,7 +73,7 @@ func (r SecurityGetPrivilegesRequest) Do(providedCtx context.Context, transport 
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "security.get_privileges")
 		defer instrument.Close(ctx)
 	}
@@ -92,14 +92,14 @@ func (r SecurityGetPrivilegesRequest) Do(providedCtx context.Context, transport 
 	if r.Application != "" {
 		path.WriteString("/")
 		path.WriteString(r.Application)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "application", r.Application)
 		}
 	}
 	if r.Name != "" {
 		path.WriteString("/")
 		path.WriteString(r.Name)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "name", r.Name)
 		}
 	}
@@ -124,7 +124,7 @@ func (r SecurityGetPrivilegesRequest) Do(providedCtx context.Context, transport 
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -154,15 +154,15 @@ func (r SecurityGetPrivilegesRequest) Do(providedCtx context.Context, transport 
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "security.get_privileges")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "security.get_privileges")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

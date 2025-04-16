@@ -34,7 +34,7 @@ func newInferenceRerankFunc(t Transport) InferenceRerank {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -63,7 +63,7 @@ type InferenceRerankRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -75,7 +75,7 @@ func (r InferenceRerankRequest) Do(providedCtx context.Context, transport Transp
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "inference.rerank")
 		defer instrument.Close(ctx)
 	}
@@ -93,7 +93,7 @@ func (r InferenceRerankRequest) Do(providedCtx context.Context, transport Transp
 	path.WriteString("rerank")
 	path.WriteString("/")
 	path.WriteString(r.InferenceID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
 	}
 
@@ -117,7 +117,7 @@ func (r InferenceRerankRequest) Do(providedCtx context.Context, transport Transp
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -151,18 +151,18 @@ func (r InferenceRerankRequest) Do(providedCtx context.Context, transport Transp
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "inference.rerank")
 		if reader := instrument.RecordRequestBody(ctx, "inference.rerank", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "inference.rerank")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

@@ -35,7 +35,7 @@ func newMLUpdateDatafeedFunc(t Transport) MLUpdateDatafeed {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -69,7 +69,7 @@ type MLUpdateDatafeedRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -81,7 +81,7 @@ func (r MLUpdateDatafeedRequest) Do(providedCtx context.Context, transport Trans
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ml.update_datafeed")
 		defer instrument.Close(ctx)
 	}
@@ -99,7 +99,7 @@ func (r MLUpdateDatafeedRequest) Do(providedCtx context.Context, transport Trans
 	path.WriteString("datafeeds")
 	path.WriteString("/")
 	path.WriteString(r.DatafeedID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "datafeed_id", r.DatafeedID)
 	}
 	path.WriteString("/")
@@ -141,7 +141,7 @@ func (r MLUpdateDatafeedRequest) Do(providedCtx context.Context, transport Trans
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -175,18 +175,18 @@ func (r MLUpdateDatafeedRequest) Do(providedCtx context.Context, transport Trans
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ml.update_datafeed")
 		if reader := instrument.RecordRequestBody(ctx, "ml.update_datafeed", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ml.update_datafeed")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

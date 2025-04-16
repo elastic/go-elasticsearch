@@ -34,7 +34,7 @@ func newMLPutCalendarFunc(t Transport) MLPutCalendar {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -63,7 +63,7 @@ type MLPutCalendarRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -75,7 +75,7 @@ func (r MLPutCalendarRequest) Do(providedCtx context.Context, transport Transpor
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ml.put_calendar")
 		defer instrument.Close(ctx)
 	}
@@ -93,7 +93,7 @@ func (r MLPutCalendarRequest) Do(providedCtx context.Context, transport Transpor
 	path.WriteString("calendars")
 	path.WriteString("/")
 	path.WriteString(r.CalendarID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "calendar_id", r.CalendarID)
 	}
 
@@ -117,7 +117,7 @@ func (r MLPutCalendarRequest) Do(providedCtx context.Context, transport Transpor
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -151,18 +151,18 @@ func (r MLPutCalendarRequest) Do(providedCtx context.Context, transport Transpor
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ml.put_calendar")
 		if reader := instrument.RecordRequestBody(ctx, "ml.put_calendar", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ml.put_calendar")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

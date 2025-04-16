@@ -34,7 +34,7 @@ func newConnectorPutFunc(t Transport) ConnectorPut {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -65,7 +65,7 @@ type ConnectorPutRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -77,7 +77,7 @@ func (r ConnectorPutRequest) Do(providedCtx context.Context, transport Transport
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "connector.put")
 		defer instrument.Close(ctx)
 	}
@@ -94,7 +94,7 @@ func (r ConnectorPutRequest) Do(providedCtx context.Context, transport Transport
 	if r.ConnectorID != "" {
 		path.WriteString("/")
 		path.WriteString(r.ConnectorID)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "connector_id", r.ConnectorID)
 		}
 	}
@@ -119,7 +119,7 @@ func (r ConnectorPutRequest) Do(providedCtx context.Context, transport Transport
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -153,18 +153,18 @@ func (r ConnectorPutRequest) Do(providedCtx context.Context, transport Transport
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "connector.put")
 		if reader := instrument.RecordRequestBody(ctx, "connector.put", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "connector.put")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

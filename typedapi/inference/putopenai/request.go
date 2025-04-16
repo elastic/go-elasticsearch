@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
 
 package putopenai
 
@@ -25,19 +25,19 @@ import (
 	"fmt"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/servicetype"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/openaiservicetype"
 )
 
 // Request holds the request body struct for the package putopenai
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/inference/put_openai/PutOpenAiRequest.ts#L28-L82
+// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/inference/put_openai/PutOpenAiRequest.ts#L30-L84
 type Request struct {
 
 	// ChunkingSettings The chunking configuration object.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
 	// `openai`.
-	Service servicetype.ServiceType `json:"service"`
+	Service openaiservicetype.OpenAIServiceType `json:"service"`
 	// ServiceSettings Settings used to install the inference model. These settings are specific to
 	// the `openai` service.
 	ServiceSettings types.OpenAIServiceSettings `json:"service_settings"`

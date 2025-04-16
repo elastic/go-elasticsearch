@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
 
 // Open a point in time.
 //
@@ -496,6 +496,15 @@ func (r *OpenPointInTime) ExpandWildcards(expandwildcards ...expandwildcard.Expa
 // API name: allow_partial_search_results
 func (r *OpenPointInTime) AllowPartialSearchResults(allowpartialsearchresults bool) *OpenPointInTime {
 	r.values.Set("allow_partial_search_results", strconv.FormatBool(allowpartialsearchresults))
+
+	return r
+}
+
+// MaxConcurrentShardRequests Maximum number of concurrent shard requests that each sub-search request
+// executes per node.
+// API name: max_concurrent_shard_requests
+func (r *OpenPointInTime) MaxConcurrentShardRequests(maxconcurrentshardrequests int) *OpenPointInTime {
+	r.values.Set("max_concurrent_shard_requests", strconv.Itoa(maxconcurrentshardrequests))
 
 	return r
 }

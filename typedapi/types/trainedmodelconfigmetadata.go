@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
 
 package types
 
 // TrainedModelConfigMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/TrainedModel.ts#L246-L254
+// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/ml/_types/TrainedModel.ts#L247-L255
 type TrainedModelConfigMetadata struct {
 	// FeatureImportanceBaseline An object that contains the baseline for feature importance values. For
 	// regression analysis, it is a single value. For classification analysis, there

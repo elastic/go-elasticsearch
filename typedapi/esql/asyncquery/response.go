@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/509f88ad09a267354d02bf5f9e960503fa9236b7
 
 package asyncquery
 
-// Response holds the response body struct for the package asyncquery
+// Response holds the response body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/esql/async_query/AsyncQueryResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/509f88ad09a267354d02bf5f9e960503fa9236b7/specification/esql/query/QueryResponse.ts#L22-L25
 
 type Response = []byte
 

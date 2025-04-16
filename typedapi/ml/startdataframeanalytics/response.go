@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
 
 package startdataframeanalytics
 
 // Response holds the response body struct for the package startdataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/start_data_frame_analytics/MlStartDataFrameAnalyticsResponse.ts#L22-L34
+// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/ml/start_data_frame_analytics/MlStartDataFrameAnalyticsResponse.ts#L22-L34
 type Response struct {
 	Acknowledged bool `json:"acknowledged"`
 	// Node The ID of the node that the job was started on. If the job is allowed to open

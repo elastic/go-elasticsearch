@@ -36,7 +36,7 @@ func newIngestPutPipelineFunc(t Transport) IngestPutPipeline {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -69,7 +69,7 @@ type IngestPutPipelineRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -81,7 +81,7 @@ func (r IngestPutPipelineRequest) Do(providedCtx context.Context, transport Tran
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ingest.put_pipeline")
 		defer instrument.Close(ctx)
 	}
@@ -99,7 +99,7 @@ func (r IngestPutPipelineRequest) Do(providedCtx context.Context, transport Tran
 	path.WriteString("pipeline")
 	path.WriteString("/")
 	path.WriteString(r.PipelineID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "id", r.PipelineID)
 	}
 
@@ -135,7 +135,7 @@ func (r IngestPutPipelineRequest) Do(providedCtx context.Context, transport Tran
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -169,18 +169,18 @@ func (r IngestPutPipelineRequest) Do(providedCtx context.Context, transport Tran
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ingest.put_pipeline")
 		if reader := instrument.RecordRequestBody(ctx, "ingest.put_pipeline", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ingest.put_pipeline")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

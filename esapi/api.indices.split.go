@@ -35,7 +35,7 @@ func newIndicesSplitFunc(t Transport) IndicesSplit {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -70,7 +70,7 @@ type IndicesSplitRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -82,7 +82,7 @@ func (r IndicesSplitRequest) Do(providedCtx context.Context, transport Transport
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "indices.split")
 		defer instrument.Close(ctx)
 	}
@@ -96,14 +96,14 @@ func (r IndicesSplitRequest) Do(providedCtx context.Context, transport Transport
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "index", r.Index)
 	}
 	path.WriteString("/")
 	path.WriteString("_split")
 	path.WriteString("/")
 	path.WriteString(r.Target)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "target", r.Target)
 	}
 
@@ -139,7 +139,7 @@ func (r IndicesSplitRequest) Do(providedCtx context.Context, transport Transport
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -173,18 +173,18 @@ func (r IndicesSplitRequest) Do(providedCtx context.Context, transport Transport
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "indices.split")
 		if reader := instrument.RecordRequestBody(ctx, "indices.split", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "indices.split")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

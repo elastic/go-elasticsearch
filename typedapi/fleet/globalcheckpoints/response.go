@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
 
 package globalcheckpoints
 
 // Response holds the response body struct for the package globalcheckpoints
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/fleet/global_checkpoints/GlobalCheckpointsResponse.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/fleet/global_checkpoints/GlobalCheckpointsResponse.ts#L22-L27
 type Response struct {
 	GlobalCheckpoints []int64 `json:"global_checkpoints"`
 	TimedOut          bool    `json:"timed_out"`

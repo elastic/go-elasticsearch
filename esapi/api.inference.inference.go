@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.18.0: DO NOT EDIT
 
 package esapi
 
@@ -34,7 +34,7 @@ func newInferenceInferenceFunc(t Transport) InferenceInference {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -44,8 +44,6 @@ func newInferenceInferenceFunc(t Transport) InferenceInference {
 // ----- API Definition -------------------------------------------------------
 
 // InferenceInference perform inference
-//
-// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
 type InferenceInference func(inference_id string, o ...func(*InferenceInferenceRequest)) (*Response, error)
@@ -66,7 +64,7 @@ type InferenceInferenceRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -78,7 +76,7 @@ func (r InferenceInferenceRequest) Do(providedCtx context.Context, transport Tra
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "inference.inference")
 		defer instrument.Close(ctx)
 	}
@@ -95,13 +93,13 @@ func (r InferenceInferenceRequest) Do(providedCtx context.Context, transport Tra
 	if r.TaskType != "" {
 		path.WriteString("/")
 		path.WriteString(r.TaskType)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "task_type", r.TaskType)
 		}
 	}
 	path.WriteString("/")
 	path.WriteString(r.InferenceID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
 	}
 
@@ -125,7 +123,7 @@ func (r InferenceInferenceRequest) Do(providedCtx context.Context, transport Tra
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -159,18 +157,18 @@ func (r InferenceInferenceRequest) Do(providedCtx context.Context, transport Tra
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "inference.inference")
 		if reader := instrument.RecordRequestBody(ctx, "inference.inference", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "inference.inference")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

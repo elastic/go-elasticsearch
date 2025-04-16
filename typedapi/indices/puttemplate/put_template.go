@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
 
 // Create or update an index template.
 // Index templates define settings, mappings, and aliases that can be applied
@@ -390,6 +390,7 @@ func (r *PutTemplate) MasterTimeout(duration string) *PutTemplate {
 	return r
 }
 
+// Cause User defined reason for creating/updating the index template
 // API name: cause
 func (r *PutTemplate) Cause(cause string) *PutTemplate {
 	r.values.Set("cause", cause)

@@ -34,7 +34,7 @@ func newMLGetMemoryStatsFunc(t Transport) MLGetMemoryStats {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -64,7 +64,7 @@ type MLGetMemoryStatsRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -76,7 +76,7 @@ func (r MLGetMemoryStatsRequest) Do(providedCtx context.Context, transport Trans
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ml.get_memory_stats")
 		defer instrument.Close(ctx)
 	}
@@ -95,7 +95,7 @@ func (r MLGetMemoryStatsRequest) Do(providedCtx context.Context, transport Trans
 	if r.NodeID != "" {
 		path.WriteString("/")
 		path.WriteString(r.NodeID)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "node_id", r.NodeID)
 		}
 	}
@@ -130,7 +130,7 @@ func (r MLGetMemoryStatsRequest) Do(providedCtx context.Context, transport Trans
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -160,15 +160,15 @@ func (r MLGetMemoryStatsRequest) Do(providedCtx context.Context, transport Trans
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ml.get_memory_stats")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ml.get_memory_stats")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

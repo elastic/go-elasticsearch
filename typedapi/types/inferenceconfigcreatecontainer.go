@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
 
 package types
 
@@ -27,13 +27,14 @@ import (
 
 // InferenceConfigCreateContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/inference.ts#L23-L80
+// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/ml/_types/inference.ts#L26-L85
 type InferenceConfigCreateContainer struct {
 	AdditionalInferenceConfigCreateContainerProperty map[string]json.RawMessage `json:"-"`
 	// Classification Classification configuration for inference.
 	Classification *ClassificationInferenceOptions `json:"classification,omitempty"`
 	// FillMask Fill mask configuration for inference.
-	FillMask *FillMaskInferenceOptions `json:"fill_mask,omitempty"`
+	FillMask       *FillMaskInferenceOptions `json:"fill_mask,omitempty"`
+	LearningToRank *LearningToRankConfig     `json:"learning_to_rank,omitempty"`
 	// Ner Named entity recognition configuration for inference.
 	Ner *NerInferenceOptions `json:"ner,omitempty"`
 	// PassThrough Pass through configuration for inference.

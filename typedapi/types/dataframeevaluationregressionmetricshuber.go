@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
+// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeEvaluationRegressionMetricsHuber type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/DataframeEvaluation.ts#L117-L120
+// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/ml/_types/DataframeEvaluation.ts#L117-L120
 type DataframeEvaluationRegressionMetricsHuber struct {
 	// Delta Approximates 1/2 (prediction - actual)2 for values much less than delta and
 	// approximates a straight line with slope delta for values much larger than

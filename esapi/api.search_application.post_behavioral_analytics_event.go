@@ -35,7 +35,7 @@ func newSearchApplicationPostBehavioralAnalyticsEventFunc(t Transport) SearchApp
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -69,7 +69,7 @@ type SearchApplicationPostBehavioralAnalyticsEventRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -81,7 +81,7 @@ func (r SearchApplicationPostBehavioralAnalyticsEventRequest) Do(providedCtx con
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "search_application.post_behavioral_analytics_event")
 		defer instrument.Close(ctx)
 	}
@@ -99,14 +99,14 @@ func (r SearchApplicationPostBehavioralAnalyticsEventRequest) Do(providedCtx con
 	path.WriteString("analytics")
 	path.WriteString("/")
 	path.WriteString(r.CollectionName)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "collection_name", r.CollectionName)
 	}
 	path.WriteString("/")
 	path.WriteString("event")
 	path.WriteString("/")
 	path.WriteString(r.EventType)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "event_type", r.EventType)
 	}
 
@@ -134,7 +134,7 @@ func (r SearchApplicationPostBehavioralAnalyticsEventRequest) Do(providedCtx con
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -168,18 +168,18 @@ func (r SearchApplicationPostBehavioralAnalyticsEventRequest) Do(providedCtx con
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "search_application.post_behavioral_analytics_event")
 		if reader := instrument.RecordRequestBody(ctx, "search_application.post_behavioral_analytics_event", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "search_application.post_behavioral_analytics_event")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
