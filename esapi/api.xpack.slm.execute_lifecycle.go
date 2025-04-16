@@ -34,7 +34,7 @@ func newSlmExecuteLifecycleFunc(t Transport) SlmExecuteLifecycle {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -64,7 +64,7 @@ type SlmExecuteLifecycleRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -76,7 +76,7 @@ func (r SlmExecuteLifecycleRequest) Do(providedCtx context.Context, transport Tr
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "slm.execute_lifecycle")
 		defer instrument.Close(ctx)
 	}
@@ -94,7 +94,7 @@ func (r SlmExecuteLifecycleRequest) Do(providedCtx context.Context, transport Tr
 	path.WriteString("policy")
 	path.WriteString("/")
 	path.WriteString(r.PolicyID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "policy_id", r.PolicyID)
 	}
 	path.WriteString("/")
@@ -128,7 +128,7 @@ func (r SlmExecuteLifecycleRequest) Do(providedCtx context.Context, transport Tr
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -158,15 +158,15 @@ func (r SlmExecuteLifecycleRequest) Do(providedCtx context.Context, transport Tr
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "slm.execute_lifecycle")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "slm.execute_lifecycle")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

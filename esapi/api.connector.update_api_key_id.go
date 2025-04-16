@@ -34,7 +34,7 @@ func newConnectorUpdateAPIKeyDocumentIDFunc(t Transport) ConnectorUpdateAPIKeyDo
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -65,7 +65,7 @@ type ConnectorUpdateAPIKeyDocumentIDRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -77,7 +77,7 @@ func (r ConnectorUpdateAPIKeyDocumentIDRequest) Do(providedCtx context.Context, 
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "connector.update_api_key_id")
 		defer instrument.Close(ctx)
 	}
@@ -93,7 +93,7 @@ func (r ConnectorUpdateAPIKeyDocumentIDRequest) Do(providedCtx context.Context, 
 	path.WriteString("_connector")
 	path.WriteString("/")
 	path.WriteString(r.ConnectorID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "connector_id", r.ConnectorID)
 	}
 	path.WriteString("/")
@@ -119,7 +119,7 @@ func (r ConnectorUpdateAPIKeyDocumentIDRequest) Do(providedCtx context.Context, 
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -153,18 +153,18 @@ func (r ConnectorUpdateAPIKeyDocumentIDRequest) Do(providedCtx context.Context, 
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "connector.update_api_key_id")
 		if reader := instrument.RecordRequestBody(ctx, "connector.update_api_key_id", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "connector.update_api_key_id")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

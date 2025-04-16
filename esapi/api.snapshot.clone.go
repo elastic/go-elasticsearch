@@ -35,7 +35,7 @@ func newSnapshotCloneFunc(t Transport) SnapshotClone {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -68,7 +68,7 @@ type SnapshotCloneRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -80,7 +80,7 @@ func (r SnapshotCloneRequest) Do(providedCtx context.Context, transport Transpor
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "snapshot.clone")
 		defer instrument.Close(ctx)
 	}
@@ -96,19 +96,19 @@ func (r SnapshotCloneRequest) Do(providedCtx context.Context, transport Transpor
 	path.WriteString("_snapshot")
 	path.WriteString("/")
 	path.WriteString(r.Repository)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "repository", r.Repository)
 	}
 	path.WriteString("/")
 	path.WriteString(r.Snapshot)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "snapshot", r.Snapshot)
 	}
 	path.WriteString("/")
 	path.WriteString("_clone")
 	path.WriteString("/")
 	path.WriteString(r.TargetSnapshot)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "target_snapshot", r.TargetSnapshot)
 	}
 
@@ -136,7 +136,7 @@ func (r SnapshotCloneRequest) Do(providedCtx context.Context, transport Transpor
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -170,18 +170,18 @@ func (r SnapshotCloneRequest) Do(providedCtx context.Context, transport Transpor
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "snapshot.clone")
 		if reader := instrument.RecordRequestBody(ctx, "snapshot.clone", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "snapshot.clone")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

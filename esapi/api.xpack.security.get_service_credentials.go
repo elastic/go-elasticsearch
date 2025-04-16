@@ -33,7 +33,7 @@ func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredent
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -61,7 +61,7 @@ type SecurityGetServiceCredentialsRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -73,7 +73,7 @@ func (r SecurityGetServiceCredentialsRequest) Do(providedCtx context.Context, tr
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "security.get_service_credentials")
 		defer instrument.Close(ctx)
 	}
@@ -91,12 +91,12 @@ func (r SecurityGetServiceCredentialsRequest) Do(providedCtx context.Context, tr
 	path.WriteString("service")
 	path.WriteString("/")
 	path.WriteString(r.Namespace)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "namespace", r.Namespace)
 	}
 	path.WriteString("/")
 	path.WriteString(r.Service)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "service", r.Service)
 	}
 	path.WriteString("/")
@@ -122,7 +122,7 @@ func (r SecurityGetServiceCredentialsRequest) Do(providedCtx context.Context, tr
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -152,15 +152,15 @@ func (r SecurityGetServiceCredentialsRequest) Do(providedCtx context.Context, tr
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "security.get_service_credentials")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "security.get_service_credentials")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

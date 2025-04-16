@@ -34,7 +34,7 @@ func newMLUpdateFilterFunc(t Transport) MLUpdateFilter {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -63,7 +63,7 @@ type MLUpdateFilterRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -75,7 +75,7 @@ func (r MLUpdateFilterRequest) Do(providedCtx context.Context, transport Transpo
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ml.update_filter")
 		defer instrument.Close(ctx)
 	}
@@ -93,7 +93,7 @@ func (r MLUpdateFilterRequest) Do(providedCtx context.Context, transport Transpo
 	path.WriteString("filters")
 	path.WriteString("/")
 	path.WriteString(r.FilterID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "filter_id", r.FilterID)
 	}
 	path.WriteString("/")
@@ -119,7 +119,7 @@ func (r MLUpdateFilterRequest) Do(providedCtx context.Context, transport Transpo
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -153,18 +153,18 @@ func (r MLUpdateFilterRequest) Do(providedCtx context.Context, transport Transpo
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ml.update_filter")
 		if reader := instrument.RecordRequestBody(ctx, "ml.update_filter", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ml.update_filter")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

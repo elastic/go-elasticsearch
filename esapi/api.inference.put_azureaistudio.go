@@ -21,21 +21,20 @@ package esapi
 
 import (
 	"context"
-	"errors"
 	"io"
 	"net/http"
 	"strings"
 )
 
-func newKnnSearchFunc(t Transport) KnnSearch {
-	return func(index []string, o ...func(*KnnSearchRequest)) (*Response, error) {
-		var r = KnnSearchRequest{Index: index}
+func newInferencePutAzureaistudioFunc(t Transport) InferencePutAzureaistudio {
+	return func(azureaistudio_inference_id string, task_type string, o ...func(*InferencePutAzureaistudioRequest)) (*Response, error) {
+		var r = InferencePutAzureaistudioRequest{AzureaistudioInferenceID: azureaistudio_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -44,20 +43,17 @@ func newKnnSearchFunc(t Transport) KnnSearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// KnnSearch performs a kNN search.
+// InferencePutAzureaistudio configure an Azure AI Studio inference endpoint
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html.
-type KnnSearch func(index []string, o ...func(*KnnSearchRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-azure-ai-studio.html.
+type InferencePutAzureaistudio func(azureaistudio_inference_id string, task_type string, o ...func(*InferencePutAzureaistudioRequest)) (*Response, error)
 
-// KnnSearchRequest configures the Knn Search API request.
-type KnnSearchRequest struct {
-	Index []string
-
+// InferencePutAzureaistudioRequest configures the Inference Put Azureaistudio API request.
+type InferencePutAzureaistudioRequest struct {
 	Body io.Reader
 
-	Routing []string
+	AzureaistudioInferenceID string
+	TaskType                 string
 
 	Pretty     bool
 	Human      bool
@@ -68,11 +64,11 @@ type KnnSearchRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r KnnSearchRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r InferencePutAzureaistudioRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -80,35 +76,32 @@ func (r KnnSearchRequest) Do(providedCtx context.Context, transport Transport) (
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "knn_search")
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "inference.put_azureaistudio")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "POST"
+	method = "PUT"
 
-	if len(r.Index) == 0 {
-		return nil, errors.New("index is required and cannot be nil or empty")
-	}
-
-	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_knn_search"))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.AzureaistudioInferenceID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString(strings.Join(r.Index, ","))
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
+	path.WriteString("_inference")
+	path.WriteString("/")
+	path.WriteString(r.TaskType)
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "task_type", r.TaskType)
 	}
 	path.WriteString("/")
-	path.WriteString("_knn_search")
+	path.WriteString(r.AzureaistudioInferenceID)
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "azureaistudio_inference_id", r.AzureaistudioInferenceID)
+	}
 
 	params = make(map[string]string)
-
-	if len(r.Routing) > 0 {
-		params["routing"] = strings.Join(r.Routing, ",")
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -128,7 +121,7 @@ func (r KnnSearchRequest) Do(providedCtx context.Context, transport Transport) (
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -162,18 +155,18 @@ func (r KnnSearchRequest) Do(providedCtx context.Context, transport Transport) (
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "knn_search")
-		if reader := instrument.RecordRequestBody(ctx, "knn_search", r.Body); reader != nil {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "inference.put_azureaistudio")
+		if reader := instrument.RecordRequestBody(ctx, "inference.put_azureaistudio", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "knn_search")
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "inference.put_azureaistudio")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -189,57 +182,50 @@ func (r KnnSearchRequest) Do(providedCtx context.Context, transport Transport) (
 }
 
 // WithContext sets the request context.
-func (f KnnSearch) WithContext(v context.Context) func(*KnnSearchRequest) {
-	return func(r *KnnSearchRequest) {
+func (f InferencePutAzureaistudio) WithContext(v context.Context) func(*InferencePutAzureaistudioRequest) {
+	return func(r *InferencePutAzureaistudioRequest) {
 		r.ctx = v
 	}
 }
 
-// WithBody - The search definition.
-func (f KnnSearch) WithBody(v io.Reader) func(*KnnSearchRequest) {
-	return func(r *KnnSearchRequest) {
+// WithBody - The inference endpoint's task and service settings.
+func (f InferencePutAzureaistudio) WithBody(v io.Reader) func(*InferencePutAzureaistudioRequest) {
+	return func(r *InferencePutAzureaistudioRequest) {
 		r.Body = v
 	}
 }
 
-// WithRouting - a list of specific routing values.
-func (f KnnSearch) WithRouting(v ...string) func(*KnnSearchRequest) {
-	return func(r *KnnSearchRequest) {
-		r.Routing = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f KnnSearch) WithPretty() func(*KnnSearchRequest) {
-	return func(r *KnnSearchRequest) {
+func (f InferencePutAzureaistudio) WithPretty() func(*InferencePutAzureaistudioRequest) {
+	return func(r *InferencePutAzureaistudioRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f KnnSearch) WithHuman() func(*KnnSearchRequest) {
-	return func(r *KnnSearchRequest) {
+func (f InferencePutAzureaistudio) WithHuman() func(*InferencePutAzureaistudioRequest) {
+	return func(r *InferencePutAzureaistudioRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f KnnSearch) WithErrorTrace() func(*KnnSearchRequest) {
-	return func(r *KnnSearchRequest) {
+func (f InferencePutAzureaistudio) WithErrorTrace() func(*InferencePutAzureaistudioRequest) {
+	return func(r *InferencePutAzureaistudioRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f KnnSearch) WithFilterPath(v ...string) func(*KnnSearchRequest) {
-	return func(r *KnnSearchRequest) {
+func (f InferencePutAzureaistudio) WithFilterPath(v ...string) func(*InferencePutAzureaistudioRequest) {
+	return func(r *InferencePutAzureaistudioRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f KnnSearch) WithHeader(h map[string]string) func(*KnnSearchRequest) {
-	return func(r *KnnSearchRequest) {
+func (f InferencePutAzureaistudio) WithHeader(h map[string]string) func(*InferencePutAzureaistudioRequest) {
+	return func(r *InferencePutAzureaistudioRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -250,8 +236,8 @@ func (f KnnSearch) WithHeader(h map[string]string) func(*KnnSearchRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f KnnSearch) WithOpaqueID(s string) func(*KnnSearchRequest) {
-	return func(r *KnnSearchRequest) {
+func (f InferencePutAzureaistudio) WithOpaqueID(s string) func(*InferencePutAzureaistudioRequest) {
+	return func(r *InferencePutAzureaistudioRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
