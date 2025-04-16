@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 // Run multiple Fleet searches.
 // Run several Fleet searches with a single API request.
@@ -460,13 +460,11 @@ func (r *Msearch) WaitForCheckpoints(waitforcheckpoints ...int64) *Msearch {
 	return r
 }
 
-// AllowPartialSearchResults If true, returns partial results if there are shard request timeouts or
-// [shard
-// failures](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-replication.html#shard-failures).
-// If false, returns
-// an error with no partial results. Defaults to the configured cluster setting
-// `search.default_allow_partial_results`
-// which is true by default.
+// AllowPartialSearchResults If true, returns partial results if there are shard request timeouts or shard
+// failures.
+// If false, returns an error with no partial results.
+// Defaults to the configured cluster setting
+// `search.default_allow_partial_results`, which is true by default.
 // API name: allow_partial_search_results
 func (r *Msearch) AllowPartialSearchResults(allowpartialsearchresults bool) *Msearch {
 	r.values.Set("allow_partial_search_results", strconv.FormatBool(allowpartialsearchresults))

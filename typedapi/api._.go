@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 package typedapi
 
@@ -138,7 +138,6 @@ import (
 	core_health_report "github.com/elastic/go-elasticsearch/v9/typedapi/core/healthreport"
 	core_index "github.com/elastic/go-elasticsearch/v9/typedapi/core/index"
 	core_info "github.com/elastic/go-elasticsearch/v9/typedapi/core/info"
-	core_knn_search "github.com/elastic/go-elasticsearch/v9/typedapi/core/knnsearch"
 	core_mget "github.com/elastic/go-elasticsearch/v9/typedapi/core/mget"
 	core_msearch "github.com/elastic/go-elasticsearch/v9/typedapi/core/msearch"
 	core_msearch_template "github.com/elastic/go-elasticsearch/v9/typedapi/core/msearchtemplate"
@@ -177,6 +176,8 @@ import (
 	esql_async_query_delete "github.com/elastic/go-elasticsearch/v9/typedapi/esql/asyncquerydelete"
 	esql_async_query_get "github.com/elastic/go-elasticsearch/v9/typedapi/esql/asyncqueryget"
 	esql_async_query_stop "github.com/elastic/go-elasticsearch/v9/typedapi/esql/asyncquerystop"
+	esql_get_query "github.com/elastic/go-elasticsearch/v9/typedapi/esql/getquery"
+	esql_list_queries "github.com/elastic/go-elasticsearch/v9/typedapi/esql/listqueries"
 	esql_query "github.com/elastic/go-elasticsearch/v9/typedapi/esql/query"
 	features_get_features "github.com/elastic/go-elasticsearch/v9/typedapi/features/getfeatures"
 	features_reset_features "github.com/elastic/go-elasticsearch/v9/typedapi/features/resetfeatures"
@@ -263,6 +264,7 @@ import (
 	inference_completion "github.com/elastic/go-elasticsearch/v9/typedapi/inference/completion"
 	inference_delete "github.com/elastic/go-elasticsearch/v9/typedapi/inference/delete"
 	inference_get "github.com/elastic/go-elasticsearch/v9/typedapi/inference/get"
+	inference_inference "github.com/elastic/go-elasticsearch/v9/typedapi/inference/inference"
 	inference_put "github.com/elastic/go-elasticsearch/v9/typedapi/inference/put"
 	inference_put_alibabacloud "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putalibabacloud"
 	inference_put_amazonbedrock "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putamazonbedrock"
@@ -1538,7 +1540,7 @@ type Connector struct {
 	// Update the connector draft filtering validation.
 	//
 	// Update the draft filtering validation info for a connector.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-filtering-validation-api.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering-validation
 	UpdateFilteringValidation connector_update_filtering_validation.NewUpdateFilteringValidation
 	// Update the connector index name.
 	//
@@ -1550,7 +1552,7 @@ type Connector struct {
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-name
 	UpdateName connector_update_name.NewUpdateName
 	// Update the connector is_native flag.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-native-api.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-native
 	UpdateNative connector_update_native.NewUpdateNative
 	// Update the connector pipeline.
 	//
@@ -2483,34 +2485,6 @@ type Core struct {
 	// Get basic build, version, and cluster information.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
 	Info core_info.NewInfo
-	// Run a knn search.
-	//
-	// NOTE: The kNN search API has been replaced by the `knn` option in the search
-	// API.
-	//
-	// Perform a k-nearest neighbor (kNN) search on a dense_vector field and return
-	// the matching documents.
-	// Given a query vector, the API finds the k closest vectors and returns those
-	// documents as search hits.
-	//
-	// Elasticsearch uses the HNSW algorithm to support efficient kNN search.
-	// Like most kNN algorithms, HNSW is an approximate method that sacrifices
-	// result accuracy for improved search speed.
-	// This means the results returned are not always the true k closest neighbors.
-	//
-	// The kNN search API supports restricting the search using a filter.
-	// The search will return the top k documents that also match the filter query.
-	//
-	// A kNN search response has the exact same structure as a search API response.
-	// However, certain sections have a meaning specific to kNN search:
-	//
-	// * The document `_score` is determined by the similarity between the query and
-	// document vector.
-	// * The `hits.total` object contains the total number of nearest neighbor
-	// candidates considered, which is `num_candidates * num_shards`. The
-	// `hits.total.relation` will always be `eq`, indicating an exact value.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search-api.html
-	KnnSearch core_knn_search.NewKnnSearch
 	// Get multiple documents.
 	//
 	// Get multiple JSON documents by ID from one or more indices.
@@ -2987,7 +2961,7 @@ type Core struct {
 	//
 	// Each context requires a script, but additional parameters depend on the
 	// context you're using for that script.
-	// https://www.elastic.co/guide/en/elasticsearch/painless/current/painless-execute-api.html
+	// https://www.elastic.co/docs/reference/scripting-languages/painless/painless-api-examples
 	ScriptsPainlessExecute core_scripts_painless_execute.NewScriptsPainlessExecute
 	// Run a scrolling search.
 	//
@@ -3590,11 +3564,20 @@ type Esql struct {
 	// This API interrupts the query execution and returns the results so far.
 	// If the Elasticsearch security features are enabled, only the user who first
 	// submitted the ES|QL query can stop it.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-async-query-stop-api.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-stop
 	AsyncQueryStop esql_async_query_stop.NewAsyncQueryStop
+	// Get a specific running ES|QL query information.
+	// Returns an object extended information about a running ES|QL query.
+	//
+	GetQuery esql_get_query.NewGetQuery
+	// Get running ES|QL queries information.
+	// Returns an object containing IDs and other information about the running
+	// ES|QL queries.
+	//
+	ListQueries esql_list_queries.NewListQueries
 	// Run an ES|QL query.
 	// Get search results for an ES|QL (Elasticsearch query language) query.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-rest.html
+	// https://www.elastic.co/docs/explore-analyze/query-filter/languages/esql-rest
 	Query esql_query.NewQuery
 }
 
@@ -3827,7 +3810,7 @@ type Indices struct {
 	// Cancel a migration reindex operation.
 	//
 	// Cancel a migration reindex attempt for a data stream or index.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/migrate-data-stream.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-cancel-migrate-reindex
 	CancelMigrateReindex indices_cancel_migrate_reindex.NewCancelMigrateReindex
 	// Clear the cache.
 	// Clear the cache of one or more indices.
@@ -3989,7 +3972,7 @@ type Indices struct {
 	//
 	// Copy the mappings and settings from the source index to a destination index
 	// while allowing request settings and mappings to override the source values.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/migrate-data-stream.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create-from
 	CreateFrom indices_create_from.NewCreateFrom
 	// Get data stream stats.
 	//
@@ -4261,7 +4244,7 @@ type Indices struct {
 	// Get the migration reindexing status.
 	//
 	// Get the status of a migration reindex attempt for a data stream or index.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/migrate-data-stream.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-migration
 	GetMigrateReindexStatus indices_get_migrate_reindex_status.NewGetMigrateReindexStatus
 	// Get index settings.
 	// Get setting information for one or more indices.
@@ -4283,7 +4266,7 @@ type Indices struct {
 	// This operation occurs in a persistent task.
 	// The persistent task ID is returned immediately and the reindexing work is
 	// completed in that task.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/migrate-data-stream.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-migrate-reindex
 	MigrateReindex indices_migrate_reindex.NewMigrateReindex
 	// Convert an index alias to a data stream.
 	// Converts an index alias to a data stream.
@@ -4939,6 +4922,28 @@ type Inference struct {
 	// Get an inference endpoint
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-get
 	Get inference_get.NewGet
+	// Perform inference on the service.
+	//
+	// This API enables you to use machine learning models to perform specific tasks
+	// on data that you provide as an input.
+	// It returns a response with the results of the tasks.
+	// The inference endpoint you use can perform one specific task that has been
+	// defined when the endpoint was created with the create inference API.
+	//
+	// For details about using this API with a service, such as Amazon Bedrock,
+	// Anthropic, or HuggingFace, refer to the service-specific documentation.
+	//
+	// > info
+	// > The inference APIs enable you to use certain services, such as built-in
+	// machine learning models (ELSER, E5), models uploaded through Eland, Cohere,
+	// OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic, Watsonx.ai, or
+	// Hugging Face. For built-in models and models uploaded through Eland, the
+	// inference APIs offer an alternative way to use and manage trained models.
+	// However, if you do not plan to use the inference APIs to use these models or
+	// if you want to use non-NLP models, use the machine learning trained model
+	// APIs.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+	Inference inference_inference.NewInference
 	// Create an inference endpoint.
 	// When you create an inference endpoint, the associated machine learning model
 	// is automatically deployed if it is not already running.
@@ -5347,7 +5352,7 @@ type Ingest struct {
 	// Get GeoIP statistics.
 	// Get download statistics for GeoIP2 databases that are used with the GeoIP
 	// processor.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/geoip-processor.html
+	// https://www.elastic.co/docs/reference/enrich-processor/geoip-processor
 	GeoIpStats ingest_geo_ip_stats.NewGeoIpStats
 	// Get GeoIP database configurations.
 	//
@@ -5369,7 +5374,7 @@ type Ingest struct {
 	// grok pattern you expect will match.
 	// A grok pattern is like a regular expression that supports aliased expressions
 	// that can be reused.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/grok-processor.html
+	// https://www.elastic.co/docs/reference/enrich-processor/grok-processor
 	ProcessorGrok ingest_processor_grok.NewProcessorGrok
 	// Create or update a GeoIP database configuration.
 	//
@@ -5381,7 +5386,7 @@ type Ingest struct {
 	PutIpLocationDatabase ingest_put_ip_location_database.NewPutIpLocationDatabase
 	// Create or update a pipeline.
 	// Changes made using this API take effect immediately.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/ingest.html
+	// https://www.elastic.co/docs/manage-data/ingest/transform-enrich/ingest-pipelines
 	PutPipeline ingest_put_pipeline.NewPutPipeline
 	// Simulate a pipeline.
 	//
@@ -9510,34 +9515,6 @@ type API struct {
 	// Get basic build, version, and cluster information.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
 	Info core_info.NewInfo
-	// Run a knn search.
-	//
-	// NOTE: The kNN search API has been replaced by the `knn` option in the search
-	// API.
-	//
-	// Perform a k-nearest neighbor (kNN) search on a dense_vector field and return
-	// the matching documents.
-	// Given a query vector, the API finds the k closest vectors and returns those
-	// documents as search hits.
-	//
-	// Elasticsearch uses the HNSW algorithm to support efficient kNN search.
-	// Like most kNN algorithms, HNSW is an approximate method that sacrifices
-	// result accuracy for improved search speed.
-	// This means the results returned are not always the true k closest neighbors.
-	//
-	// The kNN search API supports restricting the search using a filter.
-	// The search will return the top k documents that also match the filter query.
-	//
-	// A kNN search response has the exact same structure as a search API response.
-	// However, certain sections have a meaning specific to kNN search:
-	//
-	// * The document `_score` is determined by the similarity between the query and
-	// document vector.
-	// * The `hits.total` object contains the total number of nearest neighbor
-	// candidates considered, which is `num_candidates * num_shards`. The
-	// `hits.total.relation` will always be `eq`, indicating an exact value.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search-api.html
-	KnnSearch core_knn_search.NewKnnSearch
 	// Get multiple documents.
 	//
 	// Get multiple JSON documents by ID from one or more indices.
@@ -10014,7 +9991,7 @@ type API struct {
 	//
 	// Each context requires a script, but additional parameters depend on the
 	// context you're using for that script.
-	// https://www.elastic.co/guide/en/elasticsearch/painless/current/painless-execute-api.html
+	// https://www.elastic.co/docs/reference/scripting-languages/painless/painless-api-examples
 	ScriptsPainlessExecute core_scripts_painless_execute.NewScriptsPainlessExecute
 	// Run a scrolling search.
 	//
@@ -10655,7 +10632,6 @@ func New(tp elastictransport.Interface) *API {
 			HealthReport:            core_health_report.NewHealthReportFunc(tp),
 			Index:                   core_index.NewIndexFunc(tp),
 			Info:                    core_info.NewInfoFunc(tp),
-			KnnSearch:               core_knn_search.NewKnnSearchFunc(tp),
 			Mget:                    core_mget.NewMgetFunc(tp),
 			Msearch:                 core_msearch.NewMsearchFunc(tp),
 			MsearchTemplate:         core_msearch_template.NewMsearchTemplateFunc(tp),
@@ -10710,6 +10686,8 @@ func New(tp elastictransport.Interface) *API {
 			AsyncQueryDelete: esql_async_query_delete.NewAsyncQueryDeleteFunc(tp),
 			AsyncQueryGet:    esql_async_query_get.NewAsyncQueryGetFunc(tp),
 			AsyncQueryStop:   esql_async_query_stop.NewAsyncQueryStopFunc(tp),
+			GetQuery:         esql_get_query.NewGetQueryFunc(tp),
+			ListQueries:      esql_list_queries.NewListQueriesFunc(tp),
 			Query:            esql_query.NewQueryFunc(tp),
 		},
 
@@ -10820,6 +10798,7 @@ func New(tp elastictransport.Interface) *API {
 			Completion:            inference_completion.NewCompletionFunc(tp),
 			Delete:                inference_delete.NewDeleteFunc(tp),
 			Get:                   inference_get.NewGetFunc(tp),
+			Inference:             inference_inference.NewInferenceFunc(tp),
 			Put:                   inference_put.NewPutFunc(tp),
 			PutAlibabacloud:       inference_put_alibabacloud.NewPutAlibabacloudFunc(tp),
 			PutAmazonbedrock:      inference_put_amazonbedrock.NewPutAmazonbedrockFunc(tp),
@@ -11243,7 +11222,6 @@ func New(tp elastictransport.Interface) *API {
 		HealthReport:            core_health_report.NewHealthReportFunc(tp),
 		Index:                   core_index.NewIndexFunc(tp),
 		Info:                    core_info.NewInfoFunc(tp),
-		KnnSearch:               core_knn_search.NewKnnSearchFunc(tp),
 		Mget:                    core_mget.NewMgetFunc(tp),
 		Msearch:                 core_msearch.NewMsearchFunc(tp),
 		MsearchTemplate:         core_msearch_template.NewMsearchTemplateFunc(tp),

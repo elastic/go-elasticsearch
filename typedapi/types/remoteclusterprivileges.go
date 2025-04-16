@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // RemoteClusterPrivileges type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/security/_types/Privileges.ts#L278-L290
+// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/security/_types/Privileges.ts#L280-L292
 type RemoteClusterPrivileges struct {
 	// Clusters A list of cluster aliases to which the permissions in this entry apply.
 	Clusters []string `json:"clusters"`

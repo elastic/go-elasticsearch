@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 package esdsl
 
@@ -26,7 +26,7 @@ type _pipelineSettings struct {
 	v *types.PipelineSettings
 }
 
-func NewPipelineSettings(pipelinebatchdelay int, pipelinebatchsize int, pipelineworkers int, queuecheckpointwrites int, queuemaxbytesnumber int, queuemaxbytesunits string, queuetype string) *_pipelineSettings {
+func NewPipelineSettings(pipelinebatchdelay int, pipelinebatchsize int, pipelineworkers int, queuecheckpointwrites int, queuemaxbytes string, queuetype string) *_pipelineSettings {
 
 	tmp := &_pipelineSettings{v: types.NewPipelineSettings()}
 
@@ -38,9 +38,7 @@ func NewPipelineSettings(pipelinebatchdelay int, pipelinebatchsize int, pipeline
 
 	tmp.QueueCheckpointWrites(queuecheckpointwrites)
 
-	tmp.QueueMaxBytesNumber(queuemaxbytesnumber)
-
-	tmp.QueueMaxBytesUnits(queuemaxbytesunits)
+	tmp.QueueMaxBytes(queuemaxbytes)
 
 	tmp.QueueType(queuetype)
 
@@ -76,16 +74,9 @@ func (s *_pipelineSettings) QueueCheckpointWrites(queuecheckpointwrites int) *_p
 	return s
 }
 
-func (s *_pipelineSettings) QueueMaxBytesNumber(queuemaxbytesnumber int) *_pipelineSettings {
+func (s *_pipelineSettings) QueueMaxBytes(queuemaxbytes string) *_pipelineSettings {
 
-	s.v.QueueMaxBytesNumber = queuemaxbytesnumber
-
-	return s
-}
-
-func (s *_pipelineSettings) QueueMaxBytesUnits(queuemaxbytesunits string) *_pipelineSettings {
-
-	s.v.QueueMaxBytesUnits = queuemaxbytesunits
+	s.v.QueueMaxBytes = queuemaxbytes
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 package esdsl
 
@@ -26,6 +26,9 @@ type _histogramAggregation struct {
 	v *types.HistogramAggregation
 }
 
+// A multi-bucket values source based aggregation that can be applied on numeric
+// values or numeric range values extracted from the documents.
+// It dynamically builds fixed size (interval) buckets over the values.
 func NewHistogramAggregation() *_histogramAggregation {
 
 	return &_histogramAggregation{v: types.NewHistogramAggregation()}

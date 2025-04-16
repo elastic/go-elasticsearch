@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
 // Package clusterprivilege
 package clusterprivilege
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9/specification/security/_types/Privileges.ts#L42-L199
+// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/security/_types/Privileges.ts#L42-L201
 type ClusterPrivilege struct {
 	Name string
 }
@@ -58,6 +58,8 @@ var (
 	Managedatastreamglobalretention = ClusterPrivilege{"manage_data_stream_global_retention"}
 
 	Manageenrich = ClusterPrivilege{"manage_enrich"}
+
+	Manageesql = ClusterPrivilege{"manage_esql"}
 
 	Manageilm = ClusterPrivilege{"manage_ilm"}
 
@@ -108,6 +110,8 @@ var (
 	Monitordatastreamglobalretention = ClusterPrivilege{"monitor_data_stream_global_retention"}
 
 	Monitorenrich = ClusterPrivilege{"monitor_enrich"}
+
+	Monitoresql = ClusterPrivilege{"monitor_esql"}
 
 	Monitorinference = ClusterPrivilege{"monitor_inference"}
 
@@ -185,6 +189,8 @@ func (c *ClusterPrivilege) UnmarshalText(text []byte) error {
 		*c = Managedatastreamglobalretention
 	case "manage_enrich":
 		*c = Manageenrich
+	case "manage_esql":
+		*c = Manageesql
 	case "manage_ilm":
 		*c = Manageilm
 	case "manage_index_templates":
@@ -235,6 +241,8 @@ func (c *ClusterPrivilege) UnmarshalText(text []byte) error {
 		*c = Monitordatastreamglobalretention
 	case "monitor_enrich":
 		*c = Monitorenrich
+	case "monitor_esql":
+		*c = Monitoresql
 	case "monitor_inference":
 		*c = Monitorinference
 	case "monitor_ml":

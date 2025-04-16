@@ -16,35 +16,29 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c6ef5fbc736f1dd6256c2babc92e07bf150cadb9
+// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
 
-// Run a knn search.
+// Perform inference on the service.
 //
-// NOTE: The kNN search API has been replaced by the `knn` option in the search
-// API.
+// This API enables you to use machine learning models to perform specific tasks
+// on data that you provide as an input.
+// It returns a response with the results of the tasks.
+// The inference endpoint you use can perform one specific task that has been
+// defined when the endpoint was created with the create inference API.
 //
-// Perform a k-nearest neighbor (kNN) search on a dense_vector field and return
-// the matching documents.
-// Given a query vector, the API finds the k closest vectors and returns those
-// documents as search hits.
+// For details about using this API with a service, such as Amazon Bedrock,
+// Anthropic, or HuggingFace, refer to the service-specific documentation.
 //
-// Elasticsearch uses the HNSW algorithm to support efficient kNN search.
-// Like most kNN algorithms, HNSW is an approximate method that sacrifices
-// result accuracy for improved search speed.
-// This means the results returned are not always the true k closest neighbors.
-//
-// The kNN search API supports restricting the search using a filter.
-// The search will return the top k documents that also match the filter query.
-//
-// A kNN search response has the exact same structure as a search API response.
-// However, certain sections have a meaning specific to kNN search:
-//
-// * The document `_score` is determined by the similarity between the query and
-// document vector.
-// * The `hits.total` object contains the total number of nearest neighbor
-// candidates considered, which is `num_candidates * num_shards`. The
-// `hits.total.relation` will always be `eq`, indicating an exact value.
-package knnsearch
+// > info
+// > The inference APIs enable you to use certain services, such as built-in
+// machine learning models (ELSER, E5), models uploaded through Eland, Cohere,
+// OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic, Watsonx.ai, or
+// Hugging Face. For built-in models and models uploaded through Eland, the
+// inference APIs offer an alternative way to use and manage trained models.
+// However, if you do not plan to use the inference APIs to use these models or
+// if you want to use non-NLP models, use the machine learning trained model
+// APIs.
+package inference
 
 import (
 	gobytes "bytes"
@@ -63,13 +57,15 @@ import (
 )
 
 const (
-	indexMask = iota + 1
+	tasktypeMask = iota + 1
+
+	inferenceidMask
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
 var ErrBuildPath = errors.New("cannot build path, check for missing path parameters")
 
-type KnnSearch struct {
+type Inference struct {
 	transport elastictransport.Interface
 
 	headers http.Header
@@ -84,58 +80,53 @@ type KnnSearch struct {
 
 	paramSet int
 
-	index string
+	tasktype    string
+	inferenceid string
 
 	spanStarted bool
 
 	instrument elastictransport.Instrumentation
 }
 
-// NewKnnSearch type alias for index.
-type NewKnnSearch func(index string) *KnnSearch
+// NewInference type alias for index.
+type NewInference func(inferenceid string) *Inference
 
-// NewKnnSearchFunc returns a new instance of KnnSearch with the provided transport.
+// NewInferenceFunc returns a new instance of Inference with the provided transport.
 // Used in the index of the library this allows to retrieve every apis in once place.
-func NewKnnSearchFunc(tp elastictransport.Interface) NewKnnSearch {
-	return func(index string) *KnnSearch {
+func NewInferenceFunc(tp elastictransport.Interface) NewInference {
+	return func(inferenceid string) *Inference {
 		n := New(tp)
 
-		n._index(index)
+		n._inferenceid(inferenceid)
 
 		return n
 	}
 }
 
-// Run a knn search.
+// Perform inference on the service.
 //
-// NOTE: The kNN search API has been replaced by the `knn` option in the search
-// API.
+// This API enables you to use machine learning models to perform specific tasks
+// on data that you provide as an input.
+// It returns a response with the results of the tasks.
+// The inference endpoint you use can perform one specific task that has been
+// defined when the endpoint was created with the create inference API.
 //
-// Perform a k-nearest neighbor (kNN) search on a dense_vector field and return
-// the matching documents.
-// Given a query vector, the API finds the k closest vectors and returns those
-// documents as search hits.
+// For details about using this API with a service, such as Amazon Bedrock,
+// Anthropic, or HuggingFace, refer to the service-specific documentation.
 //
-// Elasticsearch uses the HNSW algorithm to support efficient kNN search.
-// Like most kNN algorithms, HNSW is an approximate method that sacrifices
-// result accuracy for improved search speed.
-// This means the results returned are not always the true k closest neighbors.
+// > info
+// > The inference APIs enable you to use certain services, such as built-in
+// machine learning models (ELSER, E5), models uploaded through Eland, Cohere,
+// OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic, Watsonx.ai, or
+// Hugging Face. For built-in models and models uploaded through Eland, the
+// inference APIs offer an alternative way to use and manage trained models.
+// However, if you do not plan to use the inference APIs to use these models or
+// if you want to use non-NLP models, use the machine learning trained model
+// APIs.
 //
-// The kNN search API supports restricting the search using a filter.
-// The search will return the top k documents that also match the filter query.
-//
-// A kNN search response has the exact same structure as a search API response.
-// However, certain sections have a meaning specific to kNN search:
-//
-// * The document `_score` is determined by the similarity between the query and
-// document vector.
-// * The `hits.total` object contains the total number of nearest neighbor
-// candidates considered, which is `num_candidates * num_shards`. The
-// `hits.total.relation` will always be `eq`, indicating an exact value.
-//
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search-api.html
-func New(tp elastictransport.Interface) *KnnSearch {
-	r := &KnnSearch{
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+func New(tp elastictransport.Interface) *Inference {
+	r := &Inference{
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
@@ -154,14 +145,14 @@ func New(tp elastictransport.Interface) *KnnSearch {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *KnnSearch) Raw(raw io.Reader) *KnnSearch {
+func (r *Inference) Raw(raw io.Reader) *Inference {
 	r.raw = raw
 
 	return r
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *KnnSearch) Request(req *Request) *KnnSearch {
+func (r *Inference) Request(req *Request) *Inference {
 	r.req = req
 
 	return r
@@ -169,7 +160,7 @@ func (r *KnnSearch) Request(req *Request) *KnnSearch {
 
 // HttpRequest returns the http.Request object built from the
 // given parameters.
-func (r *KnnSearch) HttpRequest(ctx context.Context) (*http.Request, error) {
+func (r *Inference) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var path strings.Builder
 	var method string
 	var req *http.Request
@@ -190,7 +181,7 @@ func (r *KnnSearch) HttpRequest(ctx context.Context) (*http.Request, error) {
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
-			return nil, fmt.Errorf("could not serialise request for KnnSearch: %w", err)
+			return nil, fmt.Errorf("could not serialise request for Inference: %w", err)
 		}
 
 		r.buf.Write(data)
@@ -204,15 +195,32 @@ func (r *KnnSearch) HttpRequest(ctx context.Context) (*http.Request, error) {
 	r.path.Scheme = "http"
 
 	switch {
-	case r.paramSet == indexMask:
+	case r.paramSet == inferenceidMask:
+		path.WriteString("/")
+		path.WriteString("_inference")
 		path.WriteString("/")
 
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "index", r.index)
+			instrument.RecordPathPart(ctx, "inferenceid", r.inferenceid)
 		}
-		path.WriteString(r.index)
+		path.WriteString(r.inferenceid)
+
+		method = http.MethodPost
+	case r.paramSet == tasktypeMask|inferenceidMask:
 		path.WriteString("/")
-		path.WriteString("_knn_search")
+		path.WriteString("_inference")
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "tasktype", r.tasktype)
+		}
+		path.WriteString(r.tasktype)
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "inferenceid", r.inferenceid)
+		}
+		path.WriteString(r.inferenceid)
 
 		method = http.MethodPost
 	}
@@ -250,11 +258,11 @@ func (r *KnnSearch) HttpRequest(ctx context.Context) (*http.Request, error) {
 }
 
 // Perform runs the http.Request through the provided transport and returns an http.Response.
-func (r KnnSearch) Perform(providedCtx context.Context) (*http.Response, error) {
+func (r Inference) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "knn_search")
+			ctx := instrument.Start(providedCtx, "inference.inference")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -271,17 +279,17 @@ func (r KnnSearch) Perform(providedCtx context.Context) (*http.Response, error) 
 	}
 
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		instrument.BeforeRequest(req, "knn_search")
-		if reader := instrument.RecordRequestBody(ctx, "knn_search", r.raw); reader != nil {
+		instrument.BeforeRequest(req, "inference.inference")
+		if reader := instrument.RecordRequestBody(ctx, "inference.inference", r.raw); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := r.transport.Perform(req)
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "knn_search")
+		instrument.AfterRequest(req, "elasticsearch", "inference.inference")
 	}
 	if err != nil {
-		localErr := fmt.Errorf("an error happened during the KnnSearch query execution: %w", err)
+		localErr := fmt.Errorf("an error happened during the Inference query execution: %w", err)
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 			instrument.RecordError(ctx, localErr)
 		}
@@ -291,12 +299,12 @@ func (r KnnSearch) Perform(providedCtx context.Context) (*http.Response, error) 
 	return res, nil
 }
 
-// Do runs the request through the transport, handle the response and returns a knnsearch.Response
-func (r KnnSearch) Do(providedCtx context.Context) (*Response, error) {
+// Do runs the request through the transport, handle the response and returns a inference.Response
+func (r Inference) Do(providedCtx context.Context) (*Response, error) {
 	var ctx context.Context
 	r.spanStarted = true
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "knn_search")
+		ctx = instrument.Start(providedCtx, "inference.inference")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -345,27 +353,35 @@ func (r KnnSearch) Do(providedCtx context.Context) (*Response, error) {
 	return nil, errorResponse
 }
 
-// Header set a key, value pair in the KnnSearch headers map.
-func (r *KnnSearch) Header(key, value string) *KnnSearch {
+// Header set a key, value pair in the Inference headers map.
+func (r *Inference) Header(key, value string) *Inference {
 	r.headers.Set(key, value)
 
 	return r
 }
 
-// Index A comma-separated list of index names to search;
-// use `_all` or to perform the operation on all indices.
-// API Name: index
-func (r *KnnSearch) _index(index string) *KnnSearch {
-	r.paramSet |= indexMask
-	r.index = index
+// TaskType The type of inference task that the model performs.
+// API Name: tasktype
+func (r *Inference) TaskType(tasktype string) *Inference {
+	r.paramSet |= tasktypeMask
+	r.tasktype = tasktype
 
 	return r
 }
 
-// Routing A comma-separated list of specific routing values.
-// API name: routing
-func (r *KnnSearch) Routing(routing string) *KnnSearch {
-	r.values.Set("routing", routing)
+// InferenceId The unique identifier for the inference endpoint.
+// API Name: inferenceid
+func (r *Inference) _inferenceid(inferenceid string) *Inference {
+	r.paramSet |= inferenceidMask
+	r.inferenceid = inferenceid
+
+	return r
+}
+
+// Timeout The amount of time to wait for the inference request to complete.
+// API name: timeout
+func (r *Inference) Timeout(duration string) *Inference {
+	r.values.Set("timeout", duration)
 
 	return r
 }
@@ -373,7 +389,7 @@ func (r *KnnSearch) Routing(routing string) *KnnSearch {
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
-func (r *KnnSearch) ErrorTrace(errortrace bool) *KnnSearch {
+func (r *Inference) ErrorTrace(errortrace bool) *Inference {
 	r.values.Set("error_trace", strconv.FormatBool(errortrace))
 
 	return r
@@ -382,7 +398,7 @@ func (r *KnnSearch) ErrorTrace(errortrace bool) *KnnSearch {
 // FilterPath Comma-separated list of filters in dot notation which reduce the response
 // returned by Elasticsearch.
 // API name: filter_path
-func (r *KnnSearch) FilterPath(filterpaths ...string) *KnnSearch {
+func (r *Inference) FilterPath(filterpaths ...string) *Inference {
 	tmp := []string{}
 	for _, item := range filterpaths {
 		tmp = append(tmp, fmt.Sprintf("%v", item))
@@ -399,7 +415,7 @@ func (r *KnnSearch) FilterPath(filterpaths ...string) *KnnSearch {
 // consumed
 // only by machines.
 // API name: human
-func (r *KnnSearch) Human(human bool) *KnnSearch {
+func (r *Inference) Human(human bool) *Inference {
 	r.values.Set("human", strconv.FormatBool(human))
 
 	return r
@@ -408,106 +424,55 @@ func (r *KnnSearch) Human(human bool) *KnnSearch {
 // Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
 // this option for debugging only.
 // API name: pretty
-func (r *KnnSearch) Pretty(pretty bool) *KnnSearch {
+func (r *Inference) Pretty(pretty bool) *Inference {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }
 
-// The request returns doc values for field names matching these patterns
-// in the `hits.fields` property of the response.
-// It accepts wildcard (`*`) patterns.
-// API name: docvalue_fields
-func (r *KnnSearch) DocvalueFields(docvaluefields ...types.FieldAndFormatVariant) *KnnSearch {
+// The text on which you want to perform the inference task.
+// It can be a single string or an array.
+//
+// > info
+// > Inference endpoints for the `completion` task type currently only support a
+// single string as input.
+// API name: input
+func (r *Inference) Input(inputs ...string) *Inference {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range docvaluefields {
-
-		r.req.DocvalueFields = append(r.req.DocvalueFields, *v.FieldAndFormatCaster())
-
-	}
-	return r
-}
-
-// The request returns values for field names matching these patterns
-// in the `hits.fields` property of the response.
-// It accepts wildcard (`*`) patterns.
-// API name: fields
-func (r *KnnSearch) Fields(fields ...string) *KnnSearch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Fields = fields
+	r.req.Input = make([]string, len(inputs))
+	r.req.Input = inputs
 
 	return r
 }
 
-// A query to filter the documents that can match. The kNN search will return
-// the top
-// `k` documents that also match this filter. The value can be a single query or
-// a
-// list of queries. If `filter` isn't provided, all documents are allowed to
-// match.
-// API name: filter
-func (r *KnnSearch) Filter(filters ...types.QueryVariant) *KnnSearch {
+// The query input, which is required only for the `rerank` task.
+// It is not required for other tasks.
+// API name: query
+func (r *Inference) Query(query string) *Inference {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	r.req.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		r.req.Filter[i] = *v.QueryCaster()
-	}
+
+	r.req.Query = &query
 
 	return r
 }
 
-// The kNN query to run.
-// API name: knn
-func (r *KnnSearch) Knn(knn types.CoreKnnQueryVariant) *KnnSearch {
+// Task settings for the individual inference request.
+// These settings are specific to the task type you specified and override the
+// task settings specified when initializing the service.
+// API name: task_settings
+func (r *Inference) TaskSettings(tasksettings json.RawMessage) *Inference {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Knn = *knn.CoreKnnQueryCaster()
-
-	return r
-}
-
-// Indicates which source fields are returned for matching documents. These
-// fields are returned in the `hits._source` property of the search response.
-// API name: _source
-func (r *KnnSearch) Source_(sourceconfig types.SourceConfigVariant) *KnnSearch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Source_ = *sourceconfig.SourceConfigCaster()
-
-	return r
-}
-
-// A list of stored fields to return as part of a hit. If no fields are
-// specified,
-// no stored fields are included in the response. If this field is specified,
-// the `_source`
-// parameter defaults to `false`. You can pass `_source: true` to return both
-// source fields
-// and stored fields in the search response.
-// API name: stored_fields
-func (r *KnnSearch) StoredFields(fields ...string) *KnnSearch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.StoredFields = fields
+	r.req.TaskSettings = tasksettings
 
 	return r
 }
