@@ -154,6 +154,30 @@ type TypedClient struct {
 	*typedapi.API
 }
 
+// NewBaseClient creates a new client free of any API.
+func NewBaseClient(cfg Config) (*BaseClient, error) {
+	tp, err := newTransport(cfg)
+	if err != nil {
+		return nil, err
+	}
+
+	compatHeaderEnv := os.Getenv(esCompatHeader)
+	compatibilityHeader, _ := strconv.ParseBool(compatHeaderEnv)
+
+	client := &BaseClient{
+		Transport:           tp,
+		disableMetaHeader:   cfg.DisableMetaHeader,
+		metaHeader:          initMetaHeader(tp),
+		compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+	}
+
+	if cfg.DiscoverNodesOnStart {
+		go client.DiscoverNodes()
+	}
+
+	return client, nil
+}
+
 // NewDefaultClient creates a new client with default options.
 //
 // It will use http://localhost:9200 as the default address.
