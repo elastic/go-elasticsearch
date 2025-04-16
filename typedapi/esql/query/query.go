@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Run an ES|QL query.
 // Get search results for an ES|QL (Elasticsearch query language) query.
@@ -315,6 +315,15 @@ func (r *Query) Delimiter(delimiter string) *Query {
 // API name: drop_null_columns
 func (r *Query) DropNullColumns(dropnullcolumns bool) *Query {
 	r.values.Set("drop_null_columns", strconv.FormatBool(dropnullcolumns))
+
+	return r
+}
+
+// AllowPartialResults If `true`, partial results will be returned if there are shard failures, but
+// the query can continue to execute on other clusters and shards.
+// API name: allow_partial_results
+func (r *Query) AllowPartialResults(allowpartialresults bool) *Query {
+	r.values.Set("allow_partial_results", strconv.FormatBool(allowpartialresults))
 
 	return r
 }

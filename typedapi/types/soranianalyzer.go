@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SoraniAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/analysis/analyzers.ts#L269-L274
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/analyzers.ts#L269-L274
 type SoraniAnalyzer struct {
 	StemExclusion []string `json:"stem_exclusion,omitempty"`
 	Stopwords     []string `json:"stopwords,omitempty"`

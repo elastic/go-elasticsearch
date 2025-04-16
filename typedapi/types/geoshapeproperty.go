@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // GeoShapeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/mapping/geo.ts#L41-L54
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/mapping/geo.ts#L41-L55
 type GeoShapeProperty struct {
 	Coerce          *bool                          `json:"coerce,omitempty"`
 	CopyTo          []string                       `json:"copy_to,omitempty"`
@@ -46,6 +46,7 @@ type GeoShapeProperty struct {
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	IgnoreZValue    *bool                          `json:"ignore_z_value,omitempty"`
+	Index           *bool                          `json:"index,omitempty"`
 	// Meta Metadata about the field.
 	Meta                map[string]string                                `json:"meta,omitempty"`
 	Orientation         *geoorientation.GeoOrientation                   `json:"orientation,omitempty"`
@@ -495,6 +496,20 @@ func (s *GeoShapeProperty) UnmarshalJSON(data []byte) error {
 				s.IgnoreZValue = &v
 			}
 
+		case "index":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Index", err)
+				}
+				s.Index = &value
+			case bool:
+				s.Index = &v
+			}
+
 		case "meta":
 			if s.Meta == nil {
 				s.Meta = make(map[string]string, 0)
@@ -885,6 +900,7 @@ func (s GeoShapeProperty) MarshalJSON() ([]byte, error) {
 		IgnoreAbove:         s.IgnoreAbove,
 		IgnoreMalformed:     s.IgnoreMalformed,
 		IgnoreZValue:        s.IgnoreZValue,
+		Index:               s.Index,
 		Meta:                s.Meta,
 		Orientation:         s.Orientation,
 		Properties:          s.Properties,

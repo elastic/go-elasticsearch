@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TrainedModelDeploymentNodesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/TrainedModel.ts#L156-L201
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/TrainedModel.ts#L156-L201
 type TrainedModelDeploymentNodesStats struct {
 	// AverageInferenceTimeMs The average time for each inference call to complete on this node.
 	AverageInferenceTimeMs Float64 `json:"average_inference_time_ms,omitempty"`
@@ -54,12 +54,12 @@ type TrainedModelDeploymentNodesStats struct {
 	// NumberOfPendingRequests The number of inference requests queued to be processed.
 	NumberOfPendingRequests *int  `json:"number_of_pending_requests,omitempty"`
 	PeakThroughputPerMinute int64 `json:"peak_throughput_per_minute"`
-	// RejectionExecutionCount The number of inference requests that were not processed because the queue
+	// RejectedExecutionCount The number of inference requests that were not processed because the queue
 	// was full.
-	RejectionExecutionCount *int `json:"rejection_execution_count,omitempty"`
+	RejectedExecutionCount *int `json:"rejected_execution_count,omitempty"`
 	// RoutingState The current routing state and reason for the current routing state for this
 	// allocation.
-	RoutingState TrainedModelAssignmentRoutingTable `json:"routing_state"`
+	RoutingState TrainedModelAssignmentRoutingStateAndReason `json:"routing_state"`
 	// StartTime The epoch timestamp when the allocation started.
 	StartTime *int64 `json:"start_time,omitempty"`
 	// ThreadsPerAllocation The number of threads used by each allocation during inference.
@@ -217,7 +217,7 @@ func (s *TrainedModelDeploymentNodesStats) UnmarshalJSON(data []byte) error {
 				s.PeakThroughputPerMinute = f
 			}
 
-		case "rejection_execution_count":
+		case "rejected_execution_count":
 
 			var tmp any
 			dec.Decode(&tmp)
@@ -225,12 +225,12 @@ func (s *TrainedModelDeploymentNodesStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return fmt.Errorf("%s | %w", "RejectionExecutionCount", err)
+					return fmt.Errorf("%s | %w", "RejectedExecutionCount", err)
 				}
-				s.RejectionExecutionCount = &value
+				s.RejectedExecutionCount = &value
 			case float64:
 				f := int(v)
-				s.RejectionExecutionCount = &f
+				s.RejectedExecutionCount = &f
 			}
 
 		case "routing_state":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Update a trained model deployment.
 package updatetrainedmodeldeployment
@@ -83,7 +83,7 @@ func NewUpdateTrainedModelDeploymentFunc(tp elastictransport.Interface) NewUpdat
 
 // Update a trained model deployment.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-trained-model-deployment.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-ml-update-trained-model-deployment
 func New(tp elastictransport.Interface) *UpdateTrainedModelDeployment {
 	r := &UpdateTrainedModelDeployment{
 		transport: tp,

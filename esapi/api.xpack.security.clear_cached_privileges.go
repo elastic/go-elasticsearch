@@ -34,7 +34,7 @@ func newSecurityClearCachedPrivilegesFunc(t Transport) SecurityClearCachedPrivil
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -61,7 +61,7 @@ type SecurityClearCachedPrivilegesRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -73,7 +73,7 @@ func (r SecurityClearCachedPrivilegesRequest) Do(providedCtx context.Context, tr
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "security.clear_cached_privileges")
 		defer instrument.Close(ctx)
 	}
@@ -95,7 +95,7 @@ func (r SecurityClearCachedPrivilegesRequest) Do(providedCtx context.Context, tr
 	path.WriteString("privilege")
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Application, ","))
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "application", strings.Join(r.Application, ","))
 	}
 	path.WriteString("/")
@@ -121,7 +121,7 @@ func (r SecurityClearCachedPrivilegesRequest) Do(providedCtx context.Context, tr
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -151,15 +151,15 @@ func (r SecurityClearCachedPrivilegesRequest) Do(providedCtx context.Context, tr
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "security.clear_cached_privileges")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "security.clear_cached_privileges")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

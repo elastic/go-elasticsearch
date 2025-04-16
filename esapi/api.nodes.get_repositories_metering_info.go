@@ -34,7 +34,7 @@ func newNodesGetRepositoriesMeteringInfoFunc(t Transport) NodesGetRepositoriesMe
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -63,7 +63,7 @@ type NodesGetRepositoriesMeteringInfoRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -75,7 +75,7 @@ func (r NodesGetRepositoriesMeteringInfoRequest) Do(providedCtx context.Context,
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "nodes.get_repositories_metering_info")
 		defer instrument.Close(ctx)
 	}
@@ -95,7 +95,7 @@ func (r NodesGetRepositoriesMeteringInfoRequest) Do(providedCtx context.Context,
 	path.WriteString("_nodes")
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.NodeID, ","))
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "node_id", strings.Join(r.NodeID, ","))
 	}
 	path.WriteString("/")
@@ -121,7 +121,7 @@ func (r NodesGetRepositoriesMeteringInfoRequest) Do(providedCtx context.Context,
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -151,15 +151,15 @@ func (r NodesGetRepositoriesMeteringInfoRequest) Do(providedCtx context.Context,
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "nodes.get_repositories_metering_info")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "nodes.get_repositories_metering_info")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

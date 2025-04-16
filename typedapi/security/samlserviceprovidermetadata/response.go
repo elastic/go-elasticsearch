@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package samlserviceprovidermetadata
 
 // Response holds the response body struct for the package samlserviceprovidermetadata
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/security/saml_service_provider_metadata/Response.ts#L20-L27
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/security/saml_service_provider_metadata/Response.ts#L20-L27
 type Response struct {
 
 	// Metadata An XML string that contains a SAML Service Provider's metadata for the realm.

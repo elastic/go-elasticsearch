@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Run an async ES|QL query.
 // Asynchronously run an ES|QL (Elasticsearch query language) query, monitor its
@@ -301,6 +301,15 @@ func (r *AsyncQuery) Header(key, value string) *AsyncQuery {
 	return r
 }
 
+// AllowPartialResults If `true`, partial results will be returned if there are shard failures, but
+// the query can continue to execute on other clusters and shards.
+// API name: allow_partial_results
+func (r *AsyncQuery) AllowPartialResults(allowpartialresults bool) *AsyncQuery {
+	r.values.Set("allow_partial_results", strconv.FormatBool(allowpartialresults))
+
+	return r
+}
+
 // Delimiter The character to use between values within a CSV row.
 // It is valid only for the CSV format.
 // API name: delimiter
@@ -350,18 +359,6 @@ func (r *AsyncQuery) KeepAlive(duration string) *AsyncQuery {
 // API name: keep_on_completion
 func (r *AsyncQuery) KeepOnCompletion(keeponcompletion bool) *AsyncQuery {
 	r.values.Set("keep_on_completion", strconv.FormatBool(keeponcompletion))
-
-	return r
-}
-
-// WaitForCompletionTimeout The period to wait for the request to finish.
-// By default, the request waits for 1 second for the query results.
-// If the query completes during this period, results are returned
-// Otherwise, a query ID is returned that can later be used to retrieve the
-// results.
-// API name: wait_for_completion_timeout
-func (r *AsyncQuery) WaitForCompletionTimeout(duration string) *AsyncQuery {
-	r.values.Set("wait_for_completion_timeout", duration)
 
 	return r
 }
@@ -527,5 +524,22 @@ func (r *AsyncQuery) Tables(tables map[string]map[string]types.TableValuesContai
 		r.req = NewRequest()
 	}
 	r.req.Tables = tables
+	return r
+}
+
+// The period to wait for the request to finish.
+// By default, the request waits for 1 second for the query results.
+// If the query completes during this period, results are returned
+// Otherwise, a query ID is returned that can later be used to retrieve the
+// results.
+// API name: wait_for_completion_timeout
+func (r *AsyncQuery) WaitForCompletionTimeout(duration types.DurationVariant) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.WaitForCompletionTimeout = *duration.DurationCaster()
+
 	return r
 }

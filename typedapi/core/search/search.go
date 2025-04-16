@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Run a search.
 //
@@ -965,7 +965,8 @@ func (r *Search) Knn(knns ...types.KnnSearchVariant) *Search {
 }
 
 // The minimum `_score` for matching documents.
-// Documents with a lower `_score` are not included in the search results.
+// Documents with a lower `_score` are not included in search results and
+// results collected by aggregations.
 // API name: min_score
 func (r *Search) MinScore(minscore types.Float64) *Search {
 	// Initialize the request if it is not already initialized

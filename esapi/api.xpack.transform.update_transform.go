@@ -36,7 +36,7 @@ func newTransformUpdateTransformFunc(t Transport) TransformUpdateTransform {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -68,7 +68,7 @@ type TransformUpdateTransformRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -80,7 +80,7 @@ func (r TransformUpdateTransformRequest) Do(providedCtx context.Context, transpo
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "transform.update_transform")
 		defer instrument.Close(ctx)
 	}
@@ -96,7 +96,7 @@ func (r TransformUpdateTransformRequest) Do(providedCtx context.Context, transpo
 	path.WriteString("_transform")
 	path.WriteString("/")
 	path.WriteString(r.TransformID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "transform_id", r.TransformID)
 	}
 	path.WriteString("/")
@@ -130,7 +130,7 @@ func (r TransformUpdateTransformRequest) Do(providedCtx context.Context, transpo
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -164,18 +164,18 @@ func (r TransformUpdateTransformRequest) Do(providedCtx context.Context, transpo
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "transform.update_transform")
 		if reader := instrument.RecordRequestBody(ctx, "transform.update_transform", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "transform.update_transform")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

@@ -36,7 +36,7 @@ func newSnapshotCreateRepositoryFunc(t Transport) SnapshotCreateRepository {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -69,7 +69,7 @@ type SnapshotCreateRepositoryRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -81,7 +81,7 @@ func (r SnapshotCreateRepositoryRequest) Do(providedCtx context.Context, transpo
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "snapshot.create_repository")
 		defer instrument.Close(ctx)
 	}
@@ -97,7 +97,7 @@ func (r SnapshotCreateRepositoryRequest) Do(providedCtx context.Context, transpo
 	path.WriteString("_snapshot")
 	path.WriteString("/")
 	path.WriteString(r.Repository)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "repository", r.Repository)
 	}
 
@@ -133,7 +133,7 @@ func (r SnapshotCreateRepositoryRequest) Do(providedCtx context.Context, transpo
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -167,18 +167,18 @@ func (r SnapshotCreateRepositoryRequest) Do(providedCtx context.Context, transpo
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "snapshot.create_repository")
 		if reader := instrument.RecordRequestBody(ctx, "snapshot.create_repository", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "snapshot.create_repository")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

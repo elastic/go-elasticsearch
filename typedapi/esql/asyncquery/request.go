@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package asyncquery
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package asyncquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/esql/async_query/AsyncQueryRequest.ts#L28-L125
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/esql/async_query/AsyncQueryRequest.ts#L28-L138
 type Request struct {
 
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
@@ -64,6 +68,12 @@ type Request struct {
 	// Tables Tables to use with the LOOKUP operation. The top level key is the table
 	// name and the next level key is the column name.
 	Tables map[string]map[string]types.TableValuesContainer `json:"tables,omitempty"`
+	// WaitForCompletionTimeout The period to wait for the request to finish.
+	// By default, the request waits for 1 second for the query results.
+	// If the query completes during this period, results are returned
+	// Otherwise, a query ID is returned that can later be used to retrieve the
+	// results.
+	WaitForCompletionTimeout types.Duration `json:"wait_for_completion_timeout,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -85,4 +95,112 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "columnar":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Columnar", err)
+				}
+				s.Columnar = &value
+			case bool:
+				s.Columnar = &v
+			}
+
+		case "filter":
+			if err := dec.Decode(&s.Filter); err != nil {
+				return fmt.Errorf("%s | %w", "Filter", err)
+			}
+
+		case "include_ccs_metadata":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IncludeCcsMetadata", err)
+				}
+				s.IncludeCcsMetadata = &value
+			case bool:
+				s.IncludeCcsMetadata = &v
+			}
+
+		case "locale":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Locale", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Locale = &o
+
+		case "params":
+			if err := dec.Decode(&s.Params); err != nil {
+				return fmt.Errorf("%s | %w", "Params", err)
+			}
+
+		case "profile":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Profile", err)
+				}
+				s.Profile = &value
+			case bool:
+				s.Profile = &v
+			}
+
+		case "query":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Query", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Query = o
+
+		case "tables":
+			if s.Tables == nil {
+				s.Tables = make(map[string]map[string]types.TableValuesContainer, 0)
+			}
+			if err := dec.Decode(&s.Tables); err != nil {
+				return fmt.Errorf("%s | %w", "Tables", err)
+			}
+
+		case "wait_for_completion_timeout":
+			if err := dec.Decode(&s.WaitForCompletionTimeout); err != nil {
+				return fmt.Errorf("%s | %w", "WaitForCompletionTimeout", err)
+			}
+
+		}
+	}
+	return nil
 }

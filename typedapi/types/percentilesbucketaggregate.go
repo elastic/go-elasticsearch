@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // PercentilesBucketAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/aggregations/Aggregate.ts#L180-L181
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/Aggregate.ts#L180-L181
 type PercentilesBucketAggregate struct {
 	Meta   Metadata    `json:"meta,omitempty"`
 	Values Percentiles `json:"values"`
@@ -64,7 +64,7 @@ func (s *PercentilesBucketAggregate) UnmarshalJSON(data []byte) error {
 			localDec := json.NewDecoder(source)
 			switch rawMsg[0] {
 			case '{':
-				o := make(map[string]string, 0)
+				o := make(map[string]any, 0)
 				if err := localDec.Decode(&o); err != nil {
 					return fmt.Errorf("%s | %w", "Values", err)
 				}

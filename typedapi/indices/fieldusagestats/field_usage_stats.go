@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Get field usage stats.
 // Get field usage information for each shard and field of an index.
@@ -359,17 +359,6 @@ func (r *FieldUsageStats) IgnoreUnavailable(ignoreunavailable bool) *FieldUsageS
 // API name: fields
 func (r *FieldUsageStats) Fields(fields ...string) *FieldUsageStats {
 	r.values.Set("fields", strings.Join(fields, ","))
-
-	return r
-}
-
-// WaitForActiveShards The number of shard copies that must be active before proceeding with the
-// operation.
-// Set to all or any positive integer up to the total number of shards in the
-// index (`number_of_replicas+1`).
-// API name: wait_for_active_shards
-func (r *FieldUsageStats) WaitForActiveShards(waitforactiveshards string) *FieldUsageStats {
-	r.values.Set("wait_for_active_shards", waitforactiveshards)
 
 	return r
 }

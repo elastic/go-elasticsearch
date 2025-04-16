@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Update a transform.
 // Updates certain properties of a transform.
@@ -105,7 +105,7 @@ func NewUpdateTransformFunc(tp elastictransport.Interface) NewUpdateTransform {
 // roles the user who updated it had at the
 // time of update and runs with those privileges.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-transform.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-transform-update-transform
 func New(tp elastictransport.Interface) *UpdateTransform {
 	r := &UpdateTransform{
 		transport: tp,

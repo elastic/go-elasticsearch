@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 package types
 
@@ -30,8 +30,14 @@ import (
 
 // SemanticTextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/mapping/core.ts#L210-L226
+// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/mapping/core.ts#L220-L243
 type SemanticTextProperty struct {
+	// ChunkingSettings Settings for chunking text into smaller passages. If specified, these will
+	// override the
+	// chunking settings sent in the inference endpoint associated with
+	// inference_id. If chunking settings are updated,
+	// they will not be applied to existing documents until they are reindexed.
+	ChunkingSettings *ChunkingSettings `json:"chunking_settings,omitempty"`
 	// InferenceId Inference endpoint that will be used to generate embeddings for the field.
 	// This parameter cannot be updated. Use the Create inference API to create the
 	// endpoint.
@@ -62,6 +68,11 @@ func (s *SemanticTextProperty) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "chunking_settings":
+			if err := dec.Decode(&s.ChunkingSettings); err != nil {
+				return fmt.Errorf("%s | %w", "ChunkingSettings", err)
+			}
 
 		case "inference_id":
 			if err := dec.Decode(&s.InferenceId); err != nil {
@@ -95,6 +106,7 @@ func (s *SemanticTextProperty) UnmarshalJSON(data []byte) error {
 func (s SemanticTextProperty) MarshalJSON() ([]byte, error) {
 	type innerSemanticTextProperty SemanticTextProperty
 	tmp := innerSemanticTextProperty{
+		ChunkingSettings:  s.ChunkingSettings,
 		InferenceId:       s.InferenceId,
 		Meta:              s.Meta,
 		SearchInferenceId: s.SearchInferenceId,

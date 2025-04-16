@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
+// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
 
 // Get a watch.
 package getwatch
@@ -78,7 +78,7 @@ func NewGetWatchFunc(tp elastictransport.Interface) NewGetWatch {
 
 // Get a watch.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-watch.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-get-watch
 func New(tp elastictransport.Interface) *GetWatch {
 	r := &GetWatch{
 		transport: tp,
