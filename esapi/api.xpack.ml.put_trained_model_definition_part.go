@@ -36,7 +36,7 @@ func newMLPutTrainedModelDefinitionPartFunc(t Transport) MLPutTrainedModelDefini
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -66,7 +66,7 @@ type MLPutTrainedModelDefinitionPartRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -78,7 +78,7 @@ func (r MLPutTrainedModelDefinitionPartRequest) Do(providedCtx context.Context, 
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ml.put_trained_model_definition_part")
 		defer instrument.Close(ctx)
 	}
@@ -100,14 +100,14 @@ func (r MLPutTrainedModelDefinitionPartRequest) Do(providedCtx context.Context, 
 	path.WriteString("trained_models")
 	path.WriteString("/")
 	path.WriteString(r.ModelID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "model_id", r.ModelID)
 	}
 	path.WriteString("/")
 	path.WriteString("definition")
 	path.WriteString("/")
 	path.WriteString(strconv.Itoa(*r.Part))
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "part", strconv.Itoa(*r.Part))
 	}
 
@@ -131,7 +131,7 @@ func (r MLPutTrainedModelDefinitionPartRequest) Do(providedCtx context.Context, 
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -165,18 +165,18 @@ func (r MLPutTrainedModelDefinitionPartRequest) Do(providedCtx context.Context, 
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ml.put_trained_model_definition_part")
 		if reader := instrument.RecordRequestBody(ctx, "ml.put_trained_model_definition_part", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ml.put_trained_model_definition_part")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
