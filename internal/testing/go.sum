@@ -29,8 +29,8 @@ github.com/docker/go-connections v0.5.0 h1:USnMq7hx7gwdVZq1L49hLXaFtUdTADjXGp+uj
 github.com/docker/go-connections v0.5.0/go.mod h1:ov60Kzw0kKElRwhNs9UlUHAE/F9Fe6GLaXnqyDdmEXc=
 github.com/docker/go-units v0.5.0 h1:69rxXcBk27SvSaaxTtLh/8llcHD8vYHT7WSdRZ/jvr4=
 github.com/docker/go-units v0.5.0/go.mod h1:fgPhTUdO+D/Jk86RDLlptpiXQzgHJF7gydDDbaIK4Dk=
-github.com/elastic/elastic-transport-go/v8 v8.6.1 h1:h2jQRqH6eLGiBSN4eZbQnJLtL4bC5b4lfVFRjw2R4e4=
-github.com/elastic/elastic-transport-go/v8 v8.6.1/go.mod h1:YLHer5cj0csTzNFXoNQ8qhtGY1GTvSqPnKWKaqQE3Hk=
+github.com/elastic/elastic-transport-go/v8 v8.7.0 h1:OgTneVuXP2uip4BA658Xi6Hfw+PeIOod2rY3GVMGoVE=
+github.com/elastic/elastic-transport-go/v8 v8.7.0/go.mod h1:YLHer5cj0csTzNFXoNQ8qhtGY1GTvSqPnKWKaqQE3Hk=
 github.com/elastic/go-elasticsearch/v8 v8.12.1 h1:QcuFK5LaZS0pSIj/eAEsxmJWmMo7tUs1aVBbzdIgtnE=
 github.com/elastic/go-elasticsearch/v8 v8.12.1/go.mod h1:wSzJYrrKPZQ8qPuqAqc6KMR4HrBfHnZORvyL+FMFqq0=
 github.com/felixge/httpsnoop v1.0.4 h1:NFTV2Zj1bL4mc9sqWACXbQFVBBg2W3GPvqp8/ESS2Wg=
