@@ -34,7 +34,7 @@ func newInferenceChatCompletionUnifiedFunc(t Transport) InferenceChatCompletionU
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -63,7 +63,7 @@ type InferenceChatCompletionUnifiedRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -75,7 +75,7 @@ func (r InferenceChatCompletionUnifiedRequest) Do(providedCtx context.Context, t
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "inference.chat_completion_unified")
 		defer instrument.Close(ctx)
 	}
@@ -93,7 +93,7 @@ func (r InferenceChatCompletionUnifiedRequest) Do(providedCtx context.Context, t
 	path.WriteString("chat_completion")
 	path.WriteString("/")
 	path.WriteString(r.InferenceID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
 	}
 	path.WriteString("/")
@@ -119,7 +119,7 @@ func (r InferenceChatCompletionUnifiedRequest) Do(providedCtx context.Context, t
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -153,18 +153,18 @@ func (r InferenceChatCompletionUnifiedRequest) Do(providedCtx context.Context, t
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "inference.chat_completion_unified")
 		if reader := instrument.RecordRequestBody(ctx, "inference.chat_completion_unified", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "inference.chat_completion_unified")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

@@ -34,7 +34,7 @@ func newQueryRulesPutRulesetFunc(t Transport) QueryRulesPutRuleset {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -63,7 +63,7 @@ type QueryRulesPutRulesetRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -75,7 +75,7 @@ func (r QueryRulesPutRulesetRequest) Do(providedCtx context.Context, transport T
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "query_rules.put_ruleset")
 		defer instrument.Close(ctx)
 	}
@@ -91,7 +91,7 @@ func (r QueryRulesPutRulesetRequest) Do(providedCtx context.Context, transport T
 	path.WriteString("_query_rules")
 	path.WriteString("/")
 	path.WriteString(r.RulesetID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "ruleset_id", r.RulesetID)
 	}
 
@@ -115,7 +115,7 @@ func (r QueryRulesPutRulesetRequest) Do(providedCtx context.Context, transport T
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -149,18 +149,18 @@ func (r QueryRulesPutRulesetRequest) Do(providedCtx context.Context, transport T
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "query_rules.put_ruleset")
 		if reader := instrument.RecordRequestBody(ctx, "query_rules.put_ruleset", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "query_rules.put_ruleset")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

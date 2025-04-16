@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Roll over to a new index.
 // TIP: It is recommended to use the index lifecycle rollover action to automate
@@ -194,7 +194,7 @@ func NewRolloverFunc(tp elastictransport.Interface) NewRollover {
 // If you roll over the alias on May 7, 2099, the new index's name is
 // `my-index-2099.05.07-000002`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-rollover
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-rollover
 func New(tp elastictransport.Interface) *Rollover {
 	r := &Rollover{
 		transport: tp,

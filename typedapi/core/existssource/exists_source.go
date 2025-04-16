@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Check for a document source.
 //
@@ -100,7 +100,7 @@ func NewExistsSourceFunc(tp elastictransport.Interface) NewExistsSource {
 //
 // A document's source is not available if it is disabled in the mapping.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 func New(tp elastictransport.Interface) *ExistsSource {
 	r := &ExistsSource{
 		transport: tp,

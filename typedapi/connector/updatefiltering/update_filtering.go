@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Update the connector filtering.
 //
@@ -97,7 +97,7 @@ func NewUpdateFilteringFunc(tp elastictransport.Interface) NewUpdateFiltering {
 // The filtering property is used to configure sync rules (both basic and
 // advanced) for a connector.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-filtering
 func New(tp elastictransport.Interface) *UpdateFiltering {
 	r := &UpdateFiltering{
 		transport: tp,

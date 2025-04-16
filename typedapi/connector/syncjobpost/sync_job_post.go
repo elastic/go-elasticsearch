@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Create a connector sync job.
 //
@@ -83,7 +83,7 @@ func NewSyncJobPostFunc(tp elastictransport.Interface) NewSyncJobPost {
 // Create a connector sync job document in the internal index and initialize its
 // counters and timestamps with default values.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-post
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-post
 func New(tp elastictransport.Interface) *SyncJobPost {
 	r := &SyncJobPost{
 		transport: tp,

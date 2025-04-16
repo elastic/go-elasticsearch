@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Run a search application search.
 // Generate and run an Elasticsearch query that uses the specified query
@@ -93,7 +93,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 // Unspecified template parameters are assigned their default values if
 // applicable.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-search
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-search
 func New(tp elastictransport.Interface) *Search {
 	r := &Search{
 		transport: tp,

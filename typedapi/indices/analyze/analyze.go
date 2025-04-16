@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get tokens from text analysis.
 // The analyze API performs analysis on a text string and returns the resulting
@@ -99,7 +99,7 @@ func NewAnalyzeFunc(tp elastictransport.Interface) NewAnalyze {
 // The `_analyze` endpoint without a specified index will always use `10000` as
 // its limit.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-analyze
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-analyze
 func New(tp elastictransport.Interface) *Analyze {
 	r := &Analyze{
 		transport: tp,

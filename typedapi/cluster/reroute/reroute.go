@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Reroute the cluster.
 // Manually change the allocation of individual shards in the cluster.
@@ -131,7 +131,7 @@ func NewRerouteFunc(tp elastictransport.Interface) NewReroute {
 // calling the reroute API with the `?retry_failed` URI query parameter, which
 // will attempt a single retry round for these shards.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-reroute
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-reroute
 func New(tp elastictransport.Interface) *Reroute {
 	r := &Reroute{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Find the structure of a text file.
 // The text file must contain data that is suitable to be ingested into
@@ -127,7 +127,7 @@ func NewFindStructureFunc(tp elastictransport.Interface) NewFindStructure {
 // However, you can optionally override some of the decisions about the text
 // structure by specifying one or more query parameters.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-text-structure-find-structure
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-text-structure-find-structure
 func New(tp elastictransport.Interface) *FindStructure {
 	r := &FindStructure{
 		transport: tp,

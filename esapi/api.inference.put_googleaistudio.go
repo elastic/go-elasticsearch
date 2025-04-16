@@ -34,7 +34,7 @@ func newInferencePutGoogleaistudioFunc(t Transport) InferencePutGoogleaistudio {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -64,7 +64,7 @@ type InferencePutGoogleaistudioRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -76,7 +76,7 @@ func (r InferencePutGoogleaistudioRequest) Do(providedCtx context.Context, trans
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "inference.put_googleaistudio")
 		defer instrument.Close(ctx)
 	}
@@ -92,12 +92,12 @@ func (r InferencePutGoogleaistudioRequest) Do(providedCtx context.Context, trans
 	path.WriteString("_inference")
 	path.WriteString("/")
 	path.WriteString(r.TaskType)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "task_type", r.TaskType)
 	}
 	path.WriteString("/")
 	path.WriteString(r.GoogleaistudioInferenceID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "googleaistudio_inference_id", r.GoogleaistudioInferenceID)
 	}
 
@@ -121,7 +121,7 @@ func (r InferencePutGoogleaistudioRequest) Do(providedCtx context.Context, trans
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -155,18 +155,18 @@ func (r InferencePutGoogleaistudioRequest) Do(providedCtx context.Context, trans
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "inference.put_googleaistudio")
 		if reader := instrument.RecordRequestBody(ctx, "inference.put_googleaistudio", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "inference.put_googleaistudio")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

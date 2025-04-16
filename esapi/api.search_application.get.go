@@ -33,7 +33,7 @@ func newSearchApplicationGetFunc(t Transport) SearchApplicationGet {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -62,7 +62,7 @@ type SearchApplicationGetRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -74,7 +74,7 @@ func (r SearchApplicationGetRequest) Do(providedCtx context.Context, transport T
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "search_application.get")
 		defer instrument.Close(ctx)
 	}
@@ -92,7 +92,7 @@ func (r SearchApplicationGetRequest) Do(providedCtx context.Context, transport T
 	path.WriteString("search_application")
 	path.WriteString("/")
 	path.WriteString(r.Name)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "name", r.Name)
 	}
 
@@ -116,7 +116,7 @@ func (r SearchApplicationGetRequest) Do(providedCtx context.Context, transport T
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -146,15 +146,15 @@ func (r SearchApplicationGetRequest) Do(providedCtx context.Context, transport T
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "search_application.get")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "search_application.get")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

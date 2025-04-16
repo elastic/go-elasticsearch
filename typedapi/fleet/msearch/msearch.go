@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Run multiple Fleet searches.
 // Run several Fleet searches with a single API request.
@@ -91,7 +91,7 @@ func NewMsearchFunc(tp elastictransport.Interface) NewMsearch {
 // However, similar to the Fleet search API, it supports the
 // `wait_for_checkpoints` parameter.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-fleet-msearch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-fleet-msearch
 func New(tp elastictransport.Interface) *Msearch {
 	r := &Msearch{
 		transport: tp,
@@ -460,13 +460,11 @@ func (r *Msearch) WaitForCheckpoints(waitforcheckpoints ...int64) *Msearch {
 	return r
 }
 
-// AllowPartialSearchResults If true, returns partial results if there are shard request timeouts or
-// [shard
-// failures](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-replication.html#shard-failures).
-// If false, returns
-// an error with no partial results. Defaults to the configured cluster setting
-// `search.default_allow_partial_results`
-// which is true by default.
+// AllowPartialSearchResults If true, returns partial results if there are shard request timeouts or shard
+// failures.
+// If false, returns an error with no partial results.
+// Defaults to the configured cluster setting
+// `search.default_allow_partial_results`, which is true by default.
 // API name: allow_partial_search_results
 func (r *Msearch) AllowPartialSearchResults(allowpartialsearchresults bool) *Msearch {
 	r.values.Set("allow_partial_search_results", strconv.FormatBool(allowpartialsearchresults))

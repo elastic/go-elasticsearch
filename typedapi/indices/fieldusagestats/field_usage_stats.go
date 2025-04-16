@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get field usage stats.
 // Get field usage information for each shard and field of an index.
@@ -99,7 +99,7 @@ func NewFieldUsageStatsFunc(tp elastictransport.Interface) NewFieldUsageStats {
 // A given request will increment each count by a maximum value of 1, even if
 // the request accesses the same field multiple times.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-field-usage-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-field-usage-stats
 func New(tp elastictransport.Interface) *FieldUsageStats {
 	r := &FieldUsageStats{
 		transport: tp,

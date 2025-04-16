@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.0.0 (82165b1): DO NOT EDIT
+// Code generated from specification version 9.0.0 (09d023f): DO NOT EDIT
 
 package esapi
 
@@ -153,11 +153,9 @@ type API struct {
 	InferenceRerank                               InferenceRerank
 	InferenceSparseEmbedding                      InferenceSparseEmbedding
 	InferenceStreamCompletion                     InferenceStreamCompletion
-	InferenceStreamInference                      InferenceStreamInference
 	InferenceTextEmbedding                        InferenceTextEmbedding
 	InferenceUpdate                               InferenceUpdate
 	Info                                          Info
-	KnnSearch                                     KnnSearch
 	LogstashDeletePipeline                        LogstashDeletePipeline
 	LogstashGetPipeline                           LogstashGetPipeline
 	LogstashPutPipeline                           LogstashPutPipeline
@@ -360,7 +358,6 @@ type Indices struct {
 	SimulateTemplate        IndicesSimulateTemplate
 	Split                   IndicesSplit
 	Stats                   IndicesStats
-	Unfreeze                IndicesUnfreeze
 	UpdateAliases           IndicesUpdateAliases
 	ValidateQuery           IndicesValidateQuery
 }
@@ -791,11 +788,9 @@ func New(t Transport) *API {
 		InferenceRerank:                    newInferenceRerankFunc(t),
 		InferenceSparseEmbedding:           newInferenceSparseEmbeddingFunc(t),
 		InferenceStreamCompletion:          newInferenceStreamCompletionFunc(t),
-		InferenceStreamInference:           newInferenceStreamInferenceFunc(t),
 		InferenceTextEmbedding:             newInferenceTextEmbeddingFunc(t),
 		InferenceUpdate:                    newInferenceUpdateFunc(t),
 		Info:                               newInfoFunc(t),
-		KnnSearch:                          newKnnSearchFunc(t),
 		LogstashDeletePipeline:             newLogstashDeletePipelineFunc(t),
 		LogstashGetPipeline:                newLogstashGetPipelineFunc(t),
 		LogstashPutPipeline:                newLogstashPutPipelineFunc(t),
@@ -991,7 +986,6 @@ func New(t Transport) *API {
 			SimulateTemplate:        newIndicesSimulateTemplateFunc(t),
 			Split:                   newIndicesSplitFunc(t),
 			Stats:                   newIndicesStatsFunc(t),
-			Unfreeze:                newIndicesUnfreezeFunc(t),
 			UpdateAliases:           newIndicesUpdateAliasesFunc(t),
 			ValidateQuery:           newIndicesValidateQueryFunc(t),
 		},

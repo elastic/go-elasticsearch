@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Clear the cache.
 // Clear the cache of one or more indices.
@@ -91,7 +91,7 @@ func NewClearCacheFunc(tp elastictransport.Interface) NewClearCache {
 // parameters.
 // To clear the cache only of specific fields, use the `fields` parameter.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-clear-cache
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-clear-cache
 func New(tp elastictransport.Interface) *ClearCache {
 	r := &ClearCache{
 		transport: tp,

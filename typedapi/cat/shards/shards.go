@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get shard information.
 //
@@ -88,7 +88,7 @@ func NewShardsFunc(tp elastictransport.Interface) NewShards {
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-shards
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-shards
 func New(tp elastictransport.Interface) *Shards {
 	r := &Shards{
 		transport: tp,

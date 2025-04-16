@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 package getmodelsnapshotupgradestats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getmodelsnapshotupgradestats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/ml/get_model_snapshot_upgrade_stats/MlGetModelSnapshotUpgradeStatsResponse.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/ml/get_model_snapshot_upgrade_stats/MlGetModelSnapshotUpgradeStatsResponse.ts#L23-L28
 type Response struct {
 	Count                 int64                        `json:"count"`
 	ModelSnapshotUpgrades []types.ModelSnapshotUpgrade `json:"model_snapshot_upgrades"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Deactivate a watch.
 // A watch can be either active or inactive.
@@ -80,7 +80,7 @@ func NewDeactivateWatchFunc(tp elastictransport.Interface) NewDeactivateWatch {
 // Deactivate a watch.
 // A watch can be either active or inactive.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-deactivate-watch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-deactivate-watch
 func New(tp elastictransport.Interface) *DeactivateWatch {
 	r := &DeactivateWatch{
 		transport: tp,

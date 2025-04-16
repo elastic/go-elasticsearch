@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Delete indices.
 // Deleting an index deletes its documents, shards, and metadata.
@@ -95,7 +95,7 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 // is created.
 // You can then use the delete index API to delete the previous write index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,

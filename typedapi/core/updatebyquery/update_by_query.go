@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Update documents.
 // Updates documents that match the specified query.
@@ -359,7 +359,7 @@ func NewUpdateByQueryFunc(tp elastictransport.Interface) NewUpdateByQuery {
 // This API enables you to only modify the source of matching documents; you
 // cannot move them.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update-by-query
 func New(tp elastictransport.Interface) *UpdateByQuery {
 	r := &UpdateByQuery{
 		transport: tp,

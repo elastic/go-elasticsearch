@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Open a closed index.
 // For data streams, the API opens any closed backing indices.
@@ -149,7 +149,7 @@ func NewOpenFunc(tp elastictransport.Interface) NewOpen {
 // `wait_for_active_shards` setting on index creation applies to the `_open` and
 // `_close` index actions as well.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-open
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-open
 func New(tp elastictransport.Interface) *Open {
 	r := &Open{
 		transport: tp,

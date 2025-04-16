@@ -33,7 +33,7 @@ func newWatcherAckWatchFunc(t Transport) WatcherAckWatch {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -61,7 +61,7 @@ type WatcherAckWatchRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -73,7 +73,7 @@ func (r WatcherAckWatchRequest) Do(providedCtx context.Context, transport Transp
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "watcher.ack_watch")
 		defer instrument.Close(ctx)
 	}
@@ -91,7 +91,7 @@ func (r WatcherAckWatchRequest) Do(providedCtx context.Context, transport Transp
 	path.WriteString("watch")
 	path.WriteString("/")
 	path.WriteString(r.WatchID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "watch_id", r.WatchID)
 	}
 	path.WriteString("/")
@@ -99,7 +99,7 @@ func (r WatcherAckWatchRequest) Do(providedCtx context.Context, transport Transp
 	if len(r.ActionID) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.ActionID, ","))
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "action_id", strings.Join(r.ActionID, ","))
 		}
 	}
@@ -124,7 +124,7 @@ func (r WatcherAckWatchRequest) Do(providedCtx context.Context, transport Transp
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -154,15 +154,15 @@ func (r WatcherAckWatchRequest) Do(providedCtx context.Context, transport Transp
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "watcher.ack_watch")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "watcher.ack_watch")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

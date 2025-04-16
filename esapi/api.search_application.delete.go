@@ -33,7 +33,7 @@ func newSearchApplicationDeleteFunc(t Transport) SearchApplicationDelete {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -62,7 +62,7 @@ type SearchApplicationDeleteRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -74,7 +74,7 @@ func (r SearchApplicationDeleteRequest) Do(providedCtx context.Context, transpor
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "search_application.delete")
 		defer instrument.Close(ctx)
 	}
@@ -92,7 +92,7 @@ func (r SearchApplicationDeleteRequest) Do(providedCtx context.Context, transpor
 	path.WriteString("search_application")
 	path.WriteString("/")
 	path.WriteString(r.Name)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "name", r.Name)
 	}
 
@@ -116,7 +116,7 @@ func (r SearchApplicationDeleteRequest) Do(providedCtx context.Context, transpor
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -146,15 +146,15 @@ func (r SearchApplicationDeleteRequest) Do(providedCtx context.Context, transpor
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "search_application.delete")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "search_application.delete")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

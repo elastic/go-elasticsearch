@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Update the cluster settings.
 //
@@ -139,7 +139,7 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 // If a cluster becomes unstable, transient settings can clear unexpectedly,
 // resulting in a potentially undesired cluster configuration.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-settings
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-settings
 func New(tp elastictransport.Interface) *PutSettings {
 	r := &PutSettings{
 		transport: tp,

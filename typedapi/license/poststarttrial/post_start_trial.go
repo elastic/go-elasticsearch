@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Start a trial.
 // Start a 30-day trial, which gives access to all subscription features.
@@ -88,7 +88,7 @@ func NewPostStartTrialFunc(tp elastictransport.Interface) NewPostStartTrial {
 //
 // To check the status of your trial, use the get trial status API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post-start-trial
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-post-start-trial
 func New(tp elastictransport.Interface) *PostStartTrial {
 	r := &PostStartTrial{
 		transport: tp,

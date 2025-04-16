@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Run an async search.
 //
@@ -109,7 +109,7 @@ func NewSubmitFunc(tp elastictransport.Interface) NewSubmit {
 // The maximum allowed size for a stored async search response can be set by
 // changing the `search.max_async_search_response_size` cluster level setting.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-async-search-submit
 func New(tp elastictransport.Interface) *Submit {
 	r := &Submit{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Create or update role mappings.
 //
@@ -160,7 +160,7 @@ func NewPutRoleMappingFunc(tp elastictransport.Interface) NewPutRoleMapping {
 // If the format of the template is set to "json" then the template is expected
 // to produce a JSON string or an array of JSON strings for the role names.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-role-mapping
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-put-role-mapping
 func New(tp elastictransport.Interface) *PutRoleMapping {
 	r := &PutRoleMapping{
 		transport: tp,

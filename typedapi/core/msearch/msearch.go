@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Run multiple searches.
 //
@@ -121,7 +121,7 @@ func NewMsearchFunc(tp elastictransport.Interface) NewMsearch {
 // When sending requests to this endpoint the `Content-Type` header should be
 // set to `application/x-ndjson`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-msearch
 func New(tp elastictransport.Interface) *Msearch {
 	r := &Msearch{
 		transport: tp,

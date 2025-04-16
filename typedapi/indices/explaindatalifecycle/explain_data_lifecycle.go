@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get the status for a data stream lifecycle.
 // Get information about an index or data stream's current data stream lifecycle
@@ -86,7 +86,7 @@ func NewExplainDataLifecycleFunc(tp elastictransport.Interface) NewExplainDataLi
 // configuration managing the index, or any errors encountered during lifecycle
 // execution.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-explain-data-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-explain-data-lifecycle
 func New(tp elastictransport.Interface) *ExplainDataLifecycle {
 	r := &ExplainDataLifecycle{
 		transport: tp,

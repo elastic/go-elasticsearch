@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Bulk update API keys.
 // Update the attributes for multiple API keys.
@@ -129,7 +129,7 @@ func NewBulkUpdateApiKeysFunc(tp elastictransport.Interface) NewBulkUpdateApiKey
 // updated API keys, the IDs of API keys that already had the requested changes
 // and did not require an update, and error details for any failed update.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-update-api-keys
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-bulk-update-api-keys
 func New(tp elastictransport.Interface) *BulkUpdateApiKeys {
 	r := &BulkUpdateApiKeys{
 		transport: tp,

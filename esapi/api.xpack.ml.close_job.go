@@ -36,7 +36,7 @@ func newMLCloseJobFunc(t Transport) MLCloseJob {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -69,7 +69,7 @@ type MLCloseJobRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -81,7 +81,7 @@ func (r MLCloseJobRequest) Do(providedCtx context.Context, transport Transport) 
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ml.close_job")
 		defer instrument.Close(ctx)
 	}
@@ -99,7 +99,7 @@ func (r MLCloseJobRequest) Do(providedCtx context.Context, transport Transport) 
 	path.WriteString("anomaly_detectors")
 	path.WriteString("/")
 	path.WriteString(r.JobID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "job_id", r.JobID)
 	}
 	path.WriteString("/")
@@ -137,7 +137,7 @@ func (r MLCloseJobRequest) Do(providedCtx context.Context, transport Transport) 
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -171,18 +171,18 @@ func (r MLCloseJobRequest) Do(providedCtx context.Context, transport Transport) 
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ml.close_job")
 		if reader := instrument.RecordRequestBody(ctx, "ml.close_job", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ml.close_job")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

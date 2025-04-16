@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Search a vector tile.
 //
@@ -441,7 +441,7 @@ func NewSearchMvtFunc(tp elastictransport.Interface) NewSearchMvt {
 // Elasticsearch uses the H3 resolution that is closest to the corresponding
 // geotile density.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-mvt
 func New(tp elastictransport.Interface) *SearchMvt {
 	r := &SearchMvt{
 		transport: tp,

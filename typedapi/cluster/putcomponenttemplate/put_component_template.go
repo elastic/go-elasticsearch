@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Create or update a component template.
 // Component templates are building blocks for constructing index templates that
@@ -139,7 +139,7 @@ func NewPutComponentTemplateFunc(tp elastictransport.Interface) NewPutComponentT
 // To be applied, a component template must be included in an index template's
 // `composed_of` list.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-component-template
 func New(tp elastictransport.Interface) *PutComponentTemplate {
 	r := &PutComponentTemplate{
 		transport: tp,

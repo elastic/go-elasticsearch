@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Set a connector sync job error.
 // Set the `error` field for a connector sync job and set its `status` to
@@ -97,7 +97,7 @@ func NewSyncJobErrorFunc(tp elastictransport.Interface) NewSyncJobError {
 // This service runs automatically on Elastic Cloud for Elastic managed
 // connectors.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-error
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-error
 func New(tp elastictransport.Interface) *SyncJobError {
 	r := &SyncJobError{
 		transport: tp,

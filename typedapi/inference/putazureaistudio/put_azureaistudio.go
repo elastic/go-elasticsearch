@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Create an Azure AI studio inference endpoint.
 //
@@ -115,7 +115,7 @@ func NewPutAzureaistudioFunc(tp elastictransport.Interface) NewPutAzureaistudio 
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureaistudio
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-azureaistudio
 func New(tp elastictransport.Interface) *PutAzureaistudio {
 	r := &PutAzureaistudio{
 		transport: tp,

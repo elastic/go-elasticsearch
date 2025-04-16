@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get async search results.
 //
@@ -88,7 +88,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // a specific async search is restricted to the user or API key that submitted
 // it.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-async-search-submit
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,

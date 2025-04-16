@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Shrink an index.
 // Shrink an index into a new index with fewer primary shards.
@@ -198,7 +198,7 @@ func NewShrinkFunc(tp elastictransport.Interface) NewShrink {
 // * The node handling the shrink process must have sufficient free disk space
 // to accommodate a second copy of the existing index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-shrink
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-shrink
 func New(tp elastictransport.Interface) *Shrink {
 	r := &Shrink{
 		transport: tp,

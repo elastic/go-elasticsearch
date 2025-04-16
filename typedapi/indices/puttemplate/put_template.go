@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Create or update an index template.
 // Index templates define settings, mappings, and aliases that can be applied
@@ -145,7 +145,7 @@ func NewPutTemplateFunc(tp elastictransport.Interface) NewPutTemplate {
 // NOTE: Multiple matching templates with the same order value will result in a
 // non-deterministic merging order.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-template
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-template
 func New(tp elastictransport.Interface) *PutTemplate {
 	r := &PutTemplate{
 		transport: tp,

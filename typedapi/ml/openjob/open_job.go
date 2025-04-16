@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Open anomaly detection jobs.
 //
@@ -97,7 +97,7 @@ func NewOpenJobFunc(tp elastictransport.Interface) NewOpenJob {
 // loaded. The job is ready to resume its analysis from where it left off, once
 // new data is received.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-open-job
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-open-job
 func New(tp elastictransport.Interface) *OpenJob {
 	r := &OpenJob{
 		transport: tp,

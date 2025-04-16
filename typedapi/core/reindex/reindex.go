@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Reindex documents.
 //
@@ -636,7 +636,7 @@ func NewReindexFunc(tp elastictransport.Interface) NewReindex {
 // of the secure settings, which you add in the Elasticsearch keystore.
 // It is not possible to configure SSL in the body of the reindex request.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-reindex
 func New(tp elastictransport.Interface) *Reindex {
 	r := &Reindex{
 		transport: tp,

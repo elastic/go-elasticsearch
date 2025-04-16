@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Find API keys with a query.
 //
@@ -97,7 +97,7 @@ func NewQueryApiKeysFunc(tp elastictransport.Interface) NewQueryApiKeys {
 // (including `manage_security`), this API returns all API keys regardless of
 // ownership.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-api-keys
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-query-api-keys
 func New(tp elastictransport.Interface) *QueryApiKeys {
 	r := &QueryApiKeys{
 		transport: tp,

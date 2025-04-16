@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 package migratetodatatiers
 
@@ -31,7 +31,7 @@ import (
 
 // Response holds the response body struct for the package migratetodatatiers
 //
-// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/ilm/migrate_to_data_tiers/Response.ts#L22-L51
+// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/ilm/migrate_to_data_tiers/Response.ts#L22-L51
 type Response struct {
 	DryRun bool `json:"dry_run"`
 	// MigratedComponentTemplates The component templates that were updated to not contain custom routing

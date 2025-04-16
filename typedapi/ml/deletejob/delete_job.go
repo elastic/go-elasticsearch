@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Delete an anomaly detection job.
 //
@@ -92,7 +92,7 @@ func NewDeleteJobFunc(tp elastictransport.Interface) NewDeleteJob {
 // the delete datafeed API with the same timeout and force parameters as the
 // delete job request.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-job
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-job
 func New(tp elastictransport.Interface) *DeleteJob {
 	r := &DeleteJob{
 		transport: tp,

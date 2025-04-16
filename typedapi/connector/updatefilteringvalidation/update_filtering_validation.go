@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Update the connector draft filtering validation.
 //
@@ -87,7 +87,7 @@ func NewUpdateFilteringValidationFunc(tp elastictransport.Interface) NewUpdateFi
 //
 // Update the draft filtering validation info for a connector.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-filtering-validation-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-filtering-validation
 func New(tp elastictransport.Interface) *UpdateFilteringValidation {
 	r := &UpdateFilteringValidation{
 		transport: tp,

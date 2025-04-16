@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get the rollup job capabilities.
 // Get the capabilities of any rollup jobs that have been configured for a
@@ -100,7 +100,7 @@ func NewGetRollupCapsFunc(tp elastictransport.Interface) NewGetRollupCaps {
 // 2. If yes to the first question, what fields were rolled up, what
 // aggregations can be performed, and where does the data live?
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-rollup-caps
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-get-rollup-caps
 func New(tp elastictransport.Interface) *GetRollupCaps {
 	r := &GetRollupCaps{
 		transport: tp,

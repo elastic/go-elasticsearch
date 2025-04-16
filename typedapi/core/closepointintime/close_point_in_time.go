@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Close a point in time.
 // A point in time must be opened explicitly before being used in search
@@ -89,7 +89,7 @@ func NewClosePointInTimeFunc(tp elastictransport.Interface) NewClosePointInTime 
 // However, keeping points in time has a cost; close them as soon as they are no
 // longer required for search requests.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-open-point-in-time
 func New(tp elastictransport.Interface) *ClosePointInTime {
 	r := &ClosePointInTime{
 		transport: tp,

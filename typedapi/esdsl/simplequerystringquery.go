@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 package esdsl
 
@@ -29,8 +29,8 @@ type _simpleQueryStringQuery struct {
 	v *types.SimpleQueryStringQuery
 }
 
-// Returns users based on a provided query string, using a parser with a limited
-// but fault-tolerant syntax.
+// Returns documents based on a provided query string, using a parser with a
+// limited but fault-tolerant syntax.
 func NewSimpleQueryStringQuery(query string) *_simpleQueryStringQuery {
 
 	tmp := &_simpleQueryStringQuery{v: types.NewSimpleQueryStringQuery()}

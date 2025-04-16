@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get the features.
 // Get a list of features that can be included in snapshots using the
@@ -104,7 +104,7 @@ func NewGetFeaturesFunc(tp elastictransport.Interface) NewGetFeatures {
 // valid feature state by the create snapshot API, the plugin that defines that
 // feature must be installed on the master node.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-features-get-features
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-features-get-features
 func New(tp elastictransport.Interface) *GetFeatures {
 	r := &GetFeatures{
 		transport: tp,

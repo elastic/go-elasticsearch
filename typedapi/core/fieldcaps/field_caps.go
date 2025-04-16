@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get the field capabilities.
 //
@@ -98,7 +98,7 @@ func NewFieldCapsFunc(tp elastictransport.Interface) NewFieldCaps {
 // For example, a runtime field with a type of keyword is returned the same as
 // any other field that belongs to the `keyword` family.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-field-caps
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-field-caps
 func New(tp elastictransport.Interface) *FieldCaps {
 	r := &FieldCaps{
 		transport: tp,
