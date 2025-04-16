@@ -34,7 +34,7 @@ func newUpdateByQueryRethrottleFunc(t Transport) UpdateByQueryRethrottle {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -63,7 +63,7 @@ type UpdateByQueryRethrottleRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -75,7 +75,7 @@ func (r UpdateByQueryRethrottleRequest) Do(providedCtx context.Context, transpor
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "update_by_query_rethrottle")
 		defer instrument.Close(ctx)
 	}
@@ -91,7 +91,7 @@ func (r UpdateByQueryRethrottleRequest) Do(providedCtx context.Context, transpor
 	path.WriteString("_update_by_query")
 	path.WriteString("/")
 	path.WriteString(r.TaskID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "task_id", r.TaskID)
 	}
 	path.WriteString("/")
@@ -121,7 +121,7 @@ func (r UpdateByQueryRethrottleRequest) Do(providedCtx context.Context, transpor
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -151,15 +151,15 @@ func (r UpdateByQueryRethrottleRequest) Do(providedCtx context.Context, transpor
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "update_by_query_rethrottle")
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "update_by_query_rethrottle")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

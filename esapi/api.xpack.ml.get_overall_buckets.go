@@ -36,7 +36,7 @@ func newMLGetOverallBucketsFunc(t Transport) MLGetOverallBuckets {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -73,7 +73,7 @@ type MLGetOverallBucketsRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -85,7 +85,7 @@ func (r MLGetOverallBucketsRequest) Do(providedCtx context.Context, transport Tr
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "ml.get_overall_buckets")
 		defer instrument.Close(ctx)
 	}
@@ -103,7 +103,7 @@ func (r MLGetOverallBucketsRequest) Do(providedCtx context.Context, transport Tr
 	path.WriteString("anomaly_detectors")
 	path.WriteString("/")
 	path.WriteString(r.JobID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "job_id", r.JobID)
 	}
 	path.WriteString("/")
@@ -159,7 +159,7 @@ func (r MLGetOverallBucketsRequest) Do(providedCtx context.Context, transport Tr
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -193,18 +193,18 @@ func (r MLGetOverallBucketsRequest) Do(providedCtx context.Context, transport Tr
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ml.get_overall_buckets")
 		if reader := instrument.RecordRequestBody(ctx, "ml.get_overall_buckets", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "ml.get_overall_buckets")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err

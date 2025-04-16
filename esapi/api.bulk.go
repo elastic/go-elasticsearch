@@ -36,7 +36,7 @@ func newBulkFunc(t Transport) Bulk {
 		}
 
 		if transport, ok := t.(Instrumented); ok {
-			r.instrument = transport.InstrumentationEnabled()
+			r.Instrument = transport.InstrumentationEnabled()
 		}
 
 		return r.Do(r.ctx, t)
@@ -79,7 +79,7 @@ type BulkRequest struct {
 
 	ctx context.Context
 
-	instrument Instrumentation
+	Instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
@@ -91,7 +91,7 @@ func (r BulkRequest) Do(providedCtx context.Context, transport Transport) (*Resp
 		ctx    context.Context
 	)
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		ctx = instrument.Start(providedCtx, "bulk")
 		defer instrument.Close(ctx)
 	}
@@ -106,7 +106,7 @@ func (r BulkRequest) Do(providedCtx context.Context, transport Transport) (*Resp
 	if r.Index != "" {
 		path.WriteString("/")
 		path.WriteString(r.Index)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "index", r.Index)
 		}
 	}
@@ -185,7 +185,7 @@ func (r BulkRequest) Do(providedCtx context.Context, transport Transport) (*Resp
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
@@ -219,18 +219,18 @@ func (r BulkRequest) Do(providedCtx context.Context, transport Transport) (*Resp
 		req = req.WithContext(ctx)
 	}
 
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "bulk")
 		if reader := instrument.RecordRequestBody(ctx, "bulk", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.AfterRequest(req, "elasticsearch", "bulk")
 	}
 	if err != nil {
-		if instrument, ok := r.instrument.(Instrumentation); ok {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
 		return nil, err
