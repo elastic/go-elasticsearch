@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get the rollup index capabilities.
 // Get the rollup capabilities of all jobs inside of a rollup index.
@@ -94,7 +94,7 @@ func NewGetRollupIndexCapsFunc(tp elastictransport.Interface) NewGetRollupIndexC
 // * What target indices were rolled up, what fields were used in those rollups,
 // and what aggregations can be performed on each job?
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-rollup-index-caps
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-get-rollup-index-caps
 func New(tp elastictransport.Interface) *GetRollupIndexCaps {
 	r := &GetRollupIndexCaps{
 		transport: tp,

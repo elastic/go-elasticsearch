@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Create or update a policy.
 // Create or update a snapshot lifecycle policy.
@@ -89,7 +89,7 @@ func NewPutLifecycleFunc(tp elastictransport.Interface) NewPutLifecycle {
 // If the policy already exists, this request increments the policy version.
 // Only the latest version of a policy is stored.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-put-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-put-lifecycle
 func New(tp elastictransport.Interface) *PutLifecycle {
 	r := &PutLifecycle{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get data stream lifecycle stats.
 // Get statistics about the data streams that are managed by a data stream
@@ -74,7 +74,7 @@ func NewGetDataLifecycleStatsFunc(tp elastictransport.Interface) NewGetDataLifec
 // Get statistics about the data streams that are managed by a data stream
 // lifecycle.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-lifecycle-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-data-lifecycle-stats
 func New(tp elastictransport.Interface) *GetDataLifecycleStats {
 	r := &GetDataLifecycleStats{
 		transport: tp,

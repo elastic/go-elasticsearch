@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Cancel a connector sync job.
 //
@@ -88,7 +88,7 @@ func NewSyncJobCancelFunc(tp elastictransport.Interface) NewSyncJobCancel {
 // The connector service is then responsible for setting the status of connector
 // sync jobs to cancelled.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-cancel
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-cancel
 func New(tp elastictransport.Interface) *SyncJobCancel {
 	r := &SyncJobCancel{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get the hot threads for nodes.
 // Get a breakdown of the hot threads on each selected node in the cluster.
@@ -83,7 +83,7 @@ func NewHotThreadsFunc(tp elastictransport.Interface) NewHotThreads {
 // The output is plain text with a breakdown of the top hot threads for each
 // node.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-hot-threads
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-hot-threads
 func New(tp elastictransport.Interface) *HotThreads {
 	r := &HotThreads{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get anomaly detection jobs.
 //
@@ -99,7 +99,7 @@ func NewMlJobsFunc(tp elastictransport.Interface) NewMlJobs {
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get anomaly detection job statistics API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-jobs
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-ml-jobs
 func New(tp elastictransport.Interface) *MlJobs {
 	r := &MlJobs{
 		transport: tp,

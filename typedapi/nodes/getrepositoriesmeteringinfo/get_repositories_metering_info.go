@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get cluster repositories metering.
 // Get repositories metering information for a cluster.
@@ -90,7 +90,7 @@ func NewGetRepositoriesMeteringInfoFunc(tp elastictransport.Interface) NewGetRep
 // Additionally, the information exposed by this API is volatile, meaning that
 // it will not be present after node restarts.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-get-repositories-metering-info
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-get-repositories-metering-info
 func New(tp elastictransport.Interface) *GetRepositoriesMeteringInfo {
 	r := &GetRepositoriesMeteringInfo{
 		transport: tp,
@@ -303,8 +303,6 @@ func (r *GetRepositoriesMeteringInfo) Header(key, value string) *GetRepositories
 }
 
 // NodeId Comma-separated list of node IDs or names used to limit returned information.
-// All the nodes selective options are explained
-// [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster.html#cluster-nodes).
 // API Name: nodeid
 func (r *GetRepositoriesMeteringInfo) _nodeid(nodeid string) *GetRepositoriesMeteringInfo {
 	r.paramSet |= nodeidMask

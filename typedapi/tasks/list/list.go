@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get all tasks.
 // Get information about the tasks currently running on one or more nodes in the
@@ -207,7 +207,7 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 // The `X-Opaque-Id` in the children `headers` is the child task of the task
 // that was initiated by the REST request.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-tasks
 func New(tp elastictransport.Interface) *List {
 	r := &List{
 		transport: tp,

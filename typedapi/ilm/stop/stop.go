@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Stop the ILM plugin.
 // Halt all lifecycle management operations and stop the index lifecycle
@@ -88,7 +88,7 @@ func NewStopFunc(tp elastictransport.Interface) NewStop {
 // plugin can be safely stopped.
 // Use the get ILM status API to check whether ILM is running.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-stop
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-stop
 func New(tp elastictransport.Interface) *Stop {
 	r := &Stop{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get index shard stores.
 // Get store information about replica shards in one or more indices.
@@ -106,7 +106,7 @@ func NewShardStoresFunc(tp elastictransport.Interface) NewShardStores {
 // By default, the API returns store information only for primary shards that
 // are unassigned or have one or more unassigned replica shards.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-shard-stores
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-shard-stores
 func New(tp elastictransport.Interface) *ShardStores {
 	r := &ShardStores{
 		transport: tp,

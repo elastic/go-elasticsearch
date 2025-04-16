@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get GeoIP statistics.
 // Get download statistics for GeoIP2 databases that are used with the GeoIP
@@ -74,7 +74,7 @@ func NewGeoIpStatsFunc(tp elastictransport.Interface) NewGeoIpStats {
 // Get download statistics for GeoIP2 databases that are used with the GeoIP
 // processor.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/geoip-processor.html
+// https://www.elastic.co/docs/reference/enrich-processor/geoip-processor
 func New(tp elastictransport.Interface) *GeoIpStats {
 	r := &GeoIpStats{
 		transport: tp,

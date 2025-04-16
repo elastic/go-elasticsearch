@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Create or update a query ruleset.
 // There is a limit of 100 rules per ruleset.
@@ -103,7 +103,7 @@ func NewPutRulesetFunc(tp elastictransport.Interface) NewPutRuleset {
 // If multiple matching rules pin more than 100 documents, only the first 100
 // documents are pinned in the order they are specified in the ruleset.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-ruleset
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-put-ruleset
 func New(tp elastictransport.Interface) *PutRuleset {
 	r := &PutRuleset{
 		transport: tp,

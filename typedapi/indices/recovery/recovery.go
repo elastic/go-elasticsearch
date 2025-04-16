@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get index recovery information.
 // Get information about ongoing and completed shard recoveries for one or more
@@ -146,7 +146,7 @@ func NewRecoveryFunc(tp elastictransport.Interface) NewRecovery {
 // relocates it onto a different node then the information about the original
 // recovery will not be shown in the recovery API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-recovery
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-recovery
 func New(tp elastictransport.Interface) *Recovery {
 	r := &Recovery{
 		transport: tp,

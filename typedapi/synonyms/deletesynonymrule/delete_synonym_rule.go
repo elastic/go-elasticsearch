@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Delete a synonym rule.
 // Delete a synonym rule from a synonym set.
@@ -85,7 +85,7 @@ func NewDeleteSynonymRuleFunc(tp elastictransport.Interface) NewDeleteSynonymRul
 // Delete a synonym rule.
 // Delete a synonym rule from a synonym set.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym-rule
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-delete-synonym-rule
 func New(tp elastictransport.Interface) *DeleteSynonymRule {
 	r := &DeleteSynonymRule{
 		transport: tp,

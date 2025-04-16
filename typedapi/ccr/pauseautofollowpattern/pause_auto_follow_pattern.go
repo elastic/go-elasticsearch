@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Pause an auto-follow pattern.
 //
@@ -102,7 +102,7 @@ func NewPauseAutoFollowPatternFunc(tp elastictransport.Interface) NewPauseAutoFo
 // Remote indices that were created while the pattern was paused will also be
 // followed, unless they have been deleted or closed in the interim.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-pause-auto-follow-pattern
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-pause-auto-follow-pattern
 func New(tp elastictransport.Interface) *PauseAutoFollowPattern {
 	r := &PauseAutoFollowPattern{
 		transport: tp,

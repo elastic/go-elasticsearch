@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Explain a document match result.
 // Get information about why a specific document matches, or doesn't match, a
@@ -95,7 +95,7 @@ func NewExplainFunc(tp elastictransport.Interface) NewExplain {
 // query.
 // It computes a score explanation for a query and a specific document.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-explain
 func New(tp elastictransport.Interface) *Explain {
 	r := &Explain{
 		transport: tp,

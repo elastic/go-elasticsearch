@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get feature migration information.
 // Version upgrades sometimes require changes to how features store
@@ -84,7 +84,7 @@ func NewGetFeatureUpgradeStatusFunc(tp elastictransport.Interface) NewGetFeature
 // TIP: This API is designed for indirect use by the Upgrade Assistant.
 // You are strongly recommended to use the Upgrade Assistant.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-get-feature-upgrade-status
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-migration-get-feature-upgrade-status
 func New(tp elastictransport.Interface) *GetFeatureUpgradeStatus {
 	r := &GetFeatureUpgradeStatus{
 		transport: tp,

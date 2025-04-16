@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Delete expired ML data.
 //
@@ -99,7 +99,7 @@ func NewDeleteExpiredDataFunc(tp elastictransport.Interface) NewDeleteExpiredDat
 // jobs by using `_all`, by specifying `*` as the `<job_id>`, or by omitting the
 // `<job_id>`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-expired-data
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-expired-data
 func New(tp elastictransport.Interface) *DeleteExpiredData {
 	r := &DeleteExpiredData{
 		transport: tp,

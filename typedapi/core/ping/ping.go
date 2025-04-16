@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Ping the cluster.
 // Get information about whether the cluster is running.
@@ -70,7 +70,7 @@ func NewPingFunc(tp elastictransport.Interface) NewPing {
 // Ping the cluster.
 // Get information about whether the cluster is running.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-cluster
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-cluster
 func New(tp elastictransport.Interface) *Ping {
 	r := &Ping{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Run a policy.
 // Immediately create a snapshot according to the snapshot lifecycle policy
@@ -88,7 +88,7 @@ func NewExecuteLifecycleFunc(tp elastictransport.Interface) NewExecuteLifecycle 
 // might want to manually run a policy before performing an upgrade or other
 // maintenance.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-execute-lifecycle
 func New(tp elastictransport.Interface) *ExecuteLifecycle {
 	r := &ExecuteLifecycle{
 		transport: tp,

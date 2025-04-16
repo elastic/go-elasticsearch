@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 package types
 
@@ -31,15 +31,13 @@ import (
 
 // CategorizeTextAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/_types/aggregations/bucket.ts#L1117-L1182
+// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/aggregations/bucket.ts#L1117-L1183
 type CategorizeTextAggregation struct {
 	// CategorizationAnalyzer The categorization analyzer specifies how the text is analyzed and tokenized
 	// before being categorized.
-	// The syntax is very similar to that used to define the analyzer in the
-	// [Analyze
-	// endpoint](https://www.elastic.co/guide/en/elasticsearch/reference/8.0/indices-analyze.html).
-	// This property
-	// cannot be used at the same time as categorization_filters.
+	// The syntax is very similar to that used to define the analyzer in the analyze
+	// API. This property
+	// cannot be used at the same time as `categorization_filters`.
 	CategorizationAnalyzer CategorizeTextAnalyzer `json:"categorization_analyzer,omitempty"`
 	// CategorizationFilters This property expects an array of regular expressions. The expressions are
 	// used to filter out matching

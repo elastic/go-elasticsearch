@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Close anomaly detection jobs.
 //
@@ -117,7 +117,7 @@ func NewCloseJobFunc(tp elastictransport.Interface) NewCloseJob {
 // When a datafeed that has a specified end date stops, it automatically closes
 // its associated job.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-close-job
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-close-job
 func New(tp elastictransport.Interface) *CloseJob {
 	r := &CloseJob{
 		transport: tp,

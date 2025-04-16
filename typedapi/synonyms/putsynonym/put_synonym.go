@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Create or update a synonym set.
 // Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
@@ -99,7 +99,7 @@ func NewPutSynonymFunc(tp elastictransport.Interface) NewPutSynonym {
 // This is equivalent to invoking the reload search analyzers API for all
 // indices that use the synonyms set.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-put-synonym
 func New(tp elastictransport.Interface) *PutSynonym {
 	r := &PutSynonym{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Run a script.
 //
@@ -100,7 +100,7 @@ func NewScriptsPainlessExecuteFunc(tp elastictransport.Interface) NewScriptsPain
 // Each context requires a script, but additional parameters depend on the
 // context you're using for that script.
 //
-// https://www.elastic.co/guide/en/elasticsearch/painless/current/painless-execute-api.html
+// https://www.elastic.co/docs/reference/scripting-languages/painless/painless-api-examples
 func New(tp elastictransport.Interface) *ScriptsPainlessExecute {
 	r := &ScriptsPainlessExecute{
 		transport: tp,

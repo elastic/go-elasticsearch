@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Create or update users.
 //
@@ -96,7 +96,7 @@ func NewPutUserFunc(tp elastictransport.Interface) NewPutUser {
 // To change a user's password without updating any other fields, use the change
 // password API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-user
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-put-user
 func New(tp elastictransport.Interface) *PutUser {
 	r := &PutUser{
 		transport: tp,

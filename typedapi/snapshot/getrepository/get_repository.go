@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get snapshot repository information.
 package getrepository
@@ -76,7 +76,7 @@ func NewGetRepositoryFunc(tp elastictransport.Interface) NewGetRepository {
 
 // Get snapshot repository information.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-get-repository
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-get-repository
 func New(tp elastictransport.Interface) *GetRepository {
 	r := &GetRepository{
 		transport: tp,

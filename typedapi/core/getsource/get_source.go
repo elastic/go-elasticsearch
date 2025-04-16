@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get a document's source.
 //
@@ -114,7 +114,7 @@ func NewGetSourceFunc(tp elastictransport.Interface) NewGetSource {
 // my-index-000001/_source/1/?_source_includes=*.id&_source_excludes=entities
 // ```
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 func New(tp elastictransport.Interface) *GetSource {
 	r := &GetSource{
 		transport: tp,

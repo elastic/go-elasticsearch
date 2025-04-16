@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Get datafeeds usage info.
 // You can get statistics for multiple datafeeds in a single API request by
@@ -88,7 +88,7 @@ func NewGetDatafeedStatsFunc(tp elastictransport.Interface) NewGetDatafeedStats 
 // only information you receive is the `datafeed_id` and the `state`.
 // This API returns a maximum of 10,000 datafeeds.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-datafeed-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-datafeed-stats
 func New(tp elastictransport.Interface) *GetDatafeedStats {
 	r := &GetDatafeedStats{
 		transport: tp,

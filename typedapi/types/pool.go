@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Pool type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/nodes/_types/Stats.ts#L949-L966
+// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/nodes/_types/Stats.ts#L949-L966
 type Pool struct {
 	// MaxInBytes Maximum amount of memory, in bytes, available for use by the heap.
 	MaxInBytes *int64 `json:"max_in_bytes,omitempty"`

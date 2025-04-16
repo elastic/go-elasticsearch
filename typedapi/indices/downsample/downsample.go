@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Downsample an index.
 // Aggregate a time series (TSDS) index and store pre-computed statistical
@@ -110,7 +110,7 @@ func NewDownsampleFunc(tp elastictransport.Interface) NewDownsample {
 // Neither field nor document level security can be defined on the source index.
 // The source index must be read only (`index.blocks.write: true`).
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-downsample
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-downsample
 func New(tp elastictransport.Interface) *Downsample {
 	r := &Downsample{
 		transport: tp,

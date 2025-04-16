@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Analyze the index disk usage.
 // Analyze the disk usage of each field of an index or data stream.
@@ -107,7 +107,7 @@ func NewDiskUsageFunc(tp elastictransport.Interface) NewDiskUsage {
 // The stored size of the `_id` field is likely underestimated while the
 // `_source` field is overestimated.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-disk-usage
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-disk-usage
 func New(tp elastictransport.Interface) *DiskUsage {
 	r := &DiskUsage{
 		transport: tp,

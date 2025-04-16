@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // DataframeAnalysisFeatureProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/beeb1dc688bcc058488dcc45d9cbd2cd364e9943/specification/ml/_types/DataframeAnalytics.ts#L246-L258
+// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/ml/_types/DataframeAnalytics.ts#L246-L258
 type DataframeAnalysisFeatureProcessor struct {
 	AdditionalDataframeAnalysisFeatureProcessorProperty map[string]json.RawMessage `json:"-"`
 	// FrequencyEncoding The configuration information necessary to perform frequency encoding.

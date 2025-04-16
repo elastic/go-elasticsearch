@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Delete a calendar.
 //
@@ -82,7 +82,7 @@ func NewDeleteCalendarFunc(tp elastictransport.Interface) NewDeleteCalendar {
 //
 // Remove all scheduled events from a calendar, then delete it.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-calendar
 func New(tp elastictransport.Interface) *DeleteCalendar {
 	r := &DeleteCalendar{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Clone an index.
 // Clone an existing index into a new index.
@@ -228,7 +228,7 @@ func NewCloneFunc(tp elastictransport.Interface) NewClone {
 // wait for active shards setting on index creation applies to the clone index
 // action as well.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-clone
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-clone
 func New(tp elastictransport.Interface) *Clone {
 	r := &Clone{
 		transport: tp,

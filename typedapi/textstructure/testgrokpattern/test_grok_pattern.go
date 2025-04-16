@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Test a Grok pattern.
 // Test a Grok pattern on one or more lines of text.
@@ -81,7 +81,7 @@ func NewTestGrokPatternFunc(tp elastictransport.Interface) NewTestGrokPattern {
 // The API indicates whether the lines match the pattern together with the
 // offsets and lengths of the matched substrings.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-text-structure-test-grok-pattern
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-text-structure-test-grok-pattern
 func New(tp elastictransport.Interface) *TestGrokPattern {
 	r := &TestGrokPattern{
 		transport: tp,

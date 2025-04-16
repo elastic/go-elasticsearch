@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Move to a lifecycle step.
 // Manually move an index into a specific step in the lifecycle policy and run
@@ -129,7 +129,7 @@ func NewMoveToStepFunc(tp elastictransport.Interface) NewMoveToStep {
 // Only actions specified in the ILM policy are considered valid.
 // An index cannot move to a step that is not part of its policy.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-move-to-step
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-move-to-step
 func New(tp elastictransport.Interface) *MoveToStep {
 	r := &MoveToStep{
 		transport: tp,

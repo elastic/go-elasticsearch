@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Update an API key.
 //
@@ -147,7 +147,7 @@ func NewUpdateApiKeyFunc(tp elastictransport.Interface) NewUpdateApiKey {
 // This change can occur if the owner user's permissions have changed since the
 // API key was created or last modified.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-api-key
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-update-api-key
 func New(tp elastictransport.Interface) *UpdateApiKey {
 	r := &UpdateApiKey{
 		transport: tp,

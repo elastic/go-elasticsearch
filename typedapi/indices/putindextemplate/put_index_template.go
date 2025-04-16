@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 // Create or update an index template.
 // Index templates define settings, mappings, and aliases that can be applied
@@ -173,7 +173,7 @@ func NewPutIndexTemplateFunc(tp elastictransport.Interface) NewPutIndexTemplate 
 // If an entry already exists with the same key, then it is overwritten by the
 // new definition.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-index-template
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-index-template
 func New(tp elastictransport.Interface) *PutIndexTemplate {
 	r := &PutIndexTemplate{
 		transport: tp,

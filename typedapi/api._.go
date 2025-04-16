@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/beeb1dc688bcc058488dcc45d9cbd2cd364e9943
+// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
 
 package typedapi
 
@@ -138,7 +138,6 @@ import (
 	core_health_report "github.com/elastic/go-elasticsearch/v9/typedapi/core/healthreport"
 	core_index "github.com/elastic/go-elasticsearch/v9/typedapi/core/index"
 	core_info "github.com/elastic/go-elasticsearch/v9/typedapi/core/info"
-	core_knn_search "github.com/elastic/go-elasticsearch/v9/typedapi/core/knnsearch"
 	core_mget "github.com/elastic/go-elasticsearch/v9/typedapi/core/mget"
 	core_msearch "github.com/elastic/go-elasticsearch/v9/typedapi/core/msearch"
 	core_msearch_template "github.com/elastic/go-elasticsearch/v9/typedapi/core/msearchtemplate"
@@ -263,6 +262,7 @@ import (
 	inference_completion "github.com/elastic/go-elasticsearch/v9/typedapi/inference/completion"
 	inference_delete "github.com/elastic/go-elasticsearch/v9/typedapi/inference/delete"
 	inference_get "github.com/elastic/go-elasticsearch/v9/typedapi/inference/get"
+	inference_inference "github.com/elastic/go-elasticsearch/v9/typedapi/inference/inference"
 	inference_put "github.com/elastic/go-elasticsearch/v9/typedapi/inference/put"
 	inference_put_alibabacloud "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putalibabacloud"
 	inference_put_amazonbedrock "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putamazonbedrock"
@@ -574,7 +574,7 @@ type AsyncSearch struct {
 	// specific async search is restricted to: the authenticated user that submitted
 	// the original search request; users that have the `cancel_task` cluster
 	// privilege.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-async-search-submit
 	Delete async_search_delete.NewDelete
 	// Get async search results.
 	//
@@ -582,7 +582,7 @@ type AsyncSearch struct {
 	// If the Elasticsearch security features are enabled, access to the results of
 	// a specific async search is restricted to the user or API key that submitted
 	// it.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-async-search-submit
 	Get async_search_get.NewGet
 	// Get the async search status.
 	//
@@ -593,7 +593,7 @@ type AsyncSearch struct {
 	//
 	// * The user or API key that submitted the original async search request.
 	// * Users that have the `monitor` cluster privilege or greater privileges.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-async-search-submit
 	Status async_search_status.NewStatus
 	// Run an async search.
 	//
@@ -608,7 +608,7 @@ type AsyncSearch struct {
 	// response larger than 10Mb and an attempt to do this results in an error.
 	// The maximum allowed size for a stored async search response can be set by
 	// changing the `search.max_async_search_response_size` cluster level setting.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-async-search-submit
 	Submit async_search_submit.NewSubmit
 }
 
@@ -618,7 +618,7 @@ type Autoscaling struct {
 	// NOTE: This feature is designed for indirect use by Elasticsearch Service,
 	// Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
 	// supported.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-delete-autoscaling-policy
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-autoscaling-delete-autoscaling-policy
 	DeleteAutoscalingPolicy autoscaling_delete_autoscaling_policy.NewDeleteAutoscalingPolicy
 	// Get the autoscaling capacity.
 	//
@@ -643,21 +643,21 @@ type Autoscaling struct {
 	// how and why autoscaling determined a certain capacity was required.
 	// This information is provided for diagnosis only.
 	// Do not use this information to make autoscaling decisions.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-get-autoscaling-capacity
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-autoscaling-get-autoscaling-capacity
 	GetAutoscalingCapacity autoscaling_get_autoscaling_capacity.NewGetAutoscalingCapacity
 	// Get an autoscaling policy.
 	//
 	// NOTE: This feature is designed for indirect use by Elasticsearch Service,
 	// Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
 	// supported.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-get-autoscaling-capacity
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-autoscaling-get-autoscaling-capacity
 	GetAutoscalingPolicy autoscaling_get_autoscaling_policy.NewGetAutoscalingPolicy
 	// Create or update an autoscaling policy.
 	//
 	// NOTE: This feature is designed for indirect use by Elasticsearch Service,
 	// Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
 	// supported.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-put-autoscaling-policy
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-autoscaling-put-autoscaling-policy
 	PutAutoscalingPolicy autoscaling_put_autoscaling_policy.NewPutAutoscalingPolicy
 }
 
@@ -677,7 +677,7 @@ type Cat struct {
 	// IMPORTANT: CAT APIs are only intended for human consumption using the command
 	// line or the Kibana console. They are not intended for use by applications.
 	// For application consumption, use the aliases API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-aliases
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-aliases
 	Aliases cat_aliases.NewAliases
 	// Get shard allocation information.
 	//
@@ -686,7 +686,7 @@ type Cat struct {
 	//
 	// IMPORTANT: CAT APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-allocation
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-allocation
 	Allocation cat_allocation.NewAllocation
 	// Get component templates.
 	//
@@ -698,7 +698,7 @@ type Cat struct {
 	// line or Kibana console.
 	// They are not intended for use by applications. For application consumption,
 	// use the get component template API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-component-templates
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-component-templates
 	ComponentTemplates cat_component_templates.NewComponentTemplates
 	// Get a document count.
 	//
@@ -711,7 +711,7 @@ type Cat struct {
 	// line or Kibana console.
 	// They are not intended for use by applications. For application consumption,
 	// use the count API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-count
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-count
 	Count cat_count.NewCount
 	// Get field data cache information.
 	//
@@ -722,7 +722,7 @@ type Cat struct {
 	// line or Kibana console.
 	// They are not intended for use by applications. For application consumption,
 	// use the nodes stats API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-fielddata
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-fielddata
 	Fielddata cat_fielddata.NewFielddata
 	// Get the cluster health status.
 	//
@@ -740,12 +740,12 @@ type Cat struct {
 	// nodes.
 	// You also can use the API to track the recovery of a large cluster over a
 	// longer period of time.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-health
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-health
 	Health cat_health.NewHealth
 	// Get CAT help.
 	//
 	// Get help for the CAT APIs.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-cat
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-cat
 	Help cat_help.NewHelp
 	// Get index information.
 	//
@@ -770,7 +770,7 @@ type Cat struct {
 	// Kibana console.
 	// They are not intended for use by applications. For application consumption,
 	// use an index endpoint.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-indices
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-indices
 	Indices cat_indices.NewIndices
 	// Get master node information.
 	//
@@ -780,7 +780,7 @@ type Cat struct {
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the nodes info API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-master
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-master
 	Master cat_master.NewMaster
 	// Get data frame analytics jobs.
 	//
@@ -790,7 +790,7 @@ type Cat struct {
 	// console or command line. They are not intended for use by applications. For
 	// application consumption, use the get data frame analytics jobs statistics
 	// API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-data-frame-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-ml-data-frame-analytics
 	MlDataFrameAnalytics cat_ml_data_frame_analytics.NewMlDataFrameAnalytics
 	// Get datafeeds.
 	//
@@ -803,7 +803,7 @@ type Cat struct {
 	// IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 	// console or command line. They are not intended for use by applications. For
 	// application consumption, use the get datafeed statistics API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-datafeeds
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-ml-datafeeds
 	MlDatafeeds cat_ml_datafeeds.NewMlDatafeeds
 	// Get anomaly detection jobs.
 	//
@@ -816,7 +816,7 @@ type Cat struct {
 	// IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 	// console or command line. They are not intended for use by applications. For
 	// application consumption, use the get anomaly detection job statistics API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-jobs
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-ml-jobs
 	MlJobs cat_ml_jobs.NewMlJobs
 	// Get trained models.
 	//
@@ -825,7 +825,7 @@ type Cat struct {
 	// IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 	// console or command line. They are not intended for use by applications. For
 	// application consumption, use the get trained models statistics API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-trained-models
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-ml-trained-models
 	MlTrainedModels cat_ml_trained_models.NewMlTrainedModels
 	// Get node attribute information.
 	//
@@ -833,7 +833,7 @@ type Cat struct {
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the nodes info API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-nodeattrs
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-nodeattrs
 	Nodeattrs cat_nodeattrs.NewNodeattrs
 	// Get node information.
 	//
@@ -841,7 +841,7 @@ type Cat struct {
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the nodes info API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-nodes
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-nodes
 	Nodes cat_nodes.NewNodes
 	// Get pending task information.
 	//
@@ -849,7 +849,7 @@ type Cat struct {
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the pending cluster tasks API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-pending-tasks
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-pending-tasks
 	PendingTasks cat_pending_tasks.NewPendingTasks
 	// Get plugin information.
 	//
@@ -857,7 +857,7 @@ type Cat struct {
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the nodes info API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-plugins
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-plugins
 	Plugins cat_plugins.NewPlugins
 	// Get shard recovery information.
 	//
@@ -871,7 +871,7 @@ type Cat struct {
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the index recovery API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-recovery
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-recovery
 	Recovery cat_recovery.NewRecovery
 	// Get snapshot repository information.
 	//
@@ -879,7 +879,7 @@ type Cat struct {
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the get snapshot repository API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-repositories
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-repositories
 	Repositories cat_repositories.NewRepositories
 	// Get segment information.
 	//
@@ -888,7 +888,7 @@ type Cat struct {
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the index segments API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-segments
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-segments
 	Segments cat_segments.NewSegments
 	// Get shard information.
 	//
@@ -896,7 +896,7 @@ type Cat struct {
 	// For data streams, the API returns information about the backing indices.
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-shards
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-shards
 	Shards cat_shards.NewShards
 	// Get snapshot information.
 	//
@@ -905,7 +905,7 @@ type Cat struct {
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the get snapshot API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-snapshots
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-snapshots
 	Snapshots cat_snapshots.NewSnapshots
 	// Get task information.
 	//
@@ -913,7 +913,7 @@ type Cat struct {
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the task management API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-tasks
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-tasks
 	Tasks cat_tasks.NewTasks
 	// Get index template information.
 	//
@@ -923,7 +923,7 @@ type Cat struct {
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the get index template API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-templates
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-templates
 	Templates cat_templates.NewTemplates
 	// Get thread pool statistics.
 	//
@@ -933,7 +933,7 @@ type Cat struct {
 	// IMPORTANT: cat APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the nodes info API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-thread-pool
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-thread-pool
 	ThreadPool cat_thread_pool.NewThreadPool
 	// Get transform information.
 	//
@@ -942,7 +942,7 @@ type Cat struct {
 	// CAT APIs are only intended for human consumption using the Kibana
 	// console or command line. They are not intended for use by applications. For
 	// application consumption, use the get transform statistics API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-transforms
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-transforms
 	Transforms cat_transforms.NewTransforms
 }
 
@@ -950,28 +950,28 @@ type Ccr struct {
 	// Delete auto-follow patterns.
 	//
 	// Delete a collection of cross-cluster replication auto-follow patterns.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-delete-auto-follow-pattern
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-delete-auto-follow-pattern
 	DeleteAutoFollowPattern ccr_delete_auto_follow_pattern.NewDeleteAutoFollowPattern
 	// Create a follower.
 	// Create a cross-cluster replication follower index that follows a specific
 	// leader index.
 	// When the API returns, the follower index exists and cross-cluster replication
 	// starts replicating operations from the leader index to the follower index.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-follow
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-follow
 	Follow ccr_follow.NewFollow
 	// Get follower information.
 	//
 	// Get information about all cross-cluster replication follower indices.
 	// For example, the results include follower index names, leader index names,
 	// replication options, and whether the follower indices are active or paused.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-follow-info
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-follow-info
 	FollowInfo ccr_follow_info.NewFollowInfo
 	// Get follower stats.
 	//
 	// Get cross-cluster replication follower stats.
 	// The API returns shard-level stats about the "following tasks" associated with
 	// each shard for the specified indices.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-follow-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-follow-stats
 	FollowStats ccr_follow_stats.NewFollowStats
 	// Forget a follower.
 	// Remove the cross-cluster replication follower retention leases from the
@@ -998,12 +998,12 @@ type Ccr struct {
 	// following index will add back retention leases on the leader.
 	// The only purpose of this API is to handle the case of failure to remove the
 	// following retention leases after the unfollow API is invoked.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-forget-follower
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-forget-follower
 	ForgetFollower ccr_forget_follower.NewForgetFollower
 	// Get auto-follow patterns.
 	//
 	// Get cross-cluster replication auto-follow patterns.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-get-auto-follow-pattern-1
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-get-auto-follow-pattern-1
 	GetAutoFollowPattern ccr_get_auto_follow_pattern.NewGetAutoFollowPattern
 	// Pause an auto-follow pattern.
 	//
@@ -1018,7 +1018,7 @@ type Ccr struct {
 	// that match its patterns.
 	// Remote indices that were created while the pattern was paused will also be
 	// followed, unless they have been deleted or closed in the interim.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-pause-auto-follow-pattern
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-pause-auto-follow-pattern
 	PauseAutoFollowPattern ccr_pause_auto_follow_pattern.NewPauseAutoFollowPattern
 	// Pause a follower.
 	//
@@ -1028,7 +1028,7 @@ type Ccr struct {
 	// You can resume following with the resume follower API.
 	// You can pause and resume a follower index to change the configuration of the
 	// following task.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-pause-follow
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-pause-follow
 	PauseFollow ccr_pause_follow.NewPauseFollow
 	// Create or update auto-follow patterns.
 	// Create a collection of cross-cluster replication auto-follow patterns for a
@@ -1042,7 +1042,7 @@ type Ccr struct {
 	// NOTE: Follower indices that were configured automatically before updating an
 	// auto-follow pattern will remain unchanged even if they do not match against
 	// the new patterns.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-put-auto-follow-pattern
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-put-auto-follow-pattern
 	PutAutoFollowPattern ccr_put_auto_follow_pattern.NewPutAutoFollowPattern
 	// Resume an auto-follow pattern.
 	//
@@ -1051,7 +1051,7 @@ type Ccr struct {
 	// created indices that match its patterns on the remote cluster.
 	// Remote indices created while the pattern was paused will also be followed
 	// unless they have been deleted or closed in the interim.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-resume-auto-follow-pattern
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-resume-auto-follow-pattern
 	ResumeAutoFollowPattern ccr_resume_auto_follow_pattern.NewResumeAutoFollowPattern
 	// Resume a follower.
 	// Resume a cross-cluster replication follower index that was paused.
@@ -1060,13 +1060,13 @@ type Ccr struct {
 	// due to failures during following tasks.
 	// When this API returns, the follower index will resume fetching operations
 	// from the leader index.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-resume-follow
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-resume-follow
 	ResumeFollow ccr_resume_follow.NewResumeFollow
 	// Get cross-cluster replication stats.
 	//
 	// This API returns stats about auto-following and the same shard-level stats as
 	// the get follower stats API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-stats
 	Stats ccr_stats.NewStats
 	// Unfollow an index.
 	//
@@ -1080,7 +1080,7 @@ type Ccr struct {
 	// > Currently cross-cluster replication does not support converting an existing
 	// regular index to a follower index. Converting a follower index to a regular
 	// index is an irreversible operation.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-unfollow
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-unfollow
 	Unfollow ccr_unfollow.NewUnfollow
 }
 
@@ -1095,28 +1095,28 @@ type Cluster struct {
 	// This API can be very useful when attempting to diagnose why a shard is
 	// unassigned or why a shard continues to remain on its current node when you
 	// might expect otherwise.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-allocation-explain
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-allocation-explain
 	AllocationExplain cluster_allocation_explain.NewAllocationExplain
 	// Delete component templates.
 	// Component templates are building blocks for constructing index templates that
 	// specify index mappings, settings, and aliases.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-component-template
 	DeleteComponentTemplate cluster_delete_component_template.NewDeleteComponentTemplate
 	// Clear cluster voting config exclusions.
 	// Remove master-eligible nodes from the voting configuration exclusion list.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-post-voting-config-exclusions
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-post-voting-config-exclusions
 	DeleteVotingConfigExclusions cluster_delete_voting_config_exclusions.NewDeleteVotingConfigExclusions
 	// Check component templates.
 	// Returns information about whether a particular component template exists.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-component-template
 	ExistsComponentTemplate cluster_exists_component_template.NewExistsComponentTemplate
 	// Get component templates.
 	// Get information about component templates.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-component-template
 	GetComponentTemplate cluster_get_component_template.NewGetComponentTemplate
 	// Get cluster-wide settings.
 	// By default, it returns only settings that have been explicitly defined.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-get-settings
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-get-settings
 	GetSettings cluster_get_settings.NewGetSettings
 	// Get the cluster health status.
 	//
@@ -1134,11 +1134,11 @@ type Cluster struct {
 	// One of the main benefits of the API is the ability to wait until the cluster
 	// reaches a certain high watermark health level.
 	// The cluster status is controlled by the worst index status.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-health
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-health
 	Health cluster_health.NewHealth
 	// Get cluster info.
 	// Returns basic information about the cluster.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-info
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-info
 	Info cluster_info.NewInfo
 	// Get the pending cluster tasks.
 	// Get information about cluster-level changes (such as create index, update
@@ -1151,7 +1151,7 @@ type Cluster struct {
 	// However, if a user-initiated task such as a create index command causes a
 	// cluster state update, the activity of this task might be reported by both
 	// task api and pending cluster tasks API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-pending-tasks
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-pending-tasks
 	PendingTasks cluster_pending_tasks.NewPendingTasks
 	// Update voting configuration exclusions.
 	// Update the cluster voting config exclusions by node IDs or node names.
@@ -1192,7 +1192,7 @@ type Cluster struct {
 	// the master-eligible nodes from a cluster in a short time period.
 	// They are not required when removing master-ineligible nodes or when removing
 	// fewer than half of the master-eligible nodes.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-post-voting-config-exclusions
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-post-voting-config-exclusions
 	PostVotingConfigExclusions cluster_post_voting_config_exclusions.NewPostVotingConfigExclusions
 	// Create or update a component template.
 	// Component templates are building blocks for constructing index templates that
@@ -1223,7 +1223,7 @@ type Cluster struct {
 	// You cannot directly apply a component template to a data stream or index.
 	// To be applied, a component template must be included in an index template's
 	// `composed_of` list.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-component-template
 	PutComponentTemplate cluster_put_component_template.NewPutComponentTemplate
 	// Update the cluster settings.
 	//
@@ -1258,7 +1258,7 @@ type Cluster struct {
 	// cluster settings instead.
 	// If a cluster becomes unstable, transient settings can clear unexpectedly,
 	// resulting in a potentially undesired cluster configuration.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-settings
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-settings
 	PutSettings cluster_put_settings.NewPutSettings
 	// Get remote cluster information.
 	//
@@ -1277,7 +1277,7 @@ type Cluster struct {
 	// > To trigger a reconnection, attempt a cross-cluster search, ES|QL
 	// cross-cluster search, or try the [resolve cluster
 	// endpoint](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-cluster).
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-remote-info
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-remote-info
 	RemoteInfo cluster_remote_info.NewRemoteInfo
 	// Reroute the cluster.
 	// Manually change the allocation of individual shards in the cluster.
@@ -1308,7 +1308,7 @@ type Cluster struct {
 	// Once the problem has been corrected, allocation can be manually retried by
 	// calling the reroute API with the `?retry_failed` URI query parameter, which
 	// will attempt a single retry round for these shards.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-reroute
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-reroute
 	Reroute cluster_reroute.NewReroute
 	// Get the cluster state.
 	// Get comprehensive information about the state of the cluster.
@@ -1342,13 +1342,13 @@ type Cluster struct {
 	// Do not query this API using external monitoring tools.
 	// Instead, obtain the information you require using other more stable cluster
 	// APIs.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-state
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-state
 	State cluster_state.NewState
 	// Get cluster statistics.
 	// Get basic index metrics (shard numbers, store size, memory usage) and
 	// information about the current nodes that form the cluster (number, roles, os,
 	// jvm versions, memory usage, cpu and installed plugins).
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-stats
 	Stats cluster_stats.NewStats
 }
 
@@ -1357,7 +1357,7 @@ type Connector struct {
 	//
 	// Update the `last_seen` field in the connector and set it to the current
 	// timestamp.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-check-in
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-check-in
 	CheckIn connector_check_in.NewCheckIn
 	// Delete a connector.
 	//
@@ -1366,23 +1366,23 @@ type Connector struct {
 	// NOTE: This action doesn’t delete any API keys, ingest pipelines, or data
 	// indices associated with the connector.
 	// These need to be removed manually.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-delete
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-delete
 	Delete connector_delete.NewDelete
 	// Get a connector.
 	//
 	// Get the details about a connector.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-get
 	Get connector_get.NewGet
 	// Update the connector last sync stats.
 	//
 	// Update the fields related to the last sync of a connector.
 	// This action is used for analytics and monitoring.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-last-sync
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-last-sync
 	LastSync connector_last_sync.NewLastSync
 	// Get all connectors.
 	//
 	// Get information about all connectors.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-list
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-list
 	List connector_list.NewList
 	// Create a connector.
 	//
@@ -1393,10 +1393,10 @@ type Connector struct {
 	// Elastic Cloud.
 	// Self-managed connectors (Connector clients) are self-managed on your
 	// infrastructure.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-put
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-put
 	Post connector_post.NewPost
 	// Create or update a connector.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-put
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-put
 	Put connector_put.NewPut
 	// Creates a secret for a Connector.
 	//
@@ -1407,7 +1407,7 @@ type Connector struct {
 	// `cancellation_requested_at` to the current time.
 	// The connector service is then responsible for setting the status of connector
 	// sync jobs to cancelled.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-cancel
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-cancel
 	SyncJobCancel connector_sync_job_cancel.NewSyncJobCancel
 	// Check in a connector sync job.
 	// Check in a connector sync job and set the `last_seen` field to the current
@@ -1417,7 +1417,7 @@ type Connector struct {
 	// connector service on your own infrastructure.
 	// This service runs automatically on Elastic Cloud for Elastic managed
 	// connectors.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-check-in
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-check-in
 	SyncJobCheckIn connector_sync_job_check_in.NewSyncJobCheckIn
 	// Claim a connector sync job.
 	// This action updates the job status to `in_progress` and sets the `last_seen`
@@ -1432,13 +1432,13 @@ type Connector struct {
 	// connector service on your own infrastructure.
 	// This service runs automatically on Elastic Cloud for Elastic managed
 	// connectors.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-claim
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-claim
 	SyncJobClaim connector_sync_job_claim.NewSyncJobClaim
 	// Delete a connector sync job.
 	//
 	// Remove a connector sync job and its associated data.
 	// This is a destructive action that is not recoverable.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-delete
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-delete
 	SyncJobDelete connector_sync_job_delete.NewSyncJobDelete
 	// Set a connector sync job error.
 	// Set the `error` field for a connector sync job and set its `status` to
@@ -1448,22 +1448,22 @@ type Connector struct {
 	// connector service on your own infrastructure.
 	// This service runs automatically on Elastic Cloud for Elastic managed
 	// connectors.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-error
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-error
 	SyncJobError connector_sync_job_error.NewSyncJobError
 	// Get a connector sync job.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-get
 	SyncJobGet connector_sync_job_get.NewSyncJobGet
 	// Get all connector sync jobs.
 	//
 	// Get information about all stored connector sync jobs listed by their creation
 	// date in ascending order.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-list
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-list
 	SyncJobList connector_sync_job_list.NewSyncJobList
 	// Create a connector sync job.
 	//
 	// Create a connector sync job document in the internal index and initialize its
 	// counters and timestamps with default values.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-post
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-post
 	SyncJobPost connector_sync_job_post.NewSyncJobPost
 	// Set the connector sync job stats.
 	// Stats include: `deleted_document_count`, `indexed_document_count`,
@@ -1476,12 +1476,12 @@ type Connector struct {
 	// connector service on your own infrastructure.
 	// This service runs automatically on Elastic Cloud for Elastic managed
 	// connectors.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-update-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-update-stats
 	SyncJobUpdateStats connector_sync_job_update_stats.NewSyncJobUpdateStats
 	// Activate the connector draft filter.
 	//
 	// Activates the valid draft filtering for a connector.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-filtering
 	UpdateActiveFiltering connector_update_active_filtering.NewUpdateActiveFiltering
 	// Update the connector API key ID.
 	//
@@ -1491,12 +1491,12 @@ type Connector struct {
 	// The connector secret ID is required only for Elastic managed (native)
 	// connectors.
 	// Self-managed connectors (connector clients) do not use this field.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-api-key-id
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-api-key-id
 	UpdateApiKeyId connector_update_api_key_id.NewUpdateApiKeyId
 	// Update the connector configuration.
 	//
 	// Update the configuration field in the connector document.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-configuration
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-configuration
 	UpdateConfiguration connector_update_configuration.NewUpdateConfiguration
 	// Update the connector error field.
 	//
@@ -1505,7 +1505,7 @@ type Connector struct {
 	// is updated to error.
 	// Otherwise, if the error is reset to null, the connector status is updated to
 	// connected.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-error
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-error
 	UpdateError connector_update_error.NewUpdateError
 	// Update the connector features.
 	// Update the connector features in the connector document.
@@ -1523,7 +1523,7 @@ type Connector struct {
 	// connector service on your own infrastructure.
 	// This service runs automatically on Elastic Cloud for Elastic managed
 	// connectors.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-features
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-features
 	UpdateFeatures connector_update_features.NewUpdateFeatures
 	// Update the connector filtering.
 	//
@@ -1533,39 +1533,39 @@ type Connector struct {
 	// connector service.
 	// The filtering property is used to configure sync rules (both basic and
 	// advanced) for a connector.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-filtering
 	UpdateFiltering connector_update_filtering.NewUpdateFiltering
 	// Update the connector draft filtering validation.
 	//
 	// Update the draft filtering validation info for a connector.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-filtering-validation-api.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-filtering-validation
 	UpdateFilteringValidation connector_update_filtering_validation.NewUpdateFilteringValidation
 	// Update the connector index name.
 	//
 	// Update the `index_name` field of a connector, specifying the index where the
 	// data ingested by the connector is stored.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-index-name
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-index-name
 	UpdateIndexName connector_update_index_name.NewUpdateIndexName
 	// Update the connector name and description.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-name
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-name
 	UpdateName connector_update_name.NewUpdateName
 	// Update the connector is_native flag.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-native-api.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-native
 	UpdateNative connector_update_native.NewUpdateNative
 	// Update the connector pipeline.
 	//
 	// When you create a new connector, the configuration of an ingest pipeline is
 	// populated with default settings.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-pipeline
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-pipeline
 	UpdatePipeline connector_update_pipeline.NewUpdatePipeline
 	// Update the connector scheduling.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-scheduling
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-scheduling
 	UpdateScheduling connector_update_scheduling.NewUpdateScheduling
 	// Update the connector service type.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-service-type
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-service-type
 	UpdateServiceType connector_update_service_type.NewUpdateServiceType
 	// Update the connector status.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-status
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-status
 	UpdateStatus connector_update_status.NewUpdateStatus
 }
 
@@ -1727,11 +1727,11 @@ type Core struct {
 	// The request will only wait for those three shards to refresh.
 	// The other two shards that make up the index do not participate in the `_bulk`
 	// request at all.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-bulk
 	Bulk core_bulk.NewBulk
 	// Clear a scrolling search.
 	// Clear the search context and results for a scrolling search.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-clear-scroll
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-clear-scroll
 	ClearScroll core_clear_scroll.NewClearScroll
 	// Close a point in time.
 	// A point in time must be opened explicitly before being used in search
@@ -1741,7 +1741,7 @@ type Core struct {
 	// elapsed.
 	// However, keeping points in time has a cost; close them as soon as they are no
 	// longer required for search requests.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-open-point-in-time
 	ClosePointInTime core_close_point_in_time.NewClosePointInTime
 	// Count search results.
 	// Get the number of documents matching a query.
@@ -1758,7 +1758,7 @@ type Core struct {
 	// For each shard ID group, a replica is chosen and the search is run against
 	// it.
 	// This means that replicas increase the scalability of the count.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-count
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-count
 	Count core_count.NewCount
 	// Create a new document in the index.
 	//
@@ -1886,7 +1886,7 @@ type Core struct {
 	// to fail on any number of shard copies but still succeed on the primary.
 	// The `_shards` section of the API response reveals the number of shard copies
 	// on which replication succeeded and failed.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-create
 	Create core_create.NewCreate
 	// Delete a document.
 	//
@@ -1941,7 +1941,7 @@ type Core struct {
 	// The delete operation gets hashed into a specific shard ID.
 	// It then gets redirected into the primary shard within that ID group and
 	// replicated (if needed) to shard replicas within that ID group.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete
 	Delete core_delete.NewDelete
 	// Delete documents.
 	//
@@ -2070,7 +2070,7 @@ type Core struct {
 	// Cancellation should happen quickly but might take a few seconds.
 	// The get task status API will continue to list the delete by query task until
 	// this task checks that it has been cancelled and terminates itself.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete-by-query
 	DeleteByQuery core_delete_by_query.NewDeleteByQuery
 	// Throttle a delete by query operation.
 	//
@@ -2079,11 +2079,11 @@ type Core struct {
 	// Rethrottling that speeds up the query takes effect immediately but
 	// rethrotting that slows down the query takes effect after completing the
 	// current batch to prevent scroll timeouts.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query-rethrottle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete-by-query-rethrottle
 	DeleteByQueryRethrottle core_delete_by_query_rethrottle.NewDeleteByQueryRethrottle
 	// Delete a script or search template.
 	// Deletes a stored script or search template.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-script
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete-script
 	DeleteScript core_delete_script.NewDeleteScript
 	// Check a document.
 	//
@@ -2108,7 +2108,7 @@ type Core struct {
 	// won't be able to access it.
 	// Elasticsearch cleans up deleted documents in the background as you continue
 	// to index more data.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 	Exists core_exists.NewExists
 	// Check for a document source.
 	//
@@ -2120,13 +2120,13 @@ type Core struct {
 	// ```
 	//
 	// A document's source is not available if it is disabled in the mapping.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 	ExistsSource core_exists_source.NewExistsSource
 	// Explain a document match result.
 	// Get information about why a specific document matches, or doesn't match, a
 	// query.
 	// It computes a score explanation for a query and a specific document.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-explain
 	Explain core_explain.NewExplain
 	// Get the field capabilities.
 	//
@@ -2137,7 +2137,7 @@ type Core struct {
 	// It returns runtime fields like any other field.
 	// For example, a runtime field with a type of keyword is returned the same as
 	// any other field that belongs to the `keyword` family.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-field-caps
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-field-caps
 	FieldCaps core_field_caps.NewFieldCaps
 	// Get a document by its ID.
 	//
@@ -2213,21 +2213,21 @@ type Core struct {
 	// won't be able to access it.
 	// Elasticsearch cleans up deleted documents in the background as you continue
 	// to index more data.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 	Get core_get.NewGet
 	// Get a script or search template.
 	// Retrieves a stored script or search template.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get-script
 	GetScript core_get_script.NewGetScript
 	// Get script contexts.
 	//
 	// Get a list of supported script contexts and their methods.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script-context
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get-script-context
 	GetScriptContext core_get_script_context.NewGetScriptContext
 	// Get script languages.
 	//
 	// Get a list of available script types, languages, and contexts.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script-languages
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get-script-languages
 	GetScriptLanguages core_get_script_languages.NewGetScriptLanguages
 	// Get a document's source.
 	//
@@ -2245,7 +2245,7 @@ type Core struct {
 	// GET
 	// my-index-000001/_source/1/?_source_includes=*.id&_source_excludes=entities
 	// ```
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 	GetSource core_get_source.NewGetSource
 	// Get the cluster health.
 	// Get a report with the health status of an Elasticsearch cluster.
@@ -2277,7 +2277,7 @@ type Core struct {
 	// statuses. This can be computationally expensive when called frequently.
 	// When setting up automated polling of the API for health status, set verbose
 	// to false to disable the more expensive analysis logic.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-health-report
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-health-report
 	HealthReport core_health_report.NewHealthReport
 	// Create or update a document in an index.
 	//
@@ -2477,40 +2477,12 @@ type Core struct {
 	// Even the simple case of updating the Elasticsearch index using data from a
 	// database is simplified if external versioning is used, as only the latest
 	// version will be used if the index operations arrive out of order.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-create
 	Index core_index.NewIndex
 	// Get cluster info.
 	// Get basic build, version, and cluster information.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-info
 	Info core_info.NewInfo
-	// Run a knn search.
-	//
-	// NOTE: The kNN search API has been replaced by the `knn` option in the search
-	// API.
-	//
-	// Perform a k-nearest neighbor (kNN) search on a dense_vector field and return
-	// the matching documents.
-	// Given a query vector, the API finds the k closest vectors and returns those
-	// documents as search hits.
-	//
-	// Elasticsearch uses the HNSW algorithm to support efficient kNN search.
-	// Like most kNN algorithms, HNSW is an approximate method that sacrifices
-	// result accuracy for improved search speed.
-	// This means the results returned are not always the true k closest neighbors.
-	//
-	// The kNN search API supports restricting the search using a filter.
-	// The search will return the top k documents that also match the filter query.
-	//
-	// A kNN search response has the exact same structure as a search API response.
-	// However, certain sections have a meaning specific to kNN search:
-	//
-	// * The document `_score` is determined by the similarity between the query and
-	// document vector.
-	// * The `hits.total` object contains the total number of nearest neighbor
-	// candidates considered, which is `num_candidates * num_shards`. The
-	// `hits.total.relation` will always be `eq`, indicating an exact value.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search-api.html
-	KnnSearch core_knn_search.NewKnnSearch
 	// Get multiple documents.
 	//
 	// Get multiple JSON documents by ID from one or more indices.
@@ -2535,7 +2507,7 @@ type Core struct {
 	// Any requested fields that are not stored are ignored.
 	// You can include the `stored_fields` query parameter in the request URI to
 	// specify the defaults to use when there are no per-document instructions.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-mget
 	Mget core_mget.NewMget
 	// Run multiple searches.
 	//
@@ -2557,7 +2529,7 @@ type Core struct {
 	// Each newline character may be preceded by a carriage return `\r`.
 	// When sending requests to this endpoint the `Content-Type` header should be
 	// set to `application/x-ndjson`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-msearch
 	Msearch core_msearch.NewMsearch
 	// Run multiple templated searches.
 	//
@@ -2577,7 +2549,7 @@ type Core struct {
 	// $ curl -H "Content-Type: application/x-ndjson" -XGET
 	// localhost:9200/_msearch/template --data-binary "@requests"; echo
 	// ```
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-msearch-template
 	MsearchTemplate core_msearch_template.NewMsearchTemplate
 	// Get multiple term vectors.
 	//
@@ -2593,7 +2565,7 @@ type Core struct {
 	// You can also use `mtermvectors` to generate term vectors for artificial
 	// documents provided in the body of the request.
 	// The mapping used is determined by the specified `_index`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mtermvectors
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-mtermvectors
 	Mtermvectors core_mtermvectors.NewMtermvectors
 	// Open a point in time.
 	//
@@ -2658,21 +2630,21 @@ type Core struct {
 	// deleted.
 	// You can check how many point-in-times (that is, search contexts) are open
 	// with the nodes stats API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-open-point-in-time
 	OpenPointInTime core_open_point_in_time.NewOpenPointInTime
 	// Ping the cluster.
 	// Get information about whether the cluster is running.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-cluster
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-cluster
 	Ping core_ping.NewPing
 	// Create or update a script or search template.
 	// Creates or updates a stored script or search template.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-put-script
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-put-script
 	PutScript core_put_script.NewPutScript
 	// Evaluate ranked search results.
 	//
 	// Evaluate the quality of ranked search results over a set of typical search
 	// queries.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rank-eval
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rank-eval
 	RankEval core_rank_eval.NewRankEval
 	// Reindex documents.
 	//
@@ -2952,7 +2924,7 @@ type Core struct {
 	// These must be specified in the `elasticsearch.yml` file, with the exception
 	// of the secure settings, which you add in the Elasticsearch keystore.
 	// It is not possible to configure SSL in the body of the reindex request.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-reindex
 	Reindex core_reindex.NewReindex
 	// Throttle a reindex operation.
 	//
@@ -2967,12 +2939,12 @@ type Core struct {
 	// Rethrottling that slows down the query will take effect after completing the
 	// current batch.
 	// This behavior prevents scroll timeouts.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-reindex
 	ReindexRethrottle core_reindex_rethrottle.NewReindexRethrottle
 	// Render a search template.
 	//
 	// Render a search template as a search request body.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-render-search-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-render-search-template
 	RenderSearchTemplate core_render_search_template.NewRenderSearchTemplate
 	// Run a script.
 	//
@@ -2987,7 +2959,7 @@ type Core struct {
 	//
 	// Each context requires a script, but additional parameters depend on the
 	// context you're using for that script.
-	// https://www.elastic.co/guide/en/elasticsearch/painless/current/painless-execute-api.html
+	// https://www.elastic.co/docs/reference/scripting-languages/painless/painless-api-examples
 	ScriptsPainlessExecute core_scripts_painless_execute.NewScriptsPainlessExecute
 	// Run a scrolling search.
 	//
@@ -3015,7 +2987,7 @@ type Core struct {
 	// IMPORTANT: Results from a scrolling search reflect the state of the index at
 	// the time of the initial search request. Subsequent indexing or document
 	// changes only affect later search and scroll requests.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-scroll
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-scroll
 	Scroll core_scroll.NewScroll
 	// Run a search.
 	//
@@ -3049,7 +3021,7 @@ type Core struct {
 	// If different PIT IDs are used, slices can overlap and miss documents.
 	// This situation can occur because the splitting criterion is based on Lucene
 	// document IDs, which are not stable across changes to the index.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search
 	Search core_search.NewSearch
 	// Search a vector tile.
 	//
@@ -3216,7 +3188,7 @@ type Core struct {
 	// of tile bins at each zoom level.
 	// Elasticsearch uses the H3 resolution that is closest to the corresponding
 	// geotile density.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-mvt
 	SearchMvt core_search_mvt.NewSearchMvt
 	// Get the search shards.
 	//
@@ -3229,10 +3201,10 @@ type Core struct {
 	// If the Elasticsearch security features are enabled, you must have the
 	// `view_index_metadata` or `manage` index privilege for the target data stream,
 	// index, or alias.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-shards
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-shards
 	SearchShards core_search_shards.NewSearchShards
 	// Run a search with a search template.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-template
 	SearchTemplate core_search_template.NewSearchTemplate
 	// Get terms in an index.
 	//
@@ -3245,7 +3217,7 @@ type Core struct {
 	// documents are initially only marked as deleted. It is not until their
 	// segments are merged that documents are actually deleted. Until that happens,
 	// the terms enum API will return terms from these documents.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-terms-enum
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-terms-enum
 	TermsEnum core_terms_enum.NewTermsEnum
 	// Get term vector information.
 	//
@@ -3301,7 +3273,7 @@ type Core struct {
 	// By default, when requesting term vectors of artificial documents, a shard to
 	// get the statistics from is randomly selected.
 	// Use `routing` only to hit a particular shard.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-termvectors
 	Termvectors core_termvectors.NewTermvectors
 	// Update a document.
 	//
@@ -3328,7 +3300,7 @@ type Core struct {
 	// In addition to `_source`, you can access the following variables through the
 	// `ctx` map: `_index`, `_type`, `_id`, `_version`, `_routing`, and `_now` (the
 	// current timestamp).
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update
 	Update core_update.NewUpdate
 	// Update documents.
 	// Updates documents that match the specified query.
@@ -3467,7 +3439,7 @@ type Core struct {
 	// Setting any other field in `ctx` is an error.
 	// This API enables you to only modify the source of matching documents; you
 	// cannot move them.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update-by-query
 	UpdateByQuery core_update_by_query.NewUpdateByQuery
 	// Throttle an update by query operation.
 	//
@@ -3476,7 +3448,7 @@ type Core struct {
 	// Rethrottling that speeds up the query takes effect immediately but
 	// rethrotting that slows down the query takes effect after completing the
 	// current batch to prevent scroll timeouts.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query-rethrottle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update-by-query-rethrottle
 	UpdateByQueryRethrottle core_update_by_query_rethrottle.NewUpdateByQueryRethrottle
 }
 
@@ -3487,7 +3459,7 @@ type DanglingIndices struct {
 	// For example, this can happen if you delete more than
 	// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
 	// offline.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-dangling-indices-delete-dangling-index
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-dangling-indices-delete-dangling-index
 	DeleteDanglingIndex dangling_indices_delete_dangling_index.NewDeleteDanglingIndex
 	// Import a dangling index.
 	//
@@ -3496,7 +3468,7 @@ type DanglingIndices struct {
 	// For example, this can happen if you delete more than
 	// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
 	// offline.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-dangling-indices-import-dangling-index
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-dangling-indices-import-dangling-index
 	ImportDanglingIndex dangling_indices_import_dangling_index.NewImportDanglingIndex
 	// Get the dangling indices.
 	//
@@ -3507,31 +3479,31 @@ type DanglingIndices struct {
 	// offline.
 	//
 	// Use this API to list dangling indices, which you can then import or delete.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-dangling-indices-list-dangling-indices
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-dangling-indices-list-dangling-indices
 	ListDanglingIndices dangling_indices_list_dangling_indices.NewListDanglingIndices
 }
 
 type Enrich struct {
 	// Delete an enrich policy.
 	// Deletes an existing enrich policy and its enrich index.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-delete-policy
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-enrich-delete-policy
 	DeletePolicy enrich_delete_policy.NewDeletePolicy
 	// Run an enrich policy.
 	// Create the enrich index for an existing enrich policy.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-execute-policy
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-enrich-execute-policy
 	ExecutePolicy enrich_execute_policy.NewExecutePolicy
 	// Get an enrich policy.
 	// Returns information about an enrich policy.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-get-policy
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-enrich-get-policy
 	GetPolicy enrich_get_policy.NewGetPolicy
 	// Create an enrich policy.
 	// Creates an enrich policy.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-put-policy
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-enrich-put-policy
 	PutPolicy enrich_put_policy.NewPutPolicy
 	// Get enrich stats.
 	// Returns enrich coordinator statistics and information about enrich policies
 	// that are currently executing.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-enrich-stats
 	Stats enrich_stats.NewStats
 }
 
@@ -3539,22 +3511,22 @@ type Eql struct {
 	// Delete an async EQL search.
 	// Delete an async EQL search or a stored synchronous EQL search.
 	// The API also deletes results for the search.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-delete
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-eql-delete
 	Delete eql_delete.NewDelete
 	// Get async EQL search results.
 	// Get the current status and available results for an async EQL search or a
 	// stored synchronous EQL search.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-eql-get
 	Get eql_get.NewGet
 	// Get the async EQL status.
 	// Get the current status for an async EQL search or a stored synchronous EQL
 	// search without returning results.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get-status
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-eql-get-status
 	GetStatus eql_get_status.NewGetStatus
 	// Get EQL search results.
 	// Returns search results for an Event Query Language (EQL) query.
 	// EQL assumes each document in a data stream or index corresponds to an event.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-search
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-eql-search
 	Search eql_search.NewSearch
 }
 
@@ -3565,7 +3537,7 @@ type Esql struct {
 	//
 	// The API accepts the same parameters and request body as the synchronous query
 	// API, along with additional async related properties.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-esql-async-query
 	AsyncQuery esql_async_query.NewAsyncQuery
 	// Delete an async ES|QL query.
 	// If the query is still running, it is cancelled.
@@ -3576,25 +3548,25 @@ type Esql struct {
 	//
 	// * The authenticated user that submitted the original query request
 	// * Users with the `cancel_task` cluster privilege
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-delete
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-esql-async-query-delete
 	AsyncQueryDelete esql_async_query_delete.NewAsyncQueryDelete
 	// Get async ES|QL query results.
 	// Get the current status and available results or stored results for an ES|QL
 	// asynchronous query.
 	// If the Elasticsearch security features are enabled, only the user who first
 	// submitted the ES|QL query can retrieve the results using this API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-esql-async-query-get
 	AsyncQueryGet esql_async_query_get.NewAsyncQueryGet
 	// Stop async ES|QL query.
 	//
 	// This API interrupts the query execution and returns the results so far.
 	// If the Elasticsearch security features are enabled, only the user who first
 	// submitted the ES|QL query can stop it.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-async-query-stop-api.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-esql-async-query-stop
 	AsyncQueryStop esql_async_query_stop.NewAsyncQueryStop
 	// Run an ES|QL query.
 	// Get search results for an ES|QL (Elasticsearch query language) query.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-rest.html
+	// https://www.elastic.co/docs/explore-analyze/query-filter/languages/esql-rest
 	Query esql_query.NewQuery
 }
 
@@ -3617,7 +3589,7 @@ type Features struct {
 	// In order for a feature state to be listed in this API and recognized as a
 	// valid feature state by the create snapshot API, the plugin that defines that
 	// feature must be installed on the master node.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-features-get-features
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-features-get-features
 	GetFeatures features_get_features.NewGetFeatures
 	// Reset the features.
 	// Clear all of the state information stored in system indices by Elasticsearch
@@ -3644,7 +3616,7 @@ type Features struct {
 	// IMPORTANT: The features installed on the node you submit this request to are
 	// the features that will be reset. Run on the master node if you have any
 	// doubts about which plugins are installed on individual nodes.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-features-reset-features
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-features-reset-features
 	ResetFeatures features_reset_features.NewResetFeatures
 }
 
@@ -3653,14 +3625,14 @@ type Fleet struct {
 	//
 	// Get the current global checkpoints for an index.
 	// This API is designed for internal use by the Fleet server project.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-fleet
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-fleet
 	GlobalCheckpoints fleet_global_checkpoints.NewGlobalCheckpoints
 	// Run multiple Fleet searches.
 	// Run several Fleet searches with a single API request.
 	// The API follows the same structure as the multi search API.
 	// However, similar to the Fleet search API, it supports the
 	// `wait_for_checkpoints` parameter.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-fleet-msearch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-fleet-msearch
 	Msearch fleet_msearch.NewMsearch
 	// Creates a secret stored by Fleet.
 	//
@@ -3670,7 +3642,7 @@ type Fleet struct {
 	// will be run only
 	// after the provided checkpoint has been processed and is visible for searches
 	// inside of Elasticsearch.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-fleet-search
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-fleet-search
 	Search fleet_search.NewSearch
 }
 
@@ -3686,7 +3658,7 @@ type Graph struct {
 	// Subsequent requests enable you to spider out from one more vertices of
 	// interest.
 	// You can exclude vertices that have already been returned.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-graph
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-graph
 	Explore graph_explore.NewExplore
 }
 
@@ -3694,7 +3666,7 @@ type Ilm struct {
 	// Delete a lifecycle policy.
 	// You cannot delete policies that are currently in use. If the policy is being
 	// used to manage any indices, the request fails and returns an error.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-delete-lifecycle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-delete-lifecycle
 	DeleteLifecycle ilm_delete_lifecycle.NewDeleteLifecycle
 	// Explain the lifecycle state.
 	// Get the current lifecycle status for one or more indices.
@@ -3703,15 +3675,15 @@ type Ilm struct {
 	//
 	// The response indicates when the index entered each lifecycle state, provides
 	// the definition of the running phase, and information about any failures.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-explain-lifecycle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-explain-lifecycle
 	ExplainLifecycle ilm_explain_lifecycle.NewExplainLifecycle
 	// Get lifecycle policies.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-get-lifecycle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-get-lifecycle
 	GetLifecycle ilm_get_lifecycle.NewGetLifecycle
 	// Get the ILM status.
 	//
 	// Get the current index lifecycle management status.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-get-status
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-get-status
 	GetStatus ilm_get_status.NewGetStatus
 	// Migrate to data tiers routing.
 	// Switch the indices, ILM policies, and legacy, composable, and component
@@ -3733,7 +3705,7 @@ type Ilm struct {
 	// ILM must be stopped before performing the migration.
 	// Use the stop ILM and get ILM status APIs to wait until the reported operation
 	// mode is `STOPPED`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-migrate-to-data-tiers
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-migrate-to-data-tiers
 	MigrateToDataTiers ilm_migrate_to_data_tiers.NewMigrateToDataTiers
 	// Move to a lifecycle step.
 	// Manually move an index into a specific step in the lifecycle policy and run
@@ -3759,7 +3731,7 @@ type Ilm struct {
 	// of the specified action in the specified phase.
 	// Only actions specified in the ILM policy are considered valid.
 	// An index cannot move to a step that is not part of its policy.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-move-to-step
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-move-to-step
 	MoveToStep ilm_move_to_step.NewMoveToStep
 	// Create or update a lifecycle policy.
 	// If the specified policy exists, it is replaced and the policy version is
@@ -3767,13 +3739,13 @@ type Ilm struct {
 	//
 	// NOTE: Only the latest version of the policy is stored, you cannot revert to
 	// previous versions.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-put-lifecycle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-put-lifecycle
 	PutLifecycle ilm_put_lifecycle.NewPutLifecycle
 	// Remove policies from an index.
 	// Remove the assigned lifecycle policies from an index or a data stream's
 	// backing indices.
 	// It also stops managing the indices.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-remove-policy
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-remove-policy
 	RemovePolicy ilm_remove_policy.NewRemovePolicy
 	// Retry a policy.
 	// Retry running the lifecycle policy for an index that is in the ERROR step.
@@ -3781,14 +3753,14 @@ type Ilm struct {
 	// the step.
 	// Use the explain lifecycle state API to determine whether an index is in the
 	// ERROR step.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-retry
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-retry
 	Retry ilm_retry.NewRetry
 	// Start the ILM plugin.
 	// Start the index lifecycle management plugin if it is currently stopped.
 	// ILM is started automatically when the cluster is formed.
 	// Restarting ILM is necessary only when it has been stopped using the stop ILM
 	// API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-start
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-start
 	Start ilm_start.NewStart
 	// Stop the ILM plugin.
 	// Halt all lifecycle management operations and stop the index lifecycle
@@ -3800,7 +3772,7 @@ type Ilm struct {
 	// plugin might continue to run until in-progress operations complete and the
 	// plugin can be safely stopped.
 	// Use the get ILM status API to check whether ILM is running.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-stop
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-stop
 	Stop ilm_stop.NewStop
 }
 
@@ -3810,7 +3782,7 @@ type Indices struct {
 	// Add an index block to an index.
 	// Index blocks limit the operations allowed on an index by blocking specific
 	// operation types.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-add-block
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-add-block
 	AddBlock indices_add_block.NewAddBlock
 	// Get tokens from text analysis.
 	// The analyze API performs analysis on a text string and returns the resulting
@@ -3822,12 +3794,12 @@ type Indices struct {
 	// If more than this limit of tokens gets generated, an error occurs.
 	// The `_analyze` endpoint without a specified index will always use `10000` as
 	// its limit.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-analyze
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-analyze
 	Analyze indices_analyze.NewAnalyze
 	// Cancel a migration reindex operation.
 	//
 	// Cancel a migration reindex attempt for a data stream or index.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/migrate-data-stream.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-cancel-migrate-reindex
 	CancelMigrateReindex indices_cancel_migrate_reindex.NewCancelMigrateReindex
 	// Clear the cache.
 	// Clear the cache of one or more indices.
@@ -3837,7 +3809,7 @@ type Indices struct {
 	// To clear only specific caches, use the `fielddata`, `query`, or `request`
 	// parameters.
 	// To clear the cache only of specific fields, use the `fields` parameter.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-clear-cache
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-clear-cache
 	ClearCache indices_clear_cache.NewClearCache
 	// Clone an index.
 	// Clone an existing index into a new index.
@@ -3910,7 +3882,7 @@ type Indices struct {
 	// Because the clone operation creates a new index to clone the shards to, the
 	// wait for active shards setting on index creation applies to the clone index
 	// action as well.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-clone
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-clone
 	Clone indices_clone.NewClone
 	// Close an index.
 	// A closed index is blocked for read or write operations and does not allow all
@@ -3941,7 +3913,7 @@ type Indices struct {
 	// problems in managed environments.
 	// Closing indices can be turned off with the cluster settings API by setting
 	// `cluster.indices.close.enable` to `false`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-close
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-close
 	Close indices_close.NewClose
 	// Create an index.
 	// You can use the create index API to add a new index to an Elasticsearch
@@ -3978,23 +3950,23 @@ type Indices struct {
 	// through the index setting `index.write.wait_for_active_shards`.
 	// Note that changing this setting will also affect the `wait_for_active_shards`
 	// value on all subsequent write operations.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-create
 	Create indices_create.NewCreate
 	// Create a data stream.
 	//
 	// You must have a matching index template with data stream enabled.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create-data-stream
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-create-data-stream
 	CreateDataStream indices_create_data_stream.NewCreateDataStream
 	// Create an index from a source index.
 	//
 	// Copy the mappings and settings from the source index to a destination index
 	// while allowing request settings and mappings to override the source values.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/migrate-data-stream.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-create-from
 	CreateFrom indices_create_from.NewCreateFrom
 	// Get data stream stats.
 	//
 	// Get statistics for one or more data streams.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-data-streams-stats-1
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-data-streams-stats-1
 	DataStreamsStats indices_data_streams_stats.NewDataStreamsStats
 	// Delete indices.
 	// Deleting an index deletes its documents, shards, and metadata.
@@ -4005,20 +3977,20 @@ type Indices struct {
 	// To delete the index, you must roll over the data stream so a new write index
 	// is created.
 	// You can then use the delete index API to delete the previous write index.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete
 	Delete indices_delete.NewDelete
 	// Delete an alias.
 	// Removes a data stream or index from an alias.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-alias
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete-alias
 	DeleteAlias indices_delete_alias.NewDeleteAlias
 	// Delete data stream lifecycles.
 	// Removes the data stream lifecycle from a data stream, rendering it not
 	// managed by the data stream lifecycle.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-lifecycle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete-data-lifecycle
 	DeleteDataLifecycle indices_delete_data_lifecycle.NewDeleteDataLifecycle
 	// Delete data streams.
 	// Deletes one or more data streams and their backing indices.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete-data-stream
 	DeleteDataStream indices_delete_data_stream.NewDeleteDataStream
 	// Delete an index template.
 	// The provided <index-template> may contain multiple template names separated
@@ -4026,10 +3998,10 @@ type Indices struct {
 	// names are specified then there is no wildcard support and the provided names
 	// should match completely with
 	// existing templates.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-index-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete-index-template
 	DeleteIndexTemplate indices_delete_index_template.NewDeleteIndexTemplate
 	// Delete a legacy index template.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete-template
 	DeleteTemplate indices_delete_template.NewDeleteTemplate
 	// Analyze the index disk usage.
 	// Analyze the disk usage of each field of an index or data stream.
@@ -4046,7 +4018,7 @@ type Indices struct {
 	// stored fields are also estimates and can be inaccurate.
 	// The stored size of the `_id` field is likely underestimated while the
 	// `_source` field is overestimated.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-disk-usage
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-disk-usage
 	DiskUsage indices_disk_usage.NewDiskUsage
 	// Downsample an index.
 	// Aggregate a time series (TSDS) index and store pre-computed statistical
@@ -4060,21 +4032,21 @@ type Indices struct {
 	// NOTE: Only indices in a time series data stream are supported.
 	// Neither field nor document level security can be defined on the source index.
 	// The source index must be read only (`index.blocks.write: true`).
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-downsample
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-downsample
 	Downsample indices_downsample.NewDownsample
 	// Check indices.
 	// Check if one or more indices, index aliases, or data streams exist.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-exists
 	Exists indices_exists.NewExists
 	// Check aliases.
 	//
 	// Check if one or more data stream or index aliases exist.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists-alias
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-exists-alias
 	ExistsAlias indices_exists_alias.NewExistsAlias
 	// Check index templates.
 	//
 	// Check whether index templates exist.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists-index-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-exists-index-template
 	ExistsIndexTemplate indices_exists_index_template.NewExistsIndexTemplate
 	// Check existence of index templates.
 	// Get information about whether index templates exist.
@@ -4084,14 +4056,14 @@ type Indices struct {
 	// IMPORTANT: This documentation is about legacy index templates, which are
 	// deprecated and will be replaced by the composable templates introduced in
 	// Elasticsearch 7.8.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-exists-template
 	ExistsTemplate indices_exists_template.NewExistsTemplate
 	// Get the status for a data stream lifecycle.
 	// Get information about an index or data stream's current data stream lifecycle
 	// status, such as time since index creation, time since rollover, the lifecycle
 	// configuration managing the index, or any errors encountered during lifecycle
 	// execution.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-explain-data-lifecycle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-explain-data-lifecycle
 	ExplainDataLifecycle indices_explain_data_lifecycle.NewExplainDataLifecycle
 	// Get field usage stats.
 	// Get field usage information for each shard and field of an index.
@@ -4104,7 +4076,7 @@ type Indices struct {
 	// that back the fields in the index.
 	// A given request will increment each count by a maximum value of 1, even if
 	// the request accesses the same field multiple times.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-field-usage-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-field-usage-stats
 	FieldUsageStats indices_field_usage_stats.NewFieldUsageStats
 	// Flush data streams or indices.
 	// Flushing a data stream or index is the process of making sure that any data
@@ -4130,7 +4102,7 @@ type Indices struct {
 	// If you call the flush API after indexing some documents then a successful
 	// response indicates that Elasticsearch has flushed all the documents that were
 	// indexed before the flush API was called.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-flush
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-flush
 	Flush indices_flush.NewFlush
 	// Force a merge.
 	// Perform the force merge operation on the shards of one or more indices.
@@ -4213,32 +4185,32 @@ type Indices struct {
 	// ```
 	// POST /.ds-my-data-stream-2099.03.07-000001/_forcemerge?max_num_segments=1
 	// ```
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-forcemerge
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-forcemerge
 	Forcemerge indices_forcemerge.NewForcemerge
 	// Get index information.
 	// Get information about one or more indices. For data streams, the API returns
 	// information about the
 	// stream’s backing indices.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get
 	Get indices_get.NewGet
 	// Get aliases.
 	// Retrieves information for one or more data stream or index aliases.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-alias
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-alias
 	GetAlias indices_get_alias.NewGetAlias
 	// Get data stream lifecycles.
 	//
 	// Get the data stream lifecycle configuration of one or more data streams.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-lifecycle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-data-lifecycle
 	GetDataLifecycle indices_get_data_lifecycle.NewGetDataLifecycle
 	// Get data stream lifecycle stats.
 	// Get statistics about the data streams that are managed by a data stream
 	// lifecycle.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-lifecycle-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-data-lifecycle-stats
 	GetDataLifecycleStats indices_get_data_lifecycle_stats.NewGetDataLifecycleStats
 	// Get data streams.
 	//
 	// Get information about one or more data streams.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-data-stream
 	GetDataStream indices_get_data_stream.NewGetDataStream
 	// Get mapping definitions.
 	// Retrieves mapping definitions for one or more fields.
@@ -4247,27 +4219,27 @@ type Indices struct {
 	//
 	// This API is useful if you don't need a complete mapping or if an index
 	// mapping contains a large number of fields.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-mapping
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-mapping
 	GetFieldMapping indices_get_field_mapping.NewGetFieldMapping
 	// Get index templates.
 	// Get information about one or more index templates.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-index-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-index-template
 	GetIndexTemplate indices_get_index_template.NewGetIndexTemplate
 	// Get mapping definitions.
 	// For data streams, the API retrieves mappings for the stream’s backing
 	// indices.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-mapping
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-mapping
 	GetMapping indices_get_mapping.NewGetMapping
 	// Get the migration reindexing status.
 	//
 	// Get the status of a migration reindex attempt for a data stream or index.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/migrate-data-stream.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-migration
 	GetMigrateReindexStatus indices_get_migrate_reindex_status.NewGetMigrateReindexStatus
 	// Get index settings.
 	// Get setting information for one or more indices.
 	// For data streams, it returns setting information for the stream's backing
 	// indices.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-settings
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-settings
 	GetSettings indices_get_settings.NewGetSettings
 	// Get index templates.
 	// Get information about one or more index templates.
@@ -4275,7 +4247,7 @@ type Indices struct {
 	// IMPORTANT: This documentation is about legacy index templates, which are
 	// deprecated and will be replaced by the composable templates introduced in
 	// Elasticsearch 7.8.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-template
 	GetTemplate indices_get_template.NewGetTemplate
 	// Reindex legacy backing indices.
 	//
@@ -4283,7 +4255,7 @@ type Indices struct {
 	// This operation occurs in a persistent task.
 	// The persistent task ID is returned immediately and the reindexing work is
 	// completed in that task.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/migrate-data-stream.html
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-migrate-reindex
 	MigrateReindex indices_migrate_reindex.NewMigrateReindex
 	// Convert an index alias to a data stream.
 	// Converts an index alias to a data stream.
@@ -4298,12 +4270,12 @@ type Indices struct {
 	// the same name.
 	// The indices for the alias become hidden backing indices for the stream.
 	// The write index for the alias becomes the write index for the stream.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-migrate-to-data-stream
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-migrate-to-data-stream
 	MigrateToDataStream indices_migrate_to_data_stream.NewMigrateToDataStream
 	// Update data streams.
 	// Performs one or more data stream modification actions in a single atomic
 	// operation.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-modify-data-stream
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-modify-data-stream
 	ModifyDataStream indices_modify_data_stream.NewModifyDataStream
 	// Open a closed index.
 	// For data streams, the API opens any closed backing indices.
@@ -4341,7 +4313,7 @@ type Indices struct {
 	// Because opening or closing an index allocates its shards, the
 	// `wait_for_active_shards` setting on index creation applies to the `_open` and
 	// `_close` index actions as well.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-open
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-open
 	Open indices_open.NewOpen
 	// Promote a data stream.
 	// Promote a data stream from a replicated data stream managed by cross-cluster
@@ -4362,15 +4334,15 @@ type Indices struct {
 	// matching index template is created.
 	// This will affect the lifecycle management of the data stream and interfere
 	// with the data stream size and retention.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-promote-data-stream
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-promote-data-stream
 	PromoteDataStream indices_promote_data_stream.NewPromoteDataStream
 	// Create or update an alias.
 	// Adds a data stream or index to an alias.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-alias
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-alias
 	PutAlias indices_put_alias.NewPutAlias
 	// Update data stream lifecycles.
 	// Update the data stream lifecycle of the specified data streams.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-lifecycle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-data-lifecycle
 	PutDataLifecycle indices_put_data_lifecycle.NewPutDataLifecycle
 	// Create or update an index template.
 	// Index templates define settings, mappings, and aliases that can be applied
@@ -4418,7 +4390,7 @@ type Indices struct {
 	// new `dynamic_templates` entries are appended onto the end.
 	// If an entry already exists with the same key, then it is overwritten by the
 	// new definition.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-index-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-index-template
 	PutIndexTemplate indices_put_index_template.NewPutIndexTemplate
 	// Update field mappings.
 	// Add new fields to an existing data stream or index.
@@ -4459,7 +4431,7 @@ type Indices struct {
 	// Renaming a field would invalidate data already indexed under the old field
 	// name.
 	// Instead, add an alias field to create an alternate field name.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-mapping
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-mapping
 	PutMapping indices_put_mapping.NewPutMapping
 	// Update index settings.
 	// Changes dynamic index settings in real time.
@@ -4486,7 +4458,7 @@ type Indices struct {
 	// existing data.
 	// To change the analyzer for existing backing indices, you must create a new
 	// data stream and reindex your data into it.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-settings
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-settings
 	PutSettings indices_put_settings.NewPutSettings
 	// Create or update an index template.
 	// Index templates define settings, mappings, and aliases that can be applied
@@ -4520,7 +4492,7 @@ type Indices struct {
 	// lower order being applied first, and higher orders overriding them.
 	// NOTE: Multiple matching templates with the same order value will result in a
 	// non-deterministic merging order.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-template
 	PutTemplate indices_put_template.NewPutTemplate
 	// Get index recovery information.
 	// Get information about ongoing and completed shard recoveries for one or more
@@ -4558,7 +4530,7 @@ type Indices struct {
 	// This means that if a shard copy completes a recovery and then Elasticsearch
 	// relocates it onto a different node then the information about the original
 	// recovery will not be shown in the recovery API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-recovery
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-recovery
 	Recovery indices_recovery.NewRecovery
 	// Refresh an index.
 	// A refresh makes recent operations performed on one or more indices available
@@ -4585,7 +4557,7 @@ type Indices struct {
 	// `refresh=wait_for` query parameter option.
 	// This option ensures the indexing operation waits for a periodic refresh
 	// before running the search.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-refresh
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-refresh
 	Refresh indices_refresh.NewRefresh
 	// Reload search analyzers.
 	// Reload an index's search analyzers and their resources.
@@ -4611,7 +4583,7 @@ type Indices struct {
 	// that don't contain a shard replica--before using this API.
 	// This ensures the synonym file is updated everywhere in the cluster in case
 	// shards are relocated in the future.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-reload-search-analyzers
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-reload-search-analyzers
 	ReloadSearchAnalyzers indices_reload_search_analyzers.NewReloadSearchAnalyzers
 	// Resolve the cluster.
 	//
@@ -4695,13 +4667,13 @@ type Indices struct {
 	// successful.
 	// If a connection was (re-)established, this will also cause the `remote/info`
 	// endpoint to now indicate a connected status.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-cluster
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-resolve-cluster
 	ResolveCluster indices_resolve_cluster.NewResolveCluster
 	// Resolve indices.
 	// Resolve the names and/or index patterns for indices, aliases, and data
 	// streams.
 	// Multiple patterns and remote clusters are supported.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-index
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-resolve-index
 	ResolveIndex indices_resolve_index.NewResolveIndex
 	// Roll over to a new index.
 	// TIP: It is recommended to use the index lifecycle rollover action to automate
@@ -4758,13 +4730,13 @@ type Indices struct {
 	// `my-index-2099.05.06-000001`.
 	// If you roll over the alias on May 7, 2099, the new index's name is
 	// `my-index-2099.05.07-000002`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-rollover
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-rollover
 	Rollover indices_rollover.NewRollover
 	// Get index segments.
 	// Get low-level information about the Lucene segments in index shards.
 	// For data streams, the API returns information about the stream's backing
 	// indices.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-segments
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-segments
 	Segments indices_segments.NewSegments
 	// Get index shard stores.
 	// Get store information about replica shards in one or more indices.
@@ -4781,7 +4753,7 @@ type Indices struct {
 	//
 	// By default, the API returns store information only for primary shards that
 	// are unassigned or have one or more unassigned replica shards.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-shard-stores
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-shard-stores
 	ShardStores indices_shard_stores.NewShardStores
 	// Shrink an index.
 	// Shrink an index into a new index with fewer primary shards.
@@ -4837,17 +4809,17 @@ type Indices struct {
 	// as this is the maximum number of docs that can fit into a single shard.
 	// * The node handling the shrink process must have sufficient free disk space
 	// to accommodate a second copy of the existing index.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-shrink
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-shrink
 	Shrink indices_shrink.NewShrink
 	// Simulate an index.
 	// Get the index configuration that would be applied to the specified index from
 	// an existing index template.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-simulate-index-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-simulate-index-template
 	SimulateIndexTemplate indices_simulate_index_template.NewSimulateIndexTemplate
 	// Simulate an index template.
 	// Get the index configuration that would be applied by a particular index
 	// template.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-simulate-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-simulate-template
 	SimulateTemplate indices_simulate_template.NewSimulateTemplate
 	// Split an index.
 	// Split an index into a new index with more primary shards.
@@ -4897,7 +4869,7 @@ type Indices struct {
 	// number of primary shards in the source index.
 	// * The node handling the split process must have sufficient free disk space to
 	// accommodate a second copy of the existing index.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-split
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-split
 	Split indices_split.NewSplit
 	// Get index statistics.
 	// For data streams, the API retrieves statistics for the stream's backing
@@ -4914,31 +4886,53 @@ type Indices struct {
 	// cleared.
 	// Although the shard is no longer part of the node, that node retains any
 	// node-level statistics to which the shard contributed.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-stats
 	Stats indices_stats.NewStats
 	// Create or update an alias.
 	// Adds a data stream or index to an alias.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-update-aliases
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-update-aliases
 	UpdateAliases indices_update_aliases.NewUpdateAliases
 	// Validate a query.
 	// Validates a query without running it.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-validate-query
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-validate-query
 	ValidateQuery indices_validate_query.NewValidateQuery
 }
 
 type Inference struct {
 	// Perform chat completion inference
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-unified-inference
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-unified-inference
 	ChatCompletionUnified inference_chat_completion_unified.NewChatCompletionUnified
 	// Perform completion inference on the service
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-inference
 	Completion inference_completion.NewCompletion
 	// Delete an inference endpoint
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-delete
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-delete
 	Delete inference_delete.NewDelete
 	// Get an inference endpoint
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-get
 	Get inference_get.NewGet
+	// Perform inference on the service.
+	//
+	// This API enables you to use machine learning models to perform specific tasks
+	// on data that you provide as an input.
+	// It returns a response with the results of the tasks.
+	// The inference endpoint you use can perform one specific task that has been
+	// defined when the endpoint was created with the create inference API.
+	//
+	// For details about using this API with a service, such as Amazon Bedrock,
+	// Anthropic, or HuggingFace, refer to the service-specific documentation.
+	//
+	// > info
+	// > The inference APIs enable you to use certain services, such as built-in
+	// machine learning models (ELSER, E5), models uploaded through Eland, Cohere,
+	// OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic, Watsonx.ai, or
+	// Hugging Face. For built-in models and models uploaded through Eland, the
+	// inference APIs offer an alternative way to use and manage trained models.
+	// However, if you do not plan to use the inference APIs to use these models or
+	// if you want to use non-NLP models, use the machine learning trained model
+	// APIs.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-inference
+	Inference inference_inference.NewInference
 	// Create an inference endpoint.
 	// When you create an inference endpoint, the associated machine learning model
 	// is automatically deployed if it is not already running.
@@ -4959,7 +4953,7 @@ type Inference struct {
 	// However, if you do not plan to use the inference APIs to use these models or
 	// if you want to use non-NLP models, use the machine learning trained model
 	// APIs.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put
 	Put inference_put.NewPut
 	// Create an AlibabaCloud AI Search inference endpoint.
 	//
@@ -4975,7 +4969,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-alibabacloud
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-alibabacloud
 	PutAlibabacloud inference_put_alibabacloud.NewPutAlibabacloud
 	// Create an Amazon Bedrock inference endpoint.
 	//
@@ -4999,7 +4993,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonbedrock
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-amazonbedrock
 	PutAmazonbedrock inference_put_amazonbedrock.NewPutAmazonbedrock
 	// Create an Anthropic inference endpoint.
 	//
@@ -5015,7 +5009,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-anthropic
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-anthropic
 	PutAnthropic inference_put_anthropic.NewPutAnthropic
 	// Create an Azure AI studio inference endpoint.
 	//
@@ -5031,7 +5025,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureaistudio
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-azureaistudio
 	PutAzureaistudio inference_put_azureaistudio.NewPutAzureaistudio
 	// Create an Azure OpenAI inference endpoint.
 	//
@@ -5059,7 +5053,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureopenai
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-azureopenai
 	PutAzureopenai inference_put_azureopenai.NewPutAzureopenai
 	// Create a Cohere inference endpoint.
 	//
@@ -5075,7 +5069,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-cohere
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-cohere
 	PutCohere inference_put_cohere.NewPutCohere
 	// Create an Elasticsearch inference endpoint.
 	//
@@ -5105,7 +5099,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elasticsearch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-elasticsearch
 	PutElasticsearch inference_put_elasticsearch.NewPutElasticsearch
 	// Create an ELSER inference endpoint.
 	//
@@ -5135,7 +5129,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elser
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-elser
 	PutElser inference_put_elser.NewPutElser
 	// Create an Google AI Studio inference endpoint.
 	//
@@ -5151,7 +5145,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googleaistudio
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-googleaistudio
 	PutGoogleaistudio inference_put_googleaistudio.NewPutGoogleaistudio
 	// Create a Google Vertex AI inference endpoint.
 	//
@@ -5167,7 +5161,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googlevertexai
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-googlevertexai
 	PutGooglevertexai inference_put_googlevertexai.NewPutGooglevertexai
 	// Create a Hugging Face inference endpoint.
 	//
@@ -5201,7 +5195,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-hugging-face
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-hugging-face
 	PutHuggingFace inference_put_hugging_face.NewPutHuggingFace
 	// Create an JinaAI inference endpoint.
 	//
@@ -5221,7 +5215,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-jinaai
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-jinaai
 	PutJinaai inference_put_jinaai.NewPutJinaai
 	// Create a Mistral inference endpoint.
 	//
@@ -5237,7 +5231,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-mistral
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-mistral
 	PutMistral inference_put_mistral.NewPutMistral
 	// Create an OpenAI inference endpoint.
 	//
@@ -5253,7 +5247,7 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openai
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-openai
 	PutOpenai inference_put_openai.NewPutOpenai
 	// Create a VoyageAI inference endpoint.
 	//
@@ -5262,7 +5256,7 @@ type Inference struct {
 	//
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-voyageai
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-voyageai
 	PutVoyageai inference_put_voyageai.NewPutVoyageai
 	// Create a Watsonx inference endpoint.
 	//
@@ -5282,13 +5276,13 @@ type Inference struct {
 	// `"allocation_count"` matches the `"target_allocation_count"`.
 	// Avoid creating multiple endpoints for the same model unless required, as each
 	// endpoint consumes significant resources.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-watsonx
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-watsonx
 	PutWatsonx inference_put_watsonx.NewPutWatsonx
 	// Perform rereanking inference on the service
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-inference
 	Rerank inference_rerank.NewRerank
 	// Perform sparse embedding inference on the service
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-inference
 	SparseEmbedding inference_sparse_embedding.NewSparseEmbedding
 	// Perform streaming inference.
 	// Get real-time responses for completion tasks by delivering answers
@@ -5307,10 +5301,10 @@ type Inference struct {
 	// This API requires the `monitor_inference` cluster privilege (the built-in
 	// `inference_admin` and `inference_user` roles grant this privilege). You must
 	// use a client that supports streaming.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-stream-inference
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-stream-inference
 	StreamCompletion inference_stream_completion.NewStreamCompletion
 	// Perform text embedding inference on the service
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-inference
 	TextEmbedding inference_text_embedding.NewTextEmbedding
 	// Update an inference endpoint.
 	//
@@ -5327,7 +5321,7 @@ type Inference struct {
 	// However, if you do not plan to use the inference APIs to use these models or
 	// if you want to use non-NLP models, use the machine learning trained model
 	// APIs.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-update
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-update
 	Update inference_update.NewUpdate
 }
 
@@ -5335,33 +5329,33 @@ type Ingest struct {
 	// Delete GeoIP database configurations.
 	//
 	// Delete one or more IP geolocation database configurations.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-delete-geoip-database
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-delete-geoip-database
 	DeleteGeoipDatabase ingest_delete_geoip_database.NewDeleteGeoipDatabase
 	// Delete IP geolocation database configurations.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-delete-ip-location-database
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-delete-ip-location-database
 	DeleteIpLocationDatabase ingest_delete_ip_location_database.NewDeleteIpLocationDatabase
 	// Delete pipelines.
 	// Delete one or more ingest pipelines.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-delete-pipeline
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-delete-pipeline
 	DeletePipeline ingest_delete_pipeline.NewDeletePipeline
 	// Get GeoIP statistics.
 	// Get download statistics for GeoIP2 databases that are used with the GeoIP
 	// processor.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/geoip-processor.html
+	// https://www.elastic.co/docs/reference/enrich-processor/geoip-processor
 	GeoIpStats ingest_geo_ip_stats.NewGeoIpStats
 	// Get GeoIP database configurations.
 	//
 	// Get information about one or more IP geolocation database configurations.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-geoip-database
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-get-geoip-database
 	GetGeoipDatabase ingest_get_geoip_database.NewGetGeoipDatabase
 	// Get IP geolocation database configurations.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-ip-location-database
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-get-ip-location-database
 	GetIpLocationDatabase ingest_get_ip_location_database.NewGetIpLocationDatabase
 	// Get pipelines.
 	//
 	// Get information about one or more ingest pipelines.
 	// This API returns a local reference of the pipeline.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-pipeline
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-get-pipeline
 	GetPipeline ingest_get_pipeline.NewGetPipeline
 	// Run a grok processor.
 	// Extract structured fields out of a single text field within a document.
@@ -5369,26 +5363,26 @@ type Ingest struct {
 	// grok pattern you expect will match.
 	// A grok pattern is like a regular expression that supports aliased expressions
 	// that can be reused.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/grok-processor.html
+	// https://www.elastic.co/docs/reference/enrich-processor/grok-processor
 	ProcessorGrok ingest_processor_grok.NewProcessorGrok
 	// Create or update a GeoIP database configuration.
 	//
 	// Refer to the create or update IP geolocation database configuration API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-put-geoip-database
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-put-geoip-database
 	PutGeoipDatabase ingest_put_geoip_database.NewPutGeoipDatabase
 	// Create or update an IP geolocation database configuration.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-put-ip-location-database
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-put-ip-location-database
 	PutIpLocationDatabase ingest_put_ip_location_database.NewPutIpLocationDatabase
 	// Create or update a pipeline.
 	// Changes made using this API take effect immediately.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/ingest.html
+	// https://www.elastic.co/docs/manage-data/ingest/transform-enrich/ingest-pipelines
 	PutPipeline ingest_put_pipeline.NewPutPipeline
 	// Simulate a pipeline.
 	//
 	// Run an ingest pipeline against a set of provided documents.
 	// You can either specify an existing pipeline to use with the provided
 	// documents or supply a pipeline definition in the body of the request.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-simulate
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-simulate
 	Simulate ingest_simulate.NewSimulate
 }
 
@@ -5399,7 +5393,7 @@ type License struct {
 	//
 	// If the operator privileges feature is enabled, only operator users can use
 	// this API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-delete
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-delete
 	Delete license_delete.NewDelete
 	// Get license information.
 	//
@@ -5411,13 +5405,13 @@ type License struct {
 	// may return a `404 Not Found` response.
 	// > If you receive an unexpected 404 response after cluster startup, wait a
 	// short period and retry the request.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-get
 	Get license_get.NewGet
 	// Get the basic license status.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get-basic-status
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-get-basic-status
 	GetBasicStatus license_get_basic_status.NewGetBasicStatus
 	// Get the trial status.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get-trial-status
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-get-trial-status
 	GetTrialStatus license_get_trial_status.NewGetTrialStatus
 	// Update the license.
 	//
@@ -5434,7 +5428,7 @@ type License struct {
 	// before you install the license.
 	// If the operator privileges feature is enabled, only operator users can use
 	// this API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-post
 	Post license_post.NewPost
 	// Start a basic license.
 	//
@@ -5450,7 +5444,7 @@ type License struct {
 	// to `true`.
 	//
 	// To check the status of your basic license, use the get basic license API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post-start-basic
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-post-start-basic
 	PostStartBasic license_post_start_basic.NewPostStartBasic
 	// Start a trial.
 	// Start a 30-day trial, which gives access to all subscription features.
@@ -5462,7 +5456,7 @@ type License struct {
 	// https://www.elastic.co/trialextension.
 	//
 	// To check the status of your trial, use the get trial status API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post-start-trial
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-post-start-trial
 	PostStartTrial license_post_start_trial.NewPostStartTrial
 }
 
@@ -5471,17 +5465,17 @@ type Logstash struct {
 	// Delete a pipeline that is used for Logstash Central Management.
 	// If the request succeeds, you receive an empty response with an appropriate
 	// status code.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-delete-pipeline
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-logstash-delete-pipeline
 	DeletePipeline logstash_delete_pipeline.NewDeletePipeline
 	// Get Logstash pipelines.
 	// Get pipelines that are used for Logstash Central Management.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-get-pipeline
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-logstash-get-pipeline
 	GetPipeline logstash_get_pipeline.NewGetPipeline
 	// Create or update a Logstash pipeline.
 	//
 	// Create a pipeline that is used for Logstash Central Management.
 	// If the specified pipeline exists, it is replaced.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-put-pipeline
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-logstash-put-pipeline
 	PutPipeline logstash_put_pipeline.NewPutPipeline
 }
 
@@ -5493,7 +5487,7 @@ type Migration struct {
 	//
 	// TIP: This APIs is designed for indirect use by the Upgrade Assistant.
 	// You are strongly recommended to use the Upgrade Assistant.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-deprecations
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-migration-deprecations
 	Deprecations migration_deprecations.NewDeprecations
 	// Get feature migration information.
 	// Version upgrades sometimes require changes to how features store
@@ -5503,7 +5497,7 @@ type Migration struct {
 	//
 	// TIP: This API is designed for indirect use by the Upgrade Assistant.
 	// You are strongly recommended to use the Upgrade Assistant.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-get-feature-upgrade-status
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-migration-get-feature-upgrade-status
 	GetFeatureUpgradeStatus migration_get_feature_upgrade_status.NewGetFeatureUpgradeStatus
 	// Start the feature migration.
 	// Version upgrades sometimes require changes to how features store
@@ -5515,7 +5509,7 @@ type Migration struct {
 	//
 	// TIP: The API is designed for indirect use by the Upgrade Assistant. We
 	// strongly recommend you use the Upgrade Assistant.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-get-feature-upgrade-status
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-migration-get-feature-upgrade-status
 	PostFeatureUpgrade migration_post_feature_upgrade.NewPostFeatureUpgrade
 }
 
@@ -5527,7 +5521,7 @@ type Ml struct {
 	// As requests are handled by each allocated node, their responses may be cached
 	// on that individual node.
 	// Calling this API clears the caches without restarting the deployment.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-clear-trained-model-deployment-cache
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-clear-trained-model-deployment-cache
 	ClearTrainedModelDeploymentCache ml_clear_trained_model_deployment_cache.NewClearTrainedModelDeploymentCache
 	// Close anomaly detection jobs.
 	//
@@ -5547,24 +5541,24 @@ type Ml struct {
 	// request.
 	// When a datafeed that has a specified end date stops, it automatically closes
 	// its associated job.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-close-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-close-job
 	CloseJob ml_close_job.NewCloseJob
 	// Delete a calendar.
 	//
 	// Remove all scheduled events from a calendar, then delete it.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-calendar
 	DeleteCalendar ml_delete_calendar.NewDeleteCalendar
 	// Delete events from a calendar.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar-event
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-calendar-event
 	DeleteCalendarEvent ml_delete_calendar_event.NewDeleteCalendarEvent
 	// Delete anomaly jobs from a calendar.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-calendar-job
 	DeleteCalendarJob ml_delete_calendar_job.NewDeleteCalendarJob
 	// Delete a data frame analytics job.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-data-frame-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-data-frame-analytics
 	DeleteDataFrameAnalytics ml_delete_data_frame_analytics.NewDeleteDataFrameAnalytics
 	// Delete a datafeed.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-datafeed
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-datafeed
 	DeleteDatafeed ml_delete_datafeed.NewDeleteDatafeed
 	// Delete expired ML data.
 	//
@@ -5576,13 +5570,13 @@ type Ml struct {
 	// wildcard expression. You can delete expired data for all anomaly detection
 	// jobs by using `_all`, by specifying `*` as the `<job_id>`, or by omitting the
 	// `<job_id>`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-expired-data
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-expired-data
 	DeleteExpiredData ml_delete_expired_data.NewDeleteExpiredData
 	// Delete a filter.
 	//
 	// If an anomaly detection job references the filter, you cannot delete the
 	// filter. You must update or delete the job before you can delete the filter.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-filter
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-filter
 	DeleteFilter ml_delete_filter.NewDeleteFilter
 	// Delete forecasts from a job.
 	//
@@ -5590,7 +5584,7 @@ type Ml struct {
 	// different retention period with the `expires_in` parameter in the forecast
 	// jobs API. The delete forecast API enables you to delete one or more
 	// forecasts before they expire.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-forecast
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-forecast
 	DeleteForecast ml_delete_forecast.NewDeleteForecast
 	// Delete an anomaly detection job.
 	//
@@ -5600,27 +5594,27 @@ type Ml struct {
 	// first tries to delete the datafeed. This behavior is equivalent to calling
 	// the delete datafeed API with the same timeout and force parameters as the
 	// delete job request.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-job
 	DeleteJob ml_delete_job.NewDeleteJob
 	// Delete a model snapshot.
 	//
 	// You cannot delete the active model snapshot. To delete that snapshot, first
 	// revert to a different one. To identify the active model snapshot, refer to
 	// the `model_snapshot_id` in the results from the get jobs API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-model-snapshot
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-model-snapshot
 	DeleteModelSnapshot ml_delete_model_snapshot.NewDeleteModelSnapshot
 	// Delete an unreferenced trained model.
 	//
 	// The request deletes a trained inference model that is not referenced by an
 	// ingest pipeline.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-trained-model
 	DeleteTrainedModel ml_delete_trained_model.NewDeleteTrainedModel
 	// Delete a trained model alias.
 	//
 	// This API deletes an existing model alias that refers to a trained model. If
 	// the model alias is missing or refers to a model other than the one identified
 	// by the `model_id`, this API returns an error.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model-alias
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-trained-model-alias
 	DeleteTrainedModelAlias ml_delete_trained_model_alias.NewDeleteTrainedModelAlias
 	// Estimate job model memory usage.
 	//
@@ -5628,7 +5622,7 @@ type Ml struct {
 	// The estimate is based on analysis configuration details for the job and
 	// cardinality
 	// estimates for the fields it references.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-estimate-model-memory
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-estimate-model-memory
 	EstimateModelMemory ml_estimate_model_memory.NewEstimateModelMemory
 	// Evaluate data frame analytics.
 	//
@@ -5636,7 +5630,7 @@ type Ml struct {
 	// of machine learning features. This has been designed for use on indexes
 	// created by data frame analytics. Evaluation requires both a ground truth
 	// field and an analytics result field to be present.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-evaluate-data-frame
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-evaluate-data-frame
 	EvaluateDataFrame ml_evaluate_data_frame.NewEvaluateDataFrame
 	// Explain data frame analytics config.
 	//
@@ -5648,7 +5642,7 @@ type Ml struct {
 	// deciding the appropriate value for model_memory_limit setting later on.
 	// If you have object fields or fields that are excluded via source filtering,
 	// they are not included in the explanation.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-explain-data-frame-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-explain-data-frame-analytics
 	ExplainDataFrameAnalytics ml_explain_data_frame_analytics.NewExplainDataFrameAnalytics
 	// Force buffered data to be processed.
 	// The flush jobs API is only applicable when sending data for analysis using
@@ -5659,7 +5653,7 @@ type Ml struct {
 	// to continue analyzing data. A close operation additionally prunes and
 	// persists the model state to disk and the job must be opened again before
 	// analyzing further data.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-flush-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-flush-job
 	FlushJob ml_flush_job.NewFlushJob
 	// Predict future behavior of a time series.
 	//
@@ -5667,29 +5661,29 @@ type Ml struct {
 	// error occurs if you try to create a forecast for a job that has an
 	// `over_field_name` in its configuration. Forcasts predict future behavior
 	// based on historical data.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-forecast
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-forecast
 	Forecast ml_forecast.NewForecast
 	// Get anomaly detection job results for buckets.
 	// The API presents a chronological view of the records, grouped by bucket.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-buckets
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-buckets
 	GetBuckets ml_get_buckets.NewGetBuckets
 	// Get info about events in calendars.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-calendar-events
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-calendar-events
 	GetCalendarEvents ml_get_calendar_events.NewGetCalendarEvents
 	// Get calendar configuration info.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-calendars
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-calendars
 	GetCalendars ml_get_calendars.NewGetCalendars
 	// Get anomaly detection job results for categories.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-categories
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-categories
 	GetCategories ml_get_categories.NewGetCategories
 	// Get data frame analytics job configuration info.
 	// You can get information for multiple data frame analytics jobs in a single
 	// API request by using a comma-separated list of data frame analytics jobs or a
 	// wildcard expression.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-data-frame-analytics
 	GetDataFrameAnalytics ml_get_data_frame_analytics.NewGetDataFrameAnalytics
 	// Get data frame analytics jobs usage info.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-data-frame-analytics-stats
 	GetDataFrameAnalyticsStats ml_get_data_frame_analytics_stats.NewGetDataFrameAnalyticsStats
 	// Get datafeeds usage info.
 	// You can get statistics for multiple datafeeds in a single API request by
@@ -5698,7 +5692,7 @@ type Ml struct {
 	// `<feed_id>`, or by omitting the `<feed_id>`. If the datafeed is stopped, the
 	// only information you receive is the `datafeed_id` and the `state`.
 	// This API returns a maximum of 10,000 datafeeds.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-datafeed-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-datafeed-stats
 	GetDatafeedStats ml_get_datafeed_stats.NewGetDatafeedStats
 	// Get datafeeds configuration info.
 	// You can get information for multiple datafeeds in a single API request by
@@ -5706,39 +5700,39 @@ type Ml struct {
 	// get information for all datafeeds by using `_all`, by specifying `*` as the
 	// `<feed_id>`, or by omitting the `<feed_id>`.
 	// This API returns a maximum of 10,000 datafeeds.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-datafeeds
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-datafeeds
 	GetDatafeeds ml_get_datafeeds.NewGetDatafeeds
 	// Get filters.
 	// You can get a single filter or all filters.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-filters
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-filters
 	GetFilters ml_get_filters.NewGetFilters
 	// Get anomaly detection job results for influencers.
 	// Influencers are the entities that have contributed to, or are to blame for,
 	// the anomalies. Influencer results are available only if an
 	// `influencer_field_name` is specified in the job configuration.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-influencers
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-influencers
 	GetInfluencers ml_get_influencers.NewGetInfluencers
 	// Get anomaly detection jobs usage info.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-job-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-job-stats
 	GetJobStats ml_get_job_stats.NewGetJobStats
 	// Get anomaly detection jobs configuration info.
 	// You can get information for multiple anomaly detection jobs in a single API
 	// request by using a group name, a comma-separated list of jobs, or a wildcard
 	// expression. You can get information for all anomaly detection jobs by using
 	// `_all`, by specifying `*` as the `<job_id>`, or by omitting the `<job_id>`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-jobs
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-jobs
 	GetJobs ml_get_jobs.NewGetJobs
 	// Get machine learning memory usage info.
 	// Get information about how machine learning jobs and trained models are using
 	// memory,
 	// on each node, both within the JVM heap, and natively, outside of the JVM.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-memory-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-memory-stats
 	GetMemoryStats ml_get_memory_stats.NewGetMemoryStats
 	// Get anomaly detection job model snapshot upgrade usage info.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-model-snapshot-upgrade-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-model-snapshot-upgrade-stats
 	GetModelSnapshotUpgradeStats ml_get_model_snapshot_upgrade_stats.NewGetModelSnapshotUpgradeStats
 	// Get model snapshots info.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-model-snapshots
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-model-snapshots
 	GetModelSnapshots ml_get_model_snapshots.NewGetModelSnapshots
 	// Get overall bucket results.
 	//
@@ -5759,7 +5753,7 @@ type Ml struct {
 	// greater than its default), the `overall_score` is the maximum
 	// `overall_score` of the overall buckets that have a span equal to the
 	// jobs' largest bucket span.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-overall-buckets
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-overall-buckets
 	GetOverallBuckets ml_get_overall_buckets.NewGetOverallBuckets
 	// Get anomaly records for an anomaly detection job.
 	// Records contain the detailed analytical results. They describe the anomalous
@@ -5772,19 +5766,19 @@ type Ml struct {
 	// The number of record results depends on the number of anomalies found in each
 	// bucket, which relates to the number of time series being modeled and the
 	// number of detectors.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-records
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-records
 	GetRecords ml_get_records.NewGetRecords
 	// Get trained model configuration info.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-trained-models
 	GetTrainedModels ml_get_trained_models.NewGetTrainedModels
 	// Get trained models usage info.
 	// You can get usage information for multiple trained
 	// models in a single API request by using a comma-separated list of model IDs
 	// or a wildcard expression.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-trained-models-stats
 	GetTrainedModelsStats ml_get_trained_models_stats.NewGetTrainedModelsStats
 	// Evaluate a trained model.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-infer-trained-model
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-infer-trained-model
 	InferTrainedModel ml_infer_trained_model.NewInferTrainedModel
 	// Get machine learning information.
 	// Get defaults and limits used by machine learning.
@@ -5794,7 +5788,7 @@ type Ml struct {
 	// used to find out what those defaults are. It also provides information about
 	// the maximum size of machine learning jobs that could run in the current
 	// cluster configuration.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-info
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-info
 	Info ml_info.NewInfo
 	// Open anomaly detection jobs.
 	//
@@ -5804,10 +5798,10 @@ type Ml struct {
 	// When you open an existing job, the most recent model state is automatically
 	// loaded. The job is ready to resume its analysis from where it left off, once
 	// new data is received.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-open-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-open-job
 	OpenJob ml_open_job.NewOpenJob
 	// Add scheduled events to the calendar.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-calendar-events
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-post-calendar-events
 	PostCalendarEvents ml_post_calendar_events.NewPostCalendarEvents
 	// Send data to an anomaly detection job for analysis.
 	//
@@ -5815,11 +5809,11 @@ type Ml struct {
 	// at a time.
 	// It is not currently possible to post data to multiple jobs using wildcards or
 	// a comma-separated list.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-data
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-post-data
 	PostData ml_post_data.NewPostData
 	// Preview features used by data frame analytics.
 	// Preview the extracted features used by a data frame analytics config.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-data-frame-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-preview-data-frame-analytics
 	PreviewDataFrameAnalytics ml_preview_data_frame_analytics.NewPreviewDataFrameAnalytics
 	// Preview a datafeed.
 	// This API returns the first "page" of search results from a datafeed.
@@ -5835,13 +5829,13 @@ type Ml struct {
 	// datafeed. To get a preview that accurately reflects the behavior of the
 	// datafeed, use the appropriate credentials.
 	// You can also use secondary authorization headers to supply the credentials.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-datafeed
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-preview-datafeed
 	PreviewDatafeed ml_preview_datafeed.NewPreviewDatafeed
 	// Create a calendar.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-calendar
 	PutCalendar ml_put_calendar.NewPutCalendar
 	// Add anomaly detection job to calendar.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-calendar-job
 	PutCalendarJob ml_put_calendar_job.NewPutCalendarJob
 	// Create a data frame analytics job.
 	// This API creates a data frame analytics job that performs an analysis on the
@@ -5855,7 +5849,7 @@ type Ml struct {
 	// If you supply only a subset of the regression or classification parameters,
 	// hyperparameter optimization occurs. It determines a value for each of the
 	// undefined parameters.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-data-frame-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-data-frame-analytics
 	PutDataFrameAnalytics ml_put_data_frame_analytics.NewPutDataFrameAnalytics
 	// Create a datafeed.
 	// Datafeeds retrieve data from Elasticsearch for analysis by an anomaly
@@ -5876,14 +5870,14 @@ type Ml struct {
 	// create a datafeed. Do not add a datafeed
 	// directly to the `.ml-config` index. Do not give users `write` privileges on
 	// the `.ml-config` index.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-datafeed
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-datafeed
 	PutDatafeed ml_put_datafeed.NewPutDatafeed
 	// Create a filter.
 	// A filter contains a list of strings. It can be used by one or more anomaly
 	// detection jobs.
 	// Specifically, filters are referenced in the `custom_rules` property of
 	// detector configuration objects.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-filter
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-filter
 	PutFilter ml_put_filter.NewPutFilter
 	// Create an anomaly detection job.
 	//
@@ -5891,12 +5885,12 @@ type Ml struct {
 	// the source index.
 	// If you include a `datafeed_config` but do not provide a query, the datafeed
 	// uses `{"match_all": {"boost": 1}}`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-job
 	PutJob ml_put_job.NewPutJob
 	// Create a trained model.
 	// Enable you to supply a trained model that is not created by data frame
 	// analytics.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-trained-model
 	PutTrainedModel ml_put_trained_model.NewPutTrainedModel
 	// Create or update a trained model alias.
 	// A trained model alias is a logical name used to reference a single trained
@@ -5915,23 +5909,23 @@ type Ml struct {
 	// If you use this API to update an alias and there are very few input fields in
 	// common between the old and new trained models for the model alias, the API
 	// returns a warning.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-alias
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-trained-model-alias
 	PutTrainedModelAlias ml_put_trained_model_alias.NewPutTrainedModelAlias
 	// Create part of a trained model definition.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-definition-part
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-trained-model-definition-part
 	PutTrainedModelDefinitionPart ml_put_trained_model_definition_part.NewPutTrainedModelDefinitionPart
 	// Create a trained model vocabulary.
 	// This API is supported only for natural language processing (NLP) models.
 	// The vocabulary is stored in the index as described in
 	// `inference_config.*.vocabulary` of the trained model definition.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-vocabulary
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-trained-model-vocabulary
 	PutTrainedModelVocabulary ml_put_trained_model_vocabulary.NewPutTrainedModelVocabulary
 	// Reset an anomaly detection job.
 	// All model state and results are deleted. The job is ready to start over as if
 	// it had just been created.
 	// It is not currently possible to reset multiple jobs using wildcards or a
 	// comma separated list.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-reset-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-reset-job
 	ResetJob ml_reset_job.NewResetJob
 	// Revert to a snapshot.
 	// The machine learning features react quickly to anomalous input, learning new
@@ -5941,7 +5935,7 @@ type Ml struct {
 	// one-off, then it might be appropriate to reset the model state to a time
 	// before this event. For example, you might consider reverting to a saved
 	// snapshot after Black Friday or a critical system failure.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-revert-model-snapshot
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-revert-model-snapshot
 	RevertModelSnapshot ml_revert_model_snapshot.NewRevertModelSnapshot
 	// Set upgrade_mode for ML indices.
 	// Sets a cluster wide upgrade_mode setting that prepares machine learning
@@ -5956,7 +5950,7 @@ type Ml struct {
 	// indices, though stopping jobs is not a requirement in that case.
 	// You can see the current value for the upgrade_mode setting by using the get
 	// machine learning info API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-set-upgrade-mode
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-set-upgrade-mode
 	SetUpgradeMode ml_set_upgrade_mode.NewSetUpgradeMode
 	// Start a data frame analytics job.
 	// A data frame analytics job can be started and stopped multiple times
@@ -5970,7 +5964,7 @@ type Ml struct {
 	// If there are any mapping conflicts, the job fails to start.
 	// If the destination index exists, it is used as is. You can therefore set up
 	// the destination index in advance with custom settings and mappings.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-data-frame-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-start-data-frame-analytics
 	StartDataFrameAnalytics ml_start_data_frame_analytics.NewStartDataFrameAnalytics
 	// Start datafeeds.
 	//
@@ -5992,28 +5986,28 @@ type Ml struct {
 	// those same roles. If you provided secondary
 	// authorization headers when you created or updated the datafeed, those
 	// credentials are used instead.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-datafeed
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-start-datafeed
 	StartDatafeed ml_start_datafeed.NewStartDatafeed
 	// Start a trained model deployment.
 	// It allocates the model to every machine learning node.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-trained-model-deployment
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-start-trained-model-deployment
 	StartTrainedModelDeployment ml_start_trained_model_deployment.NewStartTrainedModelDeployment
 	// Stop data frame analytics jobs.
 	// A data frame analytics job can be started and stopped multiple times
 	// throughout its lifecycle.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-data-frame-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-stop-data-frame-analytics
 	StopDataFrameAnalytics ml_stop_data_frame_analytics.NewStopDataFrameAnalytics
 	// Stop datafeeds.
 	// A datafeed that is stopped ceases to retrieve data from Elasticsearch. A
 	// datafeed can be started and stopped
 	// multiple times throughout its lifecycle.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-datafeed
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-stop-datafeed
 	StopDatafeed ml_stop_datafeed.NewStopDatafeed
 	// Stop a trained model deployment.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-trained-model-deployment
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-stop-trained-model-deployment
 	StopTrainedModelDeployment ml_stop_trained_model_deployment.NewStopTrainedModelDeployment
 	// Update a data frame analytics job.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-data-frame-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-data-frame-analytics
 	UpdateDataFrameAnalytics ml_update_data_frame_analytics.NewUpdateDataFrameAnalytics
 	// Update a datafeed.
 	// You must stop and start the datafeed for the changes to be applied.
@@ -6022,23 +6016,23 @@ type Ml struct {
 	// the time of the update and runs the query using those same roles. If you
 	// provide secondary authorization headers,
 	// those credentials are used instead.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-datafeed
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-datafeed
 	UpdateDatafeed ml_update_datafeed.NewUpdateDatafeed
 	// Update a filter.
 	// Updates the description of a filter, adds items, or removes items from the
 	// list.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-filter
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-filter
 	UpdateFilter ml_update_filter.NewUpdateFilter
 	// Update an anomaly detection job.
 	// Updates certain properties of an anomaly detection job.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-job
 	UpdateJob ml_update_job.NewUpdateJob
 	// Update a snapshot.
 	// Updates certain properties of a snapshot.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-model-snapshot
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-model-snapshot
 	UpdateModelSnapshot ml_update_model_snapshot.NewUpdateModelSnapshot
 	// Update a trained model deployment.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-trained-model-deployment
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-trained-model-deployment
 	UpdateTrainedModelDeployment ml_update_trained_model_deployment.NewUpdateTrainedModelDeployment
 	// Upgrade a snapshot.
 	// Upgrade an anomaly detection model snapshot to the latest major version.
@@ -6050,27 +6044,27 @@ type Ml struct {
 	// Only one snapshot per anomaly detection job can be upgraded at a time and the
 	// upgraded snapshot cannot be the current snapshot of the anomaly detection
 	// job.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-upgrade-job-snapshot
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-upgrade-job-snapshot
 	UpgradeJobSnapshot ml_upgrade_job_snapshot.NewUpgradeJobSnapshot
 	// Validate an anomaly detection job.
 	// https://www.elastic.co/guide/en/machine-learning/current/ml-jobs.html
 	Validate ml_validate.NewValidate
 	// Validate an anomaly detection job.
-	// https://www.elastic.co/docs/api/doc/elasticsearch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/
 	ValidateDetector ml_validate_detector.NewValidateDetector
 }
 
 type Monitoring struct {
 	// Send monitoring data.
 	// This API is used by the monitoring features to send monitoring data.
-	// https://www.elastic.co/docs/api/doc/elasticsearch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/
 	Bulk monitoring_bulk.NewBulk
 }
 
 type Nodes struct {
 	// Clear the archived repositories metering.
 	// Clear the archived repositories metering information in the cluster.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-clear-repositories-metering-archive
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-clear-repositories-metering-archive
 	ClearRepositoriesMeteringArchive nodes_clear_repositories_metering_archive.NewClearRepositoriesMeteringArchive
 	// Get cluster repositories metering.
 	// Get repositories metering information for a cluster.
@@ -6079,19 +6073,19 @@ type Nodes struct {
 	// aggregations over a period of time.
 	// Additionally, the information exposed by this API is volatile, meaning that
 	// it will not be present after node restarts.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-get-repositories-metering-info
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-get-repositories-metering-info
 	GetRepositoriesMeteringInfo nodes_get_repositories_metering_info.NewGetRepositoriesMeteringInfo
 	// Get the hot threads for nodes.
 	// Get a breakdown of the hot threads on each selected node in the cluster.
 	// The output is plain text with a breakdown of the top hot threads for each
 	// node.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-hot-threads
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-hot-threads
 	HotThreads nodes_hot_threads.NewHotThreads
 	// Get node information.
 	//
 	// By default, the API returns all attributes and core settings for cluster
 	// nodes.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-info
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-info
 	Info nodes_info.NewInfo
 	// Reload the keystore on nodes in the cluster.
 	//
@@ -6111,16 +6105,16 @@ type Nodes struct {
 	// Alternatively, you can reload the secure settings on each node by locally
 	// accessing the API and passing the node-specific Elasticsearch keystore
 	// password.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-reload-secure-settings
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-reload-secure-settings
 	ReloadSecureSettings nodes_reload_secure_settings.NewReloadSecureSettings
 	// Get node statistics.
 	// Get statistics for nodes in a cluster.
 	// By default, all stats are returned. You can limit the returned information by
 	// using metrics.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-stats
 	Stats nodes_stats.NewStats
 	// Get feature usage information.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-usage
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-usage
 	Usage nodes_usage.NewUsage
 }
 
@@ -6145,24 +6139,24 @@ type QueryRules struct {
 	// Delete a query rule within a query ruleset.
 	// This is a destructive action that is only recoverable by re-adding the same
 	// rule with the create or update query rule API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-rule
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-delete-rule
 	DeleteRule query_rules_delete_rule.NewDeleteRule
 	// Delete a query ruleset.
 	// Remove a query ruleset and its associated data.
 	// This is a destructive action that is not recoverable.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-ruleset
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-delete-ruleset
 	DeleteRuleset query_rules_delete_ruleset.NewDeleteRuleset
 	// Get a query rule.
 	// Get details about a query rule within a query ruleset.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-rule
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-get-rule
 	GetRule query_rules_get_rule.NewGetRule
 	// Get a query ruleset.
 	// Get details about a query ruleset.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-ruleset
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-get-ruleset
 	GetRuleset query_rules_get_ruleset.NewGetRuleset
 	// Get all query rulesets.
 	// Get summarized information about the query rulesets.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-list-rulesets
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-list-rulesets
 	ListRulesets query_rules_list_rulesets.NewListRulesets
 	// Create or update a query rule.
 	// Create or update a query rule within a query ruleset.
@@ -6173,7 +6167,7 @@ type QueryRules struct {
 	// Additionally, pinned queries have a maximum limit of 100 pinned hits.
 	// If multiple matching rules pin more than 100 documents, only the first 100
 	// documents are pinned in the order they are specified in the ruleset.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-rule
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-put-rule
 	PutRule query_rules_put_rule.NewPutRule
 	// Create or update a query ruleset.
 	// There is a limit of 100 rules per ruleset.
@@ -6186,12 +6180,12 @@ type QueryRules struct {
 	// Additionally, pinned queries have a maximum limit of 100 pinned hits.
 	// If multiple matching rules pin more than 100 documents, only the first 100
 	// documents are pinned in the order they are specified in the ruleset.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-ruleset
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-put-ruleset
 	PutRuleset query_rules_put_ruleset.NewPutRuleset
 	// Test a query ruleset.
 	// Evaluate match criteria against a query ruleset to identify the rules that
 	// would match that criteria.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-test
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-test
 	Test query_rules_test.NewTest
 }
 
@@ -6225,7 +6219,7 @@ type Rollup struct {
 	//   }
 	// }
 	// ```
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-delete-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-delete-job
 	DeleteJob rollup_delete_job.NewDeleteJob
 	// Get rollup job information.
 	// Get the configuration, stats, and status of rollup jobs.
@@ -6235,7 +6229,7 @@ type Rollup struct {
 	// return any details about it.
 	// For details about a historical rollup job, the rollup capabilities API may be
 	// more useful.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-jobs
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-get-jobs
 	GetJobs rollup_get_jobs.NewGetJobs
 	// Get the rollup job capabilities.
 	// Get the capabilities of any rollup jobs that have been configured for a
@@ -6250,7 +6244,7 @@ type Rollup struct {
 	// 1. Does this index have associated rollup data somewhere in the cluster?
 	// 2. If yes to the first question, what fields were rolled up, what
 	// aggregations can be performed, and where does the data live?
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-rollup-caps
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-get-rollup-caps
 	GetRollupCaps rollup_get_rollup_caps.NewGetRollupCaps
 	// Get the rollup index capabilities.
 	// Get the rollup capabilities of all jobs inside of a rollup index.
@@ -6261,7 +6255,7 @@ type Rollup struct {
 	// * What jobs are stored in an index (or indices specified via a pattern)?
 	// * What target indices were rolled up, what fields were used in those rollups,
 	// and what aggregations can be performed on each job?
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-rollup-index-caps
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-get-rollup-index-caps
 	GetRollupIndexCaps rollup_get_rollup_index_caps.NewGetRollupIndexCaps
 	// Create a rollup job.
 	//
@@ -6280,7 +6274,7 @@ type Rollup struct {
 	//
 	// Jobs are created in a `STOPPED` state. You can start them with the start
 	// rollup jobs API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-put-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-put-job
 	PutJob rollup_put_job.NewPutJob
 	// Search rolled-up data.
 	// The rollup search endpoint is needed because, internally, rolled-up documents
@@ -6326,12 +6320,12 @@ type Rollup struct {
 	// response and merges the two together.
 	// During the merging process, if there is any overlap in buckets between the
 	// two responses, the buckets from the non-rollup index are used.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-rollup-search
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-rollup-search
 	RollupSearch rollup_rollup_search.NewRollupSearch
 	// Start rollup jobs.
 	// If you try to start a job that does not exist, an exception occurs.
 	// If you try to start a job that is already started, nothing happens.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-start-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-start-job
 	StartJob rollup_start_job.NewStartJob
 	// Stop rollup jobs.
 	// If you try to stop a job that does not exist, an exception occurs.
@@ -6349,7 +6343,7 @@ type Rollup struct {
 	// moved to STOPPED or the specified time has elapsed.
 	// If the specified time elapses without the job moving to STOPPED, a timeout
 	// exception occurs.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-stop-job
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-stop-job
 	StopJob rollup_stop_job.NewStopJob
 }
 
@@ -6358,30 +6352,30 @@ type SearchApplication struct {
 	//
 	// Remove a search application and its associated alias. Indices attached to the
 	// search application are not removed.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-delete
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-delete
 	Delete search_application_delete.NewDelete
 	// Delete a behavioral analytics collection.
 	// The associated data stream is also deleted.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-delete-behavioral-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-delete-behavioral-analytics
 	DeleteBehavioralAnalytics search_application_delete_behavioral_analytics.NewDeleteBehavioralAnalytics
 	// Get search application details.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-get
 	Get search_application_get.NewGet
 	// Get behavioral analytics collections.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-get-behavioral-analytics
 	GetBehavioralAnalytics search_application_get_behavioral_analytics.NewGetBehavioralAnalytics
 	// Get search applications.
 	// Get information about search applications.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-get-behavioral-analytics
 	List search_application_list.NewList
 	// Create a behavioral analytics collection event.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-post-behavioral-analytics-event
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-post-behavioral-analytics-event
 	PostBehavioralAnalyticsEvent search_application_post_behavioral_analytics_event.NewPostBehavioralAnalyticsEvent
 	// Create or update a search application.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-put
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-put
 	Put search_application_put.NewPut
 	// Create a behavioral analytics collection.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-put-behavioral-analytics
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-put-behavioral-analytics
 	PutBehavioralAnalytics search_application_put_behavioral_analytics.NewPutBehavioralAnalytics
 	// Render a search application query.
 	// Generate an Elasticsearch query using the specified query parameters and the
@@ -6394,7 +6388,7 @@ type SearchApplication struct {
 	//
 	// You must have `read` privileges on the backing alias of the search
 	// application.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-render-query
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-render-query
 	RenderQuery search_application_render_query.NewRenderQuery
 	// Run a search application search.
 	// Generate and run an Elasticsearch query that uses the specified query
@@ -6402,29 +6396,29 @@ type SearchApplication struct {
 	// default template.
 	// Unspecified template parameters are assigned their default values if
 	// applicable.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-search
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-search
 	Search search_application_search.NewSearch
 }
 
 type SearchableSnapshots struct {
 	// Get cache statistics.
 	// Get statistics about the shared cache for partially mounted indices.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-cache-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-searchable-snapshots-cache-stats
 	CacheStats searchable_snapshots_cache_stats.NewCacheStats
 	// Clear the cache.
 	// Clear indices and data streams from the shared cache for partially mounted
 	// indices.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-clear-cache
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-searchable-snapshots-clear-cache
 	ClearCache searchable_snapshots_clear_cache.NewClearCache
 	// Mount a snapshot.
 	// Mount a snapshot as a searchable snapshot index.
 	// Do not use this API for snapshots managed by index lifecycle management
 	// (ILM).
 	// Manually mounting ILM-managed snapshots can interfere with ILM processes.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-mount
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-searchable-snapshots-mount
 	Mount searchable_snapshots_mount.NewMount
 	// Get searchable snapshot statistics.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-searchable-snapshots-stats
 	Stats searchable_snapshots_stats.NewStats
 }
 
@@ -6453,7 +6447,7 @@ type Security struct {
 	// disabled.
 	// Any updates do not change existing content for either the `labels` or `data`
 	// fields.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-activate-user-profile
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-activate-user-profile
 	ActivateUserProfile security_activate_user_profile.NewActivateUserProfile
 	// Authenticate a user.
 	//
@@ -6465,7 +6459,7 @@ type Security struct {
 	// metadata, and information about the realms that authenticated and authorized
 	// the user.
 	// If the user cannot be authenticated, this API returns a 401 status code.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-authenticate
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-authenticate
 	Authenticate security_authenticate.NewAuthenticate
 	// Bulk delete roles.
 	//
@@ -6473,7 +6467,7 @@ type Security struct {
 	// rather than using file-based role management.
 	// The bulk delete roles API cannot delete roles that are defined in roles
 	// files.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-delete-role
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-bulk-delete-role
 	BulkDeleteRole security_bulk_delete_role.NewBulkDeleteRole
 	// Bulk create or update roles.
 	//
@@ -6481,7 +6475,7 @@ type Security struct {
 	// rather than using file-based role management.
 	// The bulk create or update roles API cannot update roles that are defined in
 	// roles files.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-put-role
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-bulk-put-role
 	BulkPutRole security_bulk_put_role.NewBulkPutRole
 	// Bulk update API keys.
 	// Update the attributes for multiple API keys.
@@ -6511,26 +6505,26 @@ type Security struct {
 	// A successful request returns a JSON structure that contains the IDs of all
 	// updated API keys, the IDs of API keys that already had the requested changes
 	// and did not require an update, and error details for any failed update.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-update-api-keys
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-bulk-update-api-keys
 	BulkUpdateApiKeys security_bulk_update_api_keys.NewBulkUpdateApiKeys
 	// Change passwords.
 	//
 	// Change the passwords of users in the native realm and built-in users.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-change-password
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-change-password
 	ChangePassword security_change_password.NewChangePassword
 	// Clear the API key cache.
 	//
 	// Evict a subset of all entries from the API key cache.
 	// The cache is also automatically cleared on state changes of the security
 	// index.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-api-key-cache
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-clear-api-key-cache
 	ClearApiKeyCache security_clear_api_key_cache.NewClearApiKeyCache
 	// Clear the privileges cache.
 	//
 	// Evict privileges from the native application privilege cache.
 	// The cache is also automatically cleared for applications that have their
 	// privileges updated.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-privileges
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-clear-cached-privileges
 	ClearCachedPrivileges security_clear_cached_privileges.NewClearCachedPrivileges
 	// Clear the user cache.
 	//
@@ -6542,12 +6536,12 @@ type Security struct {
 	// There are realm settings that you can use to configure the user cache.
 	// For more information, refer to the documentation about controlling the user
 	// cache.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-realms
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-clear-cached-realms
 	ClearCachedRealms security_clear_cached_realms.NewClearCachedRealms
 	// Clear the roles cache.
 	//
 	// Evict roles from the native role cache.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-roles
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-clear-cached-roles
 	ClearCachedRoles security_clear_cached_roles.NewClearCachedRoles
 	// Clear service account token caches.
 	//
@@ -6561,7 +6555,7 @@ type Security struct {
 	// cleared automatically on state changes of the security index.
 	// The cache for tokens backed by the `service_tokens` file is cleared
 	// automatically on file changes.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-service-tokens
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-clear-cached-service-tokens
 	ClearCachedServiceTokens security_clear_cached_service_tokens.NewClearCachedServiceTokens
 	// Create an API key.
 	//
@@ -6583,7 +6577,7 @@ type Security struct {
 	// automatically enabled.
 	// To configure or turn off the API key service, refer to API key service
 	// setting documentation.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-create-api-key
 	CreateApiKey security_create_api_key.NewCreateApiKey
 	// Create a cross-cluster API key.
 	//
@@ -6614,7 +6608,7 @@ type Security struct {
 	// key API.
 	// Attempting to update them with the update REST API key API or the bulk update
 	// REST API keys API will result in an error.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-cross-cluster-api-key
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-create-cross-cluster-api-key
 	CreateCrossClusterApiKey security_create_cross_cluster_api_key.NewCreateCrossClusterApiKey
 	// Create a service account token.
 	//
@@ -6623,7 +6617,7 @@ type Security struct {
 	//
 	// NOTE: Service account tokens never expire.
 	// You must actively delete them if they are no longer needed.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-service-token
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-create-service-token
 	CreateServiceToken security_create_service_token.NewCreateServiceToken
 	// Delegate PKI authentication.
 	//
@@ -6646,7 +6640,7 @@ type Security struct {
 	// proxy that calls this API.
 	// The proxy is trusted to have performed the TLS authentication and this API
 	// translates that authentication into an Elasticsearch access token.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delegate-pki
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delegate-pki
 	DelegatePki security_delegate_pki.NewDelegatePki
 	// Delete application privileges.
 	//
@@ -6656,7 +6650,7 @@ type Security struct {
 	// `all`).
 	// * The "Manage Application Privileges" global privilege for the application
 	// being referenced in the request.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-privileges
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delete-privileges
 	DeletePrivileges security_delete_privileges.NewDeletePrivileges
 	// Delete roles.
 	//
@@ -6664,7 +6658,7 @@ type Security struct {
 	// The role management APIs are generally the preferred way to manage roles,
 	// rather than using file-based role management.
 	// The delete roles API cannot remove roles that are defined in roles files.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delete-role
 	DeleteRole security_delete_role.NewDeleteRole
 	// Delete role mappings.
 	//
@@ -6673,24 +6667,24 @@ type Security struct {
 	// rather than using role mapping files.
 	// The delete role mappings API cannot remove role mappings that are defined in
 	// role mapping files.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role-mapping
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delete-role-mapping
 	DeleteRoleMapping security_delete_role_mapping.NewDeleteRoleMapping
 	// Delete service account tokens.
 	//
 	// Delete service account tokens for a service in a specified namespace.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-service-token
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delete-service-token
 	DeleteServiceToken security_delete_service_token.NewDeleteServiceToken
 	// Delete users.
 	//
 	// Delete users from the native realm.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-user
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delete-user
 	DeleteUser security_delete_user.NewDeleteUser
 	// Disable users.
 	//
 	// Disable users in the native realm.
 	// By default, when you create users, they are enabled.
 	// You can use this API to revoke a user's access to Elasticsearch.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-disable-user
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-disable-user
 	DisableUser security_disable_user.NewDisableUser
 	// Disable a user profile.
 	//
@@ -6706,13 +6700,13 @@ type Security struct {
 	// user profile searches. You can use the disable user profile API to disable a
 	// user profile so it’s not visible in these searches.
 	// To re-enable a disabled user profile, use the enable user profile API .
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-disable-user-profile
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-disable-user-profile
 	DisableUserProfile security_disable_user_profile.NewDisableUserProfile
 	// Enable users.
 	//
 	// Enable users in the native realm.
 	// By default, when you create users, they are enabled.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enable-user
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-enable-user
 	EnableUser security_enable_user.NewEnableUser
 	// Enable a user profile.
 	//
@@ -6728,7 +6722,7 @@ type Security struct {
 	// user profile searches.
 	// If you later disable the user profile, you can use the enable user profile
 	// API to make the profile visible in these searches again.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enable-user-profile
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-enable-user-profile
 	EnableUserProfile security_enable_user_profile.NewEnableUserProfile
 	// Enroll Kibana.
 	//
@@ -6738,7 +6732,7 @@ type Security struct {
 	// NOTE: This API is currently intended for internal use only by Kibana.
 	// Kibana uses this API internally to configure itself for communications with
 	// an Elasticsearch cluster that already has security features enabled.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enroll-kibana
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-enroll-kibana
 	EnrollKibana security_enroll_kibana.NewEnrollKibana
 	// Enroll a node.
 	//
@@ -6751,7 +6745,7 @@ type Security struct {
 	// The response contains key and certificate material that allows the caller to
 	// generate valid signed certificates for the HTTP layer of all nodes in the
 	// cluster.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enroll-node
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-enroll-node
 	EnrollNode security_enroll_node.NewEnrollNode
 	// Get API key information.
 	//
@@ -6761,13 +6755,13 @@ type Security struct {
 	// If you have `read_security`, `manage_api_key` or greater privileges
 	// (including `manage_security`), this API returns all API keys regardless of
 	// ownership.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-api-key
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-api-key
 	GetApiKey security_get_api_key.NewGetApiKey
 	// Get builtin privileges.
 	//
 	// Get the list of cluster privileges and index privileges that are available in
 	// this version of Elasticsearch.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-builtin-privileges
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-builtin-privileges
 	GetBuiltinPrivileges security_get_builtin_privileges.NewGetBuiltinPrivileges
 	// Get application privileges.
 	//
@@ -6777,7 +6771,7 @@ type Security struct {
 	// `manage_security` or `all`).
 	// * The "Manage Application Privileges" global privilege for the application
 	// being referenced in the request.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-privileges
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-privileges
 	GetPrivileges security_get_privileges.NewGetPrivileges
 	// Get roles.
 	//
@@ -6785,7 +6779,7 @@ type Security struct {
 	// The role management APIs are generally the preferred way to manage roles,
 	// rather than using file-based role management.
 	// The get roles API cannot retrieve roles that are defined in roles files.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-role
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-role
 	GetRole security_get_role.NewGetRole
 	// Get role mappings.
 	//
@@ -6794,7 +6788,7 @@ type Security struct {
 	// rather than using role mapping files.
 	// The get role mappings API cannot retrieve role mappings that are defined in
 	// role mapping files.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-role-mapping
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-role-mapping
 	GetRoleMapping security_get_role_mapping.NewGetRoleMapping
 	// Get service accounts.
 	//
@@ -6802,7 +6796,7 @@ type Security struct {
 	//
 	// NOTE: Currently, only the `elastic/fleet-server` service account is
 	// available.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-service-accounts
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-service-accounts
 	GetServiceAccounts security_get_service_accounts.NewGetServiceAccounts
 	// Get service account credentials.
 	//
@@ -6818,7 +6812,7 @@ type Security struct {
 	// from all nodes of the cluster.
 	// Tokens with the same name from different nodes are assumed to be the same
 	// token and are only counted once towards the total number of service tokens.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-service-credentials
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-service-credentials
 	GetServiceCredentials security_get_service_credentials.NewGetServiceCredentials
 	// Get security index settings.
 	//
@@ -6830,7 +6824,7 @@ type Security struct {
 	//
 	// * `index.auto_expand_replicas`
 	// * `index.number_of_replicas`
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-settings
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-settings
 	GetSettings security_get_settings.NewGetSettings
 	// Get a token.
 	//
@@ -6855,12 +6849,12 @@ type Security struct {
 	// setting.
 	// If you want to invalidate a token immediately, you can do so by using the
 	// invalidate token API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-token
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-token
 	GetToken security_get_token.NewGetToken
 	// Get users.
 	//
 	// Get information about users in the native realm and built-in users.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-user
 	GetUser security_get_user.NewGetUser
 	// Get user privileges.
 	//
@@ -6869,7 +6863,7 @@ type Security struct {
 	// To check the privileges of other users, you must use the run as feature.
 	// To check whether a user has a specific list of privileges, use the has
 	// privileges API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user-privileges
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-user-privileges
 	GetUserPrivileges security_get_user_privileges.NewGetUserPrivileges
 	// Get a user profile.
 	//
@@ -6880,7 +6874,7 @@ type Security struct {
 	// Individual users and external applications should not call this API directly.
 	// Elastic reserves the right to change or remove this feature in future
 	// releases without prior notice.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user-profile
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-user-profile
 	GetUserProfile security_get_user_profile.NewGetUserProfile
 	// Grant an API key.
 	//
@@ -6914,14 +6908,14 @@ type Security struct {
 	//
 	// By default, API keys never expire. You can specify expiration information
 	// when you create the API keys.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-grant-api-key
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-grant-api-key
 	GrantApiKey security_grant_api_key.NewGrantApiKey
 	// Check user privileges.
 	//
 	// Determine whether the specified user has a specified list of privileges.
 	// All users can use this API, but only to determine their own privileges.
 	// To check the privileges of other users, you must use the run as feature.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-has-privileges
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-has-privileges
 	HasPrivileges security_has_privileges.NewHasPrivileges
 	// Check user profile privileges.
 	//
@@ -6933,7 +6927,7 @@ type Security struct {
 	// Individual users and external applications should not call this API directly.
 	// Elastic reserves the right to change or remove this feature in future
 	// releases without prior notice.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-has-privileges-user-profile
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-has-privileges-user-profile
 	HasPrivilegesUserProfile security_has_privileges_user_profile.NewHasPrivilegesUserProfile
 	// Invalidate API keys.
 	//
@@ -6958,7 +6952,7 @@ type Security struct {
 	// - Or, set both `username` and `realm_name` to match the user's identity.
 	// - Or, if the request is issued by an API key, that is to say an API key
 	// invalidates itself, specify its ID in the `ids` field.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-api-key
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-invalidate-api-key
 	InvalidateApiKey security_invalidate_api_key.NewInvalidateApiKey
 	// Invalidate a token.
 	//
@@ -6978,7 +6972,7 @@ type Security struct {
 	// required.
 	// If none of these two are specified, then `realm_name` and/or `username` need
 	// to be specified.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-token
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-invalidate-token
 	InvalidateToken security_invalidate_token.NewInvalidateToken
 	// Authenticate OpenID Connect.
 	//
@@ -6991,7 +6985,7 @@ type Security struct {
 	// These APIs are used internally by Kibana in order to provide OpenID Connect
 	// based authentication, but can also be used by other, custom web applications
 	// or other clients.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-authenticate
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-oidc-authenticate
 	OidcAuthenticate security_oidc_authenticate.NewOidcAuthenticate
 	// Logout of OpenID Connect.
 	//
@@ -7008,7 +7002,7 @@ type Security struct {
 	// These APIs are used internally by Kibana in order to provide OpenID Connect
 	// based authentication, but can also be used by other, custom web applications
 	// or other clients.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-logout
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-oidc-logout
 	OidcLogout security_oidc_logout.NewOidcLogout
 	// Prepare OpenID connect authentication.
 	//
@@ -7024,7 +7018,7 @@ type Security struct {
 	// These APIs are used internally by Kibana in order to provide OpenID Connect
 	// based authentication, but can also be used by other, custom web applications
 	// or other clients.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-prepare-authentication
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-oidc-prepare-authentication
 	OidcPrepareAuthentication security_oidc_prepare_authentication.NewOidcPrepareAuthentication
 	// Create or update application privileges.
 	//
@@ -7051,7 +7045,7 @@ type Security struct {
 	//
 	// Action names can contain any number of printable ASCII characters and must
 	// contain at least one of the following characters: `/`, `*`, `:`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-privileges
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-put-privileges
 	PutPrivileges security_put_privileges.NewPutPrivileges
 	// Create or update roles.
 	//
@@ -7060,7 +7054,7 @@ type Security struct {
 	// The create or update roles API cannot update roles that are defined in roles
 	// files.
 	// File-based role management is not available in Elastic Serverless.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-role
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-put-role
 	PutRole security_put_role.NewPutRole
 	// Create or update role mappings.
 	//
@@ -7101,7 +7095,7 @@ type Security struct {
 	// name of the role which should be assigned to the user.
 	// If the format of the template is set to "json" then the template is expected
 	// to produce a JSON string or an array of JSON strings for the role names.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-role-mapping
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-put-role-mapping
 	PutRoleMapping security_put_role_mapping.NewPutRoleMapping
 	// Create or update users.
 	//
@@ -7110,7 +7104,7 @@ type Security struct {
 	// existing user.
 	// To change a user's password without updating any other fields, use the change
 	// password API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-user
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-put-user
 	PutUser security_put_user.NewPutUser
 	// Find API keys with a query.
 	//
@@ -7124,7 +7118,7 @@ type Security struct {
 	// If you have the `read_security`, `manage_api_key`, or greater privileges
 	// (including `manage_security`), this API returns all API keys regardless of
 	// ownership.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-api-keys
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-query-api-keys
 	QueryApiKeys security_query_api_keys.NewQueryApiKeys
 	// Find roles with a query.
 	//
@@ -7135,7 +7129,7 @@ type Security struct {
 	// nor built-in ones.
 	// You can optionally filter the results with a query.
 	// Also, the results can be paginated and sorted.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-role
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-query-role
 	QueryRole security_query_role.NewQueryRole
 	// Find users with a query.
 	//
@@ -7145,7 +7139,7 @@ type Security struct {
 	// NOTE: As opposed to the get user API, built-in users are excluded from the
 	// result.
 	// This API is only for native users.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-user
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-query-user
 	QueryUser security_query_user.NewQueryUser
 	// Authenticate SAML.
 	//
@@ -7172,7 +7166,7 @@ type Security struct {
 	// This API endpoint essentially exchanges SAML responses that indicate
 	// successful authentication in the IdP for Elasticsearch access and refresh
 	// tokens, which can be used for authentication against Elasticsearch.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-authenticate
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-authenticate
 	SamlAuthenticate security_saml_authenticate.NewSamlAuthenticate
 	// Logout of SAML completely.
 	//
@@ -7192,7 +7186,7 @@ type Security struct {
 	// HTTP-Post binding.
 	// The caller of this API must prepare the request accordingly so that this API
 	// can handle either of them.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-complete-logout
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-complete-logout
 	SamlCompleteLogout security_saml_complete_logout.NewSamlCompleteLogout
 	// Invalidate SAML.
 	//
@@ -7211,7 +7205,7 @@ type Security struct {
 	// access token and refresh token that corresponds to that specific SAML
 	// principal and provides a URL that contains a SAML LogoutResponse message.
 	// Thus the user can be redirected back to their IdP.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-invalidate
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-invalidate
 	SamlInvalidate security_saml_invalidate.NewSamlInvalidate
 	// Logout of SAML.
 	//
@@ -7228,7 +7222,7 @@ type Security struct {
 	// supports this, the Elasticsearch response contains a URL to redirect the user
 	// to the IdP that contains a SAML logout request (starting an SP-initiated SAML
 	// Single Logout).
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-logout
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-logout
 	SamlLogout security_saml_logout.NewSamlLogout
 	// Prepare SAML authentication.
 	//
@@ -7253,7 +7247,7 @@ type Security struct {
 	// Authentication request.
 	// The caller of this API needs to store this identifier as it needs to be used
 	// in a following step of the authentication process.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-prepare-authentication
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-prepare-authentication
 	SamlPrepareAuthentication security_saml_prepare_authentication.NewSamlPrepareAuthentication
 	// Create SAML service provider metadata.
 	//
@@ -7263,7 +7257,7 @@ type Security struct {
 	// describe their capabilities and configuration using a metadata file.
 	// This API generates Service Provider metadata based on the configuration of a
 	// SAML realm in Elasticsearch.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-service-provider-metadata
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-service-provider-metadata
 	SamlServiceProviderMetadata security_saml_service_provider_metadata.NewSamlServiceProviderMetadata
 	// Suggest a user profile.
 	//
@@ -7274,7 +7268,7 @@ type Security struct {
 	// Individual users and external applications should not call this API directly.
 	// Elastic reserves the right to change or remove this feature in future
 	// releases without prior notice.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-suggest-user-profiles
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-suggest-user-profiles
 	SuggestUserProfiles security_suggest_user_profiles.NewSuggestUserProfiles
 	// Update an API key.
 	//
@@ -7309,7 +7303,7 @@ type Security struct {
 	// this API might still change the API key's access scope.
 	// This change can occur if the owner user's permissions have changed since the
 	// API key was created or last modified.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-api-key
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-update-api-key
 	UpdateApiKey security_update_api_key.NewUpdateApiKey
 	// Update a cross-cluster API key.
 	//
@@ -7336,7 +7330,7 @@ type Security struct {
 	//
 	// NOTE: This API cannot update REST API keys, which should be updated by either
 	// the update API key or bulk update API keys API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-cross-cluster-api-key
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-update-cross-cluster-api-key
 	UpdateCrossClusterApiKey security_update_cross_cluster_api_key.NewUpdateCrossClusterApiKey
 	// Update security index settings.
 	//
@@ -7352,7 +7346,7 @@ type Security struct {
 	// it, the request will be rejected.
 	// This API does not yet support configuring the settings for indices before
 	// they are in use.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-settings
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-update-settings
 	UpdateSettings security_update_settings.NewUpdateSettings
 	// Update user profile data.
 	//
@@ -7379,7 +7373,7 @@ type Security struct {
 	// For both labels and data, content is namespaced by the top-level fields.
 	// The `update_profile_data` global privilege grants privileges for updating
 	// only the allowed namespaces.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-user-profile-data
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-update-user-profile-data
 	UpdateUserProfileData security_update_user_profile_data.NewUpdateUserProfileData
 }
 
@@ -7396,7 +7390,7 @@ type Shutdown struct {
 	//
 	// If the operator privileges feature is enabled, you must be an operator to use
 	// this API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-shutdown-delete-node
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-shutdown-delete-node
 	DeleteNode shutdown_delete_node.NewDeleteNode
 	// Get the shutdown status.
 	//
@@ -7410,7 +7404,7 @@ type Shutdown struct {
 	//
 	// If the operator privileges feature is enabled, you must be an operator to use
 	// this API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-shutdown-get-node
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-shutdown-get-node
 	GetNode shutdown_get_node.NewGetNode
 	// Prepare a node to be shut down.
 	//
@@ -7436,7 +7430,7 @@ type Shutdown struct {
 	// IMPORTANT: This API does NOT terminate the Elasticsearch process.
 	// Monitor the node shutdown status to determine when it is safe to stop
 	// Elasticsearch.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-shutdown-put-node
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-shutdown-put-node
 	PutNode shutdown_put_node.NewPutNode
 }
 
@@ -7475,7 +7469,7 @@ type Simulate struct {
 	// the system. This can be used to replace existing pipeline definitions or to
 	// create new ones. The pipeline substitutions are used only within this
 	// request.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-simulate-ingest
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-simulate-ingest
 	Ingest simulate_ingest.NewIngest
 }
 
@@ -7484,7 +7478,7 @@ type Slm struct {
 	// Delete a snapshot lifecycle policy definition.
 	// This operation prevents any future snapshots from being taken but does not
 	// cancel in-progress snapshots or remove previously-taken snapshots.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-delete-lifecycle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-delete-lifecycle
 	DeleteLifecycle slm_delete_lifecycle.NewDeleteLifecycle
 	// Run a policy.
 	// Immediately create a snapshot according to the snapshot lifecycle policy
@@ -7492,39 +7486,39 @@ type Slm struct {
 	// The snapshot policy is normally applied according to its schedule, but you
 	// might want to manually run a policy before performing an upgrade or other
 	// maintenance.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-lifecycle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-execute-lifecycle
 	ExecuteLifecycle slm_execute_lifecycle.NewExecuteLifecycle
 	// Run a retention policy.
 	// Manually apply the retention policy to force immediate removal of snapshots
 	// that are expired according to the snapshot lifecycle policy retention rules.
 	// The retention policy is normally applied according to its schedule.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-retention
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-execute-retention
 	ExecuteRetention slm_execute_retention.NewExecuteRetention
 	// Get policy information.
 	// Get snapshot lifecycle policy definitions and information about the latest
 	// snapshot attempts.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-lifecycle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-get-lifecycle
 	GetLifecycle slm_get_lifecycle.NewGetLifecycle
 	// Get snapshot lifecycle management statistics.
 	// Get global and policy-level statistics about actions taken by snapshot
 	// lifecycle management.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-get-stats
 	GetStats slm_get_stats.NewGetStats
 	// Get the snapshot lifecycle management status.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-status
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-get-status
 	GetStatus slm_get_status.NewGetStatus
 	// Create or update a policy.
 	// Create or update a snapshot lifecycle policy.
 	// If the policy already exists, this request increments the policy version.
 	// Only the latest version of a policy is stored.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-put-lifecycle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-put-lifecycle
 	PutLifecycle slm_put_lifecycle.NewPutLifecycle
 	// Start snapshot lifecycle management.
 	// Snapshot lifecycle management (SLM) starts automatically when a cluster is
 	// formed.
 	// Manually starting SLM is necessary only if it has been stopped using the stop
 	// SLM API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-start
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-start
 	Start slm_start.NewStart
 	// Stop snapshot lifecycle management.
 	// Stop all snapshot lifecycle management (SLM) operations and the SLM plugin.
@@ -7539,7 +7533,7 @@ type Slm struct {
 	// be safely stopped.
 	// Use the get snapshot lifecycle management status API to see if SLM is
 	// running.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-stop
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-stop
 	Stop slm_stop.NewStop
 }
 
@@ -7547,15 +7541,15 @@ type Snapshot struct {
 	// Clean up the snapshot repository.
 	// Trigger the review of the contents of a snapshot repository and delete any
 	// stale data not referenced by existing snapshots.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-cleanup-repository
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-cleanup-repository
 	CleanupRepository snapshot_cleanup_repository.NewCleanupRepository
 	// Clone a snapshot.
 	// Clone part of all of a snapshot into another snapshot in the same repository.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-clone
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-clone
 	Clone snapshot_clone.NewClone
 	// Create a snapshot.
 	// Take a snapshot of a cluster or of data streams and indices.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-create
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-create
 	Create snapshot_create.NewCreate
 	// Create or update a snapshot repository.
 	// IMPORTANT: If you are migrating searchable snapshots, the repository name
@@ -7569,16 +7563,16 @@ type Snapshot struct {
 	// Several options for this API can be specified using a query parameter or a
 	// request body parameter.
 	// If both parameters are specified, only the query parameter is used.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-create-repository
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-create-repository
 	CreateRepository snapshot_create_repository.NewCreateRepository
 	// Delete snapshots.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-delete
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-delete
 	Delete snapshot_delete.NewDelete
 	// Delete snapshot repositories.
 	// When a repository is unregistered, Elasticsearch removes only the reference
 	// to the location where the repository is storing the snapshots.
 	// The snapshots themselves are left untouched and in place.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-delete-repository
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-delete-repository
 	DeleteRepository snapshot_delete_repository.NewDeleteRepository
 	// Get snapshot information.
 	//
@@ -7588,10 +7582,10 @@ type Snapshot struct {
 	// It is guaranteed that any snapshot that exists at the beginning of the
 	// iteration and is not concurrently deleted will be seen during the iteration.
 	// Snapshots concurrently created may be seen during an iteration.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-get
 	Get snapshot_get.NewGet
 	// Get snapshot repository information.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-get-repository
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-get-repository
 	GetRepository snapshot_get_repository.NewGetRepository
 	// Analyze a snapshot repository.
 	// Analyze the performance characteristics and any incorrect behaviour found in
@@ -7768,7 +7762,7 @@ type Snapshot struct {
 	// atomically increment a counter which is represented as an 8-byte blob.
 	// Some operations also verify the behavior on small blobs with sizes other than
 	// 8 bytes.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-repository-analyze
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-repository-analyze
 	RepositoryAnalyze snapshot_repository_analyze.NewRepositoryAnalyze
 	// Verify the repository integrity.
 	// Verify the integrity of the contents of a snapshot repository.
@@ -7835,7 +7829,7 @@ type Snapshot struct {
 	// from version to version.
 	// The response body format is therefore not considered stable and may be
 	// different in newer versions.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-repository-verify-integrity
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-repository-verify-integrity
 	RepositoryVerifyIntegrity snapshot_repository_verify_integrity.NewRepositoryVerifyIntegrity
 	// Restore a snapshot.
 	// Restore a snapshot of a cluster or data streams and indices.
@@ -7864,7 +7858,7 @@ type Snapshot struct {
 	//
 	// If your snapshot contains data from App Search or Workplace Search, you must
 	// restore the Enterprise Search encryption key before you restore the snapshot.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-restore
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-restore
 	Restore snapshot_restore.NewRestore
 	// Get the snapshot status.
 	// Get a detailed description of the current state for each shard participating
@@ -7892,17 +7886,17 @@ type Snapshot struct {
 	// long time to return results.
 	// These requests can also tax machine resources and, when using cloud storage,
 	// incur high processing costs.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-status
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-status
 	Status snapshot_status.NewStatus
 	// Verify a snapshot repository.
 	// Check for common misconfigurations in a snapshot repository.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-verify-repository
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-verify-repository
 	VerifyRepository snapshot_verify_repository.NewVerifyRepository
 }
 
 type Sql struct {
 	// Clear an SQL search cursor.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-clear-cursor
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-sql-clear-cursor
 	ClearCursor sql_clear_cursor.NewClearCursor
 	// Delete an async SQL search.
 	// Delete an async SQL search or a stored synchronous SQL search.
@@ -7913,7 +7907,7 @@ type Sql struct {
 	//
 	// * Users with the `cancel_task` cluster privilege.
 	// * The user who first submitted the search.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-delete-async
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-sql-delete-async
 	DeleteAsync sql_delete_async.NewDeleteAsync
 	// Get async SQL search results.
 	// Get the current status and available results for an async SQL search or
@@ -7921,22 +7915,22 @@ type Sql struct {
 	//
 	// If the Elasticsearch security features are enabled, only the user who first
 	// submitted the SQL search can retrieve the search using this API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-sql-get-async
 	GetAsync sql_get_async.NewGetAsync
 	// Get the async SQL search status.
 	// Get the current status of an async SQL search or a stored synchronous SQL
 	// search.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async-status
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-sql-get-async-status
 	GetAsyncStatus sql_get_async_status.NewGetAsyncStatus
 	// Get SQL search results.
 	// Run an SQL request.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-query
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-sql-query
 	Query sql_query.NewQuery
 	// Translate SQL into Elasticsearch queries.
 	// Translate an SQL search into a search API request containing Query DSL.
 	// It accepts the same request body parameters as the SQL search API, excluding
 	// `cursor`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-translate
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-sql-translate
 	Translate sql_translate.NewTranslate
 }
 
@@ -7971,7 +7965,7 @@ type Ssl struct {
 	// If Elasticsearch is configured to use a keystore or truststore, the API
 	// output includes all certificates in that store, even though some of the
 	// certificates might not be in active use within the cluster.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ssl-certificates
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ssl-certificates
 	Certificates ssl_certificates.NewCertificates
 }
 
@@ -8002,22 +7996,22 @@ type Synonyms struct {
 	// Once finished, you can delete the index.
 	// When the synonyms set is not used in analyzers, you will be able to delete
 	// it.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-delete-synonym
 	DeleteSynonym synonyms_delete_synonym.NewDeleteSynonym
 	// Delete a synonym rule.
 	// Delete a synonym rule from a synonym set.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym-rule
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-delete-synonym-rule
 	DeleteSynonymRule synonyms_delete_synonym_rule.NewDeleteSynonymRule
 	// Get a synonym set.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-get-synonym
 	GetSynonym synonyms_get_synonym.NewGetSynonym
 	// Get a synonym rule.
 	// Get a synonym rule from a synonym set.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym-rule
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-get-synonym-rule
 	GetSynonymRule synonyms_get_synonym_rule.NewGetSynonymRule
 	// Get all synonym sets.
 	// Get a summary of all defined synonym sets.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-get-synonym
 	GetSynonymsSets synonyms_get_synonyms_sets.NewGetSynonymsSets
 	// Create or update a synonym set.
 	// Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
@@ -8028,7 +8022,7 @@ type Synonyms struct {
 	// synonyms set are reloaded automatically for all indices.
 	// This is equivalent to invoking the reload search analyzers API for all
 	// indices that use the synonyms set.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-put-synonym
 	PutSynonym synonyms_put_synonym.NewPutSynonym
 	// Create or update a synonym rule.
 	// Create or update a synonym rule in a synonym set.
@@ -8037,7 +8031,7 @@ type Synonyms struct {
 	//
 	// When you update a synonym rule, all analyzers using the synonyms set will be
 	// reloaded automatically to reflect the new rule.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym-rule
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-put-synonym-rule
 	PutSynonymRule synonyms_put_synonym_rule.NewPutSynonymRule
 }
 
@@ -8062,7 +8056,7 @@ type Tasks struct {
 	// tasks the system is running.
 	// You can also use the node hot threads API to obtain detailed information
 	// about the work the system is doing instead of completing the cancelled task.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-tasks
 	Cancel tasks_cancel.NewCancel
 	// Get task information.
 	// Get information about a task currently running in the cluster.
@@ -8073,7 +8067,7 @@ type Tasks struct {
 	//
 	// If the task identifier is not found, a 404 response code indicates that there
 	// are no resources that match the request.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-tasks
 	Get tasks_get.NewGet
 	// Get all tasks.
 	// Get information about the tasks currently running on one or more nodes in the
@@ -8143,7 +8137,7 @@ type Tasks struct {
 	// initiated by the REST request.
 	// The `X-Opaque-Id` in the children `headers` is the child task of the task
 	// that was initiated by the REST request.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-tasks
 	List tasks_list.NewList
 }
 
@@ -8175,7 +8169,7 @@ type TextStructure struct {
 	// If the structure finder produces unexpected results, specify the `explain`
 	// query parameter and an explanation will appear in the response.
 	// It helps determine why the returned structure was chosen.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-text_structure
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-text_structure
 	FindFieldStructure text_structure_find_field_structure.NewFindFieldStructure
 	// Find the structure of text messages.
 	// Find the structure of a list of text messages.
@@ -8206,7 +8200,7 @@ type TextStructure struct {
 	// If the structure finder produces unexpected results, specify the `explain`
 	// query parameter and an explanation will appear in the response.
 	// It helps determine why the returned structure was chosen.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-text-structure-find-message-structure
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-text-structure-find-message-structure
 	FindMessageStructure text_structure_find_message_structure.NewFindMessageStructure
 	// Find the structure of a text file.
 	// The text file must contain data that is suitable to be ingested into
@@ -8235,31 +8229,31 @@ type TextStructure struct {
 	// guidance.
 	// However, you can optionally override some of the decisions about the text
 	// structure by specifying one or more query parameters.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-text-structure-find-structure
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-text-structure-find-structure
 	FindStructure text_structure_find_structure.NewFindStructure
 	// Test a Grok pattern.
 	// Test a Grok pattern on one or more lines of text.
 	// The API indicates whether the lines match the pattern together with the
 	// offsets and lengths of the matched substrings.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-text-structure-test-grok-pattern
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-text-structure-test-grok-pattern
 	TestGrokPattern text_structure_test_grok_pattern.NewTestGrokPattern
 }
 
 type Transform struct {
 	// Delete a transform.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-delete-transform
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-delete-transform
 	DeleteTransform transform_delete_transform.NewDeleteTransform
 	// Retrieves transform usage information for transform nodes.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-node-stats.html
 	GetNodeStats transform_get_node_stats.NewGetNodeStats
 	// Get transforms.
 	// Get configuration information for transforms.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-transform
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-get-transform
 	GetTransform transform_get_transform.NewGetTransform
 	// Get transform stats.
 	//
 	// Get usage information for transforms.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-transform-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-get-transform-stats
 	GetTransformStats transform_get_transform_stats.NewGetTransformStats
 	// Preview a transform.
 	// Generates a preview of the results that you will get when you create a
@@ -8270,7 +8264,7 @@ type Transform struct {
 	// generates a list of mappings and settings for the destination index. These
 	// values are determined based on the field
 	// types of the source index and the transform aggregations.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-preview-transform
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-preview-transform
 	PreviewTransform transform_preview_transform.NewPreviewTransform
 	// Create a transform.
 	// Creates a transform.
@@ -8307,14 +8301,14 @@ type Transform struct {
 	// not give users any privileges on `.transform-internal*` indices. If you used
 	// transforms prior to 7.5, also do not
 	// give users any privileges on `.data-frame-internal*` indices.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-put-transform
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-put-transform
 	PutTransform transform_put_transform.NewPutTransform
 	// Reset a transform.
 	//
 	// Before you can reset it, you must stop it; alternatively, use the `force`
 	// query parameter.
 	// If the destination index was created by the transform, it is deleted.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-reset-transform
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-reset-transform
 	ResetTransform transform_reset_transform.NewResetTransform
 	// Schedule a transform to start now.
 	//
@@ -8324,7 +8318,7 @@ type Transform struct {
 	// called,
 	// the transform will be processed again at `now + frequency` unless the API
 	// is called again in the meantime.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-schedule-now-transform
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-schedule-now-transform
 	ScheduleNowTransform transform_schedule_now_transform.NewScheduleNowTransform
 	// Start a transform.
 	//
@@ -8354,11 +8348,11 @@ type Transform struct {
 	// required privileges on the source and
 	// destination indices, the transform fails when it attempts unauthorized
 	// operations.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-start-transform
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-start-transform
 	StartTransform transform_start_transform.NewStartTransform
 	// Stop transforms.
 	// Stops one or more transforms.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-stop-transform
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-stop-transform
 	StopTransform transform_stop_transform.NewStopTransform
 	// Update a transform.
 	// Updates certain properties of a transform.
@@ -8372,7 +8366,7 @@ type Transform struct {
 	// Elasticsearch security features are enabled, the transform remembers which
 	// roles the user who updated it had at the
 	// time of update and runs with those privileges.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-update-transform
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-update-transform
 	UpdateTransform transform_update_transform.NewUpdateTransform
 	// Upgrade all transforms.
 	//
@@ -8398,7 +8392,7 @@ type Transform struct {
 	// of the cluster – for example, from 7.16 to 8.0 – it is recommended to upgrade
 	// transforms before upgrading the cluster.
 	// You may want to perform a recent cluster backup prior to the upgrade.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-upgrade-transforms
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-upgrade-transforms
 	UpgradeTransforms transform_upgrade_transforms.NewUpgradeTransforms
 }
 
@@ -8419,15 +8413,15 @@ type Watcher struct {
 	// `ack.state` is reset to `awaits_successful_execution`.
 	// This happens when the condition of the watch is not met (the condition
 	// evaluates to false).
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-ack-watch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-ack-watch
 	AckWatch watcher_ack_watch.NewAckWatch
 	// Activate a watch.
 	// A watch can be either active or inactive.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-activate-watch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-activate-watch
 	ActivateWatch watcher_activate_watch.NewActivateWatch
 	// Deactivate a watch.
 	// A watch can be either active or inactive.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-deactivate-watch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-deactivate-watch
 	DeactivateWatch watcher_deactivate_watch.NewDeactivateWatch
 	// Delete a watch.
 	// When the watch is removed, the document representing the watch in the
@@ -8441,7 +8435,7 @@ type Watcher struct {
 	// Elasticsearch delete document API
 	// When Elasticsearch security features are enabled, make sure no write
 	// privileges are granted to anyone for the `.watches` index.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-delete-watch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-delete-watch
 	DeleteWatch watcher_delete_watch.NewDeleteWatch
 	// Run a watch.
 	// This API can be used to force execution of the watch outside of its
@@ -8467,16 +8461,16 @@ type Watcher struct {
 	// When using the run watch API, the authorization data of the user that called
 	// the API will be used as a base, instead of the information who stored the
 	// watch.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-execute-watch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-execute-watch
 	ExecuteWatch watcher_execute_watch.NewExecuteWatch
 	// Get Watcher index settings.
 	// Get settings for the Watcher internal index (`.watches`).
 	// Only a subset of settings are shown, for example `index.auto_expand_replicas`
 	// and `index.number_of_replicas`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-get-settings
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-get-settings
 	GetSettings watcher_get_settings.NewGetSettings
 	// Get a watch.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-get-watch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-get-watch
 	GetWatch watcher_get_watch.NewGetWatch
 	// Create or update a watch.
 	// When a watch is registered, a new document that represents the watch is added
@@ -8498,27 +8492,27 @@ type Watcher struct {
 	// privileges.
 	// If the user is able to read index `a`, but not index `b`, the same will apply
 	// when the watch runs.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-put-watch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-put-watch
 	PutWatch watcher_put_watch.NewPutWatch
 	// Query watches.
 	// Get all registered watches in a paginated manner and optionally filter
 	// watches by a query.
 	//
 	// Note that only the `_id` and `metadata.*` fields are queryable or sortable.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-query-watches
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-query-watches
 	QueryWatches watcher_query_watches.NewQueryWatches
 	// Start the watch service.
 	// Start the Watcher service if it is not already running.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-start
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-start
 	Start watcher_start.NewStart
 	// Get Watcher statistics.
 	// This API always returns basic metrics.
 	// You retrieve more metrics by using the metric parameter.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-stats
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-stats
 	Stats watcher_stats.NewStats
 	// Stop the watch service.
 	// Stop the Watcher service if it is running.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-stop
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-stop
 	Stop watcher_stop.NewStop
 	// Update Watcher index settings.
 	// Update settings for the Watcher internal index (`.watches`).
@@ -8530,7 +8524,7 @@ type Watcher struct {
 	// Modification of `index.routing.allocation.include._tier_preference` is an
 	// exception and is not allowed as the
 	// Watcher shards must always be in the `data_content` tier.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-update-settings
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-update-settings
 	UpdateSettings watcher_update_settings.NewUpdateSettings
 }
 
@@ -8542,13 +8536,13 @@ type Xpack struct {
 	// * License information about the currently installed license.
 	// * Feature information for the features that are currently enabled and
 	// available under the current license.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-info
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-info
 	Info xpack_info.NewInfo
 	// Get usage information.
 	// Get information about the features that are currently enabled and available
 	// under the current license.
 	// The API also provides some usage statistics.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-xpack
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-xpack
 	Usage xpack_usage.NewUsage
 }
 
@@ -8754,11 +8748,11 @@ type API struct {
 	// The request will only wait for those three shards to refresh.
 	// The other two shards that make up the index do not participate in the `_bulk`
 	// request at all.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-bulk
 	Bulk core_bulk.NewBulk
 	// Clear a scrolling search.
 	// Clear the search context and results for a scrolling search.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-clear-scroll
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-clear-scroll
 	ClearScroll core_clear_scroll.NewClearScroll
 	// Close a point in time.
 	// A point in time must be opened explicitly before being used in search
@@ -8768,7 +8762,7 @@ type API struct {
 	// elapsed.
 	// However, keeping points in time has a cost; close them as soon as they are no
 	// longer required for search requests.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-open-point-in-time
 	ClosePointInTime core_close_point_in_time.NewClosePointInTime
 	// Count search results.
 	// Get the number of documents matching a query.
@@ -8785,7 +8779,7 @@ type API struct {
 	// For each shard ID group, a replica is chosen and the search is run against
 	// it.
 	// This means that replicas increase the scalability of the count.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-count
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-count
 	Count core_count.NewCount
 	// Create a new document in the index.
 	//
@@ -8913,7 +8907,7 @@ type API struct {
 	// to fail on any number of shard copies but still succeed on the primary.
 	// The `_shards` section of the API response reveals the number of shard copies
 	// on which replication succeeded and failed.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-create
 	Create core_create.NewCreate
 	// Delete a document.
 	//
@@ -8968,7 +8962,7 @@ type API struct {
 	// The delete operation gets hashed into a specific shard ID.
 	// It then gets redirected into the primary shard within that ID group and
 	// replicated (if needed) to shard replicas within that ID group.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete
 	Delete core_delete.NewDelete
 	// Delete documents.
 	//
@@ -9097,7 +9091,7 @@ type API struct {
 	// Cancellation should happen quickly but might take a few seconds.
 	// The get task status API will continue to list the delete by query task until
 	// this task checks that it has been cancelled and terminates itself.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete-by-query
 	DeleteByQuery core_delete_by_query.NewDeleteByQuery
 	// Throttle a delete by query operation.
 	//
@@ -9106,11 +9100,11 @@ type API struct {
 	// Rethrottling that speeds up the query takes effect immediately but
 	// rethrotting that slows down the query takes effect after completing the
 	// current batch to prevent scroll timeouts.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query-rethrottle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete-by-query-rethrottle
 	DeleteByQueryRethrottle core_delete_by_query_rethrottle.NewDeleteByQueryRethrottle
 	// Delete a script or search template.
 	// Deletes a stored script or search template.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-script
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete-script
 	DeleteScript core_delete_script.NewDeleteScript
 	// Check a document.
 	//
@@ -9135,7 +9129,7 @@ type API struct {
 	// won't be able to access it.
 	// Elasticsearch cleans up deleted documents in the background as you continue
 	// to index more data.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 	Exists core_exists.NewExists
 	// Check for a document source.
 	//
@@ -9147,13 +9141,13 @@ type API struct {
 	// ```
 	//
 	// A document's source is not available if it is disabled in the mapping.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 	ExistsSource core_exists_source.NewExistsSource
 	// Explain a document match result.
 	// Get information about why a specific document matches, or doesn't match, a
 	// query.
 	// It computes a score explanation for a query and a specific document.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-explain
 	Explain core_explain.NewExplain
 	// Get the field capabilities.
 	//
@@ -9164,7 +9158,7 @@ type API struct {
 	// It returns runtime fields like any other field.
 	// For example, a runtime field with a type of keyword is returned the same as
 	// any other field that belongs to the `keyword` family.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-field-caps
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-field-caps
 	FieldCaps core_field_caps.NewFieldCaps
 	// Get a document by its ID.
 	//
@@ -9240,21 +9234,21 @@ type API struct {
 	// won't be able to access it.
 	// Elasticsearch cleans up deleted documents in the background as you continue
 	// to index more data.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 	Get core_get.NewGet
 	// Get a script or search template.
 	// Retrieves a stored script or search template.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get-script
 	GetScript core_get_script.NewGetScript
 	// Get script contexts.
 	//
 	// Get a list of supported script contexts and their methods.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script-context
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get-script-context
 	GetScriptContext core_get_script_context.NewGetScriptContext
 	// Get script languages.
 	//
 	// Get a list of available script types, languages, and contexts.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script-languages
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get-script-languages
 	GetScriptLanguages core_get_script_languages.NewGetScriptLanguages
 	// Get a document's source.
 	//
@@ -9272,7 +9266,7 @@ type API struct {
 	// GET
 	// my-index-000001/_source/1/?_source_includes=*.id&_source_excludes=entities
 	// ```
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 	GetSource core_get_source.NewGetSource
 	// Get the cluster health.
 	// Get a report with the health status of an Elasticsearch cluster.
@@ -9304,7 +9298,7 @@ type API struct {
 	// statuses. This can be computationally expensive when called frequently.
 	// When setting up automated polling of the API for health status, set verbose
 	// to false to disable the more expensive analysis logic.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-health-report
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-health-report
 	HealthReport core_health_report.NewHealthReport
 	// Create or update a document in an index.
 	//
@@ -9504,40 +9498,12 @@ type API struct {
 	// Even the simple case of updating the Elasticsearch index using data from a
 	// database is simplified if external versioning is used, as only the latest
 	// version will be used if the index operations arrive out of order.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-create
 	Index core_index.NewIndex
 	// Get cluster info.
 	// Get basic build, version, and cluster information.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-info
 	Info core_info.NewInfo
-	// Run a knn search.
-	//
-	// NOTE: The kNN search API has been replaced by the `knn` option in the search
-	// API.
-	//
-	// Perform a k-nearest neighbor (kNN) search on a dense_vector field and return
-	// the matching documents.
-	// Given a query vector, the API finds the k closest vectors and returns those
-	// documents as search hits.
-	//
-	// Elasticsearch uses the HNSW algorithm to support efficient kNN search.
-	// Like most kNN algorithms, HNSW is an approximate method that sacrifices
-	// result accuracy for improved search speed.
-	// This means the results returned are not always the true k closest neighbors.
-	//
-	// The kNN search API supports restricting the search using a filter.
-	// The search will return the top k documents that also match the filter query.
-	//
-	// A kNN search response has the exact same structure as a search API response.
-	// However, certain sections have a meaning specific to kNN search:
-	//
-	// * The document `_score` is determined by the similarity between the query and
-	// document vector.
-	// * The `hits.total` object contains the total number of nearest neighbor
-	// candidates considered, which is `num_candidates * num_shards`. The
-	// `hits.total.relation` will always be `eq`, indicating an exact value.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search-api.html
-	KnnSearch core_knn_search.NewKnnSearch
 	// Get multiple documents.
 	//
 	// Get multiple JSON documents by ID from one or more indices.
@@ -9562,7 +9528,7 @@ type API struct {
 	// Any requested fields that are not stored are ignored.
 	// You can include the `stored_fields` query parameter in the request URI to
 	// specify the defaults to use when there are no per-document instructions.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-mget
 	Mget core_mget.NewMget
 	// Run multiple searches.
 	//
@@ -9584,7 +9550,7 @@ type API struct {
 	// Each newline character may be preceded by a carriage return `\r`.
 	// When sending requests to this endpoint the `Content-Type` header should be
 	// set to `application/x-ndjson`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-msearch
 	Msearch core_msearch.NewMsearch
 	// Run multiple templated searches.
 	//
@@ -9604,7 +9570,7 @@ type API struct {
 	// $ curl -H "Content-Type: application/x-ndjson" -XGET
 	// localhost:9200/_msearch/template --data-binary "@requests"; echo
 	// ```
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-msearch-template
 	MsearchTemplate core_msearch_template.NewMsearchTemplate
 	// Get multiple term vectors.
 	//
@@ -9620,7 +9586,7 @@ type API struct {
 	// You can also use `mtermvectors` to generate term vectors for artificial
 	// documents provided in the body of the request.
 	// The mapping used is determined by the specified `_index`.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mtermvectors
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-mtermvectors
 	Mtermvectors core_mtermvectors.NewMtermvectors
 	// Open a point in time.
 	//
@@ -9685,21 +9651,21 @@ type API struct {
 	// deleted.
 	// You can check how many point-in-times (that is, search contexts) are open
 	// with the nodes stats API.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-open-point-in-time
 	OpenPointInTime core_open_point_in_time.NewOpenPointInTime
 	// Ping the cluster.
 	// Get information about whether the cluster is running.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-cluster
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-cluster
 	Ping core_ping.NewPing
 	// Create or update a script or search template.
 	// Creates or updates a stored script or search template.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-put-script
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-put-script
 	PutScript core_put_script.NewPutScript
 	// Evaluate ranked search results.
 	//
 	// Evaluate the quality of ranked search results over a set of typical search
 	// queries.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rank-eval
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rank-eval
 	RankEval core_rank_eval.NewRankEval
 	// Reindex documents.
 	//
@@ -9979,7 +9945,7 @@ type API struct {
 	// These must be specified in the `elasticsearch.yml` file, with the exception
 	// of the secure settings, which you add in the Elasticsearch keystore.
 	// It is not possible to configure SSL in the body of the reindex request.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-reindex
 	Reindex core_reindex.NewReindex
 	// Throttle a reindex operation.
 	//
@@ -9994,12 +9960,12 @@ type API struct {
 	// Rethrottling that slows down the query will take effect after completing the
 	// current batch.
 	// This behavior prevents scroll timeouts.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-reindex
 	ReindexRethrottle core_reindex_rethrottle.NewReindexRethrottle
 	// Render a search template.
 	//
 	// Render a search template as a search request body.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-render-search-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-render-search-template
 	RenderSearchTemplate core_render_search_template.NewRenderSearchTemplate
 	// Run a script.
 	//
@@ -10014,7 +9980,7 @@ type API struct {
 	//
 	// Each context requires a script, but additional parameters depend on the
 	// context you're using for that script.
-	// https://www.elastic.co/guide/en/elasticsearch/painless/current/painless-execute-api.html
+	// https://www.elastic.co/docs/reference/scripting-languages/painless/painless-api-examples
 	ScriptsPainlessExecute core_scripts_painless_execute.NewScriptsPainlessExecute
 	// Run a scrolling search.
 	//
@@ -10042,7 +10008,7 @@ type API struct {
 	// IMPORTANT: Results from a scrolling search reflect the state of the index at
 	// the time of the initial search request. Subsequent indexing or document
 	// changes only affect later search and scroll requests.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-scroll
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-scroll
 	Scroll core_scroll.NewScroll
 	// Run a search.
 	//
@@ -10076,7 +10042,7 @@ type API struct {
 	// If different PIT IDs are used, slices can overlap and miss documents.
 	// This situation can occur because the splitting criterion is based on Lucene
 	// document IDs, which are not stable across changes to the index.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search
 	Search core_search.NewSearch
 	// Search a vector tile.
 	//
@@ -10243,7 +10209,7 @@ type API struct {
 	// of tile bins at each zoom level.
 	// Elasticsearch uses the H3 resolution that is closest to the corresponding
 	// geotile density.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-mvt
 	SearchMvt core_search_mvt.NewSearchMvt
 	// Get the search shards.
 	//
@@ -10256,10 +10222,10 @@ type API struct {
 	// If the Elasticsearch security features are enabled, you must have the
 	// `view_index_metadata` or `manage` index privilege for the target data stream,
 	// index, or alias.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-shards
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-shards
 	SearchShards core_search_shards.NewSearchShards
 	// Run a search with a search template.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-template
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-template
 	SearchTemplate core_search_template.NewSearchTemplate
 	// Get terms in an index.
 	//
@@ -10272,7 +10238,7 @@ type API struct {
 	// documents are initially only marked as deleted. It is not until their
 	// segments are merged that documents are actually deleted. Until that happens,
 	// the terms enum API will return terms from these documents.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-terms-enum
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-terms-enum
 	TermsEnum core_terms_enum.NewTermsEnum
 	// Get term vector information.
 	//
@@ -10328,7 +10294,7 @@ type API struct {
 	// By default, when requesting term vectors of artificial documents, a shard to
 	// get the statistics from is randomly selected.
 	// Use `routing` only to hit a particular shard.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-termvectors
 	Termvectors core_termvectors.NewTermvectors
 	// Update a document.
 	//
@@ -10355,7 +10321,7 @@ type API struct {
 	// In addition to `_source`, you can access the following variables through the
 	// `ctx` map: `_index`, `_type`, `_id`, `_version`, `_routing`, and `_now` (the
 	// current timestamp).
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update
 	Update core_update.NewUpdate
 	// Update documents.
 	// Updates documents that match the specified query.
@@ -10494,7 +10460,7 @@ type API struct {
 	// Setting any other field in `ctx` is an error.
 	// This API enables you to only modify the source of matching documents; you
 	// cannot move them.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update-by-query
 	UpdateByQuery core_update_by_query.NewUpdateByQuery
 	// Throttle an update by query operation.
 	//
@@ -10503,7 +10469,7 @@ type API struct {
 	// Rethrottling that speeds up the query takes effect immediately but
 	// rethrotting that slows down the query takes effect after completing the
 	// current batch to prevent scroll timeouts.
-	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query-rethrottle
+	// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update-by-query-rethrottle
 	UpdateByQueryRethrottle core_update_by_query_rethrottle.NewUpdateByQueryRethrottle
 }
 
@@ -10655,7 +10621,6 @@ func New(tp elastictransport.Interface) *API {
 			HealthReport:            core_health_report.NewHealthReportFunc(tp),
 			Index:                   core_index.NewIndexFunc(tp),
 			Info:                    core_info.NewInfoFunc(tp),
-			KnnSearch:               core_knn_search.NewKnnSearchFunc(tp),
 			Mget:                    core_mget.NewMgetFunc(tp),
 			Msearch:                 core_msearch.NewMsearchFunc(tp),
 			MsearchTemplate:         core_msearch_template.NewMsearchTemplateFunc(tp),
@@ -10820,6 +10785,7 @@ func New(tp elastictransport.Interface) *API {
 			Completion:            inference_completion.NewCompletionFunc(tp),
 			Delete:                inference_delete.NewDeleteFunc(tp),
 			Get:                   inference_get.NewGetFunc(tp),
+			Inference:             inference_inference.NewInferenceFunc(tp),
 			Put:                   inference_put.NewPutFunc(tp),
 			PutAlibabacloud:       inference_put_alibabacloud.NewPutAlibabacloudFunc(tp),
 			PutAmazonbedrock:      inference_put_amazonbedrock.NewPutAmazonbedrockFunc(tp),
@@ -11243,7 +11209,6 @@ func New(tp elastictransport.Interface) *API {
 		HealthReport:            core_health_report.NewHealthReportFunc(tp),
 		Index:                   core_index.NewIndexFunc(tp),
 		Info:                    core_info.NewInfoFunc(tp),
-		KnnSearch:               core_knn_search.NewKnnSearchFunc(tp),
 		Mget:                    core_mget.NewMgetFunc(tp),
 		Msearch:                 core_msearch.NewMsearchFunc(tp),
 		MsearchTemplate:         core_msearch_template.NewMsearchTemplateFunc(tp),
