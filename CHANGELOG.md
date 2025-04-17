@@ -1,3 +1,65 @@
+# 8.18.0
+
+* Update `elastictransport` to `8.7.0`.
+* Thanks to @zaneli, the `TypedClient` can now be used in the `BulkIndexer`.
+
+# New
+
+* This release adds a `BaseClient` constructor with no attached APIs, allowing it to be used purely as a transport layer instead of a full-featured API client.
+
+```go
+baseClient, err := elasticsearch.NewBaseClient(elasticsearch.Config{
+    Addresses: []string{
+        "http://localhost:9200",
+    },
+})
+
+if err != nil {
+    log.Println(err)
+    return
+}
+
+res, err := esapi.InfoRequest{
+    Pretty:     false,
+    Human:      false,
+    ErrorTrace: false,
+    FilterPath: nil,
+    Header:     nil,
+    Instrument: baseClient.InstrumentationEnabled(),
+}.Do(context.Background(), baseClient)
+
+if err != nil {
+    log.Println(err)
+    return
+}
+defer res.Body.Close()
+if res.IsError() {
+    log.Println("Error response:", res)
+    return
+}
+var infoMap map[string]interface{}
+if err := json.NewDecoder(res.Body).Decode(&infoMap); err != nil {
+    log.Println("Error parsing response:", err)
+    return
+}
+log.Printf("Elasticsearch version esapi: %s\n", infoMap["version"].(map[string]interface{})["number"])
+
+typedRes, err := info.New(baseClient).Do(context.Background())
+if err != nil {
+    log.Println(err)
+    return
+}
+log.Printf("Elasticsearch version typedapi: %s\n", typedRes.Version.Int)
+```
+
+# API
+
+* Updated APIs to 8.18.0
+
+# Typed API
+
+* Update APIs to 8.18 ([cbfcc73](https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5))
+
 # 8.17.1
 
 * Update elastictransport to 8.6.1
