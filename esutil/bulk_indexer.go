@@ -58,7 +58,7 @@ type BulkIndexerConfig struct {
 	FlushBytes    int           // The flush threshold in bytes. Defaults to 5MB.
 	FlushInterval time.Duration // The flush threshold as duration. Defaults to 30sec.
 
-	Client      *elasticsearch.Client   // The Elasticsearch client.
+	Client      esapi.Transport         // The Elasticsearch client.
 	Decoder     BulkResponseJSONDecoder // A custom JSON decoder.
 	DebugLogger BulkIndexerDebugLogger  // An optional logger for debugging.
 
