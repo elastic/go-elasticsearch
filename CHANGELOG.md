@@ -1,3 +1,143 @@
+# 9.0.0
+
+* The client now requires **Go 1.23** or later.
+
+## New
+
+* This release introduces an optional package for the `TypedAPI` named `esdsl`.  
+  It provides a domain-specific language (DSL) for building Elasticsearch queries in Go.  
+  The DSL is designed to simplify query construction, making it easier to build complex queries without writing raw JSON.
+
+```go
+// create index
+{
+    // delete index if exists
+    if existsRes, err := es.Indices.Exists("test").IsSuccess(context.Background()); err != nil {
+        log.Println(err)
+        return
+    } else if existsRes {
+        if ok, _ := es.Indices.Delete("test").IsSuccess(context.Background()); !ok {
+            log.Fatalf("Error deleting index: %v\n", err)
+        }
+        log.Println("Index deleted:", "test")
+    } else {
+        log.Println("Index does not exist:", "test")
+    }
+
+    mappings := esdsl.NewTypeMapping().
+        AddProperty("name", esdsl.NewTextProperty()).
+        AddProperty("age", esdsl.NewIntegerNumberProperty())
+
+    createRes, err := es.Indices.Create("test").Mappings(mappings).Do(context.Background())
+    if err != nil {
+        log.Println(err)
+        return
+    }
+
+    log.Printf("Index created: %#v\n", createRes)
+}
+
+// index document
+{
+    documents := []Document{
+        {"Alice", 30},
+        {"Bob", 25},
+        {"Charlie", 35},
+    }
+
+    bulk := es.Bulk().Index("test")
+    for _, document := range documents {
+        err := bulk.IndexOp(types.IndexOperation{}, document)
+        if err != nil {
+            log.Println("Error indexing document:", err)
+        }
+    }
+    bulkRes, err := bulk.Refresh(refresh.Waitfor).Do(context.Background())
+    if err != nil {
+        log.Println(err)
+        return
+    }
+    if bulkRes.Errors {
+        log.Println("Some documents failed to index")
+        for _, item := range bulkRes.Items {
+            for operationType, responseItem := range item {
+                if responseItem.Error != nil {
+                    log.Println("Operation:", operationType)
+                    log.Println("Response:", responseItem)
+                }
+            }
+        }
+    }
+    indexedDocs := 0
+    for _, item := range bulkRes.Items {
+        for _, responseItem := range item {
+            if responseItem.Error == nil {
+                indexedDocs++
+            }
+        }
+    }
+
+    log.Println("Documents indexed:", indexedDocs)
+}
+
+// calculate median age
+{
+    searchRes, err := es.Search().
+        Index("test").
+        Size(0).
+        AddAggregation("median_age", esdsl.NewPercentilesAggregation().Field("age").Percents(50)).
+        Do(context.Background())
+    if err != nil {
+        log.Println(err)
+        return
+    }
+
+    if agg, ok := searchRes.Aggregations["median_age"].(*types.TDigestPercentilesAggregate); ok {
+        if val, ok := agg.Values.(map[string]interface{})["50.0"]; ok {
+            log.Println("Median age:", val)
+        }
+    }
+}
+
+// search documents
+{
+    matchRes, err := es.Search().
+        Index("test").
+        Query(esdsl.NewBoolQuery().
+            Must(esdsl.NewMatchQuery("name", "Alice")).
+            Filter(esdsl.NewNumberRangeQuery("age").Gte(20).Lte(40))).
+        Sort(esdsl.NewSortOptions().AddSortOption("age", esdsl.NewFieldSort(sortorder.Asc))).
+        Size(10).
+        Do(context.Background())
+    if err != nil {
+        log.Println(err)
+        return
+    }
+    if matchRes.Hits.Total.Value > 0 {
+        for _, hit := range matchRes.Hits.Hits {
+            doc := Document{}
+            err := json.Unmarshal(hit.Source_, &doc)
+            if err != nil {
+                log.Println("Error unmarshalling document:", err)
+                continue
+            }
+            log.Printf("Document ID: %s, Name: %s, Age: %d\n", *hit.Id_, doc.Name, doc.Age)
+        }
+    } else {
+        log.Println("No documents found")
+    }
+}
+```
+
+# API
+
+* Updated APIs to 9.0.0
+
+# Typed API
+
+* Update APIs to 9.0.0 ([52c473e](https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb))
+
+
 # 8.18.0
 
 * Update `elastictransport` to `8.7.0`.
@@ -58,7 +198,7 @@ log.Printf("Elasticsearch version typedapi: %s\n", typedRes.Version.Int)
 
 # Typed API
 
-* Update APIs to 8.18 ([cbfcc73](https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5))
+* Update APIs to 8.18.0 ([f6a370d](https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36))
 
 # 8.17.1
 
