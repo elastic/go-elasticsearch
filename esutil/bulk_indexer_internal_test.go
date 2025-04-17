@@ -62,104 +62,127 @@ func (t *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 
 func TestBulkIndexer(t *testing.T) {
 	t.Run("Basic", func(t *testing.T) {
-		var (
-			wg sync.WaitGroup
-
-			countReqs int
-			testfile  string
-			numItems  = 6
-		)
-
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(*http.Request) (*http.Response, error) {
-				countReqs++
-				switch countReqs {
-				case 1:
-					testfile = "testdata/bulk_response_1a.json"
-				case 2:
-					testfile = "testdata/bulk_response_1b.json"
-				case 3:
-					testfile = "testdata/bulk_response_1c.json"
-				}
-				bodyContent, _ := ioutil.ReadFile(testfile)
-				return &http.Response{
-					Body:   ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
-					Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
-				}, nil
+		tests := []struct {
+			name       string
+			makeClient func(cfg elasticsearch.Config) (esapi.Transport, error)
+		}{
+			{
+				name: "Client",
+				makeClient: func(cfg elasticsearch.Config) (esapi.Transport, error) {
+					return elasticsearch.NewClient(cfg)
+				},
 			},
-		}})
-
-		cfg := BulkIndexerConfig{
-			NumWorkers:    1,
-			FlushBytes:    39 * 2,    // 38 bytes header + body, times 2 to match 2 responses per file in testdata
-			FlushInterval: time.Hour, // Disable auto-flushing, because response doesn't match number of items
-			Client:        es}
-		if os.Getenv("DEBUG") != "" {
-			cfg.DebugLogger = log.New(os.Stdout, "", 0)
+			{
+				name: "TypedClient",
+				makeClient: func(cfg elasticsearch.Config) (esapi.Transport, error) {
+					return elasticsearch.NewTypedClient(cfg)
+				},
+			},
 		}
+		for _, tt := range tests {
+			tt := tt
 
-		bi, _ := NewBulkIndexer(cfg)
+			t.Run(tt.name, func(t *testing.T) {
+				var (
+					wg sync.WaitGroup
 
-		for i := 1; i <= numItems; i++ {
-			wg.Add(1)
-			go func(i int) {
-				defer wg.Done()
-				err := bi.Add(context.Background(), BulkIndexerItem{
-					Action:     "foo",
-					DocumentID: strconv.Itoa(i),
-					Body:       strings.NewReader(fmt.Sprintf(`{"title":"foo-%d"}`, i)),
-				})
-				if err != nil {
-					t.Errorf("Unexpected error: %s", err)
-					return
+					countReqs int
+					testfile  string
+					numItems  = 6
+				)
+
+				es, _ := tt.makeClient(elasticsearch.Config{Transport: &mockTransport{
+					RoundTripFunc: func(*http.Request) (*http.Response, error) {
+						countReqs++
+						switch countReqs {
+						case 1:
+							testfile = "testdata/bulk_response_1a.json"
+						case 2:
+							testfile = "testdata/bulk_response_1b.json"
+						case 3:
+							testfile = "testdata/bulk_response_1c.json"
+						}
+						bodyContent, _ := ioutil.ReadFile(testfile)
+						return &http.Response{
+							Body:   ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
+							Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						}, nil
+					},
+				}})
+
+				cfg := BulkIndexerConfig{
+					NumWorkers:    1,
+					FlushBytes:    39 * 2,    // 38 bytes header + body, times 2 to match 2 responses per file in testdata
+					FlushInterval: time.Hour, // Disable auto-flushing, because response doesn't match number of items
+					Client:        es}
+				if os.Getenv("DEBUG") != "" {
+					cfg.DebugLogger = log.New(os.Stdout, "", 0)
 				}
-			}(i)
-		}
-		wg.Wait()
 
-		if err := bi.Close(context.Background()); err != nil {
-			t.Errorf("Unexpected error: %s", err)
-		}
+				bi, _ := NewBulkIndexer(cfg)
 
-		stats := bi.Stats()
+				for i := 1; i <= numItems; i++ {
+					wg.Add(1)
+					go func(i int) {
+						defer wg.Done()
+						err := bi.Add(context.Background(), BulkIndexerItem{
+							Action:     "foo",
+							DocumentID: strconv.Itoa(i),
+							Body:       strings.NewReader(fmt.Sprintf(`{"title":"foo-%d"}`, i)),
+						})
+						if err != nil {
+							t.Errorf("Unexpected error: %s", err)
+							return
+						}
+					}(i)
+				}
+				wg.Wait()
 
-		// added = numitems
-		if stats.NumAdded != uint64(numItems) {
-			t.Errorf("Unexpected NumAdded: want=%d, got=%d", numItems, stats.NumAdded)
-		}
+				if err := bi.Close(context.Background()); err != nil {
+					t.Errorf("Unexpected error: %s", err)
+				}
 
-		// flushed = numitems - 1x conflict + 1x not_found
-		if stats.NumFlushed != uint64(numItems-2) {
-			t.Errorf("Unexpected NumFlushed: want=%d, got=%d", numItems-2, stats.NumFlushed)
-		}
+				stats := bi.Stats()
 
-		// failed = 1x conflict + 1x not_found
-		if stats.NumFailed != 2 {
-			t.Errorf("Unexpected NumFailed: want=%d, got=%d", 2, stats.NumFailed)
-		}
+				// added = numitems
+				if stats.NumAdded != uint64(numItems) {
+					t.Errorf("Unexpected NumAdded: want=%d, got=%d", numItems, stats.NumAdded)
+				}
 
-		// indexed = 1x
-		if stats.NumIndexed != 1 {
-			t.Errorf("Unexpected NumIndexed: want=%d, got=%d", 1, stats.NumIndexed)
-		}
+				// flushed = numitems - 1x conflict + 1x not_found
+				if stats.NumFlushed != uint64(numItems-2) {
+					t.Errorf("Unexpected NumFlushed: want=%d, got=%d", numItems-2, stats.NumFlushed)
+				}
 
-		// created = 1x
-		if stats.NumCreated != 1 {
-			t.Errorf("Unexpected NumCreated: want=%d, got=%d", 1, stats.NumCreated)
-		}
+				// failed = 1x conflict + 1x not_found
+				if stats.NumFailed != 2 {
+					t.Errorf("Unexpected NumFailed: want=%d, got=%d", 2, stats.NumFailed)
+				}
 
-		// deleted = 1x
-		if stats.NumDeleted != 1 {
-			t.Errorf("Unexpected NumDeleted: want=%d, got=%d", 1, stats.NumDeleted)
-		}
+				// indexed = 1x
+				if stats.NumIndexed != 1 {
+					t.Errorf("Unexpected NumIndexed: want=%d, got=%d", 1, stats.NumIndexed)
+				}
 
-		if stats.NumUpdated != 1 {
-			t.Errorf("Unexpected NumUpdated: want=%d, got=%d", 1, stats.NumUpdated)
-		}
+				// created = 1x
+				if stats.NumCreated != 1 {
+					t.Errorf("Unexpected NumCreated: want=%d, got=%d", 1, stats.NumCreated)
+				}
 
-		// 3 items * 40 bytes, 2 workers, 1 request per worker
-		if stats.NumRequests != 3 {
-			t.Errorf("Unexpected NumRequests: want=%d, got=%d", 3, stats.NumRequests)
+				// deleted = 1x
+				if stats.NumDeleted != 1 {
+					t.Errorf("Unexpected NumDeleted: want=%d, got=%d", 1, stats.NumDeleted)
+				}
+
+				if stats.NumUpdated != 1 {
+					t.Errorf("Unexpected NumUpdated: want=%d, got=%d", 1, stats.NumUpdated)
+				}
+
+				// 3 items * 40 bytes, 2 workers, 1 request per worker
+				if stats.NumRequests != 3 {
+					t.Errorf("Unexpected NumRequests: want=%d, got=%d", 3, stats.NumRequests)
+				}
+			})
 		}
 	})
 
