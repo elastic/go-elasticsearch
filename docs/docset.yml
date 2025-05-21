@@ -1,4 +1,6 @@
 project: 'Go client'
+products:
+  - id: elasticsearch-client
 cross_links:
   - docs-content
   - elasticsearch
