@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Bulk update API keys.
 // Update the attributes for multiple API keys.
@@ -137,6 +137,8 @@ func New(tp elastictransport.Interface) *BulkUpdateApiKeys {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -390,52 +392,37 @@ func (r *BulkUpdateApiKeys) Pretty(pretty bool) *BulkUpdateApiKeys {
 	return r
 }
 
-// Expiration time for the API keys.
+// Expiration Expiration time for the API keys.
 // By default, API keys never expire.
 // This property can be omitted to leave the value unchanged.
 // API name: expiration
-func (r *BulkUpdateApiKeys) Expiration(duration types.DurationVariant) *BulkUpdateApiKeys {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Expiration = *duration.DurationCaster()
+func (r *BulkUpdateApiKeys) Expiration(duration types.Duration) *BulkUpdateApiKeys {
+	r.req.Expiration = duration
 
 	return r
 }
 
-// The API key identifiers.
+// Ids The API key identifiers.
 // API name: ids
 func (r *BulkUpdateApiKeys) Ids(ids ...string) *BulkUpdateApiKeys {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	r.req.Ids = make([]string, len(ids))
 	r.req.Ids = ids
 
 	return r
 }
 
-// Arbitrary nested metadata to associate with the API keys.
+// Metadata Arbitrary nested metadata to associate with the API keys.
 // Within the `metadata` object, top-level keys beginning with an underscore
 // (`_`) are reserved for system usage.
 // Any information specified with this parameter fully replaces metadata
 // previously associated with the API key.
 // API name: metadata
-func (r *BulkUpdateApiKeys) Metadata(metadata types.MetadataVariant) *BulkUpdateApiKeys {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Metadata = *metadata.MetadataCaster()
+func (r *BulkUpdateApiKeys) Metadata(metadata types.Metadata) *BulkUpdateApiKeys {
+	r.req.Metadata = metadata
 
 	return r
 }
 
-// The role descriptors to assign to the API keys.
+// RoleDescriptors The role descriptors to assign to the API keys.
 // An API key's effective permissions are an intersection of its assigned
 // privileges and the point-in-time snapshot of permissions of the owner user.
 // You can assign new privileges by specifying them in this parameter.
@@ -449,29 +436,8 @@ func (r *BulkUpdateApiKeys) Metadata(metadata types.MetadataVariant) *BulkUpdate
 // API keys API.
 // API name: role_descriptors
 func (r *BulkUpdateApiKeys) RoleDescriptors(roledescriptors map[string]types.RoleDescriptor) *BulkUpdateApiKeys {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.RoleDescriptors = roledescriptors
-	return r
-}
 
-func (r *BulkUpdateApiKeys) AddRoleDescriptor(key string, value types.RoleDescriptorVariant) *BulkUpdateApiKeys {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.RoleDescriptor
-	if r.req.RoleDescriptors == nil {
-		r.req.RoleDescriptors = make(map[string]types.RoleDescriptor)
-	} else {
-		tmp = r.req.RoleDescriptors
-	}
-
-	tmp[key] = *value.RoleDescriptorCaster()
-
-	r.req.RoleDescriptors = tmp
 	return r
 }

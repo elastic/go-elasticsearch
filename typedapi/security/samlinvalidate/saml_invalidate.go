@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Invalidate SAML.
 //
@@ -115,6 +115,8 @@ func New(tp elastictransport.Interface) *SamlInvalidate {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -368,22 +370,18 @@ func (r *SamlInvalidate) Pretty(pretty bool) *SamlInvalidate {
 	return r
 }
 
-// The Assertion Consumer Service URL that matches the one of the SAML realm in
+// Acs The Assertion Consumer Service URL that matches the one of the SAML realm in
 // Elasticsearch that should be used. You must specify either this parameter or
 // the `realm` parameter.
 // API name: acs
 func (r *SamlInvalidate) Acs(acs string) *SamlInvalidate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Acs = &acs
 
 	return r
 }
 
-// The query part of the URL that the user was redirected to by the SAML IdP to
+// QueryString The query part of the URL that the user was redirected to by the SAML IdP to
 // initiate the Single Logout.
 // This query should include a single parameter named `SAMLRequest` that
 // contains a SAML logout request that is deflated and Base64 encoded.
@@ -397,24 +395,16 @@ func (r *SamlInvalidate) Acs(acs string) *SamlInvalidate {
 // way.
 // API name: query_string
 func (r *SamlInvalidate) QueryString(querystring string) *SamlInvalidate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.QueryString = querystring
 
 	return r
 }
 
-// The name of the SAML realm in Elasticsearch the configuration. You must
+// Realm The name of the SAML realm in Elasticsearch the configuration. You must
 // specify either this parameter or the `acs` parameter.
 // API name: realm
 func (r *SamlInvalidate) Realm(realm string) *SamlInvalidate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Realm = &realm
 

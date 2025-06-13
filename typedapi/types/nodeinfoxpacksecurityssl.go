@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
 // NodeInfoXpackSecuritySsl type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/nodes/info/types.ts#L257-L259
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/nodes/info/types.ts#L257-L259
 type NodeInfoXpackSecuritySsl struct {
 	Ssl map[string]string `json:"ssl"`
 }
@@ -30,10 +30,8 @@ type NodeInfoXpackSecuritySsl struct {
 // NewNodeInfoXpackSecuritySsl returns a NodeInfoXpackSecuritySsl.
 func NewNodeInfoXpackSecuritySsl() *NodeInfoXpackSecuritySsl {
 	r := &NodeInfoXpackSecuritySsl{
-		Ssl: make(map[string]string),
+		Ssl: make(map[string]string, 0),
 	}
 
 	return r
 }
-
-// false

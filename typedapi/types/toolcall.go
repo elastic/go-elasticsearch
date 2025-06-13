@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ToolCall type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/inference/_types/CommonTypes.ts#L112-L128
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/inference/_types/CommonTypes.ts#L151-L167
 type ToolCall struct {
 	// Function The function that the model called.
 	Function ToolCallFunction `json:"function"`
@@ -88,14 +88,4 @@ func NewToolCall() *ToolCall {
 	r := &ToolCall{}
 
 	return r
-}
-
-// true
-
-type ToolCallVariant interface {
-	ToolCallCaster() *ToolCall
-}
-
-func (s *ToolCall) ToolCallCaster() *ToolCall {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,25 +31,61 @@ import (
 
 // WordDelimiterGraphTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/analysis/token_filters.ts#L150-L167
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/analysis/token_filters.ts#L205-L211
 type WordDelimiterGraphTokenFilter struct {
-	AdjustOffsets         *bool              `json:"adjust_offsets,omitempty"`
-	CatenateAll           *bool              `json:"catenate_all,omitempty"`
-	CatenateNumbers       *bool              `json:"catenate_numbers,omitempty"`
-	CatenateWords         *bool              `json:"catenate_words,omitempty"`
-	GenerateNumberParts   *bool              `json:"generate_number_parts,omitempty"`
-	GenerateWordParts     *bool              `json:"generate_word_parts,omitempty"`
-	IgnoreKeywords        *bool              `json:"ignore_keywords,omitempty"`
-	PreserveOriginal      Stringifiedboolean `json:"preserve_original,omitempty"`
-	ProtectedWords        []string           `json:"protected_words,omitempty"`
-	ProtectedWordsPath    *string            `json:"protected_words_path,omitempty"`
-	SplitOnCaseChange     *bool              `json:"split_on_case_change,omitempty"`
-	SplitOnNumerics       *bool              `json:"split_on_numerics,omitempty"`
-	StemEnglishPossessive *bool              `json:"stem_english_possessive,omitempty"`
-	Type                  string             `json:"type,omitempty"`
-	TypeTable             []string           `json:"type_table,omitempty"`
-	TypeTablePath         *string            `json:"type_table_path,omitempty"`
-	Version               *string            `json:"version,omitempty"`
+	// AdjustOffsets If `true`, the filter adjusts the offsets of split or catenated tokens to
+	// better reflect their actual position in the token stream. Defaults to `true`.
+	AdjustOffsets *bool `json:"adjust_offsets,omitempty"`
+	// CatenateAll If `true`, the filter produces catenated tokens for chains of alphanumeric
+	// characters separated by non-alphabetic delimiters. Defaults to `false`.
+	CatenateAll *bool `json:"catenate_all,omitempty"`
+	// CatenateNumbers If `true`, the filter produces catenated tokens for chains of numeric
+	// characters separated by non-alphabetic delimiters. Defaults to `false`.
+	CatenateNumbers *bool `json:"catenate_numbers,omitempty"`
+	// CatenateWords If `true`, the filter produces catenated tokens for chains of alphabetical
+	// characters separated by non-alphabetic delimiters. Defaults to `false`.
+	CatenateWords *bool `json:"catenate_words,omitempty"`
+	// GenerateNumberParts If `true`, the filter includes tokens consisting of only numeric characters
+	// in the output. If `false`, the filter excludes these tokens from the output.
+	// Defaults to `true`.
+	GenerateNumberParts *bool `json:"generate_number_parts,omitempty"`
+	// GenerateWordParts If `true`, the filter includes tokens consisting of only alphabetical
+	// characters in the output. If `false`, the filter excludes these tokens from
+	// the output. Defaults to `true`.
+	GenerateWordParts *bool `json:"generate_word_parts,omitempty"`
+	// IgnoreKeywords If `true`, the filter skips tokens with a keyword attribute of true. Defaults
+	// to `false`.
+	IgnoreKeywords *bool `json:"ignore_keywords,omitempty"`
+	// PreserveOriginal If `true`, the filter includes the original version of any split tokens in
+	// the output. This original version includes non-alphanumeric delimiters.
+	// Defaults to `false`.
+	PreserveOriginal Stringifiedboolean `json:"preserve_original,omitempty"`
+	// ProtectedWords Array of tokens the filter won’t split.
+	ProtectedWords []string `json:"protected_words,omitempty"`
+	// ProtectedWordsPath Path to a file that contains a list of tokens the filter won’t split.
+	// This path must be absolute or relative to the `config` location, and the file
+	// must be UTF-8 encoded. Each token in the file must be separated by a line
+	// break.
+	ProtectedWordsPath *string `json:"protected_words_path,omitempty"`
+	// SplitOnCaseChange If `true`, the filter splits tokens at letter case transitions. For example:
+	// camelCase -> [ camel, Case ]. Defaults to `true`.
+	SplitOnCaseChange *bool `json:"split_on_case_change,omitempty"`
+	// SplitOnNumerics If `true`, the filter splits tokens at letter-number transitions. For
+	// example: j2se -> [ j, 2, se ]. Defaults to `true`.
+	SplitOnNumerics *bool `json:"split_on_numerics,omitempty"`
+	// StemEnglishPossessive If `true`, the filter removes the English possessive (`'s`) from the end of
+	// each token. For example: O'Neil's -> [ O, Neil ]. Defaults to `true`.
+	StemEnglishPossessive *bool  `json:"stem_english_possessive,omitempty"`
+	Type                  string `json:"type,omitempty"`
+	// TypeTable Array of custom type mappings for characters. This allows you to map
+	// non-alphanumeric characters as numeric or alphanumeric to avoid splitting on
+	// those characters.
+	TypeTable []string `json:"type_table,omitempty"`
+	// TypeTablePath Path to a file that contains custom type mappings for characters. This allows
+	// you to map non-alphanumeric characters as numeric or alphanumeric to avoid
+	// splitting on those characters.
+	TypeTablePath *string `json:"type_table_path,omitempty"`
+	Version       *string `json:"version,omitempty"`
 }
 
 func (s *WordDelimiterGraphTokenFilter) UnmarshalJSON(data []byte) error {
@@ -294,14 +330,4 @@ func NewWordDelimiterGraphTokenFilter() *WordDelimiterGraphTokenFilter {
 	r := &WordDelimiterGraphTokenFilter{}
 
 	return r
-}
-
-// true
-
-type WordDelimiterGraphTokenFilterVariant interface {
-	WordDelimiterGraphTokenFilterCaster() *WordDelimiterGraphTokenFilter
-}
-
-func (s *WordDelimiterGraphTokenFilter) WordDelimiterGraphTokenFilterCaster() *WordDelimiterGraphTokenFilter {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexPrivilegesCheck type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/security/has_privileges/types.ts#L34-L45
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/security/has_privileges/types.ts#L34-L45
 type IndexPrivilegesCheck struct {
 	// AllowRestrictedIndices This needs to be set to `true` (default is `false`) if using wildcards or
 	// regexps for patterns that cover restricted indices.
@@ -110,14 +110,4 @@ func NewIndexPrivilegesCheck() *IndexPrivilegesCheck {
 	r := &IndexPrivilegesCheck{}
 
 	return r
-}
-
-// true
-
-type IndexPrivilegesCheckVariant interface {
-	IndexPrivilegesCheckCaster() *IndexPrivilegesCheck
-}
-
-func (s *IndexPrivilegesCheck) IndexPrivilegesCheckCaster() *IndexPrivilegesCheck {
-	return s
 }

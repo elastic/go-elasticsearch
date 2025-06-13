@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Perform streaming inference.
 // Get real-time responses for completion tasks by delivering answers
@@ -123,6 +123,8 @@ func New(tp elastictransport.Interface) *StreamCompletion {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -391,31 +393,21 @@ func (r *StreamCompletion) Pretty(pretty bool) *StreamCompletion {
 	return r
 }
 
-// The text on which you want to perform the inference task.
+// Input The text on which you want to perform the inference task.
 // It can be a single string or an array.
 //
 // NOTE: Inference endpoints for the completion task type currently only support
 // a single string as input.
 // API name: input
 func (r *StreamCompletion) Input(inputs ...string) *StreamCompletion {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	r.req.Input = make([]string, len(inputs))
 	r.req.Input = inputs
 
 	return r
 }
 
-// Optional task settings
+// TaskSettings Optional task settings
 // API name: task_settings
 func (r *StreamCompletion) TaskSettings(tasksettings json.RawMessage) *StreamCompletion {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.TaskSettings = tasksettings
 
 	return r

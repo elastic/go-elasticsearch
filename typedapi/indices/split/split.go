@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Split an index.
 // Split an index into a new index with more primary shards.
@@ -190,6 +190,8 @@ func New(tp elastictransport.Interface) *Split {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -500,62 +502,20 @@ func (r *Split) Pretty(pretty bool) *Split {
 	return r
 }
 
-// Aliases for the resulting index.
+// Aliases Aliases for the resulting index.
 // API name: aliases
 func (r *Split) Aliases(aliases map[string]types.Alias) *Split {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Aliases = aliases
+
 	return r
 }
 
-func (r *Split) AddAlias(key string, value types.AliasVariant) *Split {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.Alias
-	if r.req.Aliases == nil {
-		r.req.Aliases = make(map[string]types.Alias)
-	} else {
-		tmp = r.req.Aliases
-	}
-
-	tmp[key] = *value.AliasCaster()
-
-	r.req.Aliases = tmp
-	return r
-}
-
-// Configuration options for the target index.
+// Settings Configuration options for the target index.
 // API name: settings
 func (r *Split) Settings(settings map[string]json.RawMessage) *Split {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Settings = settings
-	return r
-}
 
-func (r *Split) AddSetting(key string, value json.RawMessage) *Split {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Settings == nil {
-		r.req.Settings = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Settings
-	}
-
-	tmp[key] = value
-
-	r.req.Settings = tmp
 	return r
 }

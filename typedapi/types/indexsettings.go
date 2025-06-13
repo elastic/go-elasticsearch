@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/indices/_types/IndexSettings.ts#L70-L176
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/indices/_types/IndexSettings.ts#L70-L176
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -565,55 +565,55 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 				case "BM25":
 					oo := NewSettingsSimilarityBm25()
 					if err := localDec.Decode(&oo); err != nil {
-						return fmt.Errorf("Similarity | %w", err)
+						return err
 					}
 					s.Similarity[key] = oo
 				case "boolean":
 					oo := NewSettingsSimilarityBoolean()
 					if err := localDec.Decode(&oo); err != nil {
-						return fmt.Errorf("Similarity | %w", err)
+						return err
 					}
 					s.Similarity[key] = oo
 				case "DFI":
 					oo := NewSettingsSimilarityDfi()
 					if err := localDec.Decode(&oo); err != nil {
-						return fmt.Errorf("Similarity | %w", err)
+						return err
 					}
 					s.Similarity[key] = oo
 				case "DFR":
 					oo := NewSettingsSimilarityDfr()
 					if err := localDec.Decode(&oo); err != nil {
-						return fmt.Errorf("Similarity | %w", err)
+						return err
 					}
 					s.Similarity[key] = oo
 				case "IB":
 					oo := NewSettingsSimilarityIb()
 					if err := localDec.Decode(&oo); err != nil {
-						return fmt.Errorf("Similarity | %w", err)
+						return err
 					}
 					s.Similarity[key] = oo
 				case "LMDirichlet":
 					oo := NewSettingsSimilarityLmd()
 					if err := localDec.Decode(&oo); err != nil {
-						return fmt.Errorf("Similarity | %w", err)
+						return err
 					}
 					s.Similarity[key] = oo
 				case "LMJelinekMercer":
 					oo := NewSettingsSimilarityLmj()
 					if err := localDec.Decode(&oo); err != nil {
-						return fmt.Errorf("Similarity | %w", err)
+						return err
 					}
 					s.Similarity[key] = oo
 				case "scripted":
 					oo := NewSettingsSimilarityScripted()
 					if err := localDec.Decode(&oo); err != nil {
-						return fmt.Errorf("Similarity | %w", err)
+						return err
 					}
 					s.Similarity[key] = oo
 				default:
 					oo := new(SettingsSimilarity)
 					if err := localDec.Decode(&oo); err != nil {
-						return fmt.Errorf("new(SettingsSimilarity) | %w", err)
+						return err
 					}
 					s.Similarity[key] = oo
 				}
@@ -732,19 +732,9 @@ func (s IndexSettings) MarshalJSON() ([]byte, error) {
 // NewIndexSettings returns a IndexSettings.
 func NewIndexSettings() *IndexSettings {
 	r := &IndexSettings{
-		IndexSettings: make(map[string]json.RawMessage),
-		Similarity:    make(map[string]SettingsSimilarity),
+		IndexSettings: make(map[string]json.RawMessage, 0),
+		Similarity:    make(map[string]SettingsSimilarity, 0),
 	}
 
 	return r
-}
-
-// true
-
-type IndexSettingsVariant interface {
-	IndexSettingsCaster() *IndexSettings
-}
-
-func (s *IndexSettings) IndexSettingsCaster() *IndexSettings {
-	return s
 }

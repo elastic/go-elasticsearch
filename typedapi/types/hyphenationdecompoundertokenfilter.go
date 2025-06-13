@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,17 +31,42 @@ import (
 
 // HyphenationDecompounderTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/analysis/token_filters.ts#L57-L59
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/analysis/token_filters.ts#L67-L76
 type HyphenationDecompounderTokenFilter struct {
-	HyphenationPatternsPath *string  `json:"hyphenation_patterns_path,omitempty"`
-	MaxSubwordSize          *int     `json:"max_subword_size,omitempty"`
-	MinSubwordSize          *int     `json:"min_subword_size,omitempty"`
-	MinWordSize             *int     `json:"min_word_size,omitempty"`
-	OnlyLongestMatch        *bool    `json:"only_longest_match,omitempty"`
-	Type                    string   `json:"type,omitempty"`
-	Version                 *string  `json:"version,omitempty"`
-	WordList                []string `json:"word_list,omitempty"`
-	WordListPath            *string  `json:"word_list_path,omitempty"`
+	// HyphenationPatternsPath Path to an Apache FOP (Formatting Objects Processor) XML hyphenation pattern
+	// file.
+	// This path must be absolute or relative to the `config` location. Only FOP
+	// v1.2 compatible files are supported.
+	HyphenationPatternsPath string `json:"hyphenation_patterns_path"`
+	// MaxSubwordSize Maximum subword character length. Longer subword tokens are excluded from the
+	// output. Defaults to `15`.
+	MaxSubwordSize *int `json:"max_subword_size,omitempty"`
+	// MinSubwordSize Minimum subword character length. Shorter subword tokens are excluded from
+	// the output. Defaults to `2`.
+	MinSubwordSize *int `json:"min_subword_size,omitempty"`
+	// MinWordSize Minimum word character length. Shorter word tokens are excluded from the
+	// output. Defaults to `5`.
+	MinWordSize *int `json:"min_word_size,omitempty"`
+	// NoOverlappingMatches If `true`, do not allow overlapping tokens. Defaults to `false`.
+	NoOverlappingMatches *bool `json:"no_overlapping_matches,omitempty"`
+	// NoSubMatches If `true`, do not match sub tokens in tokens that are in the word list.
+	// Defaults to `false`.
+	NoSubMatches *bool `json:"no_sub_matches,omitempty"`
+	// OnlyLongestMatch If `true`, only include the longest matching subword. Defaults to `false`.
+	OnlyLongestMatch *bool   `json:"only_longest_match,omitempty"`
+	Type             string  `json:"type,omitempty"`
+	Version          *string `json:"version,omitempty"`
+	// WordList A list of subwords to look for in the token stream. If found, the subword is
+	// included in the token output.
+	// Either this parameter or `word_list_path` must be specified.
+	WordList []string `json:"word_list,omitempty"`
+	// WordListPath Path to a file that contains a list of subwords to find in the token stream.
+	// If found, the subword is included in the token output.
+	// This path must be absolute or relative to the config location, and the file
+	// must be UTF-8 encoded. Each token in the file must be separated by a line
+	// break.
+	// Either this parameter or `word_list` must be specified.
+	WordListPath *string `json:"word_list_path,omitempty"`
 }
 
 func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
@@ -69,7 +94,7 @@ func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.HyphenationPatternsPath = &o
+			s.HyphenationPatternsPath = o
 
 		case "max_subword_size":
 
@@ -117,6 +142,34 @@ func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int(v)
 				s.MinWordSize = &f
+			}
+
+		case "no_overlapping_matches":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "NoOverlappingMatches", err)
+				}
+				s.NoOverlappingMatches = &value
+			case bool:
+				s.NoOverlappingMatches = &v
+			}
+
+		case "no_sub_matches":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "NoSubMatches", err)
+				}
+				s.NoSubMatches = &value
+			case bool:
+				s.NoSubMatches = &v
 			}
 
 		case "only_longest_match":
@@ -173,6 +226,8 @@ func (s HyphenationDecompounderTokenFilter) MarshalJSON() ([]byte, error) {
 		MaxSubwordSize:          s.MaxSubwordSize,
 		MinSubwordSize:          s.MinSubwordSize,
 		MinWordSize:             s.MinWordSize,
+		NoOverlappingMatches:    s.NoOverlappingMatches,
+		NoSubMatches:            s.NoSubMatches,
 		OnlyLongestMatch:        s.OnlyLongestMatch,
 		Type:                    s.Type,
 		Version:                 s.Version,
@@ -190,14 +245,4 @@ func NewHyphenationDecompounderTokenFilter() *HyphenationDecompounderTokenFilter
 	r := &HyphenationDecompounderTokenFilter{}
 
 	return r
-}
-
-// true
-
-type HyphenationDecompounderTokenFilterVariant interface {
-	HyphenationDecompounderTokenFilterCaster() *HyphenationDecompounderTokenFilter
-}
-
-func (s *HyphenationDecompounderTokenFilter) HyphenationDecompounderTokenFilterCaster() *HyphenationDecompounderTokenFilter {
-	return s
 }

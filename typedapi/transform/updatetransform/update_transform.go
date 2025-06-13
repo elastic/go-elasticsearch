@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update a transform.
 // Updates certain properties of a transform.
@@ -105,7 +105,7 @@ func NewUpdateTransformFunc(tp elastictransport.Interface) NewUpdateTransform {
 // roles the user who updated it had at the
 // time of update and runs with those privileges.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-transform.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-transform-update-transform
 func New(tp elastictransport.Interface) *UpdateTransform {
 	r := &UpdateTransform{
 		transport: tp,
@@ -113,6 +113,8 @@ func New(tp elastictransport.Interface) *UpdateTransform {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -398,110 +400,75 @@ func (r *UpdateTransform) Pretty(pretty bool) *UpdateTransform {
 	return r
 }
 
-// Free text description of the transform.
+// Description Free text description of the transform.
 // API name: description
 func (r *UpdateTransform) Description(description string) *UpdateTransform {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Description = &description
 
 	return r
 }
 
-// The destination for the transform.
+// Dest The destination for the transform.
 // API name: dest
-func (r *UpdateTransform) Dest(dest types.TransformDestinationVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateTransform) Dest(dest *types.TransformDestination) *UpdateTransform {
 
-	r.req.Dest = dest.TransformDestinationCaster()
+	r.req.Dest = dest
 
 	return r
 }
 
-// The interval between checks for changes in the source indices when the
+// Frequency The interval between checks for changes in the source indices when the
 // transform is running continuously. Also determines the retry interval in
 // the event of transient failures while the transform is searching or
 // indexing. The minimum value is 1s and the maximum is 1h.
 // API name: frequency
-func (r *UpdateTransform) Frequency(duration types.DurationVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Frequency = *duration.DurationCaster()
+func (r *UpdateTransform) Frequency(duration types.Duration) *UpdateTransform {
+	r.req.Frequency = duration
 
 	return r
 }
 
-// Defines optional transform metadata.
+// Meta_ Defines optional transform metadata.
 // API name: _meta
-func (r *UpdateTransform) Meta_(metadata types.MetadataVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Meta_ = *metadata.MetadataCaster()
+func (r *UpdateTransform) Meta_(metadata types.Metadata) *UpdateTransform {
+	r.req.Meta_ = metadata
 
 	return r
 }
 
-// Defines a retention policy for the transform. Data that meets the defined
+// RetentionPolicy Defines a retention policy for the transform. Data that meets the defined
 // criteria is deleted from the destination index.
 // API name: retention_policy
-func (r *UpdateTransform) RetentionPolicy(retentionpolicy types.RetentionPolicyContainerVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.RetentionPolicy = retentionpolicy.RetentionPolicyContainerCaster()
+func (r *UpdateTransform) RetentionPolicy(retentionpolicy types.RetentionPolicyContainer) *UpdateTransform {
+	r.req.RetentionPolicy = &retentionpolicy
 
 	return r
 }
 
-// Defines optional transform settings.
+// Settings Defines optional transform settings.
 // API name: settings
-func (r *UpdateTransform) Settings(settings types.SettingsVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateTransform) Settings(settings *types.Settings) *UpdateTransform {
 
-	r.req.Settings = settings.SettingsCaster()
+	r.req.Settings = settings
 
 	return r
 }
 
-// The source of the data for the transform.
+// Source The source of the data for the transform.
 // API name: source
-func (r *UpdateTransform) Source(source types.TransformSourceVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateTransform) Source(source *types.TransformSource) *UpdateTransform {
 
-	r.req.Source = source.TransformSourceCaster()
+	r.req.Source = source
 
 	return r
 }
 
-// Defines the properties transforms require to run continuously.
+// Sync Defines the properties transforms require to run continuously.
 // API name: sync
-func (r *UpdateTransform) Sync(sync types.SyncContainerVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateTransform) Sync(sync *types.SyncContainer) *UpdateTransform {
 
-	r.req.Sync = sync.SyncContainerCaster()
+	r.req.Sync = sync
 
 	return r
 }

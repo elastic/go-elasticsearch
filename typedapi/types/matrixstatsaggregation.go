@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // MatrixStatsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/aggregations/matrix.ts#L38-L44
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/aggregations/matrix.ts#L38-L44
 type MatrixStatsAggregation struct {
 	// Fields An array of fields for computing the statistics.
 	Fields []string `json:"fields,omitempty"`
@@ -95,18 +95,8 @@ func (s *MatrixStatsAggregation) UnmarshalJSON(data []byte) error {
 // NewMatrixStatsAggregation returns a MatrixStatsAggregation.
 func NewMatrixStatsAggregation() *MatrixStatsAggregation {
 	r := &MatrixStatsAggregation{
-		Missing: make(map[string]Float64),
+		Missing: make(map[string]Float64, 0),
 	}
 
 	return r
-}
-
-// true
-
-type MatrixStatsAggregationVariant interface {
-	MatrixStatsAggregationCaster() *MatrixStatsAggregation
-}
-
-func (s *MatrixStatsAggregation) MatrixStatsAggregationCaster() *MatrixStatsAggregation {
-	return s
 }

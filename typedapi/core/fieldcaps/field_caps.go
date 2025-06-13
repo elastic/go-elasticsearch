@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Get the field capabilities.
 //
@@ -106,6 +106,8 @@ func New(tp elastictransport.Interface) *FieldCaps {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -451,21 +453,16 @@ func (r *FieldCaps) Pretty(pretty bool) *FieldCaps {
 	return r
 }
 
-// A list of fields to retrieve capabilities for. Wildcard (`*`) expressions are
+// Fields A list of fields to retrieve capabilities for. Wildcard (`*`) expressions are
 // supported.
 // API name: fields
 func (r *FieldCaps) Fields(fields ...string) *FieldCaps {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Fields = fields
 
 	return r
 }
 
-// Filter indices if the provided query rewrites to `match_none` on every shard.
+// IndexFilter Filter indices if the provided query rewrites to `match_none` on every shard.
 //
 // IMPORTANT: The filtering is done on a best-effort basis, it uses index
 // statistics and mappings to rewrite queries to `match_none` instead of fully
@@ -476,29 +473,20 @@ func (r *FieldCaps) Fields(fields ...string) *FieldCaps {
 // However, not all queries can rewrite to `match_none` so this API may return
 // an index even if the provided filter matches no document.
 // API name: index_filter
-func (r *FieldCaps) IndexFilter(indexfilter types.QueryVariant) *FieldCaps {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *FieldCaps) IndexFilter(indexfilter *types.Query) *FieldCaps {
 
-	r.req.IndexFilter = indexfilter.QueryCaster()
+	r.req.IndexFilter = indexfilter
 
 	return r
 }
 
-// Define ad-hoc runtime fields in the request similar to the way it is done in
+// RuntimeMappings Define ad-hoc runtime fields in the request similar to the way it is done in
 // search requests.
 // These fields exist only as part of the query and take precedence over fields
 // defined with the same name in the index mappings.
 // API name: runtime_mappings
-func (r *FieldCaps) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *FieldCaps {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
+func (r *FieldCaps) RuntimeMappings(runtimefields types.RuntimeFields) *FieldCaps {
+	r.req.RuntimeMappings = runtimefields
 
 	return r
 }

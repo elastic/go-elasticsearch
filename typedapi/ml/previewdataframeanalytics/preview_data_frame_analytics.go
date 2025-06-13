@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Preview features used by data frame analytics.
 // Preview the extracted features used by a data frame analytics config.
@@ -91,6 +91,8 @@ func New(tp elastictransport.Interface) *PreviewDataFrameAnalytics {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -372,17 +374,13 @@ func (r *PreviewDataFrameAnalytics) Pretty(pretty bool) *PreviewDataFrameAnalyti
 	return r
 }
 
-// A data frame analytics config as described in create data frame analytics
+// Config A data frame analytics config as described in create data frame analytics
 // jobs. Note that `id` and `dest` don’t need to be provided in the context of
 // this API.
 // API name: config
-func (r *PreviewDataFrameAnalytics) Config(config types.DataframePreviewConfigVariant) *PreviewDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PreviewDataFrameAnalytics) Config(config *types.DataframePreviewConfig) *PreviewDataFrameAnalytics {
 
-	r.req.Config = config.DataframePreviewConfigCaster()
+	r.req.Config = config
 
 	return r
 }

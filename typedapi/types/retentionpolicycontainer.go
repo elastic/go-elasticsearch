@@ -16,68 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // RetentionPolicyContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/transform/_types/Transform.ts#L80-L86
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/transform/_types/Transform.ts#L80-L86
 type RetentionPolicyContainer struct {
-	AdditionalRetentionPolicyContainerProperty map[string]json.RawMessage `json:"-"`
 	// Time Specifies that the transform uses a time field to set the retention policy.
 	Time *RetentionPolicy `json:"time,omitempty"`
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s RetentionPolicyContainer) MarshalJSON() ([]byte, error) {
-	type opt RetentionPolicyContainer
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalRetentionPolicyContainerProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalRetentionPolicyContainerProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewRetentionPolicyContainer returns a RetentionPolicyContainer.
 func NewRetentionPolicyContainer() *RetentionPolicyContainer {
-	r := &RetentionPolicyContainer{
-		AdditionalRetentionPolicyContainerProperty: make(map[string]json.RawMessage),
-	}
+	r := &RetentionPolicyContainer{}
 
 	return r
-}
-
-// true
-
-type RetentionPolicyContainerVariant interface {
-	RetentionPolicyContainerCaster() *RetentionPolicyContainer
-}
-
-func (s *RetentionPolicyContainer) RetentionPolicyContainerCaster() *RetentionPolicyContainer {
-	return s
 }

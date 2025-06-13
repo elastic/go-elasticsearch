@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update documents.
 // Updates documents that match the specified query.
@@ -367,6 +367,8 @@ func New(tp elastictransport.Interface) *UpdateByQuery {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -934,67 +936,48 @@ func (r *UpdateByQuery) Pretty(pretty bool) *UpdateByQuery {
 	return r
 }
 
-// The preferred behavior when update by query hits version conflicts: `abort`
+// Conflicts The preferred behavior when update by query hits version conflicts: `abort`
 // or `proceed`.
 // API name: conflicts
 func (r *UpdateByQuery) Conflicts(conflicts conflicts.Conflicts) *UpdateByQuery {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.Conflicts = &conflicts
+
 	return r
 }
 
-// The maximum number of documents to update.
+// MaxDocs The maximum number of documents to update.
 // API name: max_docs
 func (r *UpdateByQuery) MaxDocs(maxdocs int64) *UpdateByQuery {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.MaxDocs = &maxdocs
 
 	return r
 }
 
-// The documents to update using the Query DSL.
+// Query The documents to update using the Query DSL.
 // API name: query
-func (r *UpdateByQuery) Query(query types.QueryVariant) *UpdateByQuery {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateByQuery) Query(query *types.Query) *UpdateByQuery {
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }
 
-// The script to run to update the document source or metadata when updating.
+// Script The script to run to update the document source or metadata when updating.
 // API name: script
-func (r *UpdateByQuery) Script(script types.ScriptVariant) *UpdateByQuery {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateByQuery) Script(script *types.Script) *UpdateByQuery {
 
-	r.req.Script = script.ScriptCaster()
+	r.req.Script = script
 
 	return r
 }
 
-// Slice the request manually using the provided slice ID and total number of
+// Slice Slice the request manually using the provided slice ID and total number of
 // slices.
 // API name: slice
-func (r *UpdateByQuery) Slice(slice types.SlicedScrollVariant) *UpdateByQuery {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateByQuery) Slice(slice *types.SlicedScroll) *UpdateByQuery {
 
-	r.req.Slice = slice.SlicedScrollCaster()
+	r.req.Slice = slice
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // QueryBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_global/search/_types/profile.ts#L105-L126
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_global/search/_types/profile.ts#L105-L126
 type QueryBreakdown struct {
 	Advance                     int64 `json:"advance"`
 	AdvanceCount                int64 `json:"advance_count"`
@@ -381,5 +381,3 @@ func NewQueryBreakdown() *QueryBreakdown {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Find API keys with a query.
 //
@@ -105,6 +105,8 @@ func New(tp elastictransport.Interface) *QueryApiKeys {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -394,7 +396,7 @@ func (r *QueryApiKeys) Pretty(pretty bool) *QueryApiKeys {
 	return r
 }
 
-// Any aggregations to run over the corpus of returned API keys.
+// Aggregations Any aggregations to run over the corpus of returned API keys.
 // Aggregations and queries work together. Aggregations are computed only on the
 // API keys that match the query.
 // This supports only a subset of aggregation types, namely: `terms`, `range`,
@@ -404,51 +406,25 @@ func (r *QueryApiKeys) Pretty(pretty bool) *QueryApiKeys {
 // works with.
 // API name: aggregations
 func (r *QueryApiKeys) Aggregations(aggregations map[string]types.ApiKeyAggregationContainer) *QueryApiKeys {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Aggregations = aggregations
+
 	return r
 }
 
-func (r *QueryApiKeys) AddAggregation(key string, value types.ApiKeyAggregationContainerVariant) *QueryApiKeys {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.ApiKeyAggregationContainer
-	if r.req.Aggregations == nil {
-		r.req.Aggregations = make(map[string]types.ApiKeyAggregationContainer)
-	} else {
-		tmp = r.req.Aggregations
-	}
-
-	tmp[key] = *value.ApiKeyAggregationContainerCaster()
-
-	r.req.Aggregations = tmp
-	return r
-}
-
-// The starting document offset.
+// From The starting document offset.
 // It must not be negative.
 // By default, you cannot page through more than 10,000 hits using the `from`
 // and `size` parameters.
 // To page through more hits, use the `search_after` parameter.
 // API name: from
 func (r *QueryApiKeys) From(from int) *QueryApiKeys {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.From = &from
 
 	return r
 }
 
-// A query to filter which API keys to return.
+// Query A query to filter which API keys to return.
 // If the query parameter is missing, it is equivalent to a `match_all` query.
 // The query supports a subset of query types, including `match_all`, `bool`,
 // `term`, `terms`, `match`,
@@ -465,33 +441,22 @@ func (r *QueryApiKeys) From(from int) *QueryApiKeys {
 // value.
 // Such a match query is hence equivalent to a `term` query.
 // API name: query
-func (r *QueryApiKeys) Query(query types.ApiKeyQueryContainerVariant) *QueryApiKeys {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *QueryApiKeys) Query(query *types.ApiKeyQueryContainer) *QueryApiKeys {
 
-	r.req.Query = query.ApiKeyQueryContainerCaster()
+	r.req.Query = query
 
 	return r
 }
 
-// The search after definition.
+// SearchAfter The search after definition.
 // API name: search_after
-func (r *QueryApiKeys) SearchAfter(sortresults ...types.FieldValueVariant) *QueryApiKeys {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	for _, v := range sortresults {
-		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
-	}
+func (r *QueryApiKeys) SearchAfter(sortresults ...types.FieldValue) *QueryApiKeys {
+	r.req.SearchAfter = sortresults
 
 	return r
 }
 
-// The number of hits to return.
+// Size The number of hits to return.
 // It must not be negative.
 // The `size` parameter can be set to `0`, in which case no API key matches are
 // returned, only the aggregation results.
@@ -500,30 +465,18 @@ func (r *QueryApiKeys) SearchAfter(sortresults ...types.FieldValueVariant) *Quer
 // To page through more hits, use the `search_after` parameter.
 // API name: size
 func (r *QueryApiKeys) Size(size int) *QueryApiKeys {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Size = &size
 
 	return r
 }
 
-// The sort definition.
+// Sort The sort definition.
 // Other than `id`, all public fields of an API key are eligible for sorting.
 // In addition, sort can also be applied to the `_doc` field to sort by index
 // order.
 // API name: sort
-func (r *QueryApiKeys) Sort(sorts ...types.SortCombinationsVariant) *QueryApiKeys {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	for _, v := range sorts {
-		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
-	}
+func (r *QueryApiKeys) Sort(sorts ...types.SortCombinations) *QueryApiKeys {
+	r.req.Sort = sorts
 
 	return r
 }

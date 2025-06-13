@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update a trained model deployment.
 package updatetrainedmodeldeployment
@@ -83,7 +83,7 @@ func NewUpdateTrainedModelDeploymentFunc(tp elastictransport.Interface) NewUpdat
 
 // Update a trained model deployment.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-trained-model-deployment.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-ml-update-trained-model-deployment
 func New(tp elastictransport.Interface) *UpdateTrainedModelDeployment {
 	r := &UpdateTrainedModelDeployment{
 		transport: tp,
@@ -91,6 +91,8 @@ func New(tp elastictransport.Interface) *UpdateTrainedModelDeployment {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -362,23 +364,19 @@ func (r *UpdateTrainedModelDeployment) Pretty(pretty bool) *UpdateTrainedModelDe
 	return r
 }
 
-// Adaptive allocations configuration. When enabled, the number of allocations
+// AdaptiveAllocations Adaptive allocations configuration. When enabled, the number of allocations
 // is set based on the current load.
 // If adaptive_allocations is enabled, do not set the number of allocations
 // manually.
 // API name: adaptive_allocations
-func (r *UpdateTrainedModelDeployment) AdaptiveAllocations(adaptiveallocations types.AdaptiveAllocationsSettingsVariant) *UpdateTrainedModelDeployment {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateTrainedModelDeployment) AdaptiveAllocations(adaptiveallocations *types.AdaptiveAllocationsSettings) *UpdateTrainedModelDeployment {
 
-	r.req.AdaptiveAllocations = adaptiveallocations.AdaptiveAllocationsSettingsCaster()
+	r.req.AdaptiveAllocations = adaptiveallocations
 
 	return r
 }
 
-// The number of model allocations on each node where the model is deployed.
+// NumberOfAllocations The number of model allocations on each node where the model is deployed.
 // All allocations on a node share the same copy of the model in memory but use
 // a separate set of threads to evaluate the model.
 // Increasing this value generally increases the throughput.
@@ -389,11 +387,6 @@ func (r *UpdateTrainedModelDeployment) AdaptiveAllocations(adaptiveallocations t
 // automatically set.
 // API name: number_of_allocations
 func (r *UpdateTrainedModelDeployment) NumberOfAllocations(numberofallocations int) *UpdateTrainedModelDeployment {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.NumberOfAllocations = &numberofallocations
 
 	return r

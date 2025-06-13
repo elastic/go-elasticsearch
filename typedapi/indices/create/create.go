@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create an index.
 // You can use the create index API to add a new index to an Elasticsearch
@@ -159,6 +159,8 @@ func New(tp elastictransport.Interface) *Create {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -452,61 +454,32 @@ func (r *Create) Pretty(pretty bool) *Create {
 	return r
 }
 
-// Aliases for the index.
+// Aliases Aliases for the index.
 // API name: aliases
 func (r *Create) Aliases(aliases map[string]types.Alias) *Create {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Aliases = aliases
+
 	return r
 }
 
-func (r *Create) AddAlias(key string, value types.AliasVariant) *Create {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.Alias
-	if r.req.Aliases == nil {
-		r.req.Aliases = make(map[string]types.Alias)
-	} else {
-		tmp = r.req.Aliases
-	}
-
-	tmp[key] = *value.AliasCaster()
-
-	r.req.Aliases = tmp
-	return r
-}
-
-// Mapping for fields in the index. If specified, this mapping can include:
+// Mappings Mapping for fields in the index. If specified, this mapping can include:
 // - Field names
 // - Field data types
 // - Mapping parameters
 // API name: mappings
-func (r *Create) Mappings(mappings types.TypeMappingVariant) *Create {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Create) Mappings(mappings *types.TypeMapping) *Create {
 
-	r.req.Mappings = mappings.TypeMappingCaster()
+	r.req.Mappings = mappings
 
 	return r
 }
 
-// Configuration options for the index.
+// Settings Configuration options for the index.
 // API name: settings
-func (r *Create) Settings(settings types.IndexSettingsVariant) *Create {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Create) Settings(settings *types.IndexSettings) *Create {
 
-	r.req.Settings = settings.IndexSettingsCaster()
+	r.req.Settings = settings
 
 	return r
 }

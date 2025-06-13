@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update index settings.
 // Changes dynamic index settings in real time.
@@ -25,9 +25,56 @@
 //
 // To revert a setting to the default value, use a null value.
 // The list of per-index settings that can be updated dynamically on live
-// indices can be found in index module documentation.
+// indices can be found in index settings documentation.
 // To preserve existing settings from being updated, set the `preserve_existing`
 // parameter to `true`.
+//
+//	There are multiple valid ways to represent index settings in the request
+//
+// body. You can specify only the setting, for example:
+//
+// ```
+//
+//	{
+//	  "number_of_replicas": 1
+//	}
+//
+// ```
+//
+// Or you can use an `index` setting object:
+// ```
+//
+//	{
+//	  "index": {
+//	    "number_of_replicas": 1
+//	  }
+//	}
+//
+// ```
+//
+// Or you can use dot annotation:
+// ```
+//
+//	{
+//	  "index.number_of_replicas": 1
+//	}
+//
+// ```
+//
+// Or you can embed any of the aforementioned options in a `settings` object.
+// For example:
+//
+// ```
+//
+//	{
+//	  "settings": {
+//	    "index": {
+//	      "number_of_replicas": 1
+//	    }
+//	  }
+//	}
+//
+// ```
 //
 // NOTE: You can only define new analyzers on closed indices.
 // To add an analyzer, you must close the index, define the analyzer, and reopen
@@ -112,9 +159,56 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 //
 // To revert a setting to the default value, use a null value.
 // The list of per-index settings that can be updated dynamically on live
-// indices can be found in index module documentation.
+// indices can be found in index settings documentation.
 // To preserve existing settings from being updated, set the `preserve_existing`
 // parameter to `true`.
+//
+//	There are multiple valid ways to represent index settings in the request
+//
+// body. You can specify only the setting, for example:
+//
+// ```
+//
+//	{
+//	  "number_of_replicas": 1
+//	}
+//
+// ```
+//
+// Or you can use an `index` setting object:
+// ```
+//
+//	{
+//	  "index": {
+//	    "number_of_replicas": 1
+//	  }
+//	}
+//
+// ```
+//
+// Or you can use dot annotation:
+// ```
+//
+//	{
+//	  "index.number_of_replicas": 1
+//	}
+//
+// ```
+//
+// Or you can embed any of the aforementioned options in a `settings` object.
+// For example:
+//
+// ```
+//
+//	{
+//	  "settings": {
+//	    "index": {
+//	      "number_of_replicas": 1
+//	    }
+//	  }
+//	}
+//
+// ```
 //
 // NOTE: You can only define new analyzers on closed indices.
 // To add an analyzer, you must close the index, define the analyzer, and reopen
@@ -139,6 +233,8 @@ func New(tp elastictransport.Interface) *PutSettings {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -493,71 +589,47 @@ func (r *PutSettings) Pretty(pretty bool) *PutSettings {
 }
 
 // API name: analysis
-func (r *PutSettings) Analysis(analysis types.IndexSettingsAnalysisVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Analysis(analysis *types.IndexSettingsAnalysis) *PutSettings {
 
-	r.req.Analysis = analysis.IndexSettingsAnalysisCaster()
+	r.req.Analysis = analysis
 
 	return r
 }
 
-// Settings to define analyzers, tokenizers, token filters and character
+// Analyze Settings to define analyzers, tokenizers, token filters and character
 // filters.
 // API name: analyze
-func (r *PutSettings) Analyze(analyze types.SettingsAnalyzeVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Analyze(analyze *types.SettingsAnalyze) *PutSettings {
 
-	r.req.Analyze = analyze.SettingsAnalyzeCaster()
+	r.req.Analyze = analyze
 
 	return r
 }
 
 // API name: auto_expand_replicas
 func (r *PutSettings) AutoExpandReplicas(autoexpandreplicas any) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.AutoExpandReplicas = autoexpandreplicas
 
 	return r
 }
 
 // API name: blocks
-func (r *PutSettings) Blocks(blocks types.IndexSettingBlocksVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Blocks(blocks *types.IndexSettingBlocks) *PutSettings {
 
-	r.req.Blocks = blocks.IndexSettingBlocksCaster()
+	r.req.Blocks = blocks
 
 	return r
 }
 
 // API name: check_on_startup
 func (r *PutSettings) CheckOnStartup(checkonstartup indexcheckonstartup.IndexCheckOnStartup) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.CheckOnStartup = &checkonstartup
+
 	return r
 }
 
 // API name: codec
 func (r *PutSettings) Codec(codec string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Codec = &codec
 
@@ -565,36 +637,21 @@ func (r *PutSettings) Codec(codec string) *PutSettings {
 }
 
 // API name: creation_date
-func (r *PutSettings) CreationDate(stringifiedepochtimeunitmillis types.StringifiedEpochTimeUnitMillisVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.CreationDate = *stringifiedepochtimeunitmillis.StringifiedEpochTimeUnitMillisCaster()
+func (r *PutSettings) CreationDate(stringifiedepochtimeunitmillis types.StringifiedEpochTimeUnitMillis) *PutSettings {
+	r.req.CreationDate = stringifiedepochtimeunitmillis
 
 	return r
 }
 
 // API name: creation_date_string
-func (r *PutSettings) CreationDateString(datetime types.DateTimeVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.CreationDateString = *datetime.DateTimeCaster()
+func (r *PutSettings) CreationDateString(datetime types.DateTime) *PutSettings {
+	r.req.CreationDateString = datetime
 
 	return r
 }
 
 // API name: default_pipeline
 func (r *PutSettings) DefaultPipeline(pipelinename string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.DefaultPipeline = &pipelinename
 
 	return r
@@ -602,11 +659,6 @@ func (r *PutSettings) DefaultPipeline(pipelinename string) *PutSettings {
 
 // API name: final_pipeline
 func (r *PutSettings) FinalPipeline(pipelinename string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.FinalPipeline = &pipelinename
 
 	return r
@@ -614,162 +666,92 @@ func (r *PutSettings) FinalPipeline(pipelinename string) *PutSettings {
 
 // API name: format
 func (r *PutSettings) Format(format string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Format = format
 
 	return r
 }
 
 // API name: gc_deletes
-func (r *PutSettings) GcDeletes(duration types.DurationVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.GcDeletes = *duration.DurationCaster()
+func (r *PutSettings) GcDeletes(duration types.Duration) *PutSettings {
+	r.req.GcDeletes = duration
 
 	return r
 }
 
 // API name: hidden
 func (r *PutSettings) Hidden(hidden string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Hidden = hidden
 
 	return r
 }
 
 // API name: highlight
-func (r *PutSettings) Highlight(highlight types.SettingsHighlightVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Highlight(highlight *types.SettingsHighlight) *PutSettings {
 
-	r.req.Highlight = highlight.SettingsHighlightCaster()
+	r.req.Highlight = highlight
 
 	return r
 }
 
 // API name: index
-func (r *PutSettings) Index(index types.IndexSettingsVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Index(index *types.IndexSettings) *PutSettings {
 
-	r.req.Index = index.IndexSettingsCaster()
+	r.req.Index = index
 
 	return r
 }
 
 // API name: IndexSettings
 func (r *PutSettings) IndexSettings(indexsettings map[string]json.RawMessage) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.IndexSettings = indexsettings
+
 	return r
 }
 
-func (r *PutSettings) AddIndexSetting(key string, value json.RawMessage) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.IndexSettings == nil {
-		r.req.IndexSettings = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.IndexSettings
-	}
-
-	tmp[key] = value
-
-	r.req.IndexSettings = tmp
-	return r
-}
-
-// Configure indexing back pressure limits.
+// IndexingPressure Configure indexing back pressure limits.
 // API name: indexing_pressure
-func (r *PutSettings) IndexingPressure(indexingpressure types.IndicesIndexingPressureVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) IndexingPressure(indexingpressure *types.IndicesIndexingPressure) *PutSettings {
 
-	r.req.IndexingPressure = indexingpressure.IndicesIndexingPressureCaster()
+	r.req.IndexingPressure = indexingpressure
 
 	return r
 }
 
 // API name: indexing.slowlog
-func (r *PutSettings) IndexingSlowlog(indexingslowlog types.IndexingSlowlogSettingsVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) IndexingSlowlog(indexingslowlog *types.IndexingSlowlogSettings) *PutSettings {
 
-	r.req.IndexingSlowlog = indexingslowlog.IndexingSlowlogSettingsCaster()
+	r.req.IndexingSlowlog = indexingslowlog
 
 	return r
 }
 
 // API name: lifecycle
-func (r *PutSettings) Lifecycle(lifecycle types.IndexSettingsLifecycleVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Lifecycle(lifecycle *types.IndexSettingsLifecycle) *PutSettings {
 
-	r.req.Lifecycle = lifecycle.IndexSettingsLifecycleCaster()
+	r.req.Lifecycle = lifecycle
 
 	return r
 }
 
 // API name: load_fixed_bitset_filters_eagerly
 func (r *PutSettings) LoadFixedBitsetFiltersEagerly(loadfixedbitsetfilterseagerly bool) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.LoadFixedBitsetFiltersEagerly = &loadfixedbitsetfilterseagerly
 
 	return r
 }
 
-// Enable or disable dynamic mapping for an index.
+// Mapping Enable or disable dynamic mapping for an index.
 // API name: mapping
-func (r *PutSettings) Mapping(mapping types.MappingLimitSettingsVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Mapping(mapping *types.MappingLimitSettings) *PutSettings {
 
-	r.req.Mapping = mapping.MappingLimitSettingsCaster()
+	r.req.Mapping = mapping
 
 	return r
 }
 
 // API name: max_docvalue_fields_search
 func (r *PutSettings) MaxDocvalueFieldsSearch(maxdocvaluefieldssearch int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.MaxDocvalueFieldsSearch = &maxdocvaluefieldssearch
 
 	return r
@@ -777,11 +759,6 @@ func (r *PutSettings) MaxDocvalueFieldsSearch(maxdocvaluefieldssearch int) *PutS
 
 // API name: max_inner_result_window
 func (r *PutSettings) MaxInnerResultWindow(maxinnerresultwindow int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.MaxInnerResultWindow = &maxinnerresultwindow
 
 	return r
@@ -789,11 +766,6 @@ func (r *PutSettings) MaxInnerResultWindow(maxinnerresultwindow int) *PutSetting
 
 // API name: max_ngram_diff
 func (r *PutSettings) MaxNgramDiff(maxngramdiff int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.MaxNgramDiff = &maxngramdiff
 
 	return r
@@ -801,11 +773,6 @@ func (r *PutSettings) MaxNgramDiff(maxngramdiff int) *PutSettings {
 
 // API name: max_refresh_listeners
 func (r *PutSettings) MaxRefreshListeners(maxrefreshlisteners int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.MaxRefreshListeners = &maxrefreshlisteners
 
 	return r
@@ -813,11 +780,6 @@ func (r *PutSettings) MaxRefreshListeners(maxrefreshlisteners int) *PutSettings 
 
 // API name: max_regex_length
 func (r *PutSettings) MaxRegexLength(maxregexlength int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.MaxRegexLength = &maxregexlength
 
 	return r
@@ -825,11 +787,6 @@ func (r *PutSettings) MaxRegexLength(maxregexlength int) *PutSettings {
 
 // API name: max_rescore_window
 func (r *PutSettings) MaxRescoreWindow(maxrescorewindow int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.MaxRescoreWindow = &maxrescorewindow
 
 	return r
@@ -837,11 +794,6 @@ func (r *PutSettings) MaxRescoreWindow(maxrescorewindow int) *PutSettings {
 
 // API name: max_result_window
 func (r *PutSettings) MaxResultWindow(maxresultwindow int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.MaxResultWindow = &maxresultwindow
 
 	return r
@@ -849,11 +801,6 @@ func (r *PutSettings) MaxResultWindow(maxresultwindow int) *PutSettings {
 
 // API name: max_script_fields
 func (r *PutSettings) MaxScriptFields(maxscriptfields int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.MaxScriptFields = &maxscriptfields
 
 	return r
@@ -861,11 +808,6 @@ func (r *PutSettings) MaxScriptFields(maxscriptfields int) *PutSettings {
 
 // API name: max_shingle_diff
 func (r *PutSettings) MaxShingleDiff(maxshinglediff int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.MaxShingleDiff = &maxshinglediff
 
 	return r
@@ -873,11 +815,6 @@ func (r *PutSettings) MaxShingleDiff(maxshinglediff int) *PutSettings {
 
 // API name: max_slices_per_scroll
 func (r *PutSettings) MaxSlicesPerScroll(maxslicesperscroll int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.MaxSlicesPerScroll = &maxslicesperscroll
 
 	return r
@@ -885,34 +822,21 @@ func (r *PutSettings) MaxSlicesPerScroll(maxslicesperscroll int) *PutSettings {
 
 // API name: max_terms_count
 func (r *PutSettings) MaxTermsCount(maxtermscount int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.MaxTermsCount = &maxtermscount
 
 	return r
 }
 
 // API name: merge
-func (r *PutSettings) Merge(merge types.MergeVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Merge(merge *types.Merge) *PutSettings {
 
-	r.req.Merge = merge.MergeCaster()
+	r.req.Merge = merge
 
 	return r
 }
 
 // API name: mode
 func (r *PutSettings) Mode(mode string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Mode = &mode
 
@@ -921,11 +845,6 @@ func (r *PutSettings) Mode(mode string) *PutSettings {
 
 // API name: number_of_replicas
 func (r *PutSettings) NumberOfReplicas(numberofreplicas string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.NumberOfReplicas = numberofreplicas
 
 	return r
@@ -933,11 +852,6 @@ func (r *PutSettings) NumberOfReplicas(numberofreplicas string) *PutSettings {
 
 // API name: number_of_routing_shards
 func (r *PutSettings) NumberOfRoutingShards(numberofroutingshards int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.NumberOfRoutingShards = &numberofroutingshards
 
 	return r
@@ -945,11 +859,6 @@ func (r *PutSettings) NumberOfRoutingShards(numberofroutingshards int) *PutSetti
 
 // API name: number_of_shards
 func (r *PutSettings) NumberOfShards(numberofshards string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.NumberOfShards = numberofshards
 
 	return r
@@ -957,11 +866,6 @@ func (r *PutSettings) NumberOfShards(numberofshards string) *PutSettings {
 
 // API name: priority
 func (r *PutSettings) Priority(priority string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Priority = priority
 
 	return r
@@ -969,224 +873,133 @@ func (r *PutSettings) Priority(priority string) *PutSettings {
 
 // API name: provided_name
 func (r *PutSettings) ProvidedName(name string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.ProvidedName = &name
 
 	return r
 }
 
 // API name: queries
-func (r *PutSettings) Queries(queries types.QueriesVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Queries(queries *types.Queries) *PutSettings {
 
-	r.req.Queries = queries.QueriesCaster()
+	r.req.Queries = queries
 
 	return r
 }
 
 // API name: query_string
-func (r *PutSettings) QueryString(querystring types.SettingsQueryStringVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) QueryString(querystring *types.SettingsQueryString) *PutSettings {
 
-	r.req.QueryString = querystring.SettingsQueryStringCaster()
+	r.req.QueryString = querystring
 
 	return r
 }
 
 // API name: refresh_interval
-func (r *PutSettings) RefreshInterval(duration types.DurationVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.RefreshInterval = *duration.DurationCaster()
+func (r *PutSettings) RefreshInterval(duration types.Duration) *PutSettings {
+	r.req.RefreshInterval = duration
 
 	return r
 }
 
 // API name: routing
-func (r *PutSettings) Routing(routing types.IndexRoutingVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Routing(routing *types.IndexRouting) *PutSettings {
 
-	r.req.Routing = routing.IndexRoutingCaster()
+	r.req.Routing = routing
 
 	return r
 }
 
 // API name: routing_partition_size
-func (r *PutSettings) RoutingPartitionSize(stringifiedinteger types.StringifiedintegerVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.RoutingPartitionSize = *stringifiedinteger.StringifiedintegerCaster()
+func (r *PutSettings) RoutingPartitionSize(stringifiedinteger types.Stringifiedinteger) *PutSettings {
+	r.req.RoutingPartitionSize = stringifiedinteger
 
 	return r
 }
 
 // API name: routing_path
 func (r *PutSettings) RoutingPath(routingpaths ...string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	r.req.RoutingPath = make([]string, len(routingpaths))
 	r.req.RoutingPath = routingpaths
 
 	return r
 }
 
 // API name: search
-func (r *PutSettings) Search(search types.SettingsSearchVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Search(search *types.SettingsSearch) *PutSettings {
 
-	r.req.Search = search.SettingsSearchCaster()
+	r.req.Search = search
 
 	return r
 }
 
 // API name: settings
-func (r *PutSettings) Settings(settings types.IndexSettingsVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Settings(settings *types.IndexSettings) *PutSettings {
 
-	r.req.Settings = settings.IndexSettingsCaster()
+	r.req.Settings = settings
 
 	return r
 }
 
-// Configure custom similarity settings to customize how search results are
+// Similarity Configure custom similarity settings to customize how search results are
 // scored.
 // API name: similarity
 func (r *PutSettings) Similarity(similarity map[string]types.SettingsSimilarity) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Similarity = similarity
-	return r
-}
 
-func (r *PutSettings) AddSimilarity(key string, value types.SettingsSimilarityVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.SettingsSimilarity
-	if r.req.Similarity == nil {
-		r.req.Similarity = make(map[string]types.SettingsSimilarity)
-	} else {
-		tmp = r.req.Similarity
-	}
-
-	tmp[key] = *value.SettingsSimilarityCaster()
-
-	r.req.Similarity = tmp
 	return r
 }
 
 // API name: soft_deletes
-func (r *PutSettings) SoftDeletes(softdeletes types.SoftDeletesVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) SoftDeletes(softdeletes *types.SoftDeletes) *PutSettings {
 
-	r.req.SoftDeletes = softdeletes.SoftDeletesCaster()
+	r.req.SoftDeletes = softdeletes
 
 	return r
 }
 
 // API name: sort
-func (r *PutSettings) Sort(sort types.IndexSegmentSortVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Sort(sort *types.IndexSegmentSort) *PutSettings {
 
-	r.req.Sort = sort.IndexSegmentSortCaster()
+	r.req.Sort = sort
 
 	return r
 }
 
-// The store module allows you to control how index data is stored and accessed
+// Store The store module allows you to control how index data is stored and accessed
 // on disk.
 // API name: store
-func (r *PutSettings) Store(store types.StorageVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Store(store *types.Storage) *PutSettings {
 
-	r.req.Store = store.StorageCaster()
+	r.req.Store = store
 
 	return r
 }
 
 // API name: time_series
-func (r *PutSettings) TimeSeries(timeseries types.IndexSettingsTimeSeriesVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) TimeSeries(timeseries *types.IndexSettingsTimeSeries) *PutSettings {
 
-	r.req.TimeSeries = timeseries.IndexSettingsTimeSeriesCaster()
+	r.req.TimeSeries = timeseries
 
 	return r
 }
 
 // API name: top_metrics_max_size
 func (r *PutSettings) TopMetricsMaxSize(topmetricsmaxsize int) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.TopMetricsMaxSize = &topmetricsmaxsize
 
 	return r
 }
 
 // API name: translog
-func (r *PutSettings) Translog(translog types.TranslogVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Translog(translog *types.Translog) *PutSettings {
 
-	r.req.Translog = translog.TranslogCaster()
+	r.req.Translog = translog
 
 	return r
 }
 
 // API name: uuid
 func (r *PutSettings) Uuid(uuid string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Uuid = &uuid
 
 	return r
@@ -1194,24 +1007,15 @@ func (r *PutSettings) Uuid(uuid string) *PutSettings {
 
 // API name: verified_before_close
 func (r *PutSettings) VerifiedBeforeClose(verifiedbeforeclose string) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.VerifiedBeforeClose = verifiedbeforeclose
 
 	return r
 }
 
 // API name: version
-func (r *PutSettings) Version(version types.IndexVersioningVariant) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutSettings) Version(version *types.IndexVersioning) *PutSettings {
 
-	r.req.Version = version.IndexVersioningCaster()
+	r.req.Version = version
 
 	return r
 }

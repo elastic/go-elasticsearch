@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Reindex documents.
 //
@@ -644,6 +644,8 @@ func New(tp elastictransport.Interface) *Reindex {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -981,31 +983,24 @@ func (r *Reindex) Pretty(pretty bool) *Reindex {
 	return r
 }
 
-// Indicates whether to continue reindexing even when there are conflicts.
+// Conflicts Indicates whether to continue reindexing even when there are conflicts.
 // API name: conflicts
 func (r *Reindex) Conflicts(conflicts conflicts.Conflicts) *Reindex {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.Conflicts = &conflicts
+
 	return r
 }
 
-// The destination you are copying to.
+// Dest The destination you are copying to.
 // API name: dest
-func (r *Reindex) Dest(dest types.ReindexDestinationVariant) *Reindex {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Reindex) Dest(dest *types.ReindexDestination) *Reindex {
 
-	r.req.Dest = *dest.ReindexDestinationCaster()
+	r.req.Dest = *dest
 
 	return r
 }
 
-// The maximum number of documents to reindex.
+// MaxDocs The maximum number of documents to reindex.
 // By default, all documents are reindexed.
 // If it is a value less then or equal to `scroll_size`, a scroll will not be
 // used to retrieve the results for the operation.
@@ -1016,50 +1011,34 @@ func (r *Reindex) Dest(dest types.ReindexDestinationVariant) *Reindex {
 // through every document in the source query.
 // API name: max_docs
 func (r *Reindex) MaxDocs(maxdocs int64) *Reindex {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.MaxDocs = &maxdocs
 
 	return r
 }
 
-// The script to run to update the document source or metadata when reindexing.
+// Script The script to run to update the document source or metadata when reindexing.
 // API name: script
-func (r *Reindex) Script(script types.ScriptVariant) *Reindex {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Reindex) Script(script *types.Script) *Reindex {
 
-	r.req.Script = script.ScriptCaster()
+	r.req.Script = script
 
 	return r
 }
 
 // API name: size
 func (r *Reindex) Size(size int64) *Reindex {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Size = &size
 
 	return r
 }
 
-// The source you are copying from.
+// Source The source you are copying from.
 // API name: source
-func (r *Reindex) Source(source types.ReindexSourceVariant) *Reindex {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Reindex) Source(source *types.ReindexSource) *Reindex {
 
-	r.req.Source = *source.ReindexSourceCaster()
+	r.req.Source = *source
 
 	return r
 }

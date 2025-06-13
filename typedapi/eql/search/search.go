@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Get EQL search results.
 // Returns search results for an Event Query Language (EQL) query.
@@ -97,6 +97,8 @@ func New(tp elastictransport.Interface) *Search {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -389,24 +391,19 @@ func (r *Search) Pretty(pretty bool) *Search {
 	return r
 }
 
-// Allow query execution also in case of shard failures.
+// AllowPartialSearchResults Allow query execution also in case of shard failures.
 // If true, the query will keep running and will return results based on the
 // available shards.
 // For sequences, the behavior can be further refined using
 // allow_partial_sequence_results
 // API name: allow_partial_search_results
 func (r *Search) AllowPartialSearchResults(allowpartialsearchresults bool) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.AllowPartialSearchResults = &allowpartialsearchresults
 
 	return r
 }
 
-// This flag applies only to sequences and has effect only if
+// AllowPartialSequenceResults This flag applies only to sequences and has effect only if
 // allow_partial_search_results=true.
 // If true, the sequence query will return results based on the available
 // shards, ignoring the others.
@@ -414,11 +411,6 @@ func (r *Search) AllowPartialSearchResults(allowpartialsearchresults bool) *Sear
 // empty results.
 // API name: allow_partial_sequence_results
 func (r *Search) AllowPartialSequenceResults(allowpartialsequenceresults bool) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.AllowPartialSequenceResults = &allowpartialsequenceresults
 
 	return r
@@ -426,122 +418,75 @@ func (r *Search) AllowPartialSequenceResults(allowpartialsequenceresults bool) *
 
 // API name: case_sensitive
 func (r *Search) CaseSensitive(casesensitive bool) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.CaseSensitive = &casesensitive
 
 	return r
 }
 
-// Field containing the event classification, such as process, file, or network.
+// EventCategoryField Field containing the event classification, such as process, file, or network.
 // API name: event_category_field
 func (r *Search) EventCategoryField(field string) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.EventCategoryField = &field
 
 	return r
 }
 
-// Maximum number of events to search at a time for sequence queries.
+// FetchSize Maximum number of events to search at a time for sequence queries.
 // API name: fetch_size
 func (r *Search) FetchSize(fetchsize uint) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.FetchSize = &fetchsize
 
 	return r
 }
 
-// Array of wildcard (*) patterns. The response returns values for field names
+// Fields Array of wildcard (*) patterns. The response returns values for field names
 // matching these patterns in the fields property of each hit.
 // API name: fields
-func (r *Search) Fields(fields ...types.FieldAndFormatVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	r.req.Fields = make([]types.FieldAndFormat, len(fields))
-	for i, v := range fields {
-		r.req.Fields[i] = *v.FieldAndFormatCaster()
-	}
+func (r *Search) Fields(fields ...types.FieldAndFormat) *Search {
+	r.req.Fields = fields
 
 	return r
 }
 
-// Query, written in Query DSL, used to filter the events on which the EQL query
+// Filter Query, written in Query DSL, used to filter the events on which the EQL query
 // runs.
 // API name: filter
-func (r *Search) Filter(filters ...types.QueryVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	r.req.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		r.req.Filter[i] = *v.QueryCaster()
-	}
+func (r *Search) Filter(filters ...types.Query) *Search {
+	r.req.Filter = filters
 
 	return r
 }
 
 // API name: keep_alive
-func (r *Search) KeepAlive(duration types.DurationVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.KeepAlive = *duration.DurationCaster()
+func (r *Search) KeepAlive(duration types.Duration) *Search {
+	r.req.KeepAlive = duration
 
 	return r
 }
 
 // API name: keep_on_completion
 func (r *Search) KeepOnCompletion(keeponcompletion bool) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.KeepOnCompletion = &keeponcompletion
 
 	return r
 }
 
-// By default, the response of a sample query contains up to `10` samples, with
+// MaxSamplesPerKey By default, the response of a sample query contains up to `10` samples, with
 // one sample per unique set of join keys. Use the `size`
 // parameter to get a smaller or larger set of samples. To retrieve more than
 // one sample per set of join keys, use the
 // `max_samples_per_key` parameter. Pipes are not supported for sample queries.
 // API name: max_samples_per_key
 func (r *Search) MaxSamplesPerKey(maxsamplesperkey int) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.MaxSamplesPerKey = &maxsamplesperkey
 
 	return r
 }
 
-// EQL query you wish to run.
+// Query EQL query you wish to run.
 // API name: query
 func (r *Search) Query(query string) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Query = query
 
@@ -550,74 +495,47 @@ func (r *Search) Query(query string) *Search {
 
 // API name: result_position
 func (r *Search) ResultPosition(resultposition resultposition.ResultPosition) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.ResultPosition = &resultposition
+
 	return r
 }
 
 // API name: runtime_mappings
-func (r *Search) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
+func (r *Search) RuntimeMappings(runtimefields types.RuntimeFields) *Search {
+	r.req.RuntimeMappings = runtimefields
 
 	return r
 }
 
-// For basic queries, the maximum number of matching events to return. Defaults
+// Size For basic queries, the maximum number of matching events to return. Defaults
 // to 10
 // API name: size
 func (r *Search) Size(size uint) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Size = &size
 
 	return r
 }
 
-// Field used to sort hits with the same timestamp in ascending order
+// TiebreakerField Field used to sort hits with the same timestamp in ascending order
 // API name: tiebreaker_field
 func (r *Search) TiebreakerField(field string) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.TiebreakerField = &field
 
 	return r
 }
 
-// Field containing event timestamp. Default "@timestamp"
+// TimestampField Field containing event timestamp. Default "@timestamp"
 // API name: timestamp_field
 func (r *Search) TimestampField(field string) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.TimestampField = &field
 
 	return r
 }
 
 // API name: wait_for_completion_timeout
-func (r *Search) WaitForCompletionTimeout(duration types.DurationVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.WaitForCompletionTimeout = *duration.DurationCaster()
+func (r *Search) WaitForCompletionTimeout(duration types.Duration) *Search {
+	r.req.WaitForCompletionTimeout = duration
 
 	return r
 }

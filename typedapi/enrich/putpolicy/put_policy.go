@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create an enrich policy.
 // Creates an enrich policy.
@@ -93,6 +93,8 @@ func New(tp elastictransport.Interface) *PutPolicy {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -367,42 +369,30 @@ func (r *PutPolicy) Pretty(pretty bool) *PutPolicy {
 	return r
 }
 
-// Matches enrich data to incoming documents based on a `geo_shape` query.
+// GeoMatch Matches enrich data to incoming documents based on a `geo_shape` query.
 // API name: geo_match
-func (r *PutPolicy) GeoMatch(geomatch types.EnrichPolicyVariant) *PutPolicy {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutPolicy) GeoMatch(geomatch *types.EnrichPolicy) *PutPolicy {
 
-	r.req.GeoMatch = geomatch.EnrichPolicyCaster()
+	r.req.GeoMatch = geomatch
 
 	return r
 }
 
-// Matches enrich data to incoming documents based on a `term` query.
+// Match Matches enrich data to incoming documents based on a `term` query.
 // API name: match
-func (r *PutPolicy) Match(match types.EnrichPolicyVariant) *PutPolicy {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutPolicy) Match(match *types.EnrichPolicy) *PutPolicy {
 
-	r.req.Match = match.EnrichPolicyCaster()
+	r.req.Match = match
 
 	return r
 }
 
-// Matches a number, date, or IP address in incoming documents to a range in the
+// Range Matches a number, date, or IP address in incoming documents to a range in the
 // enrich index based on a `term` query.
 // API name: range
-func (r *PutPolicy) Range(range_ types.EnrichPolicyVariant) *PutPolicy {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutPolicy) Range(range_ *types.EnrichPolicy) *PutPolicy {
 
-	r.req.Range = range_.EnrichPolicyCaster()
+	r.req.Range = range_
 
 	return r
 }

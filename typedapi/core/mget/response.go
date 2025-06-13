@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package mget
 
@@ -32,7 +32,7 @@ import (
 
 // Response holds the response body struct for the package mget
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_global/mget/MultiGetResponse.ts#L22-L31
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_global/mget/MultiGetResponse.ts#L22-L31
 type Response struct {
 
 	// Docs The response includes a docs array that contains the documents in the order

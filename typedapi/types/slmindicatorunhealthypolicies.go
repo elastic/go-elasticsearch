@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SlmIndicatorUnhealthyPolicies type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_global/health_report/types.ts#L185-L188
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_global/health_report/types.ts#L185-L188
 type SlmIndicatorUnhealthyPolicies struct {
 	Count                       int64            `json:"count"`
 	InvocationsSinceLastSuccess map[string]int64 `json:"invocations_since_last_success,omitempty"`
@@ -83,10 +83,8 @@ func (s *SlmIndicatorUnhealthyPolicies) UnmarshalJSON(data []byte) error {
 // NewSlmIndicatorUnhealthyPolicies returns a SlmIndicatorUnhealthyPolicies.
 func NewSlmIndicatorUnhealthyPolicies() *SlmIndicatorUnhealthyPolicies {
 	r := &SlmIndicatorUnhealthyPolicies{
-		InvocationsSinceLastSuccess: make(map[string]int64),
+		InvocationsSinceLastSuccess: make(map[string]int64, 0),
 	}
 
 	return r
 }
-
-// false

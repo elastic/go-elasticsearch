@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,10 +31,13 @@ import (
 
 // NGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/analysis/token_filters.ts#L267-L272
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/analysis/token_filters.ts#L364-L372
 type NGramTokenFilter struct {
-	MaxGram          *int               `json:"max_gram,omitempty"`
-	MinGram          *int               `json:"min_gram,omitempty"`
+	// MaxGram Maximum length of characters in a gram. Defaults to `2`.
+	MaxGram *int `json:"max_gram,omitempty"`
+	// MinGram Minimum length of characters in a gram. Defaults to `1`.
+	MinGram *int `json:"min_gram,omitempty"`
+	// PreserveOriginal Emits original token when set to `true`. Defaults to `false`.
 	PreserveOriginal Stringifiedboolean `json:"preserve_original,omitempty"`
 	Type             string             `json:"type,omitempty"`
 	Version          *string            `json:"version,omitempty"`
@@ -128,14 +131,4 @@ func NewNGramTokenFilter() *NGramTokenFilter {
 	r := &NGramTokenFilter{}
 
 	return r
-}
-
-// true
-
-type NGramTokenFilterVariant interface {
-	NGramTokenFilterCaster() *NGramTokenFilter
-}
-
-func (s *NGramTokenFilter) NGramTokenFilterCaster() *NGramTokenFilter {
-	return s
 }

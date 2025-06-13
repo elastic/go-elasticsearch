@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Find roles with a query.
 //
@@ -99,6 +99,8 @@ func New(tp elastictransport.Interface) *QueryRole {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -352,24 +354,19 @@ func (r *QueryRole) Pretty(pretty bool) *QueryRole {
 	return r
 }
 
-// The starting document offset.
+// From The starting document offset.
 // It must not be negative.
 // By default, you cannot page through more than 10,000 hits using the `from`
 // and `size` parameters.
 // To page through more hits, use the `search_after` parameter.
 // API name: from
 func (r *QueryRole) From(from int) *QueryRole {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.From = &from
 
 	return r
 }
 
-// A query to filter which roles to return.
+// Query A query to filter which roles to return.
 // If the query parameter is missing, it is equivalent to a `match_all` query.
 // The query supports a subset of query types, including `match_all`, `bool`,
 // `term`, `terms`, `match`,
@@ -379,63 +376,40 @@ func (r *QueryRole) From(from int) *QueryRole {
 // `applications.application`, `applications.privileges`, and
 // `applications.resources`.
 // API name: query
-func (r *QueryRole) Query(query types.RoleQueryContainerVariant) *QueryRole {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *QueryRole) Query(query *types.RoleQueryContainer) *QueryRole {
 
-	r.req.Query = query.RoleQueryContainerCaster()
+	r.req.Query = query
 
 	return r
 }
 
-// The search after definition.
+// SearchAfter The search after definition.
 // API name: search_after
-func (r *QueryRole) SearchAfter(sortresults ...types.FieldValueVariant) *QueryRole {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	for _, v := range sortresults {
-		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
-	}
+func (r *QueryRole) SearchAfter(sortresults ...types.FieldValue) *QueryRole {
+	r.req.SearchAfter = sortresults
 
 	return r
 }
 
-// The number of hits to return.
+// Size The number of hits to return.
 // It must not be negative.
 // By default, you cannot page through more than 10,000 hits using the `from`
 // and `size` parameters.
 // To page through more hits, use the `search_after` parameter.
 // API name: size
 func (r *QueryRole) Size(size int) *QueryRole {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Size = &size
 
 	return r
 }
 
-// The sort definition.
+// Sort The sort definition.
 // You can sort on `username`, `roles`, or `enabled`.
 // In addition, sort can also be applied to the `_doc` field to sort by index
 // order.
 // API name: sort
-func (r *QueryRole) Sort(sorts ...types.SortCombinationsVariant) *QueryRole {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	for _, v := range sorts {
-		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
-	}
+func (r *QueryRole) Sort(sorts ...types.SortCombinations) *QueryRole {
+	r.req.Sort = sorts
 
 	return r
 }

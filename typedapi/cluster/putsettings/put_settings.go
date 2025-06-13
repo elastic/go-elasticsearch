@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update the cluster settings.
 // Configure and update dynamic settings on a running cluster.
@@ -145,6 +145,8 @@ func New(tp elastictransport.Interface) *PutSettings {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -420,60 +422,20 @@ func (r *PutSettings) Pretty(pretty bool) *PutSettings {
 	return r
 }
 
+// Persistent The settings that persist after the cluster restarts.
 // API name: persistent
 func (r *PutSettings) Persistent(persistent map[string]json.RawMessage) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Persistent = persistent
+
 	return r
 }
 
-func (r *PutSettings) AddPersistent(key string, value json.RawMessage) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Persistent == nil {
-		r.req.Persistent = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Persistent
-	}
-
-	tmp[key] = value
-
-	r.req.Persistent = tmp
-	return r
-}
-
+// Transient The settings that do not persist after the cluster restarts.
 // API name: transient
 func (r *PutSettings) Transient(transient map[string]json.RawMessage) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Transient = transient
-	return r
-}
 
-func (r *PutSettings) AddTransient(key string, value json.RawMessage) *PutSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Transient == nil {
-		r.req.Transient = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Transient
-	}
-
-	tmp[key] = value
-
-	r.req.Transient = tmp
 	return r
 }

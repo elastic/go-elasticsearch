@@ -16,9 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Perform chat completion inference
+//
+// The chat completion inference API enables real-time responses for chat
+// completion tasks by delivering answers incrementally, reducing response times
+// during computation.
+// It only works with the `chat_completion` task type for `openai`, `elastic`
+// and `googlevertexai` inference services.
+//
+// NOTE: The `chat_completion` task type is only available within the _stream
+// API and only supports streaming.
+// The Chat completion inference API and the Stream inference API differ in
+// their response structure and capabilities.
+// The Chat completion inference API provides more comprehensive customization
+// options through more fields and function calling support.
+// If you use the `openai` service or the `elastic` service, use the Chat
+// completion inference API.
 package chatcompletionunified
 
 import (
@@ -83,6 +98,21 @@ func NewChatCompletionUnifiedFunc(tp elastictransport.Interface) NewChatCompleti
 
 // Perform chat completion inference
 //
+// The chat completion inference API enables real-time responses for chat
+// completion tasks by delivering answers incrementally, reducing response times
+// during computation.
+// It only works with the `chat_completion` task type for `openai`, `elastic`
+// and `googlevertexai` inference services.
+//
+// NOTE: The `chat_completion` task type is only available within the _stream
+// API and only supports streaming.
+// The Chat completion inference API and the Stream inference API differ in
+// their response structure and capabilities.
+// The Chat completion inference API provides more comprehensive customization
+// options through more fields and function calling support.
+// If you use the `openai` service or the `elastic` service, use the Chat
+// completion inference API.
+//
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/chat-completion-inference-api.html
 func New(tp elastictransport.Interface) *ChatCompletionUnified {
 	r := &ChatCompletionUnified{
@@ -91,6 +121,8 @@ func New(tp elastictransport.Interface) *ChatCompletionUnified {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -367,112 +399,118 @@ func (r *ChatCompletionUnified) Pretty(pretty bool) *ChatCompletionUnified {
 	return r
 }
 
-// The upper bound limit for the number of tokens that can be generated for a
+// MaxCompletionTokens The upper bound limit for the number of tokens that can be generated for a
 // completion request.
 // API name: max_completion_tokens
 func (r *ChatCompletionUnified) MaxCompletionTokens(maxcompletiontokens int64) *ChatCompletionUnified {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.MaxCompletionTokens = &maxcompletiontokens
 
 	return r
 }
 
-// A list of objects representing the conversation.
+// Messages A list of objects representing the conversation.
+// Requests should generally only add new messages from the user (role `user`).
+// The other message roles (`assistant`, `system`, or `tool`) should generally
+// only be copied from the response to a previous completion request, such that
+// the messages array is built up throughout a conversation.
 // API name: messages
-func (r *ChatCompletionUnified) Messages(messages ...types.MessageVariant) *ChatCompletionUnified {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range messages {
+func (r *ChatCompletionUnified) Messages(messages ...types.Message) *ChatCompletionUnified {
+	r.req.Messages = messages
 
-		r.req.Messages = append(r.req.Messages, *v.MessageCaster())
-
-	}
 	return r
 }
 
-// The ID of the model to use.
+// Model The ID of the model to use.
 // API name: model
 func (r *ChatCompletionUnified) Model(model string) *ChatCompletionUnified {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Model = &model
 
 	return r
 }
 
-// A sequence of strings to control when the model should stop generating
+// Stop A sequence of strings to control when the model should stop generating
 // additional tokens.
 // API name: stop
 func (r *ChatCompletionUnified) Stop(stops ...string) *ChatCompletionUnified {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range stops {
+	r.req.Stop = stops
 
-		r.req.Stop = append(r.req.Stop, v)
-
-	}
 	return r
 }
 
-// The sampling temperature to use.
+// Temperature The sampling temperature to use.
 // API name: temperature
 func (r *ChatCompletionUnified) Temperature(temperature float32) *ChatCompletionUnified {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Temperature = &temperature
 
 	return r
 }
 
-// Controls which tool is called by the model.
+// ToolChoice Controls which tool is called by the model.
+// String representation: One of `auto`, `none`, or `requrired`. `auto` allows
+// the model to choose between calling tools and generating a message. `none`
+// causes the model to not call any tools. `required` forces the model to call
+// one or more tools.
+// Example (object representation):
+// ```
+//
+//	{
+//	  "tool_choice": {
+//	      "type": "function",
+//	      "function": {
+//	          "name": "get_current_weather"
+//	      }
+//	  }
+//	}
+//
+// ```
 // API name: tool_choice
-func (r *ChatCompletionUnified) ToolChoice(completiontooltype types.CompletionToolTypeVariant) *ChatCompletionUnified {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.ToolChoice = *completiontooltype.CompletionToolTypeCaster()
+func (r *ChatCompletionUnified) ToolChoice(completiontooltype types.CompletionToolType) *ChatCompletionUnified {
+	r.req.ToolChoice = completiontooltype
 
 	return r
 }
 
-// A list of tools that the model can call.
+// Tools A list of tools that the model can call.
+// Example:
+// ```
+//
+//	{
+//	  "tools": [
+//	      {
+//	          "type": "function",
+//	          "function": {
+//	              "name": "get_price_of_item",
+//	              "description": "Get the current price of an item",
+//	              "parameters": {
+//	                  "type": "object",
+//	                  "properties": {
+//	                      "item": {
+//	                          "id": "12345"
+//	                      },
+//	                      "unit": {
+//	                          "type": "currency"
+//	                      }
+//	                  }
+//	              }
+//	          }
+//	      }
+//	  ]
+//	}
+//
+// ```
 // API name: tools
-func (r *ChatCompletionUnified) Tools(tools ...types.CompletionToolVariant) *ChatCompletionUnified {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range tools {
+func (r *ChatCompletionUnified) Tools(tools ...types.CompletionTool) *ChatCompletionUnified {
+	r.req.Tools = tools
 
-		r.req.Tools = append(r.req.Tools, *v.CompletionToolCaster())
-
-	}
 	return r
 }
 
-// Nucleus sampling, an alternative to sampling with temperature.
+// TopP Nucleus sampling, an alternative to sampling with temperature.
 // API name: top_p
 func (r *ChatCompletionUnified) TopP(topp float32) *ChatCompletionUnified {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.TopP = &topp
 

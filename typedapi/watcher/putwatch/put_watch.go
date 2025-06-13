@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create or update a watch.
 // When a watch is registered, a new document that represents the watch is added
@@ -121,7 +121,7 @@ func NewPutWatchFunc(tp elastictransport.Interface) NewPutWatch {
 // If the user is able to read index `a`, but not index `b`, the same will apply
 // when the watch runs.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-put-watch.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-put-watch
 func New(tp elastictransport.Interface) *PutWatch {
 	r := &PutWatch{
 		transport: tp,
@@ -129,6 +129,8 @@ func New(tp elastictransport.Interface) *PutWatch {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -430,131 +432,79 @@ func (r *PutWatch) Pretty(pretty bool) *PutWatch {
 	return r
 }
 
-// The list of actions that will be run if the condition matches.
+// Actions The list of actions that will be run if the condition matches.
 // API name: actions
 func (r *PutWatch) Actions(actions map[string]types.WatcherAction) *PutWatch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Actions = actions
+
 	return r
 }
 
-func (r *PutWatch) AddAction(key string, value types.WatcherActionVariant) *PutWatch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.WatcherAction
-	if r.req.Actions == nil {
-		r.req.Actions = make(map[string]types.WatcherAction)
-	} else {
-		tmp = r.req.Actions
-	}
-
-	tmp[key] = *value.WatcherActionCaster()
-
-	r.req.Actions = tmp
-	return r
-}
-
-// The condition that defines if the actions should be run.
+// Condition The condition that defines if the actions should be run.
 // API name: condition
-func (r *PutWatch) Condition(condition types.WatcherConditionVariant) *PutWatch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutWatch) Condition(condition *types.WatcherCondition) *PutWatch {
 
-	r.req.Condition = condition.WatcherConditionCaster()
+	r.req.Condition = condition
 
 	return r
 }
 
-// The input that defines the input that loads the data for the watch.
+// Input The input that defines the input that loads the data for the watch.
 // API name: input
-func (r *PutWatch) Input(input types.WatcherInputVariant) *PutWatch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutWatch) Input(input *types.WatcherInput) *PutWatch {
 
-	r.req.Input = input.WatcherInputCaster()
+	r.req.Input = input
 
 	return r
 }
 
-// Metadata JSON that will be copied into the history entries.
+// Metadata Metadata JSON that will be copied into the history entries.
 // API name: metadata
-func (r *PutWatch) Metadata(metadata types.MetadataVariant) *PutWatch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Metadata = *metadata.MetadataCaster()
+func (r *PutWatch) Metadata(metadata types.Metadata) *PutWatch {
+	r.req.Metadata = metadata
 
 	return r
 }
 
-// The minimum time between actions being run.
+// ThrottlePeriod The minimum time between actions being run.
 // The default is 5 seconds.
 // This default can be changed in the config file with the setting
 // `xpack.watcher.throttle.period.default_period`.
 // If both this value and the `throttle_period_in_millis` parameter are
 // specified, Watcher uses the last parameter included in the request.
 // API name: throttle_period
-func (r *PutWatch) ThrottlePeriod(duration types.DurationVariant) *PutWatch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.ThrottlePeriod = *duration.DurationCaster()
+func (r *PutWatch) ThrottlePeriod(duration types.Duration) *PutWatch {
+	r.req.ThrottlePeriod = duration
 
 	return r
 }
 
-// Minimum time in milliseconds between actions being run. Defaults to 5000. If
+// ThrottlePeriodInMillis Minimum time in milliseconds between actions being run. Defaults to 5000. If
 // both this value and the throttle_period parameter are specified, Watcher uses
 // the last parameter included in the request.
 // API name: throttle_period_in_millis
 func (r *PutWatch) ThrottlePeriodInMillis(durationvalueunitmillis int64) *PutWatch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.ThrottlePeriodInMillis = &durationvalueunitmillis
 
 	return r
 }
 
-// The transform that processes the watch payload to prepare it for the watch
+// Transform The transform that processes the watch payload to prepare it for the watch
 // actions.
 // API name: transform
-func (r *PutWatch) Transform(transform types.TransformContainerVariant) *PutWatch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutWatch) Transform(transform *types.TransformContainer) *PutWatch {
 
-	r.req.Transform = transform.TransformContainerCaster()
+	r.req.Transform = transform
 
 	return r
 }
 
-// The trigger that defines when the watch should run.
+// Trigger The trigger that defines when the watch should run.
 // API name: trigger
-func (r *PutWatch) Trigger(trigger types.TriggerContainerVariant) *PutWatch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutWatch) Trigger(trigger *types.TriggerContainer) *PutWatch {
 
-	r.req.Trigger = trigger.TriggerContainerCaster()
+	r.req.Trigger = trigger
 
 	return r
 }

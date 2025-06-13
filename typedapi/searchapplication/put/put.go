@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create or update a search application.
 package put
@@ -91,6 +91,8 @@ func New(tp elastictransport.Interface) *Put {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -366,43 +368,27 @@ func (r *Put) Pretty(pretty bool) *Put {
 	return r
 }
 
-// Analytics collection associated to the Search Application.
+// AnalyticsCollectionName Analytics collection associated to the Search Application.
 // API name: analytics_collection_name
 func (r *Put) AnalyticsCollectionName(name string) *Put {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.AnalyticsCollectionName = &name
 
 	return r
 }
 
-// Indices that are part of the Search Application.
+// Indices Indices that are part of the Search Application.
 // API name: indices
 func (r *Put) Indices(indices ...string) *Put {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range indices {
+	r.req.Indices = indices
 
-		r.req.Indices = append(r.req.Indices, v)
-
-	}
 	return r
 }
 
-// Search template to use on search operations.
+// Template Search template to use on search operations.
 // API name: template
-func (r *Put) Template(template types.SearchApplicationTemplateVariant) *Put {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Put) Template(template *types.SearchApplicationTemplate) *Put {
 
-	r.req.Template = template.SearchApplicationTemplateCaster()
+	r.req.Template = template
 
 	return r
 }

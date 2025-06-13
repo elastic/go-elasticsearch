@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndicesOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/common.ts#L339-L366
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/common.ts#L339-L366
 type IndicesOptions struct {
 	// AllowNoIndices If false, the request returns an error if any wildcard expression, index
 	// alias, or `_all` value targets only
@@ -137,14 +137,4 @@ func NewIndicesOptions() *IndicesOptions {
 	r := &IndicesOptions{}
 
 	return r
-}
-
-// true
-
-type IndicesOptionsVariant interface {
-	IndicesOptionsCaster() *IndicesOptions
-}
-
-func (s *IndicesOptions) IndicesOptionsCaster() *IndicesOptions {
-	return s
 }

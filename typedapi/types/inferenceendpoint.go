@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InferenceEndpoint type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/inference/_types/Services.ts#L24-L44
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/inference/_types/Services.ts#L42-L62
 type InferenceEndpoint struct {
 	// ChunkingSettings Chunking configuration object
 	ChunkingSettings *InferenceChunkingSettings `json:"chunking_settings,omitempty"`
@@ -95,14 +95,4 @@ func NewInferenceEndpoint() *InferenceEndpoint {
 	r := &InferenceEndpoint{}
 
 	return r
-}
-
-// true
-
-type InferenceEndpointVariant interface {
-	InferenceEndpointCaster() *InferenceEndpoint
-}
-
-func (s *InferenceEndpoint) InferenceEndpointCaster() *InferenceEndpoint {
-	return s
 }

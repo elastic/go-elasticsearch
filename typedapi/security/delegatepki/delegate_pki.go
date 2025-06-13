@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Delegate PKI authentication.
 //
@@ -123,6 +123,8 @@ func New(tp elastictransport.Interface) *DelegatePki {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -368,7 +370,7 @@ func (r *DelegatePki) Pretty(pretty bool) *DelegatePki {
 	return r
 }
 
-// The X509Certificate chain, which is represented as an ordered string array.
+// X509CertificateChain The X509Certificate chain, which is represented as an ordered string array.
 // Each string in the array is a base64-encoded (Section 4 of RFC4648 - not
 // base64url-encoded) of the certificate's DER encoding.
 //
@@ -378,14 +380,7 @@ func (r *DelegatePki) Pretty(pretty bool) *DelegatePki {
 // is used to certify the previous one.
 // API name: x509_certificate_chain
 func (r *DelegatePki) X509CertificateChain(x509certificatechains ...string) *DelegatePki {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range x509certificatechains {
+	r.req.X509CertificateChain = x509certificatechains
 
-		r.req.X509CertificateChain = append(r.req.X509CertificateChain, v)
-
-	}
 	return r
 }

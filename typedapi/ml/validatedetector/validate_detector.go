@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Validate an anomaly detection job.
 package validatedetector
@@ -84,6 +84,8 @@ func New(tp elastictransport.Interface) *ValidateDetector {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -339,147 +341,99 @@ func (r *ValidateDetector) Pretty(pretty bool) *ValidateDetector {
 	return r
 }
 
-// The field used to split the data. In particular, this property is used for
+// ByFieldName The field used to split the data. In particular, this property is used for
 // analyzing the splits with respect to their own history. It is used for
 // finding unusual values in the context of the split.
 // API name: by_field_name
 func (r *ValidateDetector) ByFieldName(field string) *ValidateDetector {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.ByFieldName = &field
 
 	return r
 }
 
-// Custom rules enable you to customize the way detectors operate. For example,
+// CustomRules Custom rules enable you to customize the way detectors operate. For example,
 // a rule may dictate conditions under which results should be skipped. Kibana
 // refers to custom rules as job rules.
 // API name: custom_rules
-func (r *ValidateDetector) CustomRules(customrules ...types.DetectionRuleVariant) *ValidateDetector {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range customrules {
+func (r *ValidateDetector) CustomRules(customrules ...types.DetectionRule) *ValidateDetector {
+	r.req.CustomRules = customrules
 
-		r.req.CustomRules = append(r.req.CustomRules, *v.DetectionRuleCaster())
-
-	}
 	return r
 }
 
-// A description of the detector.
+// DetectorDescription A description of the detector.
 // API name: detector_description
 func (r *ValidateDetector) DetectorDescription(detectordescription string) *ValidateDetector {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.DetectorDescription = &detectordescription
 
 	return r
 }
 
-// A unique identifier for the detector. This identifier is based on the order
+// DetectorIndex A unique identifier for the detector. This identifier is based on the order
 // of the detectors in the `analysis_config`, starting at zero. If you specify a
 // value for this property, it is ignored.
 // API name: detector_index
 func (r *ValidateDetector) DetectorIndex(detectorindex int) *ValidateDetector {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.DetectorIndex = &detectorindex
 
 	return r
 }
 
-// If set, frequent entities are excluded from influencing the anomaly results.
+// ExcludeFrequent If set, frequent entities are excluded from influencing the anomaly results.
 // Entities can be considered frequent over time or frequent in a population. If
 // you are working with both over and by fields, you can set `exclude_frequent`
 // to `all` for both fields, or to `by` or `over` for those specific fields.
 // API name: exclude_frequent
 func (r *ValidateDetector) ExcludeFrequent(excludefrequent excludefrequent.ExcludeFrequent) *ValidateDetector {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.ExcludeFrequent = &excludefrequent
+
 	return r
 }
 
-// The field that the detector uses in the function. If you use an event rate
+// FieldName The field that the detector uses in the function. If you use an event rate
 // function such as count or rare, do not specify this field. The `field_name`
 // cannot contain double quotes or backslashes.
 // API name: field_name
 func (r *ValidateDetector) FieldName(field string) *ValidateDetector {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.FieldName = &field
 
 	return r
 }
 
-// The analysis function that is used. For example, `count`, `rare`, `mean`,
+// Function The analysis function that is used. For example, `count`, `rare`, `mean`,
 // `min`, `max`, or `sum`.
 // API name: function
 func (r *ValidateDetector) Function(function string) *ValidateDetector {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Function = &function
 
 	return r
 }
 
-// The field used to split the data. In particular, this property is used for
+// OverFieldName The field used to split the data. In particular, this property is used for
 // analyzing the splits with respect to the history of all splits. It is used
 // for finding unusual values in the population of all splits.
 // API name: over_field_name
 func (r *ValidateDetector) OverFieldName(field string) *ValidateDetector {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.OverFieldName = &field
 
 	return r
 }
 
-// The field used to segment the analysis. When you use this property, you have
+// PartitionFieldName The field used to segment the analysis. When you use this property, you have
 // completely independent baselines for each value of this field.
 // API name: partition_field_name
 func (r *ValidateDetector) PartitionFieldName(field string) *ValidateDetector {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.PartitionFieldName = &field
 
 	return r
 }
 
-// Defines whether a new series is used as the null series when there is no
+// UseNull Defines whether a new series is used as the null series when there is no
 // value for the by or partition fields.
 // API name: use_null
 func (r *ValidateDetector) UseNull(usenull bool) *ValidateDetector {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.UseNull = &usenull
 
 	return r

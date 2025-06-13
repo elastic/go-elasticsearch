@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Translate SQL into Elasticsearch queries.
 // Translate an SQL search into a search API request containing Query DSL.
@@ -89,6 +89,8 @@ func New(tp elastictransport.Interface) *Translate {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -340,53 +342,35 @@ func (r *Translate) Pretty(pretty bool) *Translate {
 	return r
 }
 
-// The maximum number of rows (or entries) to return in one response.
+// FetchSize The maximum number of rows (or entries) to return in one response.
 // API name: fetch_size
 func (r *Translate) FetchSize(fetchsize int) *Translate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.FetchSize = &fetchsize
 
 	return r
 }
 
-// The Elasticsearch query DSL for additional filtering.
+// Filter The Elasticsearch query DSL for additional filtering.
 // API name: filter
-func (r *Translate) Filter(filter types.QueryVariant) *Translate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Translate) Filter(filter *types.Query) *Translate {
 
-	r.req.Filter = filter.QueryCaster()
+	r.req.Filter = filter
 
 	return r
 }
 
-// The SQL query to run.
+// Query The SQL query to run.
 // API name: query
 func (r *Translate) Query(query string) *Translate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Query = query
 
 	return r
 }
 
-// The ISO-8601 time zone ID for the search.
+// TimeZone The ISO-8601 time zone ID for the search.
 // API name: time_zone
 func (r *Translate) TimeZone(timezone string) *Translate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.TimeZone = &timezone
 
 	return r

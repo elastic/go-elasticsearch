@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,16 +31,31 @@ import (
 
 // ShingleTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/analysis/token_filters.ts#L86-L94
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/analysis/token_filters.ts#L109-L123
 type ShingleTokenFilter struct {
-	FillerToken                *string `json:"filler_token,omitempty"`
-	MaxShingleSize             string  `json:"max_shingle_size,omitempty"`
-	MinShingleSize             string  `json:"min_shingle_size,omitempty"`
-	OutputUnigrams             *bool   `json:"output_unigrams,omitempty"`
-	OutputUnigramsIfNoShingles *bool   `json:"output_unigrams_if_no_shingles,omitempty"`
-	TokenSeparator             *string `json:"token_separator,omitempty"`
-	Type                       string  `json:"type,omitempty"`
-	Version                    *string `json:"version,omitempty"`
+	// FillerToken String used in shingles as a replacement for empty positions that do not
+	// contain a token. This filler token is only used in shingles, not original
+	// unigrams. Defaults to an underscore (`_`).
+	FillerToken *string `json:"filler_token,omitempty"`
+	// MaxShingleSize Maximum number of tokens to concatenate when creating shingles. Defaults to
+	// `2`.
+	MaxShingleSize Stringifiedinteger `json:"max_shingle_size,omitempty"`
+	// MinShingleSize Minimum number of tokens to concatenate when creating shingles. Defaults to
+	// `2`.
+	MinShingleSize Stringifiedinteger `json:"min_shingle_size,omitempty"`
+	// OutputUnigrams If `true`, the output includes the original input tokens. If `false`, the
+	// output only includes shingles; the original input tokens are removed.
+	// Defaults to `true`.
+	OutputUnigrams *bool `json:"output_unigrams,omitempty"`
+	// OutputUnigramsIfNoShingles If `true`, the output includes the original input tokens only if no shingles
+	// are produced; if shingles are produced, the output only includes shingles.
+	// Defaults to `false`.
+	OutputUnigramsIfNoShingles *bool `json:"output_unigrams_if_no_shingles,omitempty"`
+	// TokenSeparator Separator used to concatenate adjacent tokens to form a shingle. Defaults to
+	// a space (`" "`).
+	TokenSeparator *string `json:"token_separator,omitempty"`
+	Type           string  `json:"type,omitempty"`
+	Version        *string `json:"version,omitempty"`
 }
 
 func (s *ShingleTokenFilter) UnmarshalJSON(data []byte) error {
@@ -71,28 +86,14 @@ func (s *ShingleTokenFilter) UnmarshalJSON(data []byte) error {
 			s.FillerToken = &o
 
 		case "max_shingle_size":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.MaxShingleSize); err != nil {
 				return fmt.Errorf("%s | %w", "MaxShingleSize", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.MaxShingleSize = o
 
 		case "min_shingle_size":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.MinShingleSize); err != nil {
 				return fmt.Errorf("%s | %w", "MinShingleSize", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.MinShingleSize = o
 
 		case "output_unigrams":
 			var tmp any
@@ -173,14 +174,4 @@ func NewShingleTokenFilter() *ShingleTokenFilter {
 	r := &ShingleTokenFilter{}
 
 	return r
-}
-
-// true
-
-type ShingleTokenFilterVariant interface {
-	ShingleTokenFilterCaster() *ShingleTokenFilter
-}
-
-func (s *ShingleTokenFilter) ShingleTokenFilterCaster() *ShingleTokenFilter {
-	return s
 }

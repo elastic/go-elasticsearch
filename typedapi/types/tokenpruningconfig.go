@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TokenPruningConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/query_dsl/TokenPruningConfig.ts#L22-L35
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/query_dsl/TokenPruningConfig.ts#L22-L35
 type TokenPruningConfig struct {
 	// OnlyScorePrunedTokens Whether to only score pruned tokens, vs only scoring kept tokens.
 	OnlyScorePrunedTokens *bool `json:"only_score_pruned_tokens,omitempty"`
@@ -115,14 +115,4 @@ func NewTokenPruningConfig() *TokenPruningConfig {
 	r := &TokenPruningConfig{}
 
 	return r
-}
-
-// true
-
-type TokenPruningConfigVariant interface {
-	TokenPruningConfigCaster() *TokenPruningConfig
-}
-
-func (s *TokenPruningConfig) TokenPruningConfigCaster() *TokenPruningConfig {
-	return s
 }

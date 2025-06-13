@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create or update an index template.
 // Index templates define settings, mappings, and aliases that can be applied
@@ -181,6 +181,8 @@ func New(tp elastictransport.Interface) *PutIndexTemplate {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -471,7 +473,7 @@ func (r *PutIndexTemplate) Pretty(pretty bool) *PutIndexTemplate {
 	return r
 }
 
-// This setting overrides the value of the `action.auto_create_index` cluster
+// AllowAutoCreate This setting overrides the value of the `action.auto_create_index` cluster
 // setting.
 // If set to `true` in a template, then indices can be automatically created
 // using that template even if auto-creation of indices is disabled via
@@ -480,114 +482,76 @@ func (r *PutIndexTemplate) Pretty(pretty bool) *PutIndexTemplate {
 // always be explicitly created, and may never be automatically created.
 // API name: allow_auto_create
 func (r *PutIndexTemplate) AllowAutoCreate(allowautocreate bool) *PutIndexTemplate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.AllowAutoCreate = &allowautocreate
 
 	return r
 }
 
-// An ordered list of component template names.
+// ComposedOf An ordered list of component template names.
 // Component templates are merged in the order specified, meaning that the last
 // component template specified has the highest precedence.
 // API name: composed_of
 func (r *PutIndexTemplate) ComposedOf(composedofs ...string) *PutIndexTemplate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range composedofs {
+	r.req.ComposedOf = composedofs
 
-		r.req.ComposedOf = append(r.req.ComposedOf, v)
-
-	}
 	return r
 }
 
-// If this object is included, the template is used to create data streams and
+// DataStream If this object is included, the template is used to create data streams and
 // their backing indices.
 // Supports an empty object.
 // Data streams require a matching index template with a `data_stream` object.
 // API name: data_stream
-func (r *PutIndexTemplate) DataStream(datastream types.DataStreamVisibilityVariant) *PutIndexTemplate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutIndexTemplate) DataStream(datastream *types.DataStreamVisibility) *PutIndexTemplate {
 
-	r.req.DataStream = datastream.DataStreamVisibilityCaster()
+	r.req.DataStream = datastream
 
 	return r
 }
 
-// Marks this index template as deprecated. When creating or updating a
+// Deprecated Marks this index template as deprecated. When creating or updating a
 // non-deprecated index template
 // that uses deprecated components, Elasticsearch will emit a deprecation
 // warning.
 // API name: deprecated
 func (r *PutIndexTemplate) Deprecated(deprecated bool) *PutIndexTemplate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Deprecated = &deprecated
 
 	return r
 }
 
-// The configuration option ignore_missing_component_templates can be used when
+// IgnoreMissingComponentTemplates The configuration option ignore_missing_component_templates can be used when
 // an index template
 // references a component template that might not exist
 // API name: ignore_missing_component_templates
 func (r *PutIndexTemplate) IgnoreMissingComponentTemplates(ignoremissingcomponenttemplates ...string) *PutIndexTemplate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range ignoremissingcomponenttemplates {
+	r.req.IgnoreMissingComponentTemplates = ignoremissingcomponenttemplates
 
-		r.req.IgnoreMissingComponentTemplates = append(r.req.IgnoreMissingComponentTemplates, v)
-
-	}
 	return r
 }
 
-// Name of the index template to create.
+// IndexPatterns Name of the index template to create.
 // API name: index_patterns
 func (r *PutIndexTemplate) IndexPatterns(indices ...string) *PutIndexTemplate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.IndexPatterns = indices
 
 	return r
 }
 
-// Optional user metadata about the index template.
+// Meta_ Optional user metadata about the index template.
 // It may have any contents.
 // It is not automatically generated or used by Elasticsearch.
 // This user-defined object is stored in the cluster state, so keeping it short
 // is preferable
 // To unset the metadata, replace the template without specifying it.
 // API name: _meta
-func (r *PutIndexTemplate) Meta_(metadata types.MetadataVariant) *PutIndexTemplate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Meta_ = *metadata.MetadataCaster()
+func (r *PutIndexTemplate) Meta_(metadata types.Metadata) *PutIndexTemplate {
+	r.req.Meta_ = metadata
 
 	return r
 }
 
-// Priority to determine index template precedence when a new data stream or
+// Priority Priority to determine index template precedence when a new data stream or
 // index is created.
 // The index template with the highest priority is chosen.
 // If no priority is specified the template is treated as though it is of
@@ -595,43 +559,30 @@ func (r *PutIndexTemplate) Meta_(metadata types.MetadataVariant) *PutIndexTempla
 // This number is not automatically generated by Elasticsearch.
 // API name: priority
 func (r *PutIndexTemplate) Priority(priority int64) *PutIndexTemplate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Priority = &priority
 
 	return r
 }
 
-// Template to be applied.
+// Template Template to be applied.
 // It may optionally include an `aliases`, `mappings`, or `settings`
 // configuration.
 // API name: template
-func (r *PutIndexTemplate) Template(template types.IndexTemplateMappingVariant) *PutIndexTemplate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutIndexTemplate) Template(template *types.IndexTemplateMapping) *PutIndexTemplate {
 
-	r.req.Template = template.IndexTemplateMappingCaster()
+	r.req.Template = template
 
 	return r
 }
 
-// Version number used to manage index templates externally.
+// Version Version number used to manage index templates externally.
 // This number is not automatically generated by Elasticsearch.
 // External systems can use these version numbers to simplify template
 // management.
 // To unset a version, replace the template without specifying one.
 // API name: version
 func (r *PutIndexTemplate) Version(versionnumber int64) *PutIndexTemplate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Version = &versionnumber
 
 	return r

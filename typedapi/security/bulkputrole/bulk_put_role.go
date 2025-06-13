@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Bulk create or update roles.
 //
@@ -94,6 +94,8 @@ func New(tp elastictransport.Interface) *BulkPutRole {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -355,32 +357,11 @@ func (r *BulkPutRole) Pretty(pretty bool) *BulkPutRole {
 	return r
 }
 
-// A dictionary of role name to RoleDescriptor objects to add or update
+// Roles A dictionary of role name to RoleDescriptor objects to add or update
 // API name: roles
 func (r *BulkPutRole) Roles(roles map[string]types.RoleDescriptor) *BulkPutRole {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Roles = roles
-	return r
-}
 
-func (r *BulkPutRole) AddRole(key string, value types.RoleDescriptorVariant) *BulkPutRole {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.RoleDescriptor
-	if r.req.Roles == nil {
-		r.req.Roles = make(map[string]types.RoleDescriptor)
-	} else {
-		tmp = r.req.Roles
-	}
-
-	tmp[key] = *value.RoleDescriptorCaster()
-
-	r.req.Roles = tmp
 	return r
 }

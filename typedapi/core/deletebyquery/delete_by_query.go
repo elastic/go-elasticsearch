@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Delete documents.
 //
@@ -347,6 +347,8 @@ func New(tp elastictransport.Interface) *DeleteByQuery {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -896,42 +898,30 @@ func (r *DeleteByQuery) Pretty(pretty bool) *DeleteByQuery {
 	return r
 }
 
-// The maximum number of documents to delete.
+// MaxDocs The maximum number of documents to delete.
 // API name: max_docs
 func (r *DeleteByQuery) MaxDocs(maxdocs int64) *DeleteByQuery {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.MaxDocs = &maxdocs
 
 	return r
 }
 
-// The documents to delete specified with Query DSL.
+// Query The documents to delete specified with Query DSL.
 // API name: query
-func (r *DeleteByQuery) Query(query types.QueryVariant) *DeleteByQuery {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *DeleteByQuery) Query(query *types.Query) *DeleteByQuery {
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }
 
-// Slice the request manually using the provided slice ID and total number of
+// Slice Slice the request manually using the provided slice ID and total number of
 // slices.
 // API name: slice
-func (r *DeleteByQuery) Slice(slice types.SlicedScrollVariant) *DeleteByQuery {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *DeleteByQuery) Slice(slice *types.SlicedScroll) *DeleteByQuery {
 
-	r.req.Slice = slice.SlicedScrollCaster()
+	r.req.Slice = slice
 
 	return r
 }

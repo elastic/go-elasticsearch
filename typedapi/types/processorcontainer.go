@@ -16,20 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // ProcessorContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/ingest/_types/Processors.ts#L27-L301
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/ingest/_types/Processors.ts#L27-L301
 type ProcessorContainer struct {
-	AdditionalProcessorContainerProperty map[string]json.RawMessage `json:"-"`
 	// Append Appends one or more values to an existing array if the field already exists
 	// and it is an array.
 	// Converts a scalar to an array and appends one or more values to it if the
@@ -217,50 +211,9 @@ type ProcessorContainer struct {
 	UserAgent *UserAgentProcessor `json:"user_agent,omitempty"`
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s ProcessorContainer) MarshalJSON() ([]byte, error) {
-	type opt ProcessorContainer
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalProcessorContainerProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalProcessorContainerProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewProcessorContainer returns a ProcessorContainer.
 func NewProcessorContainer() *ProcessorContainer {
-	r := &ProcessorContainer{
-		AdditionalProcessorContainerProperty: make(map[string]json.RawMessage),
-	}
+	r := &ProcessorContainer{}
 
 	return r
-}
-
-// true
-
-type ProcessorContainerVariant interface {
-	ProcessorContainerCaster() *ProcessorContainer
-}
-
-func (s *ProcessorContainer) ProcessorContainerCaster() *ProcessorContainer {
-	return s
 }

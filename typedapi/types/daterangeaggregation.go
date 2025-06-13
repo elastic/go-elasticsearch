@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DateRangeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/aggregations/bucket.ts#L281-L307
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/aggregations/bucket.ts#L281-L307
 type DateRangeAggregation struct {
 	// Field The date field whose values are use to build ranges.
 	Field *string `json:"field,omitempty"`
@@ -120,14 +120,4 @@ func NewDateRangeAggregation() *DateRangeAggregation {
 	r := &DateRangeAggregation{}
 
 	return r
-}
-
-// true
-
-type DateRangeAggregationVariant interface {
-	DateRangeAggregationCaster() *DateRangeAggregation
-}
-
-func (s *DateRangeAggregation) DateRangeAggregationCaster() *DateRangeAggregation {
-	return s
 }

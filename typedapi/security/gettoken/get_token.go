@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Get a token.
 //
@@ -128,6 +128,8 @@ func New(tp elastictransport.Interface) *GetToken {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -381,90 +383,65 @@ func (r *GetToken) Pretty(pretty bool) *GetToken {
 	return r
 }
 
-// The type of grant.
+// GrantType The type of grant.
 // Supported grant types are: `password`, `_kerberos`, `client_credentials`, and
 // `refresh_token`.
 // API name: grant_type
 func (r *GetToken) GrantType(granttype accesstokengranttype.AccessTokenGrantType) *GetToken {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.GrantType = &granttype
+
 	return r
 }
 
-// The base64 encoded kerberos ticket.
+// KerberosTicket The base64 encoded kerberos ticket.
 // If you specify the `_kerberos` grant type, this parameter is required.
 // This parameter is not valid with any other supported grant type.
 // API name: kerberos_ticket
 func (r *GetToken) KerberosTicket(kerberosticket string) *GetToken {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.KerberosTicket = &kerberosticket
 
 	return r
 }
 
-// The user's password.
+// Password The user's password.
 // If you specify the `password` grant type, this parameter is required.
 // This parameter is not valid with any other supported grant type.
 // API name: password
 func (r *GetToken) Password(password string) *GetToken {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Password = &password
 
 	return r
 }
 
-// The string that was returned when you created the token, which enables you to
+// RefreshToken The string that was returned when you created the token, which enables you to
 // extend its life.
 // If you specify the `refresh_token` grant type, this parameter is required.
 // This parameter is not valid with any other supported grant type.
 // API name: refresh_token
 func (r *GetToken) RefreshToken(refreshtoken string) *GetToken {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.RefreshToken = &refreshtoken
 
 	return r
 }
 
-// The scope of the token.
+// Scope The scope of the token.
 // Currently tokens are only issued for a scope of FULL regardless of the value
 // sent with the request.
 // API name: scope
 func (r *GetToken) Scope(scope string) *GetToken {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Scope = &scope
 
 	return r
 }
 
-// The username that identifies the user.
+// Username The username that identifies the user.
 // If you specify the `password` grant type, this parameter is required.
 // This parameter is not valid with any other supported grant type.
 // API name: username
 func (r *GetToken) Username(username string) *GetToken {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Username = &username
 
 	return r

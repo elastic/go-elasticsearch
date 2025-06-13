@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update an anomaly detection job.
 // Updates certain properties of an anomaly detection job.
@@ -93,6 +93,8 @@ func New(tp elastictransport.Interface) *UpdateJob {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -361,7 +363,7 @@ func (r *UpdateJob) Pretty(pretty bool) *UpdateJob {
 	return r
 }
 
-// Advanced configuration option. Specifies whether this job can open when
+// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when
 // there is insufficient machine learning node capacity for it to be
 // immediately assigned to a node. If `false` and a machine learning node
 // with capacity to run the job cannot immediately be found, the open
@@ -372,29 +374,20 @@ func (r *UpdateJob) Pretty(pretty bool) *UpdateJob {
 // machine learning node capacity is available.
 // API name: allow_lazy_open
 func (r *UpdateJob) AllowLazyOpen(allowlazyopen bool) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.AllowLazyOpen = &allowlazyopen
 
 	return r
 }
 
 // API name: analysis_limits
-func (r *UpdateJob) AnalysisLimits(analysislimits types.AnalysisMemoryLimitVariant) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateJob) AnalysisLimits(analysislimits *types.AnalysisMemoryLimit) *UpdateJob {
 
-	r.req.AnalysisLimits = analysislimits.AnalysisMemoryLimitCaster()
+	r.req.AnalysisLimits = analysislimits
 
 	return r
 }
 
-// Advanced configuration option. The time between each periodic persistence
+// BackgroundPersistInterval Advanced configuration option. The time between each periodic persistence
 // of the model.
 // The default value is a randomized value between 3 to 4 hours, which
 // avoids all jobs persisting at exactly the same time. The smallest allowed
@@ -405,64 +398,31 @@ func (r *UpdateJob) AnalysisLimits(analysislimits types.AnalysisMemoryLimitVaria
 // close the job, then reopen the job and restart the datafeed for the
 // changes to take effect.
 // API name: background_persist_interval
-func (r *UpdateJob) BackgroundPersistInterval(duration types.DurationVariant) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.BackgroundPersistInterval = *duration.DurationCaster()
+func (r *UpdateJob) BackgroundPersistInterval(duration types.Duration) *UpdateJob {
+	r.req.BackgroundPersistInterval = duration
 
 	return r
 }
 
 // API name: categorization_filters
 func (r *UpdateJob) CategorizationFilters(categorizationfilters ...string) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range categorizationfilters {
+	r.req.CategorizationFilters = categorizationfilters
 
-		r.req.CategorizationFilters = append(r.req.CategorizationFilters, v)
-
-	}
 	return r
 }
 
-// Advanced configuration option. Contains custom meta data about the job.
+// CustomSettings Advanced configuration option. Contains custom meta data about the job.
 // For example, it can contain custom URL information as shown in Adding
 // custom URLs to machine learning results.
 // API name: custom_settings
 func (r *UpdateJob) CustomSettings(customsettings map[string]json.RawMessage) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.CustomSettings = customsettings
+
 	return r
 }
 
-func (r *UpdateJob) AddCustomSetting(key string, value json.RawMessage) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.CustomSettings == nil {
-		r.req.CustomSettings = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.CustomSettings
-	}
-
-	tmp[key] = value
-
-	r.req.CustomSettings = tmp
-	return r
-}
-
-// Advanced configuration option, which affects the automatic removal of old
+// DailyModelSnapshotRetentionAfterDays Advanced configuration option, which affects the automatic removal of old
 // model snapshots for this job. It specifies a period of time (in days)
 // after which only the first snapshot per day is retained. This period is
 // relative to the timestamp of the most recent snapshot for this job. Valid
@@ -471,127 +431,84 @@ func (r *UpdateJob) AddCustomSetting(key string, value json.RawMessage) *UpdateJ
 // `model_snapshot_retention_days`.
 // API name: daily_model_snapshot_retention_after_days
 func (r *UpdateJob) DailyModelSnapshotRetentionAfterDays(dailymodelsnapshotretentionafterdays int64) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.DailyModelSnapshotRetentionAfterDays = &dailymodelsnapshotretentionafterdays
 
 	return r
 }
 
-// A description of the job.
+// Description A description of the job.
 // API name: description
 func (r *UpdateJob) Description(description string) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Description = &description
 
 	return r
 }
 
-// An array of detector update objects.
+// Detectors An array of detector update objects.
 // API name: detectors
-func (r *UpdateJob) Detectors(detectors ...types.DetectorUpdateVariant) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range detectors {
+func (r *UpdateJob) Detectors(detectors ...types.DetectorUpdate) *UpdateJob {
+	r.req.Detectors = detectors
 
-		r.req.Detectors = append(r.req.Detectors, *v.DetectorUpdateCaster())
-
-	}
 	return r
 }
 
-// A list of job groups. A job can belong to no groups or many.
+// Groups A list of job groups. A job can belong to no groups or many.
 // API name: groups
 func (r *UpdateJob) Groups(groups ...string) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range groups {
+	r.req.Groups = groups
 
-		r.req.Groups = append(r.req.Groups, v)
-
-	}
 	return r
 }
 
 // API name: model_plot_config
-func (r *UpdateJob) ModelPlotConfig(modelplotconfig types.ModelPlotConfigVariant) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateJob) ModelPlotConfig(modelplotconfig *types.ModelPlotConfig) *UpdateJob {
 
-	r.req.ModelPlotConfig = modelplotconfig.ModelPlotConfigCaster()
+	r.req.ModelPlotConfig = modelplotconfig
 
 	return r
 }
 
 // API name: model_prune_window
-func (r *UpdateJob) ModelPruneWindow(duration types.DurationVariant) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.ModelPruneWindow = *duration.DurationCaster()
+func (r *UpdateJob) ModelPruneWindow(duration types.Duration) *UpdateJob {
+	r.req.ModelPruneWindow = duration
 
 	return r
 }
 
-// Advanced configuration option, which affects the automatic removal of old
+// ModelSnapshotRetentionDays Advanced configuration option, which affects the automatic removal of old
 // model snapshots for this job. It specifies the maximum period of time (in
 // days) that snapshots are retained. This period is relative to the
 // timestamp of the most recent snapshot for this job.
 // API name: model_snapshot_retention_days
 func (r *UpdateJob) ModelSnapshotRetentionDays(modelsnapshotretentiondays int64) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.ModelSnapshotRetentionDays = &modelsnapshotretentiondays
 
 	return r
 }
 
-// Settings related to how categorization interacts with partition fields.
+// PerPartitionCategorization Settings related to how categorization interacts with partition fields.
 // API name: per_partition_categorization
-func (r *UpdateJob) PerPartitionCategorization(perpartitioncategorization types.PerPartitionCategorizationVariant) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateJob) PerPartitionCategorization(perpartitioncategorization *types.PerPartitionCategorization) *UpdateJob {
 
-	r.req.PerPartitionCategorization = perpartitioncategorization.PerPartitionCategorizationCaster()
+	r.req.PerPartitionCategorization = perpartitioncategorization
 
 	return r
 }
 
-// Advanced configuration option. The period over which adjustments to the
+// RenormalizationWindowDays Advanced configuration option. The period over which adjustments to the
 // score are applied, as new data is seen.
 // API name: renormalization_window_days
 func (r *UpdateJob) RenormalizationWindowDays(renormalizationwindowdays int64) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.RenormalizationWindowDays = &renormalizationwindowdays
 
 	return r
 }
 
-// Advanced configuration option. The period of time (in days) that results
+// ResultsRetentionDays Advanced configuration option. The period of time (in days) that results
 // are retained. Age is calculated relative to the timestamp of the latest
 // bucket result. If this property has a non-null value, once per day at
 // 00:30 (server time), results that are the specified number of days older
@@ -599,10 +516,6 @@ func (r *UpdateJob) RenormalizationWindowDays(renormalizationwindowdays int64) *
 // value is null, which means all results are retained.
 // API name: results_retention_days
 func (r *UpdateJob) ResultsRetentionDays(resultsretentiondays int64) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.ResultsRetentionDays = &resultsretentiondays
 

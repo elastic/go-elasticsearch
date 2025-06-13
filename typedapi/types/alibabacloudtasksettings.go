@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AlibabaCloudTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/inference/_types/CommonTypes.ts#L266-L280
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/inference/_types/CommonTypes.ts#L339-L353
 type AlibabaCloudTaskSettings struct {
 	// InputType For a `sparse_embedding` or `text_embedding` task, specify the type of input
 	// passed to the model.
@@ -99,14 +99,4 @@ func NewAlibabaCloudTaskSettings() *AlibabaCloudTaskSettings {
 	r := &AlibabaCloudTaskSettings{}
 
 	return r
-}
-
-// true
-
-type AlibabaCloudTaskSettingsVariant interface {
-	AlibabaCloudTaskSettingsCaster() *AlibabaCloudTaskSettings
-}
-
-func (s *AlibabaCloudTaskSettings) AlibabaCloudTaskSettingsCaster() *AlibabaCloudTaskSettings {
-	return s
 }

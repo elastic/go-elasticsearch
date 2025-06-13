@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FielddataFrequencyFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/indices/_types/FielddataFrequencyFilter.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/indices/_types/FielddataFrequencyFilter.ts#L22-L26
 type FielddataFrequencyFilter struct {
 	Max            Float64 `json:"max"`
 	Min            Float64 `json:"min"`
@@ -111,14 +111,4 @@ func NewFielddataFrequencyFilter() *FielddataFrequencyFilter {
 	r := &FielddataFrequencyFilter{}
 
 	return r
-}
-
-// true
-
-type FielddataFrequencyFilterVariant interface {
-	FielddataFrequencyFilterCaster() *FielddataFrequencyFilter
-}
-
-func (s *FielddataFrequencyFilter) FielddataFrequencyFilterCaster() *FielddataFrequencyFilter {
-	return s
 }

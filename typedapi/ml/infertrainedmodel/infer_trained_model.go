@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Evaluate a trained model.
 package infertrainedmodel
@@ -91,6 +91,8 @@ func New(tp elastictransport.Interface) *InferTrainedModel {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -384,32 +386,23 @@ func (r *InferTrainedModel) Pretty(pretty bool) *InferTrainedModel {
 	return r
 }
 
-// An array of objects to pass to the model for inference. The objects should
+// Docs An array of objects to pass to the model for inference. The objects should
 // contain a fields matching your
 // configured trained model input. Typically, for NLP models, the field name is
 // `text_field`.
 // Currently, for NLP models, only a single value is allowed.
 // API name: docs
-func (r *InferTrainedModel) Docs(docs []map[string]json.RawMessage) *InferTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
+func (r *InferTrainedModel) Docs(docs ...map[string]json.RawMessage) *InferTrainedModel {
 	r.req.Docs = docs
 
 	return r
 }
 
-// The inference configuration updates to apply on the API call
+// InferenceConfig The inference configuration updates to apply on the API call
 // API name: inference_config
-func (r *InferTrainedModel) InferenceConfig(inferenceconfig types.InferenceConfigUpdateContainerVariant) *InferTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *InferTrainedModel) InferenceConfig(inferenceconfig *types.InferenceConfigUpdateContainer) *InferTrainedModel {
 
-	r.req.InferenceConfig = inferenceconfig.InferenceConfigUpdateContainerCaster()
+	r.req.InferenceConfig = inferenceconfig
 
 	return r
 }

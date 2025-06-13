@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // HttpInputRequestDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/watcher/_types/Input.ts#L72-L86
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/watcher/_types/Input.ts#L72-L86
 type HttpInputRequestDefinition struct {
 	Auth              *HttpInputAuthentication           `json:"auth,omitempty"`
 	Body              *string                            `json:"body,omitempty"`
@@ -166,19 +166,9 @@ func (s *HttpInputRequestDefinition) UnmarshalJSON(data []byte) error {
 // NewHttpInputRequestDefinition returns a HttpInputRequestDefinition.
 func NewHttpInputRequestDefinition() *HttpInputRequestDefinition {
 	r := &HttpInputRequestDefinition{
-		Headers: make(map[string]string),
-		Params:  make(map[string]string),
+		Headers: make(map[string]string, 0),
+		Params:  make(map[string]string, 0),
 	}
 
 	return r
-}
-
-// true
-
-type HttpInputRequestDefinitionVariant interface {
-	HttpInputRequestDefinitionCaster() *HttpInputRequestDefinition
-}
-
-func (s *HttpInputRequestDefinition) HttpInputRequestDefinitionCaster() *HttpInputRequestDefinition {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create a VoyageAI inference endpoint.
 //
@@ -109,6 +109,8 @@ func New(tp elastictransport.Interface) *PutVoyageai {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -388,55 +390,40 @@ func (r *PutVoyageai) Pretty(pretty bool) *PutVoyageai {
 	return r
 }
 
-// The chunking configuration object.
+// ChunkingSettings The chunking configuration object.
 // API name: chunking_settings
-func (r *PutVoyageai) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutVoyageai {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutVoyageai) ChunkingSettings(chunkingsettings *types.InferenceChunkingSettings) *PutVoyageai {
 
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
+	r.req.ChunkingSettings = chunkingsettings
 
 	return r
 }
 
-// The type of service supported for the specified task type. In this case,
+// Service The type of service supported for the specified task type. In this case,
 // `voyageai`.
 // API name: service
 func (r *PutVoyageai) Service(service voyageaiservicetype.VoyageAIServiceType) *PutVoyageai {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.Service = service
+
 	return r
 }
 
-// Settings used to install the inference model. These settings are specific to
+// ServiceSettings Settings used to install the inference model. These settings are specific to
 // the `voyageai` service.
 // API name: service_settings
-func (r *PutVoyageai) ServiceSettings(servicesettings types.VoyageAIServiceSettingsVariant) *PutVoyageai {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutVoyageai) ServiceSettings(servicesettings *types.VoyageAIServiceSettings) *PutVoyageai {
 
-	r.req.ServiceSettings = *servicesettings.VoyageAIServiceSettingsCaster()
+	r.req.ServiceSettings = *servicesettings
 
 	return r
 }
 
-// Settings to configure the inference task.
+// TaskSettings Settings to configure the inference task.
 // These settings are specific to the task type you specified.
 // API name: task_settings
-func (r *PutVoyageai) TaskSettings(tasksettings types.VoyageAITaskSettingsVariant) *PutVoyageai {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutVoyageai) TaskSettings(tasksettings *types.VoyageAITaskSettings) *PutVoyageai {
 
-	r.req.TaskSettings = tasksettings.VoyageAITaskSettingsCaster()
+	r.req.TaskSettings = tasksettings
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Suggest a user profile.
 //
@@ -99,6 +99,8 @@ func New(tp elastictransport.Interface) *SuggestUserProfiles {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -352,7 +354,7 @@ func (r *SuggestUserProfiles) Pretty(pretty bool) *SuggestUserProfiles {
 	return r
 }
 
-// A comma-separated list of filters for the `data` field of the profile
+// Data A comma-separated list of filters for the `data` field of the profile
 // document.
 // To return all content use `data=*`.
 // To return a subset of content, use `data=<key>` to retrieve content nested
@@ -362,53 +364,36 @@ func (r *SuggestUserProfiles) Pretty(pretty bool) *SuggestUserProfiles {
 // body field.
 // API name: data
 func (r *SuggestUserProfiles) Data(data ...string) *SuggestUserProfiles {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	r.req.Data = make([]string, len(data))
 	r.req.Data = data
 
 	return r
 }
 
-// Extra search criteria to improve relevance of the suggestion result.
+// Hint Extra search criteria to improve relevance of the suggestion result.
 // Profiles matching the spcified hint are ranked higher in the response.
 // Profiles not matching the hint aren't excluded from the response as long as
 // the profile matches the `name` field query.
 // API name: hint
-func (r *SuggestUserProfiles) Hint(hint types.HintVariant) *SuggestUserProfiles {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *SuggestUserProfiles) Hint(hint *types.Hint) *SuggestUserProfiles {
 
-	r.req.Hint = hint.HintCaster()
+	r.req.Hint = hint
 
 	return r
 }
 
-// A query string used to match name-related fields in user profile documents.
+// Name A query string used to match name-related fields in user profile documents.
 // Name-related fields are the user's `username`, `full_name`, and `email`.
 // API name: name
 func (r *SuggestUserProfiles) Name(name string) *SuggestUserProfiles {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Name = &name
 
 	return r
 }
 
-// The number of profiles to return.
+// Size The number of profiles to return.
 // API name: size
 func (r *SuggestUserProfiles) Size(size int64) *SuggestUserProfiles {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Size = &size
 

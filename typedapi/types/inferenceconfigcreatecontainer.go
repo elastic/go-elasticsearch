@@ -16,20 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // InferenceConfigCreateContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/ml/_types/inference.ts#L26-L85
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/ml/_types/inference.ts#L26-L85
 type InferenceConfigCreateContainer struct {
-	AdditionalInferenceConfigCreateContainerProperty map[string]json.RawMessage `json:"-"`
 	// Classification Classification configuration for inference.
 	Classification *ClassificationInferenceOptions `json:"classification,omitempty"`
 	// FillMask Fill mask configuration for inference.
@@ -53,50 +47,9 @@ type InferenceConfigCreateContainer struct {
 	ZeroShotClassification *ZeroShotClassificationInferenceOptions `json:"zero_shot_classification,omitempty"`
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s InferenceConfigCreateContainer) MarshalJSON() ([]byte, error) {
-	type opt InferenceConfigCreateContainer
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalInferenceConfigCreateContainerProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalInferenceConfigCreateContainerProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewInferenceConfigCreateContainer returns a InferenceConfigCreateContainer.
 func NewInferenceConfigCreateContainer() *InferenceConfigCreateContainer {
-	r := &InferenceConfigCreateContainer{
-		AdditionalInferenceConfigCreateContainerProperty: make(map[string]json.RawMessage),
-	}
+	r := &InferenceConfigCreateContainer{}
 
 	return r
-}
-
-// true
-
-type InferenceConfigCreateContainerVariant interface {
-	InferenceConfigCreateContainerCaster() *InferenceConfigCreateContainer
-}
-
-func (s *InferenceConfigCreateContainer) InferenceConfigCreateContainerCaster() *InferenceConfigCreateContainer {
-	return s
 }

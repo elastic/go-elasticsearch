@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // Summary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/enrich/_types/Policy.ts#L24-L26
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/enrich/_types/Policy.ts#L24-L26
 type Summary struct {
 	Config map[policytype.PolicyType]EnrichPolicy `json:"config"`
 }
@@ -34,10 +34,8 @@ type Summary struct {
 // NewSummary returns a Summary.
 func NewSummary() *Summary {
 	r := &Summary{
-		Config: make(map[policytype.PolicyType]EnrichPolicy),
+		Config: make(map[policytype.PolicyType]EnrichPolicy, 0),
 	}
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update a document.
 //
@@ -145,6 +145,8 @@ func New(tp elastictransport.Interface) *Update {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -533,28 +535,23 @@ func (r *Update) Pretty(pretty bool) *Update {
 	return r
 }
 
-// If `true`, the `result` in the response is set to `noop` (no operation) when
+// DetectNoop If `true`, the `result` in the response is set to `noop` (no operation) when
 // there are no changes to the document.
 // API name: detect_noop
 func (r *Update) DetectNoop(detectnoop bool) *Update {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.DetectNoop = &detectnoop
 
 	return r
 }
 
-// A partial update to an existing document.
+// Doc A partial update to an existing document.
 // If both `doc` and `script` are specified, `doc` is ignored.
 // API name: doc
+//
+// doc should be a json.RawMessage or a structure
+// if a structure is provided, the client will defer a json serialization
+// prior to sending the payload to Elasticsearch.
 func (r *Update) Doc(doc any) *Update {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	switch casted := doc.(type) {
 	case json.RawMessage:
 		r.req.Doc = casted
@@ -568,73 +565,55 @@ func (r *Update) Doc(doc any) *Update {
 			return nil
 		})
 	}
+
 	return r
 }
 
-// If `true`, use the contents of 'doc' as the value of 'upsert'.
+// DocAsUpsert If `true`, use the contents of 'doc' as the value of 'upsert'.
 // NOTE: Using ingest pipelines with `doc_as_upsert` is not supported.
 // API name: doc_as_upsert
 func (r *Update) DocAsUpsert(docasupsert bool) *Update {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.DocAsUpsert = &docasupsert
 
 	return r
 }
 
-// The script to run to update the document.
+// Script The script to run to update the document.
 // API name: script
-func (r *Update) Script(script types.ScriptVariant) *Update {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Update) Script(script *types.Script) *Update {
 
-	r.req.Script = script.ScriptCaster()
+	r.req.Script = script
 
 	return r
 }
 
-// If `true`, run the script whether or not the document exists.
+// ScriptedUpsert If `true`, run the script whether or not the document exists.
 // API name: scripted_upsert
 func (r *Update) ScriptedUpsert(scriptedupsert bool) *Update {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.ScriptedUpsert = &scriptedupsert
 
 	return r
 }
 
-// If `false`, turn off source retrieval.
+// Source_ If `false`, turn off source retrieval.
 // You can also specify a comma-separated list of the fields you want to
 // retrieve.
 // API name: _source
-func (r *Update) Source_(sourceconfig types.SourceConfigVariant) *Update {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Source_ = *sourceconfig.SourceConfigCaster()
+func (r *Update) Source_(sourceconfig types.SourceConfig) *Update {
+	r.req.Source_ = sourceconfig
 
 	return r
 }
 
-// If the document does not already exist, the contents of 'upsert' are inserted
+// Upsert If the document does not already exist, the contents of 'upsert' are inserted
 // as a new document.
 // If the document exists, the 'script' is run.
 // API name: upsert
+//
+// upsert should be a json.RawMessage or a structure
+// if a structure is provided, the client will defer a json serialization
+// prior to sending the payload to Elasticsearch.
 func (r *Update) Upsert(upsert any) *Update {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	switch casted := upsert.(type) {
 	case json.RawMessage:
 		r.req.Upsert = casted
@@ -648,5 +627,6 @@ func (r *Update) Upsert(upsert any) *Update {
 			return nil
 		})
 	}
+
 	return r
 }

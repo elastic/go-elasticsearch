@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // The purpose of the fleet search api is to provide a search api where the
 // search will only be executed
@@ -101,6 +101,8 @@ func New(tp elastictransport.Interface) *Search {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -544,10 +546,8 @@ func (r *Search) WaitForCheckpoints(waitforcheckpoints ...int64) *Search {
 	return r
 }
 
-// AllowPartialSearchResults If true, returns partial results if there are shard request timeouts or
-// [shard
-// failures](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-replication.html#shard-failures).
-// If false, returns
+// AllowPartialSearchResults If true, returns partial results if there are shard request timeouts or shard
+// failures. If false, returns
 // an error with no partial results. Defaults to the configured cluster setting
 // `search.default_allow_partial_results`
 // which is true by default.
@@ -604,386 +604,213 @@ func (r *Search) Pretty(pretty bool) *Search {
 
 // API name: aggregations
 func (r *Search) Aggregations(aggregations map[string]types.Aggregations) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Aggregations = aggregations
-	return r
-}
 
-func (r *Search) AddAggregation(key string, value types.AggregationsVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.Aggregations
-	if r.req.Aggregations == nil {
-		r.req.Aggregations = make(map[string]types.Aggregations)
-	} else {
-		tmp = r.req.Aggregations
-	}
-
-	tmp[key] = *value.AggregationsCaster()
-
-	r.req.Aggregations = tmp
 	return r
 }
 
 // API name: collapse
-func (r *Search) Collapse(collapse types.FieldCollapseVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Search) Collapse(collapse *types.FieldCollapse) *Search {
 
-	r.req.Collapse = collapse.FieldCollapseCaster()
+	r.req.Collapse = collapse
 
 	return r
 }
 
-// Array of wildcard (*) patterns. The request returns doc values for field
+// DocvalueFields Array of wildcard (*) patterns. The request returns doc values for field
 // names matching these patterns in the hits.fields property of the response.
 // API name: docvalue_fields
-func (r *Search) DocvalueFields(docvaluefields ...types.FieldAndFormatVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range docvaluefields {
+func (r *Search) DocvalueFields(docvaluefields ...types.FieldAndFormat) *Search {
+	r.req.DocvalueFields = docvaluefields
 
-		r.req.DocvalueFields = append(r.req.DocvalueFields, *v.FieldAndFormatCaster())
-
-	}
 	return r
 }
 
-// If true, returns detailed information about score computation as part of a
+// Explain If true, returns detailed information about score computation as part of a
 // hit.
 // API name: explain
 func (r *Search) Explain(explain bool) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Explain = &explain
 
 	return r
 }
 
-// Configuration of search extensions defined by Elasticsearch plugins.
+// Ext Configuration of search extensions defined by Elasticsearch plugins.
 // API name: ext
 func (r *Search) Ext(ext map[string]json.RawMessage) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Ext = ext
+
 	return r
 }
 
-func (r *Search) AddExt(key string, value json.RawMessage) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Ext == nil {
-		r.req.Ext = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Ext
-	}
-
-	tmp[key] = value
-
-	r.req.Ext = tmp
-	return r
-}
-
-// Array of wildcard (*) patterns. The request returns values for field names
+// Fields Array of wildcard (*) patterns. The request returns values for field names
 // matching these patterns in the hits.fields property of the response.
 // API name: fields
-func (r *Search) Fields(fields ...types.FieldAndFormatVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range fields {
+func (r *Search) Fields(fields ...types.FieldAndFormat) *Search {
+	r.req.Fields = fields
 
-		r.req.Fields = append(r.req.Fields, *v.FieldAndFormatCaster())
-
-	}
 	return r
 }
 
-// Starting document offset. By default, you cannot page through more than
+// From Starting document offset. By default, you cannot page through more than
 // 10,000
 // hits using the from and size parameters. To page through more hits, use the
 // search_after parameter.
 // API name: from
 func (r *Search) From(from int) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.From = &from
 
 	return r
 }
 
 // API name: highlight
-func (r *Search) Highlight(highlight types.HighlightVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Search) Highlight(highlight *types.Highlight) *Search {
 
-	r.req.Highlight = highlight.HighlightCaster()
+	r.req.Highlight = highlight
 
 	return r
 }
 
-// Boosts the _score of documents from specified indices.
+// IndicesBoost Boosts the _score of documents from specified indices.
 // API name: indices_boost
-func (r *Search) IndicesBoost(indicesboost []map[string]types.Float64) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.IndicesBoost = indicesboost
+func (r *Search) IndicesBoost(indicesboosts ...map[string]types.Float64) *Search {
+	r.req.IndicesBoost = indicesboosts
 
 	return r
 }
 
-// Minimum _score for matching documents. Documents with a lower _score are
+// MinScore Minimum _score for matching documents. Documents with a lower _score are
 // not included in the search results.
 // API name: min_score
 func (r *Search) MinScore(minscore types.Float64) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.MinScore = &minscore
 
 	return r
 }
 
-// Limits the search to a point in time (PIT). If you provide a PIT, you
+// Pit Limits the search to a point in time (PIT). If you provide a PIT, you
 // cannot specify an <index> in the request path.
 // API name: pit
-func (r *Search) Pit(pit types.PointInTimeReferenceVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Search) Pit(pit *types.PointInTimeReference) *Search {
 
-	r.req.Pit = pit.PointInTimeReferenceCaster()
+	r.req.Pit = pit
 
 	return r
 }
 
 // API name: post_filter
-func (r *Search) PostFilter(postfilter types.QueryVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Search) PostFilter(postfilter *types.Query) *Search {
 
-	r.req.PostFilter = postfilter.QueryCaster()
+	r.req.PostFilter = postfilter
 
 	return r
 }
 
 // API name: profile
 func (r *Search) Profile(profile bool) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Profile = &profile
 
 	return r
 }
 
-// Defines the search definition using the Query DSL.
+// Query Defines the search definition using the Query DSL.
 // API name: query
-func (r *Search) Query(query types.QueryVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Search) Query(query *types.Query) *Search {
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }
 
 // API name: rescore
-func (r *Search) Rescore(rescores ...types.RescoreVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	r.req.Rescore = make([]types.Rescore, len(rescores))
-	for i, v := range rescores {
-		r.req.Rescore[i] = *v.RescoreCaster()
-	}
+func (r *Search) Rescore(rescores ...types.Rescore) *Search {
+	r.req.Rescore = rescores
 
 	return r
 }
 
-// Defines one or more runtime fields in the search request. These fields take
+// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
 // precedence over mapped fields with the same name.
 // API name: runtime_mappings
-func (r *Search) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
+func (r *Search) RuntimeMappings(runtimefields types.RuntimeFields) *Search {
+	r.req.RuntimeMappings = runtimefields
 
 	return r
 }
 
-// Retrieve a script evaluation (based on different fields) for each hit.
+// ScriptFields Retrieve a script evaluation (based on different fields) for each hit.
 // API name: script_fields
 func (r *Search) ScriptFields(scriptfields map[string]types.ScriptField) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.ScriptFields = scriptfields
-	return r
-}
 
-func (r *Search) AddScriptField(key string, value types.ScriptFieldVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.ScriptField
-	if r.req.ScriptFields == nil {
-		r.req.ScriptFields = make(map[string]types.ScriptField)
-	} else {
-		tmp = r.req.ScriptFields
-	}
-
-	tmp[key] = *value.ScriptFieldCaster()
-
-	r.req.ScriptFields = tmp
 	return r
 }
 
 // API name: search_after
-func (r *Search) SearchAfter(sortresults ...types.FieldValueVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	for _, v := range sortresults {
-		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
-	}
+func (r *Search) SearchAfter(sortresults ...types.FieldValue) *Search {
+	r.req.SearchAfter = sortresults
 
 	return r
 }
 
-// If true, returns sequence number and primary term of the last modification
+// SeqNoPrimaryTerm If true, returns sequence number and primary term of the last modification
 // of each hit. See Optimistic concurrency control.
 // API name: seq_no_primary_term
 func (r *Search) SeqNoPrimaryTerm(seqnoprimaryterm bool) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.SeqNoPrimaryTerm = &seqnoprimaryterm
 
 	return r
 }
 
-// The number of hits to return. By default, you cannot page through more
+// Size The number of hits to return. By default, you cannot page through more
 // than 10,000 hits using the from and size parameters. To page through more
 // hits, use the search_after parameter.
 // API name: size
 func (r *Search) Size(size int) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Size = &size
 
 	return r
 }
 
 // API name: slice
-func (r *Search) Slice(slice types.SlicedScrollVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Search) Slice(slice *types.SlicedScroll) *Search {
 
-	r.req.Slice = slice.SlicedScrollCaster()
+	r.req.Slice = slice
 
 	return r
 }
 
 // API name: sort
-func (r *Search) Sort(sorts ...types.SortCombinationsVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	for _, v := range sorts {
-		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
-	}
+func (r *Search) Sort(sorts ...types.SortCombinations) *Search {
+	r.req.Sort = sorts
 
 	return r
 }
 
-// Indicates which source fields are returned for matching documents. These
+// Source_ Indicates which source fields are returned for matching documents. These
 // fields are returned in the hits._source property of the search response.
 // API name: _source
-func (r *Search) Source_(sourceconfig types.SourceConfigVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Source_ = *sourceconfig.SourceConfigCaster()
+func (r *Search) Source_(sourceconfig types.SourceConfig) *Search {
+	r.req.Source_ = sourceconfig
 
 	return r
 }
 
-// Stats groups to associate with the search. Each group maintains a statistics
+// Stats Stats groups to associate with the search. Each group maintains a statistics
 // aggregation for its associated searches. You can retrieve these stats using
 // the indices stats API.
 // API name: stats
 func (r *Search) Stats(stats ...string) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range stats {
+	r.req.Stats = stats
 
-		r.req.Stats = append(r.req.Stats, v)
-
-	}
 	return r
 }
 
-// List of stored fields to return as part of a hit. If no fields are specified,
+// StoredFields List of stored fields to return as part of a hit. If no fields are specified,
 // no stored fields are included in the response. If this field is specified,
 // the _source
 // parameter defaults to false. You can pass _source: true to return both source
@@ -991,29 +818,20 @@ func (r *Search) Stats(stats ...string) *Search {
 // and stored fields in the search response.
 // API name: stored_fields
 func (r *Search) StoredFields(fields ...string) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.StoredFields = fields
 
 	return r
 }
 
 // API name: suggest
-func (r *Search) Suggest(suggest types.SuggesterVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Search) Suggest(suggest *types.Suggester) *Search {
 
-	r.req.Suggest = suggest.SuggesterCaster()
+	r.req.Suggest = suggest
 
 	return r
 }
 
-// Maximum number of documents to collect for each shard. If a query reaches
+// TerminateAfter Maximum number of documents to collect for each shard. If a query reaches
 // this
 // limit, Elasticsearch terminates the query early. Elasticsearch collects
 // documents
@@ -1021,71 +839,48 @@ func (r *Search) Suggest(suggest types.SuggesterVariant) *Search {
 // early.
 // API name: terminate_after
 func (r *Search) TerminateAfter(terminateafter int64) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.TerminateAfter = &terminateafter
 
 	return r
 }
 
-// Specifies the period of time to wait for a response from each shard. If no
+// Timeout Specifies the period of time to wait for a response from each shard. If no
 // response
 // is received before the timeout expires, the request fails and returns an
 // error.
 // Defaults to no timeout.
 // API name: timeout
 func (r *Search) Timeout(timeout string) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Timeout = &timeout
 
 	return r
 }
 
-// If true, calculate and return document scores, even if the scores are not
+// TrackScores If true, calculate and return document scores, even if the scores are not
 // used for sorting.
 // API name: track_scores
 func (r *Search) TrackScores(trackscores bool) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.TrackScores = &trackscores
 
 	return r
 }
 
-// Number of hits matching the query to count accurately. If true, the exact
+// TrackTotalHits Number of hits matching the query to count accurately. If true, the exact
 // number of hits is returned at the cost of some performance. If false, the
 // response does not include the total number of hits matching the query.
 // Defaults to 10,000 hits.
 // API name: track_total_hits
-func (r *Search) TrackTotalHits(trackhits types.TrackHitsVariant) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.TrackTotalHits = *trackhits.TrackHitsCaster()
+func (r *Search) TrackTotalHits(trackhits types.TrackHits) *Search {
+	r.req.TrackTotalHits = trackhits
 
 	return r
 }
 
-// If true, returns document version as part of a hit.
+// Version If true, returns document version as part of a hit.
 // API name: version
 func (r *Search) Version(version bool) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Version = &version
 
 	return r

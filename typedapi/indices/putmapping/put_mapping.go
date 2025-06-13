@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update field mappings.
 // Add new fields to an existing data stream or index.
@@ -169,6 +169,8 @@ func New(tp elastictransport.Interface) *PutMapping {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -498,170 +500,102 @@ func (r *PutMapping) Pretty(pretty bool) *PutMapping {
 	return r
 }
 
-// Controls whether dynamic date detection is enabled.
+// DateDetection Controls whether dynamic date detection is enabled.
 // API name: date_detection
 func (r *PutMapping) DateDetection(datedetection bool) *PutMapping {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.DateDetection = &datedetection
 
 	return r
 }
 
-// Controls whether new fields are added dynamically.
+// Dynamic Controls whether new fields are added dynamically.
 // API name: dynamic
 func (r *PutMapping) Dynamic(dynamic dynamicmapping.DynamicMapping) *PutMapping {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.Dynamic = &dynamic
+
 	return r
 }
 
-// If date detection is enabled then new string fields are checked
+// DynamicDateFormats If date detection is enabled then new string fields are checked
 // against 'dynamic_date_formats' and if the value matches then
 // a new date field is added instead of string.
 // API name: dynamic_date_formats
 func (r *PutMapping) DynamicDateFormats(dynamicdateformats ...string) *PutMapping {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range dynamicdateformats {
+	r.req.DynamicDateFormats = dynamicdateformats
 
-		r.req.DynamicDateFormats = append(r.req.DynamicDateFormats, v)
-
-	}
 	return r
 }
 
-// Specify dynamic templates for the mapping.
+// DynamicTemplates Specify dynamic templates for the mapping.
 // API name: dynamic_templates
-func (r *PutMapping) DynamicTemplates(dynamictemplates []map[string]types.DynamicTemplate) *PutMapping {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
+func (r *PutMapping) DynamicTemplates(dynamictemplates ...map[string]types.DynamicTemplate) *PutMapping {
 	r.req.DynamicTemplates = dynamictemplates
 
 	return r
 }
 
-// Control whether field names are enabled for the index.
+// FieldNames_ Control whether field names are enabled for the index.
 // API name: _field_names
-func (r *PutMapping) FieldNames_(fieldnames_ types.FieldNamesFieldVariant) *PutMapping {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutMapping) FieldNames_(fieldnames_ *types.FieldNamesField) *PutMapping {
 
-	r.req.FieldNames_ = fieldnames_.FieldNamesFieldCaster()
+	r.req.FieldNames_ = fieldnames_
 
 	return r
 }
 
-// A mapping type can have custom meta data associated with it. These are
+// Meta_ A mapping type can have custom meta data associated with it. These are
 // not used at all by Elasticsearch, but can be used to store
 // application-specific metadata.
 // API name: _meta
-func (r *PutMapping) Meta_(metadata types.MetadataVariant) *PutMapping {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Meta_ = *metadata.MetadataCaster()
+func (r *PutMapping) Meta_(metadata types.Metadata) *PutMapping {
+	r.req.Meta_ = metadata
 
 	return r
 }
 
-// Automatically map strings into numeric data types for all fields.
+// NumericDetection Automatically map strings into numeric data types for all fields.
 // API name: numeric_detection
 func (r *PutMapping) NumericDetection(numericdetection bool) *PutMapping {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.NumericDetection = &numericdetection
 
 	return r
 }
 
-// Mapping for a field. For new fields, this mapping can include:
+// Properties Mapping for a field. For new fields, this mapping can include:
 //
 // - Field name
 // - Field data type
 // - Mapping parameters
 // API name: properties
 func (r *PutMapping) Properties(properties map[string]types.Property) *PutMapping {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Properties = properties
+
 	return r
 }
 
-func (r *PutMapping) AddProperty(key string, value types.PropertyVariant) *PutMapping {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.Property
-	if r.req.Properties == nil {
-		r.req.Properties = make(map[string]types.Property)
-	} else {
-		tmp = r.req.Properties
-	}
-
-	tmp[key] = *value.PropertyCaster()
-
-	r.req.Properties = tmp
-	return r
-}
-
-// Enable making a routing value required on indexed documents.
+// Routing_ Enable making a routing value required on indexed documents.
 // API name: _routing
-func (r *PutMapping) Routing_(routing_ types.RoutingFieldVariant) *PutMapping {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutMapping) Routing_(routing_ *types.RoutingField) *PutMapping {
 
-	r.req.Routing_ = routing_.RoutingFieldCaster()
+	r.req.Routing_ = routing_
 
 	return r
 }
 
-// Mapping of runtime fields for the index.
+// Runtime Mapping of runtime fields for the index.
 // API name: runtime
-func (r *PutMapping) Runtime(runtimefields types.RuntimeFieldsVariant) *PutMapping {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Runtime = *runtimefields.RuntimeFieldsCaster()
+func (r *PutMapping) Runtime(runtimefields types.RuntimeFields) *PutMapping {
+	r.req.Runtime = runtimefields
 
 	return r
 }
 
-// Control whether the _source field is enabled on the index.
+// Source_ Control whether the _source field is enabled on the index.
 // API name: _source
-func (r *PutMapping) Source_(source_ types.SourceFieldVariant) *PutMapping {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutMapping) Source_(source_ *types.SourceField) *PutMapping {
 
-	r.req.Source_ = source_.SourceFieldCaster()
+	r.req.Source_ = source_
 
 	return r
 }

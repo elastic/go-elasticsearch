@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LinearInterpolationSmoothingModel type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_global/search/_types/suggester.ts#L437-L441
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_global/search/_types/suggester.ts#L437-L441
 type LinearInterpolationSmoothingModel struct {
 	BigramLambda  Float64 `json:"bigram_lambda"`
 	TrigramLambda Float64 `json:"trigram_lambda"`
@@ -111,14 +111,4 @@ func NewLinearInterpolationSmoothingModel() *LinearInterpolationSmoothingModel {
 	r := &LinearInterpolationSmoothingModel{}
 
 	return r
-}
-
-// true
-
-type LinearInterpolationSmoothingModelVariant interface {
-	LinearInterpolationSmoothingModelCaster() *LinearInterpolationSmoothingModel
-}
-
-func (s *LinearInterpolationSmoothingModel) LinearInterpolationSmoothingModelCaster() *LinearInterpolationSmoothingModel {
-	return s
 }

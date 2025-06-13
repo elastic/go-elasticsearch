@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Prepare OpenID connect authentication.
 //
@@ -109,6 +109,8 @@ func New(tp elastictransport.Interface) *OidcPrepareAuthentication {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -362,79 +364,59 @@ func (r *OidcPrepareAuthentication) Pretty(pretty bool) *OidcPrepareAuthenticati
 	return r
 }
 
-// In the case of a third party initiated single sign on, this is the issuer
+// Iss In the case of a third party initiated single sign on, this is the issuer
 // identifier for the OP that the RP is to send the authentication request to.
 // It cannot be specified when *realm* is specified.
 // One of *realm* or *iss* is required.
 // API name: iss
 func (r *OidcPrepareAuthentication) Iss(iss string) *OidcPrepareAuthentication {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Iss = &iss
 
 	return r
 }
 
-// In the case of a third party initiated single sign on, it is a string value
+// LoginHint In the case of a third party initiated single sign on, it is a string value
 // that is included in the authentication request as the *login_hint* parameter.
 // This parameter is not valid when *realm* is specified.
 // API name: login_hint
 func (r *OidcPrepareAuthentication) LoginHint(loginhint string) *OidcPrepareAuthentication {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.LoginHint = &loginhint
 
 	return r
 }
 
-// The value used to associate a client session with an ID token and to mitigate
+// Nonce The value used to associate a client session with an ID token and to mitigate
 // replay attacks.
 // If the caller of the API does not provide a value, Elasticsearch will
 // generate one with sufficient entropy and return it in the response.
 // API name: nonce
 func (r *OidcPrepareAuthentication) Nonce(nonce string) *OidcPrepareAuthentication {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Nonce = &nonce
 
 	return r
 }
 
-// The name of the OpenID Connect realm in Elasticsearch the configuration of
+// Realm The name of the OpenID Connect realm in Elasticsearch the configuration of
 // which should be used in order to generate the authentication request.
 // It cannot be specified when *iss* is specified.
 // One of *realm* or *iss* is required.
 // API name: realm
 func (r *OidcPrepareAuthentication) Realm(realm string) *OidcPrepareAuthentication {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Realm = &realm
 
 	return r
 }
 
-// The value used to maintain state between the authentication request and the
+// State The value used to maintain state between the authentication request and the
 // response, typically used as a Cross-Site Request Forgery mitigation.
 // If the caller of the API does not provide a value, Elasticsearch will
 // generate one with sufficient entropy and return it in the response.
 // API name: state
 func (r *OidcPrepareAuthentication) State(state string) *OidcPrepareAuthentication {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.State = &state
 
