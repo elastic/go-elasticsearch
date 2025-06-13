@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IlmPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/ilm/_types/Policy.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/ilm/_types/Policy.ts#L23-L29
 type IlmPolicy struct {
 	// Meta_ Arbitrary metadata that is not automatically generated or used by
 	// Elasticsearch.
@@ -73,14 +73,4 @@ func NewIlmPolicy() *IlmPolicy {
 	r := &IlmPolicy{}
 
 	return r
-}
-
-// true
-
-type IlmPolicyVariant interface {
-	IlmPolicyCaster() *IlmPolicy
-}
-
-func (s *IlmPolicy) IlmPolicyCaster() *IlmPolicy {
-	return s
 }

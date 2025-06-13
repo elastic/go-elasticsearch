@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // QueryRole type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/security/query_role/types.ts#L103-L109
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/security/query_role/types.ts#L103-L109
 type QueryRole struct {
 	// Applications A list of application privilege entries
 	Applications []ApplicationPrivileges `json:"applications,omitempty"`
@@ -185,10 +185,8 @@ func (s *QueryRole) UnmarshalJSON(data []byte) error {
 // NewQueryRole returns a QueryRole.
 func NewQueryRole() *QueryRole {
 	r := &QueryRole{
-		TransientMetadata: make(map[string]json.RawMessage),
+		TransientMetadata: make(map[string]json.RawMessage, 0),
 	}
 
 	return r
 }
-
-// false

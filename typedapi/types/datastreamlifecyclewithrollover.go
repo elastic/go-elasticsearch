@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataStreamLifecycleWithRollover type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/indices/_types/DataStreamLifecycle.ts#L47-L58
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/indices/_types/DataStreamLifecycle.ts#L47-L58
 type DataStreamLifecycleWithRollover struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame.
@@ -107,14 +107,4 @@ func NewDataStreamLifecycleWithRollover() *DataStreamLifecycleWithRollover {
 	r := &DataStreamLifecycleWithRollover{}
 
 	return r
-}
-
-// true
-
-type DataStreamLifecycleWithRolloverVariant interface {
-	DataStreamLifecycleWithRolloverCaster() *DataStreamLifecycleWithRollover
-}
-
-func (s *DataStreamLifecycleWithRollover) DataStreamLifecycleWithRolloverCaster() *DataStreamLifecycleWithRollover {
-	return s
 }

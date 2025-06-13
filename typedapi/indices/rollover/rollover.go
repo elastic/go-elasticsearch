@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Roll over to a new index.
 // TIP: It is recommended to use the index lifecycle rollover action to automate
@@ -202,6 +202,8 @@ func New(tp elastictransport.Interface) *Rollover {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -544,38 +546,17 @@ func (r *Rollover) Pretty(pretty bool) *Rollover {
 	return r
 }
 
-// Aliases for the target index.
+// Aliases Aliases for the target index.
 // Data streams do not support this parameter.
 // API name: aliases
 func (r *Rollover) Aliases(aliases map[string]types.Alias) *Rollover {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Aliases = aliases
+
 	return r
 }
 
-func (r *Rollover) AddAlias(key string, value types.AliasVariant) *Rollover {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.Alias
-	if r.req.Aliases == nil {
-		r.req.Aliases = make(map[string]types.Alias)
-	} else {
-		tmp = r.req.Aliases
-	}
-
-	tmp[key] = *value.AliasCaster()
-
-	r.req.Aliases = tmp
-	return r
-}
-
-// Conditions for the rollover.
+// Conditions Conditions for the rollover.
 // If specified, Elasticsearch only performs the rollover if the current index
 // satisfies these conditions.
 // If this parameter is not specified, Elasticsearch performs the rollover
@@ -585,59 +566,30 @@ func (r *Rollover) AddAlias(key string, value types.AliasVariant) *Rollover {
 // The index will rollover if any `max_*` condition is satisfied and all `min_*`
 // conditions are satisfied.
 // API name: conditions
-func (r *Rollover) Conditions(conditions types.RolloverConditionsVariant) *Rollover {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Rollover) Conditions(conditions *types.RolloverConditions) *Rollover {
 
-	r.req.Conditions = conditions.RolloverConditionsCaster()
+	r.req.Conditions = conditions
 
 	return r
 }
 
-// Mapping for fields in the index.
+// Mappings Mapping for fields in the index.
 // If specified, this mapping can include field names, field data types, and
 // mapping paramaters.
 // API name: mappings
-func (r *Rollover) Mappings(mappings types.TypeMappingVariant) *Rollover {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Rollover) Mappings(mappings *types.TypeMapping) *Rollover {
 
-	r.req.Mappings = mappings.TypeMappingCaster()
+	r.req.Mappings = mappings
 
 	return r
 }
 
-// Configuration options for the index.
+// Settings Configuration options for the index.
 // Data streams do not support this parameter.
 // API name: settings
 func (r *Rollover) Settings(settings map[string]json.RawMessage) *Rollover {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Settings = settings
-	return r
-}
 
-func (r *Rollover) AddSetting(key string, value json.RawMessage) *Rollover {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Settings == nil {
-		r.req.Settings = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Settings
-	}
-
-	tmp[key] = value
-
-	r.req.Settings = tmp
 	return r
 }

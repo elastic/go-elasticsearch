@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Logout of SAML completely.
 //
@@ -116,6 +116,8 @@ func New(tp elastictransport.Interface) *SamlCompleteLogout {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -315,57 +317,40 @@ func (r *SamlCompleteLogout) Pretty(pretty bool) *SamlCompleteLogout {
 	return r
 }
 
-// If the SAML IdP sends the logout response with the HTTP-Post binding, this
+// Content If the SAML IdP sends the logout response with the HTTP-Post binding, this
 // field must be set to the value of the SAMLResponse form parameter from the
 // logout response.
 // API name: content
 func (r *SamlCompleteLogout) Content(content string) *SamlCompleteLogout {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Content = &content
 
 	return r
 }
 
-// A JSON array with all the valid SAML Request Ids that the caller of the API
+// Ids A JSON array with all the valid SAML Request Ids that the caller of the API
 // has for the current user.
 // API name: ids
 func (r *SamlCompleteLogout) Ids(ids ...string) *SamlCompleteLogout {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Ids = ids
 
 	return r
 }
 
-// If the SAML IdP sends the logout response with the HTTP-Redirect binding,
+// QueryString If the SAML IdP sends the logout response with the HTTP-Redirect binding,
 // this field must be set to the query string of the redirect URI.
 // API name: query_string
 func (r *SamlCompleteLogout) QueryString(querystring string) *SamlCompleteLogout {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.QueryString = &querystring
 
 	return r
 }
 
-// The name of the SAML realm in Elasticsearch for which the configuration is
+// Realm The name of the SAML realm in Elasticsearch for which the configuration is
 // used to verify the logout response.
 // API name: realm
 func (r *SamlCompleteLogout) Realm(realm string) *SamlCompleteLogout {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Realm = realm
 

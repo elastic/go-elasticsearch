@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // MoreLikeThisQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/query_dsl/specialized.ts#L87-L172
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/query_dsl/specialized.ts#L87-L172
 type MoreLikeThisQuery struct {
 	// Analyzer The analyzer that is used to analyze the free form text.
 	// Defaults to the analyzer associated with the first field in fields.
@@ -84,7 +84,7 @@ type MoreLikeThisQuery struct {
 	Routing            *string            `json:"routing,omitempty"`
 	// StopWords An array of stop words.
 	// Any word in this set is ignored.
-	StopWords []string `json:"stop_words,omitempty"`
+	StopWords StopWords `json:"stop_words,omitempty"`
 	// Unlike Used in combination with `like` to exclude documents that match a set of
 	// terms.
 	Unlike      []Like                   `json:"unlike,omitempty"`
@@ -319,19 +319,8 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "stop_words":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "StopWords", err)
-				}
-
-				s.StopWords = append(s.StopWords, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.StopWords); err != nil {
-					return fmt.Errorf("%s | %w", "StopWords", err)
-				}
+			if err := dec.Decode(&s.StopWords); err != nil {
+				return fmt.Errorf("%s | %w", "StopWords", err)
 			}
 
 		case "unlike":
@@ -370,14 +359,4 @@ func NewMoreLikeThisQuery() *MoreLikeThisQuery {
 	r := &MoreLikeThisQuery{}
 
 	return r
-}
-
-// true
-
-type MoreLikeThisQueryVariant interface {
-	MoreLikeThisQueryCaster() *MoreLikeThisQuery
-}
-
-func (s *MoreLikeThisQuery) MoreLikeThisQueryCaster() *MoreLikeThisQuery {
-	return s
 }

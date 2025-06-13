@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IlmPolicyStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/xpack/usage/types.ts#L167-L170
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/xpack/usage/types.ts#L167-L170
 type IlmPolicyStatistics struct {
 	IndicesManaged int         `json:"indices_managed"`
 	Phases         UsagePhases `json:"phases"`
@@ -84,5 +84,3 @@ func NewIlmPolicyStatistics() *IlmPolicyStatistics {
 
 	return r
 }
-
-// false

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Package fingerprintdigest
 package fingerprintdigest
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/ingest/_types/Processors.ts#L896-L902
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/ingest/_types/Processors.ts#L896-L902
 type FingerprintDigest struct {
 	Name string
 }
@@ -47,15 +47,15 @@ func (f FingerprintDigest) MarshalText() (text []byte, err error) {
 func (f *FingerprintDigest) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "md5":
+	case "MD5":
 		*f = Md5
-	case "sha-1":
+	case "SHA-1":
 		*f = Sha1
-	case "sha-256":
+	case "SHA-256":
 		*f = Sha256
-	case "sha-512":
+	case "SHA-512":
 		*f = Sha512
-	case "murmurhash3":
+	case "MurmurHash3":
 		*f = MurmurHash3
 	default:
 		*f = FingerprintDigest{string(text)}

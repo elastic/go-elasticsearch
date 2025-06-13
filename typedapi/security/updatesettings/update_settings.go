@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update security index settings.
 //
@@ -109,6 +109,8 @@ func New(tp elastictransport.Interface) *UpdateSettings {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -380,42 +382,30 @@ func (r *UpdateSettings) Pretty(pretty bool) *UpdateSettings {
 	return r
 }
 
-// Settings for the index used for most security configuration, including native
+// Security Settings for the index used for most security configuration, including native
 // realm users and roles configured with the API.
 // API name: security
-func (r *UpdateSettings) Security(security types.SecuritySettingsVariant) *UpdateSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateSettings) Security(security *types.SecuritySettings) *UpdateSettings {
 
-	r.req.Security = security.SecuritySettingsCaster()
+	r.req.Security = security
 
 	return r
 }
 
-// Settings for the index used to store profile information.
+// SecurityProfile Settings for the index used to store profile information.
 // API name: security-profile
-func (r *UpdateSettings) SecurityProfile(securityprofile types.SecuritySettingsVariant) *UpdateSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateSettings) SecurityProfile(securityprofile *types.SecuritySettings) *UpdateSettings {
 
-	r.req.SecurityProfile = securityprofile.SecuritySettingsCaster()
+	r.req.SecurityProfile = securityprofile
 
 	return r
 }
 
-// Settings for the index used to store tokens.
+// SecurityTokens Settings for the index used to store tokens.
 // API name: security-tokens
-func (r *UpdateSettings) SecurityTokens(securitytokens types.SecuritySettingsVariant) *UpdateSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *UpdateSettings) SecurityTokens(securitytokens *types.SecuritySettings) *UpdateSettings {
 
-	r.req.SecurityTokens = securitytokens.SecuritySettingsCaster()
+	r.req.SecurityTokens = securitytokens
 
 	return r
 }

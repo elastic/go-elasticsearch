@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,13 +31,15 @@ import (
 
 // RRFRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/Retriever.ts#L84-L91
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/Retriever.ts#L131-L138
 type RRFRetriever struct {
 	// Filter Query to filter the documents that can match.
 	Filter []Query `json:"filter,omitempty"`
 	// MinScore Minimum _score for matching documents. Documents with a lower _score are not
 	// included in the top documents.
 	MinScore *float32 `json:"min_score,omitempty"`
+	// Name_ Retriever name.
+	Name_ *string `json:"_name,omitempty"`
 	// RankConstant This value determines how much influence documents in individual result sets
 	// per query have over the final ranked result set.
 	RankConstant *int `json:"rank_constant,omitempty"`
@@ -95,6 +97,18 @@ func (s *RRFRetriever) UnmarshalJSON(data []byte) error {
 				s.MinScore = &f
 			}
 
+		case "_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Name_", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Name_ = &o
+
 		case "rank_constant":
 
 			var tmp any
@@ -142,14 +156,4 @@ func NewRRFRetriever() *RRFRetriever {
 	r := &RRFRetriever{}
 
 	return r
-}
-
-// true
-
-type RRFRetrieverVariant interface {
-	RRFRetrieverCaster() *RRFRetriever
-}
-
-func (s *RRFRetriever) RRFRetrieverCaster() *RRFRetriever {
-	return s
 }

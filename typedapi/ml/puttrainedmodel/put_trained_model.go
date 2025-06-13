@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create a trained model.
 // Enable you to supply a trained model that is not created by data frame
@@ -96,6 +96,8 @@ func New(tp elastictransport.Interface) *PutTrainedModel {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -381,84 +383,64 @@ func (r *PutTrainedModel) Pretty(pretty bool) *PutTrainedModel {
 	return r
 }
 
-// The compressed (GZipped and Base64 encoded) inference definition of the
+// CompressedDefinition The compressed (GZipped and Base64 encoded) inference definition of the
 // model. If compressed_definition is specified, then definition cannot be
 // specified.
 // API name: compressed_definition
 func (r *PutTrainedModel) CompressedDefinition(compresseddefinition string) *PutTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.CompressedDefinition = &compresseddefinition
 
 	return r
 }
 
-// The inference definition for the model. If definition is specified, then
+// Definition The inference definition for the model. If definition is specified, then
 // compressed_definition cannot be specified.
 // API name: definition
-func (r *PutTrainedModel) Definition(definition types.DefinitionVariant) *PutTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutTrainedModel) Definition(definition *types.Definition) *PutTrainedModel {
 
-	r.req.Definition = definition.DefinitionCaster()
+	r.req.Definition = definition
 
 	return r
 }
 
-// A human-readable description of the inference trained model.
+// Description A human-readable description of the inference trained model.
 // API name: description
 func (r *PutTrainedModel) Description(description string) *PutTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Description = &description
 
 	return r
 }
 
-// The default configuration for inference. This can be either a regression
+// InferenceConfig The default configuration for inference. This can be either a regression
 // or classification configuration. It must match the underlying
 // definition.trained_model's target_type. For pre-packaged models such as
 // ELSER the config is not required.
 // API name: inference_config
-func (r *PutTrainedModel) InferenceConfig(inferenceconfig types.InferenceConfigCreateContainerVariant) *PutTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutTrainedModel) InferenceConfig(inferenceconfig *types.InferenceConfigCreateContainer) *PutTrainedModel {
 
-	r.req.InferenceConfig = inferenceconfig.InferenceConfigCreateContainerCaster()
+	r.req.InferenceConfig = inferenceconfig
 
 	return r
 }
 
-// The input field names for the model definition.
+// Input The input field names for the model definition.
 // API name: input
-func (r *PutTrainedModel) Input(input types.InputVariant) *PutTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutTrainedModel) Input(input *types.Input) *PutTrainedModel {
 
-	r.req.Input = input.InputCaster()
+	r.req.Input = input
 
 	return r
 }
 
-// An object map that contains metadata about the model.
+// Metadata An object map that contains metadata about the model.
 // API name: metadata
+//
+// metadata should be a json.RawMessage or a structure
+// if a structure is provided, the client will defer a json serialization
+// prior to sending the payload to Elasticsearch.
 func (r *PutTrainedModel) Metadata(metadata any) *PutTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	switch casted := metadata.(type) {
 	case json.RawMessage:
 		r.req.Metadata = casted
@@ -472,36 +454,30 @@ func (r *PutTrainedModel) Metadata(metadata any) *PutTrainedModel {
 			return nil
 		})
 	}
+
 	return r
 }
 
-// The estimated memory usage in bytes to keep the trained model in memory.
+// ModelSizeBytes The estimated memory usage in bytes to keep the trained model in memory.
 // This property is supported only if defer_definition_decompression is true
 // or the model definition is not supplied.
 // API name: model_size_bytes
 func (r *PutTrainedModel) ModelSizeBytes(modelsizebytes int64) *PutTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.ModelSizeBytes = &modelsizebytes
 
 	return r
 }
 
-// The model type.
+// ModelType The model type.
 // API name: model_type
 func (r *PutTrainedModel) ModelType(modeltype trainedmodeltype.TrainedModelType) *PutTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.ModelType = &modeltype
+
 	return r
 }
 
-// The platform architecture (if applicable) of the trained mode. If the model
+// PlatformArchitecture The platform architecture (if applicable) of the trained mode. If the model
 // only works on one platform, because it is heavily optimized for a particular
 // processor architecture and OS combination, then this field specifies which.
 // The format of the string must match the platform identifiers used by
@@ -513,40 +489,25 @@ func (r *PutTrainedModel) ModelType(modeltype trainedmodeltype.TrainedModelType)
 // architecture or OS features), leave this field unset.
 // API name: platform_architecture
 func (r *PutTrainedModel) PlatformArchitecture(platformarchitecture string) *PutTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.PlatformArchitecture = &platformarchitecture
 
 	return r
 }
 
-// Optional prefix strings applied at inference
+// PrefixStrings Optional prefix strings applied at inference
 // API name: prefix_strings
-func (r *PutTrainedModel) PrefixStrings(prefixstrings types.TrainedModelPrefixStringsVariant) *PutTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutTrainedModel) PrefixStrings(prefixstrings *types.TrainedModelPrefixStrings) *PutTrainedModel {
 
-	r.req.PrefixStrings = prefixstrings.TrainedModelPrefixStringsCaster()
+	r.req.PrefixStrings = prefixstrings
 
 	return r
 }
 
-// An array of tags to organize the model.
+// Tags An array of tags to organize the model.
 // API name: tags
 func (r *PutTrainedModel) Tags(tags ...string) *PutTrainedModel {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range tags {
+	r.req.Tags = tags
 
-		r.req.Tags = append(r.req.Tags, v)
-
-	}
 	return r
 }

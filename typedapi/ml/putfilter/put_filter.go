@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create a filter.
 // A filter contains a list of strings. It can be used by one or more anomaly
@@ -99,6 +99,8 @@ func New(tp elastictransport.Interface) *PutFilter {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -365,32 +367,21 @@ func (r *PutFilter) Pretty(pretty bool) *PutFilter {
 	return r
 }
 
-// A description of the filter.
+// Description A description of the filter.
 // API name: description
 func (r *PutFilter) Description(description string) *PutFilter {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Description = &description
 
 	return r
 }
 
-// The items of the filter. A wildcard `*` can be used at the beginning or the
+// Items The items of the filter. A wildcard `*` can be used at the beginning or the
 // end of an item.
 // Up to 10000 items are allowed in each filter.
 // API name: items
 func (r *PutFilter) Items(items ...string) *PutFilter {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	for _, v := range items {
+	r.req.Items = items
 
-		r.req.Items = append(r.req.Items, v)
-
-	}
 	return r
 }

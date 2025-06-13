@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update user profile data.
 //
@@ -140,6 +140,8 @@ func New(tp elastictransport.Interface) *UpdateUserProfileData {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -436,7 +438,7 @@ func (r *UpdateUserProfileData) Pretty(pretty bool) *UpdateUserProfileData {
 	return r
 }
 
-// Non-searchable data that you want to associate with the user profile.
+// Data Non-searchable data that you want to associate with the user profile.
 // This field supports a nested data structure.
 // Within the `data` object, top-level keys cannot begin with an underscore
 // (`_`) or contain a period (`.`).
@@ -444,62 +446,20 @@ func (r *UpdateUserProfileData) Pretty(pretty bool) *UpdateUserProfileData {
 // profile API.
 // API name: data
 func (r *UpdateUserProfileData) Data(data map[string]json.RawMessage) *UpdateUserProfileData {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Data = data
+
 	return r
 }
 
-func (r *UpdateUserProfileData) AddDatum(key string, value json.RawMessage) *UpdateUserProfileData {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Data == nil {
-		r.req.Data = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Data
-	}
-
-	tmp[key] = value
-
-	r.req.Data = tmp
-	return r
-}
-
-// Searchable data that you want to associate with the user profile.
+// Labels Searchable data that you want to associate with the user profile.
 // This field supports a nested data structure.
 // Within the labels object, top-level keys cannot begin with an underscore
 // (`_`) or contain a period (`.`).
 // API name: labels
 func (r *UpdateUserProfileData) Labels(labels map[string]json.RawMessage) *UpdateUserProfileData {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Labels = labels
-	return r
-}
 
-func (r *UpdateUserProfileData) AddLabel(key string, value json.RawMessage) *UpdateUserProfileData {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Labels == nil {
-		r.req.Labels = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Labels
-	}
-
-	tmp[key] = value
-
-	r.req.Labels = tmp
 	return r
 }

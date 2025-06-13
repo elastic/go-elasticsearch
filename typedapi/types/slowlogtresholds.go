@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
 // SlowlogTresholds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/indices/_types/IndexSettings.ts#L522-L525
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/indices/_types/IndexSettings.ts#L522-L525
 type SlowlogTresholds struct {
 	Fetch *SlowlogTresholdLevels `json:"fetch,omitempty"`
 	Query *SlowlogTresholdLevels `json:"query,omitempty"`
@@ -33,14 +33,4 @@ func NewSlowlogTresholds() *SlowlogTresholds {
 	r := &SlowlogTresholds{}
 
 	return r
-}
-
-// true
-
-type SlowlogTresholdsVariant interface {
-	SlowlogTresholdsCaster() *SlowlogTresholds
-}
-
-func (s *SlowlogTresholds) SlowlogTresholdsCaster() *SlowlogTresholds {
-	return s
 }

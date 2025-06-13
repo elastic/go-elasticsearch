@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SearchIdle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/indices/_types/IndexSettings.ts#L253-L256
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/indices/_types/IndexSettings.ts#L253-L256
 type SearchIdle struct {
 	After Duration `json:"after,omitempty"`
 }
@@ -65,14 +65,4 @@ func NewSearchIdle() *SearchIdle {
 	r := &SearchIdle{}
 
 	return r
-}
-
-// true
-
-type SearchIdleVariant interface {
-	SearchIdleCaster() *SearchIdle
-}
-
-func (s *SearchIdle) SearchIdleCaster() *SearchIdle {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Get remote cluster information.
 //
@@ -33,8 +33,7 @@
 // > Elasticsearch does not spontaneously try to reconnect to a disconnected
 // remote cluster.
 // > To trigger a reconnection, attempt a cross-cluster search, ES|QL
-// cross-cluster search, or try the [resolve cluster
-// endpoint](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-cluster).
+// cross-cluster search, or try the `/_resolve/cluster` endpoint.
 package remoteinfo
 
 import (
@@ -99,8 +98,7 @@ func NewRemoteInfoFunc(tp elastictransport.Interface) NewRemoteInfo {
 // > Elasticsearch does not spontaneously try to reconnect to a disconnected
 // remote cluster.
 // > To trigger a reconnection, attempt a cross-cluster search, ES|QL
-// cross-cluster search, or try the [resolve cluster
-// endpoint](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-cluster).
+// cross-cluster search, or try the `/_resolve/cluster` endpoint.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-remote-info.html
 func New(tp elastictransport.Interface) *RemoteInfo {

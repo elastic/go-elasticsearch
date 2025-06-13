@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,12 +31,15 @@ import (
 
 // StemmerOverrideTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/analysis/token_filters.ts#L315-L319
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/analysis/token_filters.ts#L416-L422
 type StemmerOverrideTokenFilter struct {
-	Rules     []string `json:"rules,omitempty"`
-	RulesPath *string  `json:"rules_path,omitempty"`
-	Type      string   `json:"type,omitempty"`
-	Version   *string  `json:"version,omitempty"`
+	// Rules A list of mapping rules to use.
+	Rules []string `json:"rules,omitempty"`
+	// RulesPath A path (either relative to `config` location, or absolute) to a list of
+	// mappings.
+	RulesPath *string `json:"rules_path,omitempty"`
+	Type      string  `json:"type,omitempty"`
+	Version   *string `json:"version,omitempty"`
 }
 
 func (s *StemmerOverrideTokenFilter) UnmarshalJSON(data []byte) error {
@@ -106,14 +109,4 @@ func NewStemmerOverrideTokenFilter() *StemmerOverrideTokenFilter {
 	r := &StemmerOverrideTokenFilter{}
 
 	return r
-}
-
-// true
-
-type StemmerOverrideTokenFilterVariant interface {
-	StemmerOverrideTokenFilterCaster() *StemmerOverrideTokenFilter
-}
-
-func (s *StemmerOverrideTokenFilter) StemmerOverrideTokenFilterCaster() *StemmerOverrideTokenFilter {
-	return s
 }

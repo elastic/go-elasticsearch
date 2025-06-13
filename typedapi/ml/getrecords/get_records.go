@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Get anomaly records for an anomaly detection job.
 // Records contain the detailed analytical results. They describe the anomalous
@@ -111,6 +111,8 @@ func New(tp elastictransport.Interface) *GetRecords {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -397,92 +399,59 @@ func (r *GetRecords) Pretty(pretty bool) *GetRecords {
 	return r
 }
 
-// Refer to the description for the `desc` query parameter.
+// Desc Refer to the description for the `desc` query parameter.
 // API name: desc
 func (r *GetRecords) Desc(desc bool) *GetRecords {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Desc = &desc
 
 	return r
 }
 
-// Refer to the description for the `end` query parameter.
+// End Refer to the description for the `end` query parameter.
 // API name: end
-func (r *GetRecords) End(datetime types.DateTimeVariant) *GetRecords {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.End = *datetime.DateTimeCaster()
+func (r *GetRecords) End(datetime types.DateTime) *GetRecords {
+	r.req.End = datetime
 
 	return r
 }
 
-// Refer to the description for the `exclude_interim` query parameter.
+// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
 // API name: exclude_interim
 func (r *GetRecords) ExcludeInterim(excludeinterim bool) *GetRecords {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.ExcludeInterim = &excludeinterim
 
 	return r
 }
 
 // API name: page
-func (r *GetRecords) Page(page types.PageVariant) *GetRecords {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *GetRecords) Page(page *types.Page) *GetRecords {
 
-	r.req.Page = page.PageCaster()
+	r.req.Page = page
 
 	return r
 }
 
-// Refer to the description for the `record_score` query parameter.
+// RecordScore Refer to the description for the `record_score` query parameter.
 // API name: record_score
 func (r *GetRecords) RecordScore(recordscore types.Float64) *GetRecords {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.RecordScore = &recordscore
 
 	return r
 }
 
-// Refer to the description for the `sort` query parameter.
+// Sort Refer to the description for the `sort` query parameter.
 // API name: sort
 func (r *GetRecords) Sort(field string) *GetRecords {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Sort = &field
 
 	return r
 }
 
-// Refer to the description for the `start` query parameter.
+// Start Refer to the description for the `start` query parameter.
 // API name: start
-func (r *GetRecords) Start(datetime types.DateTimeVariant) *GetRecords {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Start = *datetime.DateTimeCaster()
+func (r *GetRecords) Start(datetime types.DateTime) *GetRecords {
+	r.req.Start = datetime
 
 	return r
 }

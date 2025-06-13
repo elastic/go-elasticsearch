@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Evaluate data frame analytics.
 //
@@ -93,6 +93,8 @@ func New(tp elastictransport.Interface) *EvaluateDataFrame {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -346,41 +348,28 @@ func (r *EvaluateDataFrame) Pretty(pretty bool) *EvaluateDataFrame {
 	return r
 }
 
-// Defines the type of evaluation you want to perform.
+// Evaluation Defines the type of evaluation you want to perform.
 // API name: evaluation
-func (r *EvaluateDataFrame) Evaluation(evaluation types.DataframeEvaluationContainerVariant) *EvaluateDataFrame {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *EvaluateDataFrame) Evaluation(evaluation *types.DataframeEvaluationContainer) *EvaluateDataFrame {
 
-	r.req.Evaluation = *evaluation.DataframeEvaluationContainerCaster()
+	r.req.Evaluation = *evaluation
 
 	return r
 }
 
-// Defines the `index` in which the evaluation will be performed.
+// Index Defines the `index` in which the evaluation will be performed.
 // API name: index
 func (r *EvaluateDataFrame) Index(indexname string) *EvaluateDataFrame {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Index = indexname
 
 	return r
 }
 
-// A query clause that retrieves a subset of data from the source index.
+// Query A query clause that retrieves a subset of data from the source index.
 // API name: query
-func (r *EvaluateDataFrame) Query(query types.QueryVariant) *EvaluateDataFrame {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *EvaluateDataFrame) Query(query *types.Query) *EvaluateDataFrame {
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }

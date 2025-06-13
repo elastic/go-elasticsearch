@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Ensemble type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/ml/put_trained_model/types.ts#L93-L99
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/ml/put_trained_model/types.ts#L93-L99
 type Ensemble struct {
 	AggregateOutput      *AggregateOutput `json:"aggregate_output,omitempty"`
 	ClassificationLabels []string         `json:"classification_labels,omitempty"`
@@ -97,14 +97,4 @@ func NewEnsemble() *Ensemble {
 	r := &Ensemble{}
 
 	return r
-}
-
-// true
-
-type EnsembleVariant interface {
-	EnsembleCaster() *Ensemble
-}
-
-func (s *Ensemble) EnsembleCaster() *Ensemble {
-	return s
 }

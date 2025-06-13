@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update the connector API key ID.
 //
@@ -105,6 +105,8 @@ func New(tp elastictransport.Interface) *UpdateApiKeyId {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -373,10 +375,6 @@ func (r *UpdateApiKeyId) Pretty(pretty bool) *UpdateApiKeyId {
 
 // API name: api_key_id
 func (r *UpdateApiKeyId) ApiKeyId(apikeyid string) *UpdateApiKeyId {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.ApiKeyId = &apikeyid
 
@@ -385,10 +383,6 @@ func (r *UpdateApiKeyId) ApiKeyId(apikeyid string) *UpdateApiKeyId {
 
 // API name: api_key_secret_id
 func (r *UpdateApiKeyId) ApiKeySecretId(apikeysecretid string) *UpdateApiKeyId {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.ApiKeySecretId = &apikeysecretid
 

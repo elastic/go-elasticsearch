@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Search a vector tile.
 //
@@ -449,6 +449,8 @@ func New(tp elastictransport.Interface) *SearchMvt {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -773,7 +775,7 @@ func (r *SearchMvt) Pretty(pretty bool) *SearchMvt {
 	return r
 }
 
-// Sub-aggregations for the geotile_grid.
+// Aggs Sub-aggregations for the geotile_grid.
 //
 // It supports the following aggregation types:
 //
@@ -794,50 +796,24 @@ func (r *SearchMvt) Pretty(pretty bool) *SearchMvt {
 // reserved for internal aggregations.
 // API name: aggs
 func (r *SearchMvt) Aggs(aggs map[string]types.Aggregations) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.Aggs = aggs
+
 	return r
 }
 
-func (r *SearchMvt) AddAgg(key string, value types.AggregationsVariant) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.Aggregations
-	if r.req.Aggs == nil {
-		r.req.Aggs = make(map[string]types.Aggregations)
-	} else {
-		tmp = r.req.Aggs
-	}
-
-	tmp[key] = *value.AggregationsCaster()
-
-	r.req.Aggs = tmp
-	return r
-}
-
-// The size, in pixels, of a clipping buffer outside the tile. This allows
+// Buffer The size, in pixels, of a clipping buffer outside the tile. This allows
 // renderers
 // to avoid outline artifacts from geometries that extend past the extent of the
 // tile.
 // API name: buffer
 func (r *SearchMvt) Buffer(buffer int) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Buffer = &buffer
 
 	return r
 }
 
-// If `false`, the meta layer's feature is the bounding box of the tile.
+// ExactBounds If `false`, the meta layer's feature is the bounding box of the tile.
 // If `true`, the meta layer's feature is a bounding box resulting from a
 // `geo_bounds` aggregation. The aggregation runs on <field> values that
 // intersect
@@ -845,75 +821,52 @@ func (r *SearchMvt) Buffer(buffer int) *SearchMvt {
 // bounding box may be larger than the vector tile.
 // API name: exact_bounds
 func (r *SearchMvt) ExactBounds(exactbounds bool) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.ExactBounds = &exactbounds
 
 	return r
 }
 
-// The size, in pixels, of a side of the tile. Vector tiles are square with
+// Extent The size, in pixels, of a side of the tile. Vector tiles are square with
 // equal sides.
 // API name: extent
 func (r *SearchMvt) Extent(extent int) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Extent = &extent
 
 	return r
 }
 
-// The fields to return in the `hits` layer.
+// Fields The fields to return in the `hits` layer.
 // It supports wildcards (`*`).
 // This parameter does not support fields with array values. Fields with array
 // values may return inconsistent results.
 // API name: fields
 func (r *SearchMvt) Fields(fields ...string) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Fields = fields
 
 	return r
 }
 
-// The aggregation used to create a grid for the `field`.
+// GridAgg The aggregation used to create a grid for the `field`.
 // API name: grid_agg
 func (r *SearchMvt) GridAgg(gridagg gridaggregationtype.GridAggregationType) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.GridAgg = &gridagg
+
 	return r
 }
 
-// Additional zoom levels available through the aggs layer. For example, if
+// GridPrecision Additional zoom levels available through the aggs layer. For example, if
 // `<zoom>` is `7`
 // and `grid_precision` is `8`, you can zoom in up to level 15. Accepts 0-8. If
 // 0, results
 // don't include the aggs layer.
 // API name: grid_precision
 func (r *SearchMvt) GridPrecision(gridprecision int) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.GridPrecision = &gridprecision
 
 	return r
 }
 
-// Determines the geometry type for features in the aggs layer. In the aggs
+// GridType Determines the geometry type for features in the aggs layer. In the aggs
 // layer,
 // each feature represents a `geotile_grid` cell. If `grid, each feature is a
 // polygon
@@ -922,91 +875,62 @@ func (r *SearchMvt) GridPrecision(gridprecision int) *SearchMvt {
 // of the cell.
 // API name: grid_type
 func (r *SearchMvt) GridType(gridtype gridtype.GridType) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.GridType = &gridtype
+
 	return r
 }
 
-// The query DSL used to filter documents for the search.
+// Query The query DSL used to filter documents for the search.
 // API name: query
-func (r *SearchMvt) Query(query types.QueryVariant) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *SearchMvt) Query(query *types.Query) *SearchMvt {
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }
 
-// Defines one or more runtime fields in the search request. These fields take
+// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
 // precedence over mapped fields with the same name.
 // API name: runtime_mappings
-func (r *SearchMvt) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
+func (r *SearchMvt) RuntimeMappings(runtimefields types.RuntimeFields) *SearchMvt {
+	r.req.RuntimeMappings = runtimefields
 
 	return r
 }
 
-// The maximum number of features to return in the hits layer. Accepts 0-10000.
+// Size The maximum number of features to return in the hits layer. Accepts 0-10000.
 // If 0, results don't include the hits layer.
 // API name: size
 func (r *SearchMvt) Size(size int) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Size = &size
 
 	return r
 }
 
-// Sort the features in the hits layer. By default, the API calculates a
+// Sort Sort the features in the hits layer. By default, the API calculates a
 // bounding
 // box for each feature. It sorts features based on this box's diagonal length,
 // from longest to shortest.
 // API name: sort
-func (r *SearchMvt) Sort(sorts ...types.SortCombinationsVariant) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	for _, v := range sorts {
-		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
-	}
+func (r *SearchMvt) Sort(sorts ...types.SortCombinations) *SearchMvt {
+	r.req.Sort = sorts
 
 	return r
 }
 
-// The number of hits matching the query to count accurately. If `true`, the
+// TrackTotalHits The number of hits matching the query to count accurately. If `true`, the
 // exact number
 // of hits is returned at the cost of some performance. If `false`, the response
 // does
 // not include the total number of hits matching the query.
 // API name: track_total_hits
-func (r *SearchMvt) TrackTotalHits(trackhits types.TrackHitsVariant) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.TrackTotalHits = *trackhits.TrackHitsCaster()
+func (r *SearchMvt) TrackTotalHits(trackhits types.TrackHits) *SearchMvt {
+	r.req.TrackTotalHits = trackhits
 
 	return r
 }
 
-// If `true`, the hits and aggs layers will contain additional point features
+// WithLabels If `true`, the hits and aggs layers will contain additional point features
 // representing
 // suggested label positions for the original features.
 //
@@ -1025,11 +949,6 @@ func (r *SearchMvt) TrackTotalHits(trackhits types.TrackHitsVariant) *SearchMvt 
 // `_mvt_label_position`.
 // API name: with_labels
 func (r *SearchMvt) WithLabels(withlabels bool) *SearchMvt {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.WithLabels = &withlabels
 
 	return r

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Perform rereanking inference on the service
 package rerank
@@ -91,6 +91,8 @@ func New(tp elastictransport.Interface) *Rerank {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -365,7 +367,7 @@ func (r *Rerank) Pretty(pretty bool) *Rerank {
 	return r
 }
 
-// The text on which you want to perform the inference task.
+// Input The text on which you want to perform the inference task.
 // It can be a single string or an array.
 //
 // > info
@@ -373,39 +375,25 @@ func (r *Rerank) Pretty(pretty bool) *Rerank {
 // single string as input.
 // API name: input
 func (r *Rerank) Input(inputs ...string) *Rerank {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	r.req.Input = make([]string, len(inputs))
 	r.req.Input = inputs
 
 	return r
 }
 
-// Query input.
+// Query Query input.
 // API name: query
 func (r *Rerank) Query(query string) *Rerank {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Query = query
 
 	return r
 }
 
-// Task settings for the individual inference request.
+// TaskSettings Task settings for the individual inference request.
 // These settings are specific to the task type you specified and override the
 // task settings specified when initializing the service.
 // API name: task_settings
 func (r *Rerank) TaskSettings(tasksettings json.RawMessage) *Rerank {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.TaskSettings = tasksettings
 
 	return r

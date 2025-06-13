@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // UpdateAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_global/bulk/types.ts#L182-L217
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_global/bulk/types.ts#L182-L217
 type UpdateAction struct {
 	// DetectNoop If true, the `result` in the response is set to 'noop' when no changes to the
 	// document occur.
@@ -172,14 +172,4 @@ func NewUpdateAction() *UpdateAction {
 	r := &UpdateAction{}
 
 	return r
-}
-
-// true
-
-type UpdateActionVariant interface {
-	UpdateActionCaster() *UpdateAction
-}
-
-func (s *UpdateAction) UpdateActionCaster() *UpdateAction {
-	return s
 }

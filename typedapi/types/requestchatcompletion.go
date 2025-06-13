@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,12 +31,16 @@ import (
 
 // RequestChatCompletion type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/inference/_types/CommonTypes.ts#L25-L58
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/inference/_types/CommonTypes.ts#L25-L97
 type RequestChatCompletion struct {
 	// MaxCompletionTokens The upper bound limit for the number of tokens that can be generated for a
 	// completion request.
 	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitempty"`
 	// Messages A list of objects representing the conversation.
+	// Requests should generally only add new messages from the user (role `user`).
+	// The other message roles (`assistant`, `system`, or `tool`) should generally
+	// only be copied from the response to a previous completion request, such that
+	// the messages array is built up throughout a conversation.
 	Messages []Message `json:"messages"`
 	// Model The ID of the model to use.
 	Model *string `json:"model,omitempty"`
@@ -46,8 +50,52 @@ type RequestChatCompletion struct {
 	// Temperature The sampling temperature to use.
 	Temperature *float32 `json:"temperature,omitempty"`
 	// ToolChoice Controls which tool is called by the model.
+	// String representation: One of `auto`, `none`, or `requrired`. `auto` allows
+	// the model to choose between calling tools and generating a message. `none`
+	// causes the model to not call any tools. `required` forces the model to call
+	// one or more tools.
+	// Example (object representation):
+	// ```
+	//
+	//	{
+	//	  "tool_choice": {
+	//	      "type": "function",
+	//	      "function": {
+	//	          "name": "get_current_weather"
+	//	      }
+	//	  }
+	//	}
+	//
+	// ```
 	ToolChoice CompletionToolType `json:"tool_choice,omitempty"`
 	// Tools A list of tools that the model can call.
+	// Example:
+	// ```
+	//
+	//	{
+	//	  "tools": [
+	//	      {
+	//	          "type": "function",
+	//	          "function": {
+	//	              "name": "get_price_of_item",
+	//	              "description": "Get the current price of an item",
+	//	              "parameters": {
+	//	                  "type": "object",
+	//	                  "properties": {
+	//	                      "item": {
+	//	                          "id": "12345"
+	//	                      },
+	//	                      "unit": {
+	//	                          "type": "currency"
+	//	                      }
+	//	                  }
+	//	              }
+	//	          }
+	//	      }
+	//	  ]
+	//	}
+	//
+	// ```
 	Tools []CompletionTool `json:"tools,omitempty"`
 	// TopP Nucleus sampling, an alternative to sampling with temperature.
 	TopP *float32 `json:"top_p,omitempty"`
@@ -188,14 +236,4 @@ func NewRequestChatCompletion() *RequestChatCompletion {
 	r := &RequestChatCompletion{}
 
 	return r
-}
-
-// true
-
-type RequestChatCompletionVariant interface {
-	RequestChatCompletionCaster() *RequestChatCompletion
-}
-
-func (s *RequestChatCompletion) RequestChatCompletionCaster() *RequestChatCompletion {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -33,18 +33,31 @@ import (
 
 // SynonymGraphTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/analysis/token_filters.ts#L109-L119
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/analysis/token_filters.ts#L163-L165
 type SynonymGraphTokenFilter struct {
-	Expand       *bool                        `json:"expand,omitempty"`
-	Format       *synonymformat.SynonymFormat `json:"format,omitempty"`
-	Lenient      *bool                        `json:"lenient,omitempty"`
-	Synonyms     []string                     `json:"synonyms,omitempty"`
-	SynonymsPath *string                      `json:"synonyms_path,omitempty"`
-	SynonymsSet  *string                      `json:"synonyms_set,omitempty"`
-	Tokenizer    *string                      `json:"tokenizer,omitempty"`
-	Type         string                       `json:"type,omitempty"`
-	Updateable   *bool                        `json:"updateable,omitempty"`
-	Version      *string                      `json:"version,omitempty"`
+	// Expand Expands definitions for equivalent synonym rules. Defaults to `true`.
+	Expand *bool `json:"expand,omitempty"`
+	// Format Sets the synonym rules format.
+	Format *synonymformat.SynonymFormat `json:"format,omitempty"`
+	// Lenient If `true` ignores errors while parsing the synonym rules. It is important to
+	// note that only those synonym rules which cannot get parsed are ignored.
+	// Defaults to the value of the `updateable` setting.
+	Lenient *bool `json:"lenient,omitempty"`
+	// Synonyms Used to define inline synonyms.
+	Synonyms []string `json:"synonyms,omitempty"`
+	// SynonymsPath Used to provide a synonym file. This path must be absolute or relative to the
+	// `config` location.
+	SynonymsPath *string `json:"synonyms_path,omitempty"`
+	// SynonymsSet Provide a synonym set created via Synonyms Management APIs.
+	SynonymsSet *string `json:"synonyms_set,omitempty"`
+	// Tokenizer Controls the tokenizers that will be used to tokenize the synonym, this
+	// parameter is for backwards compatibility for indices that created before 6.0.
+	Tokenizer *string `json:"tokenizer,omitempty"`
+	Type      string  `json:"type,omitempty"`
+	// Updateable If `true` allows reloading search analyzers to pick up changes to synonym
+	// files. Only to be used for search analyzers. Defaults to `false`.
+	Updateable *bool   `json:"updateable,omitempty"`
+	Version    *string `json:"version,omitempty"`
 }
 
 func (s *SynonymGraphTokenFilter) UnmarshalJSON(data []byte) error {
@@ -191,14 +204,4 @@ func NewSynonymGraphTokenFilter() *SynonymGraphTokenFilter {
 	r := &SynonymGraphTokenFilter{}
 
 	return r
-}
-
-// true
-
-type SynonymGraphTokenFilterVariant interface {
-	SynonymGraphTokenFilterCaster() *SynonymGraphTokenFilter
-}
-
-func (s *SynonymGraphTokenFilter) SynonymGraphTokenFilterCaster() *SynonymGraphTokenFilter {
-	return s
 }

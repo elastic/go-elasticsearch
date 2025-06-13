@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Get usage information.
 // Get information about the features that are currently enabled and available
@@ -76,7 +76,7 @@ func NewUsageFunc(tp elastictransport.Interface) NewUsage {
 // under the current license.
 // The API also provides some usage statistics.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/usage-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/group/endpoint-xpack
 func New(tp elastictransport.Interface) *Usage {
 	r := &Usage{
 		transport: tp,

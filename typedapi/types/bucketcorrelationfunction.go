@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
 // BucketCorrelationFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/aggregations/pipeline.ts#L148-L153
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/aggregations/pipeline.ts#L148-L153
 type BucketCorrelationFunction struct {
 	// CountCorrelation The configuration to calculate a count correlation. This function is designed
 	// for determining the correlation of a term value and a given metric.
@@ -34,14 +34,4 @@ func NewBucketCorrelationFunction() *BucketCorrelationFunction {
 	r := &BucketCorrelationFunction{}
 
 	return r
-}
-
-// true
-
-type BucketCorrelationFunctionVariant interface {
-	BucketCorrelationFunctionCaster() *BucketCorrelationFunction
-}
-
-func (s *BucketCorrelationFunction) BucketCorrelationFunctionCaster() *BucketCorrelationFunction {
-	return s
 }

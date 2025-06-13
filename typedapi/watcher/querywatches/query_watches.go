@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Query watches.
 // Get all registered watches in a paginated manner and optionally filter
@@ -83,7 +83,7 @@ func NewQueryWatchesFunc(tp elastictransport.Interface) NewQueryWatches {
 //
 // Note that only the `_id` and `metadata.*` fields are queryable or sortable.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-query-watches.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-query-watches
 func New(tp elastictransport.Interface) *QueryWatches {
 	r := &QueryWatches{
 		transport: tp,
@@ -91,6 +91,8 @@ func New(tp elastictransport.Interface) *QueryWatches {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -344,74 +346,46 @@ func (r *QueryWatches) Pretty(pretty bool) *QueryWatches {
 	return r
 }
 
-// The offset from the first result to fetch.
+// From The offset from the first result to fetch.
 // It must be non-negative.
 // API name: from
 func (r *QueryWatches) From(from int) *QueryWatches {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.From = &from
 
 	return r
 }
 
-// A query that filters the watches to be returned.
+// Query A query that filters the watches to be returned.
 // API name: query
-func (r *QueryWatches) Query(query types.QueryVariant) *QueryWatches {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *QueryWatches) Query(query *types.Query) *QueryWatches {
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }
 
-// Retrieve the next page of hits using a set of sort values from the previous
+// SearchAfter Retrieve the next page of hits using a set of sort values from the previous
 // page.
 // API name: search_after
-func (r *QueryWatches) SearchAfter(sortresults ...types.FieldValueVariant) *QueryWatches {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	for _, v := range sortresults {
-		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
-	}
+func (r *QueryWatches) SearchAfter(sortresults ...types.FieldValue) *QueryWatches {
+	r.req.SearchAfter = sortresults
 
 	return r
 }
 
-// The number of hits to return.
+// Size The number of hits to return.
 // It must be non-negative.
 // API name: size
 func (r *QueryWatches) Size(size int) *QueryWatches {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Size = &size
 
 	return r
 }
 
-// One or more fields used to sort the search results.
+// Sort One or more fields used to sort the search results.
 // API name: sort
-func (r *QueryWatches) Sort(sorts ...types.SortCombinationsVariant) *QueryWatches {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	for _, v := range sorts {
-		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
-	}
+func (r *QueryWatches) Sort(sorts ...types.SortCombinations) *QueryWatches {
+	r.req.Sort = sorts
 
 	return r
 }

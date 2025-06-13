@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CalendarEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/ml/_types/CalendarEvent.ts#L23-L33
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/ml/_types/CalendarEvent.ts#L23-L33
 type CalendarEvent struct {
 	// CalendarId A string that uniquely identifies a calendar.
 	CalendarId *string `json:"calendar_id,omitempty"`
@@ -103,14 +103,4 @@ func NewCalendarEvent() *CalendarEvent {
 	r := &CalendarEvent{}
 
 	return r
-}
-
-// true
-
-type CalendarEventVariant interface {
-	CalendarEventCaster() *CalendarEvent
-}
-
-func (s *CalendarEvent) CalendarEventCaster() *CalendarEvent {
-	return s
 }

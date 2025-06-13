@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -30,9 +30,8 @@ import (
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/query_dsl/abstractions.ts#L103-L434
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/query_dsl/abstractions.ts#L103-L434
 type Query struct {
-	AdditionalQueryProperty map[string]json.RawMessage `json:"-"`
 	// Bool matches documents matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
 	// Boosting Returns documents matching a `positive` query while reducing the relevance
@@ -595,85 +594,32 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Wrapper", err)
 			}
 
-		default:
-
-			if key, ok := t.(string); ok {
-				if s.AdditionalQueryProperty == nil {
-					s.AdditionalQueryProperty = make(map[string]json.RawMessage, 0)
-				}
-				raw := new(json.RawMessage)
-				if err := dec.Decode(&raw); err != nil {
-					return fmt.Errorf("%s | %w", "AdditionalQueryProperty", err)
-				}
-				s.AdditionalQueryProperty[key] = *raw
-			}
-
 		}
 	}
 	return nil
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s Query) MarshalJSON() ([]byte, error) {
-	type opt Query
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalQueryProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalQueryProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewQuery returns a Query.
 func NewQuery() *Query {
 	r := &Query{
-		AdditionalQueryProperty: make(map[string]json.RawMessage),
-		Common:                  make(map[string]CommonTermsQuery),
-		Fuzzy:                   make(map[string]FuzzyQuery),
-		GeoGrid:                 make(map[string]GeoGridQuery),
-		Intervals:               make(map[string]IntervalsQuery),
-		Match:                   make(map[string]MatchQuery),
-		MatchBoolPrefix:         make(map[string]MatchBoolPrefixQuery),
-		MatchPhrase:             make(map[string]MatchPhraseQuery),
-		MatchPhrasePrefix:       make(map[string]MatchPhrasePrefixQuery),
-		Prefix:                  make(map[string]PrefixQuery),
-		Range:                   make(map[string]RangeQuery),
-		Regexp:                  make(map[string]RegexpQuery),
-		SpanTerm:                make(map[string]SpanTermQuery),
-		Term:                    make(map[string]TermQuery),
-		TermsSet:                make(map[string]TermsSetQuery),
-		TextExpansion:           make(map[string]TextExpansionQuery),
-		WeightedTokens:          make(map[string]WeightedTokensQuery),
-		Wildcard:                make(map[string]WildcardQuery),
+		Common:            make(map[string]CommonTermsQuery, 0),
+		Fuzzy:             make(map[string]FuzzyQuery, 0),
+		GeoGrid:           make(map[string]GeoGridQuery, 0),
+		Intervals:         make(map[string]IntervalsQuery, 0),
+		Match:             make(map[string]MatchQuery, 0),
+		MatchBoolPrefix:   make(map[string]MatchBoolPrefixQuery, 0),
+		MatchPhrase:       make(map[string]MatchPhraseQuery, 0),
+		MatchPhrasePrefix: make(map[string]MatchPhrasePrefixQuery, 0),
+		Prefix:            make(map[string]PrefixQuery, 0),
+		Range:             make(map[string]RangeQuery, 0),
+		Regexp:            make(map[string]RegexpQuery, 0),
+		SpanTerm:          make(map[string]SpanTermQuery, 0),
+		Term:              make(map[string]TermQuery, 0),
+		TermsSet:          make(map[string]TermsSetQuery, 0),
+		TextExpansion:     make(map[string]TextExpansionQuery, 0),
+		WeightedTokens:    make(map[string]WeightedTokensQuery, 0),
+		Wildcard:          make(map[string]WildcardQuery, 0),
 	}
 
 	return r
-}
-
-// true
-
-type QueryVariant interface {
-	QueryCaster() *Query
-}
-
-func (s *Query) QueryCaster() *Query {
-	return s
 }

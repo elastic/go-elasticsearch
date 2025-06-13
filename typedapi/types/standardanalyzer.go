@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,11 +31,11 @@ import (
 
 // StandardAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/analysis/analyzers.ts#L332-L336
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/analysis/analyzers.ts#L332-L336
 type StandardAnalyzer struct {
-	MaxTokenLength *int     `json:"max_token_length,omitempty"`
-	Stopwords      []string `json:"stopwords,omitempty"`
-	Type           string   `json:"type,omitempty"`
+	MaxTokenLength *int      `json:"max_token_length,omitempty"`
+	Stopwords      StopWords `json:"stopwords,omitempty"`
+	Type           string    `json:"type,omitempty"`
 }
 
 func (s *StandardAnalyzer) UnmarshalJSON(data []byte) error {
@@ -70,19 +70,8 @@ func (s *StandardAnalyzer) UnmarshalJSON(data []byte) error {
 			}
 
 		case "stopwords":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
-
-				s.Stopwords = append(s.Stopwords, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Stopwords); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
+			if err := dec.Decode(&s.Stopwords); err != nil {
+				return fmt.Errorf("%s | %w", "Stopwords", err)
 			}
 
 		case "type":
@@ -114,14 +103,4 @@ func NewStandardAnalyzer() *StandardAnalyzer {
 	r := &StandardAnalyzer{}
 
 	return r
-}
-
-// true
-
-type StandardAnalyzerVariant interface {
-	StandardAnalyzerCaster() *StandardAnalyzer
-}
-
-func (s *StandardAnalyzer) StandardAnalyzerCaster() *StandardAnalyzer {
-	return s
 }

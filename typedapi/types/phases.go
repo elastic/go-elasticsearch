@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
 // Phases type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/ilm/_types/Phase.ts#L31-L37
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/ilm/_types/Phase.ts#L31-L37
 type Phases struct {
 	Cold   *Phase `json:"cold,omitempty"`
 	Delete *Phase `json:"delete,omitempty"`
@@ -36,14 +36,4 @@ func NewPhases() *Phases {
 	r := &Phases{}
 
 	return r
-}
-
-// true
-
-type PhasesVariant interface {
-	PhasesCaster() *Phases
-}
-
-func (s *Phases) PhasesCaster() *Phases {
-	return s
 }

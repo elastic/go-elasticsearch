@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StringStatsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/aggregations/Aggregate.ts#L793-L804
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/aggregations/Aggregate.ts#L793-L804
 type StringStatsAggregate struct {
 	AvgLength         *Float64            `json:"avg_length,omitempty"`
 	AvgLengthAsString *string             `json:"avg_length_as_string,omitempty"`
@@ -152,5 +152,3 @@ func NewStringStatsAggregate() *StringStatsAggregate {
 
 	return r
 }
-
-// false

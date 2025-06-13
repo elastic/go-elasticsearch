@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Acknowledge a watch.
 // Acknowledging a watch enables you to manually throttle the execution of the
@@ -111,7 +111,7 @@ func NewAckWatchFunc(tp elastictransport.Interface) NewAckWatch {
 // This happens when the condition of the watch is not met (the condition
 // evaluates to false).
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-ack-watch.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-ack-watch
 func New(tp elastictransport.Interface) *AckWatch {
 	r := &AckWatch{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/Retriever.ts#L64-L82
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/Retriever.ts#L111-L129
 type KnnRetriever struct {
 	// Field The name of the vector field to search against.
 	Field string `json:"field"`
@@ -42,6 +42,8 @@ type KnnRetriever struct {
 	// MinScore Minimum _score for matching documents. Documents with a lower _score are not
 	// included in the top documents.
 	MinScore *float32 `json:"min_score,omitempty"`
+	// Name_ Retriever name.
+	Name_ *string `json:"_name,omitempty"`
 	// NumCandidates Number of nearest neighbor candidates to consider per shard.
 	NumCandidates int `json:"num_candidates"`
 	// QueryVector Query vector. Must have the same number of dimensions as the vector field you
@@ -131,6 +133,18 @@ func (s *KnnRetriever) UnmarshalJSON(data []byte) error {
 				s.MinScore = &f
 			}
 
+		case "_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Name_", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Name_ = &o
+
 		case "num_candidates":
 
 			var tmp any
@@ -188,14 +202,4 @@ func NewKnnRetriever() *KnnRetriever {
 	r := &KnnRetriever{}
 
 	return r
-}
-
-// true
-
-type KnnRetrieverVariant interface {
-	KnnRetrieverCaster() *KnnRetriever
-}
-
-func (s *KnnRetriever) KnnRetrieverCaster() *KnnRetriever {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create an Elasticsearch inference endpoint.
 //
@@ -151,6 +151,8 @@ func New(tp elastictransport.Interface) *PutElasticsearch {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -431,55 +433,40 @@ func (r *PutElasticsearch) Pretty(pretty bool) *PutElasticsearch {
 	return r
 }
 
-// The chunking configuration object.
+// ChunkingSettings The chunking configuration object.
 // API name: chunking_settings
-func (r *PutElasticsearch) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutElasticsearch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutElasticsearch) ChunkingSettings(chunkingsettings *types.InferenceChunkingSettings) *PutElasticsearch {
 
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
+	r.req.ChunkingSettings = chunkingsettings
 
 	return r
 }
 
-// The type of service supported for the specified task type. In this case,
+// Service The type of service supported for the specified task type. In this case,
 // `elasticsearch`.
 // API name: service
 func (r *PutElasticsearch) Service(service elasticsearchservicetype.ElasticsearchServiceType) *PutElasticsearch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.Service = service
+
 	return r
 }
 
-// Settings used to install the inference model. These settings are specific to
+// ServiceSettings Settings used to install the inference model. These settings are specific to
 // the `elasticsearch` service.
 // API name: service_settings
-func (r *PutElasticsearch) ServiceSettings(servicesettings types.ElasticsearchServiceSettingsVariant) *PutElasticsearch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutElasticsearch) ServiceSettings(servicesettings *types.ElasticsearchServiceSettings) *PutElasticsearch {
 
-	r.req.ServiceSettings = *servicesettings.ElasticsearchServiceSettingsCaster()
+	r.req.ServiceSettings = *servicesettings
 
 	return r
 }
 
-// Settings to configure the inference task.
+// TaskSettings Settings to configure the inference task.
 // These settings are specific to the task type you specified.
 // API name: task_settings
-func (r *PutElasticsearch) TaskSettings(tasksettings types.ElasticsearchTaskSettingsVariant) *PutElasticsearch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutElasticsearch) TaskSettings(tasksettings *types.ElasticsearchTaskSettings) *PutElasticsearch {
 
-	r.req.TaskSettings = tasksettings.ElasticsearchTaskSettingsCaster()
+	r.req.TaskSettings = tasksettings
 
 	return r
 }

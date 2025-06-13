@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/Node.ts#L28-L39
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/Node.ts#L28-L39
 type NodeStatistics struct {
 	// Failed Number of nodes that rejected the request or failed to respond. If this value
 	// is not 0, a reason for the rejection or failure is included in the response.
@@ -122,5 +122,3 @@ func NewNodeStatistics() *NodeStatistics {
 
 	return r
 }
-
-// false

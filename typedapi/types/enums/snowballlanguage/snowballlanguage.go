@@ -16,19 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Package snowballlanguage
 package snowballlanguage
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_types/analysis/languages.ts#L20-L43
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_types/analysis/languages.ts#L20-L48
 type SnowballLanguage struct {
 	Name string
 }
 
 var (
+	Arabic = SnowballLanguage{"Arabic"}
+
 	Armenian = SnowballLanguage{"Armenian"}
 
 	Basque = SnowballLanguage{"Basque"}
@@ -40,6 +42,8 @@ var (
 	Dutch = SnowballLanguage{"Dutch"}
 
 	English = SnowballLanguage{"English"}
+
+	Estonian = SnowballLanguage{"Estonian"}
 
 	Finnish = SnowballLanguage{"Finnish"}
 
@@ -53,7 +57,11 @@ var (
 
 	Italian = SnowballLanguage{"Italian"}
 
+	Irish = SnowballLanguage{"Irish"}
+
 	Kp = SnowballLanguage{"Kp"}
+
+	Lithuanian = SnowballLanguage{"Lithuanian"}
 
 	Lovins = SnowballLanguage{"Lovins"}
 
@@ -66,6 +74,8 @@ var (
 	Romanian = SnowballLanguage{"Romanian"}
 
 	Russian = SnowballLanguage{"Russian"}
+
+	Serbian = SnowballLanguage{"Serbian"}
 
 	Spanish = SnowballLanguage{"Spanish"}
 
@@ -81,49 +91,59 @@ func (s SnowballLanguage) MarshalText() (text []byte, err error) {
 func (s *SnowballLanguage) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "armenian":
+	case "Arabic":
+		*s = Arabic
+	case "Armenian":
 		*s = Armenian
-	case "basque":
+	case "Basque":
 		*s = Basque
-	case "catalan":
+	case "Catalan":
 		*s = Catalan
-	case "danish":
+	case "Danish":
 		*s = Danish
-	case "dutch":
+	case "Dutch":
 		*s = Dutch
-	case "english":
+	case "English":
 		*s = English
-	case "finnish":
+	case "Estonian":
+		*s = Estonian
+	case "Finnish":
 		*s = Finnish
-	case "french":
+	case "French":
 		*s = French
-	case "german":
+	case "German":
 		*s = German
-	case "german2":
+	case "German2":
 		*s = German2
-	case "hungarian":
+	case "Hungarian":
 		*s = Hungarian
-	case "italian":
+	case "Italian":
 		*s = Italian
-	case "kp":
+	case "Irish":
+		*s = Irish
+	case "Kp":
 		*s = Kp
-	case "lovins":
+	case "Lithuanian":
+		*s = Lithuanian
+	case "Lovins":
 		*s = Lovins
-	case "norwegian":
+	case "Norwegian":
 		*s = Norwegian
-	case "porter":
+	case "Porter":
 		*s = Porter
-	case "portuguese":
+	case "Portuguese":
 		*s = Portuguese
-	case "romanian":
+	case "Romanian":
 		*s = Romanian
-	case "russian":
+	case "Russian":
 		*s = Russian
-	case "spanish":
+	case "Serbian":
+		*s = Serbian
+	case "Spanish":
 		*s = Spanish
-	case "swedish":
+	case "Swedish":
 		*s = Swedish
-	case "turkish":
+	case "Turkish":
 		*s = Turkish
 	default:
 		*s = SnowballLanguage{string(text)}

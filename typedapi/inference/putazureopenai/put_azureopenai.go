@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create an Azure OpenAI inference endpoint.
 //
@@ -34,16 +34,6 @@
 // The list of embeddings models that you can choose from in your deployment can
 // be found in the [Azure models
 // documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#embeddings).
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 package putazureopenai
 
 import (
@@ -129,16 +119,6 @@ func NewPutAzureopenaiFunc(tp elastictransport.Interface) NewPutAzureopenai {
 // be found in the [Azure models
 // documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#embeddings).
 //
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
-//
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-azure-openai.html
 func New(tp elastictransport.Interface) *PutAzureopenai {
 	r := &PutAzureopenai{
@@ -147,6 +127,8 @@ func New(tp elastictransport.Interface) *PutAzureopenai {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -428,55 +410,40 @@ func (r *PutAzureopenai) Pretty(pretty bool) *PutAzureopenai {
 	return r
 }
 
-// The chunking configuration object.
+// ChunkingSettings The chunking configuration object.
 // API name: chunking_settings
-func (r *PutAzureopenai) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAzureopenai {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutAzureopenai) ChunkingSettings(chunkingsettings *types.InferenceChunkingSettings) *PutAzureopenai {
 
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
+	r.req.ChunkingSettings = chunkingsettings
 
 	return r
 }
 
-// The type of service supported for the specified task type. In this case,
+// Service The type of service supported for the specified task type. In this case,
 // `azureopenai`.
 // API name: service
 func (r *PutAzureopenai) Service(service azureopenaiservicetype.AzureOpenAIServiceType) *PutAzureopenai {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.Service = service
+
 	return r
 }
 
-// Settings used to install the inference model. These settings are specific to
+// ServiceSettings Settings used to install the inference model. These settings are specific to
 // the `azureopenai` service.
 // API name: service_settings
-func (r *PutAzureopenai) ServiceSettings(servicesettings types.AzureOpenAIServiceSettingsVariant) *PutAzureopenai {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutAzureopenai) ServiceSettings(servicesettings *types.AzureOpenAIServiceSettings) *PutAzureopenai {
 
-	r.req.ServiceSettings = *servicesettings.AzureOpenAIServiceSettingsCaster()
+	r.req.ServiceSettings = *servicesettings
 
 	return r
 }
 
-// Settings to configure the inference task.
+// TaskSettings Settings to configure the inference task.
 // These settings are specific to the task type you specified.
 // API name: task_settings
-func (r *PutAzureopenai) TaskSettings(tasksettings types.AzureOpenAITaskSettingsVariant) *PutAzureopenai {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutAzureopenai) TaskSettings(tasksettings *types.AzureOpenAITaskSettings) *PutAzureopenai {
 
-	r.req.TaskSettings = tasksettings.AzureOpenAITaskSettingsCaster()
+	r.req.TaskSettings = tasksettings
 
 	return r
 }

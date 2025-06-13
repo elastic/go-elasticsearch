@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Get term vector information.
 //
@@ -201,6 +201,8 @@ func New(tp elastictransport.Interface) *Termvectors {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -508,14 +510,14 @@ func (r *Termvectors) Pretty(pretty bool) *Termvectors {
 	return r
 }
 
-// An artificial document (a document not present in the index) for which you
+// Doc An artificial document (a document not present in the index) for which you
 // want to retrieve term vectors.
 // API name: doc
+//
+// doc should be a json.RawMessage or a structure
+// if a structure is provided, the client will defer a json serialization
+// prior to sending the payload to Elasticsearch.
 func (r *Termvectors) Doc(doc any) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	switch casted := doc.(type) {
 	case json.RawMessage:
 		r.req.Doc = casted
@@ -529,10 +531,11 @@ func (r *Termvectors) Doc(doc any) *Termvectors {
 			return nil
 		})
 	}
+
 	return r
 }
 
-// If `true`, the response includes:
+// FieldStatistics If `true`, the response includes:
 //
 // * The document count (how many documents contain this field).
 // * The sum of document frequencies (the sum of document frequencies for all
@@ -541,135 +544,80 @@ func (r *Termvectors) Doc(doc any) *Termvectors {
 // each term in this field).
 // API name: field_statistics
 func (r *Termvectors) FieldStatistics(fieldstatistics bool) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.FieldStatistics = &fieldstatistics
 
 	return r
 }
 
-// A list of fields to include in the statistics.
+// Fields A list of fields to include in the statistics.
 // It is used as the default list unless a specific field list is provided in
 // the `completion_fields` or `fielddata_fields` parameters.
 // API name: fields
 func (r *Termvectors) Fields(fields ...string) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Fields = fields
 
 	return r
 }
 
-// Filter terms based on their tf-idf scores.
+// Filter Filter terms based on their tf-idf scores.
 // This could be useful in order find out a good characteristic vector of a
 // document.
 // This feature works in a similar manner to the second phase of the More Like
 // This Query.
 // API name: filter
-func (r *Termvectors) Filter(filter types.TermVectorsFilterVariant) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *Termvectors) Filter(filter *types.TermVectorsFilter) *Termvectors {
 
-	r.req.Filter = filter.TermVectorsFilterCaster()
+	r.req.Filter = filter
 
 	return r
 }
 
-// If `true`, the response includes term offsets.
+// Offsets If `true`, the response includes term offsets.
 // API name: offsets
 func (r *Termvectors) Offsets(offsets bool) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Offsets = &offsets
 
 	return r
 }
 
-// If `true`, the response includes term payloads.
+// Payloads If `true`, the response includes term payloads.
 // API name: payloads
 func (r *Termvectors) Payloads(payloads bool) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Payloads = &payloads
 
 	return r
 }
 
-// Override the default per-field analyzer.
+// PerFieldAnalyzer Override the default per-field analyzer.
 // This is useful in order to generate term vectors in any fashion, especially
 // when using artificial documents.
 // When providing an analyzer for a field that already stores term vectors, the
 // term vectors will be regenerated.
 // API name: per_field_analyzer
 func (r *Termvectors) PerFieldAnalyzer(perfieldanalyzer map[string]string) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.PerFieldAnalyzer = perfieldanalyzer
+
 	return r
 }
 
-func (r *Termvectors) AddPerFieldAnalyzer(key string, value string) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]string
-	if r.req.PerFieldAnalyzer == nil {
-		r.req.PerFieldAnalyzer = make(map[string]string)
-	} else {
-		tmp = r.req.PerFieldAnalyzer
-	}
-
-	tmp[key] = value
-
-	r.req.PerFieldAnalyzer = tmp
-	return r
-}
-
-// If `true`, the response includes term positions.
+// Positions If `true`, the response includes term positions.
 // API name: positions
 func (r *Termvectors) Positions(positions bool) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Positions = &positions
 
 	return r
 }
 
-// A custom value that is used to route operations to a specific shard.
+// Routing A custom value that is used to route operations to a specific shard.
 // API name: routing
 func (r *Termvectors) Routing(routing string) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Routing = &routing
 
 	return r
 }
 
-// If `true`, the response includes:
+// TermStatistics If `true`, the response includes:
 //
 // * The total term frequency (how often a term occurs in all documents).
 // * The document frequency (the number of documents containing the current
@@ -679,36 +627,23 @@ func (r *Termvectors) Routing(routing string) *Termvectors {
 // serious performance impact.
 // API name: term_statistics
 func (r *Termvectors) TermStatistics(termstatistics bool) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.TermStatistics = &termstatistics
 
 	return r
 }
 
-// If `true`, returns the document version as part of a hit.
+// Version If `true`, returns the document version as part of a hit.
 // API name: version
 func (r *Termvectors) Version(versionnumber int64) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Version = &versionnumber
 
 	return r
 }
 
-// The version type.
+// VersionType The version type.
 // API name: version_type
 func (r *Termvectors) VersionType(versiontype versiontype.VersionType) *Termvectors {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.VersionType = &versiontype
+
 	return r
 }

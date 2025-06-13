@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/509f88ad09a267354d02bf5f9e960503fa9236b7
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package asyncquerystop
 
-// Response holds the response body struct for the package query
+// Response holds the response body struct for the package asyncquerystop
 //
-// https://github.com/elastic/elasticsearch-specification/blob/509f88ad09a267354d02bf5f9e960503fa9236b7/specification/esql/query/QueryResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/esql/async_query_stop/AsyncQueryStopResponse.ts#L22-L24
 
 type Response = []byte
 

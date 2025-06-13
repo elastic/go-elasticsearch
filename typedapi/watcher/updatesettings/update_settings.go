@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update Watcher index settings.
 // Update settings for the Watcher internal index (`.watches`).
@@ -93,7 +93,7 @@ func NewUpdateSettingsFunc(tp elastictransport.Interface) NewUpdateSettings {
 // exception and is not allowed as the
 // Watcher shards must always be in the `data_content` tier.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-update-settings.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-update-settings
 func New(tp elastictransport.Interface) *UpdateSettings {
 	r := &UpdateSettings{
 		transport: tp,
@@ -101,6 +101,8 @@ func New(tp elastictransport.Interface) *UpdateSettings {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -374,10 +376,6 @@ func (r *UpdateSettings) Pretty(pretty bool) *UpdateSettings {
 
 // API name: index.auto_expand_replicas
 func (r *UpdateSettings) IndexAutoExpandReplicas(indexautoexpandreplicas string) *UpdateSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.IndexAutoExpandReplicas = &indexautoexpandreplicas
 
@@ -386,11 +384,6 @@ func (r *UpdateSettings) IndexAutoExpandReplicas(indexautoexpandreplicas string)
 
 // API name: index.number_of_replicas
 func (r *UpdateSettings) IndexNumberOfReplicas(indexnumberofreplicas int) *UpdateSettings {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.IndexNumberOfReplicas = &indexnumberofreplicas
 
 	return r

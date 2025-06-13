@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Activate a watch.
 // A watch can be either active or inactive.
@@ -80,7 +80,7 @@ func NewActivateWatchFunc(tp elastictransport.Interface) NewActivateWatch {
 // Activate a watch.
 // A watch can be either active or inactive.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-activate-watch.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-activate-watch
 func New(tp elastictransport.Interface) *ActivateWatch {
 	r := &ActivateWatch{
 		transport: tp,

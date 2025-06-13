@@ -16,22 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create a Cohere inference endpoint.
 //
 // Create an inference endpoint to perform an inference task with the `cohere`
 // service.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 package putcohere
 
 import (
@@ -105,16 +95,6 @@ func NewPutCohereFunc(tp elastictransport.Interface) NewPutCohere {
 // Create an inference endpoint to perform an inference task with the `cohere`
 // service.
 //
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
-//
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-cohere.html
 func New(tp elastictransport.Interface) *PutCohere {
 	r := &PutCohere{
@@ -123,6 +103,8 @@ func New(tp elastictransport.Interface) *PutCohere {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -402,55 +384,40 @@ func (r *PutCohere) Pretty(pretty bool) *PutCohere {
 	return r
 }
 
-// The chunking configuration object.
+// ChunkingSettings The chunking configuration object.
 // API name: chunking_settings
-func (r *PutCohere) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutCohere {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutCohere) ChunkingSettings(chunkingsettings *types.InferenceChunkingSettings) *PutCohere {
 
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
+	r.req.ChunkingSettings = chunkingsettings
 
 	return r
 }
 
-// The type of service supported for the specified task type. In this case,
+// Service The type of service supported for the specified task type. In this case,
 // `cohere`.
 // API name: service
 func (r *PutCohere) Service(service cohereservicetype.CohereServiceType) *PutCohere {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 	r.req.Service = service
+
 	return r
 }
 
-// Settings used to install the inference model.
+// ServiceSettings Settings used to install the inference model.
 // These settings are specific to the `cohere` service.
 // API name: service_settings
-func (r *PutCohere) ServiceSettings(servicesettings types.CohereServiceSettingsVariant) *PutCohere {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutCohere) ServiceSettings(servicesettings *types.CohereServiceSettings) *PutCohere {
 
-	r.req.ServiceSettings = *servicesettings.CohereServiceSettingsCaster()
+	r.req.ServiceSettings = *servicesettings
 
 	return r
 }
 
-// Settings to configure the inference task.
+// TaskSettings Settings to configure the inference task.
 // These settings are specific to the task type you specified.
 // API name: task_settings
-func (r *PutCohere) TaskSettings(tasksettings types.CohereTaskSettingsVariant) *PutCohere {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutCohere) TaskSettings(tasksettings *types.CohereTaskSettings) *PutCohere {
 
-	r.req.TaskSettings = tasksettings.CohereTaskSettingsCaster()
+	r.req.TaskSettings = tasksettings
 
 	return r
 }

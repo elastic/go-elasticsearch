@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TemplateConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_global/msearch_template/types.ts#L28-L54
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_global/msearch_template/types.ts#L28-L54
 type TemplateConfig struct {
 	// Explain If `true`, returns detailed information about score calculation as part of
 	// each hit.
@@ -128,18 +128,8 @@ func (s *TemplateConfig) UnmarshalJSON(data []byte) error {
 // NewTemplateConfig returns a TemplateConfig.
 func NewTemplateConfig() *TemplateConfig {
 	r := &TemplateConfig{
-		Params: make(map[string]json.RawMessage),
+		Params: make(map[string]json.RawMessage, 0),
 	}
 
 	return r
-}
-
-// true
-
-type TemplateConfigVariant interface {
-	TemplateConfigCaster() *TemplateConfig
-}
-
-func (s *TemplateConfig) TemplateConfigCaster() *TemplateConfig {
-	return s
 }

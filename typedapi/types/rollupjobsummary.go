@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RollupJobSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/rollup/get_rollup_index_caps/types.ts#L28-L33
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/rollup/get_rollup_index_caps/types.ts#L28-L33
 type RollupJobSummary struct {
 	Fields       map[string][]RollupJobSummaryField `json:"fields"`
 	IndexPattern string                             `json:"index_pattern"`
@@ -92,10 +92,8 @@ func (s *RollupJobSummary) UnmarshalJSON(data []byte) error {
 // NewRollupJobSummary returns a RollupJobSummary.
 func NewRollupJobSummary() *RollupJobSummary {
 	r := &RollupJobSummary{
-		Fields: make(map[string][]RollupJobSummaryField),
+		Fields: make(map[string][]RollupJobSummaryField, 0),
 	}
 
 	return r
 }
-
-// false

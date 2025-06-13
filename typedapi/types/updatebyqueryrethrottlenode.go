@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // UpdateByQueryRethrottleNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/_global/update_by_query_rethrottle/UpdateByQueryRethrottleNode.ts#L25-L27
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/_global/update_by_query_rethrottle/UpdateByQueryRethrottleNode.ts#L25-L27
 type UpdateByQueryRethrottleNode struct {
 	Attributes       map[string]string   `json:"attributes"`
 	Host             string              `json:"host"`
@@ -107,11 +107,9 @@ func (s *UpdateByQueryRethrottleNode) UnmarshalJSON(data []byte) error {
 // NewUpdateByQueryRethrottleNode returns a UpdateByQueryRethrottleNode.
 func NewUpdateByQueryRethrottleNode() *UpdateByQueryRethrottleNode {
 	r := &UpdateByQueryRethrottleNode{
-		Attributes: make(map[string]string),
-		Tasks:      make(map[string]TaskInfo),
+		Attributes: make(map[string]string, 0),
+		Tasks:      make(map[string]TaskInfo, 0),
 	}
 
 	return r
 }
-
-// false

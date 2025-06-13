@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterJvmMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f6a370d0fba975752c644fc730f7c45610e28f36/specification/cluster/stats/types.ts#L294-L303
+// https://github.com/elastic/elasticsearch-specification/blob/3a94b6715915b1e9311724a2614c643368eece90/specification/cluster/stats/types.ts#L294-L303
 type ClusterJvmMemory struct {
 	// HeapMaxInBytes Maximum amount of memory, in bytes, available for use by the heap across all
 	// selected nodes.
@@ -96,5 +96,3 @@ func NewClusterJvmMemory() *ClusterJvmMemory {
 
 	return r
 }
-
-// false

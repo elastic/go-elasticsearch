@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create part of a trained model definition.
 package puttrainedmodeldefinitionpart
@@ -96,6 +96,8 @@ func New(tp elastictransport.Interface) *PutTrainedModelDefinitionPart {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -382,40 +384,27 @@ func (r *PutTrainedModelDefinitionPart) Pretty(pretty bool) *PutTrainedModelDefi
 	return r
 }
 
-// The definition part for the model. Must be a base64 encoded string.
+// Definition The definition part for the model. Must be a base64 encoded string.
 // API name: definition
 func (r *PutTrainedModelDefinitionPart) Definition(definition string) *PutTrainedModelDefinitionPart {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Definition = definition
 
 	return r
 }
 
-// The total uncompressed definition length in bytes. Not base64 encoded.
+// TotalDefinitionLength The total uncompressed definition length in bytes. Not base64 encoded.
 // API name: total_definition_length
 func (r *PutTrainedModelDefinitionPart) TotalDefinitionLength(totaldefinitionlength int64) *PutTrainedModelDefinitionPart {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.TotalDefinitionLength = totaldefinitionlength
 
 	return r
 }
 
-// The total number of parts that will be uploaded. Must be greater than 0.
+// TotalParts The total number of parts that will be uploaded. Must be greater than 0.
 // API name: total_parts
 func (r *PutTrainedModelDefinitionPart) TotalParts(totalparts int) *PutTrainedModelDefinitionPart {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.TotalParts = totalparts
 
 	return r

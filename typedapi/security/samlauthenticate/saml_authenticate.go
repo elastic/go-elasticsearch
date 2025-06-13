@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Authenticate SAML.
 //
@@ -131,6 +131,8 @@ func New(tp elastictransport.Interface) *SamlAuthenticate {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -384,42 +386,29 @@ func (r *SamlAuthenticate) Pretty(pretty bool) *SamlAuthenticate {
 	return r
 }
 
-// The SAML response as it was sent by the user's browser, usually a Base64
+// Content The SAML response as it was sent by the user's browser, usually a Base64
 // encoded XML document.
 // API name: content
 func (r *SamlAuthenticate) Content(content string) *SamlAuthenticate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Content = content
 
 	return r
 }
 
-// A JSON array with all the valid SAML Request Ids that the caller of the API
+// Ids A JSON array with all the valid SAML Request Ids that the caller of the API
 // has for the current user.
 // API name: ids
 func (r *SamlAuthenticate) Ids(ids ...string) *SamlAuthenticate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Ids = ids
 
 	return r
 }
 
-// The name of the realm that should authenticate the SAML response. Useful in
+// Realm The name of the realm that should authenticate the SAML response. Useful in
 // cases where many SAML realms are defined.
 // API name: realm
 func (r *SamlAuthenticate) Realm(realm string) *SamlAuthenticate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Realm = &realm
 

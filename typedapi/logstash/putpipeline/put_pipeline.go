@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Create or update a Logstash pipeline.
 //
@@ -97,6 +97,8 @@ func New(tp elastictransport.Interface) *PutPipeline {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -309,82 +311,57 @@ func (r *PutPipeline) Pretty(pretty bool) *PutPipeline {
 	return r
 }
 
-// A description of the pipeline.
+// Description A description of the pipeline.
 // This description is not used by Elasticsearch or Logstash.
 // API name: description
 func (r *PutPipeline) Description(description string) *PutPipeline {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Description = description
 
 	return r
 }
 
-// The date the pipeline was last updated.
+// LastModified The date the pipeline was last updated.
 // It must be in the `yyyy-MM-dd'T'HH:mm:ss.SSSZZ` strict_date_time format.
 // API name: last_modified
-func (r *PutPipeline) LastModified(datetime types.DateTimeVariant) *PutPipeline {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.LastModified = *datetime.DateTimeCaster()
+func (r *PutPipeline) LastModified(datetime types.DateTime) *PutPipeline {
+	r.req.LastModified = datetime
 
 	return r
 }
 
-// The configuration for the pipeline.
+// Pipeline The configuration for the pipeline.
 // API name: pipeline
 func (r *PutPipeline) Pipeline(pipeline string) *PutPipeline {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Pipeline = pipeline
 
 	return r
 }
 
-// Optional metadata about the pipeline, which can have any contents.
+// PipelineMetadata Optional metadata about the pipeline, which can have any contents.
 // This metadata is not generated or used by Elasticsearch or Logstash.
 // API name: pipeline_metadata
-func (r *PutPipeline) PipelineMetadata(pipelinemetadata types.PipelineMetadataVariant) *PutPipeline {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutPipeline) PipelineMetadata(pipelinemetadata *types.PipelineMetadata) *PutPipeline {
 
-	r.req.PipelineMetadata = *pipelinemetadata.PipelineMetadataCaster()
+	r.req.PipelineMetadata = *pipelinemetadata
 
 	return r
 }
 
-// Settings for the pipeline.
+// PipelineSettings Settings for the pipeline.
 // It supports only flat keys in dot notation.
 // API name: pipeline_settings
-func (r *PutPipeline) PipelineSettings(pipelinesettings types.PipelineSettingsVariant) *PutPipeline {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *PutPipeline) PipelineSettings(pipelinesettings *types.PipelineSettings) *PutPipeline {
 
-	r.req.PipelineSettings = *pipelinesettings.PipelineSettingsCaster()
+	r.req.PipelineSettings = *pipelinesettings
 
 	return r
 }
 
-// The user who last updated the pipeline.
+// Username The user who last updated the pipeline.
 // API name: username
 func (r *PutPipeline) Username(username string) *PutPipeline {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.Username = username
 

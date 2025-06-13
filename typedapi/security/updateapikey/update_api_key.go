@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Update an API key.
 //
@@ -155,6 +155,8 @@ func New(tp elastictransport.Interface) *UpdateApiKey {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -421,40 +423,30 @@ func (r *UpdateApiKey) Pretty(pretty bool) *UpdateApiKey {
 	return r
 }
 
-// The expiration time for the API key.
+// Expiration The expiration time for the API key.
 // By default, API keys never expire.
 // This property can be omitted to leave the expiration unchanged.
 // API name: expiration
-func (r *UpdateApiKey) Expiration(duration types.DurationVariant) *UpdateApiKey {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Expiration = *duration.DurationCaster()
+func (r *UpdateApiKey) Expiration(duration types.Duration) *UpdateApiKey {
+	r.req.Expiration = duration
 
 	return r
 }
 
-// Arbitrary metadata that you want to associate with the API key.
+// Metadata Arbitrary metadata that you want to associate with the API key.
 // It supports a nested data structure.
 // Within the metadata object, keys beginning with `_` are reserved for system
 // usage.
 // When specified, this value fully replaces the metadata previously associated
 // with the API key.
 // API name: metadata
-func (r *UpdateApiKey) Metadata(metadata types.MetadataVariant) *UpdateApiKey {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Metadata = *metadata.MetadataCaster()
+func (r *UpdateApiKey) Metadata(metadata types.Metadata) *UpdateApiKey {
+	r.req.Metadata = metadata
 
 	return r
 }
 
-// The role descriptors to assign to this API key.
+// RoleDescriptors The role descriptors to assign to this API key.
 // The API key's effective permissions are an intersection of its assigned
 // privileges and the point in time snapshot of permissions of the owner user.
 // You can assign new privileges by specifying them in this parameter.
@@ -468,29 +460,8 @@ func (r *UpdateApiKey) Metadata(metadata types.MetadataVariant) *UpdateApiKey {
 // API keys API.
 // API name: role_descriptors
 func (r *UpdateApiKey) RoleDescriptors(roledescriptors map[string]types.RoleDescriptor) *UpdateApiKey {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+
 	r.req.RoleDescriptors = roledescriptors
-	return r
-}
 
-func (r *UpdateApiKey) AddRoleDescriptor(key string, value types.RoleDescriptorVariant) *UpdateApiKey {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.RoleDescriptor
-	if r.req.RoleDescriptors == nil {
-		r.req.RoleDescriptors = make(map[string]types.RoleDescriptor)
-	} else {
-		tmp = r.req.RoleDescriptors
-	}
-
-	tmp[key] = *value.RoleDescriptorCaster()
-
-	r.req.RoleDescriptors = tmp
 	return r
 }

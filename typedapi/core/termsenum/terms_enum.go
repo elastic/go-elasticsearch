@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36
+// https://github.com/elastic/elasticsearch-specification/tree/3a94b6715915b1e9311724a2614c643368eece90
 
 // Get terms in an index.
 //
@@ -111,6 +111,8 @@ func New(tp elastictransport.Interface) *TermsEnum {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -378,76 +380,53 @@ func (r *TermsEnum) Pretty(pretty bool) *TermsEnum {
 	return r
 }
 
-// When `true`, the provided search string is matched against index terms
+// CaseInsensitive When `true`, the provided search string is matched against index terms
 // without case sensitivity.
 // API name: case_insensitive
 func (r *TermsEnum) CaseInsensitive(caseinsensitive bool) *TermsEnum {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.CaseInsensitive = &caseinsensitive
 
 	return r
 }
 
-// The string to match at the start of indexed terms. If not provided, all terms
+// Field The string to match at the start of indexed terms. If not provided, all terms
 // in the field are considered.
 // API name: field
 func (r *TermsEnum) Field(field string) *TermsEnum {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Field = field
 
 	return r
 }
 
-// Filter an index shard if the provided query rewrites to `match_none`.
+// IndexFilter Filter an index shard if the provided query rewrites to `match_none`.
 // API name: index_filter
-func (r *TermsEnum) IndexFilter(indexfilter types.QueryVariant) *TermsEnum {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
+func (r *TermsEnum) IndexFilter(indexfilter *types.Query) *TermsEnum {
 
-	r.req.IndexFilter = indexfilter.QueryCaster()
+	r.req.IndexFilter = indexfilter
 
 	return r
 }
 
-// The string after which terms in the index should be returned.
+// SearchAfter The string after which terms in the index should be returned.
 // It allows for a form of pagination if the last result from one request is
 // passed as the `search_after` parameter for a subsequent request.
 // API name: search_after
 func (r *TermsEnum) SearchAfter(searchafter string) *TermsEnum {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.SearchAfter = &searchafter
 
 	return r
 }
 
-// The number of matching terms to return.
+// Size The number of matching terms to return.
 // API name: size
 func (r *TermsEnum) Size(size int) *TermsEnum {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
 	r.req.Size = &size
 
 	return r
 }
 
-// The string to match at the start of indexed terms.
+// String The string to match at the start of indexed terms.
 // If it is not provided, all terms in the field are considered.
 //
 // > info
@@ -455,27 +434,18 @@ func (r *TermsEnum) Size(size int) *TermsEnum {
 // which is Lucene's term byte-length limit of 32766.
 // API name: string
 func (r *TermsEnum) String(string string) *TermsEnum {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
 
 	r.req.String = &string
 
 	return r
 }
 
-// The maximum length of time to spend collecting results.
+// Timeout The maximum length of time to spend collecting results.
 // If the timeout is exceeded the `complete` flag set to `false` in the response
 // and the results may be partial or empty.
 // API name: timeout
-func (r *TermsEnum) Timeout(duration types.DurationVariant) *TermsEnum {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Timeout = *duration.DurationCaster()
+func (r *TermsEnum) Timeout(duration types.Duration) *TermsEnum {
+	r.req.Timeout = duration
 
 	return r
 }
