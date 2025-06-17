@@ -1,3 +1,7 @@
+# 8.18.1
+
+ * This patch release fixes the broken build found in 8.18.0. If you are using the `TypedClient`, you should update to this version.
+
 # 8.18.0
 
 * Update `elastictransport` to `8.7.0`.
