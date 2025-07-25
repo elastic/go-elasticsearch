@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -30,7 +30,7 @@ type _dateRangeQuery struct {
 	v *types.DateRangeQuery
 }
 
-// Returns documents that contain terms within a provided range.
+// Returns users that contain terms within a provided range.
 func NewDateRangeQuery(key string) *_dateRangeQuery {
 	return &_dateRangeQuery{
 		k: key,
@@ -48,13 +48,6 @@ func (s *_dateRangeQuery) Boost(boost float32) *_dateRangeQuery {
 func (s *_dateRangeQuery) Format(dateformat string) *_dateRangeQuery {
 
 	s.v.Format = &dateformat
-
-	return s
-}
-
-func (s *_dateRangeQuery) From(from string) *_dateRangeQuery {
-
-	s.v.From = &from
 
 	return s
 }
@@ -103,13 +96,6 @@ func (s *_dateRangeQuery) Relation(relation rangerelation.RangeRelation) *_dateR
 func (s *_dateRangeQuery) TimeZone(timezone string) *_dateRangeQuery {
 
 	s.v.TimeZone = &timezone
-
-	return s
-}
-
-func (s *_dateRangeQuery) To(to string) *_dateRangeQuery {
-
-	s.v.To = &to
 
 	return s
 }

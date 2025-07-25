@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -49,6 +49,27 @@ func (s *_retrieverContainer) AdditionalRetrieverContainerProperty(key string, v
 func (s *_retrieverContainer) Knn(knn types.KnnRetrieverVariant) *_retrieverContainer {
 
 	s.v.Knn = knn.KnnRetrieverCaster()
+
+	return s
+}
+
+func (s *_retrieverContainer) Linear(linear types.LinearRetrieverVariant) *_retrieverContainer {
+
+	s.v.Linear = linear.LinearRetrieverCaster()
+
+	return s
+}
+
+func (s *_retrieverContainer) Pinned(pinned types.PinnedRetrieverVariant) *_retrieverContainer {
+
+	s.v.Pinned = pinned.PinnedRetrieverCaster()
+
+	return s
+}
+
+func (s *_retrieverContainer) Rescorer(rescorer types.RescorerRetrieverVariant) *_retrieverContainer {
+
+	s.v.Rescorer = rescorer.RescorerRetrieverCaster()
 
 	return s
 }

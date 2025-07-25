@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
 // SnapshotIndexStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/snapshot/_types/SnapshotIndexStats.ts#L25-L29
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/snapshot/_types/SnapshotIndexStats.ts#L25-L29
 type SnapshotIndexStats struct {
 	Shards      map[string]SnapshotShardsStatus `json:"shards"`
 	ShardsStats SnapshotShardsStats             `json:"shards_stats"`
@@ -37,5 +37,3 @@ func NewSnapshotIndexStats() *SnapshotIndexStats {
 
 	return r
 }
-
-// false

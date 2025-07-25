@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
 // RoleTemplateQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/security/_types/Privileges.ts#L353-L363
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/security/_types/Privileges.ts#L353-L363
 type RoleTemplateQuery struct {
 	// Template When you create a role, you can specify a query that defines the document
 	// level security permissions. You can optionally
@@ -42,12 +42,15 @@ func NewRoleTemplateQuery() *RoleTemplateQuery {
 	return r
 }
 
-// true
-
 type RoleTemplateQueryVariant interface {
 	RoleTemplateQueryCaster() *RoleTemplateQuery
 }
 
 func (s *RoleTemplateQuery) RoleTemplateQueryCaster() *RoleTemplateQuery {
 	return s
+}
+
+func (s *RoleTemplateQuery) IndicesPrivilegesQueryCaster() *IndicesPrivilegesQuery {
+	o := IndicesPrivilegesQuery(s)
+	return &o
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -41,13 +41,6 @@ func NewNumberRangeQuery(key string) *_numberRangeQuery {
 func (s *_numberRangeQuery) Boost(boost float32) *_numberRangeQuery {
 
 	s.v.Boost = &boost
-
-	return s
-}
-
-func (s *_numberRangeQuery) From(from types.Float64) *_numberRangeQuery {
-
-	s.v.From = &from
 
 	return s
 }
@@ -90,13 +83,6 @@ func (s *_numberRangeQuery) QueryName_(queryname_ string) *_numberRangeQuery {
 func (s *_numberRangeQuery) Relation(relation rangerelation.RangeRelation) *_numberRangeQuery {
 
 	s.v.Relation = &relation
-	return s
-}
-
-func (s *_numberRangeQuery) To(to types.Float64) *_numberRangeQuery {
-
-	s.v.To = &to
-
 	return s
 }
 

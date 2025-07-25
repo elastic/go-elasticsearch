@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,18 +31,28 @@ import (
 
 // OperatingSystemMemoryInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/cluster/stats/types.ts#L541-L568
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/cluster/stats/types.ts#L715-L763
 type OperatingSystemMemoryInfo struct {
+	// AdjustedTotal Total amount of memory across all selected nodes, but using the value
+	// specified using the `es.total_memory_bytes` system property instead of
+	// measured total memory for those nodes where that system property was set.
+	AdjustedTotal ByteSize `json:"adjusted_total,omitempty"`
 	// AdjustedTotalInBytes Total amount, in bytes, of memory across all selected nodes, but using the
 	// value specified using the `es.total_memory_bytes` system property instead of
 	// measured total memory for those nodes where that system property was set.
 	AdjustedTotalInBytes *int64 `json:"adjusted_total_in_bytes,omitempty"`
+	// Free Amount of free physical memory across all selected nodes.
+	Free ByteSize `json:"free,omitempty"`
 	// FreeInBytes Amount, in bytes, of free physical memory across all selected nodes.
 	FreeInBytes int64 `json:"free_in_bytes"`
 	// FreePercent Percentage of free physical memory across all selected nodes.
 	FreePercent int `json:"free_percent"`
+	// Total Total amount of physical memory across all selected nodes.
+	Total ByteSize `json:"total,omitempty"`
 	// TotalInBytes Total amount, in bytes, of physical memory across all selected nodes.
 	TotalInBytes int64 `json:"total_in_bytes"`
+	// Used Amount of physical memory in use across all selected nodes.
+	Used ByteSize `json:"used,omitempty"`
 	// UsedInBytes Amount, in bytes, of physical memory in use across all selected nodes.
 	UsedInBytes int64 `json:"used_in_bytes"`
 	// UsedPercent Percentage of physical memory in use across all selected nodes.
@@ -64,6 +74,11 @@ func (s *OperatingSystemMemoryInfo) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "adjusted_total":
+			if err := dec.Decode(&s.AdjustedTotal); err != nil {
+				return fmt.Errorf("%s | %w", "AdjustedTotal", err)
+			}
+
 		case "adjusted_total_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -77,6 +92,11 @@ func (s *OperatingSystemMemoryInfo) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.AdjustedTotalInBytes = &f
+			}
+
+		case "free":
+			if err := dec.Decode(&s.Free); err != nil {
+				return fmt.Errorf("%s | %w", "Free", err)
 			}
 
 		case "free_in_bytes":
@@ -110,6 +130,11 @@ func (s *OperatingSystemMemoryInfo) UnmarshalJSON(data []byte) error {
 				s.FreePercent = f
 			}
 
+		case "total":
+			if err := dec.Decode(&s.Total); err != nil {
+				return fmt.Errorf("%s | %w", "Total", err)
+			}
+
 		case "total_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -123,6 +148,11 @@ func (s *OperatingSystemMemoryInfo) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.TotalInBytes = f
+			}
+
+		case "used":
+			if err := dec.Decode(&s.Used); err != nil {
+				return fmt.Errorf("%s | %w", "Used", err)
 			}
 
 		case "used_in_bytes":
@@ -167,5 +197,3 @@ func NewOperatingSystemMemoryInfo() *OperatingSystemMemoryInfo {
 
 	return r
 }
-
-// false

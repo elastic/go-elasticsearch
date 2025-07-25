@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // GcsRepository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/snapshot/_types/SnapshotRepository.ts#L52-L62
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/snapshot/_types/SnapshotRepository.ts#L52-L62
 type GcsRepository struct {
 	// Settings The repository settings.
 	Settings GcsRepositorySettings `json:"settings"`
@@ -95,12 +95,15 @@ func NewGcsRepository() *GcsRepository {
 	return r
 }
 
-// true
-
 type GcsRepositoryVariant interface {
 	GcsRepositoryCaster() *GcsRepository
 }
 
 func (s *GcsRepository) GcsRepositoryCaster() *GcsRepository {
 	return s
+}
+
+func (s *GcsRepository) RepositoryCaster() *Repository {
+	o := Repository(s)
+	return &o
 }

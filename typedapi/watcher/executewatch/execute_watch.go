@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Run a watch.
 // This API can be used to force execution of the watch outside of its
@@ -42,6 +42,8 @@
 // When using the run watch API, the authorization data of the user that called
 // the API will be used as a base, instead of the information who stored the
 // watch.
+// Refer to the external documentation for examples of watch execution requests,
+// including existing, customized, and inline watches.
 package executewatch
 
 import (
@@ -127,6 +129,8 @@ func NewExecuteWatchFunc(tp elastictransport.Interface) NewExecuteWatch {
 // When using the run watch API, the authorization data of the user that called
 // the API will be used as a base, instead of the information who stored the
 // watch.
+// Refer to the external documentation for examples of watch execution requests,
+// including existing, customized, and inline watches.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-execute-watch
 func New(tp elastictransport.Interface) *ExecuteWatch {
@@ -401,7 +405,7 @@ func (r *ExecuteWatch) FilterPath(filterpaths ...string) *ExecuteWatch {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

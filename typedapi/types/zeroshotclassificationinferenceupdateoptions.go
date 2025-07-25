@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ZeroShotClassificationInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/ml/_types/inference.ts#L393-L402
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/ml/_types/inference.ts#L393-L402
 type ZeroShotClassificationInferenceUpdateOptions struct {
 	// Labels The labels to predict.
 	Labels []string `json:"labels"`
@@ -107,8 +107,6 @@ func NewZeroShotClassificationInferenceUpdateOptions() *ZeroShotClassificationIn
 
 	return r
 }
-
-// true
 
 type ZeroShotClassificationInferenceUpdateOptionsVariant interface {
 	ZeroShotClassificationInferenceUpdateOptionsCaster() *ZeroShotClassificationInferenceUpdateOptions

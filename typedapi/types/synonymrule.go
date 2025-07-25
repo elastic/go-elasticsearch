@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SynonymRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/synonyms/_types/SynonymRule.ts#L26-L37
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/synonyms/_types/SynonymRule.ts#L26-L37
 type SynonymRule struct {
 	// Id The identifier for the synonym rule.
 	// If you do not specify a synonym rule ID when you create a rule, an identifier
@@ -76,8 +76,6 @@ func NewSynonymRule() *SynonymRule {
 
 	return r
 }
-
-// true
 
 type SynonymRuleVariant interface {
 	SynonymRuleCaster() *SynonymRule

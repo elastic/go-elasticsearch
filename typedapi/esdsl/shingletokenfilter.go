@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -39,16 +39,16 @@ func (s *_shingleTokenFilter) FillerToken(fillertoken string) *_shingleTokenFilt
 	return s
 }
 
-func (s *_shingleTokenFilter) MaxShingleSize(maxshinglesize string) *_shingleTokenFilter {
+func (s *_shingleTokenFilter) MaxShingleSize(stringifiedinteger types.StringifiedintegerVariant) *_shingleTokenFilter {
 
-	s.v.MaxShingleSize = maxshinglesize
+	s.v.MaxShingleSize = *stringifiedinteger.StringifiedintegerCaster()
 
 	return s
 }
 
-func (s *_shingleTokenFilter) MinShingleSize(minshinglesize string) *_shingleTokenFilter {
+func (s *_shingleTokenFilter) MinShingleSize(stringifiedinteger types.StringifiedintegerVariant) *_shingleTokenFilter {
 
-	s.v.MinShingleSize = minshinglesize
+	s.v.MinShingleSize = *stringifiedinteger.StringifiedintegerCaster()
 
 	return s
 }

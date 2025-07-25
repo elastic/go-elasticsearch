@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RuleRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/Retriever.ts#L106-L115
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/Retriever.ts#L159-L168
 type RuleRetriever struct {
 	// Filter Query to filter the documents that can match.
 	Filter []Query `json:"filter,omitempty"`
@@ -41,6 +41,8 @@ type RuleRetriever struct {
 	// MinScore Minimum _score for matching documents. Documents with a lower _score are not
 	// included in the top documents.
 	MinScore *float32 `json:"min_score,omitempty"`
+	// Name_ Retriever name.
+	Name_ *string `json:"_name,omitempty"`
 	// RankWindowSize This value determines the size of the individual result set.
 	RankWindowSize *int `json:"rank_window_size,omitempty"`
 	// Retriever The retriever whose results rules should be applied to.
@@ -101,6 +103,18 @@ func (s *RuleRetriever) UnmarshalJSON(data []byte) error {
 				s.MinScore = &f
 			}
 
+		case "_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Name_", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Name_ = &o
+
 		case "rank_window_size":
 
 			var tmp any
@@ -123,8 +137,19 @@ func (s *RuleRetriever) UnmarshalJSON(data []byte) error {
 			}
 
 		case "ruleset_ids":
-			if err := dec.Decode(&s.RulesetIds); err != nil {
-				return fmt.Errorf("%s | %w", "RulesetIds", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "RulesetIds", err)
+				}
+
+				s.RulesetIds = append(s.RulesetIds, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.RulesetIds); err != nil {
+					return fmt.Errorf("%s | %w", "RulesetIds", err)
+				}
 			}
 
 		}
@@ -138,8 +163,6 @@ func NewRuleRetriever() *RuleRetriever {
 
 	return r
 }
-
-// true
 
 type RuleRetrieverVariant interface {
 	RuleRetrieverCaster() *RuleRetriever

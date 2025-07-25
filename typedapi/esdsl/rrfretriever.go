@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -33,6 +33,16 @@ func NewRRFRetriever() *_rRFRetriever {
 
 }
 
+func (s *_rRFRetriever) Fields(fields ...string) *_rRFRetriever {
+
+	for _, v := range fields {
+
+		s.v.Fields = append(s.v.Fields, v)
+
+	}
+	return s
+}
+
 func (s *_rRFRetriever) Filter(filters ...types.QueryVariant) *_rRFRetriever {
 
 	s.v.Filter = make([]types.Query, len(filters))
@@ -46,6 +56,20 @@ func (s *_rRFRetriever) Filter(filters ...types.QueryVariant) *_rRFRetriever {
 func (s *_rRFRetriever) MinScore(minscore float32) *_rRFRetriever {
 
 	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_rRFRetriever) Name_(name_ string) *_rRFRetriever {
+
+	s.v.Name_ = &name_
+
+	return s
+}
+
+func (s *_rRFRetriever) Query(query string) *_rRFRetriever {
+
+	s.v.Query = &query
 
 	return s
 }

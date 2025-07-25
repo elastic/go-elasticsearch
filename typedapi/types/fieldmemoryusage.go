@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FieldMemoryUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/Stats.ts#L121-L124
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/Stats.ts#L143-L146
 type FieldMemoryUsage struct {
 	MemorySize        ByteSize `json:"memory_size,omitempty"`
 	MemorySizeInBytes int64    `json:"memory_size_in_bytes"`
@@ -83,5 +83,3 @@ func NewFieldMemoryUsage() *FieldMemoryUsage {
 
 	return r
 }
-
-// false

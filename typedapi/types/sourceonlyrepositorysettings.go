@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SourceOnlyRepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/snapshot/_types/SnapshotRepository.ts#L414-L441
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/snapshot/_types/SnapshotRepository.ts#L414-L441
 type SourceOnlyRepositorySettings struct {
 	// ChunkSize Big files can be broken down into multiple smaller blobs in the blob store
 	// during snapshotting.
@@ -181,8 +181,6 @@ func NewSourceOnlyRepositorySettings() *SourceOnlyRepositorySettings {
 
 	return r
 }
-
-// true
 
 type SourceOnlyRepositorySettingsVariant interface {
 	SourceOnlyRepositorySettingsCaster() *SourceOnlyRepositorySettings

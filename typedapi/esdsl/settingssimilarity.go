@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -44,7 +44,7 @@ func (u *_settingsSimilarity) UnknownSettingsSimilarity(unknown json.RawMessage)
 
 func (u *_settingsSimilarity) SettingsSimilarityBm25(settingssimilaritybm25 types.SettingsSimilarityBm25Variant) *_settingsSimilarity {
 
-	u.v = &settingssimilaritybm25
+	u.v = settingssimilaritybm25.SettingsSimilarityBm25Caster()
 
 	return u
 }
@@ -57,7 +57,7 @@ func (u *_settingsSimilarityBm25) SettingsSimilarityCaster() *types.SettingsSimi
 
 func (u *_settingsSimilarity) SettingsSimilarityBoolean(settingssimilarityboolean types.SettingsSimilarityBooleanVariant) *_settingsSimilarity {
 
-	u.v = &settingssimilarityboolean
+	u.v = settingssimilarityboolean.SettingsSimilarityBooleanCaster()
 
 	return u
 }
@@ -70,7 +70,7 @@ func (u *_settingsSimilarityBoolean) SettingsSimilarityCaster() *types.SettingsS
 
 func (u *_settingsSimilarity) SettingsSimilarityDfi(settingssimilaritydfi types.SettingsSimilarityDfiVariant) *_settingsSimilarity {
 
-	u.v = &settingssimilaritydfi
+	u.v = settingssimilaritydfi.SettingsSimilarityDfiCaster()
 
 	return u
 }
@@ -83,7 +83,7 @@ func (u *_settingsSimilarityDfi) SettingsSimilarityCaster() *types.SettingsSimil
 
 func (u *_settingsSimilarity) SettingsSimilarityDfr(settingssimilaritydfr types.SettingsSimilarityDfrVariant) *_settingsSimilarity {
 
-	u.v = &settingssimilaritydfr
+	u.v = settingssimilaritydfr.SettingsSimilarityDfrCaster()
 
 	return u
 }
@@ -96,7 +96,7 @@ func (u *_settingsSimilarityDfr) SettingsSimilarityCaster() *types.SettingsSimil
 
 func (u *_settingsSimilarity) SettingsSimilarityIb(settingssimilarityib types.SettingsSimilarityIbVariant) *_settingsSimilarity {
 
-	u.v = &settingssimilarityib
+	u.v = settingssimilarityib.SettingsSimilarityIbCaster()
 
 	return u
 }
@@ -109,7 +109,7 @@ func (u *_settingsSimilarityIb) SettingsSimilarityCaster() *types.SettingsSimila
 
 func (u *_settingsSimilarity) SettingsSimilarityLmd(settingssimilaritylmd types.SettingsSimilarityLmdVariant) *_settingsSimilarity {
 
-	u.v = &settingssimilaritylmd
+	u.v = settingssimilaritylmd.SettingsSimilarityLmdCaster()
 
 	return u
 }
@@ -122,7 +122,7 @@ func (u *_settingsSimilarityLmd) SettingsSimilarityCaster() *types.SettingsSimil
 
 func (u *_settingsSimilarity) SettingsSimilarityLmj(settingssimilaritylmj types.SettingsSimilarityLmjVariant) *_settingsSimilarity {
 
-	u.v = &settingssimilaritylmj
+	u.v = settingssimilaritylmj.SettingsSimilarityLmjCaster()
 
 	return u
 }
@@ -135,7 +135,7 @@ func (u *_settingsSimilarityLmj) SettingsSimilarityCaster() *types.SettingsSimil
 
 func (u *_settingsSimilarity) SettingsSimilarityScripted(settingssimilarityscripted types.SettingsSimilarityScriptedVariant) *_settingsSimilarity {
 
-	u.v = &settingssimilarityscripted
+	u.v = settingssimilarityscripted.SettingsSimilarityScriptedCaster()
 
 	return u
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package putazureopenai
 
@@ -24,12 +24,12 @@ import (
 	"encoding/json"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/tasktype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/tasktypeazureopenai"
 )
 
 // Response holds the response body struct for the package putazureopenai
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/put_azureopenai/PutAzureOpenAiResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/inference/put_azureopenai/PutAzureOpenAiResponse.ts#L22-L25
 type Response struct {
 
 	// ChunkingSettings Chunking configuration object
@@ -43,7 +43,7 @@ type Response struct {
 	// TaskSettings Task settings specific to the service and task type
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 	// TaskType The task type
-	TaskType tasktype.TaskType `json:"task_type"`
+	TaskType tasktypeazureopenai.TaskTypeAzureOpenAI `json:"task_type"`
 }
 
 // NewResponse returns a Response

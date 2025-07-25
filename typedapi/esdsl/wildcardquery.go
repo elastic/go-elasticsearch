@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -27,7 +27,7 @@ type _wildcardQuery struct {
 	v *types.WildcardQuery
 }
 
-// Returns documents that contain terms matching a wildcard pattern.
+// Returns roles that contain terms matching a wildcard pattern.
 func NewWildcardQuery(field string, value string) *_wildcardQuery {
 	tmp := &_wildcardQuery{
 		k: field,

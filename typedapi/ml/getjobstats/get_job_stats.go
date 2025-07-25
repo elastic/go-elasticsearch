@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
-// Get anomaly detection jobs usage info.
+// Get anomaly detection job stats.
 package getjobstats
 
 import (
@@ -74,7 +74,7 @@ func NewGetJobStatsFunc(tp elastictransport.Interface) NewGetJobStats {
 	}
 }
 
-// Get anomaly detection jobs usage info.
+// Get anomaly detection job stats.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-job-stats
 func New(tp elastictransport.Interface) *GetJobStats {
@@ -352,7 +352,7 @@ func (r *GetJobStats) FilterPath(filterpaths ...string) *GetJobStats {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

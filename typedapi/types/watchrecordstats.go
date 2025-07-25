@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // WatchRecordStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/watcher/stats/types.ts#L79-L94
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/watcher/stats/types.ts#L79-L94
 type WatchRecordStats struct {
 	ExecutedActions []string `json:"executed_actions,omitempty"`
 	// ExecutionPhase The current watch execution phase.
@@ -103,5 +103,3 @@ func NewWatchRecordStats() *WatchRecordStats {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -108,7 +108,7 @@ func (s *_indexSettings) FinalPipeline(pipelinename string) *_indexSettings {
 
 func (s *_indexSettings) Format(format string) *_indexSettings {
 
-	s.v.Format = format
+	s.v.Format = &format
 
 	return s
 }
@@ -122,7 +122,7 @@ func (s *_indexSettings) GcDeletes(duration types.DurationVariant) *_indexSettin
 
 func (s *_indexSettings) Hidden(hidden string) *_indexSettings {
 
-	s.v.Hidden = hidden
+	s.v.Hidden = &hidden
 
 	return s
 }
@@ -290,7 +290,7 @@ func (s *_indexSettings) Mode(mode string) *_indexSettings {
 
 func (s *_indexSettings) NumberOfReplicas(numberofreplicas string) *_indexSettings {
 
-	s.v.NumberOfReplicas = numberofreplicas
+	s.v.NumberOfReplicas = &numberofreplicas
 
 	return s
 }
@@ -304,14 +304,14 @@ func (s *_indexSettings) NumberOfRoutingShards(numberofroutingshards int) *_inde
 
 func (s *_indexSettings) NumberOfShards(numberofshards string) *_indexSettings {
 
-	s.v.NumberOfShards = numberofshards
+	s.v.NumberOfShards = &numberofshards
 
 	return s
 }
 
 func (s *_indexSettings) Priority(priority string) *_indexSettings {
 
-	s.v.Priority = priority
+	s.v.Priority = &priority
 
 	return s
 }
@@ -452,7 +452,7 @@ func (s *_indexSettings) Uuid(uuid string) *_indexSettings {
 
 func (s *_indexSettings) VerifiedBeforeClose(verifiedbeforeclose string) *_indexSettings {
 
-	s.v.VerifiedBeforeClose = verifiedbeforeclose
+	s.v.VerifiedBeforeClose = &verifiedbeforeclose
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -75,24 +75,10 @@ func (s *_highlight) Encoder(encoder highlighterencoder.HighlighterEncoder) *_hi
 	return s
 }
 
-func (s *_highlight) Fields(fields map[string]types.HighlightField) *_highlight {
+func (s *_highlight) Fields(fields []map[string]types.HighlightField) *_highlight {
 
 	s.v.Fields = fields
-	return s
-}
 
-func (s *_highlight) AddField(key string, value types.HighlightFieldVariant) *_highlight {
-
-	var tmp map[string]types.HighlightField
-	if s.v.Fields == nil {
-		s.v.Fields = make(map[string]types.HighlightField)
-	} else {
-		tmp = s.v.Fields
-	}
-
-	tmp[key] = *value.HighlightFieldCaster()
-
-	s.v.Fields = tmp
 	return s
 }
 

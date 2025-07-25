@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -44,7 +44,7 @@ func (u *_analyzer) UnknownAnalyzer(unknown json.RawMessage) *_analyzer {
 
 func (u *_analyzer) CustomAnalyzer(customanalyzer types.CustomAnalyzerVariant) *_analyzer {
 
-	u.v = &customanalyzer
+	u.v = customanalyzer.CustomAnalyzerCaster()
 
 	return u
 }
@@ -57,7 +57,7 @@ func (u *_customAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) FingerprintAnalyzer(fingerprintanalyzer types.FingerprintAnalyzerVariant) *_analyzer {
 
-	u.v = &fingerprintanalyzer
+	u.v = fingerprintanalyzer.FingerprintAnalyzerCaster()
 
 	return u
 }
@@ -70,7 +70,7 @@ func (u *_fingerprintAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) KeywordAnalyzer(keywordanalyzer types.KeywordAnalyzerVariant) *_analyzer {
 
-	u.v = &keywordanalyzer
+	u.v = keywordanalyzer.KeywordAnalyzerCaster()
 
 	return u
 }
@@ -83,7 +83,7 @@ func (u *_keywordAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) NoriAnalyzer(norianalyzer types.NoriAnalyzerVariant) *_analyzer {
 
-	u.v = &norianalyzer
+	u.v = norianalyzer.NoriAnalyzerCaster()
 
 	return u
 }
@@ -96,7 +96,7 @@ func (u *_noriAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) PatternAnalyzer(patternanalyzer types.PatternAnalyzerVariant) *_analyzer {
 
-	u.v = &patternanalyzer
+	u.v = patternanalyzer.PatternAnalyzerCaster()
 
 	return u
 }
@@ -109,7 +109,7 @@ func (u *_patternAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) SimpleAnalyzer(simpleanalyzer types.SimpleAnalyzerVariant) *_analyzer {
 
-	u.v = &simpleanalyzer
+	u.v = simpleanalyzer.SimpleAnalyzerCaster()
 
 	return u
 }
@@ -122,7 +122,7 @@ func (u *_simpleAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) StandardAnalyzer(standardanalyzer types.StandardAnalyzerVariant) *_analyzer {
 
-	u.v = &standardanalyzer
+	u.v = standardanalyzer.StandardAnalyzerCaster()
 
 	return u
 }
@@ -135,7 +135,7 @@ func (u *_standardAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) StopAnalyzer(stopanalyzer types.StopAnalyzerVariant) *_analyzer {
 
-	u.v = &stopanalyzer
+	u.v = stopanalyzer.StopAnalyzerCaster()
 
 	return u
 }
@@ -148,7 +148,7 @@ func (u *_stopAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) WhitespaceAnalyzer(whitespaceanalyzer types.WhitespaceAnalyzerVariant) *_analyzer {
 
-	u.v = &whitespaceanalyzer
+	u.v = whitespaceanalyzer.WhitespaceAnalyzerCaster()
 
 	return u
 }
@@ -161,7 +161,7 @@ func (u *_whitespaceAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) IcuAnalyzer(icuanalyzer types.IcuAnalyzerVariant) *_analyzer {
 
-	u.v = &icuanalyzer
+	u.v = icuanalyzer.IcuAnalyzerCaster()
 
 	return u
 }
@@ -174,7 +174,7 @@ func (u *_icuAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) KuromojiAnalyzer(kuromojianalyzer types.KuromojiAnalyzerVariant) *_analyzer {
 
-	u.v = &kuromojianalyzer
+	u.v = kuromojianalyzer.KuromojiAnalyzerCaster()
 
 	return u
 }
@@ -187,7 +187,7 @@ func (u *_kuromojiAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) SnowballAnalyzer(snowballanalyzer types.SnowballAnalyzerVariant) *_analyzer {
 
-	u.v = &snowballanalyzer
+	u.v = snowballanalyzer.SnowballAnalyzerCaster()
 
 	return u
 }
@@ -200,7 +200,7 @@ func (u *_snowballAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) ArabicAnalyzer(arabicanalyzer types.ArabicAnalyzerVariant) *_analyzer {
 
-	u.v = &arabicanalyzer
+	u.v = arabicanalyzer.ArabicAnalyzerCaster()
 
 	return u
 }
@@ -213,7 +213,7 @@ func (u *_arabicAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) ArmenianAnalyzer(armeniananalyzer types.ArmenianAnalyzerVariant) *_analyzer {
 
-	u.v = &armeniananalyzer
+	u.v = armeniananalyzer.ArmenianAnalyzerCaster()
 
 	return u
 }
@@ -226,7 +226,7 @@ func (u *_armenianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) BasqueAnalyzer(basqueanalyzer types.BasqueAnalyzerVariant) *_analyzer {
 
-	u.v = &basqueanalyzer
+	u.v = basqueanalyzer.BasqueAnalyzerCaster()
 
 	return u
 }
@@ -239,7 +239,7 @@ func (u *_basqueAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) BengaliAnalyzer(bengalianalyzer types.BengaliAnalyzerVariant) *_analyzer {
 
-	u.v = &bengalianalyzer
+	u.v = bengalianalyzer.BengaliAnalyzerCaster()
 
 	return u
 }
@@ -252,7 +252,7 @@ func (u *_bengaliAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) BrazilianAnalyzer(braziliananalyzer types.BrazilianAnalyzerVariant) *_analyzer {
 
-	u.v = &braziliananalyzer
+	u.v = braziliananalyzer.BrazilianAnalyzerCaster()
 
 	return u
 }
@@ -265,7 +265,7 @@ func (u *_brazilianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) BulgarianAnalyzer(bulgariananalyzer types.BulgarianAnalyzerVariant) *_analyzer {
 
-	u.v = &bulgariananalyzer
+	u.v = bulgariananalyzer.BulgarianAnalyzerCaster()
 
 	return u
 }
@@ -278,7 +278,7 @@ func (u *_bulgarianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) CatalanAnalyzer(catalananalyzer types.CatalanAnalyzerVariant) *_analyzer {
 
-	u.v = &catalananalyzer
+	u.v = catalananalyzer.CatalanAnalyzerCaster()
 
 	return u
 }
@@ -291,7 +291,7 @@ func (u *_catalanAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) ChineseAnalyzer(chineseanalyzer types.ChineseAnalyzerVariant) *_analyzer {
 
-	u.v = &chineseanalyzer
+	u.v = chineseanalyzer.ChineseAnalyzerCaster()
 
 	return u
 }
@@ -304,7 +304,7 @@ func (u *_chineseAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) CjkAnalyzer(cjkanalyzer types.CjkAnalyzerVariant) *_analyzer {
 
-	u.v = &cjkanalyzer
+	u.v = cjkanalyzer.CjkAnalyzerCaster()
 
 	return u
 }
@@ -317,7 +317,7 @@ func (u *_cjkAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) CzechAnalyzer(czechanalyzer types.CzechAnalyzerVariant) *_analyzer {
 
-	u.v = &czechanalyzer
+	u.v = czechanalyzer.CzechAnalyzerCaster()
 
 	return u
 }
@@ -330,7 +330,7 @@ func (u *_czechAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) DanishAnalyzer(danishanalyzer types.DanishAnalyzerVariant) *_analyzer {
 
-	u.v = &danishanalyzer
+	u.v = danishanalyzer.DanishAnalyzerCaster()
 
 	return u
 }
@@ -343,7 +343,7 @@ func (u *_danishAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) DutchAnalyzer(dutchanalyzer types.DutchAnalyzerVariant) *_analyzer {
 
-	u.v = &dutchanalyzer
+	u.v = dutchanalyzer.DutchAnalyzerCaster()
 
 	return u
 }
@@ -356,7 +356,7 @@ func (u *_dutchAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) EnglishAnalyzer(englishanalyzer types.EnglishAnalyzerVariant) *_analyzer {
 
-	u.v = &englishanalyzer
+	u.v = englishanalyzer.EnglishAnalyzerCaster()
 
 	return u
 }
@@ -369,7 +369,7 @@ func (u *_englishAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) EstonianAnalyzer(estoniananalyzer types.EstonianAnalyzerVariant) *_analyzer {
 
-	u.v = &estoniananalyzer
+	u.v = estoniananalyzer.EstonianAnalyzerCaster()
 
 	return u
 }
@@ -382,7 +382,7 @@ func (u *_estonianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) FinnishAnalyzer(finnishanalyzer types.FinnishAnalyzerVariant) *_analyzer {
 
-	u.v = &finnishanalyzer
+	u.v = finnishanalyzer.FinnishAnalyzerCaster()
 
 	return u
 }
@@ -395,7 +395,7 @@ func (u *_finnishAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) FrenchAnalyzer(frenchanalyzer types.FrenchAnalyzerVariant) *_analyzer {
 
-	u.v = &frenchanalyzer
+	u.v = frenchanalyzer.FrenchAnalyzerCaster()
 
 	return u
 }
@@ -408,7 +408,7 @@ func (u *_frenchAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) GalicianAnalyzer(galiciananalyzer types.GalicianAnalyzerVariant) *_analyzer {
 
-	u.v = &galiciananalyzer
+	u.v = galiciananalyzer.GalicianAnalyzerCaster()
 
 	return u
 }
@@ -421,7 +421,7 @@ func (u *_galicianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) GermanAnalyzer(germananalyzer types.GermanAnalyzerVariant) *_analyzer {
 
-	u.v = &germananalyzer
+	u.v = germananalyzer.GermanAnalyzerCaster()
 
 	return u
 }
@@ -434,7 +434,7 @@ func (u *_germanAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) GreekAnalyzer(greekanalyzer types.GreekAnalyzerVariant) *_analyzer {
 
-	u.v = &greekanalyzer
+	u.v = greekanalyzer.GreekAnalyzerCaster()
 
 	return u
 }
@@ -447,7 +447,7 @@ func (u *_greekAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) HindiAnalyzer(hindianalyzer types.HindiAnalyzerVariant) *_analyzer {
 
-	u.v = &hindianalyzer
+	u.v = hindianalyzer.HindiAnalyzerCaster()
 
 	return u
 }
@@ -460,7 +460,7 @@ func (u *_hindiAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) HungarianAnalyzer(hungariananalyzer types.HungarianAnalyzerVariant) *_analyzer {
 
-	u.v = &hungariananalyzer
+	u.v = hungariananalyzer.HungarianAnalyzerCaster()
 
 	return u
 }
@@ -473,7 +473,7 @@ func (u *_hungarianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) IndonesianAnalyzer(indonesiananalyzer types.IndonesianAnalyzerVariant) *_analyzer {
 
-	u.v = &indonesiananalyzer
+	u.v = indonesiananalyzer.IndonesianAnalyzerCaster()
 
 	return u
 }
@@ -486,7 +486,7 @@ func (u *_indonesianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) IrishAnalyzer(irishanalyzer types.IrishAnalyzerVariant) *_analyzer {
 
-	u.v = &irishanalyzer
+	u.v = irishanalyzer.IrishAnalyzerCaster()
 
 	return u
 }
@@ -499,7 +499,7 @@ func (u *_irishAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) ItalianAnalyzer(italiananalyzer types.ItalianAnalyzerVariant) *_analyzer {
 
-	u.v = &italiananalyzer
+	u.v = italiananalyzer.ItalianAnalyzerCaster()
 
 	return u
 }
@@ -512,7 +512,7 @@ func (u *_italianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) LatvianAnalyzer(latviananalyzer types.LatvianAnalyzerVariant) *_analyzer {
 
-	u.v = &latviananalyzer
+	u.v = latviananalyzer.LatvianAnalyzerCaster()
 
 	return u
 }
@@ -525,7 +525,7 @@ func (u *_latvianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) LithuanianAnalyzer(lithuaniananalyzer types.LithuanianAnalyzerVariant) *_analyzer {
 
-	u.v = &lithuaniananalyzer
+	u.v = lithuaniananalyzer.LithuanianAnalyzerCaster()
 
 	return u
 }
@@ -538,7 +538,7 @@ func (u *_lithuanianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) NorwegianAnalyzer(norwegiananalyzer types.NorwegianAnalyzerVariant) *_analyzer {
 
-	u.v = &norwegiananalyzer
+	u.v = norwegiananalyzer.NorwegianAnalyzerCaster()
 
 	return u
 }
@@ -551,7 +551,7 @@ func (u *_norwegianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) PersianAnalyzer(persiananalyzer types.PersianAnalyzerVariant) *_analyzer {
 
-	u.v = &persiananalyzer
+	u.v = persiananalyzer.PersianAnalyzerCaster()
 
 	return u
 }
@@ -564,7 +564,7 @@ func (u *_persianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) PortugueseAnalyzer(portugueseanalyzer types.PortugueseAnalyzerVariant) *_analyzer {
 
-	u.v = &portugueseanalyzer
+	u.v = portugueseanalyzer.PortugueseAnalyzerCaster()
 
 	return u
 }
@@ -577,7 +577,7 @@ func (u *_portugueseAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) RomanianAnalyzer(romaniananalyzer types.RomanianAnalyzerVariant) *_analyzer {
 
-	u.v = &romaniananalyzer
+	u.v = romaniananalyzer.RomanianAnalyzerCaster()
 
 	return u
 }
@@ -590,7 +590,7 @@ func (u *_romanianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) RussianAnalyzer(russiananalyzer types.RussianAnalyzerVariant) *_analyzer {
 
-	u.v = &russiananalyzer
+	u.v = russiananalyzer.RussianAnalyzerCaster()
 
 	return u
 }
@@ -603,7 +603,7 @@ func (u *_russianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) SerbianAnalyzer(serbiananalyzer types.SerbianAnalyzerVariant) *_analyzer {
 
-	u.v = &serbiananalyzer
+	u.v = serbiananalyzer.SerbianAnalyzerCaster()
 
 	return u
 }
@@ -616,7 +616,7 @@ func (u *_serbianAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) SoraniAnalyzer(soranianalyzer types.SoraniAnalyzerVariant) *_analyzer {
 
-	u.v = &soranianalyzer
+	u.v = soranianalyzer.SoraniAnalyzerCaster()
 
 	return u
 }
@@ -629,7 +629,7 @@ func (u *_soraniAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) SpanishAnalyzer(spanishanalyzer types.SpanishAnalyzerVariant) *_analyzer {
 
-	u.v = &spanishanalyzer
+	u.v = spanishanalyzer.SpanishAnalyzerCaster()
 
 	return u
 }
@@ -642,7 +642,7 @@ func (u *_spanishAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) SwedishAnalyzer(swedishanalyzer types.SwedishAnalyzerVariant) *_analyzer {
 
-	u.v = &swedishanalyzer
+	u.v = swedishanalyzer.SwedishAnalyzerCaster()
 
 	return u
 }
@@ -655,7 +655,7 @@ func (u *_swedishAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) TurkishAnalyzer(turkishanalyzer types.TurkishAnalyzerVariant) *_analyzer {
 
-	u.v = &turkishanalyzer
+	u.v = turkishanalyzer.TurkishAnalyzerCaster()
 
 	return u
 }
@@ -668,7 +668,7 @@ func (u *_turkishAnalyzer) AnalyzerCaster() *types.Analyzer {
 
 func (u *_analyzer) ThaiAnalyzer(thaianalyzer types.ThaiAnalyzerVariant) *_analyzer {
 
-	u.v = &thaianalyzer
+	u.v = thaianalyzer.ThaiAnalyzerCaster()
 
 	return u
 }

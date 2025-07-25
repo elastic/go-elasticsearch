@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // CohereServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L572-L613
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/inference/_types/CommonTypes.ts#L655-L696
 type CohereServiceSettings struct {
 	// ApiKey A valid API key for your Cohere account.
 	// You can find or create your Cohere API keys on the Cohere API key settings
@@ -48,6 +48,10 @@ type CohereServiceSettings struct {
 	// recreate it with the same name and the updated API key.
 	ApiKey string `json:"api_key"`
 	// EmbeddingType For a `text_embedding` task, the types of embeddings you want to get back.
+	// Use `binary` for binary embeddings, which are encoded as bytes with signed
+	// int8 precision.
+	// Use `bit` for binary embeddings, which are encoded as bytes with signed int8
+	// precision (this is a synonym of `binary`).
 	// Use `byte` for signed int8 embeddings (this is a synonym of `int8`).
 	// Use `float` for the default float embeddings.
 	// Use `int8` for signed int8 embeddings.
@@ -61,9 +65,7 @@ type CohereServiceSettings struct {
 	// docs](https://docs.cohere.com/reference/rerank-1).
 	// * For the available `text_embedding` models, refer to [Cohere embed
 	// docs](https://docs.cohere.com/reference/embed).
-	//
-	// The default value for a text embedding task is `embed-english-v2.0`.
-	ModelId *string `json:"model_id,omitempty"`
+	ModelId string `json:"model_id"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
 	// Cohere.
 	// By default, the `cohere` service sets the number of requests allowed per
@@ -117,7 +119,7 @@ func (s *CohereServiceSettings) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.ModelId = &o
+			s.ModelId = o
 
 		case "rate_limit":
 			if err := dec.Decode(&s.RateLimit); err != nil {
@@ -140,8 +142,6 @@ func NewCohereServiceSettings() *CohereServiceSettings {
 
 	return r
 }
-
-// true
 
 type CohereServiceSettingsVariant interface {
 	CohereServiceSettingsCaster() *CohereServiceSettings

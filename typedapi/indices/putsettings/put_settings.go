@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Update index settings.
 // Changes dynamic index settings in real time.
@@ -25,9 +25,60 @@
 //
 // To revert a setting to the default value, use a null value.
 // The list of per-index settings that can be updated dynamically on live
-// indices can be found in index module documentation.
+// indices can be found in index settings documentation.
 // To preserve existing settings from being updated, set the `preserve_existing`
 // parameter to `true`.
+//
+// For performance optimization during bulk indexing, you can disable the
+// refresh interval.
+// Refer to [disable refresh
+// interval](https://www.elastic.co/docs/deploy-manage/production-guidance/optimize-performance/indexing-speed#disable-refresh-interval)
+// for an example.
+// There are multiple valid ways to represent index settings in the request
+// body. You can specify only the setting, for example:
+//
+// ```
+//
+//	{
+//	  "number_of_replicas": 1
+//	}
+//
+// ```
+//
+// Or you can use an `index` setting object:
+// ```
+//
+//	{
+//	  "index": {
+//	    "number_of_replicas": 1
+//	  }
+//	}
+//
+// ```
+//
+// Or you can use dot annotation:
+// ```
+//
+//	{
+//	  "index.number_of_replicas": 1
+//	}
+//
+// ```
+//
+// Or you can embed any of the aforementioned options in a `settings` object.
+// For example:
+//
+// ```
+//
+//	{
+//	  "settings": {
+//	    "index": {
+//	      "number_of_replicas": 1
+//	    }
+//	  }
+//	}
+//
+// ```
 //
 // NOTE: You can only define new analyzers on closed indices.
 // To add an analyzer, you must close the index, define the analyzer, and reopen
@@ -43,6 +94,9 @@
 // existing data.
 // To change the analyzer for existing backing indices, you must create a new
 // data stream and reindex your data into it.
+// Refer to [updating analyzers on existing
+// indices](https://www.elastic.co/docs/manage-data/data-store/text-analysis/specify-an-analyzer#update-analyzers-on-existing-indices)
+// for step-by-step examples.
 package putsettings
 
 import (
@@ -112,9 +166,60 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 //
 // To revert a setting to the default value, use a null value.
 // The list of per-index settings that can be updated dynamically on live
-// indices can be found in index module documentation.
+// indices can be found in index settings documentation.
 // To preserve existing settings from being updated, set the `preserve_existing`
 // parameter to `true`.
+//
+// For performance optimization during bulk indexing, you can disable the
+// refresh interval.
+// Refer to [disable refresh
+// interval](https://www.elastic.co/docs/deploy-manage/production-guidance/optimize-performance/indexing-speed#disable-refresh-interval)
+// for an example.
+// There are multiple valid ways to represent index settings in the request
+// body. You can specify only the setting, for example:
+//
+// ```
+//
+//	{
+//	  "number_of_replicas": 1
+//	}
+//
+// ```
+//
+// Or you can use an `index` setting object:
+// ```
+//
+//	{
+//	  "index": {
+//	    "number_of_replicas": 1
+//	  }
+//	}
+//
+// ```
+//
+// Or you can use dot annotation:
+// ```
+//
+//	{
+//	  "index.number_of_replicas": 1
+//	}
+//
+// ```
+//
+// Or you can embed any of the aforementioned options in a `settings` object.
+// For example:
+//
+// ```
+//
+//	{
+//	  "settings": {
+//	    "index": {
+//	      "number_of_replicas": 1
+//	    }
+//	  }
+//	}
+//
+// ```
 //
 // NOTE: You can only define new analyzers on closed indices.
 // To add an analyzer, you must close the index, define the analyzer, and reopen
@@ -130,6 +235,9 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 // existing data.
 // To change the analyzer for existing backing indices, you must create a new
 // data stream and reindex your data into it.
+// Refer to [updating analyzers on existing
+// indices](https://www.elastic.co/docs/manage-data/data-store/text-analysis/specify-an-analyzer#update-analyzers-on-existing-indices)
+// for step-by-step examples.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-settings
 func New(tp elastictransport.Interface) *PutSettings {
@@ -472,7 +580,7 @@ func (r *PutSettings) FilterPath(filterpaths ...string) *PutSettings {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.
@@ -506,6 +614,8 @@ func (r *PutSettings) Analysis(analysis types.IndexSettingsAnalysisVariant) *Put
 
 // Settings to define analyzers, tokenizers, token filters and character
 // filters.
+// Refer to the linked documentation for step-by-step examples of updating
+// analyzers on existing indices.
 // API name: analyze
 func (r *PutSettings) Analyze(analyze types.SettingsAnalyzeVariant) *PutSettings {
 	// Initialize the request if it is not already initialized
@@ -619,7 +729,7 @@ func (r *PutSettings) Format(format string) *PutSettings {
 		r.req = NewRequest()
 	}
 
-	r.req.Format = format
+	r.req.Format = &format
 
 	return r
 }
@@ -643,7 +753,7 @@ func (r *PutSettings) Hidden(hidden string) *PutSettings {
 		r.req = NewRequest()
 	}
 
-	r.req.Hidden = hidden
+	r.req.Hidden = &hidden
 
 	return r
 }
@@ -926,7 +1036,7 @@ func (r *PutSettings) NumberOfReplicas(numberofreplicas string) *PutSettings {
 		r.req = NewRequest()
 	}
 
-	r.req.NumberOfReplicas = numberofreplicas
+	r.req.NumberOfReplicas = &numberofreplicas
 
 	return r
 }
@@ -950,7 +1060,7 @@ func (r *PutSettings) NumberOfShards(numberofshards string) *PutSettings {
 		r.req = NewRequest()
 	}
 
-	r.req.NumberOfShards = numberofshards
+	r.req.NumberOfShards = &numberofshards
 
 	return r
 }
@@ -962,7 +1072,7 @@ func (r *PutSettings) Priority(priority string) *PutSettings {
 		r.req = NewRequest()
 	}
 
-	r.req.Priority = priority
+	r.req.Priority = &priority
 
 	return r
 }
@@ -1199,7 +1309,7 @@ func (r *PutSettings) VerifiedBeforeClose(verifiedbeforeclose string) *PutSettin
 		r.req = NewRequest()
 	}
 
-	r.req.VerifiedBeforeClose = verifiedbeforeclose
+	r.req.VerifiedBeforeClose = &verifiedbeforeclose
 
 	return r
 }

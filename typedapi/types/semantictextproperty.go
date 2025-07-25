@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SemanticTextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/mapping/core.ts#L220-L243
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/mapping/core.ts#L239-L268
 type SemanticTextProperty struct {
 	// ChunkingSettings Settings for chunking text into smaller passages. If specified, these will
 	// override the
@@ -38,6 +38,10 @@ type SemanticTextProperty struct {
 	// inference_id. If chunking settings are updated,
 	// they will not be applied to existing documents until they are reindexed.
 	ChunkingSettings *ChunkingSettings `json:"chunking_settings,omitempty"`
+	// IndexOptions Settings for index_options that override any defaults used by semantic_text,
+	// for example
+	// specific quantization settings.
+	IndexOptions *SemanticTextIndexOptions `json:"index_options,omitempty"`
 	// InferenceId Inference endpoint that will be used to generate embeddings for the field.
 	// This parameter cannot be updated. Use the Create inference API to create the
 	// endpoint.
@@ -74,6 +78,11 @@ func (s *SemanticTextProperty) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "ChunkingSettings", err)
 			}
 
+		case "index_options":
+			if err := dec.Decode(&s.IndexOptions); err != nil {
+				return fmt.Errorf("%s | %w", "IndexOptions", err)
+			}
+
 		case "inference_id":
 			if err := dec.Decode(&s.InferenceId); err != nil {
 				return fmt.Errorf("%s | %w", "InferenceId", err)
@@ -107,6 +116,7 @@ func (s SemanticTextProperty) MarshalJSON() ([]byte, error) {
 	type innerSemanticTextProperty SemanticTextProperty
 	tmp := innerSemanticTextProperty{
 		ChunkingSettings:  s.ChunkingSettings,
+		IndexOptions:      s.IndexOptions,
 		InferenceId:       s.InferenceId,
 		Meta:              s.Meta,
 		SearchInferenceId: s.SearchInferenceId,
@@ -127,12 +137,15 @@ func NewSemanticTextProperty() *SemanticTextProperty {
 	return r
 }
 
-// true
-
 type SemanticTextPropertyVariant interface {
 	SemanticTextPropertyCaster() *SemanticTextProperty
 }
 
 func (s *SemanticTextProperty) SemanticTextPropertyCaster() *SemanticTextProperty {
 	return s
+}
+
+func (s *SemanticTextProperty) PropertyCaster() *Property {
+	o := Property(s)
+	return &o
 }

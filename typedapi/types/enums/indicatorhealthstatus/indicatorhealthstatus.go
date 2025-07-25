@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Package indicatorhealthstatus
 package indicatorhealthstatus
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/health_report/types.ts#L25-L30
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_global/health_report/types.ts#L25-L31
 type IndicatorHealthStatus struct {
 	Name string
 }
@@ -36,6 +36,8 @@ var (
 	Red = IndicatorHealthStatus{"red"}
 
 	Unknown = IndicatorHealthStatus{"unknown"}
+
+	Unavailable = IndicatorHealthStatus{"unavailable"}
 )
 
 func (i IndicatorHealthStatus) MarshalText() (text []byte, err error) {
@@ -53,6 +55,8 @@ func (i *IndicatorHealthStatus) UnmarshalText(text []byte) error {
 		*i = Red
 	case "unknown":
 		*i = Unknown
+	case "unavailable":
+		*i = Unavailable
 	default:
 		*i = IndicatorHealthStatus{string(text)}
 	}

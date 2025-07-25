@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Get thread pool statistics.
 //
@@ -41,6 +41,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catthreadpoolcolumn"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
 )
 
@@ -322,13 +323,18 @@ func (r *ThreadPool) ThreadPoolPatterns(threadpoolpatterns string) *ThreadPool {
 
 // H List of columns to appear in the response. Supports simple wildcards.
 // API name: h
-func (r *ThreadPool) H(names ...string) *ThreadPool {
-	r.values.Set("h", strings.Join(names, ","))
+func (r *ThreadPool) H(catthreadpoolcolumns ...catthreadpoolcolumn.CatThreadPoolColumn) *ThreadPool {
+	tmp := []string{}
+	for _, item := range catthreadpoolcolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
+// S A comma-separated list of column names or aliases that determines the sort
+// order.
 // Sorting defaults to ascending and can be changed by setting `:asc`
 // or `:desc` as a suffix to the column name.
 // API name: s
@@ -357,7 +363,7 @@ func (r *ThreadPool) Local(local bool) *ThreadPool {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *ThreadPool) MasterTimeout(duration string) *ThreadPool {
 	r.values.Set("master_timeout", duration)
@@ -415,7 +421,7 @@ func (r *ThreadPool) FilterPath(filterpaths ...string) *ThreadPool {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

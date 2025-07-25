@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DissectProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/ingest/_types/Processors.ts#L805-L824
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/ingest/_types/Processors.ts#L805-L824
 type DissectProcessor struct {
 	// AppendSeparator The character(s) that separate the appended fields.
 	AppendSeparator *string `json:"append_separator,omitempty"`
@@ -173,8 +173,6 @@ func NewDissectProcessor() *DissectProcessor {
 
 	return r
 }
-
-// true
 
 type DissectProcessorVariant interface {
 	DissectProcessorCaster() *DissectProcessor

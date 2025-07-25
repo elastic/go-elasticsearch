@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // UntypedRangeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/query_dsl/term.ts#L150-L159
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/query_dsl/term.ts#L146-L155
 type UntypedRangeQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -42,8 +42,7 @@ type UntypedRangeQuery struct {
 	// A value greater than 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
 	// Format Date format used to convert `date` values in the query.
-	Format *string          `json:"format,omitempty"`
-	From   *json.RawMessage `json:"from,omitempty"`
+	Format *string `json:"format,omitempty"`
 	// Gt Greater than.
 	Gt json.RawMessage `json:"gt,omitempty"`
 	// Gte Greater than or equal to.
@@ -57,8 +56,7 @@ type UntypedRangeQuery struct {
 	Relation *rangerelation.RangeRelation `json:"relation,omitempty"`
 	// TimeZone Coordinated Universal Time (UTC) offset or IANA time zone used to convert
 	// `date` values in the query to UTC.
-	TimeZone *string          `json:"time_zone,omitempty"`
-	To       *json.RawMessage `json:"to,omitempty"`
+	TimeZone *string `json:"time_zone,omitempty"`
 }
 
 func (s *UntypedRangeQuery) UnmarshalJSON(data []byte) error {
@@ -95,11 +93,6 @@ func (s *UntypedRangeQuery) UnmarshalJSON(data []byte) error {
 		case "format":
 			if err := dec.Decode(&s.Format); err != nil {
 				return fmt.Errorf("%s | %w", "Format", err)
-			}
-
-		case "from":
-			if err := dec.Decode(&s.From); err != nil {
-				return fmt.Errorf("%s | %w", "From", err)
 			}
 
 		case "gt":
@@ -144,11 +137,6 @@ func (s *UntypedRangeQuery) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "TimeZone", err)
 			}
 
-		case "to":
-			if err := dec.Decode(&s.To); err != nil {
-				return fmt.Errorf("%s | %w", "To", err)
-			}
-
 		}
 	}
 	return nil
@@ -161,12 +149,15 @@ func NewUntypedRangeQuery() *UntypedRangeQuery {
 	return r
 }
 
-// true
-
 type UntypedRangeQueryVariant interface {
 	UntypedRangeQueryCaster() *UntypedRangeQuery
 }
 
 func (s *UntypedRangeQuery) UntypedRangeQueryCaster() *UntypedRangeQuery {
 	return s
+}
+
+func (s *UntypedRangeQuery) RangeQueryCaster() *RangeQuery {
+	o := RangeQuery(s)
+	return &o
 }

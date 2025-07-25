@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Run an ES|QL query.
 // Get search results for an ES|QL (Elasticsearch query language) query.
@@ -321,6 +321,10 @@ func (r *Query) DropNullColumns(dropnullcolumns bool) *Query {
 
 // AllowPartialResults If `true`, partial results will be returned if there are shard failures, but
 // the query can continue to execute on other clusters and shards.
+// If `false`, the query will fail if there are any failures.
+//
+// To override the default behavior, you can set the
+// `esql.query.allow_partial_results` cluster setting to `false`.
 // API name: allow_partial_results
 func (r *Query) AllowPartialResults(allowpartialresults bool) *Query {
 	r.values.Set("allow_partial_results", strconv.FormatBool(allowpartialresults))
@@ -352,7 +356,7 @@ func (r *Query) FilterPath(filterpaths ...string) *Query {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

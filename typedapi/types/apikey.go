@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // ApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/security/_types/ApiKey.ts#L27-L113
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/security/_types/ApiKey.ts#L27-L113
 type ApiKey struct {
 	// Access The access granted to cross-cluster API keys.
 	// The access is composed of permissions for cross cluster search and cross
@@ -225,5 +225,3 @@ func NewApiKey() *ApiKey {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Get node information.
 //
@@ -40,6 +40,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catnodecolumn"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
 )
 
@@ -313,15 +314,21 @@ func (r *Nodes) IncludeUnloadedSegments(includeunloadedsegments bool) *Nodes {
 	return r
 }
 
-// H List of columns to appear in the response. Supports simple wildcards.
+// H A comma-separated list of columns names to display.
+// It supports simple wildcards.
 // API name: h
-func (r *Nodes) H(names ...string) *Nodes {
-	r.values.Set("h", strings.Join(names, ","))
+func (r *Nodes) H(catnodecolumns ...catnodecolumn.CatNodeColumn) *Nodes {
+	tmp := []string{}
+	for _, item := range catnodecolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
+// S A comma-separated list of column names or aliases that determines the sort
+// order.
 // Sorting defaults to ascending and can be changed by setting `:asc`
 // or `:desc` as a suffix to the column name.
 // API name: s
@@ -331,7 +338,7 @@ func (r *Nodes) S(names ...string) *Nodes {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *Nodes) MasterTimeout(duration string) *Nodes {
 	r.values.Set("master_timeout", duration)
@@ -339,7 +346,7 @@ func (r *Nodes) MasterTimeout(duration string) *Nodes {
 	return r
 }
 
-// Time Unit used to display time values.
+// Time The unit used to display time values.
 // API name: time
 func (r *Nodes) Time(time timeunit.TimeUnit) *Nodes {
 	r.values.Set("time", time.String())
@@ -397,7 +404,7 @@ func (r *Nodes) FilterPath(filterpaths ...string) *Nodes {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

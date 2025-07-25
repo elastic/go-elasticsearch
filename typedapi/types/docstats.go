@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DocStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/Stats.ts#L100-L112
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/Stats.ts#L100-L121
 type DocStats struct {
 	// Count Total number of non-deleted documents across all primary shards assigned to
 	// selected nodes.
@@ -44,6 +44,12 @@ type DocStats struct {
 	// Elasticsearch reclaims the disk space of deleted Lucene documents when a
 	// segment is merged.
 	Deleted *int64 `json:"deleted,omitempty"`
+	// TotalSize Human readable total_size_in_bytes
+	TotalSize ByteSize `json:"total_size,omitempty"`
+	// TotalSizeInBytes Returns the total size in bytes of all documents in this stats.
+	// This value may be more reliable than store_stats.size_in_bytes in estimating
+	// the index size.
+	TotalSizeInBytes int64 `json:"total_size_in_bytes"`
 }
 
 func (s *DocStats) UnmarshalJSON(data []byte) error {
@@ -91,6 +97,26 @@ func (s *DocStats) UnmarshalJSON(data []byte) error {
 				s.Deleted = &f
 			}
 
+		case "total_size":
+			if err := dec.Decode(&s.TotalSize); err != nil {
+				return fmt.Errorf("%s | %w", "TotalSize", err)
+			}
+
+		case "total_size_in_bytes":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "TotalSizeInBytes", err)
+				}
+				s.TotalSizeInBytes = value
+			case float64:
+				f := int64(v)
+				s.TotalSizeInBytes = f
+			}
+
 		}
 	}
 	return nil
@@ -102,5 +128,3 @@ func NewDocStats() *DocStats {
 
 	return r
 }
-
-// false

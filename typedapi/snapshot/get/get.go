@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Get snapshot information.
 //
@@ -42,6 +42,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/snapshotsort"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/snapshotstate"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortorder"
 )
 
@@ -467,6 +468,20 @@ func (r *Get) Sort(sort snapshotsort.SnapshotSort) *Get {
 	return r
 }
 
+// State Only return snapshots with a state found in the given comma-separated list of
+// snapshot states.
+// The default is all snapshot states.
+// API name: state
+func (r *Get) State(states ...snapshotstate.SnapshotState) *Get {
+	tmp := []string{}
+	for _, item := range states {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("state", strings.Join(tmp, ","))
+
+	return r
+}
+
 // Verbose If `true`, returns additional information about each snapshot such as the
 // version of Elasticsearch which took the snapshot, the start and end times of
 // the snapshot, and the number of shards snapshotted.
@@ -506,7 +521,7 @@ func (r *Get) FilterPath(filterpaths ...string) *Get {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

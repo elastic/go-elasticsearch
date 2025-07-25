@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Get the snapshot status.
 // Get a detailed description of the current state for each shard participating
@@ -32,6 +32,18 @@
 // This usage is preferred.
 // If needed, you can specify `<repository>` and `<snapshot>` to retrieve
 // information for specific snapshots, even if they're not currently running.
+//
+// Note that the stats will not be available for any shard snapshots in an
+// ongoing snapshot completed by a node that (even momentarily) left the
+// cluster.
+// Loading the stats from the repository is an expensive operation (see the
+// WARNING below).
+// Therefore the stats values for such shards will be -1 even though the "stage"
+// value will be "DONE", in order to minimize latency.
+// A "description" field will be present for a shard snapshot completed by a
+// departed node explaining why the shard snapshot's stats results are invalid.
+// Consequently, the total stats for the index will be less than expected due to
+// the missing values from these shards.
 //
 // WARNING: Using the API to return the status of any snapshots other than
 // currently running snapshots can be expensive.
@@ -116,6 +128,18 @@ func NewStatusFunc(tp elastictransport.Interface) NewStatus {
 // This usage is preferred.
 // If needed, you can specify `<repository>` and `<snapshot>` to retrieve
 // information for specific snapshots, even if they're not currently running.
+//
+// Note that the stats will not be available for any shard snapshots in an
+// ongoing snapshot completed by a node that (even momentarily) left the
+// cluster.
+// Loading the stats from the repository is an expensive operation (see the
+// WARNING below).
+// Therefore the stats values for such shards will be -1 even though the "stage"
+// value will be "DONE", in order to minimize latency.
+// A "description" field will be present for a shard snapshot completed by a
+// departed node explaining why the shard snapshot's stats results are invalid.
+// Consequently, the total stats for the index will be less than expected due to
+// the missing values from these shards.
 //
 // WARNING: Using the API to return the status of any snapshots other than
 // currently running snapshots can be expensive.
@@ -434,7 +458,7 @@ func (r *Status) FilterPath(filterpaths ...string) *Status {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

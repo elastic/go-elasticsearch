@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Create or update a document in an index.
 //
@@ -880,6 +880,15 @@ func (r *Index) RequireAlias(requirealias bool) *Index {
 	return r
 }
 
+// RequireDataStream If `true`, the request's actions must target a data stream (existing or to be
+// created).
+// API name: require_data_stream
+func (r *Index) RequireDataStream(requiredatastream bool) *Index {
+	r.values.Set("require_data_stream", strconv.FormatBool(requiredatastream))
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -904,7 +913,7 @@ func (r *Index) FilterPath(filterpaths ...string) *Index {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

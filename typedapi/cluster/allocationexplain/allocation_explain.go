@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Explain the shard allocations.
 // Get explanations for shard allocations in the cluster.
+// This API accepts the current_node, index, primary and shard parameters in the
+// request body or in query parameters, but not in both at the same time.
 // For unassigned shards, it provides an explanation for why the shard is
 // unassigned.
 // For assigned shards, it provides an explanation for why the shard is
@@ -28,6 +30,8 @@
 // This API can be very useful when attempting to diagnose why a shard is
 // unassigned or why a shard continues to remain on its current node when you
 // might expect otherwise.
+// Refer to the linked documentation for examples of how to troubleshoot
+// allocation issues using this API.
 package allocationexplain
 
 import (
@@ -84,6 +88,8 @@ func NewAllocationExplainFunc(tp elastictransport.Interface) NewAllocationExplai
 
 // Explain the shard allocations.
 // Get explanations for shard allocations in the cluster.
+// This API accepts the current_node, index, primary and shard parameters in the
+// request body or in query parameters, but not in both at the same time.
 // For unassigned shards, it provides an explanation for why the shard is
 // unassigned.
 // For assigned shards, it provides an explanation for why the shard is
@@ -92,6 +98,8 @@ func NewAllocationExplainFunc(tp elastictransport.Interface) NewAllocationExplai
 // This API can be very useful when attempting to diagnose why a shard is
 // unassigned or why a shard continues to remain on its current node when you
 // might expect otherwise.
+// Refer to the linked documentation for examples of how to troubleshoot
+// allocation issues using this API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-allocation-explain
 func New(tp elastictransport.Interface) *AllocationExplain {
@@ -358,7 +366,7 @@ func (r *AllocationExplain) FilterPath(filterpaths ...string) *AllocationExplain
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.
@@ -378,21 +386,21 @@ func (r *AllocationExplain) Pretty(pretty bool) *AllocationExplain {
 	return r
 }
 
-// Specifies the node ID or the name of the node to only explain a shard that is
-// currently located on the specified node.
+// Explain a shard only if it is currently located on the specified node name or
+// node ID.
 // API name: current_node
-func (r *AllocationExplain) CurrentNode(currentnode string) *AllocationExplain {
+func (r *AllocationExplain) CurrentNode(nodeid string) *AllocationExplain {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.CurrentNode = &currentnode
+	r.req.CurrentNode = &nodeid
 
 	return r
 }
 
-// Specifies the name of the index that you would like an explanation for.
+// The name of the index that you would like an explanation for.
 // API name: index
 func (r *AllocationExplain) Index(indexname string) *AllocationExplain {
 	// Initialize the request if it is not already initialized
@@ -405,7 +413,8 @@ func (r *AllocationExplain) Index(indexname string) *AllocationExplain {
 	return r
 }
 
-// If true, returns explanation for the primary shard for the given shard ID.
+// If true, returns an explanation for the primary shard for the specified shard
+// ID.
 // API name: primary
 func (r *AllocationExplain) Primary(primary bool) *AllocationExplain {
 	// Initialize the request if it is not already initialized
@@ -418,7 +427,7 @@ func (r *AllocationExplain) Primary(primary bool) *AllocationExplain {
 	return r
 }
 
-// Specifies the ID of the shard that you would like an explanation for.
+// An identifier for the shard that you would like an explanation for.
 // API name: shard
 func (r *AllocationExplain) Shard(shard int) *AllocationExplain {
 	// Initialize the request if it is not already initialized

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
 // NodeInfoSettingsIngest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/nodes/info/types.ts#L87-L122
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/nodes/info/types.ts#L97-L132
 type NodeInfoSettingsIngest struct {
 	Append          *NodeInfoIngestInfo `json:"append,omitempty"`
 	Attachment      *NodeInfoIngestInfo `json:"attachment,omitempty"`
@@ -66,5 +66,3 @@ func NewNodeInfoSettingsIngest() *NodeInfoSettingsIngest {
 
 	return r
 }
-
-// false

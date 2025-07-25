@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataStreams type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/xpack/usage/types.ts#L78-L81
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/xpack/usage/types.ts#L78-L81
 type DataStreams struct {
 	Available    bool  `json:"available"`
 	DataStreams  int64 `json:"data_streams"`
@@ -123,5 +123,3 @@ func NewDataStreams() *DataStreams {
 
 	return r
 }
-
-// false

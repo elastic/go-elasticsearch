@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IndexSettingsAnalysis type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/indices/_types/IndexSettings.ts#L333-L339
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/indices/_types/IndexSettings.ts#L346-L352
 type IndexSettingsAnalysis struct {
 	Analyzer   map[string]Analyzer    `json:"analyzer,omitempty"`
 	CharFilter map[string]CharFilter  `json:"char_filter,omitempty"`
@@ -440,8 +440,56 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 				buf.Seek(0, io.SeekStart)
 
 				switch kind["type"] {
+				case "apostrophe":
+					oo := NewApostropheTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "arabic_stem":
+					oo := NewArabicStemTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "arabic_normalization":
+					oo := NewArabicNormalizationTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
 				case "asciifolding":
 					oo := NewAsciiFoldingTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "bengali_normalization":
+					oo := NewBengaliNormalizationTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "brazilian_stem":
+					oo := NewBrazilianStemTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "cjk_bigram":
+					oo := NewCjkBigramTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "cjk_width":
+					oo := NewCjkWidthTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "classic":
+					oo := NewClassicTokenFilter()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Filter | %w", err)
 					}
@@ -458,8 +506,26 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Filter | %w", err)
 					}
 					s.Filter[key] = oo
+				case "czech_stem":
+					oo := NewCzechStemTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "decimal_digit":
+					oo := NewDecimalDigitTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
 				case "delimited_payload":
 					oo := NewDelimitedPayloadTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "dutch_stem":
+					oo := NewDutchStemTokenFilter()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Filter | %w", err)
 					}
@@ -482,6 +548,36 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Filter | %w", err)
 					}
 					s.Filter[key] = oo
+				case "flatten_graph":
+					oo := NewFlattenGraphTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "french_stem":
+					oo := NewFrenchStemTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "german_normalization":
+					oo := NewGermanNormalizationTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "german_stem":
+					oo := NewGermanStemTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "hindi_normalization":
+					oo := NewHindiNormalizationTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
 				case "hunspell":
 					oo := NewHunspellTokenFilter()
 					if err := localDec.Decode(&oo); err != nil {
@@ -490,6 +586,12 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					s.Filter[key] = oo
 				case "hyphenation_decompounder":
 					oo := NewHyphenationDecompounderTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "indic_normalization":
+					oo := NewIndicNormalizationTokenFilter()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Filter | %w", err)
 					}
@@ -508,6 +610,12 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					s.Filter[key] = oo
 				case "keyword_marker":
 					oo := NewKeywordMarkerTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "keyword_repeat":
+					oo := NewKeywordRepeatTokenFilter()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Filter | %w", err)
 					}
@@ -532,6 +640,12 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					s.Filter[key] = oo
 				case "lowercase":
 					oo := NewLowercaseTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "min_hash":
+					oo := NewMinHashTokenFilter()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Filter | %w", err)
 					}
@@ -566,6 +680,18 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Filter | %w", err)
 					}
 					s.Filter[key] = oo
+				case "persian_normalization":
+					oo := NewPersianNormalizationTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "persian_stem":
+					oo := NewPersianStemTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
 				case "porter_stem":
 					oo := NewPorterStemTokenFilter()
 					if err := localDec.Decode(&oo); err != nil {
@@ -590,6 +716,30 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Filter | %w", err)
 					}
 					s.Filter[key] = oo
+				case "russian_stem":
+					oo := NewRussianStemTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "scandinavian_folding":
+					oo := NewScandinavianFoldingTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "scandinavian_normalization":
+					oo := NewScandinavianNormalizationTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "serbian_normalization":
+					oo := NewSerbianNormalizationTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
 				case "shingle":
 					oo := NewShingleTokenFilter()
 					if err := localDec.Decode(&oo); err != nil {
@@ -598,6 +748,12 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					s.Filter[key] = oo
 				case "snowball":
 					oo := NewSnowballTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "sorani_normalization":
+					oo := NewSoraniNormalizationTokenFilter()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Filter | %w", err)
 					}
@@ -664,6 +820,12 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					s.Filter[key] = oo
 				case "word_delimiter":
 					oo := NewWordDelimiterTokenFilter()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Filter | %w", err)
+					}
+					s.Filter[key] = oo
+				case "ja_stop":
+					oo := NewJaStopTokenFilter()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Filter | %w", err)
 					}
@@ -916,8 +1078,6 @@ func NewIndexSettingsAnalysis() *IndexSettingsAnalysis {
 
 	return r
 }
-
-// true
 
 type IndexSettingsAnalysisVariant interface {
 	IndexSettingsAnalysisCaster() *IndexSettingsAnalysis

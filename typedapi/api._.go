@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package typedapi
 
@@ -211,6 +211,7 @@ import (
 	indices_delete_alias "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletealias"
 	indices_delete_data_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletedatalifecycle"
 	indices_delete_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletedatastream"
+	indices_delete_data_stream_options "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletedatastreamoptions"
 	indices_delete_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deleteindextemplate"
 	indices_delete_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletetemplate"
 	indices_disk_usage "github.com/elastic/go-elasticsearch/v9/typedapi/indices/diskusage"
@@ -228,6 +229,9 @@ import (
 	indices_get_data_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatalifecycle"
 	indices_get_data_lifecycle_stats "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatalifecyclestats"
 	indices_get_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastream"
+	indices_get_data_stream_mappings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastreammappings"
+	indices_get_data_stream_options "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastreamoptions"
+	indices_get_data_stream_settings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastreamsettings"
 	indices_get_field_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getfieldmapping"
 	indices_get_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getindextemplate"
 	indices_get_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getmapping"
@@ -241,6 +245,9 @@ import (
 	indices_promote_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/promotedatastream"
 	indices_put_alias "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putalias"
 	indices_put_data_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatalifecycle"
+	indices_put_data_stream_mappings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatastreammappings"
+	indices_put_data_stream_options "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatastreamoptions"
+	indices_put_data_stream_settings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatastreamsettings"
 	indices_put_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putindextemplate"
 	indices_put_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putmapping"
 	indices_put_settings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putsettings"
@@ -248,6 +255,7 @@ import (
 	indices_recovery "github.com/elastic/go-elasticsearch/v9/typedapi/indices/recovery"
 	indices_refresh "github.com/elastic/go-elasticsearch/v9/typedapi/indices/refresh"
 	indices_reload_search_analyzers "github.com/elastic/go-elasticsearch/v9/typedapi/indices/reloadsearchanalyzers"
+	indices_remove_block "github.com/elastic/go-elasticsearch/v9/typedapi/indices/removeblock"
 	indices_resolve_cluster "github.com/elastic/go-elasticsearch/v9/typedapi/indices/resolvecluster"
 	indices_resolve_index "github.com/elastic/go-elasticsearch/v9/typedapi/indices/resolveindex"
 	indices_rollover "github.com/elastic/go-elasticsearch/v9/typedapi/indices/rollover"
@@ -272,6 +280,8 @@ import (
 	inference_put_azureaistudio "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putazureaistudio"
 	inference_put_azureopenai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putazureopenai"
 	inference_put_cohere "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putcohere"
+	inference_put_custom "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putcustom"
+	inference_put_deepseek "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putdeepseek"
 	inference_put_elasticsearch "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putelasticsearch"
 	inference_put_elser "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putelser"
 	inference_put_googleaistudio "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putgoogleaistudio"
@@ -524,6 +534,9 @@ import (
 	sql_query "github.com/elastic/go-elasticsearch/v9/typedapi/sql/query"
 	sql_translate "github.com/elastic/go-elasticsearch/v9/typedapi/sql/translate"
 	ssl_certificates "github.com/elastic/go-elasticsearch/v9/typedapi/ssl/certificates"
+	streams_logs_disable "github.com/elastic/go-elasticsearch/v9/typedapi/streams/logsdisable"
+	streams_logs_enable "github.com/elastic/go-elasticsearch/v9/typedapi/streams/logsenable"
+	streams_status "github.com/elastic/go-elasticsearch/v9/typedapi/streams/status"
 	synonyms_delete_synonym "github.com/elastic/go-elasticsearch/v9/typedapi/synonyms/deletesynonym"
 	synonyms_delete_synonym_rule "github.com/elastic/go-elasticsearch/v9/typedapi/synonyms/deletesynonymrule"
 	synonyms_get_synonym "github.com/elastic/go-elasticsearch/v9/typedapi/synonyms/getsynonym"
@@ -1089,6 +1102,8 @@ type Ccr struct {
 type Cluster struct {
 	// Explain the shard allocations.
 	// Get explanations for shard allocations in the cluster.
+	// This API accepts the current_node, index, primary and shard parameters in the
+	// request body or in query parameters, but not in both at the same time.
 	// For unassigned shards, it provides an explanation for why the shard is
 	// unassigned.
 	// For assigned shards, it provides an explanation for why the shard is
@@ -1097,6 +1112,8 @@ type Cluster struct {
 	// This API can be very useful when attempting to diagnose why a shard is
 	// unassigned or why a shard continues to remain on its current node when you
 	// might expect otherwise.
+	// Refer to the linked documentation for examples of how to troubleshoot
+	// allocation issues using this API.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-allocation-explain
 	AllocationExplain cluster_allocation_explain.NewAllocationExplain
 	// Delete component templates.
@@ -1117,6 +1134,7 @@ type Cluster struct {
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
 	GetComponentTemplate cluster_get_component_template.NewGetComponentTemplate
 	// Get cluster-wide settings.
+	//
 	// By default, it returns only settings that have been explicitly defined.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-get-settings
 	GetSettings cluster_get_settings.NewGetSettings
@@ -1729,6 +1747,11 @@ type Core struct {
 	// The request will only wait for those three shards to refresh.
 	// The other two shards that make up the index do not participate in the `_bulk`
 	// request at all.
+	//
+	// You might want to disable the refresh interval temporarily to improve
+	// indexing throughput for large bulk requests.
+	// Refer to the linked documentation for step-by-step instructions using the
+	// index settings API.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
 	Bulk core_bulk.NewBulk
 	// Clear a scrolling search.
@@ -2483,6 +2506,8 @@ type Core struct {
 	Index core_index.NewIndex
 	// Get cluster info.
 	// Get basic build, version, and cluster information.
+	// ::: In Serverless, this API is retained for backward compatibility only. Some
+	// response fields, such as the version number, should be ignored.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
 	Info core_info.NewInfo
 	// Get multiple documents.
@@ -2716,216 +2741,7 @@ type Core struct {
 	// has successfully indexed `max_docs` documents into the target or it has gone
 	// through every document in the source query.
 	//
-	// NOTE: The reindex API makes no effort to handle ID collisions.
-	// The last document written will "win" but the order isn't usually predictable
-	// so it is not a good idea to rely on this behavior.
-	// Instead, make sure that IDs are unique by using a script.
-	//
-	// **Running reindex asynchronously**
-	//
-	// If the request contains `wait_for_completion=false`, Elasticsearch performs
-	// some preflight checks, launches the request, and returns a task you can use
-	// to cancel or get the status of the task.
-	// Elasticsearch creates a record of this task as a document at
-	// `_tasks/<task_id>`.
-	//
-	// **Reindex from multiple sources**
-	//
-	// If you have many sources to reindex it is generally better to reindex them
-	// one at a time rather than using a glob pattern to pick up multiple sources.
-	// That way you can resume the process if there are any errors by removing the
-	// partially completed source and starting over.
-	// It also makes parallelizing the process fairly simple: split the list of
-	// sources to reindex and run each list in parallel.
-	//
-	// For example, you can use a bash script like this:
-	//
-	// ```
-	// for index in i1 i2 i3 i4 i5; do
-	//   curl -HContent-Type:application/json -XPOST localhost:9200/_reindex?pretty
-	// -d'{
-	//     "source": {
-	//       "index": "'$index'"
-	//     },
-	//     "dest": {
-	//       "index": "'$index'-reindexed"
-	//     }
-	//   }'
-	// done
-	// ```
-	//
-	// **Throttling**
-	//
-	// Set `requests_per_second` to any positive decimal number (`1.4`, `6`, `1000`,
-	// for example) to throttle the rate at which reindex issues batches of index
-	// operations.
-	// Requests are throttled by padding each batch with a wait time.
-	// To turn off throttling, set `requests_per_second` to `-1`.
-	//
-	// The throttling is done by waiting between batches so that the scroll that
-	// reindex uses internally can be given a timeout that takes into account the
-	// padding.
-	// The padding time is the difference between the batch size divided by the
-	// `requests_per_second` and the time spent writing.
-	// By default the batch size is `1000`, so if `requests_per_second` is set to
-	// `500`:
-	//
-	// ```
-	// target_time = 1000 / 500 per second = 2 seconds
-	// wait_time = target_time - write_time = 2 seconds - .5 seconds = 1.5 seconds
-	// ```
-	//
-	// Since the batch is issued as a single bulk request, large batch sizes cause
-	// Elasticsearch to create many requests and then wait for a while before
-	// starting the next set.
-	// This is "bursty" instead of "smooth".
-	//
-	// **Slicing**
-	//
-	// Reindex supports sliced scroll to parallelize the reindexing process.
-	// This parallelization can improve efficiency and provide a convenient way to
-	// break the request down into smaller parts.
-	//
-	// NOTE: Reindexing from remote clusters does not support manual or automatic
-	// slicing.
-	//
-	// You can slice a reindex request manually by providing a slice ID and total
-	// number of slices to each request.
-	// You can also let reindex automatically parallelize by using sliced scroll to
-	// slice on `_id`.
-	// The `slices` parameter specifies the number of slices to use.
-	//
-	// Adding `slices` to the reindex request just automates the manual process,
-	// creating sub-requests which means it has some quirks:
-	//
-	// * You can see these requests in the tasks API. These sub-requests are "child"
-	// tasks of the task for the request with slices.
-	// * Fetching the status of the task for the request with `slices` only contains
-	// the status of completed slices.
-	// * These sub-requests are individually addressable for things like
-	// cancellation and rethrottling.
-	// * Rethrottling the request with `slices` will rethrottle the unfinished
-	// sub-request proportionally.
-	// * Canceling the request with `slices` will cancel each sub-request.
-	// * Due to the nature of `slices`, each sub-request won't get a perfectly even
-	// portion of the documents. All documents will be addressed, but some slices
-	// may be larger than others. Expect larger slices to have a more even
-	// distribution.
-	// * Parameters like `requests_per_second` and `max_docs` on a request with
-	// `slices` are distributed proportionally to each sub-request. Combine that
-	// with the previous point about distribution being uneven and you should
-	// conclude that using `max_docs` with `slices` might not result in exactly
-	// `max_docs` documents being reindexed.
-	// * Each sub-request gets a slightly different snapshot of the source, though
-	// these are all taken at approximately the same time.
-	//
-	// If slicing automatically, setting `slices` to `auto` will choose a reasonable
-	// number for most indices.
-	// If slicing manually or otherwise tuning automatic slicing, use the following
-	// guidelines.
-	//
-	// Query performance is most efficient when the number of slices is equal to the
-	// number of shards in the index.
-	// If that number is large (for example, `500`), choose a lower number as too
-	// many slices will hurt performance.
-	// Setting slices higher than the number of shards generally does not improve
-	// efficiency and adds overhead.
-	//
-	// Indexing performance scales linearly across available resources with the
-	// number of slices.
-	//
-	// Whether query or indexing performance dominates the runtime depends on the
-	// documents being reindexed and cluster resources.
-	//
-	// **Modify documents during reindexing**
-	//
-	// Like `_update_by_query`, reindex operations support a script that modifies
-	// the document.
-	// Unlike `_update_by_query`, the script is allowed to modify the document's
-	// metadata.
-	//
-	// Just as in `_update_by_query`, you can set `ctx.op` to change the operation
-	// that is run on the destination.
-	// For example, set `ctx.op` to `noop` if your script decides that the document
-	// doesn’t have to be indexed in the destination. This "no operation" will be
-	// reported in the `noop` counter in the response body.
-	// Set `ctx.op` to `delete` if your script decides that the document must be
-	// deleted from the destination.
-	// The deletion will be reported in the `deleted` counter in the response body.
-	// Setting `ctx.op` to anything else will return an error, as will setting any
-	// other field in `ctx`.
-	//
-	// Think of the possibilities! Just be careful; you are able to change:
-	//
-	// * `_id`
-	// * `_index`
-	// * `_version`
-	// * `_routing`
-	//
-	// Setting `_version` to `null` or clearing it from the `ctx` map is just like
-	// not sending the version in an indexing request.
-	// It will cause the document to be overwritten in the destination regardless of
-	// the version on the target or the version type you use in the reindex API.
-	//
-	// **Reindex from remote**
-	//
-	// Reindex supports reindexing from a remote Elasticsearch cluster.
-	// The `host` parameter must contain a scheme, host, port, and optional path.
-	// The `username` and `password` parameters are optional and when they are
-	// present the reindex operation will connect to the remote Elasticsearch node
-	// using basic authentication.
-	// Be sure to use HTTPS when using basic authentication or the password will be
-	// sent in plain text.
-	// There are a range of settings available to configure the behavior of the
-	// HTTPS connection.
-	//
-	// When using Elastic Cloud, it is also possible to authenticate against the
-	// remote cluster through the use of a valid API key.
-	// Remote hosts must be explicitly allowed with the `reindex.remote.whitelist`
-	// setting.
-	// It can be set to a comma delimited list of allowed remote host and port
-	// combinations.
-	// Scheme is ignored; only the host and port are used.
-	// For example:
-	//
-	// ```
-	// reindex.remote.whitelist: [otherhost:9200, another:9200, 127.0.10.*:9200,
-	// localhost:*"]
-	// ```
-	//
-	// The list of allowed hosts must be configured on any nodes that will
-	// coordinate the reindex.
-	// This feature should work with remote clusters of any version of
-	// Elasticsearch.
-	// This should enable you to upgrade from any version of Elasticsearch to the
-	// current version by reindexing from a cluster of the old version.
-	//
-	// WARNING: Elasticsearch does not support forward compatibility across major
-	// versions.
-	// For example, you cannot reindex from a 7.x cluster into a 6.x cluster.
-	//
-	// To enable queries sent to older versions of Elasticsearch, the `query`
-	// parameter is sent directly to the remote host without validation or
-	// modification.
-	//
-	// NOTE: Reindexing from remote clusters does not support manual or automatic
-	// slicing.
-	//
-	// Reindexing from a remote server uses an on-heap buffer that defaults to a
-	// maximum size of 100mb.
-	// If the remote index includes very large documents you'll need to use a
-	// smaller batch size.
-	// It is also possible to set the socket read timeout on the remote connection
-	// with the `socket_timeout` field and the connection timeout with the
-	// `connect_timeout` field.
-	// Both default to 30 seconds.
-	//
-	// **Configuring SSL parameters**
-	//
-	// Reindex from remote supports configurable SSL settings.
-	// These must be specified in the `elasticsearch.yml` file, with the exception
-	// of the secure settings, which you add in the Elasticsearch keystore.
-	// It is not possible to configure SSL in the body of the reindex request.
+	// Refer to the linked documentation for examples of how to reindex documents.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
 	Reindex core_reindex.NewReindex
 	// Throttle a reindex operation.
@@ -3048,56 +2864,6 @@ type Core struct {
 	// containing suggested geometry labels, so that, for example, multi-polygons
 	// will have only one label.
 	//
-	// For example, Elasticsearch may translate a vector tile search API request
-	// with a `grid_agg` argument of `geotile` and an `exact_bounds` argument of
-	// `true` into the following search
-	//
-	// ```
-	// GET my-index/_search
-	// {
-	//   "size": 10000,
-	//   "query": {
-	//     "geo_bounding_box": {
-	//       "my-geo-field": {
-	//         "top_left": {
-	//           "lat": -40.979898069620134,
-	//           "lon": -45
-	//         },
-	//         "bottom_right": {
-	//           "lat": -66.51326044311186,
-	//           "lon": 0
-	//         }
-	//       }
-	//     }
-	//   },
-	//   "aggregations": {
-	//     "grid": {
-	//       "geotile_grid": {
-	//         "field": "my-geo-field",
-	//         "precision": 11,
-	//         "size": 65536,
-	//         "bounds": {
-	//           "top_left": {
-	//             "lat": -40.979898069620134,
-	//             "lon": -45
-	//           },
-	//           "bottom_right": {
-	//             "lat": -66.51326044311186,
-	//             "lon": 0
-	//           }
-	//         }
-	//       }
-	//     },
-	//     "bounds": {
-	//       "geo_bounds": {
-	//         "field": "my-geo-field",
-	//         "wrap_longitude": false
-	//       }
-	//     }
-	//   }
-	// }
-	// ```
-	//
 	// The API returns results as a binary Mapbox vector tile.
 	// Mapbox vector tiles are encoded as Google Protobufs (PBF). By default, the
 	// tile contains three layers:
@@ -3190,6 +2956,11 @@ type Core struct {
 	// of tile bins at each zoom level.
 	// Elasticsearch uses the H3 resolution that is closest to the corresponding
 	// geotile density.
+	//
+	// Learn how to use the vector tile search API with practical examples in the
+	// [Vector tile search
+	// examples](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/vector-tile-search)
+	// guide.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
 	SearchMvt core_search_mvt.NewSearchMvt
 	// Get the search shards.
@@ -3275,6 +3046,8 @@ type Core struct {
 	// By default, when requesting term vectors of artificial documents, a shard to
 	// get the statistics from is randomly selected.
 	// Use `routing` only to hit a particular shard.
+	// Refer to the linked documentation for detailed examples of how to use this
+	// API.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors
 	Termvectors core_termvectors.NewTermvectors
 	// Update a document.
@@ -3302,6 +3075,8 @@ type Core struct {
 	// In addition to `_source`, you can access the following variables through the
 	// `ctx` map: `_index`, `_type`, `_id`, `_version`, `_routing`, and `_now` (the
 	// current timestamp).
+	// For usage examples such as partial updates, upserts, and scripted updates,
+	// see the External documentation.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update
 	Update core_update.NewUpdate
 	// Update documents.
@@ -3345,6 +3120,40 @@ type Core struct {
 	// the failures are shown in the response.
 	// Any update requests that completed successfully still stick, they are not
 	// rolled back.
+	//
+	// **Refreshing shards**
+	//
+	// Specifying the `refresh` parameter refreshes all shards once the request
+	// completes.
+	// This is different to the update API's `refresh` parameter, which causes only
+	// the shard
+	// that received the request to be refreshed. Unlike the update API, it does not
+	// support
+	// `wait_for`.
+	//
+	// **Running update by query asynchronously**
+	//
+	// If the request contains `wait_for_completion=false`, Elasticsearch
+	// performs some preflight checks, launches the request, and returns a
+	// [task](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks)
+	// you can use to cancel or get the status of the task.
+	// Elasticsearch creates a record of this task as a document at
+	// `.tasks/task/${taskId}`.
+	//
+	// **Waiting for active shards**
+	//
+	// `wait_for_active_shards` controls how many copies of a shard must be active
+	// before proceeding with the request. See
+	// [`wait_for_active_shards`](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create#operation-create-wait_for_active_shards)
+	// for details. `timeout` controls how long each write request waits for
+	// unavailable
+	// shards to become available. Both work exactly the way they work in the
+	// [Bulk
+	// API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk).
+	// Update by query uses scrolled searches, so you can also
+	// specify the `scroll` parameter to control how long it keeps the search
+	// context
+	// alive, for example `?scroll=10m`. The default is 5 minutes.
 	//
 	// **Throttling update requests**
 	//
@@ -3419,28 +3228,8 @@ type Core struct {
 	//
 	// Whether query or update performance dominates the runtime depends on the
 	// documents being reindexed and cluster resources.
-	//
-	// **Update the document source**
-	//
-	// Update by query supports scripts to update the document source.
-	// As with the update API, you can set `ctx.op` to change the operation that is
-	// performed.
-	//
-	// Set `ctx.op = "noop"` if your script decides that it doesn't have to make any
-	// changes.
-	// The update by query operation skips updating the document and increments the
-	// `noop` counter.
-	//
-	// Set `ctx.op = "delete"` if your script decides that the document should be
-	// deleted.
-	// The update by query operation deletes the document and increments the
-	// `deleted` counter.
-	//
-	// Update by query supports only `index`, `noop`, and `delete`.
-	// Setting `ctx.op` to anything else is an error.
-	// Setting any other field in `ctx` is an error.
-	// This API enables you to only modify the source of matching documents; you
-	// cannot move them.
+	// Refer to the linked documentation for examples of how to update documents
+	// using the `_update_by_query` API:
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
 	UpdateByQuery core_update_by_query.NewUpdateByQuery
 	// Throttle an update by query operation.
@@ -4003,6 +3792,10 @@ type Indices struct {
 	// Deletes one or more data streams and their backing indices.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream
 	DeleteDataStream indices_delete_data_stream.NewDeleteDataStream
+	// Delete data stream options.
+	// Removes the data stream options from a data stream.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+	DeleteDataStreamOptions indices_delete_data_stream_options.NewDeleteDataStreamOptions
 	// Delete an index template.
 	// The provided <index-template> may contain multiple template names separated
 	// by a comma. If multiple template
@@ -4012,6 +3805,9 @@ type Indices struct {
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-index-template
 	DeleteIndexTemplate indices_delete_index_template.NewDeleteIndexTemplate
 	// Delete a legacy index template.
+	// IMPORTANT: This documentation is about legacy index templates, which are
+	// deprecated and will be replaced by the composable templates introduced in
+	// Elasticsearch 7.8.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-template
 	DeleteTemplate indices_delete_template.NewDeleteTemplate
 	// Analyze the index disk usage.
@@ -4223,6 +4019,21 @@ type Indices struct {
 	// Get information about one or more data streams.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream
 	GetDataStream indices_get_data_stream.NewGetDataStream
+	// Get data stream mappings.
+	//
+	// Get mapping information for one or more data streams.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-mappings
+	GetDataStreamMappings indices_get_data_stream_mappings.NewGetDataStreamMappings
+	// Get data stream options.
+	//
+	// Get the data stream options configuration of one or more data streams.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+	GetDataStreamOptions indices_get_data_stream_options.NewGetDataStreamOptions
+	// Get data stream settings.
+	//
+	// Get setting information for one or more data streams.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-settings
+	GetDataStreamSettings indices_get_data_stream_settings.NewGetDataStreamSettings
 	// Get mapping definitions.
 	// Retrieves mapping definitions for one or more fields.
 	// For data streams, the API retrieves field mappings for the stream’s backing
@@ -4252,7 +4063,7 @@ type Indices struct {
 	// indices.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-settings
 	GetSettings indices_get_settings.NewGetSettings
-	// Get index templates.
+	// Get legacy index templates.
 	// Get information about one or more index templates.
 	//
 	// IMPORTANT: This documentation is about legacy index templates, which are
@@ -4355,6 +4166,32 @@ type Indices struct {
 	// Update the data stream lifecycle of the specified data streams.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-lifecycle
 	PutDataLifecycle indices_put_data_lifecycle.NewPutDataLifecycle
+	// Update data stream mappings.
+	//
+	// This API can be used to override mappings on specific data streams. These
+	// overrides will take precedence over what
+	// is specified in the template that the data stream matches. The mapping change
+	// is only applied to new write indices
+	// that are created during rollover after this API is called. No indices are
+	// changed by this API.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-mappings
+	PutDataStreamMappings indices_put_data_stream_mappings.NewPutDataStreamMappings
+	// Update data stream options.
+	// Update the data stream options of the specified data streams.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+	PutDataStreamOptions indices_put_data_stream_options.NewPutDataStreamOptions
+	// Update data stream settings.
+	//
+	// This API can be used to override settings on specific data streams. These
+	// overrides will take precedence over what
+	// is specified in the template that the data stream matches. To prevent your
+	// data stream from getting into an invalid state,
+	// only certain settings are allowed. If possible, the setting change is applied
+	// to all
+	// backing indices. Otherwise, it will be applied when the data stream is next
+	// rolled over.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-settings
+	PutDataStreamSettings indices_put_data_stream_settings.NewPutDataStreamSettings
 	// Create or update an index template.
 	// Index templates define settings, mappings, and aliases that can be applied
 	// automatically to new indices.
@@ -4405,43 +4242,20 @@ type Indices struct {
 	PutIndexTemplate indices_put_index_template.NewPutIndexTemplate
 	// Update field mappings.
 	// Add new fields to an existing data stream or index.
-	// You can also use this API to change the search settings of existing fields
-	// and add new properties to existing object fields.
-	// For data streams, these changes are applied to all backing indices by
-	// default.
+	// You can use the update mapping API to:
 	//
-	// **Add multi-fields to an existing field**
+	// - Add a new field to an existing index
+	// - Update mappings for multiple indices in a single request
+	// - Add new properties to an object field
+	// - Enable multi-fields for an existing field
+	// - Update supported mapping parameters
+	// - Change a field's mapping using reindexing
+	// - Rename a field using a field alias
 	//
-	// Multi-fields let you index the same field in different ways.
-	// You can use this API to update the fields mapping parameter and enable
-	// multi-fields for an existing field.
-	// WARNING: If an index (or data stream) contains documents when you add a
-	// multi-field, those documents will not have values for the new multi-field.
-	// You can populate the new multi-field with the update by query API.
-	//
-	// **Change supported mapping parameters for an existing field**
-	//
-	// The documentation for each mapping parameter indicates whether you can update
-	// it for an existing field using this API.
-	// For example, you can use the update mapping API to update the `ignore_above`
-	// parameter.
-	//
-	// **Change the mapping of an existing field**
-	//
-	// Except for supported mapping parameters, you can't change the mapping or
-	// field type of an existing field.
-	// Changing an existing field could invalidate data that's already indexed.
-	//
-	// If you need to change the mapping of a field in a data stream's backing
-	// indices, refer to documentation about modifying data streams.
-	// If you need to change the mapping of a field in other indices, create a new
-	// index with the correct mapping and reindex your data into that index.
-	//
-	// **Rename a field**
-	//
-	// Renaming a field would invalidate data already indexed under the old field
-	// name.
-	// Instead, add an alias field to create an alternate field name.
+	// Learn how to use the update mapping API with practical examples in the
+	// [Update mapping API
+	// examples](https://www.elastic.co/docs//manage-data/data-store/mapping/update-mappings-examples)
+	// guide.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-mapping
 	PutMapping indices_put_mapping.NewPutMapping
 	// Update index settings.
@@ -4451,9 +4265,52 @@ type Indices struct {
 	//
 	// To revert a setting to the default value, use a null value.
 	// The list of per-index settings that can be updated dynamically on live
-	// indices can be found in index module documentation.
+	// indices can be found in index settings documentation.
 	// To preserve existing settings from being updated, set the `preserve_existing`
 	// parameter to `true`.
+	//
+	// For performance optimization during bulk indexing, you can disable the
+	// refresh interval.
+	// Refer to [disable refresh
+	// interval](https://www.elastic.co/docs/deploy-manage/production-guidance/optimize-performance/indexing-speed#disable-refresh-interval)
+	// for an example.
+	// There are multiple valid ways to represent index settings in the request
+	// body. You can specify only the setting, for example:
+	//
+	// ```
+	// {
+	//   "number_of_replicas": 1
+	// }
+	// ```
+	//
+	// Or you can use an `index` setting object:
+	// ```
+	// {
+	//   "index": {
+	//     "number_of_replicas": 1
+	//   }
+	// }
+	// ```
+	//
+	// Or you can use dot annotation:
+	// ```
+	// {
+	//   "index.number_of_replicas": 1
+	// }
+	// ```
+	//
+	// Or you can embed any of the aforementioned options in a `settings` object.
+	// For example:
+	//
+	// ```
+	// {
+	//   "settings": {
+	//     "index": {
+	//       "number_of_replicas": 1
+	//     }
+	//   }
+	// }
+	// ```
 	//
 	// NOTE: You can only define new analyzers on closed indices.
 	// To add an analyzer, you must close the index, define the analyzer, and reopen
@@ -4469,9 +4326,12 @@ type Indices struct {
 	// existing data.
 	// To change the analyzer for existing backing indices, you must create a new
 	// data stream and reindex your data into it.
+	// Refer to [updating analyzers on existing
+	// indices](https://www.elastic.co/docs/manage-data/data-store/text-analysis/specify-an-analyzer#update-analyzers-on-existing-indices)
+	// for step-by-step examples.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-settings
 	PutSettings indices_put_settings.NewPutSettings
-	// Create or update an index template.
+	// Create or update a legacy index template.
 	// Index templates define settings, mappings, and aliases that can be applied
 	// automatically to new indices.
 	// Elasticsearch applies templates to new indices based on an index pattern that
@@ -4596,6 +4456,13 @@ type Indices struct {
 	// shards are relocated in the future.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-reload-search-analyzers
 	ReloadSearchAnalyzers indices_reload_search_analyzers.NewReloadSearchAnalyzers
+	// Remove an index block.
+	//
+	// Remove an index block from an index.
+	// Index blocks limit the operations allowed on an index by blocking specific
+	// operation types.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-remove-block
+	RemoveBlock indices_remove_block.NewRemoveBlock
 	// Resolve the cluster.
 	//
 	// Resolve the specified index expressions to return information about each
@@ -4911,6 +4778,21 @@ type Indices struct {
 
 type Inference struct {
 	// Perform chat completion inference
+	//
+	// The chat completion inference API enables real-time responses for chat
+	// completion tasks by delivering answers incrementally, reducing response times
+	// during computation.
+	// It only works with the `chat_completion` task type for `openai` and `elastic`
+	// inference services.
+	//
+	// NOTE: The `chat_completion` task type is only available within the _stream
+	// API and only supports streaming.
+	// The Chat completion inference API and the Stream inference API differ in
+	// their response structure and capabilities.
+	// The Chat completion inference API provides more comprehensive customization
+	// options through more fields and function calling support.
+	// If you use the `openai`, `hugging_face` or the `elastic` service, use the
+	// Chat completion inference API.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-unified-inference
 	ChatCompletionUnified inference_chat_completion_unified.NewChatCompletionUnified
 	// Perform completion inference on the service
@@ -4945,15 +4827,6 @@ type Inference struct {
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
 	Inference inference_inference.NewInference
 	// Create an inference endpoint.
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	//
 	// IMPORTANT: The inference APIs enable you to use certain services, such as
 	// built-in machine learning models (ELSER, E5), models uploaded through Eland,
@@ -4964,27 +4837,39 @@ type Inference struct {
 	// However, if you do not plan to use the inference APIs to use these models or
 	// if you want to use non-NLP models, use the machine learning trained model
 	// APIs.
+	//
+	// The following integrations are available through the inference API. You can
+	// find the available task types next to the integration name:
+	// * AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
+	// `text_embedding`)
+	// * Amazon Bedrock (`completion`, `text_embedding`)
+	// * Anthropic (`completion`)
+	// * Azure AI Studio (`completion`, 'rerank', `text_embedding`)
+	// * Azure OpenAI (`completion`, `text_embedding`)
+	// * Cohere (`completion`, `rerank`, `text_embedding`)
+	// * DeepSeek (`completion`, `chat_completion`)
+	// * Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
+	// service is for built-in models and models uploaded through Eland)
+	// * ELSER (`sparse_embedding`)
+	// * Google AI Studio (`completion`, `text_embedding`)
+	// * Google Vertex AI (`rerank`, `text_embedding`)
+	// * Hugging Face (`chat_completion`, `completion`, `rerank`, `text_embedding`)
+	// * Mistral (`chat_completion`, `completion`, `text_embedding`)
+	// * OpenAI (`chat_completion`, `completion`, `text_embedding`)
+	// * VoyageAI (`text_embedding`, `rerank`)
+	// * Watsonx inference integration (`text_embedding`)
+	// * JinaAI (`text_embedding`, `rerank`)
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put
 	Put inference_put.NewPut
 	// Create an AlibabaCloud AI Search inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the
 	// `alibabacloud-ai-search` service.
-	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-alibabacloud
 	PutAlibabacloud inference_put_alibabacloud.NewPutAlibabacloud
 	// Create an Amazon Bedrock inference endpoint.
 	//
-	// Creates an inference endpoint to perform an inference task with the
+	// Create an inference endpoint to perform an inference task with the
 	// `amazonbedrock` service.
 	//
 	// >info
@@ -4994,48 +4879,18 @@ type Inference struct {
 	// associated key pairs. If you want to use a different access and secret key
 	// pair, delete the inference model and recreate it with the same name and the
 	// updated keys.
-	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonbedrock
 	PutAmazonbedrock inference_put_amazonbedrock.NewPutAmazonbedrock
 	// Create an Anthropic inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the
 	// `anthropic` service.
-	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-anthropic
 	PutAnthropic inference_put_anthropic.NewPutAnthropic
 	// Create an Azure AI studio inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the
 	// `azureaistudio` service.
-	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureaistudio
 	PutAzureaistudio inference_put_azureaistudio.NewPutAzureaistudio
 	// Create an Azure OpenAI inference endpoint.
@@ -5054,34 +4909,76 @@ type Inference struct {
 	// The list of embeddings models that you can choose from in your deployment can
 	// be found in the [Azure models
 	// documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#embeddings).
-	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureopenai
 	PutAzureopenai inference_put_azureopenai.NewPutAzureopenai
 	// Create a Cohere inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the `cohere`
 	// service.
-	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-cohere
 	PutCohere inference_put_cohere.NewPutCohere
+	// Create a custom inference endpoint.
+	//
+	// The custom service gives more control over how to interact with external
+	// inference services that aren't explicitly supported through dedicated
+	// integrations.
+	// The custom service gives you the ability to define the headers, url, query
+	// parameters, request body, and secrets.
+	// The custom service supports the template replacement functionality, which
+	// enables you to define a template that can be replaced with the value
+	// associated with that key.
+	// Templates are portions of a string that start with `${` and end with `}`.
+	// The parameters `secret_parameters` and `task_settings` are checked for keys
+	// for template replacement. Template replacement is supported in the `request`,
+	// `headers`, `url`, and `query_parameters`.
+	// If the definition (key) is not found for a template, an error message is
+	// returned.
+	// In case of an endpoint definition like the following:
+	// ```
+	// PUT _inference/text_embedding/test-text-embedding
+	// {
+	//   "service": "custom",
+	//   "service_settings": {
+	//      "secret_parameters": {
+	//           "api_key": "<some api key>"
+	//      },
+	//      "url": "...endpoints.huggingface.cloud/v1/embeddings",
+	//      "headers": {
+	//          "Authorization": "Bearer ${api_key}",
+	//          "Content-Type": "application/json"
+	//      },
+	//      "request": "{\"input\": ${input}}",
+	//      "response": {
+	//          "json_parser": {
+	//              "text_embeddings":"$.data[*].embedding[*]"
+	//          }
+	//      }
+	//   }
+	// }
+	// ```
+	// To replace `${api_key}` the `secret_parameters` and `task_settings` are
+	// checked for a key named `api_key`.
+	//
+	// > info
+	// > Templates should not be surrounded by quotes.
+	//
+	// Pre-defined templates:
+	// * `${input}` refers to the array of input strings that comes from the `input`
+	// field of the subsequent inference requests.
+	// * `${input_type}` refers to the input type translation values.
+	// * `${query}` refers to the query field used specifically for reranking tasks.
+	// * `${top_n}` refers to the `top_n` field available when performing rerank
+	// requests.
+	// * `${return_documents}` refers to the `return_documents` field available when
+	// performing rerank requests.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom
+	PutCustom inference_put_custom.NewPutCustom
+	// Create a DeepSeek inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the `deepseek`
+	// service.
+	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-deepseek
+	PutDeepseek inference_put_deepseek.NewPutDeepseek
 	// Create an Elasticsearch inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the
@@ -5146,48 +5043,31 @@ type Inference struct {
 	//
 	// Create an inference endpoint to perform an inference task with the
 	// `googleaistudio` service.
-	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googleaistudio
 	PutGoogleaistudio inference_put_googleaistudio.NewPutGoogleaistudio
 	// Create a Google Vertex AI inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the
 	// `googlevertexai` service.
-	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googlevertexai
 	PutGooglevertexai inference_put_googlevertexai.NewPutGooglevertexai
 	// Create a Hugging Face inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the
 	// `hugging_face` service.
+	// Supported tasks include: `text_embedding`, `completion`, and
+	// `chat_completion`.
 	//
-	// You must first create an inference endpoint on the Hugging Face endpoint page
-	// to get an endpoint URL.
-	// Select the model you want to use on the new endpoint creation page (for
-	// example `intfloat/e5-small-v2`), then select the sentence embeddings task
-	// under the advanced configuration section.
-	// Create the endpoint and copy the URL after the endpoint initialization has
-	// been finished.
+	// To configure the endpoint, first visit the Hugging Face Inference Endpoints
+	// page and create a new endpoint.
+	// Select a model that supports the task you intend to use.
 	//
-	// The following models are recommended for the Hugging Face service:
+	// For Elastic's `text_embedding` task:
+	// The selected model must support the `Sentence Embeddings` task. On the new
+	// endpoint creation page, select the `Sentence Embeddings` task under the
+	// `Advanced Configuration` section.
+	// After the endpoint has initialized, copy the generated endpoint URL.
+	// Recommended models for `text_embedding` task:
 	//
 	// * `all-MiniLM-L6-v2`
 	// * `all-MiniLM-L12-v2`
@@ -5197,15 +5077,30 @@ type Inference struct {
 	// * `multilingual-e5-base`
 	// * `multilingual-e5-small`
 	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
+	// For Elastic's `chat_completion` and `completion` tasks:
+	// The selected model must support the `Text Generation` task and expose OpenAI
+	// API. HuggingFace supports both serverless and dedicated endpoints for `Text
+	// Generation`. When creating dedicated endpoint select the `Text Generation`
+	// task.
+	// After the endpoint is initialized (for dedicated) or ready (for serverless),
+	// ensure it supports the OpenAI API and includes `/v1/chat/completions` part in
+	// URL. Then, copy the full endpoint URL for use.
+	// Recommended models for `chat_completion` and `completion` tasks:
+	//
+	// * `Mistral-7B-Instruct-v0.2`
+	// * `QwQ-32B`
+	// * `Phi-3-mini-128k-instruct`
+	//
+	// For Elastic's `rerank` task:
+	// The selected model must support the `sentence-ranking` task and expose OpenAI
+	// API.
+	// HuggingFace supports only dedicated (not serverless) endpoints for `Rerank`
+	// so far.
+	// After the endpoint is initialized, copy the full endpoint URL for use.
+	// Tested models for `rerank` task:
+	//
+	// * `bge-reranker-base`
+	// * `jina-reranker-v1-turbo-en-GGUF`
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-hugging-face
 	PutHuggingFace inference_put_hugging_face.NewPutHuggingFace
 	// Create an JinaAI inference endpoint.
@@ -5216,48 +5111,18 @@ type Inference struct {
 	// To review the available `rerank` models, refer to <https://jina.ai/reranker>.
 	// To review the available `text_embedding` models, refer to the
 	// <https://jina.ai/embeddings/>.
-	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-jinaai
 	PutJinaai inference_put_jinaai.NewPutJinaai
 	// Create a Mistral inference endpoint.
 	//
-	// Creates an inference endpoint to perform an inference task with the `mistral`
+	// Create an inference endpoint to perform an inference task with the `mistral`
 	// service.
-	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-mistral
 	PutMistral inference_put_mistral.NewPutMistral
 	// Create an OpenAI inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the `openai`
 	// service or `openai` compatible APIs.
-	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openai
 	PutOpenai inference_put_openai.NewPutOpenai
 	// Create a VoyageAI inference endpoint.
@@ -5277,19 +5142,9 @@ type Inference struct {
 	// `watsonxai` inference service.
 	// You can provision one through the IBM catalog, the Cloud Databases CLI
 	// plug-in, the Cloud Databases API, or Terraform.
-	//
-	// When you create an inference endpoint, the associated machine learning model
-	// is automatically deployed if it is not already running.
-	// After creating the endpoint, wait for the model deployment to complete before
-	// using it.
-	// To verify the deployment status, use the get trained model statistics API.
-	// Look for `"state": "fully_allocated"` in the response and ensure that the
-	// `"allocation_count"` matches the `"target_allocation_count"`.
-	// Avoid creating multiple endpoints for the same model unless required, as each
-	// endpoint consumes significant resources.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-watsonx
 	PutWatsonx inference_put_watsonx.NewPutWatsonx
-	// Perform rereanking inference on the service
+	// Perform reranking inference on the service
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
 	Rerank inference_rerank.NewRerank
 	// Perform sparse embedding inference on the service
@@ -5693,10 +5548,10 @@ type Ml struct {
 	// wildcard expression.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics
 	GetDataFrameAnalytics ml_get_data_frame_analytics.NewGetDataFrameAnalytics
-	// Get data frame analytics jobs usage info.
+	// Get data frame analytics job stats.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics-stats
 	GetDataFrameAnalyticsStats ml_get_data_frame_analytics_stats.NewGetDataFrameAnalyticsStats
-	// Get datafeeds usage info.
+	// Get datafeed stats.
 	// You can get statistics for multiple datafeeds in a single API request by
 	// using a comma-separated list of datafeeds or a wildcard expression. You can
 	// get statistics for all datafeeds by using `_all`, by specifying `*` as the
@@ -5723,7 +5578,7 @@ type Ml struct {
 	// `influencer_field_name` is specified in the job configuration.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-influencers
 	GetInfluencers ml_get_influencers.NewGetInfluencers
-	// Get anomaly detection jobs usage info.
+	// Get anomaly detection job stats.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-job-stats
 	GetJobStats ml_get_job_stats.NewGetJobStats
 	// Get anomaly detection jobs configuration info.
@@ -6302,35 +6157,9 @@ type Rollup struct {
 	// `highlighter`, `suggestors`, `post_filter`, `profile`, `explain`: These are
 	// similarly disallowed.
 	//
-	// **Searching both historical rollup and non-rollup data**
-	//
-	// The rollup search API has the capability to search across both "live"
-	// non-rollup data and the aggregated rollup data.
-	// This is done by simply adding the live indices to the URI. For example:
-	//
-	// ```
-	// GET sensor-1,sensor_rollup/_rollup_search
-	// {
-	//   "size": 0,
-	//   "aggregations": {
-	//      "max_temperature": {
-	//       "max": {
-	//         "field": "temperature"
-	//       }
-	//     }
-	//   }
-	// }
-	// ```
-	//
-	// The rollup search endpoint does two things when the search runs:
-	//
-	// * The original request is sent to the non-rollup index unaltered.
-	// * A rewritten version of the original request is sent to the rollup index.
-	//
-	// When the two responses are received, the endpoint rewrites the rollup
-	// response and merges the two together.
-	// During the merging process, if there is any overlap in buckets between the
-	// two responses, the buckets from the non-rollup index are used.
+	// For more detailed examples of using the rollup search API, including querying
+	// rolled-up data only or combining rolled-up and live data, refer to the
+	// External documentation.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-rollup-search
 	RollupSearch rollup_rollup_search.NewRollupSearch
 	// Start rollup jobs.
@@ -7129,6 +6958,7 @@ type Security struct {
 	// If you have the `read_security`, `manage_api_key`, or greater privileges
 	// (including `manage_security`), this API returns all API keys regardless of
 	// ownership.
+	// Refer to the linked documentation for examples of how to find API keys:
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-api-keys
 	QueryApiKeys security_query_api_keys.NewQueryApiKeys
 	// Find roles with a query.
@@ -7341,6 +7171,10 @@ type Security struct {
 	//
 	// NOTE: This API cannot update REST API keys, which should be updated by either
 	// the update API key or bulk update API keys API.
+	//
+	// To learn more about how to use this API, refer to the [Update cross cluter
+	// API key API examples
+	// page](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/update-cc-api-key-examples).
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-cross-cluster-api-key
 	UpdateCrossClusterApiKey security_update_cross_cluster_api_key.NewUpdateCrossClusterApiKey
 	// Update security index settings.
@@ -7599,33 +7433,35 @@ type Snapshot struct {
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-get-repository
 	GetRepository snapshot_get_repository.NewGetRepository
 	// Analyze a snapshot repository.
-	// Analyze the performance characteristics and any incorrect behaviour found in
-	// a repository.
 	//
-	// The response exposes implementation details of the analysis which may change
-	// from version to version.
-	// The response body format is therefore not considered stable and may be
-	// different in newer versions.
+	// Performs operations on a snapshot repository in order to check for incorrect
+	// behaviour.
 	//
 	// There are a large number of third-party storage systems available, not all of
 	// which are suitable for use as a snapshot repository by Elasticsearch.
 	// Some storage systems behave incorrectly, or perform poorly, especially when
 	// accessed concurrently by multiple clients as the nodes of an Elasticsearch
-	// cluster do. This API performs a collection of read and write operations on
-	// your repository which are designed to detect incorrect behaviour and to
-	// measure the performance characteristics of your storage system.
+	// cluster do.
+	// This API performs a collection of read and write operations on your
+	// repository which are designed to detect incorrect behaviour and to measure
+	// the performance characteristics of your storage system.
 	//
 	// The default values for the parameters are deliberately low to reduce the
 	// impact of running an analysis inadvertently and to provide a sensible
 	// starting point for your investigations.
 	// Run your first analysis with the default parameter values to check for simple
 	// problems.
-	// If successful, run a sequence of increasingly large analyses until you
-	// encounter a failure or you reach a `blob_count` of at least `2000`, a
-	// `max_blob_size` of at least `2gb`, a `max_total_data_size` of at least `1tb`,
-	// and a `register_operation_count` of at least `100`.
+	// Some repositories may behave correctly when lightly loaded but incorrectly
+	// under production-like workloads.
+	// If the first analysis is successful, run a sequence of increasingly large
+	// analyses until you encounter a failure or you reach a `blob_count` of at
+	// least `2000`, a `max_blob_size` of at least `2gb`, a `max_total_data_size` of
+	// at least `1tb`, and a `register_operation_count` of at least `100`.
 	// Always specify a generous timeout, possibly `1h` or longer, to allow time for
 	// each analysis to run to completion.
+	// Some repositories may behave correctly when accessed by a small number of
+	// Elasticsearch nodes but incorrectly when accessed concurrently by a
+	// production-scale cluster.
 	// Perform the analyses using a multi-node cluster of a similar size to your
 	// production cluster so that it can detect any problems that only arise when
 	// the repository is accessed by many nodes at once.
@@ -7635,6 +7471,26 @@ type Snapshot struct {
 	// This usually means you are using a third-party storage system with an
 	// incorrect or incompatible implementation of the API it claims to support.
 	// If so, this storage system is not suitable for use as a snapshot repository.
+	// Repository analysis triggers conditions that occur only rarely when taking
+	// snapshots in a production system.
+	// Snapshotting to unsuitable storage may appear to work correctly most of the
+	// time despite repository analysis failures.
+	// However your snapshot data is at risk if you store it in a snapshot
+	// repository that does not reliably pass repository analysis.
+	// You can demonstrate that the analysis failure is due to an incompatible
+	// storage implementation by verifying that Elasticsearch does not detect the
+	// same problem when analysing the reference implementation of the storage
+	// protocol you are using.
+	// For instance, if you are using storage that offers an API which the supplier
+	// claims to be compatible with AWS S3, verify that repositories in AWS S3 do
+	// not fail repository analysis.
+	// This allows you to demonstrate to your storage supplier that a repository
+	// analysis failure must only be caused by an incompatibility with AWS S3 and
+	// cannot be attributed to a problem in Elasticsearch.
+	// Please do not report Elasticsearch issues involving third-party storage
+	// systems unless you can demonstrate that the same issue exists when analysing
+	// a repository that uses the reference implementation of the same storage
+	// protocol.
 	// You will need to work with the supplier of your storage system to address the
 	// incompatibilities that Elasticsearch detects.
 	//
@@ -7691,8 +7547,11 @@ type Snapshot struct {
 	// `indices.recovery.max_bytes_per_sec` which you can use to limit the bandwidth
 	// they consume.
 	//
-	// NOTE: This API is intended for exploratory use by humans. You should expect
-	// the request parameters and the response format to vary in future versions.
+	// NOTE: This API is intended for exploratory use by humans.
+	// You should expect the request parameters and the response format to vary in
+	// future versions.
+	// The response exposes immplementation details of the analysis which may change
+	// from version to version.
 	//
 	// NOTE: Different versions of Elasticsearch may perform different checks for
 	// repository compatibility, with newer versions typically being stricter than
@@ -7711,9 +7570,9 @@ type Snapshot struct {
 	//
 	// NOTE: This section of documentation describes how the repository analysis API
 	// works in this version of Elasticsearch, but you should expect the
-	// implementation to vary between versions. The request parameters and response
-	// format depend on details of the implementation so may also be different in
-	// newer versions.
+	// implementation to vary between versions.
+	// The request parameters and response format depend on details of the
+	// implementation so may also be different in newer versions.
 	//
 	// The analysis comprises a number of blob-level tasks, as set by the
 	// `blob_count` parameter and a number of compare-and-exchange operations on
@@ -7886,6 +7745,18 @@ type Snapshot struct {
 	// If needed, you can specify `<repository>` and `<snapshot>` to retrieve
 	// information for specific snapshots, even if they're not currently running.
 	//
+	// Note that the stats will not be available for any shard snapshots in an
+	// ongoing snapshot completed by a node that (even momentarily) left the
+	// cluster.
+	// Loading the stats from the repository is an expensive operation (see the
+	// WARNING below).
+	// Therefore the stats values for such shards will be -1 even though the "stage"
+	// value will be "DONE", in order to minimize latency.
+	// A "description" field will be present for a shard snapshot completed by a
+	// departed node explaining why the shard snapshot's stats results are invalid.
+	// Consequently, the total stats for the index will be less than expected due to
+	// the missing values from these shards.
+	//
 	// WARNING: Using the API to return the status of any snapshots other than
 	// currently running snapshots can be expensive.
 	// The API requires a read from the repository for each shard in each snapshot.
@@ -7980,6 +7851,18 @@ type Ssl struct {
 	Certificates ssl_certificates.NewCertificates
 }
 
+type Streams struct {
+	// Disable the Logs Streams feature for this cluster
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/streams-logs-disable.html
+	LogsDisable streams_logs_disable.NewLogsDisable
+	// Enable the Logs Streams feature for this cluster
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/streams-logs-enable.html
+	LogsEnable streams_logs_enable.NewLogsEnable
+	// Return the current status of the streams feature for each streams type
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/streams-status.html
+	Status streams_status.NewStatus
+}
+
 type Synonyms struct {
 	// Delete a synonym set.
 	//
@@ -8033,6 +7916,9 @@ type Synonyms struct {
 	// synonyms set are reloaded automatically for all indices.
 	// This is equivalent to invoking the reload search analyzers API for all
 	// indices that use the synonyms set.
+	//
+	// For practical examples of how to create or update a synonyms set, refer to
+	// the External documentation.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym
 	PutSynonym synonyms_put_synonym.NewPutSynonym
 	// Create or update a synonym rule.
@@ -8424,6 +8310,8 @@ type Watcher struct {
 	// `ack.state` is reset to `awaits_successful_execution`.
 	// This happens when the condition of the watch is not met (the condition
 	// evaluates to false).
+	// To demonstrate how throttling works in practice and how it can be configured
+	// for individual actions within a watch, refer to External documentation.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-ack-watch
 	AckWatch watcher_ack_watch.NewAckWatch
 	// Activate a watch.
@@ -8472,6 +8360,8 @@ type Watcher struct {
 	// When using the run watch API, the authorization data of the user that called
 	// the API will be used as a base, instead of the information who stored the
 	// watch.
+	// Refer to the external documentation for examples of watch execution requests,
+	// including existing, customized, and inline watches.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-execute-watch
 	ExecuteWatch watcher_execute_watch.NewExecuteWatch
 	// Get Watcher index settings.
@@ -8595,6 +8485,7 @@ type API struct {
 	Snapshot            Snapshot
 	Sql                 Sql
 	Ssl                 Ssl
+	Streams             Streams
 	Synonyms            Synonyms
 	Tasks               Tasks
 	TextStructure       TextStructure
@@ -8759,6 +8650,11 @@ type API struct {
 	// The request will only wait for those three shards to refresh.
 	// The other two shards that make up the index do not participate in the `_bulk`
 	// request at all.
+	//
+	// You might want to disable the refresh interval temporarily to improve
+	// indexing throughput for large bulk requests.
+	// Refer to the linked documentation for step-by-step instructions using the
+	// index settings API.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
 	Bulk core_bulk.NewBulk
 	// Clear a scrolling search.
@@ -9513,6 +9409,8 @@ type API struct {
 	Index core_index.NewIndex
 	// Get cluster info.
 	// Get basic build, version, and cluster information.
+	// ::: In Serverless, this API is retained for backward compatibility only. Some
+	// response fields, such as the version number, should be ignored.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
 	Info core_info.NewInfo
 	// Get multiple documents.
@@ -9746,216 +9644,7 @@ type API struct {
 	// has successfully indexed `max_docs` documents into the target or it has gone
 	// through every document in the source query.
 	//
-	// NOTE: The reindex API makes no effort to handle ID collisions.
-	// The last document written will "win" but the order isn't usually predictable
-	// so it is not a good idea to rely on this behavior.
-	// Instead, make sure that IDs are unique by using a script.
-	//
-	// **Running reindex asynchronously**
-	//
-	// If the request contains `wait_for_completion=false`, Elasticsearch performs
-	// some preflight checks, launches the request, and returns a task you can use
-	// to cancel or get the status of the task.
-	// Elasticsearch creates a record of this task as a document at
-	// `_tasks/<task_id>`.
-	//
-	// **Reindex from multiple sources**
-	//
-	// If you have many sources to reindex it is generally better to reindex them
-	// one at a time rather than using a glob pattern to pick up multiple sources.
-	// That way you can resume the process if there are any errors by removing the
-	// partially completed source and starting over.
-	// It also makes parallelizing the process fairly simple: split the list of
-	// sources to reindex and run each list in parallel.
-	//
-	// For example, you can use a bash script like this:
-	//
-	// ```
-	// for index in i1 i2 i3 i4 i5; do
-	//   curl -HContent-Type:application/json -XPOST localhost:9200/_reindex?pretty
-	// -d'{
-	//     "source": {
-	//       "index": "'$index'"
-	//     },
-	//     "dest": {
-	//       "index": "'$index'-reindexed"
-	//     }
-	//   }'
-	// done
-	// ```
-	//
-	// **Throttling**
-	//
-	// Set `requests_per_second` to any positive decimal number (`1.4`, `6`, `1000`,
-	// for example) to throttle the rate at which reindex issues batches of index
-	// operations.
-	// Requests are throttled by padding each batch with a wait time.
-	// To turn off throttling, set `requests_per_second` to `-1`.
-	//
-	// The throttling is done by waiting between batches so that the scroll that
-	// reindex uses internally can be given a timeout that takes into account the
-	// padding.
-	// The padding time is the difference between the batch size divided by the
-	// `requests_per_second` and the time spent writing.
-	// By default the batch size is `1000`, so if `requests_per_second` is set to
-	// `500`:
-	//
-	// ```
-	// target_time = 1000 / 500 per second = 2 seconds
-	// wait_time = target_time - write_time = 2 seconds - .5 seconds = 1.5 seconds
-	// ```
-	//
-	// Since the batch is issued as a single bulk request, large batch sizes cause
-	// Elasticsearch to create many requests and then wait for a while before
-	// starting the next set.
-	// This is "bursty" instead of "smooth".
-	//
-	// **Slicing**
-	//
-	// Reindex supports sliced scroll to parallelize the reindexing process.
-	// This parallelization can improve efficiency and provide a convenient way to
-	// break the request down into smaller parts.
-	//
-	// NOTE: Reindexing from remote clusters does not support manual or automatic
-	// slicing.
-	//
-	// You can slice a reindex request manually by providing a slice ID and total
-	// number of slices to each request.
-	// You can also let reindex automatically parallelize by using sliced scroll to
-	// slice on `_id`.
-	// The `slices` parameter specifies the number of slices to use.
-	//
-	// Adding `slices` to the reindex request just automates the manual process,
-	// creating sub-requests which means it has some quirks:
-	//
-	// * You can see these requests in the tasks API. These sub-requests are "child"
-	// tasks of the task for the request with slices.
-	// * Fetching the status of the task for the request with `slices` only contains
-	// the status of completed slices.
-	// * These sub-requests are individually addressable for things like
-	// cancellation and rethrottling.
-	// * Rethrottling the request with `slices` will rethrottle the unfinished
-	// sub-request proportionally.
-	// * Canceling the request with `slices` will cancel each sub-request.
-	// * Due to the nature of `slices`, each sub-request won't get a perfectly even
-	// portion of the documents. All documents will be addressed, but some slices
-	// may be larger than others. Expect larger slices to have a more even
-	// distribution.
-	// * Parameters like `requests_per_second` and `max_docs` on a request with
-	// `slices` are distributed proportionally to each sub-request. Combine that
-	// with the previous point about distribution being uneven and you should
-	// conclude that using `max_docs` with `slices` might not result in exactly
-	// `max_docs` documents being reindexed.
-	// * Each sub-request gets a slightly different snapshot of the source, though
-	// these are all taken at approximately the same time.
-	//
-	// If slicing automatically, setting `slices` to `auto` will choose a reasonable
-	// number for most indices.
-	// If slicing manually or otherwise tuning automatic slicing, use the following
-	// guidelines.
-	//
-	// Query performance is most efficient when the number of slices is equal to the
-	// number of shards in the index.
-	// If that number is large (for example, `500`), choose a lower number as too
-	// many slices will hurt performance.
-	// Setting slices higher than the number of shards generally does not improve
-	// efficiency and adds overhead.
-	//
-	// Indexing performance scales linearly across available resources with the
-	// number of slices.
-	//
-	// Whether query or indexing performance dominates the runtime depends on the
-	// documents being reindexed and cluster resources.
-	//
-	// **Modify documents during reindexing**
-	//
-	// Like `_update_by_query`, reindex operations support a script that modifies
-	// the document.
-	// Unlike `_update_by_query`, the script is allowed to modify the document's
-	// metadata.
-	//
-	// Just as in `_update_by_query`, you can set `ctx.op` to change the operation
-	// that is run on the destination.
-	// For example, set `ctx.op` to `noop` if your script decides that the document
-	// doesn’t have to be indexed in the destination. This "no operation" will be
-	// reported in the `noop` counter in the response body.
-	// Set `ctx.op` to `delete` if your script decides that the document must be
-	// deleted from the destination.
-	// The deletion will be reported in the `deleted` counter in the response body.
-	// Setting `ctx.op` to anything else will return an error, as will setting any
-	// other field in `ctx`.
-	//
-	// Think of the possibilities! Just be careful; you are able to change:
-	//
-	// * `_id`
-	// * `_index`
-	// * `_version`
-	// * `_routing`
-	//
-	// Setting `_version` to `null` or clearing it from the `ctx` map is just like
-	// not sending the version in an indexing request.
-	// It will cause the document to be overwritten in the destination regardless of
-	// the version on the target or the version type you use in the reindex API.
-	//
-	// **Reindex from remote**
-	//
-	// Reindex supports reindexing from a remote Elasticsearch cluster.
-	// The `host` parameter must contain a scheme, host, port, and optional path.
-	// The `username` and `password` parameters are optional and when they are
-	// present the reindex operation will connect to the remote Elasticsearch node
-	// using basic authentication.
-	// Be sure to use HTTPS when using basic authentication or the password will be
-	// sent in plain text.
-	// There are a range of settings available to configure the behavior of the
-	// HTTPS connection.
-	//
-	// When using Elastic Cloud, it is also possible to authenticate against the
-	// remote cluster through the use of a valid API key.
-	// Remote hosts must be explicitly allowed with the `reindex.remote.whitelist`
-	// setting.
-	// It can be set to a comma delimited list of allowed remote host and port
-	// combinations.
-	// Scheme is ignored; only the host and port are used.
-	// For example:
-	//
-	// ```
-	// reindex.remote.whitelist: [otherhost:9200, another:9200, 127.0.10.*:9200,
-	// localhost:*"]
-	// ```
-	//
-	// The list of allowed hosts must be configured on any nodes that will
-	// coordinate the reindex.
-	// This feature should work with remote clusters of any version of
-	// Elasticsearch.
-	// This should enable you to upgrade from any version of Elasticsearch to the
-	// current version by reindexing from a cluster of the old version.
-	//
-	// WARNING: Elasticsearch does not support forward compatibility across major
-	// versions.
-	// For example, you cannot reindex from a 7.x cluster into a 6.x cluster.
-	//
-	// To enable queries sent to older versions of Elasticsearch, the `query`
-	// parameter is sent directly to the remote host without validation or
-	// modification.
-	//
-	// NOTE: Reindexing from remote clusters does not support manual or automatic
-	// slicing.
-	//
-	// Reindexing from a remote server uses an on-heap buffer that defaults to a
-	// maximum size of 100mb.
-	// If the remote index includes very large documents you'll need to use a
-	// smaller batch size.
-	// It is also possible to set the socket read timeout on the remote connection
-	// with the `socket_timeout` field and the connection timeout with the
-	// `connect_timeout` field.
-	// Both default to 30 seconds.
-	//
-	// **Configuring SSL parameters**
-	//
-	// Reindex from remote supports configurable SSL settings.
-	// These must be specified in the `elasticsearch.yml` file, with the exception
-	// of the secure settings, which you add in the Elasticsearch keystore.
-	// It is not possible to configure SSL in the body of the reindex request.
+	// Refer to the linked documentation for examples of how to reindex documents.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
 	Reindex core_reindex.NewReindex
 	// Throttle a reindex operation.
@@ -10078,56 +9767,6 @@ type API struct {
 	// containing suggested geometry labels, so that, for example, multi-polygons
 	// will have only one label.
 	//
-	// For example, Elasticsearch may translate a vector tile search API request
-	// with a `grid_agg` argument of `geotile` and an `exact_bounds` argument of
-	// `true` into the following search
-	//
-	// ```
-	// GET my-index/_search
-	// {
-	//   "size": 10000,
-	//   "query": {
-	//     "geo_bounding_box": {
-	//       "my-geo-field": {
-	//         "top_left": {
-	//           "lat": -40.979898069620134,
-	//           "lon": -45
-	//         },
-	//         "bottom_right": {
-	//           "lat": -66.51326044311186,
-	//           "lon": 0
-	//         }
-	//       }
-	//     }
-	//   },
-	//   "aggregations": {
-	//     "grid": {
-	//       "geotile_grid": {
-	//         "field": "my-geo-field",
-	//         "precision": 11,
-	//         "size": 65536,
-	//         "bounds": {
-	//           "top_left": {
-	//             "lat": -40.979898069620134,
-	//             "lon": -45
-	//           },
-	//           "bottom_right": {
-	//             "lat": -66.51326044311186,
-	//             "lon": 0
-	//           }
-	//         }
-	//       }
-	//     },
-	//     "bounds": {
-	//       "geo_bounds": {
-	//         "field": "my-geo-field",
-	//         "wrap_longitude": false
-	//       }
-	//     }
-	//   }
-	// }
-	// ```
-	//
 	// The API returns results as a binary Mapbox vector tile.
 	// Mapbox vector tiles are encoded as Google Protobufs (PBF). By default, the
 	// tile contains three layers:
@@ -10220,6 +9859,11 @@ type API struct {
 	// of tile bins at each zoom level.
 	// Elasticsearch uses the H3 resolution that is closest to the corresponding
 	// geotile density.
+	//
+	// Learn how to use the vector tile search API with practical examples in the
+	// [Vector tile search
+	// examples](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/vector-tile-search)
+	// guide.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
 	SearchMvt core_search_mvt.NewSearchMvt
 	// Get the search shards.
@@ -10305,6 +9949,8 @@ type API struct {
 	// By default, when requesting term vectors of artificial documents, a shard to
 	// get the statistics from is randomly selected.
 	// Use `routing` only to hit a particular shard.
+	// Refer to the linked documentation for detailed examples of how to use this
+	// API.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors
 	Termvectors core_termvectors.NewTermvectors
 	// Update a document.
@@ -10332,6 +9978,8 @@ type API struct {
 	// In addition to `_source`, you can access the following variables through the
 	// `ctx` map: `_index`, `_type`, `_id`, `_version`, `_routing`, and `_now` (the
 	// current timestamp).
+	// For usage examples such as partial updates, upserts, and scripted updates,
+	// see the External documentation.
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update
 	Update core_update.NewUpdate
 	// Update documents.
@@ -10375,6 +10023,40 @@ type API struct {
 	// the failures are shown in the response.
 	// Any update requests that completed successfully still stick, they are not
 	// rolled back.
+	//
+	// **Refreshing shards**
+	//
+	// Specifying the `refresh` parameter refreshes all shards once the request
+	// completes.
+	// This is different to the update API's `refresh` parameter, which causes only
+	// the shard
+	// that received the request to be refreshed. Unlike the update API, it does not
+	// support
+	// `wait_for`.
+	//
+	// **Running update by query asynchronously**
+	//
+	// If the request contains `wait_for_completion=false`, Elasticsearch
+	// performs some preflight checks, launches the request, and returns a
+	// [task](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks)
+	// you can use to cancel or get the status of the task.
+	// Elasticsearch creates a record of this task as a document at
+	// `.tasks/task/${taskId}`.
+	//
+	// **Waiting for active shards**
+	//
+	// `wait_for_active_shards` controls how many copies of a shard must be active
+	// before proceeding with the request. See
+	// [`wait_for_active_shards`](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create#operation-create-wait_for_active_shards)
+	// for details. `timeout` controls how long each write request waits for
+	// unavailable
+	// shards to become available. Both work exactly the way they work in the
+	// [Bulk
+	// API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk).
+	// Update by query uses scrolled searches, so you can also
+	// specify the `scroll` parameter to control how long it keeps the search
+	// context
+	// alive, for example `?scroll=10m`. The default is 5 minutes.
 	//
 	// **Throttling update requests**
 	//
@@ -10449,28 +10131,8 @@ type API struct {
 	//
 	// Whether query or update performance dominates the runtime depends on the
 	// documents being reindexed and cluster resources.
-	//
-	// **Update the document source**
-	//
-	// Update by query supports scripts to update the document source.
-	// As with the update API, you can set `ctx.op` to change the operation that is
-	// performed.
-	//
-	// Set `ctx.op = "noop"` if your script decides that it doesn't have to make any
-	// changes.
-	// The update by query operation skips updating the document and increments the
-	// `noop` counter.
-	//
-	// Set `ctx.op = "delete"` if your script decides that the document should be
-	// deleted.
-	// The update by query operation deletes the document and increments the
-	// `deleted` counter.
-	//
-	// Update by query supports only `index`, `noop`, and `delete`.
-	// Setting `ctx.op` to anything else is an error.
-	// Setting any other field in `ctx` is an error.
-	// This API enables you to only modify the source of matching documents; you
-	// cannot move them.
+	// Refer to the linked documentation for examples of how to update documents
+	// using the `_update_by_query` API:
 	// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
 	UpdateByQuery core_update_by_query.NewUpdateByQuery
 	// Throttle an update by query operation.
@@ -10741,6 +10403,7 @@ func New(tp elastictransport.Interface) *API {
 			DeleteAlias:             indices_delete_alias.NewDeleteAliasFunc(tp),
 			DeleteDataLifecycle:     indices_delete_data_lifecycle.NewDeleteDataLifecycleFunc(tp),
 			DeleteDataStream:        indices_delete_data_stream.NewDeleteDataStreamFunc(tp),
+			DeleteDataStreamOptions: indices_delete_data_stream_options.NewDeleteDataStreamOptionsFunc(tp),
 			DeleteIndexTemplate:     indices_delete_index_template.NewDeleteIndexTemplateFunc(tp),
 			DeleteTemplate:          indices_delete_template.NewDeleteTemplateFunc(tp),
 			DiskUsage:               indices_disk_usage.NewDiskUsageFunc(tp),
@@ -10758,6 +10421,9 @@ func New(tp elastictransport.Interface) *API {
 			GetDataLifecycle:        indices_get_data_lifecycle.NewGetDataLifecycleFunc(tp),
 			GetDataLifecycleStats:   indices_get_data_lifecycle_stats.NewGetDataLifecycleStatsFunc(tp),
 			GetDataStream:           indices_get_data_stream.NewGetDataStreamFunc(tp),
+			GetDataStreamMappings:   indices_get_data_stream_mappings.NewGetDataStreamMappingsFunc(tp),
+			GetDataStreamOptions:    indices_get_data_stream_options.NewGetDataStreamOptionsFunc(tp),
+			GetDataStreamSettings:   indices_get_data_stream_settings.NewGetDataStreamSettingsFunc(tp),
 			GetFieldMapping:         indices_get_field_mapping.NewGetFieldMappingFunc(tp),
 			GetIndexTemplate:        indices_get_index_template.NewGetIndexTemplateFunc(tp),
 			GetMapping:              indices_get_mapping.NewGetMappingFunc(tp),
@@ -10771,6 +10437,9 @@ func New(tp elastictransport.Interface) *API {
 			PromoteDataStream:       indices_promote_data_stream.NewPromoteDataStreamFunc(tp),
 			PutAlias:                indices_put_alias.NewPutAliasFunc(tp),
 			PutDataLifecycle:        indices_put_data_lifecycle.NewPutDataLifecycleFunc(tp),
+			PutDataStreamMappings:   indices_put_data_stream_mappings.NewPutDataStreamMappingsFunc(tp),
+			PutDataStreamOptions:    indices_put_data_stream_options.NewPutDataStreamOptionsFunc(tp),
+			PutDataStreamSettings:   indices_put_data_stream_settings.NewPutDataStreamSettingsFunc(tp),
 			PutIndexTemplate:        indices_put_index_template.NewPutIndexTemplateFunc(tp),
 			PutMapping:              indices_put_mapping.NewPutMappingFunc(tp),
 			PutSettings:             indices_put_settings.NewPutSettingsFunc(tp),
@@ -10778,6 +10447,7 @@ func New(tp elastictransport.Interface) *API {
 			Recovery:                indices_recovery.NewRecoveryFunc(tp),
 			Refresh:                 indices_refresh.NewRefreshFunc(tp),
 			ReloadSearchAnalyzers:   indices_reload_search_analyzers.NewReloadSearchAnalyzersFunc(tp),
+			RemoveBlock:             indices_remove_block.NewRemoveBlockFunc(tp),
 			ResolveCluster:          indices_resolve_cluster.NewResolveClusterFunc(tp),
 			ResolveIndex:            indices_resolve_index.NewResolveIndexFunc(tp),
 			Rollover:                indices_rollover.NewRolloverFunc(tp),
@@ -10806,6 +10476,8 @@ func New(tp elastictransport.Interface) *API {
 			PutAzureaistudio:      inference_put_azureaistudio.NewPutAzureaistudioFunc(tp),
 			PutAzureopenai:        inference_put_azureopenai.NewPutAzureopenaiFunc(tp),
 			PutCohere:             inference_put_cohere.NewPutCohereFunc(tp),
+			PutCustom:             inference_put_custom.NewPutCustomFunc(tp),
+			PutDeepseek:           inference_put_deepseek.NewPutDeepseekFunc(tp),
 			PutElasticsearch:      inference_put_elasticsearch.NewPutElasticsearchFunc(tp),
 			PutElser:              inference_put_elser.NewPutElserFunc(tp),
 			PutGoogleaistudio:     inference_put_googleaistudio.NewPutGoogleaistudioFunc(tp),
@@ -11134,6 +10806,13 @@ func New(tp elastictransport.Interface) *API {
 		// Ssl
 		Ssl: Ssl{
 			Certificates: ssl_certificates.NewCertificatesFunc(tp),
+		},
+
+		// Streams
+		Streams: Streams{
+			LogsDisable: streams_logs_disable.NewLogsDisableFunc(tp),
+			LogsEnable:  streams_logs_enable.NewLogsEnableFunc(tp),
+			Status:      streams_status.NewStatusFunc(tp),
 		},
 
 		// Synonyms

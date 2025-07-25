@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PressureMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/nodes/_types/Stats.ts#L144-L199
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/nodes/_types/Stats.ts#L144-L201
 type PressureMemory struct {
 	// All Memory consumed by indexing requests in the coordinating, primary, or replica
 	// stage.
@@ -53,9 +53,11 @@ type PressureMemory struct {
 	// CoordinatingInBytes Memory consumed, in bytes, by indexing requests in the coordinating stage.
 	CoordinatingInBytes *int64 `json:"coordinating_in_bytes,omitempty"`
 	// CoordinatingRejections Number of indexing requests rejected in the coordinating stage.
-	CoordinatingRejections *int64 `json:"coordinating_rejections,omitempty"`
+	CoordinatingRejections   *int64 `json:"coordinating_rejections,omitempty"`
+	LargeOperationRejections *int64 `json:"large_operation_rejections,omitempty"`
 	// Primary Memory consumed by indexing requests in the primary stage.
-	Primary ByteSize `json:"primary,omitempty"`
+	Primary                   ByteSize `json:"primary,omitempty"`
+	PrimaryDocumentRejections *int64   `json:"primary_document_rejections,omitempty"`
 	// PrimaryInBytes Memory consumed, in bytes, by indexing requests in the primary stage.
 	PrimaryInBytes *int64 `json:"primary_in_bytes,omitempty"`
 	// PrimaryRejections Number of indexing requests rejected in the primary stage.
@@ -158,9 +160,39 @@ func (s *PressureMemory) UnmarshalJSON(data []byte) error {
 				s.CoordinatingRejections = &f
 			}
 
+		case "large_operation_rejections":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "LargeOperationRejections", err)
+				}
+				s.LargeOperationRejections = &value
+			case float64:
+				f := int64(v)
+				s.LargeOperationRejections = &f
+			}
+
 		case "primary":
 			if err := dec.Decode(&s.Primary); err != nil {
 				return fmt.Errorf("%s | %w", "Primary", err)
+			}
+
+		case "primary_document_rejections":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "PrimaryDocumentRejections", err)
+				}
+				s.PrimaryDocumentRejections = &value
+			case float64:
+				f := int64(v)
+				s.PrimaryDocumentRejections = &f
 			}
 
 		case "primary_in_bytes":
@@ -239,5 +271,3 @@ func NewPressureMemory() *PressureMemory {
 
 	return r
 }
-
-// false

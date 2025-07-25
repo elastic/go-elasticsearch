@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AggregationRange type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/aggregations/bucket.ts#L691-L704
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/aggregations/bucket.ts#L691-L704
 type AggregationRange struct {
 	// From Start of the range (inclusive).
 	From *Float64 `json:"from,omitempty"`
@@ -89,8 +89,6 @@ func NewAggregationRange() *AggregationRange {
 
 	return r
 }
-
-// true
 
 type AggregationRangeVariant interface {
 	AggregationRangeCaster() *AggregationRange

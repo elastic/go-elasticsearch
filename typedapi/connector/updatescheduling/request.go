@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package updatescheduling
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package updatescheduling
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/connector/update_scheduling/ConnectorUpdateSchedulingRequest.ts#L23-L50
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/connector/update_scheduling/ConnectorUpdateSchedulingRequest.ts#L23-L50
 type Request struct {
 	Scheduling types.SchedulingConfiguration `json:"scheduling"`
 }

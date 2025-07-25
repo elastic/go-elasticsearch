@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Search a vector tile.
 //
@@ -40,58 +40,6 @@
 // the geometry doc value. This enables the generation of new point features
 // containing suggested geometry labels, so that, for example, multi-polygons
 // will have only one label.
-//
-// For example, Elasticsearch may translate a vector tile search API request
-// with a `grid_agg` argument of `geotile` and an `exact_bounds` argument of
-// `true` into the following search
-//
-// ```
-// GET my-index/_search
-//
-//	{
-//	  "size": 10000,
-//	  "query": {
-//	    "geo_bounding_box": {
-//	      "my-geo-field": {
-//	        "top_left": {
-//	          "lat": -40.979898069620134,
-//	          "lon": -45
-//	        },
-//	        "bottom_right": {
-//	          "lat": -66.51326044311186,
-//	          "lon": 0
-//	        }
-//	      }
-//	    }
-//	  },
-//	  "aggregations": {
-//	    "grid": {
-//	      "geotile_grid": {
-//	        "field": "my-geo-field",
-//	        "precision": 11,
-//	        "size": 65536,
-//	        "bounds": {
-//	          "top_left": {
-//	            "lat": -40.979898069620134,
-//	            "lon": -45
-//	          },
-//	          "bottom_right": {
-//	            "lat": -66.51326044311186,
-//	            "lon": 0
-//	          }
-//	        }
-//	      }
-//	    },
-//	    "bounds": {
-//	      "geo_bounds": {
-//	        "field": "my-geo-field",
-//	        "wrap_longitude": false
-//	      }
-//	    }
-//	  }
-//	}
-//
-// ```
 //
 // The API returns results as a binary Mapbox vector tile.
 // Mapbox vector tiles are encoded as Google Protobufs (PBF). By default, the
@@ -187,6 +135,11 @@
 // of tile bins at each zoom level.
 // Elasticsearch uses the H3 resolution that is closest to the corresponding
 // geotile density.
+//
+// Learn how to use the vector tile search API with practical examples in the
+// [Vector tile search
+// examples](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/vector-tile-search)
+// guide.
 package searchmvt
 
 import (
@@ -294,58 +247,6 @@ func NewSearchMvtFunc(tp elastictransport.Interface) NewSearchMvt {
 // containing suggested geometry labels, so that, for example, multi-polygons
 // will have only one label.
 //
-// For example, Elasticsearch may translate a vector tile search API request
-// with a `grid_agg` argument of `geotile` and an `exact_bounds` argument of
-// `true` into the following search
-//
-// ```
-// GET my-index/_search
-//
-//	{
-//	  "size": 10000,
-//	  "query": {
-//	    "geo_bounding_box": {
-//	      "my-geo-field": {
-//	        "top_left": {
-//	          "lat": -40.979898069620134,
-//	          "lon": -45
-//	        },
-//	        "bottom_right": {
-//	          "lat": -66.51326044311186,
-//	          "lon": 0
-//	        }
-//	      }
-//	    }
-//	  },
-//	  "aggregations": {
-//	    "grid": {
-//	      "geotile_grid": {
-//	        "field": "my-geo-field",
-//	        "precision": 11,
-//	        "size": 65536,
-//	        "bounds": {
-//	          "top_left": {
-//	            "lat": -40.979898069620134,
-//	            "lon": -45
-//	          },
-//	          "bottom_right": {
-//	            "lat": -66.51326044311186,
-//	            "lon": 0
-//	          }
-//	        }
-//	      }
-//	    },
-//	    "bounds": {
-//	      "geo_bounds": {
-//	        "field": "my-geo-field",
-//	        "wrap_longitude": false
-//	      }
-//	    }
-//	  }
-//	}
-//
-// ```
-//
 // The API returns results as a binary Mapbox vector tile.
 // Mapbox vector tiles are encoded as Google Protobufs (PBF). By default, the
 // tile contains three layers:
@@ -440,6 +341,11 @@ func NewSearchMvtFunc(tp elastictransport.Interface) NewSearchMvt {
 // of tile bins at each zoom level.
 // Elasticsearch uses the H3 resolution that is closest to the corresponding
 // geotile density.
+//
+// Learn how to use the vector tile search API with practical examples in the
+// [Vector tile search
+// examples](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/vector-tile-search)
+// guide.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
 func New(tp elastictransport.Interface) *SearchMvt {
@@ -753,7 +659,7 @@ func (r *SearchMvt) FilterPath(filterpaths ...string) *SearchMvt {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

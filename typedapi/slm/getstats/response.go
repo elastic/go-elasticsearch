@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package getstats
 
@@ -26,18 +26,18 @@ import (
 
 // Response holds the response body struct for the package getstats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/slm/get_stats/GetSnapshotLifecycleStatsResponse.ts#L23-L36
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/slm/get_stats/GetSnapshotLifecycleStatsResponse.ts#L24-L37
 type Response struct {
-	PolicyStats                   []string       `json:"policy_stats"`
-	RetentionDeletionTime         types.Duration `json:"retention_deletion_time"`
-	RetentionDeletionTimeMillis   int64          `json:"retention_deletion_time_millis"`
-	RetentionFailed               int64          `json:"retention_failed"`
-	RetentionRuns                 int64          `json:"retention_runs"`
-	RetentionTimedOut             int64          `json:"retention_timed_out"`
-	TotalSnapshotDeletionFailures int64          `json:"total_snapshot_deletion_failures"`
-	TotalSnapshotsDeleted         int64          `json:"total_snapshots_deleted"`
-	TotalSnapshotsFailed          int64          `json:"total_snapshots_failed"`
-	TotalSnapshotsTaken           int64          `json:"total_snapshots_taken"`
+	PolicyStats                   []types.SnapshotPolicyStats `json:"policy_stats"`
+	RetentionDeletionTime         types.Duration              `json:"retention_deletion_time"`
+	RetentionDeletionTimeMillis   int64                       `json:"retention_deletion_time_millis"`
+	RetentionFailed               int64                       `json:"retention_failed"`
+	RetentionRuns                 int64                       `json:"retention_runs"`
+	RetentionTimedOut             int64                       `json:"retention_timed_out"`
+	TotalSnapshotDeletionFailures int64                       `json:"total_snapshot_deletion_failures"`
+	TotalSnapshotsDeleted         int64                       `json:"total_snapshots_deleted"`
+	TotalSnapshotsFailed          int64                       `json:"total_snapshots_failed"`
+	TotalSnapshotsTaken           int64                       `json:"total_snapshots_taken"`
 }
 
 // NewResponse returns a Response

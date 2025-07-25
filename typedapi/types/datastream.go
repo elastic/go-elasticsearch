@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/indices/_types/DataStream.ts#L53-L139
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/indices/_types/DataStream.ts#L55-L151
 type DataStream struct {
 	// AllowCustomRouting If `true`, the data stream allows custom routing on write request.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
@@ -65,6 +65,10 @@ type DataStream struct {
 	Indices []DataStreamIndex `json:"indices"`
 	// Lifecycle Contains the configuration for the data stream lifecycle of this data stream.
 	Lifecycle *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
+	// Mappings The mappings specific to this data stream that will take precedence over the
+	// mappings in the matching index
+	// template.
+	Mappings *TypeMapping `json:"mappings,omitempty"`
 	// Meta_ Custom metadata for the stream, copied from the `_meta` object of the
 	// stream’s matching index template.
 	// If empty, the response omits this property.
@@ -85,6 +89,10 @@ type DataStream struct {
 	// and the document will be indexed in the new backing index. If the rollover
 	// fails the indexing request will fail too.
 	RolloverOnWrite bool `json:"rollover_on_write"`
+	// Settings The settings specific to this data stream that will take precedence over the
+	// settings in the matching index
+	// template.
+	Settings IndexSettings `json:"settings"`
 	// Status Health status of the data stream.
 	// This health status is based on the state of the primary and replica shards of
 	// the stream’s backing indices.
@@ -183,6 +191,11 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Lifecycle", err)
 			}
 
+		case "mappings":
+			if err := dec.Decode(&s.Mappings); err != nil {
+				return fmt.Errorf("%s | %w", "Mappings", err)
+			}
+
 		case "_meta":
 			if err := dec.Decode(&s.Meta_); err != nil {
 				return fmt.Errorf("%s | %w", "Meta_", err)
@@ -240,6 +253,11 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 				s.RolloverOnWrite = v
 			}
 
+		case "settings":
+			if err := dec.Decode(&s.Settings); err != nil {
+				return fmt.Errorf("%s | %w", "Settings", err)
+			}
+
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
 				return fmt.Errorf("%s | %w", "Status", err)
@@ -280,5 +298,3 @@ func NewDataStream() *DataStream {
 
 	return r
 }
-
-// false

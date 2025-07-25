@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Update a cross-cluster API key.
 //
@@ -43,6 +43,10 @@
 //
 // NOTE: This API cannot update REST API keys, which should be updated by either
 // the update API key or bulk update API keys API.
+//
+// To learn more about how to use this API, refer to the [Update cross cluter
+// API key API examples
+// page](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/update-cc-api-key-examples).
 package updatecrossclusterapikey
 
 import (
@@ -130,6 +134,10 @@ func NewUpdateCrossClusterApiKeyFunc(tp elastictransport.Interface) NewUpdateCro
 //
 // NOTE: This API cannot update REST API keys, which should be updated by either
 // the update API key or bulk update API keys API.
+//
+// To learn more about how to use this API, refer to the [Update cross cluter
+// API key API examples
+// page](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/update-cc-api-key-examples).
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-cross-cluster-api-key
 func New(tp elastictransport.Interface) *UpdateCrossClusterApiKey {
@@ -387,7 +395,7 @@ func (r *UpdateCrossClusterApiKey) FilterPath(filterpaths ...string) *UpdateCros
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IntervalsFuzzy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/query_dsl/fulltext.ts#L154-L184
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/query_dsl/fulltext.ts#L156-L186
 type IntervalsFuzzy struct {
 	// Analyzer Analyzer used to normalize the term.
 	Analyzer *string `json:"analyzer,omitempty"`
@@ -141,8 +141,6 @@ func NewIntervalsFuzzy() *IntervalsFuzzy {
 
 	return r
 }
-
-// true
 
 type IntervalsFuzzyVariant interface {
 	IntervalsFuzzyCaster() *IntervalsFuzzy

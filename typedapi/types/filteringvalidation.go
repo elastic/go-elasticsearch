@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
 // FilteringValidation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/connector/_types/Connector.ts#L181-L184
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/connector/_types/Connector.ts#L181-L184
 type FilteringValidation struct {
 	Ids      []string `json:"ids"`
 	Messages []string `json:"messages"`
@@ -34,8 +34,6 @@ func NewFilteringValidation() *FilteringValidation {
 
 	return r
 }
-
-// true
 
 type FilteringValidationVariant interface {
 	FilteringValidationCaster() *FilteringValidation

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -30,7 +30,7 @@ type _termRangeQuery struct {
 	v *types.TermRangeQuery
 }
 
-// Returns documents that contain terms within a provided range.
+// Returns users that contain terms within a provided range.
 func NewTermRangeQuery(key string) *_termRangeQuery {
 	return &_termRangeQuery{
 		k: key,
@@ -41,13 +41,6 @@ func NewTermRangeQuery(key string) *_termRangeQuery {
 func (s *_termRangeQuery) Boost(boost float32) *_termRangeQuery {
 
 	s.v.Boost = &boost
-
-	return s
-}
-
-func (s *_termRangeQuery) From(from string) *_termRangeQuery {
-
-	s.v.From = &from
 
 	return s
 }
@@ -90,13 +83,6 @@ func (s *_termRangeQuery) QueryName_(queryname_ string) *_termRangeQuery {
 func (s *_termRangeQuery) Relation(relation rangerelation.RangeRelation) *_termRangeQuery {
 
 	s.v.Relation = &relation
-	return s
-}
-
-func (s *_termRangeQuery) To(to string) *_termRangeQuery {
-
-	s.v.To = &to
-
 	return s
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InferenceChunkingSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/Services.ts#L60-L89
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/inference/_types/Services.ts#L276-L332
 type InferenceChunkingSettings struct {
 	// MaxChunkSize The maximum size of a chunk in words.
 	// This value cannot be higher than `300` or lower than `20` (for `sentence`
@@ -45,7 +45,35 @@ type InferenceChunkingSettings struct {
 	// It is applicable only for a `sentence` chunking strategy.
 	// It can be either `1` or `0`.
 	SentenceOverlap *int `json:"sentence_overlap,omitempty"`
-	// Strategy The chunking strategy: `sentence` or `word`.
+	// SeparatorGroup This parameter is only applicable when using the `recursive` chunking
+	// strategy.
+	//
+	// Sets a predefined list of separators in the saved chunking settings based on
+	// the selected text type.
+	// Values can be `markdown` or `plaintext`.
+	//
+	// Using this parameter is an alternative to manually specifying a custom
+	// `separators` list.
+	SeparatorGroup string `json:"separator_group"`
+	// Separators A list of strings used as possible split points when chunking text with the
+	// `recursive` strategy.
+	//
+	// Each string can be a plain string or a regular expression (regex) pattern.
+	// The system tries each separator in order to split the text, starting from the
+	// first item in the list.
+	//
+	// After splitting, it attempts to recombine smaller pieces into larger chunks
+	// that stay within
+	// the `max_chunk_size` limit, to reduce the total number of chunks generated.
+	Separators []string `json:"separators"`
+	// Strategy The chunking strategy: `sentence`, `word`, `none` or `recursive`.
+	//
+	//   - If `strategy` is set to `recursive`, you must also specify:
+	//
+	// - `max_chunk_size`
+	// - either `separators` or`separator_group`
+	//
+	// Learn more about different chunking strategies in the linked documentation.
 	Strategy *string `json:"strategy,omitempty"`
 }
 
@@ -112,6 +140,23 @@ func (s *InferenceChunkingSettings) UnmarshalJSON(data []byte) error {
 				s.SentenceOverlap = &f
 			}
 
+		case "separator_group":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "SeparatorGroup", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.SeparatorGroup = o
+
+		case "separators":
+			if err := dec.Decode(&s.Separators); err != nil {
+				return fmt.Errorf("%s | %w", "Separators", err)
+			}
+
 		case "strategy":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -135,8 +180,6 @@ func NewInferenceChunkingSettings() *InferenceChunkingSettings {
 
 	return r
 }
-
-// true
 
 type InferenceChunkingSettingsVariant interface {
 	InferenceChunkingSettingsCaster() *InferenceChunkingSettings

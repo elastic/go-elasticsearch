@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Run an async ES|QL query.
 // Asynchronously run an ES|QL (Elasticsearch query language) query, monitor its
@@ -303,6 +303,10 @@ func (r *AsyncQuery) Header(key, value string) *AsyncQuery {
 
 // AllowPartialResults If `true`, partial results will be returned if there are shard failures, but
 // the query can continue to execute on other clusters and shards.
+// If `false`, the query will fail if there are any failures.
+//
+// To override the default behavior, you can set the
+// `esql.query.allow_partial_results` cluster setting to `false`.
 // API name: allow_partial_results
 func (r *AsyncQuery) AllowPartialResults(allowpartialresults bool) *AsyncQuery {
 	r.values.Set("allow_partial_results", strconv.FormatBool(allowpartialresults))
@@ -338,31 +342,6 @@ func (r *AsyncQuery) Format(format esqlformat.EsqlFormat) *AsyncQuery {
 	return r
 }
 
-// KeepAlive The period for which the query and its results are stored in the cluster.
-// The default period is five days.
-// When this period expires, the query and its results are deleted, even if the
-// query is still ongoing.
-// If the `keep_on_completion` parameter is false, Elasticsearch only stores
-// async queries that do not complete within the period set by the
-// `wait_for_completion_timeout` parameter, regardless of this value.
-// API name: keep_alive
-func (r *AsyncQuery) KeepAlive(duration string) *AsyncQuery {
-	r.values.Set("keep_alive", duration)
-
-	return r
-}
-
-// KeepOnCompletion Indicates whether the query and its results are stored in the cluster.
-// If false, the query and its results are stored in the cluster only if the
-// request does not complete during the period set by the
-// `wait_for_completion_timeout` parameter.
-// API name: keep_on_completion
-func (r *AsyncQuery) KeepOnCompletion(keeponcompletion bool) *AsyncQuery {
-	r.values.Set("keep_on_completion", strconv.FormatBool(keeponcompletion))
-
-	return r
-}
-
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -387,7 +366,7 @@ func (r *AsyncQuery) FilterPath(filterpaths ...string) *AsyncQuery {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.
@@ -450,6 +429,41 @@ func (r *AsyncQuery) IncludeCcsMetadata(includeccsmetadata bool) *AsyncQuery {
 	}
 
 	r.req.IncludeCcsMetadata = &includeccsmetadata
+
+	return r
+}
+
+// The period for which the query and its results are stored in the cluster.
+// The default period is five days.
+// When this period expires, the query and its results are deleted, even if the
+// query is still ongoing.
+// If the `keep_on_completion` parameter is false, Elasticsearch only stores
+// async queries that do not complete within the period set by the
+// `wait_for_completion_timeout` parameter, regardless of this value.
+// API name: keep_alive
+func (r *AsyncQuery) KeepAlive(duration types.DurationVariant) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.KeepAlive = *duration.DurationCaster()
+
+	return r
+}
+
+// Indicates whether the query and its results are stored in the cluster.
+// If false, the query and its results are stored in the cluster only if the
+// request does not complete during the period set by the
+// `wait_for_completion_timeout` parameter.
+// API name: keep_on_completion
+func (r *AsyncQuery) KeepOnCompletion(keeponcompletion bool) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.KeepOnCompletion = &keeponcompletion
 
 	return r
 }

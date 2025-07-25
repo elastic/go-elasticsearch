@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package deletebyquery
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package deletebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/delete_by_query/DeleteByQueryResponse.ts#L26-L88
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_global/delete_by_query/DeleteByQueryResponse.ts#L26-L88
 type Response struct {
 
 	// Batches The number of scroll responses pulled back by the delete by query.
@@ -54,7 +54,7 @@ type Response struct {
 	// `search` is the number of search actions retried.
 	Retries   *types.Retries `json:"retries,omitempty"`
 	SliceId   *int           `json:"slice_id,omitempty"`
-	Task      types.TaskId   `json:"task,omitempty"`
+	Task      *string        `json:"task,omitempty"`
 	Throttled types.Duration `json:"throttled,omitempty"`
 	// ThrottledMillis The number of milliseconds the request slept to conform to
 	// `requests_per_second`.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeInfoDiscover type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/nodes/info/types.ts#L173-L182
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/nodes/info/types.ts#L183-L192
 type NodeInfoDiscover struct {
 	NodeInfoDiscover map[string]json.RawMessage `json:"-"`
 	SeedHosts        []string                   `json:"seed_hosts,omitempty"`
@@ -55,8 +55,19 @@ func (s *NodeInfoDiscover) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "seed_hosts":
-			if err := dec.Decode(&s.SeedHosts); err != nil {
-				return fmt.Errorf("%s | %w", "SeedHosts", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "SeedHosts", err)
+				}
+
+				s.SeedHosts = append(s.SeedHosts, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.SeedHosts); err != nil {
+					return fmt.Errorf("%s | %w", "SeedHosts", err)
+				}
 			}
 
 		case "seed_providers":
@@ -131,5 +142,3 @@ func NewNodeInfoDiscover() *NodeInfoDiscover {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CompletionToolChoice type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L168-L180
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/inference/_types/CommonTypes.ts#L241-L253
 type CompletionToolChoice struct {
 	// Function The tool choice function.
 	Function CompletionToolChoiceFunction `json:"function"`
@@ -83,12 +83,15 @@ func NewCompletionToolChoice() *CompletionToolChoice {
 	return r
 }
 
-// true
-
 type CompletionToolChoiceVariant interface {
 	CompletionToolChoiceCaster() *CompletionToolChoice
 }
 
 func (s *CompletionToolChoice) CompletionToolChoiceCaster() *CompletionToolChoice {
 	return s
+}
+
+func (s *CompletionToolChoice) CompletionToolTypeCaster() *CompletionToolType {
+	o := CompletionToolType(s)
+	return &o
 }

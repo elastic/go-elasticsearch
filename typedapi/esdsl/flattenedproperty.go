@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -178,6 +178,16 @@ func (s *_flattenedProperty) SplitQueriesOnWhitespace(splitqueriesonwhitespace b
 func (s *_flattenedProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_flattenedProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
+	return s
+}
+
+func (s *_flattenedProperty) TimeSeriesDimensions(timeseriesdimensions ...string) *_flattenedProperty {
+
+	for _, v := range timeseriesdimensions {
+
+		s.v.TimeSeriesDimensions = append(s.v.TimeSeriesDimensions, v)
+
+	}
 	return s
 }
 

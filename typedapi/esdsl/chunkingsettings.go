@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -26,11 +26,13 @@ type _chunkingSettings struct {
 	v *types.ChunkingSettings
 }
 
-func NewChunkingSettings(maxchunksize int, strategy string) *_chunkingSettings {
+func NewChunkingSettings(maxchunksize int, separatorgroup string, strategy string) *_chunkingSettings {
 
 	tmp := &_chunkingSettings{v: types.NewChunkingSettings()}
 
 	tmp.MaxChunkSize(maxchunksize)
+
+	tmp.SeparatorGroup(separatorgroup)
 
 	tmp.Strategy(strategy)
 
@@ -56,6 +58,23 @@ func (s *_chunkingSettings) SentenceOverlap(sentenceoverlap int) *_chunkingSetti
 
 	s.v.SentenceOverlap = &sentenceoverlap
 
+	return s
+}
+
+func (s *_chunkingSettings) SeparatorGroup(separatorgroup string) *_chunkingSettings {
+
+	s.v.SeparatorGroup = separatorgroup
+
+	return s
+}
+
+func (s *_chunkingSettings) Separators(separators ...string) *_chunkingSettings {
+
+	for _, v := range separators {
+
+		s.v.Separators = append(s.v.Separators, v)
+
+	}
 	return s
 }
 

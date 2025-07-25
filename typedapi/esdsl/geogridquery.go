@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -53,13 +53,6 @@ func (s *_geoGridQuery) Boost(boost float32) *_geoGridQuery {
 	return s
 }
 
-func (s *_geoGridQuery) Geogrid(geotile string) *_geoGridQuery {
-
-	s.v.Geogrid = &geotile
-
-	return s
-}
-
 func (s *_geoGridQuery) Geohash(geohash string) *_geoGridQuery {
 
 	s.v.Geohash = &geohash
@@ -70,6 +63,13 @@ func (s *_geoGridQuery) Geohash(geohash string) *_geoGridQuery {
 func (s *_geoGridQuery) Geohex(geohexcell string) *_geoGridQuery {
 
 	s.v.Geohex = &geohexcell
+
+	return s
+}
+
+func (s *_geoGridQuery) Geotile(geotile string) *_geoGridQuery {
+
+	s.v.Geotile = &geotile
 
 	return s
 }

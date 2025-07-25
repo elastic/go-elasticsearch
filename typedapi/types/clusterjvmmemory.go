@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,11 +31,16 @@ import (
 
 // ClusterJvmMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/cluster/stats/types.ts#L294-L303
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/cluster/stats/types.ts#L395-L412
 type ClusterJvmMemory struct {
+	// HeapMax Maximum amount of memory available for use by the heap across all selected
+	// nodes.
+	HeapMax ByteSize `json:"heap_max,omitempty"`
 	// HeapMaxInBytes Maximum amount of memory, in bytes, available for use by the heap across all
 	// selected nodes.
 	HeapMaxInBytes int64 `json:"heap_max_in_bytes"`
+	// HeapUsed Memory currently in use by the heap across all selected nodes.
+	HeapUsed ByteSize `json:"heap_used,omitempty"`
 	// HeapUsedInBytes Memory, in bytes, currently in use by the heap across all selected nodes.
 	HeapUsedInBytes int64 `json:"heap_used_in_bytes"`
 }
@@ -55,6 +60,11 @@ func (s *ClusterJvmMemory) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "heap_max":
+			if err := dec.Decode(&s.HeapMax); err != nil {
+				return fmt.Errorf("%s | %w", "HeapMax", err)
+			}
+
 		case "heap_max_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -68,6 +78,11 @@ func (s *ClusterJvmMemory) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.HeapMaxInBytes = f
+			}
+
+		case "heap_used":
+			if err := dec.Decode(&s.HeapUsed); err != nil {
+				return fmt.Errorf("%s | %w", "HeapUsed", err)
 			}
 
 		case "heap_used_in_bytes":
@@ -96,5 +111,3 @@ func NewClusterJvmMemory() *ClusterJvmMemory {
 
 	return r
 }
-
-// false

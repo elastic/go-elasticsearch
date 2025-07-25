@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Create an index.
 // You can use the create index API to add a new index to an Elasticsearch
@@ -369,6 +369,19 @@ func (r *Create) Header(key, value string) *Create {
 }
 
 // Index Name of the index you wish to create.
+// Index names must meet the following criteria:
+//
+// * Lowercase only
+// * Cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` ` (space
+// character), `,`, or `#`
+// * Indices prior to 7.0 could contain a colon (`:`), but that has been
+// deprecated and will not be supported in later versions
+// * Cannot start with `-`, `_`, or `+`
+// * Cannot be `.` or `..`
+// * Cannot be longer than 255 bytes (note thtat it is bytes, so multi-byte
+// characters will reach the limit faster)
+// * Names starting with `.` are deprecated, except for hidden indices and
+// internal indices managed by plugins
 // API Name: index
 func (r *Create) _index(index string) *Create {
 	r.paramSet |= indexMask
@@ -432,7 +445,7 @@ func (r *Create) FilterPath(filterpaths ...string) *Create {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -35,12 +35,13 @@ import (
 
 // AggregateMetricDoubleProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/mapping/complex.ts#L59-L64
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/mapping/complex.ts#L60-L66
 type AggregateMetricDoubleProperty struct {
-	DefaultMetric string                         `json:"default_metric"`
-	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields        map[string]Property            `json:"fields,omitempty"`
-	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
+	DefaultMetric   string                         `json:"default_metric"`
+	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
+	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
+	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	// Meta Metadata about the field.
 	Meta                map[string]string                                `json:"meta,omitempty"`
 	Metrics             []string                                         `json:"metrics"`
@@ -220,6 +221,12 @@ func (s *AggregateMetricDoubleProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "passthrough":
 					oo := NewPassthroughObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Fields | %w", err)
+					}
+					s.Fields[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Fields | %w", err)
 					}
@@ -429,6 +436,20 @@ func (s *AggregateMetricDoubleProperty) UnmarshalJSON(data []byte) error {
 				s.IgnoreAbove = &f
 			}
 
+		case "ignore_malformed":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IgnoreMalformed", err)
+				}
+				s.IgnoreMalformed = &value
+			case bool:
+				s.IgnoreMalformed = &v
+			}
+
 		case "meta":
 			if s.Meta == nil {
 				s.Meta = make(map[string]string, 0)
@@ -580,6 +601,12 @@ func (s *AggregateMetricDoubleProperty) UnmarshalJSON(data []byte) error {
 					s.Properties[key] = oo
 				case "passthrough":
 					oo := NewPassthroughObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Properties | %w", err)
 					}
@@ -801,6 +828,7 @@ func (s AggregateMetricDoubleProperty) MarshalJSON() ([]byte, error) {
 		Dynamic:             s.Dynamic,
 		Fields:              s.Fields,
 		IgnoreAbove:         s.IgnoreAbove,
+		IgnoreMalformed:     s.IgnoreMalformed,
 		Meta:                s.Meta,
 		Metrics:             s.Metrics,
 		Properties:          s.Properties,
@@ -825,12 +853,15 @@ func NewAggregateMetricDoubleProperty() *AggregateMetricDoubleProperty {
 	return r
 }
 
-// true
-
 type AggregateMetricDoublePropertyVariant interface {
 	AggregateMetricDoublePropertyCaster() *AggregateMetricDoubleProperty
 }
 
 func (s *AggregateMetricDoubleProperty) AggregateMetricDoublePropertyCaster() *AggregateMetricDoubleProperty {
 	return s
+}
+
+func (s *AggregateMetricDoubleProperty) PropertyCaster() *Property {
+	o := Property(s)
+	return &o
 }

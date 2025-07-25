@@ -16,22 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Create a Mistral inference endpoint.
 //
-// Creates an inference endpoint to perform an inference task with the `mistral`
+// Create an inference endpoint to perform an inference task with the `mistral`
 // service.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 package putmistral
 
 import (
@@ -102,18 +92,8 @@ func NewPutMistralFunc(tp elastictransport.Interface) NewPutMistral {
 
 // Create a Mistral inference endpoint.
 //
-// Creates an inference endpoint to perform an inference task with the `mistral`
+// Create an inference endpoint to perform an inference task with the `mistral`
 // service.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-mistral
 func New(tp elastictransport.Interface) *PutMistral {
@@ -340,8 +320,7 @@ func (r *PutMistral) Header(key, value string) *PutMistral {
 	return r
 }
 
-// TaskType The task type.
-// The only valid task type for the model to perform is `text_embedding`.
+// TaskType The type of the inference task that the model will perform.
 // API Name: tasktype
 func (r *PutMistral) _tasktype(tasktype string) *PutMistral {
 	r.paramSet |= tasktypeMask
@@ -355,6 +334,15 @@ func (r *PutMistral) _tasktype(tasktype string) *PutMistral {
 func (r *PutMistral) _mistralinferenceid(mistralinferenceid string) *PutMistral {
 	r.paramSet |= mistralinferenceidMask
 	r.mistralinferenceid = mistralinferenceid
+
+	return r
+}
+
+// Timeout Specifies the amount of time to wait for the inference endpoint to be
+// created.
+// API name: timeout
+func (r *PutMistral) Timeout(duration string) *PutMistral {
+	r.values.Set("timeout", duration)
 
 	return r
 }
@@ -383,7 +371,7 @@ func (r *PutMistral) FilterPath(filterpaths ...string) *PutMistral {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Get the cluster state.
 // Get comprehensive information about the state of the cluster.
@@ -447,7 +447,7 @@ func (r *State) Local(local bool) *State {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Timeout for waiting for new cluster state in case it is blocked
 // API name: master_timeout
 func (r *State) MasterTimeout(duration string) *State {
 	r.values.Set("master_timeout", duration)
@@ -496,7 +496,7 @@ func (r *State) FilterPath(filterpaths ...string) *State {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

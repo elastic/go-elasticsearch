@@ -16,11 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+import (
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/lowercasetokenfilterlanguages"
+)
 
 type _lowercaseTokenFilter struct {
 	v *types.LowercaseTokenFilter
@@ -32,10 +35,9 @@ func NewLowercaseTokenFilter() *_lowercaseTokenFilter {
 
 }
 
-func (s *_lowercaseTokenFilter) Language(language string) *_lowercaseTokenFilter {
+func (s *_lowercaseTokenFilter) Language(language lowercasetokenfilterlanguages.LowercaseTokenFilterLanguages) *_lowercaseTokenFilter {
 
 	s.v.Language = &language
-
 	return s
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TopHitsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/aggregations/metric.ts#L346-L406
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/aggregations/metric.ts#L369-L429
 type TopHitsAggregation struct {
 	// DocvalueFields Fields for which to return doc values.
 	DocvalueFields []FieldAndFormat `json:"docvalue_fields,omitempty"`
@@ -221,7 +221,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 
 				switch t {
 
-				case "excludes", "includes":
+				case "exclude_vectors", "excludes", "includes":
 					o := NewSourceFilter()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
@@ -296,8 +296,6 @@ func NewTopHitsAggregation() *TopHitsAggregation {
 
 	return r
 }
-
-// true
 
 type TopHitsAggregationVariant interface {
 	TopHitsAggregationCaster() *TopHitsAggregation

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -30,15 +30,19 @@ type _cohereTaskSettings struct {
 	v *types.CohereTaskSettings
 }
 
-func NewCohereTaskSettings() *_cohereTaskSettings {
+func NewCohereTaskSettings(inputtype cohereinputtype.CohereInputType) *_cohereTaskSettings {
 
-	return &_cohereTaskSettings{v: types.NewCohereTaskSettings()}
+	tmp := &_cohereTaskSettings{v: types.NewCohereTaskSettings()}
+
+	tmp.InputType(inputtype)
+
+	return tmp
 
 }
 
 func (s *_cohereTaskSettings) InputType(inputtype cohereinputtype.CohereInputType) *_cohereTaskSettings {
 
-	s.v.InputType = &inputtype
+	s.v.InputType = inputtype
 	return s
 }
 

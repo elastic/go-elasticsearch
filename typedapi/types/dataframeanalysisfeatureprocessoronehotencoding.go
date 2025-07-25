@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeAnalysisFeatureProcessorOneHotEncoding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/ml/_types/DataframeAnalytics.ts#L288-L293
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/ml/_types/DataframeAnalytics.ts#L288-L293
 type DataframeAnalysisFeatureProcessorOneHotEncoding struct {
 	// Field The name of the field to encode.
 	Field string `json:"field"`
@@ -82,8 +82,6 @@ func NewDataframeAnalysisFeatureProcessorOneHotEncoding() *DataframeAnalysisFeat
 
 	return r
 }
-
-// true
 
 type DataframeAnalysisFeatureProcessorOneHotEncodingVariant interface {
 	DataframeAnalysisFeatureProcessorOneHotEncodingCaster() *DataframeAnalysisFeatureProcessorOneHotEncoding

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -30,12 +30,17 @@ import (
 
 // ConditionTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/token_filters.ts#L182-L186
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/analysis/token_filters.ts#L237-L243
 type ConditionTokenFilter struct {
-	Filter  []string `json:"filter"`
-	Script  Script   `json:"script"`
-	Type    string   `json:"type,omitempty"`
-	Version *string  `json:"version,omitempty"`
+	// Filter Array of token filters. If a token matches the predicate script in the
+	// `script` parameter, these filters are applied to the token in the order
+	// provided.
+	Filter []string `json:"filter"`
+	// Script Predicate script used to apply token filters. If a token matches this script,
+	// the filters in the `filter` parameter are applied to the token.
+	Script  Script  `json:"script"`
+	Type    string  `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
 func (s *ConditionTokenFilter) UnmarshalJSON(data []byte) error {
@@ -100,12 +105,15 @@ func NewConditionTokenFilter() *ConditionTokenFilter {
 	return r
 }
 
-// true
-
 type ConditionTokenFilterVariant interface {
 	ConditionTokenFilterCaster() *ConditionTokenFilter
 }
 
 func (s *ConditionTokenFilter) ConditionTokenFilterCaster() *ConditionTokenFilter {
 	return s
+}
+
+func (s *ConditionTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

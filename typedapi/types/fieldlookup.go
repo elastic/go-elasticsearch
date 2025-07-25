@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // FieldLookup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/query_dsl/abstractions.ts#L436-L453
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/query_dsl/abstractions.ts#L436-L453
 type FieldLookup struct {
 	// Id `id` of the document.
 	Id string `json:"id"`
@@ -88,8 +88,6 @@ func NewFieldLookup() *FieldLookup {
 
 	return r
 }
-
-// true
 
 type FieldLookupVariant interface {
 	FieldLookupCaster() *FieldLookup

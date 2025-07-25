@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -38,7 +38,7 @@ import (
 
 // Highlight type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/search/_types/highlighting.ts#L152-L155
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_global/search/_types/highlighting.ts#L152-L157
 type Highlight struct {
 	// BoundaryChars A string that contains each boundary character.
 	BoundaryChars *string `json:"boundary_chars,omitempty"`
@@ -54,7 +54,7 @@ type Highlight struct {
 	// `"fr-FR"`, `"ja-JP"`.
 	BoundaryScannerLocale *string                                `json:"boundary_scanner_locale,omitempty"`
 	Encoder               *highlighterencoder.HighlighterEncoder `json:"encoder,omitempty"`
-	Fields                map[string]HighlightField              `json:"fields"`
+	Fields                []map[string]HighlightField            `json:"fields"`
 	ForceSource           *bool                                  `json:"force_source,omitempty"`
 	// FragmentSize The size of the highlighted fragment in characters.
 	FragmentSize *int `json:"fragment_size,omitempty"`
@@ -182,11 +182,24 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 			}
 
 		case "fields":
-			if s.Fields == nil {
-				s.Fields = make(map[string]HighlightField, 0)
-			}
-			if err := dec.Decode(&s.Fields); err != nil {
-				return fmt.Errorf("%s | %w", "Fields", err)
+
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			source := bytes.NewReader(rawMsg)
+			localDec := json.NewDecoder(source)
+			switch rawMsg[0] {
+			case '{':
+				o := make(map[string]HighlightField, 0)
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Fields", err)
+				}
+				s.Fields = append(s.Fields, o)
+			case '[':
+				o := make([]map[string]HighlightField, 0)
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Fields", err)
+				}
+				s.Fields = o
 			}
 
 		case "force_source":
@@ -378,14 +391,11 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 // NewHighlight returns a Highlight.
 func NewHighlight() *Highlight {
 	r := &Highlight{
-		Fields:  make(map[string]HighlightField),
 		Options: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
-
-// true
 
 type HighlightVariant interface {
 	HighlightCaster() *Highlight

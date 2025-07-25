@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,8 +31,10 @@ import (
 
 // ClusterJvm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/cluster/stats/types.ts#L275-L292
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/cluster/stats/types.ts#L372-L393
 type ClusterJvm struct {
+	// MaxUptime Uptime duration since JVM last started.
+	MaxUptime Duration `json:"max_uptime,omitempty"`
 	// MaxUptimeInMillis Uptime duration, in milliseconds, since JVM last started.
 	MaxUptimeInMillis int64 `json:"max_uptime_in_millis"`
 	// Mem Contains statistics about memory used by selected nodes.
@@ -57,6 +59,11 @@ func (s *ClusterJvm) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "max_uptime":
+			if err := dec.Decode(&s.MaxUptime); err != nil {
+				return fmt.Errorf("%s | %w", "MaxUptime", err)
+			}
 
 		case "max_uptime_in_millis":
 			if err := dec.Decode(&s.MaxUptimeInMillis); err != nil {
@@ -99,5 +106,3 @@ func NewClusterJvm() *ClusterJvm {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -154,9 +154,9 @@ func (s *_moreLikeThisQuery) Routing(routing string) *_moreLikeThisQuery {
 	return s
 }
 
-func (s *_moreLikeThisQuery) StopWords(stopwords ...string) *_moreLikeThisQuery {
+func (s *_moreLikeThisQuery) StopWords(stopwords types.StopWordsVariant) *_moreLikeThisQuery {
 
-	s.v.StopWords = stopwords
+	s.v.StopWords = *stopwords.StopWordsCaster()
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,11 +31,18 @@ import (
 
 // PatternReplaceTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/token_filters.ts#L285-L291
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/analysis/token_filters.ts#L382-L391
 type PatternReplaceTokenFilter struct {
-	All         *bool   `json:"all,omitempty"`
-	Flags       *string `json:"flags,omitempty"`
-	Pattern     string  `json:"pattern"`
+	// All If `true`, all substrings matching the pattern parameter’s regular expression
+	// are replaced. If `false`, the filter replaces only the first matching
+	// substring in each token. Defaults to `true`.
+	All   *bool   `json:"all,omitempty"`
+	Flags *string `json:"flags,omitempty"`
+	// Pattern Regular expression, written in Java’s regular expression syntax. The filter
+	// replaces token substrings matching this pattern with the substring in the
+	// `replacement` parameter.
+	Pattern string `json:"pattern"`
+	// Replacement Replacement substring. Defaults to an empty substring (`""`).
 	Replacement *string `json:"replacement,omitempty"`
 	Type        string  `json:"type,omitempty"`
 	Version     *string `json:"version,omitempty"`
@@ -145,12 +152,15 @@ func NewPatternReplaceTokenFilter() *PatternReplaceTokenFilter {
 	return r
 }
 
-// true
-
 type PatternReplaceTokenFilterVariant interface {
 	PatternReplaceTokenFilterCaster() *PatternReplaceTokenFilter
 }
 
 func (s *PatternReplaceTokenFilter) PatternReplaceTokenFilterCaster() *PatternReplaceTokenFilter {
 	return s
+}
+
+func (s *PatternReplaceTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

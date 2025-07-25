@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -28,9 +28,13 @@ type _textSimilarityReranker struct {
 
 // A retriever that reranks the top documents based on a reranking model using
 // the InferenceAPI
-func NewTextSimilarityReranker(retriever types.RetrieverContainerVariant) *_textSimilarityReranker {
+func NewTextSimilarityReranker(field string, inferencetext string, retriever types.RetrieverContainerVariant) *_textSimilarityReranker {
 
 	tmp := &_textSimilarityReranker{v: types.NewTextSimilarityReranker()}
+
+	tmp.Field(field)
+
+	tmp.InferenceText(inferencetext)
 
 	tmp.Retriever(retriever)
 
@@ -40,7 +44,7 @@ func NewTextSimilarityReranker(retriever types.RetrieverContainerVariant) *_text
 
 func (s *_textSimilarityReranker) Field(field string) *_textSimilarityReranker {
 
-	s.v.Field = &field
+	s.v.Field = field
 
 	return s
 }
@@ -64,7 +68,7 @@ func (s *_textSimilarityReranker) InferenceId(inferenceid string) *_textSimilari
 
 func (s *_textSimilarityReranker) InferenceText(inferencetext string) *_textSimilarityReranker {
 
-	s.v.InferenceText = &inferencetext
+	s.v.InferenceText = inferencetext
 
 	return s
 }
@@ -72,6 +76,13 @@ func (s *_textSimilarityReranker) InferenceText(inferencetext string) *_textSimi
 func (s *_textSimilarityReranker) MinScore(minscore float32) *_textSimilarityReranker {
 
 	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_textSimilarityReranker) Name_(name_ string) *_textSimilarityReranker {
+
+	s.v.Name_ = &name_
 
 	return s
 }

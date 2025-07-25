@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,13 +31,12 @@ import (
 
 // EsqlShardInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/esql/_types/EsqlResult.ts#L80-L86
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/esql/_types/EsqlResult.ts#L81-L86
 type EsqlShardInfo struct {
-	Failed     *int               `json:"failed,omitempty"`
-	Failures   []EsqlShardFailure `json:"failures,omitempty"`
-	Skipped    *int               `json:"skipped,omitempty"`
-	Successful *int               `json:"successful,omitempty"`
-	Total      int                `json:"total"`
+	Failed     *int `json:"failed,omitempty"`
+	Skipped    *int `json:"skipped,omitempty"`
+	Successful *int `json:"successful,omitempty"`
+	Total      int  `json:"total"`
 }
 
 func (s *EsqlShardInfo) UnmarshalJSON(data []byte) error {
@@ -69,11 +68,6 @@ func (s *EsqlShardInfo) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int(v)
 				s.Failed = &f
-			}
-
-		case "failures":
-			if err := dec.Decode(&s.Failures); err != nil {
-				return fmt.Errorf("%s | %w", "Failures", err)
 			}
 
 		case "skipped":
@@ -135,5 +129,3 @@ func NewEsqlShardInfo() *EsqlShardInfo {
 
 	return r
 }
-
-// false

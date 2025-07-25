@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ParentTaskInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/tasks/_types/TaskListResponseBase.ts#L45-L47
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/tasks/_types/TaskListResponseBase.ts#L45-L47
 type ParentTaskInfo struct {
 	Action      string     `json:"action"`
 	Cancellable bool       `json:"cancellable"`
@@ -51,7 +51,7 @@ type ParentTaskInfo struct {
 	Headers            map[string]string `json:"headers"`
 	Id                 int64             `json:"id"`
 	Node               string            `json:"node"`
-	ParentTaskId       TaskId            `json:"parent_task_id,omitempty"`
+	ParentTaskId       *string           `json:"parent_task_id,omitempty"`
 	RunningTime        Duration          `json:"running_time,omitempty"`
 	RunningTimeInNanos int64             `json:"running_time_in_nanos"`
 	StartTimeInMillis  int64             `json:"start_time_in_millis"`
@@ -216,5 +216,3 @@ func NewParentTaskInfo() *ParentTaskInfo {
 
 	return r
 }
-
-// false

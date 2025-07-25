@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package esdsl
 
@@ -70,13 +70,18 @@ func (s *_ruleQuery) QueryName_(queryname_ string) *_ruleQuery {
 	return s
 }
 
+func (s *_ruleQuery) RulesetId(rulesetid string) *_ruleQuery {
+
+	s.v.RulesetId = &rulesetid
+
+	return s
+}
+
 func (s *_ruleQuery) RulesetIds(rulesetids ...string) *_ruleQuery {
 
-	for _, v := range rulesetids {
+	s.v.RulesetIds = make([]string, len(rulesetids))
+	s.v.RulesetIds = rulesetids
 
-		s.v.RulesetIds = append(s.v.RulesetIds, v)
-
-	}
 	return s
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // VertexInclude type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/graph/_types/Vertex.ts#L61-L65
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/graph/_types/Vertex.ts#L61-L65
 type VertexInclude struct {
 	Boost *Float64 `json:"boost,omitempty"`
 	Term  string   `json:"term"`
@@ -103,8 +103,6 @@ func NewVertexInclude() *VertexInclude {
 
 	return r
 }
-
-// true
 
 type VertexIncludeVariant interface {
 	VertexIncludeCaster() *VertexInclude

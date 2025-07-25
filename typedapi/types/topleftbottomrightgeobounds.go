@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TopLeftBottomRightGeoBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/Geo.ts#L161-L164
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/Geo.ts#L161-L164
 type TopLeftBottomRightGeoBounds struct {
 	BottomRight GeoLocation `json:"bottom_right"`
 	TopLeft     GeoLocation `json:"top_left"`
@@ -153,12 +153,15 @@ func NewTopLeftBottomRightGeoBounds() *TopLeftBottomRightGeoBounds {
 	return r
 }
 
-// true
-
 type TopLeftBottomRightGeoBoundsVariant interface {
 	TopLeftBottomRightGeoBoundsCaster() *TopLeftBottomRightGeoBounds
 }
 
 func (s *TopLeftBottomRightGeoBounds) TopLeftBottomRightGeoBoundsCaster() *TopLeftBottomRightGeoBounds {
 	return s
+}
+
+func (s *TopLeftBottomRightGeoBounds) GeoBoundsCaster() *GeoBounds {
+	o := GeoBounds(s)
+	return &o
 }

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
 // SearchInputRequestBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/watcher/_types/Input.ts#L147-L149
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/watcher/_types/Input.ts#L144-L146
 type SearchInputRequestBody struct {
 	Query Query `json:"query"`
 }
@@ -33,8 +33,6 @@ func NewSearchInputRequestBody() *SearchInputRequestBody {
 
 	return r
 }
-
-// true
 
 type SearchInputRequestBodyVariant interface {
 	SearchInputRequestBodyCaster() *SearchInputRequestBody

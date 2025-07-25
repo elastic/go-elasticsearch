@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StandardAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/analyzers.ts#L382-L402
+// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/analysis/analyzers.ts#L382-L402
 type StandardAnalyzer struct {
 	// MaxTokenLength The maximum token length. If a token is seen that exceeds this length then it
 	// is split at `max_token_length` intervals.
@@ -40,7 +40,7 @@ type StandardAnalyzer struct {
 	// Stopwords A pre-defined stop words list like `_english_` or an array containing a list
 	// of stop words.
 	// Defaults to `_none_`.
-	Stopwords []string `json:"stopwords,omitempty"`
+	Stopwords StopWords `json:"stopwords,omitempty"`
 	// StopwordsPath The path to a file containing stop words.
 	StopwordsPath *string `json:"stopwords_path,omitempty"`
 	Type          string  `json:"type,omitempty"`
@@ -78,19 +78,8 @@ func (s *StandardAnalyzer) UnmarshalJSON(data []byte) error {
 			}
 
 		case "stopwords":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
-
-				s.Stopwords = append(s.Stopwords, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Stopwords); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
+			if err := dec.Decode(&s.Stopwords); err != nil {
+				return fmt.Errorf("%s | %w", "Stopwords", err)
 			}
 
 		case "stopwords_path":
@@ -137,12 +126,15 @@ func NewStandardAnalyzer() *StandardAnalyzer {
 	return r
 }
 
-// true
-
 type StandardAnalyzerVariant interface {
 	StandardAnalyzerCaster() *StandardAnalyzer
 }
 
 func (s *StandardAnalyzer) StandardAnalyzerCaster() *StandardAnalyzer {
 	return s
+}
+
+func (s *StandardAnalyzer) AnalyzerCaster() *Analyzer {
+	o := Analyzer(s)
+	return &o
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
 
 // Get a document by its ID.
 //
@@ -95,7 +95,6 @@
 package get
 
 import (
-	gobytes "bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -103,6 +102,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -370,7 +370,8 @@ func (r Get) Do(providedCtx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 {
+	if res.StatusCode < 299 || slices.Contains([]int{404}, res.StatusCode) {
+
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -380,42 +381,6 @@ func (r Get) Do(providedCtx context.Context) (*Response, error) {
 		}
 
 		return response, nil
-	}
-
-	if res.StatusCode == 404 {
-		data, err := io.ReadAll(res.Body)
-		if err != nil {
-			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-				instrument.RecordError(ctx, err)
-			}
-			return nil, err
-		}
-
-		errorResponse := types.NewElasticsearchError()
-		err = json.NewDecoder(gobytes.NewReader(data)).Decode(&errorResponse)
-		if err != nil {
-			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-				instrument.RecordError(ctx, err)
-			}
-			return nil, err
-		}
-
-		if errorResponse.Status == 0 {
-			err = json.NewDecoder(gobytes.NewReader(data)).Decode(&response)
-			if err != nil {
-				if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-					instrument.RecordError(ctx, err)
-				}
-				return nil, err
-			}
-
-			return response, nil
-		}
-
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordError(ctx, errorResponse)
-		}
-		return nil, errorResponse
 	}
 
 	errorResponse := types.NewElasticsearchError()
@@ -502,7 +467,7 @@ func (r *Get) _index(index string) *Get {
 }
 
 // ForceSyntheticSource Indicates whether the request forces synthetic `_source`.
-// Use this paramater to test if the mapping supports synthetic `_source` and to
+// Use this parameter to test if the mapping supports synthetic `_source` and to
 // get a sense of the worst case performance.
 // Fetches with this parameter enabled will be slower than enabling synthetic
 // source natively in the index.
@@ -577,6 +542,14 @@ func (r *Get) SourceExcludes_(fields ...string) *Get {
 	return r
 }
 
+// SourceExcludeVectors_ Whether vectors should be excluded from _source
+// API name: _source_exclude_vectors
+func (r *Get) SourceExcludeVectors_(sourceexcludevectors_ bool) *Get {
+	r.values.Set("_source_exclude_vectors", strconv.FormatBool(sourceexcludevectors_))
+
+	return r
+}
+
 // SourceIncludes_ A comma-separated list of source fields to include in the response.
 // If this parameter is specified, only these source fields are returned.
 // You can exclude fields from this subset using the `_source_excludes` query
@@ -592,8 +565,8 @@ func (r *Get) SourceIncludes_(fields ...string) *Get {
 // StoredFields A comma-separated list of stored fields to return as part of a hit.
 // If no fields are specified, no stored fields are included in the response.
 // If this field is specified, the `_source` parameter defaults to `false`.
-// Only leaf fields can be retrieved with the `stored_field` option.
-// Object fields can't be returned;​if specified, the request fails.
+// Only leaf fields can be retrieved with the `stored_fields` option.
+// Object fields can't be returned; if specified, the request fails.
 // API name: stored_fields
 func (r *Get) StoredFields(fields ...string) *Get {
 	r.values.Set("stored_fields", strings.Join(fields, ","))
@@ -642,7 +615,7 @@ func (r *Get) FilterPath(filterpaths ...string) *Get {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.
