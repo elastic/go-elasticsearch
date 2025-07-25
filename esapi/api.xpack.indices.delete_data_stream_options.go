@@ -21,14 +21,15 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 	"time"
 )
 
-func newILMStartFunc(t Transport) ILMStart {
-	return func(o ...func(*ILMStartRequest)) (*Response, error) {
-		var r = ILMStartRequest{}
+func newIndicesDeleteDataStreamOptionsFunc(t Transport) IndicesDeleteDataStreamOptions {
+	return func(name []string, o ...func(*IndicesDeleteDataStreamOptionsRequest)) (*Response, error) {
+		var r = IndicesDeleteDataStreamOptionsRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,15 +44,18 @@ func newILMStartFunc(t Transport) ILMStart {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMStart - Start the index lifecycle management (ILM) plugin.
+// IndicesDeleteDataStreamOptions - Deletes the data stream options of the selected data streams.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-start.html.
-type ILMStart func(o ...func(*ILMStartRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
+type IndicesDeleteDataStreamOptions func(name []string, o ...func(*IndicesDeleteDataStreamOptionsRequest)) (*Response, error)
 
-// ILMStartRequest configures the ILM Start API request.
-type ILMStartRequest struct {
-	MasterTimeout time.Duration
-	Timeout       time.Duration
+// IndicesDeleteDataStreamOptionsRequest configures the Indices Delete Data Stream Options API request.
+type IndicesDeleteDataStreamOptionsRequest struct {
+	Name []string
+
+	ExpandWildcards string
+	MasterTimeout   time.Duration
+	Timeout         time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -66,7 +70,7 @@ type ILMStartRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ILMStartRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r IndicesDeleteDataStreamOptionsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -75,20 +79,36 @@ func (r ILMStartRequest) Do(providedCtx context.Context, transport Transport) (*
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "ilm.start")
+		ctx = instrument.Start(providedCtx, "indices.delete_data_stream_options")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "POST"
+	method = "DELETE"
 
-	path.Grow(7 + len("/_ilm/start"))
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_options"))
 	path.WriteString("http://")
-	path.WriteString("/_ilm/start")
+	path.WriteString("/")
+	path.WriteString("_data_stream")
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.Name, ","))
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
+	}
+	path.WriteString("/")
+	path.WriteString("_options")
 
 	params = make(map[string]string)
+
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
+	}
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
@@ -147,11 +167,11 @@ func (r ILMStartRequest) Do(providedCtx context.Context, transport Transport) (*
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "ilm.start")
+		instrument.BeforeRequest(req, "indices.delete_data_stream_options")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "ilm.start")
+		instrument.AfterRequest(req, "elasticsearch", "indices.delete_data_stream_options")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -170,57 +190,64 @@ func (r ILMStartRequest) Do(providedCtx context.Context, transport Transport) (*
 }
 
 // WithContext sets the request context.
-func (f ILMStart) WithContext(v context.Context) func(*ILMStartRequest) {
-	return func(r *ILMStartRequest) {
+func (f IndicesDeleteDataStreamOptions) WithContext(v context.Context) func(*IndicesDeleteDataStreamOptionsRequest) {
+	return func(r *IndicesDeleteDataStreamOptionsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-func (f ILMStart) WithMasterTimeout(v time.Duration) func(*ILMStartRequest) {
-	return func(r *ILMStartRequest) {
+// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
+func (f IndicesDeleteDataStreamOptions) WithExpandWildcards(v string) func(*IndicesDeleteDataStreamOptionsRequest) {
+	return func(r *IndicesDeleteDataStreamOptionsRequest) {
+		r.ExpandWildcards = v
+	}
+}
+
+// WithMasterTimeout - specify timeout for connection to master.
+func (f IndicesDeleteDataStreamOptions) WithMasterTimeout(v time.Duration) func(*IndicesDeleteDataStreamOptionsRequest) {
+	return func(r *IndicesDeleteDataStreamOptionsRequest) {
 		r.MasterTimeout = v
 	}
 }
 
-// WithTimeout - explicit operation timeout.
-func (f ILMStart) WithTimeout(v time.Duration) func(*ILMStartRequest) {
-	return func(r *ILMStartRequest) {
+// WithTimeout - explicit timestamp for the document.
+func (f IndicesDeleteDataStreamOptions) WithTimeout(v time.Duration) func(*IndicesDeleteDataStreamOptionsRequest) {
+	return func(r *IndicesDeleteDataStreamOptionsRequest) {
 		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ILMStart) WithPretty() func(*ILMStartRequest) {
-	return func(r *ILMStartRequest) {
+func (f IndicesDeleteDataStreamOptions) WithPretty() func(*IndicesDeleteDataStreamOptionsRequest) {
+	return func(r *IndicesDeleteDataStreamOptionsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ILMStart) WithHuman() func(*ILMStartRequest) {
-	return func(r *ILMStartRequest) {
+func (f IndicesDeleteDataStreamOptions) WithHuman() func(*IndicesDeleteDataStreamOptionsRequest) {
+	return func(r *IndicesDeleteDataStreamOptionsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ILMStart) WithErrorTrace() func(*ILMStartRequest) {
-	return func(r *ILMStartRequest) {
+func (f IndicesDeleteDataStreamOptions) WithErrorTrace() func(*IndicesDeleteDataStreamOptionsRequest) {
+	return func(r *IndicesDeleteDataStreamOptionsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ILMStart) WithFilterPath(v ...string) func(*ILMStartRequest) {
-	return func(r *ILMStartRequest) {
+func (f IndicesDeleteDataStreamOptions) WithFilterPath(v ...string) func(*IndicesDeleteDataStreamOptionsRequest) {
+	return func(r *IndicesDeleteDataStreamOptionsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ILMStart) WithHeader(h map[string]string) func(*ILMStartRequest) {
-	return func(r *ILMStartRequest) {
+func (f IndicesDeleteDataStreamOptions) WithHeader(h map[string]string) func(*IndicesDeleteDataStreamOptionsRequest) {
+	return func(r *IndicesDeleteDataStreamOptionsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -231,8 +258,8 @@ func (f ILMStart) WithHeader(h map[string]string) func(*ILMStartRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ILMStart) WithOpaqueID(s string) func(*ILMStartRequest) {
-	return func(r *ILMStartRequest) {
+func (f IndicesDeleteDataStreamOptions) WithOpaqueID(s string) func(*IndicesDeleteDataStreamOptionsRequest) {
+	return func(r *IndicesDeleteDataStreamOptionsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

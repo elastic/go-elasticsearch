@@ -21,15 +21,16 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 	"strings"
 	"time"
 )
 
-func newIngestPutIPLocationDatabaseFunc(t Transport) IngestPutIPLocationDatabase {
-	return func(id string, body io.Reader, o ...func(*IngestPutIPLocationDatabaseRequest)) (*Response, error) {
-		var r = IngestPutIPLocationDatabaseRequest{DocumentID: id, Body: body}
+func newIndicesPutDataStreamOptionsFunc(t Transport) IndicesPutDataStreamOptions {
+	return func(name []string, o ...func(*IndicesPutDataStreamOptionsRequest)) (*Response, error) {
+		var r = IndicesPutDataStreamOptionsRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,19 +45,20 @@ func newIngestPutIPLocationDatabaseFunc(t Transport) IngestPutIPLocationDatabase
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestPutIPLocationDatabase puts the configuration for a ip location database to be downloaded
+// IndicesPutDataStreamOptions updates the data stream options of the selected data streams.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-ip-location-database-api.html.
-type IngestPutIPLocationDatabase func(id string, body io.Reader, o ...func(*IngestPutIPLocationDatabaseRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
+type IndicesPutDataStreamOptions func(name []string, o ...func(*IndicesPutDataStreamOptionsRequest)) (*Response, error)
 
-// IngestPutIPLocationDatabaseRequest configures the Ingest PutIP Location Database API request.
-type IngestPutIPLocationDatabaseRequest struct {
-	DocumentID string
-
+// IndicesPutDataStreamOptionsRequest configures the Indices Put Data Stream Options API request.
+type IndicesPutDataStreamOptionsRequest struct {
 	Body io.Reader
 
-	MasterTimeout time.Duration
-	Timeout       time.Duration
+	Name []string
+
+	ExpandWildcards string
+	MasterTimeout   time.Duration
+	Timeout         time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -71,7 +73,7 @@ type IngestPutIPLocationDatabaseRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r IngestPutIPLocationDatabaseRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r IndicesPutDataStreamOptionsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -80,7 +82,7 @@ func (r IngestPutIPLocationDatabaseRequest) Do(providedCtx context.Context, tran
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "ingest.put_ip_location_database")
+		ctx = instrument.Start(providedCtx, "indices.put_data_stream_options")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -89,21 +91,27 @@ func (r IngestPutIPLocationDatabaseRequest) Do(providedCtx context.Context, tran
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_ingest") + 1 + len("ip_location") + 1 + len("database") + 1 + len(r.DocumentID))
-	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_ingest")
-	path.WriteString("/")
-	path.WriteString("ip_location")
-	path.WriteString("/")
-	path.WriteString("database")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
-	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "id", r.DocumentID)
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
 	}
 
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_options"))
+	path.WriteString("http://")
+	path.WriteString("/")
+	path.WriteString("_data_stream")
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.Name, ","))
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
+	}
+	path.WriteString("/")
+	path.WriteString("_options")
+
 	params = make(map[string]string)
+
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
+	}
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
@@ -166,14 +174,14 @@ func (r IngestPutIPLocationDatabaseRequest) Do(providedCtx context.Context, tran
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "ingest.put_ip_location_database")
-		if reader := instrument.RecordRequestBody(ctx, "ingest.put_ip_location_database", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "indices.put_data_stream_options")
+		if reader := instrument.RecordRequestBody(ctx, "indices.put_data_stream_options", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "ingest.put_ip_location_database")
+		instrument.AfterRequest(req, "elasticsearch", "indices.put_data_stream_options")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -192,57 +200,71 @@ func (r IngestPutIPLocationDatabaseRequest) Do(providedCtx context.Context, tran
 }
 
 // WithContext sets the request context.
-func (f IngestPutIPLocationDatabase) WithContext(v context.Context) func(*IngestPutIPLocationDatabaseRequest) {
-	return func(r *IngestPutIPLocationDatabaseRequest) {
+func (f IndicesPutDataStreamOptions) WithContext(v context.Context) func(*IndicesPutDataStreamOptionsRequest) {
+	return func(r *IndicesPutDataStreamOptionsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-func (f IngestPutIPLocationDatabase) WithMasterTimeout(v time.Duration) func(*IngestPutIPLocationDatabaseRequest) {
-	return func(r *IngestPutIPLocationDatabaseRequest) {
+// WithBody - The data stream options configuration that consist of the failure store configuration.
+func (f IndicesPutDataStreamOptions) WithBody(v io.Reader) func(*IndicesPutDataStreamOptionsRequest) {
+	return func(r *IndicesPutDataStreamOptionsRequest) {
+		r.Body = v
+	}
+}
+
+// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
+func (f IndicesPutDataStreamOptions) WithExpandWildcards(v string) func(*IndicesPutDataStreamOptionsRequest) {
+	return func(r *IndicesPutDataStreamOptionsRequest) {
+		r.ExpandWildcards = v
+	}
+}
+
+// WithMasterTimeout - specify timeout for connection to master.
+func (f IndicesPutDataStreamOptions) WithMasterTimeout(v time.Duration) func(*IndicesPutDataStreamOptionsRequest) {
+	return func(r *IndicesPutDataStreamOptionsRequest) {
 		r.MasterTimeout = v
 	}
 }
 
-// WithTimeout - explicit operation timeout.
-func (f IngestPutIPLocationDatabase) WithTimeout(v time.Duration) func(*IngestPutIPLocationDatabaseRequest) {
-	return func(r *IngestPutIPLocationDatabaseRequest) {
+// WithTimeout - explicit timestamp for the document.
+func (f IndicesPutDataStreamOptions) WithTimeout(v time.Duration) func(*IndicesPutDataStreamOptionsRequest) {
+	return func(r *IndicesPutDataStreamOptionsRequest) {
 		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f IngestPutIPLocationDatabase) WithPretty() func(*IngestPutIPLocationDatabaseRequest) {
-	return func(r *IngestPutIPLocationDatabaseRequest) {
+func (f IndicesPutDataStreamOptions) WithPretty() func(*IndicesPutDataStreamOptionsRequest) {
+	return func(r *IndicesPutDataStreamOptionsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f IngestPutIPLocationDatabase) WithHuman() func(*IngestPutIPLocationDatabaseRequest) {
-	return func(r *IngestPutIPLocationDatabaseRequest) {
+func (f IndicesPutDataStreamOptions) WithHuman() func(*IndicesPutDataStreamOptionsRequest) {
+	return func(r *IndicesPutDataStreamOptionsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f IngestPutIPLocationDatabase) WithErrorTrace() func(*IngestPutIPLocationDatabaseRequest) {
-	return func(r *IngestPutIPLocationDatabaseRequest) {
+func (f IndicesPutDataStreamOptions) WithErrorTrace() func(*IndicesPutDataStreamOptionsRequest) {
+	return func(r *IndicesPutDataStreamOptionsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f IngestPutIPLocationDatabase) WithFilterPath(v ...string) func(*IngestPutIPLocationDatabaseRequest) {
-	return func(r *IngestPutIPLocationDatabaseRequest) {
+func (f IndicesPutDataStreamOptions) WithFilterPath(v ...string) func(*IndicesPutDataStreamOptionsRequest) {
+	return func(r *IndicesPutDataStreamOptionsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f IngestPutIPLocationDatabase) WithHeader(h map[string]string) func(*IngestPutIPLocationDatabaseRequest) {
-	return func(r *IngestPutIPLocationDatabaseRequest) {
+func (f IndicesPutDataStreamOptions) WithHeader(h map[string]string) func(*IndicesPutDataStreamOptionsRequest) {
+	return func(r *IndicesPutDataStreamOptionsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -253,8 +275,8 @@ func (f IngestPutIPLocationDatabase) WithHeader(h map[string]string) func(*Inges
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f IngestPutIPLocationDatabase) WithOpaqueID(s string) func(*IngestPutIPLocationDatabaseRequest) {
-	return func(r *IngestPutIPLocationDatabaseRequest) {
+func (f IndicesPutDataStreamOptions) WithOpaqueID(s string) func(*IndicesPutDataStreamOptionsRequest) {
+	return func(r *IndicesPutDataStreamOptionsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

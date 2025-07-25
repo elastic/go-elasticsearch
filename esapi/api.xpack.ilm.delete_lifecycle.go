@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newILMDeleteLifecycleFunc(t Transport) ILMDeleteLifecycle {
@@ -50,6 +51,9 @@ type ILMDeleteLifecycle func(policy string, o ...func(*ILMDeleteLifecycleRequest
 // ILMDeleteLifecycleRequest configures the ILM Delete Lifecycle API request.
 type ILMDeleteLifecycleRequest struct {
 	Policy string
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +99,14 @@ func (r ILMDeleteLifecycleRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +183,20 @@ func (r ILMDeleteLifecycleRequest) Do(providedCtx context.Context, transport Tra
 func (f ILMDeleteLifecycle) WithContext(v context.Context) func(*ILMDeleteLifecycleRequest) {
 	return func(r *ILMDeleteLifecycleRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f ILMDeleteLifecycle) WithMasterTimeout(v time.Duration) func(*ILMDeleteLifecycleRequest) {
+	return func(r *ILMDeleteLifecycleRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f ILMDeleteLifecycle) WithTimeout(v time.Duration) func(*ILMDeleteLifecycleRequest) {
+	return func(r *ILMDeleteLifecycleRequest) {
+		r.Timeout = v
 	}
 }
 

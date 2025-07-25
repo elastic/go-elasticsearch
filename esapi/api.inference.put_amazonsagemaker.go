@@ -23,13 +23,12 @@ import (
 	"context"
 	"io"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newEsqlQueryFunc(t Transport) EsqlQuery {
-	return func(body io.Reader, o ...func(*EsqlQueryRequest)) (*Response, error) {
-		var r = EsqlQueryRequest{Body: body}
+func newInferencePutAmazonsagemakerFunc(t Transport) InferencePutAmazonsagemaker {
+	return func(amazonsagemaker_inference_id string, task_type string, o ...func(*InferencePutAmazonsagemakerRequest)) (*Response, error) {
+		var r = InferencePutAmazonsagemakerRequest{AmazonsagemakerInferenceID: amazonsagemaker_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,19 +43,17 @@ func newEsqlQueryFunc(t Transport) EsqlQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlQuery - Executes an ESQL request
+// InferencePutAmazonsagemaker configure a Amazon SageMaker inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html.
-type EsqlQuery func(body io.Reader, o ...func(*EsqlQueryRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-amazon-sagemaker.html.
+type InferencePutAmazonsagemaker func(amazonsagemaker_inference_id string, task_type string, o ...func(*InferencePutAmazonsagemakerRequest)) (*Response, error)
 
-// EsqlQueryRequest configures the Esql Query API request.
-type EsqlQueryRequest struct {
+// InferencePutAmazonsagemakerRequest configures the Inference Put Amazonsagemaker API request.
+type InferencePutAmazonsagemakerRequest struct {
 	Body io.Reader
 
-	AllowPartialResults *bool
-	Delimiter           string
-	DropNullColumns     *bool
-	Format              string
+	AmazonsagemakerInferenceID string
+	TaskType                   string
 
 	Pretty     bool
 	Human      bool
@@ -71,7 +68,7 @@ type EsqlQueryRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r InferencePutAmazonsagemakerRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -80,36 +77,31 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "esql.query")
+		ctx = instrument.Start(providedCtx, "inference.put_amazonsagemaker")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "POST"
+	method = "PUT"
 
-	path.Grow(7 + len("/_query"))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.AmazonsagemakerInferenceID))
 	path.WriteString("http://")
-	path.WriteString("/_query")
+	path.WriteString("/")
+	path.WriteString("_inference")
+	path.WriteString("/")
+	path.WriteString(r.TaskType)
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+	}
+	path.WriteString("/")
+	path.WriteString(r.AmazonsagemakerInferenceID)
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "amazonsagemaker_inference_id", r.AmazonsagemakerInferenceID)
+	}
 
 	params = make(map[string]string)
-
-	if r.AllowPartialResults != nil {
-		params["allow_partial_results"] = strconv.FormatBool(*r.AllowPartialResults)
-	}
-
-	if r.Delimiter != "" {
-		params["delimiter"] = r.Delimiter
-	}
-
-	if r.DropNullColumns != nil {
-		params["drop_null_columns"] = strconv.FormatBool(*r.DropNullColumns)
-	}
-
-	if r.Format != "" {
-		params["format"] = r.Format
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -164,14 +156,14 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "esql.query")
-		if reader := instrument.RecordRequestBody(ctx, "esql.query", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "inference.put_amazonsagemaker")
+		if reader := instrument.RecordRequestBody(ctx, "inference.put_amazonsagemaker", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "esql.query")
+		instrument.AfterRequest(req, "elasticsearch", "inference.put_amazonsagemaker")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -190,71 +182,50 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 }
 
 // WithContext sets the request context.
-func (f EsqlQuery) WithContext(v context.Context) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f InferencePutAmazonsagemaker) WithContext(v context.Context) func(*InferencePutAmazonsagemakerRequest) {
+	return func(r *InferencePutAmazonsagemakerRequest) {
 		r.ctx = v
 	}
 }
 
-// WithAllowPartialResults - if `true`, partial results will be returned if there are shard failures, butthe query can continue to execute on other clusters and shards.if `false`, the entire query will fail if there areany failures..
-func (f EsqlQuery) WithAllowPartialResults(v bool) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
-		r.AllowPartialResults = &v
-	}
-}
-
-// WithDelimiter - the character to use between values within a csv row. only valid for the csv format..
-func (f EsqlQuery) WithDelimiter(v string) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
-		r.Delimiter = v
-	}
-}
-
-// WithDropNullColumns - should entirely null columns be removed from the results? their name and type will be returning in a new `all_columns` section..
-func (f EsqlQuery) WithDropNullColumns(v bool) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
-		r.DropNullColumns = &v
-	}
-}
-
-// WithFormat - a short version of the accept header, e.g. json, yaml.
-func (f EsqlQuery) WithFormat(v string) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
-		r.Format = v
+// WithBody - The inference endpoint's task and service settings.
+func (f InferencePutAmazonsagemaker) WithBody(v io.Reader) func(*InferencePutAmazonsagemakerRequest) {
+	return func(r *InferencePutAmazonsagemakerRequest) {
+		r.Body = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f EsqlQuery) WithPretty() func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f InferencePutAmazonsagemaker) WithPretty() func(*InferencePutAmazonsagemakerRequest) {
+	return func(r *InferencePutAmazonsagemakerRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f EsqlQuery) WithHuman() func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f InferencePutAmazonsagemaker) WithHuman() func(*InferencePutAmazonsagemakerRequest) {
+	return func(r *InferencePutAmazonsagemakerRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f EsqlQuery) WithErrorTrace() func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f InferencePutAmazonsagemaker) WithErrorTrace() func(*InferencePutAmazonsagemakerRequest) {
+	return func(r *InferencePutAmazonsagemakerRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f EsqlQuery) WithFilterPath(v ...string) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f InferencePutAmazonsagemaker) WithFilterPath(v ...string) func(*InferencePutAmazonsagemakerRequest) {
+	return func(r *InferencePutAmazonsagemakerRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f EsqlQuery) WithHeader(h map[string]string) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f InferencePutAmazonsagemaker) WithHeader(h map[string]string) func(*InferencePutAmazonsagemakerRequest) {
+	return func(r *InferencePutAmazonsagemakerRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -265,8 +236,8 @@ func (f EsqlQuery) WithHeader(h map[string]string) func(*EsqlQueryRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f EsqlQuery) WithOpaqueID(s string) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f InferencePutAmazonsagemaker) WithOpaqueID(s string) func(*InferencePutAmazonsagemakerRequest) {
+	return func(r *InferencePutAmazonsagemakerRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

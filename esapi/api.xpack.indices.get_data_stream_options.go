@@ -21,15 +21,15 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
-	"strconv"
 	"strings"
 	"time"
 )
 
-func newEsqlAsyncQueryGetFunc(t Transport) EsqlAsyncQueryGet {
-	return func(id string, o ...func(*EsqlAsyncQueryGetRequest)) (*Response, error) {
-		var r = EsqlAsyncQueryGetRequest{DocumentID: id}
+func newIndicesGetDataStreamOptionsFunc(t Transport) IndicesGetDataStreamOptions {
+	return func(name []string, o ...func(*IndicesGetDataStreamOptionsRequest)) (*Response, error) {
+		var r = IndicesGetDataStreamOptionsRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,19 +44,17 @@ func newEsqlAsyncQueryGetFunc(t Transport) EsqlAsyncQueryGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlAsyncQueryGet - Retrieves the results of a previously submitted async query request given its ID.
+// IndicesGetDataStreamOptions - Returns the data stream options of the selected data streams.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-get-api.html.
-type EsqlAsyncQueryGet func(id string, o ...func(*EsqlAsyncQueryGetRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
+type IndicesGetDataStreamOptions func(name []string, o ...func(*IndicesGetDataStreamOptionsRequest)) (*Response, error)
 
-// EsqlAsyncQueryGetRequest configures the Esql Async Query Get API request.
-type EsqlAsyncQueryGetRequest struct {
-	DocumentID string
+// IndicesGetDataStreamOptionsRequest configures the Indices Get Data Stream Options API request.
+type IndicesGetDataStreamOptionsRequest struct {
+	Name []string
 
-	DropNullColumns          *bool
-	Format                   string
-	KeepAlive                time.Duration
-	WaitForCompletionTimeout time.Duration
+	ExpandWildcards string
+	MasterTimeout   time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -71,7 +69,7 @@ type EsqlAsyncQueryGetRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r EsqlAsyncQueryGetRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r IndicesGetDataStreamOptionsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -80,7 +78,7 @@ func (r EsqlAsyncQueryGetRequest) Do(providedCtx context.Context, transport Tran
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "esql.async_query_get")
+		ctx = instrument.Start(providedCtx, "indices.get_data_stream_options")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -89,34 +87,30 @@ func (r EsqlAsyncQueryGetRequest) Do(providedCtx context.Context, transport Tran
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_query") + 1 + len("async") + 1 + len(r.DocumentID))
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_options"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_query")
+	path.WriteString("_data_stream")
 	path.WriteString("/")
-	path.WriteString("async")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(strings.Join(r.Name, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "id", r.DocumentID)
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
 	}
+	path.WriteString("/")
+	path.WriteString("_options")
 
 	params = make(map[string]string)
 
-	if r.DropNullColumns != nil {
-		params["drop_null_columns"] = strconv.FormatBool(*r.DropNullColumns)
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
 	}
 
-	if r.Format != "" {
-		params["format"] = r.Format
-	}
-
-	if r.KeepAlive != 0 {
-		params["keep_alive"] = formatDuration(r.KeepAlive)
-	}
-
-	if r.WaitForCompletionTimeout != 0 {
-		params["wait_for_completion_timeout"] = formatDuration(r.WaitForCompletionTimeout)
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Pretty {
@@ -168,11 +162,11 @@ func (r EsqlAsyncQueryGetRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "esql.async_query_get")
+		instrument.BeforeRequest(req, "indices.get_data_stream_options")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "esql.async_query_get")
+		instrument.AfterRequest(req, "elasticsearch", "indices.get_data_stream_options")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -191,71 +185,57 @@ func (r EsqlAsyncQueryGetRequest) Do(providedCtx context.Context, transport Tran
 }
 
 // WithContext sets the request context.
-func (f EsqlAsyncQueryGet) WithContext(v context.Context) func(*EsqlAsyncQueryGetRequest) {
-	return func(r *EsqlAsyncQueryGetRequest) {
+func (f IndicesGetDataStreamOptions) WithContext(v context.Context) func(*IndicesGetDataStreamOptionsRequest) {
+	return func(r *IndicesGetDataStreamOptionsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithDropNullColumns - should entirely null columns be removed from the results? their name and type will be returning in a new `all_columns` section..
-func (f EsqlAsyncQueryGet) WithDropNullColumns(v bool) func(*EsqlAsyncQueryGetRequest) {
-	return func(r *EsqlAsyncQueryGetRequest) {
-		r.DropNullColumns = &v
+// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
+func (f IndicesGetDataStreamOptions) WithExpandWildcards(v string) func(*IndicesGetDataStreamOptionsRequest) {
+	return func(r *IndicesGetDataStreamOptionsRequest) {
+		r.ExpandWildcards = v
 	}
 }
 
-// WithFormat - a short version of the accept header, e.g. json, yaml.
-func (f EsqlAsyncQueryGet) WithFormat(v string) func(*EsqlAsyncQueryGetRequest) {
-	return func(r *EsqlAsyncQueryGetRequest) {
-		r.Format = v
-	}
-}
-
-// WithKeepAlive - specify the time interval in which the results (partial or final) for this search will be available.
-func (f EsqlAsyncQueryGet) WithKeepAlive(v time.Duration) func(*EsqlAsyncQueryGetRequest) {
-	return func(r *EsqlAsyncQueryGetRequest) {
-		r.KeepAlive = v
-	}
-}
-
-// WithWaitForCompletionTimeout - specify the time that the request should block waiting for the final response.
-func (f EsqlAsyncQueryGet) WithWaitForCompletionTimeout(v time.Duration) func(*EsqlAsyncQueryGetRequest) {
-	return func(r *EsqlAsyncQueryGetRequest) {
-		r.WaitForCompletionTimeout = v
+// WithMasterTimeout - specify timeout for connection to master.
+func (f IndicesGetDataStreamOptions) WithMasterTimeout(v time.Duration) func(*IndicesGetDataStreamOptionsRequest) {
+	return func(r *IndicesGetDataStreamOptionsRequest) {
+		r.MasterTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f EsqlAsyncQueryGet) WithPretty() func(*EsqlAsyncQueryGetRequest) {
-	return func(r *EsqlAsyncQueryGetRequest) {
+func (f IndicesGetDataStreamOptions) WithPretty() func(*IndicesGetDataStreamOptionsRequest) {
+	return func(r *IndicesGetDataStreamOptionsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f EsqlAsyncQueryGet) WithHuman() func(*EsqlAsyncQueryGetRequest) {
-	return func(r *EsqlAsyncQueryGetRequest) {
+func (f IndicesGetDataStreamOptions) WithHuman() func(*IndicesGetDataStreamOptionsRequest) {
+	return func(r *IndicesGetDataStreamOptionsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f EsqlAsyncQueryGet) WithErrorTrace() func(*EsqlAsyncQueryGetRequest) {
-	return func(r *EsqlAsyncQueryGetRequest) {
+func (f IndicesGetDataStreamOptions) WithErrorTrace() func(*IndicesGetDataStreamOptionsRequest) {
+	return func(r *IndicesGetDataStreamOptionsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f EsqlAsyncQueryGet) WithFilterPath(v ...string) func(*EsqlAsyncQueryGetRequest) {
-	return func(r *EsqlAsyncQueryGetRequest) {
+func (f IndicesGetDataStreamOptions) WithFilterPath(v ...string) func(*IndicesGetDataStreamOptionsRequest) {
+	return func(r *IndicesGetDataStreamOptionsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f EsqlAsyncQueryGet) WithHeader(h map[string]string) func(*EsqlAsyncQueryGetRequest) {
-	return func(r *EsqlAsyncQueryGetRequest) {
+func (f IndicesGetDataStreamOptions) WithHeader(h map[string]string) func(*IndicesGetDataStreamOptionsRequest) {
+	return func(r *IndicesGetDataStreamOptionsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -266,8 +246,8 @@ func (f EsqlAsyncQueryGet) WithHeader(h map[string]string) func(*EsqlAsyncQueryG
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f EsqlAsyncQueryGet) WithOpaqueID(s string) func(*EsqlAsyncQueryGetRequest) {
-	return func(r *EsqlAsyncQueryGetRequest) {
+func (f IndicesGetDataStreamOptions) WithOpaqueID(s string) func(*IndicesGetDataStreamOptionsRequest) {
+	return func(r *IndicesGetDataStreamOptionsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

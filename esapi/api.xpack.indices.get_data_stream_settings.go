@@ -21,15 +21,14 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
-	"strconv"
 	"strings"
+	"time"
 )
 
-func newEsqlQueryFunc(t Transport) EsqlQuery {
-	return func(body io.Reader, o ...func(*EsqlQueryRequest)) (*Response, error) {
-		var r = EsqlQueryRequest{Body: body}
+func newIndicesGetDataStreamSettingsFunc(t Transport) IndicesGetDataStreamSettings {
+	return func(name string, o ...func(*IndicesGetDataStreamSettingsRequest)) (*Response, error) {
+		var r = IndicesGetDataStreamSettingsRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,19 +43,16 @@ func newEsqlQueryFunc(t Transport) EsqlQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlQuery - Executes an ESQL request
+// IndicesGetDataStreamSettings - Gets a data stream's settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html.
-type EsqlQuery func(body io.Reader, o ...func(*EsqlQueryRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+type IndicesGetDataStreamSettings func(name string, o ...func(*IndicesGetDataStreamSettingsRequest)) (*Response, error)
 
-// EsqlQueryRequest configures the Esql Query API request.
-type EsqlQueryRequest struct {
-	Body io.Reader
+// IndicesGetDataStreamSettingsRequest configures the Indices Get Data Stream Settings API request.
+type IndicesGetDataStreamSettingsRequest struct {
+	Name string
 
-	AllowPartialResults *bool
-	Delimiter           string
-	DropNullColumns     *bool
-	Format              string
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -71,7 +67,7 @@ type EsqlQueryRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r IndicesGetDataStreamSettingsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -80,35 +76,31 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "esql.query")
+		ctx = instrument.Start(providedCtx, "indices.get_data_stream_settings")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "POST"
+	method = "GET"
 
-	path.Grow(7 + len("/_query"))
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(r.Name) + 1 + len("_settings"))
 	path.WriteString("http://")
-	path.WriteString("/_query")
+	path.WriteString("/")
+	path.WriteString("_data_stream")
+	path.WriteString("/")
+	path.WriteString(r.Name)
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "name", r.Name)
+	}
+	path.WriteString("/")
+	path.WriteString("_settings")
 
 	params = make(map[string]string)
 
-	if r.AllowPartialResults != nil {
-		params["allow_partial_results"] = strconv.FormatBool(*r.AllowPartialResults)
-	}
-
-	if r.Delimiter != "" {
-		params["delimiter"] = r.Delimiter
-	}
-
-	if r.DropNullColumns != nil {
-		params["drop_null_columns"] = strconv.FormatBool(*r.DropNullColumns)
-	}
-
-	if r.Format != "" {
-		params["format"] = r.Format
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Pretty {
@@ -127,7 +119,7 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -155,23 +147,16 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "esql.query")
-		if reader := instrument.RecordRequestBody(ctx, "esql.query", r.Body); reader != nil {
-			req.Body = reader
-		}
+		instrument.BeforeRequest(req, "indices.get_data_stream_settings")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "esql.query")
+		instrument.AfterRequest(req, "elasticsearch", "indices.get_data_stream_settings")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -190,71 +175,50 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 }
 
 // WithContext sets the request context.
-func (f EsqlQuery) WithContext(v context.Context) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f IndicesGetDataStreamSettings) WithContext(v context.Context) func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithAllowPartialResults - if `true`, partial results will be returned if there are shard failures, butthe query can continue to execute on other clusters and shards.if `false`, the entire query will fail if there areany failures..
-func (f EsqlQuery) WithAllowPartialResults(v bool) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
-		r.AllowPartialResults = &v
-	}
-}
-
-// WithDelimiter - the character to use between values within a csv row. only valid for the csv format..
-func (f EsqlQuery) WithDelimiter(v string) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
-		r.Delimiter = v
-	}
-}
-
-// WithDropNullColumns - should entirely null columns be removed from the results? their name and type will be returning in a new `all_columns` section..
-func (f EsqlQuery) WithDropNullColumns(v bool) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
-		r.DropNullColumns = &v
-	}
-}
-
-// WithFormat - a short version of the accept header, e.g. json, yaml.
-func (f EsqlQuery) WithFormat(v string) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
-		r.Format = v
+// WithMasterTimeout - period to wait for a connection to the master node.
+func (f IndicesGetDataStreamSettings) WithMasterTimeout(v time.Duration) func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
+		r.MasterTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f EsqlQuery) WithPretty() func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f IndicesGetDataStreamSettings) WithPretty() func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f EsqlQuery) WithHuman() func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f IndicesGetDataStreamSettings) WithHuman() func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f EsqlQuery) WithErrorTrace() func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f IndicesGetDataStreamSettings) WithErrorTrace() func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f EsqlQuery) WithFilterPath(v ...string) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f IndicesGetDataStreamSettings) WithFilterPath(v ...string) func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f EsqlQuery) WithHeader(h map[string]string) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f IndicesGetDataStreamSettings) WithHeader(h map[string]string) func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -265,8 +229,8 @@ func (f EsqlQuery) WithHeader(h map[string]string) func(*EsqlQueryRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f EsqlQuery) WithOpaqueID(s string) func(*EsqlQueryRequest) {
-	return func(r *EsqlQueryRequest) {
+func (f IndicesGetDataStreamSettings) WithOpaqueID(s string) func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

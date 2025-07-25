@@ -56,8 +56,12 @@ type EqlSearchRequest struct {
 
 	Body io.Reader
 
+	AllowNoIndices              *bool
 	AllowPartialSearchResults   *bool
 	AllowPartialSequenceResults *bool
+	CcsMinimizeRoundtrips       *bool
+	ExpandWildcards             string
+	IgnoreUnavailable           *bool
 	KeepAlive                   time.Duration
 	KeepOnCompletion            *bool
 	WaitForCompletionTimeout    time.Duration
@@ -107,12 +111,28 @@ func (r EqlSearchRequest) Do(providedCtx context.Context, transport Transport) (
 
 	params = make(map[string]string)
 
+	if r.AllowNoIndices != nil {
+		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
+	}
+
 	if r.AllowPartialSearchResults != nil {
 		params["allow_partial_search_results"] = strconv.FormatBool(*r.AllowPartialSearchResults)
 	}
 
 	if r.AllowPartialSequenceResults != nil {
 		params["allow_partial_sequence_results"] = strconv.FormatBool(*r.AllowPartialSequenceResults)
+	}
+
+	if r.CcsMinimizeRoundtrips != nil {
+		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
+	}
+
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
+	}
+
+	if r.IgnoreUnavailable != nil {
+		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
 	if r.KeepAlive != 0 {
@@ -212,6 +232,13 @@ func (f EqlSearch) WithContext(v context.Context) func(*EqlSearchRequest) {
 	}
 }
 
+// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
+func (f EqlSearch) WithAllowNoIndices(v bool) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
+		r.AllowNoIndices = &v
+	}
+}
+
 // WithAllowPartialSearchResults - control whether the query should keep running in case of shard failures, and return partial results.
 func (f EqlSearch) WithAllowPartialSearchResults(v bool) func(*EqlSearchRequest) {
 	return func(r *EqlSearchRequest) {
@@ -223,6 +250,27 @@ func (f EqlSearch) WithAllowPartialSearchResults(v bool) func(*EqlSearchRequest)
 func (f EqlSearch) WithAllowPartialSequenceResults(v bool) func(*EqlSearchRequest) {
 	return func(r *EqlSearchRequest) {
 		r.AllowPartialSequenceResults = &v
+	}
+}
+
+// WithCcsMinimizeRoundtrips - indicates whether network round-trips should be minimized as part of cross-cluster search requests execution.
+func (f EqlSearch) WithCcsMinimizeRoundtrips(v bool) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
+		r.CcsMinimizeRoundtrips = &v
+	}
+}
+
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
+func (f EqlSearch) WithExpandWildcards(v string) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
+		r.ExpandWildcards = v
+	}
+}
+
+// WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func (f EqlSearch) WithIgnoreUnavailable(v bool) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
+		r.IgnoreUnavailable = &v
 	}
 }
 

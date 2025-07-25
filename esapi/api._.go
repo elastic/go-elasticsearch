@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0 (2af113d): DO NOT EDIT
+// Code generated from specification version 8.19.0 (de1d79b): DO NOT EDIT
 
 package esapi
 
@@ -135,10 +135,13 @@ type API struct {
 	InferenceInference                            InferenceInference
 	InferencePutAlibabacloud                      InferencePutAlibabacloud
 	InferencePutAmazonbedrock                     InferencePutAmazonbedrock
+	InferencePutAmazonsagemaker                   InferencePutAmazonsagemaker
 	InferencePutAnthropic                         InferencePutAnthropic
 	InferencePutAzureaistudio                     InferencePutAzureaistudio
 	InferencePutAzureopenai                       InferencePutAzureopenai
 	InferencePutCohere                            InferencePutCohere
+	InferencePutCustom                            InferencePutCustom
+	InferencePutDeepseek                          InferencePutDeepseek
 	InferencePutElasticsearch                     InferencePutElasticsearch
 	InferencePutElser                             InferencePutElser
 	InferencePutGoogleaistudio                    InferencePutGoogleaistudio
@@ -216,6 +219,9 @@ type API struct {
 	SlmPutLifecycle                               SlmPutLifecycle
 	SlmStart                                      SlmStart
 	SlmStop                                       SlmStop
+	StreamsLogsDisable                            StreamsLogsDisable
+	StreamsLogsEnable                             StreamsLogsEnable
+	StreamsStatus                                 StreamsStatus
 	SynonymsDeleteSynonym                         SynonymsDeleteSynonym
 	SynonymsDeleteSynonymRule                     SynonymsDeleteSynonymRule
 	SynonymsGetSynonym                            SynonymsGetSynonym
@@ -310,6 +316,7 @@ type Indices struct {
 	DataStreamsStats        IndicesDataStreamsStats
 	DeleteAlias             IndicesDeleteAlias
 	DeleteDataLifecycle     IndicesDeleteDataLifecycle
+	DeleteDataStreamOptions IndicesDeleteDataStreamOptions
 	DeleteDataStream        IndicesDeleteDataStream
 	DeleteIndexTemplate     IndicesDeleteIndexTemplate
 	Delete                  IndicesDelete
@@ -327,7 +334,9 @@ type Indices struct {
 	GetAlias                IndicesGetAlias
 	GetDataLifecycle        IndicesGetDataLifecycle
 	GetDataLifecycleStats   IndicesGetDataLifecycleStats
+	GetDataStreamOptions    IndicesGetDataStreamOptions
 	GetDataStream           IndicesGetDataStream
+	GetDataStreamSettings   IndicesGetDataStreamSettings
 	GetFieldMapping         IndicesGetFieldMapping
 	GetIndexTemplate        IndicesGetIndexTemplate
 	GetMapping              IndicesGetMapping
@@ -342,6 +351,8 @@ type Indices struct {
 	PromoteDataStream       IndicesPromoteDataStream
 	PutAlias                IndicesPutAlias
 	PutDataLifecycle        IndicesPutDataLifecycle
+	PutDataStreamOptions    IndicesPutDataStreamOptions
+	PutDataStreamSettings   IndicesPutDataStreamSettings
 	PutIndexTemplate        IndicesPutIndexTemplate
 	PutMapping              IndicesPutMapping
 	PutSettings             IndicesPutSettings
@@ -772,10 +783,13 @@ func New(t Transport) *API {
 		InferenceInference:                 newInferenceInferenceFunc(t),
 		InferencePutAlibabacloud:           newInferencePutAlibabacloudFunc(t),
 		InferencePutAmazonbedrock:          newInferencePutAmazonbedrockFunc(t),
+		InferencePutAmazonsagemaker:        newInferencePutAmazonsagemakerFunc(t),
 		InferencePutAnthropic:              newInferencePutAnthropicFunc(t),
 		InferencePutAzureaistudio:          newInferencePutAzureaistudioFunc(t),
 		InferencePutAzureopenai:            newInferencePutAzureopenaiFunc(t),
 		InferencePutCohere:                 newInferencePutCohereFunc(t),
+		InferencePutCustom:                 newInferencePutCustomFunc(t),
+		InferencePutDeepseek:               newInferencePutDeepseekFunc(t),
 		InferencePutElasticsearch:          newInferencePutElasticsearchFunc(t),
 		InferencePutElser:                  newInferencePutElserFunc(t),
 		InferencePutGoogleaistudio:         newInferencePutGoogleaistudioFunc(t),
@@ -853,6 +867,9 @@ func New(t Transport) *API {
 		SlmPutLifecycle:                               newSlmPutLifecycleFunc(t),
 		SlmStart:                                      newSlmStartFunc(t),
 		SlmStop:                                       newSlmStopFunc(t),
+		StreamsLogsDisable:                            newStreamsLogsDisableFunc(t),
+		StreamsLogsEnable:                             newStreamsLogsEnableFunc(t),
+		StreamsStatus:                                 newStreamsStatusFunc(t),
 		SynonymsDeleteSynonym:                         newSynonymsDeleteSynonymFunc(t),
 		SynonymsDeleteSynonymRule:                     newSynonymsDeleteSynonymRuleFunc(t),
 		SynonymsGetSynonym:                            newSynonymsGetSynonymFunc(t),
@@ -940,6 +957,7 @@ func New(t Transport) *API {
 			DataStreamsStats:        newIndicesDataStreamsStatsFunc(t),
 			DeleteAlias:             newIndicesDeleteAliasFunc(t),
 			DeleteDataLifecycle:     newIndicesDeleteDataLifecycleFunc(t),
+			DeleteDataStreamOptions: newIndicesDeleteDataStreamOptionsFunc(t),
 			DeleteDataStream:        newIndicesDeleteDataStreamFunc(t),
 			DeleteIndexTemplate:     newIndicesDeleteIndexTemplateFunc(t),
 			Delete:                  newIndicesDeleteFunc(t),
@@ -957,7 +975,9 @@ func New(t Transport) *API {
 			GetAlias:                newIndicesGetAliasFunc(t),
 			GetDataLifecycle:        newIndicesGetDataLifecycleFunc(t),
 			GetDataLifecycleStats:   newIndicesGetDataLifecycleStatsFunc(t),
+			GetDataStreamOptions:    newIndicesGetDataStreamOptionsFunc(t),
 			GetDataStream:           newIndicesGetDataStreamFunc(t),
+			GetDataStreamSettings:   newIndicesGetDataStreamSettingsFunc(t),
 			GetFieldMapping:         newIndicesGetFieldMappingFunc(t),
 			GetIndexTemplate:        newIndicesGetIndexTemplateFunc(t),
 			GetMapping:              newIndicesGetMappingFunc(t),
@@ -972,6 +992,8 @@ func New(t Transport) *API {
 			PromoteDataStream:       newIndicesPromoteDataStreamFunc(t),
 			PutAlias:                newIndicesPutAliasFunc(t),
 			PutDataLifecycle:        newIndicesPutDataLifecycleFunc(t),
+			PutDataStreamOptions:    newIndicesPutDataStreamOptionsFunc(t),
+			PutDataStreamSettings:   newIndicesPutDataStreamSettingsFunc(t),
 			PutIndexTemplate:        newIndicesPutIndexTemplateFunc(t),
 			PutMapping:              newIndicesPutMappingFunc(t),
 			PutSettings:             newIndicesPutSettingsFunc(t),
