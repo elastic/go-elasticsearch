@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
 // NodesIndexingPressure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/nodes/_types/Stats.ts#L116-L121
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/nodes/_types/Stats.ts#L116-L121
 type NodesIndexingPressure struct {
 	// Memory Contains statistics for memory consumption from indexing load.
 	Memory *NodesIndexingPressureMemory `json:"memory,omitempty"`
@@ -34,5 +34,3 @@ func NewNodesIndexingPressure() *NodesIndexingPressure {
 
 	return r
 }
-
-// false

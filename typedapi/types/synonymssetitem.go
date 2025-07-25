@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SynonymsSetItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/synonyms/get_synonyms_sets/SynonymsSetsGetResponse.ts#L36-L45
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/synonyms/get_synonyms_sets/SynonymsSetsGetResponse.ts#L36-L45
 type SynonymsSetItem struct {
 	// Count Number of synonym rules that the synonym set contains
 	Count int `json:"count"`
@@ -86,5 +86,3 @@ func NewSynonymsSetItem() *SynonymsSetItem {
 
 	return r
 }
-
-// false

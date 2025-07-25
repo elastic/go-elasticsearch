@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Get async ES|QL query results.
 // Get the current status and available results or stored results for an ES|QL
@@ -38,6 +38,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/esqlformat"
 )
 
 const (
@@ -318,6 +319,14 @@ func (r *AsyncQueryGet) _id(id string) *AsyncQueryGet {
 // API name: drop_null_columns
 func (r *AsyncQueryGet) DropNullColumns(dropnullcolumns bool) *AsyncQueryGet {
 	r.values.Set("drop_null_columns", strconv.FormatBool(dropnullcolumns))
+
+	return r
+}
+
+// Format A short version of the Accept header, for example `json` or `yaml`.
+// API name: format
+func (r *AsyncQueryGet) Format(format esqlformat.EsqlFormat) *AsyncQueryGet {
+	r.values.Set("format", format.String())
 
 	return r
 }

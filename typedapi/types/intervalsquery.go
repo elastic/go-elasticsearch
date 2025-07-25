@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IntervalsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/query_dsl/fulltext.ts#L235-L266
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/query_dsl/fulltext.ts#L283-L317
 type IntervalsQuery struct {
 	AdditionalIntervalsQueryProperty map[string]json.RawMessage `json:"-"`
 	// AllOf Returns matches that span a combination of other rules.
@@ -52,6 +52,8 @@ type IntervalsQuery struct {
 	// Prefix Matches terms that start with a specified set of characters.
 	Prefix     *IntervalsPrefix `json:"prefix,omitempty"`
 	QueryName_ *string          `json:"_name,omitempty"`
+	Range      *IntervalsRange  `json:"range,omitempty"`
+	Regexp     *IntervalsRegexp `json:"regexp,omitempty"`
 	// Wildcard Matches terms using a wildcard pattern.
 	Wildcard *IntervalsWildcard `json:"wildcard,omitempty"`
 }
@@ -124,6 +126,16 @@ func (s *IntervalsQuery) UnmarshalJSON(data []byte) error {
 			}
 			s.QueryName_ = &o
 
+		case "range":
+			if err := dec.Decode(&s.Range); err != nil {
+				return fmt.Errorf("%s | %w", "Range", err)
+			}
+
+		case "regexp":
+			if err := dec.Decode(&s.Regexp); err != nil {
+				return fmt.Errorf("%s | %w", "Regexp", err)
+			}
+
 		case "wildcard":
 			if err := dec.Decode(&s.Wildcard); err != nil {
 				return fmt.Errorf("%s | %w", "Wildcard", err)
@@ -184,8 +196,6 @@ func NewIntervalsQuery() *IntervalsQuery {
 
 	return r
 }
-
-// true
 
 type IntervalsQueryVariant interface {
 	IntervalsQueryCaster() *IntervalsQuery

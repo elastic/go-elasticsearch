@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SettingsSimilarityLmd type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/indices/_types/IndexSettings.ts#L222-L225
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/indices/_types/IndexSettings.ts#L224-L227
 type SettingsSimilarityLmd struct {
 	Mu   *Float64 `json:"mu,omitempty"`
 	Type string   `json:"type,omitempty"`
@@ -98,12 +98,15 @@ func NewSettingsSimilarityLmd() *SettingsSimilarityLmd {
 	return r
 }
 
-// true
-
 type SettingsSimilarityLmdVariant interface {
 	SettingsSimilarityLmdCaster() *SettingsSimilarityLmd
 }
 
 func (s *SettingsSimilarityLmd) SettingsSimilarityLmdCaster() *SettingsSimilarityLmd {
 	return s
+}
+
+func (s *SettingsSimilarityLmd) SettingsSimilarityCaster() *SettingsSimilarity {
+	o := SettingsSimilarity(s)
+	return &o
 }

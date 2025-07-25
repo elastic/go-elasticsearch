@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // TimeSeriesBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/aggregations/Aggregate.ts#L733-L735
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/aggregations/Aggregate.ts#L735-L737
 type TimeSeriesBucket struct {
 	Aggregations map[string]Aggregate  `json:"-"`
 	DocCount     int64                 `json:"doc_count"`
@@ -640,5 +640,3 @@ func NewTimeSeriesBucket() *TimeSeriesBucket {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Update the cluster settings.
 //
@@ -422,6 +422,7 @@ func (r *PutSettings) Pretty(pretty bool) *PutSettings {
 	return r
 }
 
+// The settings that persist after the cluster restarts.
 // API name: persistent
 func (r *PutSettings) Persistent(persistent map[string]json.RawMessage) *PutSettings {
 	// Initialize the request if it is not already initialized
@@ -451,6 +452,7 @@ func (r *PutSettings) AddPersistent(key string, value json.RawMessage) *PutSetti
 	return r
 }
 
+// The settings that do not persist after the cluster restarts.
 // API name: transient
 func (r *PutSettings) Transient(transient map[string]json.RawMessage) *PutSettings {
 	// Initialize the request if it is not already initialized

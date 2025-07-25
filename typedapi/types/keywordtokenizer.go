@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KeywordTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/tokenizers.ts#L68-L74
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/analysis/tokenizers.ts#L69-L75
 type KeywordTokenizer struct {
 	BufferSize *int    `json:"buffer_size,omitempty"`
 	Type       string  `json:"type,omitempty"`
@@ -105,12 +105,15 @@ func NewKeywordTokenizer() *KeywordTokenizer {
 	return r
 }
 
-// true
-
 type KeywordTokenizerVariant interface {
 	KeywordTokenizerCaster() *KeywordTokenizer
 }
 
 func (s *KeywordTokenizer) KeywordTokenizerCaster() *KeywordTokenizer {
 	return s
+}
+
+func (s *KeywordTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	o := TokenizerDefinition(s)
+	return &o
 }

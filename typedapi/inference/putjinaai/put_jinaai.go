@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Create an JinaAI inference endpoint.
 //
@@ -26,16 +26,6 @@
 // To review the available `rerank` models, refer to <https://jina.ai/reranker>.
 // To review the available `text_embedding` models, refer to the
 // <https://jina.ai/embeddings/>.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 package putjinaai
 
 import (
@@ -112,16 +102,6 @@ func NewPutJinaaiFunc(tp elastictransport.Interface) NewPutJinaai {
 // To review the available `rerank` models, refer to <https://jina.ai/reranker>.
 // To review the available `text_embedding` models, refer to the
 // <https://jina.ai/embeddings/>.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-jinaai
 func New(tp elastictransport.Interface) *PutJinaai {
@@ -362,6 +342,15 @@ func (r *PutJinaai) _tasktype(tasktype string) *PutJinaai {
 func (r *PutJinaai) _jinaaiinferenceid(jinaaiinferenceid string) *PutJinaai {
 	r.paramSet |= jinaaiinferenceidMask
 	r.jinaaiinferenceid = jinaaiinferenceid
+
+	return r
+}
+
+// Timeout Specifies the amount of time to wait for the inference endpoint to be
+// created.
+// API name: timeout
+func (r *PutJinaai) Timeout(duration string) *PutJinaai {
+	r.values.Set("timeout", duration)
 
 	return r
 }

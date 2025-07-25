@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Run a search.
 //
@@ -555,11 +555,12 @@ func (r *Search) MaxConcurrentShardRequests(maxconcurrentshardrequests int) *Sea
 // method.
 // * `_prefer_nodes:<node-id>,<node-id>` to if possible, run the search on the
 // specified nodes IDs. If not, select shards using the default method.
-// `_shards:<shard>,<shard>` to run the search only on the specified shards. You
-// can combine this value with other `preference` values. However, the `_shards`
-// value must come first. For example: `_shards:2,3|_local`.
-// `<custom-string>` (any string that does not start with `_`) to route searches
-// with the same `<custom-string>` to the same shards in the same order.
+// * `_shards:<shard>,<shard>` to run the search only on the specified shards.
+// You can combine this value with other `preference` values. However, the
+// `_shards` value must come first. For example: `_shards:2,3|_local`.
+// * `<custom-string>` (any string that does not start with `_`) to route
+// searches with the same `<custom-string>` to the same shards in the same
+// order.
 // API name: preference
 func (r *Search) Preference(preference string) *Search {
 	r.values.Set("preference", preference)

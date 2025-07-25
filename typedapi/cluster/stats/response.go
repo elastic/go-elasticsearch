@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package stats
 
@@ -27,9 +27,11 @@ import (
 
 // Response holds the response body struct for the package stats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/cluster/stats/ClusterStatsResponse.ts#L53-L56
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/cluster/stats/ClusterStatsResponse.ts#L71-L74
 type Response struct {
 
+	// Ccs Cross-cluster stats
+	Ccs types.CCSStats `json:"ccs"`
 	// ClusterName Name of the cluster, based on the cluster name setting.
 	ClusterName string `json:"cluster_name"`
 	// ClusterUuid Unique identifier for the cluster.
@@ -41,9 +43,14 @@ type Response struct {
 	NodeStats *types.NodeStatistics `json:"_nodes,omitempty"`
 	// Nodes Contains statistics about nodes selected by the request’s node filters.
 	Nodes types.ClusterNodes `json:"nodes"`
+	// Repositories Contains stats on repository feature usage exposed in cluster stats for
+	// telemetry.
+	Repositories map[string]map[string]int64 `json:"repositories"`
+	// Snapshots Contains stats cluster snapshots.
+	Snapshots types.ClusterSnapshotStats `json:"snapshots"`
 	// Status Health status of the cluster, based on the state of its primary and replica
 	// shards.
-	Status healthstatus.HealthStatus `json:"status"`
+	Status *healthstatus.HealthStatus `json:"status,omitempty"`
 	// Timestamp Unix timestamp, in milliseconds, for the last time the cluster statistics
 	// were refreshed.
 	Timestamp int64 `json:"timestamp"`
@@ -51,6 +58,8 @@ type Response struct {
 
 // NewResponse returns a Response
 func NewResponse() *Response {
-	r := &Response{}
+	r := &Response{
+		Repositories: make(map[string]map[string]int64, 0),
+	}
 	return r
 }

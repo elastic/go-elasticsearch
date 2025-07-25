@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package esdsl
 
@@ -44,7 +44,7 @@ func (u *_repository) UnknownRepository(unknown json.RawMessage) *_repository {
 
 func (u *_repository) AzureRepository(azurerepository types.AzureRepositoryVariant) *_repository {
 
-	u.v = &azurerepository
+	u.v = azurerepository.AzureRepositoryCaster()
 
 	return u
 }
@@ -57,7 +57,7 @@ func (u *_azureRepository) RepositoryCaster() *types.Repository {
 
 func (u *_repository) GcsRepository(gcsrepository types.GcsRepositoryVariant) *_repository {
 
-	u.v = &gcsrepository
+	u.v = gcsrepository.GcsRepositoryCaster()
 
 	return u
 }
@@ -70,7 +70,7 @@ func (u *_gcsRepository) RepositoryCaster() *types.Repository {
 
 func (u *_repository) S3Repository(s3repository types.S3RepositoryVariant) *_repository {
 
-	u.v = &s3repository
+	u.v = s3repository.S3RepositoryCaster()
 
 	return u
 }
@@ -83,7 +83,7 @@ func (u *_s3Repository) RepositoryCaster() *types.Repository {
 
 func (u *_repository) SharedFileSystemRepository(sharedfilesystemrepository types.SharedFileSystemRepositoryVariant) *_repository {
 
-	u.v = &sharedfilesystemrepository
+	u.v = sharedfilesystemrepository.SharedFileSystemRepositoryCaster()
 
 	return u
 }
@@ -96,7 +96,7 @@ func (u *_sharedFileSystemRepository) RepositoryCaster() *types.Repository {
 
 func (u *_repository) ReadOnlyUrlRepository(readonlyurlrepository types.ReadOnlyUrlRepositoryVariant) *_repository {
 
-	u.v = &readonlyurlrepository
+	u.v = readonlyurlrepository.ReadOnlyUrlRepositoryCaster()
 
 	return u
 }
@@ -109,7 +109,7 @@ func (u *_readOnlyUrlRepository) RepositoryCaster() *types.Repository {
 
 func (u *_repository) SourceOnlyRepository(sourceonlyrepository types.SourceOnlyRepositoryVariant) *_repository {
 
-	u.v = &sourceonlyrepository
+	u.v = sourceonlyrepository.SourceOnlyRepositoryCaster()
 
 	return u
 }

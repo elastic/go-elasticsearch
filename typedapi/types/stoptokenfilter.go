@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,14 +31,24 @@ import (
 
 // StopTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/token_filters.ts#L96-L102
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/analysis/token_filters.ts#L125-L136
 type StopTokenFilter struct {
-	IgnoreCase     *bool    `json:"ignore_case,omitempty"`
-	RemoveTrailing *bool    `json:"remove_trailing,omitempty"`
-	Stopwords      []string `json:"stopwords,omitempty"`
-	StopwordsPath  *string  `json:"stopwords_path,omitempty"`
-	Type           string   `json:"type,omitempty"`
-	Version        *string  `json:"version,omitempty"`
+	// IgnoreCase If `true`, stop word matching is case insensitive. For example, if `true`, a
+	// stop word of the matches and removes `The`, `THE`, or `the`. Defaults to
+	// `false`.
+	IgnoreCase *bool `json:"ignore_case,omitempty"`
+	// RemoveTrailing If `true`, the last token of a stream is removed if it’s a stop word.
+	// Defaults to `true`.
+	RemoveTrailing *bool `json:"remove_trailing,omitempty"`
+	// Stopwords Language value, such as `_arabic_` or `_thai_`. Defaults to `_english_`.
+	Stopwords StopWords `json:"stopwords,omitempty"`
+	// StopwordsPath Path to a file that contains a list of stop words to remove.
+	// This path must be absolute or relative to the `config` location, and the file
+	// must be UTF-8 encoded. Each stop word in the file must be separated by a line
+	// break.
+	StopwordsPath *string `json:"stopwords_path,omitempty"`
+	Type          string  `json:"type,omitempty"`
+	Version       *string `json:"version,omitempty"`
 }
 
 func (s *StopTokenFilter) UnmarshalJSON(data []byte) error {
@@ -85,19 +95,8 @@ func (s *StopTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 
 		case "stopwords":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
-
-				s.Stopwords = append(s.Stopwords, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Stopwords); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
+			if err := dec.Decode(&s.Stopwords); err != nil {
+				return fmt.Errorf("%s | %w", "Stopwords", err)
 			}
 
 		case "stopwords_path":
@@ -151,12 +150,15 @@ func NewStopTokenFilter() *StopTokenFilter {
 	return r
 }
 
-// true
-
 type StopTokenFilterVariant interface {
 	StopTokenFilterCaster() *StopTokenFilter
 }
 
 func (s *StopTokenFilter) StopTokenFilterCaster() *StopTokenFilter {
 	return s
+}
+
+func (s *StopTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

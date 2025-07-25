@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package esdsl
 
@@ -67,6 +67,13 @@ func (s *_ruleRetriever) MinScore(minscore float32) *_ruleRetriever {
 	return s
 }
 
+func (s *_ruleRetriever) Name_(name_ string) *_ruleRetriever {
+
+	s.v.Name_ = &name_
+
+	return s
+}
+
 func (s *_ruleRetriever) RankWindowSize(rankwindowsize int) *_ruleRetriever {
 
 	s.v.RankWindowSize = &rankwindowsize
@@ -83,11 +90,9 @@ func (s *_ruleRetriever) Retriever(retriever types.RetrieverContainerVariant) *_
 
 func (s *_ruleRetriever) RulesetIds(rulesetids ...string) *_ruleRetriever {
 
-	for _, v := range rulesetids {
+	s.v.RulesetIds = make([]string, len(rulesetids))
+	s.v.RulesetIds = rulesetids
 
-		s.v.RulesetIds = append(s.v.RulesetIds, v)
-
-	}
 	return s
 }
 

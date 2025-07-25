@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InferenceChunkingSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/inference/_types/Services.ts#L60-L89
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/inference/_types/Services.ts#L254-L283
 type InferenceChunkingSettings struct {
 	// MaxChunkSize The maximum size of a chunk in words.
 	// This value cannot be higher than `300` or lower than `20` (for `sentence`
@@ -135,8 +135,6 @@ func NewInferenceChunkingSettings() *InferenceChunkingSettings {
 
 	return r
 }
-
-// true
 
 type InferenceChunkingSettingsVariant interface {
 	InferenceChunkingSettingsCaster() *InferenceChunkingSettings

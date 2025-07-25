@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -33,12 +33,13 @@ import (
 
 // EsqlClusterDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/esql/_types/EsqlResult.ts#L65-L70
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/esql/_types/EsqlResult.ts#L65-L71
 type EsqlClusterDetails struct {
-	Indices string                              `json:"indices"`
-	Shards_ *EsqlShardInfo                      `json:"_shards,omitempty"`
-	Status  esqlclusterstatus.EsqlClusterStatus `json:"status"`
-	Took    *int64                              `json:"took,omitempty"`
+	Failures []EsqlShardFailure                  `json:"failures,omitempty"`
+	Indices  string                              `json:"indices"`
+	Shards_  *EsqlShardInfo                      `json:"_shards,omitempty"`
+	Status   esqlclusterstatus.EsqlClusterStatus `json:"status"`
+	Took     *int64                              `json:"took,omitempty"`
 }
 
 func (s *EsqlClusterDetails) UnmarshalJSON(data []byte) error {
@@ -55,6 +56,11 @@ func (s *EsqlClusterDetails) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "failures":
+			if err := dec.Decode(&s.Failures); err != nil {
+				return fmt.Errorf("%s | %w", "Failures", err)
+			}
 
 		case "indices":
 			var tmp json.RawMessage
@@ -94,5 +100,3 @@ func NewEsqlClusterDetails() *EsqlClusterDetails {
 
 	return r
 }
-
-// false

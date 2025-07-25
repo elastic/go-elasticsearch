@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package esdsl
 
@@ -42,9 +42,9 @@ func (s *_finnishAnalyzer) StemExclusion(stemexclusions ...string) *_finnishAnal
 	return s
 }
 
-func (s *_finnishAnalyzer) Stopwords(stopwords ...string) *_finnishAnalyzer {
+func (s *_finnishAnalyzer) Stopwords(stopwords types.StopWordsVariant) *_finnishAnalyzer {
 
-	s.v.Stopwords = stopwords
+	s.v.Stopwords = *stopwords.StopWordsCaster()
 
 	return s
 }

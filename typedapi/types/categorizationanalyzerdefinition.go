@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // CategorizationAnalyzerDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/ml/_types/Analysis.ts#L184-L198
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/ml/_types/Analysis.ts#L184-L198
 type CategorizationAnalyzerDefinition struct {
 	// CharFilter One or more character filters. In addition to the built-in character filters,
 	// other plugins can provide more character filters. If this property is not
@@ -142,10 +142,58 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 
 				switch kind["type"] {
 
+				case "apostrophe":
+					o := NewApostropheTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "apostrophe", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "arabic_stem":
+					o := NewArabicStemTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "arabic_stem", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "arabic_normalization":
+					o := NewArabicNormalizationTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "arabic_normalization", err)
+					}
+					s.Filter = append(s.Filter, *o)
 				case "asciifolding":
 					o := NewAsciiFoldingTokenFilter()
 					if err := localDec.Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "asciifolding", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "bengali_normalization":
+					o := NewBengaliNormalizationTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "bengali_normalization", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "brazilian_stem":
+					o := NewBrazilianStemTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "brazilian_stem", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "cjk_bigram":
+					o := NewCjkBigramTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "cjk_bigram", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "cjk_width":
+					o := NewCjkWidthTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "cjk_width", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "classic":
+					o := NewClassicTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "classic", err)
 					}
 					s.Filter = append(s.Filter, *o)
 				case "common_grams":
@@ -160,10 +208,28 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("%s | %w", "condition", err)
 					}
 					s.Filter = append(s.Filter, *o)
+				case "czech_stem":
+					o := NewCzechStemTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "czech_stem", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "decimal_digit":
+					o := NewDecimalDigitTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "decimal_digit", err)
+					}
+					s.Filter = append(s.Filter, *o)
 				case "delimited_payload":
 					o := NewDelimitedPayloadTokenFilter()
 					if err := localDec.Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "delimited_payload", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "dutch_stem":
+					o := NewDutchStemTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "dutch_stem", err)
 					}
 					s.Filter = append(s.Filter, *o)
 				case "edge_ngram":
@@ -184,6 +250,36 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("%s | %w", "fingerprint", err)
 					}
 					s.Filter = append(s.Filter, *o)
+				case "flatten_graph":
+					o := NewFlattenGraphTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "flatten_graph", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "french_stem":
+					o := NewFrenchStemTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "french_stem", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "german_normalization":
+					o := NewGermanNormalizationTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "german_normalization", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "german_stem":
+					o := NewGermanStemTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "german_stem", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "hindi_normalization":
+					o := NewHindiNormalizationTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "hindi_normalization", err)
+					}
+					s.Filter = append(s.Filter, *o)
 				case "hunspell":
 					o := NewHunspellTokenFilter()
 					if err := localDec.Decode(&o); err != nil {
@@ -194,6 +290,12 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 					o := NewHyphenationDecompounderTokenFilter()
 					if err := localDec.Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "hyphenation_decompounder", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "indic_normalization":
+					o := NewIndicNormalizationTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "indic_normalization", err)
 					}
 					s.Filter = append(s.Filter, *o)
 				case "keep_types":
@@ -212,6 +314,12 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 					o := NewKeywordMarkerTokenFilter()
 					if err := localDec.Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "keyword_marker", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "keyword_repeat":
+					o := NewKeywordRepeatTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "keyword_repeat", err)
 					}
 					s.Filter = append(s.Filter, *o)
 				case "kstem":
@@ -236,6 +344,12 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 					o := NewLowercaseTokenFilter()
 					if err := localDec.Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "lowercase", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "min_hash":
+					o := NewMinHashTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "min_hash", err)
 					}
 					s.Filter = append(s.Filter, *o)
 				case "multiplexer":
@@ -268,6 +382,18 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("%s | %w", "pattern_replace", err)
 					}
 					s.Filter = append(s.Filter, *o)
+				case "persian_normalization":
+					o := NewPersianNormalizationTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "persian_normalization", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "persian_stem":
+					o := NewPersianStemTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "persian_stem", err)
+					}
+					s.Filter = append(s.Filter, *o)
 				case "porter_stem":
 					o := NewPorterStemTokenFilter()
 					if err := localDec.Decode(&o); err != nil {
@@ -292,6 +418,30 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("%s | %w", "reverse", err)
 					}
 					s.Filter = append(s.Filter, *o)
+				case "russian_stem":
+					o := NewRussianStemTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "russian_stem", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "scandinavian_folding":
+					o := NewScandinavianFoldingTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "scandinavian_folding", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "scandinavian_normalization":
+					o := NewScandinavianNormalizationTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "scandinavian_normalization", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "serbian_normalization":
+					o := NewSerbianNormalizationTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "serbian_normalization", err)
+					}
+					s.Filter = append(s.Filter, *o)
 				case "shingle":
 					o := NewShingleTokenFilter()
 					if err := localDec.Decode(&o); err != nil {
@@ -302,6 +452,12 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 					o := NewSnowballTokenFilter()
 					if err := localDec.Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "snowball", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "sorani_normalization":
+					o := NewSoraniNormalizationTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "sorani_normalization", err)
 					}
 					s.Filter = append(s.Filter, *o)
 				case "stemmer_override":
@@ -368,6 +524,12 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 					o := NewWordDelimiterTokenFilter()
 					if err := localDec.Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "word_delimiter", err)
+					}
+					s.Filter = append(s.Filter, *o)
+				case "ja_stop":
+					o := NewJaStopTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "ja_stop", err)
 					}
 					s.Filter = append(s.Filter, *o)
 				case "kuromoji_stemmer":
@@ -571,12 +733,15 @@ func NewCategorizationAnalyzerDefinition() *CategorizationAnalyzerDefinition {
 	return r
 }
 
-// true
-
 type CategorizationAnalyzerDefinitionVariant interface {
 	CategorizationAnalyzerDefinitionCaster() *CategorizationAnalyzerDefinition
 }
 
 func (s *CategorizationAnalyzerDefinition) CategorizationAnalyzerDefinitionCaster() *CategorizationAnalyzerDefinition {
 	return s
+}
+
+func (s *CategorizationAnalyzerDefinition) CategorizationAnalyzerCaster() *CategorizationAnalyzer {
+	o := CategorizationAnalyzer(s)
+	return &o
 }

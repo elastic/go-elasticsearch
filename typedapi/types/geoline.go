@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GeoLine type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/Geo.ts#L56-L62
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/Geo.ts#L56-L62
 type GeoLine struct {
 	// Coordinates Array of `[lon, lat]` coordinates
 	Coordinates [][]Float64 `json:"coordinates"`
@@ -82,5 +82,3 @@ func NewGeoLine() *GeoLine {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // S3RepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/snapshot/_types/SnapshotRepository.ts#L237-L346
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/snapshot/_types/SnapshotRepository.ts#L237-L346
 type S3RepositorySettings struct {
 	// BasePath The path to the repository data within its bucket.
 	// It defaults to an empty string, meaning that the repository is at the root of
@@ -380,8 +380,6 @@ func NewS3RepositorySettings() *S3RepositorySettings {
 
 	return r
 }
-
-// true
 
 type S3RepositorySettingsVariant interface {
 	S3RepositorySettingsCaster() *S3RepositorySettings

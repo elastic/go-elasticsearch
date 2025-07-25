@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package esdsl
 
@@ -33,7 +33,7 @@ func NewGeoBounds() *_geoBounds {
 
 func (u *_geoBounds) CoordsGeoBounds(coordsgeobounds types.CoordsGeoBoundsVariant) *_geoBounds {
 
-	u.v = &coordsgeobounds
+	u.v = coordsgeobounds.CoordsGeoBoundsCaster()
 
 	return u
 }
@@ -46,7 +46,7 @@ func (u *_coordsGeoBounds) GeoBoundsCaster() *types.GeoBounds {
 
 func (u *_geoBounds) TopLeftBottomRightGeoBounds(topleftbottomrightgeobounds types.TopLeftBottomRightGeoBoundsVariant) *_geoBounds {
 
-	u.v = &topleftbottomrightgeobounds
+	u.v = topleftbottomrightgeobounds.TopLeftBottomRightGeoBoundsCaster()
 
 	return u
 }
@@ -59,7 +59,7 @@ func (u *_topLeftBottomRightGeoBounds) GeoBoundsCaster() *types.GeoBounds {
 
 func (u *_geoBounds) TopRightBottomLeftGeoBounds(toprightbottomleftgeobounds types.TopRightBottomLeftGeoBoundsVariant) *_geoBounds {
 
-	u.v = &toprightbottomleftgeobounds
+	u.v = toprightbottomleftgeobounds.TopRightBottomLeftGeoBoundsCaster()
 
 	return u
 }
@@ -72,7 +72,7 @@ func (u *_topRightBottomLeftGeoBounds) GeoBoundsCaster() *types.GeoBounds {
 
 func (u *_geoBounds) WktGeoBounds(wktgeobounds types.WktGeoBoundsVariant) *_geoBounds {
 
-	u.v = &wktgeobounds
+	u.v = wktgeobounds.WktGeoBoundsCaster()
 
 	return u
 }

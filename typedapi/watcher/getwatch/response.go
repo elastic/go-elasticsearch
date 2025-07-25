@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package getwatch
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getwatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/watcher/get_watch/GetWatchResponse.ts#L24-L34
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/watcher/get_watch/GetWatchResponse.ts#L24-L34
 type Response struct {
 	Found        bool               `json:"found"`
 	Id_          string             `json:"_id"`

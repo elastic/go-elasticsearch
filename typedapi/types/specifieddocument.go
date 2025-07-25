@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -26,18 +26,17 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"strconv"
 )
 
-// NodeInfoNetwork type.
+// SpecifiedDocument type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/nodes/info/types.ts#L336-L339
-type NodeInfoNetwork struct {
-	PrimaryInterface NodeInfoNetworkInterface `json:"primary_interface"`
-	RefreshInterval  int                      `json:"refresh_interval"`
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/Retriever.ts#L93-L96
+type SpecifiedDocument struct {
+	Id    string  `json:"id"`
+	Index *string `json:"index,omitempty"`
 }
 
-func (s *NodeInfoNetwork) UnmarshalJSON(data []byte) error {
+func (s *SpecifiedDocument) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -52,25 +51,14 @@ func (s *NodeInfoNetwork) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "primary_interface":
-			if err := dec.Decode(&s.PrimaryInterface); err != nil {
-				return fmt.Errorf("%s | %w", "PrimaryInterface", err)
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
-		case "refresh_interval":
-
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.Atoi(v)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "RefreshInterval", err)
-				}
-				s.RefreshInterval = value
-			case float64:
-				f := int(v)
-				s.RefreshInterval = f
+		case "index":
+			if err := dec.Decode(&s.Index); err != nil {
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		}
@@ -78,11 +66,17 @@ func (s *NodeInfoNetwork) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewNodeInfoNetwork returns a NodeInfoNetwork.
-func NewNodeInfoNetwork() *NodeInfoNetwork {
-	r := &NodeInfoNetwork{}
+// NewSpecifiedDocument returns a SpecifiedDocument.
+func NewSpecifiedDocument() *SpecifiedDocument {
+	r := &SpecifiedDocument{}
 
 	return r
 }
 
-// false
+type SpecifiedDocumentVariant interface {
+	SpecifiedDocumentCaster() *SpecifiedDocument
+}
+
+func (s *SpecifiedDocument) SpecifiedDocumentCaster() *SpecifiedDocument {
+	return s
+}

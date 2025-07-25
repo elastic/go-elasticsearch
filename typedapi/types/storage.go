@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // Storage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/indices/_types/IndexSettings.ts#L534-L543
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/indices/_types/IndexSettings.ts#L536-L547
 type Storage struct {
 	// AllowMmap You can restrict the use of the mmapfs and the related hybridfs store type
 	// via the setting node.store.allow_mmap.
@@ -42,8 +42,10 @@ type Storage struct {
 	// setting is useful, for example, if you are in an environment where you can
 	// not control the ability to create a lot
 	// of memory maps so you need disable the ability to use memory-mapping.
-	AllowMmap *bool                   `json:"allow_mmap,omitempty"`
-	Type      storagetype.StorageType `json:"type"`
+	AllowMmap *bool `json:"allow_mmap,omitempty"`
+	// StatsRefreshInterval How often store statistics are refreshed
+	StatsRefreshInterval Duration                `json:"stats_refresh_interval,omitempty"`
+	Type                 storagetype.StorageType `json:"type"`
 }
 
 func (s *Storage) UnmarshalJSON(data []byte) error {
@@ -75,6 +77,11 @@ func (s *Storage) UnmarshalJSON(data []byte) error {
 				s.AllowMmap = &v
 			}
 
+		case "stats_refresh_interval":
+			if err := dec.Decode(&s.StatsRefreshInterval); err != nil {
+				return fmt.Errorf("%s | %w", "StatsRefreshInterval", err)
+			}
+
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
 				return fmt.Errorf("%s | %w", "Type", err)
@@ -91,8 +98,6 @@ func NewStorage() *Storage {
 
 	return r
 }
-
-// true
 
 type StorageVariant interface {
 	StorageCaster() *Storage

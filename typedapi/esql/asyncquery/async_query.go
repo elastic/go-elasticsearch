@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Run an async ES|QL query.
 // Asynchronously run an ES|QL (Elasticsearch query language) query, monitor its
@@ -329,31 +329,6 @@ func (r *AsyncQuery) Format(format esqlformat.EsqlFormat) *AsyncQuery {
 	return r
 }
 
-// KeepAlive The period for which the query and its results are stored in the cluster.
-// The default period is five days.
-// When this period expires, the query and its results are deleted, even if the
-// query is still ongoing.
-// If the `keep_on_completion` parameter is false, Elasticsearch only stores
-// async queries that do not complete within the period set by the
-// `wait_for_completion_timeout` parameter, regardless of this value.
-// API name: keep_alive
-func (r *AsyncQuery) KeepAlive(duration string) *AsyncQuery {
-	r.values.Set("keep_alive", duration)
-
-	return r
-}
-
-// KeepOnCompletion Indicates whether the query and its results are stored in the cluster.
-// If false, the query and its results are stored in the cluster only if the
-// request does not complete during the period set by the
-// `wait_for_completion_timeout` parameter.
-// API name: keep_on_completion
-func (r *AsyncQuery) KeepOnCompletion(keeponcompletion bool) *AsyncQuery {
-	r.values.Set("keep_on_completion", strconv.FormatBool(keeponcompletion))
-
-	return r
-}
-
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -441,6 +416,41 @@ func (r *AsyncQuery) IncludeCcsMetadata(includeccsmetadata bool) *AsyncQuery {
 	}
 
 	r.req.IncludeCcsMetadata = &includeccsmetadata
+
+	return r
+}
+
+// The period for which the query and its results are stored in the cluster.
+// The default period is five days.
+// When this period expires, the query and its results are deleted, even if the
+// query is still ongoing.
+// If the `keep_on_completion` parameter is false, Elasticsearch only stores
+// async queries that do not complete within the period set by the
+// `wait_for_completion_timeout` parameter, regardless of this value.
+// API name: keep_alive
+func (r *AsyncQuery) KeepAlive(duration types.DurationVariant) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.KeepAlive = *duration.DurationCaster()
+
+	return r
+}
+
+// Indicates whether the query and its results are stored in the cluster.
+// If false, the query and its results are stored in the cluster only if the
+// request does not complete during the period set by the
+// `wait_for_completion_timeout` parameter.
+// API name: keep_on_completion
+func (r *AsyncQuery) KeepOnCompletion(keeponcompletion bool) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.KeepOnCompletion = &keeponcompletion
 
 	return r
 }

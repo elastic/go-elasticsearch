@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SetPriorityAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/ilm/_types/Phase.ts#L95-L97
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/ilm/_types/Phase.ts#L95-L97
 type SetPriorityAction struct {
 	Priority *int `json:"priority,omitempty"`
 }
@@ -78,8 +78,6 @@ func NewSetPriorityAction() *SetPriorityAction {
 
 	return r
 }
-
-// true
 
 type SetPriorityActionVariant interface {
 	SetPriorityActionCaster() *SetPriorityAction

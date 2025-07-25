@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package esdsl
 
@@ -26,15 +26,19 @@ type _hyphenationDecompounderTokenFilter struct {
 	v *types.HyphenationDecompounderTokenFilter
 }
 
-func NewHyphenationDecompounderTokenFilter() *_hyphenationDecompounderTokenFilter {
+func NewHyphenationDecompounderTokenFilter(hyphenationpatternspath string) *_hyphenationDecompounderTokenFilter {
 
-	return &_hyphenationDecompounderTokenFilter{v: types.NewHyphenationDecompounderTokenFilter()}
+	tmp := &_hyphenationDecompounderTokenFilter{v: types.NewHyphenationDecompounderTokenFilter()}
+
+	tmp.HyphenationPatternsPath(hyphenationpatternspath)
+
+	return tmp
 
 }
 
 func (s *_hyphenationDecompounderTokenFilter) HyphenationPatternsPath(hyphenationpatternspath string) *_hyphenationDecompounderTokenFilter {
 
-	s.v.HyphenationPatternsPath = &hyphenationpatternspath
+	s.v.HyphenationPatternsPath = hyphenationpatternspath
 
 	return s
 }
@@ -56,6 +60,20 @@ func (s *_hyphenationDecompounderTokenFilter) MinSubwordSize(minsubwordsize int)
 func (s *_hyphenationDecompounderTokenFilter) MinWordSize(minwordsize int) *_hyphenationDecompounderTokenFilter {
 
 	s.v.MinWordSize = &minwordsize
+
+	return s
+}
+
+func (s *_hyphenationDecompounderTokenFilter) NoOverlappingMatches(nooverlappingmatches bool) *_hyphenationDecompounderTokenFilter {
+
+	s.v.NoOverlappingMatches = &nooverlappingmatches
+
+	return s
+}
+
+func (s *_hyphenationDecompounderTokenFilter) NoSubMatches(nosubmatches bool) *_hyphenationDecompounderTokenFilter {
+
+	s.v.NoSubMatches = &nosubmatches
 
 	return s
 }

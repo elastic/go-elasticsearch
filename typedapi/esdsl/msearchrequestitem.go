@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package esdsl
 
@@ -33,7 +33,7 @@ func NewMsearchRequestItem() *_msearchRequestItem {
 
 func (u *_msearchRequestItem) MultisearchHeader(multisearchheader types.MultisearchHeaderVariant) *_msearchRequestItem {
 
-	u.v = &multisearchheader
+	u.v = multisearchheader.MultisearchHeaderCaster()
 
 	return u
 }
@@ -46,7 +46,7 @@ func (u *_multisearchHeader) MsearchRequestItemCaster() *types.MsearchRequestIte
 
 func (u *_msearchRequestItem) SearchRequestBody(searchrequestbody types.SearchRequestBodyVariant) *_msearchRequestItem {
 
-	u.v = &searchrequestbody
+	u.v = searchrequestbody.SearchRequestBodyCaster()
 
 	return u
 }

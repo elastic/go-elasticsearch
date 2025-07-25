@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // MinBucketAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/aggregations/pipeline.ts#L249-L252
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/aggregations/pipeline.ts#L249-L252
 type MinBucketAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
@@ -93,8 +93,6 @@ func NewMinBucketAggregation() *MinBucketAggregation {
 
 	return r
 }
-
-// true
 
 type MinBucketAggregationVariant interface {
 	MinBucketAggregationCaster() *MinBucketAggregation

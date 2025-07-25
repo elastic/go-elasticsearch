@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package explore
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package explore
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/graph/explore/GraphExploreResponse.ts#L25-L33
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/graph/explore/GraphExploreResponse.ts#L25-L33
 type Response struct {
 	Connections []types.Connection   `json:"connections"`
 	Failures    []types.ShardFailure `json:"failures"`

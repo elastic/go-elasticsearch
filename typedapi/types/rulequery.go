@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RuleQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/query_dsl/specialized.ts#L398-L405
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/query_dsl/specialized.ts#L398-L406
 type RuleQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -42,7 +42,8 @@ type RuleQuery struct {
 	MatchCriteria json.RawMessage `json:"match_criteria,omitempty"`
 	Organic       Query           `json:"organic"`
 	QueryName_    *string         `json:"_name,omitempty"`
-	RulesetIds    []string        `json:"ruleset_ids"`
+	RulesetId     *string         `json:"ruleset_id,omitempty"`
+	RulesetIds    []string        `json:"ruleset_ids,omitempty"`
 }
 
 func (s *RuleQuery) UnmarshalJSON(data []byte) error {
@@ -98,9 +99,32 @@ func (s *RuleQuery) UnmarshalJSON(data []byte) error {
 			}
 			s.QueryName_ = &o
 
+		case "ruleset_id":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "RulesetId", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.RulesetId = &o
+
 		case "ruleset_ids":
-			if err := dec.Decode(&s.RulesetIds); err != nil {
-				return fmt.Errorf("%s | %w", "RulesetIds", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "RulesetIds", err)
+				}
+
+				s.RulesetIds = append(s.RulesetIds, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.RulesetIds); err != nil {
+					return fmt.Errorf("%s | %w", "RulesetIds", err)
+				}
 			}
 
 		}
@@ -114,8 +138,6 @@ func NewRuleQuery() *RuleQuery {
 
 	return r
 }
-
-// true
 
 type RuleQueryVariant interface {
 	RuleQueryCaster() *RuleQuery

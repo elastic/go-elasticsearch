@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StandardTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/tokenizers.ts#L121-L124
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/analysis/tokenizers.ts#L123-L126
 type StandardTokenizer struct {
 	MaxTokenLength *int    `json:"max_token_length,omitempty"`
 	Type           string  `json:"type,omitempty"`
@@ -105,12 +105,15 @@ func NewStandardTokenizer() *StandardTokenizer {
 	return r
 }
 
-// true
-
 type StandardTokenizerVariant interface {
 	StandardTokenizerCaster() *StandardTokenizer
 }
 
 func (s *StandardTokenizer) StandardTokenizerCaster() *StandardTokenizer {
 	return s
+}
+
+func (s *StandardTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	o := TokenizerDefinition(s)
+	return &o
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FetchProfileBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_global/search/_types/profile.ts#L239-L248
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_global/search/_types/profile.ts#L239-L248
 type FetchProfileBreakdown struct {
 	LoadSource            *int `json:"load_source,omitempty"`
 	LoadSourceCount       *int `json:"load_source_count,omitempty"`
@@ -197,5 +197,3 @@ func NewFetchProfileBreakdown() *FetchProfileBreakdown {
 
 	return r
 }
-
-// false

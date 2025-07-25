@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Grant an API key.
 //
@@ -67,6 +67,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/apikeygranttype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/refresh"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -351,6 +352,18 @@ func (r GrantApiKey) Do(providedCtx context.Context) (*Response, error) {
 // Header set a key, value pair in the GrantApiKey headers map.
 func (r *GrantApiKey) Header(key, value string) *GrantApiKey {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// Refresh If 'true', Elasticsearch refreshes the affected shards to make this operation
+// visible to search.
+// If 'wait_for', it waits for a refresh to make this operation visible to
+// search.
+// If 'false', nothing is done with refreshes.
+// API name: refresh
+func (r *GrantApiKey) Refresh(refresh refresh.Refresh) *GrantApiKey {
+	r.values.Set("refresh", refresh.String())
 
 	return r
 }

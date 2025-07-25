@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Create a VoyageAI inference endpoint.
 //
@@ -340,6 +340,15 @@ func (r *PutVoyageai) _tasktype(tasktype string) *PutVoyageai {
 func (r *PutVoyageai) _voyageaiinferenceid(voyageaiinferenceid string) *PutVoyageai {
 	r.paramSet |= voyageaiinferenceidMask
 	r.voyageaiinferenceid = voyageaiinferenceid
+
+	return r
+}
+
+// Timeout Specifies the amount of time to wait for the inference endpoint to be
+// created.
+// API name: timeout
+func (r *PutVoyageai) Timeout(duration string) *PutVoyageai {
+	r.values.Set("timeout", duration)
 
 	return r
 }

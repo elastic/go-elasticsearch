@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Run a watch.
 // This API can be used to force execution of the watch outside of its
@@ -42,6 +42,8 @@
 // When using the run watch API, the authorization data of the user that called
 // the API will be used as a base, instead of the information who stored the
 // watch.
+// Refer to the external documentation for examples of watch execution requests,
+// including existing, customized, and inline watches.
 package executewatch
 
 import (
@@ -127,6 +129,8 @@ func NewExecuteWatchFunc(tp elastictransport.Interface) NewExecuteWatch {
 // When using the run watch API, the authorization data of the user that called
 // the API will be used as a base, instead of the information who stored the
 // watch.
+// Refer to the external documentation for examples of watch execution requests,
+// including existing, customized, and inline watches.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-execute-watch
 func New(tp elastictransport.Interface) *ExecuteWatch {

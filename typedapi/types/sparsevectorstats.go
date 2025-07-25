@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -29,16 +29,14 @@ import (
 	"strconv"
 )
 
-// ClusterPressureMemory type.
+// SparseVectorStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/cluster/stats/types.ts#L574-L578
-type ClusterPressureMemory struct {
-	Current      IndexingPressureMemorySummary `json:"current"`
-	LimitInBytes int64                         `json:"limit_in_bytes"`
-	Total        IndexingPressureMemorySummary `json:"total"`
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/cluster/stats/types.ts#L162-L164
+type SparseVectorStats struct {
+	ValueCount int64 `json:"value_count"`
 }
 
-func (s *ClusterPressureMemory) UnmarshalJSON(data []byte) error {
+func (s *SparseVectorStats) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -53,29 +51,19 @@ func (s *ClusterPressureMemory) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "current":
-			if err := dec.Decode(&s.Current); err != nil {
-				return fmt.Errorf("%s | %w", "Current", err)
-			}
-
-		case "limit_in_bytes":
+		case "value_count":
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return fmt.Errorf("%s | %w", "LimitInBytes", err)
+					return fmt.Errorf("%s | %w", "ValueCount", err)
 				}
-				s.LimitInBytes = value
+				s.ValueCount = value
 			case float64:
 				f := int64(v)
-				s.LimitInBytes = f
-			}
-
-		case "total":
-			if err := dec.Decode(&s.Total); err != nil {
-				return fmt.Errorf("%s | %w", "Total", err)
+				s.ValueCount = f
 			}
 
 		}
@@ -83,11 +71,9 @@ func (s *ClusterPressureMemory) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewClusterPressureMemory returns a ClusterPressureMemory.
-func NewClusterPressureMemory() *ClusterPressureMemory {
-	r := &ClusterPressureMemory{}
+// NewSparseVectorStats returns a SparseVectorStats.
+func NewSparseVectorStats() *SparseVectorStats {
+	r := &SparseVectorStats{}
 
 	return r
 }
-
-// false

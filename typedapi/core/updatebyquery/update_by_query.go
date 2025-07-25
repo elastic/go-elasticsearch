@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Update documents.
 // Updates documents that match the specified query.
@@ -59,6 +59,40 @@
 // the failures are shown in the response.
 // Any update requests that completed successfully still stick, they are not
 // rolled back.
+//
+// **Refreshing shards**
+//
+// Specifying the `refresh` parameter refreshes all shards once the request
+// completes.
+// This is different to the update API's `refresh` parameter, which causes only
+// the shard
+// that received the request to be refreshed. Unlike the update API, it does not
+// support
+// `wait_for`.
+//
+// **Running update by query asynchronously**
+//
+// If the request contains `wait_for_completion=false`, Elasticsearch
+// performs some preflight checks, launches the request, and returns a
+// [task](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks)
+// you can use to cancel or get the status of the task.
+// Elasticsearch creates a record of this task as a document at
+// `.tasks/task/${taskId}`.
+//
+// **Waiting for active shards**
+//
+// `wait_for_active_shards` controls how many copies of a shard must be active
+// before proceeding with the request. See
+// [`wait_for_active_shards`](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create#operation-create-wait_for_active_shards)
+// for details. `timeout` controls how long each write request waits for
+// unavailable
+// shards to become available. Both work exactly the way they work in the
+// [Bulk
+// API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk).
+// Update by query uses scrolled searches, so you can also
+// specify the `scroll` parameter to control how long it keeps the search
+// context
+// alive, for example `?scroll=10m`. The default is 5 minutes.
 //
 // **Throttling update requests**
 //
@@ -133,28 +167,8 @@
 //
 // Whether query or update performance dominates the runtime depends on the
 // documents being reindexed and cluster resources.
-//
-// **Update the document source**
-//
-// Update by query supports scripts to update the document source.
-// As with the update API, you can set `ctx.op` to change the operation that is
-// performed.
-//
-// Set `ctx.op = "noop"` if your script decides that it doesn't have to make any
-// changes.
-// The update by query operation skips updating the document and increments the
-// `noop` counter.
-//
-// Set `ctx.op = "delete"` if your script decides that the document should be
-// deleted.
-// The update by query operation deletes the document and increments the
-// `deleted` counter.
-//
-// Update by query supports only `index`, `noop`, and `delete`.
-// Setting `ctx.op` to anything else is an error.
-// Setting any other field in `ctx` is an error.
-// This API enables you to only modify the source of matching documents; you
-// cannot move them.
+// Refer to the linked documentation for examples of how to update documents
+// using the `_update_by_query` API:
 package updatebyquery
 
 import (
@@ -263,6 +277,40 @@ func NewUpdateByQueryFunc(tp elastictransport.Interface) NewUpdateByQuery {
 // Any update requests that completed successfully still stick, they are not
 // rolled back.
 //
+// **Refreshing shards**
+//
+// Specifying the `refresh` parameter refreshes all shards once the request
+// completes.
+// This is different to the update API's `refresh` parameter, which causes only
+// the shard
+// that received the request to be refreshed. Unlike the update API, it does not
+// support
+// `wait_for`.
+//
+// **Running update by query asynchronously**
+//
+// If the request contains `wait_for_completion=false`, Elasticsearch
+// performs some preflight checks, launches the request, and returns a
+// [task](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks)
+// you can use to cancel or get the status of the task.
+// Elasticsearch creates a record of this task as a document at
+// `.tasks/task/${taskId}`.
+//
+// **Waiting for active shards**
+//
+// `wait_for_active_shards` controls how many copies of a shard must be active
+// before proceeding with the request. See
+// [`wait_for_active_shards`](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create#operation-create-wait_for_active_shards)
+// for details. `timeout` controls how long each write request waits for
+// unavailable
+// shards to become available. Both work exactly the way they work in the
+// [Bulk
+// API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk).
+// Update by query uses scrolled searches, so you can also
+// specify the `scroll` parameter to control how long it keeps the search
+// context
+// alive, for example `?scroll=10m`. The default is 5 minutes.
+//
 // **Throttling update requests**
 //
 // To control the rate at which update by query issues batches of update
@@ -336,28 +384,8 @@ func NewUpdateByQueryFunc(tp elastictransport.Interface) NewUpdateByQuery {
 //
 // Whether query or update performance dominates the runtime depends on the
 // documents being reindexed and cluster resources.
-//
-// **Update the document source**
-//
-// Update by query supports scripts to update the document source.
-// As with the update API, you can set `ctx.op` to change the operation that is
-// performed.
-//
-// Set `ctx.op = "noop"` if your script decides that it doesn't have to make any
-// changes.
-// The update by query operation skips updating the document and increments the
-// `noop` counter.
-//
-// Set `ctx.op = "delete"` if your script decides that the document should be
-// deleted.
-// The update by query operation deletes the document and increments the
-// `deleted` counter.
-//
-// Update by query supports only `index`, `noop`, and `delete`.
-// Setting `ctx.op` to anything else is an error.
-// Setting any other field in `ctx` is an error.
-// This API enables you to only modify the source of matching documents; you
-// cannot move them.
+// Refer to the linked documentation for examples of how to update documents
+// using the `_update_by_query` API:
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update-by-query
 func New(tp elastictransport.Interface) *UpdateByQuery {
@@ -647,7 +675,6 @@ func (r *UpdateByQuery) Df(df string) *UpdateByQuery {
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
 // It supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *UpdateByQuery) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *UpdateByQuery {
 	tmp := []string{}

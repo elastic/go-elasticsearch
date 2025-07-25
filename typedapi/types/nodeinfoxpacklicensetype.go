@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeInfoXpackLicenseType type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/nodes/info/types.ts#L285-L287
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/nodes/info/types.ts#L300-L302
 type NodeInfoXpackLicenseType struct {
 	Type string `json:"type"`
 }
@@ -74,5 +74,3 @@ func NewNodeInfoXpackLicenseType() *NodeInfoXpackLicenseType {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package esdsl
 
@@ -44,7 +44,7 @@ func (u *_property) UnknownProperty(unknown json.RawMessage) *_property {
 
 func (u *_property) BinaryProperty(binaryproperty types.BinaryPropertyVariant) *_property {
 
-	u.v = &binaryproperty
+	u.v = binaryproperty.BinaryPropertyCaster()
 
 	return u
 }
@@ -57,7 +57,7 @@ func (u *_binaryProperty) PropertyCaster() *types.Property {
 
 func (u *_property) BooleanProperty(booleanproperty types.BooleanPropertyVariant) *_property {
 
-	u.v = &booleanproperty
+	u.v = booleanproperty.BooleanPropertyCaster()
 
 	return u
 }
@@ -70,7 +70,7 @@ func (u *_booleanProperty) PropertyCaster() *types.Property {
 
 func (u *_property) DynamicProperty(dynamicproperty types.DynamicPropertyVariant) *_property {
 
-	u.v = &dynamicproperty
+	u.v = dynamicproperty.DynamicPropertyCaster()
 
 	return u
 }
@@ -83,7 +83,7 @@ func (u *_dynamicProperty) PropertyCaster() *types.Property {
 
 func (u *_property) JoinProperty(joinproperty types.JoinPropertyVariant) *_property {
 
-	u.v = &joinproperty
+	u.v = joinproperty.JoinPropertyCaster()
 
 	return u
 }
@@ -96,7 +96,7 @@ func (u *_joinProperty) PropertyCaster() *types.Property {
 
 func (u *_property) KeywordProperty(keywordproperty types.KeywordPropertyVariant) *_property {
 
-	u.v = &keywordproperty
+	u.v = keywordproperty.KeywordPropertyCaster()
 
 	return u
 }
@@ -109,7 +109,7 @@ func (u *_keywordProperty) PropertyCaster() *types.Property {
 
 func (u *_property) MatchOnlyTextProperty(matchonlytextproperty types.MatchOnlyTextPropertyVariant) *_property {
 
-	u.v = &matchonlytextproperty
+	u.v = matchonlytextproperty.MatchOnlyTextPropertyCaster()
 
 	return u
 }
@@ -122,7 +122,7 @@ func (u *_matchOnlyTextProperty) PropertyCaster() *types.Property {
 
 func (u *_property) PercolatorProperty(percolatorproperty types.PercolatorPropertyVariant) *_property {
 
-	u.v = &percolatorproperty
+	u.v = percolatorproperty.PercolatorPropertyCaster()
 
 	return u
 }
@@ -135,7 +135,7 @@ func (u *_percolatorProperty) PropertyCaster() *types.Property {
 
 func (u *_property) RankFeatureProperty(rankfeatureproperty types.RankFeaturePropertyVariant) *_property {
 
-	u.v = &rankfeatureproperty
+	u.v = rankfeatureproperty.RankFeaturePropertyCaster()
 
 	return u
 }
@@ -148,7 +148,7 @@ func (u *_rankFeatureProperty) PropertyCaster() *types.Property {
 
 func (u *_property) RankFeaturesProperty(rankfeaturesproperty types.RankFeaturesPropertyVariant) *_property {
 
-	u.v = &rankfeaturesproperty
+	u.v = rankfeaturesproperty.RankFeaturesPropertyCaster()
 
 	return u
 }
@@ -161,7 +161,7 @@ func (u *_rankFeaturesProperty) PropertyCaster() *types.Property {
 
 func (u *_property) SearchAsYouTypeProperty(searchasyoutypeproperty types.SearchAsYouTypePropertyVariant) *_property {
 
-	u.v = &searchasyoutypeproperty
+	u.v = searchasyoutypeproperty.SearchAsYouTypePropertyCaster()
 
 	return u
 }
@@ -174,7 +174,7 @@ func (u *_searchAsYouTypeProperty) PropertyCaster() *types.Property {
 
 func (u *_property) TextProperty(textproperty types.TextPropertyVariant) *_property {
 
-	u.v = &textproperty
+	u.v = textproperty.TextPropertyCaster()
 
 	return u
 }
@@ -187,7 +187,7 @@ func (u *_textProperty) PropertyCaster() *types.Property {
 
 func (u *_property) VersionProperty(versionproperty types.VersionPropertyVariant) *_property {
 
-	u.v = &versionproperty
+	u.v = versionproperty.VersionPropertyCaster()
 
 	return u
 }
@@ -200,7 +200,7 @@ func (u *_versionProperty) PropertyCaster() *types.Property {
 
 func (u *_property) WildcardProperty(wildcardproperty types.WildcardPropertyVariant) *_property {
 
-	u.v = &wildcardproperty
+	u.v = wildcardproperty.WildcardPropertyCaster()
 
 	return u
 }
@@ -213,7 +213,7 @@ func (u *_wildcardProperty) PropertyCaster() *types.Property {
 
 func (u *_property) DateNanosProperty(datenanosproperty types.DateNanosPropertyVariant) *_property {
 
-	u.v = &datenanosproperty
+	u.v = datenanosproperty.DateNanosPropertyCaster()
 
 	return u
 }
@@ -226,7 +226,7 @@ func (u *_dateNanosProperty) PropertyCaster() *types.Property {
 
 func (u *_property) DateProperty(dateproperty types.DatePropertyVariant) *_property {
 
-	u.v = &dateproperty
+	u.v = dateproperty.DatePropertyCaster()
 
 	return u
 }
@@ -239,7 +239,7 @@ func (u *_dateProperty) PropertyCaster() *types.Property {
 
 func (u *_property) AggregateMetricDoubleProperty(aggregatemetricdoubleproperty types.AggregateMetricDoublePropertyVariant) *_property {
 
-	u.v = &aggregatemetricdoubleproperty
+	u.v = aggregatemetricdoubleproperty.AggregateMetricDoublePropertyCaster()
 
 	return u
 }
@@ -252,7 +252,7 @@ func (u *_aggregateMetricDoubleProperty) PropertyCaster() *types.Property {
 
 func (u *_property) DenseVectorProperty(densevectorproperty types.DenseVectorPropertyVariant) *_property {
 
-	u.v = &densevectorproperty
+	u.v = densevectorproperty.DenseVectorPropertyCaster()
 
 	return u
 }
@@ -265,7 +265,7 @@ func (u *_denseVectorProperty) PropertyCaster() *types.Property {
 
 func (u *_property) FlattenedProperty(flattenedproperty types.FlattenedPropertyVariant) *_property {
 
-	u.v = &flattenedproperty
+	u.v = flattenedproperty.FlattenedPropertyCaster()
 
 	return u
 }
@@ -278,7 +278,7 @@ func (u *_flattenedProperty) PropertyCaster() *types.Property {
 
 func (u *_property) NestedProperty(nestedproperty types.NestedPropertyVariant) *_property {
 
-	u.v = &nestedproperty
+	u.v = nestedproperty.NestedPropertyCaster()
 
 	return u
 }
@@ -291,7 +291,7 @@ func (u *_nestedProperty) PropertyCaster() *types.Property {
 
 func (u *_property) ObjectProperty(objectproperty types.ObjectPropertyVariant) *_property {
 
-	u.v = &objectproperty
+	u.v = objectproperty.ObjectPropertyCaster()
 
 	return u
 }
@@ -304,7 +304,7 @@ func (u *_objectProperty) PropertyCaster() *types.Property {
 
 func (u *_property) PassthroughObjectProperty(passthroughobjectproperty types.PassthroughObjectPropertyVariant) *_property {
 
-	u.v = &passthroughobjectproperty
+	u.v = passthroughobjectproperty.PassthroughObjectPropertyCaster()
 
 	return u
 }
@@ -315,9 +315,22 @@ func (u *_passthroughObjectProperty) PropertyCaster() *types.Property {
 	return &t
 }
 
+func (u *_property) RankVectorProperty(rankvectorproperty types.RankVectorPropertyVariant) *_property {
+
+	u.v = rankvectorproperty.RankVectorPropertyCaster()
+
+	return u
+}
+
+// Interface implementation for RankVectorProperty in Property union
+func (u *_rankVectorProperty) PropertyCaster() *types.Property {
+	t := types.Property(u.v)
+	return &t
+}
+
 func (u *_property) SemanticTextProperty(semantictextproperty types.SemanticTextPropertyVariant) *_property {
 
-	u.v = &semantictextproperty
+	u.v = semantictextproperty.SemanticTextPropertyCaster()
 
 	return u
 }
@@ -330,7 +343,7 @@ func (u *_semanticTextProperty) PropertyCaster() *types.Property {
 
 func (u *_property) SparseVectorProperty(sparsevectorproperty types.SparseVectorPropertyVariant) *_property {
 
-	u.v = &sparsevectorproperty
+	u.v = sparsevectorproperty.SparseVectorPropertyCaster()
 
 	return u
 }
@@ -343,7 +356,7 @@ func (u *_sparseVectorProperty) PropertyCaster() *types.Property {
 
 func (u *_property) CompletionProperty(completionproperty types.CompletionPropertyVariant) *_property {
 
-	u.v = &completionproperty
+	u.v = completionproperty.CompletionPropertyCaster()
 
 	return u
 }
@@ -356,7 +369,7 @@ func (u *_completionProperty) PropertyCaster() *types.Property {
 
 func (u *_property) ConstantKeywordProperty(constantkeywordproperty types.ConstantKeywordPropertyVariant) *_property {
 
-	u.v = &constantkeywordproperty
+	u.v = constantkeywordproperty.ConstantKeywordPropertyCaster()
 
 	return u
 }
@@ -369,7 +382,7 @@ func (u *_constantKeywordProperty) PropertyCaster() *types.Property {
 
 func (u *_property) CountedKeywordProperty(countedkeywordproperty types.CountedKeywordPropertyVariant) *_property {
 
-	u.v = &countedkeywordproperty
+	u.v = countedkeywordproperty.CountedKeywordPropertyCaster()
 
 	return u
 }
@@ -382,7 +395,7 @@ func (u *_countedKeywordProperty) PropertyCaster() *types.Property {
 
 func (u *_property) FieldAliasProperty(fieldaliasproperty types.FieldAliasPropertyVariant) *_property {
 
-	u.v = &fieldaliasproperty
+	u.v = fieldaliasproperty.FieldAliasPropertyCaster()
 
 	return u
 }
@@ -395,7 +408,7 @@ func (u *_fieldAliasProperty) PropertyCaster() *types.Property {
 
 func (u *_property) HistogramProperty(histogramproperty types.HistogramPropertyVariant) *_property {
 
-	u.v = &histogramproperty
+	u.v = histogramproperty.HistogramPropertyCaster()
 
 	return u
 }
@@ -408,7 +421,7 @@ func (u *_histogramProperty) PropertyCaster() *types.Property {
 
 func (u *_property) IpProperty(ipproperty types.IpPropertyVariant) *_property {
 
-	u.v = &ipproperty
+	u.v = ipproperty.IpPropertyCaster()
 
 	return u
 }
@@ -421,7 +434,7 @@ func (u *_ipProperty) PropertyCaster() *types.Property {
 
 func (u *_property) Murmur3HashProperty(murmur3hashproperty types.Murmur3HashPropertyVariant) *_property {
 
-	u.v = &murmur3hashproperty
+	u.v = murmur3hashproperty.Murmur3HashPropertyCaster()
 
 	return u
 }
@@ -434,7 +447,7 @@ func (u *_murmur3HashProperty) PropertyCaster() *types.Property {
 
 func (u *_property) TokenCountProperty(tokencountproperty types.TokenCountPropertyVariant) *_property {
 
-	u.v = &tokencountproperty
+	u.v = tokencountproperty.TokenCountPropertyCaster()
 
 	return u
 }
@@ -447,7 +460,7 @@ func (u *_tokenCountProperty) PropertyCaster() *types.Property {
 
 func (u *_property) GeoPointProperty(geopointproperty types.GeoPointPropertyVariant) *_property {
 
-	u.v = &geopointproperty
+	u.v = geopointproperty.GeoPointPropertyCaster()
 
 	return u
 }
@@ -460,7 +473,7 @@ func (u *_geoPointProperty) PropertyCaster() *types.Property {
 
 func (u *_property) GeoShapeProperty(geoshapeproperty types.GeoShapePropertyVariant) *_property {
 
-	u.v = &geoshapeproperty
+	u.v = geoshapeproperty.GeoShapePropertyCaster()
 
 	return u
 }
@@ -473,7 +486,7 @@ func (u *_geoShapeProperty) PropertyCaster() *types.Property {
 
 func (u *_property) PointProperty(pointproperty types.PointPropertyVariant) *_property {
 
-	u.v = &pointproperty
+	u.v = pointproperty.PointPropertyCaster()
 
 	return u
 }
@@ -486,7 +499,7 @@ func (u *_pointProperty) PropertyCaster() *types.Property {
 
 func (u *_property) ShapeProperty(shapeproperty types.ShapePropertyVariant) *_property {
 
-	u.v = &shapeproperty
+	u.v = shapeproperty.ShapePropertyCaster()
 
 	return u
 }
@@ -499,7 +512,7 @@ func (u *_shapeProperty) PropertyCaster() *types.Property {
 
 func (u *_property) ByteNumberProperty(bytenumberproperty types.ByteNumberPropertyVariant) *_property {
 
-	u.v = &bytenumberproperty
+	u.v = bytenumberproperty.ByteNumberPropertyCaster()
 
 	return u
 }
@@ -512,7 +525,7 @@ func (u *_byteNumberProperty) PropertyCaster() *types.Property {
 
 func (u *_property) DoubleNumberProperty(doublenumberproperty types.DoubleNumberPropertyVariant) *_property {
 
-	u.v = &doublenumberproperty
+	u.v = doublenumberproperty.DoubleNumberPropertyCaster()
 
 	return u
 }
@@ -525,7 +538,7 @@ func (u *_doubleNumberProperty) PropertyCaster() *types.Property {
 
 func (u *_property) FloatNumberProperty(floatnumberproperty types.FloatNumberPropertyVariant) *_property {
 
-	u.v = &floatnumberproperty
+	u.v = floatnumberproperty.FloatNumberPropertyCaster()
 
 	return u
 }
@@ -538,7 +551,7 @@ func (u *_floatNumberProperty) PropertyCaster() *types.Property {
 
 func (u *_property) HalfFloatNumberProperty(halffloatnumberproperty types.HalfFloatNumberPropertyVariant) *_property {
 
-	u.v = &halffloatnumberproperty
+	u.v = halffloatnumberproperty.HalfFloatNumberPropertyCaster()
 
 	return u
 }
@@ -551,7 +564,7 @@ func (u *_halfFloatNumberProperty) PropertyCaster() *types.Property {
 
 func (u *_property) IntegerNumberProperty(integernumberproperty types.IntegerNumberPropertyVariant) *_property {
 
-	u.v = &integernumberproperty
+	u.v = integernumberproperty.IntegerNumberPropertyCaster()
 
 	return u
 }
@@ -564,7 +577,7 @@ func (u *_integerNumberProperty) PropertyCaster() *types.Property {
 
 func (u *_property) LongNumberProperty(longnumberproperty types.LongNumberPropertyVariant) *_property {
 
-	u.v = &longnumberproperty
+	u.v = longnumberproperty.LongNumberPropertyCaster()
 
 	return u
 }
@@ -577,7 +590,7 @@ func (u *_longNumberProperty) PropertyCaster() *types.Property {
 
 func (u *_property) ScaledFloatNumberProperty(scaledfloatnumberproperty types.ScaledFloatNumberPropertyVariant) *_property {
 
-	u.v = &scaledfloatnumberproperty
+	u.v = scaledfloatnumberproperty.ScaledFloatNumberPropertyCaster()
 
 	return u
 }
@@ -590,7 +603,7 @@ func (u *_scaledFloatNumberProperty) PropertyCaster() *types.Property {
 
 func (u *_property) ShortNumberProperty(shortnumberproperty types.ShortNumberPropertyVariant) *_property {
 
-	u.v = &shortnumberproperty
+	u.v = shortnumberproperty.ShortNumberPropertyCaster()
 
 	return u
 }
@@ -603,7 +616,7 @@ func (u *_shortNumberProperty) PropertyCaster() *types.Property {
 
 func (u *_property) UnsignedLongNumberProperty(unsignedlongnumberproperty types.UnsignedLongNumberPropertyVariant) *_property {
 
-	u.v = &unsignedlongnumberproperty
+	u.v = unsignedlongnumberproperty.UnsignedLongNumberPropertyCaster()
 
 	return u
 }
@@ -616,7 +629,7 @@ func (u *_unsignedLongNumberProperty) PropertyCaster() *types.Property {
 
 func (u *_property) DateRangeProperty(daterangeproperty types.DateRangePropertyVariant) *_property {
 
-	u.v = &daterangeproperty
+	u.v = daterangeproperty.DateRangePropertyCaster()
 
 	return u
 }
@@ -629,7 +642,7 @@ func (u *_dateRangeProperty) PropertyCaster() *types.Property {
 
 func (u *_property) DoubleRangeProperty(doublerangeproperty types.DoubleRangePropertyVariant) *_property {
 
-	u.v = &doublerangeproperty
+	u.v = doublerangeproperty.DoubleRangePropertyCaster()
 
 	return u
 }
@@ -642,7 +655,7 @@ func (u *_doubleRangeProperty) PropertyCaster() *types.Property {
 
 func (u *_property) FloatRangeProperty(floatrangeproperty types.FloatRangePropertyVariant) *_property {
 
-	u.v = &floatrangeproperty
+	u.v = floatrangeproperty.FloatRangePropertyCaster()
 
 	return u
 }
@@ -655,7 +668,7 @@ func (u *_floatRangeProperty) PropertyCaster() *types.Property {
 
 func (u *_property) IntegerRangeProperty(integerrangeproperty types.IntegerRangePropertyVariant) *_property {
 
-	u.v = &integerrangeproperty
+	u.v = integerrangeproperty.IntegerRangePropertyCaster()
 
 	return u
 }
@@ -668,7 +681,7 @@ func (u *_integerRangeProperty) PropertyCaster() *types.Property {
 
 func (u *_property) IpRangeProperty(iprangeproperty types.IpRangePropertyVariant) *_property {
 
-	u.v = &iprangeproperty
+	u.v = iprangeproperty.IpRangePropertyCaster()
 
 	return u
 }
@@ -681,7 +694,7 @@ func (u *_ipRangeProperty) PropertyCaster() *types.Property {
 
 func (u *_property) LongRangeProperty(longrangeproperty types.LongRangePropertyVariant) *_property {
 
-	u.v = &longrangeproperty
+	u.v = longrangeproperty.LongRangePropertyCaster()
 
 	return u
 }
@@ -694,7 +707,7 @@ func (u *_longRangeProperty) PropertyCaster() *types.Property {
 
 func (u *_property) IcuCollationProperty(icucollationproperty types.IcuCollationPropertyVariant) *_property {
 
-	u.v = &icucollationproperty
+	u.v = icucollationproperty.IcuCollationPropertyCaster()
 
 	return u
 }

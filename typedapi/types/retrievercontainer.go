@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -27,11 +27,19 @@ import (
 
 // RetrieverContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/Retriever.ts#L28-L42
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/Retriever.ts#L28-L51
 type RetrieverContainer struct {
 	AdditionalRetrieverContainerProperty map[string]json.RawMessage `json:"-"`
 	// Knn A retriever that replaces the functionality  of a knn search.
 	Knn *KnnRetriever `json:"knn,omitempty"`
+	// Linear A retriever that supports the combination of different retrievers through a
+	// weighted linear combination.
+	Linear *LinearRetriever `json:"linear,omitempty"`
+	// Pinned A pinned retriever applies pinned documents to the underlying retriever.
+	// This retriever will rewrite to a PinnedQueryBuilder.
+	Pinned *PinnedRetriever `json:"pinned,omitempty"`
+	// Rescorer A retriever that re-scores only the results produced by its child retriever.
+	Rescorer *RescorerRetriever `json:"rescorer,omitempty"`
 	// Rrf A retriever that produces top documents from reciprocal rank fusion (RRF).
 	Rrf *RRFRetriever `json:"rrf,omitempty"`
 	// Rule A retriever that replaces the functionality of a rule query.
@@ -80,8 +88,6 @@ func NewRetrieverContainer() *RetrieverContainer {
 
 	return r
 }
-
-// true
 
 type RetrieverContainerVariant interface {
 	RetrieverContainerCaster() *RetrieverContainer

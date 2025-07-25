@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package esdsl
 
@@ -50,13 +50,6 @@ func (s *_untypedRangeQuery) Boost(boost float32) *_untypedRangeQuery {
 func (s *_untypedRangeQuery) Format(dateformat string) *_untypedRangeQuery {
 
 	s.v.Format = &dateformat
-
-	return s
-}
-
-func (s *_untypedRangeQuery) From(from json.RawMessage) *_untypedRangeQuery {
-
-	s.v.From = &from
 
 	return s
 }
@@ -105,13 +98,6 @@ func (s *_untypedRangeQuery) Relation(relation rangerelation.RangeRelation) *_un
 func (s *_untypedRangeQuery) TimeZone(timezone string) *_untypedRangeQuery {
 
 	s.v.TimeZone = &timezone
-
-	return s
-}
-
-func (s *_untypedRangeQuery) To(to json.RawMessage) *_untypedRangeQuery {
-
-	s.v.To = &to
 
 	return s
 }

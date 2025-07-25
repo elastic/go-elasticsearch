@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // MultisearchHeader type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_global/msearch/types.ts#L31-L46
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_global/msearch/types.ts#L31-L46
 type MultisearchHeader struct {
 	AllowNoIndices            *bool                           `json:"allow_no_indices,omitempty"`
 	AllowPartialSearchResults *bool                           `json:"allow_partial_search_results,omitempty"`
@@ -214,12 +214,20 @@ func NewMultisearchHeader() *MultisearchHeader {
 	return r
 }
 
-// true
-
 type MultisearchHeaderVariant interface {
 	MultisearchHeaderCaster() *MultisearchHeader
 }
 
 func (s *MultisearchHeader) MultisearchHeaderCaster() *MultisearchHeader {
 	return s
+}
+
+func (s *MultisearchHeader) MsearchRequestItemCaster() *MsearchRequestItem {
+	o := MsearchRequestItem(s)
+	return &o
+}
+
+func (s *MultisearchHeader) RequestItemCaster() *RequestItem {
+	o := RequestItem(s)
+	return &o
 }

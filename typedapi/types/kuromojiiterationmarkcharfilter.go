@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KuromojiIterationMarkCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/kuromoji-plugin.ts#L31-L35
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/analysis/kuromoji-plugin.ts#L37-L41
 type KuromojiIterationMarkCharFilter struct {
 	NormalizeKana  bool    `json:"normalize_kana"`
 	NormalizeKanji bool    `json:"normalize_kanji"`
@@ -119,12 +119,15 @@ func NewKuromojiIterationMarkCharFilter() *KuromojiIterationMarkCharFilter {
 	return r
 }
 
-// true
-
 type KuromojiIterationMarkCharFilterVariant interface {
 	KuromojiIterationMarkCharFilterCaster() *KuromojiIterationMarkCharFilter
 }
 
 func (s *KuromojiIterationMarkCharFilter) KuromojiIterationMarkCharFilterCaster() *KuromojiIterationMarkCharFilter {
 	return s
+}
+
+func (s *KuromojiIterationMarkCharFilter) CharFilterDefinitionCaster() *CharFilterDefinition {
+	o := CharFilterDefinition(s)
+	return &o
 }

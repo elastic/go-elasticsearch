@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeInfoHttp type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/nodes/info/types.ts#L311-L316
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/nodes/info/types.ts#L326-L331
 type NodeInfoHttp struct {
 	BoundAddress            []string `json:"bound_address"`
 	MaxContentLength        ByteSize `json:"max_content_length,omitempty"`
@@ -102,5 +102,3 @@ func NewNodeInfoHttp() *NodeInfoHttp {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // NodeInfoSettingsCluster type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/nodes/info/types.ts#L132-L142
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/nodes/info/types.ts#L142-L152
 type NodeInfoSettingsCluster struct {
 	DeprecationIndexing *DeprecationIndexing            `json:"deprecation_indexing,omitempty"`
 	Election            NodeInfoSettingsClusterElection `json:"election"`
@@ -65,8 +65,19 @@ func (s *NodeInfoSettingsCluster) UnmarshalJSON(data []byte) error {
 			}
 
 		case "initial_master_nodes":
-			if err := dec.Decode(&s.InitialMasterNodes); err != nil {
-				return fmt.Errorf("%s | %w", "InitialMasterNodes", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "InitialMasterNodes", err)
+				}
+
+				s.InitialMasterNodes = append(s.InitialMasterNodes, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.InitialMasterNodes); err != nil {
+					return fmt.Errorf("%s | %w", "InitialMasterNodes", err)
+				}
 			}
 
 		case "name":
@@ -90,5 +101,3 @@ func NewNodeInfoSettingsCluster() *NodeInfoSettingsCluster {
 
 	return r
 }
-
-// false

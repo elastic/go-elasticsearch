@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -29,16 +29,16 @@ import (
 	"strconv"
 )
 
-// NodeInfoNetworkInterface type.
+// GlobalOrdinalsStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/nodes/info/types.ts#L341-L345
-type NodeInfoNetworkInterface struct {
-	Address    string `json:"address"`
-	MacAddress string `json:"mac_address"`
-	Name       string `json:"name"`
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/Stats.ts#L131-L135
+type GlobalOrdinalsStats struct {
+	BuildTime         *string                            `json:"build_time,omitempty"`
+	BuildTimeInMillis int64                              `json:"build_time_in_millis"`
+	Fields            map[string]GlobalOrdinalFieldStats `json:"fields,omitempty"`
 }
 
-func (s *NodeInfoNetworkInterface) UnmarshalJSON(data []byte) error {
+func (s *GlobalOrdinalsStats) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -53,33 +53,29 @@ func (s *NodeInfoNetworkInterface) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "address":
+		case "build_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Address", err)
+				return fmt.Errorf("%s | %w", "BuildTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Address = o
+			s.BuildTime = &o
 
-		case "mac_address":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "MacAddress", err)
+		case "build_time_in_millis":
+			if err := dec.Decode(&s.BuildTimeInMillis); err != nil {
+				return fmt.Errorf("%s | %w", "BuildTimeInMillis", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.MacAddress = o
 
-		case "name":
-			if err := dec.Decode(&s.Name); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
+		case "fields":
+			if s.Fields == nil {
+				s.Fields = make(map[string]GlobalOrdinalFieldStats, 0)
+			}
+			if err := dec.Decode(&s.Fields); err != nil {
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		}
@@ -87,11 +83,11 @@ func (s *NodeInfoNetworkInterface) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewNodeInfoNetworkInterface returns a NodeInfoNetworkInterface.
-func NewNodeInfoNetworkInterface() *NodeInfoNetworkInterface {
-	r := &NodeInfoNetworkInterface{}
+// NewGlobalOrdinalsStats returns a GlobalOrdinalsStats.
+func NewGlobalOrdinalsStats() *GlobalOrdinalsStats {
+	r := &GlobalOrdinalsStats{
+		Fields: make(map[string]GlobalOrdinalFieldStats),
+	}
 
 	return r
 }
-
-// false

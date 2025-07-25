@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Redact type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/ingest/_types/Simulation.ts#L39-L44
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/ingest/_types/Simulation.ts#L38-L43
 type Redact struct {
 	// IsRedacted_ indicates if document has been redacted
 	IsRedacted_ bool `json:"_is_redacted"`
@@ -77,5 +77,3 @@ func NewRedact() *Redact {
 
 	return r
 }
-
-// false

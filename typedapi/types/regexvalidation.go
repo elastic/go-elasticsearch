@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RegexValidation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/connector/_types/Connector.ts#L78-L81
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/connector/_types/Connector.ts#L78-L81
 type RegexValidation struct {
 	Constraint string `json:"constraint"`
 	Type       string `json:"type,omitempty"`
@@ -94,12 +94,15 @@ func NewRegexValidation() *RegexValidation {
 	return r
 }
 
-// true
-
 type RegexValidationVariant interface {
 	RegexValidationCaster() *RegexValidation
 }
 
 func (s *RegexValidation) RegexValidationCaster() *RegexValidation {
 	return s
+}
+
+func (s *RegexValidation) ValidationCaster() *Validation {
+	o := Validation(s)
+	return &o
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Resolve the cluster.
 //
@@ -495,7 +495,6 @@ func (r *ResolveCluster) AllowNoIndices(allownoindices bool) *ResolveCluster {
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
 // Supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // NOTE: This option is only supported when specifying an index expression. You
 // will get an error if you specify index
 // options to the `_resolve/cluster` API endpoint that takes no index

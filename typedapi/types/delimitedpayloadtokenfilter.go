@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -33,12 +33,14 @@ import (
 
 // DelimitedPayloadTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/token_filters.ts#L67-L71
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/analysis/token_filters.ts#L84-L90
 type DelimitedPayloadTokenFilter struct {
-	Delimiter *string                                            `json:"delimiter,omitempty"`
-	Encoding  *delimitedpayloadencoding.DelimitedPayloadEncoding `json:"encoding,omitempty"`
-	Type      string                                             `json:"type,omitempty"`
-	Version   *string                                            `json:"version,omitempty"`
+	// Delimiter Character used to separate tokens from payloads. Defaults to `|`.
+	Delimiter *string `json:"delimiter,omitempty"`
+	// Encoding Data type for the stored payload.
+	Encoding *delimitedpayloadencoding.DelimitedPayloadEncoding `json:"encoding,omitempty"`
+	Type     string                                             `json:"type,omitempty"`
+	Version  *string                                            `json:"version,omitempty"`
 }
 
 func (s *DelimitedPayloadTokenFilter) UnmarshalJSON(data []byte) error {
@@ -110,12 +112,15 @@ func NewDelimitedPayloadTokenFilter() *DelimitedPayloadTokenFilter {
 	return r
 }
 
-// true
-
 type DelimitedPayloadTokenFilterVariant interface {
 	DelimitedPayloadTokenFilterCaster() *DelimitedPayloadTokenFilter
 }
 
 func (s *DelimitedPayloadTokenFilter) DelimitedPayloadTokenFilterCaster() *DelimitedPayloadTokenFilter {
 	return s
+}
+
+func (s *DelimitedPayloadTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
-// Get datafeeds usage info.
+// Get datafeed stats.
 // You can get statistics for multiple datafeeds in a single API request by
 // using a comma-separated list of datafeeds or a wildcard expression. You can
 // get statistics for all datafeeds by using `_all`, by specifying `*` as the
@@ -80,7 +80,7 @@ func NewGetDatafeedStatsFunc(tp elastictransport.Interface) NewGetDatafeedStats 
 	}
 }
 
-// Get datafeeds usage info.
+// Get datafeed stats.
 // You can get statistics for multiple datafeeds in a single API request by
 // using a comma-separated list of datafeeds or a wildcard expression. You can
 // get statistics for all datafeeds by using `_all`, by specifying `*` as the

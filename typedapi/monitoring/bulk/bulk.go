@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Send monitoring data.
 // This API is used by the monitoring features to send monitoring data.
@@ -83,7 +83,7 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 // Send monitoring data.
 // This API is used by the monitoring features to send monitoring data.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/v9/
+// https://www.elastic.co/docs/api/doc/elasticsearch
 func New(tp elastictransport.Interface) *Bulk {
 	r := &Bulk{
 		transport: tp,

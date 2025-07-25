@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // EnrichPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/enrich/_types/Policy.ts#L34-L41
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/enrich/_types/Policy.ts#L34-L41
 type EnrichPolicy struct {
 	ElasticsearchVersion *string  `json:"elasticsearch_version,omitempty"`
 	EnrichFields         []string `json:"enrich_fields"`
@@ -126,8 +126,6 @@ func NewEnrichPolicy() *EnrichPolicy {
 
 	return r
 }
-
-// true
 
 type EnrichPolicyVariant interface {
 	EnrichPolicyCaster() *EnrichPolicy

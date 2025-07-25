@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Delete snapshots.
 package delete
@@ -325,6 +325,17 @@ func (r *Delete) _snapshot(snapshot string) *Delete {
 // API name: master_timeout
 func (r *Delete) MasterTimeout(duration string) *Delete {
 	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// WaitForCompletion If `true`, the request returns a response when the matching snapshots are all
+// deleted.
+// If `false`, the request returns a response as soon as the deletes are
+// scheduled.
+// API name: wait_for_completion
+func (r *Delete) WaitForCompletion(waitforcompletion bool) *Delete {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
 
 	return r
 }

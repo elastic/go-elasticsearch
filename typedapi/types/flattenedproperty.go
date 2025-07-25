@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // FlattenedProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/mapping/complex.ts#L26-L37
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/mapping/complex.ts#L26-L38
 type FlattenedProperty struct {
 	Boost               *Float64                       `json:"boost,omitempty"`
 	DepthLimit          *int                           `json:"depth_limit,omitempty"`
@@ -53,6 +53,7 @@ type FlattenedProperty struct {
 	Similarity               *string                                          `json:"similarity,omitempty"`
 	SplitQueriesOnWhitespace *bool                                            `json:"split_queries_on_whitespace,omitempty"`
 	SyntheticSourceKeep      *syntheticsourcekeepenum.SyntheticSourceKeepEnum `json:"synthetic_source_keep,omitempty"`
+	TimeSeriesDimensions     []string                                         `json:"time_series_dimensions,omitempty"`
 	Type                     string                                           `json:"type,omitempty"`
 }
 
@@ -274,6 +275,12 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "passthrough":
 					oo := NewPassthroughObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Fields | %w", err)
+					}
+					s.Fields[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Fields | %w", err)
 					}
@@ -664,6 +671,12 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Properties | %w", err)
 					}
 					s.Properties[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
 				case "semantic_text":
 					oo := NewSemanticTextProperty()
 					if err := localDec.Decode(&oo); err != nil {
@@ -884,6 +897,11 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "SyntheticSourceKeep", err)
 			}
 
+		case "time_series_dimensions":
+			if err := dec.Decode(&s.TimeSeriesDimensions); err != nil {
+				return fmt.Errorf("%s | %w", "TimeSeriesDimensions", err)
+			}
+
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
 				return fmt.Errorf("%s | %w", "Type", err)
@@ -913,6 +931,7 @@ func (s FlattenedProperty) MarshalJSON() ([]byte, error) {
 		Similarity:               s.Similarity,
 		SplitQueriesOnWhitespace: s.SplitQueriesOnWhitespace,
 		SyntheticSourceKeep:      s.SyntheticSourceKeep,
+		TimeSeriesDimensions:     s.TimeSeriesDimensions,
 		Type:                     s.Type,
 	}
 
@@ -932,12 +951,15 @@ func NewFlattenedProperty() *FlattenedProperty {
 	return r
 }
 
-// true
-
 type FlattenedPropertyVariant interface {
 	FlattenedPropertyCaster() *FlattenedProperty
 }
 
 func (s *FlattenedProperty) FlattenedPropertyCaster() *FlattenedProperty {
 	return s
+}
+
+func (s *FlattenedProperty) PropertyCaster() *Property {
+	o := Property(s)
+	return &o
 }

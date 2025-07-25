@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Create an index.
 // You can use the create index API to add a new index to an Elasticsearch
@@ -369,6 +369,19 @@ func (r *Create) Header(key, value string) *Create {
 }
 
 // Index Name of the index you wish to create.
+// Index names must meet the following criteria:
+//
+// * Lowercase only
+// * Cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` ` (space
+// character), `,`, or `#`
+// * Indices prior to 7.0 could contain a colon (`:`), but that has been
+// deprecated and will not be supported in later versions
+// * Cannot start with `-`, `_`, or `+`
+// * Cannot be `.` or `..`
+// * Cannot be longer than 255 bytes (note thtat it is bytes, so multi-byte
+// characters will reach the limit faster)
+// * Names starting with `.` are deprecated, except for hidden indices and
+// internal indices managed by plugins
 // API Name: index
 func (r *Create) _index(index string) *Create {
 	r.paramSet |= indexMask

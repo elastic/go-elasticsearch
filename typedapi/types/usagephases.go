@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
 // UsagePhases type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/xpack/usage/types.ts#L159-L165
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/xpack/usage/types.ts#L159-L165
 type UsagePhases struct {
 	Cold   *UsagePhase `json:"cold,omitempty"`
 	Delete *UsagePhase `json:"delete,omitempty"`
@@ -37,5 +37,3 @@ func NewUsagePhases() *UsagePhases {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SourceOnlyRepository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/snapshot/_types/SnapshotRepository.ts#L104-L114
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/snapshot/_types/SnapshotRepository.ts#L104-L114
 type SourceOnlyRepository struct {
 	// Settings The repository settings.
 	Settings SourceOnlyRepositorySettings `json:"settings"`
@@ -95,12 +95,15 @@ func NewSourceOnlyRepository() *SourceOnlyRepository {
 	return r
 }
 
-// true
-
 type SourceOnlyRepositoryVariant interface {
 	SourceOnlyRepositoryCaster() *SourceOnlyRepository
 }
 
 func (s *SourceOnlyRepository) SourceOnlyRepositoryCaster() *SourceOnlyRepository {
 	return s
+}
+
+func (s *SourceOnlyRepository) RepositoryCaster() *Repository {
+	o := Repository(s)
+	return &o
 }

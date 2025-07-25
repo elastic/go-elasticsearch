@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,9 +31,28 @@ import (
 
 // RateLimitSetting type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/inference/_types/Services.ts#L95-L100
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/inference/_types/Services.ts#L289-L315
 type RateLimitSetting struct {
 	// RequestsPerMinute The number of requests allowed per minute.
+	// By default, the number of requests allowed per minute is set by each service
+	// as follows:
+	//
+	// * `alibabacloud-ai-search` service: `1000`
+	// * `anthropic` service: `50`
+	// * `azureaistudio` service: `240`
+	// * `azureopenai` service and task type `text_embedding`: `1440`
+	// * `azureopenai` service and task type `completion`: `120`
+	// * `cohere` service: `10000`
+	// * `elastic` service and task type `chat_completion`: `240`
+	// * `googleaistudio` service: `360`
+	// * `googlevertexai` service: `30000`
+	// * `hugging_face` service: `3000`
+	// * `jinaai` service: `2000`
+	// * `mistral` service: `240`
+	// * `openai` service and task type `text_embedding`: `3000`
+	// * `openai` service and task type `completion`: `500`
+	// * `voyageai` service: `2000`
+	// * `watsonxai` service: `120`
 	RequestsPerMinute *int `json:"requests_per_minute,omitempty"`
 }
 
@@ -79,8 +98,6 @@ func NewRateLimitSetting() *RateLimitSetting {
 
 	return r
 }
-
-// true
 
 type RateLimitSettingVariant interface {
 	RateLimitSettingCaster() *RateLimitSetting

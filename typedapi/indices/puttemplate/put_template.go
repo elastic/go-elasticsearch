@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
-// Create or update an index template.
+// Create or update a legacy index template.
 // Index templates define settings, mappings, and aliases that can be applied
 // automatically to new indices.
 // Elasticsearch applies templates to new indices based on an index pattern that
@@ -112,7 +112,7 @@ func NewPutTemplateFunc(tp elastictransport.Interface) NewPutTemplate {
 	}
 }
 
-// Create or update an index template.
+// Create or update a legacy index template.
 // Index templates define settings, mappings, and aliases that can be applied
 // automatically to new indices.
 // Elasticsearch applies templates to new indices based on an index pattern that

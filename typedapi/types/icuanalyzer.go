@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // IcuAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/icu-plugin.ts#L67-L71
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/analysis/icu-plugin.ts#L68-L72
 type IcuAnalyzer struct {
 	Method icunormalizationtype.IcuNormalizationType `json:"method"`
 	Mode   icunormalizationmode.IcuNormalizationMode `json:"mode"`
@@ -57,12 +57,15 @@ func NewIcuAnalyzer() *IcuAnalyzer {
 	return r
 }
 
-// true
-
 type IcuAnalyzerVariant interface {
 	IcuAnalyzerCaster() *IcuAnalyzer
 }
 
 func (s *IcuAnalyzer) IcuAnalyzerCaster() *IcuAnalyzer {
 	return s
+}
+
+func (s *IcuAnalyzer) AnalyzerCaster() *Analyzer {
+	o := Analyzer(s)
+	return &o
 }

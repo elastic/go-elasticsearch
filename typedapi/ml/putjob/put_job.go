@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Create an anomaly detection job.
 //
@@ -339,16 +339,7 @@ func (r *PutJob) AllowNoIndices(allownoindices bool) *PutJob {
 // ExpandWildcards Type of index that wildcard patterns can match. If the request can target
 // data streams, this argument determines
 // whether wildcard expressions match hidden data streams. Supports
-// comma-separated values. Valid values are:
-//
-// * `all`: Match any data stream or index, including hidden ones.
-// * `closed`: Match closed, non-hidden indices. Also matches any non-hidden
-// data stream. Data streams cannot be closed.
-// * `hidden`: Match hidden data streams and hidden indices. Must be combined
-// with `open`, `closed`, or both.
-// * `none`: Wildcard patterns are not accepted.
-// * `open`: Match open, non-hidden indices. Also matches any non-hidden data
-// stream.
+// comma-separated values.
 // API name: expand_wildcards
 func (r *PutJob) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *PutJob {
 	tmp := []string{}

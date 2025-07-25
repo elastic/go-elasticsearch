@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,21 +31,23 @@ import (
 
 // FieldTypesMappings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/cluster/stats/types.ts#L109-L134
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/cluster/stats/types.ts#L180-L209
 type FieldTypesMappings struct {
 	// FieldTypes Contains statistics about field data types used in selected nodes.
 	FieldTypes []FieldTypes `json:"field_types"`
 	// RuntimeFieldTypes Contains statistics about runtime field data types used in selected nodes.
-	RuntimeFieldTypes []ClusterRuntimeFieldTypes `json:"runtime_field_types,omitempty"`
+	RuntimeFieldTypes []ClusterRuntimeFieldTypes `json:"runtime_field_types"`
+	// SourceModes Source mode usage count.
+	SourceModes map[string]int `json:"source_modes"`
 	// TotalDeduplicatedFieldCount Total number of fields in all non-system indices, accounting for mapping
 	// deduplication.
-	TotalDeduplicatedFieldCount *int `json:"total_deduplicated_field_count,omitempty"`
+	TotalDeduplicatedFieldCount *int64 `json:"total_deduplicated_field_count,omitempty"`
 	// TotalDeduplicatedMappingSize Total size of all mappings after deduplication and compression.
 	TotalDeduplicatedMappingSize ByteSize `json:"total_deduplicated_mapping_size,omitempty"`
 	// TotalDeduplicatedMappingSizeInBytes Total size of all mappings, in bytes, after deduplication and compression.
 	TotalDeduplicatedMappingSizeInBytes *int64 `json:"total_deduplicated_mapping_size_in_bytes,omitempty"`
 	// TotalFieldCount Total number of fields in all non-system indices.
-	TotalFieldCount *int `json:"total_field_count,omitempty"`
+	TotalFieldCount *int64 `json:"total_field_count,omitempty"`
 }
 
 func (s *FieldTypesMappings) UnmarshalJSON(data []byte) error {
@@ -73,19 +75,26 @@ func (s *FieldTypesMappings) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "RuntimeFieldTypes", err)
 			}
 
-		case "total_deduplicated_field_count":
+		case "source_modes":
+			if s.SourceModes == nil {
+				s.SourceModes = make(map[string]int, 0)
+			}
+			if err := dec.Decode(&s.SourceModes); err != nil {
+				return fmt.Errorf("%s | %w", "SourceModes", err)
+			}
 
+		case "total_deduplicated_field_count":
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
-				value, err := strconv.Atoi(v)
+				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
 					return fmt.Errorf("%s | %w", "TotalDeduplicatedFieldCount", err)
 				}
 				s.TotalDeduplicatedFieldCount = &value
 			case float64:
-				f := int(v)
+				f := int64(v)
 				s.TotalDeduplicatedFieldCount = &f
 			}
 
@@ -110,18 +119,17 @@ func (s *FieldTypesMappings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total_field_count":
-
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
-				value, err := strconv.Atoi(v)
+				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
 					return fmt.Errorf("%s | %w", "TotalFieldCount", err)
 				}
 				s.TotalFieldCount = &value
 			case float64:
-				f := int(v)
+				f := int64(v)
 				s.TotalFieldCount = &f
 			}
 
@@ -132,9 +140,9 @@ func (s *FieldTypesMappings) UnmarshalJSON(data []byte) error {
 
 // NewFieldTypesMappings returns a FieldTypesMappings.
 func NewFieldTypesMappings() *FieldTypesMappings {
-	r := &FieldTypesMappings{}
+	r := &FieldTypesMappings{
+		SourceModes: make(map[string]int),
+	}
 
 	return r
 }
-
-// false

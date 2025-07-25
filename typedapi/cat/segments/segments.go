@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Get segment information.
 //
@@ -41,6 +41,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catsegmentscolumn"
 )
 
 const (
@@ -329,15 +330,21 @@ func (r *Segments) Bytes(bytes bytes.Bytes) *Segments {
 	return r
 }
 
-// H List of columns to appear in the response. Supports simple wildcards.
+// H A comma-separated list of columns names to display.
+// It supports simple wildcards.
 // API name: h
-func (r *Segments) H(names ...string) *Segments {
-	r.values.Set("h", strings.Join(names, ","))
+func (r *Segments) H(catsegmentscolumns ...catsegmentscolumn.CatSegmentsColumn) *Segments {
+	tmp := []string{}
+	for _, item := range catsegmentscolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
+// S A comma-separated list of column names or aliases that determines the sort
+// order.
 // Sorting defaults to ascending and can be changed by setting `:asc`
 // or `:desc` as a suffix to the column name.
 // API name: s

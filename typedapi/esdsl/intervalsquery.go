@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package esdsl
 
@@ -91,6 +91,20 @@ func (s *_intervalsQuery) Prefix(prefix types.IntervalsPrefixVariant) *_interval
 func (s *_intervalsQuery) QueryName_(queryname_ string) *_intervalsQuery {
 
 	s.v.QueryName_ = &queryname_
+
+	return s
+}
+
+func (s *_intervalsQuery) Range(range_ types.IntervalsRangeVariant) *_intervalsQuery {
+
+	s.v.Range = range_.IntervalsRangeCaster()
+
+	return s
+}
+
+func (s *_intervalsQuery) Regexp(regexp types.IntervalsRegexpVariant) *_intervalsQuery {
+
+	s.v.Regexp = regexp.IntervalsRegexpCaster()
 
 	return s
 }

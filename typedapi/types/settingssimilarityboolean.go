@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // SettingsSimilarityBoolean type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/indices/_types/IndexSettings.ts#L192-L194
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/indices/_types/IndexSettings.ts#L194-L196
 type SettingsSimilarityBoolean struct {
 	Type string `json:"type,omitempty"`
 }
@@ -50,12 +50,15 @@ func NewSettingsSimilarityBoolean() *SettingsSimilarityBoolean {
 	return r
 }
 
-// true
-
 type SettingsSimilarityBooleanVariant interface {
 	SettingsSimilarityBooleanCaster() *SettingsSimilarityBoolean
 }
 
 func (s *SettingsSimilarityBoolean) SettingsSimilarityBooleanCaster() *SettingsSimilarityBoolean {
 	return s
+}
+
+func (s *SettingsSimilarityBoolean) SettingsSimilarityCaster() *SettingsSimilarity {
+	o := SettingsSimilarity(s)
+	return &o
 }

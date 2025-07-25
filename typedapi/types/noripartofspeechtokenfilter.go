@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -30,8 +30,9 @@ import (
 
 // NoriPartOfSpeechTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/token_filters.ts#L274-L277
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/analysis/nori-plugin.ts#L37-L41
 type NoriPartOfSpeechTokenFilter struct {
+	// Stoptags An array of part-of-speech tags that should be removed.
 	Stoptags []string `json:"stoptags,omitempty"`
 	Type     string   `json:"type,omitempty"`
 	Version  *string  `json:"version,omitempty"`
@@ -93,12 +94,15 @@ func NewNoriPartOfSpeechTokenFilter() *NoriPartOfSpeechTokenFilter {
 	return r
 }
 
-// true
-
 type NoriPartOfSpeechTokenFilterVariant interface {
 	NoriPartOfSpeechTokenFilterCaster() *NoriPartOfSpeechTokenFilter
 }
 
 func (s *NoriPartOfSpeechTokenFilter) NoriPartOfSpeechTokenFilterCaster() *NoriPartOfSpeechTokenFilter {
 	return s
+}
+
+func (s *NoriPartOfSpeechTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

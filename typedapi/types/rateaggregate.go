@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RateAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/aggregations/Aggregate.ts#L847-L854
+// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/aggregations/Aggregate.ts#L849-L856
 type RateAggregate struct {
 	Meta          Metadata `json:"meta,omitempty"`
 	Value         Float64  `json:"value"`
@@ -97,5 +97,3 @@ func NewRateAggregate() *RateAggregate {
 
 	return r
 }
-
-// false

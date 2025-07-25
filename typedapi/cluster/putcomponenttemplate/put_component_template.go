@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
 
 // Create or update a component template.
 // Component templates are building blocks for constructing index templates that
@@ -382,6 +382,14 @@ func (r *PutComponentTemplate) _name(name string) *PutComponentTemplate {
 // API name: create
 func (r *PutComponentTemplate) Create(create bool) *PutComponentTemplate {
 	r.values.Set("create", strconv.FormatBool(create))
+
+	return r
+}
+
+// Cause User defined reason for create the component template.
+// API name: cause
+func (r *PutComponentTemplate) Cause(cause string) *PutComponentTemplate {
+	r.values.Set("cause", cause)
 
 	return r
 }
