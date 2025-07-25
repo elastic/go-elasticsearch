@@ -23,14 +23,12 @@ import (
 	"context"
 	"io"
 	"net/http"
-	"strconv"
 	"strings"
-	"time"
 )
 
-func newClusterPutComponentTemplateFunc(t Transport) ClusterPutComponentTemplate {
-	return func(name string, body io.Reader, o ...func(*ClusterPutComponentTemplateRequest)) (*Response, error) {
-		var r = ClusterPutComponentTemplateRequest{Name: name, Body: body}
+func newInferencePutCustomFunc(t Transport) InferencePutCustom {
+	return func(custom_inference_id string, task_type string, o ...func(*InferencePutCustomRequest)) (*Response, error) {
+		var r = InferencePutCustomRequest{CustomInferenceID: custom_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,20 +43,17 @@ func newClusterPutComponentTemplateFunc(t Transport) ClusterPutComponentTemplate
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterPutComponentTemplate creates or updates a component template
+// InferencePutCustom configure a custom inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
-type ClusterPutComponentTemplate func(name string, body io.Reader, o ...func(*ClusterPutComponentTemplateRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom.
+type InferencePutCustom func(custom_inference_id string, task_type string, o ...func(*InferencePutCustomRequest)) (*Response, error)
 
-// ClusterPutComponentTemplateRequest configures the Cluster Put Component Template API request.
-type ClusterPutComponentTemplateRequest struct {
+// InferencePutCustomRequest configures the Inference Put Custom API request.
+type InferencePutCustomRequest struct {
 	Body io.Reader
 
-	Name string
-
-	Cause         string
-	Create        *bool
-	MasterTimeout time.Duration
+	CustomInferenceID string
+	TaskType          string
 
 	Pretty     bool
 	Human      bool
@@ -73,7 +68,7 @@ type ClusterPutComponentTemplateRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ClusterPutComponentTemplateRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r InferencePutCustomRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -82,7 +77,7 @@ func (r ClusterPutComponentTemplateRequest) Do(providedCtx context.Context, tran
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "cluster.put_component_template")
+		ctx = instrument.Start(providedCtx, "inference.put_custom")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -91,29 +86,22 @@ func (r ClusterPutComponentTemplateRequest) Do(providedCtx context.Context, tran
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_component_template") + 1 + len(r.Name))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.CustomInferenceID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_component_template")
+	path.WriteString("_inference")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(r.TaskType)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", r.Name)
+		instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+	}
+	path.WriteString("/")
+	path.WriteString(r.CustomInferenceID)
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "custom_inference_id", r.CustomInferenceID)
 	}
 
 	params = make(map[string]string)
-
-	if r.Cause != "" {
-		params["cause"] = r.Cause
-	}
-
-	if r.Create != nil {
-		params["create"] = strconv.FormatBool(*r.Create)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -168,14 +156,14 @@ func (r ClusterPutComponentTemplateRequest) Do(providedCtx context.Context, tran
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "cluster.put_component_template")
-		if reader := instrument.RecordRequestBody(ctx, "cluster.put_component_template", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "inference.put_custom")
+		if reader := instrument.RecordRequestBody(ctx, "inference.put_custom", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "cluster.put_component_template")
+		instrument.AfterRequest(req, "elasticsearch", "inference.put_custom")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -194,64 +182,50 @@ func (r ClusterPutComponentTemplateRequest) Do(providedCtx context.Context, tran
 }
 
 // WithContext sets the request context.
-func (f ClusterPutComponentTemplate) WithContext(v context.Context) func(*ClusterPutComponentTemplateRequest) {
-	return func(r *ClusterPutComponentTemplateRequest) {
+func (f InferencePutCustom) WithContext(v context.Context) func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		r.ctx = v
 	}
 }
 
-// WithCause - user defined reason for create the component template.
-func (f ClusterPutComponentTemplate) WithCause(v string) func(*ClusterPutComponentTemplateRequest) {
-	return func(r *ClusterPutComponentTemplateRequest) {
-		r.Cause = v
-	}
-}
-
-// WithCreate - whether the index template should only be added if new or can also replace an existing one.
-func (f ClusterPutComponentTemplate) WithCreate(v bool) func(*ClusterPutComponentTemplateRequest) {
-	return func(r *ClusterPutComponentTemplateRequest) {
-		r.Create = &v
-	}
-}
-
-// WithMasterTimeout - specify timeout for connection to master.
-func (f ClusterPutComponentTemplate) WithMasterTimeout(v time.Duration) func(*ClusterPutComponentTemplateRequest) {
-	return func(r *ClusterPutComponentTemplateRequest) {
-		r.MasterTimeout = v
+// WithBody - The inference endpoint's task and service settings.
+func (f InferencePutCustom) WithBody(v io.Reader) func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
+		r.Body = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ClusterPutComponentTemplate) WithPretty() func(*ClusterPutComponentTemplateRequest) {
-	return func(r *ClusterPutComponentTemplateRequest) {
+func (f InferencePutCustom) WithPretty() func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ClusterPutComponentTemplate) WithHuman() func(*ClusterPutComponentTemplateRequest) {
-	return func(r *ClusterPutComponentTemplateRequest) {
+func (f InferencePutCustom) WithHuman() func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ClusterPutComponentTemplate) WithErrorTrace() func(*ClusterPutComponentTemplateRequest) {
-	return func(r *ClusterPutComponentTemplateRequest) {
+func (f InferencePutCustom) WithErrorTrace() func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ClusterPutComponentTemplate) WithFilterPath(v ...string) func(*ClusterPutComponentTemplateRequest) {
-	return func(r *ClusterPutComponentTemplateRequest) {
+func (f InferencePutCustom) WithFilterPath(v ...string) func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ClusterPutComponentTemplate) WithHeader(h map[string]string) func(*ClusterPutComponentTemplateRequest) {
-	return func(r *ClusterPutComponentTemplateRequest) {
+func (f InferencePutCustom) WithHeader(h map[string]string) func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -262,8 +236,8 @@ func (f ClusterPutComponentTemplate) WithHeader(h map[string]string) func(*Clust
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ClusterPutComponentTemplate) WithOpaqueID(s string) func(*ClusterPutComponentTemplateRequest) {
-	return func(r *ClusterPutComponentTemplateRequest) {
+func (f InferencePutCustom) WithOpaqueID(s string) func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

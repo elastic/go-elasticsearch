@@ -60,6 +60,7 @@ type ReindexRequest struct {
 	MaxDocs             *int
 	Refresh             *bool
 	RequestsPerSecond   *int
+	RequireAlias        *bool
 	Scroll              time.Duration
 	Slices              interface{}
 	Timeout             time.Duration
@@ -113,6 +114,10 @@ func (r ReindexRequest) Do(providedCtx context.Context, transport Transport) (*R
 
 	if r.RequestsPerSecond != nil {
 		params["requests_per_second"] = strconv.FormatInt(int64(*r.RequestsPerSecond), 10)
+	}
+
+	if r.RequireAlias != nil {
+		params["require_alias"] = strconv.FormatBool(*r.RequireAlias)
 	}
 
 	if r.Scroll != 0 {
@@ -238,6 +243,13 @@ func (f Reindex) WithRefresh(v bool) func(*ReindexRequest) {
 func (f Reindex) WithRequestsPerSecond(v int) func(*ReindexRequest) {
 	return func(r *ReindexRequest) {
 		r.RequestsPerSecond = &v
+	}
+}
+
+// WithRequireAlias - when true, requires destination to be an alias..
+func (f Reindex) WithRequireAlias(v bool) func(*ReindexRequest) {
+	return func(r *ReindexRequest) {
+		r.RequireAlias = &v
 	}
 }
 
