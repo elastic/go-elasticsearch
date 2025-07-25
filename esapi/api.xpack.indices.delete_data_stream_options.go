@@ -46,8 +46,6 @@ func newIndicesDeleteDataStreamOptionsFunc(t Transport) IndicesDeleteDataStreamO
 
 // IndicesDeleteDataStreamOptions - Deletes the data stream options of the selected data streams.
 //
-// This API is experimental.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
 type IndicesDeleteDataStreamOptions func(name []string, o ...func(*IndicesDeleteDataStreamOptionsRequest)) (*Response, error)
 

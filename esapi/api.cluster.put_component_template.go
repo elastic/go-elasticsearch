@@ -56,9 +56,9 @@ type ClusterPutComponentTemplateRequest struct {
 
 	Name string
 
+	Cause         string
 	Create        *bool
 	MasterTimeout time.Duration
-	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -103,16 +103,16 @@ func (r ClusterPutComponentTemplateRequest) Do(providedCtx context.Context, tran
 
 	params = make(map[string]string)
 
+	if r.Cause != "" {
+		params["cause"] = r.Cause
+	}
+
 	if r.Create != nil {
 		params["create"] = strconv.FormatBool(*r.Create)
 	}
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
-
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {
@@ -200,6 +200,13 @@ func (f ClusterPutComponentTemplate) WithContext(v context.Context) func(*Cluste
 	}
 }
 
+// WithCause - user defined reason for create the component template.
+func (f ClusterPutComponentTemplate) WithCause(v string) func(*ClusterPutComponentTemplateRequest) {
+	return func(r *ClusterPutComponentTemplateRequest) {
+		r.Cause = v
+	}
+}
+
 // WithCreate - whether the index template should only be added if new or can also replace an existing one.
 func (f ClusterPutComponentTemplate) WithCreate(v bool) func(*ClusterPutComponentTemplateRequest) {
 	return func(r *ClusterPutComponentTemplateRequest) {
@@ -211,13 +218,6 @@ func (f ClusterPutComponentTemplate) WithCreate(v bool) func(*ClusterPutComponen
 func (f ClusterPutComponentTemplate) WithMasterTimeout(v time.Duration) func(*ClusterPutComponentTemplateRequest) {
 	return func(r *ClusterPutComponentTemplateRequest) {
 		r.MasterTimeout = v
-	}
-}
-
-// WithTimeout - explicit operation timeout.
-func (f ClusterPutComponentTemplate) WithTimeout(v time.Duration) func(*ClusterPutComponentTemplateRequest) {
-	return func(r *ClusterPutComponentTemplateRequest) {
-		r.Timeout = v
 	}
 }
 

@@ -25,11 +25,12 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
-func newSynonymsPutSynonymFunc(t Transport) SynonymsPutSynonym {
-	return func(id string, body io.Reader, o ...func(*SynonymsPutSynonymRequest)) (*Response, error) {
-		var r = SynonymsPutSynonymRequest{DocumentID: id, Body: body}
+func newIndicesPutDataStreamSettingsFunc(t Transport) IndicesPutDataStreamSettings {
+	return func(name string, body io.Reader, o ...func(*IndicesPutDataStreamSettingsRequest)) (*Response, error) {
+		var r = IndicesPutDataStreamSettingsRequest{Name: name, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,18 +45,20 @@ func newSynonymsPutSynonymFunc(t Transport) SynonymsPutSynonym {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsPutSynonym creates or updates a synonyms set
+// IndicesPutDataStreamSettings updates a data stream's settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonyms-set.html.
-type SynonymsPutSynonym func(id string, body io.Reader, o ...func(*SynonymsPutSynonymRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+type IndicesPutDataStreamSettings func(name string, body io.Reader, o ...func(*IndicesPutDataStreamSettingsRequest)) (*Response, error)
 
-// SynonymsPutSynonymRequest configures the Synonyms Put Synonym API request.
-type SynonymsPutSynonymRequest struct {
-	DocumentID string
-
+// IndicesPutDataStreamSettingsRequest configures the Indices Put Data Stream Settings API request.
+type IndicesPutDataStreamSettingsRequest struct {
 	Body io.Reader
 
-	Refresh *bool
+	Name string
+
+	DryRun        *bool
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -70,7 +73,7 @@ type SynonymsPutSynonymRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r IndicesPutDataStreamSettingsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -79,7 +82,7 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "synonyms.put_synonym")
+		ctx = instrument.Start(providedCtx, "indices.put_data_stream_settings")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -88,20 +91,30 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(r.Name) + 1 + len("_settings"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_synonyms")
+	path.WriteString("_data_stream")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.Name)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "id", r.DocumentID)
+		instrument.RecordPathPart(ctx, "name", r.Name)
 	}
+	path.WriteString("/")
+	path.WriteString("_settings")
 
 	params = make(map[string]string)
 
-	if r.Refresh != nil {
-		params["refresh"] = strconv.FormatBool(*r.Refresh)
+	if r.DryRun != nil {
+		params["dry_run"] = strconv.FormatBool(*r.DryRun)
+	}
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {
@@ -157,14 +170,14 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "synonyms.put_synonym")
-		if reader := instrument.RecordRequestBody(ctx, "synonyms.put_synonym", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "indices.put_data_stream_settings")
+		if reader := instrument.RecordRequestBody(ctx, "indices.put_data_stream_settings", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "synonyms.put_synonym")
+		instrument.AfterRequest(req, "elasticsearch", "indices.put_data_stream_settings")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -183,50 +196,64 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-func (f SynonymsPutSynonym) WithContext(v context.Context) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesPutDataStreamSettings) WithContext(v context.Context) func(*IndicesPutDataStreamSettingsRequest) {
+	return func(r *IndicesPutDataStreamSettingsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithRefresh - refresh search analyzers to update synonyms.
-func (f SynonymsPutSynonym) WithRefresh(v bool) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
-		r.Refresh = &v
+// WithDryRun - whether this request should only be a dry run rather than actually applying settings.
+func (f IndicesPutDataStreamSettings) WithDryRun(v bool) func(*IndicesPutDataStreamSettingsRequest) {
+	return func(r *IndicesPutDataStreamSettingsRequest) {
+		r.DryRun = &v
+	}
+}
+
+// WithMasterTimeout - period to wait for a connection to the master node.
+func (f IndicesPutDataStreamSettings) WithMasterTimeout(v time.Duration) func(*IndicesPutDataStreamSettingsRequest) {
+	return func(r *IndicesPutDataStreamSettingsRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - period to wait for a response.
+func (f IndicesPutDataStreamSettings) WithTimeout(v time.Duration) func(*IndicesPutDataStreamSettingsRequest) {
+	return func(r *IndicesPutDataStreamSettingsRequest) {
+		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SynonymsPutSynonym) WithPretty() func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesPutDataStreamSettings) WithPretty() func(*IndicesPutDataStreamSettingsRequest) {
+	return func(r *IndicesPutDataStreamSettingsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymsPutSynonym) WithHuman() func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesPutDataStreamSettings) WithHuman() func(*IndicesPutDataStreamSettingsRequest) {
+	return func(r *IndicesPutDataStreamSettingsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymsPutSynonym) WithErrorTrace() func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesPutDataStreamSettings) WithErrorTrace() func(*IndicesPutDataStreamSettingsRequest) {
+	return func(r *IndicesPutDataStreamSettingsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymsPutSynonym) WithFilterPath(v ...string) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesPutDataStreamSettings) WithFilterPath(v ...string) func(*IndicesPutDataStreamSettingsRequest) {
+	return func(r *IndicesPutDataStreamSettingsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymsPutSynonym) WithHeader(h map[string]string) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesPutDataStreamSettings) WithHeader(h map[string]string) func(*IndicesPutDataStreamSettingsRequest) {
+	return func(r *IndicesPutDataStreamSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -237,8 +264,8 @@ func (f SynonymsPutSynonym) WithHeader(h map[string]string) func(*SynonymsPutSyn
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymsPutSynonym) WithOpaqueID(s string) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesPutDataStreamSettings) WithOpaqueID(s string) func(*IndicesPutDataStreamSettingsRequest) {
+	return func(r *IndicesPutDataStreamSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

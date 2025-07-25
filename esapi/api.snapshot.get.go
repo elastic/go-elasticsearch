@@ -67,6 +67,7 @@ type SnapshotGetRequest struct {
 	Size              *int
 	SlmPolicyFilter   string
 	Sort              string
+	State             []string
 	Verbose           *bool
 
 	Pretty     bool
@@ -167,6 +168,10 @@ func (r SnapshotGetRequest) Do(providedCtx context.Context, transport Transport)
 
 	if r.Sort != "" {
 		params["sort"] = r.Sort
+	}
+
+	if len(r.State) > 0 {
+		params["state"] = strings.Join(r.State, ",")
 	}
 
 	if r.Verbose != nil {
@@ -332,6 +337,13 @@ func (f SnapshotGet) WithSlmPolicyFilter(v string) func(*SnapshotGetRequest) {
 func (f SnapshotGet) WithSort(v string) func(*SnapshotGetRequest) {
 	return func(r *SnapshotGetRequest) {
 		r.Sort = v
+	}
+}
+
+// WithState - filter snapshots by a list of states. valid state values are 'success', 'in_progress', 'failed', 'partial', or 'incompatible'..
+func (f SnapshotGet) WithState(v ...string) func(*SnapshotGetRequest) {
+	return func(r *SnapshotGetRequest) {
+		r.State = v
 	}
 }
 

@@ -21,15 +21,14 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
-	"strconv"
 	"strings"
+	"time"
 )
 
-func newSynonymsPutSynonymFunc(t Transport) SynonymsPutSynonym {
-	return func(id string, body io.Reader, o ...func(*SynonymsPutSynonymRequest)) (*Response, error) {
-		var r = SynonymsPutSynonymRequest{DocumentID: id, Body: body}
+func newStreamsLogsEnableFunc(t Transport) StreamsLogsEnable {
+	return func(o ...func(*StreamsLogsEnableRequest)) (*Response, error) {
+		var r = StreamsLogsEnableRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,18 +43,15 @@ func newSynonymsPutSynonymFunc(t Transport) SynonymsPutSynonym {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsPutSynonym creates or updates a synonyms set
+// StreamsLogsEnable enable the Logs Streams feature for this cluster
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonyms-set.html.
-type SynonymsPutSynonym func(id string, body io.Reader, o ...func(*SynonymsPutSynonymRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/streams-logs-enable.html.
+type StreamsLogsEnable func(o ...func(*StreamsLogsEnableRequest)) (*Response, error)
 
-// SynonymsPutSynonymRequest configures the Synonyms Put Synonym API request.
-type SynonymsPutSynonymRequest struct {
-	DocumentID string
-
-	Body io.Reader
-
-	Refresh *bool
+// StreamsLogsEnableRequest configures the Streams Logs Enable API request.
+type StreamsLogsEnableRequest struct {
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -70,7 +66,7 @@ type SynonymsPutSynonymRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r StreamsLogsEnableRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -79,29 +75,27 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "synonyms.put_synonym")
+		ctx = instrument.Start(providedCtx, "streams.logs_enable")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.DocumentID))
+	path.Grow(7 + len("/_streams/logs/_enable"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_synonyms")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
-	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "id", r.DocumentID)
-	}
+	path.WriteString("/_streams/logs/_enable")
 
 	params = make(map[string]string)
 
-	if r.Refresh != nil {
-		params["refresh"] = strconv.FormatBool(*r.Refresh)
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {
@@ -120,7 +114,7 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -148,23 +142,16 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "synonyms.put_synonym")
-		if reader := instrument.RecordRequestBody(ctx, "synonyms.put_synonym", r.Body); reader != nil {
-			req.Body = reader
-		}
+		instrument.BeforeRequest(req, "streams.logs_enable")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "synonyms.put_synonym")
+		instrument.AfterRequest(req, "elasticsearch", "streams.logs_enable")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -183,50 +170,57 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-func (f SynonymsPutSynonym) WithContext(v context.Context) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f StreamsLogsEnable) WithContext(v context.Context) func(*StreamsLogsEnableRequest) {
+	return func(r *StreamsLogsEnableRequest) {
 		r.ctx = v
 	}
 }
 
-// WithRefresh - refresh search analyzers to update synonyms.
-func (f SynonymsPutSynonym) WithRefresh(v bool) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
-		r.Refresh = &v
+// WithMasterTimeout - period to wait for a connection to the master node. if no response is received before the timeout expires, the request fails and returns an error..
+func (f StreamsLogsEnable) WithMasterTimeout(v time.Duration) func(*StreamsLogsEnableRequest) {
+	return func(r *StreamsLogsEnableRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - period to wait for a response. if no response is received before the timeout expires, the request fails and returns an error..
+func (f StreamsLogsEnable) WithTimeout(v time.Duration) func(*StreamsLogsEnableRequest) {
+	return func(r *StreamsLogsEnableRequest) {
+		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SynonymsPutSynonym) WithPretty() func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f StreamsLogsEnable) WithPretty() func(*StreamsLogsEnableRequest) {
+	return func(r *StreamsLogsEnableRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymsPutSynonym) WithHuman() func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f StreamsLogsEnable) WithHuman() func(*StreamsLogsEnableRequest) {
+	return func(r *StreamsLogsEnableRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymsPutSynonym) WithErrorTrace() func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f StreamsLogsEnable) WithErrorTrace() func(*StreamsLogsEnableRequest) {
+	return func(r *StreamsLogsEnableRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymsPutSynonym) WithFilterPath(v ...string) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f StreamsLogsEnable) WithFilterPath(v ...string) func(*StreamsLogsEnableRequest) {
+	return func(r *StreamsLogsEnableRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymsPutSynonym) WithHeader(h map[string]string) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f StreamsLogsEnable) WithHeader(h map[string]string) func(*StreamsLogsEnableRequest) {
+	return func(r *StreamsLogsEnableRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -237,8 +231,8 @@ func (f SynonymsPutSynonym) WithHeader(h map[string]string) func(*SynonymsPutSyn
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymsPutSynonym) WithOpaqueID(s string) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f StreamsLogsEnable) WithOpaqueID(s string) func(*StreamsLogsEnableRequest) {
+	return func(r *StreamsLogsEnableRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

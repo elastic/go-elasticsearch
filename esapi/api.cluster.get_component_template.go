@@ -53,9 +53,11 @@ type ClusterGetComponentTemplate func(o ...func(*ClusterGetComponentTemplateRequ
 type ClusterGetComponentTemplateRequest struct {
 	Name []string
 
+	FlatSettings    *bool
 	IncludeDefaults *bool
 	Local           *bool
 	MasterTimeout   time.Duration
+	SettingsFilter  string
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +104,10 @@ func (r ClusterGetComponentTemplateRequest) Do(providedCtx context.Context, tran
 
 	params = make(map[string]string)
 
+	if r.FlatSettings != nil {
+		params["flat_settings"] = strconv.FormatBool(*r.FlatSettings)
+	}
+
 	if r.IncludeDefaults != nil {
 		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
 	}
@@ -112,6 +118,10 @@ func (r ClusterGetComponentTemplateRequest) Do(providedCtx context.Context, tran
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.SettingsFilter != "" {
+		params["settings_filter"] = r.SettingsFilter
 	}
 
 	if r.Pretty {
@@ -199,6 +209,13 @@ func (f ClusterGetComponentTemplate) WithName(v ...string) func(*ClusterGetCompo
 	}
 }
 
+// WithFlatSettings - return settings in flat format (default: false).
+func (f ClusterGetComponentTemplate) WithFlatSettings(v bool) func(*ClusterGetComponentTemplateRequest) {
+	return func(r *ClusterGetComponentTemplateRequest) {
+		r.FlatSettings = &v
+	}
+}
+
 // WithIncludeDefaults - return all default configurations for the component template (default: false).
 func (f ClusterGetComponentTemplate) WithIncludeDefaults(v bool) func(*ClusterGetComponentTemplateRequest) {
 	return func(r *ClusterGetComponentTemplateRequest) {
@@ -217,6 +234,13 @@ func (f ClusterGetComponentTemplate) WithLocal(v bool) func(*ClusterGetComponent
 func (f ClusterGetComponentTemplate) WithMasterTimeout(v time.Duration) func(*ClusterGetComponentTemplateRequest) {
 	return func(r *ClusterGetComponentTemplateRequest) {
 		r.MasterTimeout = v
+	}
+}
+
+// WithSettingsFilter - filter out results, for example to filter out sensitive information. supports wildcards or full settings keys.
+func (f ClusterGetComponentTemplate) WithSettingsFilter(v string) func(*ClusterGetComponentTemplateRequest) {
+	return func(r *ClusterGetComponentTemplateRequest) {
+		r.SettingsFilter = v
 	}
 }
 

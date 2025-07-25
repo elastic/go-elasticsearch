@@ -21,15 +21,14 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
-	"strconv"
 	"strings"
+	"time"
 )
 
-func newSynonymsPutSynonymFunc(t Transport) SynonymsPutSynonym {
-	return func(id string, body io.Reader, o ...func(*SynonymsPutSynonymRequest)) (*Response, error) {
-		var r = SynonymsPutSynonymRequest{DocumentID: id, Body: body}
+func newIndicesGetDataStreamSettingsFunc(t Transport) IndicesGetDataStreamSettings {
+	return func(name string, o ...func(*IndicesGetDataStreamSettingsRequest)) (*Response, error) {
+		var r = IndicesGetDataStreamSettingsRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,18 +43,16 @@ func newSynonymsPutSynonymFunc(t Transport) SynonymsPutSynonym {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsPutSynonym creates or updates a synonyms set
+// IndicesGetDataStreamSettings - Gets a data stream's settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonyms-set.html.
-type SynonymsPutSynonym func(id string, body io.Reader, o ...func(*SynonymsPutSynonymRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+type IndicesGetDataStreamSettings func(name string, o ...func(*IndicesGetDataStreamSettingsRequest)) (*Response, error)
 
-// SynonymsPutSynonymRequest configures the Synonyms Put Synonym API request.
-type SynonymsPutSynonymRequest struct {
-	DocumentID string
+// IndicesGetDataStreamSettingsRequest configures the Indices Get Data Stream Settings API request.
+type IndicesGetDataStreamSettingsRequest struct {
+	Name string
 
-	Body io.Reader
-
-	Refresh *bool
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -70,7 +67,7 @@ type SynonymsPutSynonymRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r IndicesGetDataStreamSettingsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -79,29 +76,31 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "synonyms.put_synonym")
+		ctx = instrument.Start(providedCtx, "indices.get_data_stream_settings")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(r.Name) + 1 + len("_settings"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_synonyms")
+	path.WriteString("_data_stream")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.Name)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "id", r.DocumentID)
+		instrument.RecordPathPart(ctx, "name", r.Name)
 	}
+	path.WriteString("/")
+	path.WriteString("_settings")
 
 	params = make(map[string]string)
 
-	if r.Refresh != nil {
-		params["refresh"] = strconv.FormatBool(*r.Refresh)
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Pretty {
@@ -120,7 +119,7 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -148,23 +147,16 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "synonyms.put_synonym")
-		if reader := instrument.RecordRequestBody(ctx, "synonyms.put_synonym", r.Body); reader != nil {
-			req.Body = reader
-		}
+		instrument.BeforeRequest(req, "indices.get_data_stream_settings")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "synonyms.put_synonym")
+		instrument.AfterRequest(req, "elasticsearch", "indices.get_data_stream_settings")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -183,50 +175,50 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-func (f SynonymsPutSynonym) WithContext(v context.Context) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesGetDataStreamSettings) WithContext(v context.Context) func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithRefresh - refresh search analyzers to update synonyms.
-func (f SynonymsPutSynonym) WithRefresh(v bool) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
-		r.Refresh = &v
+// WithMasterTimeout - period to wait for a connection to the master node.
+func (f IndicesGetDataStreamSettings) WithMasterTimeout(v time.Duration) func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
+		r.MasterTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SynonymsPutSynonym) WithPretty() func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesGetDataStreamSettings) WithPretty() func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymsPutSynonym) WithHuman() func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesGetDataStreamSettings) WithHuman() func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymsPutSynonym) WithErrorTrace() func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesGetDataStreamSettings) WithErrorTrace() func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymsPutSynonym) WithFilterPath(v ...string) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesGetDataStreamSettings) WithFilterPath(v ...string) func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymsPutSynonym) WithHeader(h map[string]string) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesGetDataStreamSettings) WithHeader(h map[string]string) func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -237,8 +229,8 @@ func (f SynonymsPutSynonym) WithHeader(h map[string]string) func(*SynonymsPutSyn
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymsPutSynonym) WithOpaqueID(s string) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f IndicesGetDataStreamSettings) WithOpaqueID(s string) func(*IndicesGetDataStreamSettingsRequest) {
+	return func(r *IndicesGetDataStreamSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

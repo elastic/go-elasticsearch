@@ -22,15 +22,15 @@ package esapi
 import (
 	"context"
 	"errors"
-	"io"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
 
-func newIndicesPutDataStreamOptionsFunc(t Transport) IndicesPutDataStreamOptions {
-	return func(name []string, o ...func(*IndicesPutDataStreamOptionsRequest)) (*Response, error) {
-		var r = IndicesPutDataStreamOptionsRequest{Name: name}
+func newIndicesRemoveBlockFunc(t Transport) IndicesRemoveBlock {
+	return func(index []string, block string, o ...func(*IndicesRemoveBlockRequest)) (*Response, error) {
+		var r = IndicesRemoveBlockRequest{Index: index, Block: block}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,20 +45,22 @@ func newIndicesPutDataStreamOptionsFunc(t Transport) IndicesPutDataStreamOptions
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutDataStreamOptions updates the data stream options of the selected data streams.
+// IndicesRemoveBlock removes a block from an index.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
-type IndicesPutDataStreamOptions func(name []string, o ...func(*IndicesPutDataStreamOptionsRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/index-modules-blocks.html.
+type IndicesRemoveBlock func(index []string, block string, o ...func(*IndicesRemoveBlockRequest)) (*Response, error)
 
-// IndicesPutDataStreamOptionsRequest configures the Indices Put Data Stream Options API request.
-type IndicesPutDataStreamOptionsRequest struct {
-	Body io.Reader
+// IndicesRemoveBlockRequest configures the Indices Remove Block API request.
+type IndicesRemoveBlockRequest struct {
+	Index []string
 
-	Name []string
+	Block string
 
-	ExpandWildcards string
-	MasterTimeout   time.Duration
-	Timeout         time.Duration
+	AllowNoIndices    *bool
+	ExpandWildcards   string
+	IgnoreUnavailable *bool
+	MasterTimeout     time.Duration
+	Timeout           time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -73,7 +75,7 @@ type IndicesPutDataStreamOptionsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r IndicesPutDataStreamOptionsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r IndicesRemoveBlockRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -82,35 +84,46 @@ func (r IndicesPutDataStreamOptionsRequest) Do(providedCtx context.Context, tran
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "indices.put_data_stream_options")
+		ctx = instrument.Start(providedCtx, "indices.remove_block")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "PUT"
+	method = "DELETE"
 
-	if len(r.Name) == 0 {
-		return nil, errors.New("name is required and cannot be nil or empty")
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
 	}
 
-	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_options"))
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_block") + 1 + len(r.Block))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_data_stream")
-	path.WriteString("/")
-	path.WriteString(strings.Join(r.Name, ","))
+	path.WriteString(strings.Join(r.Index, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
+		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
-	path.WriteString("_options")
+	path.WriteString("_block")
+	path.WriteString("/")
+	path.WriteString(r.Block)
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "block", r.Block)
+	}
 
 	params = make(map[string]string)
 
+	if r.AllowNoIndices != nil {
+		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
+	}
+
 	if r.ExpandWildcards != "" {
 		params["expand_wildcards"] = r.ExpandWildcards
+	}
+
+	if r.IgnoreUnavailable != nil {
+		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
 	if r.MasterTimeout != 0 {
@@ -137,7 +150,7 @@ func (r IndicesPutDataStreamOptionsRequest) Do(providedCtx context.Context, tran
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -165,23 +178,16 @@ func (r IndicesPutDataStreamOptionsRequest) Do(providedCtx context.Context, tran
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "indices.put_data_stream_options")
-		if reader := instrument.RecordRequestBody(ctx, "indices.put_data_stream_options", r.Body); reader != nil {
-			req.Body = reader
-		}
+		instrument.BeforeRequest(req, "indices.remove_block")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "indices.put_data_stream_options")
+		instrument.AfterRequest(req, "elasticsearch", "indices.remove_block")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -200,71 +206,78 @@ func (r IndicesPutDataStreamOptionsRequest) Do(providedCtx context.Context, tran
 }
 
 // WithContext sets the request context.
-func (f IndicesPutDataStreamOptions) WithContext(v context.Context) func(*IndicesPutDataStreamOptionsRequest) {
-	return func(r *IndicesPutDataStreamOptionsRequest) {
+func (f IndicesRemoveBlock) WithContext(v context.Context) func(*IndicesRemoveBlockRequest) {
+	return func(r *IndicesRemoveBlockRequest) {
 		r.ctx = v
 	}
 }
 
-// WithBody - The data stream options configuration that consist of the failure store configuration.
-func (f IndicesPutDataStreamOptions) WithBody(v io.Reader) func(*IndicesPutDataStreamOptionsRequest) {
-	return func(r *IndicesPutDataStreamOptionsRequest) {
-		r.Body = v
+// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
+func (f IndicesRemoveBlock) WithAllowNoIndices(v bool) func(*IndicesRemoveBlockRequest) {
+	return func(r *IndicesRemoveBlockRequest) {
+		r.AllowNoIndices = &v
 	}
 }
 
-// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesPutDataStreamOptions) WithExpandWildcards(v string) func(*IndicesPutDataStreamOptionsRequest) {
-	return func(r *IndicesPutDataStreamOptionsRequest) {
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
+func (f IndicesRemoveBlock) WithExpandWildcards(v string) func(*IndicesRemoveBlockRequest) {
+	return func(r *IndicesRemoveBlockRequest) {
 		r.ExpandWildcards = v
 	}
 }
 
+// WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func (f IndicesRemoveBlock) WithIgnoreUnavailable(v bool) func(*IndicesRemoveBlockRequest) {
+	return func(r *IndicesRemoveBlockRequest) {
+		r.IgnoreUnavailable = &v
+	}
+}
+
 // WithMasterTimeout - specify timeout for connection to master.
-func (f IndicesPutDataStreamOptions) WithMasterTimeout(v time.Duration) func(*IndicesPutDataStreamOptionsRequest) {
-	return func(r *IndicesPutDataStreamOptionsRequest) {
+func (f IndicesRemoveBlock) WithMasterTimeout(v time.Duration) func(*IndicesRemoveBlockRequest) {
+	return func(r *IndicesRemoveBlockRequest) {
 		r.MasterTimeout = v
 	}
 }
 
-// WithTimeout - explicit timestamp for the document.
-func (f IndicesPutDataStreamOptions) WithTimeout(v time.Duration) func(*IndicesPutDataStreamOptionsRequest) {
-	return func(r *IndicesPutDataStreamOptionsRequest) {
+// WithTimeout - explicit operation timeout.
+func (f IndicesRemoveBlock) WithTimeout(v time.Duration) func(*IndicesRemoveBlockRequest) {
+	return func(r *IndicesRemoveBlockRequest) {
 		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f IndicesPutDataStreamOptions) WithPretty() func(*IndicesPutDataStreamOptionsRequest) {
-	return func(r *IndicesPutDataStreamOptionsRequest) {
+func (f IndicesRemoveBlock) WithPretty() func(*IndicesRemoveBlockRequest) {
+	return func(r *IndicesRemoveBlockRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f IndicesPutDataStreamOptions) WithHuman() func(*IndicesPutDataStreamOptionsRequest) {
-	return func(r *IndicesPutDataStreamOptionsRequest) {
+func (f IndicesRemoveBlock) WithHuman() func(*IndicesRemoveBlockRequest) {
+	return func(r *IndicesRemoveBlockRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f IndicesPutDataStreamOptions) WithErrorTrace() func(*IndicesPutDataStreamOptionsRequest) {
-	return func(r *IndicesPutDataStreamOptionsRequest) {
+func (f IndicesRemoveBlock) WithErrorTrace() func(*IndicesRemoveBlockRequest) {
+	return func(r *IndicesRemoveBlockRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f IndicesPutDataStreamOptions) WithFilterPath(v ...string) func(*IndicesPutDataStreamOptionsRequest) {
-	return func(r *IndicesPutDataStreamOptionsRequest) {
+func (f IndicesRemoveBlock) WithFilterPath(v ...string) func(*IndicesRemoveBlockRequest) {
+	return func(r *IndicesRemoveBlockRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f IndicesPutDataStreamOptions) WithHeader(h map[string]string) func(*IndicesPutDataStreamOptionsRequest) {
-	return func(r *IndicesPutDataStreamOptionsRequest) {
+func (f IndicesRemoveBlock) WithHeader(h map[string]string) func(*IndicesRemoveBlockRequest) {
+	return func(r *IndicesRemoveBlockRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -275,8 +288,8 @@ func (f IndicesPutDataStreamOptions) WithHeader(h map[string]string) func(*Indic
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f IndicesPutDataStreamOptions) WithOpaqueID(s string) func(*IndicesPutDataStreamOptionsRequest) {
-	return func(r *IndicesPutDataStreamOptionsRequest) {
+func (f IndicesRemoveBlock) WithOpaqueID(s string) func(*IndicesRemoveBlockRequest) {
+	return func(r *IndicesRemoveBlockRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

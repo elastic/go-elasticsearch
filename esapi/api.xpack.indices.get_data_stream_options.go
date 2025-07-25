@@ -23,7 +23,6 @@ import (
 	"context"
 	"errors"
 	"net/http"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -47,8 +46,6 @@ func newIndicesGetDataStreamOptionsFunc(t Transport) IndicesGetDataStreamOptions
 
 // IndicesGetDataStreamOptions - Returns the data stream options of the selected data streams.
 //
-// This API is experimental.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
 type IndicesGetDataStreamOptions func(name []string, o ...func(*IndicesGetDataStreamOptionsRequest)) (*Response, error)
 
@@ -57,7 +54,6 @@ type IndicesGetDataStreamOptionsRequest struct {
 	Name []string
 
 	ExpandWildcards string
-	IncludeDefaults *bool
 	MasterTimeout   time.Duration
 
 	Pretty     bool
@@ -111,10 +107,6 @@ func (r IndicesGetDataStreamOptionsRequest) Do(providedCtx context.Context, tran
 
 	if r.ExpandWildcards != "" {
 		params["expand_wildcards"] = r.ExpandWildcards
-	}
-
-	if r.IncludeDefaults != nil {
-		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
 	}
 
 	if r.MasterTimeout != 0 {
@@ -203,13 +195,6 @@ func (f IndicesGetDataStreamOptions) WithContext(v context.Context) func(*Indice
 func (f IndicesGetDataStreamOptions) WithExpandWildcards(v string) func(*IndicesGetDataStreamOptionsRequest) {
 	return func(r *IndicesGetDataStreamOptionsRequest) {
 		r.ExpandWildcards = v
-	}
-}
-
-// WithIncludeDefaults - return all relevant default configurations for the data stream (default: false).
-func (f IndicesGetDataStreamOptions) WithIncludeDefaults(v bool) func(*IndicesGetDataStreamOptionsRequest) {
-	return func(r *IndicesGetDataStreamOptionsRequest) {
-		r.IncludeDefaults = &v
 	}
 }
 

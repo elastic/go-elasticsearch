@@ -23,13 +23,12 @@ import (
 	"context"
 	"io"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newSynonymsPutSynonymFunc(t Transport) SynonymsPutSynonym {
-	return func(id string, body io.Reader, o ...func(*SynonymsPutSynonymRequest)) (*Response, error) {
-		var r = SynonymsPutSynonymRequest{DocumentID: id, Body: body}
+func newInferencePutCustomFunc(t Transport) InferencePutCustom {
+	return func(custom_inference_id string, task_type string, o ...func(*InferencePutCustomRequest)) (*Response, error) {
+		var r = InferencePutCustomRequest{CustomInferenceID: custom_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,18 +43,17 @@ func newSynonymsPutSynonymFunc(t Transport) SynonymsPutSynonym {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsPutSynonym creates or updates a synonyms set
+// InferencePutCustom configure a custom inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonyms-set.html.
-type SynonymsPutSynonym func(id string, body io.Reader, o ...func(*SynonymsPutSynonymRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom.
+type InferencePutCustom func(custom_inference_id string, task_type string, o ...func(*InferencePutCustomRequest)) (*Response, error)
 
-// SynonymsPutSynonymRequest configures the Synonyms Put Synonym API request.
-type SynonymsPutSynonymRequest struct {
-	DocumentID string
-
+// InferencePutCustomRequest configures the Inference Put Custom API request.
+type InferencePutCustomRequest struct {
 	Body io.Reader
 
-	Refresh *bool
+	CustomInferenceID string
+	TaskType          string
 
 	Pretty     bool
 	Human      bool
@@ -70,7 +68,7 @@ type SynonymsPutSynonymRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r InferencePutCustomRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -79,7 +77,7 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "synonyms.put_synonym")
+		ctx = instrument.Start(providedCtx, "inference.put_custom")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -88,21 +86,22 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.CustomInferenceID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_synonyms")
+	path.WriteString("_inference")
 	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.TaskType)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "id", r.DocumentID)
+		instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+	}
+	path.WriteString("/")
+	path.WriteString(r.CustomInferenceID)
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "custom_inference_id", r.CustomInferenceID)
 	}
 
 	params = make(map[string]string)
-
-	if r.Refresh != nil {
-		params["refresh"] = strconv.FormatBool(*r.Refresh)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -157,14 +156,14 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "synonyms.put_synonym")
-		if reader := instrument.RecordRequestBody(ctx, "synonyms.put_synonym", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "inference.put_custom")
+		if reader := instrument.RecordRequestBody(ctx, "inference.put_custom", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "synonyms.put_synonym")
+		instrument.AfterRequest(req, "elasticsearch", "inference.put_custom")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -183,50 +182,50 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-func (f SynonymsPutSynonym) WithContext(v context.Context) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f InferencePutCustom) WithContext(v context.Context) func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		r.ctx = v
 	}
 }
 
-// WithRefresh - refresh search analyzers to update synonyms.
-func (f SynonymsPutSynonym) WithRefresh(v bool) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
-		r.Refresh = &v
+// WithBody - The inference endpoint's task and service settings.
+func (f InferencePutCustom) WithBody(v io.Reader) func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
+		r.Body = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SynonymsPutSynonym) WithPretty() func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f InferencePutCustom) WithPretty() func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymsPutSynonym) WithHuman() func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f InferencePutCustom) WithHuman() func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymsPutSynonym) WithErrorTrace() func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f InferencePutCustom) WithErrorTrace() func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymsPutSynonym) WithFilterPath(v ...string) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f InferencePutCustom) WithFilterPath(v ...string) func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymsPutSynonym) WithHeader(h map[string]string) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f InferencePutCustom) WithHeader(h map[string]string) func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -237,8 +236,8 @@ func (f SynonymsPutSynonym) WithHeader(h map[string]string) func(*SynonymsPutSyn
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymsPutSynonym) WithOpaqueID(s string) func(*SynonymsPutSynonymRequest) {
-	return func(r *SynonymsPutSynonymRequest) {
+func (f InferencePutCustom) WithOpaqueID(s string) func(*InferencePutCustomRequest) {
+	return func(r *InferencePutCustomRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

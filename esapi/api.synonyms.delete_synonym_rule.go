@@ -22,6 +22,7 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -51,6 +52,8 @@ type SynonymsDeleteSynonymRule func(rule_id string, set_id string, o ...func(*Sy
 type SynonymsDeleteSynonymRuleRequest struct {
 	RuleID string
 	SetID  string
+
+	Refresh *bool
 
 	Pretty     bool
 	Human      bool
@@ -99,6 +102,10 @@ func (r SynonymsDeleteSynonymRuleRequest) Do(providedCtx context.Context, transp
 	}
 
 	params = make(map[string]string)
+
+	if r.Refresh != nil {
+		params["refresh"] = strconv.FormatBool(*r.Refresh)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -175,6 +182,13 @@ func (r SynonymsDeleteSynonymRuleRequest) Do(providedCtx context.Context, transp
 func (f SynonymsDeleteSynonymRule) WithContext(v context.Context) func(*SynonymsDeleteSynonymRuleRequest) {
 	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		r.ctx = v
+	}
+}
+
+// WithRefresh - refresh search analyzers to update synonyms.
+func (f SynonymsDeleteSynonymRule) WithRefresh(v bool) func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
+		r.Refresh = &v
 	}
 }
 
