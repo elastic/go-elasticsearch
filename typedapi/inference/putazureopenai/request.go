@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package putazureopenai
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putazureopenai
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/put_azureopenai/PutAzureOpenAiRequest.ts#L30-L91
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/inference/put_azureopenai/PutAzureOpenAiRequest.ts#L31-L93
 type Request struct {
 
 	// ChunkingSettings The chunking configuration object.

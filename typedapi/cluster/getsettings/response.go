@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package getsettings
 
@@ -26,11 +26,15 @@ import (
 
 // Response holds the response body struct for the package getsettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/cluster/get_settings/ClusterGetSettingsResponse.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/cluster/get_settings/ClusterGetSettingsResponse.ts#L23-L32
 type Response struct {
-	Defaults   map[string]json.RawMessage `json:"defaults,omitempty"`
+
+	// Defaults The default setting values.
+	Defaults map[string]json.RawMessage `json:"defaults,omitempty"`
+	// Persistent The settings that persist after the cluster restarts.
 	Persistent map[string]json.RawMessage `json:"persistent"`
-	Transient  map[string]json.RawMessage `json:"transient"`
+	// Transient The settings that do not persist after the cluster restarts.
+	Transient map[string]json.RawMessage `json:"transient"`
 }
 
 // NewResponse returns a Response

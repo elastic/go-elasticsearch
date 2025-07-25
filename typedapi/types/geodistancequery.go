@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoDistanceQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/geo.ts#L64-L96
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/query_dsl/geo.ts#L64-L96
 type GeoDistanceQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -187,14 +187,4 @@ func NewGeoDistanceQuery() *GeoDistanceQuery {
 	}
 
 	return r
-}
-
-// true
-
-type GeoDistanceQueryVariant interface {
-	GeoDistanceQueryCaster() *GeoDistanceQuery
-}
-
-func (s *GeoDistanceQuery) GeoDistanceQueryCaster() *GeoDistanceQuery {
-	return s
 }

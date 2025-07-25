@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InputConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ingest/_types/Processors.ts#L1061-L1064
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ingest/_types/Processors.ts#L1061-L1064
 type InputConfig struct {
 	InputField  string `json:"input_field"`
 	OutputField string `json:"output_field"`
@@ -86,14 +86,4 @@ func NewInputConfig() *InputConfig {
 	r := &InputConfig{}
 
 	return r
-}
-
-// true
-
-type InputConfigVariant interface {
-	InputConfigCaster() *InputConfig
-}
-
-func (s *InputConfig) InputConfigCaster() *InputConfig {
-	return s
 }

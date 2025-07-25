@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Invalidate API keys.
 //
@@ -380,48 +380,40 @@ func (r *InvalidateApiKey) Pretty(pretty bool) *InvalidateApiKey {
 
 // API name: id
 func (r *InvalidateApiKey) Id(id string) *InvalidateApiKey {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Id = &id
 
 	return r
 }
 
-// A list of API key ids.
+// Ids A list of API key ids.
 // This parameter cannot be used with any of `name`, `realm_name`, or
 // `username`.
 // API name: ids
 func (r *InvalidateApiKey) Ids(ids ...string) *InvalidateApiKey {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range ids {
+	r.req.Ids = ids
 
-		r.req.Ids = append(r.req.Ids, v)
-
-	}
 	return r
 }
 
-// An API key name.
+// Name An API key name.
 // This parameter cannot be used with any of `ids`, `realm_name` or `username`.
 // API name: name
 func (r *InvalidateApiKey) Name(name string) *InvalidateApiKey {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Name = &name
 
 	return r
 }
 
-// Query API keys owned by the currently authenticated user.
+// Owner Query API keys owned by the currently authenticated user.
 // The `realm_name` or `username` parameters cannot be specified when this
 // parameter is set to `true` as they are assumed to be the currently
 // authenticated ones.
@@ -430,22 +422,19 @@ func (r *InvalidateApiKey) Name(name string) *InvalidateApiKey {
 // specified if `owner` is `false`.
 // API name: owner
 func (r *InvalidateApiKey) Owner(owner bool) *InvalidateApiKey {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Owner = &owner
 
 	return r
 }
 
-// The name of an authentication realm.
+// RealmName The name of an authentication realm.
 // This parameter cannot be used with either `ids` or `name`, or when `owner`
 // flag is set to `true`.
 // API name: realm_name
 func (r *InvalidateApiKey) RealmName(realmname string) *InvalidateApiKey {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -455,16 +444,14 @@ func (r *InvalidateApiKey) RealmName(realmname string) *InvalidateApiKey {
 	return r
 }
 
-// The username of a user.
+// Username The username of a user.
 // This parameter cannot be used with either `ids` or `name` or when `owner`
 // flag is set to `true`.
 // API name: username
 func (r *InvalidateApiKey) Username(username string) *InvalidateApiKey {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Username = &username
 
 	return r

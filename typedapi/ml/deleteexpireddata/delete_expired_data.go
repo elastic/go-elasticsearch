@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Delete expired ML data.
 //
@@ -381,11 +381,10 @@ func (r *DeleteExpiredData) Pretty(pretty bool) *DeleteExpiredData {
 	return r
 }
 
-// The desired requests per second for the deletion processes. The default
+// RequestsPerSecond The desired requests per second for the deletion processes. The default
 // behavior is no throttling.
 // API name: requests_per_second
 func (r *DeleteExpiredData) RequestsPerSecond(requestspersecond float32) *DeleteExpiredData {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -395,15 +394,13 @@ func (r *DeleteExpiredData) RequestsPerSecond(requestspersecond float32) *Delete
 	return r
 }
 
-// How long can the underlying delete processes run until they are canceled.
+// Timeout How long can the underlying delete processes run until they are canceled.
 // API name: timeout
-func (r *DeleteExpiredData) Timeout(duration types.DurationVariant) *DeleteExpiredData {
-	// Initialize the request if it is not already initialized
+func (r *DeleteExpiredData) Timeout(duration types.Duration) *DeleteExpiredData {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Timeout = *duration.DurationCaster()
+	r.req.Timeout = duration
 
 	return r
 }

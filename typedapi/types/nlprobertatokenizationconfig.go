@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // NlpRobertaTokenizationConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/inference.ts#L191-L198
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/_types/inference.ts#L191-L198
 type NlpRobertaTokenizationConfig struct {
 	// AddPrefixSpace Should the tokenizer prefix input with a space character
 	AddPrefixSpace *bool `json:"add_prefix_space,omitempty"`
@@ -155,14 +155,4 @@ func NewNlpRobertaTokenizationConfig() *NlpRobertaTokenizationConfig {
 	r := &NlpRobertaTokenizationConfig{}
 
 	return r
-}
-
-// true
-
-type NlpRobertaTokenizationConfigVariant interface {
-	NlpRobertaTokenizationConfigCaster() *NlpRobertaTokenizationConfig
-}
-
-func (s *NlpRobertaTokenizationConfig) NlpRobertaTokenizationConfigCaster() *NlpRobertaTokenizationConfig {
-	return s
 }

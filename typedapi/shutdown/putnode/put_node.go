@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Prepare a node to be shut down.
 //
@@ -428,7 +428,7 @@ func (r *PutNode) Pretty(pretty bool) *PutNode {
 	return r
 }
 
-// Only valid if type is restart.
+// AllocationDelay Only valid if type is restart.
 // Controls how long Elasticsearch will wait for the node to restart and join
 // the cluster before reassigning its shards to other nodes.
 // This works the same as delaying allocation with the
@@ -437,7 +437,6 @@ func (r *PutNode) Pretty(pretty bool) *PutNode {
 // delay, the longer of the two is used.
 // API name: allocation_delay
 func (r *PutNode) AllocationDelay(allocationdelay string) *PutNode {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -447,12 +446,11 @@ func (r *PutNode) AllocationDelay(allocationdelay string) *PutNode {
 	return r
 }
 
-// A human-readable reason that the node is being shut down.
+// Reason A human-readable reason that the node is being shut down.
 // This field provides information for other cluster operators; it does not
 // affect the shut down process.
 // API name: reason
 func (r *PutNode) Reason(reason string) *PutNode {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -462,7 +460,7 @@ func (r *PutNode) Reason(reason string) *PutNode {
 	return r
 }
 
-// Only valid if type is replace.
+// TargetNodeName Only valid if type is replace.
 // Specifies the name of the node that is replacing the node being shut down.
 // Shards from the shut down node are only allowed to be allocated to the target
 // node, and no other data will be allocated to the target node.
@@ -470,7 +468,6 @@ func (r *PutNode) Reason(reason string) *PutNode {
 // watermarks or user attribute filtering rules.
 // API name: target_node_name
 func (r *PutNode) TargetNodeName(targetnodename string) *PutNode {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -480,7 +477,7 @@ func (r *PutNode) TargetNodeName(targetnodename string) *PutNode {
 	return r
 }
 
-// Valid values are restart, remove, or replace.
+// Type Valid values are restart, remove, or replace.
 // Use restart when you need to temporarily shut down a node to perform an
 // upgrade, make configuration changes, or perform other maintenance.
 // Because the node is expected to rejoin the cluster, data is not migrated off
@@ -494,10 +491,10 @@ func (r *PutNode) TargetNodeName(targetnodename string) *PutNode {
 // unassigned shards, and shrink may fail until the replacement is complete.
 // API name: type
 func (r *PutNode) Type(type_ type_.Type) *PutNode {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 	r.req.Type = type_
+
 	return r
 }

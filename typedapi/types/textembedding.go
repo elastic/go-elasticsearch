@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TextEmbedding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/Knn.ts#L94-L97
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/Knn.ts#L94-L97
 type TextEmbedding struct {
 	ModelId   string `json:"model_id"`
 	ModelText string `json:"model_text"`
@@ -86,14 +86,4 @@ func NewTextEmbedding() *TextEmbedding {
 	r := &TextEmbedding{}
 
 	return r
-}
-
-// true
-
-type TextEmbeddingVariant interface {
-	TextEmbeddingCaster() *TextEmbedding
-}
-
-func (s *TextEmbedding) TextEmbeddingCaster() *TextEmbedding {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DataframeAnalysisAnalyzedFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/DataframeAnalytics.ts#L238-L244
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/_types/DataframeAnalytics.ts#L238-L244
 type DataframeAnalysisAnalyzedFields struct {
 	// Excludes An array of strings that defines the fields that will be included in the
 	// analysis.
@@ -86,14 +86,4 @@ func NewDataframeAnalysisAnalyzedFields() *DataframeAnalysisAnalyzedFields {
 	r := &DataframeAnalysisAnalyzedFields{}
 
 	return r
-}
-
-// true
-
-type DataframeAnalysisAnalyzedFieldsVariant interface {
-	DataframeAnalysisAnalyzedFieldsCaster() *DataframeAnalysisAnalyzedFields
-}
-
-func (s *DataframeAnalysisAnalyzedFields) DataframeAnalysisAnalyzedFieldsCaster() *DataframeAnalysisAnalyzedFields {
-	return s
 }

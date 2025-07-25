@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
 // GlobalPrivilege type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/security/_types/Privileges.ts#L430-L432
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/security/_types/Privileges.ts#L430-L432
 type GlobalPrivilege struct {
 	Application ApplicationGlobalUserPrivileges `json:"application"`
 }
@@ -32,14 +32,4 @@ func NewGlobalPrivilege() *GlobalPrivilege {
 	r := &GlobalPrivilege{}
 
 	return r
-}
-
-// true
-
-type GlobalPrivilegeVariant interface {
-	GlobalPrivilegeCaster() *GlobalPrivilege
-}
-
-func (s *GlobalPrivilege) GlobalPrivilegeCaster() *GlobalPrivilege {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // DataframeEvaluationOutlierDetectionMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/DataframeEvaluation.ts#L80-L83
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/_types/DataframeEvaluation.ts#L80-L83
 type DataframeEvaluationOutlierDetectionMetrics struct {
 	// AucRoc The AUC ROC (area under the curve of the receiver operating characteristic)
 	// score and optionally the curve. It is calculated for a specific class
@@ -49,14 +49,4 @@ func NewDataframeEvaluationOutlierDetectionMetrics() *DataframeEvaluationOutlier
 	}
 
 	return r
-}
-
-// true
-
-type DataframeEvaluationOutlierDetectionMetricsVariant interface {
-	DataframeEvaluationOutlierDetectionMetricsCaster() *DataframeEvaluationOutlierDetectionMetrics
-}
-
-func (s *DataframeEvaluationOutlierDetectionMetrics) DataframeEvaluationOutlierDetectionMetricsCaster() *DataframeEvaluationOutlierDetectionMetrics {
-	return s
 }

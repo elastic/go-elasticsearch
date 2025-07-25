@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Update security index settings.
 //
@@ -380,42 +380,39 @@ func (r *UpdateSettings) Pretty(pretty bool) *UpdateSettings {
 	return r
 }
 
-// Settings for the index used for most security configuration, including native
+// Security Settings for the index used for most security configuration, including native
 // realm users and roles configured with the API.
 // API name: security
-func (r *UpdateSettings) Security(security types.SecuritySettingsVariant) *UpdateSettings {
-	// Initialize the request if it is not already initialized
+func (r *UpdateSettings) Security(security *types.SecuritySettings) *UpdateSettings {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Security = security.SecuritySettingsCaster()
+	r.req.Security = security
 
 	return r
 }
 
-// Settings for the index used to store profile information.
+// SecurityProfile Settings for the index used to store profile information.
 // API name: security-profile
-func (r *UpdateSettings) SecurityProfile(securityprofile types.SecuritySettingsVariant) *UpdateSettings {
-	// Initialize the request if it is not already initialized
+func (r *UpdateSettings) SecurityProfile(securityprofile *types.SecuritySettings) *UpdateSettings {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.SecurityProfile = securityprofile.SecuritySettingsCaster()
+	r.req.SecurityProfile = securityprofile
 
 	return r
 }
 
-// Settings for the index used to store tokens.
+// SecurityTokens Settings for the index used to store tokens.
 // API name: security-tokens
-func (r *UpdateSettings) SecurityTokens(securitytokens types.SecuritySettingsVariant) *UpdateSettings {
-	// Initialize the request if it is not already initialized
+func (r *UpdateSettings) SecurityTokens(securitytokens *types.SecuritySettings) *UpdateSettings {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.SecurityTokens = securitytokens.SecuritySettingsCaster()
+	r.req.SecurityTokens = securitytokens
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package puthuggingface
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package puthuggingface
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/put_hugging_face/PutHuggingFaceRequest.ts#L29-L91
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/inference/put_hugging_face/PutHuggingFaceRequest.ts#L31-L121
 type Request struct {
 
 	// ChunkingSettings The chunking configuration object.
@@ -41,6 +41,9 @@ type Request struct {
 	// ServiceSettings Settings used to install the inference model. These settings are specific to
 	// the `hugging_face` service.
 	ServiceSettings types.HuggingFaceServiceSettings `json:"service_settings"`
+	// TaskSettings Settings to configure the inference task.
+	// These settings are specific to the task type you specified.
+	TaskSettings *types.HuggingFaceTaskSettings `json:"task_settings,omitempty"`
 }
 
 // NewRequest returns a Request

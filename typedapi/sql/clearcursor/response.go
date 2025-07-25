@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package clearcursor
 
 // Response holds the response body struct for the package clearcursor
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/sql/clear_cursor/ClearSqlCursorResponse.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/sql/clear_cursor/ClearSqlCursorResponse.ts#L20-L22
 type Response struct {
 	Succeeded bool `json:"succeeded"`
 }

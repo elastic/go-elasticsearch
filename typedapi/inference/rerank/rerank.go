@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
-// Perform rereanking inference on the service
+// Perform reranking inference on the service
 package rerank
 
 import (
@@ -81,7 +81,7 @@ func NewRerankFunc(tp elastictransport.Interface) NewRerank {
 	}
 }
 
-// Perform rereanking inference on the service
+// Perform reranking inference on the service
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/post-inference-api.html
 func New(tp elastictransport.Interface) *Rerank {
@@ -365,7 +365,7 @@ func (r *Rerank) Pretty(pretty bool) *Rerank {
 	return r
 }
 
-// The text on which you want to perform the inference task.
+// Input The text on which you want to perform the inference task.
 // It can be a single string or an array.
 //
 // > info
@@ -373,20 +373,17 @@ func (r *Rerank) Pretty(pretty bool) *Rerank {
 // single string as input.
 // API name: input
 func (r *Rerank) Input(inputs ...string) *Rerank {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	r.req.Input = make([]string, len(inputs))
 	r.req.Input = inputs
 
 	return r
 }
 
-// Query input.
+// Query Query input.
 // API name: query
 func (r *Rerank) Query(query string) *Rerank {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -396,16 +393,14 @@ func (r *Rerank) Query(query string) *Rerank {
 	return r
 }
 
-// Task settings for the individual inference request.
+// TaskSettings Task settings for the individual inference request.
 // These settings are specific to the task type you specified and override the
 // task settings specified when initializing the service.
 // API name: task_settings
 func (r *Rerank) TaskSettings(tasksettings json.RawMessage) *Rerank {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.TaskSettings = tasksettings
 
 	return r

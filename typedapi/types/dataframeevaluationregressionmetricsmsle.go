@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeEvaluationRegressionMetricsMsle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/DataframeEvaluation.ts#L112-L115
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/_types/DataframeEvaluation.ts#L112-L115
 type DataframeEvaluationRegressionMetricsMsle struct {
 	// Offset Defines the transition point at which you switch from minimizing quadratic
 	// error to minimizing quadratic log error. Defaults to 1.
@@ -79,14 +79,4 @@ func NewDataframeEvaluationRegressionMetricsMsle() *DataframeEvaluationRegressio
 	r := &DataframeEvaluationRegressionMetricsMsle{}
 
 	return r
-}
-
-// true
-
-type DataframeEvaluationRegressionMetricsMsleVariant interface {
-	DataframeEvaluationRegressionMetricsMsleCaster() *DataframeEvaluationRegressionMetricsMsle
-}
-
-func (s *DataframeEvaluationRegressionMetricsMsle) DataframeEvaluationRegressionMetricsMsleCaster() *DataframeEvaluationRegressionMetricsMsle {
-	return s
 }

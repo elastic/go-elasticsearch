@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // UntypedDistanceFeatureQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/specialized.ts#L61-L64
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/query_dsl/specialized.ts#L61-L64
 type UntypedDistanceFeatureQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -130,14 +130,4 @@ func NewUntypedDistanceFeatureQuery() *UntypedDistanceFeatureQuery {
 	r := &UntypedDistanceFeatureQuery{}
 
 	return r
-}
-
-// true
-
-type UntypedDistanceFeatureQueryVariant interface {
-	UntypedDistanceFeatureQueryCaster() *UntypedDistanceFeatureQuery
-}
-
-func (s *UntypedDistanceFeatureQuery) UntypedDistanceFeatureQueryCaster() *UntypedDistanceFeatureQuery {
-	return s
 }

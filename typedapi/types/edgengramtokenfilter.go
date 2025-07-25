@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -33,14 +33,20 @@ import (
 
 // EdgeNGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/token_filters.ts#L78-L84
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/token_filters.ts#L97-L107
 type EdgeNGramTokenFilter struct {
-	MaxGram          *int                         `json:"max_gram,omitempty"`
-	MinGram          *int                         `json:"min_gram,omitempty"`
-	PreserveOriginal Stringifiedboolean           `json:"preserve_original,omitempty"`
-	Side             *edgengramside.EdgeNGramSide `json:"side,omitempty"`
-	Type             string                       `json:"type,omitempty"`
-	Version          *string                      `json:"version,omitempty"`
+	// MaxGram Maximum character length of a gram. For custom token filters, defaults to
+	// `2`. For the built-in edge_ngram filter, defaults to `1`.
+	MaxGram *int `json:"max_gram,omitempty"`
+	// MinGram Minimum character length of a gram. Defaults to `1`.
+	MinGram *int `json:"min_gram,omitempty"`
+	// PreserveOriginal Emits original token when set to `true`. Defaults to `false`.
+	PreserveOriginal Stringifiedboolean `json:"preserve_original,omitempty"`
+	// Side Indicates whether to truncate tokens from the `front` or `back`. Defaults to
+	// `front`.
+	Side    *edgengramside.EdgeNGramSide `json:"side,omitempty"`
+	Type    string                       `json:"type,omitempty"`
+	Version *string                      `json:"version,omitempty"`
 }
 
 func (s *EdgeNGramTokenFilter) UnmarshalJSON(data []byte) error {
@@ -137,14 +143,4 @@ func NewEdgeNGramTokenFilter() *EdgeNGramTokenFilter {
 	r := &EdgeNGramTokenFilter{}
 
 	return r
-}
-
-// true
-
-type EdgeNGramTokenFilterVariant interface {
-	EdgeNGramTokenFilterCaster() *EdgeNGramTokenFilter
-}
-
-func (s *EdgeNGramTokenFilter) EdgeNGramTokenFilterCaster() *EdgeNGramTokenFilter {
-	return s
 }

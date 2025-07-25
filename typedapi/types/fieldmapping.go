@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FieldMapping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/mapping/meta-fields.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/mapping/meta-fields.ts#L24-L27
 type FieldMapping struct {
 	FullName string              `json:"full_name"`
 	Mapping  map[string]Property `json:"mapping"`
@@ -202,6 +202,12 @@ func (s *FieldMapping) UnmarshalJSON(data []byte) error {
 					s.Mapping[key] = oo
 				case "passthrough":
 					oo := NewPassthroughObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Mapping | %w", err)
+					}
+					s.Mapping[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Mapping | %w", err)
 					}
@@ -408,5 +414,3 @@ func NewFieldMapping() *FieldMapping {
 
 	return r
 }
-
-// false

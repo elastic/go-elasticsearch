@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // JobConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/Job.ts#L182-L283
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/_types/Job.ts#L182-L283
 type JobConfig struct {
 	// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when there
 	// is insufficient machine learning node capacity for it to be immediately
@@ -292,14 +292,4 @@ func NewJobConfig() *JobConfig {
 	r := &JobConfig{}
 
 	return r
-}
-
-// true
-
-type JobConfigVariant interface {
-	JobConfigCaster() *JobConfig
-}
-
-func (s *JobConfig) JobConfigCaster() *JobConfig {
-	return s
 }

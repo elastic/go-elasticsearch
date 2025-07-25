@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // WhitespaceAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/analyzers.ts#L345-L348
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/analyzers.ts#L345-L348
 type WhitespaceAnalyzer struct {
 	Type    string  `json:"type,omitempty"`
 	Version *string `json:"version,omitempty"`
@@ -84,14 +84,4 @@ func NewWhitespaceAnalyzer() *WhitespaceAnalyzer {
 	r := &WhitespaceAnalyzer{}
 
 	return r
-}
-
-// true
-
-type WhitespaceAnalyzerVariant interface {
-	WhitespaceAnalyzerCaster() *WhitespaceAnalyzer
-}
-
-func (s *WhitespaceAnalyzer) WhitespaceAnalyzerCaster() *WhitespaceAnalyzer {
-	return s
 }

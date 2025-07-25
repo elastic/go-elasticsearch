@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CertificateInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ssl/certificates/types.ts#L22-L57
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ssl/certificates/types.ts#L22-L57
 type CertificateInformation struct {
 	// Alias If the path refers to a container file (a jks keystore, or a PKCS#12 file),
 	// it is the alias of the certificate.
@@ -172,5 +172,3 @@ func NewCertificateInformation() *CertificateInformation {
 
 	return r
 }
-
-// false

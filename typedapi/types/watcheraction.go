@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // WatcherAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/watcher/_types/Action.ts#L35-L54
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/watcher/_types/Action.ts#L35-L54
 type WatcherAction struct {
 	ActionType             *actiontype.ActionType `json:"action_type,omitempty"`
 	Condition              *WatcherCondition      `json:"condition,omitempty"`
@@ -164,14 +164,4 @@ func NewWatcherAction() *WatcherAction {
 	r := &WatcherAction{}
 
 	return r
-}
-
-// true
-
-type WatcherActionVariant interface {
-	WatcherActionCaster() *WatcherAction
-}
-
-func (s *WatcherAction) WatcherActionCaster() *WatcherAction {
-	return s
 }

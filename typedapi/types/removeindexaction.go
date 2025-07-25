@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RemoveIndexAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/update_aliases/types.ts#L124-L139
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/update_aliases/types.ts#L124-L139
 type RemoveIndexAction struct {
 	// Index Data stream or index for the action.
 	// Supports wildcards (`*`).
@@ -103,14 +103,4 @@ func NewRemoveIndexAction() *RemoveIndexAction {
 	r := &RemoveIndexAction{}
 
 	return r
-}
-
-// true
-
-type RemoveIndexActionVariant interface {
-	RemoveIndexActionCaster() *RemoveIndexAction
-}
-
-func (s *RemoveIndexAction) RemoveIndexActionCaster() *RemoveIndexAction {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // Deprecation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/migration/deprecations/types.ts#L32-L47
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/migration/deprecations/types.ts#L32-L47
 type Deprecation struct {
 	// Details Optional details about the deprecation warning.
 	Details *string `json:"details,omitempty"`
@@ -139,5 +139,3 @@ func NewDeprecation() *Deprecation {
 
 	return r
 }
-
-// false

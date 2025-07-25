@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Create or update an alias.
 // Adds a data stream or index to an alias.
@@ -354,17 +354,13 @@ func (r *UpdateAliases) Pretty(pretty bool) *UpdateAliases {
 	return r
 }
 
-// Actions to perform.
+// Actions Actions to perform.
 // API name: actions
-func (r *UpdateAliases) Actions(actions ...types.IndicesActionVariant) *UpdateAliases {
-	// Initialize the request if it is not already initialized
+func (r *UpdateAliases) Actions(actions ...types.IndicesAction) *UpdateAliases {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range actions {
+	r.req.Actions = actions
 
-		r.req.Actions = append(r.req.Actions, *v.IndicesActionCaster())
-
-	}
 	return r
 }

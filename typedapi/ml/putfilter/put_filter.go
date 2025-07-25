@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Create a filter.
 // A filter contains a list of strings. It can be used by one or more anomaly
@@ -365,10 +365,9 @@ func (r *PutFilter) Pretty(pretty bool) *PutFilter {
 	return r
 }
 
-// A description of the filter.
+// Description A description of the filter.
 // API name: description
 func (r *PutFilter) Description(description string) *PutFilter {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -378,19 +377,15 @@ func (r *PutFilter) Description(description string) *PutFilter {
 	return r
 }
 
-// The items of the filter. A wildcard `*` can be used at the beginning or the
+// Items The items of the filter. A wildcard `*` can be used at the beginning or the
 // end of an item.
 // Up to 10000 items are allowed in each filter.
 // API name: items
 func (r *PutFilter) Items(items ...string) *PutFilter {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range items {
+	r.req.Items = items
 
-		r.req.Items = append(r.req.Items, v)
-
-	}
 	return r
 }

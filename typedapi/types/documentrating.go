@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DocumentRating type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/rank_eval/types.ts#L119-L126
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/rank_eval/types.ts#L119-L126
 type DocumentRating struct {
 	// Id_ The document ID.
 	Id_ string `json:"_id"`
@@ -93,14 +93,4 @@ func NewDocumentRating() *DocumentRating {
 	r := &DocumentRating{}
 
 	return r
-}
-
-// true
-
-type DocumentRatingVariant interface {
-	DocumentRatingCaster() *DocumentRating
-}
-
-func (s *DocumentRating) DocumentRatingCaster() *DocumentRating {
-	return s
 }

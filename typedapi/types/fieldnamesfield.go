@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FieldNamesField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/mapping/meta-fields.ts#L42-L44
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/mapping/meta-fields.ts#L42-L44
 type FieldNamesField struct {
 	Enabled bool `json:"enabled"`
 }
@@ -75,14 +75,4 @@ func NewFieldNamesField() *FieldNamesField {
 	r := &FieldNamesField{}
 
 	return r
-}
-
-// true
-
-type FieldNamesFieldVariant interface {
-	FieldNamesFieldCaster() *FieldNamesField
-}
-
-func (s *FieldNamesField) FieldNamesFieldCaster() *FieldNamesField {
-	return s
 }

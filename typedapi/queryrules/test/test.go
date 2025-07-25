@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Test a query ruleset.
 // Evaluate match criteria against a query ruleset to identify the rules that
@@ -361,34 +361,16 @@ func (r *Test) Pretty(pretty bool) *Test {
 	return r
 }
 
-// The match criteria to apply to rules in the given query ruleset.
+// MatchCriteria The match criteria to apply to rules in the given query ruleset.
 // Match criteria should match the keys defined in the `criteria.metadata` field
 // of the rule.
 // API name: match_criteria
 func (r *Test) MatchCriteria(matchcriteria map[string]json.RawMessage) *Test {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.MatchCriteria = matchcriteria
-	return r
-}
 
-func (r *Test) AddMatchCriterion(key string, value json.RawMessage) *Test {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.MatchCriteria == nil {
-		r.req.MatchCriteria = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.MatchCriteria
-	}
-
-	tmp[key] = value
-
-	r.req.MatchCriteria = tmp
 	return r
 }

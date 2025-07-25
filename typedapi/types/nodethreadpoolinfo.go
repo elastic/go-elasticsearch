@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeThreadPoolInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/nodes/info/types.ts#L302-L309
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/nodes/info/types.ts#L317-L324
 type NodeThreadPoolInfo struct {
 	Core      *int     `json:"core,omitempty"`
 	KeepAlive Duration `json:"keep_alive,omitempty"`
@@ -148,5 +148,3 @@ func NewNodeThreadPoolInfo() *NodeThreadPoolInfo {
 
 	return r
 }
-
-// false

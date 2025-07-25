@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // IcuNormalizationTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/icu-plugin.ts#L35-L38
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/icu-plugin.ts#L35-L38
 type IcuNormalizationTokenFilter struct {
 	Name    icunormalizationtype.IcuNormalizationType `json:"name"`
 	Type    string                                    `json:"type,omitempty"`
@@ -93,14 +93,4 @@ func NewIcuNormalizationTokenFilter() *IcuNormalizationTokenFilter {
 	r := &IcuNormalizationTokenFilter{}
 
 	return r
-}
-
-// true
-
-type IcuNormalizationTokenFilterVariant interface {
-	IcuNormalizationTokenFilterCaster() *IcuNormalizationTokenFilter
-}
-
-func (s *IcuNormalizationTokenFilter) IcuNormalizationTokenFilterCaster() *IcuNormalizationTokenFilter {
-	return s
 }

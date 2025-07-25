@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SparseVectorQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/SparseVectorQuery.ts#L26-L80
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/query_dsl/SparseVectorQuery.ts#L26-L80
 type SparseVectorQuery struct {
 	AdditionalSparseVectorQueryProperty map[string]json.RawMessage `json:"-"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
@@ -220,14 +220,4 @@ func NewSparseVectorQuery() *SparseVectorQuery {
 	}
 
 	return r
-}
-
-// true
-
-type SparseVectorQueryVariant interface {
-	SparseVectorQueryCaster() *SparseVectorQuery
-}
-
-func (s *SparseVectorQuery) SparseVectorQueryCaster() *SparseVectorQuery {
-	return s
 }

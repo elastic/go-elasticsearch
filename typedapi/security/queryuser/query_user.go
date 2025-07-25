@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Find users with a query.
 //
@@ -359,24 +359,22 @@ func (r *QueryUser) Pretty(pretty bool) *QueryUser {
 	return r
 }
 
-// The starting document offset.
+// From The starting document offset.
 // It must not be negative.
 // By default, you cannot page through more than 10,000 hits using the `from`
 // and `size` parameters.
 // To page through more hits, use the `search_after` parameter.
 // API name: from
 func (r *QueryUser) From(from int) *QueryUser {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.From = &from
 
 	return r
 }
 
-// A query to filter which users to return.
+// Query A query to filter which users to return.
 // If the query parameter is missing, it is equivalent to a `match_all` query.
 // The query supports a subset of query types, including `match_all`, `bool`,
 // `term`, `terms`, `match`,
@@ -384,63 +382,52 @@ func (r *QueryUser) From(from int) *QueryUser {
 // You can query the following information associated with user: `username`,
 // `roles`, `enabled`, `full_name`, and `email`.
 // API name: query
-func (r *QueryUser) Query(query types.UserQueryContainerVariant) *QueryUser {
-	// Initialize the request if it is not already initialized
+func (r *QueryUser) Query(query *types.UserQueryContainer) *QueryUser {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Query = query.UserQueryContainerCaster()
+	r.req.Query = query
 
 	return r
 }
 
-// The search after definition
+// SearchAfter The search after definition
 // API name: search_after
-func (r *QueryUser) SearchAfter(sortresults ...types.FieldValueVariant) *QueryUser {
-	// Initialize the request if it is not already initialized
+func (r *QueryUser) SearchAfter(sortresults ...types.FieldValue) *QueryUser {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	for _, v := range sortresults {
-		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
-	}
+	r.req.SearchAfter = sortresults
 
 	return r
 }
 
-// The number of hits to return.
+// Size The number of hits to return.
 // It must not be negative.
 // By default, you cannot page through more than 10,000 hits using the `from`
 // and `size` parameters.
 // To page through more hits, use the `search_after` parameter.
 // API name: size
 func (r *QueryUser) Size(size int) *QueryUser {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Size = &size
 
 	return r
 }
 
-// The sort definition.
+// Sort The sort definition.
 // Fields eligible for sorting are: `username`, `roles`, `enabled`.
 // In addition, sort can also be applied to the `_doc` field to sort by index
 // order.
 // API name: sort
-func (r *QueryUser) Sort(sorts ...types.SortCombinationsVariant) *QueryUser {
-	// Initialize the request if it is not already initialized
+func (r *QueryUser) Sort(sorts ...types.SortCombinations) *QueryUser {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	for _, v := range sorts {
-		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
-	}
+	r.req.Sort = sorts
 
 	return r
 }

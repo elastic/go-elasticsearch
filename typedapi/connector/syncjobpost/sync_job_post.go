@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Create a connector sync job.
 //
@@ -342,14 +342,12 @@ func (r *SyncJobPost) Pretty(pretty bool) *SyncJobPost {
 	return r
 }
 
-// The id of the associated connector
+// Id The id of the associated connector
 // API name: id
 func (r *SyncJobPost) Id(id string) *SyncJobPost {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Id = id
 
 	return r
@@ -357,20 +355,20 @@ func (r *SyncJobPost) Id(id string) *SyncJobPost {
 
 // API name: job_type
 func (r *SyncJobPost) JobType(jobtype syncjobtype.SyncJobType) *SyncJobPost {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 	r.req.JobType = &jobtype
+
 	return r
 }
 
 // API name: trigger_method
 func (r *SyncJobPost) TriggerMethod(triggermethod syncjobtriggermethod.SyncJobTriggerMethod) *SyncJobPost {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 	r.req.TriggerMethod = &triggermethod
+
 	return r
 }

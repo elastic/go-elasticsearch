@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
-// Get anomaly detection jobs usage info.
+// Get anomaly detection job stats.
 package getjobstats
 
 import (
@@ -74,7 +74,7 @@ func NewGetJobStatsFunc(tp elastictransport.Interface) NewGetJobStats {
 	}
 }
 
-// Get anomaly detection jobs usage info.
+// Get anomaly detection job stats.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job-stats.html
 func New(tp elastictransport.Interface) *GetJobStats {

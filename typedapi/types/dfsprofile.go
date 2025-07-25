@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
 // DfsProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/search/_types/profile.ts#L154-L157
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/search/_types/profile.ts#L154-L157
 type DfsProfile struct {
 	Knn        []DfsKnnProfile       `json:"knn,omitempty"`
 	Statistics *DfsStatisticsProfile `json:"statistics,omitempty"`
@@ -34,5 +34,3 @@ func NewDfsProfile() *DfsProfile {
 
 	return r
 }
-
-// false

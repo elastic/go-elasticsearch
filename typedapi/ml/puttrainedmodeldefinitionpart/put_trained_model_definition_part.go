@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Create part of a trained model definition.
 package puttrainedmodeldefinitionpart
@@ -382,10 +382,9 @@ func (r *PutTrainedModelDefinitionPart) Pretty(pretty bool) *PutTrainedModelDefi
 	return r
 }
 
-// The definition part for the model. Must be a base64 encoded string.
+// Definition The definition part for the model. Must be a base64 encoded string.
 // API name: definition
 func (r *PutTrainedModelDefinitionPart) Definition(definition string) *PutTrainedModelDefinitionPart {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -395,10 +394,9 @@ func (r *PutTrainedModelDefinitionPart) Definition(definition string) *PutTraine
 	return r
 }
 
-// The total uncompressed definition length in bytes. Not base64 encoded.
+// TotalDefinitionLength The total uncompressed definition length in bytes. Not base64 encoded.
 // API name: total_definition_length
 func (r *PutTrainedModelDefinitionPart) TotalDefinitionLength(totaldefinitionlength int64) *PutTrainedModelDefinitionPart {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -408,14 +406,12 @@ func (r *PutTrainedModelDefinitionPart) TotalDefinitionLength(totaldefinitionlen
 	return r
 }
 
-// The total number of parts that will be uploaded. Must be greater than 0.
+// TotalParts The total number of parts that will be uploaded. Must be greater than 0.
 // API name: total_parts
 func (r *PutTrainedModelDefinitionPart) TotalParts(totalparts int) *PutTrainedModelDefinitionPart {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.TotalParts = totalparts
 
 	return r

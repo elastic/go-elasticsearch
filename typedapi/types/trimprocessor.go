@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TrimProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ingest/_types/Processors.ts#L1543-L1559
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ingest/_types/Processors.ts#L1543-L1559
 type TrimProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
@@ -159,14 +159,4 @@ func NewTrimProcessor() *TrimProcessor {
 	r := &TrimProcessor{}
 
 	return r
-}
-
-// true
-
-type TrimProcessorVariant interface {
-	TrimProcessorCaster() *TrimProcessor
-}
-
-func (s *TrimProcessor) TrimProcessorCaster() *TrimProcessor {
-	return s
 }

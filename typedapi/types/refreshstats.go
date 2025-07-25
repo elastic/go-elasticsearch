@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RefreshStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/Stats.ts#L238-L245
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/Stats.ts#L260-L267
 type RefreshStats struct {
 	ExternalTotal             int64    `json:"external_total"`
 	ExternalTotalTimeInMillis int64    `json:"external_total_time_in_millis"`
@@ -127,5 +127,3 @@ func NewRefreshStats() *RefreshStats {
 
 	return r
 }
-
-// false

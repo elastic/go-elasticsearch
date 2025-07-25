@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // OverallBucketJob type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/Bucket.ts#L145-L148
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/_types/Bucket.ts#L145-L148
 type OverallBucketJob struct {
 	JobId           string  `json:"job_id"`
 	MaxAnomalyScore Float64 `json:"max_anomaly_score"`
@@ -84,5 +84,3 @@ func NewOverallBucketJob() *OverallBucketJob {
 
 	return r
 }
-
-// false

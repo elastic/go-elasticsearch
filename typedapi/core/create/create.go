@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Create a new document in the index.
 //
@@ -160,7 +160,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/optype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
@@ -598,42 +597,11 @@ func (r *Create) _index(index string) *Create {
 	return r
 }
 
-// IfPrimaryTerm Only perform the operation if the document has this primary term.
-// API name: if_primary_term
-func (r *Create) IfPrimaryTerm(ifprimaryterm string) *Create {
-	r.values.Set("if_primary_term", ifprimaryterm)
-
-	return r
-}
-
-// IfSeqNo Only perform the operation if the document has this sequence number.
-// API name: if_seq_no
-func (r *Create) IfSeqNo(sequencenumber string) *Create {
-	r.values.Set("if_seq_no", sequencenumber)
-
-	return r
-}
-
 // IncludeSourceOnError True or false if to include the document source in the error message in case
 // of parsing errors.
 // API name: include_source_on_error
 func (r *Create) IncludeSourceOnError(includesourceonerror bool) *Create {
 	r.values.Set("include_source_on_error", strconv.FormatBool(includesourceonerror))
-
-	return r
-}
-
-// OpType Set to `create` to only index the document if it does not already exist (put
-// if absent).
-// If a document with the specified `_id` already exists, the indexing operation
-// will fail.
-// The behavior is the same as using the `<index>/_create` endpoint.
-// If a document ID is specified, this paramater defaults to `index`.
-// Otherwise, it defaults to `create`.
-// If the request targets a data stream, an `op_type` of `create` is required.
-// API name: op_type
-func (r *Create) OpType(optype optype.OpType) *Create {
-	r.values.Set("op_type", optype.String())
 
 	return r
 }

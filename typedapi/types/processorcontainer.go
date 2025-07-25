@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // ProcessorContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ingest/_types/Processors.ts#L27-L301
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ingest/_types/Processors.ts#L27-L301
 type ProcessorContainer struct {
 	AdditionalProcessorContainerProperty map[string]json.RawMessage `json:"-"`
 	// Append Appends one or more values to an existing array if the field already exists
@@ -253,14 +253,4 @@ func NewProcessorContainer() *ProcessorContainer {
 	}
 
 	return r
-}
-
-// true
-
-type ProcessorContainerVariant interface {
-	ProcessorContainerCaster() *ProcessorContainer
-}
-
-func (s *ProcessorContainer) ProcessorContainerCaster() *ProcessorContainer {
-	return s
 }

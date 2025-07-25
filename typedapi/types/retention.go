@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Retention type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/slm/_types/SnapshotLifecycle.ts#L94-L107
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/slm/_types/SnapshotLifecycle.ts#L94-L107
 type Retention struct {
 	// ExpireAfter Time period after which a snapshot is considered expired and eligible for
 	// deletion. SLM deletes expired snapshots based on the slm.retention_schedule.
@@ -106,14 +106,4 @@ func NewRetention() *Retention {
 	r := &Retention{}
 
 	return r
-}
-
-// true
-
-type RetentionVariant interface {
-	RetentionCaster() *Retention
-}
-
-func (s *Retention) RetentionCaster() *Retention {
-	return s
 }

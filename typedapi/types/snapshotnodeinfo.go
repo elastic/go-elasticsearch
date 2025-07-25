@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SnapshotNodeInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/snapshot/repository_analyze/SnapshotAnalyzeRepositoryResponse.ts#L110-L113
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/snapshot/repository_analyze/SnapshotAnalyzeRepositoryResponse.ts#L110-L113
 type SnapshotNodeInfo struct {
 	Id   string `json:"id"`
 	Name string `json:"name"`
@@ -72,5 +72,3 @@ func NewSnapshotNodeInfo() *SnapshotNodeInfo {
 
 	return r
 }
-
-// false

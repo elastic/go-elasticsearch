@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Ilm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/xpack/usage/types.ts#L172-L175
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/xpack/usage/types.ts#L172-L175
 type Ilm struct {
 	PolicyCount int                   `json:"policy_count"`
 	PolicyStats []IlmPolicyStatistics `json:"policy_stats"`
@@ -84,5 +84,3 @@ func NewIlm() *Ilm {
 
 	return r
 }
-
-// false

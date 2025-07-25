@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataStreamLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/_types/DataStreamLifecycle.ts#L25-L45
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/_types/DataStreamLifecycle.ts#L25-L45
 type DataStreamLifecycle struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame.
@@ -96,14 +96,4 @@ func NewDataStreamLifecycle() *DataStreamLifecycle {
 	r := &DataStreamLifecycle{}
 
 	return r
-}
-
-// true
-
-type DataStreamLifecycleVariant interface {
-	DataStreamLifecycleCaster() *DataStreamLifecycle
-}
-
-func (s *DataStreamLifecycle) DataStreamLifecycleCaster() *DataStreamLifecycle {
-	return s
 }

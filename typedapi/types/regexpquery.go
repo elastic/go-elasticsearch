@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RegexpQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/term.ts#L203-L236
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/query_dsl/term.ts#L203-L236
 type RegexpQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -179,14 +179,4 @@ func NewRegexpQuery() *RegexpQuery {
 	r := &RegexpQuery{}
 
 	return r
-}
-
-// true
-
-type RegexpQueryVariant interface {
-	RegexpQueryCaster() *RegexpQuery
-}
-
-func (s *RegexpQuery) RegexpQueryCaster() *RegexpQuery {
-	return s
 }

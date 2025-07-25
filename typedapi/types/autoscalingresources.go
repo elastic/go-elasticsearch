@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AutoscalingResources type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L43-L46
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L43-L46
 type AutoscalingResources struct {
 	Memory  int `json:"memory"`
 	Storage int `json:"storage"`
@@ -95,5 +95,3 @@ func NewAutoscalingResources() *AutoscalingResources {
 
 	return r
 }
-
-// false

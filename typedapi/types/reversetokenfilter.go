@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ReverseTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/token_filters.ts#L306-L308
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/token_filters.ts#L407-L409
 type ReverseTokenFilter struct {
 	Type    string  `json:"type,omitempty"`
 	Version *string `json:"version,omitempty"`
@@ -84,14 +84,4 @@ func NewReverseTokenFilter() *ReverseTokenFilter {
 	r := &ReverseTokenFilter{}
 
 	return r
-}
-
-// true
-
-type ReverseTokenFilterVariant interface {
-	ReverseTokenFilterCaster() *ReverseTokenFilter
-}
-
-func (s *ReverseTokenFilter) ReverseTokenFilterCaster() *ReverseTokenFilter {
-	return s
 }

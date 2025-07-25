@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndexField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/mapping/meta-fields.ts#L46-L48
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/mapping/meta-fields.ts#L46-L48
 type IndexField struct {
 	Enabled bool `json:"enabled"`
 }
@@ -75,14 +75,4 @@ func NewIndexField() *IndexField {
 	r := &IndexField{}
 
 	return r
-}
-
-// true
-
-type IndexFieldVariant interface {
-	IndexFieldCaster() *IndexField
-}
-
-func (s *IndexField) IndexFieldCaster() *IndexField {
-	return s
 }

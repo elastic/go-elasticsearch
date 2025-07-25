@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Update data streams.
 // Performs one or more data stream modification actions in a single atomic
@@ -338,17 +338,13 @@ func (r *ModifyDataStream) Pretty(pretty bool) *ModifyDataStream {
 	return r
 }
 
-// Actions to perform.
+// Actions Actions to perform.
 // API name: actions
-func (r *ModifyDataStream) Actions(actions ...types.IndicesModifyActionVariant) *ModifyDataStream {
-	// Initialize the request if it is not already initialized
+func (r *ModifyDataStream) Actions(actions ...types.IndicesModifyAction) *ModifyDataStream {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range actions {
+	r.req.Actions = actions
 
-		r.req.Actions = append(r.req.Actions, *v.IndicesModifyActionCaster())
-
-	}
 	return r
 }

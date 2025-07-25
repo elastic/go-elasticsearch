@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Close anomaly detection jobs.
 //
@@ -397,41 +397,35 @@ func (r *CloseJob) Pretty(pretty bool) *CloseJob {
 	return r
 }
 
-// Refer to the description for the `allow_no_match` query parameter.
+// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
 // API name: allow_no_match
 func (r *CloseJob) AllowNoMatch(allownomatch bool) *CloseJob {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.AllowNoMatch = &allownomatch
 
 	return r
 }
 
-// Refer to the descriptiion for the `force` query parameter.
+// Force Refer to the descriptiion for the `force` query parameter.
 // API name: force
 func (r *CloseJob) Force(force bool) *CloseJob {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Force = &force
 
 	return r
 }
 
-// Refer to the description for the `timeout` query parameter.
+// Timeout Refer to the description for the `timeout` query parameter.
 // API name: timeout
-func (r *CloseJob) Timeout(duration types.DurationVariant) *CloseJob {
-	// Initialize the request if it is not already initialized
+func (r *CloseJob) Timeout(duration types.Duration) *CloseJob {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Timeout = *duration.DurationCaster()
+	r.req.Timeout = duration
 
 	return r
 }

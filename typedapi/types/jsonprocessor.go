@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // JsonProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ingest/_types/Processors.ts#L1138-L1167
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ingest/_types/Processors.ts#L1138-L1167
 type JsonProcessor struct {
 	// AddToRoot Flag that forces the parsed JSON to be added at the top level of the
 	// document.
@@ -190,14 +190,4 @@ func NewJsonProcessor() *JsonProcessor {
 	r := &JsonProcessor{}
 
 	return r
-}
-
-// true
-
-type JsonProcessorVariant interface {
-	JsonProcessorCaster() *JsonProcessor
-}
-
-func (s *JsonProcessor) JsonProcessorCaster() *JsonProcessor {
-	return s
 }

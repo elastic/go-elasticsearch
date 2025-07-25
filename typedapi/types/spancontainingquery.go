@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SpanContainingQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/span.ts#L25-L39
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/query_dsl/span.ts#L25-L39
 type SpanContainingQuery struct {
 	// Big Can be any span query.
 	// Matching spans from `big` that contain matches from `little` are returned.
@@ -111,14 +111,4 @@ func NewSpanContainingQuery() *SpanContainingQuery {
 	r := &SpanContainingQuery{}
 
 	return r
-}
-
-// true
-
-type SpanContainingQueryVariant interface {
-	SpanContainingQueryCaster() *SpanContainingQuery
-}
-
-func (s *SpanContainingQuery) SpanContainingQueryCaster() *SpanContainingQuery {
-	return s
 }

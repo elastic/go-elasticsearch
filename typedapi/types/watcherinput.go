@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // WatcherInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/watcher/_types/Input.ts#L90-L98
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/watcher/_types/Input.ts#L87-L95
 type WatcherInput struct {
 	AdditionalWatcherInputProperty map[string]json.RawMessage `json:"-"`
 	Chain                          *ChainInput                `json:"chain,omitempty"`
@@ -73,14 +73,4 @@ func NewWatcherInput() *WatcherInput {
 	}
 
 	return r
-}
-
-// true
-
-type WatcherInputVariant interface {
-	WatcherInputCaster() *WatcherInput
-}
-
-func (s *WatcherInput) WatcherInputCaster() *WatcherInput {
-	return s
 }

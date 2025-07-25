@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RescoreVector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/Knn.ts#L30-L33
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/Knn.ts#L30-L33
 type RescoreVector struct {
 	// Oversample Applies the specified oversample factor to k on the approximate kNN search
 	Oversample float32 `json:"oversample"`
@@ -78,14 +78,4 @@ func NewRescoreVector() *RescoreVector {
 	r := &RescoreVector{}
 
 	return r
-}
-
-// true
-
-type RescoreVectorVariant interface {
-	RescoreVectorCaster() *RescoreVector
-}
-
-func (s *RescoreVector) RescoreVectorCaster() *RescoreVector {
-	return s
 }

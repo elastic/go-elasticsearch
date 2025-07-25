@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // OpenAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/_types/CommonTypes.ts#L1013-L1055
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/inference/_types/CommonTypes.ts#L1411-L1453
 type OpenAIServiceSettings struct {
 	// ApiKey A valid API key of your OpenAI account.
 	// You can find your OpenAI API keys in your OpenAI account under the API keys
@@ -162,14 +162,4 @@ func NewOpenAIServiceSettings() *OpenAIServiceSettings {
 	r := &OpenAIServiceSettings{}
 
 	return r
-}
-
-// true
-
-type OpenAIServiceSettingsVariant interface {
-	OpenAIServiceSettingsCaster() *OpenAIServiceSettings
-}
-
-func (s *OpenAIServiceSettings) OpenAIServiceSettingsCaster() *OpenAIServiceSettings {
-	return s
 }

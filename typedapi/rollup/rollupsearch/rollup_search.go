@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Search rolled-up data.
 // The rollup search endpoint is needed because, internally, rolled-up documents
@@ -477,57 +477,36 @@ func (r *RollupSearch) Pretty(pretty bool) *RollupSearch {
 	return r
 }
 
-// Specifies aggregations.
+// Aggregations Specifies aggregations.
 // API name: aggregations
 func (r *RollupSearch) Aggregations(aggregations map[string]types.Aggregations) *RollupSearch {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.Aggregations = aggregations
+
 	return r
 }
 
-func (r *RollupSearch) AddAggregation(key string, value types.AggregationsVariant) *RollupSearch {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.Aggregations
-	if r.req.Aggregations == nil {
-		r.req.Aggregations = make(map[string]types.Aggregations)
-	} else {
-		tmp = r.req.Aggregations
-	}
-
-	tmp[key] = *value.AggregationsCaster()
-
-	r.req.Aggregations = tmp
-	return r
-}
-
-// Specifies a DSL query that is subject to some limitations.
+// Query Specifies a DSL query that is subject to some limitations.
 // API name: query
-func (r *RollupSearch) Query(query types.QueryVariant) *RollupSearch {
-	// Initialize the request if it is not already initialized
+func (r *RollupSearch) Query(query *types.Query) *RollupSearch {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }
 
-// Must be zero if set, as rollups work on pre-aggregated data.
+// Size Must be zero if set, as rollups work on pre-aggregated data.
 // API name: size
 func (r *RollupSearch) Size(size int) *RollupSearch {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Size = &size
 
 	return r

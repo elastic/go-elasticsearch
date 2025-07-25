@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // WebhookAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/watcher/_types/Actions.ts#L293-L293
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/watcher/_types/Actions.ts#L293-L293
 type WebhookAction struct {
 	Auth              *HttpInputAuthentication           `json:"auth,omitempty"`
 	Body              *string                            `json:"body,omitempty"`
@@ -171,14 +171,4 @@ func NewWebhookAction() *WebhookAction {
 	}
 
 	return r
-}
-
-// true
-
-type WebhookActionVariant interface {
-	WebhookActionCaster() *WebhookAction
-}
-
-func (s *WebhookAction) WebhookActionCaster() *WebhookAction {
-	return s
 }

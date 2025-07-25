@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package putdatalifecycle
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putdatalifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L25-L93
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L25-L93
 type Request struct {
 
 	// DataRetention If defined, every document added to this data stream will be stored at least

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // QueryRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/query_rules/_types/QueryRuleset.ts#L36-L58
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/query_rules/_types/QueryRuleset.ts#L36-L58
 type QueryRule struct {
 	// Actions The actions to take when the rule is matched.
 	// The format of this action depends on the rule type.
@@ -124,14 +124,4 @@ func NewQueryRule() *QueryRule {
 	r := &QueryRule{}
 
 	return r
-}
-
-// true
-
-type QueryRuleVariant interface {
-	QueryRuleCaster() *QueryRule
-}
-
-func (s *QueryRule) QueryRuleCaster() *QueryRule {
-	return s
 }

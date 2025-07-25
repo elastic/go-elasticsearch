@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IngestStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/nodes/_types/Stats.ts#L356-L394
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/nodes/_types/Stats.ts#L358-L396
 type IngestStats struct {
 	// Count Total number of documents ingested during the lifetime of this node.
 	Count int64 `json:"count"`
@@ -173,5 +173,3 @@ func NewIngestStats() *IngestStats {
 
 	return r
 }
-
-// false

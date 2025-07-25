@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Create an index from a source index.
 //
@@ -381,41 +381,37 @@ func (r *CreateFrom) Pretty(pretty bool) *CreateFrom {
 	return r
 }
 
-// Mappings overrides to be applied to the destination index (optional)
+// MappingsOverride Mappings overrides to be applied to the destination index (optional)
 // API name: mappings_override
-func (r *CreateFrom) MappingsOverride(mappingsoverride types.TypeMappingVariant) *CreateFrom {
-	// Initialize the request if it is not already initialized
+func (r *CreateFrom) MappingsOverride(mappingsoverride *types.TypeMapping) *CreateFrom {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.MappingsOverride = mappingsoverride.TypeMappingCaster()
+	r.req.MappingsOverride = mappingsoverride
 
 	return r
 }
 
-// If index blocks should be removed when creating destination index (optional)
+// RemoveIndexBlocks If index blocks should be removed when creating destination index (optional)
 // API name: remove_index_blocks
 func (r *CreateFrom) RemoveIndexBlocks(removeindexblocks bool) *CreateFrom {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.RemoveIndexBlocks = &removeindexblocks
 
 	return r
 }
 
-// Settings overrides to be applied to the destination index (optional)
+// SettingsOverride Settings overrides to be applied to the destination index (optional)
 // API name: settings_override
-func (r *CreateFrom) SettingsOverride(settingsoverride types.IndexSettingsVariant) *CreateFrom {
-	// Initialize the request if it is not already initialized
+func (r *CreateFrom) SettingsOverride(settingsoverride *types.IndexSettings) *CreateFrom {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.SettingsOverride = settingsoverride.IndexSettingsCaster()
+	r.req.SettingsOverride = settingsoverride
 
 	return r
 }

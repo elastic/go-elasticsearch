@@ -16,22 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Create an AlibabaCloud AI Search inference endpoint.
 //
 // Create an inference endpoint to perform an inference task with the
 // `alibabacloud-ai-search` service.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 package putalibabacloud
 
 import (
@@ -104,16 +94,6 @@ func NewPutAlibabacloudFunc(tp elastictransport.Interface) NewPutAlibabacloud {
 //
 // Create an inference endpoint to perform an inference task with the
 // `alibabacloud-ai-search` service.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-alibabacloud-ai-search.html
 func New(tp elastictransport.Interface) *PutAlibabacloud {
@@ -358,6 +338,15 @@ func (r *PutAlibabacloud) _alibabacloudinferenceid(alibabacloudinferenceid strin
 	return r
 }
 
+// Timeout Specifies the amount of time to wait for the inference endpoint to be
+// created.
+// API name: timeout
+func (r *PutAlibabacloud) Timeout(duration string) *PutAlibabacloud {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -402,55 +391,52 @@ func (r *PutAlibabacloud) Pretty(pretty bool) *PutAlibabacloud {
 	return r
 }
 
-// The chunking configuration object.
+// ChunkingSettings The chunking configuration object.
 // API name: chunking_settings
-func (r *PutAlibabacloud) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAlibabacloud {
-	// Initialize the request if it is not already initialized
+func (r *PutAlibabacloud) ChunkingSettings(chunkingsettings *types.InferenceChunkingSettings) *PutAlibabacloud {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
+	r.req.ChunkingSettings = chunkingsettings
 
 	return r
 }
 
-// The type of service supported for the specified task type. In this case,
+// Service The type of service supported for the specified task type. In this case,
 // `alibabacloud-ai-search`.
 // API name: service
 func (r *PutAlibabacloud) Service(service alibabacloudservicetype.AlibabaCloudServiceType) *PutAlibabacloud {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 	r.req.Service = service
+
 	return r
 }
 
-// Settings used to install the inference model. These settings are specific to
+// ServiceSettings Settings used to install the inference model. These settings are specific to
 // the `alibabacloud-ai-search` service.
 // API name: service_settings
-func (r *PutAlibabacloud) ServiceSettings(servicesettings types.AlibabaCloudServiceSettingsVariant) *PutAlibabacloud {
-	// Initialize the request if it is not already initialized
+func (r *PutAlibabacloud) ServiceSettings(servicesettings *types.AlibabaCloudServiceSettings) *PutAlibabacloud {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.ServiceSettings = *servicesettings.AlibabaCloudServiceSettingsCaster()
+	r.req.ServiceSettings = *servicesettings
 
 	return r
 }
 
-// Settings to configure the inference task.
+// TaskSettings Settings to configure the inference task.
 // These settings are specific to the task type you specified.
 // API name: task_settings
-func (r *PutAlibabacloud) TaskSettings(tasksettings types.AlibabaCloudTaskSettingsVariant) *PutAlibabacloud {
-	// Initialize the request if it is not already initialized
+func (r *PutAlibabacloud) TaskSettings(tasksettings *types.AlibabaCloudTaskSettings) *PutAlibabacloud {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.TaskSettings = tasksettings.AlibabaCloudTaskSettingsCaster()
+	r.req.TaskSettings = tasksettings
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IpRangeAggregationRange type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/bucket.ts#L578-L591
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/aggregations/bucket.ts#L578-L591
 type IpRangeAggregationRange struct {
 	// From Start of the range.
 	From *string `json:"from,omitempty"`
@@ -102,14 +102,4 @@ func NewIpRangeAggregationRange() *IpRangeAggregationRange {
 	r := &IpRangeAggregationRange{}
 
 	return r
-}
-
-// true
-
-type IpRangeAggregationRangeVariant interface {
-	IpRangeAggregationRangeCaster() *IpRangeAggregationRange
-}
-
-func (s *IpRangeAggregationRange) IpRangeAggregationRangeCaster() *IpRangeAggregationRange {
-	return s
 }

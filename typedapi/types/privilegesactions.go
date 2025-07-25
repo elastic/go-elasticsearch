@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PrivilegesActions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/security/put_privileges/types.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/security/put_privileges/types.ts#L22-L27
 type PrivilegesActions struct {
 	Actions     []string `json:"actions"`
 	Application *string  `json:"application,omitempty"`
@@ -91,14 +91,4 @@ func NewPrivilegesActions() *PrivilegesActions {
 	r := &PrivilegesActions{}
 
 	return r
-}
-
-// true
-
-type PrivilegesActionsVariant interface {
-	PrivilegesActionsCaster() *PrivilegesActions
-}
-
-func (s *PrivilegesActions) PrivilegesActionsCaster() *PrivilegesActions {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -27,18 +27,21 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/esqlclusterstatus"
 )
 
-// NodeInfoNetworkInterface type.
+// EsqlClusterDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/nodes/info/types.ts#L341-L345
-type NodeInfoNetworkInterface struct {
-	Address    string `json:"address"`
-	MacAddress string `json:"mac_address"`
-	Name       string `json:"name"`
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/esql/_types/EsqlResult.ts#L65-L70
+type EsqlClusterDetails struct {
+	Indices string                              `json:"indices"`
+	Shards_ *EsqlShardInfo                      `json:"_shards,omitempty"`
+	Status  esqlclusterstatus.EsqlClusterStatus `json:"status"`
+	Took    *int64                              `json:"took,omitempty"`
 }
 
-func (s *NodeInfoNetworkInterface) UnmarshalJSON(data []byte) error {
+func (s *EsqlClusterDetails) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -53,33 +56,31 @@ func (s *NodeInfoNetworkInterface) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "address":
+		case "indices":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Address", err)
+				return fmt.Errorf("%s | %w", "Indices", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Address = o
+			s.Indices = o
 
-		case "mac_address":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "MacAddress", err)
+		case "_shards":
+			if err := dec.Decode(&s.Shards_); err != nil {
+				return fmt.Errorf("%s | %w", "Shards_", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.MacAddress = o
 
-		case "name":
-			if err := dec.Decode(&s.Name); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
+		case "status":
+			if err := dec.Decode(&s.Status); err != nil {
+				return fmt.Errorf("%s | %w", "Status", err)
+			}
+
+		case "took":
+			if err := dec.Decode(&s.Took); err != nil {
+				return fmt.Errorf("%s | %w", "Took", err)
 			}
 
 		}
@@ -87,11 +88,9 @@ func (s *NodeInfoNetworkInterface) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewNodeInfoNetworkInterface returns a NodeInfoNetworkInterface.
-func NewNodeInfoNetworkInterface() *NodeInfoNetworkInterface {
-	r := &NodeInfoNetworkInterface{}
+// NewEsqlClusterDetails returns a EsqlClusterDetails.
+func NewEsqlClusterDetails() *EsqlClusterDetails {
+	r := &EsqlClusterDetails{}
 
 	return r
 }
-
-// false

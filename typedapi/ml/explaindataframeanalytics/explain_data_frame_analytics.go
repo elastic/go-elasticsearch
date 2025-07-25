@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Explain data frame analytics config.
 //
@@ -390,56 +390,51 @@ func (r *ExplainDataFrameAnalytics) Pretty(pretty bool) *ExplainDataFrameAnalyti
 	return r
 }
 
-// Specifies whether this job can start when there is insufficient machine
+// AllowLazyStart Specifies whether this job can start when there is insufficient machine
 // learning node capacity for it to be immediately assigned to a node.
 // API name: allow_lazy_start
 func (r *ExplainDataFrameAnalytics) AllowLazyStart(allowlazystart bool) *ExplainDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.AllowLazyStart = &allowlazystart
 
 	return r
 }
 
-// The analysis configuration, which contains the information necessary to
+// Analysis The analysis configuration, which contains the information necessary to
 // perform one of the following types of analysis: classification, outlier
 // detection, or regression.
 // API name: analysis
-func (r *ExplainDataFrameAnalytics) Analysis(analysis types.DataframeAnalysisContainerVariant) *ExplainDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
+func (r *ExplainDataFrameAnalytics) Analysis(analysis *types.DataframeAnalysisContainer) *ExplainDataFrameAnalytics {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Analysis = analysis.DataframeAnalysisContainerCaster()
+	r.req.Analysis = analysis
 
 	return r
 }
 
-// Specify includes and/or excludes patterns to select which fields will be
+// AnalyzedFields Specify includes and/or excludes patterns to select which fields will be
 // included in the analysis. The patterns specified in excludes are applied
 // last, therefore excludes takes precedence. In other words, if the same
 // field is specified in both includes and excludes, then the field will not
 // be included in the analysis.
 // API name: analyzed_fields
-func (r *ExplainDataFrameAnalytics) AnalyzedFields(analyzedfields types.DataframeAnalysisAnalyzedFieldsVariant) *ExplainDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
+func (r *ExplainDataFrameAnalytics) AnalyzedFields(analyzedfields *types.DataframeAnalysisAnalyzedFields) *ExplainDataFrameAnalytics {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.AnalyzedFields = analyzedfields.DataframeAnalysisAnalyzedFieldsCaster()
+	r.req.AnalyzedFields = analyzedfields
 
 	return r
 }
 
-// A description of the job.
+// Description A description of the job.
 // API name: description
 func (r *ExplainDataFrameAnalytics) Description(description string) *ExplainDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -449,44 +444,40 @@ func (r *ExplainDataFrameAnalytics) Description(description string) *ExplainData
 	return r
 }
 
-// The destination configuration, consisting of index and optionally
+// Dest The destination configuration, consisting of index and optionally
 // results_field (ml by default).
 // API name: dest
-func (r *ExplainDataFrameAnalytics) Dest(dest types.DataframeAnalyticsDestinationVariant) *ExplainDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
+func (r *ExplainDataFrameAnalytics) Dest(dest *types.DataframeAnalyticsDestination) *ExplainDataFrameAnalytics {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Dest = dest.DataframeAnalyticsDestinationCaster()
+	r.req.Dest = dest
 
 	return r
 }
 
-// The maximum number of threads to be used by the analysis. Using more
+// MaxNumThreads The maximum number of threads to be used by the analysis. Using more
 // threads may decrease the time necessary to complete the analysis at the
 // cost of using more CPU. Note that the process may use additional threads
 // for operational functionality other than the analysis itself.
 // API name: max_num_threads
 func (r *ExplainDataFrameAnalytics) MaxNumThreads(maxnumthreads int) *ExplainDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.MaxNumThreads = &maxnumthreads
 
 	return r
 }
 
-// The approximate maximum amount of memory resources that are permitted for
+// ModelMemoryLimit The approximate maximum amount of memory resources that are permitted for
 // analytical processing. If your `elasticsearch.yml` file contains an
 // `xpack.ml.max_model_memory_limit` setting, an error occurs when you try to
 // create data frame analytics jobs that have `model_memory_limit` values
 // greater than that setting.
 // API name: model_memory_limit
 func (r *ExplainDataFrameAnalytics) ModelMemoryLimit(modelmemorylimit string) *ExplainDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -496,16 +487,15 @@ func (r *ExplainDataFrameAnalytics) ModelMemoryLimit(modelmemorylimit string) *E
 	return r
 }
 
-// The configuration of how to source the analysis data. It requires an
+// Source The configuration of how to source the analysis data. It requires an
 // index. Optionally, query and _source may be specified.
 // API name: source
-func (r *ExplainDataFrameAnalytics) Source(source types.DataframeAnalyticsSourceVariant) *ExplainDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
+func (r *ExplainDataFrameAnalytics) Source(source *types.DataframeAnalyticsSource) *ExplainDataFrameAnalytics {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Source = source.DataframeAnalyticsSourceCaster()
+	r.req.Source = source
 
 	return r
 }

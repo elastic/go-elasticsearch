@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // GeoLinePoint type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/metric.ts#L158-L163
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/aggregations/metric.ts#L164-L169
 type GeoLinePoint struct {
 	// Field The name of the geo_point field.
 	Field string `json:"field"`
@@ -66,14 +66,4 @@ func NewGeoLinePoint() *GeoLinePoint {
 	r := &GeoLinePoint{}
 
 	return r
-}
-
-// true
-
-type GeoLinePointVariant interface {
-	GeoLinePointCaster() *GeoLinePoint
-}
-
-func (s *GeoLinePoint) GeoLinePointCaster() *GeoLinePoint {
-	return s
 }

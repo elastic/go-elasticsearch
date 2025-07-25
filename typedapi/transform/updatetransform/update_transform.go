@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Update a transform.
 // Updates certain properties of a transform.
@@ -398,10 +398,9 @@ func (r *UpdateTransform) Pretty(pretty bool) *UpdateTransform {
 	return r
 }
 
-// Free text description of the transform.
+// Description Free text description of the transform.
 // API name: description
 func (r *UpdateTransform) Description(description string) *UpdateTransform {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -411,97 +410,87 @@ func (r *UpdateTransform) Description(description string) *UpdateTransform {
 	return r
 }
 
-// The destination for the transform.
+// Dest The destination for the transform.
 // API name: dest
-func (r *UpdateTransform) Dest(dest types.TransformDestinationVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
+func (r *UpdateTransform) Dest(dest *types.TransformDestination) *UpdateTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Dest = dest.TransformDestinationCaster()
+	r.req.Dest = dest
 
 	return r
 }
 
-// The interval between checks for changes in the source indices when the
+// Frequency The interval between checks for changes in the source indices when the
 // transform is running continuously. Also determines the retry interval in
 // the event of transient failures while the transform is searching or
 // indexing. The minimum value is 1s and the maximum is 1h.
 // API name: frequency
-func (r *UpdateTransform) Frequency(duration types.DurationVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
+func (r *UpdateTransform) Frequency(duration types.Duration) *UpdateTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Frequency = *duration.DurationCaster()
+	r.req.Frequency = duration
 
 	return r
 }
 
-// Defines optional transform metadata.
+// Meta_ Defines optional transform metadata.
 // API name: _meta
-func (r *UpdateTransform) Meta_(metadata types.MetadataVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
+func (r *UpdateTransform) Meta_(metadata types.Metadata) *UpdateTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Meta_ = *metadata.MetadataCaster()
+	r.req.Meta_ = metadata
 
 	return r
 }
 
-// Defines a retention policy for the transform. Data that meets the defined
+// RetentionPolicy Defines a retention policy for the transform. Data that meets the defined
 // criteria is deleted from the destination index.
 // API name: retention_policy
-func (r *UpdateTransform) RetentionPolicy(retentionpolicy types.RetentionPolicyContainerVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
+func (r *UpdateTransform) RetentionPolicy(retentionpolicy types.RetentionPolicyContainer) *UpdateTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.RetentionPolicy = retentionpolicy.RetentionPolicyContainerCaster()
+	r.req.RetentionPolicy = &retentionpolicy
 
 	return r
 }
 
-// Defines optional transform settings.
+// Settings Defines optional transform settings.
 // API name: settings
-func (r *UpdateTransform) Settings(settings types.SettingsVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
+func (r *UpdateTransform) Settings(settings *types.Settings) *UpdateTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Settings = settings.SettingsCaster()
+	r.req.Settings = settings
 
 	return r
 }
 
-// The source of the data for the transform.
+// Source The source of the data for the transform.
 // API name: source
-func (r *UpdateTransform) Source(source types.TransformSourceVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
+func (r *UpdateTransform) Source(source *types.TransformSource) *UpdateTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Source = source.TransformSourceCaster()
+	r.req.Source = source
 
 	return r
 }
 
-// Defines the properties transforms require to run continuously.
+// Sync Defines the properties transforms require to run continuously.
 // API name: sync
-func (r *UpdateTransform) Sync(sync types.SyncContainerVariant) *UpdateTransform {
-	// Initialize the request if it is not already initialized
+func (r *UpdateTransform) Sync(sync *types.SyncContainer) *UpdateTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Sync = sync.SyncContainerCaster()
+	r.req.Sync = sync
 
 	return r
 }

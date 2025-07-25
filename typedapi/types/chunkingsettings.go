@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ChunkingSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/mapping/ChunkingSettings.ts#L24-L32
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/mapping/ChunkingSettings.ts#L24-L32
 type ChunkingSettings struct {
 	// MaxChunkSize The maximum size of a chunk in words.
 	// This value cannot be higher than `300` or lower than `20` (for `sentence`
@@ -134,14 +134,4 @@ func NewChunkingSettings() *ChunkingSettings {
 	r := &ChunkingSettings{}
 
 	return r
-}
-
-// true
-
-type ChunkingSettingsVariant interface {
-	ChunkingSettingsCaster() *ChunkingSettings
-}
-
-func (s *ChunkingSettings) ChunkingSettingsCaster() *ChunkingSettings {
-	return s
 }

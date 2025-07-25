@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // PhoneticTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/phonetic-plugin.ts#L64-L72
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/phonetic-plugin.ts#L64-L72
 type PhoneticTokenFilter struct {
 	Encoder     phoneticencoder.PhoneticEncoder     `json:"encoder"`
 	Languageset []phoneticlanguage.PhoneticLanguage `json:"languageset,omitempty"`
@@ -163,14 +163,4 @@ func NewPhoneticTokenFilter() *PhoneticTokenFilter {
 	r := &PhoneticTokenFilter{}
 
 	return r
-}
-
-// true
-
-type PhoneticTokenFilterVariant interface {
-	PhoneticTokenFilterCaster() *PhoneticTokenFilter
-}
-
-func (s *PhoneticTokenFilter) PhoneticTokenFilterCaster() *PhoneticTokenFilter {
-	return s
 }

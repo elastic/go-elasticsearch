@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Run an async ES|QL query.
 // Asynchronously run an ES|QL (Elasticsearch query language) query, monitor its
@@ -303,6 +303,10 @@ func (r *AsyncQuery) Header(key, value string) *AsyncQuery {
 
 // AllowPartialResults If `true`, partial results will be returned if there are shard failures, but
 // the query can continue to execute on other clusters and shards.
+// If `false`, the query will fail if there are any failures.
+//
+// To override the default behavior, you can set the
+// `esql.query.allow_partial_results` cluster setting to `false`.
 // API name: allow_partial_results
 func (r *AsyncQuery) AllowPartialResults(allowpartialresults bool) *AsyncQuery {
 	r.values.Set("allow_partial_results", strconv.FormatBool(allowpartialresults))
@@ -334,31 +338,6 @@ func (r *AsyncQuery) DropNullColumns(dropnullcolumns bool) *AsyncQuery {
 // API name: format
 func (r *AsyncQuery) Format(format esqlformat.EsqlFormat) *AsyncQuery {
 	r.values.Set("format", format.String())
-
-	return r
-}
-
-// KeepAlive The period for which the query and its results are stored in the cluster.
-// The default period is five days.
-// When this period expires, the query and its results are deleted, even if the
-// query is still ongoing.
-// If the `keep_on_completion` parameter is false, Elasticsearch only stores
-// async queries that do not complete within the period set by the
-// `wait_for_completion_timeout` parameter, regardless of this value.
-// API name: keep_alive
-func (r *AsyncQuery) KeepAlive(duration string) *AsyncQuery {
-	r.values.Set("keep_alive", duration)
-
-	return r
-}
-
-// KeepOnCompletion Indicates whether the query and its results are stored in the cluster.
-// If false, the query and its results are stored in the cluster only if the
-// request does not complete during the period set by the
-// `wait_for_completion_timeout` parameter.
-// API name: keep_on_completion
-func (r *AsyncQuery) KeepOnCompletion(keeponcompletion bool) *AsyncQuery {
-	r.values.Set("keep_on_completion", strconv.FormatBool(keeponcompletion))
 
 	return r
 }
@@ -407,56 +386,81 @@ func (r *AsyncQuery) Pretty(pretty bool) *AsyncQuery {
 	return r
 }
 
-// By default, ES|QL returns results as rows. For example, FROM returns each
+// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
 // individual document as one row. For the JSON, YAML, CBOR and smile formats,
 // ES|QL can return the results in a columnar fashion where one row represents
 // all the values of a certain column in the results.
 // API name: columnar
 func (r *AsyncQuery) Columnar(columnar bool) *AsyncQuery {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Columnar = &columnar
 
 	return r
 }
 
-// Specify a Query DSL query in the filter parameter to filter the set of
+// Filter Specify a Query DSL query in the filter parameter to filter the set of
 // documents that an ES|QL query runs on.
 // API name: filter
-func (r *AsyncQuery) Filter(filter types.QueryVariant) *AsyncQuery {
-	// Initialize the request if it is not already initialized
+func (r *AsyncQuery) Filter(filter *types.Query) *AsyncQuery {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Filter = filter.QueryCaster()
+	r.req.Filter = filter
 
 	return r
 }
 
-// When set to `true` and performing a cross-cluster query, the response will
+// IncludeCcsMetadata When set to `true` and performing a cross-cluster query, the response will
 // include an extra `_clusters`
 // object with information about the clusters that participated in the search
 // along with info such as shards
 // count.
 // API name: include_ccs_metadata
 func (r *AsyncQuery) IncludeCcsMetadata(includeccsmetadata bool) *AsyncQuery {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.IncludeCcsMetadata = &includeccsmetadata
+
+	return r
+}
+
+// KeepAlive The period for which the query and its results are stored in the cluster.
+// The default period is five days.
+// When this period expires, the query and its results are deleted, even if the
+// query is still ongoing.
+// If the `keep_on_completion` parameter is false, Elasticsearch only stores
+// async queries that do not complete within the period set by the
+// `wait_for_completion_timeout` parameter, regardless of this value.
+// API name: keep_alive
+func (r *AsyncQuery) KeepAlive(duration types.Duration) *AsyncQuery {
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.KeepAlive = duration
+
+	return r
+}
+
+// KeepOnCompletion Indicates whether the query and its results are stored in the cluster.
+// If false, the query and its results are stored in the cluster only if the
+// request does not complete during the period set by the
+// `wait_for_completion_timeout` parameter.
+// API name: keep_on_completion
+func (r *AsyncQuery) KeepOnCompletion(keeponcompletion bool) *AsyncQuery {
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.KeepOnCompletion = &keeponcompletion
 
 	return r
 }
 
 // API name: locale
 func (r *AsyncQuery) Locale(locale string) *AsyncQuery {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -466,24 +470,20 @@ func (r *AsyncQuery) Locale(locale string) *AsyncQuery {
 	return r
 }
 
-// To avoid any attempts of hacking or code injection, extract the values in a
+// Params To avoid any attempts of hacking or code injection, extract the values in a
 // separate list of parameters. Use question mark placeholders (?) in the query
 // string for each of the parameters.
 // API name: params
-func (r *AsyncQuery) Params(params ...types.FieldValueVariant) *AsyncQuery {
-	// Initialize the request if it is not already initialized
+func (r *AsyncQuery) Params(params ...types.FieldValue) *AsyncQuery {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range params {
+	r.req.Params = params
 
-		r.req.Params = append(r.req.Params, *v.FieldValueCaster())
-
-	}
 	return r
 }
 
-// If provided and `true` the response will include an extra `profile` object
+// Profile If provided and `true` the response will include an extra `profile` object
 // with information on how the query was executed. This information is for human
 // debugging
 // and its format can change at any time but it can give some insight into the
@@ -491,21 +491,18 @@ func (r *AsyncQuery) Params(params ...types.FieldValueVariant) *AsyncQuery {
 // of each part of the query.
 // API name: profile
 func (r *AsyncQuery) Profile(profile bool) *AsyncQuery {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Profile = &profile
 
 	return r
 }
 
-// The ES|QL query API accepts an ES|QL query string in the query parameter,
+// Query The ES|QL query API accepts an ES|QL query string in the query parameter,
 // runs it, and returns the results.
 // API name: query
 func (r *AsyncQuery) Query(query string) *AsyncQuery {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -515,31 +512,30 @@ func (r *AsyncQuery) Query(query string) *AsyncQuery {
 	return r
 }
 
-// Tables to use with the LOOKUP operation. The top level key is the table
+// Tables Tables to use with the LOOKUP operation. The top level key is the table
 // name and the next level key is the column name.
 // API name: tables
 func (r *AsyncQuery) Tables(tables map[string]map[string]types.TableValuesContainer) *AsyncQuery {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.Tables = tables
+
 	return r
 }
 
-// The period to wait for the request to finish.
+// WaitForCompletionTimeout The period to wait for the request to finish.
 // By default, the request waits for 1 second for the query results.
 // If the query completes during this period, results are returned
 // Otherwise, a query ID is returned that can later be used to retrieve the
 // results.
 // API name: wait_for_completion_timeout
-func (r *AsyncQuery) WaitForCompletionTimeout(duration types.DurationVariant) *AsyncQuery {
-	// Initialize the request if it is not already initialized
+func (r *AsyncQuery) WaitForCompletionTimeout(duration types.Duration) *AsyncQuery {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.WaitForCompletionTimeout = *duration.DurationCaster()
+	r.req.WaitForCompletionTimeout = duration
 
 	return r
 }

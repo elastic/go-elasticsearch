@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GoogleVertexAITaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/_types/CommonTypes.ts#L849-L858
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/inference/_types/CommonTypes.ts#L1217-L1226
 type GoogleVertexAITaskSettings struct {
 	// AutoTruncate For a `text_embedding` task, truncate inputs longer than the maximum token
 	// length automatically.
@@ -96,14 +96,4 @@ func NewGoogleVertexAITaskSettings() *GoogleVertexAITaskSettings {
 	r := &GoogleVertexAITaskSettings{}
 
 	return r
-}
-
-// true
-
-type GoogleVertexAITaskSettingsVariant interface {
-	GoogleVertexAITaskSettingsCaster() *GoogleVertexAITaskSettings
-}
-
-func (s *GoogleVertexAITaskSettings) GoogleVertexAITaskSettingsCaster() *GoogleVertexAITaskSettings {
-	return s
 }

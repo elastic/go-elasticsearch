@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // RankEvalRequestItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/rank_eval/types.ts#L98-L109
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/rank_eval/types.ts#L98-L109
 type RankEvalRequestItem struct {
 	// Id The search request’s ID, used to group result details later.
 	Id string `json:"id"`
@@ -99,14 +99,4 @@ func NewRankEvalRequestItem() *RankEvalRequestItem {
 	}
 
 	return r
-}
-
-// true
-
-type RankEvalRequestItemVariant interface {
-	RankEvalRequestItemCaster() *RankEvalRequestItem
-}
-
-func (s *RankEvalRequestItem) RankEvalRequestItemCaster() *RankEvalRequestItem {
-	return s
 }

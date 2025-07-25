@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,11 +31,11 @@ import (
 
 // PersianAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/analyzers.ts#L235-L239
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/analyzers.ts#L235-L239
 type PersianAnalyzer struct {
-	Stopwords     []string `json:"stopwords,omitempty"`
-	StopwordsPath *string  `json:"stopwords_path,omitempty"`
-	Type          string   `json:"type,omitempty"`
+	Stopwords     StopWords `json:"stopwords,omitempty"`
+	StopwordsPath *string   `json:"stopwords_path,omitempty"`
+	Type          string    `json:"type,omitempty"`
 }
 
 func (s *PersianAnalyzer) UnmarshalJSON(data []byte) error {
@@ -54,19 +54,8 @@ func (s *PersianAnalyzer) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "stopwords":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
-
-				s.Stopwords = append(s.Stopwords, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Stopwords); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
+			if err := dec.Decode(&s.Stopwords); err != nil {
+				return fmt.Errorf("%s | %w", "Stopwords", err)
 			}
 
 		case "stopwords_path":
@@ -110,14 +99,4 @@ func NewPersianAnalyzer() *PersianAnalyzer {
 	r := &PersianAnalyzer{}
 
 	return r
-}
-
-// true
-
-type PersianAnalyzerVariant interface {
-	PersianAnalyzerCaster() *PersianAnalyzer
-}
-
-func (s *PersianAnalyzer) PersianAnalyzerCaster() *PersianAnalyzer {
-	return s
 }

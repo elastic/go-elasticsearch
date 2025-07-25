@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // VoyageAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/_types/CommonTypes.ts#L1075-L1106
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/inference/_types/CommonTypes.ts#L1473-L1504
 type VoyageAIServiceSettings struct {
 	// Dimensions The number of dimensions for resulting output embeddings.
 	// This setting maps to `output_dimension` in the VoyageAI documentation.
@@ -130,14 +130,4 @@ func NewVoyageAIServiceSettings() *VoyageAIServiceSettings {
 	r := &VoyageAIServiceSettings{}
 
 	return r
-}
-
-// true
-
-type VoyageAIServiceSettingsVariant interface {
-	VoyageAIServiceSettingsCaster() *VoyageAIServiceSettings
-}
-
-func (s *VoyageAIServiceSettings) VoyageAIServiceSettingsCaster() *VoyageAIServiceSettings {
-	return s
 }

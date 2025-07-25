@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // OperationContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/bulk/types.ts#L158-L180
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/bulk/types.ts#L158-L180
 type OperationContainer struct {
 	AdditionalOperationContainerProperty map[string]json.RawMessage `json:"-"`
 	// Create Index the specified document if it does not already exist.
@@ -80,14 +80,4 @@ func NewOperationContainer() *OperationContainer {
 	}
 
 	return r
-}
-
-// true
-
-type OperationContainerVariant interface {
-	OperationContainerCaster() *OperationContainer
-}
-
-func (s *OperationContainer) OperationContainerCaster() *OperationContainer {
-	return s
 }

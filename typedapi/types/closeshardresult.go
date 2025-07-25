@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
 // CloseShardResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/close/CloseIndexResponse.ts#L37-L39
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/close/CloseIndexResponse.ts#L37-L39
 type CloseShardResult struct {
 	Failures []ShardFailure `json:"failures"`
 }
@@ -33,5 +33,3 @@ func NewCloseShardResult() *CloseShardResult {
 
 	return r
 }
-
-// false

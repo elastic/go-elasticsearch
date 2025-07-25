@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnalysisMemoryLimit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/Analysis.ts#L174-L179
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/_types/Analysis.ts#L174-L179
 type AnalysisMemoryLimit struct {
 	// ModelMemoryLimit Limits can be applied for the resources required to hold the mathematical
 	// models in memory. These limits are approximate and can be set per job. They
@@ -77,14 +77,4 @@ func NewAnalysisMemoryLimit() *AnalysisMemoryLimit {
 	r := &AnalysisMemoryLimit{}
 
 	return r
-}
-
-// true
-
-type AnalysisMemoryLimitVariant interface {
-	AnalysisMemoryLimitCaster() *AnalysisMemoryLimit
-}
-
-func (s *AnalysisMemoryLimit) AnalysisMemoryLimitCaster() *AnalysisMemoryLimit {
-	return s
 }

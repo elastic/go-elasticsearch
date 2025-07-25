@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // Preprocessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/put_trained_model/types.ts#L31-L36
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/put_trained_model/types.ts#L31-L36
 type Preprocessor struct {
 	AdditionalPreprocessorProperty map[string]json.RawMessage      `json:"-"`
 	FrequencyEncoding              *FrequencyEncodingPreprocessor  `json:"frequency_encoding,omitempty"`
@@ -71,14 +71,4 @@ func NewPreprocessor() *Preprocessor {
 	}
 
 	return r
-}
-
-// true
-
-type PreprocessorVariant interface {
-	PreprocessorCaster() *Preprocessor
-}
-
-func (s *Preprocessor) PreprocessorCaster() *Preprocessor {
-	return s
 }

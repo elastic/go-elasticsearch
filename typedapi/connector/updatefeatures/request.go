@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package updatefeatures
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package updatefeatures
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/connector/update_features/ConnectorUpdateFeaturesRequest.ts#L23-L61
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/connector/update_features/ConnectorUpdateFeaturesRequest.ts#L23-L61
 type Request struct {
 	Features types.ConnectorFeatures `json:"features"`
 }

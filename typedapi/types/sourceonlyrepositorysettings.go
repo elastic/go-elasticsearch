@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SourceOnlyRepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/snapshot/_types/SnapshotRepository.ts#L117-L124
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/snapshot/_types/SnapshotRepository.ts#L117-L124
 type SourceOnlyRepositorySettings struct {
 	ChunkSize              ByteSize `json:"chunk_size,omitempty"`
 	Compress               *bool    `json:"compress,omitempty"`
@@ -138,14 +138,4 @@ func NewSourceOnlyRepositorySettings() *SourceOnlyRepositorySettings {
 	r := &SourceOnlyRepositorySettings{}
 
 	return r
-}
-
-// true
-
-type SourceOnlyRepositorySettingsVariant interface {
-	SourceOnlyRepositorySettingsCaster() *SourceOnlyRepositorySettings
-}
-
-func (s *SourceOnlyRepositorySettings) SourceOnlyRepositorySettingsCaster() *SourceOnlyRepositorySettings {
-	return s
 }

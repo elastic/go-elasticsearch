@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DfsKnnProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/search/_types/profile.ts#L181-L186
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/search/_types/profile.ts#L181-L186
 type DfsKnnProfile struct {
 	Collector             []KnnCollectorResult    `json:"collector"`
 	Query                 []KnnQueryProfileResult `json:"query"`
@@ -105,5 +105,3 @@ func NewDfsKnnProfile() *DfsKnnProfile {
 
 	return r
 }
-
-// false

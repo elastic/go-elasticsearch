@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ApplicationPrivilegesCheck type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/security/has_privileges/types.ts#L24-L32
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/security/has_privileges/types.ts#L24-L32
 type ApplicationPrivilegesCheck struct {
 	// Application The name of the application.
 	Application string `json:"application"`
@@ -90,14 +90,4 @@ func NewApplicationPrivilegesCheck() *ApplicationPrivilegesCheck {
 	r := &ApplicationPrivilegesCheck{}
 
 	return r
-}
-
-// true
-
-type ApplicationPrivilegesCheckVariant interface {
-	ApplicationPrivilegesCheckCaster() *ApplicationPrivilegesCheck
-}
-
-func (s *ApplicationPrivilegesCheck) ApplicationPrivilegesCheckCaster() *ApplicationPrivilegesCheck {
-	return s
 }

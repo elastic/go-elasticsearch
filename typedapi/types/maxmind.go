@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Maxmind type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ingest/_types/Database.ts#L55-L57
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ingest/_types/Database.ts#L55-L57
 type Maxmind struct {
 	AccountId string `json:"account_id"`
 }
@@ -65,14 +65,4 @@ func NewMaxmind() *Maxmind {
 	r := &Maxmind{}
 
 	return r
-}
-
-// true
-
-type MaxmindVariant interface {
-	MaxmindCaster() *Maxmind
-}
-
-func (s *Maxmind) MaxmindCaster() *Maxmind {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeInfoPath type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/nodes/info/types.ts#L158-L163
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/nodes/info/types.ts#L168-L173
 type NodeInfoPath struct {
 	Data []string `json:"data,omitempty"`
 	Home *string  `json:"home,omitempty"`
@@ -110,5 +110,3 @@ func NewNodeInfoPath() *NodeInfoPath {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Run a search with a search template.
 package searchtemplate
@@ -348,7 +348,6 @@ func (r *SearchTemplate) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *Sear
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
 // Supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *SearchTemplate) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *SearchTemplate {
 	tmp := []string{}
@@ -474,88 +473,63 @@ func (r *SearchTemplate) Pretty(pretty bool) *SearchTemplate {
 	return r
 }
 
-// If `true`, returns detailed information about score calculation as part of
+// Explain If `true`, returns detailed information about score calculation as part of
 // each hit.
 // If you specify both this and the `explain` query parameter, the API uses only
 // the query parameter.
 // API name: explain
 func (r *SearchTemplate) Explain(explain bool) *SearchTemplate {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Explain = &explain
 
 	return r
 }
 
-// The ID of the search template to use. If no `source` is specified,
+// Id The ID of the search template to use. If no `source` is specified,
 // this parameter is required.
 // API name: id
 func (r *SearchTemplate) Id(id string) *SearchTemplate {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Id = &id
 
 	return r
 }
 
-// Key-value pairs used to replace Mustache variables in the template.
+// Params Key-value pairs used to replace Mustache variables in the template.
 // The key is the variable name.
 // The value is the variable value.
 // API name: params
 func (r *SearchTemplate) Params(params map[string]json.RawMessage) *SearchTemplate {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.Params = params
+
 	return r
 }
 
-func (r *SearchTemplate) AddParam(key string, value json.RawMessage) *SearchTemplate {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Params == nil {
-		r.req.Params = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Params
-	}
-
-	tmp[key] = value
-
-	r.req.Params = tmp
-	return r
-}
-
-// If `true`, the query execution is profiled.
+// Profile If `true`, the query execution is profiled.
 // API name: profile
 func (r *SearchTemplate) Profile(profile bool) *SearchTemplate {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Profile = &profile
 
 	return r
 }
 
-// An inline search template. Supports the same parameters as the search API's
+// Source An inline search template. Supports the same parameters as the search API's
 // request body. It also supports Mustache variables. If no `id` is specified,
 // this
 // parameter is required.
 // API name: source
 func (r *SearchTemplate) Source(source string) *SearchTemplate {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

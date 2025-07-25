@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // FieldMetric type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/rollup/_types/Metric.ts#L30-L35
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/rollup/_types/Metric.ts#L30-L35
 type FieldMetric struct {
 	// Field The field to collect metrics for. This must be a numeric of some kind.
 	Field string `json:"field"`
@@ -76,14 +76,4 @@ func NewFieldMetric() *FieldMetric {
 	r := &FieldMetric{}
 
 	return r
-}
-
-// true
-
-type FieldMetricVariant interface {
-	FieldMetricCaster() *FieldMetric
-}
-
-func (s *FieldMetric) FieldMetricCaster() *FieldMetric {
-	return s
 }

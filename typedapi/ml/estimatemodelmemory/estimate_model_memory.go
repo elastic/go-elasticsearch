@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Estimate job model memory usage.
 //
@@ -346,55 +346,36 @@ func (r *EstimateModelMemory) Pretty(pretty bool) *EstimateModelMemory {
 	return r
 }
 
-// For a list of the properties that you can specify in the
+// AnalysisConfig For a list of the properties that you can specify in the
 // `analysis_config` component of the body of this API.
 // API name: analysis_config
-func (r *EstimateModelMemory) AnalysisConfig(analysisconfig types.AnalysisConfigVariant) *EstimateModelMemory {
-	// Initialize the request if it is not already initialized
+func (r *EstimateModelMemory) AnalysisConfig(analysisconfig *types.AnalysisConfig) *EstimateModelMemory {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.AnalysisConfig = analysisconfig.AnalysisConfigCaster()
+	r.req.AnalysisConfig = analysisconfig
 
 	return r
 }
 
-// Estimates of the highest cardinality in a single bucket that is observed
+// MaxBucketCardinality Estimates of the highest cardinality in a single bucket that is observed
 // for influencer fields over the time period that the job analyzes data.
 // To produce a good answer, values must be provided for all influencer
 // fields. Providing values for fields that are not listed as `influencers`
 // has no effect on the estimation.
 // API name: max_bucket_cardinality
 func (r *EstimateModelMemory) MaxBucketCardinality(maxbucketcardinality map[string]int64) *EstimateModelMemory {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.MaxBucketCardinality = maxbucketcardinality
+
 	return r
 }
 
-func (r *EstimateModelMemory) AddMaxBucketCardinality(key string, value int64) *EstimateModelMemory {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]int64
-	if r.req.MaxBucketCardinality == nil {
-		r.req.MaxBucketCardinality = make(map[string]int64)
-	} else {
-		tmp = r.req.MaxBucketCardinality
-	}
-
-	tmp[key] = value
-
-	r.req.MaxBucketCardinality = tmp
-	return r
-}
-
-// Estimates of the cardinality that is observed for fields over the whole
+// OverallCardinality Estimates of the cardinality that is observed for fields over the whole
 // time period that the job analyzes data. To produce a good answer, values
 // must be provided for fields referenced in the `by_field_name`,
 // `over_field_name` and `partition_field_name` of any detectors. Providing
@@ -403,29 +384,11 @@ func (r *EstimateModelMemory) AddMaxBucketCardinality(key string, value int64) *
 // `over_field_name` or `partition_field_name`.
 // API name: overall_cardinality
 func (r *EstimateModelMemory) OverallCardinality(overallcardinality map[string]int64) *EstimateModelMemory {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.OverallCardinality = overallcardinality
-	return r
-}
 
-func (r *EstimateModelMemory) AddOverallCardinality(key string, value int64) *EstimateModelMemory {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]int64
-	if r.req.OverallCardinality == nil {
-		r.req.OverallCardinality = make(map[string]int64)
-	} else {
-		tmp = r.req.OverallCardinality
-	}
-
-	tmp[key] = value
-
-	r.req.OverallCardinality = tmp
 	return r
 }

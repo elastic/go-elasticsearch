@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ApplicationPrivileges type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/security/_types/Privileges.ts#L27-L40
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/security/_types/Privileges.ts#L27-L40
 type ApplicationPrivileges struct {
 	// Application The name of the application to which this entry applies.
 	Application string `json:"application"`
@@ -89,14 +89,4 @@ func NewApplicationPrivileges() *ApplicationPrivileges {
 	r := &ApplicationPrivileges{}
 
 	return r
-}
-
-// true
-
-type ApplicationPrivilegesVariant interface {
-	ApplicationPrivilegesCaster() *ApplicationPrivileges
-}
-
-func (s *ApplicationPrivileges) ApplicationPrivilegesCaster() *ApplicationPrivileges {
-	return s
 }

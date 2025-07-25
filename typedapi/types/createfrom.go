@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CreateFrom type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/create_from/MigrateCreateFromRequest.ts#L46-L60
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/create_from/MigrateCreateFromRequest.ts#L46-L60
 type CreateFrom struct {
 	// MappingsOverride Mappings overrides to be applied to the destination index (optional)
 	MappingsOverride *TypeMapping `json:"mappings_override,omitempty"`
@@ -90,14 +90,4 @@ func NewCreateFrom() *CreateFrom {
 	r := &CreateFrom{}
 
 	return r
-}
-
-// true
-
-type CreateFromVariant interface {
-	CreateFromCaster() *CreateFrom
-}
-
-func (s *CreateFrom) CreateFromCaster() *CreateFrom {
-	return s
 }

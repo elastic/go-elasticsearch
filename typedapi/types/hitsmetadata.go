@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // HitsMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/search/_types/hits.ts#L68-L74
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/search/_types/hits.ts#L68-L74
 type HitsMetadata struct {
 	Hits     []Hit    `json:"hits"`
 	MaxScore *Float64 `json:"max_score,omitempty"`
@@ -80,5 +80,3 @@ func NewHitsMetadata() *HitsMetadata {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframePreviewConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/preview_data_frame_analytics/types.ts#L27-L33
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/preview_data_frame_analytics/types.ts#L27-L33
 type DataframePreviewConfig struct {
 	Analysis         DataframeAnalysisContainer       `json:"analysis"`
 	AnalyzedFields   *DataframeAnalysisAnalyzedFields `json:"analyzed_fields,omitempty"`
@@ -108,14 +108,4 @@ func NewDataframePreviewConfig() *DataframePreviewConfig {
 	r := &DataframePreviewConfig{}
 
 	return r
-}
-
-// true
-
-type DataframePreviewConfigVariant interface {
-	DataframePreviewConfigCaster() *DataframePreviewConfig
-}
-
-func (s *DataframePreviewConfig) DataframePreviewConfigCaster() *DataframePreviewConfig {
-	return s
 }

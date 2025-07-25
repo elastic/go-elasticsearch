@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // TransformContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/Transform.ts#L27-L34
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/Transform.ts#L27-L34
 type TransformContainer struct {
 	AdditionalTransformContainerProperty map[string]json.RawMessage `json:"-"`
 	Chain                                []TransformContainer       `json:"chain,omitempty"`
@@ -71,14 +71,4 @@ func NewTransformContainer() *TransformContainer {
 	}
 
 	return r
-}
-
-// true
-
-type TransformContainerVariant interface {
-	TransformContainerCaster() *TransformContainer
-}
-
-func (s *TransformContainer) TransformContainerCaster() *TransformContainer {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AddAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/update_aliases/types.ts#L41-L95
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/update_aliases/types.ts#L41-L95
 type AddAction struct {
 	// Alias Alias for the action.
 	// Index alias names support date math.
@@ -195,14 +195,4 @@ func NewAddAction() *AddAction {
 	r := &AddAction{}
 
 	return r
-}
-
-// true
-
-type AddActionVariant interface {
-	AddActionCaster() *AddAction
-}
-
-func (s *AddAction) AddActionCaster() *AddAction {
-	return s
 }

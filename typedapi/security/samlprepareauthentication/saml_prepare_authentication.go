@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Prepare SAML authentication.
 //
@@ -380,13 +380,12 @@ func (r *SamlPrepareAuthentication) Pretty(pretty bool) *SamlPrepareAuthenticati
 	return r
 }
 
-// The Assertion Consumer Service URL that matches the one of the SAML realms in
+// Acs The Assertion Consumer Service URL that matches the one of the SAML realms in
 // Elasticsearch.
 // The realm is used to generate the authentication request. You must specify
 // either this parameter or the `realm` parameter.
 // API name: acs
 func (r *SamlPrepareAuthentication) Acs(acs string) *SamlPrepareAuthentication {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -396,12 +395,11 @@ func (r *SamlPrepareAuthentication) Acs(acs string) *SamlPrepareAuthentication {
 	return r
 }
 
-// The name of the SAML realm in Elasticsearch for which the configuration is
+// Realm The name of the SAML realm in Elasticsearch for which the configuration is
 // used to generate the authentication request.
 // You must specify either this parameter or the `acs` parameter.
 // API name: realm
 func (r *SamlPrepareAuthentication) Realm(realm string) *SamlPrepareAuthentication {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -411,13 +409,12 @@ func (r *SamlPrepareAuthentication) Realm(realm string) *SamlPrepareAuthenticati
 	return r
 }
 
-// A string that will be included in the redirect URL that this API returns as
+// RelayState A string that will be included in the redirect URL that this API returns as
 // the `RelayState` query parameter.
 // If the Authentication Request is signed, this value is used as part of the
 // signature computation.
 // API name: relay_state
 func (r *SamlPrepareAuthentication) RelayState(relaystate string) *SamlPrepareAuthentication {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Test a Grok pattern.
 // Test a Grok pattern on one or more lines of text.
@@ -351,30 +351,24 @@ func (r *TestGrokPattern) Pretty(pretty bool) *TestGrokPattern {
 	return r
 }
 
-// The Grok pattern to run on the text.
+// GrokPattern The Grok pattern to run on the text.
 // API name: grok_pattern
 func (r *TestGrokPattern) GrokPattern(grokpattern string) *TestGrokPattern {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.GrokPattern = grokpattern
 
 	return r
 }
 
-// The lines of text to run the Grok pattern on.
+// Text The lines of text to run the Grok pattern on.
 // API name: text
 func (r *TestGrokPattern) Text(texts ...string) *TestGrokPattern {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range texts {
+	r.req.Text = texts
 
-		r.req.Text = append(r.req.Text, v)
-
-	}
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Update the connector features.
 // Update the connector features in the connector document.
@@ -388,13 +388,12 @@ func (r *UpdateFeatures) Pretty(pretty bool) *UpdateFeatures {
 }
 
 // API name: features
-func (r *UpdateFeatures) Features(features types.ConnectorFeaturesVariant) *UpdateFeatures {
-	// Initialize the request if it is not already initialized
+func (r *UpdateFeatures) Features(features *types.ConnectorFeatures) *UpdateFeatures {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Features = *features.ConnectorFeaturesCaster()
+	r.req.Features = *features
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LogstashPipeline type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/logstash/_types/Pipeline.ts#L56-L87
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/logstash/_types/Pipeline.ts#L56-L87
 type LogstashPipeline struct {
 	// Description A description of the pipeline.
 	// This description is not used by Elasticsearch or Logstash.
@@ -127,14 +127,4 @@ func NewLogstashPipeline() *LogstashPipeline {
 	r := &LogstashPipeline{}
 
 	return r
-}
-
-// true
-
-type LogstashPipelineVariant interface {
-	LogstashPipelineCaster() *LogstashPipeline
-}
-
-func (s *LogstashPipeline) LogstashPipelineCaster() *LogstashPipeline {
-	return s
 }

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
 // SettingsSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/_types/IndexSettings.ts#L248-L251
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/_types/IndexSettings.ts#L248-L251
 type SettingsSearch struct {
 	Idle    *SearchIdle      `json:"idle,omitempty"`
 	Slowlog *SlowlogSettings `json:"slowlog,omitempty"`
@@ -33,14 +33,4 @@ func NewSettingsSearch() *SettingsSearch {
 	r := &SettingsSearch{}
 
 	return r
-}
-
-// true
-
-type SettingsSearchVariant interface {
-	SettingsSearchCaster() *SettingsSearch
-}
-
-func (s *SettingsSearch) SettingsSearchCaster() *SettingsSearch {
-	return s
 }

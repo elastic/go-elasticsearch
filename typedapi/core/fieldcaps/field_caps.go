@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Get the field capabilities.
 //
@@ -451,21 +451,19 @@ func (r *FieldCaps) Pretty(pretty bool) *FieldCaps {
 	return r
 }
 
-// A list of fields to retrieve capabilities for. Wildcard (`*`) expressions are
+// Fields A list of fields to retrieve capabilities for. Wildcard (`*`) expressions are
 // supported.
 // API name: fields
 func (r *FieldCaps) Fields(fields ...string) *FieldCaps {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Fields = fields
 
 	return r
 }
 
-// Filter indices if the provided query rewrites to `match_none` on every shard.
+// IndexFilter Filter indices if the provided query rewrites to `match_none` on every shard.
 //
 // IMPORTANT: The filtering is done on a best-effort basis, it uses index
 // statistics and mappings to rewrite queries to `match_none` instead of fully
@@ -476,29 +474,26 @@ func (r *FieldCaps) Fields(fields ...string) *FieldCaps {
 // However, not all queries can rewrite to `match_none` so this API may return
 // an index even if the provided filter matches no document.
 // API name: index_filter
-func (r *FieldCaps) IndexFilter(indexfilter types.QueryVariant) *FieldCaps {
-	// Initialize the request if it is not already initialized
+func (r *FieldCaps) IndexFilter(indexfilter *types.Query) *FieldCaps {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.IndexFilter = indexfilter.QueryCaster()
+	r.req.IndexFilter = indexfilter
 
 	return r
 }
 
-// Define ad-hoc runtime fields in the request similar to the way it is done in
+// RuntimeMappings Define ad-hoc runtime fields in the request similar to the way it is done in
 // search requests.
 // These fields exist only as part of the query and take precedence over fields
 // defined with the same name in the index mappings.
 // API name: runtime_mappings
-func (r *FieldCaps) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *FieldCaps {
-	// Initialize the request if it is not already initialized
+func (r *FieldCaps) RuntimeMappings(runtimefields types.RuntimeFields) *FieldCaps {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
+	r.req.RuntimeMappings = runtimefields
 
 	return r
 }

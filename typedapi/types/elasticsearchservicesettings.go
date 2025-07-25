@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ElasticsearchServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/_types/CommonTypes.ts#L704-L738
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/inference/_types/CommonTypes.ts#L1072-L1106
 type ElasticsearchServiceSettings struct {
 	// AdaptiveAllocations Adaptive allocations configuration details.
 	// If `enabled` is true, the number of allocations of the model is set based on
@@ -151,14 +151,4 @@ func NewElasticsearchServiceSettings() *ElasticsearchServiceSettings {
 	r := &ElasticsearchServiceSettings{}
 
 	return r
-}
-
-// true
-
-type ElasticsearchServiceSettingsVariant interface {
-	ElasticsearchServiceSettingsCaster() *ElasticsearchServiceSettings
-}
-
-func (s *ElasticsearchServiceSettings) ElasticsearchServiceSettingsCaster() *ElasticsearchServiceSettings {
-	return s
 }

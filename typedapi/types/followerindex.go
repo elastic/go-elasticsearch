@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // FollowerIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ccr/follow_info/types.ts#L24-L35
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ccr/follow_info/types.ts#L24-L35
 type FollowerIndex struct {
 	// FollowerIndex The name of the follower index.
 	FollowerIndex string `json:"follower_index"`
@@ -98,5 +98,3 @@ func NewFollowerIndex() *FollowerIndex {
 
 	return r
 }
-
-// false

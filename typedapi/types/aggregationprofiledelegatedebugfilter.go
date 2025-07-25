@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AggregationProfileDelegateDebugFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/search/_types/profile.ts#L78-L83
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/search/_types/profile.ts#L78-L83
 type AggregationProfileDelegateDebugFilter struct {
 	Query                         *string `json:"query,omitempty"`
 	ResultsFromMetadata           *int    `json:"results_from_metadata,omitempty"`
@@ -121,5 +121,3 @@ func NewAggregationProfileDelegateDebugFilter() *AggregationProfileDelegateDebug
 
 	return r
 }
-
-// false

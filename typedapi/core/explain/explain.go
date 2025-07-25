@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Explain a document match result.
 // Get information about why a specific document matches, or doesn't match, a
@@ -500,15 +500,14 @@ func (r *Explain) Pretty(pretty bool) *Explain {
 	return r
 }
 
-// Defines the search definition using the Query DSL.
+// Query Defines the search definition using the Query DSL.
 // API name: query
-func (r *Explain) Query(query types.QueryVariant) *Explain {
-	// Initialize the request if it is not already initialized
+func (r *Explain) Query(query *types.Query) *Explain {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }

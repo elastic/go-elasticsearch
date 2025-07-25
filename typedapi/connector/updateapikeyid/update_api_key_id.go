@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Update the connector API key ID.
 //
@@ -373,7 +373,6 @@ func (r *UpdateApiKeyId) Pretty(pretty bool) *UpdateApiKeyId {
 
 // API name: api_key_id
 func (r *UpdateApiKeyId) ApiKeyId(apikeyid string) *UpdateApiKeyId {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -385,7 +384,6 @@ func (r *UpdateApiKeyId) ApiKeyId(apikeyid string) *UpdateApiKeyId {
 
 // API name: api_key_secret_id
 func (r *UpdateApiKeyId) ApiKeySecretId(apikeysecretid string) *UpdateApiKeyId {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

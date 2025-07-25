@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -36,20 +36,20 @@ import (
 
 // IcuCollationTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/icu-plugin.ts#L51-L65
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/icu-plugin.ts#L52-L66
 type IcuCollationTokenFilter struct {
 	Alternate              *icucollationalternate.IcuCollationAlternate         `json:"alternate,omitempty"`
-	CaseFirst              *icucollationcasefirst.IcuCollationCaseFirst         `json:"case_first,omitempty"`
-	CaseLevel              *bool                                                `json:"case_level,omitempty"`
+	CaseFirst              *icucollationcasefirst.IcuCollationCaseFirst         `json:"caseFirst,omitempty"`
+	CaseLevel              *bool                                                `json:"caseLevel,omitempty"`
 	Country                *string                                              `json:"country,omitempty"`
 	Decomposition          *icucollationdecomposition.IcuCollationDecomposition `json:"decomposition,omitempty"`
-	HiraganaQuaternaryMode *bool                                                `json:"hiragana_quaternary_mode,omitempty"`
+	HiraganaQuaternaryMode *bool                                                `json:"hiraganaQuaternaryMode,omitempty"`
 	Language               *string                                              `json:"language,omitempty"`
 	Numeric                *bool                                                `json:"numeric,omitempty"`
 	Rules                  *string                                              `json:"rules,omitempty"`
 	Strength               *icucollationstrength.IcuCollationStrength           `json:"strength,omitempty"`
 	Type                   string                                               `json:"type,omitempty"`
-	VariableTop            *string                                              `json:"variable_top,omitempty"`
+	VariableTop            *string                                              `json:"variableTop,omitempty"`
 	Variant                *string                                              `json:"variant,omitempty"`
 	Version                *string                                              `json:"version,omitempty"`
 }
@@ -74,12 +74,12 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Alternate", err)
 			}
 
-		case "case_first":
+		case "caseFirst":
 			if err := dec.Decode(&s.CaseFirst); err != nil {
 				return fmt.Errorf("%s | %w", "CaseFirst", err)
 			}
 
-		case "case_level":
+		case "caseLevel":
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
@@ -110,7 +110,7 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Decomposition", err)
 			}
 
-		case "hiragana_quaternary_mode":
+		case "hiraganaQuaternaryMode":
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
@@ -172,7 +172,7 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
-		case "variable_top":
+		case "variableTop":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
 				return fmt.Errorf("%s | %w", "VariableTop", err)
@@ -236,14 +236,4 @@ func NewIcuCollationTokenFilter() *IcuCollationTokenFilter {
 	r := &IcuCollationTokenFilter{}
 
 	return r
-}
-
-// true
-
-type IcuCollationTokenFilterVariant interface {
-	IcuCollationTokenFilterCaster() *IcuCollationTokenFilter
-}
-
-func (s *IcuCollationTokenFilter) IcuCollationTokenFilterCaster() *IcuCollationTokenFilter {
-	return s
 }

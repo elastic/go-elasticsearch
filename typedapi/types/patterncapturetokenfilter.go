@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,9 +30,11 @@ import (
 
 // PatternCaptureTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/token_filters.ts#L279-L283
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/token_filters.ts#L374-L380
 type PatternCaptureTokenFilter struct {
-	Patterns         []string           `json:"patterns"`
+	// Patterns A list of regular expressions to match.
+	Patterns []string `json:"patterns"`
+	// PreserveOriginal If set to `true` (the default) it will emit the original token.
 	PreserveOriginal Stringifiedboolean `json:"preserve_original,omitempty"`
 	Type             string             `json:"type,omitempty"`
 	Version          *string            `json:"version,omitempty"`
@@ -98,14 +100,4 @@ func NewPatternCaptureTokenFilter() *PatternCaptureTokenFilter {
 	r := &PatternCaptureTokenFilter{}
 
 	return r
-}
-
-// true
-
-type PatternCaptureTokenFilterVariant interface {
-	PatternCaptureTokenFilterCaster() *PatternCaptureTokenFilter
-}
-
-func (s *PatternCaptureTokenFilter) PatternCaptureTokenFilterCaster() *PatternCaptureTokenFilter {
-	return s
 }

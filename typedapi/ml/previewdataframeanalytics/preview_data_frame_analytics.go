@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Preview features used by data frame analytics.
 // Preview the extracted features used by a data frame analytics config.
@@ -372,17 +372,16 @@ func (r *PreviewDataFrameAnalytics) Pretty(pretty bool) *PreviewDataFrameAnalyti
 	return r
 }
 
-// A data frame analytics config as described in create data frame analytics
+// Config A data frame analytics config as described in create data frame analytics
 // jobs. Note that `id` and `dest` don’t need to be provided in the context of
 // this API.
 // API name: config
-func (r *PreviewDataFrameAnalytics) Config(config types.DataframePreviewConfigVariant) *PreviewDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
+func (r *PreviewDataFrameAnalytics) Config(config *types.DataframePreviewConfig) *PreviewDataFrameAnalytics {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Config = config.DataframePreviewConfigCaster()
+	r.req.Config = config
 
 	return r
 }

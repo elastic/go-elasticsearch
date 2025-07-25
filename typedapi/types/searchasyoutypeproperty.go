@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // SearchAsYouTypeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/mapping/core.ts#L245-L256
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/mapping/core.ts#L270-L281
 type SearchAsYouTypeProperty struct {
 	Analyzer       *string                        `json:"analyzer,omitempty"`
 	CopyTo         []string                       `json:"copy_to,omitempty"`
@@ -245,6 +245,12 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "passthrough":
 					oo := NewPassthroughObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Fields | %w", err)
+					}
+					s.Fields[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Fields | %w", err)
 					}
@@ -653,6 +659,12 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Properties | %w", err)
 					}
 					s.Properties[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
 				case "semantic_text":
 					oo := NewSemanticTextProperty()
 					if err := localDec.Decode(&oo); err != nil {
@@ -950,14 +962,4 @@ func NewSearchAsYouTypeProperty() *SearchAsYouTypeProperty {
 	}
 
 	return r
-}
-
-// true
-
-type SearchAsYouTypePropertyVariant interface {
-	SearchAsYouTypePropertyCaster() *SearchAsYouTypeProperty
-}
-
-func (s *SearchAsYouTypeProperty) SearchAsYouTypePropertyCaster() *SearchAsYouTypeProperty {
-	return s
 }

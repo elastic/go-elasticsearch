@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -29,16 +29,15 @@ import (
 	"strconv"
 )
 
-// ClusterPressureMemory type.
+// DenseVectorStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/cluster/stats/types.ts#L574-L578
-type ClusterPressureMemory struct {
-	Current      IndexingPressureMemorySummary `json:"current"`
-	LimitInBytes int64                         `json:"limit_in_bytes"`
-	Total        IndexingPressureMemorySummary `json:"total"`
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/cluster/stats/types.ts#L157-L160
+type DenseVectorStats struct {
+	OffHeap    *DenseVectorOffHeapStats `json:"off_heap,omitempty"`
+	ValueCount int64                    `json:"value_count"`
 }
 
-func (s *ClusterPressureMemory) UnmarshalJSON(data []byte) error {
+func (s *DenseVectorStats) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -53,29 +52,24 @@ func (s *ClusterPressureMemory) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "current":
-			if err := dec.Decode(&s.Current); err != nil {
-				return fmt.Errorf("%s | %w", "Current", err)
+		case "off_heap":
+			if err := dec.Decode(&s.OffHeap); err != nil {
+				return fmt.Errorf("%s | %w", "OffHeap", err)
 			}
 
-		case "limit_in_bytes":
+		case "value_count":
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return fmt.Errorf("%s | %w", "LimitInBytes", err)
+					return fmt.Errorf("%s | %w", "ValueCount", err)
 				}
-				s.LimitInBytes = value
+				s.ValueCount = value
 			case float64:
 				f := int64(v)
-				s.LimitInBytes = f
-			}
-
-		case "total":
-			if err := dec.Decode(&s.Total); err != nil {
-				return fmt.Errorf("%s | %w", "Total", err)
+				s.ValueCount = f
 			}
 
 		}
@@ -83,11 +77,9 @@ func (s *ClusterPressureMemory) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewClusterPressureMemory returns a ClusterPressureMemory.
-func NewClusterPressureMemory() *ClusterPressureMemory {
-	r := &ClusterPressureMemory{}
+// NewDenseVectorStats returns a DenseVectorStats.
+func NewDenseVectorStats() *DenseVectorStats {
+	r := &DenseVectorStats{}
 
 	return r
 }
-
-// false

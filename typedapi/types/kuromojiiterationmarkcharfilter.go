@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KuromojiIterationMarkCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/kuromoji-plugin.ts#L31-L35
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/kuromoji-plugin.ts#L37-L41
 type KuromojiIterationMarkCharFilter struct {
 	NormalizeKana  bool    `json:"normalize_kana"`
 	NormalizeKanji bool    `json:"normalize_kanji"`
@@ -117,14 +117,4 @@ func NewKuromojiIterationMarkCharFilter() *KuromojiIterationMarkCharFilter {
 	r := &KuromojiIterationMarkCharFilter{}
 
 	return r
-}
-
-// true
-
-type KuromojiIterationMarkCharFilterVariant interface {
-	KuromojiIterationMarkCharFilterCaster() *KuromojiIterationMarkCharFilter
-}
-
-func (s *KuromojiIterationMarkCharFilter) KuromojiIterationMarkCharFilterCaster() *KuromojiIterationMarkCharFilter {
-	return s
 }

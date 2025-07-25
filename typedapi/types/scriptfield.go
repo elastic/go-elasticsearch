@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ScriptField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/Scripting.ts#L101-L104
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/Scripting.ts#L101-L104
 type ScriptField struct {
 	IgnoreFailure *bool  `json:"ignore_failure,omitempty"`
 	Script        Script `json:"script"`
@@ -81,14 +81,4 @@ func NewScriptField() *ScriptField {
 	r := &ScriptField{}
 
 	return r
-}
-
-// true
-
-type ScriptFieldVariant interface {
-	ScriptFieldCaster() *ScriptField
-}
-
-func (s *ScriptField) ScriptFieldCaster() *ScriptField {
-	return s
 }

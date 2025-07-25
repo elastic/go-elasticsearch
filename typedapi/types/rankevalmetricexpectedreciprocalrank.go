@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RankEvalMetricExpectedReciprocalRank type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/rank_eval/types.ts#L79-L88
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/rank_eval/types.ts#L79-L88
 type RankEvalMetricExpectedReciprocalRank struct {
 	// K Sets the maximum number of documents retrieved per query. This value will act
 	// in place of the usual size parameter in the query.
@@ -97,14 +97,4 @@ func NewRankEvalMetricExpectedReciprocalRank() *RankEvalMetricExpectedReciprocal
 	r := &RankEvalMetricExpectedReciprocalRank{}
 
 	return r
-}
-
-// true
-
-type RankEvalMetricExpectedReciprocalRankVariant interface {
-	RankEvalMetricExpectedReciprocalRankCaster() *RankEvalMetricExpectedReciprocalRank
-}
-
-func (s *RankEvalMetricExpectedReciprocalRank) RankEvalMetricExpectedReciprocalRankCaster() *RankEvalMetricExpectedReciprocalRank {
-	return s
 }

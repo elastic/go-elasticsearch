@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Update Watcher index settings.
 // Update settings for the Watcher internal index (`.watches`).
@@ -374,7 +374,6 @@ func (r *UpdateSettings) Pretty(pretty bool) *UpdateSettings {
 
 // API name: index.auto_expand_replicas
 func (r *UpdateSettings) IndexAutoExpandReplicas(indexautoexpandreplicas string) *UpdateSettings {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -386,11 +385,9 @@ func (r *UpdateSettings) IndexAutoExpandReplicas(indexautoexpandreplicas string)
 
 // API name: index.number_of_replicas
 func (r *UpdateSettings) IndexNumberOfReplicas(indexnumberofreplicas int) *UpdateSettings {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.IndexNumberOfReplicas = &indexnumberofreplicas
 
 	return r

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SettingsSimilarityBm25 type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/_types/IndexSettings.ts#L196-L201
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/_types/IndexSettings.ts#L196-L201
 type SettingsSimilarityBm25 struct {
 	B                *Float64 `json:"b,omitempty"`
 	DiscountOverlaps *bool    `json:"discount_overlaps,omitempty"`
@@ -130,14 +130,4 @@ func NewSettingsSimilarityBm25() *SettingsSimilarityBm25 {
 	r := &SettingsSimilarityBm25{}
 
 	return r
-}
-
-// true
-
-type SettingsSimilarityBm25Variant interface {
-	SettingsSimilarityBm25Caster() *SettingsSimilarityBm25
-}
-
-func (s *SettingsSimilarityBm25) SettingsSimilarityBm25Caster() *SettingsSimilarityBm25 {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SharedFileSystemRepository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/snapshot/_types/SnapshotRepository.ts#L55-L58
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/snapshot/_types/SnapshotRepository.ts#L55-L58
 type SharedFileSystemRepository struct {
 	Settings SharedFileSystemRepositorySettings `json:"settings"`
 	Type     string                             `json:"type,omitempty"`
@@ -91,14 +91,4 @@ func NewSharedFileSystemRepository() *SharedFileSystemRepository {
 	r := &SharedFileSystemRepository{}
 
 	return r
-}
-
-// true
-
-type SharedFileSystemRepositoryVariant interface {
-	SharedFileSystemRepositoryCaster() *SharedFileSystemRepository
-}
-
-func (s *SharedFileSystemRepository) SharedFileSystemRepositoryCaster() *SharedFileSystemRepository {
-	return s
 }

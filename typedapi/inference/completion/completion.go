@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Perform completion inference on the service
 package completion
@@ -365,28 +365,24 @@ func (r *Completion) Pretty(pretty bool) *Completion {
 	return r
 }
 
-// Inference input.
+// Input Inference input.
 // Either a string or an array of strings.
 // API name: input
 func (r *Completion) Input(inputs ...string) *Completion {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	r.req.Input = make([]string, len(inputs))
 	r.req.Input = inputs
 
 	return r
 }
 
-// Optional task settings
+// TaskSettings Optional task settings
 // API name: task_settings
 func (r *Completion) TaskSettings(tasksettings json.RawMessage) *Completion {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.TaskSettings = tasksettings
 
 	return r

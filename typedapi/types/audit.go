@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Audit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/xpack/usage/types.ts#L70-L72
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/xpack/usage/types.ts#L70-L72
 type Audit struct {
 	Enabled bool     `json:"enabled"`
 	Outputs []string `json:"outputs,omitempty"`
@@ -82,5 +82,3 @@ func NewAudit() *Audit {
 
 	return r
 }
-
-// false

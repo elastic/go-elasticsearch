@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Create or update a script or search template.
 // Creates or updates a stored script or search template.
@@ -411,15 +411,14 @@ func (r *PutScript) Pretty(pretty bool) *PutScript {
 	return r
 }
 
-// The script or search template, its parameters, and its language.
+// Script The script or search template, its parameters, and its language.
 // API name: script
-func (r *PutScript) Script(script types.StoredScriptVariant) *PutScript {
-	// Initialize the request if it is not already initialized
+func (r *PutScript) Script(script *types.StoredScript) *PutScript {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Script = *script.StoredScriptCaster()
+	r.req.Script = *script
 
 	return r
 }

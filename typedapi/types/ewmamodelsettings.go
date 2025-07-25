@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // EwmaModelSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/pipeline.ts#L293-L295
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/aggregations/pipeline.ts#L293-L295
 type EwmaModelSettings struct {
 	Alpha *float32 `json:"alpha,omitempty"`
 }
@@ -77,14 +77,4 @@ func NewEwmaModelSettings() *EwmaModelSettings {
 	r := &EwmaModelSettings{}
 
 	return r
-}
-
-// true
-
-type EwmaModelSettingsVariant interface {
-	EwmaModelSettingsCaster() *EwmaModelSettings
-}
-
-func (s *EwmaModelSettings) EwmaModelSettingsCaster() *EwmaModelSettings {
-	return s
 }

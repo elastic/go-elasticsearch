@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Vocabulary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/inference.ts#L248-L250
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/_types/inference.ts#L248-L250
 type Vocabulary struct {
 	Index string `json:"index"`
 }
@@ -65,14 +65,4 @@ func NewVocabulary() *Vocabulary {
 	r := &Vocabulary{}
 
 	return r
-}
-
-// true
-
-type VocabularyVariant interface {
-	VocabularyCaster() *Vocabulary
-}
-
-func (s *Vocabulary) VocabularyCaster() *Vocabulary {
-	return s
 }

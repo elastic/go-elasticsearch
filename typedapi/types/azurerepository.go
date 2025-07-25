@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // AzureRepository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/snapshot/_types/SnapshotRepository.ts#L40-L43
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/snapshot/_types/SnapshotRepository.ts#L40-L43
 type AzureRepository struct {
 	Settings AzureRepositorySettings `json:"settings"`
 	Type     string                  `json:"type,omitempty"`
@@ -91,14 +91,4 @@ func NewAzureRepository() *AzureRepository {
 	r := &AzureRepository{}
 
 	return r
-}
-
-// true
-
-type AzureRepositoryVariant interface {
-	AzureRepositoryCaster() *AzureRepository
-}
-
-func (s *AzureRepository) AzureRepositoryCaster() *AzureRepository {
-	return s
 }

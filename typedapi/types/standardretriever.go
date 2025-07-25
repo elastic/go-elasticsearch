@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StandardRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/Retriever.ts#L51-L62
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/Retriever.ts#L102-L113
 type StandardRetriever struct {
 	// Collapse Collapses the top documents by a specified key into a single top document per
 	// key.
@@ -41,6 +41,8 @@ type StandardRetriever struct {
 	// MinScore Minimum _score for matching documents. Documents with a lower _score are not
 	// included in the top documents.
 	MinScore *float32 `json:"min_score,omitempty"`
+	// Name_ Retriever name.
+	Name_ *string `json:"_name,omitempty"`
 	// Query Defines a query to retrieve a set of top documents.
 	Query *Query `json:"query,omitempty"`
 	// SearchAfter Defines a search after object parameter used for pagination.
@@ -103,6 +105,18 @@ func (s *StandardRetriever) UnmarshalJSON(data []byte) error {
 				s.MinScore = &f
 			}
 
+		case "_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Name_", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Name_ = &o
+
 		case "query":
 			if err := dec.Decode(&s.Query); err != nil {
 				return fmt.Errorf("%s | %w", "Query", err)
@@ -155,14 +169,4 @@ func NewStandardRetriever() *StandardRetriever {
 	r := &StandardRetriever{}
 
 	return r
-}
-
-// true
-
-type StandardRetrieverVariant interface {
-	StandardRetrieverCaster() *StandardRetriever
-}
-
-func (s *StandardRetriever) StandardRetrieverCaster() *StandardRetriever {
-	return s
 }

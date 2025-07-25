@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SlackAttachmentField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/watcher/_types/Actions.ts#L119-L123
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/watcher/_types/Actions.ts#L119-L123
 type SlackAttachmentField struct {
 	Int   bool   `json:"short"`
 	Title string `json:"title"`
@@ -101,14 +101,4 @@ func NewSlackAttachmentField() *SlackAttachmentField {
 	r := &SlackAttachmentField{}
 
 	return r
-}
-
-// true
-
-type SlackAttachmentFieldVariant interface {
-	SlackAttachmentFieldCaster() *SlackAttachmentField
-}
-
-func (s *SlackAttachmentField) SlackAttachmentFieldCaster() *SlackAttachmentField {
-	return s
 }

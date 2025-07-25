@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Rescore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/search/_types/rescoring.ts#L25-L38
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/search/_types/rescoring.ts#L25-L38
 type Rescore struct {
 	AdditionalRescoreProperty map[string]json.RawMessage `json:"-"`
 	LearningToRank            *LearningToRank            `json:"learning_to_rank,omitempty"`
@@ -134,14 +134,4 @@ func NewRescore() *Rescore {
 	}
 
 	return r
-}
-
-// true
-
-type RescoreVariant interface {
-	RescoreCaster() *Rescore
-}
-
-func (s *Rescore) RescoreCaster() *Rescore {
-	return s
 }

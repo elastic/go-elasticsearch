@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Change passwords.
 //
@@ -382,27 +382,24 @@ func (r *ChangePassword) Pretty(pretty bool) *ChangePassword {
 	return r
 }
 
-// The new password value. Passwords must be at least 6 characters long.
+// Password The new password value. Passwords must be at least 6 characters long.
 // API name: password
 func (r *ChangePassword) Password(password string) *ChangePassword {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Password = &password
 
 	return r
 }
 
-// A hash of the new password value. This must be produced using the same
+// PasswordHash A hash of the new password value. This must be produced using the same
 // hashing algorithm as has been configured for password storage. For more
 // details,
 // see the explanation of the `xpack.security.authc.password_hashing.algorithm`
 // setting.
 // API name: password_hash
 func (r *ChangePassword) PasswordHash(passwordhash string) *ChangePassword {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

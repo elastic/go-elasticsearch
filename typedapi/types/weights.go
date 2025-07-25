@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Weights type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/put_trained_model/types.ts#L108-L110
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/put_trained_model/types.ts#L108-L110
 type Weights struct {
 	Weights Float64 `json:"weights"`
 }
@@ -77,14 +77,4 @@ func NewWeights() *Weights {
 	r := &Weights{}
 
 	return r
-}
-
-// true
-
-type WeightsVariant interface {
-	WeightsCaster() *Weights
-}
-
-func (s *Weights) WeightsCaster() *Weights {
-	return s
 }

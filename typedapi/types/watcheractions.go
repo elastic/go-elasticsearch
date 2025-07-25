@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
 // WatcherActions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/xpack/usage/types.ts#L406-L408
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/xpack/usage/types.ts#L406-L408
 type WatcherActions struct {
 	Actions map[string]WatcherActionTotals `json:"actions"`
 }
@@ -35,5 +35,3 @@ func NewWatcherActions() *WatcherActions {
 
 	return r
 }
-
-// false

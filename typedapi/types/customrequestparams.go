@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -29,15 +29,23 @@ import (
 	"strconv"
 )
 
-// NodeInfoNetwork type.
+// CustomRequestParams type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/nodes/info/types.ts#L336-L339
-type NodeInfoNetwork struct {
-	PrimaryInterface NodeInfoNetworkInterface `json:"primary_interface"`
-	RefreshInterval  int                      `json:"refresh_interval"`
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/inference/_types/CommonTypes.ts#L831-L842
+type CustomRequestParams struct {
+	// Content The body structure of the request. It requires passing in the string-escaped
+	// result of the JSON format HTTP request body.
+	// For example:
+	// ```
+	// "request": "{\"input\":${input}}"
+	// ```
+	// > info
+	// > The content string needs to be a single line except when using the Kibana
+	// console.
+	Content string `json:"content"`
 }
 
-func (s *NodeInfoNetwork) UnmarshalJSON(data []byte) error {
+func (s *CustomRequestParams) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -52,37 +60,26 @@ func (s *NodeInfoNetwork) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "primary_interface":
-			if err := dec.Decode(&s.PrimaryInterface); err != nil {
-				return fmt.Errorf("%s | %w", "PrimaryInterface", err)
+		case "content":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Content", err)
 			}
-
-		case "refresh_interval":
-
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.Atoi(v)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "RefreshInterval", err)
-				}
-				s.RefreshInterval = value
-			case float64:
-				f := int(v)
-				s.RefreshInterval = f
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
 			}
+			s.Content = o
 
 		}
 	}
 	return nil
 }
 
-// NewNodeInfoNetwork returns a NodeInfoNetwork.
-func NewNodeInfoNetwork() *NodeInfoNetwork {
-	r := &NodeInfoNetwork{}
+// NewCustomRequestParams returns a CustomRequestParams.
+func NewCustomRequestParams() *CustomRequestParams {
+	r := &CustomRequestParams{}
 
 	return r
 }
-
-// false

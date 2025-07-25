@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ConfusionMatrixThreshold type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/evaluate_data_frame/types.ts#L137-L158
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/evaluate_data_frame/types.ts#L137-L158
 type ConfusionMatrixThreshold struct {
 	// FalseNegative False Negative
 	FalseNegative int `json:"fn"`
@@ -133,5 +133,3 @@ func NewConfusionMatrixThreshold() *ConfusionMatrixThreshold {
 
 	return r
 }
-
-// false

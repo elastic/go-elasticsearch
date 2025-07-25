@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // HttpInputProxy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/watcher/_types/Input.ts#L67-L70
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/watcher/_types/Input.ts#L67-L70
 type HttpInputProxy struct {
 	Host string `json:"host"`
 	Port uint   `json:"port"`
@@ -71,14 +71,4 @@ func NewHttpInputProxy() *HttpInputProxy {
 	r := &HttpInputProxy{}
 
 	return r
-}
-
-// true
-
-type HttpInputProxyVariant interface {
-	HttpInputProxyCaster() *HttpInputProxy
-}
-
-func (s *HttpInputProxy) HttpInputProxyCaster() *HttpInputProxy {
-	return s
 }

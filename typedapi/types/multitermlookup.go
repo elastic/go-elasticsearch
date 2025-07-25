@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // MultiTermLookup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/bucket.ts#L643-L653
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/aggregations/bucket.ts#L643-L653
 type MultiTermLookup struct {
 	// Field A fields from which to retrieve terms.
 	Field string `json:"field"`
@@ -74,14 +74,4 @@ func NewMultiTermLookup() *MultiTermLookup {
 	r := &MultiTermLookup{}
 
 	return r
-}
-
-// true
-
-type MultiTermLookupVariant interface {
-	MultiTermLookupCaster() *MultiTermLookup
-}
-
-func (s *MultiTermLookup) MultiTermLookupCaster() *MultiTermLookup {
-	return s
 }

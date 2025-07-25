@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoGridProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ingest/_types/Processors.ts#L388-L429
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ingest/_types/Processors.ts#L388-L429
 type GeoGridProcessor struct {
 	// ChildrenField If specified and children tiles exist, save those tile addresses to this
 	// field as an array of strings.
@@ -214,14 +214,4 @@ func NewGeoGridProcessor() *GeoGridProcessor {
 	r := &GeoGridProcessor{}
 
 	return r
-}
-
-// true
-
-type GeoGridProcessorVariant interface {
-	GeoGridProcessorCaster() *GeoGridProcessor
-}
-
-func (s *GeoGridProcessor) GeoGridProcessorCaster() *GeoGridProcessor {
-	return s
 }

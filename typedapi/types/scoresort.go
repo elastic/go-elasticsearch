@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // ScoreSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/sort.ts#L54-L56
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/sort.ts#L54-L56
 type ScoreSort struct {
 	Order *sortorder.SortOrder `json:"order,omitempty"`
 }
@@ -36,14 +36,4 @@ func NewScoreSort() *ScoreSort {
 	r := &ScoreSort{}
 
 	return r
-}
-
-// true
-
-type ScoreSortVariant interface {
-	ScoreSortCaster() *ScoreSort
-}
-
-func (s *ScoreSort) ScoreSortCaster() *ScoreSort {
-	return s
 }

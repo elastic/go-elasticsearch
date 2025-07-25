@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Update data stream lifecycles.
 // Update the data stream lifecycle of the specified data streams.
@@ -320,7 +320,6 @@ func (r *PutDataLifecycle) _name(name string) *PutDataLifecycle {
 
 // ExpandWildcards Type of data stream that wildcard patterns can match.
 // Supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `hidden`, `open`, `closed`, `none`.
 // API name: expand_wildcards
 func (r *PutDataLifecycle) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *PutDataLifecycle {
 	tmp := []string{}
@@ -396,46 +395,41 @@ func (r *PutDataLifecycle) Pretty(pretty bool) *PutDataLifecycle {
 	return r
 }
 
-// If defined, every document added to this data stream will be stored at least
+// DataRetention If defined, every document added to this data stream will be stored at least
 // for this time frame.
 // Any time after this duration the document could be deleted.
 // When empty, every document in this data stream will be stored indefinitely.
 // API name: data_retention
-func (r *PutDataLifecycle) DataRetention(duration types.DurationVariant) *PutDataLifecycle {
-	// Initialize the request if it is not already initialized
+func (r *PutDataLifecycle) DataRetention(duration types.Duration) *PutDataLifecycle {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.DataRetention = *duration.DurationCaster()
+	r.req.DataRetention = duration
 
 	return r
 }
 
-// The downsampling configuration to execute for the managed backing index after
+// Downsampling The downsampling configuration to execute for the managed backing index after
 // rollover.
 // API name: downsampling
-func (r *PutDataLifecycle) Downsampling(downsampling types.DataStreamLifecycleDownsamplingVariant) *PutDataLifecycle {
-	// Initialize the request if it is not already initialized
+func (r *PutDataLifecycle) Downsampling(downsampling *types.DataStreamLifecycleDownsampling) *PutDataLifecycle {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Downsampling = downsampling.DataStreamLifecycleDownsamplingCaster()
+	r.req.Downsampling = downsampling
 
 	return r
 }
 
-// If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
+// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
 // data stream. A data stream lifecycle
 // that's disabled (enabled: `false`) will have no effect on the data stream.
 // API name: enabled
 func (r *PutDataLifecycle) Enabled(enabled bool) *PutDataLifecycle {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Enabled = &enabled
 
 	return r

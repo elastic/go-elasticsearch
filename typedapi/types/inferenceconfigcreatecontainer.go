@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // InferenceConfigCreateContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/inference.ts#L26-L85
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/_types/inference.ts#L26-L85
 type InferenceConfigCreateContainer struct {
 	AdditionalInferenceConfigCreateContainerProperty map[string]json.RawMessage `json:"-"`
 	// Classification Classification configuration for inference.
@@ -89,14 +89,4 @@ func NewInferenceConfigCreateContainer() *InferenceConfigCreateContainer {
 	}
 
 	return r
-}
-
-// true
-
-type InferenceConfigCreateContainerVariant interface {
-	InferenceConfigCreateContainerCaster() *InferenceConfigCreateContainer
-}
-
-func (s *InferenceConfigCreateContainer) InferenceConfigCreateContainerCaster() *InferenceConfigCreateContainer {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Create or update a query ruleset.
 // There is a limit of 100 rules per ruleset.
@@ -376,15 +376,11 @@ func (r *PutRuleset) Pretty(pretty bool) *PutRuleset {
 }
 
 // API name: rules
-func (r *PutRuleset) Rules(rules ...types.QueryRuleVariant) *PutRuleset {
-	// Initialize the request if it is not already initialized
+func (r *PutRuleset) Rules(rules ...types.QueryRule) *PutRuleset {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	r.req.Rules = make([]types.QueryRule, len(rules))
-	for i, v := range rules {
-		r.req.Rules[i] = *v.QueryRuleCaster()
-	}
+	r.req.Rules = rules
 
 	return r
 }

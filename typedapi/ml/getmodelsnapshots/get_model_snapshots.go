@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Get model snapshots info.
 package getmodelsnapshots
@@ -412,66 +412,57 @@ func (r *GetModelSnapshots) Pretty(pretty bool) *GetModelSnapshots {
 	return r
 }
 
-// Refer to the description for the `desc` query parameter.
+// Desc Refer to the description for the `desc` query parameter.
 // API name: desc
 func (r *GetModelSnapshots) Desc(desc bool) *GetModelSnapshots {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Desc = &desc
 
 	return r
 }
 
-// Refer to the description for the `end` query parameter.
+// End Refer to the description for the `end` query parameter.
 // API name: end
-func (r *GetModelSnapshots) End(datetime types.DateTimeVariant) *GetModelSnapshots {
-	// Initialize the request if it is not already initialized
+func (r *GetModelSnapshots) End(datetime types.DateTime) *GetModelSnapshots {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.End = *datetime.DateTimeCaster()
+	r.req.End = datetime
 
 	return r
 }
 
 // API name: page
-func (r *GetModelSnapshots) Page(page types.PageVariant) *GetModelSnapshots {
-	// Initialize the request if it is not already initialized
+func (r *GetModelSnapshots) Page(page *types.Page) *GetModelSnapshots {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Page = page.PageCaster()
+	r.req.Page = page
 
 	return r
 }
 
-// Refer to the description for the `sort` query parameter.
+// Sort Refer to the description for the `sort` query parameter.
 // API name: sort
 func (r *GetModelSnapshots) Sort(field string) *GetModelSnapshots {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Sort = &field
 
 	return r
 }
 
-// Refer to the description for the `start` query parameter.
+// Start Refer to the description for the `start` query parameter.
 // API name: start
-func (r *GetModelSnapshots) Start(datetime types.DateTimeVariant) *GetModelSnapshots {
-	// Initialize the request if it is not already initialized
+func (r *GetModelSnapshots) Start(datetime types.DateTime) *GetModelSnapshots {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Start = *datetime.DateTimeCaster()
+	r.req.Start = datetime
 
 	return r
 }

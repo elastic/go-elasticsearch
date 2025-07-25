@@ -16,19 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Package snowballlanguage
 package snowballlanguage
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/languages.ts#L20-L43
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/languages.ts#L20-L48
 type SnowballLanguage struct {
 	Name string
 }
 
 var (
+	Arabic = SnowballLanguage{"Arabic"}
+
 	Armenian = SnowballLanguage{"Armenian"}
 
 	Basque = SnowballLanguage{"Basque"}
@@ -40,6 +42,8 @@ var (
 	Dutch = SnowballLanguage{"Dutch"}
 
 	English = SnowballLanguage{"English"}
+
+	Estonian = SnowballLanguage{"Estonian"}
 
 	Finnish = SnowballLanguage{"Finnish"}
 
@@ -53,7 +57,11 @@ var (
 
 	Italian = SnowballLanguage{"Italian"}
 
+	Irish = SnowballLanguage{"Irish"}
+
 	Kp = SnowballLanguage{"Kp"}
+
+	Lithuanian = SnowballLanguage{"Lithuanian"}
 
 	Lovins = SnowballLanguage{"Lovins"}
 
@@ -66,6 +74,8 @@ var (
 	Romanian = SnowballLanguage{"Romanian"}
 
 	Russian = SnowballLanguage{"Russian"}
+
+	Serbian = SnowballLanguage{"Serbian"}
 
 	Spanish = SnowballLanguage{"Spanish"}
 
@@ -81,6 +91,8 @@ func (s SnowballLanguage) MarshalText() (text []byte, err error) {
 func (s *SnowballLanguage) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
+	case "arabic":
+		*s = Arabic
 	case "armenian":
 		*s = Armenian
 	case "basque":
@@ -93,6 +105,8 @@ func (s *SnowballLanguage) UnmarshalText(text []byte) error {
 		*s = Dutch
 	case "english":
 		*s = English
+	case "estonian":
+		*s = Estonian
 	case "finnish":
 		*s = Finnish
 	case "french":
@@ -105,8 +119,12 @@ func (s *SnowballLanguage) UnmarshalText(text []byte) error {
 		*s = Hungarian
 	case "italian":
 		*s = Italian
+	case "irish":
+		*s = Irish
 	case "kp":
 		*s = Kp
+	case "lithuanian":
+		*s = Lithuanian
 	case "lovins":
 		*s = Lovins
 	case "norwegian":
@@ -119,6 +137,8 @@ func (s *SnowballLanguage) UnmarshalText(text []byte) error {
 		*s = Romanian
 	case "russian":
 		*s = Russian
+	case "serbian":
+		*s = Serbian
 	case "spanish":
 		*s = Spanish
 	case "swedish":

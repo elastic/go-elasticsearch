@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Create a calendar.
 package putcalendar
@@ -357,10 +357,9 @@ func (r *PutCalendar) Pretty(pretty bool) *PutCalendar {
 	return r
 }
 
-// A description of the calendar.
+// Description A description of the calendar.
 // API name: description
 func (r *PutCalendar) Description(description string) *PutCalendar {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -370,17 +369,13 @@ func (r *PutCalendar) Description(description string) *PutCalendar {
 	return r
 }
 
-// An array of anomaly detection job identifiers.
+// JobIds An array of anomaly detection job identifiers.
 // API name: job_ids
 func (r *PutCalendar) JobIds(jobids ...string) *PutCalendar {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range jobids {
+	r.req.JobIds = jobids
 
-		r.req.JobIds = append(r.req.JobIds, v)
-
-	}
 	return r
 }

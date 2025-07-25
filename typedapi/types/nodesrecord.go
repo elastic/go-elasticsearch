@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/cat/nodes/types.ts#L23-L542
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/cat/nodes/types.ts#L23-L542
 type NodesRecord struct {
 	// Build The Elasticsearch build hash.
 	Build *string `json:"build,omitempty"`
@@ -1342,5 +1342,3 @@ func NewNodesRecord() *NodesRecord {
 
 	return r
 }
-
-// false

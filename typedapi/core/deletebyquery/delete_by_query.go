@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Delete documents.
 //
@@ -896,10 +896,9 @@ func (r *DeleteByQuery) Pretty(pretty bool) *DeleteByQuery {
 	return r
 }
 
-// The maximum number of documents to delete.
+// MaxDocs The maximum number of documents to delete.
 // API name: max_docs
 func (r *DeleteByQuery) MaxDocs(maxdocs int64) *DeleteByQuery {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -909,29 +908,27 @@ func (r *DeleteByQuery) MaxDocs(maxdocs int64) *DeleteByQuery {
 	return r
 }
 
-// The documents to delete specified with Query DSL.
+// Query The documents to delete specified with Query DSL.
 // API name: query
-func (r *DeleteByQuery) Query(query types.QueryVariant) *DeleteByQuery {
-	// Initialize the request if it is not already initialized
+func (r *DeleteByQuery) Query(query *types.Query) *DeleteByQuery {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }
 
-// Slice the request manually using the provided slice ID and total number of
+// Slice Slice the request manually using the provided slice ID and total number of
 // slices.
 // API name: slice
-func (r *DeleteByQuery) Slice(slice types.SlicedScrollVariant) *DeleteByQuery {
-	// Initialize the request if it is not already initialized
+func (r *DeleteByQuery) Slice(slice *types.SlicedScroll) *DeleteByQuery {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Slice = slice.SlicedScrollCaster()
+	r.req.Slice = slice
 
 	return r
 }

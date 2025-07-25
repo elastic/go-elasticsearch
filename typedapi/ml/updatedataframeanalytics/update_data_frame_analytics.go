@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Update a data frame analytics job.
 package updatedataframeanalytics
@@ -363,24 +363,21 @@ func (r *UpdateDataFrameAnalytics) Pretty(pretty bool) *UpdateDataFrameAnalytics
 	return r
 }
 
-// Specifies whether this job can start when there is insufficient machine
+// AllowLazyStart Specifies whether this job can start when there is insufficient machine
 // learning node capacity for it to be immediately assigned to a node.
 // API name: allow_lazy_start
 func (r *UpdateDataFrameAnalytics) AllowLazyStart(allowlazystart bool) *UpdateDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.AllowLazyStart = &allowlazystart
 
 	return r
 }
 
-// A description of the job.
+// Description A description of the job.
 // API name: description
 func (r *UpdateDataFrameAnalytics) Description(description string) *UpdateDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -390,30 +387,27 @@ func (r *UpdateDataFrameAnalytics) Description(description string) *UpdateDataFr
 	return r
 }
 
-// The maximum number of threads to be used by the analysis. Using more
+// MaxNumThreads The maximum number of threads to be used by the analysis. Using more
 // threads may decrease the time necessary to complete the analysis at the
 // cost of using more CPU. Note that the process may use additional threads
 // for operational functionality other than the analysis itself.
 // API name: max_num_threads
 func (r *UpdateDataFrameAnalytics) MaxNumThreads(maxnumthreads int) *UpdateDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.MaxNumThreads = &maxnumthreads
 
 	return r
 }
 
-// The approximate maximum amount of memory resources that are permitted for
+// ModelMemoryLimit The approximate maximum amount of memory resources that are permitted for
 // analytical processing. If your `elasticsearch.yml` file contains an
 // `xpack.ml.max_model_memory_limit` setting, an error occurs when you try
 // to create data frame analytics jobs that have `model_memory_limit` values
 // greater than that setting.
 // API name: model_memory_limit
 func (r *UpdateDataFrameAnalytics) ModelMemoryLimit(modelmemorylimit string) *UpdateDataFrameAnalytics {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

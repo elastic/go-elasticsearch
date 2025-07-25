@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DecayPlacementDateMathDuration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/compound.ts#L170-L189
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/query_dsl/compound.ts#L170-L189
 type DecayPlacementDateMathDuration struct {
 	// Decay Defines how documents are scored at the distance given at scale.
 	Decay *Float64 `json:"decay,omitempty"`
@@ -102,14 +102,4 @@ func NewDecayPlacementDateMathDuration() *DecayPlacementDateMathDuration {
 	r := &DecayPlacementDateMathDuration{}
 
 	return r
-}
-
-// true
-
-type DecayPlacementDateMathDurationVariant interface {
-	DecayPlacementDateMathDurationCaster() *DecayPlacementDateMathDuration
-}
-
-func (s *DecayPlacementDateMathDuration) DecayPlacementDateMathDurationCaster() *DecayPlacementDateMathDuration {
-	return s
 }

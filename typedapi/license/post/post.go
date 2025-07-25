@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Update the license.
 //
@@ -386,28 +386,23 @@ func (r *Post) Pretty(pretty bool) *Post {
 }
 
 // API name: license
-func (r *Post) License(license types.LicenseVariant) *Post {
-	// Initialize the request if it is not already initialized
+func (r *Post) License(license *types.License) *Post {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.License = license.LicenseCaster()
+	r.req.License = license
 
 	return r
 }
 
-// A sequence of one or more JSON documents containing the license information.
+// Licenses A sequence of one or more JSON documents containing the license information.
 // API name: licenses
-func (r *Post) Licenses(licenses ...types.LicenseVariant) *Post {
-	// Initialize the request if it is not already initialized
+func (r *Post) Licenses(licenses ...types.License) *Post {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range licenses {
+	r.req.Licenses = licenses
 
-		r.req.Licenses = append(r.req.Licenses, *v.LicenseCaster())
-
-	}
 	return r
 }

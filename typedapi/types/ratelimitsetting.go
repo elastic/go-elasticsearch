@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RateLimitSetting type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/_types/Services.ts#L95-L100
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/inference/_types/Services.ts#L311-L316
 type RateLimitSetting struct {
 	// RequestsPerMinute The number of requests allowed per minute.
 	RequestsPerMinute *int `json:"requests_per_minute,omitempty"`
@@ -78,14 +78,4 @@ func NewRateLimitSetting() *RateLimitSetting {
 	r := &RateLimitSetting{}
 
 	return r
-}
-
-// true
-
-type RateLimitSettingVariant interface {
-	RateLimitSettingCaster() *RateLimitSetting
-}
-
-func (s *RateLimitSetting) RateLimitSettingCaster() *RateLimitSetting {
-	return s
 }

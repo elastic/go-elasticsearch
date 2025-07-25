@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Explain the shard allocations.
 // Get explanations for shard allocations in the cluster.
@@ -378,11 +378,10 @@ func (r *AllocationExplain) Pretty(pretty bool) *AllocationExplain {
 	return r
 }
 
-// Specifies the node ID or the name of the node to only explain a shard that is
+// CurrentNode Specifies the node ID or the name of the node to only explain a shard that is
 // currently located on the specified node.
 // API name: current_node
 func (r *AllocationExplain) CurrentNode(currentnode string) *AllocationExplain {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -392,40 +391,34 @@ func (r *AllocationExplain) CurrentNode(currentnode string) *AllocationExplain {
 	return r
 }
 
-// Specifies the name of the index that you would like an explanation for.
+// Index Specifies the name of the index that you would like an explanation for.
 // API name: index
 func (r *AllocationExplain) Index(indexname string) *AllocationExplain {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Index = &indexname
 
 	return r
 }
 
-// If true, returns explanation for the primary shard for the given shard ID.
+// Primary If true, returns explanation for the primary shard for the given shard ID.
 // API name: primary
 func (r *AllocationExplain) Primary(primary bool) *AllocationExplain {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Primary = &primary
 
 	return r
 }
 
-// Specifies the ID of the shard that you would like an explanation for.
+// Shard Specifies the ID of the shard that you would like an explanation for.
 // API name: shard
 func (r *AllocationExplain) Shard(shard int) *AllocationExplain {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Shard = &shard
 
 	return r

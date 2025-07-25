@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // QueryVectorBuilder type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/Knn.ts#L89-L92
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/Knn.ts#L89-L92
 type QueryVectorBuilder struct {
 	AdditionalQueryVectorBuilderProperty map[string]json.RawMessage `json:"-"`
 	TextEmbedding                        *TextEmbedding             `json:"text_embedding,omitempty"`
@@ -69,14 +69,4 @@ func NewQueryVectorBuilder() *QueryVectorBuilder {
 	}
 
 	return r
-}
-
-// true
-
-type QueryVectorBuilderVariant interface {
-	QueryVectorBuilderCaster() *QueryVectorBuilder
-}
-
-func (s *QueryVectorBuilder) QueryVectorBuilderCaster() *QueryVectorBuilder {
-	return s
 }

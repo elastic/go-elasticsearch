@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MappingLimitSettingsNestedFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/_types/IndexSettings.ts#L469-L477
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/_types/IndexSettings.ts#L469-L477
 type MappingLimitSettingsNestedFields struct {
 	// Limit The maximum number of distinct nested mappings in an index. The nested type
 	// should only be used in special cases, when
@@ -81,14 +81,4 @@ func NewMappingLimitSettingsNestedFields() *MappingLimitSettingsNestedFields {
 	r := &MappingLimitSettingsNestedFields{}
 
 	return r
-}
-
-// true
-
-type MappingLimitSettingsNestedFieldsVariant interface {
-	MappingLimitSettingsNestedFieldsCaster() *MappingLimitSettingsNestedFields
-}
-
-func (s *MappingLimitSettingsNestedFields) MappingLimitSettingsNestedFieldsCaster() *MappingLimitSettingsNestedFields {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HuggingFaceServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/_types/CommonTypes.ts#L869-L890
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/inference/_types/CommonTypes.ts#L1239-L1271
 type HuggingFaceServiceSettings struct {
 	// ApiKey A valid access token for your HuggingFace account.
 	// You can create or find your access tokens on the HuggingFace settings page.
@@ -43,12 +43,33 @@ type HuggingFaceServiceSettings struct {
 	// If you want to use a different API key, delete the inference model and
 	// recreate it with the same name and the updated API key.
 	ApiKey string `json:"api_key"`
+	// ModelId The name of the HuggingFace model to use for the inference task.
+	// For `completion` and `chat_completion` tasks, this field is optional but may
+	// be required for certain models — particularly when using serverless inference
+	// endpoints.
+	// For the `text_embedding` task, this field should not be included. Otherwise,
+	// the request will fail.
+	ModelId *string `json:"model_id,omitempty"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
 	// Hugging Face.
 	// By default, the `hugging_face` service sets the number of requests allowed
-	// per minute to 3000.
+	// per minute to 3000 for all supported tasks.
+	// Hugging Face does not publish a universal rate limit — actual limits may
+	// vary.
+	// It is recommended to adjust this value based on the capacity and limits of
+	// your specific deployment environment.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 	// Url The URL endpoint to use for the requests.
+	// For `completion` and `chat_completion` tasks, the deployed model must be
+	// compatible with the Hugging Face Chat Completion interface (see the linked
+	// external documentation for details). The endpoint URL for the request must
+	// include `/v1/chat/completions`.
+	// If the model supports the OpenAI Chat Completion schema, a toggle should
+	// appear in the interface. Enabling this toggle doesn't change any model
+	// behavior, it reveals the full endpoint URL needed (which should include
+	// `/v1/chat/completions`) when configuring the inference endpoint in
+	// Elasticsearch. If the model doesn't support this schema, the toggle may not
+	// be shown.
 	Url string `json:"url"`
 }
 
@@ -79,6 +100,18 @@ func (s *HuggingFaceServiceSettings) UnmarshalJSON(data []byte) error {
 			}
 			s.ApiKey = o
 
+		case "model_id":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ModelId", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ModelId = &o
+
 		case "rate_limit":
 			if err := dec.Decode(&s.RateLimit); err != nil {
 				return fmt.Errorf("%s | %w", "RateLimit", err)
@@ -106,14 +139,4 @@ func NewHuggingFaceServiceSettings() *HuggingFaceServiceSettings {
 	r := &HuggingFaceServiceSettings{}
 
 	return r
-}
-
-// true
-
-type HuggingFaceServiceSettingsVariant interface {
-	HuggingFaceServiceSettingsCaster() *HuggingFaceServiceSettings
-}
-
-func (s *HuggingFaceServiceSettings) HuggingFaceServiceSettingsCaster() *HuggingFaceServiceSettings {
-	return s
 }

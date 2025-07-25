@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Vertex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/graph/_types/Vertex.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/graph/_types/Vertex.ts#L23-L28
 type Vertex struct {
 	Depth  int64   `json:"depth"`
 	Field  string  `json:"field"`
@@ -113,5 +113,3 @@ func NewVertex() *Vertex {
 
 	return r
 }
-
-// false

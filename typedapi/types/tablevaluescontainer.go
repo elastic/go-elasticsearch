@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // TableValuesContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/esql/_types/TableValuesContainer.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/esql/_types/TableValuesContainer.ts#L22-L28
 type TableValuesContainer struct {
 	AdditionalTableValuesContainerProperty map[string]json.RawMessage `json:"-"`
 	Float64                                [][]Float64                `json:"double,omitempty"`
@@ -72,14 +72,4 @@ func NewTableValuesContainer() *TableValuesContainer {
 	}
 
 	return r
-}
-
-// true
-
-type TableValuesContainerVariant interface {
-	TableValuesContainerCaster() *TableValuesContainer
-}
-
-func (s *TableValuesContainer) TableValuesContainerCaster() *TableValuesContainer {
-	return s
 }

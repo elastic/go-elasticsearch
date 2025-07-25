@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterShardMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/cluster/stats/types.ts#L511-L524
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/cluster/stats/types.ts#L622-L635
 type ClusterShardMetrics struct {
 	// Avg Mean number of shards in an index, counting only shards assigned to selected
 	// nodes.
@@ -118,5 +118,3 @@ func NewClusterShardMetrics() *ClusterShardMetrics {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Evaluate ranked search results.
 //
@@ -410,30 +410,25 @@ func (r *RankEval) Pretty(pretty bool) *RankEval {
 	return r
 }
 
-// Definition of the evaluation metric to calculate.
+// Metric Definition of the evaluation metric to calculate.
 // API name: metric
-func (r *RankEval) Metric(metric types.RankEvalMetricVariant) *RankEval {
-	// Initialize the request if it is not already initialized
+func (r *RankEval) Metric(metric *types.RankEvalMetric) *RankEval {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Metric = metric.RankEvalMetricCaster()
+	r.req.Metric = metric
 
 	return r
 }
 
-// A set of typical search requests, together with their provided ratings.
+// Requests A set of typical search requests, together with their provided ratings.
 // API name: requests
-func (r *RankEval) Requests(requests ...types.RankEvalRequestItemVariant) *RankEval {
-	// Initialize the request if it is not already initialized
+func (r *RankEval) Requests(requests ...types.RankEvalRequestItem) *RankEval {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range requests {
+	r.req.Requests = requests
 
-		r.req.Requests = append(r.req.Requests, *v.RankEvalRequestItemCaster())
-
-	}
 	return r
 }

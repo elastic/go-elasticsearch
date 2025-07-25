@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ScriptScoreQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/specialized.ts#L348-L365
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/query_dsl/specialized.ts#L348-L365
 type ScriptScoreQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -130,14 +130,4 @@ func NewScriptScoreQuery() *ScriptScoreQuery {
 	r := &ScriptScoreQuery{}
 
 	return r
-}
-
-// true
-
-type ScriptScoreQueryVariant interface {
-	ScriptScoreQueryCaster() *ScriptScoreQuery
-}
-
-func (s *ScriptScoreQuery) ScriptScoreQueryCaster() *ScriptScoreQuery {
-	return s
 }

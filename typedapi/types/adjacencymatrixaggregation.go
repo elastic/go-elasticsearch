@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AdjacencyMatrixAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/bucket.ts#L60-L70
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/aggregations/bucket.ts#L60-L70
 type AdjacencyMatrixAggregation struct {
 	// Filters Filters used to create buckets.
 	// At least one filter is required.
@@ -87,14 +87,4 @@ func NewAdjacencyMatrixAggregation() *AdjacencyMatrixAggregation {
 	}
 
 	return r
-}
-
-// true
-
-type AdjacencyMatrixAggregationVariant interface {
-	AdjacencyMatrixAggregationCaster() *AdjacencyMatrixAggregation
-}
-
-func (s *AdjacencyMatrixAggregation) AdjacencyMatrixAggregationCaster() *AdjacencyMatrixAggregation {
-	return s
 }

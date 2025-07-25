@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ThaiTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/tokenizers.ts#L126-L128
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/tokenizers.ts#L128-L130
 type ThaiTokenizer struct {
 	Type    string  `json:"type,omitempty"`
 	Version *string `json:"version,omitempty"`
@@ -84,14 +84,4 @@ func NewThaiTokenizer() *ThaiTokenizer {
 	r := &ThaiTokenizer{}
 
 	return r
-}
-
-// true
-
-type ThaiTokenizerVariant interface {
-	ThaiTokenizerCaster() *ThaiTokenizer
-}
-
-func (s *ThaiTokenizer) ThaiTokenizerCaster() *ThaiTokenizer {
-	return s
 }

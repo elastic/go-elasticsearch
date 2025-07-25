@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DirectGenerator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/search/_types/suggester.ts#L268-L331
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/search/_types/suggester.ts#L268-L331
 type DirectGenerator struct {
 	// Field The field to fetch the candidate suggestions from.
 	// Needs to be set globally or per suggestion.
@@ -251,14 +251,4 @@ func NewDirectGenerator() *DirectGenerator {
 	r := &DirectGenerator{}
 
 	return r
-}
-
-// true
-
-type DirectGeneratorVariant interface {
-	DirectGeneratorCaster() *DirectGenerator
-}
-
-func (s *DirectGenerator) DirectGeneratorCaster() *DirectGenerator {
-	return s
 }

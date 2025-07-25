@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Open anomaly detection jobs.
 //
@@ -373,15 +373,13 @@ func (r *OpenJob) Pretty(pretty bool) *OpenJob {
 	return r
 }
 
-// Refer to the description for the `timeout` query parameter.
+// Timeout Refer to the description for the `timeout` query parameter.
 // API name: timeout
-func (r *OpenJob) Timeout(duration types.DurationVariant) *OpenJob {
-	// Initialize the request if it is not already initialized
+func (r *OpenJob) Timeout(duration types.Duration) *OpenJob {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Timeout = *duration.DurationCaster()
+	r.req.Timeout = duration
 
 	return r
 }

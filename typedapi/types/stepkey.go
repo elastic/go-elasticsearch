@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StepKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ilm/move_to_step/types.ts#L20-L31
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ilm/move_to_step/types.ts#L20-L31
 type StepKey struct {
 	// Action The optional action to which the index will be moved.
 	Action *string `json:"action,omitempty"`
@@ -101,14 +101,4 @@ func NewStepKey() *StepKey {
 	r := &StepKey{}
 
 	return r
-}
-
-// true
-
-type StepKeyVariant interface {
-	StepKeyCaster() *StepKey
-}
-
-func (s *StepKey) StepKeyCaster() *StepKey {
-	return s
 }

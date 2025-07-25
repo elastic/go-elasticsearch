@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Get multiple term vectors.
 //
@@ -478,33 +478,25 @@ func (r *Mtermvectors) Pretty(pretty bool) *Mtermvectors {
 	return r
 }
 
-// An array of existing or artificial documents.
+// Docs An array of existing or artificial documents.
 // API name: docs
-func (r *Mtermvectors) Docs(docs ...types.MTermVectorsOperationVariant) *Mtermvectors {
-	// Initialize the request if it is not already initialized
+func (r *Mtermvectors) Docs(docs ...types.MTermVectorsOperation) *Mtermvectors {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range docs {
+	r.req.Docs = docs
 
-		r.req.Docs = append(r.req.Docs, *v.MTermVectorsOperationCaster())
-
-	}
 	return r
 }
 
-// A simplified syntax to specify documents by their ID if they're in the same
+// Ids A simplified syntax to specify documents by their ID if they're in the same
 // index.
 // API name: ids
 func (r *Mtermvectors) Ids(ids ...string) *Mtermvectors {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range ids {
+	r.req.Ids = ids
 
-		r.req.Ids = append(r.req.Ids, v)
-
-	}
 	return r
 }

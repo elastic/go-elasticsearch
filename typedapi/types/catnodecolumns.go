@@ -16,11 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
-// EsqlResult type alias.
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/catnodecolumn"
+)
+
+// CatNodeColumns type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/Binary.ts#L24-L24
-type EsqlResult []byte
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/cat/_types/CatBase.ts#L1285-L1285
+type CatNodeColumns []catnodecolumn.CatNodeColumn

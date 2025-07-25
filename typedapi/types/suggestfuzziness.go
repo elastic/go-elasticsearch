@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SuggestFuzziness type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/search/_types/suggester.ts#L196-L224
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/search/_types/suggester.ts#L196-L224
 type SuggestFuzziness struct {
 	// Fuzziness The fuzziness factor.
 	Fuzziness Fuzziness `json:"fuzziness,omitempty"`
@@ -137,14 +137,4 @@ func NewSuggestFuzziness() *SuggestFuzziness {
 	r := &SuggestFuzziness{}
 
 	return r
-}
-
-// true
-
-type SuggestFuzzinessVariant interface {
-	SuggestFuzzinessCaster() *SuggestFuzziness
-}
-
-func (s *SuggestFuzziness) SuggestFuzzinessCaster() *SuggestFuzziness {
-	return s
 }

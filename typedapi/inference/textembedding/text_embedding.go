@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Perform text embedding inference on the service
 package textembedding
@@ -365,28 +365,24 @@ func (r *TextEmbedding) Pretty(pretty bool) *TextEmbedding {
 	return r
 }
 
-// Inference input.
+// Input Inference input.
 // Either a string or an array of strings.
 // API name: input
 func (r *TextEmbedding) Input(inputs ...string) *TextEmbedding {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	r.req.Input = make([]string, len(inputs))
 	r.req.Input = inputs
 
 	return r
 }
 
-// Optional task settings
+// TaskSettings Optional task settings
 // API name: task_settings
 func (r *TextEmbedding) TaskSettings(tasksettings json.RawMessage) *TextEmbedding {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.TaskSettings = tasksettings
 
 	return r

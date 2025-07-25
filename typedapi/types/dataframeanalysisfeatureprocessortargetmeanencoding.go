@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeAnalysisFeatureProcessorTargetMeanEncoding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/DataframeAnalytics.ts#L295-L304
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/_types/DataframeAnalytics.ts#L295-L304
 type DataframeAnalysisFeatureProcessorTargetMeanEncoding struct {
 	// DefaultValue The default value if field value is not found in the target_map.
 	DefaultValue int `json:"default_value"`
@@ -104,14 +104,4 @@ func NewDataframeAnalysisFeatureProcessorTargetMeanEncoding() *DataframeAnalysis
 	}
 
 	return r
-}
-
-// true
-
-type DataframeAnalysisFeatureProcessorTargetMeanEncodingVariant interface {
-	DataframeAnalysisFeatureProcessorTargetMeanEncodingCaster() *DataframeAnalysisFeatureProcessorTargetMeanEncoding
-}
-
-func (s *DataframeAnalysisFeatureProcessorTargetMeanEncoding) DataframeAnalysisFeatureProcessorTargetMeanEncodingCaster() *DataframeAnalysisFeatureProcessorTargetMeanEncoding {
-	return s
 }

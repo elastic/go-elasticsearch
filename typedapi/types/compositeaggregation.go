@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CompositeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/bucket.ts#L130-L149
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/aggregations/bucket.ts#L130-L149
 type CompositeAggregation struct {
 	// After When paginating, use the `after_key` value returned in the previous response
 	// to retrieve the next page.
@@ -94,14 +94,4 @@ func NewCompositeAggregation() *CompositeAggregation {
 	r := &CompositeAggregation{}
 
 	return r
-}
-
-// true
-
-type CompositeAggregationVariant interface {
-	CompositeAggregationCaster() *CompositeAggregation
-}
-
-func (s *CompositeAggregation) CompositeAggregationCaster() *CompositeAggregation {
-	return s
 }

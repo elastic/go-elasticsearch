@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Get index recovery information.
 // Get information about ongoing and completed shard recoveries for one or more
@@ -69,6 +69,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -386,6 +387,40 @@ func (r *Recovery) ActiveOnly(activeonly bool) *Recovery {
 // API name: detailed
 func (r *Recovery) Detailed(detailed bool) *Recovery {
 	r.values.Set("detailed", strconv.FormatBool(detailed))
+
+	return r
+}
+
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
+// API name: allow_no_indices
+func (r *Recovery) AllowNoIndices(allownoindices bool) *Recovery {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
+
+	return r
+}
+
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`.
+// API name: expand_wildcards
+func (r *Recovery) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Recovery {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+
+	return r
+}
+
+// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
+// index.
+// API name: ignore_unavailable
+func (r *Recovery) IgnoreUnavailable(ignoreunavailable bool) *Recovery {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // NestedQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/joining.ts#L112-L139
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/query_dsl/joining.ts#L112-L139
 type NestedQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -143,14 +143,4 @@ func NewNestedQuery() *NestedQuery {
 	r := &NestedQuery{}
 
 	return r
-}
-
-// true
-
-type NestedQueryVariant interface {
-	NestedQueryCaster() *NestedQuery
-}
-
-func (s *NestedQuery) NestedQueryCaster() *NestedQuery {
-	return s
 }

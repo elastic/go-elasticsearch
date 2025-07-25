@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MaxAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/metric.ts#L165-L165
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/aggregations/metric.ts#L171-L171
 type MaxAggregation struct {
 	// Field The field on which to run the aggregation.
 	Field  *string `json:"field,omitempty"`
@@ -94,14 +94,4 @@ func NewMaxAggregation() *MaxAggregation {
 	r := &MaxAggregation{}
 
 	return r
-}
-
-// true
-
-type MaxAggregationVariant interface {
-	MaxAggregationCaster() *MaxAggregation
-}
-
-func (s *MaxAggregation) MaxAggregationCaster() *MaxAggregation {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Perform streaming inference.
 // Get real-time responses for completion tasks by delivering answers
@@ -347,6 +347,14 @@ func (r *StreamCompletion) _inferenceid(inferenceid string) *StreamCompletion {
 	return r
 }
 
+// Timeout The amount of time to wait for the inference request to complete.
+// API name: timeout
+func (r *StreamCompletion) Timeout(duration string) *StreamCompletion {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -391,31 +399,27 @@ func (r *StreamCompletion) Pretty(pretty bool) *StreamCompletion {
 	return r
 }
 
-// The text on which you want to perform the inference task.
+// Input The text on which you want to perform the inference task.
 // It can be a single string or an array.
 //
 // NOTE: Inference endpoints for the completion task type currently only support
 // a single string as input.
 // API name: input
 func (r *StreamCompletion) Input(inputs ...string) *StreamCompletion {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	r.req.Input = make([]string, len(inputs))
 	r.req.Input = inputs
 
 	return r
 }
 
-// Optional task settings
+// TaskSettings Optional task settings
 // API name: task_settings
 func (r *StreamCompletion) TaskSettings(tasksettings json.RawMessage) *StreamCompletion {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.TaskSettings = tasksettings
 
 	return r

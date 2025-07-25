@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Update documents.
 // Updates documents that match the specified query.
@@ -647,7 +647,6 @@ func (r *UpdateByQuery) Df(df string) *UpdateByQuery {
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
 // It supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *UpdateByQuery) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *UpdateByQuery {
 	tmp := []string{}
@@ -934,22 +933,21 @@ func (r *UpdateByQuery) Pretty(pretty bool) *UpdateByQuery {
 	return r
 }
 
-// The preferred behavior when update by query hits version conflicts: `abort`
+// Conflicts The preferred behavior when update by query hits version conflicts: `abort`
 // or `proceed`.
 // API name: conflicts
 func (r *UpdateByQuery) Conflicts(conflicts conflicts.Conflicts) *UpdateByQuery {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 	r.req.Conflicts = &conflicts
+
 	return r
 }
 
-// The maximum number of documents to update.
+// MaxDocs The maximum number of documents to update.
 // API name: max_docs
 func (r *UpdateByQuery) MaxDocs(maxdocs int64) *UpdateByQuery {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -959,42 +957,39 @@ func (r *UpdateByQuery) MaxDocs(maxdocs int64) *UpdateByQuery {
 	return r
 }
 
-// The documents to update using the Query DSL.
+// Query The documents to update using the Query DSL.
 // API name: query
-func (r *UpdateByQuery) Query(query types.QueryVariant) *UpdateByQuery {
-	// Initialize the request if it is not already initialized
+func (r *UpdateByQuery) Query(query *types.Query) *UpdateByQuery {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }
 
-// The script to run to update the document source or metadata when updating.
+// Script The script to run to update the document source or metadata when updating.
 // API name: script
-func (r *UpdateByQuery) Script(script types.ScriptVariant) *UpdateByQuery {
-	// Initialize the request if it is not already initialized
+func (r *UpdateByQuery) Script(script *types.Script) *UpdateByQuery {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Script = script.ScriptCaster()
+	r.req.Script = script
 
 	return r
 }
 
-// Slice the request manually using the provided slice ID and total number of
+// Slice Slice the request manually using the provided slice ID and total number of
 // slices.
 // API name: slice
-func (r *UpdateByQuery) Slice(slice types.SlicedScrollVariant) *UpdateByQuery {
-	// Initialize the request if it is not already initialized
+func (r *UpdateByQuery) Slice(slice *types.SlicedScroll) *UpdateByQuery {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Slice = slice.SlicedScrollCaster()
+	r.req.Slice = slice
 
 	return r
 }

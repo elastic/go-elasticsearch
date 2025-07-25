@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // OneHotEncodingPreprocessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/put_trained_model/types.ts#L44-L47
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/put_trained_model/types.ts#L44-L47
 type OneHotEncodingPreprocessor struct {
 	Field  string            `json:"field"`
 	HotMap map[string]string `json:"hot_map"`
@@ -84,14 +84,4 @@ func NewOneHotEncodingPreprocessor() *OneHotEncodingPreprocessor {
 	}
 
 	return r
-}
-
-// true
-
-type OneHotEncodingPreprocessorVariant interface {
-	OneHotEncodingPreprocessorCaster() *OneHotEncodingPreprocessor
-}
-
-func (s *OneHotEncodingPreprocessor) OneHotEncodingPreprocessorCaster() *OneHotEncodingPreprocessor {
-	return s
 }

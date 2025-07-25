@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Start datafeeds.
 //
@@ -401,41 +401,35 @@ func (r *StartDatafeed) Pretty(pretty bool) *StartDatafeed {
 	return r
 }
 
-// Refer to the description for the `end` query parameter.
+// End Refer to the description for the `end` query parameter.
 // API name: end
-func (r *StartDatafeed) End(datetime types.DateTimeVariant) *StartDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *StartDatafeed) End(datetime types.DateTime) *StartDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.End = *datetime.DateTimeCaster()
+	r.req.End = datetime
 
 	return r
 }
 
-// Refer to the description for the `start` query parameter.
+// Start Refer to the description for the `start` query parameter.
 // API name: start
-func (r *StartDatafeed) Start(datetime types.DateTimeVariant) *StartDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *StartDatafeed) Start(datetime types.DateTime) *StartDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Start = *datetime.DateTimeCaster()
+	r.req.Start = datetime
 
 	return r
 }
 
-// Refer to the description for the `timeout` query parameter.
+// Timeout Refer to the description for the `timeout` query parameter.
 // API name: timeout
-func (r *StartDatafeed) Timeout(duration types.DurationVariant) *StartDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *StartDatafeed) Timeout(duration types.Duration) *StartDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Timeout = *duration.DurationCaster()
+	r.req.Timeout = duration
 
 	return r
 }

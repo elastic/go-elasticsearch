@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AdaptiveAllocations type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/_types/CommonTypes.ts#L60-L77
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/inference/_types/CommonTypes.ts#L99-L116
 type AdaptiveAllocations struct {
 	// Enabled Turn on `adaptive_allocations`.
 	Enabled *bool `json:"enabled,omitempty"`
@@ -115,14 +115,4 @@ func NewAdaptiveAllocations() *AdaptiveAllocations {
 	r := &AdaptiveAllocations{}
 
 	return r
-}
-
-// true
-
-type AdaptiveAllocationsVariant interface {
-	AdaptiveAllocationsCaster() *AdaptiveAllocations
-}
-
-func (s *AdaptiveAllocations) AdaptiveAllocationsCaster() *AdaptiveAllocations {
-	return s
 }

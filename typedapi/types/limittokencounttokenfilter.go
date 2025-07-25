@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,12 +31,16 @@ import (
 
 // LimitTokenCountTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/token_filters.ts#L250-L254
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/token_filters.ts#L336-L342
 type LimitTokenCountTokenFilter struct {
-	ConsumeAllTokens *bool              `json:"consume_all_tokens,omitempty"`
-	MaxTokenCount    Stringifiedinteger `json:"max_token_count,omitempty"`
-	Type             string             `json:"type,omitempty"`
-	Version          *string            `json:"version,omitempty"`
+	// ConsumeAllTokens If `true`, the limit filter exhausts the token stream, even if the
+	// `max_token_count` has already been reached. Defaults to `false`.
+	ConsumeAllTokens *bool `json:"consume_all_tokens,omitempty"`
+	// MaxTokenCount Maximum number of tokens to keep. Once this limit is reached, any remaining
+	// tokens are excluded from the output. Defaults to `1`.
+	MaxTokenCount Stringifiedinteger `json:"max_token_count,omitempty"`
+	Type          string             `json:"type,omitempty"`
+	Version       *string            `json:"version,omitempty"`
 }
 
 func (s *LimitTokenCountTokenFilter) UnmarshalJSON(data []byte) error {
@@ -108,14 +112,4 @@ func NewLimitTokenCountTokenFilter() *LimitTokenCountTokenFilter {
 	r := &LimitTokenCountTokenFilter{}
 
 	return r
-}
-
-// true
-
-type LimitTokenCountTokenFilterVariant interface {
-	LimitTokenCountTokenFilterCaster() *LimitTokenCountTokenFilter
-}
-
-func (s *LimitTokenCountTokenFilter) LimitTokenCountTokenFilterCaster() *LimitTokenCountTokenFilter {
-	return s
 }

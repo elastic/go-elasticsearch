@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Predict future behavior of a time series.
 //
@@ -370,36 +370,31 @@ func (r *Forecast) Pretty(pretty bool) *Forecast {
 	return r
 }
 
-// Refer to the description for the `duration` query parameter.
+// Duration Refer to the description for the `duration` query parameter.
 // API name: duration
-func (r *Forecast) Duration(duration types.DurationVariant) *Forecast {
-	// Initialize the request if it is not already initialized
+func (r *Forecast) Duration(duration types.Duration) *Forecast {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Duration = *duration.DurationCaster()
+	r.req.Duration = duration
 
 	return r
 }
 
-// Refer to the description for the `expires_in` query parameter.
+// ExpiresIn Refer to the description for the `expires_in` query parameter.
 // API name: expires_in
-func (r *Forecast) ExpiresIn(duration types.DurationVariant) *Forecast {
-	// Initialize the request if it is not already initialized
+func (r *Forecast) ExpiresIn(duration types.Duration) *Forecast {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.ExpiresIn = *duration.DurationCaster()
+	r.req.ExpiresIn = duration
 
 	return r
 }
 
-// Refer to the description for the `max_model_memory` query parameter.
+// MaxModelMemory Refer to the description for the `max_model_memory` query parameter.
 // API name: max_model_memory
 func (r *Forecast) MaxModelMemory(maxmodelmemory string) *Forecast {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

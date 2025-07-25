@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // MatchPhrasePrefixQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/fulltext.ts#L440-L469
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/query_dsl/fulltext.ts#L491-L520
 type MatchPhrasePrefixQuery struct {
 	// Analyzer Analyzer used to convert text in the query value into tokens.
 	Analyzer *string `json:"analyzer,omitempty"`
@@ -182,14 +182,4 @@ func NewMatchPhrasePrefixQuery() *MatchPhrasePrefixQuery {
 	r := &MatchPhrasePrefixQuery{}
 
 	return r
-}
-
-// true
-
-type MatchPhrasePrefixQueryVariant interface {
-	MatchPhrasePrefixQueryCaster() *MatchPhrasePrefixQuery
-}
-
-func (s *MatchPhrasePrefixQuery) MatchPhrasePrefixQueryCaster() *MatchPhrasePrefixQuery {
-	return s
 }

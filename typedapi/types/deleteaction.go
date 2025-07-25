@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DeleteAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ilm/_types/Phase.ts#L149-L151
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ilm/_types/Phase.ts#L149-L151
 type DeleteAction struct {
 	DeleteSearchableSnapshot *bool `json:"delete_searchable_snapshot,omitempty"`
 }
@@ -75,14 +75,4 @@ func NewDeleteAction() *DeleteAction {
 	r := &DeleteAction{}
 
 	return r
-}
-
-// true
-
-type DeleteActionVariant interface {
-	DeleteActionCaster() *DeleteAction
-}
-
-func (s *DeleteAction) DeleteActionCaster() *DeleteAction {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Update a datafeed.
 // You must stop and start the datafeed for the changes to be applied.
@@ -344,16 +344,7 @@ func (r *UpdateDatafeed) AllowNoIndices(allownoindices bool) *UpdateDatafeed {
 // ExpandWildcards Type of index that wildcard patterns can match. If the request can target
 // data streams, this argument determines
 // whether wildcard expressions match hidden data streams. Supports
-// comma-separated values. Valid values are:
-//
-// * `all`: Match any data stream or index, including hidden ones.
-// * `closed`: Match closed, non-hidden indices. Also matches any non-hidden
-// data stream. Data streams cannot be closed.
-// * `hidden`: Match hidden data streams and hidden indices. Must be combined
-// with `open`, `closed`, or both.
-// * `none`: Wildcard patterns are not accepted.
-// * `open`: Match open, non-hidden indices. Also matches any non-hidden data
-// stream.
+// comma-separated values.
 // API name: expand_wildcards
 func (r *UpdateDatafeed) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *UpdateDatafeed {
 	tmp := []string{}
@@ -425,56 +416,37 @@ func (r *UpdateDatafeed) Pretty(pretty bool) *UpdateDatafeed {
 	return r
 }
 
-// If set, the datafeed performs aggregation searches. Support for aggregations
+// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations
 // is limited and should be used only
 // with low cardinality data.
 // API name: aggregations
 func (r *UpdateDatafeed) Aggregations(aggregations map[string]types.Aggregations) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.Aggregations = aggregations
+
 	return r
 }
 
-func (r *UpdateDatafeed) AddAggregation(key string, value types.AggregationsVariant) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.Aggregations
-	if r.req.Aggregations == nil {
-		r.req.Aggregations = make(map[string]types.Aggregations)
-	} else {
-		tmp = r.req.Aggregations
-	}
-
-	tmp[key] = *value.AggregationsCaster()
-
-	r.req.Aggregations = tmp
-	return r
-}
-
-// Datafeeds might search over long time periods, for several months or years.
+// ChunkingConfig Datafeeds might search over long time periods, for several months or years.
 // This search is split into time
 // chunks in order to ensure the load on Elasticsearch is managed. Chunking
 // configuration controls how the size of
 // these time chunks are calculated; it is an advanced configuration option.
 // API name: chunking_config
-func (r *UpdateDatafeed) ChunkingConfig(chunkingconfig types.ChunkingConfigVariant) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *UpdateDatafeed) ChunkingConfig(chunkingconfig *types.ChunkingConfig) *UpdateDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.ChunkingConfig = chunkingconfig.ChunkingConfigCaster()
+	r.req.ChunkingConfig = chunkingconfig
 
 	return r
 }
 
-// Specifies whether the datafeed checks for missing data and the size of the
+// DelayedDataCheckConfig Specifies whether the datafeed checks for missing data and the size of the
 // window. The datafeed can optionally
 // search over indices that have already been read in an effort to determine
 // whether any data has subsequently been
@@ -484,18 +456,17 @@ func (r *UpdateDatafeed) ChunkingConfig(chunkingconfig types.ChunkingConfigVaria
 // This check runs only on real-time
 // datafeeds.
 // API name: delayed_data_check_config
-func (r *UpdateDatafeed) DelayedDataCheckConfig(delayeddatacheckconfig types.DelayedDataCheckConfigVariant) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *UpdateDatafeed) DelayedDataCheckConfig(delayeddatacheckconfig *types.DelayedDataCheckConfig) *UpdateDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.DelayedDataCheckConfig = delayeddatacheckconfig.DelayedDataCheckConfigCaster()
+	r.req.DelayedDataCheckConfig = delayeddatacheckconfig
 
 	return r
 }
 
-// The interval at which scheduled queries are made while the datafeed runs in
+// Frequency The interval at which scheduled queries are made while the datafeed runs in
 // real time. The default value is
 // either the bucket span for short bucket spans, or, for longer bucket spans, a
 // sensible fraction of the bucket
@@ -505,60 +476,51 @@ func (r *UpdateDatafeed) DelayedDataCheckConfig(delayeddatacheckconfig types.Del
 // datafeed uses aggregations, this value
 // must be divisible by the interval of the date histogram aggregation.
 // API name: frequency
-func (r *UpdateDatafeed) Frequency(duration types.DurationVariant) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *UpdateDatafeed) Frequency(duration types.Duration) *UpdateDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Frequency = *duration.DurationCaster()
+	r.req.Frequency = duration
 
 	return r
 }
 
-// An array of index names. Wildcards are supported. If any of the indices are
+// Indices An array of index names. Wildcards are supported. If any of the indices are
 // in remote clusters, the machine
 // learning nodes must have the `remote_cluster_client` role.
 // API name: indices
 func (r *UpdateDatafeed) Indices(indices ...string) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range indices {
+	r.req.Indices = indices
 
-		r.req.Indices = append(r.req.Indices, v)
-
-	}
 	return r
 }
 
-// Specifies index expansion options that are used during search.
+// IndicesOptions Specifies index expansion options that are used during search.
 // API name: indices_options
-func (r *UpdateDatafeed) IndicesOptions(indicesoptions types.IndicesOptionsVariant) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *UpdateDatafeed) IndicesOptions(indicesoptions *types.IndicesOptions) *UpdateDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.IndicesOptions = indicesoptions.IndicesOptionsCaster()
+	r.req.IndicesOptions = indicesoptions
 
 	return r
 }
 
 // API name: job_id
 func (r *UpdateDatafeed) JobId(id string) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.JobId = &id
 
 	return r
 }
 
-// If a real-time datafeed has never seen any data (including during any initial
+// MaxEmptySearches If a real-time datafeed has never seen any data (including during any initial
 // training period), it automatically
 // stops and closes the associated job after this many real-time searches return
 // no documents. In other words,
@@ -568,17 +530,15 @@ func (r *UpdateDatafeed) JobId(id string) *UpdateDatafeed {
 // default, it is not set.
 // API name: max_empty_searches
 func (r *UpdateDatafeed) MaxEmptySearches(maxemptysearches int) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.MaxEmptySearches = &maxemptysearches
 
 	return r
 }
 
-// The Elasticsearch query domain-specific language (DSL). This value
+// Query The Elasticsearch query domain-specific language (DSL). This value
 // corresponds to the query object in an
 // Elasticsearch search POST body. All the options that are supported by
 // Elasticsearch can be used, as this
@@ -592,18 +552,17 @@ func (r *UpdateDatafeed) MaxEmptySearches(maxemptysearches int) *UpdateDatafeed 
 // in parallel and close one
 // when you are satisfied with the results of the job.
 // API name: query
-func (r *UpdateDatafeed) Query(query types.QueryVariant) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *UpdateDatafeed) Query(query *types.Query) *UpdateDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }
 
-// The number of seconds behind real time that data is queried. For example, if
+// QueryDelay The number of seconds behind real time that data is queried. For example, if
 // data from 10:04 a.m. might
 // not be searchable in Elasticsearch until 10:06 a.m., set this property to 120
 // seconds. The default
@@ -611,73 +570,49 @@ func (r *UpdateDatafeed) Query(query types.QueryVariant) *UpdateDatafeed {
 // the query performance
 // when there are multiple jobs running on the same node.
 // API name: query_delay
-func (r *UpdateDatafeed) QueryDelay(duration types.DurationVariant) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *UpdateDatafeed) QueryDelay(duration types.Duration) *UpdateDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.QueryDelay = *duration.DurationCaster()
+	r.req.QueryDelay = duration
 
 	return r
 }
 
-// Specifies runtime fields for the datafeed search.
+// RuntimeMappings Specifies runtime fields for the datafeed search.
 // API name: runtime_mappings
-func (r *UpdateDatafeed) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *UpdateDatafeed) RuntimeMappings(runtimefields types.RuntimeFields) *UpdateDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
+	r.req.RuntimeMappings = runtimefields
 
 	return r
 }
 
-// Specifies scripts that evaluate custom expressions and returns script fields
+// ScriptFields Specifies scripts that evaluate custom expressions and returns script fields
 // to the datafeed.
 // The detector configuration objects in a job can contain functions that use
 // these script fields.
 // API name: script_fields
 func (r *UpdateDatafeed) ScriptFields(scriptfields map[string]types.ScriptField) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.ScriptFields = scriptfields
+
 	return r
 }
 
-func (r *UpdateDatafeed) AddScriptField(key string, value types.ScriptFieldVariant) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.ScriptField
-	if r.req.ScriptFields == nil {
-		r.req.ScriptFields = make(map[string]types.ScriptField)
-	} else {
-		tmp = r.req.ScriptFields
-	}
-
-	tmp[key] = *value.ScriptFieldCaster()
-
-	r.req.ScriptFields = tmp
-	return r
-}
-
-// The size parameter that is used in Elasticsearch searches when the datafeed
+// ScrollSize The size parameter that is used in Elasticsearch searches when the datafeed
 // does not use aggregations.
 // The maximum value is the value of `index.max_result_window`.
 // API name: scroll_size
 func (r *UpdateDatafeed) ScrollSize(scrollsize int) *UpdateDatafeed {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.ScrollSize = &scrollsize
 
 	return r

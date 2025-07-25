@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
 // BucketCorrelationFunctionCountCorrelation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/pipeline.ts#L155-L158
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/aggregations/pipeline.ts#L155-L158
 type BucketCorrelationFunctionCountCorrelation struct {
 	// Indicator The indicator with which to correlate the configured `bucket_path` values.
 	Indicator BucketCorrelationFunctionCountCorrelationIndicator `json:"indicator"`
@@ -33,14 +33,4 @@ func NewBucketCorrelationFunctionCountCorrelation() *BucketCorrelationFunctionCo
 	r := &BucketCorrelationFunctionCountCorrelation{}
 
 	return r
-}
-
-// true
-
-type BucketCorrelationFunctionCountCorrelationVariant interface {
-	BucketCorrelationFunctionCountCorrelationCaster() *BucketCorrelationFunctionCountCorrelation
-}
-
-func (s *BucketCorrelationFunctionCountCorrelation) BucketCorrelationFunctionCountCorrelationCaster() *BucketCorrelationFunctionCountCorrelation {
-	return s
 }

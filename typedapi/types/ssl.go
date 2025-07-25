@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
 // Ssl type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/xpack/usage/types.ts#L401-L404
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/xpack/usage/types.ts#L401-L404
 type Ssl struct {
 	Http      FeatureToggle `json:"http"`
 	Transport FeatureToggle `json:"transport"`
@@ -34,5 +34,3 @@ func NewSsl() *Ssl {
 
 	return r
 }
-
-// false

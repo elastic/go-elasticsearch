@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RankEvalQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/rank_eval/types.ts#L111-L117
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/rank_eval/types.ts#L111-L117
 type RankEvalQuery struct {
 	Query Query `json:"query"`
 	Size  *int  `json:"size,omitempty"`
@@ -88,14 +88,4 @@ func NewRankEvalQuery() *RankEvalQuery {
 	r := &RankEvalQuery{}
 
 	return r
-}
-
-// true
-
-type RankEvalQueryVariant interface {
-	RankEvalQueryCaster() *RankEvalQuery
-}
-
-func (s *RankEvalQuery) RankEvalQueryCaster() *RankEvalQuery {
-	return s
 }

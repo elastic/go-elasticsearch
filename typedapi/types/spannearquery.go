@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SpanNearQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/span.ts#L77-L93
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/query_dsl/span.ts#L77-L93
 type SpanNearQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -136,14 +136,4 @@ func NewSpanNearQuery() *SpanNearQuery {
 	r := &SpanNearQuery{}
 
 	return r
-}
-
-// true
-
-type SpanNearQueryVariant interface {
-	SpanNearQueryCaster() *SpanNearQuery
-}
-
-func (s *SpanNearQuery) SpanNearQueryCaster() *SpanNearQuery {
-	return s
 }

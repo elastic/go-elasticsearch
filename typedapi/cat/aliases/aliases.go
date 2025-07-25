@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Get aliases.
 //
@@ -360,17 +360,6 @@ func (r *Aliases) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildca
 // API name: local
 func (r *Aliases) Local(local bool) *Aliases {
 	r.values.Set("local", strconv.FormatBool(local))
-
-	return r
-}
-
-// MasterTimeout The period to wait for a connection to the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// To indicated that the request should never timeout, you can set it to `-1`.
-// API name: master_timeout
-func (r *Aliases) MasterTimeout(duration string) *Aliases {
-	r.values.Set("master_timeout", duration)
 
 	return r
 }

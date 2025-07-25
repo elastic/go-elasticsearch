@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // QueryUser type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/security/query_user/types.ts#L103-L105
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/security/query_user/types.ts#L103-L105
 type QueryUser struct {
 	Email      *string      `json:"email,omitempty"`
 	Enabled    bool         `json:"enabled"`
@@ -125,5 +125,3 @@ func NewQueryUser() *QueryUser {
 
 	return r
 }
-
-// false

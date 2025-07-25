@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Create or update an IP geolocation database configuration.
 package putiplocationdatabase
@@ -384,54 +384,44 @@ func (r *PutIpLocationDatabase) Pretty(pretty bool) *PutIpLocationDatabase {
 }
 
 // API name: AdditionalDatabaseConfigurationProperty
-// AdditionalDatabaseConfigurationProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (r *PutIpLocationDatabase) AdditionalDatabaseConfigurationProperty(key string, value json.RawMessage) *PutIpLocationDatabase {
-	// Initialize the request if it is not already initialized
+func (r *PutIpLocationDatabase) AdditionalDatabaseConfigurationProperty(additionaldatabaseconfigurationproperty map[string]json.RawMessage) *PutIpLocationDatabase {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	tmp := make(map[string]json.RawMessage)
+	r.req.AdditionalDatabaseConfigurationProperty = additionaldatabaseconfigurationproperty
 
-	tmp[key] = value
-
-	r.req.AdditionalDatabaseConfigurationProperty = tmp
 	return r
 }
 
 // API name: ipinfo
-func (r *PutIpLocationDatabase) Ipinfo(ipinfo types.IpinfoVariant) *PutIpLocationDatabase {
-	// Initialize the request if it is not already initialized
+func (r *PutIpLocationDatabase) Ipinfo(ipinfo *types.Ipinfo) *PutIpLocationDatabase {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Ipinfo = ipinfo.IpinfoCaster()
+	r.req.Ipinfo = ipinfo
 
 	return r
 }
 
 // API name: maxmind
-func (r *PutIpLocationDatabase) Maxmind(maxmind types.MaxmindVariant) *PutIpLocationDatabase {
-	// Initialize the request if it is not already initialized
+func (r *PutIpLocationDatabase) Maxmind(maxmind *types.Maxmind) *PutIpLocationDatabase {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Maxmind = maxmind.MaxmindCaster()
+	r.req.Maxmind = maxmind
 
 	return r
 }
 
-// The provider-assigned name of the IP geolocation database to download.
+// Name The provider-assigned name of the IP geolocation database to download.
 // API name: name
 func (r *PutIpLocationDatabase) Name(name string) *PutIpLocationDatabase {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Name = name
 
 	return r

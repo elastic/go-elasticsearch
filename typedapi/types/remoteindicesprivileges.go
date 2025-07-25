@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // RemoteIndicesPrivileges type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/security/_types/Privileges.ts#L244-L276
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/security/_types/Privileges.ts#L244-L276
 type RemoteIndicesPrivileges struct {
 	// AllowRestrictedIndices Set to `true` if using wildcard or regular expressions for patterns that
 	// cover restricted indices. Implicitly, restricted indices have limited
@@ -173,14 +173,4 @@ func NewRemoteIndicesPrivileges() *RemoteIndicesPrivileges {
 	r := &RemoteIndicesPrivileges{}
 
 	return r
-}
-
-// true
-
-type RemoteIndicesPrivilegesVariant interface {
-	RemoteIndicesPrivilegesCaster() *RemoteIndicesPrivileges
-}
-
-func (s *RemoteIndicesPrivileges) RemoteIndicesPrivilegesCaster() *RemoteIndicesPrivileges {
-	return s
 }

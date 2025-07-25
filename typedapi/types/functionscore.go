@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FunctionScore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/compound.ts#L226-L266
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/query_dsl/compound.ts#L226-L266
 type FunctionScore struct {
 	AdditionalFunctionScoreProperty map[string]json.RawMessage `json:"-"`
 	// Exp Function that scores a document with a exponential decay, depending on the
@@ -207,14 +207,4 @@ func NewFunctionScore() *FunctionScore {
 	}
 
 	return r
-}
-
-// true
-
-type FunctionScoreVariant interface {
-	FunctionScoreCaster() *FunctionScore
-}
-
-func (s *FunctionScore) FunctionScoreCaster() *FunctionScore {
-	return s
 }

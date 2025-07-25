@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RollupJobSummaryField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/rollup/get_rollup_index_caps/types.ts#L35-L39
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/rollup/get_rollup_index_caps/types.ts#L35-L39
 type RollupJobSummaryField struct {
 	Agg              string   `json:"agg"`
 	CalendarInterval Duration `json:"calendar_interval,omitempty"`
@@ -86,5 +86,3 @@ func NewRollupJobSummaryField() *RollupJobSummaryField {
 
 	return r
 }
-
-// false

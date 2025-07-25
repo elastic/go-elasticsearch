@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Create or update a policy.
 // Create or update a snapshot lifecycle policy.
@@ -386,40 +386,36 @@ func (r *PutLifecycle) Pretty(pretty bool) *PutLifecycle {
 	return r
 }
 
-// Configuration for each snapshot created by the policy.
+// Config Configuration for each snapshot created by the policy.
 // API name: config
-func (r *PutLifecycle) Config(config types.ConfigurationVariant) *PutLifecycle {
-	// Initialize the request if it is not already initialized
+func (r *PutLifecycle) Config(config *types.Configuration) *PutLifecycle {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Config = config.ConfigurationCaster()
+	r.req.Config = config
 
 	return r
 }
 
-// Name automatically assigned to each snapshot created by the policy. Date math
+// Name Name automatically assigned to each snapshot created by the policy. Date math
 // is supported. To prevent conflicting snapshot names, a UUID is automatically
 // appended to each snapshot name.
 // API name: name
 func (r *PutLifecycle) Name(name string) *PutLifecycle {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Name = &name
 
 	return r
 }
 
-// Repository used to store snapshots created by this policy. This repository
+// Repository Repository used to store snapshots created by this policy. This repository
 // must exist prior to the policy’s creation. You can create a repository using
 // the snapshot repository API.
 // API name: repository
 func (r *PutLifecycle) Repository(repository string) *PutLifecycle {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -429,28 +425,25 @@ func (r *PutLifecycle) Repository(repository string) *PutLifecycle {
 	return r
 }
 
-// Retention rules used to retain and delete snapshots created by the policy.
+// Retention Retention rules used to retain and delete snapshots created by the policy.
 // API name: retention
-func (r *PutLifecycle) Retention(retention types.RetentionVariant) *PutLifecycle {
-	// Initialize the request if it is not already initialized
+func (r *PutLifecycle) Retention(retention *types.Retention) *PutLifecycle {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Retention = retention.RetentionCaster()
+	r.req.Retention = retention
 
 	return r
 }
 
-// Periodic or absolute schedule at which the policy creates snapshots. SLM
+// Schedule Periodic or absolute schedule at which the policy creates snapshots. SLM
 // applies schedule changes immediately.
 // API name: schedule
 func (r *PutLifecycle) Schedule(cronexpression string) *PutLifecycle {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Schedule = &cronexpression
 
 	return r

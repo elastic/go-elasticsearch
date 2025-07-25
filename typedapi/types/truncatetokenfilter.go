@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,8 +31,10 @@ import (
 
 // TruncateTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/token_filters.ts#L331-L334
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/token_filters.ts#L435-L439
 type TruncateTokenFilter struct {
+	// Length Character limit for each token. Tokens exceeding this limit are truncated.
+	// Defaults to `10`.
 	Length  *int    `json:"length,omitempty"`
 	Type    string  `json:"type,omitempty"`
 	Version *string `json:"version,omitempty"`
@@ -103,14 +105,4 @@ func NewTruncateTokenFilter() *TruncateTokenFilter {
 	r := &TruncateTokenFilter{}
 
 	return r
-}
-
-// true
-
-type TruncateTokenFilterVariant interface {
-	TruncateTokenFilterCaster() *TruncateTokenFilter
-}
-
-func (s *TruncateTokenFilter) TruncateTokenFilterCaster() *TruncateTokenFilter {
-	return s
 }

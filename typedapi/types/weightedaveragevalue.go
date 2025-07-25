@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // WeightedAverageValue type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/metric.ts#L465-L475
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/aggregations/metric.ts#L488-L498
 type WeightedAverageValue struct {
 	// Field The field from which to extract the values or weights.
 	Field *string `json:"field,omitempty"`
@@ -91,14 +91,4 @@ func NewWeightedAverageValue() *WeightedAverageValue {
 	r := &WeightedAverageValue{}
 
 	return r
-}
-
-// true
-
-type WeightedAverageValueVariant interface {
-	WeightedAverageValueCaster() *WeightedAverageValue
-}
-
-func (s *WeightedAverageValue) WeightedAverageValueCaster() *WeightedAverageValue {
-	return s
 }

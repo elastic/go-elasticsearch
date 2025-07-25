@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package fieldcaps
 
@@ -32,7 +32,7 @@ import (
 
 // Response holds the response body struct for the package fieldcaps
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/field_caps/FieldCapabilitiesResponse.ts#L24-L38
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/field_caps/FieldCapabilitiesResponse.ts#L24-L38
 type Response struct {
 	Fields map[string]map[string]types.FieldCapability `json:"fields"`
 	// Indices The list of indices where this field has the same type family, or null if all

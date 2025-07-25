@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ReindexSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/reindex/types.ts#L69-L110
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/reindex/types.ts#L69-L110
 type ReindexSource struct {
 	// Index The name of the data stream, index, or alias you are copying from.
 	// It accepts a comma-separated list to reindex from multiple sources.
@@ -174,14 +174,4 @@ func NewReindexSource() *ReindexSource {
 	r := &ReindexSource{}
 
 	return r
-}
-
-// true
-
-type ReindexSourceVariant interface {
-	ReindexSourceCaster() *ReindexSource
-}
-
-func (s *ReindexSource) ReindexSourceCaster() *ReindexSource {
-	return s
 }

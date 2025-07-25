@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Perform inference on the service.
 //
@@ -430,7 +430,7 @@ func (r *Inference) Pretty(pretty bool) *Inference {
 	return r
 }
 
-// The text on which you want to perform the inference task.
+// Input The text on which you want to perform the inference task.
 // It can be a single string or an array.
 //
 // > info
@@ -438,21 +438,45 @@ func (r *Inference) Pretty(pretty bool) *Inference {
 // single string as input.
 // API name: input
 func (r *Inference) Input(inputs ...string) *Inference {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	r.req.Input = make([]string, len(inputs))
 	r.req.Input = inputs
 
 	return r
 }
 
-// The query input, which is required only for the `rerank` task.
+// InputType Specifies the input data type for the text embedding model. The `input_type`
+// parameter only applies to Inference Endpoints with the `text_embedding` task
+// type. Possible values include:
+// * `SEARCH`
+// * `INGEST`
+// * `CLASSIFICATION`
+// * `CLUSTERING`
+// Not all services support all values. Unsupported values will trigger a
+// validation exception.
+// Accepted values depend on the configured inference service, refer to the
+// relevant service-specific documentation for more info.
+//
+// > info
+// > The `input_type` parameter specified on the root level of the request body
+// will take precedence over the `input_type` parameter specified in
+// `task_settings`.
+// API name: input_type
+func (r *Inference) InputType(inputtype string) *Inference {
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.InputType = &inputtype
+
+	return r
+}
+
+// Query The query input, which is required only for the `rerank` task.
 // It is not required for other tasks.
 // API name: query
 func (r *Inference) Query(query string) *Inference {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -462,16 +486,14 @@ func (r *Inference) Query(query string) *Inference {
 	return r
 }
 
-// Task settings for the individual inference request.
+// TaskSettings Task settings for the individual inference request.
 // These settings are specific to the task type you specified and override the
 // task settings specified when initializing the service.
 // API name: task_settings
 func (r *Inference) TaskSettings(tasksettings json.RawMessage) *Inference {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.TaskSettings = tasksettings
 
 	return r

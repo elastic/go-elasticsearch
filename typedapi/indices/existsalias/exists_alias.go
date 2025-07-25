@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Check aliases.
 //
@@ -297,7 +297,6 @@ func (r *ExistsAlias) AllowNoIndices(allownoindices bool) *ExistsAlias {
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
 // Supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *ExistsAlias) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ExistsAlias {
 	tmp := []string{}

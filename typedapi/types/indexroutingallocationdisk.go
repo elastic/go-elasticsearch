@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,9 +31,9 @@ import (
 
 // IndexRoutingAllocationDisk type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/_types/IndexRouting.ts#L62-L64
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/_types/IndexRouting.ts#L62-L64
 type IndexRoutingAllocationDisk struct {
-	ThresholdEnabled string `json:"threshold_enabled,omitempty"`
+	ThresholdEnabled *string `json:"threshold_enabled,omitempty"`
 }
 
 func (s *IndexRoutingAllocationDisk) UnmarshalJSON(data []byte) error {
@@ -61,7 +61,7 @@ func (s *IndexRoutingAllocationDisk) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.ThresholdEnabled = o
+			s.ThresholdEnabled = &o
 
 		}
 	}
@@ -73,14 +73,4 @@ func NewIndexRoutingAllocationDisk() *IndexRoutingAllocationDisk {
 	r := &IndexRoutingAllocationDisk{}
 
 	return r
-}
-
-// true
-
-type IndexRoutingAllocationDiskVariant interface {
-	IndexRoutingAllocationDiskCaster() *IndexRoutingAllocationDisk
-}
-
-func (s *IndexRoutingAllocationDisk) IndexRoutingAllocationDiskCaster() *IndexRoutingAllocationDisk {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // NoriAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/analyzers.ts#L303-L309
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/analyzers.ts#L303-L309
 type NoriAnalyzer struct {
 	DecompoundMode *noridecompoundmode.NoriDecompoundMode `json:"decompound_mode,omitempty"`
 	Stoptags       []string                               `json:"stoptags,omitempty"`
@@ -115,14 +115,4 @@ func NewNoriAnalyzer() *NoriAnalyzer {
 	r := &NoriAnalyzer{}
 
 	return r
-}
-
-// true
-
-type NoriAnalyzerVariant interface {
-	NoriAnalyzerCaster() *NoriAnalyzer
-}
-
-func (s *NoriAnalyzer) NoriAnalyzerCaster() *NoriAnalyzer {
-	return s
 }

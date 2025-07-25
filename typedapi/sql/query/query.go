@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Get SQL search results.
 // Run an SQL request.
@@ -346,26 +346,23 @@ func (r *Query) Pretty(pretty bool) *Query {
 	return r
 }
 
-// If `true`, the response has partial results when there are shard request
+// AllowPartialSearchResults If `true`, the response has partial results when there are shard request
 // timeouts or shard failures.
 // If `false`, the API returns an error with no partial results.
 // API name: allow_partial_search_results
 func (r *Query) AllowPartialSearchResults(allowpartialsearchresults bool) *Query {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.AllowPartialSearchResults = &allowpartialsearchresults
 
 	return r
 }
 
-// The default catalog (cluster) for queries.
+// Catalog The default catalog (cluster) for queries.
 // If unspecified, the queries execute on the data in the local cluster only.
 // API name: catalog
 func (r *Query) Catalog(catalog string) *Query {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -375,29 +372,26 @@ func (r *Query) Catalog(catalog string) *Query {
 	return r
 }
 
-// If `true`, the results are in a columnar fashion: one row represents all the
+// Columnar If `true`, the results are in a columnar fashion: one row represents all the
 // values of a certain column from the current page of results.
 // The API supports this parameter only for CBOR, JSON, SMILE, and YAML
 // responses.
 // API name: columnar
 func (r *Query) Columnar(columnar bool) *Query {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Columnar = &columnar
 
 	return r
 }
 
-// The cursor used to retrieve a set of paginated results.
+// Cursor The cursor used to retrieve a set of paginated results.
 // If you specify a cursor, the API only uses the `columnar` and `time_zone`
 // request body parameters.
 // It ignores other request body parameters.
 // API name: cursor
 func (r *Query) Cursor(cursor string) *Query {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -407,141 +401,109 @@ func (r *Query) Cursor(cursor string) *Query {
 	return r
 }
 
-// The maximum number of rows (or entries) to return in one response.
+// FetchSize The maximum number of rows (or entries) to return in one response.
 // API name: fetch_size
 func (r *Query) FetchSize(fetchsize int) *Query {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.FetchSize = &fetchsize
 
 	return r
 }
 
-// If `false`, the API returns an exception when encountering multiple values
+// FieldMultiValueLeniency If `false`, the API returns an exception when encountering multiple values
 // for a field.
 // If `true`, the API is lenient and returns the first value from the array with
 // no guarantee of consistent results.
 // API name: field_multi_value_leniency
 func (r *Query) FieldMultiValueLeniency(fieldmultivalueleniency bool) *Query {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.FieldMultiValueLeniency = &fieldmultivalueleniency
 
 	return r
 }
 
-// The Elasticsearch query DSL for additional filtering.
+// Filter The Elasticsearch query DSL for additional filtering.
 // API name: filter
-func (r *Query) Filter(filter types.QueryVariant) *Query {
-	// Initialize the request if it is not already initialized
+func (r *Query) Filter(filter *types.Query) *Query {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Filter = filter.QueryCaster()
+	r.req.Filter = filter
 
 	return r
 }
 
-// If `true`, the search can run on frozen indices.
+// IndexUsingFrozen If `true`, the search can run on frozen indices.
 // API name: index_using_frozen
 func (r *Query) IndexUsingFrozen(indexusingfrozen bool) *Query {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.IndexUsingFrozen = &indexusingfrozen
 
 	return r
 }
 
-// The retention period for an async or saved synchronous search.
+// KeepAlive The retention period for an async or saved synchronous search.
 // API name: keep_alive
-func (r *Query) KeepAlive(duration types.DurationVariant) *Query {
-	// Initialize the request if it is not already initialized
+func (r *Query) KeepAlive(duration types.Duration) *Query {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.KeepAlive = *duration.DurationCaster()
+	r.req.KeepAlive = duration
 
 	return r
 }
 
-// If `true`, Elasticsearch stores synchronous searches if you also specify the
+// KeepOnCompletion If `true`, Elasticsearch stores synchronous searches if you also specify the
 // `wait_for_completion_timeout` parameter.
 // If `false`, Elasticsearch only stores async searches that don't finish before
 // the `wait_for_completion_timeout`.
 // API name: keep_on_completion
 func (r *Query) KeepOnCompletion(keeponcompletion bool) *Query {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.KeepOnCompletion = &keeponcompletion
 
 	return r
 }
 
-// The minimum retention period for the scroll cursor.
+// PageTimeout The minimum retention period for the scroll cursor.
 // After this time period, a pagination request might fail because the scroll
 // cursor is no longer available.
 // Subsequent scroll requests prolong the lifetime of the scroll cursor by the
 // duration of `page_timeout` in the scroll request.
 // API name: page_timeout
-func (r *Query) PageTimeout(duration types.DurationVariant) *Query {
-	// Initialize the request if it is not already initialized
+func (r *Query) PageTimeout(duration types.Duration) *Query {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.PageTimeout = *duration.DurationCaster()
+	r.req.PageTimeout = duration
 
 	return r
 }
 
-// The values for parameters in the query.
+// Params The values for parameters in the query.
 // API name: params
 func (r *Query) Params(params map[string]json.RawMessage) *Query {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.Params = params
+
 	return r
 }
 
-func (r *Query) AddParam(key string, value json.RawMessage) *Query {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Params == nil {
-		r.req.Params = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Params
-	}
-
-	tmp[key] = value
-
-	r.req.Params = tmp
-	return r
-}
-
-// The SQL query to run.
+// Query The SQL query to run.
 // API name: query
 func (r *Query) Query(query string) *Query {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -551,47 +513,41 @@ func (r *Query) Query(query string) *Query {
 	return r
 }
 
-// The timeout before the request fails.
+// RequestTimeout The timeout before the request fails.
 // API name: request_timeout
-func (r *Query) RequestTimeout(duration types.DurationVariant) *Query {
-	// Initialize the request if it is not already initialized
+func (r *Query) RequestTimeout(duration types.Duration) *Query {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.RequestTimeout = *duration.DurationCaster()
+	r.req.RequestTimeout = duration
 
 	return r
 }
 
-// One or more runtime fields for the search request.
+// RuntimeMappings One or more runtime fields for the search request.
 // These fields take precedence over mapped fields with the same name.
 // API name: runtime_mappings
-func (r *Query) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *Query {
-	// Initialize the request if it is not already initialized
+func (r *Query) RuntimeMappings(runtimefields types.RuntimeFields) *Query {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
+	r.req.RuntimeMappings = runtimefields
 
 	return r
 }
 
-// The ISO-8601 time zone ID for the search.
+// TimeZone The ISO-8601 time zone ID for the search.
 // API name: time_zone
 func (r *Query) TimeZone(timezone string) *Query {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.TimeZone = &timezone
 
 	return r
 }
 
-// The period to wait for complete results.
+// WaitForCompletionTimeout The period to wait for complete results.
 // It defaults to no timeout, meaning the request waits for complete search
 // results.
 // If the search doesn't finish within this period, the search becomes async.
@@ -599,13 +555,11 @@ func (r *Query) TimeZone(timezone string) *Query {
 // To save a synchronous search, you must specify this parameter and the
 // `keep_on_completion` parameter.
 // API name: wait_for_completion_timeout
-func (r *Query) WaitForCompletionTimeout(duration types.DurationVariant) *Query {
-	// Initialize the request if it is not already initialized
+func (r *Query) WaitForCompletionTimeout(duration types.Duration) *Query {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.WaitForCompletionTimeout = *duration.DurationCaster()
+	r.req.WaitForCompletionTimeout = duration
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package getoverallbuckets
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package getoverallbuckets
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L153
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L153
 type Request struct {
 
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
@@ -45,7 +45,7 @@ type Request struct {
 	// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
 	ExcludeInterim *bool `json:"exclude_interim,omitempty"`
 	// OverallScore Refer to the description for the `overall_score` query parameter.
-	OverallScore string `json:"overall_score,omitempty"`
+	OverallScore *string `json:"overall_score,omitempty"`
 	// Start Refer to the description for the `start` query parameter.
 	Start types.DateTime `json:"start,omitempty"`
 	// TopN Refer to the description for the `top_n` query parameter.
@@ -133,7 +133,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.OverallScore = o
+			s.OverallScore = &o
 
 		case "start":
 			if err := dec.Decode(&s.Start); err != nil {

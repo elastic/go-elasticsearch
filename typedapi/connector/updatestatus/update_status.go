@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Update the connector status.
 package updatestatus
@@ -360,10 +360,10 @@ func (r *UpdateStatus) Pretty(pretty bool) *UpdateStatus {
 
 // API name: status
 func (r *UpdateStatus) Status(status connectorstatus.ConnectorStatus) *UpdateStatus {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 	r.req.Status = status
+
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CompletionSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/search/_types/suggester.ts#L163-L181
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/search/_types/suggester.ts#L163-L181
 type CompletionSuggester struct {
 	// Analyzer The analyzer to analyze the suggest text with.
 	// Defaults to the search analyzer of the suggest field.
@@ -162,14 +162,4 @@ func NewCompletionSuggester() *CompletionSuggester {
 	}
 
 	return r
-}
-
-// true
-
-type CompletionSuggesterVariant interface {
-	CompletionSuggesterCaster() *CompletionSuggester
-}
-
-func (s *CompletionSuggester) CompletionSuggesterCaster() *CompletionSuggester {
-	return s
 }

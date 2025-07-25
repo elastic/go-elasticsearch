@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AdaptiveSelection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/nodes/_types/Stats.ts#L439-L468
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/nodes/_types/Stats.ts#L441-L470
 type AdaptiveSelection struct {
 	// AvgQueueSize The exponentially weighted moving average queue size of search requests on
 	// the keyed node.
@@ -163,5 +163,3 @@ func NewAdaptiveSelection() *AdaptiveSelection {
 
 	return r
 }
-
-// false

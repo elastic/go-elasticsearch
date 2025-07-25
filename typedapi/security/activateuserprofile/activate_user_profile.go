@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Activate a user profile.
 //
@@ -383,14 +383,13 @@ func (r *ActivateUserProfile) Pretty(pretty bool) *ActivateUserProfile {
 	return r
 }
 
-// The user's Elasticsearch access token or JWT.
+// AccessToken The user's Elasticsearch access token or JWT.
 // Both `access` and `id` JWT token types are supported and they depend on the
 // underlying JWT realm configuration.
 // If you specify the `access_token` grant type, this parameter is required.
 // It is not valid with other grant types.
 // API name: access_token
 func (r *ActivateUserProfile) AccessToken(accesstoken string) *ActivateUserProfile {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -400,23 +399,22 @@ func (r *ActivateUserProfile) AccessToken(accesstoken string) *ActivateUserProfi
 	return r
 }
 
-// The type of grant.
+// GrantType The type of grant.
 // API name: grant_type
 func (r *ActivateUserProfile) GrantType(granttype granttype.GrantType) *ActivateUserProfile {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 	r.req.GrantType = granttype
+
 	return r
 }
 
-// The user's password.
+// Password The user's password.
 // If you specify the `password` grant type, this parameter is required.
 // It is not valid with other grant types.
 // API name: password
 func (r *ActivateUserProfile) Password(password string) *ActivateUserProfile {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -426,12 +424,11 @@ func (r *ActivateUserProfile) Password(password string) *ActivateUserProfile {
 	return r
 }
 
-// The username that identifies the user.
+// Username The username that identifies the user.
 // If you specify the `password` grant type, this parameter is required.
 // It is not valid with other grant types.
 // API name: username
 func (r *ActivateUserProfile) Username(username string) *ActivateUserProfile {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

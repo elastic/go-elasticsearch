@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // DataframeEvaluationContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/DataframeEvaluation.ts#L25-L33
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/_types/DataframeEvaluation.ts#L25-L33
 type DataframeEvaluationContainer struct {
 	AdditionalDataframeEvaluationContainerProperty map[string]json.RawMessage `json:"-"`
 	// Classification Classification evaluation evaluates the results of a classification analysis
@@ -78,14 +78,4 @@ func NewDataframeEvaluationContainer() *DataframeEvaluationContainer {
 	}
 
 	return r
-}
-
-// true
-
-type DataframeEvaluationContainerVariant interface {
-	DataframeEvaluationContainerCaster() *DataframeEvaluationContainer
-}
-
-func (s *DataframeEvaluationContainer) DataframeEvaluationContainerCaster() *DataframeEvaluationContainer {
-	return s
 }

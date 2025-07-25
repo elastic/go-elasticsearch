@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Migrate to data tiers routing.
 // Switch the indices, ILM policies, and legacy, composable, and component
@@ -385,7 +385,6 @@ func (r *MigrateToDataTiers) Pretty(pretty bool) *MigrateToDataTiers {
 
 // API name: legacy_template_to_delete
 func (r *MigrateToDataTiers) LegacyTemplateToDelete(legacytemplatetodelete string) *MigrateToDataTiers {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -397,7 +396,6 @@ func (r *MigrateToDataTiers) LegacyTemplateToDelete(legacytemplatetodelete strin
 
 // API name: node_attribute
 func (r *MigrateToDataTiers) NodeAttribute(nodeattribute string) *MigrateToDataTiers {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

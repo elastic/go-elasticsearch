@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package putwatsonx
 
@@ -24,12 +24,12 @@ import (
 	"encoding/json"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tasktype"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tasktypewatsonx"
 )
 
 // Response holds the response body struct for the package putwatsonx
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/put_watsonx/PutWatsonxResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/inference/put_watsonx/PutWatsonxResponse.ts#L22-L24
 type Response struct {
 
 	// ChunkingSettings Chunking configuration object
@@ -43,7 +43,7 @@ type Response struct {
 	// TaskSettings Task settings specific to the service and task type
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 	// TaskType The task type
-	TaskType tasktype.TaskType `json:"task_type"`
+	TaskType tasktypewatsonx.TaskTypeWatsonx `json:"task_type"`
 }
 
 // NewResponse returns a Response

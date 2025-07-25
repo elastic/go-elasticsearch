@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IntervalsPrefix type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/fulltext.ts#L218-L233
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/query_dsl/fulltext.ts#L220-L235
 type IntervalsPrefix struct {
 	// Analyzer Analyzer used to analyze the `prefix`.
 	Analyzer *string `json:"analyzer,omitempty"`
@@ -98,14 +98,4 @@ func NewIntervalsPrefix() *IntervalsPrefix {
 	r := &IntervalsPrefix{}
 
 	return r
-}
-
-// true
-
-type IntervalsPrefixVariant interface {
-	IntervalsPrefixCaster() *IntervalsPrefix
-}
-
-func (s *IntervalsPrefix) IntervalsPrefixCaster() *IntervalsPrefix {
-	return s
 }

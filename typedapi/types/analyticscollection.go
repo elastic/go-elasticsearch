@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 package types
 
 // AnalyticsCollection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/search_application/_types/BehavioralAnalytics.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/search_application/_types/BehavioralAnalytics.ts#L22-L27
 type AnalyticsCollection struct {
 	// EventDataStream Data stream for the collection.
 	EventDataStream EventDataStream `json:"event_data_stream"`
@@ -34,5 +34,3 @@ func NewAnalyticsCollection() *AnalyticsCollection {
 
 	return r
 }
-
-// false

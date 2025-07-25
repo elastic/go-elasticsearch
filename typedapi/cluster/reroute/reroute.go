@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
 
 // Reroute the cluster.
 // Manually change the allocation of individual shards in the cluster.
@@ -446,17 +446,13 @@ func (r *Reroute) Pretty(pretty bool) *Reroute {
 	return r
 }
 
-// Defines the commands to perform.
+// Commands Defines the commands to perform.
 // API name: commands
-func (r *Reroute) Commands(commands ...types.CommandVariant) *Reroute {
-	// Initialize the request if it is not already initialized
+func (r *Reroute) Commands(commands ...types.Command) *Reroute {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range commands {
+	r.req.Commands = commands
 
-		r.req.Commands = append(r.req.Commands, *v.CommandCaster())
-
-	}
 	return r
 }
