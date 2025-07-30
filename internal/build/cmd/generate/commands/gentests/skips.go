@@ -52,6 +52,7 @@ var skipFiles = []string{
 	"indices.stats/50_disk_usage.yml",   // Needs a replacement mechanism implementation
 	"indices.stats/60_field_usage.yml",  // Needs a replacement mechanism implementation
 	"indices.stats/100_search_idle.yml", // incompatible maps of array
+	"indices.stats/80_search_load.yml",
 	"eql/10_basic.yml",
 	"field_caps/50_fieldtype_filter.yml", // Incompatible test, need handling for double escaping keys with dots
 	"aggregations/variable_width_histogram.yml",
@@ -68,6 +69,7 @@ var skipFiles = []string{
 	"deprecation/10_basic.yml",    // incompatible test generation
 	"search/520_fetch_fields.yml", // disabled for inconsistency
 	"search.vectors/90_sparse_vector.yml",
+	"search.vectors/220_dense_vector_node_index_stats.yml",
 	"indices.create/21_synthetic_source_stored.yml",
 	"indices.create/20_synthetic_source.yml",
 	"indices.recovery/20_synthetic_source.yml",
@@ -76,6 +78,10 @@ var skipFiles = []string{
 	"search/600_flattened_ignore_above.yml",
 	"search/540_ignore_above_synthetic_source.yml",
 	"update/100_synthetic_source.yml",
+	"tsdb/160_nested_fields.yml",
+	"tsdb/90_unsupported_operations.yml",
+	".*inference/.*.yml", // incompatible inference tests
+	".*mustache/.*.yml",  // incompatible mustache tests
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -427,6 +433,10 @@ data_stream/10_basic.yml:
   - Create data stream
   - Create data stream with invalid name
   - append-only writes to backing indices prohibited
+  - Create data stream with failure store
+  - Get data stream api check existence of replicated field
+  - Get data stream api check existence of allow_custom_routing field
+  - Create data stream with match all template
 
 # The matcher like 'indices.0.aliases.0' points to internal index
 data_stream/80_resolve_index_data_streams.yml:
@@ -452,6 +462,15 @@ data_stream/90_reindex.yml:
 # Needs further implementation of .key access to map variables
 data_streams/10_data_stream_resolvability.yml:
   - Verify data stream resolvability in ILM remove policy API
+
+data_stream/230_data_stream_options.yml:
+  - Test partially resetting failure store options in template composition
+
+data_stream/240_data_stream_settings.yml:
+  - Test single data stream
+  - Test dry run
+  - Test null out settings
+  - Test null out settings component templates only
 
 # Error: constant 9223372036854775808 overflows int (https://play.golang.org/p/7pUdz-_Pdom)
 unsigned_long/10_basic.yml:
@@ -559,6 +578,9 @@ search/140_pre_filter_search_shards.yml:
 health/10_usage.yml:
   - Usage stats on the health API
 
+health/40_diagnosis.yml:
+  - Diagnosis
+
 esql/10_basic.yml:
   - Test Mixed Input Params
 
@@ -626,4 +648,18 @@ search.suggest/20_phrase.yml:
 
 migrate/30_create_from.yml:
   - Test create_from with remove_index_blocks default of true
+
+#unsupported vector searches
+search.vectors/41_knn_search_bbq_hnsw.yml:
+  - Test index configured rescore vector updateable and settable to 0
+search.vectors/41_knn_search_byte_quantized.yml:
+  - Test index configured rescore vector updateable and settable to 0
+search.vectors/46_knn_search_bbq_ivf.yml:
+  - Test index configured rescore vector updateable and settable to 0
+search.vectors/41_knn_search_half_byte_quantized.yml:
+  - Test index configured rescore vector updateable and settable to 0
+
+tsdb/25_id_generation.yml:
+  - delete over _bulk
+
 `
