@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package closejob
 
 // Response holds the response body struct for the package closejob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/ml/close_job/MlCloseJobResponse.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/ml/close_job/MlCloseJobResponse.ts#L20-L22
 type Response struct {
 	Closed bool `json:"closed"`
 }

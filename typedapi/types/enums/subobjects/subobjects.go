@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 // Package subobjects
 package subobjects
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/mapping/TypeMapping.ts#L63-L74
+// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/_types/mapping/TypeMapping.ts#L63-L74
 type Subobjects struct {
 	Name string
 }

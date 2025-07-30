@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MinHashTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/_types/analysis/token_filters.ts#L514-L525
+// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/_types/analysis/token_filters.ts#L514-L525
 type MinHashTokenFilter struct {
 	// BucketCount Number of buckets to which hashes are assigned. Defaults to `512`.
 	BucketCount *int `json:"bucket_count,omitempty"`

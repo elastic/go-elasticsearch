@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // UserProfileHitMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/security/_types/UserProfile.ts#L27-L30
+// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/security/_types/UserProfile.ts#L27-L30
 type UserProfileHitMetadata struct {
 	PrimaryTerm_ int64 `json:"_primary_term"`
 	SeqNo_       int64 `json:"_seq_no"`

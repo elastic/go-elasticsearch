@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package esdsl
 
@@ -26,7 +26,8 @@ type _spanFirstQuery struct {
 	v *types.SpanFirstQuery
 }
 
-// Matches spans near the beginning of a field.
+// Accepts another span query whose matches must appear within the first N
+// positions of the field.
 func NewSpanFirstQuery(end int, match types.SpanQueryVariant) *_spanFirstQuery {
 
 	tmp := &_spanFirstQuery{v: types.NewSpanFirstQuery()}

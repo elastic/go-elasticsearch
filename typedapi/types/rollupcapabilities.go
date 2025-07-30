@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package types
 
 // RollupCapabilities type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/rollup/get_rollup_caps/types.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/rollup/get_rollup_caps/types.ts#L24-L29
 type RollupCapabilities struct {
 	// RollupJobs There can be multiple, independent jobs configured for a single index or
 	// index pattern. Each of these jobs may have different configurations, so the

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package types
 
 // DataStreamLifecycleDownsampling type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/indices/_types/DataStreamLifecycleDownsampling.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/indices/_types/DataStreamLifecycleDownsampling.ts#L22-L27
 type DataStreamLifecycleDownsampling struct {
 	// Rounds The list of downsampling rounds to execute as part of this downsampling
 	// configuration

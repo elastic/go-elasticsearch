@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package bulkupdateapikeys
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package bulkupdateapikeys
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/security/bulk_update_api_keys/SecurityBulkUpdateApiKeysResponse.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/security/bulk_update_api_keys/SecurityBulkUpdateApiKeysResponse.ts#L22-L28
 type Response struct {
 	Errors  *types.BulkError `json:"errors,omitempty"`
 	Noops   []string         `json:"noops"`

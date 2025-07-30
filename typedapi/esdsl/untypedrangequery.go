@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package esdsl
 
@@ -32,7 +32,7 @@ type _untypedRangeQuery struct {
 	v *types.UntypedRangeQuery
 }
 
-// Returns documents that contain terms within a provided range.
+// Returns users that contain terms within a provided range.
 func NewUntypedRangeQuery(key string) *_untypedRangeQuery {
 	return &_untypedRangeQuery{
 		k: key,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package updateservicetype
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package updateservicetype
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/connector/update_service_type/ConnectorUpdateServiceTypeRequest.ts#L22-L48
+// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/connector/update_service_type/ConnectorUpdateServiceTypeRequest.ts#L22-L48
 type Request struct {
 	ServiceType string `json:"service_type"`
 }

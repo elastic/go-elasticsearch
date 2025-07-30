@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package syncjobget
 
@@ -36,7 +36,7 @@ import (
 
 // Response holds the response body struct for the package syncjobget
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/connector/sync_job_get/SyncJobGetResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/connector/sync_job_get/SyncJobGetResponse.ts#L22-L25
 type Response struct {
 	CancelationRequestedAt types.DateTime                            `json:"cancelation_requested_at,omitempty"`
 	CanceledAt             types.DateTime                            `json:"canceled_at,omitempty"`

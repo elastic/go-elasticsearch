@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package invalidateapikey
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package invalidateapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/security/invalidate_api_key/SecurityInvalidateApiKeyRequest.ts#L23-L82
+// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/security/invalidate_api_key/SecurityInvalidateApiKeyRequest.ts#L23-L82
 type Request struct {
 	Id *string `json:"id,omitempty"`
 	// Ids A list of API key ids.

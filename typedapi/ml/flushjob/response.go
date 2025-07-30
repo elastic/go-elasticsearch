@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package flushjob
 
 // Response holds the response body struct for the package flushjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/ml/flush_job/MlFlushJobResponse.ts#L22-L31
+// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/ml/flush_job/MlFlushJobResponse.ts#L22-L31
 type Response struct {
 	Flushed bool `json:"flushed"`
 	// LastFinalizedBucketEnd Provides the timestamp (in milliseconds since the epoch) of the end of

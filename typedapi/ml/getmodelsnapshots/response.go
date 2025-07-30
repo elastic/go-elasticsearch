@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f
+// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
 
 package getmodelsnapshots
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getmodelsnapshots
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cf6914e80d9c586e872b7d5e9e74ca34905dcf5f/specification/ml/get_model_snapshots/MlGetModelSnapshotsResponse.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/ml/get_model_snapshots/MlGetModelSnapshotsResponse.ts#L23-L28
 type Response struct {
 	Count          int64                 `json:"count"`
 	ModelSnapshots []types.ModelSnapshot `json:"model_snapshots"`
