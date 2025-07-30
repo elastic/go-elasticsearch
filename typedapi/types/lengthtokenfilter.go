@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LengthTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/token_filters.ts#L328-L334
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/_types/analysis/token_filters.ts#L328-L334
 type LengthTokenFilter struct {
 	// Max Maximum character length of a token. Longer tokens are excluded from the
 	// output. Defaults to `Integer.MAX_VALUE`, which is `2^31-1` or `2147483647`.

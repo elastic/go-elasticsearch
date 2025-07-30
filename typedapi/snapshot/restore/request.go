@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package restore
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package restore
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L78
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L78
 type Request struct {
 	FeatureStates       []string             `json:"feature_states,omitempty"`
 	IgnoreIndexSettings []string             `json:"ignore_index_settings,omitempty"`

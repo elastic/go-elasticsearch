@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 // Create an inference endpoint.
 //
@@ -35,6 +35,8 @@
 // * AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
 // `text_embedding`)
 // * Amazon Bedrock (`completion`, `text_embedding`)
+// * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
+// `sparse_embedding`, `text_embedding`)
 // * Anthropic (`completion`)
 // * Azure AI Studio (`completion`, `text_embedding`)
 // * Azure OpenAI (`completion`, `text_embedding`)
@@ -133,6 +135,8 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 // * AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
 // `text_embedding`)
 // * Amazon Bedrock (`completion`, `text_embedding`)
+// * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
+// `sparse_embedding`, `text_embedding`)
 // * Anthropic (`completion`)
 // * Azure AI Studio (`completion`, `text_embedding`)
 // * Azure OpenAI (`completion`, `text_embedding`)

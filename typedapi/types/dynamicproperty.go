@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
@@ -38,7 +38,7 @@ import (
 
 // DynamicProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/mapping/core.ts#L360-L391
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/_types/mapping/core.ts#L360-L391
 type DynamicProperty struct {
 	Analyzer            *string                        `json:"analyzer,omitempty"`
 	Boost               *Float64                       `json:"boost,omitempty"`

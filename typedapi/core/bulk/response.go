@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package bulk
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package bulk
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/bulk/BulkResponse.ts#L24-L45
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/_global/bulk/BulkResponse.ts#L24-L45
 type Response struct {
 
 	// Errors If `true`, one or more of the operations in the bulk request did not complete

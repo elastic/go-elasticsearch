@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package putdatafeed
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package putdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/put_datafeed/MlPutDatafeedResponse.ts#L31-L49
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/ml/put_datafeed/MlPutDatafeedResponse.ts#L31-L49
 type Response struct {
 	Aggregations           map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Authorization          *types.DatafeedAuthorization  `json:"authorization,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ElasticsearchVersionInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/Base.ts#L76-L115
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/_types/Base.ts#L76-L118
 type ElasticsearchVersionInfo struct {
 	// BuildDate The Elasticsearch Git commit's date.
 	BuildDate DateTime `json:"build_date"`
@@ -45,6 +45,13 @@ type ElasticsearchVersionInfo struct {
 	// For example, `docker`, `rpm`, or `tar`.
 	BuildType string `json:"build_type"`
 	// Int The Elasticsearch version number.
+	//
+	// ::: IMPORTANT: For Serverless deployments, this static value is always
+	// `8.11.0` and is used solely for backward compatibility with legacy clients.
+	//
+	//	Serverless environments are versionless and automatically upgraded, so this
+	//
+	// value can be safely ignored.
 	Int string `json:"number"`
 	// LuceneVersion The version number of Elasticsearch's underlying Lucene software.
 	LuceneVersion string `json:"lucene_version"`

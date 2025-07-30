@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IlmPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ilm/_types/Policy.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/ilm/_types/Policy.ts#L23-L29
 type IlmPolicy struct {
 	// Meta_ Arbitrary metadata that is not automatically generated or used by
 	// Elasticsearch.

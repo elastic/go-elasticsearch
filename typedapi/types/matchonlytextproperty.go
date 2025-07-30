@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // MatchOnlyTextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/mapping/core.ts#L289-L314
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/_types/mapping/core.ts#L289-L314
 type MatchOnlyTextProperty struct {
 	// CopyTo Allows you to copy the values of multiple fields into a group
 	// field, which can then be queried as a single field.

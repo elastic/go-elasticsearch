@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
 // ReloadResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/reload_search_analyzers/types.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/indices/reload_search_analyzers/types.ts#L22-L25
 type ReloadResult struct {
 	ReloadDetails []ReloadDetails `json:"reload_details"`
 	Shards_       ShardStatistics `json:"_shards"`

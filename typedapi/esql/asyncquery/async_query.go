@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 // Run an async ES|QL query.
 // Asynchronously run an ES|QL (Elasticsearch query language) query, monitor its
@@ -334,7 +334,16 @@ func (r *AsyncQuery) DropNullColumns(dropnullcolumns bool) *AsyncQuery {
 	return r
 }
 
-// Format A short version of the Accept header, for example `json` or `yaml`.
+// Format A short version of the Accept header, e.g. json, yaml.
+//
+// `csv`, `tsv`, and `txt` formats will return results in a tabular format,
+// excluding other metadata fields from the response.
+//
+// For async requests, nothing will be returned if the async query doesn't
+// finish within the timeout.
+// The query ID and running status are available in the
+// `X-Elasticsearch-Async-Id` and `X-Elasticsearch-Async-Is-Running` HTTP
+// headers of the response, respectively.
 // API name: format
 func (r *AsyncQuery) Format(format esqlformat.EsqlFormat) *AsyncQuery {
 	r.values.Set("format", format.String())

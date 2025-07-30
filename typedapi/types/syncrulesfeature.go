@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
 // SyncRulesFeature type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/connector/_types/Connector.ts#L219-L228
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/connector/_types/Connector.ts#L219-L228
 type SyncRulesFeature struct {
 	// Advanced Indicates whether advanced sync rules are enabled.
 	Advanced *FeatureEnabled `json:"advanced,omitempty"`

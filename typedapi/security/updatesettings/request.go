@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package updatesettings
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package updatesettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/security/update_settings/SecurityUpdateSettingsRequest.ts#L24-L71
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/security/update_settings/SecurityUpdateSettingsRequest.ts#L24-L71
 type Request struct {
 
 	// Security Settings for the index used for most security configuration, including native

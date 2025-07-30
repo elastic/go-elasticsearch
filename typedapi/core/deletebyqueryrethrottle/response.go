@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package deletebyqueryrethrottle
 
@@ -32,7 +32,7 @@ import (
 
 // Response holds the response body struct for the package deletebyqueryrethrottle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_global/delete_by_query_rethrottle/DeleteByQueryRethrottleResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/_global/delete_by_query_rethrottle/DeleteByQueryRethrottleResponse.ts#L22-L24
 type Response struct {
 	NodeFailures []types.ErrorCause `json:"node_failures,omitempty"`
 	// Nodes Task information grouped by node, if `group_by` was set to `node` (the

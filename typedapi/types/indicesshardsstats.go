@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
 // IndicesShardsStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L52-L55
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L52-L55
 type IndicesShardsStats struct {
 	AllFields FieldSummary            `json:"all_fields"`
 	Fields    map[string]FieldSummary `json:"fields"`

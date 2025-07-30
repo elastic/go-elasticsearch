@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package putpolicy
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putpolicy
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/enrich/put_policy/PutEnrichPolicyRequest.ts#L25-L67
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/enrich/put_policy/PutEnrichPolicyRequest.ts#L25-L67
 type Request struct {
 
 	// GeoMatch Matches enrich data to incoming documents based on a `geo_shape` query.

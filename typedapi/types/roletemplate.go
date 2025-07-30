@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // RoleTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/security/_types/RoleTemplate.ts#L28-L31
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/security/_types/RoleTemplate.ts#L28-L31
 type RoleTemplate struct {
 	Format   *templateformat.TemplateFormat `json:"format,omitempty"`
 	Template Script                         `json:"template"`

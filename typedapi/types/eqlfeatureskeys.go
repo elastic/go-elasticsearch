@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
 // EqlFeaturesKeys type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/xpack/usage/types.ts#L114-L120
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/xpack/usage/types.ts#L114-L120
 type EqlFeaturesKeys struct {
 	JoinKeysFiveOrMore uint `json:"join_keys_five_or_more"`
 	JoinKeysFour       uint `json:"join_keys_four"`

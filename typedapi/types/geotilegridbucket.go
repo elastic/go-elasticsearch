@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // GeoTileGridBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/aggregations/Aggregate.ts#L581-L583
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/_types/aggregations/Aggregate.ts#L581-L583
 type GeoTileGridBucket struct {
 	Aggregations map[string]Aggregate `json:"-"`
 	DocCount     int64                `json:"doc_count"`

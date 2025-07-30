@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // AutoFollowedCluster type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ccr/stats/types.ts.ts#L26-L30
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/ccr/stats/types.ts.ts#L26-L30
 type AutoFollowedCluster struct {
 	ClusterName              string `json:"cluster_name"`
 	LastSeenMetadataVersion  int64  `json:"last_seen_metadata_version"`

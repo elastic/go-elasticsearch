@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SynonymTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/_types/analysis/token_filters.ts#L167-L169
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/_types/analysis/token_filters.ts#L167-L169
 type SynonymTokenFilter struct {
 	// Expand Expands definitions for equivalent synonym rules. Defaults to `true`.
 	Expand *bool `json:"expand,omitempty"`

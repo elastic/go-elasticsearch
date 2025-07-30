@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // InferenceConfigUpdateContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/ml/_types/inference.ts#L315-L337
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/ml/_types/inference.ts#L315-L337
 type InferenceConfigUpdateContainer struct {
 	AdditionalInferenceConfigUpdateContainerProperty map[string]json.RawMessage `json:"-"`
 	// Classification Classification configuration for inference.

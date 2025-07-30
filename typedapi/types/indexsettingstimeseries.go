@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/3615b07bede21396dda71e3ec1a74bde012985ef
+// https://github.com/elastic/elasticsearch-specification/tree/5864934aedb06d4311107d300644ac8a17e1b516
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IndexSettingsTimeSeries type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/3615b07bede21396dda71e3ec1a74bde012985ef/specification/indices/_types/IndexSettings.ts#L341-L344
+// https://github.com/elastic/elasticsearch-specification/blob/5864934aedb06d4311107d300644ac8a17e1b516/specification/indices/_types/IndexSettings.ts#L341-L344
 type IndexSettingsTimeSeries struct {
 	EndTime   DateTime `json:"end_time,omitempty"`
 	StartTime DateTime `json:"start_time,omitempty"`
