@@ -365,6 +365,18 @@ func (s Steps) ContainsStash(keys ...string) bool {
 	return false
 }
 
+// ContainsCallToEndpoint returns true when the set of steps contains a call to an endpoint.
+func (s Steps) ContainsCallToEndpoint(endpoint string) bool {
+	for _, step := range s {
+		if a, ok := step.(Action); ok {
+			if a.Method() == utils.NameToGo(endpoint) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 // Method returns the API method name for the action.
 func (a Action) Method() string {
 	return utils.NameToGo(a.method)

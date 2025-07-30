@@ -902,6 +902,15 @@ func (g *Generator) genSteps(t Test) {
 	if !t.Steps.ContainsAssertion() && !t.Steps.ContainsCatch() && !t.Steps.ContainsStash() {
 		skipBody = true
 	}
+
+	if t.Steps.ContainsCallToEndpoint("knn_search") {
+		t.Skip = true
+		t.SkipInfo = "knn_search is not supported anymore"
+		g.w("\t// Skipping test because knn_search is not supported anymore\n")
+		g.w("\tt.SkipNow()\n\n")
+		return
+	}
+
 	g.genVarSection(t, skipBody)
 
 	for _, step := range t.Steps {
