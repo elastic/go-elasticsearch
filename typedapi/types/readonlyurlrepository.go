@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
+// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ReadOnlyUrlRepository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/snapshot/_types/SnapshotRepository.ts#L92-L102
+// https://github.com/elastic/elasticsearch-specification/blob/de4ff9ec1f716256f521d9e30011ad9c284b0dcc/specification/snapshot/_types/SnapshotRepository.ts#L92-L102
 type ReadOnlyUrlRepository struct {
 	// Settings The repository settings.
 	Settings ReadOnlyUrlRepositorySettings `json:"settings"`

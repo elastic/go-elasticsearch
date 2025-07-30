@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
+// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ReadOnlyUrlRepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/snapshot/_types/SnapshotRepository.ts#L377-L412
+// https://github.com/elastic/elasticsearch-specification/blob/de4ff9ec1f716256f521d9e30011ad9c284b0dcc/specification/snapshot/_types/SnapshotRepository.ts#L377-L412
 type ReadOnlyUrlRepositorySettings struct {
 	// ChunkSize Big files can be broken down into multiple smaller blobs in the blob store
 	// during snapshotting.

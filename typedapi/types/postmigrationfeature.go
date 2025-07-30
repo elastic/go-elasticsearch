@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
+// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PostMigrationFeature type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/migration/post_feature_upgrade/PostFeatureUpgradeResponse.ts#L27-L29
+// https://github.com/elastic/elasticsearch-specification/blob/de4ff9ec1f716256f521d9e30011ad9c284b0dcc/specification/migration/post_feature_upgrade/PostFeatureUpgradeResponse.ts#L27-L29
 type PostMigrationFeature struct {
 	FeatureName string `json:"feature_name"`
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
+// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SemanticTextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/mapping/core.ts#L229-L245
+// https://github.com/elastic/elasticsearch-specification/blob/de4ff9ec1f716256f521d9e30011ad9c284b0dcc/specification/_types/mapping/core.ts#L229-L245
 type SemanticTextProperty struct {
 	// InferenceId Inference endpoint that will be used to generate embeddings for the field.
 	// This parameter cannot be updated. Use the Create inference API to create the

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
+// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // GrantApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/security/grant_api_key/types.ts#L25-L45
+// https://github.com/elastic/elasticsearch-specification/blob/de4ff9ec1f716256f521d9e30011ad9c284b0dcc/specification/security/grant_api_key/types.ts#L25-L45
 type GrantApiKey struct {
 	// Expiration Expiration time for the API key. By default, API keys never expire.
 	Expiration *string `json:"expiration,omitempty"`

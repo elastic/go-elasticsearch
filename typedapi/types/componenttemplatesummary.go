@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
+// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ComponentTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/cluster/_types/ComponentTemplate.ts#L43-L55
+// https://github.com/elastic/elasticsearch-specification/blob/de4ff9ec1f716256f521d9e30011ad9c284b0dcc/specification/cluster/_types/ComponentTemplate.ts#L43-L55
 type ComponentTemplateSummary struct {
 	Aliases   map[string]AliasDefinition       `json:"aliases,omitempty"`
 	Lifecycle *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`

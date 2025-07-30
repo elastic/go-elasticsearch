@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
+// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
 
 package syncjoberror
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package syncjoberror
 //
-// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/connector/sync_job_error/SyncJobErrorRequest.ts#L23-L52
+// https://github.com/elastic/elasticsearch-specification/blob/de4ff9ec1f716256f521d9e30011ad9c284b0dcc/specification/connector/sync_job_error/SyncJobErrorRequest.ts#L23-L52
 type Request struct {
 
 	// Error The error for the connector sync job error field.

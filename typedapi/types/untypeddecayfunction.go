@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
+// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // UntypedDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/_types/query_dsl/compound.ts#L204-L207
+// https://github.com/elastic/elasticsearch-specification/blob/de4ff9ec1f716256f521d9e30011ad9c284b0dcc/specification/_types/query_dsl/compound.ts#L204-L207
 type UntypedDecayFunction struct {
 	DecayFunctionBase map[string]DecayPlacement `json:"-"`
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the

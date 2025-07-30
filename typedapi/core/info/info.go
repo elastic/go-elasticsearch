@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
+// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
 
 // Get cluster info.
 // Get basic build, version, and cluster information.
+// ::: In Serverless, this API is retained for backward compatibility only. Some
+// response fields, such as the version number, should be ignored.
 package info
 
 import (
@@ -71,6 +73,8 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 
 // Get cluster info.
 // Get basic build, version, and cluster information.
+// ::: In Serverless, this API is retained for backward compatibility only. Some
+// response fields, such as the version number, should be ignored.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-info
 func New(tp elastictransport.Interface) *Info {

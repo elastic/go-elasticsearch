@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/a0b0db20330063a6d11f7997ff443fd2a1a827d1
+// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
 
 package renderquery
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package renderquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/a0b0db20330063a6d11f7997ff443fd2a1a827d1/specification/search_application/render_query/SearchApplicationsRenderQueryRequest.ts#L24-L54
+// https://github.com/elastic/elasticsearch-specification/blob/de4ff9ec1f716256f521d9e30011ad9c284b0dcc/specification/search_application/render_query/SearchApplicationsRenderQueryRequest.ts#L24-L54
 type Request struct {
 	Params map[string]json.RawMessage `json:"params,omitempty"`
 }
