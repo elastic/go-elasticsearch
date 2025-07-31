@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // NumericDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/_types/query_dsl/compound.ts#L208-L208
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/compound.ts#L208-L208
 type NumericDecayFunction struct {
 	DecayFunctionBasedoubledouble map[string]DecayPlacementdoubledouble `json:"-"`
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the

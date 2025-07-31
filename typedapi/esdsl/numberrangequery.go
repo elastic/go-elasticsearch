@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -30,7 +30,7 @@ type _numberRangeQuery struct {
 	v *types.NumberRangeQuery
 }
 
-// Returns documents that contain terms within a provided range.
+// Returns users that contain terms within a provided range.
 func NewNumberRangeQuery(key string) *_numberRangeQuery {
 	return &_numberRangeQuery{
 		k: key,

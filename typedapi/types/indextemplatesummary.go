@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IndexTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/indices/_types/IndexTemplate.ts#L97-L124
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/_types/IndexTemplate.ts#L97-L124
 type IndexTemplateSummary struct {
 	// Aliases Aliases to add.
 	// If the index template includes a `data_stream` object, these are data stream

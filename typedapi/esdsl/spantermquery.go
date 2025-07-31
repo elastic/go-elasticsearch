@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -27,7 +27,7 @@ type _spanTermQuery struct {
 	v *types.SpanTermQuery
 }
 
-// The equivalent of the `term` query but for use with other span queries.
+// Matches spans containing a term.
 func NewSpanTermQuery(field string, value types.FieldValueVariant) *_spanTermQuery {
 	tmp := &_spanTermQuery{
 		k: field,

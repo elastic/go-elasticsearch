@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IntervalsMatch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/_types/query_dsl/fulltext.ts#L188-L218
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/fulltext.ts#L188-L218
 type IntervalsMatch struct {
 	// Analyzer Analyzer used to analyze terms in the query.
 	Analyzer *string `json:"analyzer,omitempty"`

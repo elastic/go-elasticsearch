@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HuggingFaceServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/inference/_types/CommonTypes.ts#L1390-L1422
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1382-L1414
 type HuggingFaceServiceSettings struct {
 	// ApiKey A valid access token for your HuggingFace account.
 	// You can create or find your access tokens on the HuggingFace settings page.

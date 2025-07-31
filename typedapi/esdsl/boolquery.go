@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -26,7 +26,7 @@ type _boolQuery struct {
 	v *types.BoolQuery
 }
 
-// matches users matching boolean combinations of other queries.
+// matches documents matching boolean combinations of other queries.
 func NewBoolQuery() *_boolQuery {
 
 	return &_boolQuery{v: types.NewBoolQuery()}

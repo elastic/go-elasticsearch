@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package typedapi
 
@@ -229,7 +229,6 @@ import (
 	indices_get_data_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatalifecycle"
 	indices_get_data_lifecycle_stats "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatalifecyclestats"
 	indices_get_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastream"
-	indices_get_data_stream_mappings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastreammappings"
 	indices_get_data_stream_options "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastreamoptions"
 	indices_get_data_stream_settings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastreamsettings"
 	indices_get_field_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getfieldmapping"
@@ -245,7 +244,6 @@ import (
 	indices_promote_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/promotedatastream"
 	indices_put_alias "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putalias"
 	indices_put_data_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatalifecycle"
-	indices_put_data_stream_mappings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatastreammappings"
 	indices_put_data_stream_options "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatastreamoptions"
 	indices_put_data_stream_settings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatastreamsettings"
 	indices_put_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putindextemplate"
@@ -837,7 +835,6 @@ type Indices struct {
 	GetDataLifecycle        indices_get_data_lifecycle.NewGetDataLifecycle
 	GetDataLifecycleStats   indices_get_data_lifecycle_stats.NewGetDataLifecycleStats
 	GetDataStream           indices_get_data_stream.NewGetDataStream
-	GetDataStreamMappings   indices_get_data_stream_mappings.NewGetDataStreamMappings
 	GetDataStreamOptions    indices_get_data_stream_options.NewGetDataStreamOptions
 	GetDataStreamSettings   indices_get_data_stream_settings.NewGetDataStreamSettings
 	GetFieldMapping         indices_get_field_mapping.NewGetFieldMapping
@@ -853,7 +850,6 @@ type Indices struct {
 	PromoteDataStream       indices_promote_data_stream.NewPromoteDataStream
 	PutAlias                indices_put_alias.NewPutAlias
 	PutDataLifecycle        indices_put_data_lifecycle.NewPutDataLifecycle
-	PutDataStreamMappings   indices_put_data_stream_mappings.NewPutDataStreamMappings
 	PutDataStreamOptions    indices_put_data_stream_options.NewPutDataStreamOptions
 	PutDataStreamSettings   indices_put_data_stream_settings.NewPutDataStreamSettings
 	PutIndexTemplate        indices_put_index_template.NewPutIndexTemplate
@@ -1619,7 +1615,6 @@ func New(tp elastictransport.Interface) *API {
 			GetDataLifecycle:        indices_get_data_lifecycle.NewGetDataLifecycleFunc(tp),
 			GetDataLifecycleStats:   indices_get_data_lifecycle_stats.NewGetDataLifecycleStatsFunc(tp),
 			GetDataStream:           indices_get_data_stream.NewGetDataStreamFunc(tp),
-			GetDataStreamMappings:   indices_get_data_stream_mappings.NewGetDataStreamMappingsFunc(tp),
 			GetDataStreamOptions:    indices_get_data_stream_options.NewGetDataStreamOptionsFunc(tp),
 			GetDataStreamSettings:   indices_get_data_stream_settings.NewGetDataStreamSettingsFunc(tp),
 			GetFieldMapping:         indices_get_field_mapping.NewGetFieldMappingFunc(tp),
@@ -1635,7 +1630,6 @@ func New(tp elastictransport.Interface) *API {
 			PromoteDataStream:       indices_promote_data_stream.NewPromoteDataStreamFunc(tp),
 			PutAlias:                indices_put_alias.NewPutAliasFunc(tp),
 			PutDataLifecycle:        indices_put_data_lifecycle.NewPutDataLifecycleFunc(tp),
-			PutDataStreamMappings:   indices_put_data_stream_mappings.NewPutDataStreamMappingsFunc(tp),
 			PutDataStreamOptions:    indices_put_data_stream_options.NewPutDataStreamOptionsFunc(tp),
 			PutDataStreamSettings:   indices_put_data_stream_settings.NewPutDataStreamSettingsFunc(tp),
 			PutIndexTemplate:        indices_put_index_template.NewPutIndexTemplateFunc(tp),
@@ -4846,8 +4840,6 @@ func (p *MethodCcr) Unfollow(index string) *ccr_unfollow.Unfollow {
 
 // Explain the shard allocations.
 // Get explanations for shard allocations in the cluster.
-// This API accepts the current_node, index, primary and shard parameters in the
-// request body or in query parameters, but not in both at the same time.
 // For unassigned shards, it provides an explanation for why the shard is
 // unassigned.
 // For assigned shards, it provides an explanation for why the shard is
@@ -8365,15 +8357,6 @@ func (p *MethodIndices) GetDataStream() *indices_get_data_stream.GetDataStream {
 	return _getdatastream()
 }
 
-// Get data stream mappings.
-//
-// Get mapping information for one or more data streams.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-mappings
-func (p *MethodIndices) GetDataStreamMappings(name string) *indices_get_data_stream_mappings.GetDataStreamMappings {
-	_getdatastreammappings := indices_get_data_stream_mappings.NewGetDataStreamMappingsFunc(p.tp)
-	return _getdatastreammappings(name)
-}
-
 // Get data stream options.
 //
 // Get the data stream options configuration of one or more data streams.
@@ -8574,20 +8557,6 @@ func (p *MethodIndices) PutAlias(index, name string) *indices_put_alias.PutAlias
 func (p *MethodIndices) PutDataLifecycle(name string) *indices_put_data_lifecycle.PutDataLifecycle {
 	_putdatalifecycle := indices_put_data_lifecycle.NewPutDataLifecycleFunc(p.tp)
 	return _putdatalifecycle(name)
-}
-
-// Update data stream mappings.
-//
-// This API can be used to override mappings on specific data streams. These
-// overrides will take precedence over what
-// is specified in the template that the data stream matches. The mapping change
-// is only applied to new write indices
-// that are created during rollover after this API is called. No indices are
-// changed by this API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-mappings
-func (p *MethodIndices) PutDataStreamMappings(name string) *indices_put_data_stream_mappings.PutDataStreamMappings {
-	_putdatastreammappings := indices_put_data_stream_mappings.NewPutDataStreamMappingsFunc(p.tp)
-	return _putdatastreammappings(name)
 }
 
 // Update data stream options.
@@ -9375,7 +9344,7 @@ func (p *MethodInference) Inference(inferenceid string) *inference_inference.Inf
 // * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
 // `sparse_embedding`, `text_embedding`)
 // * Anthropic (`completion`)
-// * Azure AI Studio (`completion`, 'rerank', `text_embedding`)
+// * Azure AI Studio (`completion`, `text_embedding`)
 // * Azure OpenAI (`completion`, `text_embedding`)
 // * Cohere (`completion`, `rerank`, `text_embedding`)
 // * DeepSeek (`completion`, `chat_completion`)
@@ -13246,18 +13215,6 @@ func (p *MethodSnapshot) Restore(repository, snapshot string) *snapshot_restore.
 // This usage is preferred.
 // If needed, you can specify `<repository>` and `<snapshot>` to retrieve
 // information for specific snapshots, even if they're not currently running.
-//
-// Note that the stats will not be available for any shard snapshots in an
-// ongoing snapshot completed by a node that (even momentarily) left the
-// cluster.
-// Loading the stats from the repository is an expensive operation (see the
-// WARNING below).
-// Therefore the stats values for such shards will be -1 even though the "stage"
-// value will be "DONE", in order to minimize latency.
-// A "description" field will be present for a shard snapshot completed by a
-// departed node explaining why the shard snapshot's stats results are invalid.
-// Consequently, the total stats for the index will be less than expected due to
-// the missing values from these shards.
 //
 // WARNING: Using the API to return the status of any snapshots other than
 // currently running snapshots can be expensive.

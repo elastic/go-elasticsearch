@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package createapikey
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package createapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L86
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L86
 type Request struct {
 
 	// Expiration The expiration time for the API key.

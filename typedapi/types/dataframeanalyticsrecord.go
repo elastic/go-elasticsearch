@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataFrameAnalyticsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/cat/ml_data_frame_analytics/types.ts#L22-L102
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cat/ml_data_frame_analytics/types.ts#L22-L102
 type DataFrameAnalyticsRecord struct {
 	// AssignmentExplanation Messages related to the selection of a node.
 	AssignmentExplanation *string `json:"assignment_explanation,omitempty"`

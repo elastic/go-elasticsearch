@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package submit
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package submit
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L54-L294
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L54-L294
 type Request struct {
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Collapse     *types.FieldCollapse          `json:"collapse,omitempty"`

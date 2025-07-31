@@ -16,12 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Explain the shard allocations.
 // Get explanations for shard allocations in the cluster.
-// This API accepts the current_node, index, primary and shard parameters in the
-// request body or in query parameters, but not in both at the same time.
 // For unassigned shards, it provides an explanation for why the shard is
 // unassigned.
 // For assigned shards, it provides an explanation for why the shard is
@@ -88,8 +86,6 @@ func NewAllocationExplainFunc(tp elastictransport.Interface) NewAllocationExplai
 
 // Explain the shard allocations.
 // Get explanations for shard allocations in the cluster.
-// This API accepts the current_node, index, primary and shard parameters in the
-// request body or in query parameters, but not in both at the same time.
 // For unassigned shards, it provides an explanation for why the shard is
 // unassigned.
 // For assigned shards, it provides an explanation for why the shard is
@@ -386,21 +382,21 @@ func (r *AllocationExplain) Pretty(pretty bool) *AllocationExplain {
 	return r
 }
 
-// Explain a shard only if it is currently located on the specified node name or
-// node ID.
+// Specifies the node ID or the name of the node to only explain a shard that is
+// currently located on the specified node.
 // API name: current_node
-func (r *AllocationExplain) CurrentNode(nodeid string) *AllocationExplain {
+func (r *AllocationExplain) CurrentNode(currentnode string) *AllocationExplain {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.CurrentNode = &nodeid
+	r.req.CurrentNode = &currentnode
 
 	return r
 }
 
-// The name of the index that you would like an explanation for.
+// Specifies the name of the index that you would like an explanation for.
 // API name: index
 func (r *AllocationExplain) Index(indexname string) *AllocationExplain {
 	// Initialize the request if it is not already initialized
@@ -413,8 +409,7 @@ func (r *AllocationExplain) Index(indexname string) *AllocationExplain {
 	return r
 }
 
-// If true, returns an explanation for the primary shard for the specified shard
-// ID.
+// If true, returns explanation for the primary shard for the given shard ID.
 // API name: primary
 func (r *AllocationExplain) Primary(primary bool) *AllocationExplain {
 	// Initialize the request if it is not already initialized
@@ -427,7 +422,7 @@ func (r *AllocationExplain) Primary(primary bool) *AllocationExplain {
 	return r
 }
 
-// An identifier for the shard that you would like an explanation for.
+// Specifies the ID of the shard that you would like an explanation for.
 // API name: shard
 func (r *AllocationExplain) Shard(shard int) *AllocationExplain {
 	// Initialize the request if it is not already initialized

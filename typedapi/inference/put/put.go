@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Create an inference endpoint.
 //
@@ -38,7 +38,7 @@
 // * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
 // `sparse_embedding`, `text_embedding`)
 // * Anthropic (`completion`)
-// * Azure AI Studio (`completion`, 'rerank', `text_embedding`)
+// * Azure AI Studio (`completion`, `text_embedding`)
 // * Azure OpenAI (`completion`, `text_embedding`)
 // * Cohere (`completion`, `rerank`, `text_embedding`)
 // * DeepSeek (`completion`, `chat_completion`)
@@ -138,7 +138,7 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 // * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
 // `sparse_embedding`, `text_embedding`)
 // * Anthropic (`completion`)
-// * Azure AI Studio (`completion`, 'rerank', `text_embedding`)
+// * Azure AI Studio (`completion`, `text_embedding`)
 // * Azure OpenAI (`completion`, `text_embedding`)
 // * Cohere (`completion`, `rerank`, `text_embedding`)
 // * DeepSeek (`completion`, `chat_completion`)

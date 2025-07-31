@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DataframeAnalyticsSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/ml/_types/DataframeAnalytics.ts#L39-L53
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/_types/DataframeAnalytics.ts#L39-L53
 type DataframeAnalyticsSource struct {
 	// Index Index or indices on which to perform the analysis. It can be a single index
 	// or index pattern as well as an array of indices or patterns. NOTE: If your

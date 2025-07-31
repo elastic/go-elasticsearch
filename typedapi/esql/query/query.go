@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Run an ES|QL query.
 // Get search results for an ES|QL (Elasticsearch query language) query.
@@ -292,6 +292,9 @@ func (r *Query) Header(key, value string) *Query {
 }
 
 // Format A short version of the Accept header, e.g. json, yaml.
+//
+// `csv`, `tsv`, and `txt` formats will return results in a tabular format,
+// excluding other metadata fields from the response.
 // API name: format
 func (r *Query) Format(format esqlformat.EsqlFormat) *Query {
 	r.values.Set("format", format.String())

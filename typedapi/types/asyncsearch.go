@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // AsyncSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/async_search/_types/AsyncSearch.ts#L30-L56
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/async_search/_types/AsyncSearch.ts#L30-L56
 type AsyncSearch struct {
 	// Aggregations Partial aggregations results, coming from the shards that have already
 	// completed running the query.

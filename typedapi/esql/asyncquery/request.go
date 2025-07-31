@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package asyncquery
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package asyncquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/esql/async_query/AsyncQueryRequest.ts#L28-L133
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/esql/async_query/AsyncQueryRequest.ts#L28-L138
 type Request struct {
 
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each

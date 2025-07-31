@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // PrivilegesCheck type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/security/has_privileges_user_profile/types.ts#L30-L37
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/has_privileges_user_profile/types.ts#L30-L37
 type PrivilegesCheck struct {
 	Application []ApplicationPrivilegesCheck `json:"application,omitempty"`
 	// Cluster A list of the cluster privileges that you want to check.

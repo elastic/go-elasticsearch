@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e585438d116b00ff34643179e6286e402c0bcaaf
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package deletebyquery
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package deletebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e585438d116b00ff34643179e6286e402c0bcaaf/specification/_global/delete_by_query/DeleteByQueryRequest.ts#L36-L314
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/delete_by_query/DeleteByQueryRequest.ts#L36-L314
 type Request struct {
 
 	// MaxDocs The maximum number of documents to delete.
