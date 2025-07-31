@@ -16,22 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create an OpenAI inference endpoint.
 //
 // Create an inference endpoint to perform an inference task with the `openai`
 // service or `openai` compatible APIs.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 package putopenai
 
 import (
@@ -104,16 +94,6 @@ func NewPutOpenaiFunc(tp elastictransport.Interface) NewPutOpenai {
 //
 // Create an inference endpoint to perform an inference task with the `openai`
 // service or `openai` compatible APIs.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-openai.html
 func New(tp elastictransport.Interface) *PutOpenai {
@@ -360,6 +340,15 @@ func (r *PutOpenai) _openaiinferenceid(openaiinferenceid string) *PutOpenai {
 	return r
 }
 
+// Timeout Specifies the amount of time to wait for the inference endpoint to be
+// created.
+// API name: timeout
+func (r *PutOpenai) Timeout(duration string) *PutOpenai {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -404,55 +393,52 @@ func (r *PutOpenai) Pretty(pretty bool) *PutOpenai {
 	return r
 }
 
-// The chunking configuration object.
+// ChunkingSettings The chunking configuration object.
 // API name: chunking_settings
-func (r *PutOpenai) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutOpenai {
-	// Initialize the request if it is not already initialized
+func (r *PutOpenai) ChunkingSettings(chunkingsettings *types.InferenceChunkingSettings) *PutOpenai {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
+	r.req.ChunkingSettings = chunkingsettings
 
 	return r
 }
 
-// The type of service supported for the specified task type. In this case,
+// Service The type of service supported for the specified task type. In this case,
 // `openai`.
 // API name: service
 func (r *PutOpenai) Service(service openaiservicetype.OpenAIServiceType) *PutOpenai {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 	r.req.Service = service
+
 	return r
 }
 
-// Settings used to install the inference model. These settings are specific to
+// ServiceSettings Settings used to install the inference model. These settings are specific to
 // the `openai` service.
 // API name: service_settings
-func (r *PutOpenai) ServiceSettings(servicesettings types.OpenAIServiceSettingsVariant) *PutOpenai {
-	// Initialize the request if it is not already initialized
+func (r *PutOpenai) ServiceSettings(servicesettings *types.OpenAIServiceSettings) *PutOpenai {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.ServiceSettings = *servicesettings.OpenAIServiceSettingsCaster()
+	r.req.ServiceSettings = *servicesettings
 
 	return r
 }
 
-// Settings to configure the inference task.
+// TaskSettings Settings to configure the inference task.
 // These settings are specific to the task type you specified.
 // API name: task_settings
-func (r *PutOpenai) TaskSettings(tasksettings types.OpenAITaskSettingsVariant) *PutOpenai {
-	// Initialize the request if it is not already initialized
+func (r *PutOpenai) TaskSettings(tasksettings *types.OpenAITaskSettings) *PutOpenai {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.TaskSettings = tasksettings.OpenAITaskSettingsCaster()
+	r.req.TaskSettings = tasksettings
 
 	return r
 }

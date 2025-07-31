@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DownsampleConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/_types/Downsample.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/_types/Downsample.ts#L22-L27
 type DownsampleConfig struct {
 	// FixedInterval The interval at which to aggregate the original time series index.
 	FixedInterval string `json:"fixed_interval"`
@@ -66,14 +66,4 @@ func NewDownsampleConfig() *DownsampleConfig {
 	r := &DownsampleConfig{}
 
 	return r
-}
-
-// true
-
-type DownsampleConfigVariant interface {
-	DownsampleConfigCaster() *DownsampleConfig
-}
-
-func (s *DownsampleConfig) DownsampleConfigCaster() *DownsampleConfig {
-	return s
 }

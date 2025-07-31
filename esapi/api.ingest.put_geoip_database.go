@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newIngestPutGeoipDatabaseFunc(t Transport) IngestPutGeoipDatabase {
@@ -53,6 +54,9 @@ type IngestPutGeoipDatabaseRequest struct {
 	DocumentID string
 
 	Body io.Reader
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -100,6 +104,14 @@ func (r IngestPutGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -183,6 +195,20 @@ func (r IngestPutGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 func (f IngestPutGeoipDatabase) WithContext(v context.Context) func(*IngestPutGeoipDatabaseRequest) {
 	return func(r *IngestPutGeoipDatabaseRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f IngestPutGeoipDatabase) WithMasterTimeout(v time.Duration) func(*IngestPutGeoipDatabaseRequest) {
+	return func(r *IngestPutGeoipDatabaseRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f IngestPutGeoipDatabase) WithTimeout(v time.Duration) func(*IngestPutGeoipDatabaseRequest) {
+	return func(r *IngestPutGeoipDatabaseRequest) {
+		r.Timeout = v
 	}
 }
 

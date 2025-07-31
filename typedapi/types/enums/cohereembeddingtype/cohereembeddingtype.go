@@ -16,19 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Package cohereembeddingtype
 package cohereembeddingtype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/_types/CommonTypes.ts#L625-L629
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/CommonTypes.ts#L843-L849
 type CohereEmbeddingType struct {
 	Name string
 }
 
 var (
+	Binary = CohereEmbeddingType{"binary"}
+
+	Bit = CohereEmbeddingType{"bit"}
+
 	Byte = CohereEmbeddingType{"byte"}
 
 	Float = CohereEmbeddingType{"float"}
@@ -43,6 +47,10 @@ func (c CohereEmbeddingType) MarshalText() (text []byte, err error) {
 func (c *CohereEmbeddingType) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
+	case "binary":
+		*c = Binary
+	case "bit":
+		*c = Bit
 	case "byte":
 		*c = Byte
 	case "float":

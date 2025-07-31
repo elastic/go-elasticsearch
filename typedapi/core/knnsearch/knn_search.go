@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Run a knn search.
 //
@@ -414,86 +414,73 @@ func (r *KnnSearch) Pretty(pretty bool) *KnnSearch {
 	return r
 }
 
-// The request returns doc values for field names matching these patterns
+// DocvalueFields The request returns doc values for field names matching these patterns
 // in the `hits.fields` property of the response.
 // It accepts wildcard (`*`) patterns.
 // API name: docvalue_fields
-func (r *KnnSearch) DocvalueFields(docvaluefields ...types.FieldAndFormatVariant) *KnnSearch {
-	// Initialize the request if it is not already initialized
+func (r *KnnSearch) DocvalueFields(docvaluefields ...types.FieldAndFormat) *KnnSearch {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range docvaluefields {
+	r.req.DocvalueFields = docvaluefields
 
-		r.req.DocvalueFields = append(r.req.DocvalueFields, *v.FieldAndFormatCaster())
-
-	}
 	return r
 }
 
-// The request returns values for field names matching these patterns
+// Fields The request returns values for field names matching these patterns
 // in the `hits.fields` property of the response.
 // It accepts wildcard (`*`) patterns.
 // API name: fields
 func (r *KnnSearch) Fields(fields ...string) *KnnSearch {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Fields = fields
 
 	return r
 }
 
-// A query to filter the documents that can match. The kNN search will return
+// Filter A query to filter the documents that can match. The kNN search will return
 // the top
 // `k` documents that also match this filter. The value can be a single query or
 // a
 // list of queries. If `filter` isn't provided, all documents are allowed to
 // match.
 // API name: filter
-func (r *KnnSearch) Filter(filters ...types.QueryVariant) *KnnSearch {
-	// Initialize the request if it is not already initialized
+func (r *KnnSearch) Filter(filters ...types.Query) *KnnSearch {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	r.req.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		r.req.Filter[i] = *v.QueryCaster()
-	}
+	r.req.Filter = filters
 
 	return r
 }
 
-// The kNN query to run.
+// Knn The kNN query to run.
 // API name: knn
-func (r *KnnSearch) Knn(knn types.CoreKnnQueryVariant) *KnnSearch {
-	// Initialize the request if it is not already initialized
+func (r *KnnSearch) Knn(knn *types.CoreKnnQuery) *KnnSearch {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Knn = *knn.CoreKnnQueryCaster()
+	r.req.Knn = *knn
 
 	return r
 }
 
-// Indicates which source fields are returned for matching documents. These
+// Source_ Indicates which source fields are returned for matching documents. These
 // fields are returned in the `hits._source` property of the search response.
 // API name: _source
-func (r *KnnSearch) Source_(sourceconfig types.SourceConfigVariant) *KnnSearch {
-	// Initialize the request if it is not already initialized
+func (r *KnnSearch) Source_(sourceconfig types.SourceConfig) *KnnSearch {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Source_ = *sourceconfig.SourceConfigCaster()
+	r.req.Source_ = sourceconfig
 
 	return r
 }
 
-// A list of stored fields to return as part of a hit. If no fields are
+// StoredFields A list of stored fields to return as part of a hit. If no fields are
 // specified,
 // no stored fields are included in the response. If this field is specified,
 // the `_source`
@@ -502,11 +489,9 @@ func (r *KnnSearch) Source_(sourceconfig types.SourceConfigVariant) *KnnSearch {
 // and stored fields in the search response.
 // API name: stored_fields
 func (r *KnnSearch) StoredFields(fields ...string) *KnnSearch {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.StoredFields = fields
 
 	return r

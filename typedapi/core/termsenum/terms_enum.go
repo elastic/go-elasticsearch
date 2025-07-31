@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Get terms in an index.
 //
@@ -378,53 +378,47 @@ func (r *TermsEnum) Pretty(pretty bool) *TermsEnum {
 	return r
 }
 
-// When `true`, the provided search string is matched against index terms
+// CaseInsensitive When `true`, the provided search string is matched against index terms
 // without case sensitivity.
 // API name: case_insensitive
 func (r *TermsEnum) CaseInsensitive(caseinsensitive bool) *TermsEnum {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.CaseInsensitive = &caseinsensitive
 
 	return r
 }
 
-// The string to match at the start of indexed terms. If not provided, all terms
+// Field The string to match at the start of indexed terms. If not provided, all terms
 // in the field are considered.
 // API name: field
 func (r *TermsEnum) Field(field string) *TermsEnum {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Field = field
 
 	return r
 }
 
-// Filter an index shard if the provided query rewrites to `match_none`.
+// IndexFilter Filter an index shard if the provided query rewrites to `match_none`.
 // API name: index_filter
-func (r *TermsEnum) IndexFilter(indexfilter types.QueryVariant) *TermsEnum {
-	// Initialize the request if it is not already initialized
+func (r *TermsEnum) IndexFilter(indexfilter *types.Query) *TermsEnum {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.IndexFilter = indexfilter.QueryCaster()
+	r.req.IndexFilter = indexfilter
 
 	return r
 }
 
-// The string after which terms in the index should be returned.
+// SearchAfter The string after which terms in the index should be returned.
 // It allows for a form of pagination if the last result from one request is
 // passed as the `search_after` parameter for a subsequent request.
 // API name: search_after
 func (r *TermsEnum) SearchAfter(searchafter string) *TermsEnum {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -434,20 +428,18 @@ func (r *TermsEnum) SearchAfter(searchafter string) *TermsEnum {
 	return r
 }
 
-// The number of matching terms to return.
+// Size The number of matching terms to return.
 // API name: size
 func (r *TermsEnum) Size(size int) *TermsEnum {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Size = &size
 
 	return r
 }
 
-// The string to match at the start of indexed terms.
+// String The string to match at the start of indexed terms.
 // If it is not provided, all terms in the field are considered.
 //
 // > info
@@ -455,7 +447,6 @@ func (r *TermsEnum) Size(size int) *TermsEnum {
 // which is Lucene's term byte-length limit of 32766.
 // API name: string
 func (r *TermsEnum) String(string string) *TermsEnum {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -465,17 +456,15 @@ func (r *TermsEnum) String(string string) *TermsEnum {
 	return r
 }
 
-// The maximum length of time to spend collecting results.
+// Timeout The maximum length of time to spend collecting results.
 // If the timeout is exceeded the `complete` flag set to `false` in the response
 // and the results may be partial or empty.
 // API name: timeout
-func (r *TermsEnum) Timeout(duration types.DurationVariant) *TermsEnum {
-	// Initialize the request if it is not already initialized
+func (r *TermsEnum) Timeout(duration types.Duration) *TermsEnum {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Timeout = *duration.DurationCaster()
+	r.req.Timeout = duration
 
 	return r
 }

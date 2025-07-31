@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Start a trial.
 // Start a 30-day trial, which gives access to all subscription features.
@@ -302,9 +302,10 @@ func (r *PostStartTrial) Acknowledge(acknowledge bool) *PostStartTrial {
 	return r
 }
 
-// API name: type_query_string
-func (r *PostStartTrial) TypeQueryString(typequerystring string) *PostStartTrial {
-	r.values.Set("type_query_string", typequerystring)
+// Type The type of trial license to generate (default: "trial")
+// API name: type
+func (r *PostStartTrial) Type(type_ string) *PostStartTrial {
+	r.values.Set("type", type_)
 
 	return r
 }

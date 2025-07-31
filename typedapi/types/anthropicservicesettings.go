@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnthropicServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/_types/CommonTypes.ts#L372-L388
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/CommonTypes.ts#L588-L604
 type AnthropicServiceSettings struct {
 	// ApiKey A valid API key for the Anthropic API.
 	ApiKey string `json:"api_key"`
@@ -99,14 +99,4 @@ func NewAnthropicServiceSettings() *AnthropicServiceSettings {
 	r := &AnthropicServiceSettings{}
 
 	return r
-}
-
-// true
-
-type AnthropicServiceSettingsVariant interface {
-	AnthropicServiceSettingsCaster() *AnthropicServiceSettings
-}
-
-func (s *AnthropicServiceSettings) AnthropicServiceSettingsCaster() *AnthropicServiceSettings {
-	return s
 }

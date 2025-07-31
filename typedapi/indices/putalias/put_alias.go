@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create or update an alias.
 // Adds a data stream or index to an alias.
@@ -418,35 +418,32 @@ func (r *PutAlias) Pretty(pretty bool) *PutAlias {
 	return r
 }
 
-// Query used to limit documents the alias can access.
+// Filter Query used to limit documents the alias can access.
 // API name: filter
-func (r *PutAlias) Filter(filter types.QueryVariant) *PutAlias {
-	// Initialize the request if it is not already initialized
+func (r *PutAlias) Filter(filter *types.Query) *PutAlias {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Filter = filter.QueryCaster()
+	r.req.Filter = filter
 
 	return r
 }
 
-// Value used to route indexing operations to a specific shard.
+// IndexRouting Value used to route indexing operations to a specific shard.
 // If specified, this overwrites the `routing` value for indexing operations.
 // Data stream aliases don’t support this parameter.
 // API name: index_routing
 func (r *PutAlias) IndexRouting(routing string) *PutAlias {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.IndexRouting = &routing
 
 	return r
 }
 
-// If `true`, sets the write index or data stream for the alias.
+// IsWriteIndex If `true`, sets the write index or data stream for the alias.
 // If an alias points to multiple indices or data streams and `is_write_index`
 // isn’t set, the alias rejects write requests.
 // If an index alias points to one index and `is_write_index` isn’t set, the
@@ -455,40 +452,34 @@ func (r *PutAlias) IndexRouting(routing string) *PutAlias {
 // alias points to one data stream.
 // API name: is_write_index
 func (r *PutAlias) IsWriteIndex(iswriteindex bool) *PutAlias {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.IsWriteIndex = &iswriteindex
 
 	return r
 }
 
-// Value used to route indexing and search operations to a specific shard.
+// Routing Value used to route indexing and search operations to a specific shard.
 // Data stream aliases don’t support this parameter.
 // API name: routing
 func (r *PutAlias) Routing(routing string) *PutAlias {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Routing = &routing
 
 	return r
 }
 
-// Value used to route search operations to a specific shard.
+// SearchRouting Value used to route search operations to a specific shard.
 // If specified, this overwrites the `routing` value for search operations.
 // Data stream aliases don’t support this parameter.
 // API name: search_routing
 func (r *PutAlias) SearchRouting(routing string) *PutAlias {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.SearchRouting = &routing
 
 	return r

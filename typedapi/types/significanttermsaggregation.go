@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SignificantTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/bucket.ts#L817-L884
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/bucket.ts#L817-L884
 type SignificantTermsAggregation struct {
 	// BackgroundFilter A background filter that can be used to focus in on significant terms within
 	// a narrower context, instead of the entire index.
@@ -262,14 +262,4 @@ func NewSignificantTermsAggregation() *SignificantTermsAggregation {
 	r := &SignificantTermsAggregation{}
 
 	return r
-}
-
-// true
-
-type SignificantTermsAggregationVariant interface {
-	SignificantTermsAggregationCaster() *SignificantTermsAggregation
-}
-
-func (s *SignificantTermsAggregation) SignificantTermsAggregationCaster() *SignificantTermsAggregation {
-	return s
 }

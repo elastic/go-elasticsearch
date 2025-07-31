@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create a follower.
 // Create a cross-cluster replication follower index that follows a specific
@@ -386,11 +386,10 @@ func (r *Follow) Pretty(pretty bool) *Follow {
 	return r
 }
 
-// If the leader index is part of a data stream, the name to which the local
+// DataStreamName If the leader index is part of a data stream, the name to which the local
 // data stream for the followed index should be renamed.
 // API name: data_stream_name
 func (r *Follow) DataStreamName(datastreamname string) *Follow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -400,23 +399,20 @@ func (r *Follow) DataStreamName(datastreamname string) *Follow {
 	return r
 }
 
-// The name of the index in the leader cluster to follow.
+// LeaderIndex The name of the index in the leader cluster to follow.
 // API name: leader_index
 func (r *Follow) LeaderIndex(indexname string) *Follow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.LeaderIndex = indexname
 
 	return r
 }
 
-// The maximum number of outstanding reads requests from the remote cluster.
+// MaxOutstandingReadRequests The maximum number of outstanding reads requests from the remote cluster.
 // API name: max_outstanding_read_requests
 func (r *Follow) MaxOutstandingReadRequests(maxoutstandingreadrequests int64) *Follow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -426,140 +422,121 @@ func (r *Follow) MaxOutstandingReadRequests(maxoutstandingreadrequests int64) *F
 	return r
 }
 
-// The maximum number of outstanding write requests on the follower.
+// MaxOutstandingWriteRequests The maximum number of outstanding write requests on the follower.
 // API name: max_outstanding_write_requests
 func (r *Follow) MaxOutstandingWriteRequests(maxoutstandingwriterequests int) *Follow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.MaxOutstandingWriteRequests = &maxoutstandingwriterequests
 
 	return r
 }
 
-// The maximum number of operations to pull per read from the remote cluster.
+// MaxReadRequestOperationCount The maximum number of operations to pull per read from the remote cluster.
 // API name: max_read_request_operation_count
 func (r *Follow) MaxReadRequestOperationCount(maxreadrequestoperationcount int) *Follow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.MaxReadRequestOperationCount = &maxreadrequestoperationcount
 
 	return r
 }
 
-// The maximum size in bytes of per read of a batch of operations pulled from
+// MaxReadRequestSize The maximum size in bytes of per read of a batch of operations pulled from
 // the remote cluster.
 // API name: max_read_request_size
-func (r *Follow) MaxReadRequestSize(bytesize types.ByteSizeVariant) *Follow {
-	// Initialize the request if it is not already initialized
+func (r *Follow) MaxReadRequestSize(bytesize types.ByteSize) *Follow {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.MaxReadRequestSize = *bytesize.ByteSizeCaster()
+	r.req.MaxReadRequestSize = bytesize
 
 	return r
 }
 
-// The maximum time to wait before retrying an operation that failed
+// MaxRetryDelay The maximum time to wait before retrying an operation that failed
 // exceptionally. An exponential backoff strategy is employed when
 // retrying.
 // API name: max_retry_delay
-func (r *Follow) MaxRetryDelay(duration types.DurationVariant) *Follow {
-	// Initialize the request if it is not already initialized
+func (r *Follow) MaxRetryDelay(duration types.Duration) *Follow {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.MaxRetryDelay = *duration.DurationCaster()
+	r.req.MaxRetryDelay = duration
 
 	return r
 }
 
-// The maximum number of operations that can be queued for writing. When this
+// MaxWriteBufferCount The maximum number of operations that can be queued for writing. When this
 // limit is reached, reads from the remote cluster will be
 // deferred until the number of queued operations goes below the limit.
 // API name: max_write_buffer_count
 func (r *Follow) MaxWriteBufferCount(maxwritebuffercount int) *Follow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.MaxWriteBufferCount = &maxwritebuffercount
 
 	return r
 }
 
-// The maximum total bytes of operations that can be queued for writing. When
+// MaxWriteBufferSize The maximum total bytes of operations that can be queued for writing. When
 // this limit is reached, reads from the remote cluster will
 // be deferred until the total bytes of queued operations goes below the limit.
 // API name: max_write_buffer_size
-func (r *Follow) MaxWriteBufferSize(bytesize types.ByteSizeVariant) *Follow {
-	// Initialize the request if it is not already initialized
+func (r *Follow) MaxWriteBufferSize(bytesize types.ByteSize) *Follow {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.MaxWriteBufferSize = *bytesize.ByteSizeCaster()
+	r.req.MaxWriteBufferSize = bytesize
 
 	return r
 }
 
-// The maximum number of operations per bulk write request executed on the
+// MaxWriteRequestOperationCount The maximum number of operations per bulk write request executed on the
 // follower.
 // API name: max_write_request_operation_count
 func (r *Follow) MaxWriteRequestOperationCount(maxwriterequestoperationcount int) *Follow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.MaxWriteRequestOperationCount = &maxwriterequestoperationcount
 
 	return r
 }
 
-// The maximum total bytes of operations per bulk write request executed on the
+// MaxWriteRequestSize The maximum total bytes of operations per bulk write request executed on the
 // follower.
 // API name: max_write_request_size
-func (r *Follow) MaxWriteRequestSize(bytesize types.ByteSizeVariant) *Follow {
-	// Initialize the request if it is not already initialized
+func (r *Follow) MaxWriteRequestSize(bytesize types.ByteSize) *Follow {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.MaxWriteRequestSize = *bytesize.ByteSizeCaster()
+	r.req.MaxWriteRequestSize = bytesize
 
 	return r
 }
 
-// The maximum time to wait for new operations on the remote cluster when the
+// ReadPollTimeout The maximum time to wait for new operations on the remote cluster when the
 // follower index is synchronized with the leader index.
 // When the timeout has elapsed, the poll for operations will return to the
 // follower so that it can update some statistics.
 // Then the follower will immediately attempt to read from the leader again.
 // API name: read_poll_timeout
-func (r *Follow) ReadPollTimeout(duration types.DurationVariant) *Follow {
-	// Initialize the request if it is not already initialized
+func (r *Follow) ReadPollTimeout(duration types.Duration) *Follow {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.ReadPollTimeout = *duration.DurationCaster()
+	r.req.ReadPollTimeout = duration
 
 	return r
 }
 
-// The remote cluster containing the leader index.
+// RemoteCluster The remote cluster containing the leader index.
 // API name: remote_cluster
 func (r *Follow) RemoteCluster(remotecluster string) *Follow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -569,15 +546,14 @@ func (r *Follow) RemoteCluster(remotecluster string) *Follow {
 	return r
 }
 
-// Settings to override from the leader index.
+// Settings Settings to override from the leader index.
 // API name: settings
-func (r *Follow) Settings(settings types.IndexSettingsVariant) *Follow {
-	// Initialize the request if it is not already initialized
+func (r *Follow) Settings(settings *types.IndexSettings) *Follow {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Settings = settings.IndexSettingsCaster()
+	r.req.Settings = settings
 
 	return r
 }

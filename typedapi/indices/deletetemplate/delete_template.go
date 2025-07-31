@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Delete a legacy index template.
+// IMPORTANT: This documentation is about legacy index templates, which are
+// deprecated and will be replaced by the composable templates introduced in
+// Elasticsearch 7.8.
 package deletetemplate
 
 import (
@@ -77,6 +80,9 @@ func NewDeleteTemplateFunc(tp elastictransport.Interface) NewDeleteTemplate {
 }
 
 // Delete a legacy index template.
+// IMPORTANT: This documentation is about legacy index templates, which are
+// deprecated and will be replaced by the composable templates introduced in
+// Elasticsearch 7.8.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-template-v1.html
 func New(tp elastictransport.Interface) *DeleteTemplate {

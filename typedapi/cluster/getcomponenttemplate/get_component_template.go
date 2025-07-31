@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Get component templates.
 // Get information about component templates.
@@ -307,6 +307,19 @@ func (r *GetComponentTemplate) Name(name string) *GetComponentTemplate {
 // API name: flat_settings
 func (r *GetComponentTemplate) FlatSettings(flatsettings bool) *GetComponentTemplate {
 	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
+
+	return r
+}
+
+// SettingsFilter Filter out results, for example to filter out sensitive information. Supports
+// wildcards or full settings keys
+// API name: settings_filter
+func (r *GetComponentTemplate) SettingsFilter(settingsfilters ...string) *GetComponentTemplate {
+	tmp := []string{}
+	for _, item := range settingsfilters {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("settings_filter", strings.Join(tmp, ","))
 
 	return r
 }

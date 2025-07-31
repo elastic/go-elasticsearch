@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Update a filter.
 // Updates the description of a filter, adds items, or removes items from the
@@ -363,25 +363,20 @@ func (r *UpdateFilter) Pretty(pretty bool) *UpdateFilter {
 	return r
 }
 
-// The items to add to the filter.
+// AddItems The items to add to the filter.
 // API name: add_items
 func (r *UpdateFilter) AddItems(additems ...string) *UpdateFilter {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range additems {
+	r.req.AddItems = additems
 
-		r.req.AddItems = append(r.req.AddItems, v)
-
-	}
 	return r
 }
 
-// A description for the filter.
+// Description A description for the filter.
 // API name: description
 func (r *UpdateFilter) Description(description string) *UpdateFilter {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -391,17 +386,13 @@ func (r *UpdateFilter) Description(description string) *UpdateFilter {
 	return r
 }
 
-// The items to remove from the filter.
+// RemoveItems The items to remove from the filter.
 // API name: remove_items
 func (r *UpdateFilter) RemoveItems(removeitems ...string) *UpdateFilter {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range removeitems {
+	r.req.RemoveItems = removeitems
 
-		r.req.RemoveItems = append(r.req.RemoveItems, v)
-
-	}
 	return r
 }

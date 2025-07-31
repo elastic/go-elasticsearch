@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // RetentionPolicyContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/transform/_types/Transform.ts#L80-L86
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/transform/_types/Transform.ts#L80-L86
 type RetentionPolicyContainer struct {
 	AdditionalRetentionPolicyContainerProperty map[string]json.RawMessage `json:"-"`
 	// Time Specifies that the transform uses a time field to set the retention policy.
@@ -70,14 +70,4 @@ func NewRetentionPolicyContainer() *RetentionPolicyContainer {
 	}
 
 	return r
-}
-
-// true
-
-type RetentionPolicyContainerVariant interface {
-	RetentionPolicyContainerCaster() *RetentionPolicyContainer
-}
-
-func (s *RetentionPolicyContainer) RetentionPolicyContainerCaster() *RetentionPolicyContainer {
-	return s
 }

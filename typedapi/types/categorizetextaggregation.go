@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,14 +31,12 @@ import (
 
 // CategorizeTextAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/bucket.ts#L1117-L1182
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/bucket.ts#L1117-L1183
 type CategorizeTextAggregation struct {
 	// CategorizationAnalyzer The categorization analyzer specifies how the text is analyzed and tokenized
 	// before being categorized.
 	// The syntax is very similar to that used to define the analyzer in the
-	// [Analyze
-	// endpoint](https://www.elastic.co/guide/en/elasticsearch/reference/8.0/indices-analyze.html).
-	// This property
+	// `_analyze` endpoint. This property
 	// cannot be used at the same time as categorization_filters.
 	CategorizationAnalyzer CategorizeTextAnalyzer `json:"categorization_analyzer,omitempty"`
 	// CategorizationFilters This property expects an array of regular expressions. The expressions are
@@ -270,14 +268,4 @@ func NewCategorizeTextAggregation() *CategorizeTextAggregation {
 	r := &CategorizeTextAggregation{}
 
 	return r
-}
-
-// true
-
-type CategorizeTextAggregationVariant interface {
-	CategorizeTextAggregationCaster() *CategorizeTextAggregation
-}
-
-func (s *CategorizeTextAggregation) CategorizeTextAggregationCaster() *CategorizeTextAggregation {
-	return s
 }

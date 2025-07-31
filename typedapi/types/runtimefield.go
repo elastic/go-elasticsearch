@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // RuntimeField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/mapping/RuntimeFields.ts#L26-L50
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/mapping/RuntimeFields.ts#L26-L50
 type RuntimeField struct {
 	// FetchFields For type `lookup`
 	FetchFields []RuntimeFieldFetchFields `json:"fetch_fields,omitempty"`
@@ -131,14 +131,4 @@ func NewRuntimeField() *RuntimeField {
 	}
 
 	return r
-}
-
-// true
-
-type RuntimeFieldVariant interface {
-	RuntimeFieldCaster() *RuntimeField
-}
-
-func (s *RuntimeField) RuntimeFieldCaster() *RuntimeField {
-	return s
 }

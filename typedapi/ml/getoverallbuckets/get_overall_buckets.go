@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Get overall bucket results.
 //
@@ -402,92 +402,78 @@ func (r *GetOverallBuckets) Pretty(pretty bool) *GetOverallBuckets {
 	return r
 }
 
-// Refer to the description for the `allow_no_match` query parameter.
+// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
 // API name: allow_no_match
 func (r *GetOverallBuckets) AllowNoMatch(allownomatch bool) *GetOverallBuckets {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.AllowNoMatch = &allownomatch
 
 	return r
 }
 
-// Refer to the description for the `bucket_span` query parameter.
+// BucketSpan Refer to the description for the `bucket_span` query parameter.
 // API name: bucket_span
-func (r *GetOverallBuckets) BucketSpan(duration types.DurationVariant) *GetOverallBuckets {
-	// Initialize the request if it is not already initialized
+func (r *GetOverallBuckets) BucketSpan(duration types.Duration) *GetOverallBuckets {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.BucketSpan = *duration.DurationCaster()
+	r.req.BucketSpan = duration
 
 	return r
 }
 
-// Refer to the description for the `end` query parameter.
+// End Refer to the description for the `end` query parameter.
 // API name: end
-func (r *GetOverallBuckets) End(datetime types.DateTimeVariant) *GetOverallBuckets {
-	// Initialize the request if it is not already initialized
+func (r *GetOverallBuckets) End(datetime types.DateTime) *GetOverallBuckets {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.End = *datetime.DateTimeCaster()
+	r.req.End = datetime
 
 	return r
 }
 
-// Refer to the description for the `exclude_interim` query parameter.
+// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
 // API name: exclude_interim
 func (r *GetOverallBuckets) ExcludeInterim(excludeinterim bool) *GetOverallBuckets {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.ExcludeInterim = &excludeinterim
 
 	return r
 }
 
-// Refer to the description for the `overall_score` query parameter.
+// OverallScore Refer to the description for the `overall_score` query parameter.
 // API name: overall_score
 func (r *GetOverallBuckets) OverallScore(overallscore string) *GetOverallBuckets {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.OverallScore = overallscore
+	r.req.OverallScore = &overallscore
 
 	return r
 }
 
-// Refer to the description for the `start` query parameter.
+// Start Refer to the description for the `start` query parameter.
 // API name: start
-func (r *GetOverallBuckets) Start(datetime types.DateTimeVariant) *GetOverallBuckets {
-	// Initialize the request if it is not already initialized
+func (r *GetOverallBuckets) Start(datetime types.DateTime) *GetOverallBuckets {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Start = *datetime.DateTimeCaster()
+	r.req.Start = datetime
 
 	return r
 }
 
-// Refer to the description for the `top_n` query parameter.
+// TopN Refer to the description for the `top_n` query parameter.
 // API name: top_n
 func (r *GetOverallBuckets) TopN(topn int) *GetOverallBuckets {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.TopN = &topn
 
 	return r

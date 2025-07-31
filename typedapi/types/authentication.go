@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Authentication type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/security/delegate_pki/SecurityDelegatePkiResponse.ts#L43-L55
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/delegate_pki/SecurityDelegatePkiResponse.ts#L43-L55
 type Authentication struct {
 	ApiKey              map[string]string   `json:"api_key,omitempty"`
 	AuthenticationRealm AuthenticationRealm `json:"authentication_realm"`
@@ -173,5 +173,3 @@ func NewAuthentication() *Authentication {
 
 	return r
 }
-
-// false

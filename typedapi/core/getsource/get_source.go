@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Get a document's source.
 //
@@ -405,14 +405,6 @@ func (r *GetSource) SourceExcludes_(fields ...string) *GetSource {
 // API name: _source_includes
 func (r *GetSource) SourceIncludes_(fields ...string) *GetSource {
 	r.values.Set("_source_includes", strings.Join(fields, ","))
-
-	return r
-}
-
-// StoredFields A comma-separated list of stored fields to return as part of a hit.
-// API name: stored_fields
-func (r *GetSource) StoredFields(fields ...string) *GetSource {
-	r.values.Set("stored_fields", strings.Join(fields, ","))
 
 	return r
 }

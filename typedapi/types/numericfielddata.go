@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // NumericFielddata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/_types/NumericFielddata.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/_types/NumericFielddata.ts#L22-L24
 type NumericFielddata struct {
 	Format numericfielddataformat.NumericFielddataFormat `json:"format"`
 }
@@ -36,14 +36,4 @@ func NewNumericFielddata() *NumericFielddata {
 	r := &NumericFielddata{}
 
 	return r
-}
-
-// true
-
-type NumericFielddataVariant interface {
-	NumericFielddataCaster() *NumericFielddata
-}
-
-func (s *NumericFielddata) NumericFielddataCaster() *NumericFielddata {
-	return s
 }

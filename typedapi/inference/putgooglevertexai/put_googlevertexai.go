@@ -16,22 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create a Google Vertex AI inference endpoint.
 //
 // Create an inference endpoint to perform an inference task with the
 // `googlevertexai` service.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 package putgooglevertexai
 
 import (
@@ -104,16 +94,6 @@ func NewPutGooglevertexaiFunc(tp elastictransport.Interface) NewPutGooglevertexa
 //
 // Create an inference endpoint to perform an inference task with the
 // `googlevertexai` service.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-google-vertex-ai.html
 func New(tp elastictransport.Interface) *PutGooglevertexai {
@@ -358,6 +338,15 @@ func (r *PutGooglevertexai) _googlevertexaiinferenceid(googlevertexaiinferenceid
 	return r
 }
 
+// Timeout Specifies the amount of time to wait for the inference endpoint to be
+// created.
+// API name: timeout
+func (r *PutGooglevertexai) Timeout(duration string) *PutGooglevertexai {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -402,55 +391,52 @@ func (r *PutGooglevertexai) Pretty(pretty bool) *PutGooglevertexai {
 	return r
 }
 
-// The chunking configuration object.
+// ChunkingSettings The chunking configuration object.
 // API name: chunking_settings
-func (r *PutGooglevertexai) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutGooglevertexai {
-	// Initialize the request if it is not already initialized
+func (r *PutGooglevertexai) ChunkingSettings(chunkingsettings *types.InferenceChunkingSettings) *PutGooglevertexai {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
+	r.req.ChunkingSettings = chunkingsettings
 
 	return r
 }
 
-// The type of service supported for the specified task type. In this case,
+// Service The type of service supported for the specified task type. In this case,
 // `googlevertexai`.
 // API name: service
 func (r *PutGooglevertexai) Service(service googlevertexaiservicetype.GoogleVertexAIServiceType) *PutGooglevertexai {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 	r.req.Service = service
+
 	return r
 }
 
-// Settings used to install the inference model. These settings are specific to
+// ServiceSettings Settings used to install the inference model. These settings are specific to
 // the `googlevertexai` service.
 // API name: service_settings
-func (r *PutGooglevertexai) ServiceSettings(servicesettings types.GoogleVertexAIServiceSettingsVariant) *PutGooglevertexai {
-	// Initialize the request if it is not already initialized
+func (r *PutGooglevertexai) ServiceSettings(servicesettings *types.GoogleVertexAIServiceSettings) *PutGooglevertexai {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.ServiceSettings = *servicesettings.GoogleVertexAIServiceSettingsCaster()
+	r.req.ServiceSettings = *servicesettings
 
 	return r
 }
 
-// Settings to configure the inference task.
+// TaskSettings Settings to configure the inference task.
 // These settings are specific to the task type you specified.
 // API name: task_settings
-func (r *PutGooglevertexai) TaskSettings(tasksettings types.GoogleVertexAITaskSettingsVariant) *PutGooglevertexai {
-	// Initialize the request if it is not already initialized
+func (r *PutGooglevertexai) TaskSettings(tasksettings *types.GoogleVertexAITaskSettings) *PutGooglevertexai {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.TaskSettings = tasksettings.GoogleVertexAITaskSettingsCaster()
+	r.req.TaskSettings = tasksettings
 
 	return r
 }

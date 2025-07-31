@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Update the connector pipeline.
 //
@@ -364,13 +364,12 @@ func (r *UpdatePipeline) Pretty(pretty bool) *UpdatePipeline {
 }
 
 // API name: pipeline
-func (r *UpdatePipeline) Pipeline(pipeline types.IngestPipelineParamsVariant) *UpdatePipeline {
-	// Initialize the request if it is not already initialized
+func (r *UpdatePipeline) Pipeline(pipeline *types.IngestPipelineParams) *UpdatePipeline {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Pipeline = *pipeline.IngestPipelineParamsCaster()
+	r.req.Pipeline = *pipeline
 
 	return r
 }

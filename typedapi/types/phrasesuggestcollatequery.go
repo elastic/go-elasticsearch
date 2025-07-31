@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PhraseSuggestCollateQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/search/_types/suggester.ts#L348-L357
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/search/_types/suggester.ts#L348-L357
 type PhraseSuggestCollateQuery struct {
 	// Id The search template ID.
 	Id *string `json:"id,omitempty"`
@@ -81,14 +81,4 @@ func NewPhraseSuggestCollateQuery() *PhraseSuggestCollateQuery {
 	r := &PhraseSuggestCollateQuery{}
 
 	return r
-}
-
-// true
-
-type PhraseSuggestCollateQueryVariant interface {
-	PhraseSuggestCollateQueryCaster() *PhraseSuggestCollateQuery
-}
-
-func (s *PhraseSuggestCollateQuery) PhraseSuggestCollateQueryCaster() *PhraseSuggestCollateQuery {
-	return s
 }

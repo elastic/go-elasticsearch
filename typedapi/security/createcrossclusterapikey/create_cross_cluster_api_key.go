@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create a cross-cluster API key.
 //
@@ -392,7 +392,7 @@ func (r *CreateCrossClusterApiKey) Pretty(pretty bool) *CreateCrossClusterApiKey
 	return r
 }
 
-// The access to be granted to this API key.
+// Access The access to be granted to this API key.
 // The access is composed of permissions for cross-cluster search and
 // cross-cluster replication.
 // At least one of them must be specified.
@@ -402,55 +402,48 @@ func (r *CreateCrossClusterApiKey) Pretty(pretty bool) *CreateCrossClusterApiKey
 // The creation process automatically converts the access specification to a
 // role descriptor which has relevant privileges assigned accordingly.
 // API name: access
-func (r *CreateCrossClusterApiKey) Access(access types.AccessVariant) *CreateCrossClusterApiKey {
-	// Initialize the request if it is not already initialized
+func (r *CreateCrossClusterApiKey) Access(access *types.Access) *CreateCrossClusterApiKey {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Access = *access.AccessCaster()
+	r.req.Access = *access
 
 	return r
 }
 
-// Expiration time for the API key.
+// Expiration Expiration time for the API key.
 // By default, API keys never expire.
 // API name: expiration
-func (r *CreateCrossClusterApiKey) Expiration(duration types.DurationVariant) *CreateCrossClusterApiKey {
-	// Initialize the request if it is not already initialized
+func (r *CreateCrossClusterApiKey) Expiration(duration types.Duration) *CreateCrossClusterApiKey {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Expiration = *duration.DurationCaster()
+	r.req.Expiration = duration
 
 	return r
 }
 
-// Arbitrary metadata that you want to associate with the API key.
+// Metadata Arbitrary metadata that you want to associate with the API key.
 // It supports nested data structure.
 // Within the metadata object, keys beginning with `_` are reserved for system
 // usage.
 // API name: metadata
-func (r *CreateCrossClusterApiKey) Metadata(metadata types.MetadataVariant) *CreateCrossClusterApiKey {
-	// Initialize the request if it is not already initialized
+func (r *CreateCrossClusterApiKey) Metadata(metadata types.Metadata) *CreateCrossClusterApiKey {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Metadata = *metadata.MetadataCaster()
+	r.req.Metadata = metadata
 
 	return r
 }
 
-// Specifies the name for this API key.
+// Name Specifies the name for this API key.
 // API name: name
 func (r *CreateCrossClusterApiKey) Name(name string) *CreateCrossClusterApiKey {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Name = name
 
 	return r

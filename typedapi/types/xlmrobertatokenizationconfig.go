@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // XlmRobertaTokenizationConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/inference.ts#L200-L200
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/_types/inference.ts#L200-L200
 type XlmRobertaTokenizationConfig struct {
 	// DoLowerCase Should the tokenizer lower case the text
 	DoLowerCase *bool `json:"do_lower_case,omitempty"`
@@ -139,14 +139,4 @@ func NewXlmRobertaTokenizationConfig() *XlmRobertaTokenizationConfig {
 	r := &XlmRobertaTokenizationConfig{}
 
 	return r
-}
-
-// true
-
-type XlmRobertaTokenizationConfigVariant interface {
-	XlmRobertaTokenizationConfigCaster() *XlmRobertaTokenizationConfig
-}
-
-func (s *XlmRobertaTokenizationConfig) XlmRobertaTokenizationConfigCaster() *XlmRobertaTokenizationConfig {
-	return s
 }

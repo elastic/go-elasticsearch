@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,10 +31,10 @@ import (
 
 // NodeInfoSettingsHttp type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/nodes/info/types.ts#L192-L197
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/nodes/info/types.ts#L202-L207
 type NodeInfoSettingsHttp struct {
-	Compression string                   `json:"compression,omitempty"`
-	Port        string                   `json:"port,omitempty"`
+	Compression *string                  `json:"compression,omitempty"`
+	Port        *string                  `json:"port,omitempty"`
 	Type        NodeInfoSettingsHttpType `json:"type"`
 	TypeDefault *string                  `json:"type.default,omitempty"`
 }
@@ -64,7 +64,7 @@ func (s *NodeInfoSettingsHttp) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Compression = o
+			s.Compression = &o
 
 		case "port":
 			var tmp json.RawMessage
@@ -76,7 +76,7 @@ func (s *NodeInfoSettingsHttp) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Port = o
+			s.Port = &o
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
@@ -106,5 +106,3 @@ func NewNodeInfoSettingsHttp() *NodeInfoSettingsHttp {
 
 	return r
 }
-
-// false

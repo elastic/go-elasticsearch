@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Run a script.
 //
@@ -361,42 +361,40 @@ func (r *ScriptsPainlessExecute) Pretty(pretty bool) *ScriptsPainlessExecute {
 	return r
 }
 
-// The context that the script should run in.
+// Context The context that the script should run in.
 // NOTE: Result ordering in the field contexts is not guaranteed.
 // API name: context
 func (r *ScriptsPainlessExecute) Context(context painlesscontext.PainlessContext) *ScriptsPainlessExecute {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 	r.req.Context = &context
+
 	return r
 }
 
-// Additional parameters for the `context`.
+// ContextSetup Additional parameters for the `context`.
 // NOTE: This parameter is required for all contexts except `painless_test`,
 // which is the default if no value is provided for `context`.
 // API name: context_setup
-func (r *ScriptsPainlessExecute) ContextSetup(contextsetup types.PainlessContextSetupVariant) *ScriptsPainlessExecute {
-	// Initialize the request if it is not already initialized
+func (r *ScriptsPainlessExecute) ContextSetup(contextsetup *types.PainlessContextSetup) *ScriptsPainlessExecute {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.ContextSetup = contextsetup.PainlessContextSetupCaster()
+	r.req.ContextSetup = contextsetup
 
 	return r
 }
 
-// The Painless script to run.
+// Script The Painless script to run.
 // API name: script
-func (r *ScriptsPainlessExecute) Script(script types.ScriptVariant) *ScriptsPainlessExecute {
-	// Initialize the request if it is not already initialized
+func (r *ScriptsPainlessExecute) Script(script *types.Script) *ScriptsPainlessExecute {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Script = script.ScriptCaster()
+	r.req.Script = script
 
 	return r
 }

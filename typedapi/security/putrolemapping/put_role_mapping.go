@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create or update role mappings.
 //
@@ -446,93 +446,76 @@ func (r *PutRoleMapping) Pretty(pretty bool) *PutRoleMapping {
 	return r
 }
 
-// Mappings that have `enabled` set to `false` are ignored when role mapping is
+// Enabled Mappings that have `enabled` set to `false` are ignored when role mapping is
 // performed.
 // API name: enabled
 func (r *PutRoleMapping) Enabled(enabled bool) *PutRoleMapping {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Enabled = &enabled
 
 	return r
 }
 
-// Additional metadata that helps define which roles are assigned to each user.
+// Metadata Additional metadata that helps define which roles are assigned to each user.
 // Within the metadata object, keys beginning with `_` are reserved for system
 // usage.
 // API name: metadata
-func (r *PutRoleMapping) Metadata(metadata types.MetadataVariant) *PutRoleMapping {
-	// Initialize the request if it is not already initialized
+func (r *PutRoleMapping) Metadata(metadata types.Metadata) *PutRoleMapping {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Metadata = *metadata.MetadataCaster()
+	r.req.Metadata = metadata
 
 	return r
 }
 
-// A list of Mustache templates that will be evaluated to determine the roles
+// RoleTemplates A list of Mustache templates that will be evaluated to determine the roles
 // names that should granted to the users that match the role mapping rules.
 // Exactly one of `roles` or `role_templates` must be specified.
 // API name: role_templates
-func (r *PutRoleMapping) RoleTemplates(roletemplates ...types.RoleTemplateVariant) *PutRoleMapping {
-	// Initialize the request if it is not already initialized
+func (r *PutRoleMapping) RoleTemplates(roletemplates ...types.RoleTemplate) *PutRoleMapping {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range roletemplates {
+	r.req.RoleTemplates = roletemplates
 
-		r.req.RoleTemplates = append(r.req.RoleTemplates, *v.RoleTemplateCaster())
-
-	}
 	return r
 }
 
-// A list of role names that are granted to the users that match the role
+// Roles A list of role names that are granted to the users that match the role
 // mapping rules.
 // Exactly one of `roles` or `role_templates` must be specified.
 // API name: roles
 func (r *PutRoleMapping) Roles(roles ...string) *PutRoleMapping {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range roles {
+	r.req.Roles = roles
 
-		r.req.Roles = append(r.req.Roles, v)
-
-	}
 	return r
 }
 
-// The rules that determine which users should be matched by the mapping.
+// Rules The rules that determine which users should be matched by the mapping.
 // A rule is a logical condition that is expressed by using a JSON DSL.
 // API name: rules
-func (r *PutRoleMapping) Rules(rules types.RoleMappingRuleVariant) *PutRoleMapping {
-	// Initialize the request if it is not already initialized
+func (r *PutRoleMapping) Rules(rules *types.RoleMappingRule) *PutRoleMapping {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Rules = rules.RoleMappingRuleCaster()
+	r.req.Rules = rules
 
 	return r
 }
 
 // API name: run_as
 func (r *PutRoleMapping) RunAs(runas ...string) *PutRoleMapping {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range runas {
+	r.req.RunAs = runas
 
-		r.req.RunAs = append(r.req.RunAs, v)
-
-	}
 	return r
 }

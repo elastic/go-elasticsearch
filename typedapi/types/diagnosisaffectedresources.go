@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DiagnosisAffectedResources type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/health_report/types.ts#L58-L64
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/health_report/types.ts#L59-L65
 type DiagnosisAffectedResources struct {
 	FeatureStates        []string        `json:"feature_states,omitempty"`
 	Indices              []string        `json:"indices,omitempty"`
@@ -101,5 +101,3 @@ func NewDiagnosisAffectedResources() *DiagnosisAffectedResources {
 
 	return r
 }
-
-// false

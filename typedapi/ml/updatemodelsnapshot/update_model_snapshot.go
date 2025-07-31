@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Update a snapshot.
 // Updates certain properties of a snapshot.
@@ -383,10 +383,9 @@ func (r *UpdateModelSnapshot) Pretty(pretty bool) *UpdateModelSnapshot {
 	return r
 }
 
-// A description of the model snapshot.
+// Description A description of the model snapshot.
 // API name: description
 func (r *UpdateModelSnapshot) Description(description string) *UpdateModelSnapshot {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -396,16 +395,14 @@ func (r *UpdateModelSnapshot) Description(description string) *UpdateModelSnapsh
 	return r
 }
 
-// If `true`, this snapshot will not be deleted during automatic cleanup of
+// Retain If `true`, this snapshot will not be deleted during automatic cleanup of
 // snapshots older than `model_snapshot_retention_days`. However, this
 // snapshot will be deleted when the job is deleted.
 // API name: retain
 func (r *UpdateModelSnapshot) Retain(retain bool) *UpdateModelSnapshot {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Retain = &retain
 
 	return r

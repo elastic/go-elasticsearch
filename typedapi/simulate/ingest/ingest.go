@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Simulate data ingestion.
 // Run ingest pipelines against a set of provided documents, optionally with
@@ -440,125 +440,66 @@ func (r *Ingest) Pretty(pretty bool) *Ingest {
 	return r
 }
 
-// A map of component template names to substitute component template definition
+// ComponentTemplateSubstitutions A map of component template names to substitute component template definition
 // objects.
 // API name: component_template_substitutions
 func (r *Ingest) ComponentTemplateSubstitutions(componenttemplatesubstitutions map[string]types.ComponentTemplateNode) *Ingest {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.ComponentTemplateSubstitutions = componenttemplatesubstitutions
+
 	return r
 }
 
-func (r *Ingest) AddComponentTemplateSubstitution(key string, value types.ComponentTemplateNodeVariant) *Ingest {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.ComponentTemplateNode
-	if r.req.ComponentTemplateSubstitutions == nil {
-		r.req.ComponentTemplateSubstitutions = make(map[string]types.ComponentTemplateNode)
-	} else {
-		tmp = r.req.ComponentTemplateSubstitutions
-	}
-
-	tmp[key] = *value.ComponentTemplateNodeCaster()
-
-	r.req.ComponentTemplateSubstitutions = tmp
-	return r
-}
-
-// Sample documents to test in the pipeline.
+// Docs Sample documents to test in the pipeline.
 // API name: docs
-func (r *Ingest) Docs(docs ...types.DocumentVariant) *Ingest {
-	// Initialize the request if it is not already initialized
+func (r *Ingest) Docs(docs ...types.Document) *Ingest {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range docs {
+	r.req.Docs = docs
 
-		r.req.Docs = append(r.req.Docs, *v.DocumentCaster())
-
-	}
 	return r
 }
 
-// A map of index template names to substitute index template definition
+// IndexTemplateSubstitutions A map of index template names to substitute index template definition
 // objects.
 // API name: index_template_substitutions
 func (r *Ingest) IndexTemplateSubstitutions(indextemplatesubstitutions map[string]types.IndexTemplate) *Ingest {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.IndexTemplateSubstitutions = indextemplatesubstitutions
-	return r
-}
 
-func (r *Ingest) AddIndexTemplateSubstitution(key string, value types.IndexTemplateVariant) *Ingest {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.IndexTemplate
-	if r.req.IndexTemplateSubstitutions == nil {
-		r.req.IndexTemplateSubstitutions = make(map[string]types.IndexTemplate)
-	} else {
-		tmp = r.req.IndexTemplateSubstitutions
-	}
-
-	tmp[key] = *value.IndexTemplateCaster()
-
-	r.req.IndexTemplateSubstitutions = tmp
 	return r
 }
 
 // API name: mapping_addition
-func (r *Ingest) MappingAddition(mappingaddition types.TypeMappingVariant) *Ingest {
-	// Initialize the request if it is not already initialized
+func (r *Ingest) MappingAddition(mappingaddition *types.TypeMapping) *Ingest {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.MappingAddition = mappingaddition.TypeMappingCaster()
+	r.req.MappingAddition = mappingaddition
 
 	return r
 }
 
-// Pipelines to test.
+// PipelineSubstitutions Pipelines to test.
 // If you don’t specify the `pipeline` request path parameter, this parameter is
 // required.
 // If you specify both this and the request path parameter, the API only uses
 // the request path parameter.
 // API name: pipeline_substitutions
 func (r *Ingest) PipelineSubstitutions(pipelinesubstitutions map[string]types.IngestPipeline) *Ingest {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.PipelineSubstitutions = pipelinesubstitutions
-	return r
-}
 
-func (r *Ingest) AddPipelineSubstitution(key string, value types.IngestPipelineVariant) *Ingest {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.IngestPipeline
-	if r.req.PipelineSubstitutions == nil {
-		r.req.PipelineSubstitutions = make(map[string]types.IngestPipeline)
-	} else {
-		tmp = r.req.PipelineSubstitutions
-	}
-
-	tmp[key] = *value.IngestPipelineCaster()
-
-	r.req.PipelineSubstitutions = tmp
 	return r
 }

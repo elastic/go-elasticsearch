@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create an enrich policy.
 // Creates an enrich policy.
@@ -367,42 +367,39 @@ func (r *PutPolicy) Pretty(pretty bool) *PutPolicy {
 	return r
 }
 
-// Matches enrich data to incoming documents based on a `geo_shape` query.
+// GeoMatch Matches enrich data to incoming documents based on a `geo_shape` query.
 // API name: geo_match
-func (r *PutPolicy) GeoMatch(geomatch types.EnrichPolicyVariant) *PutPolicy {
-	// Initialize the request if it is not already initialized
+func (r *PutPolicy) GeoMatch(geomatch *types.EnrichPolicy) *PutPolicy {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.GeoMatch = geomatch.EnrichPolicyCaster()
+	r.req.GeoMatch = geomatch
 
 	return r
 }
 
-// Matches enrich data to incoming documents based on a `term` query.
+// Match Matches enrich data to incoming documents based on a `term` query.
 // API name: match
-func (r *PutPolicy) Match(match types.EnrichPolicyVariant) *PutPolicy {
-	// Initialize the request if it is not already initialized
+func (r *PutPolicy) Match(match *types.EnrichPolicy) *PutPolicy {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Match = match.EnrichPolicyCaster()
+	r.req.Match = match
 
 	return r
 }
 
-// Matches a number, date, or IP address in incoming documents to a range in the
+// Range Matches a number, date, or IP address in incoming documents to a range in the
 // enrich index based on a `term` query.
 // API name: range
-func (r *PutPolicy) Range(range_ types.EnrichPolicyVariant) *PutPolicy {
-	// Initialize the request if it is not already initialized
+func (r *PutPolicy) Range(range_ *types.EnrichPolicy) *PutPolicy {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Range = range_.EnrichPolicyCaster()
+	r.req.Range = range_
 
 	return r
 }

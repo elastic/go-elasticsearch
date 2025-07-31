@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create or update users.
 //
@@ -385,59 +385,51 @@ func (r *PutUser) Pretty(pretty bool) *PutUser {
 	return r
 }
 
-// The email of the user.
+// Email The email of the user.
 // API name: email
 func (r *PutUser) Email(email string) *PutUser {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Email = &email
 
 	return r
 }
 
-// Specifies whether the user is enabled.
+// Enabled Specifies whether the user is enabled.
 // API name: enabled
 func (r *PutUser) Enabled(enabled bool) *PutUser {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Enabled = &enabled
 
 	return r
 }
 
-// The full name of the user.
+// FullName The full name of the user.
 // API name: full_name
 func (r *PutUser) FullName(fullname string) *PutUser {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.FullName = &fullname
 
 	return r
 }
 
-// Arbitrary metadata that you want to associate with the user.
+// Metadata Arbitrary metadata that you want to associate with the user.
 // API name: metadata
-func (r *PutUser) Metadata(metadata types.MetadataVariant) *PutUser {
-	// Initialize the request if it is not already initialized
+func (r *PutUser) Metadata(metadata types.Metadata) *PutUser {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Metadata = *metadata.MetadataCaster()
+	r.req.Metadata = metadata
 
 	return r
 }
 
-// The user's password.
+// Password The user's password.
 // Passwords must be at least 6 characters long.
 // When adding a user, one of `password` or `password_hash` is required.
 // When updating an existing user, the password is optional, so that other
@@ -445,17 +437,15 @@ func (r *PutUser) Metadata(metadata types.MetadataVariant) *PutUser {
 // user's password
 // API name: password
 func (r *PutUser) Password(password string) *PutUser {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Password = &password
 
 	return r
 }
 
-// A hash of the user's password.
+// PasswordHash A hash of the user's password.
 // This must be produced using the same hashing algorithm as has been configured
 // for password storage.
 // For more details, see the explanation of the
@@ -467,7 +457,6 @@ func (r *PutUser) Password(password string) *PutUser {
 // the same request.
 // API name: password_hash
 func (r *PutUser) PasswordHash(passwordhash string) *PutUser {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -477,19 +466,15 @@ func (r *PutUser) PasswordHash(passwordhash string) *PutUser {
 	return r
 }
 
-// A set of roles the user has.
+// Roles A set of roles the user has.
 // The roles determine the user's access permissions.
 // To create a user without any roles, specify an empty list (`[]`).
 // API name: roles
 func (r *PutUser) Roles(roles ...string) *PutUser {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range roles {
+	r.req.Roles = roles
 
-		r.req.Roles = append(r.req.Roles, v)
-
-	}
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Revert to a snapshot.
 // The machine learning features react quickly to anomalous input, learning new
@@ -397,15 +397,13 @@ func (r *RevertModelSnapshot) Pretty(pretty bool) *RevertModelSnapshot {
 	return r
 }
 
-// Refer to the description for the `delete_intervening_results` query
+// DeleteInterveningResults Refer to the description for the `delete_intervening_results` query
 // parameter.
 // API name: delete_intervening_results
 func (r *RevertModelSnapshot) DeleteInterveningResults(deleteinterveningresults bool) *RevertModelSnapshot {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.DeleteInterveningResults = &deleteinterveningresults
 
 	return r

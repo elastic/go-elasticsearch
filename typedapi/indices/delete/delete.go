@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Delete indices.
 // Deleting an index deletes its documents, shards, and metadata.
@@ -330,7 +330,6 @@ func (r *Delete) AllowNoIndices(allownoindices bool) *Delete {
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
 // Supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *Delete) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Delete {
 	tmp := []string{}

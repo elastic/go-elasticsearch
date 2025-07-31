@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create an API key.
 //
@@ -383,49 +383,43 @@ func (r *CreateApiKey) Pretty(pretty bool) *CreateApiKey {
 	return r
 }
 
-// The expiration time for the API key.
+// Expiration The expiration time for the API key.
 // By default, API keys never expire.
 // API name: expiration
-func (r *CreateApiKey) Expiration(duration types.DurationVariant) *CreateApiKey {
-	// Initialize the request if it is not already initialized
+func (r *CreateApiKey) Expiration(duration types.Duration) *CreateApiKey {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Expiration = *duration.DurationCaster()
+	r.req.Expiration = duration
 
 	return r
 }
 
-// Arbitrary metadata that you want to associate with the API key. It supports
+// Metadata Arbitrary metadata that you want to associate with the API key. It supports
 // nested data structure. Within the metadata object, keys beginning with `_`
 // are reserved for system usage.
 // API name: metadata
-func (r *CreateApiKey) Metadata(metadata types.MetadataVariant) *CreateApiKey {
-	// Initialize the request if it is not already initialized
+func (r *CreateApiKey) Metadata(metadata types.Metadata) *CreateApiKey {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Metadata = *metadata.MetadataCaster()
+	r.req.Metadata = metadata
 
 	return r
 }
 
-// A name for the API key.
+// Name A name for the API key.
 // API name: name
 func (r *CreateApiKey) Name(name string) *CreateApiKey {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Name = &name
 
 	return r
 }
 
-// An array of role descriptors for this API key.
+// RoleDescriptors An array of role descriptors for this API key.
 // When it is not specified or it is an empty array, the API key will have a
 // point in time snapshot of permissions of the authenticated user.
 // If you supply role descriptors, the resultant permissions are an intersection
@@ -444,29 +438,11 @@ func (r *CreateApiKey) Name(name string) *CreateApiKey {
 // authority to call Elasticsearch APIs.
 // API name: role_descriptors
 func (r *CreateApiKey) RoleDescriptors(roledescriptors map[string]types.RoleDescriptor) *CreateApiKey {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.RoleDescriptors = roledescriptors
-	return r
-}
 
-func (r *CreateApiKey) AddRoleDescriptor(key string, value types.RoleDescriptorVariant) *CreateApiKey {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.RoleDescriptor
-	if r.req.RoleDescriptors == nil {
-		r.req.RoleDescriptors = make(map[string]types.RoleDescriptor)
-	} else {
-		tmp = r.req.RoleDescriptors
-	}
-
-	tmp[key] = *value.RoleDescriptorCaster()
-
-	r.req.RoleDescriptors = tmp
 	return r
 }

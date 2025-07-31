@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Update an inference endpoint.
 //
@@ -416,23 +416,21 @@ func (r *Update) Pretty(pretty bool) *Update {
 	return r
 }
 
-// Chunking configuration object
+// ChunkingSettings Chunking configuration object
 // API name: chunking_settings
-func (r *Update) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *Update {
-	// Initialize the request if it is not already initialized
+func (r *Update) ChunkingSettings(chunkingsettings *types.InferenceChunkingSettings) *Update {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
+	r.req.ChunkingSettings = chunkingsettings
 
 	return r
 }
 
-// The service type
+// Service The service type
 // API name: service
 func (r *Update) Service(service string) *Update {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -442,27 +440,23 @@ func (r *Update) Service(service string) *Update {
 	return r
 }
 
-// Settings specific to the service
+// ServiceSettings Settings specific to the service
 // API name: service_settings
 func (r *Update) ServiceSettings(servicesettings json.RawMessage) *Update {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.ServiceSettings = servicesettings
 
 	return r
 }
 
-// Task settings specific to the service and task type
+// TaskSettings Task settings specific to the service and task type
 // API name: task_settings
 func (r *Update) TaskSettings(tasksettings json.RawMessage) *Update {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.TaskSettings = tasksettings
 
 	return r

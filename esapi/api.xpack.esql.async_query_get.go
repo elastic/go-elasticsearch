@@ -54,6 +54,7 @@ type EsqlAsyncQueryGetRequest struct {
 	DocumentID string
 
 	DropNullColumns          *bool
+	Format                   string
 	KeepAlive                time.Duration
 	WaitForCompletionTimeout time.Duration
 
@@ -104,6 +105,10 @@ func (r EsqlAsyncQueryGetRequest) Do(providedCtx context.Context, transport Tran
 
 	if r.DropNullColumns != nil {
 		params["drop_null_columns"] = strconv.FormatBool(*r.DropNullColumns)
+	}
+
+	if r.Format != "" {
+		params["format"] = r.Format
 	}
 
 	if r.KeepAlive != 0 {
@@ -196,6 +201,13 @@ func (f EsqlAsyncQueryGet) WithContext(v context.Context) func(*EsqlAsyncQueryGe
 func (f EsqlAsyncQueryGet) WithDropNullColumns(v bool) func(*EsqlAsyncQueryGetRequest) {
 	return func(r *EsqlAsyncQueryGetRequest) {
 		r.DropNullColumns = &v
+	}
+}
+
+// WithFormat - a short version of the accept header, e.g. json, yaml.
+func (f EsqlAsyncQueryGet) WithFormat(v string) func(*EsqlAsyncQueryGetRequest) {
+	return func(r *EsqlAsyncQueryGetRequest) {
+		r.Format = v
 	}
 }
 

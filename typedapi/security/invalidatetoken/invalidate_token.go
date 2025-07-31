@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Invalidate a token.
 //
@@ -370,26 +370,23 @@ func (r *InvalidateToken) Pretty(pretty bool) *InvalidateToken {
 	return r
 }
 
-// The name of an authentication realm.
+// RealmName The name of an authentication realm.
 // This parameter cannot be used with either `refresh_token` or `token`.
 // API name: realm_name
 func (r *InvalidateToken) RealmName(name string) *InvalidateToken {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.RealmName = &name
 
 	return r
 }
 
-// A refresh token.
+// RefreshToken A refresh token.
 // This parameter cannot be used if any of `refresh_token`, `realm_name`, or
 // `username` are used.
 // API name: refresh_token
 func (r *InvalidateToken) RefreshToken(refreshtoken string) *InvalidateToken {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -399,12 +396,11 @@ func (r *InvalidateToken) RefreshToken(refreshtoken string) *InvalidateToken {
 	return r
 }
 
-// An access token.
+// Token An access token.
 // This parameter cannot be used if any of `refresh_token`, `realm_name`, or
 // `username` are used.
 // API name: token
 func (r *InvalidateToken) Token(token string) *InvalidateToken {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -414,15 +410,13 @@ func (r *InvalidateToken) Token(token string) *InvalidateToken {
 	return r
 }
 
-// The username of a user.
+// Username The username of a user.
 // This parameter cannot be used with either `refresh_token` or `token`.
 // API name: username
 func (r *InvalidateToken) Username(username string) *InvalidateToken {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Username = &username
 
 	return r

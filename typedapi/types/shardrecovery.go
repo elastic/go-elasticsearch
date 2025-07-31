@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardRecovery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/recovery/types.ts#L118-L135
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/recovery/types.ts#L118-L135
 type ShardRecovery struct {
 	Id                int64                `json:"id"`
 	Index             RecoveryIndexStatus  `json:"index"`
@@ -190,5 +190,3 @@ func NewShardRecovery() *ShardRecovery {
 
 	return r
 }
-
-// false

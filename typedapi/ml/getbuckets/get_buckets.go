@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Get anomaly detection job results for buckets.
 // The API presents a chronological view of the records, grouped by bucket.
@@ -415,10 +415,9 @@ func (r *GetBuckets) Pretty(pretty bool) *GetBuckets {
 	return r
 }
 
-// Refer to the description for the `anomaly_score` query parameter.
+// AnomalyScore Refer to the description for the `anomaly_score` query parameter.
 // API name: anomaly_score
 func (r *GetBuckets) AnomalyScore(anomalyscore types.Float64) *GetBuckets {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -428,92 +427,79 @@ func (r *GetBuckets) AnomalyScore(anomalyscore types.Float64) *GetBuckets {
 	return r
 }
 
-// Refer to the description for the `desc` query parameter.
+// Desc Refer to the description for the `desc` query parameter.
 // API name: desc
 func (r *GetBuckets) Desc(desc bool) *GetBuckets {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Desc = &desc
 
 	return r
 }
 
-// Refer to the description for the `end` query parameter.
+// End Refer to the description for the `end` query parameter.
 // API name: end
-func (r *GetBuckets) End(datetime types.DateTimeVariant) *GetBuckets {
-	// Initialize the request if it is not already initialized
+func (r *GetBuckets) End(datetime types.DateTime) *GetBuckets {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.End = *datetime.DateTimeCaster()
+	r.req.End = datetime
 
 	return r
 }
 
-// Refer to the description for the `exclude_interim` query parameter.
+// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
 // API name: exclude_interim
 func (r *GetBuckets) ExcludeInterim(excludeinterim bool) *GetBuckets {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.ExcludeInterim = &excludeinterim
 
 	return r
 }
 
-// Refer to the description for the `expand` query parameter.
+// Expand Refer to the description for the `expand` query parameter.
 // API name: expand
 func (r *GetBuckets) Expand(expand bool) *GetBuckets {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Expand = &expand
 
 	return r
 }
 
 // API name: page
-func (r *GetBuckets) Page(page types.PageVariant) *GetBuckets {
-	// Initialize the request if it is not already initialized
+func (r *GetBuckets) Page(page *types.Page) *GetBuckets {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Page = page.PageCaster()
+	r.req.Page = page
 
 	return r
 }
 
-// Refer to the desription for the `sort` query parameter.
+// Sort Refer to the desription for the `sort` query parameter.
 // API name: sort
 func (r *GetBuckets) Sort(field string) *GetBuckets {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Sort = &field
 
 	return r
 }
 
-// Refer to the description for the `start` query parameter.
+// Start Refer to the description for the `start` query parameter.
 // API name: start
-func (r *GetBuckets) Start(datetime types.DateTimeVariant) *GetBuckets {
-	// Initialize the request if it is not already initialized
+func (r *GetBuckets) Start(datetime types.DateTime) *GetBuckets {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Start = *datetime.DateTimeCaster()
+	r.req.Start = datetime
 
 	return r
 }

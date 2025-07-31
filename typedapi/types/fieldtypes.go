@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FieldTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/cluster/stats/types.ts#L136-L167
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/cluster/stats/types.ts#L211-L254
 type FieldTypes struct {
 	// Count The number of occurrences of the field type in selected nodes.
 	Count int `json:"count"`
@@ -39,17 +39,23 @@ type FieldTypes struct {
 	IndexCount int `json:"index_count"`
 	// IndexedVectorCount For dense_vector field types, number of indexed vector types in selected
 	// nodes.
-	IndexedVectorCount *int64 `json:"indexed_vector_count,omitempty"`
+	IndexedVectorCount *int `json:"indexed_vector_count,omitempty"`
 	// IndexedVectorDimMax For dense_vector field types, the maximum dimension of all indexed vector
 	// types in selected nodes.
-	IndexedVectorDimMax *int64 `json:"indexed_vector_dim_max,omitempty"`
+	IndexedVectorDimMax *int `json:"indexed_vector_dim_max,omitempty"`
 	// IndexedVectorDimMin For dense_vector field types, the minimum dimension of all indexed vector
 	// types in selected nodes.
-	IndexedVectorDimMin *int64 `json:"indexed_vector_dim_min,omitempty"`
+	IndexedVectorDimMin *int `json:"indexed_vector_dim_min,omitempty"`
 	// Name The name for the field type in selected nodes.
 	Name string `json:"name"`
 	// ScriptCount The number of fields that declare a script.
 	ScriptCount *int `json:"script_count,omitempty"`
+	// VectorElementTypeCount For dense_vector field types, count of mappings by element type
+	VectorElementTypeCount map[string]int `json:"vector_element_type_count,omitempty"`
+	// VectorIndexTypeCount For dense_vector field types, count of mappings by index type
+	VectorIndexTypeCount map[string]int `json:"vector_index_type_count,omitempty"`
+	// VectorSimilarityTypeCount For dense_vector field types, count of mappings by similarity
+	VectorSimilarityTypeCount map[string]int `json:"vector_similarity_type_count,omitempty"`
 }
 
 func (s *FieldTypes) UnmarshalJSON(data []byte) error {
@@ -100,47 +106,50 @@ func (s *FieldTypes) UnmarshalJSON(data []byte) error {
 			}
 
 		case "indexed_vector_count":
+
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
-				value, err := strconv.ParseInt(v, 10, 64)
+				value, err := strconv.Atoi(v)
 				if err != nil {
 					return fmt.Errorf("%s | %w", "IndexedVectorCount", err)
 				}
 				s.IndexedVectorCount = &value
 			case float64:
-				f := int64(v)
+				f := int(v)
 				s.IndexedVectorCount = &f
 			}
 
 		case "indexed_vector_dim_max":
+
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
-				value, err := strconv.ParseInt(v, 10, 64)
+				value, err := strconv.Atoi(v)
 				if err != nil {
 					return fmt.Errorf("%s | %w", "IndexedVectorDimMax", err)
 				}
 				s.IndexedVectorDimMax = &value
 			case float64:
-				f := int64(v)
+				f := int(v)
 				s.IndexedVectorDimMax = &f
 			}
 
 		case "indexed_vector_dim_min":
+
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
-				value, err := strconv.ParseInt(v, 10, 64)
+				value, err := strconv.Atoi(v)
 				if err != nil {
 					return fmt.Errorf("%s | %w", "IndexedVectorDimMin", err)
 				}
 				s.IndexedVectorDimMin = &value
 			case float64:
-				f := int64(v)
+				f := int(v)
 				s.IndexedVectorDimMin = &f
 			}
 
@@ -165,6 +174,30 @@ func (s *FieldTypes) UnmarshalJSON(data []byte) error {
 				s.ScriptCount = &f
 			}
 
+		case "vector_element_type_count":
+			if s.VectorElementTypeCount == nil {
+				s.VectorElementTypeCount = make(map[string]int, 0)
+			}
+			if err := dec.Decode(&s.VectorElementTypeCount); err != nil {
+				return fmt.Errorf("%s | %w", "VectorElementTypeCount", err)
+			}
+
+		case "vector_index_type_count":
+			if s.VectorIndexTypeCount == nil {
+				s.VectorIndexTypeCount = make(map[string]int, 0)
+			}
+			if err := dec.Decode(&s.VectorIndexTypeCount); err != nil {
+				return fmt.Errorf("%s | %w", "VectorIndexTypeCount", err)
+			}
+
+		case "vector_similarity_type_count":
+			if s.VectorSimilarityTypeCount == nil {
+				s.VectorSimilarityTypeCount = make(map[string]int, 0)
+			}
+			if err := dec.Decode(&s.VectorSimilarityTypeCount); err != nil {
+				return fmt.Errorf("%s | %w", "VectorSimilarityTypeCount", err)
+			}
+
 		}
 	}
 	return nil
@@ -172,9 +205,11 @@ func (s *FieldTypes) UnmarshalJSON(data []byte) error {
 
 // NewFieldTypes returns a FieldTypes.
 func NewFieldTypes() *FieldTypes {
-	r := &FieldTypes{}
+	r := &FieldTypes{
+		VectorElementTypeCount:    make(map[string]int),
+		VectorIndexTypeCount:      make(map[string]int),
+		VectorSimilarityTypeCount: make(map[string]int),
+	}
 
 	return r
 }
-
-// false

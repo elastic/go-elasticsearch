@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Open a point in time.
 //
@@ -474,8 +474,7 @@ func (r *OpenPointInTime) Routing(routing string) *OpenPointInTime {
 // ExpandWildcards The type of index that wildcard patterns can match.
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
-// It supports comma-separated values, such as `open,hidden`. Valid values are:
-// `all`, `open`, `closed`, `hidden`, `none`.
+// It supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *OpenPointInTime) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *OpenPointInTime {
 	tmp := []string{}
@@ -553,15 +552,14 @@ func (r *OpenPointInTime) Pretty(pretty bool) *OpenPointInTime {
 	return r
 }
 
-// Filter indices if the provided query rewrites to `match_none` on every shard.
+// IndexFilter Filter indices if the provided query rewrites to `match_none` on every shard.
 // API name: index_filter
-func (r *OpenPointInTime) IndexFilter(indexfilter types.QueryVariant) *OpenPointInTime {
-	// Initialize the request if it is not already initialized
+func (r *OpenPointInTime) IndexFilter(indexfilter *types.Query) *OpenPointInTime {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.IndexFilter = indexfilter.QueryCaster()
+	r.req.IndexFilter = indexfilter
 
 	return r
 }

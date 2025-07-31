@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Update the connector filtering.
 //
@@ -372,41 +372,32 @@ func (r *UpdateFiltering) Pretty(pretty bool) *UpdateFiltering {
 }
 
 // API name: advanced_snippet
-func (r *UpdateFiltering) AdvancedSnippet(advancedsnippet types.FilteringAdvancedSnippetVariant) *UpdateFiltering {
-	// Initialize the request if it is not already initialized
+func (r *UpdateFiltering) AdvancedSnippet(advancedsnippet *types.FilteringAdvancedSnippet) *UpdateFiltering {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.AdvancedSnippet = advancedsnippet.FilteringAdvancedSnippetCaster()
+	r.req.AdvancedSnippet = advancedsnippet
 
 	return r
 }
 
 // API name: filtering
-func (r *UpdateFiltering) Filtering(filterings ...types.FilteringConfigVariant) *UpdateFiltering {
-	// Initialize the request if it is not already initialized
+func (r *UpdateFiltering) Filtering(filterings ...types.FilteringConfig) *UpdateFiltering {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range filterings {
+	r.req.Filtering = filterings
 
-		r.req.Filtering = append(r.req.Filtering, *v.FilteringConfigCaster())
-
-	}
 	return r
 }
 
 // API name: rules
-func (r *UpdateFiltering) Rules(rules ...types.FilteringRuleVariant) *UpdateFiltering {
-	// Initialize the request if it is not already initialized
+func (r *UpdateFiltering) Rules(rules ...types.FilteringRule) *UpdateFiltering {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range rules {
+	r.req.Rules = rules
 
-		r.req.Rules = append(r.req.Rules, *v.FilteringRuleCaster())
-
-	}
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Preview a datafeed.
 // This API returns the first "page" of search results from a datafeed.
@@ -414,20 +414,19 @@ func (r *PreviewDatafeed) Pretty(pretty bool) *PreviewDatafeed {
 	return r
 }
 
-// The datafeed definition to preview.
+// DatafeedConfig The datafeed definition to preview.
 // API name: datafeed_config
-func (r *PreviewDatafeed) DatafeedConfig(datafeedconfig types.DatafeedConfigVariant) *PreviewDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *PreviewDatafeed) DatafeedConfig(datafeedconfig *types.DatafeedConfig) *PreviewDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.DatafeedConfig = datafeedconfig.DatafeedConfigCaster()
+	r.req.DatafeedConfig = datafeedconfig
 
 	return r
 }
 
-// The configuration details for the anomaly detection job that is associated
+// JobConfig The configuration details for the anomaly detection job that is associated
 // with the datafeed. If the
 // `datafeed_config` object does not include a `job_id` that references an
 // existing anomaly detection job, you must
@@ -436,13 +435,12 @@ func (r *PreviewDatafeed) DatafeedConfig(datafeedconfig types.DatafeedConfigVari
 // used. You cannot specify a `job_config` object unless you also supply a
 // `datafeed_config` object.
 // API name: job_config
-func (r *PreviewDatafeed) JobConfig(jobconfig types.JobConfigVariant) *PreviewDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *PreviewDatafeed) JobConfig(jobconfig *types.JobConfig) *PreviewDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.JobConfig = jobconfig.JobConfigCaster()
+	r.req.JobConfig = jobconfig
 
 	return r
 }

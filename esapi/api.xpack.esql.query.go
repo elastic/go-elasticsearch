@@ -53,9 +53,10 @@ type EsqlQuery func(body io.Reader, o ...func(*EsqlQueryRequest)) (*Response, er
 type EsqlQueryRequest struct {
 	Body io.Reader
 
-	Delimiter       string
-	DropNullColumns *bool
-	Format          string
+	AllowPartialResults *bool
+	Delimiter           string
+	DropNullColumns     *bool
+	Format              string
 
 	Pretty     bool
 	Human      bool
@@ -93,6 +94,10 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 	path.WriteString("/_query")
 
 	params = make(map[string]string)
+
+	if r.AllowPartialResults != nil {
+		params["allow_partial_results"] = strconv.FormatBool(*r.AllowPartialResults)
+	}
 
 	if r.Delimiter != "" {
 		params["delimiter"] = r.Delimiter
@@ -188,6 +193,13 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 func (f EsqlQuery) WithContext(v context.Context) func(*EsqlQueryRequest) {
 	return func(r *EsqlQueryRequest) {
 		r.ctx = v
+	}
+}
+
+// WithAllowPartialResults - if `true`, partial results will be returned if there are shard failures, butthe query can continue to execute on other clusters and shards.if `false`, the entire query will fail if there areany failures..
+func (f EsqlQuery) WithAllowPartialResults(v bool) func(*EsqlQueryRequest) {
+	return func(r *EsqlQueryRequest) {
+		r.AllowPartialResults = &v
 	}
 }
 

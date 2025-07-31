@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Start a trained model deployment.
 // It allocates the model to every machine learning node.
@@ -453,18 +453,17 @@ func (r *StartTrainedModelDeployment) Pretty(pretty bool) *StartTrainedModelDepl
 	return r
 }
 
-// Adaptive allocations configuration. When enabled, the number of allocations
+// AdaptiveAllocations Adaptive allocations configuration. When enabled, the number of allocations
 // is set based on the current load.
 // If adaptive_allocations is enabled, do not set the number of allocations
 // manually.
 // API name: adaptive_allocations
-func (r *StartTrainedModelDeployment) AdaptiveAllocations(adaptiveallocations types.AdaptiveAllocationsSettingsVariant) *StartTrainedModelDeployment {
-	// Initialize the request if it is not already initialized
+func (r *StartTrainedModelDeployment) AdaptiveAllocations(adaptiveallocations *types.AdaptiveAllocationsSettings) *StartTrainedModelDeployment {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.AdaptiveAllocations = adaptiveallocations.AdaptiveAllocationsSettingsCaster()
+	r.req.AdaptiveAllocations = adaptiveallocations
 
 	return r
 }

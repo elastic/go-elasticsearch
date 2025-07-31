@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SourceIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/migrate_reindex/MigrateReindexRequest.ts#L50-L52
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/migrate_reindex/MigrateReindexRequest.ts#L50-L52
 type SourceIndex struct {
 	Index string `json:"index"`
 }
@@ -65,14 +65,4 @@ func NewSourceIndex() *SourceIndex {
 	r := &SourceIndex{}
 
 	return r
-}
-
-// true
-
-type SourceIndexVariant interface {
-	SourceIndexCaster() *SourceIndex
-}
-
-func (s *SourceIndex) SourceIndexCaster() *SourceIndex {
-	return s
 }

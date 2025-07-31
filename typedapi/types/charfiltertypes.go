@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
 // CharFilterTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/cluster/stats/types.ts#L228-L261
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/cluster/stats/types.ts#L315-L352
 type CharFilterTypes struct {
 	// AnalyzerTypes Contains statistics about analyzer types used in selected nodes.
 	AnalyzerTypes []FieldTypes `json:"analyzer_types"`
@@ -38,15 +38,17 @@ type CharFilterTypes struct {
 	CharFilterTypes []FieldTypes `json:"char_filter_types"`
 	// FilterTypes Contains statistics about token filter types used in selected nodes.
 	FilterTypes []FieldTypes `json:"filter_types"`
+	// Synonyms Contains statistics about synonyms types used in selected nodes.
+	Synonyms map[string]SynonymsStats `json:"synonyms"`
 	// TokenizerTypes Contains statistics about tokenizer types used in selected nodes.
 	TokenizerTypes []FieldTypes `json:"tokenizer_types"`
 }
 
 // NewCharFilterTypes returns a CharFilterTypes.
 func NewCharFilterTypes() *CharFilterTypes {
-	r := &CharFilterTypes{}
+	r := &CharFilterTypes{
+		Synonyms: make(map[string]SynonymsStats),
+	}
 
 	return r
 }
-
-// false

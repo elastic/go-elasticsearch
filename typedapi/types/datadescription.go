@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataDescription type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/Job.ts#L374-L390
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/_types/Job.ts#L374-L390
 type DataDescription struct {
 	FieldDelimiter *string `json:"field_delimiter,omitempty"`
 	// Format Only JSON format is supported at this time.
@@ -116,14 +116,4 @@ func NewDataDescription() *DataDescription {
 	r := &DataDescription{}
 
 	return r
-}
-
-// true
-
-type DataDescriptionVariant interface {
-	DataDescriptionCaster() *DataDescription
-}
-
-func (s *DataDescription) DataDescriptionCaster() *DataDescription {
-	return s
 }

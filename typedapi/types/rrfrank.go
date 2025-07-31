@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RrfRank type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/Rank.ts#L32-L37
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/Rank.ts#L32-L37
 type RrfRank struct {
 	// RankConstant How much influence documents in individual result sets per query have over
 	// the final ranked result set
@@ -95,14 +95,4 @@ func NewRrfRank() *RrfRank {
 	r := &RrfRank{}
 
 	return r
-}
-
-// true
-
-type RrfRankVariant interface {
-	RrfRankCaster() *RrfRank
-}
-
-func (s *RrfRank) RrfRankCaster() *RrfRank {
-	return s
 }

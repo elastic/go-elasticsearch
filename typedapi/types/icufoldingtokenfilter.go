@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IcuFoldingTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/icu-plugin.ts#L46-L49
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/analysis/icu-plugin.ts#L47-L50
 type IcuFoldingTokenFilter struct {
 	Type             string  `json:"type,omitempty"`
 	UnicodeSetFilter string  `json:"unicode_set_filter"`
@@ -99,14 +99,4 @@ func NewIcuFoldingTokenFilter() *IcuFoldingTokenFilter {
 	r := &IcuFoldingTokenFilter{}
 
 	return r
-}
-
-// true
-
-type IcuFoldingTokenFilterVariant interface {
-	IcuFoldingTokenFilterCaster() *IcuFoldingTokenFilter
-}
-
-func (s *IcuFoldingTokenFilter) IcuFoldingTokenFilterCaster() *IcuFoldingTokenFilter {
-	return s
 }

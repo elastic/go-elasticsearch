@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Forget a follower.
 // Remove the cross-cluster replication follower retention leases from the
@@ -417,7 +417,6 @@ func (r *ForgetFollower) Pretty(pretty bool) *ForgetFollower {
 
 // API name: follower_cluster
 func (r *ForgetFollower) FollowerCluster(followercluster string) *ForgetFollower {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -429,11 +428,9 @@ func (r *ForgetFollower) FollowerCluster(followercluster string) *ForgetFollower
 
 // API name: follower_index
 func (r *ForgetFollower) FollowerIndex(indexname string) *ForgetFollower {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.FollowerIndex = &indexname
 
 	return r
@@ -441,11 +438,9 @@ func (r *ForgetFollower) FollowerIndex(indexname string) *ForgetFollower {
 
 // API name: follower_index_uuid
 func (r *ForgetFollower) FollowerIndexUuid(uuid string) *ForgetFollower {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.FollowerIndexUuid = &uuid
 
 	return r
@@ -453,7 +448,6 @@ func (r *ForgetFollower) FollowerIndexUuid(uuid string) *ForgetFollower {
 
 // API name: leader_remote_cluster
 func (r *ForgetFollower) LeaderRemoteCluster(leaderremotecluster string) *ForgetFollower {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

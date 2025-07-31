@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Force buffered data to be processed.
 // The flush jobs API is only applicable when sending data for analysis using
@@ -375,67 +375,57 @@ func (r *FlushJob) Pretty(pretty bool) *FlushJob {
 	return r
 }
 
-// Refer to the description for the `advance_time` query parameter.
+// AdvanceTime Refer to the description for the `advance_time` query parameter.
 // API name: advance_time
-func (r *FlushJob) AdvanceTime(datetime types.DateTimeVariant) *FlushJob {
-	// Initialize the request if it is not already initialized
+func (r *FlushJob) AdvanceTime(datetime types.DateTime) *FlushJob {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.AdvanceTime = *datetime.DateTimeCaster()
+	r.req.AdvanceTime = datetime
 
 	return r
 }
 
-// Refer to the description for the `calc_interim` query parameter.
+// CalcInterim Refer to the description for the `calc_interim` query parameter.
 // API name: calc_interim
 func (r *FlushJob) CalcInterim(calcinterim bool) *FlushJob {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.CalcInterim = &calcinterim
 
 	return r
 }
 
-// Refer to the description for the `end` query parameter.
+// End Refer to the description for the `end` query parameter.
 // API name: end
-func (r *FlushJob) End(datetime types.DateTimeVariant) *FlushJob {
-	// Initialize the request if it is not already initialized
+func (r *FlushJob) End(datetime types.DateTime) *FlushJob {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.End = *datetime.DateTimeCaster()
+	r.req.End = datetime
 
 	return r
 }
 
-// Refer to the description for the `skip_time` query parameter.
+// SkipTime Refer to the description for the `skip_time` query parameter.
 // API name: skip_time
-func (r *FlushJob) SkipTime(datetime types.DateTimeVariant) *FlushJob {
-	// Initialize the request if it is not already initialized
+func (r *FlushJob) SkipTime(datetime types.DateTime) *FlushJob {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.SkipTime = *datetime.DateTimeCaster()
+	r.req.SkipTime = datetime
 
 	return r
 }
 
-// Refer to the description for the `start` query parameter.
+// Start Refer to the description for the `start` query parameter.
 // API name: start
-func (r *FlushJob) Start(datetime types.DateTimeVariant) *FlushJob {
-	// Initialize the request if it is not already initialized
+func (r *FlushJob) Start(datetime types.DateTime) *FlushJob {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Start = *datetime.DateTimeCaster()
+	r.req.Start = datetime
 
 	return r
 }

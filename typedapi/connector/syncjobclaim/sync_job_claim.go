@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Claim a connector sync job.
 // This action updates the job status to `in_progress` and sets the `last_seen`
@@ -383,12 +383,15 @@ func (r *SyncJobClaim) Pretty(pretty bool) *SyncJobClaim {
 	return r
 }
 
-// The cursor object from the last incremental sync job.
+// SyncCursor The cursor object from the last incremental sync job.
 // This should reference the `sync_cursor` field in the connector state for
 // which the job runs.
 // API name: sync_cursor
+//
+// synccursor should be a json.RawMessage or a structure
+// if a structure is provided, the client will defer a json serialization
+// prior to sending the payload to Elasticsearch.
 func (r *SyncJobClaim) SyncCursor(synccursor any) *SyncJobClaim {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -405,13 +408,13 @@ func (r *SyncJobClaim) SyncCursor(synccursor any) *SyncJobClaim {
 			return nil
 		})
 	}
+
 	return r
 }
 
-// The host name of the current system that will run the job.
+// WorkerHostname The host name of the current system that will run the job.
 // API name: worker_hostname
 func (r *SyncJobClaim) WorkerHostname(workerhostname string) *SyncJobClaim {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

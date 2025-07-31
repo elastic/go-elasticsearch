@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,14 +31,29 @@ import (
 
 // CommonGramsTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/token_filters.ts#L174-L180
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/analysis/token_filters.ts#L219-L235
 type CommonGramsTokenFilter struct {
-	CommonWords     []string `json:"common_words,omitempty"`
-	CommonWordsPath *string  `json:"common_words_path,omitempty"`
-	IgnoreCase      *bool    `json:"ignore_case,omitempty"`
-	QueryMode       *bool    `json:"query_mode,omitempty"`
-	Type            string   `json:"type,omitempty"`
-	Version         *string  `json:"version,omitempty"`
+	// CommonWords A list of tokens. The filter generates bigrams for these tokens.
+	// Either this or the `common_words_path` parameter is required.
+	CommonWords []string `json:"common_words,omitempty"`
+	// CommonWordsPath Path to a file containing a list of tokens. The filter generates bigrams for
+	// these tokens.
+	// This path must be absolute or relative to the `config` location. The file
+	// must be UTF-8 encoded. Each token in the file must be separated by a line
+	// break.
+	// Either this or the `common_words` parameter is required.
+	CommonWordsPath *string `json:"common_words_path,omitempty"`
+	// IgnoreCase If `true`, matches for common words matching are case-insensitive. Defaults
+	// to `false`.
+	IgnoreCase *bool `json:"ignore_case,omitempty"`
+	// QueryMode If `true`, the filter excludes the following tokens from the output:
+	// - Unigrams for common words
+	// - Unigrams for terms followed by common words
+	// Defaults to `false`. We recommend enabling this parameter for search
+	// analyzers.
+	QueryMode *bool   `json:"query_mode,omitempty"`
+	Type      string  `json:"type,omitempty"`
+	Version   *string `json:"version,omitempty"`
 }
 
 func (s *CommonGramsTokenFilter) UnmarshalJSON(data []byte) error {
@@ -138,14 +153,4 @@ func NewCommonGramsTokenFilter() *CommonGramsTokenFilter {
 	r := &CommonGramsTokenFilter{}
 
 	return r
-}
-
-// true
-
-type CommonGramsTokenFilterVariant interface {
-	CommonGramsTokenFilterCaster() *CommonGramsTokenFilter
-}
-
-func (s *CommonGramsTokenFilter) CommonGramsTokenFilterCaster() *CommonGramsTokenFilter {
-	return s
 }

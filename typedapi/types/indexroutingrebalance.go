@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // IndexRoutingRebalance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/_types/IndexRouting.ts#L34-L36
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/_types/IndexRouting.ts#L34-L36
 type IndexRoutingRebalance struct {
 	Enable indexroutingrebalanceoptions.IndexRoutingRebalanceOptions `json:"enable"`
 }
@@ -36,14 +36,4 @@ func NewIndexRoutingRebalance() *IndexRoutingRebalance {
 	r := &IndexRoutingRebalance{}
 
 	return r
-}
-
-// true
-
-type IndexRoutingRebalanceVariant interface {
-	IndexRoutingRebalanceCaster() *IndexRoutingRebalance
-}
-
-func (s *IndexRoutingRebalance) IndexRoutingRebalanceCaster() *IndexRoutingRebalance {
-	return s
 }

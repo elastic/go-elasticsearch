@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
 // ClusterIndexingPressure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/cluster/stats/types.ts#L570-L572
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/cluster/stats/types.ts#L765-L767
 type ClusterIndexingPressure struct {
-	Memory ClusterPressureMemory `json:"memory"`
+	Memory NodesIndexingPressureMemory `json:"memory"`
 }
 
 // NewClusterIndexingPressure returns a ClusterIndexingPressure.
@@ -33,5 +33,3 @@ func NewClusterIndexingPressure() *ClusterIndexingPressure {
 
 	return r
 }
-
-// false

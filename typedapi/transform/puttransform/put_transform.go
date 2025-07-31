@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create a transform.
 // Creates a transform.
@@ -451,10 +451,9 @@ func (r *PutTransform) Pretty(pretty bool) *PutTransform {
 	return r
 }
 
-// Free text description of the transform.
+// Description Free text description of the transform.
 // API name: description
 func (r *PutTransform) Description(description string) *PutTransform {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -464,128 +463,117 @@ func (r *PutTransform) Description(description string) *PutTransform {
 	return r
 }
 
-// The destination for the transform.
+// Dest The destination for the transform.
 // API name: dest
-func (r *PutTransform) Dest(dest types.TransformDestinationVariant) *PutTransform {
-	// Initialize the request if it is not already initialized
+func (r *PutTransform) Dest(dest *types.TransformDestination) *PutTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Dest = *dest.TransformDestinationCaster()
+	r.req.Dest = *dest
 
 	return r
 }
 
-// The interval between checks for changes in the source indices when the
+// Frequency The interval between checks for changes in the source indices when the
 // transform is running continuously. Also
 // determines the retry interval in the event of transient failures while the
 // transform is searching or indexing.
 // The minimum value is `1s` and the maximum is `1h`.
 // API name: frequency
-func (r *PutTransform) Frequency(duration types.DurationVariant) *PutTransform {
-	// Initialize the request if it is not already initialized
+func (r *PutTransform) Frequency(duration types.Duration) *PutTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Frequency = *duration.DurationCaster()
+	r.req.Frequency = duration
 
 	return r
 }
 
-// The latest method transforms the data by finding the latest document for each
+// Latest The latest method transforms the data by finding the latest document for each
 // unique key.
 // API name: latest
-func (r *PutTransform) Latest(latest types.LatestVariant) *PutTransform {
-	// Initialize the request if it is not already initialized
+func (r *PutTransform) Latest(latest *types.Latest) *PutTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Latest = latest.LatestCaster()
+	r.req.Latest = latest
 
 	return r
 }
 
-// Defines optional transform metadata.
+// Meta_ Defines optional transform metadata.
 // API name: _meta
-func (r *PutTransform) Meta_(metadata types.MetadataVariant) *PutTransform {
-	// Initialize the request if it is not already initialized
+func (r *PutTransform) Meta_(metadata types.Metadata) *PutTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Meta_ = *metadata.MetadataCaster()
+	r.req.Meta_ = metadata
 
 	return r
 }
 
-// The pivot method transforms the data by aggregating and grouping it. These
+// Pivot The pivot method transforms the data by aggregating and grouping it. These
 // objects define the group by fields
 // and the aggregation to reduce the data.
 // API name: pivot
-func (r *PutTransform) Pivot(pivot types.PivotVariant) *PutTransform {
-	// Initialize the request if it is not already initialized
+func (r *PutTransform) Pivot(pivot *types.Pivot) *PutTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Pivot = pivot.PivotCaster()
+	r.req.Pivot = pivot
 
 	return r
 }
 
-// Defines a retention policy for the transform. Data that meets the defined
+// RetentionPolicy Defines a retention policy for the transform. Data that meets the defined
 // criteria is deleted from the
 // destination index.
 // API name: retention_policy
-func (r *PutTransform) RetentionPolicy(retentionpolicy types.RetentionPolicyContainerVariant) *PutTransform {
-	// Initialize the request if it is not already initialized
+func (r *PutTransform) RetentionPolicy(retentionpolicy *types.RetentionPolicyContainer) *PutTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.RetentionPolicy = retentionpolicy.RetentionPolicyContainerCaster()
+	r.req.RetentionPolicy = retentionpolicy
 
 	return r
 }
 
-// Defines optional transform settings.
+// Settings Defines optional transform settings.
 // API name: settings
-func (r *PutTransform) Settings(settings types.SettingsVariant) *PutTransform {
-	// Initialize the request if it is not already initialized
+func (r *PutTransform) Settings(settings *types.Settings) *PutTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Settings = settings.SettingsCaster()
+	r.req.Settings = settings
 
 	return r
 }
 
-// The source of the data for the transform.
+// Source The source of the data for the transform.
 // API name: source
-func (r *PutTransform) Source(source types.TransformSourceVariant) *PutTransform {
-	// Initialize the request if it is not already initialized
+func (r *PutTransform) Source(source *types.TransformSource) *PutTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Source = *source.TransformSourceCaster()
+	r.req.Source = *source
 
 	return r
 }
 
-// Defines the properties transforms require to run continuously.
+// Sync Defines the properties transforms require to run continuously.
 // API name: sync
-func (r *PutTransform) Sync(sync types.SyncContainerVariant) *PutTransform {
-	// Initialize the request if it is not already initialized
+func (r *PutTransform) Sync(sync *types.SyncContainer) *PutTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Sync = sync.SyncContainerCaster()
+	r.req.Sync = sync
 
 	return r
 }

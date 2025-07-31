@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SpanWithinQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/span.ts#L142-L156
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/query_dsl/span.ts#L142-L156
 type SpanWithinQuery struct {
 	// Big Can be any span query.
 	// Matching spans from `little` that are enclosed within `big` are returned.
@@ -111,14 +111,4 @@ func NewSpanWithinQuery() *SpanWithinQuery {
 	r := &SpanWithinQuery{}
 
 	return r
-}
-
-// true
-
-type SpanWithinQueryVariant interface {
-	SpanWithinQueryCaster() *SpanWithinQuery
-}
-
-func (s *SpanWithinQuery) SpanWithinQueryCaster() *SpanWithinQuery {
-	return s
 }

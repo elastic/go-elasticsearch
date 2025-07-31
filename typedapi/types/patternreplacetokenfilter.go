@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,11 +31,18 @@ import (
 
 // PatternReplaceTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/token_filters.ts#L285-L291
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/analysis/token_filters.ts#L382-L391
 type PatternReplaceTokenFilter struct {
-	All         *bool   `json:"all,omitempty"`
-	Flags       *string `json:"flags,omitempty"`
-	Pattern     string  `json:"pattern"`
+	// All If `true`, all substrings matching the pattern parameter’s regular expression
+	// are replaced. If `false`, the filter replaces only the first matching
+	// substring in each token. Defaults to `true`.
+	All   *bool   `json:"all,omitempty"`
+	Flags *string `json:"flags,omitempty"`
+	// Pattern Regular expression, written in Java’s regular expression syntax. The filter
+	// replaces token substrings matching this pattern with the substring in the
+	// `replacement` parameter.
+	Pattern string `json:"pattern"`
+	// Replacement Replacement substring. Defaults to an empty substring (`""`).
 	Replacement *string `json:"replacement,omitempty"`
 	Type        string  `json:"type,omitempty"`
 	Version     *string `json:"version,omitempty"`
@@ -143,14 +150,4 @@ func NewPatternReplaceTokenFilter() *PatternReplaceTokenFilter {
 	r := &PatternReplaceTokenFilter{}
 
 	return r
-}
-
-// true
-
-type PatternReplaceTokenFilterVariant interface {
-	PatternReplaceTokenFilterCaster() *PatternReplaceTokenFilter
-}
-
-func (s *PatternReplaceTokenFilter) PatternReplaceTokenFilterCaster() *PatternReplaceTokenFilter {
-	return s
 }

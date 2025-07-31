@@ -16,17 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
 // SimulateDocumentResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ingest/_types/Simulation.ts#L46-L50
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ingest/_types/Simulation.ts#L45-L49
 type SimulateDocumentResult struct {
-	Doc              *DocumentSimulation  `json:"doc,omitempty"`
-	Error            *ErrorCause          `json:"error,omitempty"`
-	ProcessorResults []PipelineSimulation `json:"processor_results,omitempty"`
+	Doc              *DocumentSimulation       `json:"doc,omitempty"`
+	Error            *ErrorCause               `json:"error,omitempty"`
+	ProcessorResults []PipelineProcessorResult `json:"processor_results,omitempty"`
 }
 
 // NewSimulateDocumentResult returns a SimulateDocumentResult.
@@ -35,5 +35,3 @@ func NewSimulateDocumentResult() *SimulateDocumentResult {
 
 	return r
 }
-
-// false

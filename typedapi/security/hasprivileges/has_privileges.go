@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Check user privileges.
 //
@@ -376,44 +376,32 @@ func (r *HasPrivileges) Pretty(pretty bool) *HasPrivileges {
 }
 
 // API name: application
-func (r *HasPrivileges) Application(applications ...types.ApplicationPrivilegesCheckVariant) *HasPrivileges {
-	// Initialize the request if it is not already initialized
+func (r *HasPrivileges) Application(applications ...types.ApplicationPrivilegesCheck) *HasPrivileges {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range applications {
+	r.req.Application = applications
 
-		r.req.Application = append(r.req.Application, *v.ApplicationPrivilegesCheckCaster())
-
-	}
 	return r
 }
 
-// A list of the cluster privileges that you want to check.
+// Cluster A list of the cluster privileges that you want to check.
 // API name: cluster
 func (r *HasPrivileges) Cluster(clusters ...clusterprivilege.ClusterPrivilege) *HasPrivileges {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range clusters {
+	r.req.Cluster = clusters
 
-		r.req.Cluster = append(r.req.Cluster, v)
-
-	}
 	return r
 }
 
 // API name: index
-func (r *HasPrivileges) Index(indices ...types.IndexPrivilegesCheckVariant) *HasPrivileges {
-	// Initialize the request if it is not already initialized
+func (r *HasPrivileges) Index(indices ...types.IndexPrivilegesCheck) *HasPrivileges {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range indices {
+	r.req.Index = indices
 
-		r.req.Index = append(r.req.Index, *v.IndexPrivilegesCheckCaster())
-
-	}
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Evaluate data frame analytics.
 //
@@ -346,41 +346,37 @@ func (r *EvaluateDataFrame) Pretty(pretty bool) *EvaluateDataFrame {
 	return r
 }
 
-// Defines the type of evaluation you want to perform.
+// Evaluation Defines the type of evaluation you want to perform.
 // API name: evaluation
-func (r *EvaluateDataFrame) Evaluation(evaluation types.DataframeEvaluationContainerVariant) *EvaluateDataFrame {
-	// Initialize the request if it is not already initialized
+func (r *EvaluateDataFrame) Evaluation(evaluation *types.DataframeEvaluationContainer) *EvaluateDataFrame {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Evaluation = *evaluation.DataframeEvaluationContainerCaster()
+	r.req.Evaluation = *evaluation
 
 	return r
 }
 
-// Defines the `index` in which the evaluation will be performed.
+// Index Defines the `index` in which the evaluation will be performed.
 // API name: index
 func (r *EvaluateDataFrame) Index(indexname string) *EvaluateDataFrame {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Index = indexname
 
 	return r
 }
 
-// A query clause that retrieves a subset of data from the source index.
+// Query A query clause that retrieves a subset of data from the source index.
 // API name: query
-func (r *EvaluateDataFrame) Query(query types.QueryVariant) *EvaluateDataFrame {
-	// Initialize the request if it is not already initialized
+func (r *EvaluateDataFrame) Query(query *types.Query) *EvaluateDataFrame {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }

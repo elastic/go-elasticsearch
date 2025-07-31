@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Get shard information.
 //
@@ -40,6 +40,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/catshardcolumn"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
@@ -330,13 +331,18 @@ func (r *Shards) Bytes(bytes bytes.Bytes) *Shards {
 
 // H List of columns to appear in the response. Supports simple wildcards.
 // API name: h
-func (r *Shards) H(names ...string) *Shards {
-	r.values.Set("h", strings.Join(names, ","))
+func (r *Shards) H(catshardcolumns ...catshardcolumn.CatShardColumn) *Shards {
+	tmp := []string{}
+	for _, item := range catshardcolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
+// S A comma-separated list of column names or aliases that determines the sort
+// order.
 // Sorting defaults to ascending and can be changed by setting `:asc`
 // or `:desc` as a suffix to the column name.
 // API name: s
@@ -346,7 +352,7 @@ func (r *Shards) S(names ...string) *Shards {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *Shards) MasterTimeout(duration string) *Shards {
 	r.values.Set("master_timeout", duration)
@@ -354,7 +360,7 @@ func (r *Shards) MasterTimeout(duration string) *Shards {
 	return r
 }
 
-// Time Unit used to display time values.
+// Time The unit used to display time values.
 // API name: time
 func (r *Shards) Time(time timeunit.TimeUnit) *Shards {
 	r.values.Set("time", time.String())

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // TTestAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/metric.ts#L303-L317
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/metric.ts#L326-L340
 type TTestAggregation struct {
 	// A Test population A.
 	A *TestPopulation `json:"a,omitempty"`
@@ -41,14 +41,4 @@ func NewTTestAggregation() *TTestAggregation {
 	r := &TTestAggregation{}
 
 	return r
-}
-
-// true
-
-type TTestAggregationVariant interface {
-	TTestAggregationCaster() *TTestAggregation
-}
-
-func (s *TTestAggregation) TTestAggregationCaster() *TTestAggregation {
-	return s
 }

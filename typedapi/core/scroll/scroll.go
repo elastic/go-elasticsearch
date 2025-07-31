@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Run a scrolling search.
 //
@@ -395,27 +395,23 @@ func (r *Scroll) Pretty(pretty bool) *Scroll {
 	return r
 }
 
-// The period to retain the search context for scrolling.
+// Scroll The period to retain the search context for scrolling.
 // API name: scroll
-func (r *Scroll) Scroll(duration types.DurationVariant) *Scroll {
-	// Initialize the request if it is not already initialized
+func (r *Scroll) Scroll(duration types.Duration) *Scroll {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Scroll = *duration.DurationCaster()
+	r.req.Scroll = duration
 
 	return r
 }
 
-// The scroll ID of the search.
+// ScrollId The scroll ID of the search.
 // API name: scroll_id
 func (r *Scroll) ScrollId(scrollid string) *Scroll {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.ScrollId = scrollid
 
 	return r

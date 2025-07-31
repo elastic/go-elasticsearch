@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Update a cross-cluster API key.
 //
@@ -407,53 +407,48 @@ func (r *UpdateCrossClusterApiKey) Pretty(pretty bool) *UpdateCrossClusterApiKey
 	return r
 }
 
-// The access to be granted to this API key.
+// Access The access to be granted to this API key.
 // The access is composed of permissions for cross cluster search and cross
 // cluster replication.
 // At least one of them must be specified.
 // When specified, the new access assignment fully replaces the previously
 // assigned access.
 // API name: access
-func (r *UpdateCrossClusterApiKey) Access(access types.AccessVariant) *UpdateCrossClusterApiKey {
-	// Initialize the request if it is not already initialized
+func (r *UpdateCrossClusterApiKey) Access(access *types.Access) *UpdateCrossClusterApiKey {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Access = *access.AccessCaster()
+	r.req.Access = *access
 
 	return r
 }
 
-// The expiration time for the API key.
+// Expiration The expiration time for the API key.
 // By default, API keys never expire. This property can be omitted to leave the
 // value unchanged.
 // API name: expiration
-func (r *UpdateCrossClusterApiKey) Expiration(duration types.DurationVariant) *UpdateCrossClusterApiKey {
-	// Initialize the request if it is not already initialized
+func (r *UpdateCrossClusterApiKey) Expiration(duration types.Duration) *UpdateCrossClusterApiKey {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Expiration = *duration.DurationCaster()
+	r.req.Expiration = duration
 
 	return r
 }
 
-// Arbitrary metadata that you want to associate with the API key.
+// Metadata Arbitrary metadata that you want to associate with the API key.
 // It supports nested data structure.
 // Within the metadata object, keys beginning with `_` are reserved for system
 // usage.
 // When specified, this information fully replaces metadata previously
 // associated with the API key.
 // API name: metadata
-func (r *UpdateCrossClusterApiKey) Metadata(metadata types.MetadataVariant) *UpdateCrossClusterApiKey {
-	// Initialize the request if it is not already initialized
+func (r *UpdateCrossClusterApiKey) Metadata(metadata types.Metadata) *UpdateCrossClusterApiKey {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Metadata = *metadata.MetadataCaster()
+	r.req.Metadata = metadata
 
 	return r
 }

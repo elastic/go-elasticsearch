@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create a trained model vocabulary.
 // This API is supported only for natural language processing (NLP) models.
@@ -365,47 +365,35 @@ func (r *PutTrainedModelVocabulary) Pretty(pretty bool) *PutTrainedModelVocabula
 	return r
 }
 
-// The optional model merges if required by the tokenizer.
+// Merges The optional model merges if required by the tokenizer.
 // API name: merges
 func (r *PutTrainedModelVocabulary) Merges(merges ...string) *PutTrainedModelVocabulary {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range merges {
+	r.req.Merges = merges
 
-		r.req.Merges = append(r.req.Merges, v)
-
-	}
 	return r
 }
 
-// The optional vocabulary value scores if required by the tokenizer.
+// Scores The optional vocabulary value scores if required by the tokenizer.
 // API name: scores
 func (r *PutTrainedModelVocabulary) Scores(scores ...types.Float64) *PutTrainedModelVocabulary {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range scores {
+	r.req.Scores = scores
 
-		r.req.Scores = append(r.req.Scores, v)
-
-	}
 	return r
 }
 
-// The model vocabulary, which must not be empty.
+// Vocabulary The model vocabulary, which must not be empty.
 // API name: vocabulary
 func (r *PutTrainedModelVocabulary) Vocabulary(vocabularies ...string) *PutTrainedModelVocabulary {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range vocabularies {
+	r.req.Vocabulary = vocabularies
 
-		r.req.Vocabulary = append(r.req.Vocabulary, v)
-
-	}
 	return r
 }

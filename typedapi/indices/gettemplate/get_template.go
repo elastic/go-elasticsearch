@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get index templates.
+// Get legacy index templates.
 // Get information about one or more index templates.
 //
 // IMPORTANT: This documentation is about legacy index templates, which are
@@ -79,7 +79,7 @@ func NewGetTemplateFunc(tp elastictransport.Interface) NewGetTemplate {
 	}
 }
 
-// Get index templates.
+// Get legacy index templates.
 // Get information about one or more index templates.
 //
 // IMPORTANT: This documentation is about legacy index templates, which are

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GeoGridQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/query_dsl/geo.ts#L98-L103
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/query_dsl/geo.ts#L98-L103
 type GeoGridQuery struct {
 	AdditionalGeoGridQueryProperty map[string]json.RawMessage `json:"-"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
@@ -40,9 +40,9 @@ type GeoGridQuery struct {
 	// A boost value between 0 and 1.0 decreases the relevance score.
 	// A value greater than 1.0 increases the relevance score.
 	Boost      *float32 `json:"boost,omitempty"`
-	Geogrid    *string  `json:"geogrid,omitempty"`
 	Geohash    *string  `json:"geohash,omitempty"`
 	Geohex     *string  `json:"geohex,omitempty"`
+	Geotile    *string  `json:"geotile,omitempty"`
 	QueryName_ *string  `json:"_name,omitempty"`
 }
 
@@ -77,11 +77,6 @@ func (s *GeoGridQuery) UnmarshalJSON(data []byte) error {
 				s.Boost = &f
 			}
 
-		case "geogrid":
-			if err := dec.Decode(&s.Geogrid); err != nil {
-				return fmt.Errorf("%s | %w", "Geogrid", err)
-			}
-
 		case "geohash":
 			if err := dec.Decode(&s.Geohash); err != nil {
 				return fmt.Errorf("%s | %w", "Geohash", err)
@@ -90,6 +85,11 @@ func (s *GeoGridQuery) UnmarshalJSON(data []byte) error {
 		case "geohex":
 			if err := dec.Decode(&s.Geohex); err != nil {
 				return fmt.Errorf("%s | %w", "Geohex", err)
+			}
+
+		case "geotile":
+			if err := dec.Decode(&s.Geotile); err != nil {
+				return fmt.Errorf("%s | %w", "Geotile", err)
 			}
 
 		case "_name":
@@ -158,14 +158,4 @@ func NewGeoGridQuery() *GeoGridQuery {
 	}
 
 	return r
-}
-
-// true
-
-type GeoGridQueryVariant interface {
-	GeoGridQueryCaster() *GeoGridQuery
-}
-
-func (s *GeoGridQuery) GeoGridQueryCaster() *GeoGridQuery {
-	return s
 }

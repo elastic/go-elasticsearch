@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create a Watsonx inference endpoint.
 //
@@ -26,16 +26,6 @@
 // `watsonxai` inference service.
 // You can provision one through the IBM catalog, the Cloud Databases CLI
 // plug-in, the Cloud Databases API, or Terraform.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 package putwatsonx
 
 import (
@@ -112,16 +102,6 @@ func NewPutWatsonxFunc(tp elastictransport.Interface) NewPutWatsonx {
 // `watsonxai` inference service.
 // You can provision one through the IBM catalog, the Cloud Databases CLI
 // plug-in, the Cloud Databases API, or Terraform.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-watsonx-ai.html
 func New(tp elastictransport.Interface) *PutWatsonx {
@@ -367,6 +347,15 @@ func (r *PutWatsonx) _watsonxinferenceid(watsonxinferenceid string) *PutWatsonx 
 	return r
 }
 
+// Timeout Specifies the amount of time to wait for the inference endpoint to be
+// created.
+// API name: timeout
+func (r *PutWatsonx) Timeout(duration string) *PutWatsonx {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -411,28 +400,27 @@ func (r *PutWatsonx) Pretty(pretty bool) *PutWatsonx {
 	return r
 }
 
-// The type of service supported for the specified task type. In this case,
+// Service The type of service supported for the specified task type. In this case,
 // `watsonxai`.
 // API name: service
 func (r *PutWatsonx) Service(service watsonxservicetype.WatsonxServiceType) *PutWatsonx {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 	r.req.Service = service
+
 	return r
 }
 
-// Settings used to install the inference model. These settings are specific to
+// ServiceSettings Settings used to install the inference model. These settings are specific to
 // the `watsonxai` service.
 // API name: service_settings
-func (r *PutWatsonx) ServiceSettings(servicesettings types.WatsonxServiceSettingsVariant) *PutWatsonx {
-	// Initialize the request if it is not already initialized
+func (r *PutWatsonx) ServiceSettings(servicesettings *types.WatsonxServiceSettings) *PutWatsonx {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.ServiceSettings = *servicesettings.WatsonxServiceSettingsCaster()
+	r.req.ServiceSettings = *servicesettings
 
 	return r
 }

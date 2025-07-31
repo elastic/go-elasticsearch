@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create a rollup job.
 //
@@ -397,7 +397,7 @@ func (r *PutJob) Pretty(pretty bool) *PutJob {
 	return r
 }
 
-// A cron string which defines the intervals when the rollup job should be
+// Cron A cron string which defines the intervals when the rollup job should be
 // executed. When the interval
 // triggers, the indexer attempts to rollup the data in the index pattern. The
 // cron pattern is unrelated
@@ -408,7 +408,6 @@ func (r *PutJob) Pretty(pretty bool) *PutJob {
 // cron pattern is defined just like a Watcher cron schedule.
 // API name: cron
 func (r *PutJob) Cron(cron string) *PutJob {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -418,7 +417,7 @@ func (r *PutJob) Cron(cron string) *PutJob {
 	return r
 }
 
-// Defines the grouping fields and aggregations that are defined for this rollup
+// Groups Defines the grouping fields and aggregations that are defined for this rollup
 // job. These fields will then be
 // available later for aggregating into buckets. These aggs and fields can be
 // used in any combination. Think of
@@ -429,35 +428,31 @@ func (r *PutJob) Cron(cron string) *PutJob {
 // enough flexibility that you simply need to determine which fields are needed,
 // not in what order they are needed.
 // API name: groups
-func (r *PutJob) Groups(groups types.GroupingsVariant) *PutJob {
-	// Initialize the request if it is not already initialized
+func (r *PutJob) Groups(groups *types.Groupings) *PutJob {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Groups = *groups.GroupingsCaster()
+	r.req.Groups = *groups
 
 	return r
 }
 
 // API name: headers
-func (r *PutJob) Headers(httpheaders types.HttpHeadersVariant) *PutJob {
-	// Initialize the request if it is not already initialized
+func (r *PutJob) Headers(httpheaders types.HttpHeaders) *PutJob {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Headers = *httpheaders.HttpHeadersCaster()
+	r.req.Headers = httpheaders
 
 	return r
 }
 
-// The index or index pattern to roll up. Supports wildcard-style patterns
+// IndexPattern The index or index pattern to roll up. Supports wildcard-style patterns
 // (`logstash-*`). The job attempts to
 // rollup the entire index or index-pattern.
 // API name: index_pattern
 func (r *PutJob) IndexPattern(indexpattern string) *PutJob {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -467,27 +462,23 @@ func (r *PutJob) IndexPattern(indexpattern string) *PutJob {
 	return r
 }
 
-// Defines the metrics to collect for each grouping tuple. By default, only the
+// Metrics Defines the metrics to collect for each grouping tuple. By default, only the
 // doc_counts are collected for each
 // group. To make rollup useful, you will often add metrics like averages, mins,
 // maxes, etc. Metrics are defined
 // on a per-field basis and for each field you configure which metric should be
 // collected.
 // API name: metrics
-func (r *PutJob) Metrics(metrics ...types.FieldMetricVariant) *PutJob {
-	// Initialize the request if it is not already initialized
+func (r *PutJob) Metrics(metrics ...types.FieldMetric) *PutJob {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range metrics {
+	r.req.Metrics = metrics
 
-		r.req.Metrics = append(r.req.Metrics, *v.FieldMetricCaster())
-
-	}
 	return r
 }
 
-// The number of bucket results that are processed on each iteration of the
+// PageSize The number of bucket results that are processed on each iteration of the
 // rollup indexer. A larger value tends
 // to execute faster, but requires more memory during processing. This value has
 // no effect on how the data is
@@ -495,40 +486,34 @@ func (r *PutJob) Metrics(metrics ...types.FieldMetricVariant) *PutJob {
 // indexer.
 // API name: page_size
 func (r *PutJob) PageSize(pagesize int) *PutJob {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.PageSize = pagesize
 
 	return r
 }
 
-// The index that contains the rollup results. The index can be shared with
+// RollupIndex The index that contains the rollup results. The index can be shared with
 // other rollup jobs. The data is stored so that it doesn’t interfere with
 // unrelated jobs.
 // API name: rollup_index
 func (r *PutJob) RollupIndex(indexname string) *PutJob {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.RollupIndex = indexname
 
 	return r
 }
 
-// Time to wait for the request to complete.
+// Timeout Time to wait for the request to complete.
 // API name: timeout
-func (r *PutJob) Timeout(duration types.DurationVariant) *PutJob {
-	// Initialize the request if it is not already initialized
+func (r *PutJob) Timeout(duration types.Duration) *PutJob {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Timeout = *duration.DurationCaster()
+	r.req.Timeout = duration
 
 	return r
 }

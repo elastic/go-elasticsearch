@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package bulkdeleterole
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package bulkdeleterole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/security/bulk_delete_role/SecurityBulkDeleteRoleRequest.ts#L23-L50
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/bulk_delete_role/SecurityBulkDeleteRoleRequest.ts#L23-L50
 type Request struct {
 
 	// Names An array of role names to delete

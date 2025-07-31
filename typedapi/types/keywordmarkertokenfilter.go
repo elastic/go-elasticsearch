@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,14 +31,30 @@ import (
 
 // KeywordMarkerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/token_filters.ts#L232-L238
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/analysis/token_filters.ts#L308-L322
 type KeywordMarkerTokenFilter struct {
-	IgnoreCase      *bool    `json:"ignore_case,omitempty"`
-	Keywords        []string `json:"keywords,omitempty"`
-	KeywordsPath    *string  `json:"keywords_path,omitempty"`
-	KeywordsPattern *string  `json:"keywords_pattern,omitempty"`
-	Type            string   `json:"type,omitempty"`
-	Version         *string  `json:"version,omitempty"`
+	// IgnoreCase If `true`, matching for the `keywords` and `keywords_path` parameters ignores
+	// letter case. Defaults to `false`.
+	IgnoreCase *bool `json:"ignore_case,omitempty"`
+	// Keywords Array of keywords. Tokens that match these keywords are not stemmed.
+	// This parameter, `keywords_path`, or `keywords_pattern` must be specified. You
+	// cannot specify this parameter and `keywords_pattern`.
+	Keywords []string `json:"keywords,omitempty"`
+	// KeywordsPath Path to a file that contains a list of keywords. Tokens that match these
+	// keywords are not stemmed.
+	// This path must be absolute or relative to the `config` location, and the file
+	// must be UTF-8 encoded. Each word in the file must be separated by a line
+	// break.
+	// This parameter, `keywords`, or `keywords_pattern` must be specified. You
+	// cannot specify this parameter and `keywords_pattern`.
+	KeywordsPath *string `json:"keywords_path,omitempty"`
+	// KeywordsPattern Java regular expression used to match tokens. Tokens that match this
+	// expression are marked as keywords and not stemmed.
+	// This parameter, `keywords`, or `keywords_path` must be specified. You cannot
+	// specify this parameter and `keywords` or `keywords_pattern`.
+	KeywordsPattern *string `json:"keywords_pattern,omitempty"`
+	Type            string  `json:"type,omitempty"`
+	Version         *string `json:"version,omitempty"`
 }
 
 func (s *KeywordMarkerTokenFilter) UnmarshalJSON(data []byte) error {
@@ -147,14 +163,4 @@ func NewKeywordMarkerTokenFilter() *KeywordMarkerTokenFilter {
 	r := &KeywordMarkerTokenFilter{}
 
 	return r
-}
-
-// true
-
-type KeywordMarkerTokenFilterVariant interface {
-	KeywordMarkerTokenFilterCaster() *KeywordMarkerTokenFilter
-}
-
-func (s *KeywordMarkerTokenFilter) KeywordMarkerTokenFilterCaster() *KeywordMarkerTokenFilter {
-	return s
 }

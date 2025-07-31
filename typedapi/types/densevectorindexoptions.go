@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DenseVectorIndexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/mapping/DenseVectorProperty.ts#L129-L162
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/mapping/DenseVectorProperty.ts#L129-L162
 type DenseVectorIndexOptions struct {
 	// ConfidenceInterval The confidence interval to use when quantizing the vectors. Can be any value
 	// between and including `0.90` and
@@ -146,14 +146,4 @@ func NewDenseVectorIndexOptions() *DenseVectorIndexOptions {
 	r := &DenseVectorIndexOptions{}
 
 	return r
-}
-
-// true
-
-type DenseVectorIndexOptionsVariant interface {
-	DenseVectorIndexOptionsCaster() *DenseVectorIndexOptions
-}
-
-func (s *DenseVectorIndexOptions) DenseVectorIndexOptionsCaster() *DenseVectorIndexOptions {
-	return s
 }

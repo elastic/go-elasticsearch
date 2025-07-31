@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // HttpInputRequestDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/watcher/_types/Input.ts#L72-L86
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/watcher/_types/Input.ts#L72-L86
 type HttpInputRequestDefinition struct {
 	Auth              *HttpInputAuthentication           `json:"auth,omitempty"`
 	Body              *string                            `json:"body,omitempty"`
@@ -171,14 +171,4 @@ func NewHttpInputRequestDefinition() *HttpInputRequestDefinition {
 	}
 
 	return r
-}
-
-// true
-
-type HttpInputRequestDefinitionVariant interface {
-	HttpInputRequestDefinitionCaster() *HttpInputRequestDefinition
-}
-
-func (s *HttpInputRequestDefinition) HttpInputRequestDefinitionCaster() *HttpInputRequestDefinition {
-	return s
 }

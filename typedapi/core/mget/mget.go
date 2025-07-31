@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Get multiple documents.
 //
@@ -490,31 +490,25 @@ func (r *Mget) Pretty(pretty bool) *Mget {
 	return r
 }
 
-// The documents you want to retrieve. Required if no index is specified in the
+// Docs The documents you want to retrieve. Required if no index is specified in the
 // request URI.
 // API name: docs
-func (r *Mget) Docs(docs ...types.MgetOperationVariant) *Mget {
-	// Initialize the request if it is not already initialized
+func (r *Mget) Docs(docs ...types.MgetOperation) *Mget {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range docs {
+	r.req.Docs = docs
 
-		r.req.Docs = append(r.req.Docs, *v.MgetOperationCaster())
-
-	}
 	return r
 }
 
-// The IDs of the documents you want to retrieve. Allowed when the index is
+// Ids The IDs of the documents you want to retrieve. Allowed when the index is
 // specified in the request URI.
 // API name: ids
 func (r *Mget) Ids(ids ...string) *Mget {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Ids = ids
 
 	return r

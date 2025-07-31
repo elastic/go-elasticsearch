@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Evaluate a trained model.
 package infertrainedmodel
@@ -384,32 +384,29 @@ func (r *InferTrainedModel) Pretty(pretty bool) *InferTrainedModel {
 	return r
 }
 
-// An array of objects to pass to the model for inference. The objects should
+// Docs An array of objects to pass to the model for inference. The objects should
 // contain a fields matching your
 // configured trained model input. Typically, for NLP models, the field name is
 // `text_field`.
 // Currently, for NLP models, only a single value is allowed.
 // API name: docs
-func (r *InferTrainedModel) Docs(docs []map[string]json.RawMessage) *InferTrainedModel {
-	// Initialize the request if it is not already initialized
+func (r *InferTrainedModel) Docs(docs ...map[string]json.RawMessage) *InferTrainedModel {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Docs = docs
 
 	return r
 }
 
-// The inference configuration updates to apply on the API call
+// InferenceConfig The inference configuration updates to apply on the API call
 // API name: inference_config
-func (r *InferTrainedModel) InferenceConfig(inferenceconfig types.InferenceConfigUpdateContainerVariant) *InferTrainedModel {
-	// Initialize the request if it is not already initialized
+func (r *InferTrainedModel) InferenceConfig(inferenceconfig *types.InferenceConfigUpdateContainer) *InferTrainedModel {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.InferenceConfig = inferenceconfig.InferenceConfigUpdateContainerCaster()
+	r.req.InferenceConfig = inferenceconfig
 
 	return r
 }

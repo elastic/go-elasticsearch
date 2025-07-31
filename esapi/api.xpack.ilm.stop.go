@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newILMStopFunc(t Transport) ILMStop {
@@ -49,6 +50,9 @@ type ILMStop func(o ...func(*ILMStopRequest)) (*Response, error)
 
 // ILMStopRequest configures the ILM Stop API request.
 type ILMStopRequest struct {
+	MasterTimeout time.Duration
+	Timeout       time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +89,14 @@ func (r ILMStopRequest) Do(providedCtx context.Context, transport Transport) (*R
 	path.WriteString("/_ilm/stop")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +173,20 @@ func (r ILMStopRequest) Do(providedCtx context.Context, transport Transport) (*R
 func (f ILMStop) WithContext(v context.Context) func(*ILMStopRequest) {
 	return func(r *ILMStopRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f ILMStop) WithMasterTimeout(v time.Duration) func(*ILMStopRequest) {
+	return func(r *ILMStopRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f ILMStop) WithTimeout(v time.Duration) func(*ILMStopRequest) {
+	return func(r *ILMStopRequest) {
+		r.Timeout = v
 	}
 }
 

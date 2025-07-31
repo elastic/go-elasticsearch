@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Delete a document.
 //
@@ -74,7 +74,6 @@
 package delete
 
 import (
-	gobytes "bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -82,6 +81,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -329,7 +329,8 @@ func (r Delete) Do(providedCtx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 {
+	if res.StatusCode < 299 || slices.Contains([]int{404}, res.StatusCode) {
+
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -339,42 +340,6 @@ func (r Delete) Do(providedCtx context.Context) (*Response, error) {
 		}
 
 		return response, nil
-	}
-
-	if res.StatusCode == 404 {
-		data, err := io.ReadAll(res.Body)
-		if err != nil {
-			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-				instrument.RecordError(ctx, err)
-			}
-			return nil, err
-		}
-
-		errorResponse := types.NewElasticsearchError()
-		err = json.NewDecoder(gobytes.NewReader(data)).Decode(&errorResponse)
-		if err != nil {
-			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-				instrument.RecordError(ctx, err)
-			}
-			return nil, err
-		}
-
-		if errorResponse.Status == 0 {
-			err = json.NewDecoder(gobytes.NewReader(data)).Decode(&response)
-			if err != nil {
-				if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-					instrument.RecordError(ctx, err)
-				}
-				return nil, err
-			}
-
-			return response, nil
-		}
-
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordError(ctx, errorResponse)
-		}
-		return nil, errorResponse
 	}
 
 	errorResponse := types.NewElasticsearchError()

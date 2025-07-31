@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Logout of SAML.
 //
@@ -364,13 +364,12 @@ func (r *SamlLogout) Pretty(pretty bool) *SamlLogout {
 	return r
 }
 
-// The refresh token that was returned as a response to calling the SAML
+// RefreshToken The refresh token that was returned as a response to calling the SAML
 // authenticate API.
 // Alternatively, the most recent refresh token that was received after
 // refreshing the original access token.
 // API name: refresh_token
 func (r *SamlLogout) RefreshToken(refreshtoken string) *SamlLogout {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -380,13 +379,12 @@ func (r *SamlLogout) RefreshToken(refreshtoken string) *SamlLogout {
 	return r
 }
 
-// The access token that was returned as a response to calling the SAML
+// Token The access token that was returned as a response to calling the SAML
 // authenticate API.
 // Alternatively, the most recent token that was received after refreshing the
 // original one by using a `refresh_token`.
 // API name: token
 func (r *SamlLogout) Token(token string) *SamlLogout {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

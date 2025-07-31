@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GeoHashGridAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/bucket.ts#L421-L449
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/bucket.ts#L421-L449
 type GeoHashGridAggregation struct {
 	// Bounds The bounding box to filter the points in each bucket.
 	Bounds GeoBounds `json:"bounds,omitempty"`
@@ -180,14 +180,4 @@ func NewGeoHashGridAggregation() *GeoHashGridAggregation {
 	r := &GeoHashGridAggregation{}
 
 	return r
-}
-
-// true
-
-type GeoHashGridAggregationVariant interface {
-	GeoHashGridAggregationCaster() *GeoHashGridAggregation
-}
-
-func (s *GeoHashGridAggregation) GeoHashGridAggregationCaster() *GeoHashGridAggregation {
-	return s
 }

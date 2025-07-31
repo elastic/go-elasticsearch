@@ -53,17 +53,18 @@ type SnapshotRepositoryAnalyze func(repository string, o ...func(*SnapshotReposi
 type SnapshotRepositoryAnalyzeRequest struct {
 	Repository string
 
-	BlobCount             *int
-	Concurrency           *int
-	Detailed              *bool
-	EarlyReadNodeCount    *int
-	MaxBlobSize           string
-	MaxTotalDataSize      string
-	RareActionProbability *int
-	RarelyAbortWrites     *bool
-	ReadNodeCount         *int
-	Seed                  *int
-	Timeout               time.Duration
+	BlobCount              *int
+	Concurrency            *int
+	Detailed               *bool
+	EarlyReadNodeCount     *int
+	MaxBlobSize            string
+	MaxTotalDataSize       string
+	RareActionProbability  *int
+	RarelyAbortWrites      *bool
+	ReadNodeCount          *int
+	RegisterOperationCount *int
+	Seed                   *int
+	Timeout                time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -144,6 +145,10 @@ func (r SnapshotRepositoryAnalyzeRequest) Do(providedCtx context.Context, transp
 
 	if r.ReadNodeCount != nil {
 		params["read_node_count"] = strconv.FormatInt(int64(*r.ReadNodeCount), 10)
+	}
+
+	if r.RegisterOperationCount != nil {
+		params["register_operation_count"] = strconv.FormatInt(int64(*r.RegisterOperationCount), 10)
 	}
 
 	if r.Seed != nil {
@@ -292,6 +297,13 @@ func (f SnapshotRepositoryAnalyze) WithRarelyAbortWrites(v bool) func(*SnapshotR
 func (f SnapshotRepositoryAnalyze) WithReadNodeCount(v int) func(*SnapshotRepositoryAnalyzeRequest) {
 	return func(r *SnapshotRepositoryAnalyzeRequest) {
 		r.ReadNodeCount = &v
+	}
+}
+
+// WithRegisterOperationCount - the minimum number of linearizable register operations to perform in total. defaults to 10..
+func (f SnapshotRepositoryAnalyze) WithRegisterOperationCount(v int) func(*SnapshotRepositoryAnalyzeRequest) {
+	return func(r *SnapshotRepositoryAnalyzeRequest) {
+		r.RegisterOperationCount = &v
 	}
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create an index.
 // You can use the create index API to add a new index to an Elasticsearch
@@ -452,61 +452,41 @@ func (r *Create) Pretty(pretty bool) *Create {
 	return r
 }
 
-// Aliases for the index.
+// Aliases Aliases for the index.
 // API name: aliases
 func (r *Create) Aliases(aliases map[string]types.Alias) *Create {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.Aliases = aliases
+
 	return r
 }
 
-func (r *Create) AddAlias(key string, value types.AliasVariant) *Create {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.Alias
-	if r.req.Aliases == nil {
-		r.req.Aliases = make(map[string]types.Alias)
-	} else {
-		tmp = r.req.Aliases
-	}
-
-	tmp[key] = *value.AliasCaster()
-
-	r.req.Aliases = tmp
-	return r
-}
-
-// Mapping for fields in the index. If specified, this mapping can include:
+// Mappings Mapping for fields in the index. If specified, this mapping can include:
 // - Field names
 // - Field data types
 // - Mapping parameters
 // API name: mappings
-func (r *Create) Mappings(mappings types.TypeMappingVariant) *Create {
-	// Initialize the request if it is not already initialized
+func (r *Create) Mappings(mappings *types.TypeMapping) *Create {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Mappings = mappings.TypeMappingCaster()
+	r.req.Mappings = mappings
 
 	return r
 }
 
-// Configuration options for the index.
+// Settings Configuration options for the index.
 // API name: settings
-func (r *Create) Settings(settings types.IndexSettingsVariant) *Create {
-	// Initialize the request if it is not already initialized
+func (r *Create) Settings(settings *types.IndexSettings) *Create {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Settings = settings.IndexSettingsCaster()
+	r.req.Settings = settings
 
 	return r
 }

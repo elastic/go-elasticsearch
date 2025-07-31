@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
 // IndexRouting type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/_types/IndexRouting.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/_types/IndexRouting.ts#L22-L25
 type IndexRouting struct {
 	Allocation *IndexRoutingAllocation `json:"allocation,omitempty"`
 	Rebalance  *IndexRoutingRebalance  `json:"rebalance,omitempty"`
@@ -33,14 +33,4 @@ func NewIndexRouting() *IndexRouting {
 	r := &IndexRouting{}
 
 	return r
-}
-
-// true
-
-type IndexRoutingVariant interface {
-	IndexRoutingCaster() *IndexRouting
-}
-
-func (s *IndexRouting) IndexRoutingCaster() *IndexRouting {
-	return s
 }

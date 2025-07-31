@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // RemoteSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/reindex/types.ts#L112-L140
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/reindex/types.ts#L112-L140
 type RemoteSource struct {
 	// ConnectTimeout The remote connection timeout.
 	ConnectTimeout Duration `json:"connect_timeout,omitempty"`
@@ -107,14 +107,4 @@ func NewRemoteSource() *RemoteSource {
 	}
 
 	return r
-}
-
-// true
-
-type RemoteSourceVariant interface {
-	RemoteSourceCaster() *RemoteSource
-}
-
-func (s *RemoteSource) RemoteSourceCaster() *RemoteSource {
-	return s
 }

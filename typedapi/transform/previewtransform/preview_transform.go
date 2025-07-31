@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Preview a transform.
 // Generates a preview of the results that you will get when you create a
@@ -389,10 +389,9 @@ func (r *PreviewTransform) Pretty(pretty bool) *PreviewTransform {
 	return r
 }
 
-// Free text description of the transform.
+// Description Free text description of the transform.
 // API name: description
 func (r *PreviewTransform) Description(description string) *PreviewTransform {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -402,113 +401,104 @@ func (r *PreviewTransform) Description(description string) *PreviewTransform {
 	return r
 }
 
-// The destination for the transform.
+// Dest The destination for the transform.
 // API name: dest
-func (r *PreviewTransform) Dest(dest types.TransformDestinationVariant) *PreviewTransform {
-	// Initialize the request if it is not already initialized
+func (r *PreviewTransform) Dest(dest *types.TransformDestination) *PreviewTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Dest = dest.TransformDestinationCaster()
+	r.req.Dest = dest
 
 	return r
 }
 
-// The interval between checks for changes in the source indices when the
+// Frequency The interval between checks for changes in the source indices when the
 // transform is running continuously. Also determines the retry interval in
 // the event of transient failures while the transform is searching or
 // indexing. The minimum value is 1s and the maximum is 1h.
 // API name: frequency
-func (r *PreviewTransform) Frequency(duration types.DurationVariant) *PreviewTransform {
-	// Initialize the request if it is not already initialized
+func (r *PreviewTransform) Frequency(duration types.Duration) *PreviewTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Frequency = *duration.DurationCaster()
+	r.req.Frequency = duration
 
 	return r
 }
 
-// The latest method transforms the data by finding the latest document for
+// Latest The latest method transforms the data by finding the latest document for
 // each unique key.
 // API name: latest
-func (r *PreviewTransform) Latest(latest types.LatestVariant) *PreviewTransform {
-	// Initialize the request if it is not already initialized
+func (r *PreviewTransform) Latest(latest *types.Latest) *PreviewTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Latest = latest.LatestCaster()
+	r.req.Latest = latest
 
 	return r
 }
 
-// The pivot method transforms the data by aggregating and grouping it.
+// Pivot The pivot method transforms the data by aggregating and grouping it.
 // These objects define the group by fields and the aggregation to reduce
 // the data.
 // API name: pivot
-func (r *PreviewTransform) Pivot(pivot types.PivotVariant) *PreviewTransform {
-	// Initialize the request if it is not already initialized
+func (r *PreviewTransform) Pivot(pivot *types.Pivot) *PreviewTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Pivot = pivot.PivotCaster()
+	r.req.Pivot = pivot
 
 	return r
 }
 
-// Defines a retention policy for the transform. Data that meets the defined
+// RetentionPolicy Defines a retention policy for the transform. Data that meets the defined
 // criteria is deleted from the destination index.
 // API name: retention_policy
-func (r *PreviewTransform) RetentionPolicy(retentionpolicy types.RetentionPolicyContainerVariant) *PreviewTransform {
-	// Initialize the request if it is not already initialized
+func (r *PreviewTransform) RetentionPolicy(retentionpolicy *types.RetentionPolicyContainer) *PreviewTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.RetentionPolicy = retentionpolicy.RetentionPolicyContainerCaster()
+	r.req.RetentionPolicy = retentionpolicy
 
 	return r
 }
 
-// Defines optional transform settings.
+// Settings Defines optional transform settings.
 // API name: settings
-func (r *PreviewTransform) Settings(settings types.SettingsVariant) *PreviewTransform {
-	// Initialize the request if it is not already initialized
+func (r *PreviewTransform) Settings(settings *types.Settings) *PreviewTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Settings = settings.SettingsCaster()
+	r.req.Settings = settings
 
 	return r
 }
 
-// The source of the data for the transform.
+// Source The source of the data for the transform.
 // API name: source
-func (r *PreviewTransform) Source(source types.TransformSourceVariant) *PreviewTransform {
-	// Initialize the request if it is not already initialized
+func (r *PreviewTransform) Source(source *types.TransformSource) *PreviewTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Source = source.TransformSourceCaster()
+	r.req.Source = source
 
 	return r
 }
 
-// Defines the properties transforms require to run continuously.
+// Sync Defines the properties transforms require to run continuously.
 // API name: sync
-func (r *PreviewTransform) Sync(sync types.SyncContainerVariant) *PreviewTransform {
-	// Initialize the request if it is not already initialized
+func (r *PreviewTransform) Sync(sync *types.SyncContainer) *PreviewTransform {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Sync = sync.SyncContainerCaster()
+	r.req.Sync = sync
 
 	return r
 }

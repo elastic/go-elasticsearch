@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Suggest a user profile.
 //
@@ -352,7 +352,7 @@ func (r *SuggestUserProfiles) Pretty(pretty bool) *SuggestUserProfiles {
 	return r
 }
 
-// A comma-separated list of filters for the `data` field of the profile
+// Data A comma-separated list of filters for the `data` field of the profile
 // document.
 // To return all content use `data=*`.
 // To return a subset of content, use `data=<key>` to retrieve content nested
@@ -362,37 +362,33 @@ func (r *SuggestUserProfiles) Pretty(pretty bool) *SuggestUserProfiles {
 // body field.
 // API name: data
 func (r *SuggestUserProfiles) Data(data ...string) *SuggestUserProfiles {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	r.req.Data = make([]string, len(data))
 	r.req.Data = data
 
 	return r
 }
 
-// Extra search criteria to improve relevance of the suggestion result.
+// Hint Extra search criteria to improve relevance of the suggestion result.
 // Profiles matching the spcified hint are ranked higher in the response.
 // Profiles not matching the hint aren't excluded from the response as long as
 // the profile matches the `name` field query.
 // API name: hint
-func (r *SuggestUserProfiles) Hint(hint types.HintVariant) *SuggestUserProfiles {
-	// Initialize the request if it is not already initialized
+func (r *SuggestUserProfiles) Hint(hint *types.Hint) *SuggestUserProfiles {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Hint = hint.HintCaster()
+	r.req.Hint = hint
 
 	return r
 }
 
-// A query string used to match name-related fields in user profile documents.
+// Name A query string used to match name-related fields in user profile documents.
 // Name-related fields are the user's `username`, `full_name`, and `email`.
 // API name: name
 func (r *SuggestUserProfiles) Name(name string) *SuggestUserProfiles {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -402,10 +398,9 @@ func (r *SuggestUserProfiles) Name(name string) *SuggestUserProfiles {
 	return r
 }
 
-// The number of profiles to return.
+// Size The number of profiles to return.
 // API name: size
 func (r *SuggestUserProfiles) Size(size int64) *SuggestUserProfiles {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Restore a snapshot.
 // Restore a snapshot of a cluster or data streams and indices.
@@ -447,39 +447,29 @@ func (r *Restore) Pretty(pretty bool) *Restore {
 
 // API name: feature_states
 func (r *Restore) FeatureStates(featurestates ...string) *Restore {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range featurestates {
+	r.req.FeatureStates = featurestates
 
-		r.req.FeatureStates = append(r.req.FeatureStates, v)
-
-	}
 	return r
 }
 
 // API name: ignore_index_settings
 func (r *Restore) IgnoreIndexSettings(ignoreindexsettings ...string) *Restore {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range ignoreindexsettings {
+	r.req.IgnoreIndexSettings = ignoreindexsettings
 
-		r.req.IgnoreIndexSettings = append(r.req.IgnoreIndexSettings, v)
-
-	}
 	return r
 }
 
 // API name: ignore_unavailable
 func (r *Restore) IgnoreUnavailable(ignoreunavailable bool) *Restore {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.IgnoreUnavailable = &ignoreunavailable
 
 	return r
@@ -487,11 +477,9 @@ func (r *Restore) IgnoreUnavailable(ignoreunavailable bool) *Restore {
 
 // API name: include_aliases
 func (r *Restore) IncludeAliases(includealiases bool) *Restore {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.IncludeAliases = &includealiases
 
 	return r
@@ -499,35 +487,30 @@ func (r *Restore) IncludeAliases(includealiases bool) *Restore {
 
 // API name: include_global_state
 func (r *Restore) IncludeGlobalState(includeglobalstate bool) *Restore {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.IncludeGlobalState = &includeglobalstate
 
 	return r
 }
 
 // API name: index_settings
-func (r *Restore) IndexSettings(indexsettings types.IndexSettingsVariant) *Restore {
-	// Initialize the request if it is not already initialized
+func (r *Restore) IndexSettings(indexsettings *types.IndexSettings) *Restore {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.IndexSettings = indexsettings.IndexSettingsCaster()
+	r.req.IndexSettings = indexsettings
 
 	return r
 }
 
 // API name: indices
 func (r *Restore) Indices(indices ...string) *Restore {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Indices = indices
 
 	return r
@@ -535,11 +518,9 @@ func (r *Restore) Indices(indices ...string) *Restore {
 
 // API name: partial
 func (r *Restore) Partial(partial bool) *Restore {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Partial = &partial
 
 	return r
@@ -547,7 +528,6 @@ func (r *Restore) Partial(partial bool) *Restore {
 
 // API name: rename_pattern
 func (r *Restore) RenamePattern(renamepattern string) *Restore {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -559,7 +539,6 @@ func (r *Restore) RenamePattern(renamepattern string) *Restore {
 
 // API name: rename_replacement
 func (r *Restore) RenameReplacement(renamereplacement string) *Restore {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

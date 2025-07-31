@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create or update a query rule.
 // Create or update a query rule within a query ruleset.
@@ -396,56 +396,49 @@ func (r *PutRule) Pretty(pretty bool) *PutRule {
 	return r
 }
 
-// The actions to take when the rule is matched.
+// Actions The actions to take when the rule is matched.
 // The format of this action depends on the rule type.
 // API name: actions
-func (r *PutRule) Actions(actions types.QueryRuleActionsVariant) *PutRule {
-	// Initialize the request if it is not already initialized
+func (r *PutRule) Actions(actions *types.QueryRuleActions) *PutRule {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Actions = *actions.QueryRuleActionsCaster()
+	r.req.Actions = *actions
 
 	return r
 }
 
-// The criteria that must be met for the rule to be applied.
+// Criteria The criteria that must be met for the rule to be applied.
 // If multiple criteria are specified for a rule, all criteria must be met for
 // the rule to be applied.
 // API name: criteria
-func (r *PutRule) Criteria(criteria ...types.QueryRuleCriteriaVariant) *PutRule {
-	// Initialize the request if it is not already initialized
+func (r *PutRule) Criteria(criteria ...types.QueryRuleCriteria) *PutRule {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	r.req.Criteria = make([]types.QueryRuleCriteria, len(criteria))
-	for i, v := range criteria {
-		r.req.Criteria[i] = *v.QueryRuleCriteriaCaster()
-	}
+	r.req.Criteria = criteria
 
 	return r
 }
 
 // API name: priority
 func (r *PutRule) Priority(priority int) *PutRule {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Priority = &priority
 
 	return r
 }
 
-// The type of rule.
+// Type The type of rule.
 // API name: type
 func (r *PutRule) Type(type_ queryruletype.QueryRuleType) *PutRule {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 	r.req.Type = type_
+
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StupidBackoffSmoothingModel type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/search/_types/suggester.ts#L463-L468
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/search/_types/suggester.ts#L463-L468
 type StupidBackoffSmoothingModel struct {
 	// Discount A constant factor that the lower order n-gram model is discounted by.
 	Discount Float64 `json:"discount"`
@@ -78,14 +78,4 @@ func NewStupidBackoffSmoothingModel() *StupidBackoffSmoothingModel {
 	r := &StupidBackoffSmoothingModel{}
 
 	return r
-}
-
-// true
-
-type StupidBackoffSmoothingModelVariant interface {
-	StupidBackoffSmoothingModelCaster() *StupidBackoffSmoothingModel
-}
-
-func (s *StupidBackoffSmoothingModel) StupidBackoffSmoothingModelCaster() *StupidBackoffSmoothingModel {
-	return s
 }

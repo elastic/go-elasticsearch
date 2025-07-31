@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Bulk delete roles.
 //
@@ -355,17 +355,13 @@ func (r *BulkDeleteRole) Pretty(pretty bool) *BulkDeleteRole {
 	return r
 }
 
-// An array of role names to delete
+// Names An array of role names to delete
 // API name: names
 func (r *BulkDeleteRole) Names(names ...string) *BulkDeleteRole {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range names {
+	r.req.Names = names
 
-		r.req.Names = append(r.req.Names, v)
-
-	}
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // KuromojiAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/kuromoji-plugin.ts#L25-L29
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/analysis/kuromoji-plugin.ts#L26-L30
 type KuromojiAnalyzer struct {
 	Mode           kuromojitokenizationmode.KuromojiTokenizationMode `json:"mode"`
 	Type           string                                            `json:"type,omitempty"`
@@ -101,14 +101,4 @@ func NewKuromojiAnalyzer() *KuromojiAnalyzer {
 	r := &KuromojiAnalyzer{}
 
 	return r
-}
-
-// true
-
-type KuromojiAnalyzerVariant interface {
-	KuromojiAnalyzerCaster() *KuromojiAnalyzer
-}
-
-func (s *KuromojiAnalyzer) KuromojiAnalyzerCaster() *KuromojiAnalyzer {
-	return s
 }

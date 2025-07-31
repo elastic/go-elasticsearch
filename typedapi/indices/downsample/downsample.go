@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Downsample an index.
 // Aggregate a time series (TSDS) index and store pre-computed statistical
@@ -397,14 +397,12 @@ func (r *Downsample) Pretty(pretty bool) *Downsample {
 	return r
 }
 
-// The interval at which to aggregate the original time series index.
+// FixedInterval The interval at which to aggregate the original time series index.
 // API name: fixed_interval
 func (r *Downsample) FixedInterval(durationlarge string) *Downsample {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.FixedInterval = durationlarge
 
 	return r

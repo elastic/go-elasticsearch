@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Run a search application search.
 // Generate and run an Elasticsearch query that uses the specified query
@@ -380,33 +380,15 @@ func (r *Search) Pretty(pretty bool) *Search {
 	return r
 }
 
-// Query parameters specific to this request, which will override any defaults
+// Params Query parameters specific to this request, which will override any defaults
 // specified in the template.
 // API name: params
 func (r *Search) Params(params map[string]json.RawMessage) *Search {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.Params = params
-	return r
-}
 
-func (r *Search) AddParam(key string, value json.RawMessage) *Search {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Params == nil {
-		r.req.Params = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Params
-	}
-
-	tmp[key] = value
-
-	r.req.Params = tmp
 	return r
 }

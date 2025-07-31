@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create or update a synonym rule.
 // Create or update a synonym rule in a synonym set.
@@ -387,14 +387,12 @@ func (r *PutSynonymRule) Pretty(pretty bool) *PutSynonymRule {
 	return r
 }
 
-// The synonym rule information definition, which must be in Solr format.
+// Synonyms The synonym rule information definition, which must be in Solr format.
 // API name: synonyms
 func (r *PutSynonymRule) Synonyms(synonymstring string) *PutSynonymRule {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Synonyms = synonymstring
 
 	return r

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Update the connector configuration.
 //
@@ -362,42 +362,22 @@ func (r *UpdateConfiguration) Pretty(pretty bool) *UpdateConfiguration {
 }
 
 // API name: configuration
-func (r *UpdateConfiguration) Configuration(connectorconfiguration types.ConnectorConfigurationVariant) *UpdateConfiguration {
-	// Initialize the request if it is not already initialized
+func (r *UpdateConfiguration) Configuration(connectorconfiguration types.ConnectorConfiguration) *UpdateConfiguration {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Configuration = *connectorconfiguration.ConnectorConfigurationCaster()
+	r.req.Configuration = connectorconfiguration
 
 	return r
 }
 
 // API name: values
 func (r *UpdateConfiguration) Values(values map[string]json.RawMessage) *UpdateConfiguration {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.Values = values
-	return r
-}
 
-func (r *UpdateConfiguration) AddValue(key string, value json.RawMessage) *UpdateConfiguration {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Values == nil {
-		r.req.Values = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Values
-	}
-
-	tmp[key] = value
-
-	r.req.Values = tmp
 	return r
 }

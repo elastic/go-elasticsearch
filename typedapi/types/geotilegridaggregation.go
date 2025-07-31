@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GeoTileGridAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/bucket.ts#L451-L477
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/bucket.ts#L451-L477
 type GeoTileGridAggregation struct {
 	// Bounds A bounding box to filter the geo-points or geo-shapes in each bucket.
 	Bounds GeoBounds `json:"bounds,omitempty"`
@@ -180,14 +180,4 @@ func NewGeoTileGridAggregation() *GeoTileGridAggregation {
 	r := &GeoTileGridAggregation{}
 
 	return r
-}
-
-// true
-
-type GeoTileGridAggregationVariant interface {
-	GeoTileGridAggregationCaster() *GeoTileGridAggregation
-}
-
-func (s *GeoTileGridAggregation) GeoTileGridAggregationCaster() *GeoTileGridAggregation {
-	return s
 }

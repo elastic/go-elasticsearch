@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Stop datafeeds.
 // A datafeed that is stopped ceases to retrieve data from Elasticsearch. A
@@ -369,41 +369,35 @@ func (r *StopDatafeed) Pretty(pretty bool) *StopDatafeed {
 	return r
 }
 
-// Refer to the description for the `allow_no_match` query parameter.
+// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
 // API name: allow_no_match
 func (r *StopDatafeed) AllowNoMatch(allownomatch bool) *StopDatafeed {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.AllowNoMatch = &allownomatch
 
 	return r
 }
 
-// Refer to the description for the `force` query parameter.
+// Force Refer to the description for the `force` query parameter.
 // API name: force
 func (r *StopDatafeed) Force(force bool) *StopDatafeed {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.Force = &force
 
 	return r
 }
 
-// Refer to the description for the `timeout` query parameter.
+// Timeout Refer to the description for the `timeout` query parameter.
 // API name: timeout
-func (r *StopDatafeed) Timeout(duration types.DurationVariant) *StopDatafeed {
-	// Initialize the request if it is not already initialized
+func (r *StopDatafeed) Timeout(duration types.Duration) *StopDatafeed {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Timeout = *duration.DurationCaster()
+	r.req.Timeout = duration
 
 	return r
 }

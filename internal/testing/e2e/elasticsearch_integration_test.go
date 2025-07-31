@@ -26,7 +26,6 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"log"
 	"net"
@@ -331,9 +330,9 @@ func TestElasticsearchIntegration(t *testing.T) {
 			}
 
 			// Same faulty index name with error handling
-			_, err = es.Get("non-existent-index", "9999").Do(context.Background())
-			if !errors.As(err, &types.ElasticsearchError{}) && !errors.Is(err, &types.ElasticsearchError{Status: 404}) {
-				t.Fatalf("expected ElasticsearchError, got: %v", err)
+			indexget, err := es.Get("non-existent-index", "9999").Do(context.Background())
+			if indexget.Found == true {
+				t.Fatalf("expected Found to be false, got: %v", indexget)
 			}
 
 			// Simple search matching name

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // QueryRuleCriteria type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/query_rules/_types/QueryRuleset.ts#L65-L93
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/query_rules/_types/QueryRuleset.ts#L65-L93
 type QueryRuleCriteria struct {
 	// Metadata The metadata field to match against.
 	// This metadata will be used to match against `match_criteria` sent in the
@@ -116,14 +116,4 @@ func NewQueryRuleCriteria() *QueryRuleCriteria {
 	r := &QueryRuleCriteria{}
 
 	return r
-}
-
-// true
-
-type QueryRuleCriteriaVariant interface {
-	QueryRuleCriteriaCaster() *QueryRuleCriteria
-}
-
-func (s *QueryRuleCriteria) QueryRuleCriteriaCaster() *QueryRuleCriteria {
-	return s
 }

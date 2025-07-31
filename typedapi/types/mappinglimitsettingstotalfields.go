@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MappingLimitSettingsTotalFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/_types/IndexSettings.ts#L441-L458
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/_types/IndexSettings.ts#L441-L458
 type MappingLimitSettingsTotalFields struct {
 	// IgnoreDynamicBeyondLimit This setting determines what happens when a dynamically mapped field would
 	// exceed the total fields limit. When set
@@ -43,14 +43,14 @@ type MappingLimitSettingsTotalFields struct {
 	// similar to dynamic: false.
 	// The fields that were not added to the mapping will be added to the _ignored
 	// field.
-	IgnoreDynamicBeyondLimit string `json:"ignore_dynamic_beyond_limit,omitempty"`
+	IgnoreDynamicBeyondLimit *string `json:"ignore_dynamic_beyond_limit,omitempty"`
 	// Limit The maximum number of fields in an index. Field and object mappings, as well
 	// as field aliases count towards this limit.
 	// The limit is in place to prevent mappings and searches from becoming too
 	// large. Higher values can lead to performance
 	// degradations and memory issues, especially in clusters with a high load or
 	// few resources.
-	Limit string `json:"limit,omitempty"`
+	Limit *string `json:"limit,omitempty"`
 }
 
 func (s *MappingLimitSettingsTotalFields) UnmarshalJSON(data []byte) error {
@@ -78,7 +78,7 @@ func (s *MappingLimitSettingsTotalFields) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.IgnoreDynamicBeyondLimit = o
+			s.IgnoreDynamicBeyondLimit = &o
 
 		case "limit":
 			var tmp json.RawMessage
@@ -90,7 +90,7 @@ func (s *MappingLimitSettingsTotalFields) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Limit = o
+			s.Limit = &o
 
 		}
 	}
@@ -102,14 +102,4 @@ func NewMappingLimitSettingsTotalFields() *MappingLimitSettingsTotalFields {
 	r := &MappingLimitSettingsTotalFields{}
 
 	return r
-}
-
-// true
-
-type MappingLimitSettingsTotalFieldsVariant interface {
-	MappingLimitSettingsTotalFieldsCaster() *MappingLimitSettingsTotalFields
-}
-
-func (s *MappingLimitSettingsTotalFields) MappingLimitSettingsTotalFieldsCaster() *MappingLimitSettingsTotalFields {
-	return s
 }

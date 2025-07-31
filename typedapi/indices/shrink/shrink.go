@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Shrink an index.
 // Shrink an index into a new index with fewer primary shards.
@@ -516,63 +516,27 @@ func (r *Shrink) Pretty(pretty bool) *Shrink {
 	return r
 }
 
-// The key is the alias name.
+// Aliases The key is the alias name.
 // Index alias names support date math.
 // API name: aliases
 func (r *Shrink) Aliases(aliases map[string]types.Alias) *Shrink {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.Aliases = aliases
+
 	return r
 }
 
-func (r *Shrink) AddAlias(key string, value types.AliasVariant) *Shrink {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]types.Alias
-	if r.req.Aliases == nil {
-		r.req.Aliases = make(map[string]types.Alias)
-	} else {
-		tmp = r.req.Aliases
-	}
-
-	tmp[key] = *value.AliasCaster()
-
-	r.req.Aliases = tmp
-	return r
-}
-
-// Configuration options for the target index.
+// Settings Configuration options for the target index.
 // API name: settings
 func (r *Shrink) Settings(settings map[string]json.RawMessage) *Shrink {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.Settings = settings
-	return r
-}
 
-func (r *Shrink) AddSetting(key string, value json.RawMessage) *Shrink {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Settings == nil {
-		r.req.Settings = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Settings
-	}
-
-	tmp[key] = value
-
-	r.req.Settings = tmp
 	return r
 }

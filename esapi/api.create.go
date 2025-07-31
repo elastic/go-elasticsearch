@@ -62,6 +62,8 @@ type CreateRequest struct {
 	IncludeSourceOnError *bool
 	Pipeline             string
 	Refresh              string
+	RequireAlias         *bool
+	RequireDataStream    *bool
 	Routing              string
 	Timeout              time.Duration
 	Version              *int
@@ -126,6 +128,14 @@ func (r CreateRequest) Do(providedCtx context.Context, transport Transport) (*Re
 
 	if r.Refresh != "" {
 		params["refresh"] = r.Refresh
+	}
+
+	if r.RequireAlias != nil {
+		params["require_alias"] = strconv.FormatBool(*r.RequireAlias)
+	}
+
+	if r.RequireDataStream != nil {
+		params["require_data_stream"] = strconv.FormatBool(*r.RequireDataStream)
 	}
 
 	if r.Routing != "" {
@@ -251,6 +261,20 @@ func (f Create) WithPipeline(v string) func(*CreateRequest) {
 func (f Create) WithRefresh(v string) func(*CreateRequest) {
 	return func(r *CreateRequest) {
 		r.Refresh = v
+	}
+}
+
+// WithRequireAlias - when true, requires destination to be an alias. default is false.
+func (f Create) WithRequireAlias(v bool) func(*CreateRequest) {
+	return func(r *CreateRequest) {
+		r.RequireAlias = &v
+	}
+}
+
+// WithRequireDataStream - when true, requires destination to be a data stream (existing or to be created). default is false.
+func (f Create) WithRequireDataStream(v bool) func(*CreateRequest) {
+	return func(r *CreateRequest) {
+		r.RequireDataStream = &v
 	}
 }
 

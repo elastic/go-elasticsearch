@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // PercentilesBucketAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/pipeline.ts#L389-L397
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/pipeline.ts#L389-L397
 type PercentilesBucketAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
@@ -99,14 +99,4 @@ func NewPercentilesBucketAggregation() *PercentilesBucketAggregation {
 	r := &PercentilesBucketAggregation{}
 
 	return r
-}
-
-// true
-
-type PercentilesBucketAggregationVariant interface {
-	PercentilesBucketAggregationCaster() *PercentilesBucketAggregation
-}
-
-func (s *PercentilesBucketAggregation) PercentilesBucketAggregationCaster() *PercentilesBucketAggregation {
-	return s
 }

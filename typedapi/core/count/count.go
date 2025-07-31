@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Count search results.
 // Get the number of documents matching a query.
@@ -538,16 +538,15 @@ func (r *Count) Pretty(pretty bool) *Count {
 	return r
 }
 
-// Defines the search query using Query DSL. A request body query cannot be used
+// Query Defines the search query using Query DSL. A request body query cannot be used
 // with the `q` query string parameter.
 // API name: query
-func (r *Count) Query(query types.QueryVariant) *Count {
-	// Initialize the request if it is not already initialized
+func (r *Count) Query(query *types.Query) *Count {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -32,10 +32,10 @@ import (
 
 // SnowballAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/analyzers.ts#L325-L330
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/analysis/analyzers.ts#L325-L330
 type SnowballAnalyzer struct {
 	Language  snowballlanguage.SnowballLanguage `json:"language"`
-	Stopwords []string                          `json:"stopwords,omitempty"`
+	Stopwords StopWords                         `json:"stopwords,omitempty"`
 	Type      string                            `json:"type,omitempty"`
 	Version   *string                           `json:"version,omitempty"`
 }
@@ -61,19 +61,8 @@ func (s *SnowballAnalyzer) UnmarshalJSON(data []byte) error {
 			}
 
 		case "stopwords":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
-
-				s.Stopwords = append(s.Stopwords, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Stopwords); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
+			if err := dec.Decode(&s.Stopwords); err != nil {
+				return fmt.Errorf("%s | %w", "Stopwords", err)
 			}
 
 		case "type":
@@ -111,14 +100,4 @@ func NewSnowballAnalyzer() *SnowballAnalyzer {
 	r := &SnowballAnalyzer{}
 
 	return r
-}
-
-// true
-
-type SnowballAnalyzerVariant interface {
-	SnowballAnalyzerCaster() *SnowballAnalyzer
-}
-
-func (s *SnowballAnalyzer) SnowballAnalyzerCaster() *SnowballAnalyzer {
-	return s
 }

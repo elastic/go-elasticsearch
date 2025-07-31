@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Create a connector.
 //
@@ -350,7 +350,6 @@ func (r *Post) Pretty(pretty bool) *Post {
 
 // API name: description
 func (r *Post) Description(description string) *Post {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -362,11 +361,9 @@ func (r *Post) Description(description string) *Post {
 
 // API name: index_name
 func (r *Post) IndexName(indexname string) *Post {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.IndexName = &indexname
 
 	return r
@@ -374,11 +371,9 @@ func (r *Post) IndexName(indexname string) *Post {
 
 // API name: is_native
 func (r *Post) IsNative(isnative bool) *Post {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.IsNative = &isnative
 
 	return r
@@ -386,7 +381,6 @@ func (r *Post) IsNative(isnative bool) *Post {
 
 // API name: language
 func (r *Post) Language(language string) *Post {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -398,7 +392,6 @@ func (r *Post) Language(language string) *Post {
 
 // API name: name
 func (r *Post) Name(name string) *Post {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -410,7 +403,6 @@ func (r *Post) Name(name string) *Post {
 
 // API name: service_type
 func (r *Post) ServiceType(servicetype string) *Post {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}

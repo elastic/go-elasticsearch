@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RankEvalMetricPrecision type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_global/rank_eval/types.ts#L42-L52
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/rank_eval/types.ts#L42-L52
 type RankEvalMetricPrecision struct {
 	// IgnoreUnlabeled Controls how unlabeled documents in the search results are counted. If set to
 	// true, unlabeled documents are ignored and neither count as relevant or
@@ -116,14 +116,4 @@ func NewRankEvalMetricPrecision() *RankEvalMetricPrecision {
 	r := &RankEvalMetricPrecision{}
 
 	return r
-}
-
-// true
-
-type RankEvalMetricPrecisionVariant interface {
-	RankEvalMetricPrecisionCaster() *RankEvalMetricPrecision
-}
-
-func (s *RankEvalMetricPrecision) RankEvalMetricPrecisionCaster() *RankEvalMetricPrecision {
-	return s
 }

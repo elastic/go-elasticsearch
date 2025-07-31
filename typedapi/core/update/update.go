@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Update a document.
 //
@@ -533,25 +533,26 @@ func (r *Update) Pretty(pretty bool) *Update {
 	return r
 }
 
-// If `true`, the `result` in the response is set to `noop` (no operation) when
+// DetectNoop If `true`, the `result` in the response is set to `noop` (no operation) when
 // there are no changes to the document.
 // API name: detect_noop
 func (r *Update) DetectNoop(detectnoop bool) *Update {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.DetectNoop = &detectnoop
 
 	return r
 }
 
-// A partial update to an existing document.
+// Doc A partial update to an existing document.
 // If both `doc` and `script` are specified, `doc` is ignored.
 // API name: doc
+//
+// doc should be a json.RawMessage or a structure
+// if a structure is provided, the client will defer a json serialization
+// prior to sending the payload to Elasticsearch.
 func (r *Update) Doc(doc any) *Update {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -568,70 +569,67 @@ func (r *Update) Doc(doc any) *Update {
 			return nil
 		})
 	}
+
 	return r
 }
 
-// If `true`, use the contents of 'doc' as the value of 'upsert'.
+// DocAsUpsert If `true`, use the contents of 'doc' as the value of 'upsert'.
 // NOTE: Using ingest pipelines with `doc_as_upsert` is not supported.
 // API name: doc_as_upsert
 func (r *Update) DocAsUpsert(docasupsert bool) *Update {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.DocAsUpsert = &docasupsert
 
 	return r
 }
 
-// The script to run to update the document.
+// Script The script to run to update the document.
 // API name: script
-func (r *Update) Script(script types.ScriptVariant) *Update {
-	// Initialize the request if it is not already initialized
+func (r *Update) Script(script *types.Script) *Update {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Script = script.ScriptCaster()
+	r.req.Script = script
 
 	return r
 }
 
-// If `true`, run the script whether or not the document exists.
+// ScriptedUpsert If `true`, run the script whether or not the document exists.
 // API name: scripted_upsert
 func (r *Update) ScriptedUpsert(scriptedupsert bool) *Update {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
 	r.req.ScriptedUpsert = &scriptedupsert
 
 	return r
 }
 
-// If `false`, turn off source retrieval.
+// Source_ If `false`, turn off source retrieval.
 // You can also specify a comma-separated list of the fields you want to
 // retrieve.
 // API name: _source
-func (r *Update) Source_(sourceconfig types.SourceConfigVariant) *Update {
-	// Initialize the request if it is not already initialized
+func (r *Update) Source_(sourceconfig types.SourceConfig) *Update {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Source_ = *sourceconfig.SourceConfigCaster()
+	r.req.Source_ = sourceconfig
 
 	return r
 }
 
-// If the document does not already exist, the contents of 'upsert' are inserted
+// Upsert If the document does not already exist, the contents of 'upsert' are inserted
 // as a new document.
 // If the document exists, the 'script' is run.
 // API name: upsert
+//
+// upsert should be a json.RawMessage or a structure
+// if a structure is provided, the client will defer a json serialization
+// prior to sending the payload to Elasticsearch.
 func (r *Update) Upsert(upsert any) *Update {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -648,5 +646,6 @@ func (r *Update) Upsert(upsert any) *Update {
 			return nil
 		})
 	}
+
 	return r
 }

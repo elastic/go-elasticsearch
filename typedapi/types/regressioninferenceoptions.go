@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RegressionInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/inference.ts#L107-L116
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/_types/inference.ts#L107-L116
 type RegressionInferenceOptions struct {
 	// NumTopFeatureImportanceValues Specifies the maximum number of feature importance values per document.
 	NumTopFeatureImportanceValues *int `json:"num_top_feature_importance_values,omitempty"`
@@ -86,14 +86,4 @@ func NewRegressionInferenceOptions() *RegressionInferenceOptions {
 	r := &RegressionInferenceOptions{}
 
 	return r
-}
-
-// true
-
-type RegressionInferenceOptionsVariant interface {
-	RegressionInferenceOptionsCaster() *RegressionInferenceOptions
-}
-
-func (s *RegressionInferenceOptions) RegressionInferenceOptionsCaster() *RegressionInferenceOptions {
-	return s
 }

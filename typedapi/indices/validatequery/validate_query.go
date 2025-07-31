@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Validate a query.
 // Validates a query without running it.
@@ -384,7 +384,6 @@ func (r *ValidateQuery) Df(df string) *ValidateQuery {
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
 // Supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *ValidateQuery) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ValidateQuery {
 	tmp := []string{}
@@ -484,15 +483,14 @@ func (r *ValidateQuery) Pretty(pretty bool) *ValidateQuery {
 	return r
 }
 
-// Query in the Lucene query string syntax.
+// Query Query in the Lucene query string syntax.
 // API name: query
-func (r *ValidateQuery) Query(query types.QueryVariant) *ValidateQuery {
-	// Initialize the request if it is not already initialized
+func (r *ValidateQuery) Query(query *types.Query) *ValidateQuery {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }

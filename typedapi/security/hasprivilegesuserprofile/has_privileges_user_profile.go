@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Check user profile privileges.
 //
@@ -354,31 +354,26 @@ func (r *HasPrivilegesUserProfile) Pretty(pretty bool) *HasPrivilegesUserProfile
 	return r
 }
 
-// An object containing all the privileges to be checked.
+// Privileges An object containing all the privileges to be checked.
 // API name: privileges
-func (r *HasPrivilegesUserProfile) Privileges(privileges types.PrivilegesCheckVariant) *HasPrivilegesUserProfile {
-	// Initialize the request if it is not already initialized
+func (r *HasPrivilegesUserProfile) Privileges(privileges *types.PrivilegesCheck) *HasPrivilegesUserProfile {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Privileges = *privileges.PrivilegesCheckCaster()
+	r.req.Privileges = *privileges
 
 	return r
 }
 
-// A list of profile IDs. The privileges are checked for associated users of the
+// Uids A list of profile IDs. The privileges are checked for associated users of the
 // profiles.
 // API name: uids
 func (r *HasPrivilegesUserProfile) Uids(uids ...string) *HasPrivilegesUserProfile {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range uids {
+	r.req.Uids = uids
 
-		r.req.Uids = append(r.req.Uids, v)
-
-	}
 	return r
 }

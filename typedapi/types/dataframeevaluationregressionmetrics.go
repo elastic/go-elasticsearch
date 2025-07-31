@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // DataframeEvaluationRegressionMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/DataframeEvaluation.ts#L92-L110
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/_types/DataframeEvaluation.ts#L92-L110
 type DataframeEvaluationRegressionMetrics struct {
 	// Huber Pseudo Huber loss function.
 	Huber *DataframeEvaluationRegressionMetricsHuber `json:"huber,omitempty"`
@@ -49,14 +49,4 @@ func NewDataframeEvaluationRegressionMetrics() *DataframeEvaluationRegressionMet
 	}
 
 	return r
-}
-
-// true
-
-type DataframeEvaluationRegressionMetricsVariant interface {
-	DataframeEvaluationRegressionMetricsCaster() *DataframeEvaluationRegressionMetrics
-}
-
-func (s *DataframeEvaluationRegressionMetrics) DataframeEvaluationRegressionMetricsCaster() *DataframeEvaluationRegressionMetrics {
-	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HdrMethod type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/aggregations/metric.ts#L225-L230
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/metric.ts#L237-L242
 type HdrMethod struct {
 	// NumberOfSignificantValueDigits Specifies the resolution of values for the histogram in number of significant
 	// digits.
@@ -79,14 +79,4 @@ func NewHdrMethod() *HdrMethod {
 	r := &HdrMethod{}
 
 	return r
-}
-
-// true
-
-type HdrMethodVariant interface {
-	HdrMethodCaster() *HdrMethod
-}
-
-func (s *HdrMethod) HdrMethodCaster() *HdrMethod {
-	return s
 }

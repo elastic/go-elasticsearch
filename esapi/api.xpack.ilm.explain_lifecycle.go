@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newILMExplainLifecycleFunc(t Transport) ILMExplainLifecycle {
@@ -52,8 +53,9 @@ type ILMExplainLifecycle func(index string, o ...func(*ILMExplainLifecycleReques
 type ILMExplainLifecycleRequest struct {
 	Index string
 
-	OnlyErrors  *bool
-	OnlyManaged *bool
+	MasterTimeout time.Duration
+	OnlyErrors    *bool
+	OnlyManaged   *bool
 
 	Pretty     bool
 	Human      bool
@@ -99,6 +101,10 @@ func (r ILMExplainLifecycleRequest) Do(providedCtx context.Context, transport Tr
 	path.WriteString("explain")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.OnlyErrors != nil {
 		params["only_errors"] = strconv.FormatBool(*r.OnlyErrors)
@@ -183,6 +189,13 @@ func (r ILMExplainLifecycleRequest) Do(providedCtx context.Context, transport Tr
 func (f ILMExplainLifecycle) WithContext(v context.Context) func(*ILMExplainLifecycleRequest) {
 	return func(r *ILMExplainLifecycleRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f ILMExplainLifecycle) WithMasterTimeout(v time.Duration) func(*ILMExplainLifecycleRequest) {
+	return func(r *ILMExplainLifecycleRequest) {
+		r.MasterTimeout = v
 	}
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // RetentionLease type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/_types/IndexSettings.ts#L66-L68
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/_types/IndexSettings.ts#L66-L68
 type RetentionLease struct {
 	Period Duration `json:"period"`
 }
@@ -65,14 +65,4 @@ func NewRetentionLease() *RetentionLease {
 	r := &RetentionLease{}
 
 	return r
-}
-
-// true
-
-type RetentionLeaseVariant interface {
-	RetentionLeaseCaster() *RetentionLease
-}
-
-func (s *RetentionLease) RetentionLeaseCaster() *RetentionLease {
-	return s
 }

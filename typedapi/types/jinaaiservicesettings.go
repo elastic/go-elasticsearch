@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // JinaAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/inference/_types/CommonTypes.ts#L900-L929
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/CommonTypes.ts#L1439-L1468
 type JinaAIServiceSettings struct {
 	// ApiKey A valid API key of your JinaAI account.
 	//
@@ -120,14 +120,4 @@ func NewJinaAIServiceSettings() *JinaAIServiceSettings {
 	r := &JinaAIServiceSettings{}
 
 	return r
-}
-
-// true
-
-type JinaAIServiceSettingsVariant interface {
-	JinaAIServiceSettingsCaster() *JinaAIServiceSettings
-}
-
-func (s *JinaAIServiceSettings) JinaAIServiceSettingsCaster() *JinaAIServiceSettings {
-	return s
 }

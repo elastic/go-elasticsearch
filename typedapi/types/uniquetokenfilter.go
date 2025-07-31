@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,8 +31,10 @@ import (
 
 // UniqueTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/_types/analysis/token_filters.ts#L336-L339
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/analysis/token_filters.ts#L441-L445
 type UniqueTokenFilter struct {
+	// OnlyOnSamePosition If `true`, only remove duplicate tokens in the same position. Defaults to
+	// `false`.
 	OnlyOnSamePosition *bool   `json:"only_on_same_position,omitempty"`
 	Type               string  `json:"type,omitempty"`
 	Version            *string `json:"version,omitempty"`
@@ -101,14 +103,4 @@ func NewUniqueTokenFilter() *UniqueTokenFilter {
 	r := &UniqueTokenFilter{}
 
 	return r
-}
-
-// true
-
-type UniqueTokenFilterVariant interface {
-	UniqueTokenFilterCaster() *UniqueTokenFilter
-}
-
-func (s *UniqueTokenFilter) UniqueTokenFilterCaster() *UniqueTokenFilter {
-	return s
 }

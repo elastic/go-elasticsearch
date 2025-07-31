@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Render a search application query.
 // Generate an Elasticsearch query using the specified query parameters and the
@@ -381,29 +381,11 @@ func (r *RenderQuery) Pretty(pretty bool) *RenderQuery {
 
 // API name: params
 func (r *RenderQuery) Params(params map[string]json.RawMessage) *RenderQuery {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+
 	r.req.Params = params
-	return r
-}
 
-func (r *RenderQuery) AddParam(key string, value json.RawMessage) *RenderQuery {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	var tmp map[string]json.RawMessage
-	if r.req.Params == nil {
-		r.req.Params = make(map[string]json.RawMessage)
-	} else {
-		tmp = r.req.Params
-	}
-
-	tmp[key] = value
-
-	r.req.Params = tmp
 	return r
 }

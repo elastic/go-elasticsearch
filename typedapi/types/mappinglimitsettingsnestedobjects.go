@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MappingLimitSettingsNestedObjects type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/indices/_types/IndexSettings.ts#L479-L486
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/_types/IndexSettings.ts#L479-L486
 type MappingLimitSettingsNestedObjects struct {
 	// Limit The maximum number of nested JSON objects that a single document can contain
 	// across all nested types. This limit helps
@@ -80,14 +80,4 @@ func NewMappingLimitSettingsNestedObjects() *MappingLimitSettingsNestedObjects {
 	r := &MappingLimitSettingsNestedObjects{}
 
 	return r
-}
-
-// true
-
-type MappingLimitSettingsNestedObjectsVariant interface {
-	MappingLimitSettingsNestedObjectsCaster() *MappingLimitSettingsNestedObjects
-}
-
-func (s *MappingLimitSettingsNestedObjects) MappingLimitSettingsNestedObjectsCaster() *MappingLimitSettingsNestedObjects {
-	return s
 }

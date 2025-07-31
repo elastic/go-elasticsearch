@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Simulate a pipeline.
 //
@@ -385,34 +385,29 @@ func (r *Simulate) Pretty(pretty bool) *Simulate {
 	return r
 }
 
-// Sample documents to test in the pipeline.
+// Docs Sample documents to test in the pipeline.
 // API name: docs
-func (r *Simulate) Docs(docs ...types.DocumentVariant) *Simulate {
-	// Initialize the request if it is not already initialized
+func (r *Simulate) Docs(docs ...types.Document) *Simulate {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range docs {
+	r.req.Docs = docs
 
-		r.req.Docs = append(r.req.Docs, *v.DocumentCaster())
-
-	}
 	return r
 }
 
-// The pipeline to test.
+// Pipeline The pipeline to test.
 // If you don't specify the `pipeline` request path parameter, this parameter is
 // required.
 // If you specify both this and the request path parameter, the API only uses
 // the request path parameter.
 // API name: pipeline
-func (r *Simulate) Pipeline(pipeline types.IngestPipelineVariant) *Simulate {
-	// Initialize the request if it is not already initialized
+func (r *Simulate) Pipeline(pipeline *types.IngestPipeline) *Simulate {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Pipeline = pipeline.IngestPipelineCaster()
+	r.req.Pipeline = pipeline
 
 	return r
 }

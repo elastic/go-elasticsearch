@@ -18,7 +18,11 @@
 package types
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 	"strings"
 )
 
@@ -58,4 +62,56 @@ func NewElasticsearchError() *ElasticsearchError {
 	r := &ElasticsearchError{}
 
 	return r
+}
+
+func (e *ElasticsearchError) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	// Expect start object
+	t, err := dec.Token()
+	if err != nil {
+		return err
+	}
+	if delim, ok := t.(json.Delim); !ok || delim != '{' {
+		return fmt.Errorf("expected start object")
+	}
+
+	for dec.More() {
+		t, err := dec.Token()
+		if err != nil {
+			return err
+		}
+		key, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("expected string key")
+		}
+
+		switch key {
+		case "error":
+			if err := dec.Decode(&e.ErrorCause); err != nil {
+				return fmt.Errorf("error decoding error: %w", err)
+			}
+		case "status":
+			if err := dec.Decode(&e.Status); err != nil {
+				return fmt.Errorf("error decoding status: %w", err)
+			}
+		default:
+			// Unknown field: store in ErrorCause.Metadata
+			if e.ErrorCause.Metadata == nil {
+				e.ErrorCause.Metadata = make(map[string]json.RawMessage)
+			}
+			var raw json.RawMessage
+			if err := dec.Decode(&raw); err != nil {
+				return fmt.Errorf("error decoding unknown field %s: %w", key, err)
+			}
+			e.ErrorCause.Metadata[key] = raw
+		}
+	}
+
+	// Expect end object
+	_, err = dec.Token()
+	if err != nil && !errors.Is(err, io.EOF) {
+		return err
+	}
+	return nil
 }

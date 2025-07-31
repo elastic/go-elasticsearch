@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Resume a follower.
 // Resume a cross-cluster replication follower index that was paused.
@@ -379,7 +379,6 @@ func (r *ResumeFollow) Pretty(pretty bool) *ResumeFollow {
 
 // API name: max_outstanding_read_requests
 func (r *ResumeFollow) MaxOutstandingReadRequests(maxoutstandingreadrequests int64) *ResumeFollow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -391,7 +390,6 @@ func (r *ResumeFollow) MaxOutstandingReadRequests(maxoutstandingreadrequests int
 
 // API name: max_outstanding_write_requests
 func (r *ResumeFollow) MaxOutstandingWriteRequests(maxoutstandingwriterequests int64) *ResumeFollow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -403,7 +401,6 @@ func (r *ResumeFollow) MaxOutstandingWriteRequests(maxoutstandingwriterequests i
 
 // API name: max_read_request_operation_count
 func (r *ResumeFollow) MaxReadRequestOperationCount(maxreadrequestoperationcount int64) *ResumeFollow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -415,7 +412,6 @@ func (r *ResumeFollow) MaxReadRequestOperationCount(maxreadrequestoperationcount
 
 // API name: max_read_request_size
 func (r *ResumeFollow) MaxReadRequestSize(maxreadrequestsize string) *ResumeFollow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -426,20 +422,17 @@ func (r *ResumeFollow) MaxReadRequestSize(maxreadrequestsize string) *ResumeFoll
 }
 
 // API name: max_retry_delay
-func (r *ResumeFollow) MaxRetryDelay(duration types.DurationVariant) *ResumeFollow {
-	// Initialize the request if it is not already initialized
+func (r *ResumeFollow) MaxRetryDelay(duration types.Duration) *ResumeFollow {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.MaxRetryDelay = *duration.DurationCaster()
+	r.req.MaxRetryDelay = duration
 
 	return r
 }
 
 // API name: max_write_buffer_count
 func (r *ResumeFollow) MaxWriteBufferCount(maxwritebuffercount int64) *ResumeFollow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -451,7 +444,6 @@ func (r *ResumeFollow) MaxWriteBufferCount(maxwritebuffercount int64) *ResumeFol
 
 // API name: max_write_buffer_size
 func (r *ResumeFollow) MaxWriteBufferSize(maxwritebuffersize string) *ResumeFollow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -463,7 +455,6 @@ func (r *ResumeFollow) MaxWriteBufferSize(maxwritebuffersize string) *ResumeFoll
 
 // API name: max_write_request_operation_count
 func (r *ResumeFollow) MaxWriteRequestOperationCount(maxwriterequestoperationcount int64) *ResumeFollow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -475,7 +466,6 @@ func (r *ResumeFollow) MaxWriteRequestOperationCount(maxwriterequestoperationcou
 
 // API name: max_write_request_size
 func (r *ResumeFollow) MaxWriteRequestSize(maxwriterequestsize string) *ResumeFollow {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
@@ -486,13 +476,11 @@ func (r *ResumeFollow) MaxWriteRequestSize(maxwriterequestsize string) *ResumeFo
 }
 
 // API name: read_poll_timeout
-func (r *ResumeFollow) ReadPollTimeout(duration types.DurationVariant) *ResumeFollow {
-	// Initialize the request if it is not already initialized
+func (r *ResumeFollow) ReadPollTimeout(duration types.Duration) *ResumeFollow {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.ReadPollTimeout = *duration.DurationCaster()
+	r.req.ReadPollTimeout = duration
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -33,31 +33,33 @@ import (
 
 // NodeInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/nodes/info/types.ts#L31-L67
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/nodes/info/types.ts#L32-L72
 type NodeInfo struct {
 	Aggregations map[string]NodeInfoAggregation `json:"aggregations,omitempty"`
 	Attributes   map[string]string              `json:"attributes"`
 	BuildFlavor  string                         `json:"build_flavor"`
 	// BuildHash Short hash of the last git commit in this release.
-	BuildHash string `json:"build_hash"`
-	BuildType string `json:"build_type"`
+	BuildHash         string         `json:"build_hash"`
+	BuildType         string         `json:"build_type"`
+	ComponentVersions map[string]int `json:"component_versions"`
 	// Host The node’s host name.
-	Host   string          `json:"host"`
-	Http   *NodeInfoHttp   `json:"http,omitempty"`
-	Ingest *NodeInfoIngest `json:"ingest,omitempty"`
+	Host         string          `json:"host"`
+	Http         *NodeInfoHttp   `json:"http,omitempty"`
+	IndexVersion int64           `json:"index_version"`
+	Ingest       *NodeInfoIngest `json:"ingest,omitempty"`
 	// Ip The node’s IP address.
 	Ip      string        `json:"ip"`
 	Jvm     *NodeJvmInfo  `json:"jvm,omitempty"`
 	Modules []PluginStats `json:"modules,omitempty"`
 	// Name The node's name
-	Name       string                        `json:"name"`
-	Network    *NodeInfoNetwork              `json:"network,omitempty"`
-	Os         *NodeOperatingSystemInfo      `json:"os,omitempty"`
-	Plugins    []PluginStats                 `json:"plugins,omitempty"`
-	Process    *NodeProcessInfo              `json:"process,omitempty"`
-	Roles      []noderole.NodeRole           `json:"roles"`
-	Settings   *NodeInfoSettings             `json:"settings,omitempty"`
-	ThreadPool map[string]NodeThreadPoolInfo `json:"thread_pool,omitempty"`
+	Name                string                        `json:"name"`
+	Os                  *NodeOperatingSystemInfo      `json:"os,omitempty"`
+	Plugins             []PluginStats                 `json:"plugins,omitempty"`
+	Process             *NodeProcessInfo              `json:"process,omitempty"`
+	RemoteClusterServer *RemoveClusterServer          `json:"remote_cluster_server,omitempty"`
+	Roles               []noderole.NodeRole           `json:"roles"`
+	Settings            *NodeInfoSettings             `json:"settings,omitempty"`
+	ThreadPool          map[string]NodeThreadPoolInfo `json:"thread_pool,omitempty"`
 	// TotalIndexingBuffer Total heap allowed to be used to hold recently indexed documents before they
 	// must be written to disk. This size is a shared pool across all shards on this
 	// node, and is controlled by Indexing Buffer settings.
@@ -67,6 +69,7 @@ type NodeInfo struct {
 	Transport                  *NodeInfoTransport `json:"transport,omitempty"`
 	// TransportAddress Host and port where transport HTTP connections are accepted.
 	TransportAddress string `json:"transport_address"`
+	TransportVersion int64  `json:"transport_version"`
 	// Version Elasticsearch version running on this node.
 	Version string `json:"version"`
 }
@@ -138,6 +141,14 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 			}
 			s.BuildType = o
 
+		case "component_versions":
+			if s.ComponentVersions == nil {
+				s.ComponentVersions = make(map[string]int, 0)
+			}
+			if err := dec.Decode(&s.ComponentVersions); err != nil {
+				return fmt.Errorf("%s | %w", "ComponentVersions", err)
+			}
+
 		case "host":
 			if err := dec.Decode(&s.Host); err != nil {
 				return fmt.Errorf("%s | %w", "Host", err)
@@ -146,6 +157,11 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 		case "http":
 			if err := dec.Decode(&s.Http); err != nil {
 				return fmt.Errorf("%s | %w", "Http", err)
+			}
+
+		case "index_version":
+			if err := dec.Decode(&s.IndexVersion); err != nil {
+				return fmt.Errorf("%s | %w", "IndexVersion", err)
 			}
 
 		case "ingest":
@@ -173,11 +189,6 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
-		case "network":
-			if err := dec.Decode(&s.Network); err != nil {
-				return fmt.Errorf("%s | %w", "Network", err)
-			}
-
 		case "os":
 			if err := dec.Decode(&s.Os); err != nil {
 				return fmt.Errorf("%s | %w", "Os", err)
@@ -191,6 +202,11 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 		case "process":
 			if err := dec.Decode(&s.Process); err != nil {
 				return fmt.Errorf("%s | %w", "Process", err)
+			}
+
+		case "remote_cluster_server":
+			if err := dec.Decode(&s.RemoteClusterServer); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteClusterServer", err)
 			}
 
 		case "roles":
@@ -241,6 +257,11 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "TransportAddress", err)
 			}
 
+		case "transport_version":
+			if err := dec.Decode(&s.TransportVersion); err != nil {
+				return fmt.Errorf("%s | %w", "TransportVersion", err)
+			}
+
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
 				return fmt.Errorf("%s | %w", "Version", err)
@@ -254,12 +275,11 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 // NewNodeInfo returns a NodeInfo.
 func NewNodeInfo() *NodeInfo {
 	r := &NodeInfo{
-		Aggregations: make(map[string]NodeInfoAggregation),
-		Attributes:   make(map[string]string),
-		ThreadPool:   make(map[string]NodeThreadPoolInfo),
+		Aggregations:      make(map[string]NodeInfoAggregation),
+		Attributes:        make(map[string]string),
+		ComponentVersions: make(map[string]int),
+		ThreadPool:        make(map[string]NodeThreadPoolInfo),
 	}
 
 	return r
 }
-
-// false

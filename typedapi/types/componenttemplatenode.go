@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ComponentTemplateNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/cluster/_types/ComponentTemplate.ts#L32-L41
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/cluster/_types/ComponentTemplate.ts#L32-L41
 type ComponentTemplateNode struct {
 	Deprecated *bool                    `json:"deprecated,omitempty"`
 	Meta_      Metadata                 `json:"_meta,omitempty"`
@@ -93,14 +93,4 @@ func NewComponentTemplateNode() *ComponentTemplateNode {
 	r := &ComponentTemplateNode{}
 
 	return r
-}
-
-// true
-
-type ComponentTemplateNodeVariant interface {
-	ComponentTemplateNodeCaster() *ComponentTemplateNode
-}
-
-func (s *ComponentTemplateNode) ComponentTemplateNodeCaster() *ComponentTemplateNode {
-	return s
 }

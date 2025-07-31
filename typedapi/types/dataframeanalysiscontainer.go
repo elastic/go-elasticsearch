@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // DataframeAnalysisContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/f1932ce6b46a53a8342db522b1a7883bcc9e0996/specification/ml/_types/DataframeAnalytics.ts#L84-L101
+// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/_types/DataframeAnalytics.ts#L84-L101
 type DataframeAnalysisContainer struct {
 	AdditionalDataframeAnalysisContainerProperty map[string]json.RawMessage `json:"-"`
 	// Classification The configuration information necessary to perform classification.
@@ -82,14 +82,4 @@ func NewDataframeAnalysisContainer() *DataframeAnalysisContainer {
 	}
 
 	return r
-}
-
-// true
-
-type DataframeAnalysisContainerVariant interface {
-	DataframeAnalysisContainerCaster() *DataframeAnalysisContainer
-}
-
-func (s *DataframeAnalysisContainer) DataframeAnalysisContainerCaster() *DataframeAnalysisContainer {
-	return s
 }

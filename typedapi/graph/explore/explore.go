@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Explore graph analytics.
 // Extract and summarize information about the documents and terms in an
@@ -396,59 +396,52 @@ func (r *Explore) Pretty(pretty bool) *Explore {
 	return r
 }
 
-// Specifies or more fields from which you want to extract terms that are
+// Connections Specifies or more fields from which you want to extract terms that are
 // associated with the specified vertices.
 // API name: connections
-func (r *Explore) Connections(connections types.HopVariant) *Explore {
-	// Initialize the request if it is not already initialized
+func (r *Explore) Connections(connections *types.Hop) *Explore {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Connections = connections.HopCaster()
+	r.req.Connections = connections
 
 	return r
 }
 
-// Direct the Graph API how to build the graph.
+// Controls Direct the Graph API how to build the graph.
 // API name: controls
-func (r *Explore) Controls(controls types.ExploreControlsVariant) *Explore {
-	// Initialize the request if it is not already initialized
+func (r *Explore) Controls(controls *types.ExploreControls) *Explore {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Controls = controls.ExploreControlsCaster()
+	r.req.Controls = controls
 
 	return r
 }
 
-// A seed query that identifies the documents of interest. Can be any valid
+// Query A seed query that identifies the documents of interest. Can be any valid
 // Elasticsearch query.
 // API name: query
-func (r *Explore) Query(query types.QueryVariant) *Explore {
-	// Initialize the request if it is not already initialized
+func (r *Explore) Query(query *types.Query) *Explore {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Query = query.QueryCaster()
+	r.req.Query = query
 
 	return r
 }
 
-// Specifies one or more fields that contain the terms you want to include in
+// Vertices Specifies one or more fields that contain the terms you want to include in
 // the graph as vertices.
 // API name: vertices
-func (r *Explore) Vertices(vertices ...types.VertexDefinitionVariant) *Explore {
-	// Initialize the request if it is not already initialized
+func (r *Explore) Vertices(vertices ...types.VertexDefinition) *Explore {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range vertices {
+	r.req.Vertices = vertices
 
-		r.req.Vertices = append(r.req.Vertices, *v.VertexDefinitionCaster())
-
-	}
 	return r
 }

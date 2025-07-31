@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/f1932ce6b46a53a8342db522b1a7883bcc9e0996
+// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
 // Find the structure of text messages.
 // Find the structure of a list of text messages.
@@ -588,17 +588,13 @@ func (r *FindMessageStructure) Pretty(pretty bool) *FindMessageStructure {
 	return r
 }
 
-// The list of messages you want to analyze.
+// Messages The list of messages you want to analyze.
 // API name: messages
 func (r *FindMessageStructure) Messages(messages ...string) *FindMessageStructure {
-	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range messages {
+	r.req.Messages = messages
 
-		r.req.Messages = append(r.req.Messages, v)
-
-	}
 	return r
 }
