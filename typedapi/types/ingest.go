@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Ingest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/de4ff9ec1f716256f521d9e30011ad9c284b0dcc/specification/ingest/_types/Simulation.ts#L28-L36
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/ingest/_types/Simulation.ts#L28-L36
 type Ingest struct {
 	Pipeline  *string  `json:"pipeline,omitempty"`
 	Redact_   *Redact  `json:"_redact,omitempty"`

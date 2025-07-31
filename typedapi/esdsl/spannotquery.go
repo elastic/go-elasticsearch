@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package esdsl
 
@@ -26,7 +26,9 @@ type _spanNotQuery struct {
 	v *types.SpanNotQuery
 }
 
-// Wraps another span query, and excludes any documents which match that query.
+// Removes matches which overlap with another span query or which are within x
+// tokens before (controlled by the parameter `pre`) or y tokens after
+// (controlled by the parameter `post`) another span query.
 func NewSpanNotQuery(exclude types.SpanQueryVariant, include types.SpanQueryVariant) *_spanNotQuery {
 
 	tmp := &_spanNotQuery{v: types.NewSpanNotQuery()}

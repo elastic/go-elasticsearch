@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/de4ff9ec1f716256f521d9e30011ad9c284b0dcc
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package streamcompletion
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package streamcompletion
 //
-// https://github.com/elastic/elasticsearch-specification/blob/de4ff9ec1f716256f521d9e30011ad9c284b0dcc/specification/inference/stream_completion/StreamInferenceRequest.ts#L25-L71
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/inference/stream_completion/StreamInferenceRequest.ts#L25-L71
 type Request struct {
 
 	// Input The text on which you want to perform the inference task.
