@@ -1,3 +1,13 @@
+# 8.19.0
+
+# API
+
+* Updated APIs to 8.19.0
+
+# Typed API
+
+* Update TypedAPI to latest [elasticsearch-specification 8.19](https://github.com/elastic/elasticsearch-specification/commit/470b4b9)
+
 # 8.18.1
 
  * This patch release fixes the broken build found in 8.18.0. If you are using the `TypedClient`, you should update to this version.
