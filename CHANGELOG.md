@@ -1,3 +1,35 @@
+# 9.1.0
+
+# API
+
+* Updated APIs to 9.1.0
+
+# Typed API
+
+* Update TypedAPI to latest [elasticsearch-specification 9.1](https://github.com/elastic/elasticsearch-specification/commit/907d11a)
+* This release introduces a new `MethodAPI` used by the `TypedClient` which makes the client friendlier for dead code elimination. 
+  Reducing the size of the client when only a subset of the APIs are used. The old `API` structure remains available for backward compatibility, but it is now deprecated.
+
+# 8.19.0
+
+# API
+
+* Updated APIs to 8.19.0
+
+# Typed API
+
+* Update TypedAPI to latest [elasticsearch-specification 8.19](https://github.com/elastic/elasticsearch-specification/commit/470b4b9)
+
+# 9.0.1
+
+# API
+
+* Updated APIs to 9.0.4
+
+# Typed API
+
+* Update TypedAPI to latest [elasticsearch-specification 9.0](https://github.com/elastic/elasticsearch-specification/commit/e585438)
+
 # 9.0.0
 
 * The client now requires **Go 1.23** or later.
