@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FingerprintAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/analyzers.ts#L37-L64
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/analysis/analyzers.ts#L37-L64
 type FingerprintAnalyzer struct {
 	// MaxOutputSize The maximum token size to emit. Tokens larger than this size will be
 	// discarded.
@@ -43,7 +43,7 @@ type FingerprintAnalyzer struct {
 	// Stopwords A pre-defined stop words list like `_english_` or an array containing a list
 	// of stop words.
 	// Defaults to `_none_`.
-	Stopwords []string `json:"stopwords,omitempty"`
+	Stopwords StopWords `json:"stopwords,omitempty"`
 	// StopwordsPath The path to a file containing stop words.
 	StopwordsPath *string `json:"stopwords_path,omitempty"`
 	Type          string  `json:"type,omitempty"`
@@ -94,19 +94,8 @@ func (s *FingerprintAnalyzer) UnmarshalJSON(data []byte) error {
 			s.Separator = &o
 
 		case "stopwords":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
-
-				s.Stopwords = append(s.Stopwords, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Stopwords); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
+			if err := dec.Decode(&s.Stopwords); err != nil {
+				return fmt.Errorf("%s | %w", "Stopwords", err)
 			}
 
 		case "stopwords_path":
@@ -160,12 +149,15 @@ func NewFingerprintAnalyzer() *FingerprintAnalyzer {
 	return r
 }
 
-// true
-
 type FingerprintAnalyzerVariant interface {
 	FingerprintAnalyzerCaster() *FingerprintAnalyzer
 }
 
 func (s *FingerprintAnalyzer) FingerprintAnalyzerCaster() *FingerprintAnalyzer {
 	return s
+}
+
+func (s *FingerprintAnalyzer) AnalyzerCaster() *Analyzer {
+	o := Analyzer(s)
+	return &o
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // Intervals type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/query_dsl/fulltext.ts#L83-L110
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/query_dsl/fulltext.ts#L83-L112
 type Intervals struct {
 	AdditionalIntervalsProperty map[string]json.RawMessage `json:"-"`
 	// AllOf Returns matches that span a combination of other rules.
@@ -40,6 +40,8 @@ type Intervals struct {
 	Match *IntervalsMatch `json:"match,omitempty"`
 	// Prefix Matches terms that start with a specified set of characters.
 	Prefix *IntervalsPrefix `json:"prefix,omitempty"`
+	Range  *IntervalsRange  `json:"range,omitempty"`
+	Regexp *IntervalsRegexp `json:"regexp,omitempty"`
 	// Wildcard Matches terms using a wildcard pattern.
 	Wildcard *IntervalsWildcard `json:"wildcard,omitempty"`
 }
@@ -81,8 +83,6 @@ func NewIntervals() *Intervals {
 
 	return r
 }
-
-// true
 
 type IntervalsVariant interface {
 	IntervalsCaster() *Intervals

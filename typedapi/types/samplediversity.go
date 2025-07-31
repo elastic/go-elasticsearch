@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SampleDiversity type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/graph/_types/ExploreControls.ts#L51-L54
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/graph/_types/ExploreControls.ts#L51-L54
 type SampleDiversity struct {
 	Field           string `json:"field"`
 	MaxDocsPerValue int    `json:"max_docs_per_value"`
@@ -84,8 +84,6 @@ func NewSampleDiversity() *SampleDiversity {
 
 	return r
 }
-
-// true
 
 type SampleDiversityVariant interface {
 	SampleDiversityCaster() *SampleDiversity

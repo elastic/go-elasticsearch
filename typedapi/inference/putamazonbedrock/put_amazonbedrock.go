@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 // Create an Amazon Bedrock inference endpoint.
 //
-// Creates an inference endpoint to perform an inference task with the
+// Create an inference endpoint to perform an inference task with the
 // `amazonbedrock` service.
 //
 // >info
@@ -30,16 +30,6 @@
 // associated key pairs. If you want to use a different access and secret key
 // pair, delete the inference model and recreate it with the same name and the
 // updated keys.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 package putamazonbedrock
 
 import (
@@ -110,7 +100,7 @@ func NewPutAmazonbedrockFunc(tp elastictransport.Interface) NewPutAmazonbedrock 
 
 // Create an Amazon Bedrock inference endpoint.
 //
-// Creates an inference endpoint to perform an inference task with the
+// Create an inference endpoint to perform an inference task with the
 // `amazonbedrock` service.
 //
 // >info
@@ -120,16 +110,6 @@ func NewPutAmazonbedrockFunc(tp elastictransport.Interface) NewPutAmazonbedrock 
 // associated key pairs. If you want to use a different access and secret key
 // pair, delete the inference model and recreate it with the same name and the
 // updated keys.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-amazonbedrock
 func New(tp elastictransport.Interface) *PutAmazonbedrock {
@@ -370,6 +350,15 @@ func (r *PutAmazonbedrock) _tasktype(tasktype string) *PutAmazonbedrock {
 func (r *PutAmazonbedrock) _amazonbedrockinferenceid(amazonbedrockinferenceid string) *PutAmazonbedrock {
 	r.paramSet |= amazonbedrockinferenceidMask
 	r.amazonbedrockinferenceid = amazonbedrockinferenceid
+
+	return r
+}
+
+// Timeout Specifies the amount of time to wait for the inference endpoint to be
+// created.
+// API name: timeout
+func (r *PutAmazonbedrock) Timeout(duration string) *PutAmazonbedrock {
+	r.values.Set("timeout", duration)
 
 	return r
 }

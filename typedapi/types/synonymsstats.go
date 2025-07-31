@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -29,16 +29,15 @@ import (
 	"strconv"
 )
 
-// ClusterPressureMemory type.
+// SynonymsStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/cluster/stats/types.ts#L574-L578
-type ClusterPressureMemory struct {
-	Current      IndexingPressureMemorySummary `json:"current"`
-	LimitInBytes int64                         `json:"limit_in_bytes"`
-	Total        IndexingPressureMemorySummary `json:"total"`
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/cluster/stats/types.ts#L354-L357
+type SynonymsStats struct {
+	Count      int `json:"count"`
+	IndexCount int `json:"index_count"`
 }
 
-func (s *ClusterPressureMemory) UnmarshalJSON(data []byte) error {
+func (s *SynonymsStats) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -53,29 +52,36 @@ func (s *ClusterPressureMemory) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "current":
-			if err := dec.Decode(&s.Current); err != nil {
-				return fmt.Errorf("%s | %w", "Current", err)
-			}
+		case "count":
 
-		case "limit_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
-				value, err := strconv.ParseInt(v, 10, 64)
+				value, err := strconv.Atoi(v)
 				if err != nil {
-					return fmt.Errorf("%s | %w", "LimitInBytes", err)
+					return fmt.Errorf("%s | %w", "Count", err)
 				}
-				s.LimitInBytes = value
+				s.Count = value
 			case float64:
-				f := int64(v)
-				s.LimitInBytes = f
+				f := int(v)
+				s.Count = f
 			}
 
-		case "total":
-			if err := dec.Decode(&s.Total); err != nil {
-				return fmt.Errorf("%s | %w", "Total", err)
+		case "index_count":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IndexCount", err)
+				}
+				s.IndexCount = value
+			case float64:
+				f := int(v)
+				s.IndexCount = f
 			}
 
 		}
@@ -83,11 +89,9 @@ func (s *ClusterPressureMemory) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewClusterPressureMemory returns a ClusterPressureMemory.
-func NewClusterPressureMemory() *ClusterPressureMemory {
-	r := &ClusterPressureMemory{}
+// NewSynonymsStats returns a SynonymsStats.
+func NewSynonymsStats() *SynonymsStats {
+	r := &SynonymsStats{}
 
 	return r
 }
-
-// false

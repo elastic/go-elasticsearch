@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,17 +31,32 @@ import (
 
 // DictionaryDecompounderTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/token_filters.ts#L53-L55
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/analysis/token_filters.ts#L63-L65
 type DictionaryDecompounderTokenFilter struct {
-	HyphenationPatternsPath *string  `json:"hyphenation_patterns_path,omitempty"`
-	MaxSubwordSize          *int     `json:"max_subword_size,omitempty"`
-	MinSubwordSize          *int     `json:"min_subword_size,omitempty"`
-	MinWordSize             *int     `json:"min_word_size,omitempty"`
-	OnlyLongestMatch        *bool    `json:"only_longest_match,omitempty"`
-	Type                    string   `json:"type,omitempty"`
-	Version                 *string  `json:"version,omitempty"`
-	WordList                []string `json:"word_list,omitempty"`
-	WordListPath            *string  `json:"word_list_path,omitempty"`
+	// MaxSubwordSize Maximum subword character length. Longer subword tokens are excluded from the
+	// output. Defaults to `15`.
+	MaxSubwordSize *int `json:"max_subword_size,omitempty"`
+	// MinSubwordSize Minimum subword character length. Shorter subword tokens are excluded from
+	// the output. Defaults to `2`.
+	MinSubwordSize *int `json:"min_subword_size,omitempty"`
+	// MinWordSize Minimum word character length. Shorter word tokens are excluded from the
+	// output. Defaults to `5`.
+	MinWordSize *int `json:"min_word_size,omitempty"`
+	// OnlyLongestMatch If `true`, only include the longest matching subword. Defaults to `false`.
+	OnlyLongestMatch *bool   `json:"only_longest_match,omitempty"`
+	Type             string  `json:"type,omitempty"`
+	Version          *string `json:"version,omitempty"`
+	// WordList A list of subwords to look for in the token stream. If found, the subword is
+	// included in the token output.
+	// Either this parameter or `word_list_path` must be specified.
+	WordList []string `json:"word_list,omitempty"`
+	// WordListPath Path to a file that contains a list of subwords to find in the token stream.
+	// If found, the subword is included in the token output.
+	// This path must be absolute or relative to the config location, and the file
+	// must be UTF-8 encoded. Each token in the file must be separated by a line
+	// break.
+	// Either this parameter or `word_list` must be specified.
+	WordListPath *string `json:"word_list_path,omitempty"`
 }
 
 func (s *DictionaryDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
@@ -58,18 +73,6 @@ func (s *DictionaryDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
-
-		case "hyphenation_patterns_path":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "HyphenationPatternsPath", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.HyphenationPatternsPath = &o
 
 		case "max_subword_size":
 
@@ -169,15 +172,14 @@ func (s *DictionaryDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 func (s DictionaryDecompounderTokenFilter) MarshalJSON() ([]byte, error) {
 	type innerDictionaryDecompounderTokenFilter DictionaryDecompounderTokenFilter
 	tmp := innerDictionaryDecompounderTokenFilter{
-		HyphenationPatternsPath: s.HyphenationPatternsPath,
-		MaxSubwordSize:          s.MaxSubwordSize,
-		MinSubwordSize:          s.MinSubwordSize,
-		MinWordSize:             s.MinWordSize,
-		OnlyLongestMatch:        s.OnlyLongestMatch,
-		Type:                    s.Type,
-		Version:                 s.Version,
-		WordList:                s.WordList,
-		WordListPath:            s.WordListPath,
+		MaxSubwordSize:   s.MaxSubwordSize,
+		MinSubwordSize:   s.MinSubwordSize,
+		MinWordSize:      s.MinWordSize,
+		OnlyLongestMatch: s.OnlyLongestMatch,
+		Type:             s.Type,
+		Version:          s.Version,
+		WordList:         s.WordList,
+		WordListPath:     s.WordListPath,
 	}
 
 	tmp.Type = "dictionary_decompounder"
@@ -192,12 +194,15 @@ func NewDictionaryDecompounderTokenFilter() *DictionaryDecompounderTokenFilter {
 	return r
 }
 
-// true
-
 type DictionaryDecompounderTokenFilterVariant interface {
 	DictionaryDecompounderTokenFilterCaster() *DictionaryDecompounderTokenFilter
 }
 
 func (s *DictionaryDecompounderTokenFilter) DictionaryDecompounderTokenFilterCaster() *DictionaryDecompounderTokenFilter {
 	return s
+}
+
+func (s *DictionaryDecompounderTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

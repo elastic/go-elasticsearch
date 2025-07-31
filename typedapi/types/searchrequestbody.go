@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SearchRequestBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_global/search/_types/SearchRequestBody.ts#L42-L238
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_global/search/_types/SearchRequestBody.ts#L42-L242
 type SearchRequestBody struct {
 	// Aggregations Defines the aggregations that are run as part of the search request.
 	Aggregations map[string]Aggregations `json:"aggregations,omitempty"`
@@ -544,12 +544,20 @@ func NewSearchRequestBody() *SearchRequestBody {
 	return r
 }
 
-// true
-
 type SearchRequestBodyVariant interface {
 	SearchRequestBodyCaster() *SearchRequestBody
 }
 
 func (s *SearchRequestBody) SearchRequestBodyCaster() *SearchRequestBody {
 	return s
+}
+
+func (s *SearchRequestBody) MsearchRequestItemCaster() *MsearchRequestItem {
+	o := MsearchRequestItem(s)
+	return &o
+}
+
+func (s *SearchRequestBody) ScriptSourceCaster() *ScriptSource {
+	o := ScriptSource(s)
+	return &o
 }

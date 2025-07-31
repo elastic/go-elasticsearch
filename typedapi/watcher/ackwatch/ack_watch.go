@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 // Acknowledge a watch.
 // Acknowledging a watch enables you to manually throttle the execution of the
@@ -34,6 +34,8 @@
 // `ack.state` is reset to `awaits_successful_execution`.
 // This happens when the condition of the watch is not met (the condition
 // evaluates to false).
+// To demonstrate how throttling works in practice and how it can be configured
+// for individual actions within a watch, refer to External documentation.
 package ackwatch
 
 import (
@@ -110,6 +112,8 @@ func NewAckWatchFunc(tp elastictransport.Interface) NewAckWatch {
 // `ack.state` is reset to `awaits_successful_execution`.
 // This happens when the condition of the watch is not met (the condition
 // evaluates to false).
+// To demonstrate how throttling works in practice and how it can be configured
+// for individual actions within a watch, refer to External documentation.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-ack-watch
 func New(tp elastictransport.Interface) *AckWatch {

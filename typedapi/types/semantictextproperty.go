@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SemanticTextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/mapping/core.ts#L219-L235
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/mapping/core.ts#L229-L245
 type SemanticTextProperty struct {
 	// InferenceId Inference endpoint that will be used to generate embeddings for the field.
 	// This parameter cannot be updated. Use the Create inference API to create the
@@ -115,12 +115,15 @@ func NewSemanticTextProperty() *SemanticTextProperty {
 	return r
 }
 
-// true
-
 type SemanticTextPropertyVariant interface {
 	SemanticTextPropertyCaster() *SemanticTextProperty
 }
 
 func (s *SemanticTextProperty) SemanticTextPropertyCaster() *SemanticTextProperty {
 	return s
+}
+
+func (s *SemanticTextProperty) PropertyCaster() *Property {
+	o := Property(s)
+	return &o
 }

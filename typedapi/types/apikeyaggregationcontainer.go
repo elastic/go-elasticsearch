@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ApiKeyAggregationContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/security/query_api_keys/types.ts#L63-L120
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/security/query_api_keys/types.ts#L63-L120
 type ApiKeyAggregationContainer struct {
 	AdditionalApiKeyAggregationContainerProperty map[string]json.RawMessage `json:"-"`
 	// Aggregations Sub-aggregations for this aggregation.
@@ -196,8 +196,6 @@ func NewApiKeyAggregationContainer() *ApiKeyAggregationContainer {
 
 	return r
 }
-
-// true
 
 type ApiKeyAggregationContainerVariant interface {
 	ApiKeyAggregationContainerCaster() *ApiKeyAggregationContainer

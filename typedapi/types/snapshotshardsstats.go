@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SnapshotShardsStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/snapshot/_types/SnapshotShardsStats.ts#L22-L47
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/snapshot/_types/SnapshotShardsStats.ts#L22-L47
 type SnapshotShardsStats struct {
 	// Done The number of shards that initialized, started, and finalized successfully.
 	Done int64 `json:"done"`
@@ -163,5 +163,3 @@ func NewSnapshotShardsStats() *SnapshotShardsStats {
 
 	return r
 }
-
-// false

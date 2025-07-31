@@ -119,10 +119,6 @@ func (r SearchableSnapshotsClearCacheRequest) Do(providedCtx context.Context, tr
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
-	if len(r.Index) > 0 {
-		params["index"] = strings.Join(r.Index, ",")
-	}
-
 	if r.Pretty {
 		params["pretty"] = "true"
 	}

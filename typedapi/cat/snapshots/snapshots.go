@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 // Get snapshot information.
 //
@@ -40,6 +40,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catsnapshotscolumn"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
 )
 
@@ -329,10 +330,15 @@ func (r *Snapshots) IgnoreUnavailable(ignoreunavailable bool) *Snapshots {
 	return r
 }
 
-// H List of columns to appear in the response. Supports simple wildcards.
+// H A comma-separated list of columns names to display.
+// It supports simple wildcards.
 // API name: h
-func (r *Snapshots) H(names ...string) *Snapshots {
-	r.values.Set("h", strings.Join(names, ","))
+func (r *Snapshots) H(catsnapshotscolumns ...catsnapshotscolumn.CatSnapshotsColumn) *Snapshots {
+	tmp := []string{}
+	for _, item := range catsnapshotscolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }

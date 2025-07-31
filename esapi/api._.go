@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.0.0 (09d023f): DO NOT EDIT
+// Code generated from specification version 9.0.0 (3d5f100): DO NOT EDIT
 
 package esapi
 
@@ -139,6 +139,7 @@ type API struct {
 	InferencePutAzureaistudio                     InferencePutAzureaistudio
 	InferencePutAzureopenai                       InferencePutAzureopenai
 	InferencePutCohere                            InferencePutCohere
+	InferencePutCustom                            InferencePutCustom
 	InferencePutElasticsearch                     InferencePutElasticsearch
 	InferencePutElser                             InferencePutElser
 	InferencePutGoogleaistudio                    InferencePutGoogleaistudio
@@ -774,6 +775,7 @@ func New(t Transport) *API {
 		InferencePutAzureaistudio:          newInferencePutAzureaistudioFunc(t),
 		InferencePutAzureopenai:            newInferencePutAzureopenaiFunc(t),
 		InferencePutCohere:                 newInferencePutCohereFunc(t),
+		InferencePutCustom:                 newInferencePutCustomFunc(t),
 		InferencePutElasticsearch:          newInferencePutElasticsearchFunc(t),
 		InferencePutElser:                  newInferencePutElserFunc(t),
 		InferencePutGoogleaistudio:         newInferencePutGoogleaistudioFunc(t),

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // UppercaseTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/token_filters.ts#L341-L343
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/analysis/token_filters.ts#L447-L449
 type UppercaseTokenFilter struct {
 	Type    string  `json:"type,omitempty"`
 	Version *string `json:"version,omitempty"`
@@ -86,12 +86,15 @@ func NewUppercaseTokenFilter() *UppercaseTokenFilter {
 	return r
 }
 
-// true
-
 type UppercaseTokenFilterVariant interface {
 	UppercaseTokenFilterCaster() *UppercaseTokenFilter
 }
 
 func (s *UppercaseTokenFilter) UppercaseTokenFilterCaster() *UppercaseTokenFilter {
 	return s
+}
+
+func (s *UppercaseTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

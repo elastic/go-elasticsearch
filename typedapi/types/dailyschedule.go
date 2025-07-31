@@ -16,15 +16,48 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+)
+
 // DailySchedule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/watcher/_types/Schedule.ts#L33-L35
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/watcher/_types/Schedule.ts#L33-L35
 type DailySchedule struct {
 	At []ScheduleTimeOfDay `json:"at"`
+}
+
+func (s *DailySchedule) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "at":
+			if err := dec.Decode(&s.At); err != nil {
+				return fmt.Errorf("%s | %w", "At", err)
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDailySchedule returns a DailySchedule.
@@ -33,8 +66,6 @@ func NewDailySchedule() *DailySchedule {
 
 	return r
 }
-
-// true
 
 type DailyScheduleVariant interface {
 	DailyScheduleCaster() *DailySchedule

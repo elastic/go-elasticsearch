@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 // Create an ELSER inference endpoint.
 //
@@ -382,6 +382,15 @@ func (r *PutElser) _tasktype(tasktype string) *PutElser {
 func (r *PutElser) _elserinferenceid(elserinferenceid string) *PutElser {
 	r.paramSet |= elserinferenceidMask
 	r.elserinferenceid = elserinferenceid
+
+	return r
+}
+
+// Timeout Specifies the amount of time to wait for the inference endpoint to be
+// created.
+// API name: timeout
+func (r *PutElser) Timeout(duration string) *PutElser {
+	r.values.Set("timeout", duration)
 
 	return r
 }

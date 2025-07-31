@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ListTypeValidation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/connector/_types/Connector.ts#L68-L71
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/connector/_types/Connector.ts#L68-L71
 type ListTypeValidation struct {
 	Constraint string `json:"constraint"`
 	Type       string `json:"type,omitempty"`
@@ -94,12 +94,15 @@ func NewListTypeValidation() *ListTypeValidation {
 	return r
 }
 
-// true
-
 type ListTypeValidationVariant interface {
 	ListTypeValidationCaster() *ListTypeValidation
 }
 
 func (s *ListTypeValidation) ListTypeValidationCaster() *ListTypeValidation {
 	return s
+}
+
+func (s *ListTypeValidation) ValidationCaster() *Validation {
+	o := Validation(s)
+	return &o
 }

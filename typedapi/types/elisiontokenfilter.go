@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,13 +31,30 @@ import (
 
 // ElisionTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/token_filters.ts#L188-L193
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/analysis/token_filters.ts#L245-L258
 type ElisionTokenFilter struct {
-	Articles     []string           `json:"articles,omitempty"`
+	// Articles List of elisions to remove.
+	// To be removed, the elision must be at the beginning of a token and be
+	// immediately followed by an apostrophe. Both the elision and apostrophe are
+	// removed.
+	// For custom `elision` filters, either this parameter or `articles_path` must
+	// be specified.
+	Articles []string `json:"articles,omitempty"`
+	// ArticlesCase If `true`, elision matching is case insensitive. If `false`, elision matching
+	// is case sensitive. Defaults to `false`.
 	ArticlesCase Stringifiedboolean `json:"articles_case,omitempty"`
-	ArticlesPath *string            `json:"articles_path,omitempty"`
-	Type         string             `json:"type,omitempty"`
-	Version      *string            `json:"version,omitempty"`
+	// ArticlesPath Path to a file that contains a list of elisions to remove.
+	// This path must be absolute or relative to the `config` location, and the file
+	// must be UTF-8 encoded. Each elision in the file must be separated by a line
+	// break.
+	// To be removed, the elision must be at the beginning of a token and be
+	// immediately followed by an apostrophe. Both the elision and apostrophe are
+	// removed.
+	// For custom `elision` filters, either this parameter or `articles` must be
+	// specified.
+	ArticlesPath *string `json:"articles_path,omitempty"`
+	Type         string  `json:"type,omitempty"`
+	Version      *string `json:"version,omitempty"`
 }
 
 func (s *ElisionTokenFilter) UnmarshalJSON(data []byte) error {
@@ -115,12 +132,15 @@ func NewElisionTokenFilter() *ElisionTokenFilter {
 	return r
 }
 
-// true
-
 type ElisionTokenFilterVariant interface {
 	ElisionTokenFilterCaster() *ElisionTokenFilter
 }
 
 func (s *ElisionTokenFilter) ElisionTokenFilterCaster() *ElisionTokenFilter {
 	return s
+}
+
+func (s *ElisionTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

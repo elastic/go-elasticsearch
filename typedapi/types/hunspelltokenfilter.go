@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,11 +31,23 @@ import (
 
 // HunspellTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/token_filters.ts#L201-L207
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/analysis/token_filters.ts#L268-L280
 type HunspellTokenFilter struct {
-	Dedup       *bool   `json:"dedup,omitempty"`
-	Dictionary  *string `json:"dictionary,omitempty"`
-	Locale      string  `json:"locale"`
+	// Dedup If `true`, duplicate tokens are removed from the filter’s output. Defaults to
+	// `true`.
+	Dedup *bool `json:"dedup,omitempty"`
+	// Dictionary One or more `.dic` files (e.g, `en_US.dic`, my_custom.dic) to use for the
+	// Hunspell dictionary.
+	// By default, the `hunspell` filter uses all `.dic` files in the
+	// `<$ES_PATH_CONF>/hunspell/<locale>` directory specified using the `lang`,
+	// `language`, or `locale` parameter.
+	Dictionary *string `json:"dictionary,omitempty"`
+	// Locale Locale directory used to specify the `.aff` and `.dic` files for a Hunspell
+	// dictionary.
+	Locale string `json:"locale"`
+	// LongestOnly If `true`, only the longest stemmed version of each token is included in the
+	// output. If `false`, all stemmed versions of the token are included. Defaults
+	// to `false`.
 	LongestOnly *bool   `json:"longest_only,omitempty"`
 	Type        string  `json:"type,omitempty"`
 	Version     *string `json:"version,omitempty"`
@@ -82,7 +94,7 @@ func (s *HunspellTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 			s.Dictionary = &o
 
-		case "locale":
+		case "locale", "lang", "language":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
 				return fmt.Errorf("%s | %w", "Locale", err)
@@ -147,12 +159,15 @@ func NewHunspellTokenFilter() *HunspellTokenFilter {
 	return r
 }
 
-// true
-
 type HunspellTokenFilterVariant interface {
 	HunspellTokenFilterCaster() *HunspellTokenFilter
 }
 
 func (s *HunspellTokenFilter) HunspellTokenFilterCaster() *HunspellTokenFilter {
 	return s
+}
+
+func (s *HunspellTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

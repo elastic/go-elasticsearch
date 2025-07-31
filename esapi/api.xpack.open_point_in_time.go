@@ -56,12 +56,13 @@ type OpenPointInTimeRequest struct {
 
 	Body io.Reader
 
-	AllowPartialSearchResults *bool
-	ExpandWildcards           string
-	IgnoreUnavailable         *bool
-	KeepAlive                 string
-	Preference                string
-	Routing                   string
+	AllowPartialSearchResults  *bool
+	ExpandWildcards            string
+	IgnoreUnavailable          *bool
+	KeepAlive                  string
+	MaxConcurrentShardRequests *int
+	Preference                 string
+	Routing                    string
 
 	Pretty     bool
 	Human      bool
@@ -124,6 +125,10 @@ func (r OpenPointInTimeRequest) Do(providedCtx context.Context, transport Transp
 
 	if r.KeepAlive != "" {
 		params["keep_alive"] = r.KeepAlive
+	}
+
+	if r.MaxConcurrentShardRequests != nil {
+		params["max_concurrent_shard_requests"] = strconv.FormatInt(int64(*r.MaxConcurrentShardRequests), 10)
 	}
 
 	if r.Preference != "" {
@@ -251,6 +256,13 @@ func (f OpenPointInTime) WithIgnoreUnavailable(v bool) func(*OpenPointInTimeRequ
 func (f OpenPointInTime) WithKeepAlive(v string) func(*OpenPointInTimeRequest) {
 	return func(r *OpenPointInTimeRequest) {
 		r.KeepAlive = v
+	}
+}
+
+// WithMaxConcurrentShardRequests - the number of concurrent shard requests per node executed concurrently when opening this point-in-time. this value should be used to limit the impact of opening the point-in-time on the cluster.
+func (f OpenPointInTime) WithMaxConcurrentShardRequests(v int) func(*OpenPointInTimeRequest) {
+	return func(r *OpenPointInTimeRequest) {
+		r.MaxConcurrentShardRequests = &v
 	}
 }
 

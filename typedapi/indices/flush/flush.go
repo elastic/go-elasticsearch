@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 // Flush data streams or indices.
 // Flushing a data stream or index is the process of making sure that any data
@@ -364,7 +364,6 @@ func (r *Flush) AllowNoIndices(allownoindices bool) *Flush {
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
 // Supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *Flush) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Flush {
 	tmp := []string{}

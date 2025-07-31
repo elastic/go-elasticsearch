@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package esdsl
 
@@ -33,7 +33,7 @@ func NewMovingAverageAggregation() *_movingAverageAggregation {
 
 func (u *_movingAverageAggregation) LinearMovingAverageAggregation(linearmovingaverageaggregation types.LinearMovingAverageAggregationVariant) *_movingAverageAggregation {
 
-	u.v = &linearmovingaverageaggregation
+	u.v = linearmovingaverageaggregation.LinearMovingAverageAggregationCaster()
 
 	return u
 }
@@ -46,7 +46,7 @@ func (u *_linearMovingAverageAggregation) MovingAverageAggregationCaster() *type
 
 func (u *_movingAverageAggregation) SimpleMovingAverageAggregation(simplemovingaverageaggregation types.SimpleMovingAverageAggregationVariant) *_movingAverageAggregation {
 
-	u.v = &simplemovingaverageaggregation
+	u.v = simplemovingaverageaggregation.SimpleMovingAverageAggregationCaster()
 
 	return u
 }
@@ -59,7 +59,7 @@ func (u *_simpleMovingAverageAggregation) MovingAverageAggregationCaster() *type
 
 func (u *_movingAverageAggregation) EwmaMovingAverageAggregation(ewmamovingaverageaggregation types.EwmaMovingAverageAggregationVariant) *_movingAverageAggregation {
 
-	u.v = &ewmamovingaverageaggregation
+	u.v = ewmamovingaverageaggregation.EwmaMovingAverageAggregationCaster()
 
 	return u
 }
@@ -72,7 +72,7 @@ func (u *_ewmaMovingAverageAggregation) MovingAverageAggregationCaster() *types.
 
 func (u *_movingAverageAggregation) HoltMovingAverageAggregation(holtmovingaverageaggregation types.HoltMovingAverageAggregationVariant) *_movingAverageAggregation {
 
-	u.v = &holtmovingaverageaggregation
+	u.v = holtmovingaverageaggregation.HoltMovingAverageAggregationCaster()
 
 	return u
 }
@@ -85,7 +85,7 @@ func (u *_holtMovingAverageAggregation) MovingAverageAggregationCaster() *types.
 
 func (u *_movingAverageAggregation) HoltWintersMovingAverageAggregation(holtwintersmovingaverageaggregation types.HoltWintersMovingAverageAggregationVariant) *_movingAverageAggregation {
 
-	u.v = &holtwintersmovingaverageaggregation
+	u.v = holtwintersmovingaverageaggregation.HoltWintersMovingAverageAggregationCaster()
 
 	return u
 }

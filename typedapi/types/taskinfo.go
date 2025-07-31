@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TaskInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/tasks/_types/TaskInfo.ts#L32-L58
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/tasks/_types/TaskInfo.ts#L32-L58
 type TaskInfo struct {
 	Action      string `json:"action"`
 	Cancellable bool   `json:"cancellable"`
@@ -210,5 +210,3 @@ func NewTaskInfo() *TaskInfo {
 
 	return r
 }
-
-// false

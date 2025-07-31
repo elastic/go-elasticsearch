@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PipelineSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/logstash/_types/Pipeline.ts#L28-L55
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/logstash/_types/Pipeline.ts#L28-L55
 type PipelineSettings struct {
 	// PipelineBatchDelay When creating pipeline event batches, how long in milliseconds to wait for
 	// each event before dispatching an undersized batch to pipeline workers.
@@ -165,8 +165,6 @@ func NewPipelineSettings() *PipelineSettings {
 
 	return r
 }
-
-// true
 
 type PipelineSettingsVariant interface {
 	PipelineSettingsCaster() *PipelineSettings

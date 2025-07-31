@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 // Close a point in time.
 // A point in time must be opened explicitly before being used in search
@@ -37,6 +37,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -264,7 +265,8 @@ func (r ClosePointInTime) Do(providedCtx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 {
+	if res.StatusCode < 299 || slices.Contains([]int{404}, res.StatusCode) {
+
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -274,42 +276,6 @@ func (r ClosePointInTime) Do(providedCtx context.Context) (*Response, error) {
 		}
 
 		return response, nil
-	}
-
-	if res.StatusCode == 404 {
-		data, err := io.ReadAll(res.Body)
-		if err != nil {
-			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-				instrument.RecordError(ctx, err)
-			}
-			return nil, err
-		}
-
-		errorResponse := types.NewElasticsearchError()
-		err = json.NewDecoder(gobytes.NewReader(data)).Decode(&errorResponse)
-		if err != nil {
-			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-				instrument.RecordError(ctx, err)
-			}
-			return nil, err
-		}
-
-		if errorResponse.Status == 0 {
-			err = json.NewDecoder(gobytes.NewReader(data)).Decode(&response)
-			if err != nil {
-				if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-					instrument.RecordError(ctx, err)
-				}
-				return nil, err
-			}
-
-			return response, nil
-		}
-
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordError(ctx, errorResponse)
-		}
-		return nil, errorResponse
 	}
 
 	errorResponse := types.NewElasticsearchError()

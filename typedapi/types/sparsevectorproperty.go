@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // SparseVectorProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/mapping/core.ts#L215-L217
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/mapping/core.ts#L224-L227
 type SparseVectorProperty struct {
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`
@@ -42,6 +42,7 @@ type SparseVectorProperty struct {
 	// Meta Metadata about the field.
 	Meta                map[string]string                                `json:"meta,omitempty"`
 	Properties          map[string]Property                              `json:"properties,omitempty"`
+	Store               *bool                                            `json:"store,omitempty"`
 	SyntheticSourceKeep *syntheticsourcekeepenum.SyntheticSourceKeepEnum `json:"synthetic_source_keep,omitempty"`
 	Type                string                                           `json:"type,omitempty"`
 }
@@ -204,6 +205,12 @@ func (s *SparseVectorProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "passthrough":
 					oo := NewPassthroughObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Fields | %w", err)
+					}
+					s.Fields[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Fields | %w", err)
 					}
@@ -563,6 +570,12 @@ func (s *SparseVectorProperty) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Properties | %w", err)
 					}
 					s.Properties[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
 				case "semantic_text":
 					oo := NewSemanticTextProperty()
 					if err := localDec.Decode(&oo); err != nil {
@@ -752,6 +765,20 @@ func (s *SparseVectorProperty) UnmarshalJSON(data []byte) error {
 				}
 			}
 
+		case "store":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Store", err)
+				}
+				s.Store = &value
+			case bool:
+				s.Store = &v
+			}
+
 		case "synthetic_source_keep":
 			if err := dec.Decode(&s.SyntheticSourceKeep); err != nil {
 				return fmt.Errorf("%s | %w", "SyntheticSourceKeep", err)
@@ -776,6 +803,7 @@ func (s SparseVectorProperty) MarshalJSON() ([]byte, error) {
 		IgnoreAbove:         s.IgnoreAbove,
 		Meta:                s.Meta,
 		Properties:          s.Properties,
+		Store:               s.Store,
 		SyntheticSourceKeep: s.SyntheticSourceKeep,
 		Type:                s.Type,
 	}
@@ -796,12 +824,15 @@ func NewSparseVectorProperty() *SparseVectorProperty {
 	return r
 }
 
-// true
-
 type SparseVectorPropertyVariant interface {
 	SparseVectorPropertyCaster() *SparseVectorProperty
 }
 
 func (s *SparseVectorProperty) SparseVectorPropertyCaster() *SparseVectorProperty {
 	return s
+}
+
+func (s *SparseVectorProperty) PropertyCaster() *Property {
+	o := Property(s)
+	return &o
 }

@@ -16,9 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 // Perform chat completion inference
+//
+// The chat completion inference API enables real-time responses for chat
+// completion tasks by delivering answers incrementally, reducing response times
+// during computation.
+// It only works with the `chat_completion` task type for `openai` and `elastic`
+// inference services.
+//
+// NOTE: The `chat_completion` task type is only available within the _stream
+// API and only supports streaming.
+// The Chat completion inference API and the Stream inference API differ in
+// their response structure and capabilities.
+// The Chat completion inference API provides more comprehensive customization
+// options through more fields and function calling support.
+// If you use the `openai` service or the `elastic` service, use the Chat
+// completion inference API.
 package chatcompletionunified
 
 import (
@@ -82,6 +97,21 @@ func NewChatCompletionUnifiedFunc(tp elastictransport.Interface) NewChatCompleti
 }
 
 // Perform chat completion inference
+//
+// The chat completion inference API enables real-time responses for chat
+// completion tasks by delivering answers incrementally, reducing response times
+// during computation.
+// It only works with the `chat_completion` task type for `openai` and `elastic`
+// inference services.
+//
+// NOTE: The `chat_completion` task type is only available within the _stream
+// API and only supports streaming.
+// The Chat completion inference API and the Stream inference API differ in
+// their response structure and capabilities.
+// The Chat completion inference API provides more comprehensive customization
+// options through more fields and function calling support.
+// If you use the `openai` service or the `elastic` service, use the Chat
+// completion inference API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-unified-inference
 func New(tp elastictransport.Interface) *ChatCompletionUnified {
@@ -382,6 +412,10 @@ func (r *ChatCompletionUnified) MaxCompletionTokens(maxcompletiontokens int64) *
 }
 
 // A list of objects representing the conversation.
+// Requests should generally only add new messages from the user (role `user`).
+// The other message roles (`assistant`, `system`, or `tool`) should generally
+// only be copied from the response to a previous completion request, such that
+// the messages array is built up throughout a conversation.
 // API name: messages
 func (r *ChatCompletionUnified) Messages(messages ...types.MessageVariant) *ChatCompletionUnified {
 	// Initialize the request if it is not already initialized
@@ -439,6 +473,23 @@ func (r *ChatCompletionUnified) Temperature(temperature float32) *ChatCompletion
 }
 
 // Controls which tool is called by the model.
+// String representation: One of `auto`, `none`, or `requrired`. `auto` allows
+// the model to choose between calling tools and generating a message. `none`
+// causes the model to not call any tools. `required` forces the model to call
+// one or more tools.
+// Example (object representation):
+// ```
+//
+//	{
+//	  "tool_choice": {
+//	      "type": "function",
+//	      "function": {
+//	          "name": "get_current_weather"
+//	      }
+//	  }
+//	}
+//
+// ```
 // API name: tool_choice
 func (r *ChatCompletionUnified) ToolChoice(completiontooltype types.CompletionToolTypeVariant) *ChatCompletionUnified {
 	// Initialize the request if it is not already initialized
@@ -452,6 +503,33 @@ func (r *ChatCompletionUnified) ToolChoice(completiontooltype types.CompletionTo
 }
 
 // A list of tools that the model can call.
+// Example:
+// ```
+//
+//	{
+//	  "tools": [
+//	      {
+//	          "type": "function",
+//	          "function": {
+//	              "name": "get_price_of_item",
+//	              "description": "Get the current price of an item",
+//	              "parameters": {
+//	                  "type": "object",
+//	                  "properties": {
+//	                      "item": {
+//	                          "id": "12345"
+//	                      },
+//	                      "unit": {
+//	                          "type": "currency"
+//	                      }
+//	                  }
+//	              }
+//	          }
+//	      }
+//	  ]
+//	}
+//
+// ```
 // API name: tools
 func (r *ChatCompletionUnified) Tools(tools ...types.CompletionToolVariant) *ChatCompletionUnified {
 	// Initialize the request if it is not already initialized

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 // Update a cross-cluster API key.
 //
@@ -43,6 +43,10 @@
 //
 // NOTE: This API cannot update REST API keys, which should be updated by either
 // the update API key or bulk update API keys API.
+//
+// To learn more about how to use this API, refer to the [Update cross cluter
+// API key API examples
+// page](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/update-cc-api-key-examples).
 package updatecrossclusterapikey
 
 import (
@@ -130,6 +134,10 @@ func NewUpdateCrossClusterApiKeyFunc(tp elastictransport.Interface) NewUpdateCro
 //
 // NOTE: This API cannot update REST API keys, which should be updated by either
 // the update API key or bulk update API keys API.
+//
+// To learn more about how to use this API, refer to the [Update cross cluter
+// API key API examples
+// page](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/update-cc-api-key-examples).
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-update-cross-cluster-api-key
 func New(tp elastictransport.Interface) *UpdateCrossClusterApiKey {

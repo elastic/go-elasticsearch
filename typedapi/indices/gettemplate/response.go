@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package gettemplate
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package gettemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/indices/get_template/IndicesGetTemplateResponse.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/indices/get_template/IndicesGetTemplateResponse.ts#L23-L26
 
 type Response map[string]types.TemplateMapping
 

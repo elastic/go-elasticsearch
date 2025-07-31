@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FillMaskInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/ml/_types/inference.ts#L284-L299
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/ml/_types/inference.ts#L284-L299
 type FillMaskInferenceOptions struct {
 	// MaskToken The string/token which will be removed from incoming documents and replaced
 	// with the inference prediction(s).
@@ -129,8 +129,6 @@ func NewFillMaskInferenceOptions() *FillMaskInferenceOptions {
 
 	return r
 }
-
-// true
 
 type FillMaskInferenceOptionsVariant interface {
 	FillMaskInferenceOptionsCaster() *FillMaskInferenceOptions

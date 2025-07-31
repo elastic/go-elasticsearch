@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package putmapping
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package putmapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/indices/put_mapping/IndicesPutMappingRequest.ts#L41-L181
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/indices/put_mapping/IndicesPutMappingRequest.ts#L41-L164
 type Request struct {
 
 	// DateDetection Controls whether dynamic date detection is enabled.
@@ -295,6 +295,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					s.Properties[key] = oo
 				case "passthrough":
 					oo := types.NewPassthroughObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
+				case "rank_vectors":
+					oo := types.NewRankVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Properties | %w", err)
 					}

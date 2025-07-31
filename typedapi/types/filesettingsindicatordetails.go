@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FileSettingsIndicatorDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_global/health_report/types.ts#L213-L216
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_global/health_report/types.ts#L214-L217
 type FileSettingsIndicatorDetails struct {
 	FailureStreak     int64  `json:"failure_streak"`
 	MostRecentFailure string `json:"most_recent_failure"`
@@ -90,5 +90,3 @@ func NewFileSettingsIndicatorDetails() *FileSettingsIndicatorDetails {
 
 	return r
 }
-
-// false

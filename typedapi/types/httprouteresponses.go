@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HttpRouteResponses type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/nodes/_types/Stats.ts#L701-L706
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/nodes/_types/Stats.ts#L703-L708
 type HttpRouteResponses struct {
 	Count                 int64               `json:"count"`
 	HandlingTimeHistogram []TimeHttpHistogram `json:"handling_time_histogram"`
@@ -105,5 +105,3 @@ func NewHttpRouteResponses() *HttpRouteResponses {
 
 	return r
 }
-
-// false

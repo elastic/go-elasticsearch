@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,12 +31,12 @@ import (
 
 // RussianAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/analyzers.ts#L275-L280
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/analysis/analyzers.ts#L275-L280
 type RussianAnalyzer struct {
-	StemExclusion []string `json:"stem_exclusion,omitempty"`
-	Stopwords     []string `json:"stopwords,omitempty"`
-	StopwordsPath *string  `json:"stopwords_path,omitempty"`
-	Type          string   `json:"type,omitempty"`
+	StemExclusion []string  `json:"stem_exclusion,omitempty"`
+	Stopwords     StopWords `json:"stopwords,omitempty"`
+	StopwordsPath *string   `json:"stopwords_path,omitempty"`
+	Type          string    `json:"type,omitempty"`
 }
 
 func (s *RussianAnalyzer) UnmarshalJSON(data []byte) error {
@@ -60,19 +60,8 @@ func (s *RussianAnalyzer) UnmarshalJSON(data []byte) error {
 			}
 
 		case "stopwords":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
-
-				s.Stopwords = append(s.Stopwords, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Stopwords); err != nil {
-					return fmt.Errorf("%s | %w", "Stopwords", err)
-				}
+			if err := dec.Decode(&s.Stopwords); err != nil {
+				return fmt.Errorf("%s | %w", "Stopwords", err)
 			}
 
 		case "stopwords_path":
@@ -119,12 +108,15 @@ func NewRussianAnalyzer() *RussianAnalyzer {
 	return r
 }
 
-// true
-
 type RussianAnalyzerVariant interface {
 	RussianAnalyzerCaster() *RussianAnalyzer
 }
 
 func (s *RussianAnalyzer) RussianAnalyzerCaster() *RussianAnalyzer {
 	return s
+}
+
+func (s *RussianAnalyzer) AnalyzerCaster() *Analyzer {
+	o := Analyzer(s)
+	return &o
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LifecycleExplainManaged type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/ilm/explain_lifecycle/types.ts#L27-L57
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/ilm/explain_lifecycle/types.ts#L27-L57
 type LifecycleExplainManaged struct {
 	Action                  *string                         `json:"action,omitempty"`
 	ActionTime              DateTime                        `json:"action_time,omitempty"`
@@ -46,7 +46,7 @@ type LifecycleExplainManaged struct {
 	LifecycleDate           DateTime                        `json:"lifecycle_date,omitempty"`
 	LifecycleDateMillis     *int64                          `json:"lifecycle_date_millis,omitempty"`
 	Managed                 bool                            `json:"managed,omitempty"`
-	Phase                   string                          `json:"phase"`
+	Phase                   *string                         `json:"phase,omitempty"`
 	PhaseExecution          *LifecycleExplainPhaseExecution `json:"phase_execution,omitempty"`
 	PhaseTime               DateTime                        `json:"phase_time,omitempty"`
 	PhaseTimeMillis         *int64                          `json:"phase_time_millis,omitempty"`
@@ -311,5 +311,3 @@ func NewLifecycleExplainManaged() *LifecycleExplainManaged {
 
 	return r
 }
-
-// false

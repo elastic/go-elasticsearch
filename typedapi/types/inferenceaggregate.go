@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InferenceAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/aggregations/Aggregate.ts#L755-L770
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/aggregations/Aggregate.ts#L757-L772
 type InferenceAggregate struct {
 	Data              map[string]json.RawMessage   `json:"-"`
 	FeatureImportance []InferenceFeatureImportance `json:"feature_importance,omitempty"`
@@ -143,5 +143,3 @@ func NewInferenceAggregate() *InferenceAggregate {
 
 	return r
 }
-
-// false

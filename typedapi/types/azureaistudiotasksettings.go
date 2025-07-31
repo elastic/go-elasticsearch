@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AzureAiStudioTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/inference/_types/CommonTypes.ts#L469-L497
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/inference/_types/CommonTypes.ts#L542-L570
 type AzureAiStudioTaskSettings struct {
 	// DoSample For a `completion` task, instruct the inference process to perform sampling.
 	// It has no effect unless `temperature` or `top_p` is specified.
@@ -157,8 +157,6 @@ func NewAzureAiStudioTaskSettings() *AzureAiStudioTaskSettings {
 
 	return r
 }
-
-// true
 
 type AzureAiStudioTaskSettingsVariant interface {
 	AzureAiStudioTaskSettingsCaster() *AzureAiStudioTaskSettings

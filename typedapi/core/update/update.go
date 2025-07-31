@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 // Update a document.
 //
@@ -43,6 +43,8 @@
 // In addition to `_source`, you can access the following variables through the
 // `ctx` map: `_index`, `_type`, `_id`, `_version`, `_routing`, and `_now` (the
 // current timestamp).
+// For usage examples such as partial updates, upserts, and scripted updates,
+// see the External documentation.
 package update
 
 import (
@@ -136,6 +138,8 @@ func NewUpdateFunc(tp elastictransport.Interface) NewUpdate {
 // In addition to `_source`, you can access the following variables through the
 // `ctx` map: `_index`, `_type`, `_id`, `_version`, `_routing`, and `_now` (the
 // current timestamp).
+// For usage examples such as partial updates, upserts, and scripted updates,
+// see the External documentation.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update
 func New(tp elastictransport.Interface) *Update {

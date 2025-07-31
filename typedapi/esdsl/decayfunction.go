@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package esdsl
 
@@ -33,7 +33,7 @@ func NewDecayFunction() *_decayFunction {
 
 func (u *_decayFunction) UntypedDecayFunction(untypeddecayfunction types.UntypedDecayFunctionVariant) *_decayFunction {
 
-	u.v = &untypeddecayfunction
+	u.v = untypeddecayfunction.UntypedDecayFunctionCaster()
 
 	return u
 }
@@ -46,7 +46,7 @@ func (u *_untypedDecayFunction) DecayFunctionCaster() *types.DecayFunction {
 
 func (u *_decayFunction) DateDecayFunction(datedecayfunction types.DateDecayFunctionVariant) *_decayFunction {
 
-	u.v = &datedecayfunction
+	u.v = datedecayfunction.DateDecayFunctionCaster()
 
 	return u
 }
@@ -59,7 +59,7 @@ func (u *_dateDecayFunction) DecayFunctionCaster() *types.DecayFunction {
 
 func (u *_decayFunction) NumericDecayFunction(numericdecayfunction types.NumericDecayFunctionVariant) *_decayFunction {
 
-	u.v = &numericdecayfunction
+	u.v = numericdecayfunction.NumericDecayFunctionCaster()
 
 	return u
 }
@@ -72,7 +72,7 @@ func (u *_numericDecayFunction) DecayFunctionCaster() *types.DecayFunction {
 
 func (u *_decayFunction) GeoDecayFunction(geodecayfunction types.GeoDecayFunctionVariant) *_decayFunction {
 
-	u.v = &geodecayfunction
+	u.v = geodecayfunction.GeoDecayFunctionCaster()
 
 	return u
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,12 +31,13 @@ import (
 
 // IndicesVersions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/cluster/stats/types.ts#L263-L268
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/cluster/stats/types.ts#L359-L365
 type IndicesVersions struct {
-	IndexCount        int    `json:"index_count"`
-	PrimaryShardCount int    `json:"primary_shard_count"`
-	TotalPrimaryBytes int64  `json:"total_primary_bytes"`
-	Version           string `json:"version"`
+	IndexCount        int      `json:"index_count"`
+	PrimaryShardCount int      `json:"primary_shard_count"`
+	TotalPrimaryBytes int64    `json:"total_primary_bytes"`
+	TotalPrimarySize  ByteSize `json:"total_primary_size,omitempty"`
+	Version           string   `json:"version"`
 }
 
 func (s *IndicesVersions) UnmarshalJSON(data []byte) error {
@@ -101,6 +102,11 @@ func (s *IndicesVersions) UnmarshalJSON(data []byte) error {
 				s.TotalPrimaryBytes = f
 			}
 
+		case "total_primary_size":
+			if err := dec.Decode(&s.TotalPrimarySize); err != nil {
+				return fmt.Errorf("%s | %w", "TotalPrimarySize", err)
+			}
+
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
 				return fmt.Errorf("%s | %w", "Version", err)
@@ -117,5 +123,3 @@ func NewIndicesVersions() *IndicesVersions {
 
 	return r
 }
-
-// false

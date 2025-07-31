@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DateRangeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/query_dsl/term.ts#L161-L170
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/query_dsl/term.ts#L157-L166
 type DateRangeQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -43,7 +43,6 @@ type DateRangeQuery struct {
 	Boost *float32 `json:"boost,omitempty"`
 	// Format Date format used to convert `date` values in the query.
 	Format *string `json:"format,omitempty"`
-	From   *string `json:"from,omitempty"`
 	// Gt Greater than.
 	Gt *string `json:"gt,omitempty"`
 	// Gte Greater than or equal to.
@@ -58,7 +57,6 @@ type DateRangeQuery struct {
 	// TimeZone Coordinated Universal Time (UTC) offset or IANA time zone used to convert
 	// `date` values in the query to UTC.
 	TimeZone *string `json:"time_zone,omitempty"`
-	To       *string `json:"to,omitempty"`
 }
 
 func (s *DateRangeQuery) UnmarshalJSON(data []byte) error {
@@ -95,11 +93,6 @@ func (s *DateRangeQuery) UnmarshalJSON(data []byte) error {
 		case "format":
 			if err := dec.Decode(&s.Format); err != nil {
 				return fmt.Errorf("%s | %w", "Format", err)
-			}
-
-		case "from":
-			if err := dec.Decode(&s.From); err != nil {
-				return fmt.Errorf("%s | %w", "From", err)
 			}
 
 		case "gt":
@@ -144,11 +137,6 @@ func (s *DateRangeQuery) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "TimeZone", err)
 			}
 
-		case "to":
-			if err := dec.Decode(&s.To); err != nil {
-				return fmt.Errorf("%s | %w", "To", err)
-			}
-
 		}
 	}
 	return nil
@@ -161,12 +149,15 @@ func NewDateRangeQuery() *DateRangeQuery {
 	return r
 }
 
-// true
-
 type DateRangeQueryVariant interface {
 	DateRangeQueryCaster() *DateRangeQuery
 }
 
 func (s *DateRangeQuery) DateRangeQueryCaster() *DateRangeQuery {
 	return s
+}
+
+func (s *DateRangeQuery) RangeQueryCaster() *RangeQuery {
+	o := RangeQuery(s)
+	return &o
 }

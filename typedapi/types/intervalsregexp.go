@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -29,16 +29,22 @@ import (
 	"strconv"
 )
 
-// NodeInfoNetworkInterface type.
+// IntervalsRegexp type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/nodes/info/types.ts#L341-L345
-type NodeInfoNetworkInterface struct {
-	Address    string `json:"address"`
-	MacAddress string `json:"mac_address"`
-	Name       string `json:"name"`
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/query_dsl/fulltext.ts#L266-L281
+type IntervalsRegexp struct {
+	// Analyzer Analyzer used to analyze the `prefix`.
+	Analyzer *string `json:"analyzer,omitempty"`
+	// Pattern Regex pattern.
+	Pattern string `json:"pattern"`
+	// UseField If specified, match intervals from this field rather than the top-level
+	// field.
+	// The `prefix` is normalized using the search analyzer from this field, unless
+	// `analyzer` is specified separately.
+	UseField *string `json:"use_field,omitempty"`
 }
 
-func (s *NodeInfoNetworkInterface) UnmarshalJSON(data []byte) error {
+func (s *IntervalsRegexp) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -53,33 +59,33 @@ func (s *NodeInfoNetworkInterface) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "address":
+		case "analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Address", err)
+				return fmt.Errorf("%s | %w", "Analyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Address = o
+			s.Analyzer = &o
 
-		case "mac_address":
+		case "pattern":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "MacAddress", err)
+				return fmt.Errorf("%s | %w", "Pattern", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.MacAddress = o
+			s.Pattern = o
 
-		case "name":
-			if err := dec.Decode(&s.Name); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
+		case "use_field":
+			if err := dec.Decode(&s.UseField); err != nil {
+				return fmt.Errorf("%s | %w", "UseField", err)
 			}
 
 		}
@@ -87,11 +93,17 @@ func (s *NodeInfoNetworkInterface) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewNodeInfoNetworkInterface returns a NodeInfoNetworkInterface.
-func NewNodeInfoNetworkInterface() *NodeInfoNetworkInterface {
-	r := &NodeInfoNetworkInterface{}
+// NewIntervalsRegexp returns a IntervalsRegexp.
+func NewIntervalsRegexp() *IntervalsRegexp {
+	r := &IntervalsRegexp{}
 
 	return r
 }
 
-// false
+type IntervalsRegexpVariant interface {
+	IntervalsRegexpCaster() *IntervalsRegexp
+}
+
+func (s *IntervalsRegexp) IntervalsRegexpCaster() *IntervalsRegexp {
+	return s
+}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,13 +31,23 @@ import (
 
 // KeepWordsTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/analysis/token_filters.ts#L225-L230
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/analysis/token_filters.ts#L295-L306
 type KeepWordsTokenFilter struct {
-	KeepWords     []string `json:"keep_words,omitempty"`
-	KeepWordsCase *bool    `json:"keep_words_case,omitempty"`
-	KeepWordsPath *string  `json:"keep_words_path,omitempty"`
-	Type          string   `json:"type,omitempty"`
-	Version       *string  `json:"version,omitempty"`
+	// KeepWords List of words to keep. Only tokens that match words in this list are included
+	// in the output.
+	// Either this parameter or `keep_words_path` must be specified.
+	KeepWords []string `json:"keep_words,omitempty"`
+	// KeepWordsCase If `true`, lowercase all keep words. Defaults to `false`.
+	KeepWordsCase *bool `json:"keep_words_case,omitempty"`
+	// KeepWordsPath Path to a file that contains a list of words to keep. Only tokens that match
+	// words in this list are included in the output.
+	// This path must be absolute or relative to the `config` location, and the file
+	// must be UTF-8 encoded. Each word in the file must be separated by a line
+	// break.
+	// Either this parameter or `keep_words` must be specified.
+	KeepWordsPath *string `json:"keep_words_path,omitempty"`
+	Type          string  `json:"type,omitempty"`
+	Version       *string `json:"version,omitempty"`
 }
 
 func (s *KeepWordsTokenFilter) UnmarshalJSON(data []byte) error {
@@ -124,12 +134,15 @@ func NewKeepWordsTokenFilter() *KeepWordsTokenFilter {
 	return r
 }
 
-// true
-
 type KeepWordsTokenFilterVariant interface {
 	KeepWordsTokenFilterCaster() *KeepWordsTokenFilter
 }
 
 func (s *KeepWordsTokenFilter) KeepWordsTokenFilterCaster() *KeepWordsTokenFilter {
 	return s
+}
+
+func (s *KeepWordsTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package starttrainedmodeldeployment
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package starttrainedmodeldeployment
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/ml/start_trained_model_deployment/MlStartTrainedModelDeploymentRequest.ts#L30-L111
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/ml/start_trained_model_deployment/MlStartTrainedModelDeploymentRequest.ts#L30-L111
 type Request struct {
 
 	// AdaptiveAllocations Adaptive allocations configuration. When enabled, the number of allocations

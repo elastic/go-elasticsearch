@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // TriggerContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/watcher/_types/Trigger.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/watcher/_types/Trigger.ts#L23-L28
 type TriggerContainer struct {
 	AdditionalTriggerContainerProperty map[string]json.RawMessage `json:"-"`
 	Schedule                           *ScheduleContainer         `json:"schedule,omitempty"`
@@ -70,8 +70,6 @@ func NewTriggerContainer() *TriggerContainer {
 
 	return r
 }
-
-// true
 
 type TriggerContainerVariant interface {
 	TriggerContainerCaster() *TriggerContainer

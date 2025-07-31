@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IngestPipeline type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/ingest/_types/Pipeline.ts#L23-L51
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/ingest/_types/Pipeline.ts#L23-L51
 type IngestPipeline struct {
 	// Deprecated Marks this ingest pipeline as deprecated.
 	// When a deprecated ingest pipeline is referenced as the default or final
@@ -124,8 +124,6 @@ func NewIngestPipeline() *IngestPipeline {
 
 	return r
 }
-
-// true
 
 type IngestPipelineVariant interface {
 	IngestPipelineCaster() *IngestPipeline

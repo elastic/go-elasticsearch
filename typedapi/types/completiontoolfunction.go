@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CompletionToolFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/inference/_types/CommonTypes.ts#L182-L203
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/inference/_types/CommonTypes.ts#L255-L276
 type CompletionToolFunction struct {
 	// Description A description of what the function does.
 	// This is used by the model to choose when and how to call the function.
@@ -114,8 +114,6 @@ func NewCompletionToolFunction() *CompletionToolFunction {
 
 	return r
 }
-
-// true
 
 type CompletionToolFunctionVariant interface {
 	CompletionToolFunctionCaster() *CompletionToolFunction

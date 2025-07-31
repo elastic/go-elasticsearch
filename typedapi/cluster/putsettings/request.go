@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package putsettings
 
@@ -27,10 +27,13 @@ import (
 
 // Request holds the request body struct for the package putsettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/cluster/put_settings/ClusterPutSettingsRequest.ts#L25-L68
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/cluster/put_settings/ClusterPutSettingsRequest.ts#L25-L71
 type Request struct {
+
+	// Persistent The settings that persist after the cluster restarts.
 	Persistent map[string]json.RawMessage `json:"persistent,omitempty"`
-	Transient  map[string]json.RawMessage `json:"transient,omitempty"`
+	// Transient The settings that do not persist after the cluster restarts.
+	Transient map[string]json.RawMessage `json:"transient,omitempty"`
 }
 
 // NewRequest returns a Request

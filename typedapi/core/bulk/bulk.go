@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 // Bulk index or delete documents.
 // Perform multiple `index`, `create`, `delete`, and `update` actions in a
@@ -175,6 +175,11 @@
 // The request will only wait for those three shards to refresh.
 // The other two shards that make up the index do not participate in the `_bulk`
 // request at all.
+//
+// You might want to disable the refresh interval temporarily to improve
+// indexing throughput for large bulk requests.
+// Refer to the linked documentation for step-by-step instructions using the
+// index settings API.
 package bulk
 
 import (
@@ -393,6 +398,11 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 // The request will only wait for those three shards to refresh.
 // The other two shards that make up the index do not participate in the `_bulk`
 // request at all.
+//
+// You might want to disable the refresh interval temporarily to improve
+// indexing throughput for large bulk requests.
+// Refer to the linked documentation for step-by-step instructions using the
+// index settings API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-bulk
 func New(tp elastictransport.Interface) *Bulk {

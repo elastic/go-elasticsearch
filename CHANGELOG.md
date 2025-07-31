@@ -1,3 +1,13 @@
+# 9.0.1
+
+# API
+
+* Updated APIs to 9.0.4
+
+# Typed API
+
+* Update TypedAPI to latest [elasticsearch-specification 9.0](https://github.com/elastic/elasticsearch-specification/commit/e585438)
+
 # 9.0.0
 
 * The client now requires **Go 1.23** or later.

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
 // NodeInfoXpackSecurityAuthcRealms type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/nodes/info/types.ts#L266-L270
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/nodes/info/types.ts#L281-L285
 type NodeInfoXpackSecurityAuthcRealms struct {
 	File   map[string]NodeInfoXpackSecurityAuthcRealmsStatus `json:"file,omitempty"`
 	Native map[string]NodeInfoXpackSecurityAuthcRealmsStatus `json:"native,omitempty"`
@@ -39,5 +39,3 @@ func NewNodeInfoXpackSecurityAuthcRealms() *NodeInfoXpackSecurityAuthcRealms {
 
 	return r
 }
-
-// false

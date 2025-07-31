@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -28,23 +28,23 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/actionstatusoptions"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/pipelinesimulationstatusoptions"
 )
 
-// PipelineSimulation type.
+// PipelineProcessorResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/ingest/_types/Simulation.ts#L52-L60
-type PipelineSimulation struct {
-	Description   *string                                  `json:"description,omitempty"`
-	Doc           *DocumentSimulation                      `json:"doc,omitempty"`
-	Error         *ErrorCause                              `json:"error,omitempty"`
-	IgnoredError  *ErrorCause                              `json:"ignored_error,omitempty"`
-	ProcessorType *string                                  `json:"processor_type,omitempty"`
-	Status        *actionstatusoptions.ActionStatusOptions `json:"status,omitempty"`
-	Tag           *string                                  `json:"tag,omitempty"`
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/ingest/_types/Simulation.ts#L59-L67
+type PipelineProcessorResult struct {
+	Description   *string                                                          `json:"description,omitempty"`
+	Doc           *DocumentSimulation                                              `json:"doc,omitempty"`
+	Error         *ErrorCause                                                      `json:"error,omitempty"`
+	IgnoredError  *ErrorCause                                                      `json:"ignored_error,omitempty"`
+	ProcessorType *string                                                          `json:"processor_type,omitempty"`
+	Status        *pipelinesimulationstatusoptions.PipelineSimulationStatusOptions `json:"status,omitempty"`
+	Tag           *string                                                          `json:"tag,omitempty"`
 }
 
-func (s *PipelineSimulation) UnmarshalJSON(data []byte) error {
+func (s *PipelineProcessorResult) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -120,11 +120,9 @@ func (s *PipelineSimulation) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewPipelineSimulation returns a PipelineSimulation.
-func NewPipelineSimulation() *PipelineSimulation {
-	r := &PipelineSimulation{}
+// NewPipelineProcessorResult returns a PipelineProcessorResult.
+func NewPipelineProcessorResult() *PipelineProcessorResult {
+	r := &PipelineProcessorResult{}
 
 	return r
 }
-
-// false

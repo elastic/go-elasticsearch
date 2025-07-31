@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package esdsl
 
@@ -53,6 +53,13 @@ func (s *_standardRetriever) Filter(filters ...types.QueryVariant) *_standardRet
 func (s *_standardRetriever) MinScore(minscore float32) *_standardRetriever {
 
 	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_standardRetriever) Name_(name_ string) *_standardRetriever {
+
+	s.v.Name_ = &name_
 
 	return s
 }

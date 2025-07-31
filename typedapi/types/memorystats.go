@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MemoryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/nodes/_types/Stats.ts#L632-L656
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/nodes/_types/Stats.ts#L634-L658
 type MemoryStats struct {
 	// AdjustedTotalInBytes If the amount of physical memory has been overridden using the
 	// `es`.`total_memory_bytes` system property then this reports the overridden
@@ -219,5 +219,3 @@ func NewMemoryStats() *MemoryStats {
 
 	return r
 }
-
-// false

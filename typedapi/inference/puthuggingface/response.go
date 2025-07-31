@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package puthuggingface
 
@@ -24,12 +24,12 @@ import (
 	"encoding/json"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/tasktype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/tasktypehuggingface"
 )
 
 // Response holds the response body struct for the package puthuggingface
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/inference/put_hugging_face/PutHuggingFaceResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/inference/put_hugging_face/PutHuggingFaceResponse.ts#L22-L25
 type Response struct {
 
 	// ChunkingSettings Chunking configuration object
@@ -43,7 +43,7 @@ type Response struct {
 	// TaskSettings Task settings specific to the service and task type
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 	// TaskType The task type
-	TaskType tasktype.TaskType `json:"task_type"`
+	TaskType tasktypehuggingface.TaskTypeHuggingFace `json:"task_type"`
 }
 
 // NewResponse returns a Response

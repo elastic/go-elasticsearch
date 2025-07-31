@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
 // IndexingSlowlogTresholds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/indices/_types/IndexSettings.ts#L595-L602
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/indices/_types/IndexSettings.ts#L599-L606
 type IndexingSlowlogTresholds struct {
 	// Index The indexing slow log, similar in functionality to the search slow log. The
 	// log file name ends with `_index_indexing_slowlog.json`.
@@ -36,8 +36,6 @@ func NewIndexingSlowlogTresholds() *IndexingSlowlogTresholds {
 
 	return r
 }
-
-// true
 
 type IndexingSlowlogTresholdsVariant interface {
 	IndexingSlowlogTresholdsCaster() *IndexingSlowlogTresholds

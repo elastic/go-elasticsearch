@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package esdsl
 
@@ -33,7 +33,7 @@ func NewNormalizer() *_normalizer {
 
 func (u *_normalizer) LowercaseNormalizer(lowercasenormalizer types.LowercaseNormalizerVariant) *_normalizer {
 
-	u.v = &lowercasenormalizer
+	u.v = lowercasenormalizer.LowercaseNormalizerCaster()
 
 	return u
 }
@@ -46,7 +46,7 @@ func (u *_lowercaseNormalizer) NormalizerCaster() *types.Normalizer {
 
 func (u *_normalizer) CustomNormalizer(customnormalizer types.CustomNormalizerVariant) *_normalizer {
 
-	u.v = &customnormalizer
+	u.v = customnormalizer.CustomNormalizerCaster()
 
 	return u
 }

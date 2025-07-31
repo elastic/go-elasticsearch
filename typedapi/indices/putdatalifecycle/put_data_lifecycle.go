@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 // Update data stream lifecycles.
 // Update the data stream lifecycle of the specified data streams.
@@ -320,7 +320,6 @@ func (r *PutDataLifecycle) _name(name string) *PutDataLifecycle {
 
 // ExpandWildcards Type of data stream that wildcard patterns can match.
 // Supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `hidden`, `open`, `closed`, `none`.
 // API name: expand_wildcards
 func (r *PutDataLifecycle) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *PutDataLifecycle {
 	tmp := []string{}

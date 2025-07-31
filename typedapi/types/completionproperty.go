@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // CompletionProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/_types/mapping/specialized.ts#L33-L41
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/_types/mapping/specialized.ts#L33-L41
 type CompletionProperty struct {
 	Analyzer       *string                        `json:"analyzer,omitempty"`
 	Contexts       []SuggestContext               `json:"contexts,omitempty"`
@@ -260,6 +260,12 @@ func (s *CompletionProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "passthrough":
 					oo := NewPassthroughObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Fields | %w", err)
+					}
+					s.Fields[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Fields | %w", err)
 					}
@@ -663,6 +669,12 @@ func (s *CompletionProperty) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Properties | %w", err)
 					}
 					s.Properties[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
 				case "semantic_text":
 					oo := NewSemanticTextProperty()
 					if err := localDec.Decode(&oo); err != nil {
@@ -931,12 +943,15 @@ func NewCompletionProperty() *CompletionProperty {
 	return r
 }
 
-// true
-
 type CompletionPropertyVariant interface {
 	CompletionPropertyCaster() *CompletionProperty
 }
 
 func (s *CompletionProperty) CompletionPropertyCaster() *CompletionProperty {
 	return s
+}
+
+func (s *CompletionProperty) PropertyCaster() *Property {
+	o := Property(s)
+	return &o
 }

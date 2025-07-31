@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 package types
 
 // AggregateOutput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/52c473efb1fb5320a5bac12572d0b285882862fb/specification/ml/put_trained_model/types.ts#L101-L106
+// https://github.com/elastic/elasticsearch-specification/blob/86f41834c7bb975159a38a73be8a9d930010d673/specification/ml/put_trained_model/types.ts#L101-L106
 type AggregateOutput struct {
 	Exponent           *Weights `json:"exponent,omitempty"`
 	LogisticRegression *Weights `json:"logistic_regression,omitempty"`
@@ -36,8 +36,6 @@ func NewAggregateOutput() *AggregateOutput {
 
 	return r
 }
-
-// true
 
 type AggregateOutputVariant interface {
 	AggregateOutputCaster() *AggregateOutput

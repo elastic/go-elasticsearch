@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb
+// https://github.com/elastic/elasticsearch-specification/tree/86f41834c7bb975159a38a73be8a9d930010d673
 
 // Get user privileges.
 //
@@ -286,32 +286,6 @@ func (r GetUserPrivileges) IsSuccess(providedCtx context.Context) (bool, error) 
 // Header set a key, value pair in the GetUserPrivileges headers map.
 func (r *GetUserPrivileges) Header(key, value string) *GetUserPrivileges {
 	r.headers.Set(key, value)
-
-	return r
-}
-
-// Application The name of the application. Application privileges are always associated
-// with exactly one application. If you do not specify this parameter, the API
-// returns information about all privileges for all applications.
-// API name: application
-func (r *GetUserPrivileges) Application(name string) *GetUserPrivileges {
-	r.values.Set("application", name)
-
-	return r
-}
-
-// Priviledge The name of the privilege. If you do not specify this parameter, the API
-// returns information about all privileges for the requested application.
-// API name: priviledge
-func (r *GetUserPrivileges) Priviledge(name string) *GetUserPrivileges {
-	r.values.Set("priviledge", name)
-
-	return r
-}
-
-// API name: username
-func (r *GetUserPrivileges) Username(username string) *GetUserPrivileges {
-	r.values.Set("username", username)
 
 	return r
 }
