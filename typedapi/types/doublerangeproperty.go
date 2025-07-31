@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // DoubleRangeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/mapping/range.ts#L34-L36
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/range.ts#L34-L36
 type DoubleRangeProperty struct {
 	Boost       *Float64                       `json:"boost,omitempty"`
 	Coerce      *bool                          `json:"coerce,omitempty"`
@@ -270,6 +270,12 @@ func (s *DoubleRangeProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "passthrough":
 					oo := NewPassthroughObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Fields | %w", err)
+					}
+					s.Fields[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Fields | %w", err)
 					}
@@ -643,6 +649,12 @@ func (s *DoubleRangeProperty) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Properties | %w", err)
 					}
 					s.Properties[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
 				case "semantic_text":
 					oo := NewSemanticTextProperty()
 					if err := localDec.Decode(&oo); err != nil {
@@ -896,12 +908,15 @@ func NewDoubleRangeProperty() *DoubleRangeProperty {
 	return r
 }
 
-// true
-
 type DoubleRangePropertyVariant interface {
 	DoubleRangePropertyCaster() *DoubleRangeProperty
 }
 
 func (s *DoubleRangeProperty) DoubleRangePropertyCaster() *DoubleRangeProperty {
 	return s
+}
+
+func (s *DoubleRangeProperty) PropertyCaster() *Property {
+	o := Property(s)
+	return &o
 }

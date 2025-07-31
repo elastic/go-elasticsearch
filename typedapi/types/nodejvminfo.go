@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeJvmInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/nodes/info/types.ts#L364-L378
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/nodes/info/types.ts#L368-L381
 type NodeJvmInfo struct {
 	GcCollectors                          []string          `json:"gc_collectors"`
 	InputArguments                        []string          `json:"input_arguments"`
@@ -40,7 +40,7 @@ type NodeJvmInfo struct {
 	Pid                                   int               `json:"pid"`
 	StartTimeInMillis                     int64             `json:"start_time_in_millis"`
 	UsingBundledJdk                       bool              `json:"using_bundled_jdk"`
-	UsingCompressedOrdinaryObjectPointers string            `json:"using_compressed_ordinary_object_pointers,omitempty"`
+	UsingCompressedOrdinaryObjectPointers *string           `json:"using_compressed_ordinary_object_pointers,omitempty"`
 	Version                               string            `json:"version"`
 	VmName                                string            `json:"vm_name"`
 	VmVendor                              string            `json:"vm_vendor"`
@@ -103,7 +103,7 @@ func (s *NodeJvmInfo) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "StartTimeInMillis", err)
 			}
 
-		case "using_bundled_jdk", "bundled_jdk":
+		case "using_bundled_jdk":
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
@@ -127,7 +127,7 @@ func (s *NodeJvmInfo) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.UsingCompressedOrdinaryObjectPointers = o
+			s.UsingCompressedOrdinaryObjectPointers = &o
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
@@ -167,5 +167,3 @@ func NewNodeJvmInfo() *NodeJvmInfo {
 
 	return r
 }
-
-// false

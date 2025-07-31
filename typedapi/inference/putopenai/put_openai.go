@@ -16,22 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Create an OpenAI inference endpoint.
 //
 // Create an inference endpoint to perform an inference task with the `openai`
 // service or `openai` compatible APIs.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 package putopenai
 
 import (
@@ -104,16 +94,6 @@ func NewPutOpenaiFunc(tp elastictransport.Interface) NewPutOpenai {
 //
 // Create an inference endpoint to perform an inference task with the `openai`
 // service or `openai` compatible APIs.
-//
-// When you create an inference endpoint, the associated machine learning model
-// is automatically deployed if it is not already running.
-// After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
-// Avoid creating multiple endpoints for the same model unless required, as each
-// endpoint consumes significant resources.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openai
 func New(tp elastictransport.Interface) *PutOpenai {
@@ -360,6 +340,15 @@ func (r *PutOpenai) _openaiinferenceid(openaiinferenceid string) *PutOpenai {
 	return r
 }
 
+// Timeout Specifies the amount of time to wait for the inference endpoint to be
+// created.
+// API name: timeout
+func (r *PutOpenai) Timeout(duration string) *PutOpenai {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -384,7 +373,7 @@ func (r *PutOpenai) FilterPath(filterpaths ...string) *PutOpenai {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

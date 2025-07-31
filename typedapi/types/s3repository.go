@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // S3Repository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/snapshot/_types/SnapshotRepository.ts#L64-L78
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/snapshot/_types/SnapshotRepository.ts#L64-L78
 type S3Repository struct {
 	// Settings The repository settings.
 	//
@@ -102,12 +102,15 @@ func NewS3Repository() *S3Repository {
 	return r
 }
 
-// true
-
 type S3RepositoryVariant interface {
 	S3RepositoryCaster() *S3Repository
 }
 
 func (s *S3Repository) S3RepositoryCaster() *S3Repository {
 	return s
+}
+
+func (s *S3Repository) RepositoryCaster() *Repository {
+	o := Repository(s)
+	return &o
 }

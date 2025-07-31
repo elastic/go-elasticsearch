@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Scripting type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/nodes/_types/Stats.ts#L1048-L1066
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/nodes/_types/Stats.ts#L1055-L1073
 type Scripting struct {
 	// CacheEvictions Total number of times the script cache has evicted old data.
 	CacheEvictions *int64 `json:"cache_evictions,omitempty"`
@@ -131,5 +131,3 @@ func NewScripting() *Scripting {
 
 	return r
 }
-
-// false

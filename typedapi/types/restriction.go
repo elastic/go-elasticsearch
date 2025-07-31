@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // Restriction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/security/_types/RoleDescriptor.ts#L135-L141
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/_types/RoleDescriptor.ts#L135-L141
 type Restriction struct {
 	// Workflows A list of workflows to which the API key is restricted.
 	// NOTE: In order to use a role restriction, an API key must be created with a
@@ -40,8 +40,6 @@ func NewRestriction() *Restriction {
 
 	return r
 }
-
-// true
 
 type RestrictionVariant interface {
 	RestrictionCaster() *Restriction

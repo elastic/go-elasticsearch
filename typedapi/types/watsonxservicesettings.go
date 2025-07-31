@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // WatsonxServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L1143-L1180
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1684-L1722
 type WatsonxServiceSettings struct {
 	// ApiKey A valid API key of your Watsonx account.
 	// You can find your Watsonx API keys or you can create a new one on the API
@@ -50,6 +50,7 @@ type WatsonxServiceSettings struct {
 	// ModelId The name of the model to use for the inference task.
 	// Refer to the IBM Embedding Models section in the Watsonx documentation for
 	// the list of available text embedding models.
+	// Refer to the IBM library - Foundation models in Watsonx.ai.
 	ModelId string `json:"model_id"`
 	// ProjectId The identifier of the IBM Cloud project to use for the inference task.
 	ProjectId string `json:"project_id"`
@@ -153,8 +154,6 @@ func NewWatsonxServiceSettings() *WatsonxServiceSettings {
 
 	return r
 }
-
-// true
 
 type WatsonxServiceSettingsVariant interface {
 	WatsonxServiceSettingsCaster() *WatsonxServiceSettings

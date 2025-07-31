@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // VoyageAITaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L1108-L1132
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1649-L1673
 type VoyageAITaskSettings struct {
 	// InputType Type of the input text.
 	// Permitted values: `ingest` (maps to `document` in the VoyageAI
@@ -131,8 +131,6 @@ func NewVoyageAITaskSettings() *VoyageAITaskSettings {
 
 	return r
 }
-
-// true
 
 type VoyageAITaskSettingsVariant interface {
 	VoyageAITaskSettingsCaster() *VoyageAITaskSettings

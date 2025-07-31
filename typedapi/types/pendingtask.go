@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PendingTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/cluster/pending_tasks/types.ts#L23-L47
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cluster/pending_tasks/types.ts#L23-L47
 type PendingTask struct {
 	// Executing Indicates whether the pending tasks are currently executing or not.
 	Executing bool `json:"executing"`
@@ -142,5 +142,3 @@ func NewPendingTask() *PendingTask {
 
 	return r
 }
-
-// false

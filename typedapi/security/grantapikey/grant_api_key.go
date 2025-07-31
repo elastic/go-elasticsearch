@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Grant an API key.
 //
@@ -67,6 +67,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/apikeygranttype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/refresh"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -355,6 +356,18 @@ func (r *GrantApiKey) Header(key, value string) *GrantApiKey {
 	return r
 }
 
+// Refresh If 'true', Elasticsearch refreshes the affected shards to make this operation
+// visible to search.
+// If 'wait_for', it waits for a refresh to make this operation visible to
+// search.
+// If 'false', nothing is done with refreshes.
+// API name: refresh
+func (r *GrantApiKey) Refresh(refresh refresh.Refresh) *GrantApiKey {
+	r.values.Set("refresh", refresh.String())
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -379,7 +392,7 @@ func (r *GrantApiKey) FilterPath(filterpaths ...string) *GrantApiKey {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

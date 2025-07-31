@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -26,13 +26,21 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // SourceFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/search/_types/SourceFilter.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/search/_types/SourceFilter.ts#L23-L48
 type SourceFilter struct {
+	// ExcludeVectors If `true`, vector fields are excluded from the returned source.
+	//
+	// This option takes precedence over `includes`: any vector field will
+	// remain excluded even if it matches an `includes` rule.
+	ExcludeVectors *bool `json:"exclude_vectors,omitempty"`
+	// Excludes A list of fields to exclude from the returned source.
 	Excludes []string `json:"excludes,omitempty"`
+	// Includes A list of fields to include in the returned source.
 	Includes []string `json:"includes,omitempty"`
 }
 
@@ -60,6 +68,20 @@ func (s *SourceFilter) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "exclude_vectors":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ExcludeVectors", err)
+				}
+				s.ExcludeVectors = &value
+			case bool:
+				s.ExcludeVectors = &v
+			}
 
 		case "excludes", "exclude":
 			rawMsg := json.RawMessage{}
@@ -105,12 +127,15 @@ func NewSourceFilter() *SourceFilter {
 	return r
 }
 
-// true
-
 type SourceFilterVariant interface {
 	SourceFilterCaster() *SourceFilter
 }
 
 func (s *SourceFilter) SourceFilterCaster() *SourceFilter {
 	return s
+}
+
+func (s *SourceFilter) SourceConfigCaster() *SourceConfig {
+	o := SourceConfig(s)
+	return &o
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // DateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/aggregations/bucket.ts#L202-L260
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/aggregations/bucket.ts#L202-L260
 type DateHistogramAggregation struct {
 	// CalendarInterval Calendar-aware interval.
 	// Can be specified using the unit name, such as `month`, or as a single unit
@@ -225,8 +225,6 @@ func NewDateHistogramAggregation() *DateHistogramAggregation {
 
 	return r
 }
-
-// true
 
 type DateHistogramAggregationVariant interface {
 	DateHistogramAggregationCaster() *DateHistogramAggregation

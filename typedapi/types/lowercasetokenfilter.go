@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -26,16 +26,18 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/lowercasetokenfilterlanguages"
 )
 
 // LowercaseTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/token_filters.ts#L256-L259
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/token_filters.ts#L350-L354
 type LowercaseTokenFilter struct {
-	Language *string `json:"language,omitempty"`
-	Type     string  `json:"type,omitempty"`
-	Version  *string `json:"version,omitempty"`
+	// Language Language-specific lowercase token filter to use.
+	Language *lowercasetokenfilterlanguages.LowercaseTokenFilterLanguages `json:"language,omitempty"`
+	Type     string                                                       `json:"type,omitempty"`
+	Version  *string                                                      `json:"version,omitempty"`
 }
 
 func (s *LowercaseTokenFilter) UnmarshalJSON(data []byte) error {
@@ -54,16 +56,9 @@ func (s *LowercaseTokenFilter) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "language":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.Language); err != nil {
 				return fmt.Errorf("%s | %w", "Language", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Language = &o
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
@@ -101,12 +96,15 @@ func NewLowercaseTokenFilter() *LowercaseTokenFilter {
 	return r
 }
 
-// true
-
 type LowercaseTokenFilterVariant interface {
 	LowercaseTokenFilterCaster() *LowercaseTokenFilter
 }
 
 func (s *LowercaseTokenFilter) LowercaseTokenFilterCaster() *LowercaseTokenFilter {
 	return s
+}
+
+func (s *LowercaseTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

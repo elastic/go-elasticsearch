@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Get EQL search results.
 // Returns search results for an Event Query Language (EQL) query.
@@ -319,6 +319,8 @@ func (r *Search) _index(index string) *Search {
 	return r
 }
 
+// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
+// indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
 func (r *Search) AllowNoIndices(allownoindices bool) *Search {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -326,6 +328,8 @@ func (r *Search) AllowNoIndices(allownoindices bool) *Search {
 	return r
 }
 
+// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
+// closed or both.
 // API name: expand_wildcards
 func (r *Search) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Search {
 	tmp := []string{}
@@ -333,6 +337,15 @@ func (r *Search) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcar
 		tmp = append(tmp, item.String())
 	}
 	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+
+	return r
+}
+
+// CcsMinimizeRoundtrips Indicates whether network round-trips should be minimized as part of
+// cross-cluster search requests execution
+// API name: ccs_minimize_roundtrips
+func (r *Search) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *Search {
+	r.values.Set("ccs_minimize_roundtrips", strconv.FormatBool(ccsminimizeroundtrips))
 
 	return r
 }
@@ -369,7 +382,7 @@ func (r *Search) FilterPath(filterpaths ...string) *Search {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

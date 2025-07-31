@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MatchedField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/text_structure/test_grok_pattern/types.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/text_structure/test_grok_pattern/types.ts#L23-L27
 type MatchedField struct {
 	Length int    `json:"length"`
 	Match  string `json:"match"`
@@ -108,5 +108,3 @@ func NewMatchedField() *MatchedField {
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -32,10 +32,11 @@ import (
 
 // FiltersBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/aggregations/Aggregate.ts#L645-L645
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/aggregations/Aggregate.ts#L645-L647
 type FiltersBucket struct {
 	Aggregations map[string]Aggregate `json:"-"`
 	DocCount     int64                `json:"doc_count"`
+	Key          *string              `json:"key,omitempty"`
 }
 
 func (s *FiltersBucket) UnmarshalJSON(data []byte) error {
@@ -67,6 +68,18 @@ func (s *FiltersBucket) UnmarshalJSON(data []byte) error {
 				f := int64(v)
 				s.DocCount = f
 			}
+
+		case "key":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Key", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Key = &o
 
 		default:
 
@@ -630,5 +643,3 @@ func NewFiltersBucket() *FiltersBucket {
 
 	return r
 }
-
-// false

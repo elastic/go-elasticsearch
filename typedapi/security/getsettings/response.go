@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package getsettings
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getsettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/security/get_settings/SecurityGetSettingsResponse.ts#L21-L36
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/get_settings/SecurityGetSettingsResponse.ts#L21-L36
 type Response struct {
 
 	// Security Settings for the index used for most security configuration, including native

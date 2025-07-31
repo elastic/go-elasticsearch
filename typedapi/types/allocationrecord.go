@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AllocationRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/cat/allocation/types.ts#L25-L99
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cat/allocation/types.ts#L25-L99
 type AllocationRecord struct {
 	// DiskAvail Free disk space available to Elasticsearch.
 	// Elasticsearch retrieves this metric from the node’s operating system.
@@ -194,5 +194,3 @@ func NewAllocationRecord() *AllocationRecord {
 
 	return r
 }
-
-// false

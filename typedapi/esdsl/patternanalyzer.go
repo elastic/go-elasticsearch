@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -53,9 +53,9 @@ func (s *_patternAnalyzer) Pattern(pattern string) *_patternAnalyzer {
 	return s
 }
 
-func (s *_patternAnalyzer) Stopwords(stopwords ...string) *_patternAnalyzer {
+func (s *_patternAnalyzer) Stopwords(stopwords types.StopWordsVariant) *_patternAnalyzer {
 
-	s.v.Stopwords = stopwords
+	s.v.Stopwords = *stopwords.StopWordsCaster()
 
 	return s
 }

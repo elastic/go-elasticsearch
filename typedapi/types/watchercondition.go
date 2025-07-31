@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // WatcherCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/watcher/_types/Conditions.ts#L51-L63
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/watcher/_types/Conditions.ts#L51-L63
 type WatcherCondition struct {
 	AdditionalWatcherConditionProperty map[string]json.RawMessage                        `json:"-"`
 	Always                             *AlwaysCondition                                  `json:"always,omitempty"`
@@ -78,8 +78,6 @@ func NewWatcherCondition() *WatcherCondition {
 
 	return r
 }
-
-// true
 
 type WatcherConditionVariant interface {
 	WatcherConditionCaster() *WatcherCondition

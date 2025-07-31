@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package addblock
 
@@ -26,11 +26,11 @@ import (
 
 // Response holds the response body struct for the package addblock
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/indices/add_block/IndicesAddBlockResponse.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/add_block/IndicesAddBlockResponse.ts#L22-L28
 type Response struct {
-	Acknowledged       bool                       `json:"acknowledged"`
-	Indices            []types.IndicesBlockStatus `json:"indices"`
-	ShardsAcknowledged bool                       `json:"shards_acknowledged"`
+	Acknowledged       bool                          `json:"acknowledged"`
+	Indices            []types.AddIndicesBlockStatus `json:"indices"`
+	ShardsAcknowledged bool                          `json:"shards_acknowledged"`
 }
 
 // NewResponse returns a Response

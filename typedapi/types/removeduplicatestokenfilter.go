@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // RemoveDuplicatesTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/token_filters.ts#L302-L304
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/token_filters.ts#L403-L405
 type RemoveDuplicatesTokenFilter struct {
 	Type    string  `json:"type,omitempty"`
 	Version *string `json:"version,omitempty"`
@@ -86,12 +86,15 @@ func NewRemoveDuplicatesTokenFilter() *RemoveDuplicatesTokenFilter {
 	return r
 }
 
-// true
-
 type RemoveDuplicatesTokenFilterVariant interface {
 	RemoveDuplicatesTokenFilterCaster() *RemoveDuplicatesTokenFilter
 }
 
 func (s *RemoveDuplicatesTokenFilter) RemoveDuplicatesTokenFilterCaster() *RemoveDuplicatesTokenFilter {
 	return s
+}
+
+func (s *RemoveDuplicatesTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

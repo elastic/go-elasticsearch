@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -77,6 +77,20 @@ func (s *_intervals) Match(match types.IntervalsMatchVariant) *_intervals {
 func (s *_intervals) Prefix(prefix types.IntervalsPrefixVariant) *_intervals {
 
 	s.v.Prefix = prefix.IntervalsPrefixCaster()
+
+	return s
+}
+
+func (s *_intervals) Range(range_ types.IntervalsRangeVariant) *_intervals {
+
+	s.v.Range = range_.IntervalsRangeCaster()
+
+	return s
+}
+
+func (s *_intervals) Regexp(regexp types.IntervalsRegexpVariant) *_intervals {
+
+	s.v.Regexp = regexp.IntervalsRegexpCaster()
 
 	return s
 }

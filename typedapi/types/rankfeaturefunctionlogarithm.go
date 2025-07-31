@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RankFeatureFunctionLogarithm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/query_dsl/specialized.ts#L284-L289
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/specialized.ts#L284-L289
 type RankFeatureFunctionLogarithm struct {
 	// ScalingFactor Configurable scaling factor.
 	ScalingFactor float32 `json:"scaling_factor"`
@@ -79,8 +79,6 @@ func NewRankFeatureFunctionLogarithm() *RankFeatureFunctionLogarithm {
 
 	return r
 }
-
-// true
 
 type RankFeatureFunctionLogarithmVariant interface {
 	RankFeatureFunctionLogarithmCaster() *RankFeatureFunctionLogarithm

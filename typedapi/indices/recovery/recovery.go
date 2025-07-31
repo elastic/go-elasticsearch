@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Get index recovery information.
 // Get information about ongoing and completed shard recoveries for one or more
@@ -69,6 +69,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -390,6 +391,40 @@ func (r *Recovery) Detailed(detailed bool) *Recovery {
 	return r
 }
 
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
+// API name: allow_no_indices
+func (r *Recovery) AllowNoIndices(allownoindices bool) *Recovery {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
+
+	return r
+}
+
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`.
+// API name: expand_wildcards
+func (r *Recovery) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Recovery {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+
+	return r
+}
+
+// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
+// index.
+// API name: ignore_unavailable
+func (r *Recovery) IgnoreUnavailable(ignoreunavailable bool) *Recovery {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -414,7 +449,7 @@ func (r *Recovery) FilterPath(filterpaths ...string) *Recovery {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

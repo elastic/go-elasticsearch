@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SimpleQueryStringQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/query_dsl/fulltext.ts#L786-L854
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/fulltext.ts#L837-L905
 type SimpleQueryStringQuery struct {
 	// AnalyzeWildcard If `true`, the query attempts to analyze wildcard terms in the query string.
 	AnalyzeWildcard *bool `json:"analyze_wildcard,omitempty"`
@@ -278,8 +278,6 @@ func NewSimpleQueryStringQuery() *SimpleQueryStringQuery {
 
 	return r
 }
-
-// true
 
 type SimpleQueryStringQueryVariant interface {
 	SimpleQueryStringQueryCaster() *SimpleQueryStringQuery

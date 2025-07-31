@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // WhitespaceTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/tokenizers.ts#L135-L138
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/tokenizers.ts#L137-L140
 type WhitespaceTokenizer struct {
 	MaxTokenLength *int    `json:"max_token_length,omitempty"`
 	Type           string  `json:"type,omitempty"`
@@ -105,12 +105,15 @@ func NewWhitespaceTokenizer() *WhitespaceTokenizer {
 	return r
 }
 
-// true
-
 type WhitespaceTokenizerVariant interface {
 	WhitespaceTokenizerCaster() *WhitespaceTokenizer
 }
 
 func (s *WhitespaceTokenizer) WhitespaceTokenizerCaster() *WhitespaceTokenizer {
 	return s
+}
+
+func (s *WhitespaceTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	o := TokenizerDefinition(s)
+	return &o
 }

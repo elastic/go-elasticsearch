@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package putsynonym
 
@@ -27,10 +27,15 @@ import (
 
 // Response holds the response body struct for the package putsynonym
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/synonyms/put_synonym/SynonymsPutResponse.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/synonyms/put_synonym/SynonymsPutResponse.ts#L23-L36
 type Response struct {
-	ReloadAnalyzersDetails types.ReloadResult `json:"reload_analyzers_details"`
-	Result                 result.Result      `json:"result"`
+
+	// ReloadAnalyzersDetails Updating a synonyms set can reload the associated analyzers in case refresh
+	// is set to true.
+	// This information is the analyzers reloading result.
+	ReloadAnalyzersDetails *types.ReloadResult `json:"reload_analyzers_details,omitempty"`
+	// Result The update operation result.
+	Result result.Result `json:"result"`
 }
 
 // NewResponse returns a Response

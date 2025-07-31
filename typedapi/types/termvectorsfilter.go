@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TermVectorsFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/termvectors/types.ts#L49-L86
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/termvectors/types.ts#L49-L86
 type TermVectorsFilter struct {
 	// MaxDocFreq Ignore words which occur in more than this many docs.
 	// Defaults to unbounded.
@@ -190,8 +190,6 @@ func NewTermVectorsFilter() *TermVectorsFilter {
 
 	return r
 }
-
-// true
 
 type TermVectorsFilterVariant interface {
 	TermVectorsFilterCaster() *TermVectorsFilter

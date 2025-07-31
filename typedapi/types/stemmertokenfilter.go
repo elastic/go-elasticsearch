@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StemmerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/token_filters.ts#L321-L325
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/token_filters.ts#L425-L429
 type StemmerTokenFilter struct {
 	Language *string `json:"language,omitempty"`
 	Type     string  `json:"type,omitempty"`
@@ -101,12 +101,15 @@ func NewStemmerTokenFilter() *StemmerTokenFilter {
 	return r
 }
 
-// true
-
 type StemmerTokenFilterVariant interface {
 	StemmerTokenFilterCaster() *StemmerTokenFilter
 }
 
 func (s *StemmerTokenFilter) StemmerTokenFilterCaster() *StemmerTokenFilter {
 	return s
+}
+
+func (s *StemmerTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

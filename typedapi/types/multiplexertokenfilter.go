@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -30,9 +30,12 @@ import (
 
 // MultiplexerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/token_filters.ts#L261-L265
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/token_filters.ts#L356-L362
 type MultiplexerTokenFilter struct {
-	Filters          []string           `json:"filters"`
+	// Filters A list of token filters to apply to incoming tokens.
+	Filters []string `json:"filters"`
+	// PreserveOriginal If `true` (the default) then emit the original token in addition to the
+	// filtered tokens.
 	PreserveOriginal Stringifiedboolean `json:"preserve_original,omitempty"`
 	Type             string             `json:"type,omitempty"`
 	Version          *string            `json:"version,omitempty"`
@@ -100,12 +103,15 @@ func NewMultiplexerTokenFilter() *MultiplexerTokenFilter {
 	return r
 }
 
-// true
-
 type MultiplexerTokenFilterVariant interface {
 	MultiplexerTokenFilterCaster() *MultiplexerTokenFilter
 }
 
 func (s *MultiplexerTokenFilter) MultiplexerTokenFilterCaster() *MultiplexerTokenFilter {
 	return s
+}
+
+func (s *MultiplexerTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CardinalityAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/aggregations/Aggregate.ts#L140-L143
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/aggregations/Aggregate.ts#L140-L143
 type CardinalityAggregate struct {
 	Meta  Metadata `json:"meta,omitempty"`
 	Value int64    `json:"value"`
@@ -83,5 +83,3 @@ func NewCardinalityAggregate() *CardinalityAggregate {
 
 	return r
 }
-
-// false

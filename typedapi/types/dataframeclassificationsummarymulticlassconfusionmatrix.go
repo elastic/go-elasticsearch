@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeClassificationSummaryMulticlassConfusionMatrix type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/ml/evaluate_data_frame/types.ts#L120-L123
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/evaluate_data_frame/types.ts#L120-L123
 type DataframeClassificationSummaryMulticlassConfusionMatrix struct {
 	ConfusionMatrix       []ConfusionMatrixItem `json:"confusion_matrix"`
 	OtherActualClassCount int                   `json:"other_actual_class_count"`
@@ -84,5 +84,3 @@ func NewDataframeClassificationSummaryMulticlassConfusionMatrix() *DataframeClas
 
 	return r
 }
-
-// false

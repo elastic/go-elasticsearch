@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // PercolatorProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/mapping/core.ts#L202-L204
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/core.ts#L203-L205
 type PercolatorProperty struct {
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`
@@ -204,6 +204,12 @@ func (s *PercolatorProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "passthrough":
 					oo := NewPassthroughObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Fields | %w", err)
+					}
+					s.Fields[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Fields | %w", err)
 					}
@@ -563,6 +569,12 @@ func (s *PercolatorProperty) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Properties | %w", err)
 					}
 					s.Properties[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
 				case "semantic_text":
 					oo := NewSemanticTextProperty()
 					if err := localDec.Decode(&oo); err != nil {
@@ -796,12 +808,15 @@ func NewPercolatorProperty() *PercolatorProperty {
 	return r
 }
 
-// true
-
 type PercolatorPropertyVariant interface {
 	PercolatorPropertyCaster() *PercolatorProperty
 }
 
 func (s *PercolatorProperty) PercolatorPropertyCaster() *PercolatorProperty {
 	return s
+}
+
+func (s *PercolatorProperty) PropertyCaster() *Property {
+	o := Property(s)
+	return &o
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // TextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/mapping/core.ts#L303-L320
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/core.ts#L321-L338
 type TextProperty struct {
 	Analyzer                 *string                        `json:"analyzer,omitempty"`
 	Boost                    *Float64                       `json:"boost,omitempty"`
@@ -300,6 +300,12 @@ func (s *TextProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "passthrough":
 					oo := NewPassthroughObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Fields | %w", err)
+					}
+					s.Fields[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Fields | %w", err)
 					}
@@ -727,6 +733,12 @@ func (s *TextProperty) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Properties | %w", err)
 					}
 					s.Properties[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
 				case "semantic_text":
 					oo := NewSemanticTextProperty()
 					if err := localDec.Decode(&oo); err != nil {
@@ -1032,12 +1044,15 @@ func NewTextProperty() *TextProperty {
 	return r
 }
 
-// true
-
 type TextPropertyVariant interface {
 	TextPropertyCaster() *TextProperty
 }
 
 func (s *TextProperty) TextPropertyCaster() *TextProperty {
 	return s
+}
+
+func (s *TextProperty) PropertyCaster() *Property {
+	o := Property(s)
+	return &o
 }

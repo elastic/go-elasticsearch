@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
 // AlwaysCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/watcher/_types/Conditions.ts#L26-L26
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/watcher/_types/Conditions.ts#L26-L26
 type AlwaysCondition struct {
 }
 
@@ -32,8 +32,6 @@ func NewAlwaysCondition() *AlwaysCondition {
 
 	return r
 }
-
-// true
 
 type AlwaysConditionVariant interface {
 	AlwaysConditionCaster() *AlwaysCondition

@@ -151,7 +151,7 @@ type Client struct {
 // TypedClient represents the Typed API.
 type TypedClient struct {
 	BaseClient
-	*typedapi.API
+	*typedapi.MethodAPI
 }
 
 // NewBaseClient creates a new client free of any API.
@@ -249,7 +249,7 @@ func NewTypedClient(cfg Config) (*TypedClient, error) {
 			compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
 		},
 	}
-	client.API = typedapi.New(client)
+	client.MethodAPI = typedapi.NewMethodAPI(client)
 
 	if cfg.DiscoverNodesOnStart {
 		go client.DiscoverNodes()

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,22 +31,24 @@ import (
 
 // ClusterNodeCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/cluster/stats/types.ts#L348-L367
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cluster/stats/types.ts#L457-L478
 type ClusterNodeCount struct {
-	CoordinatingOnly    int  `json:"coordinating_only"`
-	Data                int  `json:"data"`
-	DataCold            int  `json:"data_cold"`
-	DataContent         int  `json:"data_content"`
+	CoordinatingOnly    *int `json:"coordinating_only,omitempty"`
+	Data                *int `json:"data,omitempty"`
+	DataCold            *int `json:"data_cold,omitempty"`
+	DataContent         *int `json:"data_content,omitempty"`
 	DataFrozen          *int `json:"data_frozen,omitempty"`
-	DataHot             int  `json:"data_hot"`
-	DataWarm            int  `json:"data_warm"`
-	Ingest              int  `json:"ingest"`
-	Master              int  `json:"master"`
-	Ml                  int  `json:"ml"`
-	RemoteClusterClient int  `json:"remote_cluster_client"`
+	DataHot             *int `json:"data_hot,omitempty"`
+	DataWarm            *int `json:"data_warm,omitempty"`
+	Index               *int `json:"index,omitempty"`
+	Ingest              *int `json:"ingest,omitempty"`
+	Master              *int `json:"master,omitempty"`
+	Ml                  *int `json:"ml,omitempty"`
+	RemoteClusterClient *int `json:"remote_cluster_client,omitempty"`
+	Search              *int `json:"search,omitempty"`
 	Total               int  `json:"total"`
-	Transform           int  `json:"transform"`
-	VotingOnly          int  `json:"voting_only"`
+	Transform           *int `json:"transform,omitempty"`
+	VotingOnly          *int `json:"voting_only,omitempty"`
 }
 
 func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
@@ -74,10 +76,10 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "CoordinatingOnly", err)
 				}
-				s.CoordinatingOnly = value
+				s.CoordinatingOnly = &value
 			case float64:
 				f := int(v)
-				s.CoordinatingOnly = f
+				s.CoordinatingOnly = &f
 			}
 
 		case "data":
@@ -90,10 +92,10 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Data", err)
 				}
-				s.Data = value
+				s.Data = &value
 			case float64:
 				f := int(v)
-				s.Data = f
+				s.Data = &f
 			}
 
 		case "data_cold":
@@ -106,10 +108,10 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "DataCold", err)
 				}
-				s.DataCold = value
+				s.DataCold = &value
 			case float64:
 				f := int(v)
-				s.DataCold = f
+				s.DataCold = &f
 			}
 
 		case "data_content":
@@ -122,10 +124,10 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "DataContent", err)
 				}
-				s.DataContent = value
+				s.DataContent = &value
 			case float64:
 				f := int(v)
-				s.DataContent = f
+				s.DataContent = &f
 			}
 
 		case "data_frozen":
@@ -154,10 +156,10 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "DataHot", err)
 				}
-				s.DataHot = value
+				s.DataHot = &value
 			case float64:
 				f := int(v)
-				s.DataHot = f
+				s.DataHot = &f
 			}
 
 		case "data_warm":
@@ -170,10 +172,26 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "DataWarm", err)
 				}
-				s.DataWarm = value
+				s.DataWarm = &value
 			case float64:
 				f := int(v)
-				s.DataWarm = f
+				s.DataWarm = &f
+			}
+
+		case "index":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Index", err)
+				}
+				s.Index = &value
+			case float64:
+				f := int(v)
+				s.Index = &f
 			}
 
 		case "ingest":
@@ -186,10 +204,10 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Ingest", err)
 				}
-				s.Ingest = value
+				s.Ingest = &value
 			case float64:
 				f := int(v)
-				s.Ingest = f
+				s.Ingest = &f
 			}
 
 		case "master":
@@ -202,10 +220,10 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Master", err)
 				}
-				s.Master = value
+				s.Master = &value
 			case float64:
 				f := int(v)
-				s.Master = f
+				s.Master = &f
 			}
 
 		case "ml":
@@ -218,10 +236,10 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Ml", err)
 				}
-				s.Ml = value
+				s.Ml = &value
 			case float64:
 				f := int(v)
-				s.Ml = f
+				s.Ml = &f
 			}
 
 		case "remote_cluster_client":
@@ -234,10 +252,26 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "RemoteClusterClient", err)
 				}
-				s.RemoteClusterClient = value
+				s.RemoteClusterClient = &value
 			case float64:
 				f := int(v)
-				s.RemoteClusterClient = f
+				s.RemoteClusterClient = &f
+			}
+
+		case "search":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Search", err)
+				}
+				s.Search = &value
+			case float64:
+				f := int(v)
+				s.Search = &f
 			}
 
 		case "total":
@@ -266,10 +300,10 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Transform", err)
 				}
-				s.Transform = value
+				s.Transform = &value
 			case float64:
 				f := int(v)
-				s.Transform = f
+				s.Transform = &f
 			}
 
 		case "voting_only":
@@ -282,10 +316,10 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "VotingOnly", err)
 				}
-				s.VotingOnly = value
+				s.VotingOnly = &value
 			case float64:
 				f := int(v)
-				s.VotingOnly = f
+				s.VotingOnly = &f
 			}
 
 		}
@@ -299,5 +333,3 @@ func NewClusterNodeCount() *ClusterNodeCount {
 
 	return r
 }
-
-// false

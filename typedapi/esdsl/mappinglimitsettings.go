@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -62,7 +62,7 @@ func (s *_mappingLimitSettings) FieldNameLength(fieldnamelength types.MappingLim
 
 func (s *_mappingLimitSettings) IgnoreMalformed(ignoremalformed string) *_mappingLimitSettings {
 
-	s.v.IgnoreMalformed = ignoremalformed
+	s.v.IgnoreMalformed = &ignoremalformed
 
 	return s
 }

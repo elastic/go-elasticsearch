@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Bulk index or delete documents.
 // Perform multiple `index`, `create`, `delete`, and `update` actions in a
@@ -175,6 +175,11 @@
 // The request will only wait for those three shards to refresh.
 // The other two shards that make up the index do not participate in the `_bulk`
 // request at all.
+//
+// You might want to disable the refresh interval temporarily to improve
+// indexing throughput for large bulk requests.
+// Refer to the linked documentation for step-by-step instructions using the
+// index settings API.
 package bulk
 
 import (
@@ -393,6 +398,11 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 // The request will only wait for those three shards to refresh.
 // The other two shards that make up the index do not participate in the `_bulk`
 // request at all.
+//
+// You might want to disable the refresh interval temporarily to improve
+// indexing throughput for large bulk requests.
+// Refer to the linked documentation for step-by-step instructions using the
+// index settings API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
 func New(tp elastictransport.Interface) *Bulk {
@@ -780,7 +790,7 @@ func (r *Bulk) FilterPath(filterpaths ...string) *Bulk {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

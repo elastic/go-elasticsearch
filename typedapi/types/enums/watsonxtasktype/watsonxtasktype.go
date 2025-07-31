@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Package watsonxtasktype
 package watsonxtasktype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L1182-L1184
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1724-L1728
 type WatsonxTaskType struct {
 	Name string
 }
 
 var (
 	Textembedding = WatsonxTaskType{"text_embedding"}
+
+	Chatcompletion = WatsonxTaskType{"chat_completion"}
+
+	Completion = WatsonxTaskType{"completion"}
 )
 
 func (w WatsonxTaskType) MarshalText() (text []byte, err error) {
@@ -41,6 +45,10 @@ func (w *WatsonxTaskType) UnmarshalText(text []byte) error {
 
 	case "text_embedding":
 		*w = Textembedding
+	case "chat_completion":
+		*w = Chatcompletion
+	case "completion":
+		*w = Completion
 	default:
 		*w = WatsonxTaskType{string(text)}
 	}

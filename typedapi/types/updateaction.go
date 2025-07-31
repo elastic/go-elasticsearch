@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // UpdateAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/bulk/types.ts#L182-L217
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/bulk/types.ts#L182-L217
 type UpdateAction struct {
 	// DetectNoop If true, the `result` in the response is set to 'noop' when no changes to the
 	// document occur.
@@ -139,7 +139,7 @@ func (s *UpdateAction) UnmarshalJSON(data []byte) error {
 
 				switch t {
 
-				case "excludes", "includes":
+				case "exclude_vectors", "excludes", "includes":
 					o := NewSourceFilter()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
@@ -173,8 +173,6 @@ func NewUpdateAction() *UpdateAction {
 
 	return r
 }
-
-// true
 
 type UpdateActionVariant interface {
 	UpdateActionCaster() *UpdateAction

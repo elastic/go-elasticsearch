@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PhraseSuggestHighlight type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/search/_types/suggester.ts#L420-L429
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/search/_types/suggester.ts#L420-L429
 type PhraseSuggestHighlight struct {
 	// PostTag Use in conjunction with `pre_tag` to define the HTML tags to use for the
 	// highlighted text.
@@ -91,8 +91,6 @@ func NewPhraseSuggestHighlight() *PhraseSuggestHighlight {
 
 	return r
 }
-
-// true
 
 type PhraseSuggestHighlightVariant interface {
 	PhraseSuggestHighlightCaster() *PhraseSuggestHighlight

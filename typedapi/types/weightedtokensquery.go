@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // WeightedTokensQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/query_dsl/WeightedTokensQuery.ts#L25-L33
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/WeightedTokensQuery.ts#L25-L33
 type WeightedTokensQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -43,7 +43,7 @@ type WeightedTokensQuery struct {
 	PruningConfig *TokenPruningConfig `json:"pruning_config,omitempty"`
 	QueryName_    *string             `json:"_name,omitempty"`
 	// Tokens The tokens representing this query
-	Tokens map[string]float32 `json:"tokens"`
+	Tokens []map[string]float32 `json:"tokens"`
 }
 
 func (s *WeightedTokensQuery) UnmarshalJSON(data []byte) error {
@@ -95,11 +95,24 @@ func (s *WeightedTokensQuery) UnmarshalJSON(data []byte) error {
 			s.QueryName_ = &o
 
 		case "tokens":
-			if s.Tokens == nil {
-				s.Tokens = make(map[string]float32, 0)
-			}
-			if err := dec.Decode(&s.Tokens); err != nil {
-				return fmt.Errorf("%s | %w", "Tokens", err)
+
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			source := bytes.NewReader(rawMsg)
+			localDec := json.NewDecoder(source)
+			switch rawMsg[0] {
+			case '{':
+				o := make(map[string]float32, 0)
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Tokens", err)
+				}
+				s.Tokens = append(s.Tokens, o)
+			case '[':
+				o := make([]map[string]float32, 0)
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Tokens", err)
+				}
+				s.Tokens = o
 			}
 
 		}
@@ -109,14 +122,10 @@ func (s *WeightedTokensQuery) UnmarshalJSON(data []byte) error {
 
 // NewWeightedTokensQuery returns a WeightedTokensQuery.
 func NewWeightedTokensQuery() *WeightedTokensQuery {
-	r := &WeightedTokensQuery{
-		Tokens: make(map[string]float32),
-	}
+	r := &WeightedTokensQuery{}
 
 	return r
 }
-
-// true
 
 type WeightedTokensQueryVariant interface {
 	WeightedTokensQueryCaster() *WeightedTokensQuery

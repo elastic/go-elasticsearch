@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // DynamicTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/mapping/dynamic-template.ts#L23-L43
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/dynamic-template.ts#L23-L43
 type DynamicTemplate struct {
 	AdditionalDynamicTemplateProperty map[string]json.RawMessage `json:"-"`
 	Mapping                           Property                   `json:"mapping,omitempty"`
@@ -199,6 +199,12 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 				o := NewPassthroughObjectProperty()
 				if err := localDec.Decode(&o); err != nil {
 					return fmt.Errorf("%s | %w", "passthrough", err)
+				}
+				s.Mapping = *o
+			case "rank_vectors":
+				o := NewRankVectorProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "rank_vectors", err)
 				}
 				s.Mapping = *o
 			case "semantic_text":
@@ -548,8 +554,6 @@ func NewDynamicTemplate() *DynamicTemplate {
 
 	return r
 }
-
-// true
 
 type DynamicTemplateVariant interface {
 	DynamicTemplateCaster() *DynamicTemplate

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Get async ES|QL query results.
 // Get the current status and available results or stored results for an ES|QL
@@ -38,6 +38,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/esqlformat"
 )
 
 const (
@@ -322,6 +323,14 @@ func (r *AsyncQueryGet) DropNullColumns(dropnullcolumns bool) *AsyncQueryGet {
 	return r
 }
 
+// Format A short version of the Accept header, for example `json` or `yaml`.
+// API name: format
+func (r *AsyncQueryGet) Format(format esqlformat.EsqlFormat) *AsyncQueryGet {
+	r.values.Set("format", format.String())
+
+	return r
+}
+
 // KeepAlive The period for which the query and its results are stored in the cluster.
 // When this period expires, the query and its results are deleted, even if the
 // query is still ongoing.
@@ -369,7 +378,7 @@ func (r *AsyncQueryGet) FilterPath(filterpaths ...string) *AsyncQueryGet {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

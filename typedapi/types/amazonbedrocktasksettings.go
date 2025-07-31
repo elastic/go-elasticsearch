@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AmazonBedrockTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L337-L361
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L410-L434
 type AmazonBedrockTaskSettings struct {
 	// MaxNewTokens For a `completion` task, it sets the maximum number for the output tokens to
 	// be generated.
@@ -147,8 +147,6 @@ func NewAmazonBedrockTaskSettings() *AmazonBedrockTaskSettings {
 
 	return r
 }
-
-// true
 
 type AmazonBedrockTaskSettingsVariant interface {
 	AmazonBedrockTaskSettingsCaster() *AmazonBedrockTaskSettings

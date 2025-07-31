@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RolloverConditions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/indices/rollover/types.ts#L24-L40
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/rollover/types.ts#L24-L40
 type RolloverConditions struct {
 	MaxAge                   Duration `json:"max_age,omitempty"`
 	MaxAgeMillis             *int64   `json:"max_age_millis,omitempty"`
@@ -231,8 +231,6 @@ func NewRolloverConditions() *RolloverConditions {
 
 	return r
 }
-
-// true
 
 type RolloverConditionsVariant interface {
 	RolloverConditionsCaster() *RolloverConditions

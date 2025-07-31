@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // HtmlStripCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/char_filters.ts#L46-L49
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/char_filters.ts#L46-L49
 type HtmlStripCharFilter struct {
 	EscapedTags []string `json:"escaped_tags,omitempty"`
 	Type        string   `json:"type,omitempty"`
@@ -93,12 +93,15 @@ func NewHtmlStripCharFilter() *HtmlStripCharFilter {
 	return r
 }
 
-// true
-
 type HtmlStripCharFilterVariant interface {
 	HtmlStripCharFilterCaster() *HtmlStripCharFilter
 }
 
 func (s *HtmlStripCharFilter) HtmlStripCharFilterCaster() *HtmlStripCharFilter {
 	return s
+}
+
+func (s *HtmlStripCharFilter) CharFilterDefinitionCaster() *CharFilterDefinition {
+	o := CharFilterDefinition(s)
+	return &o
 }

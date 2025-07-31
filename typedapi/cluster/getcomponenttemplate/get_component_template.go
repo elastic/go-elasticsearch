@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Get component templates.
 // Get information about component templates.
@@ -311,6 +311,19 @@ func (r *GetComponentTemplate) FlatSettings(flatsettings bool) *GetComponentTemp
 	return r
 }
 
+// SettingsFilter Filter out results, for example to filter out sensitive information. Supports
+// wildcards or full settings keys
+// API name: settings_filter
+func (r *GetComponentTemplate) SettingsFilter(settingsfilters ...string) *GetComponentTemplate {
+	tmp := []string{}
+	for _, item := range settingsfilters {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("settings_filter", strings.Join(tmp, ","))
+
+	return r
+}
+
 // IncludeDefaults Return all default configurations for the component template (default: false)
 // API name: include_defaults
 func (r *GetComponentTemplate) IncludeDefaults(includedefaults bool) *GetComponentTemplate {
@@ -362,7 +375,7 @@ func (r *GetComponentTemplate) FilterPath(filterpaths ...string) *GetComponentTe
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

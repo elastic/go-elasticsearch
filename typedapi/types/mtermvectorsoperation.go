@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // MTermVectorsOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/mtermvectors/types.ts#L35-L94
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/mtermvectors/types.ts#L35-L94
 type MTermVectorsOperation struct {
 	// Doc An artificial document (a document not present in the index) for which you
 	// want to retrieve term vectors.
@@ -215,8 +215,6 @@ func NewMTermVectorsOperation() *MTermVectorsOperation {
 
 	return r
 }
-
-// true
 
 type MTermVectorsOperationVariant interface {
 	MTermVectorsOperationCaster() *MTermVectorsOperation

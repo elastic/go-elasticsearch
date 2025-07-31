@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SegmentsStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/Stats.ts#L278-L371
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/Stats.ts#L301-L396
 type SegmentsStats struct {
 	// Count Total number of segments across all shards assigned to selected nodes.
 	Count int `json:"count"`
@@ -51,8 +51,7 @@ type SegmentsStats struct {
 	FixedBitSet ByteSize `json:"fixed_bit_set,omitempty"`
 	// FixedBitSetMemoryInBytes Total amount of memory, in bytes, used by fixed bit sets across all shards
 	// assigned to selected nodes.
-	FixedBitSetMemoryInBytes    int64  `json:"fixed_bit_set_memory_in_bytes"`
-	IndexWriterMaxMemoryInBytes *int64 `json:"index_writer_max_memory_in_bytes,omitempty"`
+	FixedBitSetMemoryInBytes int64 `json:"fixed_bit_set_memory_in_bytes"`
 	// IndexWriterMemory Total amount of memory used by all index writers across all shards assigned
 	// to selected nodes.
 	IndexWriterMemory ByteSize `json:"index_writer_memory,omitempty"`
@@ -80,16 +79,18 @@ type SegmentsStats struct {
 	// PointsMemoryInBytes Total amount, in bytes, of memory used for points across all shards assigned
 	// to selected nodes.
 	PointsMemoryInBytes int64 `json:"points_memory_in_bytes"`
+	// StoredFieldsMemory Total amount of memory used for stored fields across all shards assigned to
+	// selected nodes.
+	StoredFieldsMemory ByteSize `json:"stored_fields_memory,omitempty"`
 	// StoredFieldsMemoryInBytes Total amount, in bytes, of memory used for stored fields across all shards
 	// assigned to selected nodes.
-	StoredFieldsMemoryInBytes int64    `json:"stored_fields_memory_in_bytes"`
-	StoredMemory              ByteSize `json:"stored_memory,omitempty"`
+	StoredFieldsMemoryInBytes int64 `json:"stored_fields_memory_in_bytes"`
+	// TermVectorsMemory Total amount of memory used for term vectors across all shards assigned to
+	// selected nodes.
+	TermVectorsMemory ByteSize `json:"term_vectors_memory,omitempty"`
 	// TermVectorsMemoryInBytes Total amount, in bytes, of memory used for term vectors across all shards
 	// assigned to selected nodes.
 	TermVectorsMemoryInBytes int64 `json:"term_vectors_memory_in_bytes"`
-	// TermVectoryMemory Total amount of memory used for term vectors across all shards assigned to
-	// selected nodes.
-	TermVectoryMemory ByteSize `json:"term_vectory_memory,omitempty"`
 	// TermsMemory Total amount of memory used for terms across all shards assigned to selected
 	// nodes.
 	TermsMemory ByteSize `json:"terms_memory,omitempty"`
@@ -181,21 +182,6 @@ func (s *SegmentsStats) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.FixedBitSetMemoryInBytes = f
-			}
-
-		case "index_writer_max_memory_in_bytes":
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseInt(v, 10, 64)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "IndexWriterMaxMemoryInBytes", err)
-				}
-				s.IndexWriterMaxMemoryInBytes = &value
-			case float64:
-				f := int64(v)
-				s.IndexWriterMaxMemoryInBytes = &f
 			}
 
 		case "index_writer_memory":
@@ -293,6 +279,11 @@ func (s *SegmentsStats) UnmarshalJSON(data []byte) error {
 				s.PointsMemoryInBytes = f
 			}
 
+		case "stored_fields_memory":
+			if err := dec.Decode(&s.StoredFieldsMemory); err != nil {
+				return fmt.Errorf("%s | %w", "StoredFieldsMemory", err)
+			}
+
 		case "stored_fields_memory_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -308,9 +299,9 @@ func (s *SegmentsStats) UnmarshalJSON(data []byte) error {
 				s.StoredFieldsMemoryInBytes = f
 			}
 
-		case "stored_memory":
-			if err := dec.Decode(&s.StoredMemory); err != nil {
-				return fmt.Errorf("%s | %w", "StoredMemory", err)
+		case "term_vectors_memory":
+			if err := dec.Decode(&s.TermVectorsMemory); err != nil {
+				return fmt.Errorf("%s | %w", "TermVectorsMemory", err)
 			}
 
 		case "term_vectors_memory_in_bytes":
@@ -326,11 +317,6 @@ func (s *SegmentsStats) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.TermVectorsMemoryInBytes = f
-			}
-
-		case "term_vectory_memory":
-			if err := dec.Decode(&s.TermVectoryMemory); err != nil {
-				return fmt.Errorf("%s | %w", "TermVectoryMemory", err)
 			}
 
 		case "terms_memory":
@@ -386,5 +372,3 @@ func NewSegmentsStats() *SegmentsStats {
 
 	return r
 }
-
-// false

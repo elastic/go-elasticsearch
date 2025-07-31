@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Package googlevertexaitasktype
 package googlevertexaitasktype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L860-L863
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1371-L1376
 type GoogleVertexAITaskType struct {
 	Name string
 }
@@ -32,6 +32,10 @@ var (
 	Rerank = GoogleVertexAITaskType{"rerank"}
 
 	Textembedding = GoogleVertexAITaskType{"text_embedding"}
+
+	Completion = GoogleVertexAITaskType{"completion"}
+
+	Chatcompletion = GoogleVertexAITaskType{"chat_completion"}
 )
 
 func (g GoogleVertexAITaskType) MarshalText() (text []byte, err error) {
@@ -45,6 +49,10 @@ func (g *GoogleVertexAITaskType) UnmarshalText(text []byte) error {
 		*g = Rerank
 	case "text_embedding":
 		*g = Textembedding
+	case "completion":
+		*g = Completion
+	case "chat_completion":
+		*g = Chatcompletion
 	default:
 		*g = GoogleVertexAITaskType{string(text)}
 	}

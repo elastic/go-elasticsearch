@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Document type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/ingest/_types/Simulation.ts#L62-L76
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ingest/_types/Simulation.ts#L69-L83
 type Document struct {
 	// Id_ Unique identifier for the document.
 	// This ID must be unique within the `_index`.
@@ -82,8 +82,6 @@ func NewDocument() *Document {
 
 	return r
 }
-
-// true
 
 type DocumentVariant interface {
 	DocumentCaster() *Document

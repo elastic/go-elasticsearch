@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Run a search.
 //
@@ -555,11 +555,12 @@ func (r *Search) MaxConcurrentShardRequests(maxconcurrentshardrequests int) *Sea
 // method.
 // * `_prefer_nodes:<node-id>,<node-id>` to if possible, run the search on the
 // specified nodes IDs. If not, select shards using the default method.
-// `_shards:<shard>,<shard>` to run the search only on the specified shards. You
-// can combine this value with other `preference` values. However, the `_shards`
-// value must come first. For example: `_shards:2,3|_local`.
-// `<custom-string>` (any string that does not start with `_`) to route searches
-// with the same `<custom-string>` to the same shards in the same order.
+// * `_shards:<shard>,<shard>` to run the search only on the specified shards.
+// You can combine this value with other `preference` values. However, the
+// `_shards` value must come first. For example: `_shards:2,3|_local`.
+// * `<custom-string>` (any string that does not start with `_`) to route
+// searches with the same `<custom-string>` to the same shards in the same
+// order.
 // API name: preference
 func (r *Search) Preference(preference string) *Search {
 	r.values.Set("preference", preference)
@@ -754,7 +755,7 @@ func (r *Search) FilterPath(filterpaths ...string) *Search {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

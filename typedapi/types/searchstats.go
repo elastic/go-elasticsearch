@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SearchStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/Stats.ts#L257-L276
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/Stats.ts#L279-L299
 type SearchStats struct {
 	FetchCurrent        int64                  `json:"fetch_current"`
 	FetchTime           Duration               `json:"fetch_time,omitempty"`
@@ -43,6 +43,7 @@ type SearchStats struct {
 	QueryTime           Duration               `json:"query_time,omitempty"`
 	QueryTimeInMillis   int64                  `json:"query_time_in_millis"`
 	QueryTotal          int64                  `json:"query_total"`
+	RecentSearchLoad    *Float64               `json:"recent_search_load,omitempty"`
 	ScrollCurrent       int64                  `json:"scroll_current"`
 	ScrollTime          Duration               `json:"scroll_time,omitempty"`
 	ScrollTimeInMillis  int64                  `json:"scroll_time_in_millis"`
@@ -171,6 +172,22 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 				s.QueryTotal = f
 			}
 
+		case "recent_search_load":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "RecentSearchLoad", err)
+				}
+				f := Float64(value)
+				s.RecentSearchLoad = &f
+			case float64:
+				f := Float64(v)
+				s.RecentSearchLoad = &f
+			}
+
 		case "scroll_current":
 			var tmp any
 			dec.Decode(&tmp)
@@ -264,5 +281,3 @@ func NewSearchStats() *SearchStats {
 
 	return r
 }
-
-// false

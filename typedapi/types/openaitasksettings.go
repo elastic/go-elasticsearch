@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // OpenAITaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L1057-L1063
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1598-L1604
 type OpenAITaskSettings struct {
 	// User For a `completion` or `text_embedding` task, specify the user issuing the
 	// request.
@@ -77,8 +77,6 @@ func NewOpenAITaskSettings() *OpenAITaskSettings {
 
 	return r
 }
-
-// true
 
 type OpenAITaskSettingsVariant interface {
 	OpenAITaskSettingsCaster() *OpenAITaskSettings

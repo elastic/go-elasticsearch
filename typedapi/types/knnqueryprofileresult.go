@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnQueryProfileResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/search/_types/profile.ts#L188-L196
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/search/_types/profile.ts#L188-L196
 type KnnQueryProfileResult struct {
 	Breakdown   KnnQueryProfileBreakdown   `json:"breakdown"`
 	Children    []KnnQueryProfileResult    `json:"children,omitempty"`
@@ -122,5 +122,3 @@ func NewKnnQueryProfileResult() *KnnQueryProfileResult {
 
 	return r
 }
-
-// false

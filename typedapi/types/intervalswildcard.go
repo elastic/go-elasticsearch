@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IntervalsWildcard type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/query_dsl/fulltext.ts#L268-L283
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/fulltext.ts#L319-L334
 type IntervalsWildcard struct {
 	// Analyzer Analyzer used to analyze the `pattern`.
 	// Defaults to the top-level field's analyzer.
@@ -100,8 +100,6 @@ func NewIntervalsWildcard() *IntervalsWildcard {
 
 	return r
 }
-
-// true
 
 type IntervalsWildcardVariant interface {
 	IntervalsWildcardCaster() *IntervalsWildcard

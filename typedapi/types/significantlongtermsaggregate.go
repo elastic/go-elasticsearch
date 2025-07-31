@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SignificantLongTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/aggregations/Aggregate.ts#L668-L670
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/aggregations/Aggregate.ts#L670-L672
 type SignificantLongTermsAggregate struct {
 	BgCount  *int64                            `json:"bg_count,omitempty"`
 	Buckets  BucketsSignificantLongTermsBucket `json:"buckets"`
@@ -121,5 +121,3 @@ func NewSignificantLongTermsAggregate() *SignificantLongTermsAggregate {
 
 	return r
 }
-
-// false

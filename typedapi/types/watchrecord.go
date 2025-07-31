@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // WatchRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/watcher/execute_watch/types.ts#L27-L39
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/watcher/execute_watch/types.ts#L27-L39
 type WatchRecord struct {
 	Condition    WatcherCondition                `json:"condition"`
 	Input        WatcherInput                    `json:"input"`
@@ -136,5 +136,3 @@ func NewWatchRecord() *WatchRecord {
 
 	return r
 }
-
-// false

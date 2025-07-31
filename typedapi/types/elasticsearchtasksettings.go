@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ElasticsearchTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L740-L746
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1251-L1257
 type ElasticsearchTaskSettings struct {
 	// ReturnDocuments For a `rerank` task, return the document instead of only the index.
 	ReturnDocuments *bool `json:"return_documents,omitempty"`
@@ -77,8 +77,6 @@ func NewElasticsearchTaskSettings() *ElasticsearchTaskSettings {
 
 	return r
 }
-
-// true
 
 type ElasticsearchTaskSettingsVariant interface {
 	ElasticsearchTaskSettingsCaster() *ElasticsearchTaskSettings

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -27,16 +27,25 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/tdigestexecutionhint"
 )
 
 // MedianAbsoluteDeviationAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/aggregations/metric.ts#L167-L176
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/aggregations/metric.ts#L173-L188
 type MedianAbsoluteDeviationAggregation struct {
 	// Compression Limits the maximum number of nodes used by the underlying TDigest algorithm
 	// to `20 * compression`, enabling control of memory usage and approximation
 	// error.
 	Compression *Float64 `json:"compression,omitempty"`
+	// ExecutionHint The default implementation of TDigest is optimized for performance, scaling
+	// to millions or even billions of sample values while maintaining acceptable
+	// accuracy levels (close to 1% relative error for millions of samples in some
+	// cases).
+	// To use an implementation optimized for accuracy, set this parameter to
+	// high_accuracy instead.
+	ExecutionHint *tdigestexecutionhint.TDigestExecutionHint `json:"execution_hint,omitempty"`
 	// Field The field on which to run the aggregation.
 	Field  *string `json:"field,omitempty"`
 	Format *string `json:"format,omitempty"`
@@ -77,6 +86,11 @@ func (s *MedianAbsoluteDeviationAggregation) UnmarshalJSON(data []byte) error {
 				s.Compression = &f
 			}
 
+		case "execution_hint":
+			if err := dec.Decode(&s.ExecutionHint); err != nil {
+				return fmt.Errorf("%s | %w", "ExecutionHint", err)
+			}
+
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
 				return fmt.Errorf("%s | %w", "Field", err)
@@ -115,8 +129,6 @@ func NewMedianAbsoluteDeviationAggregation() *MedianAbsoluteDeviationAggregation
 
 	return r
 }
-
-// true
 
 type MedianAbsoluteDeviationAggregationVariant interface {
 	MedianAbsoluteDeviationAggregationCaster() *MedianAbsoluteDeviationAggregation

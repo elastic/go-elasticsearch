@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CustomScheduling type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/connector/_types/Connector.ts#L120-L126
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/connector/_types/Connector.ts#L120-L126
 type CustomScheduling struct {
 	ConfigurationOverrides CustomSchedulingConfigurationOverrides `json:"configuration_overrides"`
 	Enabled                bool                                   `json:"enabled"`
@@ -114,5 +114,3 @@ func NewCustomScheduling() *CustomScheduling {
 
 	return r
 }
-
-// false

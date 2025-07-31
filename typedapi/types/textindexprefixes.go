@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TextIndexPrefixes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/mapping/core.ts#L298-L301
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/core.ts#L316-L319
 type TextIndexPrefixes struct {
 	MaxChars int `json:"max_chars"`
 	MinChars int `json:"min_chars"`
@@ -95,8 +95,6 @@ func NewTextIndexPrefixes() *TextIndexPrefixes {
 
 	return r
 }
-
-// true
 
 type TextIndexPrefixesVariant interface {
 	TextIndexPrefixesCaster() *TextIndexPrefixes

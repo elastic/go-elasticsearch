@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // MgetOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/mget/types.ts#L32-L55
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/mget/types.ts#L32-L55
 type MgetOperation struct {
 	// Id_ The unique document ID.
 	Id_ string `json:"_id"`
@@ -97,7 +97,7 @@ func (s *MgetOperation) UnmarshalJSON(data []byte) error {
 
 				switch t {
 
-				case "excludes", "includes":
+				case "exclude_vectors", "excludes", "includes":
 					o := NewSourceFilter()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
@@ -152,8 +152,6 @@ func NewMgetOperation() *MgetOperation {
 
 	return r
 }
-
-// true
 
 type MgetOperationVariant interface {
 	MgetOperationCaster() *MgetOperation

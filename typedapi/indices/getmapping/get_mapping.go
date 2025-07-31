@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Get mapping definitions.
 // For data streams, the API retrieves mappings for the stream’s backing
@@ -323,7 +323,6 @@ func (r *GetMapping) AllowNoIndices(allownoindices bool) *GetMapping {
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
 // Supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *GetMapping) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetMapping {
 	tmp := []string{}
@@ -386,7 +385,7 @@ func (r *GetMapping) FilterPath(filterpaths ...string) *GetMapping {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

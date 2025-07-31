@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndexSettingsLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/indices/_types/IndexSettings.ts#L284-L323
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/_types/IndexSettings.ts#L297-L336
 type IndexSettingsLifecycle struct {
 	// IndexingComplete Indicates whether or not the index has been rolled over. Automatically set to
 	// true when ILM completes the rollover action.
@@ -58,7 +58,7 @@ type IndexSettingsLifecycle struct {
 	// PreferIlm Preference for the system that manages a data stream backing index
 	// (preferring ILM when both ILM and DLM are
 	// applicable for an index).
-	PreferIlm string `json:"prefer_ilm,omitempty"`
+	PreferIlm *string `json:"prefer_ilm,omitempty"`
 	// RolloverAlias The index alias to update when the index rolls over. Specify when using a
 	// policy that contains a rollover action.
 	// When the index rolls over, the alias is updated to reflect that the index is
@@ -132,7 +132,7 @@ func (s *IndexSettingsLifecycle) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.PreferIlm = o
+			s.PreferIlm = &o
 
 		case "rollover_alias":
 			var tmp json.RawMessage
@@ -162,8 +162,6 @@ func NewIndexSettingsLifecycle() *IndexSettingsLifecycle {
 
 	return r
 }
-
-// true
 
 type IndexSettingsLifecycleVariant interface {
 	IndexSettingsLifecycleCaster() *IndexSettingsLifecycle

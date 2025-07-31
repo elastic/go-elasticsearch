@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
 // HourAndMinute type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/watcher/_types/Schedule.ts#L106-L109
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/watcher/_types/Schedule.ts#L106-L109
 type HourAndMinute struct {
 	Hour   []int `json:"hour"`
 	Minute []int `json:"minute"`
@@ -35,12 +35,15 @@ func NewHourAndMinute() *HourAndMinute {
 	return r
 }
 
-// true
-
 type HourAndMinuteVariant interface {
 	HourAndMinuteCaster() *HourAndMinute
 }
 
 func (s *HourAndMinute) HourAndMinuteCaster() *HourAndMinute {
 	return s
+}
+
+func (s *HourAndMinute) ScheduleTimeOfDayCaster() *ScheduleTimeOfDay {
+	o := ScheduleTimeOfDay(s)
+	return &o
 }

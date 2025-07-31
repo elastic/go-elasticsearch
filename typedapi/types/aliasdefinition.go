@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AliasDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/indices/_types/AliasDefinition.ts#L22-L54
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/_types/AliasDefinition.ts#L22-L54
 type AliasDefinition struct {
 	// Filter Query used to limit documents the alias can access.
 	Filter *Query `json:"filter,omitempty"`
@@ -145,8 +145,6 @@ func NewAliasDefinition() *AliasDefinition {
 
 	return r
 }
-
-// true
 
 type AliasDefinitionVariant interface {
 	AliasDefinitionCaster() *AliasDefinition

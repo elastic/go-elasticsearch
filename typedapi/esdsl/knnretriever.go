@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -68,6 +68,13 @@ func (s *_knnRetriever) K(k int) *_knnRetriever {
 func (s *_knnRetriever) MinScore(minscore float32) *_knnRetriever {
 
 	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_knnRetriever) Name_(name_ string) *_knnRetriever {
+
+	s.v.Name_ = &name_
 
 	return s
 }

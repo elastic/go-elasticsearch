@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,10 +31,12 @@ import (
 
 // JvmMemoryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/nodes/_types/Stats.ts#L918-L947
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/nodes/_types/Stats.ts#L920-L954
 type JvmMemoryStats struct {
 	// HeapCommittedInBytes Amount of memory, in bytes, available for use by the heap.
 	HeapCommittedInBytes *int64 `json:"heap_committed_in_bytes,omitempty"`
+	// HeapMax Maximum amount of memory, available for use by the heap.
+	HeapMax ByteSize `json:"heap_max,omitempty"`
 	// HeapMaxInBytes Maximum amount of memory, in bytes, available for use by the heap.
 	HeapMaxInBytes *int64 `json:"heap_max_in_bytes,omitempty"`
 	// HeapUsedInBytes Memory, in bytes, currently in use by the heap.
@@ -77,6 +79,11 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.HeapCommittedInBytes = &f
+			}
+
+		case "heap_max":
+			if err := dec.Decode(&s.HeapMax); err != nil {
+				return fmt.Errorf("%s | %w", "HeapMax", err)
 			}
 
 		case "heap_max_in_bytes":
@@ -175,5 +182,3 @@ func NewJvmMemoryStats() *JvmMemoryStats {
 
 	return r
 }
-
-// false

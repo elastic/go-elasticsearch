@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // CohereTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L650-L682
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L870-L902
 type CohereTaskSettings struct {
 	// InputType For a `text_embedding` task, the type of input passed to the model.
 	// Valid values are:
@@ -135,8 +135,6 @@ func NewCohereTaskSettings() *CohereTaskSettings {
 
 	return r
 }
-
-// true
 
 type CohereTaskSettingsVariant interface {
 	CohereTaskSettingsCaster() *CohereTaskSettings

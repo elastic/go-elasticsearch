@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -40,7 +40,7 @@ func (u *_indicesPrivilegesQuery) String(string string) *_indicesPrivilegesQuery
 
 func (u *_indicesPrivilegesQuery) Query(query types.QueryVariant) *_indicesPrivilegesQuery {
 
-	u.v = &query
+	u.v = query.QueryCaster()
 
 	return u
 }
@@ -53,7 +53,7 @@ func (u *_query) IndicesPrivilegesQueryCaster() *types.IndicesPrivilegesQuery {
 
 func (u *_indicesPrivilegesQuery) RoleTemplateQuery(roletemplatequery types.RoleTemplateQueryVariant) *_indicesPrivilegesQuery {
 
-	u.v = &roletemplatequery
+	u.v = roletemplatequery.RoleTemplateQueryCaster()
 
 	return u
 }

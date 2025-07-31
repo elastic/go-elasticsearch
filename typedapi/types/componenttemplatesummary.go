@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -30,14 +30,15 @@ import (
 
 // ComponentTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/cluster/_types/ComponentTemplate.ts#L43-L55
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cluster/_types/ComponentTemplate.ts#L44-L61
 type ComponentTemplateSummary struct {
-	Aliases   map[string]AliasDefinition       `json:"aliases,omitempty"`
-	Lifecycle *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
-	Mappings  *TypeMapping                     `json:"mappings,omitempty"`
-	Meta_     Metadata                         `json:"_meta,omitempty"`
-	Settings  map[string]IndexSettings         `json:"settings,omitempty"`
-	Version   *int64                           `json:"version,omitempty"`
+	Aliases           map[string]AliasDefinition       `json:"aliases,omitempty"`
+	DataStreamOptions *DataStreamOptionsTemplate       `json:"data_stream_options,omitempty"`
+	Lifecycle         *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
+	Mappings          *TypeMapping                     `json:"mappings,omitempty"`
+	Meta_             Metadata                         `json:"_meta,omitempty"`
+	Settings          map[string]IndexSettings         `json:"settings,omitempty"`
+	Version           *int64                           `json:"version,omitempty"`
 }
 
 func (s *ComponentTemplateSummary) UnmarshalJSON(data []byte) error {
@@ -61,6 +62,11 @@ func (s *ComponentTemplateSummary) UnmarshalJSON(data []byte) error {
 			}
 			if err := dec.Decode(&s.Aliases); err != nil {
 				return fmt.Errorf("%s | %w", "Aliases", err)
+			}
+
+		case "data_stream_options":
+			if err := dec.Decode(&s.DataStreamOptions); err != nil {
+				return fmt.Errorf("%s | %w", "DataStreamOptions", err)
 			}
 
 		case "lifecycle":
@@ -105,8 +111,6 @@ func NewComponentTemplateSummary() *ComponentTemplateSummary {
 
 	return r
 }
-
-// true
 
 type ComponentTemplateSummaryVariant interface {
 	ComponentTemplateSummaryCaster() *ComponentTemplateSummary

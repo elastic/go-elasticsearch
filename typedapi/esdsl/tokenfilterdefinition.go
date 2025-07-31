@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -42,9 +42,48 @@ func (u *_tokenFilterDefinition) UnknownTokenFilterDefinition(unknown json.RawMe
 	return u
 }
 
+func (u *_tokenFilterDefinition) ApostropheTokenFilter(apostrophetokenfilter types.ApostropheTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = apostrophetokenfilter.ApostropheTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for ApostropheTokenFilter in TokenFilterDefinition union
+func (u *_apostropheTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) ArabicStemTokenFilter(arabicstemtokenfilter types.ArabicStemTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = arabicstemtokenfilter.ArabicStemTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for ArabicStemTokenFilter in TokenFilterDefinition union
+func (u *_arabicStemTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) ArabicNormalizationTokenFilter(arabicnormalizationtokenfilter types.ArabicNormalizationTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = arabicnormalizationtokenfilter.ArabicNormalizationTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for ArabicNormalizationTokenFilter in TokenFilterDefinition union
+func (u *_arabicNormalizationTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
 func (u *_tokenFilterDefinition) AsciiFoldingTokenFilter(asciifoldingtokenfilter types.AsciiFoldingTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &asciifoldingtokenfilter
+	u.v = asciifoldingtokenfilter.AsciiFoldingTokenFilterCaster()
 
 	return u
 }
@@ -55,9 +94,74 @@ func (u *_asciiFoldingTokenFilter) TokenFilterDefinitionCaster() *types.TokenFil
 	return &t
 }
 
+func (u *_tokenFilterDefinition) BengaliNormalizationTokenFilter(bengalinormalizationtokenfilter types.BengaliNormalizationTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = bengalinormalizationtokenfilter.BengaliNormalizationTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for BengaliNormalizationTokenFilter in TokenFilterDefinition union
+func (u *_bengaliNormalizationTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) BrazilianStemTokenFilter(brazilianstemtokenfilter types.BrazilianStemTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = brazilianstemtokenfilter.BrazilianStemTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for BrazilianStemTokenFilter in TokenFilterDefinition union
+func (u *_brazilianStemTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) CjkBigramTokenFilter(cjkbigramtokenfilter types.CjkBigramTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = cjkbigramtokenfilter.CjkBigramTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for CjkBigramTokenFilter in TokenFilterDefinition union
+func (u *_cjkBigramTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) CjkWidthTokenFilter(cjkwidthtokenfilter types.CjkWidthTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = cjkwidthtokenfilter.CjkWidthTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for CjkWidthTokenFilter in TokenFilterDefinition union
+func (u *_cjkWidthTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) ClassicTokenFilter(classictokenfilter types.ClassicTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = classictokenfilter.ClassicTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for ClassicTokenFilter in TokenFilterDefinition union
+func (u *_classicTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
 func (u *_tokenFilterDefinition) CommonGramsTokenFilter(commongramstokenfilter types.CommonGramsTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &commongramstokenfilter
+	u.v = commongramstokenfilter.CommonGramsTokenFilterCaster()
 
 	return u
 }
@@ -70,7 +174,7 @@ func (u *_commonGramsTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilt
 
 func (u *_tokenFilterDefinition) ConditionTokenFilter(conditiontokenfilter types.ConditionTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &conditiontokenfilter
+	u.v = conditiontokenfilter.ConditionTokenFilterCaster()
 
 	return u
 }
@@ -81,9 +185,35 @@ func (u *_conditionTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilter
 	return &t
 }
 
+func (u *_tokenFilterDefinition) CzechStemTokenFilter(czechstemtokenfilter types.CzechStemTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = czechstemtokenfilter.CzechStemTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for CzechStemTokenFilter in TokenFilterDefinition union
+func (u *_czechStemTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) DecimalDigitTokenFilter(decimaldigittokenfilter types.DecimalDigitTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = decimaldigittokenfilter.DecimalDigitTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for DecimalDigitTokenFilter in TokenFilterDefinition union
+func (u *_decimalDigitTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
 func (u *_tokenFilterDefinition) DelimitedPayloadTokenFilter(delimitedpayloadtokenfilter types.DelimitedPayloadTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &delimitedpayloadtokenfilter
+	u.v = delimitedpayloadtokenfilter.DelimitedPayloadTokenFilterCaster()
 
 	return u
 }
@@ -94,9 +224,22 @@ func (u *_delimitedPayloadTokenFilter) TokenFilterDefinitionCaster() *types.Toke
 	return &t
 }
 
+func (u *_tokenFilterDefinition) DutchStemTokenFilter(dutchstemtokenfilter types.DutchStemTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = dutchstemtokenfilter.DutchStemTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for DutchStemTokenFilter in TokenFilterDefinition union
+func (u *_dutchStemTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
 func (u *_tokenFilterDefinition) EdgeNGramTokenFilter(edgengramtokenfilter types.EdgeNGramTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &edgengramtokenfilter
+	u.v = edgengramtokenfilter.EdgeNGramTokenFilterCaster()
 
 	return u
 }
@@ -109,7 +252,7 @@ func (u *_edgeNGramTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilter
 
 func (u *_tokenFilterDefinition) ElisionTokenFilter(elisiontokenfilter types.ElisionTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &elisiontokenfilter
+	u.v = elisiontokenfilter.ElisionTokenFilterCaster()
 
 	return u
 }
@@ -122,7 +265,7 @@ func (u *_elisionTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDe
 
 func (u *_tokenFilterDefinition) FingerprintTokenFilter(fingerprinttokenfilter types.FingerprintTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &fingerprinttokenfilter
+	u.v = fingerprinttokenfilter.FingerprintTokenFilterCaster()
 
 	return u
 }
@@ -133,9 +276,74 @@ func (u *_fingerprintTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilt
 	return &t
 }
 
+func (u *_tokenFilterDefinition) FlattenGraphTokenFilter(flattengraphtokenfilter types.FlattenGraphTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = flattengraphtokenfilter.FlattenGraphTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for FlattenGraphTokenFilter in TokenFilterDefinition union
+func (u *_flattenGraphTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) FrenchStemTokenFilter(frenchstemtokenfilter types.FrenchStemTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = frenchstemtokenfilter.FrenchStemTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for FrenchStemTokenFilter in TokenFilterDefinition union
+func (u *_frenchStemTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) GermanNormalizationTokenFilter(germannormalizationtokenfilter types.GermanNormalizationTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = germannormalizationtokenfilter.GermanNormalizationTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for GermanNormalizationTokenFilter in TokenFilterDefinition union
+func (u *_germanNormalizationTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) GermanStemTokenFilter(germanstemtokenfilter types.GermanStemTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = germanstemtokenfilter.GermanStemTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for GermanStemTokenFilter in TokenFilterDefinition union
+func (u *_germanStemTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) HindiNormalizationTokenFilter(hindinormalizationtokenfilter types.HindiNormalizationTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = hindinormalizationtokenfilter.HindiNormalizationTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for HindiNormalizationTokenFilter in TokenFilterDefinition union
+func (u *_hindiNormalizationTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
 func (u *_tokenFilterDefinition) HunspellTokenFilter(hunspelltokenfilter types.HunspellTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &hunspelltokenfilter
+	u.v = hunspelltokenfilter.HunspellTokenFilterCaster()
 
 	return u
 }
@@ -148,7 +356,7 @@ func (u *_hunspellTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterD
 
 func (u *_tokenFilterDefinition) HyphenationDecompounderTokenFilter(hyphenationdecompoundertokenfilter types.HyphenationDecompounderTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &hyphenationdecompoundertokenfilter
+	u.v = hyphenationdecompoundertokenfilter.HyphenationDecompounderTokenFilterCaster()
 
 	return u
 }
@@ -159,9 +367,22 @@ func (u *_hyphenationDecompounderTokenFilter) TokenFilterDefinitionCaster() *typ
 	return &t
 }
 
+func (u *_tokenFilterDefinition) IndicNormalizationTokenFilter(indicnormalizationtokenfilter types.IndicNormalizationTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = indicnormalizationtokenfilter.IndicNormalizationTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for IndicNormalizationTokenFilter in TokenFilterDefinition union
+func (u *_indicNormalizationTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
 func (u *_tokenFilterDefinition) KeepTypesTokenFilter(keeptypestokenfilter types.KeepTypesTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &keeptypestokenfilter
+	u.v = keeptypestokenfilter.KeepTypesTokenFilterCaster()
 
 	return u
 }
@@ -174,7 +395,7 @@ func (u *_keepTypesTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilter
 
 func (u *_tokenFilterDefinition) KeepWordsTokenFilter(keepwordstokenfilter types.KeepWordsTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &keepwordstokenfilter
+	u.v = keepwordstokenfilter.KeepWordsTokenFilterCaster()
 
 	return u
 }
@@ -187,7 +408,7 @@ func (u *_keepWordsTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilter
 
 func (u *_tokenFilterDefinition) KeywordMarkerTokenFilter(keywordmarkertokenfilter types.KeywordMarkerTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &keywordmarkertokenfilter
+	u.v = keywordmarkertokenfilter.KeywordMarkerTokenFilterCaster()
 
 	return u
 }
@@ -198,9 +419,22 @@ func (u *_keywordMarkerTokenFilter) TokenFilterDefinitionCaster() *types.TokenFi
 	return &t
 }
 
+func (u *_tokenFilterDefinition) KeywordRepeatTokenFilter(keywordrepeattokenfilter types.KeywordRepeatTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = keywordrepeattokenfilter.KeywordRepeatTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for KeywordRepeatTokenFilter in TokenFilterDefinition union
+func (u *_keywordRepeatTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
 func (u *_tokenFilterDefinition) KStemTokenFilter(kstemtokenfilter types.KStemTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &kstemtokenfilter
+	u.v = kstemtokenfilter.KStemTokenFilterCaster()
 
 	return u
 }
@@ -213,7 +447,7 @@ func (u *_kStemTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefi
 
 func (u *_tokenFilterDefinition) LengthTokenFilter(lengthtokenfilter types.LengthTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &lengthtokenfilter
+	u.v = lengthtokenfilter.LengthTokenFilterCaster()
 
 	return u
 }
@@ -226,7 +460,7 @@ func (u *_lengthTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDef
 
 func (u *_tokenFilterDefinition) LimitTokenCountTokenFilter(limittokencounttokenfilter types.LimitTokenCountTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &limittokencounttokenfilter
+	u.v = limittokencounttokenfilter.LimitTokenCountTokenFilterCaster()
 
 	return u
 }
@@ -239,7 +473,7 @@ func (u *_limitTokenCountTokenFilter) TokenFilterDefinitionCaster() *types.Token
 
 func (u *_tokenFilterDefinition) LowercaseTokenFilter(lowercasetokenfilter types.LowercaseTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &lowercasetokenfilter
+	u.v = lowercasetokenfilter.LowercaseTokenFilterCaster()
 
 	return u
 }
@@ -250,9 +484,22 @@ func (u *_lowercaseTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilter
 	return &t
 }
 
+func (u *_tokenFilterDefinition) MinHashTokenFilter(minhashtokenfilter types.MinHashTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = minhashtokenfilter.MinHashTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for MinHashTokenFilter in TokenFilterDefinition union
+func (u *_minHashTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
 func (u *_tokenFilterDefinition) MultiplexerTokenFilter(multiplexertokenfilter types.MultiplexerTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &multiplexertokenfilter
+	u.v = multiplexertokenfilter.MultiplexerTokenFilterCaster()
 
 	return u
 }
@@ -265,7 +512,7 @@ func (u *_multiplexerTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilt
 
 func (u *_tokenFilterDefinition) NGramTokenFilter(ngramtokenfilter types.NGramTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &ngramtokenfilter
+	u.v = ngramtokenfilter.NGramTokenFilterCaster()
 
 	return u
 }
@@ -278,7 +525,7 @@ func (u *_nGramTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefi
 
 func (u *_tokenFilterDefinition) NoriPartOfSpeechTokenFilter(noripartofspeechtokenfilter types.NoriPartOfSpeechTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &noripartofspeechtokenfilter
+	u.v = noripartofspeechtokenfilter.NoriPartOfSpeechTokenFilterCaster()
 
 	return u
 }
@@ -291,7 +538,7 @@ func (u *_noriPartOfSpeechTokenFilter) TokenFilterDefinitionCaster() *types.Toke
 
 func (u *_tokenFilterDefinition) PatternCaptureTokenFilter(patterncapturetokenfilter types.PatternCaptureTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &patterncapturetokenfilter
+	u.v = patterncapturetokenfilter.PatternCaptureTokenFilterCaster()
 
 	return u
 }
@@ -304,7 +551,7 @@ func (u *_patternCaptureTokenFilter) TokenFilterDefinitionCaster() *types.TokenF
 
 func (u *_tokenFilterDefinition) PatternReplaceTokenFilter(patternreplacetokenfilter types.PatternReplaceTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &patternreplacetokenfilter
+	u.v = patternreplacetokenfilter.PatternReplaceTokenFilterCaster()
 
 	return u
 }
@@ -315,9 +562,35 @@ func (u *_patternReplaceTokenFilter) TokenFilterDefinitionCaster() *types.TokenF
 	return &t
 }
 
+func (u *_tokenFilterDefinition) PersianNormalizationTokenFilter(persiannormalizationtokenfilter types.PersianNormalizationTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = persiannormalizationtokenfilter.PersianNormalizationTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for PersianNormalizationTokenFilter in TokenFilterDefinition union
+func (u *_persianNormalizationTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) PersianStemTokenFilter(persianstemtokenfilter types.PersianStemTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = persianstemtokenfilter.PersianStemTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for PersianStemTokenFilter in TokenFilterDefinition union
+func (u *_persianStemTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
 func (u *_tokenFilterDefinition) PorterStemTokenFilter(porterstemtokenfilter types.PorterStemTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &porterstemtokenfilter
+	u.v = porterstemtokenfilter.PorterStemTokenFilterCaster()
 
 	return u
 }
@@ -330,7 +603,7 @@ func (u *_porterStemTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilte
 
 func (u *_tokenFilterDefinition) PredicateTokenFilter(predicatetokenfilter types.PredicateTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &predicatetokenfilter
+	u.v = predicatetokenfilter.PredicateTokenFilterCaster()
 
 	return u
 }
@@ -343,7 +616,7 @@ func (u *_predicateTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilter
 
 func (u *_tokenFilterDefinition) RemoveDuplicatesTokenFilter(removeduplicatestokenfilter types.RemoveDuplicatesTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &removeduplicatestokenfilter
+	u.v = removeduplicatestokenfilter.RemoveDuplicatesTokenFilterCaster()
 
 	return u
 }
@@ -356,7 +629,7 @@ func (u *_removeDuplicatesTokenFilter) TokenFilterDefinitionCaster() *types.Toke
 
 func (u *_tokenFilterDefinition) ReverseTokenFilter(reversetokenfilter types.ReverseTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &reversetokenfilter
+	u.v = reversetokenfilter.ReverseTokenFilterCaster()
 
 	return u
 }
@@ -367,9 +640,61 @@ func (u *_reverseTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDe
 	return &t
 }
 
+func (u *_tokenFilterDefinition) RussianStemTokenFilter(russianstemtokenfilter types.RussianStemTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = russianstemtokenfilter.RussianStemTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for RussianStemTokenFilter in TokenFilterDefinition union
+func (u *_russianStemTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) ScandinavianFoldingTokenFilter(scandinavianfoldingtokenfilter types.ScandinavianFoldingTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = scandinavianfoldingtokenfilter.ScandinavianFoldingTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for ScandinavianFoldingTokenFilter in TokenFilterDefinition union
+func (u *_scandinavianFoldingTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) ScandinavianNormalizationTokenFilter(scandinaviannormalizationtokenfilter types.ScandinavianNormalizationTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = scandinaviannormalizationtokenfilter.ScandinavianNormalizationTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for ScandinavianNormalizationTokenFilter in TokenFilterDefinition union
+func (u *_scandinavianNormalizationTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
+func (u *_tokenFilterDefinition) SerbianNormalizationTokenFilter(serbiannormalizationtokenfilter types.SerbianNormalizationTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = serbiannormalizationtokenfilter.SerbianNormalizationTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for SerbianNormalizationTokenFilter in TokenFilterDefinition union
+func (u *_serbianNormalizationTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
 func (u *_tokenFilterDefinition) ShingleTokenFilter(shingletokenfilter types.ShingleTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &shingletokenfilter
+	u.v = shingletokenfilter.ShingleTokenFilterCaster()
 
 	return u
 }
@@ -382,7 +707,7 @@ func (u *_shingleTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDe
 
 func (u *_tokenFilterDefinition) SnowballTokenFilter(snowballtokenfilter types.SnowballTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &snowballtokenfilter
+	u.v = snowballtokenfilter.SnowballTokenFilterCaster()
 
 	return u
 }
@@ -393,9 +718,22 @@ func (u *_snowballTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterD
 	return &t
 }
 
+func (u *_tokenFilterDefinition) SoraniNormalizationTokenFilter(soraninormalizationtokenfilter types.SoraniNormalizationTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = soraninormalizationtokenfilter.SoraniNormalizationTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for SoraniNormalizationTokenFilter in TokenFilterDefinition union
+func (u *_soraniNormalizationTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
 func (u *_tokenFilterDefinition) StemmerOverrideTokenFilter(stemmeroverridetokenfilter types.StemmerOverrideTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &stemmeroverridetokenfilter
+	u.v = stemmeroverridetokenfilter.StemmerOverrideTokenFilterCaster()
 
 	return u
 }
@@ -408,7 +746,7 @@ func (u *_stemmerOverrideTokenFilter) TokenFilterDefinitionCaster() *types.Token
 
 func (u *_tokenFilterDefinition) StemmerTokenFilter(stemmertokenfilter types.StemmerTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &stemmertokenfilter
+	u.v = stemmertokenfilter.StemmerTokenFilterCaster()
 
 	return u
 }
@@ -421,7 +759,7 @@ func (u *_stemmerTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDe
 
 func (u *_tokenFilterDefinition) StopTokenFilter(stoptokenfilter types.StopTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &stoptokenfilter
+	u.v = stoptokenfilter.StopTokenFilterCaster()
 
 	return u
 }
@@ -434,7 +772,7 @@ func (u *_stopTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefin
 
 func (u *_tokenFilterDefinition) SynonymGraphTokenFilter(synonymgraphtokenfilter types.SynonymGraphTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &synonymgraphtokenfilter
+	u.v = synonymgraphtokenfilter.SynonymGraphTokenFilterCaster()
 
 	return u
 }
@@ -447,7 +785,7 @@ func (u *_synonymGraphTokenFilter) TokenFilterDefinitionCaster() *types.TokenFil
 
 func (u *_tokenFilterDefinition) SynonymTokenFilter(synonymtokenfilter types.SynonymTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &synonymtokenfilter
+	u.v = synonymtokenfilter.SynonymTokenFilterCaster()
 
 	return u
 }
@@ -460,7 +798,7 @@ func (u *_synonymTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDe
 
 func (u *_tokenFilterDefinition) TrimTokenFilter(trimtokenfilter types.TrimTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &trimtokenfilter
+	u.v = trimtokenfilter.TrimTokenFilterCaster()
 
 	return u
 }
@@ -473,7 +811,7 @@ func (u *_trimTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefin
 
 func (u *_tokenFilterDefinition) TruncateTokenFilter(truncatetokenfilter types.TruncateTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &truncatetokenfilter
+	u.v = truncatetokenfilter.TruncateTokenFilterCaster()
 
 	return u
 }
@@ -486,7 +824,7 @@ func (u *_truncateTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterD
 
 func (u *_tokenFilterDefinition) UniqueTokenFilter(uniquetokenfilter types.UniqueTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &uniquetokenfilter
+	u.v = uniquetokenfilter.UniqueTokenFilterCaster()
 
 	return u
 }
@@ -499,7 +837,7 @@ func (u *_uniqueTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDef
 
 func (u *_tokenFilterDefinition) UppercaseTokenFilter(uppercasetokenfilter types.UppercaseTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &uppercasetokenfilter
+	u.v = uppercasetokenfilter.UppercaseTokenFilterCaster()
 
 	return u
 }
@@ -512,7 +850,7 @@ func (u *_uppercaseTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilter
 
 func (u *_tokenFilterDefinition) WordDelimiterGraphTokenFilter(worddelimitergraphtokenfilter types.WordDelimiterGraphTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &worddelimitergraphtokenfilter
+	u.v = worddelimitergraphtokenfilter.WordDelimiterGraphTokenFilterCaster()
 
 	return u
 }
@@ -525,7 +863,7 @@ func (u *_wordDelimiterGraphTokenFilter) TokenFilterDefinitionCaster() *types.To
 
 func (u *_tokenFilterDefinition) WordDelimiterTokenFilter(worddelimitertokenfilter types.WordDelimiterTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &worddelimitertokenfilter
+	u.v = worddelimitertokenfilter.WordDelimiterTokenFilterCaster()
 
 	return u
 }
@@ -536,9 +874,22 @@ func (u *_wordDelimiterTokenFilter) TokenFilterDefinitionCaster() *types.TokenFi
 	return &t
 }
 
+func (u *_tokenFilterDefinition) JaStopTokenFilter(jastoptokenfilter types.JaStopTokenFilterVariant) *_tokenFilterDefinition {
+
+	u.v = jastoptokenfilter.JaStopTokenFilterCaster()
+
+	return u
+}
+
+// Interface implementation for JaStopTokenFilter in TokenFilterDefinition union
+func (u *_jaStopTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterDefinition {
+	t := types.TokenFilterDefinition(u.v)
+	return &t
+}
+
 func (u *_tokenFilterDefinition) KuromojiStemmerTokenFilter(kuromojistemmertokenfilter types.KuromojiStemmerTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &kuromojistemmertokenfilter
+	u.v = kuromojistemmertokenfilter.KuromojiStemmerTokenFilterCaster()
 
 	return u
 }
@@ -551,7 +902,7 @@ func (u *_kuromojiStemmerTokenFilter) TokenFilterDefinitionCaster() *types.Token
 
 func (u *_tokenFilterDefinition) KuromojiReadingFormTokenFilter(kuromojireadingformtokenfilter types.KuromojiReadingFormTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &kuromojireadingformtokenfilter
+	u.v = kuromojireadingformtokenfilter.KuromojiReadingFormTokenFilterCaster()
 
 	return u
 }
@@ -564,7 +915,7 @@ func (u *_kuromojiReadingFormTokenFilter) TokenFilterDefinitionCaster() *types.T
 
 func (u *_tokenFilterDefinition) KuromojiPartOfSpeechTokenFilter(kuromojipartofspeechtokenfilter types.KuromojiPartOfSpeechTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &kuromojipartofspeechtokenfilter
+	u.v = kuromojipartofspeechtokenfilter.KuromojiPartOfSpeechTokenFilterCaster()
 
 	return u
 }
@@ -577,7 +928,7 @@ func (u *_kuromojiPartOfSpeechTokenFilter) TokenFilterDefinitionCaster() *types.
 
 func (u *_tokenFilterDefinition) IcuCollationTokenFilter(icucollationtokenfilter types.IcuCollationTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &icucollationtokenfilter
+	u.v = icucollationtokenfilter.IcuCollationTokenFilterCaster()
 
 	return u
 }
@@ -590,7 +941,7 @@ func (u *_icuCollationTokenFilter) TokenFilterDefinitionCaster() *types.TokenFil
 
 func (u *_tokenFilterDefinition) IcuFoldingTokenFilter(icufoldingtokenfilter types.IcuFoldingTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &icufoldingtokenfilter
+	u.v = icufoldingtokenfilter.IcuFoldingTokenFilterCaster()
 
 	return u
 }
@@ -603,7 +954,7 @@ func (u *_icuFoldingTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilte
 
 func (u *_tokenFilterDefinition) IcuNormalizationTokenFilter(icunormalizationtokenfilter types.IcuNormalizationTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &icunormalizationtokenfilter
+	u.v = icunormalizationtokenfilter.IcuNormalizationTokenFilterCaster()
 
 	return u
 }
@@ -616,7 +967,7 @@ func (u *_icuNormalizationTokenFilter) TokenFilterDefinitionCaster() *types.Toke
 
 func (u *_tokenFilterDefinition) IcuTransformTokenFilter(icutransformtokenfilter types.IcuTransformTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &icutransformtokenfilter
+	u.v = icutransformtokenfilter.IcuTransformTokenFilterCaster()
 
 	return u
 }
@@ -629,7 +980,7 @@ func (u *_icuTransformTokenFilter) TokenFilterDefinitionCaster() *types.TokenFil
 
 func (u *_tokenFilterDefinition) PhoneticTokenFilter(phonetictokenfilter types.PhoneticTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &phonetictokenfilter
+	u.v = phonetictokenfilter.PhoneticTokenFilterCaster()
 
 	return u
 }
@@ -642,7 +993,7 @@ func (u *_phoneticTokenFilter) TokenFilterDefinitionCaster() *types.TokenFilterD
 
 func (u *_tokenFilterDefinition) DictionaryDecompounderTokenFilter(dictionarydecompoundertokenfilter types.DictionaryDecompounderTokenFilterVariant) *_tokenFilterDefinition {
 
-	u.v = &dictionarydecompoundertokenfilter
+	u.v = dictionarydecompoundertokenfilter.DictionaryDecompounderTokenFilterCaster()
 
 	return u
 }

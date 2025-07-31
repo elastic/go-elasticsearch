@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,11 +31,11 @@ import (
 
 // SuggestContext type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/mapping/specialized.ts#L43-L48
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/specialized.ts#L43-L48
 type SuggestContext struct {
 	Name      string  `json:"name"`
 	Path      *string `json:"path,omitempty"`
-	Precision string  `json:"precision,omitempty"`
+	Precision *string `json:"precision,omitempty"`
 	Type      string  `json:"type"`
 }
 
@@ -74,7 +74,7 @@ func (s *SuggestContext) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Precision = o
+			s.Precision = &o
 
 		case "type":
 			var tmp json.RawMessage
@@ -99,8 +99,6 @@ func NewSuggestContext() *SuggestContext {
 
 	return r
 }
-
-// true
 
 type SuggestContextVariant interface {
 	SuggestContextCaster() *SuggestContext

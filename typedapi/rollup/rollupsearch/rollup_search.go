@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Search rolled-up data.
 // The rollup search endpoint is needed because, internally, rolled-up documents
@@ -33,37 +33,9 @@
 // `highlighter`, `suggestors`, `post_filter`, `profile`, `explain`: These are
 // similarly disallowed.
 //
-// **Searching both historical rollup and non-rollup data**
-//
-// The rollup search API has the capability to search across both "live"
-// non-rollup data and the aggregated rollup data.
-// This is done by simply adding the live indices to the URI. For example:
-//
-// ```
-// GET sensor-1,sensor_rollup/_rollup_search
-//
-//	{
-//	  "size": 0,
-//	  "aggregations": {
-//	     "max_temperature": {
-//	      "max": {
-//	        "field": "temperature"
-//	      }
-//	    }
-//	  }
-//	}
-//
-// ```
-//
-// The rollup search endpoint does two things when the search runs:
-//
-// * The original request is sent to the non-rollup index unaltered.
-// * A rewritten version of the original request is sent to the rollup index.
-//
-// When the two responses are received, the endpoint rewrites the rollup
-// response and merges the two together.
-// During the merging process, if there is any overlap in buckets between the
-// two responses, the buckets from the non-rollup index are used.
+// For more detailed examples of using the rollup search API, including querying
+// rolled-up data only or combining rolled-up and live data, refer to the
+// External documentation.
 package rollupsearch
 
 import (
@@ -141,37 +113,9 @@ func NewRollupSearchFunc(tp elastictransport.Interface) NewRollupSearch {
 // `highlighter`, `suggestors`, `post_filter`, `profile`, `explain`: These are
 // similarly disallowed.
 //
-// **Searching both historical rollup and non-rollup data**
-//
-// The rollup search API has the capability to search across both "live"
-// non-rollup data and the aggregated rollup data.
-// This is done by simply adding the live indices to the URI. For example:
-//
-// ```
-// GET sensor-1,sensor_rollup/_rollup_search
-//
-//	{
-//	  "size": 0,
-//	  "aggregations": {
-//	     "max_temperature": {
-//	      "max": {
-//	        "field": "temperature"
-//	      }
-//	    }
-//	  }
-//	}
-//
-// ```
-//
-// The rollup search endpoint does two things when the search runs:
-//
-// * The original request is sent to the non-rollup index unaltered.
-// * A rewritten version of the original request is sent to the rollup index.
-//
-// When the two responses are received, the endpoint rewrites the rollup
-// response and merges the two together.
-// During the merging process, if there is any overlap in buckets between the
-// two responses, the buckets from the non-rollup index are used.
+// For more detailed examples of using the rollup search API, including querying
+// rolled-up data only or combining rolled-up and live data, refer to the
+// External documentation.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-rollup-search
 func New(tp elastictransport.Interface) *RollupSearch {
@@ -457,7 +401,7 @@ func (r *RollupSearch) FilterPath(filterpaths ...string) *RollupSearch {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -26,6 +26,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/icunormalizationmode"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/icunormalizationtype"
@@ -33,12 +34,13 @@ import (
 
 // IcuNormalizationCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/icu-plugin.ts#L40-L44
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/icu-plugin.ts#L40-L45
 type IcuNormalizationCharFilter struct {
-	Mode    *icunormalizationmode.IcuNormalizationMode `json:"mode,omitempty"`
-	Name    *icunormalizationtype.IcuNormalizationType `json:"name,omitempty"`
-	Type    string                                     `json:"type,omitempty"`
-	Version *string                                    `json:"version,omitempty"`
+	Mode             *icunormalizationmode.IcuNormalizationMode `json:"mode,omitempty"`
+	Name             *icunormalizationtype.IcuNormalizationType `json:"name,omitempty"`
+	Type             string                                     `json:"type,omitempty"`
+	UnicodeSetFilter *string                                    `json:"unicode_set_filter,omitempty"`
+	Version          *string                                    `json:"version,omitempty"`
 }
 
 func (s *IcuNormalizationCharFilter) UnmarshalJSON(data []byte) error {
@@ -71,6 +73,18 @@ func (s *IcuNormalizationCharFilter) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
+		case "unicode_set_filter":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "UnicodeSetFilter", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.UnicodeSetFilter = &o
+
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
 				return fmt.Errorf("%s | %w", "Version", err)
@@ -85,10 +99,11 @@ func (s *IcuNormalizationCharFilter) UnmarshalJSON(data []byte) error {
 func (s IcuNormalizationCharFilter) MarshalJSON() ([]byte, error) {
 	type innerIcuNormalizationCharFilter IcuNormalizationCharFilter
 	tmp := innerIcuNormalizationCharFilter{
-		Mode:    s.Mode,
-		Name:    s.Name,
-		Type:    s.Type,
-		Version: s.Version,
+		Mode:             s.Mode,
+		Name:             s.Name,
+		Type:             s.Type,
+		UnicodeSetFilter: s.UnicodeSetFilter,
+		Version:          s.Version,
 	}
 
 	tmp.Type = "icu_normalizer"
@@ -103,12 +118,15 @@ func NewIcuNormalizationCharFilter() *IcuNormalizationCharFilter {
 	return r
 }
 
-// true
-
 type IcuNormalizationCharFilterVariant interface {
 	IcuNormalizationCharFilterCaster() *IcuNormalizationCharFilter
 }
 
 func (s *IcuNormalizationCharFilter) IcuNormalizationCharFilterCaster() *IcuNormalizationCharFilter {
 	return s
+}
+
+func (s *IcuNormalizationCharFilter) CharFilterDefinitionCaster() *CharFilterDefinition {
+	o := CharFilterDefinition(s)
+	return &o
 }

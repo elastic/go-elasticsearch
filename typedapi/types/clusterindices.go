@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,27 +31,37 @@ import (
 
 // ClusterIndices type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/cluster/stats/types.ts#L74-L107
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cluster/stats/types.ts#L100-L147
 type ClusterIndices struct {
 	// Analysis Contains statistics about analyzers and analyzer components used in selected
 	// nodes.
-	Analysis CharFilterTypes `json:"analysis"`
+	Analysis *CharFilterTypes `json:"analysis,omitempty"`
 	// Completion Contains statistics about memory used for completion in selected nodes.
 	Completion CompletionStats `json:"completion"`
 	// Count Total number of indices with shards assigned to selected nodes.
 	Count int64 `json:"count"`
+	// DenseVector Contains statistics about indexed dense vector
+	DenseVector DenseVectorStats `json:"dense_vector"`
 	// Docs Contains counts for documents in selected nodes.
 	Docs DocStats `json:"docs"`
 	// Fielddata Contains statistics about the field data cache of selected nodes.
 	Fielddata FielddataStats `json:"fielddata"`
 	// Mappings Contains statistics about field mappings in selected nodes.
-	Mappings FieldTypesMappings `json:"mappings"`
+	Mappings *FieldTypesMappings `json:"mappings,omitempty"`
 	// QueryCache Contains statistics about the query cache of selected nodes.
 	QueryCache QueryCacheStats `json:"query_cache"`
+	// Search Holds a snapshot of the search usage statistics.
+	// Used to hold the stats for a single node that's part of a
+	// ClusterStatsNodeResponse, as well as to
+	// accumulate stats for the entire cluster and return them as part of the
+	// ClusterStatsResponse.
+	Search SearchUsageStats `json:"search"`
 	// Segments Contains statistics about segments in selected nodes.
 	Segments SegmentsStats `json:"segments"`
 	// Shards Contains statistics about indices with shards assigned to selected nodes.
 	Shards ClusterIndicesShards `json:"shards"`
+	// SparseVector Contains statistics about indexed sparse vector
+	SparseVector SparseVectorStats `json:"sparse_vector"`
 	// Store Contains statistics about the size of shards assigned to selected nodes.
 	Store StoreStats `json:"store"`
 	// Versions Contains statistics about analyzers and analyzer components used in selected
@@ -99,6 +109,11 @@ func (s *ClusterIndices) UnmarshalJSON(data []byte) error {
 				s.Count = f
 			}
 
+		case "dense_vector":
+			if err := dec.Decode(&s.DenseVector); err != nil {
+				return fmt.Errorf("%s | %w", "DenseVector", err)
+			}
+
 		case "docs":
 			if err := dec.Decode(&s.Docs); err != nil {
 				return fmt.Errorf("%s | %w", "Docs", err)
@@ -119,6 +134,11 @@ func (s *ClusterIndices) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "QueryCache", err)
 			}
 
+		case "search":
+			if err := dec.Decode(&s.Search); err != nil {
+				return fmt.Errorf("%s | %w", "Search", err)
+			}
+
 		case "segments":
 			if err := dec.Decode(&s.Segments); err != nil {
 				return fmt.Errorf("%s | %w", "Segments", err)
@@ -127,6 +147,11 @@ func (s *ClusterIndices) UnmarshalJSON(data []byte) error {
 		case "shards":
 			if err := dec.Decode(&s.Shards); err != nil {
 				return fmt.Errorf("%s | %w", "Shards", err)
+			}
+
+		case "sparse_vector":
+			if err := dec.Decode(&s.SparseVector); err != nil {
+				return fmt.Errorf("%s | %w", "SparseVector", err)
 			}
 
 		case "store":
@@ -150,5 +175,3 @@ func NewClusterIndices() *ClusterIndices {
 
 	return r
 }
-
-// false

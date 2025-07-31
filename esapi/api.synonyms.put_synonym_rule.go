@@ -23,6 +23,7 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -54,6 +55,8 @@ type SynonymsPutSynonymRuleRequest struct {
 
 	RuleID string
 	SetID  string
+
+	Refresh *bool
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r SynonymsPutSynonymRuleRequest) Do(providedCtx context.Context, transport
 	}
 
 	params = make(map[string]string)
+
+	if r.Refresh != nil {
+		params["refresh"] = strconv.FormatBool(*r.Refresh)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r SynonymsPutSynonymRuleRequest) Do(providedCtx context.Context, transport
 func (f SynonymsPutSynonymRule) WithContext(v context.Context) func(*SynonymsPutSynonymRuleRequest) {
 	return func(r *SynonymsPutSynonymRuleRequest) {
 		r.ctx = v
+	}
+}
+
+// WithRefresh - refresh search analyzers to update synonyms.
+func (f SynonymsPutSynonymRule) WithRefresh(v bool) func(*SynonymsPutSynonymRuleRequest) {
+	return func(r *SynonymsPutSynonymRuleRequest) {
+		r.Refresh = &v
 	}
 }
 

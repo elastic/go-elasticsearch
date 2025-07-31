@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeInfoXpackMl type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/nodes/info/types.ts#L253-L255
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/nodes/info/types.ts#L268-L270
 type NodeInfoXpackMl struct {
 	UseAutoMachineMemoryPercent *bool `json:"use_auto_machine_memory_percent,omitempty"`
 }
@@ -76,5 +76,3 @@ func NewNodeInfoXpackMl() *NodeInfoXpackMl {
 
 	return r
 }
-
-// false

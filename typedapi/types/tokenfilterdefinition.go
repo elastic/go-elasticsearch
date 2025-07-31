@@ -16,39 +16,65 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
 // TokenFilterDefinition holds the union for the following types:
 //
+//	ApostropheTokenFilter
+//	ArabicStemTokenFilter
+//	ArabicNormalizationTokenFilter
 //	AsciiFoldingTokenFilter
+//	BengaliNormalizationTokenFilter
+//	BrazilianStemTokenFilter
+//	CjkBigramTokenFilter
+//	CjkWidthTokenFilter
+//	ClassicTokenFilter
 //	CommonGramsTokenFilter
 //	ConditionTokenFilter
+//	CzechStemTokenFilter
+//	DecimalDigitTokenFilter
 //	DelimitedPayloadTokenFilter
+//	DutchStemTokenFilter
 //	EdgeNGramTokenFilter
 //	ElisionTokenFilter
 //	FingerprintTokenFilter
+//	FlattenGraphTokenFilter
+//	FrenchStemTokenFilter
+//	GermanNormalizationTokenFilter
+//	GermanStemTokenFilter
+//	HindiNormalizationTokenFilter
 //	HunspellTokenFilter
 //	HyphenationDecompounderTokenFilter
+//	IndicNormalizationTokenFilter
 //	KeepTypesTokenFilter
 //	KeepWordsTokenFilter
 //	KeywordMarkerTokenFilter
+//	KeywordRepeatTokenFilter
 //	KStemTokenFilter
 //	LengthTokenFilter
 //	LimitTokenCountTokenFilter
 //	LowercaseTokenFilter
+//	MinHashTokenFilter
 //	MultiplexerTokenFilter
 //	NGramTokenFilter
 //	NoriPartOfSpeechTokenFilter
 //	PatternCaptureTokenFilter
 //	PatternReplaceTokenFilter
+//	PersianNormalizationTokenFilter
+//	PersianStemTokenFilter
 //	PorterStemTokenFilter
 //	PredicateTokenFilter
 //	RemoveDuplicatesTokenFilter
 //	ReverseTokenFilter
+//	RussianStemTokenFilter
+//	ScandinavianFoldingTokenFilter
+//	ScandinavianNormalizationTokenFilter
+//	SerbianNormalizationTokenFilter
 //	ShingleTokenFilter
 //	SnowballTokenFilter
+//	SoraniNormalizationTokenFilter
 //	StemmerOverrideTokenFilter
 //	StemmerTokenFilter
 //	StopTokenFilter
@@ -60,6 +86,7 @@ package types
 //	UppercaseTokenFilter
 //	WordDelimiterGraphTokenFilter
 //	WordDelimiterTokenFilter
+//	JaStopTokenFilter
 //	KuromojiStemmerTokenFilter
 //	KuromojiReadingFormTokenFilter
 //	KuromojiPartOfSpeechTokenFilter
@@ -70,7 +97,7 @@ package types
 //	PhoneticTokenFilter
 //	DictionaryDecompounderTokenFilter
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/token_filters.ts#L352-L404
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/token_filters.ts#L582-L660
 type TokenFilterDefinition any
 
 type TokenFilterDefinitionVariant interface {

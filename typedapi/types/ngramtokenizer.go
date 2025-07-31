@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // NGramTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/tokenizers.ts#L84-L93
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/tokenizers.ts#L85-L95
 type NGramTokenizer struct {
 	CustomTokenChars *string               `json:"custom_token_chars,omitempty"`
 	MaxGram          *int                  `json:"max_gram,omitempty"`
@@ -146,12 +146,15 @@ func NewNGramTokenizer() *NGramTokenizer {
 	return r
 }
 
-// true
-
 type NGramTokenizerVariant interface {
 	NGramTokenizerCaster() *NGramTokenizer
 }
 
 func (s *NGramTokenizer) NGramTokenizerCaster() *NGramTokenizer {
 	return s
+}
+
+func (s *NGramTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	o := TokenizerDefinition(s)
+	return &o
 }

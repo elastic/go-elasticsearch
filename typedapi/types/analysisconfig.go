@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnalysisConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/ml/_types/Analysis.ts#L29-L77
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/_types/Analysis.ts#L29-L77
 type AnalysisConfig struct {
 	// BucketSpan The size of the interval that the analysis is aggregated into, typically
 	// between `5m` and `1h`. This value should be either a whole number of days or
@@ -234,8 +234,6 @@ func NewAnalysisConfig() *AnalysisConfig {
 
 	return r
 }
-
-// true
 
 type AnalysisConfigVariant interface {
 	AnalysisConfigCaster() *AnalysisConfig

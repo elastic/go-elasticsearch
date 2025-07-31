@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // TermRangeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/query_dsl/term.ts#L174-L174
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/term.ts#L170-L170
 type TermRangeQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -41,7 +41,6 @@ type TermRangeQuery struct {
 	// A boost value between 0 and 1.0 decreases the relevance score.
 	// A value greater than 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
-	From  *string  `json:"from,omitempty"`
 	// Gt Greater than.
 	Gt *string `json:"gt,omitempty"`
 	// Gte Greater than or equal to.
@@ -53,7 +52,6 @@ type TermRangeQuery struct {
 	QueryName_ *string `json:"_name,omitempty"`
 	// Relation Indicates how the range query matches values for `range` fields.
 	Relation *rangerelation.RangeRelation `json:"relation,omitempty"`
-	To       *string                      `json:"to,omitempty"`
 }
 
 func (s *TermRangeQuery) UnmarshalJSON(data []byte) error {
@@ -86,18 +84,6 @@ func (s *TermRangeQuery) UnmarshalJSON(data []byte) error {
 				f := float32(v)
 				s.Boost = &f
 			}
-
-		case "from":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "From", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.From = &o
 
 		case "gt":
 			var tmp json.RawMessage
@@ -164,18 +150,6 @@ func (s *TermRangeQuery) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Relation", err)
 			}
 
-		case "to":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "To", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.To = &o
-
 		}
 	}
 	return nil
@@ -188,12 +162,15 @@ func NewTermRangeQuery() *TermRangeQuery {
 	return r
 }
 
-// true
-
 type TermRangeQueryVariant interface {
 	TermRangeQueryCaster() *TermRangeQuery
 }
 
 func (s *TermRangeQuery) TermRangeQueryCaster() *TermRangeQuery {
 	return s
+}
+
+func (s *TermRangeQuery) RangeQueryCaster() *RangeQuery {
+	o := RangeQuery(s)
+	return &o
 }

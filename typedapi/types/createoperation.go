@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // CreateOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/bulk/types.ts#L140-L140
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/bulk/types.ts#L140-L140
 type CreateOperation struct {
 	// DynamicTemplates A map from the full name of fields to the name of dynamic templates.
 	// It defaults to an empty map.
@@ -169,8 +169,6 @@ func NewCreateOperation() *CreateOperation {
 
 	return r
 }
-
-// true
 
 type CreateOperationVariant interface {
 	CreateOperationCaster() *CreateOperation

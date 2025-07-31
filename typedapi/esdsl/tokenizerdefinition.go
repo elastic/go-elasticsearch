@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -44,7 +44,7 @@ func (u *_tokenizerDefinition) UnknownTokenizerDefinition(unknown json.RawMessag
 
 func (u *_tokenizerDefinition) CharGroupTokenizer(chargrouptokenizer types.CharGroupTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &chargrouptokenizer
+	u.v = chargrouptokenizer.CharGroupTokenizerCaster()
 
 	return u
 }
@@ -57,7 +57,7 @@ func (u *_charGroupTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefini
 
 func (u *_tokenizerDefinition) ClassicTokenizer(classictokenizer types.ClassicTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &classictokenizer
+	u.v = classictokenizer.ClassicTokenizerCaster()
 
 	return u
 }
@@ -70,7 +70,7 @@ func (u *_classicTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefiniti
 
 func (u *_tokenizerDefinition) EdgeNGramTokenizer(edgengramtokenizer types.EdgeNGramTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &edgengramtokenizer
+	u.v = edgengramtokenizer.EdgeNGramTokenizerCaster()
 
 	return u
 }
@@ -83,7 +83,7 @@ func (u *_edgeNGramTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefini
 
 func (u *_tokenizerDefinition) KeywordTokenizer(keywordtokenizer types.KeywordTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &keywordtokenizer
+	u.v = keywordtokenizer.KeywordTokenizerCaster()
 
 	return u
 }
@@ -96,7 +96,7 @@ func (u *_keywordTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefiniti
 
 func (u *_tokenizerDefinition) LetterTokenizer(lettertokenizer types.LetterTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &lettertokenizer
+	u.v = lettertokenizer.LetterTokenizerCaster()
 
 	return u
 }
@@ -109,7 +109,7 @@ func (u *_letterTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefinitio
 
 func (u *_tokenizerDefinition) LowercaseTokenizer(lowercasetokenizer types.LowercaseTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &lowercasetokenizer
+	u.v = lowercasetokenizer.LowercaseTokenizerCaster()
 
 	return u
 }
@@ -122,7 +122,7 @@ func (u *_lowercaseTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefini
 
 func (u *_tokenizerDefinition) NGramTokenizer(ngramtokenizer types.NGramTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &ngramtokenizer
+	u.v = ngramtokenizer.NGramTokenizerCaster()
 
 	return u
 }
@@ -135,7 +135,7 @@ func (u *_nGramTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefinition
 
 func (u *_tokenizerDefinition) PathHierarchyTokenizer(pathhierarchytokenizer types.PathHierarchyTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &pathhierarchytokenizer
+	u.v = pathhierarchytokenizer.PathHierarchyTokenizerCaster()
 
 	return u
 }
@@ -148,7 +148,7 @@ func (u *_pathHierarchyTokenizer) TokenizerDefinitionCaster() *types.TokenizerDe
 
 func (u *_tokenizerDefinition) PatternTokenizer(patterntokenizer types.PatternTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &patterntokenizer
+	u.v = patterntokenizer.PatternTokenizerCaster()
 
 	return u
 }
@@ -161,7 +161,7 @@ func (u *_patternTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefiniti
 
 func (u *_tokenizerDefinition) SimplePatternTokenizer(simplepatterntokenizer types.SimplePatternTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &simplepatterntokenizer
+	u.v = simplepatterntokenizer.SimplePatternTokenizerCaster()
 
 	return u
 }
@@ -174,7 +174,7 @@ func (u *_simplePatternTokenizer) TokenizerDefinitionCaster() *types.TokenizerDe
 
 func (u *_tokenizerDefinition) SimplePatternSplitTokenizer(simplepatternsplittokenizer types.SimplePatternSplitTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &simplepatternsplittokenizer
+	u.v = simplepatternsplittokenizer.SimplePatternSplitTokenizerCaster()
 
 	return u
 }
@@ -187,7 +187,7 @@ func (u *_simplePatternSplitTokenizer) TokenizerDefinitionCaster() *types.Tokeni
 
 func (u *_tokenizerDefinition) StandardTokenizer(standardtokenizer types.StandardTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &standardtokenizer
+	u.v = standardtokenizer.StandardTokenizerCaster()
 
 	return u
 }
@@ -200,7 +200,7 @@ func (u *_standardTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefinit
 
 func (u *_tokenizerDefinition) ThaiTokenizer(thaitokenizer types.ThaiTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &thaitokenizer
+	u.v = thaitokenizer.ThaiTokenizerCaster()
 
 	return u
 }
@@ -213,7 +213,7 @@ func (u *_thaiTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefinition 
 
 func (u *_tokenizerDefinition) UaxEmailUrlTokenizer(uaxemailurltokenizer types.UaxEmailUrlTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &uaxemailurltokenizer
+	u.v = uaxemailurltokenizer.UaxEmailUrlTokenizerCaster()
 
 	return u
 }
@@ -226,7 +226,7 @@ func (u *_uaxEmailUrlTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefi
 
 func (u *_tokenizerDefinition) WhitespaceTokenizer(whitespacetokenizer types.WhitespaceTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &whitespacetokenizer
+	u.v = whitespacetokenizer.WhitespaceTokenizerCaster()
 
 	return u
 }
@@ -239,7 +239,7 @@ func (u *_whitespaceTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefin
 
 func (u *_tokenizerDefinition) IcuTokenizer(icutokenizer types.IcuTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &icutokenizer
+	u.v = icutokenizer.IcuTokenizerCaster()
 
 	return u
 }
@@ -252,7 +252,7 @@ func (u *_icuTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefinition {
 
 func (u *_tokenizerDefinition) KuromojiTokenizer(kuromojitokenizer types.KuromojiTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &kuromojitokenizer
+	u.v = kuromojitokenizer.KuromojiTokenizerCaster()
 
 	return u
 }
@@ -265,7 +265,7 @@ func (u *_kuromojiTokenizer) TokenizerDefinitionCaster() *types.TokenizerDefinit
 
 func (u *_tokenizerDefinition) NoriTokenizer(noritokenizer types.NoriTokenizerVariant) *_tokenizerDefinition {
 
-	u.v = &noritokenizer
+	u.v = noritokenizer.NoriTokenizerCaster()
 
 	return u
 }

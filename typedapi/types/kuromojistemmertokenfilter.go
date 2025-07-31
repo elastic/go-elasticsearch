@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KuromojiStemmerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/kuromoji-plugin.ts#L47-L50
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/kuromoji-plugin.ts#L53-L56
 type KuromojiStemmerTokenFilter struct {
 	MinimumLength int     `json:"minimum_length"`
 	Type          string  `json:"type,omitempty"`
@@ -105,12 +105,15 @@ func NewKuromojiStemmerTokenFilter() *KuromojiStemmerTokenFilter {
 	return r
 }
 
-// true
-
 type KuromojiStemmerTokenFilterVariant interface {
 	KuromojiStemmerTokenFilterCaster() *KuromojiStemmerTokenFilter
 }
 
 func (s *KuromojiStemmerTokenFilter) KuromojiStemmerTokenFilterCaster() *KuromojiStemmerTokenFilter {
 	return s
+}
+
+func (s *KuromojiStemmerTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

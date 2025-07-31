@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,12 +31,16 @@ import (
 
 // FingerprintTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/token_filters.ts#L195-L199
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/token_filters.ts#L260-L266
 type FingerprintTokenFilter struct {
-	MaxOutputSize *int    `json:"max_output_size,omitempty"`
-	Separator     *string `json:"separator,omitempty"`
-	Type          string  `json:"type,omitempty"`
-	Version       *string `json:"version,omitempty"`
+	// MaxOutputSize Maximum character length, including whitespace, of the output token. Defaults
+	// to `255`. Concatenated tokens longer than this will result in no token
+	// output.
+	MaxOutputSize *int `json:"max_output_size,omitempty"`
+	// Separator Character to use to concatenate the token stream input. Defaults to a space.
+	Separator *string `json:"separator,omitempty"`
+	Type      string  `json:"type,omitempty"`
+	Version   *string `json:"version,omitempty"`
 }
 
 func (s *FingerprintTokenFilter) UnmarshalJSON(data []byte) error {
@@ -119,12 +123,15 @@ func NewFingerprintTokenFilter() *FingerprintTokenFilter {
 	return r
 }
 
-// true
-
 type FingerprintTokenFilterVariant interface {
 	FingerprintTokenFilterCaster() *FingerprintTokenFilter
 }
 
 func (s *FingerprintTokenFilter) FingerprintTokenFilterCaster() *FingerprintTokenFilter {
 	return s
+}
+
+func (s *FingerprintTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	o := TokenFilterDefinition(s)
+	return &o
 }

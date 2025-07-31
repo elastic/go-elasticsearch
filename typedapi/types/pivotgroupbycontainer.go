@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // PivotGroupByContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/transform/_types/Transform.ts#L70-L78
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/transform/_types/Transform.ts#L70-L78
 type PivotGroupByContainer struct {
 	AdditionalPivotGroupByContainerProperty map[string]json.RawMessage `json:"-"`
 	DateHistogram                           *DateHistogramAggregation  `json:"date_histogram,omitempty"`
@@ -73,8 +73,6 @@ func NewPivotGroupByContainer() *PivotGroupByContainer {
 
 	return r
 }
-
-// true
 
 type PivotGroupByContainerVariant interface {
 	PivotGroupByContainerCaster() *PivotGroupByContainer

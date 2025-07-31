@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnomalyCause type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/ml/_types/Anomaly.ts#L123-L139
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/_types/Anomaly.ts#L123-L139
 type AnomalyCause struct {
 	Actual                 []Float64   `json:"actual,omitempty"`
 	ByFieldName            *string     `json:"by_field_name,omitempty"`
@@ -211,5 +211,3 @@ func NewAnomalyCause() *AnomalyCause {
 
 	return r
 }
-
-// false

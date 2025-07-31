@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // SmoothingModelContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/search/_types/suggester.ts#L446-L462
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/search/_types/suggester.ts#L446-L462
 type SmoothingModelContainer struct {
 	AdditionalSmoothingModelContainerProperty map[string]json.RawMessage `json:"-"`
 	// Laplace A smoothing model that uses an additive smoothing where a constant (typically
@@ -79,8 +79,6 @@ func NewSmoothingModelContainer() *SmoothingModelContainer {
 
 	return r
 }
-
-// true
 
 type SmoothingModelContainerVariant interface {
 	SmoothingModelContainerCaster() *SmoothingModelContainer

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterJvmVersion type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/cluster/stats/types.ts#L305-L335
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cluster/stats/types.ts#L414-L444
 type ClusterJvmVersion struct {
 	// BundledJdk Always `true`. All distributions come with a bundled Java Development Kit
 	// (JDK).
@@ -156,5 +156,3 @@ func NewClusterJvmVersion() *ClusterJvmVersion {
 
 	return r
 }
-
-// false

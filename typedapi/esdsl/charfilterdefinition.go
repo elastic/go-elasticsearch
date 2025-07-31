@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -44,7 +44,7 @@ func (u *_charFilterDefinition) UnknownCharFilterDefinition(unknown json.RawMess
 
 func (u *_charFilterDefinition) HtmlStripCharFilter(htmlstripcharfilter types.HtmlStripCharFilterVariant) *_charFilterDefinition {
 
-	u.v = &htmlstripcharfilter
+	u.v = htmlstripcharfilter.HtmlStripCharFilterCaster()
 
 	return u
 }
@@ -57,7 +57,7 @@ func (u *_htmlStripCharFilter) CharFilterDefinitionCaster() *types.CharFilterDef
 
 func (u *_charFilterDefinition) MappingCharFilter(mappingcharfilter types.MappingCharFilterVariant) *_charFilterDefinition {
 
-	u.v = &mappingcharfilter
+	u.v = mappingcharfilter.MappingCharFilterCaster()
 
 	return u
 }
@@ -70,7 +70,7 @@ func (u *_mappingCharFilter) CharFilterDefinitionCaster() *types.CharFilterDefin
 
 func (u *_charFilterDefinition) PatternReplaceCharFilter(patternreplacecharfilter types.PatternReplaceCharFilterVariant) *_charFilterDefinition {
 
-	u.v = &patternreplacecharfilter
+	u.v = patternreplacecharfilter.PatternReplaceCharFilterCaster()
 
 	return u
 }
@@ -83,7 +83,7 @@ func (u *_patternReplaceCharFilter) CharFilterDefinitionCaster() *types.CharFilt
 
 func (u *_charFilterDefinition) IcuNormalizationCharFilter(icunormalizationcharfilter types.IcuNormalizationCharFilterVariant) *_charFilterDefinition {
 
-	u.v = &icunormalizationcharfilter
+	u.v = icunormalizationcharfilter.IcuNormalizationCharFilterCaster()
 
 	return u
 }
@@ -96,7 +96,7 @@ func (u *_icuNormalizationCharFilter) CharFilterDefinitionCaster() *types.CharFi
 
 func (u *_charFilterDefinition) KuromojiIterationMarkCharFilter(kuromojiiterationmarkcharfilter types.KuromojiIterationMarkCharFilterVariant) *_charFilterDefinition {
 
-	u.v = &kuromojiiterationmarkcharfilter
+	u.v = kuromojiiterationmarkcharfilter.KuromojiIterationMarkCharFilterCaster()
 
 	return u
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RerouteDecision type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/cluster/reroute/types.ts#L86-L90
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cluster/reroute/types.ts#L86-L90
 type RerouteDecision struct {
 	Decider     string `json:"decider"`
 	Decision    string `json:"decision"`
@@ -100,5 +100,3 @@ func NewRerouteDecision() *RerouteDecision {
 
 	return r
 }
-
-// false

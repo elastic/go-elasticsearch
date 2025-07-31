@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AzureOpenAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L508-L553
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L724-L769
 type AzureOpenAIServiceSettings struct {
 	// ApiKey A valid API key for your Azure OpenAI account.
 	// You must specify either `api_key` or `entra_id`.
@@ -161,8 +161,6 @@ func NewAzureOpenAIServiceSettings() *AzureOpenAIServiceSettings {
 
 	return r
 }
-
-// true
 
 type AzureOpenAIServiceSettingsVariant interface {
 	AzureOpenAIServiceSettingsCaster() *AzureOpenAIServiceSettings

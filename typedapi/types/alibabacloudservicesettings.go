@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AlibabaCloudServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L219-L264
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L292-L337
 type AlibabaCloudServiceSettings struct {
 	// ApiKey A valid API key for the AlibabaCloud AI Search API.
 	ApiKey string `json:"api_key"`
@@ -149,8 +149,6 @@ func NewAlibabaCloudServiceSettings() *AlibabaCloudServiceSettings {
 
 	return r
 }
-
-// true
 
 type AlibabaCloudServiceSettingsVariant interface {
 	AlibabaCloudServiceSettingsCaster() *AlibabaCloudServiceSettings

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // PinnedDoc type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/query_dsl/specialized.ts#L269-L278
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/specialized.ts#L269-L278
 type PinnedDoc struct {
 	// Id_ The unique document ID.
 	Id_ string `json:"_id"`
@@ -74,8 +74,6 @@ func NewPinnedDoc() *PinnedDoc {
 
 	return r
 }
-
-// true
 
 type PinnedDocVariant interface {
 	PinnedDocCaster() *PinnedDoc

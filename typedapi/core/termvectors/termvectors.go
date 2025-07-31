@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Get term vector information.
 //
@@ -72,6 +72,8 @@
 // By default, when requesting term vectors of artificial documents, a shard to
 // get the statistics from is randomly selected.
 // Use `routing` only to hit a particular shard.
+// Refer to the linked documentation for detailed examples of how to use this
+// API.
 package termvectors
 
 import (
@@ -192,6 +194,8 @@ func NewTermvectorsFunc(tp elastictransport.Interface) NewTermvectors {
 // By default, when requesting term vectors of artificial documents, a shard to
 // get the statistics from is randomly selected.
 // Use `routing` only to hit a particular shard.
+// Refer to the linked documentation for detailed examples of how to use this
+// API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors
 func New(tp elastictransport.Interface) *Termvectors {
@@ -488,7 +492,7 @@ func (r *Termvectors) FilterPath(filterpaths ...string) *Termvectors {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.

@@ -16,19 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Package huggingfacetasktype
 package huggingfacetasktype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L892-L894
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1428-L1433
 type HuggingFaceTaskType struct {
 	Name string
 }
 
 var (
+	Chatcompletion = HuggingFaceTaskType{"chat_completion"}
+
+	Completion = HuggingFaceTaskType{"completion"}
+
+	Rerank = HuggingFaceTaskType{"rerank"}
+
 	Textembedding = HuggingFaceTaskType{"text_embedding"}
 )
 
@@ -39,6 +45,12 @@ func (h HuggingFaceTaskType) MarshalText() (text []byte, err error) {
 func (h *HuggingFaceTaskType) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
+	case "chat_completion":
+		*h = Chatcompletion
+	case "completion":
+		*h = Completion
+	case "rerank":
+		*h = Rerank
 	case "text_embedding":
 		*h = Textembedding
 	default:

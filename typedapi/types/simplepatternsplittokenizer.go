@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SimplePatternSplitTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/analysis/tokenizers.ts#L116-L119
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/tokenizers.ts#L118-L121
 type SimplePatternSplitTokenizer struct {
 	Pattern *string `json:"pattern,omitempty"`
 	Type    string  `json:"type,omitempty"`
@@ -101,12 +101,15 @@ func NewSimplePatternSplitTokenizer() *SimplePatternSplitTokenizer {
 	return r
 }
 
-// true
-
 type SimplePatternSplitTokenizerVariant interface {
 	SimplePatternSplitTokenizerCaster() *SimplePatternSplitTokenizer
 }
 
 func (s *SimplePatternSplitTokenizer) SimplePatternSplitTokenizerCaster() *SimplePatternSplitTokenizer {
 	return s
+}
+
+func (s *SimplePatternSplitTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	o := TokenizerDefinition(s)
+	return &o
 }

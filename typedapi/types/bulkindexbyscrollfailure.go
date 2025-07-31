@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // BulkIndexByScrollFailure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/Errors.ts#L60-L65
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/Errors.ts#L60-L65
 type BulkIndexByScrollFailure struct {
 	Cause  ErrorCause `json:"cause"`
 	Id     string     `json:"id"`
@@ -96,5 +96,3 @@ func NewBulkIndexByScrollFailure() *BulkIndexByScrollFailure {
 
 	return r
 }
-
-// false

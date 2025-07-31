@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/indices/_types/DataStream.ts#L53-L139
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/_types/DataStream.ts#L54-L145
 type DataStream struct {
 	// AllowCustomRouting If `true`, the data stream allows custom routing on write request.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
@@ -85,6 +85,10 @@ type DataStream struct {
 	// and the document will be indexed in the new backing index. If the rollover
 	// fails the indexing request will fail too.
 	RolloverOnWrite bool `json:"rollover_on_write"`
+	// Settings The settings specific to this data stream that will take precedence over the
+	// settings in the matching index
+	// template.
+	Settings IndexSettings `json:"settings"`
 	// Status Health status of the data stream.
 	// This health status is based on the state of the primary and replica shards of
 	// the stream’s backing indices.
@@ -240,6 +244,11 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 				s.RolloverOnWrite = v
 			}
 
+		case "settings":
+			if err := dec.Decode(&s.Settings); err != nil {
+				return fmt.Errorf("%s | %w", "Settings", err)
+			}
+
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
 				return fmt.Errorf("%s | %w", "Status", err)
@@ -280,5 +289,3 @@ func NewDataStream() *DataStream {
 
 	return r
 }
-
-// false

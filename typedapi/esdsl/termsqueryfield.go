@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -43,7 +43,7 @@ func (u *_termsQueryField) FieldValues(fieldvalues ...types.FieldValueVariant) *
 
 func (u *_termsQueryField) TermsLookup(termslookup types.TermsLookupVariant) *_termsQueryField {
 
-	u.v = &termslookup
+	u.v = termslookup.TermsLookupCaster()
 
 	return u
 }

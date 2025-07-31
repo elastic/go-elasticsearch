@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TemplateConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_global/msearch_template/types.ts#L29-L55
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/msearch_template/types.ts#L29-L55
 type TemplateConfig struct {
 	// Explain If `true`, returns detailed information about score calculation as part of
 	// each hit.
@@ -158,12 +158,15 @@ func NewTemplateConfig() *TemplateConfig {
 	return r
 }
 
-// true
-
 type TemplateConfigVariant interface {
 	TemplateConfigCaster() *TemplateConfig
 }
 
 func (s *TemplateConfig) TemplateConfigCaster() *TemplateConfig {
 	return s
+}
+
+func (s *TemplateConfig) RequestItemCaster() *RequestItem {
+	o := RequestItem(s)
+	return &o
 }

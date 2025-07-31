@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Package mistraltasktype
 package mistraltasktype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/inference/_types/CommonTypes.ts#L1005-L1007
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1544-L1548
 type MistralTaskType struct {
 	Name string
 }
 
 var (
 	Textembedding = MistralTaskType{"text_embedding"}
+
+	Completion = MistralTaskType{"completion"}
+
+	Chatcompletion = MistralTaskType{"chat_completion"}
 )
 
 func (m MistralTaskType) MarshalText() (text []byte, err error) {
@@ -41,6 +45,10 @@ func (m *MistralTaskType) UnmarshalText(text []byte) error {
 
 	case "text_embedding":
 		*m = Textembedding
+	case "completion":
+		*m = Completion
+	case "chat_completion":
+		*m = Chatcompletion
 	default:
 		*m = MistralTaskType{string(text)}
 	}

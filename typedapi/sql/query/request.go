@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package query
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/sql/query/QuerySqlRequest.ts#L28-L152
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/sql/query/QuerySqlRequest.ts#L27-L151
 type Request struct {
 
 	// AllowPartialSearchResults If `true`, the response has partial results when there are shard request
@@ -78,7 +78,7 @@ type Request struct {
 	// duration of `page_timeout` in the scroll request.
 	PageTimeout types.Duration `json:"page_timeout,omitempty"`
 	// Params The values for parameters in the query.
-	Params map[string]json.RawMessage `json:"params,omitempty"`
+	Params []json.RawMessage `json:"params,omitempty"`
 	// Query The SQL query to run.
 	Query *string `json:"query,omitempty"`
 	// RequestTimeout The timeout before the request fails.
@@ -100,9 +100,7 @@ type Request struct {
 
 // NewRequest returns a Request
 func NewRequest() *Request {
-	r := &Request{
-		Params: make(map[string]json.RawMessage, 0),
-	}
+	r := &Request{}
 
 	return r
 }
@@ -259,9 +257,6 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "params":
-			if s.Params == nil {
-				s.Params = make(map[string]json.RawMessage, 0)
-			}
 			if err := dec.Decode(&s.Params); err != nil {
 				return fmt.Errorf("%s | %w", "Params", err)
 			}

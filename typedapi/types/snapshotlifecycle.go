@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SnapshotLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/slm/_types/SnapshotLifecycle.ts#L38-L59
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/slm/_types/SnapshotLifecycle.ts#L38-L59
 type SnapshotLifecycle struct {
 	InProgress  *InProgress `json:"in_progress,omitempty"`
 	LastFailure *Invocation `json:"last_failure,omitempty"`
@@ -124,5 +124,3 @@ func NewSnapshotLifecycle() *SnapshotLifecycle {
 
 	return r
 }
-
-// false

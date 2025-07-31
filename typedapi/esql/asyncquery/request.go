@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package asyncquery
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package asyncquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/esql/async_query/AsyncQueryRequest.ts#L28-L138
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/esql/async_query/AsyncQueryRequest.ts#L28-L138
 type Request struct {
 
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
@@ -49,8 +49,21 @@ type Request struct {
 	// object with information about the clusters that participated in the search
 	// along with info such as shards
 	// count.
-	IncludeCcsMetadata *bool   `json:"include_ccs_metadata,omitempty"`
-	Locale             *string `json:"locale,omitempty"`
+	IncludeCcsMetadata *bool `json:"include_ccs_metadata,omitempty"`
+	// KeepAlive The period for which the query and its results are stored in the cluster.
+	// The default period is five days.
+	// When this period expires, the query and its results are deleted, even if the
+	// query is still ongoing.
+	// If the `keep_on_completion` parameter is false, Elasticsearch only stores
+	// async queries that do not complete within the period set by the
+	// `wait_for_completion_timeout` parameter, regardless of this value.
+	KeepAlive types.Duration `json:"keep_alive,omitempty"`
+	// KeepOnCompletion Indicates whether the query and its results are stored in the cluster.
+	// If false, the query and its results are stored in the cluster only if the
+	// request does not complete during the period set by the
+	// `wait_for_completion_timeout` parameter.
+	KeepOnCompletion *bool   `json:"keep_on_completion,omitempty"`
+	Locale           *string `json:"locale,omitempty"`
 	// Params To avoid any attempts of hacking or code injection, extract the values in a
 	// separate list of parameters. Use question mark placeholders (?) in the query
 	// string for each of the parameters.
@@ -142,6 +155,25 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.IncludeCcsMetadata = &value
 			case bool:
 				s.IncludeCcsMetadata = &v
+			}
+
+		case "keep_alive":
+			if err := dec.Decode(&s.KeepAlive); err != nil {
+				return fmt.Errorf("%s | %w", "KeepAlive", err)
+			}
+
+		case "keep_on_completion":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "KeepOnCompletion", err)
+				}
+				s.KeepOnCompletion = &value
+			case bool:
+				s.KeepOnCompletion = &v
 			}
 
 		case "locale":

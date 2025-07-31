@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SemanticTextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/mapping/core.ts#L220-L243
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/core.ts#L238-L261
 type SemanticTextProperty struct {
 	// ChunkingSettings Settings for chunking text into smaller passages. If specified, these will
 	// override the
@@ -127,12 +127,15 @@ func NewSemanticTextProperty() *SemanticTextProperty {
 	return r
 }
 
-// true
-
 type SemanticTextPropertyVariant interface {
 	SemanticTextPropertyCaster() *SemanticTextProperty
 }
 
 func (s *SemanticTextProperty) SemanticTextPropertyCaster() *SemanticTextProperty {
 	return s
+}
+
+func (s *SemanticTextProperty) PropertyCaster() *Property {
+	o := Property(s)
+	return &o
 }

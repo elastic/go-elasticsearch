@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // PersistentTaskStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L56-L58
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L56-L58
 type PersistentTaskStatus struct {
 	Status shutdownstatus.ShutdownStatus `json:"status"`
 }
@@ -37,5 +37,3 @@ func NewPersistentTaskStatus() *PersistentTaskStatus {
 
 	return r
 }
-
-// false

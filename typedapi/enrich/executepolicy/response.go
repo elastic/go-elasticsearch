@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package executepolicy
 
@@ -26,10 +26,10 @@ import (
 
 // Response holds the response body struct for the package executepolicy
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/enrich/execute_policy/ExecuteEnrichPolicyResponse.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/enrich/execute_policy/ExecuteEnrichPolicyResponse.ts#L23-L28
 type Response struct {
 	Status *types.ExecuteEnrichPolicyStatus `json:"status,omitempty"`
-	Task   types.TaskId                     `json:"task,omitempty"`
+	Task   *string                          `json:"task,omitempty"`
 }
 
 // NewResponse returns a Response

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterOperatingSystemArchitecture type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/cluster/stats/types.ts#L404-L413
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cluster/stats/types.ts#L515-L524
 type ClusterOperatingSystemArchitecture struct {
 	// Arch Name of an architecture used by one or more selected nodes.
 	Arch string `json:"arch"`
@@ -93,5 +93,3 @@ func NewClusterOperatingSystemArchitecture() *ClusterOperatingSystemArchitecture
 
 	return r
 }
-
-// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RankFeatureFunctionSigmoid type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/_types/query_dsl/specialized.ts#L298-L307
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/specialized.ts#L298-L307
 type RankFeatureFunctionSigmoid struct {
 	// Exponent Configurable Exponent.
 	Exponent float32 `json:"exponent"`
@@ -97,8 +97,6 @@ func NewRankFeatureFunctionSigmoid() *RankFeatureFunctionSigmoid {
 
 	return r
 }
-
-// true
 
 type RankFeatureFunctionSigmoidVariant interface {
 	RankFeatureFunctionSigmoidCaster() *RankFeatureFunctionSigmoid

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -31,11 +31,13 @@ import (
 
 // NodeInfoSettingsTransport type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/nodes/info/types.ts#L208-L212
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/nodes/info/types.ts#L218-L227
 type NodeInfoSettingsTransport struct {
-	Features    *NodeInfoSettingsTransportFeatures `json:"features,omitempty"`
-	Type        NodeInfoSettingsTransportType      `json:"type"`
-	TypeDefault *string                            `json:"type.default,omitempty"`
+	Features *NodeInfoSettingsTransportFeatures `json:"features,omitempty"`
+	// IgnoreDeserializationErrors Only used in unit tests
+	IgnoreDeserializationErrors Stringifiedboolean            `json:"ignore_deserialization_errors,omitempty"`
+	Type                        NodeInfoSettingsTransportType `json:"type"`
+	TypeDefault                 *string                       `json:"type.default,omitempty"`
 }
 
 func (s *NodeInfoSettingsTransport) UnmarshalJSON(data []byte) error {
@@ -56,6 +58,11 @@ func (s *NodeInfoSettingsTransport) UnmarshalJSON(data []byte) error {
 		case "features":
 			if err := dec.Decode(&s.Features); err != nil {
 				return fmt.Errorf("%s | %w", "Features", err)
+			}
+
+		case "ignore_deserialization_errors":
+			if err := dec.Decode(&s.IgnoreDeserializationErrors); err != nil {
+				return fmt.Errorf("%s | %w", "IgnoreDeserializationErrors", err)
 			}
 
 		case "type":
@@ -86,5 +93,3 @@ func NewNodeInfoSettingsTransport() *NodeInfoSettingsTransport {
 
 	return r
 }
-
-// false

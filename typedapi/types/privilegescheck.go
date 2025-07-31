@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // PrivilegesCheck type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cbfcc73d01310bed2a480ec35aaef98138b598e5/specification/security/has_privileges_user_profile/types.ts#L30-L37
+// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/has_privileges_user_profile/types.ts#L30-L37
 type PrivilegesCheck struct {
 	Application []ApplicationPrivilegesCheck `json:"application,omitempty"`
 	// Cluster A list of the cluster privileges that you want to check.
@@ -40,8 +40,6 @@ func NewPrivilegesCheck() *PrivilegesCheck {
 
 	return r
 }
-
-// true
 
 type PrivilegesCheckVariant interface {
 	PrivilegesCheckCaster() *PrivilegesCheck

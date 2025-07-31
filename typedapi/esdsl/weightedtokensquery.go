@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -57,24 +57,10 @@ func (s *_weightedTokensQuery) QueryName_(queryname_ string) *_weightedTokensQue
 	return s
 }
 
-func (s *_weightedTokensQuery) Tokens(tokens map[string]float32) *_weightedTokensQuery {
+func (s *_weightedTokensQuery) Tokens(tokens []map[string]float32) *_weightedTokensQuery {
 
 	s.v.Tokens = tokens
-	return s
-}
 
-func (s *_weightedTokensQuery) AddToken(key string, value float32) *_weightedTokensQuery {
-
-	var tmp map[string]float32
-	if s.v.Tokens == nil {
-		s.v.Tokens = make(map[string]float32)
-	} else {
-		tmp = s.v.Tokens
-	}
-
-	tmp[key] = value
-
-	s.v.Tokens = tmp
 	return s
 }
 

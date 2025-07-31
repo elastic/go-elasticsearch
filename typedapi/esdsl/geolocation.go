@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
@@ -33,7 +33,7 @@ func NewGeoLocation() *_geoLocation {
 
 func (u *_geoLocation) LatLonGeoLocation(latlongeolocation types.LatLonGeoLocationVariant) *_geoLocation {
 
-	u.v = &latlongeolocation
+	u.v = latlongeolocation.LatLonGeoLocationCaster()
 
 	return u
 }
@@ -46,7 +46,7 @@ func (u *_latLonGeoLocation) GeoLocationCaster() *types.GeoLocation {
 
 func (u *_geoLocation) GeoHashLocation(geohashlocation types.GeoHashLocationVariant) *_geoLocation {
 
-	u.v = &geohashlocation
+	u.v = geohashlocation.GeoHashLocationCaster()
 
 	return u
 }

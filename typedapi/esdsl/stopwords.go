@@ -16,11 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+import (
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/stopwordlanguage"
+)
 
 // This is provide all the types that are part of the union.
 type _stopWords struct {
@@ -29,6 +32,12 @@ type _stopWords struct {
 
 func NewStopWords() *_stopWords {
 	return &_stopWords{v: nil}
+}
+
+func (u *_stopWords) StopWordLanguage(stopwordlanguage stopwordlanguage.StopWordLanguage) *_stopWords {
+
+	u.v = &stopwordlanguage
+	return u
 }
 
 func (u *_stopWords) Strings(strings ...string) *_stopWords {

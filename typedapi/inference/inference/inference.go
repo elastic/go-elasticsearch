@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Perform inference on the service.
 //
@@ -410,7 +410,7 @@ func (r *Inference) FilterPath(filterpaths ...string) *Inference {
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.
@@ -444,6 +444,34 @@ func (r *Inference) Input(inputs ...string) *Inference {
 	}
 	r.req.Input = make([]string, len(inputs))
 	r.req.Input = inputs
+
+	return r
+}
+
+// Specifies the input data type for the text embedding model. The `input_type`
+// parameter only applies to Inference Endpoints with the `text_embedding` task
+// type. Possible values include:
+// * `SEARCH`
+// * `INGEST`
+// * `CLASSIFICATION`
+// * `CLUSTERING`
+// Not all services support all values. Unsupported values will trigger a
+// validation exception.
+// Accepted values depend on the configured inference service, refer to the
+// relevant service-specific documentation for more info.
+//
+// > info
+// > The `input_type` parameter specified on the root level of the request body
+// will take precedence over the `input_type` parameter specified in
+// `task_settings`.
+// API name: input_type
+func (r *Inference) InputType(inputtype string) *Inference {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.InputType = &inputtype
 
 	return r
 }

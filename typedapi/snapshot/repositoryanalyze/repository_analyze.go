@@ -16,36 +16,38 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cbfcc73d01310bed2a480ec35aaef98138b598e5
+// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
 
 // Analyze a snapshot repository.
-// Analyze the performance characteristics and any incorrect behaviour found in
-// a repository.
 //
-// The response exposes implementation details of the analysis which may change
-// from version to version.
-// The response body format is therefore not considered stable and may be
-// different in newer versions.
+// Performs operations on a snapshot repository in order to check for incorrect
+// behaviour.
 //
 // There are a large number of third-party storage systems available, not all of
 // which are suitable for use as a snapshot repository by Elasticsearch.
 // Some storage systems behave incorrectly, or perform poorly, especially when
 // accessed concurrently by multiple clients as the nodes of an Elasticsearch
-// cluster do. This API performs a collection of read and write operations on
-// your repository which are designed to detect incorrect behaviour and to
-// measure the performance characteristics of your storage system.
+// cluster do.
+// This API performs a collection of read and write operations on your
+// repository which are designed to detect incorrect behaviour and to measure
+// the performance characteristics of your storage system.
 //
 // The default values for the parameters are deliberately low to reduce the
 // impact of running an analysis inadvertently and to provide a sensible
 // starting point for your investigations.
 // Run your first analysis with the default parameter values to check for simple
 // problems.
-// If successful, run a sequence of increasingly large analyses until you
-// encounter a failure or you reach a `blob_count` of at least `2000`, a
-// `max_blob_size` of at least `2gb`, a `max_total_data_size` of at least `1tb`,
-// and a `register_operation_count` of at least `100`.
+// Some repositories may behave correctly when lightly loaded but incorrectly
+// under production-like workloads.
+// If the first analysis is successful, run a sequence of increasingly large
+// analyses until you encounter a failure or you reach a `blob_count` of at
+// least `2000`, a `max_blob_size` of at least `2gb`, a `max_total_data_size` of
+// at least `1tb`, and a `register_operation_count` of at least `100`.
 // Always specify a generous timeout, possibly `1h` or longer, to allow time for
 // each analysis to run to completion.
+// Some repositories may behave correctly when accessed by a small number of
+// Elasticsearch nodes but incorrectly when accessed concurrently by a
+// production-scale cluster.
 // Perform the analyses using a multi-node cluster of a similar size to your
 // production cluster so that it can detect any problems that only arise when
 // the repository is accessed by many nodes at once.
@@ -55,6 +57,26 @@
 // This usually means you are using a third-party storage system with an
 // incorrect or incompatible implementation of the API it claims to support.
 // If so, this storage system is not suitable for use as a snapshot repository.
+// Repository analysis triggers conditions that occur only rarely when taking
+// snapshots in a production system.
+// Snapshotting to unsuitable storage may appear to work correctly most of the
+// time despite repository analysis failures.
+// However your snapshot data is at risk if you store it in a snapshot
+// repository that does not reliably pass repository analysis.
+// You can demonstrate that the analysis failure is due to an incompatible
+// storage implementation by verifying that Elasticsearch does not detect the
+// same problem when analysing the reference implementation of the storage
+// protocol you are using.
+// For instance, if you are using storage that offers an API which the supplier
+// claims to be compatible with AWS S3, verify that repositories in AWS S3 do
+// not fail repository analysis.
+// This allows you to demonstrate to your storage supplier that a repository
+// analysis failure must only be caused by an incompatibility with AWS S3 and
+// cannot be attributed to a problem in Elasticsearch.
+// Please do not report Elasticsearch issues involving third-party storage
+// systems unless you can demonstrate that the same issue exists when analysing
+// a repository that uses the reference implementation of the same storage
+// protocol.
 // You will need to work with the supplier of your storage system to address the
 // incompatibilities that Elasticsearch detects.
 //
@@ -111,8 +133,11 @@
 // `indices.recovery.max_bytes_per_sec` which you can use to limit the bandwidth
 // they consume.
 //
-// NOTE: This API is intended for exploratory use by humans. You should expect
-// the request parameters and the response format to vary in future versions.
+// NOTE: This API is intended for exploratory use by humans.
+// You should expect the request parameters and the response format to vary in
+// future versions.
+// The response exposes immplementation details of the analysis which may change
+// from version to version.
 //
 // NOTE: Different versions of Elasticsearch may perform different checks for
 // repository compatibility, with newer versions typically being stricter than
@@ -131,9 +156,9 @@
 //
 // NOTE: This section of documentation describes how the repository analysis API
 // works in this version of Elasticsearch, but you should expect the
-// implementation to vary between versions. The request parameters and response
-// format depend on details of the implementation so may also be different in
-// newer versions.
+// implementation to vary between versions.
+// The request parameters and response format depend on details of the
+// implementation so may also be different in newer versions.
 //
 // The analysis comprises a number of blob-level tasks, as set by the
 // `blob_count` parameter and a number of compare-and-exchange operations on
@@ -251,33 +276,35 @@ func NewRepositoryAnalyzeFunc(tp elastictransport.Interface) NewRepositoryAnalyz
 }
 
 // Analyze a snapshot repository.
-// Analyze the performance characteristics and any incorrect behaviour found in
-// a repository.
 //
-// The response exposes implementation details of the analysis which may change
-// from version to version.
-// The response body format is therefore not considered stable and may be
-// different in newer versions.
+// Performs operations on a snapshot repository in order to check for incorrect
+// behaviour.
 //
 // There are a large number of third-party storage systems available, not all of
 // which are suitable for use as a snapshot repository by Elasticsearch.
 // Some storage systems behave incorrectly, or perform poorly, especially when
 // accessed concurrently by multiple clients as the nodes of an Elasticsearch
-// cluster do. This API performs a collection of read and write operations on
-// your repository which are designed to detect incorrect behaviour and to
-// measure the performance characteristics of your storage system.
+// cluster do.
+// This API performs a collection of read and write operations on your
+// repository which are designed to detect incorrect behaviour and to measure
+// the performance characteristics of your storage system.
 //
 // The default values for the parameters are deliberately low to reduce the
 // impact of running an analysis inadvertently and to provide a sensible
 // starting point for your investigations.
 // Run your first analysis with the default parameter values to check for simple
 // problems.
-// If successful, run a sequence of increasingly large analyses until you
-// encounter a failure or you reach a `blob_count` of at least `2000`, a
-// `max_blob_size` of at least `2gb`, a `max_total_data_size` of at least `1tb`,
-// and a `register_operation_count` of at least `100`.
+// Some repositories may behave correctly when lightly loaded but incorrectly
+// under production-like workloads.
+// If the first analysis is successful, run a sequence of increasingly large
+// analyses until you encounter a failure or you reach a `blob_count` of at
+// least `2000`, a `max_blob_size` of at least `2gb`, a `max_total_data_size` of
+// at least `1tb`, and a `register_operation_count` of at least `100`.
 // Always specify a generous timeout, possibly `1h` or longer, to allow time for
 // each analysis to run to completion.
+// Some repositories may behave correctly when accessed by a small number of
+// Elasticsearch nodes but incorrectly when accessed concurrently by a
+// production-scale cluster.
 // Perform the analyses using a multi-node cluster of a similar size to your
 // production cluster so that it can detect any problems that only arise when
 // the repository is accessed by many nodes at once.
@@ -287,6 +314,26 @@ func NewRepositoryAnalyzeFunc(tp elastictransport.Interface) NewRepositoryAnalyz
 // This usually means you are using a third-party storage system with an
 // incorrect or incompatible implementation of the API it claims to support.
 // If so, this storage system is not suitable for use as a snapshot repository.
+// Repository analysis triggers conditions that occur only rarely when taking
+// snapshots in a production system.
+// Snapshotting to unsuitable storage may appear to work correctly most of the
+// time despite repository analysis failures.
+// However your snapshot data is at risk if you store it in a snapshot
+// repository that does not reliably pass repository analysis.
+// You can demonstrate that the analysis failure is due to an incompatible
+// storage implementation by verifying that Elasticsearch does not detect the
+// same problem when analysing the reference implementation of the storage
+// protocol you are using.
+// For instance, if you are using storage that offers an API which the supplier
+// claims to be compatible with AWS S3, verify that repositories in AWS S3 do
+// not fail repository analysis.
+// This allows you to demonstrate to your storage supplier that a repository
+// analysis failure must only be caused by an incompatibility with AWS S3 and
+// cannot be attributed to a problem in Elasticsearch.
+// Please do not report Elasticsearch issues involving third-party storage
+// systems unless you can demonstrate that the same issue exists when analysing
+// a repository that uses the reference implementation of the same storage
+// protocol.
 // You will need to work with the supplier of your storage system to address the
 // incompatibilities that Elasticsearch detects.
 //
@@ -343,8 +390,11 @@ func NewRepositoryAnalyzeFunc(tp elastictransport.Interface) NewRepositoryAnalyz
 // `indices.recovery.max_bytes_per_sec` which you can use to limit the bandwidth
 // they consume.
 //
-// NOTE: This API is intended for exploratory use by humans. You should expect
-// the request parameters and the response format to vary in future versions.
+// NOTE: This API is intended for exploratory use by humans.
+// You should expect the request parameters and the response format to vary in
+// future versions.
+// The response exposes immplementation details of the analysis which may change
+// from version to version.
 //
 // NOTE: Different versions of Elasticsearch may perform different checks for
 // repository compatibility, with newer versions typically being stricter than
@@ -363,9 +413,9 @@ func NewRepositoryAnalyzeFunc(tp elastictransport.Interface) NewRepositoryAnalyz
 //
 // NOTE: This section of documentation describes how the repository analysis API
 // works in this version of Elasticsearch, but you should expect the
-// implementation to vary between versions. The request parameters and response
-// format depend on details of the implementation so may also be different in
-// newer versions.
+// implementation to vary between versions.
+// The request parameters and response format depend on details of the
+// implementation so may also be different in newer versions.
 //
 // The analysis comprises a number of blob-level tasks, as set by the
 // `blob_count` parameter and a number of compare-and-exchange operations on
@@ -783,7 +833,7 @@ func (r *RepositoryAnalyze) FilterPath(filterpaths ...string) *RepositoryAnalyze
 
 // Human When set to `true` will return statistics in a format suitable for humans.
 // For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
 // readable values will be omitted. This makes sense for responses being
 // consumed
 // only by machines.
