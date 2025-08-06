@@ -39,12 +39,12 @@ It's possible to use multiple versions of the client in a single project:
 
     // main.go
     import (
-      elasticsearch7 "github.com/elastic/go-elasticsearch/v8"
-      elasticsearch8 "github.com/elastic/go-elasticsearch/v9"
+      elasticsearch8 "github.com/elastic/go-elasticsearch/v8"
+      elasticsearch9 "github.com/elastic/go-elasticsearch/v9"
     )
     // ...
-    es8, _ := elasticsearch7.NewDefaultClient()
-    es9, _ := elasticsearch8.NewDefaultClient()
+    es8, _ := elasticsearch8.NewDefaultClient()
+    es9, _ := elasticsearch9.NewDefaultClient()
 
 The `main` branch of the client is compatible with the current `master` branch of Elasticsearch.
 
