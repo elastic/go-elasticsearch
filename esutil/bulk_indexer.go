@@ -54,9 +54,10 @@ type BulkIndexer interface {
 
 // BulkIndexerConfig represents configuration of the indexer.
 type BulkIndexerConfig struct {
-	NumWorkers    int           // The number of workers. Defaults to runtime.NumCPU().
-	FlushBytes    int           // The flush threshold in bytes. Defaults to 5MB.
-	FlushInterval time.Duration // The flush threshold as duration. Defaults to 30sec.
+	NumWorkers          int           // The number of workers. Defaults to runtime.NumCPU().
+	FlushBytes          int           // The flush threshold in bytes. Defaults to 5MB.
+	FlushInterval       time.Duration // The flush threshold as duration. Defaults to 30sec.
+	QueueSizeMultiplier int           // The multiplier on the size of the worker queue. Defaults to 1.
 
 	Client      esapi.Transport         // The Elasticsearch client.
 	Decoder     BulkResponseJSONDecoder // A custom JSON decoder.
@@ -301,6 +302,10 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 		cfg.FlushInterval = 30 * time.Second
 	}
 
+	if cfg.QueueSizeMultiplier == 0 {
+		cfg.QueueSizeMultiplier = 1
+	}
+
 	bi := bulkIndexer{
 		config: cfg,
 		stats:  &bulkIndexerStats{},
@@ -371,7 +376,7 @@ func (bi *bulkIndexer) Stats() BulkIndexerStats {
 
 // init initializes the bulk indexer.
 func (bi *bulkIndexer) init() {
-	bi.queue = make(chan BulkIndexerItem, bi.config.NumWorkers)
+	bi.queue = make(chan BulkIndexerItem, bi.config.NumWorkers*bi.config.QueueSizeMultiplier)
 
 	for i := 1; i <= bi.config.NumWorkers; i++ {
 		bi.wg.Add(1)
