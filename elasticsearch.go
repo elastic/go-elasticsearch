@@ -18,15 +18,17 @@
 package elasticsearch
 
 import (
+	"bytes"
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"go.opentelemetry.io/otel/trace"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
 	"regexp"
 	"runtime"
+	"slices"
 	"strconv"
 	"strings"
 	"sync"
@@ -39,6 +41,8 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	tpversion "github.com/elastic/elastic-transport-go/v8/elastictransport/version"
+	krbclient "github.com/jcmturner/gokrb5/v8/client"
+	"github.com/jcmturner/gokrb5/v8/spnego"
 )
 
 const (
@@ -53,6 +57,11 @@ const (
 	HeaderClientMeta = "x-elastic-client-meta"
 
 	compatibilityHeader = "application/vnd.elasticsearch+json;compatible-with=9"
+
+	// HTTPHeaderAuthResponse is the header that will hold SPNEGO data from the server.
+	HTTPHeaderAuthResponse = "WWW-Authenticate"
+	// HTTPHeaderAuthResponseValueKey is the key in the auth header for SPNEGO.
+	HTTPHeaderAuthResponseValueKey = "Negotiate"
 )
 
 var (
@@ -112,6 +121,8 @@ type Config struct {
 	ConnectionPoolFunc func([]*elastictransport.Connection, elastictransport.Selector) elastictransport.ConnectionPool
 
 	Instrumentation elastictransport.Instrumentation // Enable instrumentation throughout the client.
+
+	KerberosClient *krbclient.Client // Optional: client for Kerberos authentication
 }
 
 // NewOpenTelemetryInstrumentation provides the OpenTelemetry integration for both low-level and TypedAPI.
@@ -140,6 +151,7 @@ type BaseClient struct {
 	disableMetaHeader   bool
 	productCheckMu      sync.RWMutex
 	productCheckSuccess bool
+	kerberosClient      *krbclient.Client
 }
 
 // Client represents the Functional Options API.
@@ -169,6 +181,7 @@ func NewBaseClient(cfg Config) (*BaseClient, error) {
 		disableMetaHeader:   cfg.DisableMetaHeader,
 		metaHeader:          initMetaHeader(tp),
 		compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+		kerberosClient:      cfg.KerberosClient,
 	}
 
 	if cfg.DiscoverNodesOnStart {
@@ -214,6 +227,7 @@ func NewClient(cfg Config) (*Client, error) {
 			disableMetaHeader:   cfg.DisableMetaHeader,
 			metaHeader:          initMetaHeader(tp),
 			compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+			kerberosClient:      cfg.KerberosClient,
 		},
 	}
 	client.API = esapi.New(client)
@@ -342,8 +356,21 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 	return tp, nil
 }
 
+type teeReadCloser struct {
+	io.Reader
+	io.Closer
+}
+
 // Perform delegates to Transport to execute a request and return a response.
 func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
+	var body bytes.Buffer
+	if req.Body != nil {
+		// Use a tee reader to capture any body sent in case we have to replay it again
+		teeR := io.TeeReader(req.Body, &body)
+		teeRC := teeReadCloser{teeR, req.Body}
+		req.Body = teeRC
+	}
+
 	// Compatibility Header
 	if c.compatibilityHeader {
 		if req.Body != nil {
@@ -369,6 +396,22 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 		return nil, err
 	}
 
+	if c.kerberosClient != nil {
+		if respUnauthorizedNegotiate(res) {
+			err := spnego.SetSPNEGOHeader(c.kerberosClient, req, "")
+			if err != nil {
+				return res, err
+			}
+			if req.Body != nil {
+				// Refresh the body reader so the body can be sent again
+				req.Body = io.NopCloser(&body)
+			}
+			io.Copy(io.Discard, res.Body)
+			res.Body.Close()
+			return c.Perform(req)
+		}
+	}
+
 	// ResponseCheck, we run the header check on the first answer from ES.
 	if res.StatusCode >= 200 && res.StatusCode < 300 {
 		checkHeader := func() error { return genuineCheckHeader(res.Header) }
@@ -379,6 +422,14 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+func respUnauthorizedNegotiate(resp *http.Response) bool {
+	if resp.StatusCode == http.StatusUnauthorized {
+		headers := resp.Header.Values(HTTPHeaderAuthResponse)
+		return slices.Contains(headers, HTTPHeaderAuthResponseValueKey)
+	}
+	return false
 }
 
 // InstrumentationEnabled propagates back to the client the Instrumentation provided by the transport.
