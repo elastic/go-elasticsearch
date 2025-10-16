@@ -123,7 +123,7 @@ type Config struct {
 
 	Instrumentation elastictransport.Instrumentation // Enable instrumentation throughout the client.
 
-	KerberosClient *krbclient.Client // client for Kerberos authentication
+	KerberosClient *krbclient.Client // client for Kerberos authentication - the application developer should take care of confguring/validating kerberos client.
 }
 
 // NewOpenTelemetryInstrumentation provides the OpenTelemetry integration for both low-level and TypedAPI.
