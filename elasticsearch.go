@@ -35,6 +35,7 @@ import (
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi"
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/elastic/go-elasticsearch/v9/esapi"
 	"github.com/elastic/go-elasticsearch/v9/internal/version"
@@ -122,7 +123,7 @@ type Config struct {
 
 	Instrumentation elastictransport.Instrumentation // Enable instrumentation throughout the client.
 
-	KerberosClient *krbclient.Client // Optional: client for Kerberos authentication
+	KerberosClient *krbclient.Client // client for Kerberos authentication
 }
 
 // NewOpenTelemetryInstrumentation provides the OpenTelemetry integration for both low-level and TypedAPI.

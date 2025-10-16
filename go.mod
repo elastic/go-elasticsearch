@@ -7,6 +7,7 @@ toolchain go1.23.0
 require (
 	github.com/elastic/elastic-transport-go/v8 v8.7.0
 	github.com/jcmturner/gokrb5/v8 v8.4.4
+	go.opentelemetry.io/otel/trace v1.35.0
 )
 
 require (
@@ -21,7 +22,6 @@ require (
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/otel v1.35.0 // indirect
 	go.opentelemetry.io/otel/metric v1.35.0 // indirect
-	go.opentelemetry.io/otel/trace v1.35.0 // indirect
 	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/net v0.7.0 // indirect
 )
