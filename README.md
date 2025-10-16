@@ -19,7 +19,7 @@ or
 
 ### Go
 
-Starting from version `8.12.0`, this library follow the Go language [policy](https://go.dev/doc/devel/release#policy). Each major Go release is supported until there are two newer major releases. For example, Go 1.5 was supported until the Go 1.7 release, and Go 1.6 was supported until the Go 1.8 release.
+Starting from version `8.12.0`, this library follows the Go language's [release policy](https://go.dev/doc/devel/release#policy). Each major Go release is supported until there are two newer major releases. For example, Go 1.5 was supported until the Go 1.7 release, and Go 1.6 was supported until the Go 1.8 release.
 
 ### Elasticsearch
 
