@@ -365,7 +365,7 @@ type teeReadCloser struct {
 // Perform delegates to Transport to execute a request and return a response.
 func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 
-	// we buffer the request body only in case of kerberos auth as this can be expensive otherwise
+	// we buffer the request body only in case of kerberos auth as this can be an expensive op
 	var body bytes.Buffer
 	if c.kerberosClient != nil && req.Body != nil {
 		// Use a tee reader to capture any body sent in case we have to replay it again
