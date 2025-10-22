@@ -60,9 +60,9 @@ const (
 	compatibilityHeader = "application/vnd.elasticsearch+json;compatible-with=9"
 
 	// HTTPHeaderAuthResponse is the header that will hold SPNEGO data from the server.
-	HTTPHeaderAuthResponse = "WWW-Authenticate"
+	httpHeaderAuthResponse = "WWW-Authenticate"
 	// HTTPHeaderAuthResponseValueKey is the key in the auth header for SPNEGO.
-	HTTPHeaderAuthResponseValueKey = "Negotiate"
+	httpHeaderAuthResponseValueKey = "Negotiate"
 )
 
 var (
@@ -429,8 +429,8 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 
 func respUnauthorizedNegotiate(resp *http.Response) bool {
 	if resp.StatusCode == http.StatusUnauthorized {
-		headers := resp.Header.Values(HTTPHeaderAuthResponse)
-		return slices.Contains(headers, HTTPHeaderAuthResponseValueKey)
+		headers := resp.Header.Values(httpHeaderAuthResponse)
+		return slices.Contains(headers, httpHeaderAuthResponseValueKey)
 	}
 	return false
 }
