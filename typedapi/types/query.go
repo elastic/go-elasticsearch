@@ -617,7 +617,7 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 func (s Query) MarshalJSON() ([]byte, error) {
 	type opt Query
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {
@@ -630,7 +630,7 @@ func (s Query) MarshalJSON() ([]byte, error) {
 
 	// We inline the additional fields from the underlying map
 	for key, value := range s.AdditionalQueryProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
+		tmp[key] = value
 	}
 	delete(tmp, "AdditionalQueryProperty")
 
