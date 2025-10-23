@@ -21,7 +21,6 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"go.opentelemetry.io/otel/trace"
 	"net/http"
 	"net/url"
 	"os"
@@ -31,6 +30,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi"
 
@@ -104,9 +105,12 @@ type Config struct {
 
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
-	Transport http.RoundTripper         // The HTTP transport object.
-	Logger    elastictransport.Logger   // The logger object.
-	Selector  elastictransport.Selector // The selector object.
+	Transport http.RoundTripper // The HTTP transport object.
+
+	CustomTransport elastictransport.Interface // Optional custom transport that replaces the default `elastictransport.Interface`
+
+	Logger   elastictransport.Logger   // The logger object.
+	Selector elastictransport.Selector // The selector object.
 
 	// Optional constructor function for a custom ConnectionPool. Default: nil.
 	ConnectionPoolFunc func([]*elastictransport.Connection, elastictransport.Selector) elastictransport.ConnectionPool
@@ -156,9 +160,15 @@ type TypedClient struct {
 
 // NewBaseClient creates a new client free of any API.
 func NewBaseClient(cfg Config) (*BaseClient, error) {
-	tp, err := newTransport(cfg)
-	if err != nil {
-		return nil, err
+
+	var err error
+	tp := cfg.CustomTransport
+
+	if tp == nil {
+		tp, err = NewTransport(cfg)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	compatHeaderEnv := os.Getenv(esCompatHeader)
@@ -200,9 +210,14 @@ func NewDefaultClient() (*Client, error) {
 //
 // It's an error to set both cfg.Addresses and cfg.CloudID.
 func NewClient(cfg Config) (*Client, error) {
-	tp, err := newTransport(cfg)
-	if err != nil {
-		return nil, err
+	var err error
+	tp := cfg.CustomTransport
+
+	if tp == nil {
+		tp, err = NewTransport(cfg)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	compatHeaderEnv := os.Getenv(esCompatHeader)
@@ -231,9 +246,14 @@ func NewClient(cfg Config) (*Client, error) {
 //
 // It will return the client with the TypedAPI.
 func NewTypedClient(cfg Config) (*TypedClient, error) {
-	tp, err := newTransport(cfg)
-	if err != nil {
-		return nil, err
+	var err error
+	tp := cfg.CustomTransport
+
+	if tp == nil {
+		tp, err = NewTransport(cfg)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	compatHeaderEnv := os.Getenv(esCompatHeader)
@@ -258,7 +278,7 @@ func NewTypedClient(cfg Config) (*TypedClient, error) {
 	return client, nil
 }
 
-func newTransport(cfg Config) (*elastictransport.Client, error) {
+func NewTransport(cfg Config) (*elastictransport.Client, error) {
 	var addrs []string
 
 	if len(cfg.Addresses) == 0 && cfg.CloudID == "" {
