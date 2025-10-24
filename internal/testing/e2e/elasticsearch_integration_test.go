@@ -606,14 +606,20 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 			})
 
 			t.Run("Manual", func(t *testing.T) {
-				u, _ := url.Parse(elasticsearchContainer.Settings.Address)
+				u, err := url.Parse(elasticsearchContainer.Settings.Address)
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 
-				tp, _ := elastictransport.New(elastictransport.Config{
+				tp, err := elastictransport.New(elastictransport.Config{
 					URLs: []*url.URL{
 						u,
 					},
 					Transport: http.DefaultTransport,
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 
 				es := elasticsearch.Client{
 					BaseClient: elasticsearch.BaseClient{

@@ -44,6 +44,8 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v9/esapi"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 var metaHeaderReValidation = regexp.MustCompile(`^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$`)
@@ -162,7 +164,10 @@ func TestClientConfiguration(t *testing.T) {
 		if err == nil {
 			t.Fatalf("Expected error, got: %v", err)
 		}
-		match, _ := regexp.MatchString("both .* are set", err.Error())
+		match, err := regexp.MatchString("both .* are set", err.Error())
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 		if !match {
 			t.Errorf("Expected error when addresses from environment and configuration are used together, got: %v", err)
 		}
@@ -292,7 +297,10 @@ func TestAddrsToURLs(t *testing.T) {
 				if err == nil {
 					t.Errorf("Expected error, got: %v", err)
 				}
-				match, _ := regexp.MatchString(tc.err.Error(), err.Error())
+				match, err := regexp.MatchString(tc.err.Error(), err.Error())
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 				if !match {
 					t.Errorf("Expected err [%s] to match: %s", err.Error(), tc.err.Error())
 				}
@@ -359,7 +367,10 @@ func TestCloudID(t *testing.T) {
 		if err == nil {
 			t.Errorf("Expected error for input %q, got %v", input, err)
 		}
-		match, _ := regexp.MatchString("unexpected format", err.Error())
+		match, err := regexp.MatchString("unexpected format", err.Error())
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 		if !match {
 			t.Errorf("Unexpected error string: %s", err)
 		}
@@ -371,7 +382,10 @@ func TestCloudID(t *testing.T) {
 		if err == nil {
 			t.Errorf("Expected error for input %q, got %v", input, err)
 		}
-		match, _ := regexp.MatchString("illegal base64 data", err.Error())
+		match, err := regexp.MatchString("illegal base64 data", err.Error())
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 		if !match {
 			t.Errorf("Unexpected error string: %s", err)
 		}
@@ -385,7 +399,10 @@ func TestVersion(t *testing.T) {
 }
 
 func TestClientMetrics(t *testing.T) {
-	c, _ := NewClient(Config{EnableMetrics: true})
+	c, err := NewClient(Config{EnableMetrics: true})
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
 
 	m, err := c.Metrics()
 	if err != nil {
@@ -482,12 +499,15 @@ func TestResponseCheckOnly(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			c, _ := NewClient(Config{
+			c, err := NewClient(Config{
 				Transport: &mockTransp{RoundTripFunc: func(request *http.Request) (*http.Response, error) {
 					return tt.response, tt.requestErr
 				}},
 			})
-			_, err := c.Cat.Indices()
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
+			_, err = c.Cat.Indices()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Unexpected error, got %v, wantErr %v", err, tt.wantErr)
 			}
@@ -511,7 +531,10 @@ func TestProductCheckError(t *testing.T) {
 	}))
 	defer server.Close()
 
-	c, _ := NewClient(Config{Addresses: []string{server.URL}, DisableRetry: true})
+	c, err := NewClient(Config{Addresses: []string{server.URL}, DisableRetry: true})
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
 	if _, err := c.Cat.Indices(); err != nil {
 		t.Fatalf("unexpected error: %s", err)
 	}
@@ -619,7 +642,10 @@ oftUHvkHS0Vv/LicMEOufFGslb4T9aPJ7oyhoSlz9CfAutDWk/q/
 	}
 	defer res.Body.Close()
 
-	data, _ := ioutil.ReadAll(res.Body)
+	data, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
 	if !bytes.Equal(data, body) {
 		t.Fatalf("unexpected payload returned: expected: %s, got: %s", body, data)
 	}
@@ -680,7 +706,7 @@ func TestCompatibilityHeader(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			t.Setenv(esCompatHeader, strconv.FormatBool(test.compatibilityHeader))
 
-			c, _ := NewClient(Config{
+			c, err := NewClient(Config{
 				EnableCompatibilityMode: test.configVar,
 				Addresses:               []string{},
 				Transport: &mockTransp{
@@ -709,6 +735,10 @@ func TestCompatibilityHeader(t *testing.T) {
 					},
 				},
 			})
+
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
 
 			req := &http.Request{URL: &url.URL{}, Header: make(http.Header)}
 			if test.bodyPresent {
@@ -781,7 +811,7 @@ func TestBuildStrippedVersion(t *testing.T) {
 
 func TestMetaHeader(t *testing.T) {
 	t.Run("MetaHeader with elastictransport", func(t *testing.T) {
-		tp, _ := elastictransport.New(elastictransport.Config{
+		tp, err := elastictransport.New(elastictransport.Config{
 			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: &mockTransp{
 				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
@@ -799,15 +829,24 @@ func TestMetaHeader(t *testing.T) {
 				},
 			},
 		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
-		c, _ := NewDefaultClient()
+		c, err := NewDefaultClient()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 		c.Transport = tp
 
-		_, _ = c.Info()
+		_, err = c.Info()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 	})
 
 	t.Run("Metaheader with typedclient", func(t *testing.T) {
-		tp, _ := elastictransport.New(elastictransport.Config{
+		tp, err := elastictransport.New(elastictransport.Config{
 			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: &mockTransp{
 				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
@@ -828,8 +867,14 @@ func TestMetaHeader(t *testing.T) {
 				},
 			},
 		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
-		c, _ := NewTypedClient(Config{})
+		c, err := NewTypedClient(Config{})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 		c.Transport = tp
 
 		_, _ = c.Info().Do(nil)
@@ -837,7 +882,7 @@ func TestMetaHeader(t *testing.T) {
 }
 
 func TestNewTypedClient(t *testing.T) {
-	tp, _ := elastictransport.New(elastictransport.Config{
+	tp, err := elastictransport.New(elastictransport.Config{
 		URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
 		Transport: &mockTransp{
 			RoundTripFunc: func(request *http.Request) (*http.Response, error) {
@@ -861,8 +906,14 @@ func TestNewTypedClient(t *testing.T) {
 			},
 		},
 	})
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
 
-	c, _ := NewTypedClient(Config{})
+	c, err := NewTypedClient(Config{})
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
 	c.Transport = tp
 
 	res, err := c.Info().Do(context.Background())
@@ -884,7 +935,7 @@ func TestContentTypeOverride(t *testing.T) {
 	t.Run("default JSON Content-Type", func(t *testing.T) {
 		contentType := "application/json"
 
-		tp, _ := elastictransport.New(elastictransport.Config{
+		tp, err := elastictransport.New(elastictransport.Config{
 			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: &mockTransp{
 				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
@@ -902,16 +953,25 @@ func TestContentTypeOverride(t *testing.T) {
 				},
 			},
 		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
-		c, _ := NewDefaultClient()
+		c, err := NewDefaultClient()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 		c.Transport = tp
 
-		_, _ = c.Search(c.Search.WithBody(strings.NewReader("")))
+		_, err = c.Search(c.Search.WithBody(strings.NewReader("")))
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 	})
 	t.Run("overriden CBOR Content-Type functional options style", func(t *testing.T) {
 		contentType := "application/cbor"
 
-		tp, _ := elastictransport.New(elastictransport.Config{
+		tp, err := elastictransport.New(elastictransport.Config{
 			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: &mockTransp{
 				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
@@ -929,8 +989,14 @@ func TestContentTypeOverride(t *testing.T) {
 				},
 			},
 		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
-		c, _ := NewDefaultClient()
+		c, err := NewDefaultClient()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 		c.Transport = tp
 
 		_, _ = c.Search(
@@ -943,7 +1009,7 @@ func TestContentTypeOverride(t *testing.T) {
 	t.Run("overriden CBOR Content-Type direct call style", func(t *testing.T) {
 		contentType := "application/cbor"
 
-		tp, _ := elastictransport.New(elastictransport.Config{
+		tp, err := elastictransport.New(elastictransport.Config{
 			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
 			Transport: &mockTransp{
 				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
@@ -961,8 +1027,14 @@ func TestContentTypeOverride(t *testing.T) {
 				},
 			},
 		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
-		c, _ := NewDefaultClient()
+		c, err := NewDefaultClient()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 		c.Transport = tp
 
 		search := esapi.SearchRequest{}
@@ -1197,10 +1269,13 @@ func TestInstrumentation(t *testing.T) {
 				instrument.BeforeRequestFunc = test.want.BeforeRequestFunc
 				instrument.AfterRequestFunc = test.want.AfterRequestFunc
 
-				es, _ := NewTypedClient(Config{
+				es, err := NewTypedClient(Config{
 					Transport:       &mockTransp{RoundTripFunc: test.args.roundTripFunc},
 					Instrumentation: instrument,
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 				es.Search().
 					Index("foo").
 					Query(&types.Query{
@@ -1234,10 +1309,13 @@ func TestInstrumentation(t *testing.T) {
 				instrument.BeforeRequestFunc = test.want.BeforeRequestFunc
 				instrument.AfterRequestFunc = test.want.AfterRequestFunc
 
-				es, _ := NewClient(Config{
+				es, err := NewClient(Config{
 					Transport:       &mockTransp{RoundTripFunc: test.args.roundTripFunc},
 					Instrumentation: instrument,
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 				es.Search(
 					es.Search.WithIndex("foo"),
 					es.Search.WithBody(strings.NewReader("{\"query\":{\"match_all\":{}}}")),

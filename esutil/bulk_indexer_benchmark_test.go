@@ -64,14 +64,20 @@ func BenchmarkBulkIndexer(b *testing.B) {
 	b.Run("Basic", func(b *testing.B) {
 		b.ResetTimer()
 
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransp{}})
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransp{}})
+		if err != nil {
+			b.Fatalf("Unexpected error: %s", err)
+		}
 		defer func() {
 			_ = es.Close(context.Background())
 		}()
-		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+		bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 			Client:     es,
 			FlushBytes: 1024,
 		})
+		if err != nil {
+			b.Fatalf("Unexpected error: %s", err)
+		}
 		defer bi.Close(context.Background())
 
 		docID := make([]byte, 0, 16)
