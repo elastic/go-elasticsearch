@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package esdsl
 
@@ -31,6 +31,7 @@ type _compositeGeoTileGridAggregation struct {
 	v *types.CompositeGeoTileGridAggregation
 }
 
+// A geotile grid aggregation.
 func NewCompositeGeoTileGridAggregation() *_compositeGeoTileGridAggregation {
 
 	return &_compositeGeoTileGridAggregation{v: types.NewCompositeGeoTileGridAggregation()}
@@ -88,6 +89,14 @@ func (s *_compositeGeoTileGridAggregation) ValueType(valuetype valuetype.ValueTy
 
 	s.v.ValueType = &valuetype
 	return s
+}
+
+func (s *_compositeGeoTileGridAggregation) CompositeAggregationSourceCaster() *types.CompositeAggregationSource {
+	container := types.NewCompositeAggregationSource()
+
+	container.GeotileGrid = s.v
+
+	return container
 }
 
 func (s *_compositeGeoTileGridAggregation) CompositeGeoTileGridAggregationCaster() *types.CompositeGeoTileGridAggregation {

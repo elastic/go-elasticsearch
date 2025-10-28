@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/_types/DataStream.ts#L54-L145
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/_types/DataStream.ts#L55-L151
 type DataStream struct {
 	// AllowCustomRouting If `true`, the data stream allows custom routing on write request.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
@@ -65,6 +65,10 @@ type DataStream struct {
 	Indices []DataStreamIndex `json:"indices"`
 	// Lifecycle Contains the configuration for the data stream lifecycle of this data stream.
 	Lifecycle *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
+	// Mappings The mappings specific to this data stream that will take precedence over the
+	// mappings in the matching index
+	// template.
+	Mappings *TypeMapping `json:"mappings,omitempty"`
 	// Meta_ Custom metadata for the stream, copied from the `_meta` object of the
 	// stream’s matching index template.
 	// If empty, the response omits this property.
@@ -185,6 +189,11 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 		case "lifecycle":
 			if err := dec.Decode(&s.Lifecycle); err != nil {
 				return fmt.Errorf("%s | %w", "Lifecycle", err)
+			}
+
+		case "mappings":
+			if err := dec.Decode(&s.Mappings); err != nil {
+				return fmt.Errorf("%s | %w", "Mappings", err)
 			}
 
 		case "_meta":

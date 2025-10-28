@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // QueryRuleCriteria type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/query_rules/_types/QueryRuleset.ts#L65-L93
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/query_rules/_types/QueryRuleset.ts#L65-L93
 type QueryRuleCriteria struct {
 	// Metadata The metadata field to match against.
 	// This metadata will be used to match against `match_criteria` sent in the

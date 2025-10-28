@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
 // SimulateIngestDocumentResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/simulate/ingest/SimulateIngestResponse.ts#L31-L33
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/simulate/ingest/SimulateIngestResponse.ts#L32-L34
 type SimulateIngestDocumentResult struct {
 	Doc *IngestDocumentSimulation `json:"doc,omitempty"`
 }

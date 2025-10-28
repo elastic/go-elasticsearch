@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package translate
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package translate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/sql/translate/TranslateSqlRequest.ts#L25-L65
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/sql/translate/TranslateSqlRequest.ts#L25-L65
 type Request struct {
 
 	// FetchSize The maximum number of rows (or entries) to return in one response.

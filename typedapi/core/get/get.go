@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Get a document by its ID.
 //
@@ -538,6 +538,14 @@ func (r *Get) Source_(sourceconfigparam string) *Get {
 // API name: _source_excludes
 func (r *Get) SourceExcludes_(fields ...string) *Get {
 	r.values.Set("_source_excludes", strings.Join(fields, ","))
+
+	return r
+}
+
+// SourceExcludeVectors_ Whether vectors should be excluded from _source
+// API name: _source_exclude_vectors
+func (r *Get) SourceExcludeVectors_(sourceexcludevectors_ bool) *Get {
+	r.values.Set("_source_exclude_vectors", strconv.FormatBool(sourceexcludevectors_))
 
 	return r
 }

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Extracts raw stacktrace information from Universal Profiling.
+// Extracts raw stacktrace information from Universal Profiling
 package stacktraces
 
 import (
@@ -65,7 +65,7 @@ func NewStacktracesFunc(tp elastictransport.Interface) NewStacktraces {
 	}
 }
 
-// Extracts raw stacktrace information from Universal Profiling.
+// Extracts raw stacktrace information from Universal Profiling
 //
 // https://www.elastic.co/guide/en/observability/current/universal-profiling.html
 func New(tp elastictransport.Interface) *Stacktraces {

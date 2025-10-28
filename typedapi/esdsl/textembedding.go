@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package esdsl
 
@@ -26,11 +26,9 @@ type _textEmbedding struct {
 	v *types.TextEmbedding
 }
 
-func NewTextEmbedding(modelid string, modeltext string) *_textEmbedding {
+func NewTextEmbedding(modeltext string) *_textEmbedding {
 
 	tmp := &_textEmbedding{v: types.NewTextEmbedding()}
-
-	tmp.ModelId(modelid)
 
 	tmp.ModelText(modeltext)
 
@@ -40,7 +38,7 @@ func NewTextEmbedding(modelid string, modeltext string) *_textEmbedding {
 
 func (s *_textEmbedding) ModelId(modelid string) *_textEmbedding {
 
-	s.v.ModelId = modelid
+	s.v.ModelId = &modelid
 
 	return s
 }

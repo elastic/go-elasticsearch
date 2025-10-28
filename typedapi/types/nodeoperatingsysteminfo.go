@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeOperatingSystemInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/nodes/info/types.ts#L383-L400
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/nodes/info/types.ts#L383-L400
 type NodeOperatingSystemInfo struct {
 	// AllocatedProcessors The number of processors actually used to calculate thread pool size. This
 	// number can be set with the node.processors setting of a node and defaults to

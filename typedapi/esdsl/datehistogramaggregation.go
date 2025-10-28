@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package esdsl
 
@@ -31,9 +31,6 @@ type _dateHistogramAggregation struct {
 	v *types.DateHistogramAggregation
 }
 
-// A multi-bucket values source based aggregation that can be applied on date
-// values or date range values extracted from the documents.
-// It dynamically builds fixed size (interval) buckets over the values.
 func NewDateHistogramAggregation() *_dateHistogramAggregation {
 
 	return &_dateHistogramAggregation{v: types.NewDateHistogramAggregation()}

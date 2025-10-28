@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -26,14 +26,19 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/apikeymanagedby"
 )
 
 // AuthenticateApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/authenticate/SecurityAuthenticateResponse.ts#L44-L47
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/authenticate/SecurityAuthenticateResponse.ts#L45-L50
 type AuthenticateApiKey struct {
-	Id   string  `json:"id"`
-	Name *string `json:"name,omitempty"`
+	Id        string                          `json:"id"`
+	Internal  *bool                           `json:"internal,omitempty"`
+	ManagedBy apikeymanagedby.ApiKeyManagedBy `json:"managed_by"`
+	Name      *string                         `json:"name,omitempty"`
 }
 
 func (s *AuthenticateApiKey) UnmarshalJSON(data []byte) error {
@@ -54,6 +59,25 @@ func (s *AuthenticateApiKey) UnmarshalJSON(data []byte) error {
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
 				return fmt.Errorf("%s | %w", "Id", err)
+			}
+
+		case "internal":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Internal", err)
+				}
+				s.Internal = &value
+			case bool:
+				s.Internal = &v
+			}
+
+		case "managed_by":
+			if err := dec.Decode(&s.ManagedBy); err != nil {
+				return fmt.Errorf("%s | %w", "ManagedBy", err)
 			}
 
 		case "name":

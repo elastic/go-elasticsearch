@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Count search results.
 // Get the number of documents matching a query.
@@ -379,7 +379,7 @@ func (r *Count) AnalyzeWildcard(analyzewildcard bool) *Count {
 	return r
 }
 
-// DefaultOperator The default operator for query string query: `AND` or `OR`.
+// DefaultOperator The default operator for query string query: `and` or `or`.
 // This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: default_operator
@@ -457,6 +457,24 @@ func (r *Count) MinScore(minscore string) *Count {
 // API name: preference
 func (r *Count) Preference(preference string) *Count {
 	r.values.Set("preference", preference)
+
+	return r
+}
+
+// ProjectRouting Specifies a subset of projects to target for the search using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *Count) ProjectRouting(projectrouting string) *Count {
+	r.values.Set("project_routing", projectrouting)
 
 	return r
 }

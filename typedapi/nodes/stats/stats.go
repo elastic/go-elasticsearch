@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Get node statistics.
 // Get statistics for nodes in a cluster.
@@ -37,7 +37,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/level"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/nodestatslevel"
 )
 
 const (
@@ -456,10 +456,10 @@ func (r *Stats) IncludeSegmentFileSizes(includesegmentfilesizes bool) *Stats {
 	return r
 }
 
-// Level Indicates whether statistics are aggregated at the cluster, index, or shard
+// Level Indicates whether statistics are aggregated at the node, indices, or shards
 // level.
 // API name: level
-func (r *Stats) Level(level level.Level) *Stats {
+func (r *Stats) Level(level nodestatslevel.NodeStatsLevel) *Stats {
 	r.values.Set("level", level.String())
 
 	return r

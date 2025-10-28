@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package simulate
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package simulate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ingest/simulate/SimulatePipelineRequest.ts#L25-L72
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ingest/simulate/SimulatePipelineRequest.ts#L25-L73
 type Request struct {
 
 	// Docs Sample documents to test in the pipeline.

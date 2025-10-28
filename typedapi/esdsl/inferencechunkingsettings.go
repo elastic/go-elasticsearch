@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package esdsl
 
@@ -50,6 +50,23 @@ func (s *_inferenceChunkingSettings) SentenceOverlap(sentenceoverlap int) *_infe
 
 	s.v.SentenceOverlap = &sentenceoverlap
 
+	return s
+}
+
+func (s *_inferenceChunkingSettings) SeparatorGroup(separatorgroup string) *_inferenceChunkingSettings {
+
+	s.v.SeparatorGroup = &separatorgroup
+
+	return s
+}
+
+func (s *_inferenceChunkingSettings) Separators(separators ...string) *_inferenceChunkingSettings {
+
+	for _, v := range separators {
+
+		s.v.Separators = append(s.v.Separators, v)
+
+	}
 	return s
 }
 

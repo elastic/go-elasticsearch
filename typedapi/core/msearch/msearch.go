@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Run multiple searches.
 //
@@ -454,6 +454,22 @@ func (r *Msearch) MaxConcurrentShardRequests(maxconcurrentshardrequests int) *Ms
 // API name: pre_filter_shard_size
 func (r *Msearch) PreFilterShardSize(prefiltershardsize string) *Msearch {
 	r.values.Set("pre_filter_shard_size", prefiltershardsize)
+
+	return r
+}
+
+// ProjectRouting Specifies a subset of projects to target for a search using project metadata
+// tags in a subset Lucene syntax. Allowed Lucene queries: the _alias tag
+// and a single value (possible wildcarded). Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *Msearch) ProjectRouting(projectrouting string) *Msearch {
+	r.values.Set("project_routing", projectrouting)
 
 	return r
 }

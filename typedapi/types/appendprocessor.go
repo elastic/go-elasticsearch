@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -31,11 +31,14 @@ import (
 
 // AppendProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ingest/_types/Processors.ts#L329-L344
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ingest/_types/Processors.ts#L329-L348
 type AppendProcessor struct {
 	// AllowDuplicates If `false`, the processor does not append values already present in the
 	// field.
 	AllowDuplicates *bool `json:"allow_duplicates,omitempty"`
+	// CopyFrom The origin field which will be appended to `field`, cannot set `value`
+	// simultaneously.
+	CopyFrom *string `json:"copy_from,omitempty"`
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
 	Description *string `json:"description,omitempty"`
@@ -51,8 +54,9 @@ type AppendProcessor struct {
 	// Tag Identifier for the processor.
 	// Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
-	// Value The value to be appended. Supports template snippets.
-	Value []json.RawMessage `json:"value"`
+	// Value The value to be appended. Supports template snippets. May specify only one of
+	// `value` or `copy_from`.
+	Value []json.RawMessage `json:"value,omitempty"`
 }
 
 func (s *AppendProcessor) UnmarshalJSON(data []byte) error {
@@ -82,6 +86,11 @@ func (s *AppendProcessor) UnmarshalJSON(data []byte) error {
 				s.AllowDuplicates = &value
 			case bool:
 				s.AllowDuplicates = &v
+			}
+
+		case "copy_from":
+			if err := dec.Decode(&s.CopyFrom); err != nil {
+				return fmt.Errorf("%s | %w", "CopyFrom", err)
 			}
 
 		case "description":

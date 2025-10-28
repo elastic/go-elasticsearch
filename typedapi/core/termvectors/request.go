@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package termvectors
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package termvectors
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/termvectors/TermVectorsRequest.ts#L33-L241
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/termvectors/TermVectorsRequest.ts#L33-L241
 type Request struct {
 
 	// Doc An artificial document (a document not present in the index) for which you
@@ -142,19 +142,8 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "fields":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Fields", err)
-				}
-
-				s.Fields = append(s.Fields, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Fields); err != nil {
-					return fmt.Errorf("%s | %w", "Fields", err)
-				}
+			if err := dec.Decode(&s.Fields); err != nil {
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "filter":

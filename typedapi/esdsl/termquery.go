@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package esdsl
 
@@ -27,7 +27,7 @@ type _termQuery struct {
 	v *types.TermQuery
 }
 
-// Returns users that contain an exact term in a provided field.
+// Returns documents that contain an exact term in a provided field.
 // To return a document, the query term must exactly match the queried field's
 // value, including whitespace and capitalization.
 func NewTermQuery(field string, value types.FieldValueVariant) *_termQuery {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -31,11 +31,12 @@ import (
 
 // ChunkingSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/ChunkingSettings.ts#L24-L32
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/mapping/ChunkingSettings.ts#L24-L36
 type ChunkingSettings struct {
 	// MaxChunkSize The maximum size of a chunk in words.
-	// This value cannot be higher than `300` or lower than `20` (for `sentence`
-	// strategy) or `10` (for `word` strategy).
+	// This value cannot be lower than `20` (for `sentence` strategy) or `10` (for
+	// `word` strategy).
+	// This value should not exceed the window size for the associated model.
 	MaxChunkSize int `json:"max_chunk_size"`
 	// Overlap The number of overlapping words for chunks.
 	// It is applicable only to a `word` chunking strategy.
@@ -45,7 +46,35 @@ type ChunkingSettings struct {
 	// It is applicable only for a `sentence` chunking strategy.
 	// It can be either `1` or `0`.
 	SentenceOverlap *int `json:"sentence_overlap,omitempty"`
-	// Strategy The chunking strategy: `sentence` or `word`.
+	// SeparatorGroup Only applicable to the `recursive` strategy and required when using it.
+	//
+	// Sets a predefined list of separators in the saved chunking settings based on
+	// the selected text type.
+	// Values can be `markdown` or `plaintext`.
+	//
+	// Using this parameter is an alternative to manually specifying a custom
+	// `separators` list.
+	SeparatorGroup *string `json:"separator_group,omitempty"`
+	// Separators Only applicable to the `recursive` strategy and required when using it.
+	//
+	// A list of strings used as possible split points when chunking text.
+	//
+	// Each string can be a plain string or a regular expression (regex) pattern.
+	// The system tries each separator in order to split the text, starting from the
+	// first item in the list.
+	//
+	// After splitting, it attempts to recombine smaller pieces into larger chunks
+	// that stay within
+	// the `max_chunk_size` limit, to reduce the total number of chunks generated.
+	Separators []string `json:"separators,omitempty"`
+	// Strategy The chunking strategy: `sentence`, `word`, `none` or `recursive`.
+	//
+	//   - If `strategy` is set to `recursive`, you must also specify:
+	//
+	// - `max_chunk_size`
+	// - either `separators` or`separator_group`
+	//
+	// Learn more about different chunking strategies in the linked documentation.
 	Strategy string `json:"strategy"`
 }
 
@@ -110,6 +139,23 @@ func (s *ChunkingSettings) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int(v)
 				s.SentenceOverlap = &f
+			}
+
+		case "separator_group":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "SeparatorGroup", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.SeparatorGroup = &o
+
+		case "separators":
+			if err := dec.Decode(&s.Separators); err != nil {
+				return fmt.Errorf("%s | %w", "Separators", err)
 			}
 
 		case "strategy":

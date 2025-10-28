@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package esdsl
 
@@ -110,6 +110,13 @@ func (s *_knnRetriever) RescoreVector(rescorevector types.RescoreVectorVariant) 
 func (s *_knnRetriever) Similarity(similarity float32) *_knnRetriever {
 
 	s.v.Similarity = &similarity
+
+	return s
+}
+
+func (s *_knnRetriever) VisitPercentage(visitpercentage float32) *_knnRetriever {
+
+	s.v.VisitPercentage = &visitpercentage
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Get anomaly detection jobs.
 //
@@ -349,19 +349,11 @@ func (r *MlJobs) AllowNoMatch(allownomatch bool) *MlJobs {
 	return r
 }
 
-// Bytes The unit used to display byte values.
-// API name: bytes
-func (r *MlJobs) Bytes(bytes bytes.Bytes) *MlJobs {
-	r.values.Set("bytes", bytes.String())
-
-	return r
-}
-
 // H Comma-separated list of column names to display.
 // API name: h
-func (r *MlJobs) H(catanonalydetectorcolumns ...catanomalydetectorcolumn.CatAnomalyDetectorColumn) *MlJobs {
+func (r *MlJobs) H(catanomalydetectorcolumns ...catanomalydetectorcolumn.CatAnomalyDetectorColumn) *MlJobs {
 	tmp := []string{}
-	for _, item := range catanonalydetectorcolumns {
+	for _, item := range catanomalydetectorcolumns {
 		tmp = append(tmp, item.String())
 	}
 	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
@@ -372,9 +364,9 @@ func (r *MlJobs) H(catanonalydetectorcolumns ...catanomalydetectorcolumn.CatAnom
 // S Comma-separated list of column names or column aliases used to sort the
 // response.
 // API name: s
-func (r *MlJobs) S(catanonalydetectorcolumns ...catanomalydetectorcolumn.CatAnomalyDetectorColumn) *MlJobs {
+func (r *MlJobs) S(catanomalydetectorcolumns ...catanomalydetectorcolumn.CatAnomalyDetectorColumn) *MlJobs {
 	tmp := []string{}
-	for _, item := range catanonalydetectorcolumns {
+	for _, item := range catanomalydetectorcolumns {
 		tmp = append(tmp, item.String())
 	}
 	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
@@ -382,10 +374,18 @@ func (r *MlJobs) S(catanonalydetectorcolumns ...catanomalydetectorcolumn.CatAnom
 	return r
 }
 
-// Time The unit used to display time values.
-// API name: time
-func (r *MlJobs) Time(time timeunit.TimeUnit) *MlJobs {
-	r.values.Set("time", time.String())
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *MlJobs) Bytes(bytes bytes.Bytes) *MlJobs {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
@@ -404,6 +404,19 @@ func (r *MlJobs) Format(format string) *MlJobs {
 // API name: help
 func (r *MlJobs) Help(help bool) *MlJobs {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *MlJobs) Time(time timeunit.TimeUnit) *MlJobs {
+	r.values.Set("time", time.String())
 
 	return r
 }

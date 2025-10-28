@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Get EQL search results.
 // Returns search results for an Event Query Language (EQL) query.
@@ -354,6 +354,24 @@ func (r *Search) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *Search {
 // API name: ignore_unavailable
 func (r *Search) IgnoreUnavailable(ignoreunavailable bool) *Search {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
+// ProjectRouting Specifies a subset of projects to target for the search using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *Search) ProjectRouting(projectrouting string) *Search {
+	r.values.Set("project_routing", projectrouting)
 
 	return r
 }

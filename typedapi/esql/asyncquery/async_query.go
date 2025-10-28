@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Run an async ES|QL query.
 // Asynchronously run an ES|QL (Elasticsearch query language) query, monitor its
@@ -425,8 +425,8 @@ func (r *AsyncQuery) Filter(filter types.QueryVariant) *AsyncQuery {
 	return r
 }
 
-// When set to `true` and performing a cross-cluster query, the response will
-// include an extra `_clusters`
+// When set to `true` and performing a cross-cluster/cross-project query, the
+// response will include an extra `_clusters`
 // object with information about the clusters that participated in the search
 // along with info such as shards
 // count.

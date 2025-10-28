@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TextEmbeddingInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/_types/inference.ts#L252-L262
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/_types/inference.ts#L252-L262
 type TextEmbeddingInferenceOptions struct {
 	// EmbeddingSize The number of dimensions in the embedding output
 	EmbeddingSize *int `json:"embedding_size,omitempty"`
@@ -40,7 +40,7 @@ type TextEmbeddingInferenceOptions struct {
 	ResultsField *string `json:"results_field,omitempty"`
 	// Tokenization The tokenization options
 	Tokenization *TokenizationConfigContainer `json:"tokenization,omitempty"`
-	Vocabulary   Vocabulary                   `json:"vocabulary"`
+	Vocabulary   *Vocabulary                  `json:"vocabulary,omitempty"`
 }
 
 func (s *TextEmbeddingInferenceOptions) UnmarshalJSON(data []byte) error {

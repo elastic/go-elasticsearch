@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Analyze a snapshot repository.
 //
@@ -698,7 +698,7 @@ func (r *RepositoryAnalyze) _repository(repository string) *RepositoryAnalyze {
 }
 
 // BlobCount The total number of blobs to write to the repository during the test.
-// For realistic experiments, you should set it to at least `2000`.
+// For realistic experiments, set this parameter to at least `2000`.
 // API name: blob_count
 func (r *RepositoryAnalyze) BlobCount(blobcount int) *RepositoryAnalyze {
 	r.values.Set("blob_count", strconv.Itoa(blobcount))
@@ -707,6 +707,7 @@ func (r *RepositoryAnalyze) BlobCount(blobcount int) *RepositoryAnalyze {
 }
 
 // Concurrency The number of operations to run concurrently during the test.
+// For realistic experiments, leave this parameter unset.
 // API name: concurrency
 func (r *RepositoryAnalyze) Concurrency(concurrency int) *RepositoryAnalyze {
 	r.values.Set("concurrency", strconv.Itoa(concurrency))
@@ -727,6 +728,7 @@ func (r *RepositoryAnalyze) Detailed(detailed bool) *RepositoryAnalyze {
 // EarlyReadNodeCount The number of nodes on which to perform an early read operation while writing
 // each blob.
 // Early read operations are only rarely performed.
+// For realistic experiments, leave this parameter unset.
 // API name: early_read_node_count
 func (r *RepositoryAnalyze) EarlyReadNodeCount(earlyreadnodecount int) *RepositoryAnalyze {
 	r.values.Set("early_read_node_count", strconv.Itoa(earlyreadnodecount))
@@ -735,7 +737,7 @@ func (r *RepositoryAnalyze) EarlyReadNodeCount(earlyreadnodecount int) *Reposito
 }
 
 // MaxBlobSize The maximum size of a blob to be written during the test.
-// For realistic experiments, you should set it to at least `2gb`.
+// For realistic experiments, set this parameter to at least `2gb`.
 // API name: max_blob_size
 func (r *RepositoryAnalyze) MaxBlobSize(bytesize string) *RepositoryAnalyze {
 	r.values.Set("max_blob_size", bytesize)
@@ -744,7 +746,7 @@ func (r *RepositoryAnalyze) MaxBlobSize(bytesize string) *RepositoryAnalyze {
 }
 
 // MaxTotalDataSize An upper limit on the total size of all the blobs written during the test.
-// For realistic experiments, you should set it to at least `1tb`.
+// For realistic experiments, set this parameter to at least `1tb`.
 // API name: max_total_data_size
 func (r *RepositoryAnalyze) MaxTotalDataSize(bytesize string) *RepositoryAnalyze {
 	r.values.Set("max_total_data_size", bytesize)
@@ -754,6 +756,7 @@ func (r *RepositoryAnalyze) MaxTotalDataSize(bytesize string) *RepositoryAnalyze
 
 // RareActionProbability The probability of performing a rare action such as an early read, an
 // overwrite, or an aborted write on each blob.
+// For realistic experiments, leave this parameter unset.
 // API name: rare_action_probability
 func (r *RepositoryAnalyze) RareActionProbability(rareactionprobability string) *RepositoryAnalyze {
 	r.values.Set("rare_action_probability", rareactionprobability)
@@ -762,6 +765,7 @@ func (r *RepositoryAnalyze) RareActionProbability(rareactionprobability string) 
 }
 
 // RarelyAbortWrites Indicates whether to rarely cancel writes before they complete.
+// For realistic experiments, leave this parameter unset.
 // API name: rarely_abort_writes
 func (r *RepositoryAnalyze) RarelyAbortWrites(rarelyabortwrites bool) *RepositoryAnalyze {
 	r.values.Set("rarely_abort_writes", strconv.FormatBool(rarelyabortwrites))
@@ -770,6 +774,7 @@ func (r *RepositoryAnalyze) RarelyAbortWrites(rarelyabortwrites bool) *Repositor
 }
 
 // ReadNodeCount The number of nodes on which to read a blob after writing.
+// For realistic experiments, leave this parameter unset.
 // API name: read_node_count
 func (r *RepositoryAnalyze) ReadNodeCount(readnodecount int) *RepositoryAnalyze {
 	r.values.Set("read_node_count", strconv.Itoa(readnodecount))
@@ -778,7 +783,7 @@ func (r *RepositoryAnalyze) ReadNodeCount(readnodecount int) *RepositoryAnalyze 
 }
 
 // RegisterOperationCount The minimum number of linearizable register operations to perform in total.
-// For realistic experiments, you should set it to at least `100`.
+// For realistic experiments, set this parameter to at least `100`.
 // API name: register_operation_count
 func (r *RepositoryAnalyze) RegisterOperationCount(registeroperationcount int) *RepositoryAnalyze {
 	r.values.Set("register_operation_count", strconv.Itoa(registeroperationcount))
@@ -792,6 +797,7 @@ func (r *RepositoryAnalyze) RegisterOperationCount(registeroperationcount int) *
 // seed in each experiment.
 // Note that the operations are performed concurrently so might not always
 // happen in the same order on each run.
+// For realistic experiments, leave this parameter unset.
 // API name: seed
 func (r *RepositoryAnalyze) Seed(seed int) *RepositoryAnalyze {
 	r.values.Set("seed", strconv.Itoa(seed))
@@ -802,6 +808,8 @@ func (r *RepositoryAnalyze) Seed(seed int) *RepositoryAnalyze {
 // Timeout The period of time to wait for the test to complete.
 // If no response is received before the timeout expires, the test is cancelled
 // and returns an error.
+// For realistic experiments, set this parameter sufficiently long to allow the
+// test to complete.
 // API name: timeout
 func (r *RepositoryAnalyze) Timeout(duration string) *RepositoryAnalyze {
 	r.values.Set("timeout", duration)

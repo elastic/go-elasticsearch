@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // MultisearchHeader type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/msearch/types.ts#L31-L46
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/msearch/types.ts#L37-L53
 type MultisearchHeader struct {
 	AllowNoIndices            *bool                           `json:"allow_no_indices,omitempty"`
 	AllowPartialSearchResults *bool                           `json:"allow_partial_search_results,omitempty"`
@@ -44,6 +44,7 @@ type MultisearchHeader struct {
 	IgnoreUnavailable         *bool                           `json:"ignore_unavailable,omitempty"`
 	Index                     []string                        `json:"index,omitempty"`
 	Preference                *string                         `json:"preference,omitempty"`
+	ProjectRouting            *string                         `json:"project_routing,omitempty"`
 	RequestCache              *bool                           `json:"request_cache,omitempty"`
 	Routing                   *string                         `json:"routing,omitempty"`
 	SearchType                *searchtype.SearchType          `json:"search_type,omitempty"`
@@ -177,6 +178,11 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Preference = &o
+
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
+			}
 
 		case "request_cache":
 			var tmp any

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Create or update a Logstash pipeline.
 //
@@ -257,6 +257,8 @@ func (r *PutPipeline) Header(key, value string) *PutPipeline {
 }
 
 // Id An identifier for the pipeline.
+// Pipeline IDs must begin with a letter or underscore and contain only letters,
+// underscores, dashes, hyphens and numbers.
 // API Name: id
 func (r *PutPipeline) _id(id string) *PutPipeline {
 	r.paramSet |= idMask

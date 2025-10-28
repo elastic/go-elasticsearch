@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package esdsl
 
@@ -46,6 +46,20 @@ func (s *_indexTemplate) ComposedOf(composedofs ...string) *_indexTemplate {
 		s.v.ComposedOf = append(s.v.ComposedOf, v)
 
 	}
+	return s
+}
+
+func (s *_indexTemplate) CreatedDate(datetime types.DateTimeVariant) *_indexTemplate {
+
+	s.v.CreatedDate = *datetime.DateTimeCaster()
+
+	return s
+}
+
+func (s *_indexTemplate) CreatedDateMillis(epochtimeunitmillis int64) *_indexTemplate {
+
+	s.v.CreatedDateMillis = &epochtimeunitmillis
+
 	return s
 }
 
@@ -80,6 +94,20 @@ func (s *_indexTemplate) IndexPatterns(names ...string) *_indexTemplate {
 func (s *_indexTemplate) Meta_(metadata types.MetadataVariant) *_indexTemplate {
 
 	s.v.Meta_ = *metadata.MetadataCaster()
+
+	return s
+}
+
+func (s *_indexTemplate) ModifiedDate(datetime types.DateTimeVariant) *_indexTemplate {
+
+	s.v.ModifiedDate = *datetime.DateTimeCaster()
+
+	return s
+}
+
+func (s *_indexTemplate) ModifiedDateMillis(epochtimeunitmillis int64) *_indexTemplate {
+
+	s.v.ModifiedDateMillis = &epochtimeunitmillis
 
 	return s
 }

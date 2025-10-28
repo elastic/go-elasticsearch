@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Resolve indices.
 // Resolve the names and/or index patterns for indices, aliases, and data
@@ -38,6 +38,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indexmode"
 )
 
 const (
@@ -341,6 +342,37 @@ func (r *ResolveIndex) IgnoreUnavailable(ignoreunavailable bool) *ResolveIndex {
 // API name: allow_no_indices
 func (r *ResolveIndex) AllowNoIndices(allownoindices bool) *ResolveIndex {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
+
+	return r
+}
+
+// Mode Filter indices by index mode - standard, lookup, time_series, etc.
+// Comma-separated list of IndexMode. Empty means no filter.
+// API name: mode
+func (r *ResolveIndex) Mode(modes ...indexmode.IndexMode) *ResolveIndex {
+	tmp := []string{}
+	for _, item := range modes {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("mode", strings.Join(tmp, ","))
+
+	return r
+}
+
+// ProjectRouting Specifies a subset of projects to target using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *ResolveIndex) ProjectRouting(projectrouting string) *ResolveIndex {
+	r.values.Set("project_routing", projectrouting)
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Get the cluster state.
 // Get comprehensive information about the state of the cluster.
@@ -447,7 +447,7 @@ func (r *State) Local(local bool) *State {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Timeout for waiting for new cluster state in case it is blocked
 // API name: master_timeout
 func (r *State) MasterTimeout(duration string) *State {
 	r.values.Set("master_timeout", duration)

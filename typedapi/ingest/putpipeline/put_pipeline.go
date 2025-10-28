@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Create or update a pipeline.
 // Changes made using this API take effect immediately.
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/fieldaccesspattern"
 )
 
 const (
@@ -411,6 +412,18 @@ func (r *PutPipeline) Description(description string) *PutPipeline {
 
 	r.req.Description = &description
 
+	return r
+}
+
+// Controls how processors in this pipeline should read and write data on a
+// document's source.
+// API name: field_access_pattern
+func (r *PutPipeline) FieldAccessPattern(fieldaccesspattern fieldaccesspattern.FieldAccessPattern) *PutPipeline {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.FieldAccessPattern = &fieldaccesspattern
 	return r
 }
 

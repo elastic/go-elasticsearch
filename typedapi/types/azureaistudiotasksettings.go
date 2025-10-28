@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AzureAiStudioTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L685-L713
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/_types/CommonTypes.ts#L721-L758
 type AzureAiStudioTaskSettings struct {
 	// DoSample For a `completion` task, instruct the inference process to perform sampling.
 	// It has no effect unless `temperature` or `top_p` is specified.
@@ -39,11 +39,16 @@ type AzureAiStudioTaskSettings struct {
 	// MaxNewTokens For a `completion` task, provide a hint for the maximum number of output
 	// tokens to be generated.
 	MaxNewTokens *int `json:"max_new_tokens,omitempty"`
+	// ReturnDocuments For a `rerank` task, return doc text within the results.
+	ReturnDocuments *bool `json:"return_documents,omitempty"`
 	// Temperature For a `completion` task, control the apparent creativity of generated
 	// completions with a sampling temperature.
 	// It must be a number in the range of 0.0 to 2.0.
 	// It should not be used if `top_p` is specified.
 	Temperature *float32 `json:"temperature,omitempty"`
+	// TopN For a `rerank` task, the number of most relevant documents to return.
+	// It defaults to the number of the documents.
+	TopN *int `json:"top_n,omitempty"`
 	// TopP For a `completion` task, make the model consider the results of the tokens
 	// with nucleus sampling probability.
 	// It is an alternative value to `temperature` and must be a number in the range
@@ -102,6 +107,20 @@ func (s *AzureAiStudioTaskSettings) UnmarshalJSON(data []byte) error {
 				s.MaxNewTokens = &f
 			}
 
+		case "return_documents":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ReturnDocuments", err)
+				}
+				s.ReturnDocuments = &value
+			case bool:
+				s.ReturnDocuments = &v
+			}
+
 		case "temperature":
 			var tmp any
 			dec.Decode(&tmp)
@@ -116,6 +135,22 @@ func (s *AzureAiStudioTaskSettings) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := float32(v)
 				s.Temperature = &f
+			}
+
+		case "top_n":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "TopN", err)
+				}
+				s.TopN = &value
+			case float64:
+				f := int(v)
+				s.TopN = &f
 			}
 
 		case "top_p":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package getoverallbuckets
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package getoverallbuckets
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L153
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L153
 type Request struct {
 
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
@@ -45,7 +45,7 @@ type Request struct {
 	// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
 	ExcludeInterim *bool `json:"exclude_interim,omitempty"`
 	// OverallScore Refer to the description for the `overall_score` query parameter.
-	OverallScore *string `json:"overall_score,omitempty"`
+	OverallScore *types.Float64 `json:"overall_score,omitempty"`
 	// Start Refer to the description for the `start` query parameter.
 	Start types.DateTime `json:"start,omitempty"`
 	// TopN Refer to the description for the `top_n` query parameter.
@@ -124,16 +124,20 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "overall_score":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "OverallScore", err)
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "OverallScore", err)
+				}
+				f := types.Float64(value)
+				s.OverallScore = &f
+			case float64:
+				f := types.Float64(v)
+				s.OverallScore = &f
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.OverallScore = &o
 
 		case "start":
 			if err := dec.Decode(&s.Start); err != nil {

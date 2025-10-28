@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package getbasicstatus
 
 // Response holds the response body struct for the package getbasicstatus
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/license/get_basic_status/GetBasicLicenseStatusResponse.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/license/get_basic_status/GetBasicLicenseStatusResponse.ts#L20-L22
 type Response struct {
 	EligibleToStartBasic bool `json:"eligible_to_start_basic"`
 }

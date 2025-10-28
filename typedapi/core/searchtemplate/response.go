@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package searchtemplate
 
@@ -34,7 +34,7 @@ import (
 
 // Response holds the response body struct for the package searchtemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/search_template/SearchTemplateResponse.ts#L30-L48
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/search_template/SearchTemplateResponse.ts#L30-L48
 type Response struct {
 	Aggregations    map[string]types.Aggregate `json:"aggregations,omitempty"`
 	Clusters_       *types.ClusterStatistics   `json:"_clusters,omitempty"`
@@ -210,6 +210,13 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 								}
 								s.Aggregations[elems[1]] = o
 
+							case "change_point":
+								o := types.NewChangePointAggregate()
+								if err := dec.Decode(&o); err != nil {
+									return fmt.Errorf("%s | %w", "Aggregations", err)
+								}
+								s.Aggregations[elems[1]] = o
+
 							case "stats":
 								o := types.NewStatsAggregate()
 								if err := dec.Decode(&o); err != nil {
@@ -233,6 +240,20 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 
 							case "extended_stats_bucket":
 								o := types.NewExtendedStatsBucketAggregate()
+								if err := dec.Decode(&o); err != nil {
+									return fmt.Errorf("%s | %w", "Aggregations", err)
+								}
+								s.Aggregations[elems[1]] = o
+
+							case "cartesian_bounds":
+								o := types.NewCartesianBoundsAggregate()
+								if err := dec.Decode(&o); err != nil {
+									return fmt.Errorf("%s | %w", "Aggregations", err)
+								}
+								s.Aggregations[elems[1]] = o
+
+							case "cartesian_centroid":
+								o := types.NewCartesianCentroidAggregate()
 								if err := dec.Decode(&o); err != nil {
 									return fmt.Errorf("%s | %w", "Aggregations", err)
 								}
