@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIngestDeletePipelineFunc(t Transport) IngestDeletePipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestDeletePipeline deletes a pipeline.
+// IngestDeletePipeline delete pipelines
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-pipeline-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-delete-pipeline.
 type IngestDeletePipeline func(id string, o ...func(*IngestDeletePipelineRequest)) (*Response, error)
 
 // IngestDeletePipelineRequest configures the Ingest Delete Pipeline API request.

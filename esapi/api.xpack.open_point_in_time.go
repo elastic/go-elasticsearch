@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newOpenPointInTimeFunc(t Transport) OpenPointInTime {
 
 // ----- API Definition -------------------------------------------------------
 
-// OpenPointInTime - Open a point in time that can be used in subsequent searches
+// OpenPointInTime - Open a point in time
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time.
 type OpenPointInTime func(index []string, keep_alive string, o ...func(*OpenPointInTimeRequest)) (*Response, error)
 
 // OpenPointInTimeRequest configures the Open Point In Time API request.
@@ -62,6 +62,7 @@ type OpenPointInTimeRequest struct {
 	KeepAlive                  string
 	MaxConcurrentShardRequests *int
 	Preference                 string
+	ProjectRouting             string
 	Routing                    string
 
 	Pretty     bool
@@ -133,6 +134,10 @@ func (r OpenPointInTimeRequest) Do(providedCtx context.Context, transport Transp
 
 	if r.Preference != "" {
 		params["preference"] = r.Preference
+	}
+
+	if r.ProjectRouting != "" {
+		params["project_routing"] = r.ProjectRouting
 	}
 
 	if r.Routing != "" {
@@ -270,6 +275,13 @@ func (f OpenPointInTime) WithMaxConcurrentShardRequests(v int) func(*OpenPointIn
 func (f OpenPointInTime) WithPreference(v string) func(*OpenPointInTimeRequest) {
 	return func(r *OpenPointInTimeRequest) {
 		r.Preference = v
+	}
+}
+
+// WithProjectRouting - a lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. only supported in serverless..
+func (f OpenPointInTime) WithProjectRouting(v string) func(*OpenPointInTimeRequest) {
+	return func(r *OpenPointInTimeRequest) {
+		r.ProjectRouting = v
 	}
 }
 

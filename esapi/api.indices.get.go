@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newIndicesGetFunc(t Transport) IndicesGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGet returns information about one or more indices.
+// IndicesGet get index information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-index.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get.
 type IndicesGet func(index []string, o ...func(*IndicesGetRequest)) (*Response, error)
 
 // IndicesGetRequest configures the Indices Get API request.

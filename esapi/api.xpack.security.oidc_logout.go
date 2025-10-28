@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityOidcLogoutFunc(t Transport) SecurityOidcLogout {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityOidcLogout - Invalidates a refresh token and access token that was generated from the OpenID Connect Authenticate API
+// SecurityOidcLogout - Logout of OpenID Connect
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-logout.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-logout.
 type SecurityOidcLogout func(body io.Reader, o ...func(*SecurityOidcLogoutRequest)) (*Response, error)
 
 // SecurityOidcLogoutRequest configures the Security Oidc Logout API request.

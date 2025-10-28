@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newSecurityDisableUserFunc(t Transport) SecurityDisableUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDisableUser - Disables users in the native realm.
+// SecurityDisableUser - Disable users
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-disable-user.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-disable-user.
 type SecurityDisableUser func(username string, o ...func(*SecurityDisableUserRequest)) (*Response, error)
 
 // SecurityDisableUserRequest configures the Security Disable User API request.

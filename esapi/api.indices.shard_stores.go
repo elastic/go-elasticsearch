@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesShardStoresFunc(t Transport) IndicesShardStores {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesShardStores provides store information for shard copies of indices.
+// IndicesShardStores get index shard stores
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shards-stores.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-shard-stores.
 type IndicesShardStores func(o ...func(*IndicesShardStoresRequest)) (*Response, error)
 
 // IndicesShardStoresRequest configures the Indices Shard Stores API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLPutTrainedModelFunc(t Transport) MLPutTrainedModel {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutTrainedModel - Creates an inference trained model.
+// MLPutTrainedModel - Create a trained model
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-models.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model.
 type MLPutTrainedModel func(body io.Reader, model_id string, o ...func(*MLPutTrainedModelRequest)) (*Response, error)
 
 // MLPutTrainedModelRequest configures the ML Put Trained Model API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferenceSparseEmbeddingFunc(t Transport) InferenceSparseEmbedding {
-	return func(inference_id string, o ...func(*InferenceSparseEmbeddingRequest)) (*Response, error) {
-		var r = InferenceSparseEmbeddingRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceSparseEmbeddingRequest)) (*Response, error) {
+		var r = InferenceSparseEmbeddingRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferenceSparseEmbeddingFunc(t Transport) InferenceSparseEmbedding {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceSparseEmbedding perform sparse embedding inference
+// InferenceSparseEmbedding perform sparse embedding inference on the service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
-type InferenceSparseEmbedding func(inference_id string, o ...func(*InferenceSparseEmbeddingRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference.
+type InferenceSparseEmbedding func(body io.Reader, inference_id string, o ...func(*InferenceSparseEmbeddingRequest)) (*Response, error)
 
 // InferenceSparseEmbeddingRequest configures the Inference Sparse Embedding API request.
 type InferenceSparseEmbeddingRequest struct {
@@ -181,13 +181,6 @@ func (r InferenceSparseEmbeddingRequest) Do(providedCtx context.Context, transpo
 func (f InferenceSparseEmbedding) WithContext(v context.Context) func(*InferenceSparseEmbeddingRequest) {
 	return func(r *InferenceSparseEmbeddingRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference payload.
-func (f InferenceSparseEmbedding) WithBody(v io.Reader) func(*InferenceSparseEmbeddingRequest) {
-	return func(r *InferenceSparseEmbeddingRequest) {
-		r.Body = v
 	}
 }
 

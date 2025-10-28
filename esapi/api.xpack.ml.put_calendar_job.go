@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newMLPutCalendarJobFunc(t Transport) MLPutCalendarJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutCalendarJob - Adds an anomaly detection job to a calendar.
+// MLPutCalendarJob - Add anomaly detection job to calendar
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-calendar-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar-job.
 type MLPutCalendarJob func(calendar_id string, job_id string, o ...func(*MLPutCalendarJobRequest)) (*Response, error)
 
 // MLPutCalendarJobRequest configures the ML Put Calendar Job API request.

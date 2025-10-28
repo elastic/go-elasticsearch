@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLDeleteJobFunc(t Transport) MLDeleteJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteJob - Deletes an existing anomaly detection job.
+// MLDeleteJob - Delete an anomaly detection job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-job.
 type MLDeleteJob func(job_id string, o ...func(*MLDeleteJobRequest)) (*Response, error)
 
 // MLDeleteJobRequest configures the ML Delete Job API request.

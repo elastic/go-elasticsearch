@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesRecoveryFunc(t Transport) IndicesRecovery {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesRecovery returns information about ongoing index shard recoveries.
+// IndicesRecovery get index recovery information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-recovery.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-recovery.
 type IndicesRecovery func(o ...func(*IndicesRecoveryRequest)) (*Response, error)
 
 // IndicesRecoveryRequest configures the Indices Recovery API request.

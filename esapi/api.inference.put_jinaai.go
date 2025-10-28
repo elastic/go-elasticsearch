@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferencePutJinaaiFunc(t Transport) InferencePutJinaai {
-	return func(jinaai_inference_id string, task_type string, o ...func(*InferencePutJinaaiRequest)) (*Response, error) {
-		var r = InferencePutJinaaiRequest{JinaaiInferenceID: jinaai_inference_id, TaskType: task_type}
+	return func(body io.Reader, jinaai_inference_id string, task_type string, o ...func(*InferencePutJinaaiRequest)) (*Response, error) {
+		var r = InferencePutJinaaiRequest{Body: body, JinaaiInferenceID: jinaai_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferencePutJinaaiFunc(t Transport) InferencePutJinaai {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutJinaai configure a JinaAI inference endpoint
+// InferencePutJinaai create an JinaAI inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-jinaai.html.
-type InferencePutJinaai func(jinaai_inference_id string, task_type string, o ...func(*InferencePutJinaaiRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-jinaai.
+type InferencePutJinaai func(body io.Reader, jinaai_inference_id string, task_type string, o ...func(*InferencePutJinaaiRequest)) (*Response, error)
 
 // InferencePutJinaaiRequest configures the Inference Put Jinaai API request.
 type InferencePutJinaaiRequest struct {
@@ -185,13 +185,6 @@ func (r InferencePutJinaaiRequest) Do(providedCtx context.Context, transport Tra
 func (f InferencePutJinaai) WithContext(v context.Context) func(*InferencePutJinaaiRequest) {
 	return func(r *InferencePutJinaaiRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutJinaai) WithBody(v io.Reader) func(*InferencePutJinaaiRequest) {
-	return func(r *InferencePutJinaaiRequest) {
-		r.Body = v
 	}
 }
 

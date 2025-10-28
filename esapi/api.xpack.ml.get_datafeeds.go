@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLGetDatafeedsFunc(t Transport) MLGetDatafeeds {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDatafeeds - Retrieves configuration information for datafeeds.
+// MLGetDatafeeds - Get datafeeds configuration info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-datafeed.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-datafeeds.
 type MLGetDatafeeds func(o ...func(*MLGetDatafeedsRequest)) (*Response, error)
 
 // MLGetDatafeedsRequest configures the ML Get Datafeeds API request.

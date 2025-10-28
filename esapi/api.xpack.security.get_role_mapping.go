@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newSecurityGetRoleMappingFunc(t Transport) SecurityGetRoleMapping {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetRoleMapping - Retrieves role mappings.
+// SecurityGetRoleMapping - Get role mappings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role-mapping.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-role-mapping.
 type SecurityGetRoleMapping func(o ...func(*SecurityGetRoleMappingRequest)) (*Response, error)
 
 // SecurityGetRoleMappingRequest configures the Security Get Role Mapping API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesForcemergeFunc(t Transport) IndicesForcemerge {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesForcemerge performs the force merge operation on one or more indices.
+// IndicesForcemerge force a merge
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-forcemerge.
 type IndicesForcemerge func(o ...func(*IndicesForcemergeRequest)) (*Response, error)
 
 // IndicesForcemergeRequest configures the Indices Forcemerge API request.

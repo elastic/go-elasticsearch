@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newIngestProcessorGrokFunc(t Transport) IngestProcessorGrok {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestProcessorGrok returns a list of the built-in patterns.
+// IngestProcessorGrok run a grok processor
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/grok-processor.html#grok-processor-rest-get.
+// See full documentation at https://www.elastic.co/docs/reference/enrich-processor/grok-processor.
 type IngestProcessorGrok func(o ...func(*IngestProcessorGrokRequest)) (*Response, error)
 
 // IngestProcessorGrokRequest configures the Ingest Processor Grok API request.

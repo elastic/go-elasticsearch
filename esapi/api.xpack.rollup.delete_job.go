@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,11 @@ func newRollupDeleteJobFunc(t Transport) RollupDeleteJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupDeleteJob - Deletes an existing rollup job.
+// RollupDeleteJob - Delete a rollup job
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-delete-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-delete-job.
 type RollupDeleteJob func(id string, o ...func(*RollupDeleteJobRequest)) (*Response, error)
 
 // RollupDeleteJobRequest configures the Rollup Delete Job API request.

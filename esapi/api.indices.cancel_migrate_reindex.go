@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,9 @@ func newIndicesCancelMigrateReindexFunc(t Transport) IndicesCancelMigrateReindex
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesCancelMigrateReindex this API returns the status of a migration reindex attempt for a data stream or index
+// IndicesCancelMigrateReindex cancel a migration reindex operation
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-stream-reindex-cancel-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-cancel-migrate-reindex.
 type IndicesCancelMigrateReindex func(index string, o ...func(*IndicesCancelMigrateReindexRequest)) (*Response, error)
 
 // IndicesCancelMigrateReindexRequest configures the Indices Cancel Migrate Reindex API request.

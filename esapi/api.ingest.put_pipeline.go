@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newIngestPutPipelineFunc(t Transport) IngestPutPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestPutPipeline creates or updates a pipeline.
+// IngestPutPipeline create or update a pipeline
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-pipeline-api.html.
+// See full documentation at https://www.elastic.co/docs/manage-data/ingest/transform-enrich/ingest-pipelines.
 type IngestPutPipeline func(id string, body io.Reader, o ...func(*IngestPutPipelineRequest)) (*Response, error)
 
 // IngestPutPipelineRequest configures the Ingest Put Pipeline API request.

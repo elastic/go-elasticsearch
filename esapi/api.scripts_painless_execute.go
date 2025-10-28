@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newScriptsPainlessExecuteFunc(t Transport) ScriptsPainlessExecute {
-	return func(o ...func(*ScriptsPainlessExecuteRequest)) (*Response, error) {
-		var r = ScriptsPainlessExecuteRequest{}
+	return func(body io.Reader, o ...func(*ScriptsPainlessExecuteRequest)) (*Response, error) {
+		var r = ScriptsPainlessExecuteRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,12 +43,12 @@ func newScriptsPainlessExecuteFunc(t Transport) ScriptsPainlessExecute {
 
 // ----- API Definition -------------------------------------------------------
 
-// ScriptsPainlessExecute allows an arbitrary script to be executed and a result to be returned
+// ScriptsPainlessExecute run a script
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-execute-api.html.
-type ScriptsPainlessExecute func(o ...func(*ScriptsPainlessExecuteRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/reference/scripting-languages/painless/painless-api-examples.
+type ScriptsPainlessExecute func(body io.Reader, o ...func(*ScriptsPainlessExecuteRequest)) (*Response, error)
 
 // ScriptsPainlessExecuteRequest configures the Scripts Painless Execute API request.
 type ScriptsPainlessExecuteRequest struct {
@@ -173,13 +173,6 @@ func (r ScriptsPainlessExecuteRequest) Do(providedCtx context.Context, transport
 func (f ScriptsPainlessExecute) WithContext(v context.Context) func(*ScriptsPainlessExecuteRequest) {
 	return func(r *ScriptsPainlessExecuteRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The script to execute.
-func (f ScriptsPainlessExecute) WithBody(v io.Reader) func(*ScriptsPainlessExecuteRequest) {
-	return func(r *ScriptsPainlessExecuteRequest) {
-		r.Body = v
 	}
 }
 

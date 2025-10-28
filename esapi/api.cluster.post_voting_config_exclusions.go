@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newClusterPostVotingConfigExclusionsFunc(t Transport) ClusterPostVotingConf
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterPostVotingConfigExclusions updates the cluster voting config exclusions by node ids or node names.
+// ClusterPostVotingConfigExclusions update voting configuration exclusions
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/voting-config-exclusions.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-post-voting-config-exclusions.
 type ClusterPostVotingConfigExclusions func(o ...func(*ClusterPostVotingConfigExclusionsRequest)) (*Response, error)
 
 // ClusterPostVotingConfigExclusionsRequest configures the Cluster Post Voting Config Exclusions API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityClearCachedRealmsFunc(t Transport) SecurityClearCachedRealms {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityClearCachedRealms - Evicts users from the user cache. Can completely clear the cache or evict specific users.
+// SecurityClearCachedRealms - Clear the user cache
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-cache.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-realms.
 type SecurityClearCachedRealms func(realms []string, o ...func(*SecurityClearCachedRealmsRequest)) (*Response, error)
 
 // SecurityClearCachedRealmsRequest configures the Security Clear Cached Realms API request.

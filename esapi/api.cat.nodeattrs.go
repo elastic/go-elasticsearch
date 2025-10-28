@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,19 +44,21 @@ func newCatNodeattrsFunc(t Transport) CatNodeattrs {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatNodeattrs returns information about custom node attributes.
+// CatNodeattrs get node attribute information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-nodeattrs.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-nodeattrs.
 type CatNodeattrs func(o ...func(*CatNodeattrsRequest)) (*Response, error)
 
 // CatNodeattrsRequest configures the Cat Nodeattrs API request.
 type CatNodeattrsRequest struct {
+	Bytes         string
 	Format        string
 	H             []string
 	Help          *bool
 	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
+	Time          string
 	V             *bool
 
 	Pretty     bool
@@ -96,6 +98,10 @@ func (r CatNodeattrsRequest) Do(providedCtx context.Context, transport Transport
 
 	params = make(map[string]string)
 
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
+
 	if r.Format != "" {
 		params["format"] = r.Format
 	}
@@ -118,6 +124,10 @@ func (r CatNodeattrsRequest) Do(providedCtx context.Context, transport Transport
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -202,6 +212,13 @@ func (f CatNodeattrs) WithContext(v context.Context) func(*CatNodeattrsRequest) 
 	}
 }
 
+// WithBytes - the unit in which to display byte values.
+func (f CatNodeattrs) WithBytes(v string) func(*CatNodeattrsRequest) {
+	return func(r *CatNodeattrsRequest) {
+		r.Bytes = v
+	}
+}
+
 // WithFormat - a short version of the accept header, e.g. json, yaml.
 func (f CatNodeattrs) WithFormat(v string) func(*CatNodeattrsRequest) {
 	return func(r *CatNodeattrsRequest) {
@@ -241,6 +258,13 @@ func (f CatNodeattrs) WithMasterTimeout(v time.Duration) func(*CatNodeattrsReque
 func (f CatNodeattrs) WithS(v ...string) func(*CatNodeattrsRequest) {
 	return func(r *CatNodeattrsRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+func (f CatNodeattrs) WithTime(v string) func(*CatNodeattrsRequest) {
+	return func(r *CatNodeattrsRequest) {
+		r.Time = v
 	}
 }
 

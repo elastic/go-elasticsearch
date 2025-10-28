@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityGrantAPIKeyFunc(t Transport) SecurityGrantAPIKey {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGrantAPIKey - Creates an API key on behalf of another user.
+// SecurityGrantAPIKey - Grant an API key
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-grant-api-key.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-grant-api-key.
 type SecurityGrantAPIKey func(body io.Reader, o ...func(*SecurityGrantAPIKeyRequest)) (*Response, error)
 
 // SecurityGrantAPIKeyRequest configures the Security GrantAPI Key API request.

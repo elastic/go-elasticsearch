@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newLicensePostFunc(t Transport) LicensePost {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicensePost - Updates the license for the cluster.
+// LicensePost - Update the license
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-license.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post.
 type LicensePost func(o ...func(*LicensePostRequest)) (*Response, error)
 
 // LicensePostRequest configures the License Post API request.

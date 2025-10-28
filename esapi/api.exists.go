@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newExistsFunc(t Transport) Exists {
 
 // ----- API Definition -------------------------------------------------------
 
-// Exists returns information about whether a document exists in an index.
+// Exists check a document
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get.
 type Exists func(index string, id string, o ...func(*ExistsRequest)) (*Response, error)
 
 // ExistsRequest configures the Exists API request.

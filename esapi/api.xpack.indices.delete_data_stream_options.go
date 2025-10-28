@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesDeleteDataStreamOptionsFunc(t Transport) IndicesDeleteDataStreamO
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDeleteDataStreamOptions - Deletes the data stream options of the selected data streams.
+// IndicesDeleteDataStreamOptions - Delete data stream options
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream-options.
 type IndicesDeleteDataStreamOptions func(name []string, o ...func(*IndicesDeleteDataStreamOptionsRequest)) (*Response, error)
 
 // IndicesDeleteDataStreamOptionsRequest configures the Indices Delete Data Stream Options API request.

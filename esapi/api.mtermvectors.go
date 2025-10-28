@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMtermvectorsFunc(t Transport) Mtermvectors {
 
 // ----- API Definition -------------------------------------------------------
 
-// Mtermvectors returns multiple termvectors in one request.
+// Mtermvectors get multiple term vectors
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-termvectors.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mtermvectors.
 type Mtermvectors func(o ...func(*MtermvectorsRequest)) (*Response, error)
 
 // MtermvectorsRequest configures the Mtermvectors API request.

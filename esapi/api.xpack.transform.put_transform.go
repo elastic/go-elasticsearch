@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newTransformPutTransformFunc(t Transport) TransformPutTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformPutTransform - Instantiates a transform.
+// TransformPutTransform - Create a transform
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-transform.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-put-transform.
 type TransformPutTransform func(body io.Reader, transform_id string, o ...func(*TransformPutTransformRequest)) (*Response, error)
 
 // TransformPutTransformRequest configures the Transform Put Transform API request.

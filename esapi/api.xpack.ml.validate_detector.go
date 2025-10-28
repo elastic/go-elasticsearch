@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,7 +43,7 @@ func newMLValidateDetectorFunc(t Transport) MLValidateDetector {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLValidateDetector - Validates an anomaly detection detector.
+// MLValidateDetector - Validate an anomaly detection job
 //
 // See full documentation at https://www.elastic.co/guide/en/machine-learning/current/ml-jobs.html.
 type MLValidateDetector func(body io.Reader, o ...func(*MLValidateDetectorRequest)) (*Response, error)

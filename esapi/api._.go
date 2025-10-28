@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0 (9732617): DO NOT EDIT
+// Code generated from specification version 9.2.0 (3a7bef4): DO NOT EDIT
 
 package esapi
 
@@ -135,6 +135,7 @@ type API struct {
 	InferenceDelete                               InferenceDelete
 	InferenceGet                                  InferenceGet
 	InferenceInference                            InferenceInference
+	InferencePutAi21                              InferencePutAi21
 	InferencePutAlibabacloud                      InferencePutAlibabacloud
 	InferencePutAmazonbedrock                     InferencePutAmazonbedrock
 	InferencePutAmazonsagemaker                   InferencePutAmazonsagemaker
@@ -142,6 +143,7 @@ type API struct {
 	InferencePutAzureaistudio                     InferencePutAzureaistudio
 	InferencePutAzureopenai                       InferencePutAzureopenai
 	InferencePutCohere                            InferencePutCohere
+	InferencePutContextualai                      InferencePutContextualai
 	InferencePutCustom                            InferencePutCustom
 	InferencePutDeepseek                          InferencePutDeepseek
 	InferencePutElasticsearch                     InferencePutElasticsearch
@@ -150,6 +152,7 @@ type API struct {
 	InferencePutGooglevertexai                    InferencePutGooglevertexai
 	InferencePutHuggingFace                       InferencePutHuggingFace
 	InferencePutJinaai                            InferencePutJinaai
+	InferencePutLlama                             InferencePutLlama
 	InferencePutMistral                           InferencePutMistral
 	InferencePutOpenai                            InferencePutOpenai
 	InferencePut                                  InferencePut
@@ -174,6 +177,7 @@ type API struct {
 	ProfilingStacktraces                          ProfilingStacktraces
 	ProfilingStatus                               ProfilingStatus
 	ProfilingTopnFunctions                        ProfilingTopnFunctions
+	ProjectTags                                   ProjectTags
 	PutScript                                     PutScript
 	QueryRulesDeleteRule                          QueryRulesDeleteRule
 	QueryRulesDeleteRuleset                       QueryRulesDeleteRuleset
@@ -244,6 +248,7 @@ type API struct {
 	TransformPutTransform                         TransformPutTransform
 	TransformResetTransform                       TransformResetTransform
 	TransformScheduleNowTransform                 TransformScheduleNowTransform
+	TransformSetUpgradeMode                       TransformSetUpgradeMode
 	TransformStartTransform                       TransformStartTransform
 	TransformStopTransform                        TransformStopTransform
 	TransformUpdateTransform                      TransformUpdateTransform
@@ -335,6 +340,7 @@ type Indices struct {
 	GetAlias                IndicesGetAlias
 	GetDataLifecycle        IndicesGetDataLifecycle
 	GetDataLifecycleStats   IndicesGetDataLifecycleStats
+	GetDataStreamMappings   IndicesGetDataStreamMappings
 	GetDataStreamOptions    IndicesGetDataStreamOptions
 	GetDataStream           IndicesGetDataStream
 	GetDataStreamSettings   IndicesGetDataStreamSettings
@@ -352,6 +358,7 @@ type Indices struct {
 	PromoteDataStream       IndicesPromoteDataStream
 	PutAlias                IndicesPutAlias
 	PutDataLifecycle        IndicesPutDataLifecycle
+	PutDataStreamMappings   IndicesPutDataStreamMappings
 	PutDataStreamOptions    IndicesPutDataStreamOptions
 	PutDataStreamSettings   IndicesPutDataStreamSettings
 	PutIndexTemplate        IndicesPutIndexTemplate
@@ -619,6 +626,7 @@ type Security struct {
 	GetServiceAccounts          SecurityGetServiceAccounts
 	GetServiceCredentials       SecurityGetServiceCredentials
 	GetSettings                 SecurityGetSettings
+	GetStats                    SecurityGetStats
 	GetToken                    SecurityGetToken
 	GetUserPrivileges           SecurityGetUserPrivileges
 	GetUserProfile              SecurityGetUserProfile
@@ -784,6 +792,7 @@ func New(t Transport) *API {
 		InferenceDelete:                    newInferenceDeleteFunc(t),
 		InferenceGet:                       newInferenceGetFunc(t),
 		InferenceInference:                 newInferenceInferenceFunc(t),
+		InferencePutAi21:                   newInferencePutAi21Func(t),
 		InferencePutAlibabacloud:           newInferencePutAlibabacloudFunc(t),
 		InferencePutAmazonbedrock:          newInferencePutAmazonbedrockFunc(t),
 		InferencePutAmazonsagemaker:        newInferencePutAmazonsagemakerFunc(t),
@@ -791,6 +800,7 @@ func New(t Transport) *API {
 		InferencePutAzureaistudio:          newInferencePutAzureaistudioFunc(t),
 		InferencePutAzureopenai:            newInferencePutAzureopenaiFunc(t),
 		InferencePutCohere:                 newInferencePutCohereFunc(t),
+		InferencePutContextualai:           newInferencePutContextualaiFunc(t),
 		InferencePutCustom:                 newInferencePutCustomFunc(t),
 		InferencePutDeepseek:               newInferencePutDeepseekFunc(t),
 		InferencePutElasticsearch:          newInferencePutElasticsearchFunc(t),
@@ -799,6 +809,7 @@ func New(t Transport) *API {
 		InferencePutGooglevertexai:         newInferencePutGooglevertexaiFunc(t),
 		InferencePutHuggingFace:            newInferencePutHuggingFaceFunc(t),
 		InferencePutJinaai:                 newInferencePutJinaaiFunc(t),
+		InferencePutLlama:                  newInferencePutLlamaFunc(t),
 		InferencePutMistral:                newInferencePutMistralFunc(t),
 		InferencePutOpenai:                 newInferencePutOpenaiFunc(t),
 		InferencePut:                       newInferencePutFunc(t),
@@ -823,6 +834,7 @@ func New(t Transport) *API {
 		ProfilingStacktraces:               newProfilingStacktracesFunc(t),
 		ProfilingStatus:                    newProfilingStatusFunc(t),
 		ProfilingTopnFunctions:             newProfilingTopnFunctionsFunc(t),
+		ProjectTags:                        newProjectTagsFunc(t),
 		PutScript:                          newPutScriptFunc(t),
 		QueryRulesDeleteRule:               newQueryRulesDeleteRuleFunc(t),
 		QueryRulesDeleteRuleset:            newQueryRulesDeleteRulesetFunc(t),
@@ -893,6 +905,7 @@ func New(t Transport) *API {
 		TransformPutTransform:                         newTransformPutTransformFunc(t),
 		TransformResetTransform:                       newTransformResetTransformFunc(t),
 		TransformScheduleNowTransform:                 newTransformScheduleNowTransformFunc(t),
+		TransformSetUpgradeMode:                       newTransformSetUpgradeModeFunc(t),
 		TransformStartTransform:                       newTransformStartTransformFunc(t),
 		TransformStopTransform:                        newTransformStopTransformFunc(t),
 		TransformUpdateTransform:                      newTransformUpdateTransformFunc(t),
@@ -977,6 +990,7 @@ func New(t Transport) *API {
 			GetAlias:                newIndicesGetAliasFunc(t),
 			GetDataLifecycle:        newIndicesGetDataLifecycleFunc(t),
 			GetDataLifecycleStats:   newIndicesGetDataLifecycleStatsFunc(t),
+			GetDataStreamMappings:   newIndicesGetDataStreamMappingsFunc(t),
 			GetDataStreamOptions:    newIndicesGetDataStreamOptionsFunc(t),
 			GetDataStream:           newIndicesGetDataStreamFunc(t),
 			GetDataStreamSettings:   newIndicesGetDataStreamSettingsFunc(t),
@@ -994,6 +1008,7 @@ func New(t Transport) *API {
 			PromoteDataStream:       newIndicesPromoteDataStreamFunc(t),
 			PutAlias:                newIndicesPutAliasFunc(t),
 			PutDataLifecycle:        newIndicesPutDataLifecycleFunc(t),
+			PutDataStreamMappings:   newIndicesPutDataStreamMappingsFunc(t),
 			PutDataStreamOptions:    newIndicesPutDataStreamOptionsFunc(t),
 			PutDataStreamSettings:   newIndicesPutDataStreamSettingsFunc(t),
 			PutIndexTemplate:        newIndicesPutIndexTemplateFunc(t),
@@ -1232,6 +1247,7 @@ func New(t Transport) *API {
 			GetServiceAccounts:          newSecurityGetServiceAccountsFunc(t),
 			GetServiceCredentials:       newSecurityGetServiceCredentialsFunc(t),
 			GetSettings:                 newSecurityGetSettingsFunc(t),
+			GetStats:                    newSecurityGetStatsFunc(t),
 			GetToken:                    newSecurityGetTokenFunc(t),
 			GetUserPrivileges:           newSecurityGetUserPrivilegesFunc(t),
 			GetUserProfile:              newSecurityGetUserProfileFunc(t),

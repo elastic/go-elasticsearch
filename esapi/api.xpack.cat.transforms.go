@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newCatTransformsFunc(t Transport) CatTransforms {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatTransforms - Gets configuration and usage information about transforms.
+// CatTransforms - Get transform information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-transforms.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-transforms.
 type CatTransforms func(o ...func(*CatTransformsRequest)) (*Response, error)
 
 // CatTransformsRequest configures the Cat Transforms API request.
@@ -53,6 +53,7 @@ type CatTransformsRequest struct {
 	TransformID string
 
 	AllowNoMatch *bool
+	Bytes        string
 	Format       string
 	From         *int
 	H            []string
@@ -111,6 +112,10 @@ func (r CatTransformsRequest) Do(providedCtx context.Context, transport Transpor
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
+	}
+
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
 	}
 
 	if r.Format != "" {
@@ -234,6 +239,13 @@ func (f CatTransforms) WithTransformID(v string) func(*CatTransformsRequest) {
 func (f CatTransforms) WithAllowNoMatch(v bool) func(*CatTransformsRequest) {
 	return func(r *CatTransformsRequest) {
 		r.AllowNoMatch = &v
+	}
+}
+
+// WithBytes - the unit in which to display byte values.
+func (f CatTransforms) WithBytes(v string) func(*CatTransformsRequest) {
+	return func(r *CatTransformsRequest) {
+		r.Bytes = v
 	}
 }
 

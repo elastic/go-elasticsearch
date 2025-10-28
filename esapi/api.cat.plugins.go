@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,13 +44,14 @@ func newCatPluginsFunc(t Transport) CatPlugins {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatPlugins returns information about installed plugins across nodes node.
+// CatPlugins get plugin information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-plugins.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-plugins.
 type CatPlugins func(o ...func(*CatPluginsRequest)) (*Response, error)
 
 // CatPluginsRequest configures the Cat Plugins API request.
 type CatPluginsRequest struct {
+	Bytes            string
 	Format           string
 	H                []string
 	Help             *bool
@@ -58,6 +59,7 @@ type CatPluginsRequest struct {
 	Local            *bool
 	MasterTimeout    time.Duration
 	S                []string
+	Time             string
 	V                *bool
 
 	Pretty     bool
@@ -97,6 +99,10 @@ func (r CatPluginsRequest) Do(providedCtx context.Context, transport Transport) 
 
 	params = make(map[string]string)
 
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
+
 	if r.Format != "" {
 		params["format"] = r.Format
 	}
@@ -123,6 +129,10 @@ func (r CatPluginsRequest) Do(providedCtx context.Context, transport Transport) 
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -207,6 +217,13 @@ func (f CatPlugins) WithContext(v context.Context) func(*CatPluginsRequest) {
 	}
 }
 
+// WithBytes - the unit in which to display byte values.
+func (f CatPlugins) WithBytes(v string) func(*CatPluginsRequest) {
+	return func(r *CatPluginsRequest) {
+		r.Bytes = v
+	}
+}
+
 // WithFormat - a short version of the accept header, e.g. json, yaml.
 func (f CatPlugins) WithFormat(v string) func(*CatPluginsRequest) {
 	return func(r *CatPluginsRequest) {
@@ -253,6 +270,13 @@ func (f CatPlugins) WithMasterTimeout(v time.Duration) func(*CatPluginsRequest) 
 func (f CatPlugins) WithS(v ...string) func(*CatPluginsRequest) {
 	return func(r *CatPluginsRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+func (f CatPlugins) WithTime(v string) func(*CatPluginsRequest) {
+	return func(r *CatPluginsRequest) {
+		r.Time = v
 	}
 }
 

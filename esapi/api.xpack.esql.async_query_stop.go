@@ -15,13 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -42,14 +43,16 @@ func newEsqlAsyncQueryStopFunc(t Transport) EsqlAsyncQueryStop {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlAsyncQueryStop - Stops a previously submitted async query request given its ID and collects the results.
+// EsqlAsyncQueryStop - Stop async ES|QL query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-stop-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-stop.
 type EsqlAsyncQueryStop func(id string, o ...func(*EsqlAsyncQueryStopRequest)) (*Response, error)
 
 // EsqlAsyncQueryStopRequest configures the Esql Async Query Stop API request.
 type EsqlAsyncQueryStopRequest struct {
 	DocumentID string
+
+	DropNullColumns *bool
 
 	Pretty     bool
 	Human      bool
@@ -97,6 +100,10 @@ func (r EsqlAsyncQueryStopRequest) Do(providedCtx context.Context, transport Tra
 	path.WriteString("stop")
 
 	params = make(map[string]string)
+
+	if r.DropNullColumns != nil {
+		params["drop_null_columns"] = strconv.FormatBool(*r.DropNullColumns)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -173,6 +180,13 @@ func (r EsqlAsyncQueryStopRequest) Do(providedCtx context.Context, transport Tra
 func (f EsqlAsyncQueryStop) WithContext(v context.Context) func(*EsqlAsyncQueryStopRequest) {
 	return func(r *EsqlAsyncQueryStopRequest) {
 		r.ctx = v
+	}
+}
+
+// WithDropNullColumns - indicates whether columns that are entirely `null` will be removed from the `columns` and `values` portion of the results..
+func (f EsqlAsyncQueryStop) WithDropNullColumns(v bool) func(*EsqlAsyncQueryStopRequest) {
+	return func(r *EsqlAsyncQueryStopRequest) {
+		r.DropNullColumns = &v
 	}
 }
 

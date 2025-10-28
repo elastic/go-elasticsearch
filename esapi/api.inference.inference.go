@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferenceInferenceFunc(t Transport) InferenceInference {
-	return func(inference_id string, o ...func(*InferenceInferenceRequest)) (*Response, error) {
-		var r = InferenceInferenceRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceInferenceRequest)) (*Response, error) {
+		var r = InferenceInferenceRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferenceInferenceFunc(t Transport) InferenceInference {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceInference perform inference
+// InferenceInference perform inference on the service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
-type InferenceInference func(inference_id string, o ...func(*InferenceInferenceRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference.
+type InferenceInference func(body io.Reader, inference_id string, o ...func(*InferenceInferenceRequest)) (*Response, error)
 
 // InferenceInferenceRequest configures the Inference Inference API request.
 type InferenceInferenceRequest struct {
@@ -187,13 +187,6 @@ func (r InferenceInferenceRequest) Do(providedCtx context.Context, transport Tra
 func (f InferenceInference) WithContext(v context.Context) func(*InferenceInferenceRequest) {
 	return func(r *InferenceInferenceRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference payload.
-func (f InferenceInference) WithBody(v io.Reader) func(*InferenceInferenceRequest) {
-	return func(r *InferenceInferenceRequest) {
-		r.Body = v
 	}
 }
 

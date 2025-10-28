@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newSecurityDeletePrivilegesFunc(t Transport) SecurityDeletePrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDeletePrivileges - Removes application privileges.
+// SecurityDeletePrivileges - Delete application privileges
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-privilege.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-privileges.
 type SecurityDeletePrivileges func(name string, application string, o ...func(*SecurityDeletePrivilegesRequest)) (*Response, error)
 
 // SecurityDeletePrivilegesRequest configures the Security Delete Privileges API request.

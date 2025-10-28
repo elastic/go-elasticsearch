@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newGetScriptFunc(t Transport) GetScript {
 
 // ----- API Definition -------------------------------------------------------
 
-// GetScript returns a script.
+// GetScript get a script or search template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script.
 type GetScript func(id string, o ...func(*GetScriptRequest)) (*Response, error)
 
 // GetScriptRequest configures the Get Script API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newIndicesOpenFunc(t Transport) IndicesOpen {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesOpen opens an index.
+// IndicesOpen open a closed index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-open.
 type IndicesOpen func(index []string, o ...func(*IndicesOpenRequest)) (*Response, error)
 
 // IndicesOpenRequest configures the Indices Open API request.

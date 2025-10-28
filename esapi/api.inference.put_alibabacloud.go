@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferencePutAlibabacloudFunc(t Transport) InferencePutAlibabacloud {
-	return func(alibabacloud_inference_id string, task_type string, o ...func(*InferencePutAlibabacloudRequest)) (*Response, error) {
-		var r = InferencePutAlibabacloudRequest{AlibabacloudInferenceID: alibabacloud_inference_id, TaskType: task_type}
+	return func(body io.Reader, alibabacloud_inference_id string, task_type string, o ...func(*InferencePutAlibabacloudRequest)) (*Response, error) {
+		var r = InferencePutAlibabacloudRequest{Body: body, AlibabacloudInferenceID: alibabacloud_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferencePutAlibabacloudFunc(t Transport) InferencePutAlibabacloud {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAlibabacloud configure an AlibabaCloud AI Search inference endpoint
+// InferencePutAlibabacloud create an AlibabaCloud AI Search inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-alibabacloud-ai-search.html.
-type InferencePutAlibabacloud func(alibabacloud_inference_id string, task_type string, o ...func(*InferencePutAlibabacloudRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-alibabacloud.
+type InferencePutAlibabacloud func(body io.Reader, alibabacloud_inference_id string, task_type string, o ...func(*InferencePutAlibabacloudRequest)) (*Response, error)
 
 // InferencePutAlibabacloudRequest configures the Inference Put Alibabacloud API request.
 type InferencePutAlibabacloudRequest struct {
@@ -185,13 +185,6 @@ func (r InferencePutAlibabacloudRequest) Do(providedCtx context.Context, transpo
 func (f InferencePutAlibabacloud) WithContext(v context.Context) func(*InferencePutAlibabacloudRequest) {
 	return func(r *InferencePutAlibabacloudRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutAlibabacloud) WithBody(v io.Reader) func(*InferencePutAlibabacloudRequest) {
-	return func(r *InferencePutAlibabacloudRequest) {
-		r.Body = v
 	}
 }
 

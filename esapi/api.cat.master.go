@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,19 +44,21 @@ func newCatMasterFunc(t Transport) CatMaster {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatMaster returns information about the master node.
+// CatMaster get master node information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-master.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-master.
 type CatMaster func(o ...func(*CatMasterRequest)) (*Response, error)
 
 // CatMasterRequest configures the Cat Master API request.
 type CatMasterRequest struct {
+	Bytes         string
 	Format        string
 	H             []string
 	Help          *bool
 	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
+	Time          string
 	V             *bool
 
 	Pretty     bool
@@ -96,6 +98,10 @@ func (r CatMasterRequest) Do(providedCtx context.Context, transport Transport) (
 
 	params = make(map[string]string)
 
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
+
 	if r.Format != "" {
 		params["format"] = r.Format
 	}
@@ -118,6 +124,10 @@ func (r CatMasterRequest) Do(providedCtx context.Context, transport Transport) (
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -202,6 +212,13 @@ func (f CatMaster) WithContext(v context.Context) func(*CatMasterRequest) {
 	}
 }
 
+// WithBytes - the unit in which to display byte values.
+func (f CatMaster) WithBytes(v string) func(*CatMasterRequest) {
+	return func(r *CatMasterRequest) {
+		r.Bytes = v
+	}
+}
+
 // WithFormat - a short version of the accept header, e.g. json, yaml.
 func (f CatMaster) WithFormat(v string) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
@@ -241,6 +258,13 @@ func (f CatMaster) WithMasterTimeout(v time.Duration) func(*CatMasterRequest) {
 func (f CatMaster) WithS(v ...string) func(*CatMasterRequest) {
 	return func(r *CatMasterRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+func (f CatMaster) WithTime(v string) func(*CatMasterRequest) {
+	return func(r *CatMasterRequest) {
+		r.Time = v
 	}
 }
 

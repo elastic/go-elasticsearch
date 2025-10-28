@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newConnectorUpdateAPIKeyDocumentIDFunc(t Transport) ConnectorUpdateAPIKeyDo
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorUpdateAPIKeyDocumentID updates the API key id and/or API key secret id fields in the connector document.
+// ConnectorUpdateAPIKeyDocumentID update the connector API key ID
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-api-key-id-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-api-key-id.
 type ConnectorUpdateAPIKeyDocumentID func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateAPIKeyDocumentIDRequest)) (*Response, error)
 
 // ConnectorUpdateAPIKeyDocumentIDRequest configures the Connector UpdateAPI Key DocumentI D API request.

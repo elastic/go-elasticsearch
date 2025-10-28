@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newClusterGetComponentTemplateFunc(t Transport) ClusterGetComponentTemplate
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterGetComponentTemplate returns one or more component templates
+// ClusterGetComponentTemplate get component templates
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template.
 type ClusterGetComponentTemplate func(o ...func(*ClusterGetComponentTemplateRequest)) (*Response, error)
 
 // ClusterGetComponentTemplateRequest configures the Cluster Get Component Template API request.

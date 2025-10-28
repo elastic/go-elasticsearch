@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newGetFunc(t Transport) Get {
 
 // ----- API Definition -------------------------------------------------------
 
-// Get returns a document.
+// Get get a document by its ID
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get.
 type Get func(index string, id string, o ...func(*GetRequest)) (*Response, error)
 
 // GetRequest configures the Get API request.
@@ -59,6 +59,7 @@ type GetRequest struct {
 	Refresh              *bool
 	Routing              string
 	Source               []string
+	SourceExcludeVectors *bool
 	SourceExcludes       []string
 	SourceIncludes       []string
 	StoredFields         []string
@@ -135,6 +136,10 @@ func (r GetRequest) Do(providedCtx context.Context, transport Transport) (*Respo
 
 	if len(r.Source) > 0 {
 		params["_source"] = strings.Join(r.Source, ",")
+	}
+
+	if r.SourceExcludeVectors != nil {
+		params["_source_exclude_vectors"] = strconv.FormatBool(*r.SourceExcludeVectors)
 	}
 
 	if len(r.SourceExcludes) > 0 {
@@ -274,6 +279,13 @@ func (f Get) WithRouting(v string) func(*GetRequest) {
 func (f Get) WithSource(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.Source = v
+	}
+}
+
+// WithSourceExcludeVectors - whether vectors should be excluded from _source.
+func (f Get) WithSourceExcludeVectors(v bool) func(*GetRequest) {
+	return func(r *GetRequest) {
+		r.SourceExcludeVectors = &v
 	}
 }
 

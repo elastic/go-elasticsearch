@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,7 +43,7 @@ func newFleetMsearchFunc(t Transport) FleetMsearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// FleetMsearch multi Search API where the search will only be executed after specified checkpoints are available due to a refresh. This API is designed for internal use by the fleet server project.
+// FleetMsearch run multiple Fleet searches
 //
 // This API is experimental.
 type FleetMsearch func(body io.Reader, o ...func(*FleetMsearchRequest)) (*Response, error)

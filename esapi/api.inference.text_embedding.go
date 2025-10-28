@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferenceTextEmbeddingFunc(t Transport) InferenceTextEmbedding {
-	return func(inference_id string, o ...func(*InferenceTextEmbeddingRequest)) (*Response, error) {
-		var r = InferenceTextEmbeddingRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceTextEmbeddingRequest)) (*Response, error) {
+		var r = InferenceTextEmbeddingRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferenceTextEmbeddingFunc(t Transport) InferenceTextEmbedding {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceTextEmbedding perform text embedding inference
+// InferenceTextEmbedding perform text embedding inference on the service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
-type InferenceTextEmbedding func(inference_id string, o ...func(*InferenceTextEmbeddingRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference.
+type InferenceTextEmbedding func(body io.Reader, inference_id string, o ...func(*InferenceTextEmbeddingRequest)) (*Response, error)
 
 // InferenceTextEmbeddingRequest configures the Inference Text Embedding API request.
 type InferenceTextEmbeddingRequest struct {
@@ -181,13 +181,6 @@ func (r InferenceTextEmbeddingRequest) Do(providedCtx context.Context, transport
 func (f InferenceTextEmbedding) WithContext(v context.Context) func(*InferenceTextEmbeddingRequest) {
 	return func(r *InferenceTextEmbeddingRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference payload.
-func (f InferenceTextEmbedding) WithBody(v io.Reader) func(*InferenceTextEmbeddingRequest) {
-	return func(r *InferenceTextEmbeddingRequest) {
-		r.Body = v
 	}
 }
 

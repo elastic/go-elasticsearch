@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLGetTrainedModelsFunc(t Transport) MLGetTrainedModels {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetTrainedModels - Retrieves configuration information for a trained inference model.
+// MLGetTrainedModels - Get trained model configuration info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trained-models.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models.
 type MLGetTrainedModels func(o ...func(*MLGetTrainedModelsRequest)) (*Response, error)
 
 // MLGetTrainedModelsRequest configures the ML Get Trained Models API request.

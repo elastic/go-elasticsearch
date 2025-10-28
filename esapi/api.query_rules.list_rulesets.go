@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newQueryRulesListRulesetsFunc(t Transport) QueryRulesListRulesets {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesListRulesets lists query rulesets.
+// QueryRulesListRulesets get all query rulesets
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-query-rulesets.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-list-rulesets.
 type QueryRulesListRulesets func(o ...func(*QueryRulesListRulesetsRequest)) (*Response, error)
 
 // QueryRulesListRulesetsRequest configures the Query Rules List Rulesets API request.

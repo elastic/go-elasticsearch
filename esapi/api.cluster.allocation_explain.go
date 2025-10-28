@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,18 +45,22 @@ func newClusterAllocationExplainFunc(t Transport) ClusterAllocationExplain {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterAllocationExplain provides explanations for shard allocations in the cluster.
+// ClusterAllocationExplain explain the shard allocations
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-allocation-explain.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-allocation-explain.
 type ClusterAllocationExplain func(o ...func(*ClusterAllocationExplainRequest)) (*Response, error)
 
 // ClusterAllocationExplainRequest configures the Cluster Allocation Explain API request.
 type ClusterAllocationExplainRequest struct {
 	Body io.Reader
 
+	CurrentNode         string
 	IncludeDiskInfo     *bool
 	IncludeYesDecisions *bool
+	Index               string
 	MasterTimeout       time.Duration
+	Primary             *bool
+	Shard               *int
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +99,10 @@ func (r ClusterAllocationExplainRequest) Do(providedCtx context.Context, transpo
 
 	params = make(map[string]string)
 
+	if r.CurrentNode != "" {
+		params["current_node"] = r.CurrentNode
+	}
+
 	if r.IncludeDiskInfo != nil {
 		params["include_disk_info"] = strconv.FormatBool(*r.IncludeDiskInfo)
 	}
@@ -103,8 +111,20 @@ func (r ClusterAllocationExplainRequest) Do(providedCtx context.Context, transpo
 		params["include_yes_decisions"] = strconv.FormatBool(*r.IncludeYesDecisions)
 	}
 
+	if r.Index != "" {
+		params["index"] = r.Index
+	}
+
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Primary != nil {
+		params["primary"] = strconv.FormatBool(*r.Primary)
+	}
+
+	if r.Shard != nil {
+		params["shard"] = strconv.FormatInt(int64(*r.Shard), 10)
 	}
 
 	if r.Pretty {
@@ -199,6 +219,13 @@ func (f ClusterAllocationExplain) WithBody(v io.Reader) func(*ClusterAllocationE
 	}
 }
 
+// WithCurrentNode - specifies the node ID or the name of the node to only explain a shard that is currently located on the specified node.
+func (f ClusterAllocationExplain) WithCurrentNode(v string) func(*ClusterAllocationExplainRequest) {
+	return func(r *ClusterAllocationExplainRequest) {
+		r.CurrentNode = v
+	}
+}
+
 // WithIncludeDiskInfo - return information about disk usage and shard sizes (default: false).
 func (f ClusterAllocationExplain) WithIncludeDiskInfo(v bool) func(*ClusterAllocationExplainRequest) {
 	return func(r *ClusterAllocationExplainRequest) {
@@ -213,10 +240,31 @@ func (f ClusterAllocationExplain) WithIncludeYesDecisions(v bool) func(*ClusterA
 	}
 }
 
+// WithIndex - specifies the name of the index that you would like an explanation for.
+func (f ClusterAllocationExplain) WithIndex(v string) func(*ClusterAllocationExplainRequest) {
+	return func(r *ClusterAllocationExplainRequest) {
+		r.Index = v
+	}
+}
+
 // WithMasterTimeout - timeout for connection to master node.
 func (f ClusterAllocationExplain) WithMasterTimeout(v time.Duration) func(*ClusterAllocationExplainRequest) {
 	return func(r *ClusterAllocationExplainRequest) {
 		r.MasterTimeout = v
+	}
+}
+
+// WithPrimary - if true, returns explanation for the primary shard for the given shard ID.
+func (f ClusterAllocationExplain) WithPrimary(v bool) func(*ClusterAllocationExplainRequest) {
+	return func(r *ClusterAllocationExplainRequest) {
+		r.Primary = &v
+	}
+}
+
+// WithShard - specifies the ID of the shard that you would like an explanation for.
+func (f ClusterAllocationExplain) WithShard(v int) func(*ClusterAllocationExplainRequest) {
+	return func(r *ClusterAllocationExplainRequest) {
+		r.Shard = &v
 	}
 }
 

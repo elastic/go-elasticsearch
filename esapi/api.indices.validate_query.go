@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesValidateQueryFunc(t Transport) IndicesValidateQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesValidateQuery allows a user to validate a potentially expensive query without executing it.
+// IndicesValidateQuery validate a query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-validate.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-validate-query.
 type IndicesValidateQuery func(o ...func(*IndicesValidateQueryRequest)) (*Response, error)
 
 // IndicesValidateQueryRequest configures the Indices Validate Query API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesExplainDataLifecycleFunc(t Transport) IndicesExplainDataLifecycle
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesExplainDataLifecycle retrieves information about the index's current data stream lifecycle, such as any potential encountered error, time since creation etc.
+// IndicesExplainDataLifecycle get the status for a data stream lifecycle
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-explain-lifecycle.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-explain-data-lifecycle.
 type IndicesExplainDataLifecycle func(index string, o ...func(*IndicesExplainDataLifecycleRequest)) (*Response, error)
 
 // IndicesExplainDataLifecycleRequest configures the Indices Explain Data Lifecycle API request.

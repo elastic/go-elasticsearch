@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newNodesReloadSecureSettingsFunc(t Transport) NodesReloadSecureSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesReloadSecureSettings reloads secure settings.
+// NodesReloadSecureSettings reload the keystore on nodes in the cluster
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/secure-settings.html#reloadable-secure-settings.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-reload-secure-settings.
 type NodesReloadSecureSettings func(o ...func(*NodesReloadSecureSettingsRequest)) (*Response, error)
 
 // NodesReloadSecureSettingsRequest configures the Nodes Reload Secure Settings API request.

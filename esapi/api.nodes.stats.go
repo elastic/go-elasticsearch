@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newNodesStatsFunc(t Transport) NodesStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesStats returns statistical information about nodes in the cluster.
+// NodesStats get node statistics
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-stats.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-stats.
 type NodesStats func(o ...func(*NodesStatsRequest)) (*Response, error)
 
 // NodesStatsRequest configures the Nodes Stats API request.

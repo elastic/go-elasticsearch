@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesModifyDataStreamFunc(t Transport) IndicesModifyDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesModifyDataStream modifies a data stream
+// IndicesModifyDataStream update data streams
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-modify-data-stream.
 type IndicesModifyDataStream func(body io.Reader, o ...func(*IndicesModifyDataStreamRequest)) (*Response, error)
 
 // IndicesModifyDataStreamRequest configures the Indices Modify Data Stream API request.

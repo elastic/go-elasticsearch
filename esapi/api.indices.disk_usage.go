@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newIndicesDiskUsageFunc(t Transport) IndicesDiskUsage {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDiskUsage analyzes the disk usage of each field of an index or data stream
+// IndicesDiskUsage analyze the index disk usage
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-disk-usage.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-disk-usage.
 type IndicesDiskUsage func(index string, o ...func(*IndicesDiskUsageRequest)) (*Response, error)
 
 // IndicesDiskUsageRequest configures the Indices Disk Usage API request.

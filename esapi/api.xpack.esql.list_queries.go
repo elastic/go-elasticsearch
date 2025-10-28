@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,7 +42,7 @@ func newEsqlListQueriesFunc(t Transport) EsqlListQueries {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlListQueries - Executes a list ESQL queries request
+// EsqlListQueries - Get running ES|QL queries information
 //
 // This API is experimental.
 type EsqlListQueries func(o ...func(*EsqlListQueriesRequest)) (*Response, error)

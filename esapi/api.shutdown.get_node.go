@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newShutdownGetNodeFunc(t Transport) ShutdownGetNode {
 
 // ----- API Definition -------------------------------------------------------
 
-// ShutdownGetNode retrieve status of a node or nodes that are currently marked as shutting down. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// ShutdownGetNode get the shutdown status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-shutdown-get-node.
 type ShutdownGetNode func(o ...func(*ShutdownGetNodeRequest)) (*Response, error)
 
 // ShutdownGetNodeRequest configures the Shutdown Get Node API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferencePutAmazonsagemakerFunc(t Transport) InferencePutAmazonsagemaker {
-	return func(amazonsagemaker_inference_id string, task_type string, o ...func(*InferencePutAmazonsagemakerRequest)) (*Response, error) {
-		var r = InferencePutAmazonsagemakerRequest{AmazonsagemakerInferenceID: amazonsagemaker_inference_id, TaskType: task_type}
+	return func(body io.Reader, amazonsagemaker_inference_id string, task_type string, o ...func(*InferencePutAmazonsagemakerRequest)) (*Response, error) {
+		var r = InferencePutAmazonsagemakerRequest{Body: body, AmazonsagemakerInferenceID: amazonsagemaker_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferencePutAmazonsagemakerFunc(t Transport) InferencePutAmazonsagemaker
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAmazonsagemaker configure a Amazon SageMaker inference endpoint
+// InferencePutAmazonsagemaker create an Amazon SageMaker inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-amazon-sagemaker.html.
-type InferencePutAmazonsagemaker func(amazonsagemaker_inference_id string, task_type string, o ...func(*InferencePutAmazonsagemakerRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonsagemaker.
+type InferencePutAmazonsagemaker func(body io.Reader, amazonsagemaker_inference_id string, task_type string, o ...func(*InferencePutAmazonsagemakerRequest)) (*Response, error)
 
 // InferencePutAmazonsagemakerRequest configures the Inference Put Amazonsagemaker API request.
 type InferencePutAmazonsagemakerRequest struct {
@@ -185,13 +185,6 @@ func (r InferencePutAmazonsagemakerRequest) Do(providedCtx context.Context, tran
 func (f InferencePutAmazonsagemaker) WithContext(v context.Context) func(*InferencePutAmazonsagemakerRequest) {
 	return func(r *InferencePutAmazonsagemakerRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutAmazonsagemaker) WithBody(v io.Reader) func(*InferencePutAmazonsagemakerRequest) {
-	return func(r *InferencePutAmazonsagemakerRequest) {
-		r.Body = v
 	}
 }
 

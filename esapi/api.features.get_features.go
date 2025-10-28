@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newFeaturesGetFeaturesFunc(t Transport) FeaturesGetFeatures {
 
 // ----- API Definition -------------------------------------------------------
 
-// FeaturesGetFeatures gets a list of features which can be included in snapshots using the feature_states field when creating a snapshot
+// FeaturesGetFeatures get the features
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-features-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-features-get-features.
 type FeaturesGetFeatures func(o ...func(*FeaturesGetFeaturesRequest)) (*Response, error)
 
 // FeaturesGetFeaturesRequest configures the Features Get Features API request.

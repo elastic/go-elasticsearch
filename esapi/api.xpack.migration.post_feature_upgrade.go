@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newMigrationPostFeatureUpgradeFunc(t Transport) MigrationPostFeatureUpgrade
 
 // ----- API Definition -------------------------------------------------------
 
-// MigrationPostFeatureUpgrade - Begin upgrades for system features
+// MigrationPostFeatureUpgrade - Start the feature migration
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-feature-upgrade.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-get-feature-upgrade-status.
 type MigrationPostFeatureUpgrade func(o ...func(*MigrationPostFeatureUpgradeRequest)) (*Response, error)
 
 // MigrationPostFeatureUpgradeRequest configures the Migration Post Feature Upgrade API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newFieldCapsFunc(t Transport) FieldCaps {
 
 // ----- API Definition -------------------------------------------------------
 
-// FieldCaps returns the information about the capabilities of fields among multiple indices.
+// FieldCaps get the field capabilities
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-field-caps.
 type FieldCaps func(o ...func(*FieldCapsRequest)) (*Response, error)
 
 // FieldCapsRequest configures the Field Caps API request.
@@ -62,6 +62,7 @@ type FieldCapsRequest struct {
 	IgnoreUnavailable  *bool
 	IncludeEmptyFields *bool
 	IncludeUnmapped    *bool
+	ProjectRouting     string
 	Types              []string
 
 	Pretty     bool
@@ -135,6 +136,10 @@ func (r FieldCapsRequest) Do(providedCtx context.Context, transport Transport) (
 
 	if r.IncludeUnmapped != nil {
 		params["include_unmapped"] = strconv.FormatBool(*r.IncludeUnmapped)
+	}
+
+	if r.ProjectRouting != "" {
+		params["project_routing"] = r.ProjectRouting
 	}
 
 	if len(r.Types) > 0 {
@@ -286,6 +291,13 @@ func (f FieldCaps) WithIncludeEmptyFields(v bool) func(*FieldCapsRequest) {
 func (f FieldCaps) WithIncludeUnmapped(v bool) func(*FieldCapsRequest) {
 	return func(r *FieldCapsRequest) {
 		r.IncludeUnmapped = &v
+	}
+}
+
+// WithProjectRouting - a lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. only supported in serverless..
+func (f FieldCaps) WithProjectRouting(v string) func(*FieldCapsRequest) {
+	return func(r *FieldCapsRequest) {
+		r.ProjectRouting = v
 	}
 }
 

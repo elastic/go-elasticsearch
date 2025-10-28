@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newIndicesPutSettingsFunc(t Transport) IndicesPutSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutSettings updates the index settings.
+// IndicesPutSettings update index settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-update-settings.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-settings.
 type IndicesPutSettings func(body io.Reader, o ...func(*IndicesPutSettingsRequest)) (*Response, error)
 
 // IndicesPutSettingsRequest configures the Indices Put Settings API request.

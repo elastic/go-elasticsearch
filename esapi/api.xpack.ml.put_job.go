@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLPutJobFunc(t Transport) MLPutJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutJob - Instantiates an anomaly detection job.
+// MLPutJob - Create an anomaly detection job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-job.
 type MLPutJob func(job_id string, body io.Reader, o ...func(*MLPutJobRequest)) (*Response, error)
 
 // MLPutJobRequest configures the ML Put Job API request.

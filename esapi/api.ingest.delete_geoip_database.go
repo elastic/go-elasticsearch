@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIngestDeleteGeoipDatabaseFunc(t Transport) IngestDeleteGeoipDatabase {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestDeleteGeoipDatabase deletes a geoip database configuration
+// IngestDeleteGeoipDatabase delete GeoIP database configurations
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-geoip-database-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-delete-geoip-database.
 type IngestDeleteGeoipDatabase func(id []string, o ...func(*IngestDeleteGeoipDatabaseRequest)) (*Response, error)
 
 // IngestDeleteGeoipDatabaseRequest configures the Ingest Delete Geoip Database API request.

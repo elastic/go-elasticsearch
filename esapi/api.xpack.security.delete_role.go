@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newSecurityDeleteRoleFunc(t Transport) SecurityDeleteRole {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDeleteRole - Removes roles in the native realm.
+// SecurityDeleteRole - Delete roles
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-role.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role.
 type SecurityDeleteRole func(name string, o ...func(*SecurityDeleteRoleRequest)) (*Response, error)
 
 // SecurityDeleteRoleRequest configures the Security Delete Role API request.
