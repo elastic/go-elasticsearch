@@ -1,3 +1,13 @@
+# 9.2.0
+
+# API
+
+* Updated APIs to 9.2.0
+
+# Typed API
+
+* Update TypedAPI to latest [elasticsearch-specification 9.2.0](https://github.com/elastic/elasticsearch-specification/commit/d520d9e)
+
 # 9.1.0
 
 # API
