@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,21 +44,23 @@ func newCatTemplatesFunc(t Transport) CatTemplates {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatTemplates returns information about existing templates.
+// CatTemplates get index template information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-templates.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-templates.
 type CatTemplates func(o ...func(*CatTemplatesRequest)) (*Response, error)
 
 // CatTemplatesRequest configures the Cat Templates API request.
 type CatTemplatesRequest struct {
 	Name string
 
+	Bytes         string
 	Format        string
 	H             []string
 	Help          *bool
 	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
+	Time          string
 	V             *bool
 
 	Pretty     bool
@@ -108,6 +110,10 @@ func (r CatTemplatesRequest) Do(providedCtx context.Context, transport Transport
 
 	params = make(map[string]string)
 
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
+
 	if r.Format != "" {
 		params["format"] = r.Format
 	}
@@ -130,6 +136,10 @@ func (r CatTemplatesRequest) Do(providedCtx context.Context, transport Transport
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -221,6 +231,13 @@ func (f CatTemplates) WithName(v string) func(*CatTemplatesRequest) {
 	}
 }
 
+// WithBytes - the unit in which to display byte values.
+func (f CatTemplates) WithBytes(v string) func(*CatTemplatesRequest) {
+	return func(r *CatTemplatesRequest) {
+		r.Bytes = v
+	}
+}
+
 // WithFormat - a short version of the accept header, e.g. json, yaml.
 func (f CatTemplates) WithFormat(v string) func(*CatTemplatesRequest) {
 	return func(r *CatTemplatesRequest) {
@@ -260,6 +277,13 @@ func (f CatTemplates) WithMasterTimeout(v time.Duration) func(*CatTemplatesReque
 func (f CatTemplates) WithS(v ...string) func(*CatTemplatesRequest) {
 	return func(r *CatTemplatesRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+func (f CatTemplates) WithTime(v string) func(*CatTemplatesRequest) {
+	return func(r *CatTemplatesRequest) {
+		r.Time = v
 	}
 }
 

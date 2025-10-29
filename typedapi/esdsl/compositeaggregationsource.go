@@ -16,20 +16,34 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+import (
+	"encoding/json"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+)
 
 type _compositeAggregationSource struct {
 	v *types.CompositeAggregationSource
 }
 
 func NewCompositeAggregationSource() *_compositeAggregationSource {
-
 	return &_compositeAggregationSource{v: types.NewCompositeAggregationSource()}
+}
 
+// AdditionalCompositeAggregationSourceProperty is a single key dictionnary.
+// It will replace the current value on each call.
+func (s *_compositeAggregationSource) AdditionalCompositeAggregationSourceProperty(key string, value json.RawMessage) *_compositeAggregationSource {
+
+	tmp := make(map[string]json.RawMessage)
+
+	tmp[key] = value
+
+	s.v.AdditionalCompositeAggregationSourceProperty = tmp
+	return s
 }
 
 func (s *_compositeAggregationSource) DateHistogram(datehistogram types.CompositeDateHistogramAggregationVariant) *_compositeAggregationSource {

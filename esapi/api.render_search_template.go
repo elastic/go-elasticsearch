@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newRenderSearchTemplateFunc(t Transport) RenderSearchTemplate {
-	return func(o ...func(*RenderSearchTemplateRequest)) (*Response, error) {
-		var r = RenderSearchTemplateRequest{}
+	return func(body io.Reader, o ...func(*RenderSearchTemplateRequest)) (*Response, error) {
+		var r = RenderSearchTemplateRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newRenderSearchTemplateFunc(t Transport) RenderSearchTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// RenderSearchTemplate allows to use the Mustache language to pre-render a search definition.
+// RenderSearchTemplate render a search template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/render-search-template-api.html.
-type RenderSearchTemplate func(o ...func(*RenderSearchTemplateRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-render-search-template.
+type RenderSearchTemplate func(body io.Reader, o ...func(*RenderSearchTemplateRequest)) (*Response, error)
 
 // RenderSearchTemplateRequest configures the Render Search Template API request.
 type RenderSearchTemplateRequest struct {
@@ -183,13 +183,6 @@ func (r RenderSearchTemplateRequest) Do(providedCtx context.Context, transport T
 func (f RenderSearchTemplate) WithContext(v context.Context) func(*RenderSearchTemplateRequest) {
 	return func(r *RenderSearchTemplateRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The search definition template and its params.
-func (f RenderSearchTemplate) WithBody(v io.Reader) func(*RenderSearchTemplateRequest) {
-	return func(r *RenderSearchTemplateRequest) {
-		r.Body = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferencePutAzureopenaiFunc(t Transport) InferencePutAzureopenai {
-	return func(azureopenai_inference_id string, task_type string, o ...func(*InferencePutAzureopenaiRequest)) (*Response, error) {
-		var r = InferencePutAzureopenaiRequest{AzureopenaiInferenceID: azureopenai_inference_id, TaskType: task_type}
+	return func(body io.Reader, azureopenai_inference_id string, task_type string, o ...func(*InferencePutAzureopenaiRequest)) (*Response, error) {
+		var r = InferencePutAzureopenaiRequest{Body: body, AzureopenaiInferenceID: azureopenai_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferencePutAzureopenaiFunc(t Transport) InferencePutAzureopenai {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAzureopenai configure an Azure OpenAI inference endpoint
+// InferencePutAzureopenai create an Azure OpenAI inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-azure-openai.html.
-type InferencePutAzureopenai func(azureopenai_inference_id string, task_type string, o ...func(*InferencePutAzureopenaiRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureopenai.
+type InferencePutAzureopenai func(body io.Reader, azureopenai_inference_id string, task_type string, o ...func(*InferencePutAzureopenaiRequest)) (*Response, error)
 
 // InferencePutAzureopenaiRequest configures the Inference Put Azureopenai API request.
 type InferencePutAzureopenaiRequest struct {
@@ -185,13 +185,6 @@ func (r InferencePutAzureopenaiRequest) Do(providedCtx context.Context, transpor
 func (f InferencePutAzureopenai) WithContext(v context.Context) func(*InferencePutAzureopenaiRequest) {
 	return func(r *InferencePutAzureopenaiRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutAzureopenai) WithBody(v io.Reader) func(*InferencePutAzureopenaiRequest) {
-	return func(r *InferencePutAzureopenaiRequest) {
-		r.Body = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesExistsFunc(t Transport) IndicesExists {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesExists returns information about whether a particular index exists.
+// IndicesExists check indices
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-exists.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists.
 type IndicesExists func(index []string, o ...func(*IndicesExistsRequest)) (*Response, error)
 
 // IndicesExistsRequest configures the Indices Exists API request.

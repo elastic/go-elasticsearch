@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferencePutMistralFunc(t Transport) InferencePutMistral {
-	return func(mistral_inference_id string, task_type string, o ...func(*InferencePutMistralRequest)) (*Response, error) {
-		var r = InferencePutMistralRequest{MistralInferenceID: mistral_inference_id, TaskType: task_type}
+	return func(body io.Reader, mistral_inference_id string, task_type string, o ...func(*InferencePutMistralRequest)) (*Response, error) {
+		var r = InferencePutMistralRequest{Body: body, MistralInferenceID: mistral_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferencePutMistralFunc(t Transport) InferencePutMistral {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutMistral configure a Mistral inference endpoint
+// InferencePutMistral create a Mistral inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-mistral.html.
-type InferencePutMistral func(mistral_inference_id string, task_type string, o ...func(*InferencePutMistralRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-mistral.
+type InferencePutMistral func(body io.Reader, mistral_inference_id string, task_type string, o ...func(*InferencePutMistralRequest)) (*Response, error)
 
 // InferencePutMistralRequest configures the Inference Put Mistral API request.
 type InferencePutMistralRequest struct {
@@ -185,13 +185,6 @@ func (r InferencePutMistralRequest) Do(providedCtx context.Context, transport Tr
 func (f InferencePutMistral) WithContext(v context.Context) func(*InferencePutMistralRequest) {
 	return func(r *InferencePutMistralRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutMistral) WithBody(v io.Reader) func(*InferencePutMistralRequest) {
-	return func(r *InferencePutMistralRequest) {
-		r.Body = v
 	}
 }
 

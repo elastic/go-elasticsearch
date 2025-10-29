@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesResolveIndexFunc(t Transport) IndicesResolveIndex {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesResolveIndex returns information about any matching indices, aliases, and data streams
+// IndicesResolveIndex resolve indices
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-index-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-index.
 type IndicesResolveIndex func(name []string, o ...func(*IndicesResolveIndexRequest)) (*Response, error)
 
 // IndicesResolveIndexRequest configures the Indices Resolve Index API request.
@@ -56,6 +56,8 @@ type IndicesResolveIndexRequest struct {
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
+	Mode              string
+	ProjectRouting    string
 
 	Pretty     bool
 	Human      bool
@@ -116,6 +118,14 @@ func (r IndicesResolveIndexRequest) Do(providedCtx context.Context, transport Tr
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.Mode != "" {
+		params["mode"] = r.Mode
+	}
+
+	if r.ProjectRouting != "" {
+		params["project_routing"] = r.ProjectRouting
 	}
 
 	if r.Pretty {
@@ -214,6 +224,20 @@ func (f IndicesResolveIndex) WithExpandWildcards(v string) func(*IndicesResolveI
 func (f IndicesResolveIndex) WithIgnoreUnavailable(v bool) func(*IndicesResolveIndexRequest) {
 	return func(r *IndicesResolveIndexRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithMode - filter indices by index mode. comma-separated list of indexmode. empty means no filter..
+func (f IndicesResolveIndex) WithMode(v string) func(*IndicesResolveIndexRequest) {
+	return func(r *IndicesResolveIndexRequest) {
+		r.Mode = v
+	}
+}
+
+// WithProjectRouting - a lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. only supported in serverless..
+func (f IndicesResolveIndex) WithProjectRouting(v string) func(*IndicesResolveIndexRequest) {
+	return func(r *IndicesResolveIndexRequest) {
+		r.ProjectRouting = v
 	}
 }
 

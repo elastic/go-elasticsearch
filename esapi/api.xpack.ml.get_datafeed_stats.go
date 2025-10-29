@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLGetDatafeedStatsFunc(t Transport) MLGetDatafeedStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDatafeedStats - Retrieves usage information for datafeeds.
+// MLGetDatafeedStats - Get datafeed stats
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-datafeed-stats.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-datafeed-stats.
 type MLGetDatafeedStats func(o ...func(*MLGetDatafeedStatsRequest)) (*Response, error)
 
 // MLGetDatafeedStatsRequest configures the ML Get Datafeed Stats API request.

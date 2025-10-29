@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,11 +44,11 @@ func newSearchApplicationPutFunc(t Transport) SearchApplicationPut {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationPut creates or updates a search application.
+// SearchApplicationPut create or update a search application
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-search-application.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-put.
 type SearchApplicationPut func(name string, body io.Reader, o ...func(*SearchApplicationPutRequest)) (*Response, error)
 
 // SearchApplicationPutRequest configures the Search Application Put API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,9 @@ func newIndicesGetMigrateReindexStatusFunc(t Transport) IndicesGetMigrateReindex
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetMigrateReindexStatus this API returns the status of a migration reindex attempt for a data stream or index
+// IndicesGetMigrateReindexStatus get the migration reindexing status
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-stream-reindex-status-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-migration.
 type IndicesGetMigrateReindexStatus func(index string, o ...func(*IndicesGetMigrateReindexStatusRequest)) (*Response, error)
 
 // IndicesGetMigrateReindexStatusRequest configures the Indices Get Migrate Reindex Status API request.

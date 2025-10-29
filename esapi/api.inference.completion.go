@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferenceCompletionFunc(t Transport) InferenceCompletion {
-	return func(inference_id string, o ...func(*InferenceCompletionRequest)) (*Response, error) {
-		var r = InferenceCompletionRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceCompletionRequest)) (*Response, error) {
+		var r = InferenceCompletionRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferenceCompletionFunc(t Transport) InferenceCompletion {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceCompletion perform completion inference
+// InferenceCompletion perform completion inference on the service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
-type InferenceCompletion func(inference_id string, o ...func(*InferenceCompletionRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference.
+type InferenceCompletion func(body io.Reader, inference_id string, o ...func(*InferenceCompletionRequest)) (*Response, error)
 
 // InferenceCompletionRequest configures the Inference Completion API request.
 type InferenceCompletionRequest struct {
@@ -181,13 +181,6 @@ func (r InferenceCompletionRequest) Do(providedCtx context.Context, transport Tr
 func (f InferenceCompletion) WithContext(v context.Context) func(*InferenceCompletionRequest) {
 	return func(r *InferenceCompletionRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference payload.
-func (f InferenceCompletion) WithBody(v io.Reader) func(*InferenceCompletionRequest) {
-	return func(r *InferenceCompletionRequest) {
-		r.Body = v
 	}
 }
 

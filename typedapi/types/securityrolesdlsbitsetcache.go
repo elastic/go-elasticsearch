@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -31,11 +31,24 @@ import (
 
 // SecurityRolesDlsBitSetCache type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/xpack/usage/types.ts#L322-L326
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/xpack/usage/types.ts#L322-L359
 type SecurityRolesDlsBitSetCache struct {
-	Count         int      `json:"count"`
-	Memory        ByteSize `json:"memory,omitempty"`
-	MemoryInBytes uint64   `json:"memory_in_bytes"`
+	// Count Number of entries in the cache.
+	Count int `json:"count"`
+	// Evictions Total number of cache evictions.
+	Evictions int64 `json:"evictions"`
+	// Hits Total number of cache hits.
+	Hits int64 `json:"hits"`
+	// HitsTimeInMillis Total combined time spent in cache for hits in milliseconds.
+	HitsTimeInMillis int64 `json:"hits_time_in_millis"`
+	// Memory Human-readable amount of memory taken up by the cache.
+	Memory ByteSize `json:"memory,omitempty"`
+	// MemoryInBytes Memory taken up by the cache in bytes.
+	MemoryInBytes uint64 `json:"memory_in_bytes"`
+	// Misses Total number of cache misses.
+	Misses int64 `json:"misses"`
+	// MissesTimeInMillis Total combined time spent in cache for misses in milliseconds.
+	MissesTimeInMillis int64 `json:"misses_time_in_millis"`
 }
 
 func (s *SecurityRolesDlsBitSetCache) UnmarshalJSON(data []byte) error {
@@ -69,6 +82,41 @@ func (s *SecurityRolesDlsBitSetCache) UnmarshalJSON(data []byte) error {
 				s.Count = f
 			}
 
+		case "evictions":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Evictions", err)
+				}
+				s.Evictions = value
+			case float64:
+				f := int64(v)
+				s.Evictions = f
+			}
+
+		case "hits":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Hits", err)
+				}
+				s.Hits = value
+			case float64:
+				f := int64(v)
+				s.Hits = f
+			}
+
+		case "hits_time_in_millis":
+			if err := dec.Decode(&s.HitsTimeInMillis); err != nil {
+				return fmt.Errorf("%s | %w", "HitsTimeInMillis", err)
+			}
+
 		case "memory":
 			if err := dec.Decode(&s.Memory); err != nil {
 				return fmt.Errorf("%s | %w", "Memory", err)
@@ -77,6 +125,26 @@ func (s *SecurityRolesDlsBitSetCache) UnmarshalJSON(data []byte) error {
 		case "memory_in_bytes":
 			if err := dec.Decode(&s.MemoryInBytes); err != nil {
 				return fmt.Errorf("%s | %w", "MemoryInBytes", err)
+			}
+
+		case "misses":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Misses", err)
+				}
+				s.Misses = value
+			case float64:
+				f := int64(v)
+				s.Misses = f
+			}
+
+		case "misses_time_in_millis":
+			if err := dec.Decode(&s.MissesTimeInMillis); err != nil {
+				return fmt.Errorf("%s | %w", "MissesTimeInMillis", err)
 			}
 
 		}

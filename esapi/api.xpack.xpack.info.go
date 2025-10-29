@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newXPackInfoFunc(t Transport) XPackInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// XPackInfo - Retrieves information about the installed X-Pack features.
+// XPackInfo - Get information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-info.
 type XPackInfo func(o ...func(*XPackInfoRequest)) (*Response, error)
 
 // XPackInfoRequest configures the X Pack Info API request.

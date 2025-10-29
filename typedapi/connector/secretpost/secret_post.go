@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Creates a secret for a Connector.
+// Creates a secret for a Connector
 package secretpost
 
 import (
@@ -65,7 +65,7 @@ func NewSecretPostFunc(tp elastictransport.Interface) NewSecretPost {
 	}
 }
 
-// Creates a secret for a Connector.
+// Creates a secret for a Connector
 func New(tp elastictransport.Interface) *SecretPost {
 	r := &SecretPost{
 		transport: tp,

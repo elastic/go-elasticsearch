@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIngestPutIPLocationDatabaseFunc(t Transport) IngestPutIPLocationDatabase
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestPutIPLocationDatabase puts the configuration for a ip location database to be downloaded
+// IngestPutIPLocationDatabase create or update an IP geolocation database configuration
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-ip-location-database-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-put-ip-location-database.
 type IngestPutIPLocationDatabase func(id string, body io.Reader, o ...func(*IngestPutIPLocationDatabaseRequest)) (*Response, error)
 
 // IngestPutIPLocationDatabaseRequest configures the Ingest PutIP Location Database API request.

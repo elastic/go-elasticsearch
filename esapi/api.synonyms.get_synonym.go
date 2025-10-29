@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSynonymsGetSynonymFunc(t Transport) SynonymsGetSynonym {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsGetSynonym retrieves a synonym set
+// SynonymsGetSynonym get a synonym set
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonyms-set.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym.
 type SynonymsGetSynonym func(id string, o ...func(*SynonymsGetSynonymRequest)) (*Response, error)
 
 // SynonymsGetSynonymRequest configures the Synonyms Get Synonym API request.

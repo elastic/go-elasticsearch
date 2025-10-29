@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,9 @@ func newIndicesMigrateReindexFunc(t Transport) IndicesMigrateReindex {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesMigrateReindex this API reindexes all legacy backing indices for a data stream. It does this in a persistent task. The persistent task id is returned immediately, and the reindexing work is completed in that task
+// IndicesMigrateReindex reindex legacy backing indices
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-stream-reindex-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-migrate-reindex.
 type IndicesMigrateReindex func(body io.Reader, o ...func(*IndicesMigrateReindexRequest)) (*Response, error)
 
 // IndicesMigrateReindexRequest configures the Indices Migrate Reindex API request.

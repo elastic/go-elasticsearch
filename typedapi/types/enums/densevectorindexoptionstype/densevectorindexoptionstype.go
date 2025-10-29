@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Package densevectorindexoptionstype
 package densevectorindexoptionstype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/DenseVectorProperty.ts#L168-L213
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/mapping/DenseVectorProperty.ts#L168-L222
 type DenseVectorIndexOptionsType struct {
 	Name string
 }
@@ -32,6 +32,8 @@ var (
 	Bbqflat = DenseVectorIndexOptionsType{"bbq_flat"}
 
 	Bbqhnsw = DenseVectorIndexOptionsType{"bbq_hnsw"}
+
+	Bbqdisk = DenseVectorIndexOptionsType{"bbq_disk"}
 
 	Flat = DenseVectorIndexOptionsType{"flat"}
 
@@ -57,6 +59,8 @@ func (d *DenseVectorIndexOptionsType) UnmarshalText(text []byte) error {
 		*d = Bbqflat
 	case "bbq_hnsw":
 		*d = Bbqhnsw
+	case "bbq_disk":
+		*d = Bbqdisk
 	case "flat":
 		*d = Flat
 	case "hnsw":

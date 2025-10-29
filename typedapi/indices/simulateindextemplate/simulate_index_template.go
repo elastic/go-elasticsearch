@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Simulate an index.
 // Get the index configuration that would be applied to the specified index from
@@ -24,6 +24,7 @@
 package simulateindextemplate
 
 import (
+	gobytes "bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -53,6 +54,10 @@ type SimulateIndexTemplate struct {
 	path    url.URL
 
 	raw io.Reader
+
+	req      *Request
+	deferred []func(request *Request) error
+	buf      *gobytes.Buffer
 
 	paramSet int
 
@@ -88,6 +93,8 @@ func New(tp elastictransport.Interface) *SimulateIndexTemplate {
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
+
+		buf: gobytes.NewBuffer(nil),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -95,6 +102,21 @@ func New(tp elastictransport.Interface) *SimulateIndexTemplate {
 			r.instrument = instrument
 		}
 	}
+
+	return r
+}
+
+// Raw takes a json payload as input which is then passed to the http.Request
+// If specified Raw takes precedence on Request method.
+func (r *SimulateIndexTemplate) Raw(raw io.Reader) *SimulateIndexTemplate {
+	r.raw = raw
+
+	return r
+}
+
+// Request allows to set the request property with the appropriate payload.
+func (r *SimulateIndexTemplate) Request(req *Request) *SimulateIndexTemplate {
+	r.req = req
 
 	return r
 }
@@ -107,6 +129,31 @@ func (r *SimulateIndexTemplate) HttpRequest(ctx context.Context) (*http.Request,
 	var req *http.Request
 
 	var err error
+
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
+	if r.raw == nil && r.req != nil {
+
+		data, err := json.Marshal(r.req)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not serialise request for SimulateIndexTemplate: %w", err)
+		}
+
+		r.buf.Write(data)
+
+	}
+
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
 
 	r.path.Scheme = "http"
 
@@ -254,45 +301,6 @@ func (r SimulateIndexTemplate) Do(providedCtx context.Context) (*Response, error
 	return nil, errorResponse
 }
 
-// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
-// This only exists for endpoints without a request payload and allows for quick control flow.
-func (r SimulateIndexTemplate) IsSuccess(providedCtx context.Context) (bool, error) {
-	var ctx context.Context
-	r.spanStarted = true
-	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "indices.simulate_index_template")
-		defer instrument.Close(ctx)
-	}
-	if ctx == nil {
-		ctx = providedCtx
-	}
-
-	res, err := r.Perform(ctx)
-
-	if err != nil {
-		return false, err
-	}
-	io.Copy(io.Discard, res.Body)
-	err = res.Body.Close()
-	if err != nil {
-		return false, err
-	}
-
-	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		return true, nil
-	}
-
-	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the SimulateIndexTemplate query execution, status code: %d", res.StatusCode)
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordError(ctx, err)
-		}
-		return false, err
-	}
-
-	return false, nil
-}
-
 // Header set a key, value pair in the SimulateIndexTemplate headers map.
 func (r *SimulateIndexTemplate) Header(key, value string) *SimulateIndexTemplate {
 	r.headers.Set(key, value)
@@ -384,6 +392,210 @@ func (r *SimulateIndexTemplate) Human(human bool) *SimulateIndexTemplate {
 // API name: pretty
 func (r *SimulateIndexTemplate) Pretty(pretty bool) *SimulateIndexTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// API name: allow_auto_create
+func (r *SimulateIndexTemplate) AllowAutoCreate(allowautocreate bool) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.AllowAutoCreate = &allowautocreate
+
+	return r
+}
+
+// An ordered list of component template names.
+// Component templates are merged in the order specified, meaning that the last
+// component template specified has the highest precedence.
+// API name: composed_of
+func (r *SimulateIndexTemplate) ComposedOf(composedofs ...string) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range composedofs {
+
+		r.req.ComposedOf = append(r.req.ComposedOf, v)
+
+	}
+	return r
+}
+
+// Date and time when the index template was created. Only returned if the
+// `human` query parameter is `true`.
+// API name: created_date
+func (r *SimulateIndexTemplate) CreatedDate(datetime types.DateTimeVariant) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.CreatedDate = *datetime.DateTimeCaster()
+
+	return r
+}
+
+// Date and time when the index template was created, in milliseconds since the
+// epoch.
+// API name: created_date_millis
+func (r *SimulateIndexTemplate) CreatedDateMillis(epochtimeunitmillis int64) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.CreatedDateMillis = &epochtimeunitmillis
+
+	return r
+}
+
+// If this object is included, the template is used to create data streams and
+// their backing indices.
+// Supports an empty object.
+// Data streams require a matching index template with a `data_stream` object.
+// API name: data_stream
+func (r *SimulateIndexTemplate) DataStream(datastream types.IndexTemplateDataStreamConfigurationVariant) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.DataStream = datastream.IndexTemplateDataStreamConfigurationCaster()
+
+	return r
+}
+
+// Marks this index template as deprecated.
+// When creating or updating a non-deprecated index template that uses
+// deprecated components,
+// Elasticsearch will emit a deprecation warning.
+// API name: deprecated
+func (r *SimulateIndexTemplate) Deprecated(deprecated bool) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Deprecated = &deprecated
+
+	return r
+}
+
+// A list of component template names that are allowed to be absent.
+// API name: ignore_missing_component_templates
+func (r *SimulateIndexTemplate) IgnoreMissingComponentTemplates(names ...string) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.IgnoreMissingComponentTemplates = names
+
+	return r
+}
+
+// Name of the index template.
+// API name: index_patterns
+func (r *SimulateIndexTemplate) IndexPatterns(names ...string) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.IndexPatterns = names
+
+	return r
+}
+
+// Optional user metadata about the index template. May have any contents.
+// This map is not automatically generated by Elasticsearch.
+// API name: _meta
+func (r *SimulateIndexTemplate) Meta_(metadata types.MetadataVariant) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Meta_ = *metadata.MetadataCaster()
+
+	return r
+}
+
+// Date and time when the index template was last modified. Only returned if the
+// `human` query parameter is `true`.
+// API name: modified_date
+func (r *SimulateIndexTemplate) ModifiedDate(datetime types.DateTimeVariant) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ModifiedDate = *datetime.DateTimeCaster()
+
+	return r
+}
+
+// Date and time when the index template was last modified, in milliseconds
+// since the epoch.
+// API name: modified_date_millis
+func (r *SimulateIndexTemplate) ModifiedDateMillis(epochtimeunitmillis int64) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ModifiedDateMillis = &epochtimeunitmillis
+
+	return r
+}
+
+// Priority to determine index template precedence when a new data stream or
+// index is created.
+// The index template with the highest priority is chosen.
+// If no priority is specified the template is treated as though it is of
+// priority 0 (lowest priority).
+// This number is not automatically generated by Elasticsearch.
+// API name: priority
+func (r *SimulateIndexTemplate) Priority(priority int64) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Priority = &priority
+
+	return r
+}
+
+// Template to be applied.
+// It may optionally include an `aliases`, `mappings`, or `settings`
+// configuration.
+// API name: template
+func (r *SimulateIndexTemplate) Template(template types.IndexTemplateSummaryVariant) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Template = template.IndexTemplateSummaryCaster()
+
+	return r
+}
+
+// Version number used to manage index templates externally.
+// This number is not automatically generated by Elasticsearch.
+// API name: version
+func (r *SimulateIndexTemplate) Version(versionnumber int64) *SimulateIndexTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Version = &versionnumber
 
 	return r
 }

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newAutoscalingGetAutoscalingPolicyFunc(t Transport) AutoscalingGetAutoscali
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingGetAutoscalingPolicy - Retrieves an autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// AutoscalingGetAutoscalingPolicy - Get an autoscaling policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-policy.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-get-autoscaling-capacity.
 type AutoscalingGetAutoscalingPolicy func(name string, o ...func(*AutoscalingGetAutoscalingPolicyRequest)) (*Response, error)
 
 // AutoscalingGetAutoscalingPolicyRequest configures the Autoscaling Get Autoscaling Policy API request.

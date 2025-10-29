@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -31,10 +31,10 @@ import (
 
 // CustomServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L904-L972
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/_types/CommonTypes.ts#L948-L1016
 type CustomServiceSettings struct {
-	// Headers Specifies the HTTPS header parameters – such as `Authentication` or
-	// `Contet-Type` – that are required to access the custom service.
+	// Headers Specifies the HTTP header parameters – such as `Authentication` or
+	// `Content-Type` – that are required to access the custom service.
 	// For example:
 	// ```
 	//

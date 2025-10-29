@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDataFrameAnalytics - Instantiates a data frame analytics job.
+// MLPutDataFrameAnalytics - Create a data frame analytics job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-dfanalytics.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-data-frame-analytics.
 type MLPutDataFrameAnalytics func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error)
 
 // MLPutDataFrameAnalyticsRequest configures the ML Put Data Frame Analytics API request.

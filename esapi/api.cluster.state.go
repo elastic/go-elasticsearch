@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newClusterStateFunc(t Transport) ClusterState {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterState returns a comprehensive information about the state of the cluster.
+// ClusterState get the cluster state
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-state.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-state.
 type ClusterState func(o ...func(*ClusterStateRequest)) (*Response, error)
 
 // ClusterStateRequest configures the Cluster State API request.
@@ -277,7 +277,7 @@ func (f ClusterState) WithLocal(v bool) func(*ClusterStateRequest) {
 	}
 }
 
-// WithMasterTimeout - specify timeout for connection to master.
+// WithMasterTimeout - timeout for waiting for new cluster state in case it is blocked.
 func (f ClusterState) WithMasterTimeout(v time.Duration) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.MasterTimeout = v

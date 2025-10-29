@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Update data stream options.
 // Update the data stream options of the specified data streams.
@@ -86,7 +86,7 @@ func NewPutDataStreamOptionsFunc(tp elastictransport.Interface) NewPutDataStream
 // Update data stream options.
 // Update the data stream options of the specified data streams.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-options
 func New(tp elastictransport.Interface) *PutDataStreamOptions {
 	r := &PutDataStreamOptions{
 		transport: tp,

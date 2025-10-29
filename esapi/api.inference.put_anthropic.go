@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferencePutAnthropicFunc(t Transport) InferencePutAnthropic {
-	return func(anthropic_inference_id string, task_type string, o ...func(*InferencePutAnthropicRequest)) (*Response, error) {
-		var r = InferencePutAnthropicRequest{AnthropicInferenceID: anthropic_inference_id, TaskType: task_type}
+	return func(body io.Reader, anthropic_inference_id string, task_type string, o ...func(*InferencePutAnthropicRequest)) (*Response, error) {
+		var r = InferencePutAnthropicRequest{Body: body, AnthropicInferenceID: anthropic_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferencePutAnthropicFunc(t Transport) InferencePutAnthropic {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAnthropic configure an Anthropic inference endpoint
+// InferencePutAnthropic create an Anthropic inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-anthropic.html.
-type InferencePutAnthropic func(anthropic_inference_id string, task_type string, o ...func(*InferencePutAnthropicRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-anthropic.
+type InferencePutAnthropic func(body io.Reader, anthropic_inference_id string, task_type string, o ...func(*InferencePutAnthropicRequest)) (*Response, error)
 
 // InferencePutAnthropicRequest configures the Inference Put Anthropic API request.
 type InferencePutAnthropicRequest struct {
@@ -185,13 +185,6 @@ func (r InferencePutAnthropicRequest) Do(providedCtx context.Context, transport 
 func (f InferencePutAnthropic) WithContext(v context.Context) func(*InferencePutAnthropicRequest) {
 	return func(r *InferencePutAnthropicRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutAnthropic) WithBody(v io.Reader) func(*InferencePutAnthropicRequest) {
-	return func(r *InferencePutAnthropicRequest) {
-		r.Body = v
 	}
 }
 

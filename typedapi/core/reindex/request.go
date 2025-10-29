@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package reindex
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package reindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/reindex/ReindexRequest.ts#L27-L178
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/reindex/ReindexRequest.ts#L27-L184
 type Request struct {
 
 	// Conflicts Indicates whether to continue reindexing even when there are conflicts.
@@ -49,7 +49,6 @@ type Request struct {
 	MaxDocs *int64 `json:"max_docs,omitempty"`
 	// Script The script to run to update the document source or metadata when reindexing.
 	Script *types.Script `json:"script,omitempty"`
-	Size   *int64        `json:"size,omitempty"`
 	// Source The source you are copying from.
 	Source types.ReindexSource `json:"source"`
 }

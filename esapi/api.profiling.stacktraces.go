@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,7 +43,7 @@ func newProfilingStacktracesFunc(t Transport) ProfilingStacktraces {
 
 // ----- API Definition -------------------------------------------------------
 
-// ProfilingStacktraces extracts raw stacktrace information from Universal Profiling.
+// ProfilingStacktraces extracts raw stacktrace information from Universal Profiling
 //
 // See full documentation at https://www.elastic.co/guide/en/observability/current/universal-profiling.html.
 type ProfilingStacktraces func(body io.Reader, o ...func(*ProfilingStacktracesRequest)) (*Response, error)

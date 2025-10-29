@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newSnapshotCloneFunc(t Transport) SnapshotClone {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotClone clones indices from one snapshot into another snapshot in the same repository.
+// SnapshotClone clone a snapshot
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-clone.
 type SnapshotClone func(repository string, snapshot string, body io.Reader, target_snapshot string, o ...func(*SnapshotCloneRequest)) (*Response, error)
 
 // SnapshotCloneRequest configures the Snapshot Clone API request.

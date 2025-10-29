@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Simulate data ingestion.
 // Run ingest pipelines against a set of provided documents, optionally with
@@ -68,6 +68,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/mergetype"
 )
 
 const (
@@ -392,6 +393,20 @@ func (r *Ingest) Index(index string) *Ingest {
 // API name: pipeline
 func (r *Ingest) Pipeline(pipelinename string) *Ingest {
 	r.values.Set("pipeline", pipelinename)
+
+	return r
+}
+
+// MergeType The mapping merge type if mapping overrides are being provided in
+// mapping_addition.
+// The allowed values are one of index or template.
+// The index option merges mappings the way they would be merged into an
+// existing index.
+// The template option merges mappings the way they would be merged into a
+// template.
+// API name: merge_type
+func (r *Ingest) MergeType(mergetype mergetype.MergeType) *Ingest {
+	r.values.Set("merge_type", mergetype.String())
 
 	return r
 }

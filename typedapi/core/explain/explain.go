@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Explain a document match result.
 // Get information about why a specific document matches, or doesn't match, a
@@ -359,7 +359,7 @@ func (r *Explain) AnalyzeWildcard(analyzewildcard bool) *Explain {
 	return r
 }
 
-// DefaultOperator The default operator for query string query: `AND` or `OR`.
+// DefaultOperator The default operator for query string query: `and` or `or`.
 // This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: default_operator

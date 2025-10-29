@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newSnapshotRepositoryVerifyIntegrityFunc(t Transport) SnapshotRepositoryVer
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotRepositoryVerifyIntegrity verifies the integrity of the contents of a snapshot repository
+// SnapshotRepositoryVerifyIntegrity verify the repository integrity
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-repository-verify-integrity.
 type SnapshotRepositoryVerifyIntegrity func(repository string, o ...func(*SnapshotRepositoryVerifyIntegrityRequest)) (*Response, error)
 
 // SnapshotRepositoryVerifyIntegrityRequest configures the Snapshot Repository Verify Integrity API request.

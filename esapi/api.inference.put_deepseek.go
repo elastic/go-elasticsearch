@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferencePutDeepseekFunc(t Transport) InferencePutDeepseek {
-	return func(deepseek_inference_id string, task_type string, o ...func(*InferencePutDeepseekRequest)) (*Response, error) {
-		var r = InferencePutDeepseekRequest{DeepseekInferenceID: deepseek_inference_id, TaskType: task_type}
+	return func(body io.Reader, deepseek_inference_id string, task_type string, o ...func(*InferencePutDeepseekRequest)) (*Response, error) {
+		var r = InferencePutDeepseekRequest{Body: body, DeepseekInferenceID: deepseek_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferencePutDeepseekFunc(t Transport) InferencePutDeepseek {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutDeepseek configure a DeepSeek inference endpoint
+// InferencePutDeepseek create a DeepSeek inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-deepseek.html.
-type InferencePutDeepseek func(deepseek_inference_id string, task_type string, o ...func(*InferencePutDeepseekRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-deepseek.
+type InferencePutDeepseek func(body io.Reader, deepseek_inference_id string, task_type string, o ...func(*InferencePutDeepseekRequest)) (*Response, error)
 
 // InferencePutDeepseekRequest configures the Inference Put Deepseek API request.
 type InferencePutDeepseekRequest struct {
@@ -185,13 +185,6 @@ func (r InferencePutDeepseekRequest) Do(providedCtx context.Context, transport T
 func (f InferencePutDeepseek) WithContext(v context.Context) func(*InferencePutDeepseekRequest) {
 	return func(r *InferencePutDeepseekRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutDeepseek) WithBody(v io.Reader) func(*InferencePutDeepseekRequest) {
-	return func(r *InferencePutDeepseekRequest) {
-		r.Body = v
 	}
 }
 

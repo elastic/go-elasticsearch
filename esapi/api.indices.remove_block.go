@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newIndicesRemoveBlockFunc(t Transport) IndicesRemoveBlock {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesRemoveBlock removes a block from an index.
+// IndicesRemoveBlock remove an index block
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/index-modules-blocks.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-remove-block.
 type IndicesRemoveBlock func(index []string, block string, o ...func(*IndicesRemoveBlockRequest)) (*Response, error)
 
 // IndicesRemoveBlockRequest configures the Indices Remove Block API request.

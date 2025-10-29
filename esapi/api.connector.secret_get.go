@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,7 +42,7 @@ func newConnectorSecretGetFunc(t Transport) ConnectorSecretGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSecretGet retrieves a secret stored by Connectors.
+// ConnectorSecretGet retrieves a secret stored by Connectors
 //
 // This API is experimental.
 type ConnectorSecretGet func(id string, o ...func(*ConnectorSecretGetRequest)) (*Response, error)

@@ -16,25 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+import (
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/googlemodelgardenprovider"
+)
 
 type _googleVertexAIServiceSettings struct {
 	v *types.GoogleVertexAIServiceSettings
 }
 
-func NewGoogleVertexAIServiceSettings(location string, modelid string, projectid string, serviceaccountjson string) *_googleVertexAIServiceSettings {
+func NewGoogleVertexAIServiceSettings(serviceaccountjson string) *_googleVertexAIServiceSettings {
 
 	tmp := &_googleVertexAIServiceSettings{v: types.NewGoogleVertexAIServiceSettings()}
-
-	tmp.Location(location)
-
-	tmp.ModelId(modelid)
-
-	tmp.ProjectId(projectid)
 
 	tmp.ServiceAccountJson(serviceaccountjson)
 
@@ -42,24 +39,37 @@ func NewGoogleVertexAIServiceSettings(location string, modelid string, projectid
 
 }
 
+func (s *_googleVertexAIServiceSettings) Dimensions(dimensions int) *_googleVertexAIServiceSettings {
+
+	s.v.Dimensions = &dimensions
+
+	return s
+}
+
 func (s *_googleVertexAIServiceSettings) Location(location string) *_googleVertexAIServiceSettings {
 
-	s.v.Location = location
+	s.v.Location = &location
 
 	return s
 }
 
 func (s *_googleVertexAIServiceSettings) ModelId(modelid string) *_googleVertexAIServiceSettings {
 
-	s.v.ModelId = modelid
+	s.v.ModelId = &modelid
 
 	return s
 }
 
 func (s *_googleVertexAIServiceSettings) ProjectId(projectid string) *_googleVertexAIServiceSettings {
 
-	s.v.ProjectId = projectid
+	s.v.ProjectId = &projectid
 
+	return s
+}
+
+func (s *_googleVertexAIServiceSettings) Provider(provider googlemodelgardenprovider.GoogleModelGardenProvider) *_googleVertexAIServiceSettings {
+
+	s.v.Provider = &provider
 	return s
 }
 
@@ -73,6 +83,20 @@ func (s *_googleVertexAIServiceSettings) RateLimit(ratelimit types.RateLimitSett
 func (s *_googleVertexAIServiceSettings) ServiceAccountJson(serviceaccountjson string) *_googleVertexAIServiceSettings {
 
 	s.v.ServiceAccountJson = serviceaccountjson
+
+	return s
+}
+
+func (s *_googleVertexAIServiceSettings) StreamingUrl(streamingurl string) *_googleVertexAIServiceSettings {
+
+	s.v.StreamingUrl = &streamingurl
+
+	return s
+}
+
+func (s *_googleVertexAIServiceSettings) Url(url string) *_googleVertexAIServiceSettings {
+
+	s.v.Url = &url
 
 	return s
 }

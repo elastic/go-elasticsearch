@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newTermvectorsFunc(t Transport) Termvectors {
 
 // ----- API Definition -------------------------------------------------------
 
-// Termvectors returns information and statistics about terms in the fields of a particular document.
+// Termvectors get term vector information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-termvectors.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors.
 type Termvectors func(index string, o ...func(*TermvectorsRequest)) (*Response, error)
 
 // TermvectorsRequest configures the Termvectors API request.

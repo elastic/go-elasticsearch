@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -46,11 +46,9 @@ func newSearchMvtFunc(t Transport) SearchMvt {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchMvt searches a vector tile for geospatial values. Returns results as a binary Mapbox vector tile.
+// SearchMvt search a vector tile
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-vector-tile-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt.
 type SearchMvt func(index []string, field string, x *int, y *int, zoom *int, o ...func(*SearchMvtRequest)) (*Response, error)
 
 // SearchMvtRequest configures the Search Mvt API request.
@@ -69,6 +67,7 @@ type SearchMvtRequest struct {
 	GridAgg        string
 	GridPrecision  *int
 	GridType       string
+	ProjectRouting string
 	Size           *int
 	TrackTotalHits interface{}
 	WithLabels     *bool
@@ -167,6 +166,10 @@ func (r SearchMvtRequest) Do(providedCtx context.Context, transport Transport) (
 
 	if r.GridType != "" {
 		params["grid_type"] = r.GridType
+	}
+
+	if r.ProjectRouting != "" {
+		params["project_routing"] = r.ProjectRouting
 	}
 
 	if r.Size != nil {
@@ -305,6 +308,13 @@ func (f SearchMvt) WithGridPrecision(v int) func(*SearchMvtRequest) {
 func (f SearchMvt) WithGridType(v string) func(*SearchMvtRequest) {
 	return func(r *SearchMvtRequest) {
 		r.GridType = v
+	}
+}
+
+// WithProjectRouting - a lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. only supported in serverless..
+func (f SearchMvt) WithProjectRouting(v string) func(*SearchMvtRequest) {
+	return func(r *SearchMvtRequest) {
+		r.ProjectRouting = v
 	}
 }
 

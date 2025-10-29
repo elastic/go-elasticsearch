@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,11 +44,11 @@ func newSearchApplicationPostBehavioralAnalyticsEventFunc(t Transport) SearchApp
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationPostBehavioralAnalyticsEvent creates a behavioral analytics event for existing collection.
+// SearchApplicationPostBehavioralAnalyticsEvent create a behavioral analytics collection event
 //
 // This API is experimental.
 //
-// See full documentation at http://todo.com/tbd.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-post-behavioral-analytics-event.
 type SearchApplicationPostBehavioralAnalyticsEvent func(body io.Reader, collection_name string, event_type string, o ...func(*SearchApplicationPostBehavioralAnalyticsEventRequest)) (*Response, error)
 
 // SearchApplicationPostBehavioralAnalyticsEventRequest configures the Search Application Post Behavioral Analytics Event API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesDeleteIndexTemplateFunc(t Transport) IndicesDeleteIndexTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDeleteIndexTemplate deletes an index template.
+// IndicesDeleteIndexTemplate delete an index template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-template.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-index-template.
 type IndicesDeleteIndexTemplate func(name string, o ...func(*IndicesDeleteIndexTemplateRequest)) (*Response, error)
 
 // IndicesDeleteIndexTemplateRequest configures the Indices Delete Index Template API request.

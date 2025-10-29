@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesGetDataStreamSettingsFunc(t Transport) IndicesGetDataStreamSettin
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataStreamSettings - Gets a data stream's settings
+// IndicesGetDataStreamSettings - Get data stream settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-settings.
 type IndicesGetDataStreamSettings func(name string, o ...func(*IndicesGetDataStreamSettingsRequest)) (*Response, error)
 
 // IndicesGetDataStreamSettingsRequest configures the Indices Get Data Stream Settings API request.

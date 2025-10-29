@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferencePutAmazonbedrockFunc(t Transport) InferencePutAmazonbedrock {
-	return func(amazonbedrock_inference_id string, task_type string, o ...func(*InferencePutAmazonbedrockRequest)) (*Response, error) {
-		var r = InferencePutAmazonbedrockRequest{AmazonbedrockInferenceID: amazonbedrock_inference_id, TaskType: task_type}
+	return func(body io.Reader, amazonbedrock_inference_id string, task_type string, o ...func(*InferencePutAmazonbedrockRequest)) (*Response, error) {
+		var r = InferencePutAmazonbedrockRequest{Body: body, AmazonbedrockInferenceID: amazonbedrock_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferencePutAmazonbedrockFunc(t Transport) InferencePutAmazonbedrock {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAmazonbedrock configure an Amazon Bedrock inference endpoint
+// InferencePutAmazonbedrock create an Amazon Bedrock inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-amazon-bedrock.html.
-type InferencePutAmazonbedrock func(amazonbedrock_inference_id string, task_type string, o ...func(*InferencePutAmazonbedrockRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonbedrock.
+type InferencePutAmazonbedrock func(body io.Reader, amazonbedrock_inference_id string, task_type string, o ...func(*InferencePutAmazonbedrockRequest)) (*Response, error)
 
 // InferencePutAmazonbedrockRequest configures the Inference Put Amazonbedrock API request.
 type InferencePutAmazonbedrockRequest struct {
@@ -185,13 +185,6 @@ func (r InferencePutAmazonbedrockRequest) Do(providedCtx context.Context, transp
 func (f InferencePutAmazonbedrock) WithContext(v context.Context) func(*InferencePutAmazonbedrockRequest) {
 	return func(r *InferencePutAmazonbedrockRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutAmazonbedrock) WithBody(v io.Reader) func(*InferencePutAmazonbedrockRequest) {
-	return func(r *InferencePutAmazonbedrockRequest) {
-		r.Body = v
 	}
 }
 

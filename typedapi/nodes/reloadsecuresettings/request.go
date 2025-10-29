@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package reloadsecuresettings
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package reloadsecuresettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/nodes/reload_secure_settings/ReloadSecureSettingsRequest.ts#L24-L70
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/nodes/reload_secure_settings/ReloadSecureSettingsRequest.ts#L24-L70
 type Request struct {
 
 	// SecureSettingsPassword The password for the Elasticsearch keystore.

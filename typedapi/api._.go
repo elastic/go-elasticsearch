@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package typedapi
 
@@ -229,6 +229,7 @@ import (
 	indices_get_data_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatalifecycle"
 	indices_get_data_lifecycle_stats "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatalifecyclestats"
 	indices_get_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastream"
+	indices_get_data_stream_mappings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastreammappings"
 	indices_get_data_stream_options "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastreamoptions"
 	indices_get_data_stream_settings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastreamsettings"
 	indices_get_field_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getfieldmapping"
@@ -244,6 +245,7 @@ import (
 	indices_promote_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/promotedatastream"
 	indices_put_alias "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putalias"
 	indices_put_data_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatalifecycle"
+	indices_put_data_stream_mappings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatastreammappings"
 	indices_put_data_stream_options "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatastreamoptions"
 	indices_put_data_stream_settings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatastreamsettings"
 	indices_put_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putindextemplate"
@@ -272,6 +274,7 @@ import (
 	inference_get "github.com/elastic/go-elasticsearch/v9/typedapi/inference/get"
 	inference_inference "github.com/elastic/go-elasticsearch/v9/typedapi/inference/inference"
 	inference_put "github.com/elastic/go-elasticsearch/v9/typedapi/inference/put"
+	inference_put_ai21 "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putai21"
 	inference_put_alibabacloud "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putalibabacloud"
 	inference_put_amazonbedrock "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putamazonbedrock"
 	inference_put_amazonsagemaker "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putamazonsagemaker"
@@ -279,6 +282,7 @@ import (
 	inference_put_azureaistudio "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putazureaistudio"
 	inference_put_azureopenai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putazureopenai"
 	inference_put_cohere "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putcohere"
+	inference_put_contextualai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putcontextualai"
 	inference_put_custom "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putcustom"
 	inference_put_deepseek "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putdeepseek"
 	inference_put_elasticsearch "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putelasticsearch"
@@ -287,6 +291,7 @@ import (
 	inference_put_googlevertexai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putgooglevertexai"
 	inference_put_hugging_face "github.com/elastic/go-elasticsearch/v9/typedapi/inference/puthuggingface"
 	inference_put_jinaai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putjinaai"
+	inference_put_llama "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putllama"
 	inference_put_mistral "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putmistral"
 	inference_put_openai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putopenai"
 	inference_put_voyageai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putvoyageai"
@@ -406,6 +411,7 @@ import (
 	profiling_stacktraces "github.com/elastic/go-elasticsearch/v9/typedapi/profiling/stacktraces"
 	profiling_status "github.com/elastic/go-elasticsearch/v9/typedapi/profiling/status"
 	profiling_topn_functions "github.com/elastic/go-elasticsearch/v9/typedapi/profiling/topnfunctions"
+	project_tags "github.com/elastic/go-elasticsearch/v9/typedapi/project/tags"
 	query_rules_delete_rule "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/deleterule"
 	query_rules_delete_ruleset "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/deleteruleset"
 	query_rules_get_rule "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/getrule"
@@ -470,6 +476,7 @@ import (
 	security_get_service_accounts "github.com/elastic/go-elasticsearch/v9/typedapi/security/getserviceaccounts"
 	security_get_service_credentials "github.com/elastic/go-elasticsearch/v9/typedapi/security/getservicecredentials"
 	security_get_settings "github.com/elastic/go-elasticsearch/v9/typedapi/security/getsettings"
+	security_get_stats "github.com/elastic/go-elasticsearch/v9/typedapi/security/getstats"
 	security_get_token "github.com/elastic/go-elasticsearch/v9/typedapi/security/gettoken"
 	security_get_user "github.com/elastic/go-elasticsearch/v9/typedapi/security/getuser"
 	security_get_user_privileges "github.com/elastic/go-elasticsearch/v9/typedapi/security/getuserprivileges"
@@ -558,6 +565,7 @@ import (
 	transform_put_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/puttransform"
 	transform_reset_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/resettransform"
 	transform_schedule_now_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/schedulenowtransform"
+	transform_set_upgrade_mode "github.com/elastic/go-elasticsearch/v9/typedapi/transform/setupgrademode"
 	transform_start_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/starttransform"
 	transform_stop_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/stoptransform"
 	transform_update_transform "github.com/elastic/go-elasticsearch/v9/typedapi/transform/updatetransform"
@@ -835,6 +843,7 @@ type Indices struct {
 	GetDataLifecycle        indices_get_data_lifecycle.NewGetDataLifecycle
 	GetDataLifecycleStats   indices_get_data_lifecycle_stats.NewGetDataLifecycleStats
 	GetDataStream           indices_get_data_stream.NewGetDataStream
+	GetDataStreamMappings   indices_get_data_stream_mappings.NewGetDataStreamMappings
 	GetDataStreamOptions    indices_get_data_stream_options.NewGetDataStreamOptions
 	GetDataStreamSettings   indices_get_data_stream_settings.NewGetDataStreamSettings
 	GetFieldMapping         indices_get_field_mapping.NewGetFieldMapping
@@ -850,6 +859,7 @@ type Indices struct {
 	PromoteDataStream       indices_promote_data_stream.NewPromoteDataStream
 	PutAlias                indices_put_alias.NewPutAlias
 	PutDataLifecycle        indices_put_data_lifecycle.NewPutDataLifecycle
+	PutDataStreamMappings   indices_put_data_stream_mappings.NewPutDataStreamMappings
 	PutDataStreamOptions    indices_put_data_stream_options.NewPutDataStreamOptions
 	PutDataStreamSettings   indices_put_data_stream_settings.NewPutDataStreamSettings
 	PutIndexTemplate        indices_put_index_template.NewPutIndexTemplate
@@ -881,6 +891,7 @@ type Inference struct {
 	Get                   inference_get.NewGet
 	Inference             inference_inference.NewInference
 	Put                   inference_put.NewPut
+	PutAi21               inference_put_ai21.NewPutAi21
 	PutAlibabacloud       inference_put_alibabacloud.NewPutAlibabacloud
 	PutAmazonbedrock      inference_put_amazonbedrock.NewPutAmazonbedrock
 	PutAmazonsagemaker    inference_put_amazonsagemaker.NewPutAmazonsagemaker
@@ -888,6 +899,7 @@ type Inference struct {
 	PutAzureaistudio      inference_put_azureaistudio.NewPutAzureaistudio
 	PutAzureopenai        inference_put_azureopenai.NewPutAzureopenai
 	PutCohere             inference_put_cohere.NewPutCohere
+	PutContextualai       inference_put_contextualai.NewPutContextualai
 	PutCustom             inference_put_custom.NewPutCustom
 	PutDeepseek           inference_put_deepseek.NewPutDeepseek
 	PutElasticsearch      inference_put_elasticsearch.NewPutElasticsearch
@@ -896,6 +908,7 @@ type Inference struct {
 	PutGooglevertexai     inference_put_googlevertexai.NewPutGooglevertexai
 	PutHuggingFace        inference_put_hugging_face.NewPutHuggingFace
 	PutJinaai             inference_put_jinaai.NewPutJinaai
+	PutLlama              inference_put_llama.NewPutLlama
 	PutMistral            inference_put_mistral.NewPutMistral
 	PutOpenai             inference_put_openai.NewPutOpenai
 	PutVoyageai           inference_put_voyageai.NewPutVoyageai
@@ -1041,6 +1054,10 @@ type Profiling struct {
 	TopnFunctions profiling_topn_functions.NewTopnFunctions
 }
 
+type Project struct {
+	Tags project_tags.NewTags
+}
+
 type QueryRules struct {
 	DeleteRule    query_rules_delete_rule.NewDeleteRule
 	DeleteRuleset query_rules_delete_ruleset.NewDeleteRuleset
@@ -1118,6 +1135,7 @@ type Security struct {
 	GetServiceAccounts          security_get_service_accounts.NewGetServiceAccounts
 	GetServiceCredentials       security_get_service_credentials.NewGetServiceCredentials
 	GetSettings                 security_get_settings.NewGetSettings
+	GetStats                    security_get_stats.NewGetStats
 	GetToken                    security_get_token.NewGetToken
 	GetUser                     security_get_user.NewGetUser
 	GetUserPrivileges           security_get_user_privileges.NewGetUserPrivileges
@@ -1239,6 +1257,7 @@ type Transform struct {
 	PutTransform         transform_put_transform.NewPutTransform
 	ResetTransform       transform_reset_transform.NewResetTransform
 	ScheduleNowTransform transform_schedule_now_transform.NewScheduleNowTransform
+	SetUpgradeMode       transform_set_upgrade_mode.NewSetUpgradeMode
 	StartTransform       transform_start_transform.NewStartTransform
 	StopTransform        transform_stop_transform.NewStopTransform
 	UpdateTransform      transform_update_transform.NewUpdateTransform
@@ -1293,6 +1312,7 @@ type API struct {
 	Monitoring          Monitoring
 	Nodes               Nodes
 	Profiling           Profiling
+	Project             Project
 	QueryRules          QueryRules
 	Rollup              Rollup
 	SearchApplication   SearchApplication
@@ -1615,6 +1635,7 @@ func New(tp elastictransport.Interface) *API {
 			GetDataLifecycle:        indices_get_data_lifecycle.NewGetDataLifecycleFunc(tp),
 			GetDataLifecycleStats:   indices_get_data_lifecycle_stats.NewGetDataLifecycleStatsFunc(tp),
 			GetDataStream:           indices_get_data_stream.NewGetDataStreamFunc(tp),
+			GetDataStreamMappings:   indices_get_data_stream_mappings.NewGetDataStreamMappingsFunc(tp),
 			GetDataStreamOptions:    indices_get_data_stream_options.NewGetDataStreamOptionsFunc(tp),
 			GetDataStreamSettings:   indices_get_data_stream_settings.NewGetDataStreamSettingsFunc(tp),
 			GetFieldMapping:         indices_get_field_mapping.NewGetFieldMappingFunc(tp),
@@ -1630,6 +1651,7 @@ func New(tp elastictransport.Interface) *API {
 			PromoteDataStream:       indices_promote_data_stream.NewPromoteDataStreamFunc(tp),
 			PutAlias:                indices_put_alias.NewPutAliasFunc(tp),
 			PutDataLifecycle:        indices_put_data_lifecycle.NewPutDataLifecycleFunc(tp),
+			PutDataStreamMappings:   indices_put_data_stream_mappings.NewPutDataStreamMappingsFunc(tp),
 			PutDataStreamOptions:    indices_put_data_stream_options.NewPutDataStreamOptionsFunc(tp),
 			PutDataStreamSettings:   indices_put_data_stream_settings.NewPutDataStreamSettingsFunc(tp),
 			PutIndexTemplate:        indices_put_index_template.NewPutIndexTemplateFunc(tp),
@@ -1661,6 +1683,7 @@ func New(tp elastictransport.Interface) *API {
 			Get:                   inference_get.NewGetFunc(tp),
 			Inference:             inference_inference.NewInferenceFunc(tp),
 			Put:                   inference_put.NewPutFunc(tp),
+			PutAi21:               inference_put_ai21.NewPutAi21Func(tp),
 			PutAlibabacloud:       inference_put_alibabacloud.NewPutAlibabacloudFunc(tp),
 			PutAmazonbedrock:      inference_put_amazonbedrock.NewPutAmazonbedrockFunc(tp),
 			PutAmazonsagemaker:    inference_put_amazonsagemaker.NewPutAmazonsagemakerFunc(tp),
@@ -1668,6 +1691,7 @@ func New(tp elastictransport.Interface) *API {
 			PutAzureaistudio:      inference_put_azureaistudio.NewPutAzureaistudioFunc(tp),
 			PutAzureopenai:        inference_put_azureopenai.NewPutAzureopenaiFunc(tp),
 			PutCohere:             inference_put_cohere.NewPutCohereFunc(tp),
+			PutContextualai:       inference_put_contextualai.NewPutContextualaiFunc(tp),
 			PutCustom:             inference_put_custom.NewPutCustomFunc(tp),
 			PutDeepseek:           inference_put_deepseek.NewPutDeepseekFunc(tp),
 			PutElasticsearch:      inference_put_elasticsearch.NewPutElasticsearchFunc(tp),
@@ -1676,6 +1700,7 @@ func New(tp elastictransport.Interface) *API {
 			PutGooglevertexai:     inference_put_googlevertexai.NewPutGooglevertexaiFunc(tp),
 			PutHuggingFace:        inference_put_hugging_face.NewPutHuggingFaceFunc(tp),
 			PutJinaai:             inference_put_jinaai.NewPutJinaaiFunc(tp),
+			PutLlama:              inference_put_llama.NewPutLlamaFunc(tp),
 			PutMistral:            inference_put_mistral.NewPutMistralFunc(tp),
 			PutOpenai:             inference_put_openai.NewPutOpenaiFunc(tp),
 			PutVoyageai:           inference_put_voyageai.NewPutVoyageaiFunc(tp),
@@ -1821,6 +1846,10 @@ func New(tp elastictransport.Interface) *API {
 			TopnFunctions: profiling_topn_functions.NewTopnFunctionsFunc(tp),
 		},
 
+		Project: Project{
+			Tags: project_tags.NewTagsFunc(tp),
+		},
+
 		QueryRules: QueryRules{
 			DeleteRule:    query_rules_delete_rule.NewDeleteRuleFunc(tp),
 			DeleteRuleset: query_rules_delete_ruleset.NewDeleteRulesetFunc(tp),
@@ -1898,6 +1927,7 @@ func New(tp elastictransport.Interface) *API {
 			GetServiceAccounts:          security_get_service_accounts.NewGetServiceAccountsFunc(tp),
 			GetServiceCredentials:       security_get_service_credentials.NewGetServiceCredentialsFunc(tp),
 			GetSettings:                 security_get_settings.NewGetSettingsFunc(tp),
+			GetStats:                    security_get_stats.NewGetStatsFunc(tp),
 			GetToken:                    security_get_token.NewGetTokenFunc(tp),
 			GetUser:                     security_get_user.NewGetUserFunc(tp),
 			GetUserPrivileges:           security_get_user_privileges.NewGetUserPrivilegesFunc(tp),
@@ -2019,6 +2049,7 @@ func New(tp elastictransport.Interface) *API {
 			PutTransform:         transform_put_transform.NewPutTransformFunc(tp),
 			ResetTransform:       transform_reset_transform.NewResetTransformFunc(tp),
 			ScheduleNowTransform: transform_schedule_now_transform.NewScheduleNowTransformFunc(tp),
+			SetUpgradeMode:       transform_set_upgrade_mode.NewSetUpgradeModeFunc(tp),
 			StartTransform:       transform_start_transform.NewStartTransformFunc(tp),
 			StopTransform:        transform_stop_transform.NewStopTransformFunc(tp),
 			UpdateTransform:      transform_update_transform.NewUpdateTransformFunc(tp),
@@ -2196,6 +2227,10 @@ type MethodProfiling struct {
 	tp elastictransport.Interface
 }
 
+type MethodProject struct {
+	tp elastictransport.Interface
+}
+
 type MethodQueryRules struct {
 	tp elastictransport.Interface
 }
@@ -2296,6 +2331,7 @@ type MethodAPI struct {
 	Monitoring          MethodMonitoring
 	Nodes               MethodNodes
 	Profiling           MethodProfiling
+	Project             MethodProject
 	QueryRules          MethodQueryRules
 	Rollup              MethodRollup
 	SearchApplication   MethodSearchApplication
@@ -2414,6 +2450,7 @@ type MethodAPI struct {
 // * JavaScript: Check out `client.helpers.*`
 // * .NET: Check out `BulkAllObservable`
 // * PHP: Check out bulk indexing.
+// * Ruby: Check out `Elasticsearch::Helpers::BulkHelper`
 //
 // **Submitting bulk requests with cURL**
 //
@@ -3583,6 +3620,18 @@ func (p *MethodAPI) RankEval() *core_rank_eval.RankEval {
 // attempt to reindex more documents from the source than `max_docs` until it
 // has successfully indexed `max_docs` documents into the target or it has gone
 // through every document in the source query.
+//
+// It's recommended to reindex on indices with a green status. Reindexing can
+// fail when a node shuts down or crashes.
+// * When requested with `wait_for_completion=true` (default), the request fails
+// if the node shuts down.
+// * When requested with `wait_for_completion=false`, a task id is returned, for
+// use with the task management APIs. The task may disappear or fail if the node
+// shuts down.
+// When retrying a failed reindex operation, it might be necessary to set
+// `conflicts=proceed` or to first delete the partial destination index.
+// Additionally, dry runs, checking disk space, and fetching index recovery
+// information can help address the root cause.
 //
 // Refer to the linked documentation for examples of how to reindex documents.
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
@@ -4840,6 +4889,8 @@ func (p *MethodCcr) Unfollow(index string) *ccr_unfollow.Unfollow {
 
 // Explain the shard allocations.
 // Get explanations for shard allocations in the cluster.
+// This API accepts the current_node, index, primary and shard parameters in the
+// request body or in query parameters, but not in both at the same time.
 // For unassigned shards, it provides an explanation for why the shard is
 // unassigned.
 // For assigned shards, it provides an explanation for why the shard is
@@ -5243,7 +5294,7 @@ func (p *MethodConnector) Put() *connector_put.Put {
 	return _put()
 }
 
-// Creates a secret for a Connector.
+// Creates a secret for a Connector
 func (p *MethodConnector) SecretPost() *connector_secret_post.SecretPost {
 	_secretpost := connector_secret_post.NewSecretPostFunc(p.tp)
 	return _secretpost()
@@ -5605,6 +5656,7 @@ func (p *MethodConnector) UpdateStatus(connectorid string) *connector_update_sta
 // * JavaScript: Check out `client.helpers.*`
 // * .NET: Check out `BulkAllObservable`
 // * PHP: Check out bulk indexing.
+// * Ruby: Check out `Elasticsearch::Helpers::BulkHelper`
 //
 // **Submitting bulk requests with cURL**
 //
@@ -6775,6 +6827,18 @@ func (p *MethodCore) RankEval() *core_rank_eval.RankEval {
 // has successfully indexed `max_docs` documents into the target or it has gone
 // through every document in the source query.
 //
+// It's recommended to reindex on indices with a green status. Reindexing can
+// fail when a node shuts down or crashes.
+// * When requested with `wait_for_completion=true` (default), the request fails
+// if the node shuts down.
+// * When requested with `wait_for_completion=false`, a task id is returned, for
+// use with the task management APIs. The task may disappear or fail if the node
+// shuts down.
+// When retrying a failed reindex operation, it might be necessary to set
+// `conflicts=proceed` or to first delete the partial destination index.
+// Additionally, dry runs, checking disk space, and fetching index recovery
+// information can help address the root cause.
+//
 // Refer to the linked documentation for examples of how to reindex documents.
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
 func (p *MethodCore) Reindex() *core_reindex.Reindex {
@@ -7501,6 +7565,7 @@ func (p *MethodEsql) AsyncQueryStop(id string) *esql_async_query_stop.AsyncQuery
 
 // Get a specific running ES|QL query information.
 // Returns an object extended information about a running ES|QL query.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-query
 func (p *MethodEsql) GetQuery(id string) *esql_get_query.GetQuery {
 	_getquery := esql_get_query.NewGetQueryFunc(p.tp)
 	return _getquery(id)
@@ -7509,6 +7574,7 @@ func (p *MethodEsql) GetQuery(id string) *esql_get_query.GetQuery {
 // Get running ES|QL queries information.
 // Returns an object containing IDs and other information about the running
 // ES|QL queries.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-list-queries
 func (p *MethodEsql) ListQueries() *esql_list_queries.ListQueries {
 	_listqueries := esql_list_queries.NewListQueriesFunc(p.tp)
 	return _listqueries()
@@ -7598,7 +7664,7 @@ func (p *MethodFleet) Msearch() *fleet_msearch.Msearch {
 	return _msearch()
 }
 
-// Creates a secret stored by Fleet.
+// Creates a secret stored by Fleet
 func (p *MethodFleet) PostSecret() *fleet_post_secret.PostSecret {
 	_postsecret := fleet_post_secret.NewPostSecretFunc(p.tp)
 	return _postsecret()
@@ -8060,7 +8126,7 @@ func (p *MethodIndices) DeleteDataStream(name string) *indices_delete_data_strea
 
 // Delete data stream options.
 // Removes the data stream options from a data stream.
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream-options
 func (p *MethodIndices) DeleteDataStreamOptions(name string) *indices_delete_data_stream_options.DeleteDataStreamOptions {
 	_deletedatastreamoptions := indices_delete_data_stream_options.NewDeleteDataStreamOptionsFunc(p.tp)
 	return _deletedatastreamoptions(name)
@@ -8103,6 +8169,11 @@ func (p *MethodIndices) DeleteTemplate(name string) *indices_delete_template.Del
 // stored fields are also estimates and can be inaccurate.
 // The stored size of the `_id` field is likely underestimated while the
 // `_source` field is overestimated.
+//
+// For usage examples see the External documentation or refer to [Analyze the
+// index disk usage
+// example](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/index-disk-usage)
+// for an example.
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-disk-usage
 func (p *MethodIndices) DiskUsage(index string) *indices_disk_usage.DiskUsage {
 	_diskusage := indices_disk_usage.NewDiskUsageFunc(p.tp)
@@ -8357,10 +8428,19 @@ func (p *MethodIndices) GetDataStream() *indices_get_data_stream.GetDataStream {
 	return _getdatastream()
 }
 
+// Get data stream mappings.
+//
+// Get mapping information for one or more data streams.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-mappings
+func (p *MethodIndices) GetDataStreamMappings(name string) *indices_get_data_stream_mappings.GetDataStreamMappings {
+	_getdatastreammappings := indices_get_data_stream_mappings.NewGetDataStreamMappingsFunc(p.tp)
+	return _getdatastreammappings(name)
+}
+
 // Get data stream options.
 //
 // Get the data stream options configuration of one or more data streams.
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-options
 func (p *MethodIndices) GetDataStreamOptions(name string) *indices_get_data_stream_options.GetDataStreamOptions {
 	_getdatastreamoptions := indices_get_data_stream_options.NewGetDataStreamOptionsFunc(p.tp)
 	return _getdatastreamoptions(name)
@@ -8559,9 +8639,23 @@ func (p *MethodIndices) PutDataLifecycle(name string) *indices_put_data_lifecycl
 	return _putdatalifecycle(name)
 }
 
+// Update data stream mappings.
+//
+// This API can be used to override mappings on specific data streams. These
+// overrides will take precedence over what
+// is specified in the template that the data stream matches. The mapping change
+// is only applied to new write indices
+// that are created during rollover after this API is called. No indices are
+// changed by this API.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-mappings
+func (p *MethodIndices) PutDataStreamMappings(name string) *indices_put_data_stream_mappings.PutDataStreamMappings {
+	_putdatastreammappings := indices_put_data_stream_mappings.NewPutDataStreamMappingsFunc(p.tp)
+	return _putdatastreammappings(name)
+}
+
 // Update data stream options.
 // Update the data stream options of the specified data streams.
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-options
 func (p *MethodIndices) PutDataStreamOptions(name string) *indices_put_data_stream_options.PutDataStreamOptions {
 	_putdatastreamoptions := indices_put_data_stream_options.NewPutDataStreamOptionsFunc(p.tp)
 	return _putdatastreamoptions(name)
@@ -8649,7 +8743,7 @@ func (p *MethodIndices) PutIndexTemplate(name string) *indices_put_index_templat
 //
 // Learn how to use the update mapping API with practical examples in the
 // [Update mapping API
-// examples](https://www.elastic.co/docs//manage-data/data-store/mapping/update-mappings-examples)
+// examples](https://www.elastic.co/docs/manage-data/data-store/mapping/update-mappings-examples)
 // guide.
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-mapping
 func (p *MethodIndices) PutMapping(index string) *indices_put_mapping.PutMapping {
@@ -8834,6 +8928,9 @@ func (p *MethodIndices) Recovery() *indices_recovery.Recovery {
 // You can change this default interval with the `index.refresh_interval`
 // setting.
 //
+// In Elastic Cloud Serverless, the default refresh interval is 5 seconds across
+// all indices.
+//
 // Refresh requests are synchronous and do not return a response until the
 // refresh operation completes.
 //
@@ -8993,8 +9090,9 @@ func (p *MethodIndices) ResolveIndex(name string) *indices_resolve_index.Resolve
 }
 
 // Roll over to a new index.
-// TIP: It is recommended to use the index lifecycle rollover action to automate
-// rollovers.
+// TIP: We recommend using the index lifecycle rollover action to automate
+// rollovers. However, Serverless does not support Index Lifecycle Management
+// (ILM), so don't use this approach in the Serverless context.
 //
 // The rollover API creates a new index for a data stream or index alias.
 // The API behavior depends on the rollover target.
@@ -9338,31 +9436,44 @@ func (p *MethodInference) Inference(inferenceid string) *inference_inference.Inf
 //
 // The following integrations are available through the inference API. You can
 // find the available task types next to the integration name:
+// * AI21 (`chat_completion`, `completion`)
 // * AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
 // `text_embedding`)
 // * Amazon Bedrock (`completion`, `text_embedding`)
 // * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
 // `sparse_embedding`, `text_embedding`)
 // * Anthropic (`completion`)
-// * Azure AI Studio (`completion`, `text_embedding`)
+// * Azure AI Studio (`completion`, 'rerank', `text_embedding`)
 // * Azure OpenAI (`completion`, `text_embedding`)
 // * Cohere (`completion`, `rerank`, `text_embedding`)
-// * DeepSeek (`completion`, `chat_completion`)
+// * DeepSeek (`chat_completion`, `completion`)
 // * Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
 // service is for built-in models and models uploaded through Eland)
 // * ELSER (`sparse_embedding`)
 // * Google AI Studio (`completion`, `text_embedding`)
-// * Google Vertex AI (`rerank`, `text_embedding`)
+// * Google Vertex AI (`chat_completion`, `completion`, `rerank`,
+// `text_embedding`)
 // * Hugging Face (`chat_completion`, `completion`, `rerank`, `text_embedding`)
+// * JinaAI (`rerank`, `text_embedding`)
+// * Llama (`chat_completion`, `completion`, `text_embedding`)
 // * Mistral (`chat_completion`, `completion`, `text_embedding`)
 // * OpenAI (`chat_completion`, `completion`, `text_embedding`)
-// * VoyageAI (`text_embedding`, `rerank`)
+// * VoyageAI (`rerank`, `text_embedding`)
 // * Watsonx inference integration (`text_embedding`)
-// * JinaAI (`text_embedding`, `rerank`)
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put
 func (p *MethodInference) Put(inferenceid string) *inference_put.Put {
 	_put := inference_put.NewPutFunc(p.tp)
 	return _put(inferenceid)
+}
+
+// Create a AI21 inference endpoint.
+//
+// Create an inference endpoint to perform an inference task with the `ai21`
+// service.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-ai21
+func (p *MethodInference) PutAi21(tasktype, ai21inferenceid string) *inference_put_ai21.PutAi21 {
+	_putai21 := inference_put_ai21.NewPutAi21Func(p.tp)
+	return _putai21(tasktype, ai21inferenceid)
 }
 
 // Create an AlibabaCloud AI Search inference endpoint.
@@ -9453,6 +9564,19 @@ func (p *MethodInference) PutAzureopenai(tasktype, azureopenaiinferenceid string
 func (p *MethodInference) PutCohere(tasktype, cohereinferenceid string) *inference_put_cohere.PutCohere {
 	_putcohere := inference_put_cohere.NewPutCohereFunc(p.tp)
 	return _putcohere(tasktype, cohereinferenceid)
+}
+
+// Create an Contextual AI inference endpoint.
+//
+// Create an inference endpoint to perform an inference task with the
+// `contexualai` service.
+//
+// To review the available `rerank` models, refer to
+// <https://docs.contextual.ai/api-reference/rerank/rerank#body-model>.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-contextualai
+func (p *MethodInference) PutContextualai(tasktype, contextualaiinferenceid string) *inference_put_contextualai.PutContextualai {
+	_putcontextualai := inference_put_contextualai.NewPutContextualaiFunc(p.tp)
+	return _putcontextualai(tasktype, contextualaiinferenceid)
 }
 
 // Create a custom inference endpoint.
@@ -9683,6 +9807,16 @@ func (p *MethodInference) PutHuggingFace(tasktype, huggingfaceinferenceid string
 func (p *MethodInference) PutJinaai(tasktype, jinaaiinferenceid string) *inference_put_jinaai.PutJinaai {
 	_putjinaai := inference_put_jinaai.NewPutJinaaiFunc(p.tp)
 	return _putjinaai(tasktype, jinaaiinferenceid)
+}
+
+// Create a Llama inference endpoint.
+//
+// Create an inference endpoint to perform an inference task with the `llama`
+// service.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-llama
+func (p *MethodInference) PutLlama(tasktype, llamainferenceid string) *inference_put_llama.PutLlama {
+	_putllama := inference_put_llama.NewPutLlamaFunc(p.tp)
+	return _putllama(tasktype, llamainferenceid)
 }
 
 // Create a Mistral inference endpoint.
@@ -10994,32 +11128,38 @@ func (p *MethodNodes) Usage() *nodes_usage.Usage {
 }
 
 // Extracts a UI-optimized structure to render flamegraphs from Universal
-// Profiling.
+// Profiling
 // https://www.elastic.co/guide/en/observability/current/universal-profiling.html
 func (p *MethodProfiling) Flamegraph() *profiling_flamegraph.Flamegraph {
 	_flamegraph := profiling_flamegraph.NewFlamegraphFunc(p.tp)
 	return _flamegraph()
 }
 
-// Extracts raw stacktrace information from Universal Profiling.
+// Extracts raw stacktrace information from Universal Profiling
 // https://www.elastic.co/guide/en/observability/current/universal-profiling.html
 func (p *MethodProfiling) Stacktraces() *profiling_stacktraces.Stacktraces {
 	_stacktraces := profiling_stacktraces.NewStacktracesFunc(p.tp)
 	return _stacktraces()
 }
 
-// Returns basic information about the status of Universal Profiling.
+// Returns basic information about the status of Universal Profiling
 // https://www.elastic.co/guide/en/observability/current/universal-profiling.html
 func (p *MethodProfiling) Status() *profiling_status.Status {
 	_status := profiling_status.NewStatusFunc(p.tp)
 	return _status()
 }
 
-// Extracts a list of topN functions from Universal Profiling.
+// Extracts a list of topN functions from Universal Profiling
 // https://www.elastic.co/guide/en/observability/current/universal-profiling.html
 func (p *MethodProfiling) TopnFunctions() *profiling_topn_functions.TopnFunctions {
 	_topnfunctions := profiling_topn_functions.NewTopnFunctionsFunc(p.tp)
 	return _topnfunctions()
+}
+
+// Return tags defined for the project
+func (p *MethodProject) Tags() *project_tags.Tags {
+	_tags := project_tags.NewTagsFunc(p.tp)
+	return _tags()
 }
 
 // Delete a query rule.
@@ -11931,6 +12071,15 @@ func (p *MethodSecurity) GetServiceCredentials(namespace, service string) *secur
 func (p *MethodSecurity) GetSettings() *security_get_settings.GetSettings {
 	_getsettings := security_get_settings.NewGetSettingsFunc(p.tp)
 	return _getsettings()
+}
+
+// Get security stats.
+//
+// Gather security usage statistics from all node(s) within the cluster.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-stats
+func (p *MethodSecurity) GetStats() *security_get_stats.GetStats {
+	_getstats := security_get_stats.NewGetStatsFunc(p.tp)
+	return _getstats()
 }
 
 // Get a token.
@@ -13216,6 +13365,18 @@ func (p *MethodSnapshot) Restore(repository, snapshot string) *snapshot_restore.
 // If needed, you can specify `<repository>` and `<snapshot>` to retrieve
 // information for specific snapshots, even if they're not currently running.
 //
+// Note that the stats will not be available for any shard snapshots in an
+// ongoing snapshot completed by a node that (even momentarily) left the
+// cluster.
+// Loading the stats from the repository is an expensive operation (see the
+// WARNING below).
+// Therefore the stats values for such shards will be -1 even though the "stage"
+// value will be "DONE", in order to minimize latency.
+// A "description" field will be present for a shard snapshot completed by a
+// departed node explaining why the shard snapshot's stats results are invalid.
+// Consequently, the total stats for the index will be less than expected due to
+// the missing values from these shards.
+//
 // WARNING: Using the API to return the status of any snapshots other than
 // currently running snapshots can be expensive.
 // The API requires a read from the repository for each shard in each snapshot.
@@ -13338,22 +13499,34 @@ func (p *MethodSsl) Certificates() *ssl_certificates.Certificates {
 	return _certificates()
 }
 
-// Disable the Logs Streams feature for this cluster
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/streams-logs-disable.html
+// Disable logs stream.
+//
+// Turn off the logs stream feature for this cluster.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func (p *MethodStreams) LogsDisable() *streams_logs_disable.LogsDisable {
 	_logsdisable := streams_logs_disable.NewLogsDisableFunc(p.tp)
 	return _logsdisable()
 }
 
-// Enable the Logs Streams feature for this cluster
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/streams-logs-enable.html
+// Enable logs stream.
+//
+// Turn on the logs stream feature for this cluster.
+//
+// NOTE: To protect existing data, this feature can be turned on only if the
+// cluster does not have existing indices or data streams that match the pattern
+// `logs|logs.*`.
+// If those indices or data streams exist, a `409 - Conflict` response and error
+// is returned.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func (p *MethodStreams) LogsEnable() *streams_logs_enable.LogsEnable {
 	_logsenable := streams_logs_enable.NewLogsEnableFunc(p.tp)
 	return _logsenable()
 }
 
-// Return the current status of the streams feature for each streams type
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/streams-status.html
+// Get the status of streams.
+//
+// Get the current status for all types of streams.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func (p *MethodStreams) Status() *streams_status.Status {
 	_status := streams_status.NewStatusFunc(p.tp)
 	return _status()
@@ -13687,7 +13860,7 @@ func (p *MethodTransform) DeleteTransform(transformid string) *transform_delete_
 	return _deletetransform(transformid)
 }
 
-// Retrieves transform usage information for transform nodes.
+// Retrieves transform usage information for transform nodes
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-node-stats.html
 func (p *MethodTransform) GetNodeStats() *transform_get_node_stats.GetNodeStats {
 	_getnodestats := transform_get_node_stats.NewGetNodeStatsFunc(p.tp)
@@ -13790,6 +13963,25 @@ func (p *MethodTransform) ResetTransform(transformid string) *transform_reset_tr
 func (p *MethodTransform) ScheduleNowTransform(transformid string) *transform_schedule_now_transform.ScheduleNowTransform {
 	_schedulenowtransform := transform_schedule_now_transform.NewScheduleNowTransformFunc(p.tp)
 	return _schedulenowtransform(transformid)
+}
+
+// Set upgrade_mode for transform indices.
+// Sets a cluster wide upgrade_mode setting that prepares transform
+// indices for an upgrade.
+// When upgrading your cluster, in some circumstances you must restart your
+// nodes and reindex your transform indices. In those circumstances,
+// there must be no transforms running. You can close the transforms,
+// do the upgrade, then open all the transforms again. Alternatively,
+// you can use this API to temporarily halt tasks associated with the transforms
+// and prevent new transforms from opening. You can also use this API
+// during upgrades that do not require you to reindex your transform
+// indices, though stopping transforms is not a requirement in that case.
+// You can see the current value for the upgrade_mode setting by using the get
+// transform info API.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-set-upgrade-mode
+func (p *MethodTransform) SetUpgradeMode() *transform_set_upgrade_mode.SetUpgradeMode {
+	_setupgrademode := transform_set_upgrade_mode.NewSetUpgradeModeFunc(p.tp)
+	return _setupgrademode()
 }
 
 // Start a transform.
@@ -14119,6 +14311,7 @@ func NewMethodAPI(tp elastictransport.Interface) *MethodAPI {
 		Monitoring:          MethodMonitoring{tp: tp},
 		Nodes:               MethodNodes{tp: tp},
 		Profiling:           MethodProfiling{tp: tp},
+		Project:             MethodProject{tp: tp},
 		QueryRules:          MethodQueryRules{tp: tp},
 		Rollup:              MethodRollup{tp: tp},
 		SearchApplication:   MethodSearchApplication{tp: tp},

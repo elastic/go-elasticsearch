@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferenceChatCompletionUnifiedFunc(t Transport) InferenceChatCompletionUnified {
-	return func(inference_id string, o ...func(*InferenceChatCompletionUnifiedRequest)) (*Response, error) {
-		var r = InferenceChatCompletionUnifiedRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceChatCompletionUnifiedRequest)) (*Response, error) {
+		var r = InferenceChatCompletionUnifiedRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,8 +45,8 @@ func newInferenceChatCompletionUnifiedFunc(t Transport) InferenceChatCompletionU
 
 // InferenceChatCompletionUnified perform chat completion inference
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/chat-completion-inference.html.
-type InferenceChatCompletionUnified func(inference_id string, o ...func(*InferenceChatCompletionUnifiedRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-unified-inference.
+type InferenceChatCompletionUnified func(body io.Reader, inference_id string, o ...func(*InferenceChatCompletionUnifiedRequest)) (*Response, error)
 
 // InferenceChatCompletionUnifiedRequest configures the Inference Chat Completion Unified API request.
 type InferenceChatCompletionUnifiedRequest struct {
@@ -183,13 +183,6 @@ func (r InferenceChatCompletionUnifiedRequest) Do(providedCtx context.Context, t
 func (f InferenceChatCompletionUnified) WithContext(v context.Context) func(*InferenceChatCompletionUnifiedRequest) {
 	return func(r *InferenceChatCompletionUnifiedRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference payload.
-func (f InferenceChatCompletionUnified) WithBody(v io.Reader) func(*InferenceChatCompletionUnifiedRequest) {
-	return func(r *InferenceChatCompletionUnifiedRequest) {
-		r.Body = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newLicenseGetFunc(t Transport) LicenseGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicenseGet - Retrieves licensing information for the cluster
+// LicenseGet - Get license information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-license.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get.
 type LicenseGet func(o ...func(*LicenseGetRequest)) (*Response, error)
 
 // LicenseGetRequest configures the License Get API request.

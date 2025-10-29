@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -44,9 +45,9 @@ func newCountFunc(t Transport) Count {
 
 // ----- API Definition -------------------------------------------------------
 
-// Count returns number of documents matching a query.
+// Count count search results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-count.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-count.
 type Count func(o ...func(*CountRequest)) (*Response, error)
 
 // CountRequest configures the Count API request.
@@ -64,8 +65,9 @@ type CountRequest struct {
 	IgnoreThrottled   *bool
 	IgnoreUnavailable *bool
 	Lenient           *bool
-	MinScore          *int
+	MinScore          interface{}
 	Preference        string
+	ProjectRouting    string
 	Query             string
 	Routing           []string
 	TerminateAfter    *int
@@ -152,11 +154,15 @@ func (r CountRequest) Do(providedCtx context.Context, transport Transport) (*Res
 	}
 
 	if r.MinScore != nil {
-		params["min_score"] = strconv.FormatInt(int64(*r.MinScore), 10)
+		params["min_score"] = fmt.Sprintf("%v", r.MinScore)
 	}
 
 	if r.Preference != "" {
 		params["preference"] = r.Preference
+	}
+
+	if r.ProjectRouting != "" {
+		params["project_routing"] = r.ProjectRouting
 	}
 
 	if r.Query != "" {
@@ -334,9 +340,9 @@ func (f Count) WithLenient(v bool) func(*CountRequest) {
 }
 
 // WithMinScore - include only documents with a specific `_score` value in the result.
-func (f Count) WithMinScore(v int) func(*CountRequest) {
+func (f Count) WithMinScore(v interface{}) func(*CountRequest) {
 	return func(r *CountRequest) {
-		r.MinScore = &v
+		r.MinScore = v
 	}
 }
 
@@ -344,6 +350,13 @@ func (f Count) WithMinScore(v int) func(*CountRequest) {
 func (f Count) WithPreference(v string) func(*CountRequest) {
 	return func(r *CountRequest) {
 		r.Preference = v
+	}
+}
+
+// WithProjectRouting - a lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. only supported in serverless..
+func (f Count) WithProjectRouting(v string) func(*CountRequest) {
+	return func(r *CountRequest) {
+		r.ProjectRouting = v
 	}
 }
 

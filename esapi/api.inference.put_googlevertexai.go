@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferencePutGooglevertexaiFunc(t Transport) InferencePutGooglevertexai {
-	return func(googlevertexai_inference_id string, task_type string, o ...func(*InferencePutGooglevertexaiRequest)) (*Response, error) {
-		var r = InferencePutGooglevertexaiRequest{GooglevertexaiInferenceID: googlevertexai_inference_id, TaskType: task_type}
+	return func(body io.Reader, googlevertexai_inference_id string, task_type string, o ...func(*InferencePutGooglevertexaiRequest)) (*Response, error) {
+		var r = InferencePutGooglevertexaiRequest{Body: body, GooglevertexaiInferenceID: googlevertexai_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferencePutGooglevertexaiFunc(t Transport) InferencePutGooglevertexai {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutGooglevertexai configure a Google Vertex AI inference endpoint
+// InferencePutGooglevertexai create a Google Vertex AI inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-google-vertex-ai.html.
-type InferencePutGooglevertexai func(googlevertexai_inference_id string, task_type string, o ...func(*InferencePutGooglevertexaiRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googlevertexai.
+type InferencePutGooglevertexai func(body io.Reader, googlevertexai_inference_id string, task_type string, o ...func(*InferencePutGooglevertexaiRequest)) (*Response, error)
 
 // InferencePutGooglevertexaiRequest configures the Inference Put Googlevertexai API request.
 type InferencePutGooglevertexaiRequest struct {
@@ -185,13 +185,6 @@ func (r InferencePutGooglevertexaiRequest) Do(providedCtx context.Context, trans
 func (f InferencePutGooglevertexai) WithContext(v context.Context) func(*InferencePutGooglevertexaiRequest) {
 	return func(r *InferencePutGooglevertexaiRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutGooglevertexai) WithBody(v io.Reader) func(*InferencePutGooglevertexaiRequest) {
-	return func(r *InferencePutGooglevertexaiRequest) {
-		r.Body = v
 	}
 }
 

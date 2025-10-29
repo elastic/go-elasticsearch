@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Open a point in time.
 //
@@ -459,6 +459,24 @@ func (r *OpenPointInTime) IgnoreUnavailable(ignoreunavailable bool) *OpenPointIn
 // API name: preference
 func (r *OpenPointInTime) Preference(preference string) *OpenPointInTime {
 	r.values.Set("preference", preference)
+
+	return r
+}
+
+// ProjectRouting Specifies a subset of projects to target for the PIT request using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *OpenPointInTime) ProjectRouting(projectrouting string) *OpenPointInTime {
+	r.values.Set("project_routing", projectrouting)
 
 	return r
 }

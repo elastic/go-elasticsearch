@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newSearchableSnapshotsStatsFunc(t Transport) SearchableSnapshotsStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchableSnapshotsStats - Retrieve shard-level statistics about searchable snapshots.
+// SearchableSnapshotsStats - Get searchable snapshot statistics
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-stats.
 type SearchableSnapshotsStats func(o ...func(*SearchableSnapshotsStatsRequest)) (*Response, error)
 
 // SearchableSnapshotsStatsRequest configures the Searchable Snapshots Stats API request.

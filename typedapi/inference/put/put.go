@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Create an inference endpoint.
 //
@@ -32,27 +32,30 @@
 //
 // The following integrations are available through the inference API. You can
 // find the available task types next to the integration name:
+// * AI21 (`chat_completion`, `completion`)
 // * AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
 // `text_embedding`)
 // * Amazon Bedrock (`completion`, `text_embedding`)
 // * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
 // `sparse_embedding`, `text_embedding`)
 // * Anthropic (`completion`)
-// * Azure AI Studio (`completion`, `text_embedding`)
+// * Azure AI Studio (`completion`, 'rerank', `text_embedding`)
 // * Azure OpenAI (`completion`, `text_embedding`)
 // * Cohere (`completion`, `rerank`, `text_embedding`)
-// * DeepSeek (`completion`, `chat_completion`)
+// * DeepSeek (`chat_completion`, `completion`)
 // * Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
 // service is for built-in models and models uploaded through Eland)
 // * ELSER (`sparse_embedding`)
 // * Google AI Studio (`completion`, `text_embedding`)
-// * Google Vertex AI (`rerank`, `text_embedding`)
+// * Google Vertex AI (`chat_completion`, `completion`, `rerank`,
+// `text_embedding`)
 // * Hugging Face (`chat_completion`, `completion`, `rerank`, `text_embedding`)
+// * JinaAI (`rerank`, `text_embedding`)
+// * Llama (`chat_completion`, `completion`, `text_embedding`)
 // * Mistral (`chat_completion`, `completion`, `text_embedding`)
 // * OpenAI (`chat_completion`, `completion`, `text_embedding`)
-// * VoyageAI (`text_embedding`, `rerank`)
+// * VoyageAI (`rerank`, `text_embedding`)
 // * Watsonx inference integration (`text_embedding`)
-// * JinaAI (`text_embedding`, `rerank`)
 package put
 
 import (
@@ -132,27 +135,30 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 //
 // The following integrations are available through the inference API. You can
 // find the available task types next to the integration name:
+// * AI21 (`chat_completion`, `completion`)
 // * AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
 // `text_embedding`)
 // * Amazon Bedrock (`completion`, `text_embedding`)
 // * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
 // `sparse_embedding`, `text_embedding`)
 // * Anthropic (`completion`)
-// * Azure AI Studio (`completion`, `text_embedding`)
+// * Azure AI Studio (`completion`, 'rerank', `text_embedding`)
 // * Azure OpenAI (`completion`, `text_embedding`)
 // * Cohere (`completion`, `rerank`, `text_embedding`)
-// * DeepSeek (`completion`, `chat_completion`)
+// * DeepSeek (`chat_completion`, `completion`)
 // * Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
 // service is for built-in models and models uploaded through Eland)
 // * ELSER (`sparse_embedding`)
 // * Google AI Studio (`completion`, `text_embedding`)
-// * Google Vertex AI (`rerank`, `text_embedding`)
+// * Google Vertex AI (`chat_completion`, `completion`, `rerank`,
+// `text_embedding`)
 // * Hugging Face (`chat_completion`, `completion`, `rerank`, `text_embedding`)
+// * JinaAI (`rerank`, `text_embedding`)
+// * Llama (`chat_completion`, `completion`, `text_embedding`)
 // * Mistral (`chat_completion`, `completion`, `text_embedding`)
 // * OpenAI (`chat_completion`, `completion`, `text_embedding`)
-// * VoyageAI (`text_embedding`, `rerank`)
+// * VoyageAI (`rerank`, `text_embedding`)
 // * Watsonx inference integration (`text_embedding`)
-// * JinaAI (`text_embedding`, `rerank`)
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put
 func New(tp elastictransport.Interface) *Put {

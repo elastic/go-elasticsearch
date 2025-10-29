@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -26,16 +26,19 @@ import (
 	"errors"
 	"fmt"
 	"io"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indexmode"
 )
 
 // ResolveIndexItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/resolve_index/ResolveIndexResponse.ts#L30-L35
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/resolve_index/ResolveIndexResponse.ts#L31-L37
 type ResolveIndexItem struct {
-	Aliases    []string `json:"aliases,omitempty"`
-	Attributes []string `json:"attributes"`
-	DataStream *string  `json:"data_stream,omitempty"`
-	Name       string   `json:"name"`
+	Aliases    []string             `json:"aliases,omitempty"`
+	Attributes []string             `json:"attributes"`
+	DataStream *string              `json:"data_stream,omitempty"`
+	Mode       *indexmode.IndexMode `json:"mode,omitempty"`
+	Name       string               `json:"name"`
 }
 
 func (s *ResolveIndexItem) UnmarshalJSON(data []byte) error {
@@ -66,6 +69,11 @@ func (s *ResolveIndexItem) UnmarshalJSON(data []byte) error {
 		case "data_stream":
 			if err := dec.Decode(&s.DataStream); err != nil {
 				return fmt.Errorf("%s | %w", "DataStream", err)
+			}
+
+		case "mode":
+			if err := dec.Decode(&s.Mode); err != nil {
+				return fmt.Errorf("%s | %w", "Mode", err)
 			}
 
 		case "name":

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,11 +45,9 @@ func newCreateFunc(t Transport) Create {
 
 // ----- API Definition -------------------------------------------------------
 
-// Create creates a new document in the index.
+// Create create a new document in the index
 //
-// Returns a 409 response when a document with a same ID already exists in the index.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create.
 type Create func(index string, id string, body io.Reader, o ...func(*CreateRequest)) (*Response, error)
 
 // CreateRequest configures the Create API request.

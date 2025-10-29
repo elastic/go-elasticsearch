@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,11 @@ func newSearchApplicationDeleteFunc(t Transport) SearchApplicationDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationDelete deletes a search application.
+// SearchApplicationDelete delete a search application
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-search-application.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-delete.
 type SearchApplicationDelete func(name string, o ...func(*SearchApplicationDeleteRequest)) (*Response, error)
 
 // SearchApplicationDeleteRequest configures the Search Application Delete API request.

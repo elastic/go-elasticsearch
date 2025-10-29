@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,11 @@ func newSearchApplicationGetBehavioralAnalyticsFunc(t Transport) SearchApplicati
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationGetBehavioralAnalytics returns the existing behavioral analytics collections.
+// SearchApplicationGetBehavioralAnalytics get behavioral analytics collections
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-analytics-collection.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics.
 type SearchApplicationGetBehavioralAnalytics func(o ...func(*SearchApplicationGetBehavioralAnalyticsRequest)) (*Response, error)
 
 // SearchApplicationGetBehavioralAnalyticsRequest configures the Search Application Get Behavioral Analytics API request.

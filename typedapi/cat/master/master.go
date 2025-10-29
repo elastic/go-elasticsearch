@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 // Get master node information.
 //
@@ -41,6 +41,9 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catmastercolumn"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -290,10 +293,15 @@ func (r *Master) Header(key, value string) *Master {
 	return r
 }
 
-// H List of columns to appear in the response. Supports simple wildcards.
+// H A comma-separated list of columns names to display. It supports simple
+// wildcards.
 // API name: h
-func (r *Master) H(names ...string) *Master {
-	r.values.Set("h", strings.Join(names, ","))
+func (r *Master) H(catmastercolumns ...catmastercolumn.CatMasterColumn) *Master {
+	tmp := []string{}
+	for _, item := range catmastercolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -327,6 +335,22 @@ func (r *Master) MasterTimeout(duration string) *Master {
 	return r
 }
 
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *Master) Bytes(bytes bytes.Bytes) *Master {
+	r.values.Set("bytes", bytes.String())
+
+	return r
+}
+
 // Format Specifies the format to return the columnar data in, can be set to
 // `text`, `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
@@ -341,6 +365,19 @@ func (r *Master) Format(format string) *Master {
 // API name: help
 func (r *Master) Help(help bool) *Master {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *Master) Time(time timeunit.TimeUnit) *Master {
+	r.values.Set("time", time.String())
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package asyncquery
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package asyncquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/esql/async_query/AsyncQueryRequest.ts#L28-L138
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/esql/async_query/AsyncQueryRequest.ts#L28-L140
 type Request struct {
 
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
@@ -44,8 +44,8 @@ type Request struct {
 	// Filter Specify a Query DSL query in the filter parameter to filter the set of
 	// documents that an ES|QL query runs on.
 	Filter *types.Query `json:"filter,omitempty"`
-	// IncludeCcsMetadata When set to `true` and performing a cross-cluster query, the response will
-	// include an extra `_clusters`
+	// IncludeCcsMetadata When set to `true` and performing a cross-cluster/cross-project query, the
+	// response will include an extra `_clusters`
 	// object with information about the clusters that participated in the search
 	// along with info such as shards
 	// count.
@@ -143,7 +143,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Filter", err)
 			}
 
-		case "include_ccs_metadata":
+		case "include_ccs_metadata", "include_execution_metadata":
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {

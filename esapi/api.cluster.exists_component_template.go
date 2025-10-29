@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newClusterExistsComponentTemplateFunc(t Transport) ClusterExistsComponentTe
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterExistsComponentTemplate returns information about whether a particular component template exist
+// ClusterExistsComponentTemplate check component templates
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template.
 type ClusterExistsComponentTemplate func(name string, o ...func(*ClusterExistsComponentTemplateRequest)) (*Response, error)
 
 // ClusterExistsComponentTemplateRequest configures the Cluster Exists Component Template API request.

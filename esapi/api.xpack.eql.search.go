@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newEqlSearchFunc(t Transport) EqlSearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// EqlSearch - Returns results matching a query expressed in Event Query Language (EQL)
+// EqlSearch - Get EQL search results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-search.
 type EqlSearch func(index string, body io.Reader, o ...func(*EqlSearchRequest)) (*Response, error)
 
 // EqlSearchRequest configures the Eql Search API request.
@@ -64,6 +64,7 @@ type EqlSearchRequest struct {
 	IgnoreUnavailable           *bool
 	KeepAlive                   time.Duration
 	KeepOnCompletion            *bool
+	ProjectRouting              string
 	WaitForCompletionTimeout    time.Duration
 
 	Pretty     bool
@@ -141,6 +142,10 @@ func (r EqlSearchRequest) Do(providedCtx context.Context, transport Transport) (
 
 	if r.KeepOnCompletion != nil {
 		params["keep_on_completion"] = strconv.FormatBool(*r.KeepOnCompletion)
+	}
+
+	if r.ProjectRouting != "" {
+		params["project_routing"] = r.ProjectRouting
 	}
 
 	if r.WaitForCompletionTimeout != 0 {
@@ -285,6 +290,13 @@ func (f EqlSearch) WithKeepAlive(v time.Duration) func(*EqlSearchRequest) {
 func (f EqlSearch) WithKeepOnCompletion(v bool) func(*EqlSearchRequest) {
 	return func(r *EqlSearchRequest) {
 		r.KeepOnCompletion = &v
+	}
+}
+
+// WithProjectRouting - a lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. only supported in serverless..
+func (f EqlSearch) WithProjectRouting(v string) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
+		r.ProjectRouting = v
 	}
 }
 

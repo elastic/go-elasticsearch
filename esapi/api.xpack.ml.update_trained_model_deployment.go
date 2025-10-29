@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLUpdateTrainedModelDeploymentFunc(t Transport) MLUpdateTrainedModelDepl
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpdateTrainedModelDeployment - Updates certain properties of trained model deployment.
+// MLUpdateTrainedModelDeployment - Update a trained model deployment
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/update-trained-model-deployment.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-trained-model-deployment.
 type MLUpdateTrainedModelDeployment func(model_id string, o ...func(*MLUpdateTrainedModelDeploymentRequest)) (*Response, error)
 
 // MLUpdateTrainedModelDeploymentRequest configures the ML Update Trained Model Deployment API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newILMMigrateToDataTiersFunc(t Transport) ILMMigrateToDataTiers {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMMigrateToDataTiers - Migrates the indices and ILM policies away from custom node attribute allocation routing to data tiers routing
+// ILMMigrateToDataTiers - Migrate to data tiers routing
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-migrate-to-data-tiers.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-migrate-to-data-tiers.
 type ILMMigrateToDataTiers func(o ...func(*ILMMigrateToDataTiersRequest)) (*Response, error)
 
 // ILMMigrateToDataTiersRequest configures the ILM Migrate To Data Tiers API request.

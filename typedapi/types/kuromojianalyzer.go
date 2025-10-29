@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package types
 
@@ -33,11 +33,11 @@ import (
 
 // KuromojiAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/kuromoji-plugin.ts#L26-L30
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/kuromoji-plugin.ts#L26-L30
 type KuromojiAnalyzer struct {
-	Mode           kuromojitokenizationmode.KuromojiTokenizationMode `json:"mode"`
-	Type           string                                            `json:"type,omitempty"`
-	UserDictionary *string                                           `json:"user_dictionary,omitempty"`
+	Mode           *kuromojitokenizationmode.KuromojiTokenizationMode `json:"mode,omitempty"`
+	Type           string                                             `json:"type,omitempty"`
+	UserDictionary *string                                            `json:"user_dictionary,omitempty"`
 }
 
 func (s *KuromojiAnalyzer) UnmarshalJSON(data []byte) error {

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package executelifecycle
 
 // Response holds the response body struct for the package executelifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/slm/execute_lifecycle/ExecuteSnapshotLifecycleResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/slm/execute_lifecycle/ExecuteSnapshotLifecycleResponse.ts#L22-L24
 type Response struct {
 	SnapshotName string `json:"snapshot_name"`
 }

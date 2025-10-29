@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// LogstashGetPipeline - Retrieves Logstash Pipelines used by Central Management
+// LogstashGetPipeline - Get Logstash pipelines
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-get-pipeline.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-get-pipeline.
 type LogstashGetPipeline func(o ...func(*LogstashGetPipelineRequest)) (*Response, error)
 
 // LogstashGetPipelineRequest configures the Logstash Get Pipeline API request.

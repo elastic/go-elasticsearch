@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -29,8 +29,8 @@ import (
 )
 
 func newFleetSearchFunc(t Transport) FleetSearch {
-	return func(index string, o ...func(*FleetSearchRequest)) (*Response, error) {
-		var r = FleetSearchRequest{Index: index}
+	return func(index string, body io.Reader, o ...func(*FleetSearchRequest)) (*Response, error) {
+		var r = FleetSearchRequest{Index: index, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,10 +45,10 @@ func newFleetSearchFunc(t Transport) FleetSearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// FleetSearch search API where the search will only be executed after specified checkpoints are available due to a refresh. This API is designed for internal use by the fleet server project.
+// FleetSearch run a Fleet search
 //
 // This API is experimental.
-type FleetSearch func(index string, o ...func(*FleetSearchRequest)) (*Response, error)
+type FleetSearch func(index string, body io.Reader, o ...func(*FleetSearchRequest)) (*Response, error)
 
 // FleetSearchRequest configures the Fleet Search API request.
 type FleetSearchRequest struct {
@@ -199,13 +199,6 @@ func (r FleetSearchRequest) Do(providedCtx context.Context, transport Transport)
 func (f FleetSearch) WithContext(v context.Context) func(*FleetSearchRequest) {
 	return func(r *FleetSearchRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The search definition using the Query DSL.
-func (f FleetSearch) WithBody(v io.Reader) func(*FleetSearchRequest) {
-	return func(r *FleetSearchRequest) {
-		r.Body = v
 	}
 }
 

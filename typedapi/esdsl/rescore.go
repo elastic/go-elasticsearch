@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package esdsl
 
@@ -56,6 +56,13 @@ func (s *_rescore) LearningToRank(learningtorank types.LearningToRankVariant) *_
 func (s *_rescore) Query(query types.RescoreQueryVariant) *_rescore {
 
 	s.v.Query = query.RescoreQueryCaster()
+
+	return s
+}
+
+func (s *_rescore) Script(script types.ScriptRescoreVariant) *_rescore {
+
+	s.v.Script = script.ScriptRescoreCaster()
 
 	return s
 }

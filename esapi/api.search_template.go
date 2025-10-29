@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newSearchTemplateFunc(t Transport) SearchTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchTemplate allows to use the Mustache language to pre-render a search definition.
+// SearchTemplate run a search with a search template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-template.
 type SearchTemplate func(body io.Reader, o ...func(*SearchTemplateRequest)) (*Response, error)
 
 // SearchTemplateRequest configures the Search Template API request.
@@ -64,6 +64,7 @@ type SearchTemplateRequest struct {
 	IgnoreUnavailable     *bool
 	Preference            string
 	Profile               *bool
+	ProjectRouting        string
 	RestTotalHitsAsInt    *bool
 	Routing               []string
 	Scroll                time.Duration
@@ -147,6 +148,10 @@ func (r SearchTemplateRequest) Do(providedCtx context.Context, transport Transpo
 
 	if r.Profile != nil {
 		params["profile"] = strconv.FormatBool(*r.Profile)
+	}
+
+	if r.ProjectRouting != "" {
+		params["project_routing"] = r.ProjectRouting
 	}
 
 	if r.RestTotalHitsAsInt != nil {
@@ -314,6 +319,13 @@ func (f SearchTemplate) WithPreference(v string) func(*SearchTemplateRequest) {
 func (f SearchTemplate) WithProfile(v bool) func(*SearchTemplateRequest) {
 	return func(r *SearchTemplateRequest) {
 		r.Profile = &v
+	}
+}
+
+// WithProjectRouting - a lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. only supported in serverless..
+func (f SearchTemplate) WithProjectRouting(v string) func(*SearchTemplateRequest) {
+	return func(r *SearchTemplateRequest) {
+		r.ProjectRouting = v
 	}
 }
 

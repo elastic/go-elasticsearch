@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newSnapshotDeleteFunc(t Transport) SnapshotDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotDelete deletes one or more snapshots.
+// SnapshotDelete delete snapshots
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-delete.
 type SnapshotDelete func(repository string, snapshot []string, o ...func(*SnapshotDeleteRequest)) (*Response, error)
 
 // SnapshotDeleteRequest configures the Snapshot Delete API request.

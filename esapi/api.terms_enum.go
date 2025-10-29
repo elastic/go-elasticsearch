@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -28,8 +28,8 @@ import (
 )
 
 func newTermsEnumFunc(t Transport) TermsEnum {
-	return func(index []string, o ...func(*TermsEnumRequest)) (*Response, error) {
-		var r = TermsEnumRequest{Index: index}
+	return func(index []string, body io.Reader, o ...func(*TermsEnumRequest)) (*Response, error) {
+		var r = TermsEnumRequest{Index: index, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,10 +44,10 @@ func newTermsEnumFunc(t Transport) TermsEnum {
 
 // ----- API Definition -------------------------------------------------------
 
-// TermsEnum the terms enum API  can be used to discover terms in the index that begin with the provided string. It is designed for low-latency look-ups used in auto-complete scenarios.
+// TermsEnum get terms in an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-terms-enum.html.
-type TermsEnum func(index []string, o ...func(*TermsEnumRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-terms-enum.
+type TermsEnum func(index []string, body io.Reader, o ...func(*TermsEnumRequest)) (*Response, error)
 
 // TermsEnumRequest configures the Terms Enum API request.
 type TermsEnumRequest struct {
@@ -184,13 +184,6 @@ func (r TermsEnumRequest) Do(providedCtx context.Context, transport Transport) (
 func (f TermsEnum) WithContext(v context.Context) func(*TermsEnumRequest) {
 	return func(r *TermsEnumRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - field name, string which is the prefix expected in matching terms, timeout and size for max number of results.
-func (f TermsEnum) WithBody(v io.Reader) func(*TermsEnumRequest) {
-	return func(r *TermsEnumRequest) {
-		r.Body = v
 	}
 }
 

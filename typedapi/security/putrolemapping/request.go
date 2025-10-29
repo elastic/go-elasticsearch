@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
 package putrolemapping
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putrolemapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/put_role_mapping/SecurityPutRoleMappingRequest.ts#L25-L103
+// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/put_role_mapping/SecurityPutRoleMappingRequest.ts#L25-L103
 type Request struct {
 
 	// Enabled Mappings that have `enabled` set to `false` are ignored when role mapping is

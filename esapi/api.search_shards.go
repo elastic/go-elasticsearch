@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.2.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newSearchShardsFunc(t Transport) SearchShards {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchShards returns information about the indices and shards that a search request would be executed against.
+// SearchShards get the search shards
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-shards.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-shards.
 type SearchShards func(o ...func(*SearchShardsRequest)) (*Response, error)
 
 // SearchShardsRequest configures the Search Shards API request.
