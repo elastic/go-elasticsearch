@@ -22,8 +22,9 @@ Full documentation is hosted at [GitHub](https://github.com/elastic/go-elasticse
 ## Usage [_usage]
 
 :::::::{tab-set}
-
+:group: apis
 ::::::{tab-item} Low-level API
+:sync: lowLevel
 ```go
 package main
 
@@ -41,6 +42,7 @@ func main() {
 ::::::
 
 ::::::{tab-item} Fully-typed API
+:sync: typed
 ```go
 package main
 
