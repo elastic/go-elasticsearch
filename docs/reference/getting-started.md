@@ -27,8 +27,9 @@ Refer to the [*Installation*](/reference/installation.md) page to learn more.
 ### Connecting [_connecting]
 
 :::::::{tab-set}
-
+:group: apis
 ::::::{tab-item} Low-level API
+:sync: lowLevel
 You can connect to the Elastic Cloud using an API key and the Elasticsearch endpoint for the low level API:
 
 ```go
@@ -40,6 +41,7 @@ client, err := elasticsearch.NewClient(elasticsearch.Config{
 ::::::
 
 ::::::{tab-item} Fully-typed API
+:sync: typed
 You can connect to the Elastic Cloud using an API key and the Elasticsearch endpoint for the fully-typed API:
 
 ```go
@@ -70,8 +72,9 @@ Time to use Elasticsearch! This section walks you through the basic, and most im
 #### Creating an index [_creating_an_index]
 
 :::::::{tab-set}
-
+:group: apis
 ::::::{tab-item} Low-level API
+:sync: lowLevel
 This is how you create the `my_index` index with the low level API:
 
 ```go
@@ -80,6 +83,7 @@ client.Indices.Create("my_index")
 ::::::
 
 ::::::{tab-item} Fully-typed API
+:sync: typed
 This is how you create the `my_index` index with the fully-typed API:
 
 ```go
@@ -92,8 +96,9 @@ typedClient.Indices.Create("my_index").Do(context.TODO())
 #### Indexing documents [_indexing_documents]
 
 :::::::{tab-set}
-
+:group: apis
 ::::::{tab-item} Low-level API
+:sync: lowLevel
 This is a simple way of indexing a document by using the low-level API:
 
 ```go
@@ -108,6 +113,7 @@ client.Index("my_index", bytes.NewReader(data))
 ::::::
 
 ::::::{tab-item} Fully-typed API
+:sync: typed
 This is a simple way of indexing a document by using the fully-typed API:
 
 ```go
@@ -128,8 +134,9 @@ typedClient.Index("my_index").
 #### Getting documents [_getting_documents]
 
 :::::::{tab-set}
-
+:group: apis
 ::::::{tab-item} Low-level API
+:sync: lowLevel
 You can get documents by using the following code with the low-level API:
 
 ```go
@@ -138,6 +145,7 @@ client.Get("my_index", "id")
 ::::::
 
 ::::::{tab-item} Fully-typed API
+:sync: typed
 This is how you can get documents by using the fully-typed API:
 
 ```go
@@ -150,8 +158,9 @@ typedClient.Get("my_index", "id").Do(context.TODO())
 #### Searching documents [_searching_documents]
 
 :::::::{tab-set}
-
+:group: apis
 ::::::{tab-item} Low-level API
+:sync: lowLevel
 This is how you can create a single match query with the low-level API:
 
 ```go
@@ -164,6 +173,7 @@ client.Search(
 ::::::
 
 ::::::{tab-item} Fully-typed API
+:sync: typed
 This is how you can perform a single match query with the fully-typed API:
 
 ```go
@@ -181,8 +191,9 @@ typedClient.Search().
 #### Updating documents [_updating_documents]
 
 :::::::{tab-set}
-
+:group: apis
 ::::::{tab-item} Low-level API
+:sync: lowLevel
 This is how you can update a document, for example to add a new field, by using the low-level API:
 
 ```go
@@ -191,6 +202,7 @@ client.Update("my_index", "id", strings.NewReader(`{doc: { language: "Go" }}`))
 ::::::
 
 ::::::{tab-item} Fully-typed API
+:sync: typed
 This is how you can update a document with the fully-typed API:
 
 ```go
@@ -206,14 +218,16 @@ typedClient.Update("my_index", "id").
 #### Deleting documents [_deleting_documents]
 
 :::::::{tab-set}
-
+:group: apis
 ::::::{tab-item} Low-level API
+:sync: lowLevel
 ```go
 client.Delete("my_index", "id")
 ```
 ::::::
 
 ::::::{tab-item} Fully-typed API
+:sync: typed
 ```go
 typedClient.Delete("my_index", "id").Do(context.TODO())
 ```
@@ -224,14 +238,16 @@ typedClient.Delete("my_index", "id").Do(context.TODO())
 #### Deleting an index [_deleting_an_index]
 
 :::::::{tab-set}
-
+:group: apis
 ::::::{tab-item} Low-level API
+:sync: lowLevel
 ```go
 client.Indices.Delete([]string{"my_index"})
 ```
 ::::::
 
 ::::::{tab-item} Fully-typed API
+:sync: typed
 ```go
 typedClient.Indices.Delete("my_index").Do(context.TODO())
 ```
