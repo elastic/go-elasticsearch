@@ -570,32 +570,24 @@ func (w *worker) flush(ctx context.Context) error {
 	res, err := req.Do(ctx, w.bi.config.Client)
 	if err != nil {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
-		if w.bi.config.OnError != nil {
-			w.bi.config.OnError(ctx, fmt.Errorf("flush: %s", err))
-		}
-		w.notifyItemsOnError(ctx, err)
-		return fmt.Errorf("flush: %s", err)
+		err := fmt.Errorf("flush: %w", err)
+		w.handleError(ctx, err)
+		return err
 	}
 	if res.Body != nil {
 		defer res.Body.Close()
 	}
 	if res.IsError() {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
-		// TODO(karmi): Wrap error (include response struct)
-		if w.bi.config.OnError != nil {
-			w.bi.config.OnError(ctx, fmt.Errorf("flush: %s", res.String()))
-		}
-		w.notifyItemsOnError(ctx, err)
-		return fmt.Errorf("flush: %s", res.String())
+		err := fmt.Errorf("flush: %s", res.String())
+		w.handleError(ctx, err)
+		return err
 	}
 
 	if err := w.bi.config.Decoder.UnmarshalFromReader(res.Body, &blk); err != nil {
 		// TODO(karmi): Wrap error (include response struct)
-		if w.bi.config.OnError != nil {
-			w.bi.config.OnError(ctx, fmt.Errorf("flush: %s", err))
-		}
-		w.notifyItemsOnError(ctx, err)
-		return fmt.Errorf("flush: error parsing response body: %s", err)
+		w.handleError(ctx, fmt.Errorf("flush: %w", err))
+		return fmt.Errorf("flush: error parsing response body: %w", err)
 	}
 
 	for i, blkItem := range blk.Items {
@@ -644,9 +636,16 @@ func (w *worker) flush(ctx context.Context) error {
 func (w *worker) notifyItemsOnError(ctx context.Context, err error) {
 	for _, item := range w.items {
 		if item.OnFailure != nil {
-			item.OnFailure(ctx, item, BulkIndexerResponseItem{}, fmt.Errorf("flush: %w", err))
+			item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
 		}
 	}
+}
+
+func (w *worker) handleError(ctx context.Context, err error) {
+	if w.bi.config.OnError != nil {
+		w.bi.config.OnError(ctx, err)
+	}
+	w.notifyItemsOnError(ctx, err)
 }
 
 type defaultJSONDecoder struct{}

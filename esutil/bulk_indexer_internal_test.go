@@ -622,6 +622,9 @@ func TestBulkIndexer(t *testing.T) {
 					Body:   strings.NewReader(`{"title":"foo"}`),
 					OnFailure: func(ctx context.Context, item BulkIndexerItem, item2 BulkIndexerResponseItem, err error) {
 						_ = biiFailureCallbacksCalled.Add(1)
+						if err == nil {
+							t.Errorf("Unexpected nil error in BulkIndexerItem.OnFailure callback")
+						}
 					},
 					OnSuccess: func(ctx context.Context, item BulkIndexerItem, item2 BulkIndexerResponseItem) {
 						_ = biiSuccessCallbacksCalled.Add(1)
@@ -672,6 +675,9 @@ func TestBulkIndexer(t *testing.T) {
 			Body:       strings.NewReader(`{"title":"foo"}`),
 			OnFailure: func(ctx context.Context, item BulkIndexerItem, item2 BulkIndexerResponseItem, err error) {
 				_ = biiFailureCallbacksCalled.Add(1)
+				if err == nil {
+					t.Errorf("Unexpected nil error in BulkIndexerItem.OnFailure callback")
+				}
 			},
 		})
 		if err != nil {
