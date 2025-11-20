@@ -1,16 +1,32 @@
 name: Backport
+
 on:
-  pull_request:
+  pull_request_target:
     types:
       - closed
       - labeled
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   backport:
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
     runs-on: ubuntu-latest
     name: Backport
     steps:
-      - name: Backport
-        uses: tibdex/backport@v1
+      - name: Fetch ephemeral GitHub token
+        id: fetch-token
+        uses: elastic/ci-gh-actions/fetch-github-token@v1.0.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          vault-instance: "ci-prod"
+
+      - name: Backport
+        uses: tibdex/backport@9565281eda0731b1d20c4025c43339fb0a23812e # v2.0.4
+        with:
+          github_token: ${{ steps.fetch-token.outputs.token }}
