@@ -186,6 +186,103 @@ func TestBulkIndexer(t *testing.T) {
 		}
 	})
 
+	t.Run("BulkIndexerConfig.QueueSizeMultiplier", func(t *testing.T) {
+		tests := []struct {
+			name                string
+			numWorkers          int
+			queueSizeMultiplier int
+			expectedQueueCap    int
+		}{
+			{
+				name:                "Default QueueSizeMultiplier with 1 worker",
+				numWorkers:          1,
+				queueSizeMultiplier: 0,
+				expectedQueueCap:    1,
+			},
+			{
+				name:                "Default QueueSizeMultiplier with 2 workers",
+				numWorkers:          2,
+				queueSizeMultiplier: 0,
+				expectedQueueCap:    2,
+			},
+			{
+				name:                "QueueSizeMultiplier=2 with 1 worker",
+				numWorkers:          1,
+				queueSizeMultiplier: 2,
+				expectedQueueCap:    2,
+			},
+			{
+				name:                "QueueSizeMultiplier=5 with 1 worker",
+				numWorkers:          1,
+				queueSizeMultiplier: 5,
+				expectedQueueCap:    5,
+			},
+			{
+				name:                "QueueSizeMultiplier=10 with 1 worker",
+				numWorkers:          1,
+				queueSizeMultiplier: 10,
+				expectedQueueCap:    10,
+			},
+			{
+				name:                "QueueSizeMultiplier=1 with 4 workers",
+				numWorkers:          4,
+				queueSizeMultiplier: 1,
+				expectedQueueCap:    4,
+			},
+			{
+				name:                "QueueSizeMultiplier=2 with 4 workers",
+				numWorkers:          4,
+				queueSizeMultiplier: 2,
+				expectedQueueCap:    8,
+			},
+			{
+				name:                "QueueSizeMultiplier=5 with 3 workers",
+				numWorkers:          3,
+				queueSizeMultiplier: 5,
+				expectedQueueCap:    15,
+			},
+			{
+				name:                "QueueSizeMultiplier=-1 with 1 worker",
+				numWorkers:          1,
+				queueSizeMultiplier: -1,
+				expectedQueueCap:    1,
+			},
+		}
+
+		for _, tt := range tests {
+			tt := tt
+			t.Run(tt.name, func(t *testing.T) {
+				es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
+
+				cfg := BulkIndexerConfig{
+					NumWorkers:          tt.numWorkers,
+					QueueSizeMultiplier: tt.queueSizeMultiplier,
+					Client:              es,
+				}
+
+				bi, err := NewBulkIndexer(cfg)
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
+
+				bir, ok := bi.(*bulkIndexer)
+				if !ok {
+					t.Fatalf("Unexpected type: %T", bi)
+				}
+
+				if queueCap := cap(bir.queue); queueCap != tt.expectedQueueCap {
+					t.Errorf("Unexpected queue capacity: want=%d, got=%d", tt.expectedQueueCap, queueCap)
+				}
+
+				// Clean up
+				_ = bi.Close(context.Background())
+			})
+		}
+	})
+
 	t.Run("Add() Timeout", func(t *testing.T) {
 		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
 		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, Client: es})
