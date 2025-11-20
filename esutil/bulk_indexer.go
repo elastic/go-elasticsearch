@@ -290,19 +290,19 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 		cfg.Decoder = defaultJSONDecoder{}
 	}
 
-	if cfg.NumWorkers == 0 {
+	if cfg.NumWorkers <= 0 {
 		cfg.NumWorkers = runtime.NumCPU()
 	}
 
-	if cfg.FlushBytes == 0 {
+	if cfg.FlushBytes <= 0 {
 		cfg.FlushBytes = 5e+6
 	}
 
-	if cfg.FlushInterval == 0 {
+	if cfg.FlushInterval <= 0 {
 		cfg.FlushInterval = 30 * time.Second
 	}
 
-	if cfg.QueueSizeMultiplier == 0 {
+	if cfg.QueueSizeMultiplier <= 0 {
 		cfg.QueueSizeMultiplier = 1
 	}
 
