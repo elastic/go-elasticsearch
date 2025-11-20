@@ -22,10 +22,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
-	"github.com/elastic/go-elasticsearch/v8/internal/version"
-	"github.com/spf13/cobra"
+
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -34,6 +31,11 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
+	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/elastic/go-elasticsearch/v8/internal/version"
+	"github.com/spf13/cobra"
 )
 
 var (
@@ -91,15 +93,36 @@ func (c Command) Execute() (err error) {
 
 	res, err := http.Get(versionUrl)
 	if err != nil {
-		log.Fatalf(err.Error())
+		log.Fatal(err.Error())
 	}
 	defer res.Body.Close()
+
+	if res.StatusCode == http.StatusNotFound {
+		// Try with version without -SNAPSHOT (e.g., "9.1.0-SNAPSHOT" -> "9.1.0")
+		fallbackVersion := esBuildVersion
+		if strings.HasSuffix(esBuildVersion, "-SNAPSHOT") {
+			fallbackVersion = strings.TrimSuffix(fallbackVersion, "-SNAPSHOT")
+		} else {
+			log.Fatalf("Version not found: %s returned 404", esBuildVersion)
+		}
+
+		fallbackUrl := strings.Join([]string{artifactsUrl, fallbackVersion}, "/")
+		res, err = http.Get(fallbackUrl)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+		defer res.Body.Close()
+
+		if res.StatusCode == http.StatusNotFound {
+			log.Fatalf("Version not found: both %s and %s returned 404", esBuildVersion, fallbackVersion)
+		}
+	}
 
 	var v Versions
 	dec := json.NewDecoder(res.Body)
 	err = dec.Decode(&v)
 	if err != nil {
-		log.Fatalf(err.Error())
+		log.Fatal(err.Error())
 	}
 
 	if c.Debug {
@@ -124,14 +147,14 @@ func (c Command) Execute() (err error) {
 	}
 
 	if err := c.extractZipToDest(data); err != nil {
-		log.Fatalf(err.Error())
+		log.Fatal(err.Error())
 	}
 
 	d, _ := json.Marshal(build)
 
 	err = c.writeFileToDest("elasticsearch.json", d)
 	if err != nil {
-		log.Fatalf(err.Error())
+		log.Fatal(err.Error())
 	}
 
 	return nil
