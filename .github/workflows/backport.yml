@@ -1,3 +1,4 @@
+# See: https://github.com/tibdex/backport/blob/main/.github/workflows/backport.yml
 name: Backport
 
 on:
@@ -18,6 +19,17 @@ jobs:
       issues: write
       id-token: write
     runs-on: ubuntu-latest
+    # Only react to merged PRs for security reasons.
+    # See https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request_target.
+    if: >
+      github.event.pull_request.merged
+      && (
+        github.event.action == 'closed'
+        || (
+          github.event.action == 'labeled'
+          && contains(github.event.label.name, 'backport')
+        )
+      )
     name: Backport
     steps:
       - name: Fetch ephemeral GitHub token
