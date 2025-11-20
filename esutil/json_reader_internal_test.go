@@ -49,14 +49,20 @@ func (f Foo) EncodeJSON(w io.Writer) error {
 
 func TestJSONReader(t *testing.T) {
 	t.Run("Default", func(t *testing.T) {
-		out, _ := ioutil.ReadAll(NewJSONReader(map[string]string{"foo": "bar"}))
+		out, err := ioutil.ReadAll(NewJSONReader(map[string]string{"foo": "bar"}))
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 		if string(out) != `{"foo":"bar"}`+"\n" {
 			t.Fatalf("Unexpected output: %s", out)
 		}
 	})
 
 	t.Run("Custom", func(t *testing.T) {
-		out, _ := ioutil.ReadAll(NewJSONReader(Foo{Bar: "baz"}))
+		out, err := ioutil.ReadAll(NewJSONReader(Foo{Bar: "baz"}))
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 		if string(out) != `{"bar":"BAZ"}`+"\n" {
 			t.Fatalf("Unexpected output: %s", out)
 		}
