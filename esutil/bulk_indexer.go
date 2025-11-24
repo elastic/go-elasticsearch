@@ -343,6 +343,7 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 
 // Close stops the periodic flush, closes the indexer queue channel,
 // which triggers the workers to flush and stop.
+// Note: it is the user's responsibility to call Close on the elasticsearch Client passed in to the BulkIndexerConfig.
 func (bi *bulkIndexer) Close(ctx context.Context) error {
 	close(bi.queue)
 
