@@ -1,0 +1,27 @@
+name: Feature Request
+description: Request a new feature
+title: "[Feature]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please first search existing issues for the feature you are requesting. It may already exist, even as a closed issue.
+        If it exists, please add a comment: along with subscribing you to the issue, this will help us to prioritize features.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        Please give us as much context as possible about the feature.
+      render: markdown
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I am willing to submit a PR for this feature
