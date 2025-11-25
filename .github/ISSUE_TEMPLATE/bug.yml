@@ -1,0 +1,113 @@
+name: Bug
+description: "Report a bug."
+title: "[Bug]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting an issue! Please search existing issues before creating a new one.
+        
+        Github is reserved for bug reports and feature requests. If you have a question or
+        an unconfirmed bug, please visit the [forums](https://discuss.elastic.co/tag/language-clients).
+
+        Please fill in the following details to help us reproduce the bug:
+
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      description: Please confirm the following.
+      options:
+        - label: I have searched the existing issues
+          required: true
+        - label: I have read the documentation
+          required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Go Client Version
+      description: What version of the go-elasticsearch client are you using?
+      placeholder: v9.2.0
+    validations:
+      required: true
+
+  - type: input
+    id: go-version
+    attributes:
+      label: Go Version
+      description: What version of Go are you using?
+      placeholder: e.g., 1.25.0
+    validations:
+      required: true
+
+  - type: input
+    id: elasticsearch-version
+    attributes:
+      label: Elasticsearch Version
+      description: What version of Elasticsearch are you using?
+      placeholder: e.g., 9.2.0
+    render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current Behavior
+      description: What's happening? Include error messages.
+    render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Minimal code example that demonstrates the issue.
+      placeholder: |
+        ```go
+        package main
+        
+        import (
+          "fmt"
+        )
+        
+        func main() {
+          fmt.Println("Hello, world!")
+        }
+        ```
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Details
+      description: |
+        Please provide details about your environment.
+        This will help us to reproduce and fix the issue faster.
+      value: |
+        - OS: 
+        - Architecture: 
+        - Authentication method: 
+        - Connection type (HTTP/HTTPS): 
+        - Proxy/Load balancer:
+      render: markdown
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
