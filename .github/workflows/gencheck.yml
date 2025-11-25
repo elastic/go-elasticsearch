@@ -1,0 +1,48 @@
+name: 'Check Generated Files'
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - labeled
+      - unlabeled
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: 'gencheck-${{ github.event.pull_request.number }}'
+  cancel-in-progress: true
+
+jobs:
+  check-generated:
+    name: 'Detect Generated File Edits'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'Check for Generated Files'
+        uses: elastic/clients-team-automations/gencheck@ba683215c43524580baa8b6b32b93958a9aa567b
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          file_patterns: 'esapi/**/*.go,typedapi/**/*.go'
+          marker_patterns: 'Code generated from.*specification.*DO NOT EDIT'
+          skip_label: 'skip: gencheck'
+          post_comment: 'true'
+          fail_on_detected: 'true'
+          comment_template: |
+            ## 🤖 Generated Code Modified
+            
+            This PR modifies **{{file_count}}** generated file(s):
+            
+            {{file_list}}
+            
+            ### What should I do?
+            
+            Generated files are typically auto-generated and manual edits may be lost on regeneration.
+            
+            **Options:**
+            - ✅ Add the `{{skip_label}}` label if these changes are intentional
+            - 💬 [Open an issue](https://github.com/{{owner}}/{{repo}}/issues/new/choose) to discuss if you're unsure
+            
+            _This check can be bypassed by adding the skip label to PR #{{pr_number}}_
