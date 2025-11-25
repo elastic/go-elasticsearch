@@ -48,7 +48,6 @@ body:
       label: Elasticsearch Version
       description: What version of Elasticsearch are you using?
       placeholder: e.g., 9.2.0
-    render: markdown
     validations:
       required: true
 
@@ -57,7 +56,7 @@ body:
     attributes:
       label: Current Behavior
       description: What's happening? Include error messages.
-    render: markdown
+      render: markdown
     validations:
       required: true
 
@@ -66,6 +65,7 @@ body:
     attributes:
       label: Expected Behavior
       description: What did you expect to happen?
+      render: markdown
     validations:
       required: true
 
