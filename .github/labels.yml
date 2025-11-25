@@ -1,0 +1,115 @@
+- name: "Area: Build"
+  description: "Includes dependencies"
+  color: "#7bc86c"
+
+- name: "Area: CI"
+  description: "CI, CD, test automation, issue management, etc."
+  color: "#7bc86c"
+
+- name: "Area: Documentation"
+  description: "Improvements or additions to documentation"
+  color: "#7bc86c"
+  aliases:
+    - "docs"
+    - "documentation"
+
+- name: "Area: Examples"
+  description: "Improvements or additions to examples"
+  color: "#7bc86c"
+
+- name: "Area: Generator"
+  description: "Improvements or additions to the generator"
+  color: "#7bc86c"
+
+- name: "Area: Helpers"
+  description: "Improvements or additions to the help"
+  color: "#7bc86c"
+
+- name: "Area: Specification"
+  description: "Related to the API spec used to generate client code"
+  color: "#7bc86c"
+
+- name: "Area: Tests"
+  description: "Related to testing"
+  color: "#7bc86c"
+
+- name: "Area: Transport"
+  description: "Related to the transport layer"
+  color: "#7bc86c"
+
+- name: "Area: Unclassified"
+  description: "Unclassified"
+  color: "#7bc86c"
+
+- name: "Category: Bug"
+  description: "Something isn't working"
+  color: "#5ba4cf"
+  aliases:
+    - "bug"
+
+- name: "Category: Enhancement"
+  description: "New feature or request"
+  color: "#5ba4cf"
+  aliases:
+    - "enhancement"
+
+- name: "Category: Feature"
+  description: "New feature"
+  color: "#5ba4cf"
+
+- name: "Category: Not an issue"
+  description: "This doesn't seem right"
+  color: "#5ba4cf"
+  aliases:
+    - "invalid"
+
+- name: "Category: Question"
+  description: "Not an issue but a question. May lead to enhancing docs"
+  color: "#5ba4cf"
+  aliases:
+    - "question"
+
+- name: "good first issue"
+  color: "#7057ff"
+  description: "A good issue for new contributors."
+
+- name: "duplicate"
+  color: "#cfd3d7"
+  description: "This issue or pull request already exists"
+
+- name: "help wanted"
+  color: "#008672"
+  description: "Extra attention is needed"
+
+- name: "State: Awaiting Response"
+  color: "#D93F0B"
+  description: "Awaiting user response."
+  aliases:
+    - "waiting on reply"
+
+- name: "State: Blocked"
+  color: "#D93F0B"
+  description: "Blocked by external dependencies."
+
+- name: "State: Stale"
+  color: "#D93F0B"
+  description: "Stale."
+
+- name: "wontfix"
+  color: "#ffffff"
+  description: "This will not be worked on"
+
+- name: "autorelease: pending"
+  color: "#ededed"
+
+- name: "autorelease: tagged"
+  color: "#ededed"
+
+- name: "backport 8.19"
+  color: "#000000"
+
+- name: "backport 9.1"
+  color: "#000000"
+
+- name: "backport 9.2"
+  color: "#000000"

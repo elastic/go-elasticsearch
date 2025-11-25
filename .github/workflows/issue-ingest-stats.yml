@@ -1,0 +1,31 @@
+name: 'Ingest Issue'
+
+on:
+  issues:
+    types:
+      - opened
+      - edited
+      - closed
+      - deleted
+      - reopened
+      - labeled
+      - unlabeled
+
+concurrency:
+  group: 'issue-stats-${{github.event.issue.id}}'
+  cancel-in-progress: false
+
+jobs:
+  issue:
+    name: Ingest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ingest Issue
+        uses: elastic/clients-team-automations/issues_stats@ba683215c43524580baa8b6b32b93958a9aa567b
+        with:
+          issue_payload: ${{ toJSON(github.event.issue) }}
+          es_cloud_id: ${{ vars.ES_CLIENT_ISSUE_STATS_CLOUD_ID }}
+          es_api_key: ${{ secrets.ES_ISSUE_STATS_API_KEY }}
