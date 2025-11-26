@@ -1291,6 +1291,11 @@ func TestClose(t *testing.T) {
 			c, _ := NewTypedClient(Config{Transport: &mockTransp{}})
 			return c
 		}},
+		{name: "BaseClient nil closeC", c: func() closeable {
+			c, _ := NewBaseClient(Config{Transport: &mockTransp{}})
+			c.closeC = nil
+			return c
+		}},
 	}
 
 	for _, tt := range tests {

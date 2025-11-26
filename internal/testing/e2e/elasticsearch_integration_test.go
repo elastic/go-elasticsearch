@@ -648,6 +648,7 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 			es := elasticsearch.Client{
 				BaseClient: elasticsearch.BaseClient{
 					Transport: tr,
+					closeC:    make(chan struct{}),
 				},
 				API: esapi.New(tr),
 			}

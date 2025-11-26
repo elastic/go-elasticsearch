@@ -465,6 +465,9 @@ func (c *BaseClient) DiscoverNodes() error {
 }
 
 func (c *BaseClient) isClosed() bool {
+	if c.closeC == nil {
+		return atomic.LoadUint32(&c.closeDone) != 0
+	}
 	select {
 	case <-c.closeC:
 		return true
@@ -485,7 +488,9 @@ func (c *BaseClient) Close(ctx context.Context) error {
 	}
 
 	if atomic.CompareAndSwapUint32(&c.closeDone, 0, 1) {
-		close(c.closeC)
+		if c.closeC != nil {
+			close(c.closeC)
+		}
 
 		closeable, ok := c.Transport.(elastictransport.Closeable)
 		if ok {
