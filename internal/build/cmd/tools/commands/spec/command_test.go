@@ -56,7 +56,7 @@ func TestBuild_zipfileUrl(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			b := Build{}
 			if err := json.Unmarshal([]byte(tt.json), &b); err != nil {
-				t.Fatalf(err.Error())
+				t.Fatal(err.Error())
 			}
 			if got := b.zipfileUrl(); got != tt.want {
 				t.Errorf("zipfileUrl() = %v, want %v", got, tt.want)
