@@ -18,8 +18,10 @@
 package commands
 
 import (
+	"context"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/rs/zerolog"
 	"github.com/spf13/cobra"
@@ -62,7 +64,13 @@ var serverCmd = &cobra.Command{
 		if err != nil {
 			log.Fatal().Err(err).Msg("Error creating Elasticsearch client")
 		}
-
+		defer func() {
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+			defer cancel()
+			if err := es.Close(ctx); err != nil {
+				log.Fatal().Err(err).Msg("Error closing the client")
+			}
+		}()
 		config := xkcdsearch.StoreConfig{Client: es, IndexName: IndexName}
 		store, err := xkcdsearch.NewStore(config)
 		if err != nil {

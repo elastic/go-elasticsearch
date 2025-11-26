@@ -58,6 +58,11 @@ func TestAPI(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Error creating the client: %s\n", err)
 		}
+		defer func() {
+			if err := es.Close(context.Background()); err != nil {
+				t.Fatalf("Error closing the client: %s", err)
+			}
+		}()
 
 		es.Cluster.Health(es.Cluster.Health.WithWaitForStatus("yellow"))
 		res, err := es.Search(es.Search.WithTimeout(500 * time.Millisecond))
@@ -83,6 +88,11 @@ func TestAPI(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Error creating the client: %s\n", err)
 		}
+		defer func() {
+			if err := es.Close(context.Background()); err != nil {
+				t.Fatalf("Error closing the client: %s", err)
+			}
+		}()
 
 		res, err := es.Info(es.Info.WithHeader(map[string]string{"Accept": "application/yaml"}))
 		if err != nil {
@@ -113,6 +123,11 @@ func TestAPI(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Error creating the client: %s\n", err)
 		}
+		defer func() {
+			if err := es.Close(context.Background()); err != nil {
+				t.Fatalf("Error closing the client: %s", err)
+			}
+		}()
 
 		// Prepare indices
 		//

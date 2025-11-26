@@ -33,6 +33,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -125,6 +126,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}
+	defer func() {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		if err := es.Close(ctx); err != nil {
+			log.Fatalf("Error closing the client: %s", err)
+		}
+	}()
 
 	// Generate the articles collection
 	//

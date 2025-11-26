@@ -18,11 +18,13 @@
 package commands
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"os"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/spf13/cobra"
 
@@ -48,6 +50,13 @@ var searchCmd = &cobra.Command{
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "\x1b[1;107;41mERROR: %s\x1b[0m\n", err)
 		}
+		defer func() {
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+			defer cancel()
+			if err := es.Close(ctx); err != nil {
+				fmt.Fprintf(os.Stderr, "Error closing the client: %s\n", err)
+			}
+		}()
 
 		config := xkcdsearch.StoreConfig{Client: es, IndexName: IndexName}
 		store, err := xkcdsearch.NewStore(config)
