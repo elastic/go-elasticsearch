@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newMLGetInfluencersFunc(t Transport) MLGetInfluencers {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetInfluencers - Retrieves anomaly detection job results for one or more influencers.
+// MLGetInfluencers - Get anomaly detection job results for influencers
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-influencer.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-influencers.
 type MLGetInfluencers func(job_id string, o ...func(*MLGetInfluencersRequest)) (*Response, error)
 
 // MLGetInfluencersRequest configures the ML Get Influencers API request.
@@ -57,13 +57,13 @@ type MLGetInfluencersRequest struct {
 	JobID string
 
 	Desc            *bool
-	End             string
+	End             interface{}
 	ExcludeInterim  *bool
 	From            *int
 	InfluencerScore interface{}
 	Size            *int
 	Sort            string
-	Start           string
+	Start           interface{}
 
 	Pretty     bool
 	Human      bool
@@ -118,8 +118,8 @@ func (r MLGetInfluencersRequest) Do(providedCtx context.Context, transport Trans
 		params["desc"] = strconv.FormatBool(*r.Desc)
 	}
 
-	if r.End != "" {
-		params["end"] = r.End
+	if r.End != nil {
+		params["end"] = fmt.Sprintf("%v", r.End)
 	}
 
 	if r.ExcludeInterim != nil {
@@ -142,8 +142,8 @@ func (r MLGetInfluencersRequest) Do(providedCtx context.Context, transport Trans
 		params["sort"] = r.Sort
 	}
 
-	if r.Start != "" {
-		params["start"] = r.Start
+	if r.Start != nil {
+		params["start"] = fmt.Sprintf("%v", r.Start)
 	}
 
 	if r.Pretty {
@@ -246,7 +246,7 @@ func (f MLGetInfluencers) WithDesc(v bool) func(*MLGetInfluencersRequest) {
 }
 
 // WithEnd - end timestamp for the requested influencers.
-func (f MLGetInfluencers) WithEnd(v string) func(*MLGetInfluencersRequest) {
+func (f MLGetInfluencers) WithEnd(v interface{}) func(*MLGetInfluencersRequest) {
 	return func(r *MLGetInfluencersRequest) {
 		r.End = v
 	}
@@ -288,7 +288,7 @@ func (f MLGetInfluencers) WithSort(v string) func(*MLGetInfluencersRequest) {
 }
 
 // WithStart - start timestamp for the requested influencers.
-func (f MLGetInfluencers) WithStart(v string) func(*MLGetInfluencersRequest) {
+func (f MLGetInfluencers) WithStart(v interface{}) func(*MLGetInfluencersRequest) {
 	return func(r *MLGetInfluencersRequest) {
 		r.Start = v
 	}

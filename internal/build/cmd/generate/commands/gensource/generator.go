@@ -243,7 +243,7 @@ type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
 			}
 		}
 		// Skip type only for selected APIs at this point
-		if p.Name == "type" && p.Deprecated {
+		if p.Name == "type" && p.Deprecated.Version != "" {
 			if g.Endpoint.Name == "bulk" ||
 				g.Endpoint.Name == "create" ||
 				g.Endpoint.Name == "delete" ||
@@ -660,7 +660,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", strconv.Itoa(*r.` + p + `))
 							}` + "\n")
-						case "string":
+						case "string", "enum":
 							pathGrow.WriteString(`len(r.` + p + `) + `)
 							pathContent.WriteString(`	path.WriteString(r.` + p + `)` + "\n")
 							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -695,7 +695,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 							p = a.GoName()
 
 							switch a.Type {
-							case "string":
+							case "string", "enum":
 								pathGrow.WriteString(`1 + len(r.` + p + `) + `)
 								pathContent.WriteString(`	if r.` + p + ` != "" {` + "\n")
 								pathContent.WriteString(`		path.WriteString("/")` + "\n")
@@ -740,7 +740,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 							pathGrow.WriteString("1 +")
 							pathContent.WriteString(`	path.WriteString("/")` + "\n")
 							switch a.Type {
-							case "string":
+							case "string", "enum":
 								pathGrow.WriteString(`len(r.` + p + `)`)
 								pathContent.WriteString(`	path.WriteString(r.` + p + `)` + "\n")
 							case "list":

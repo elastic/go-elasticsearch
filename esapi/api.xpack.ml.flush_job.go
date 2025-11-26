@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -44,9 +45,9 @@ func newMLFlushJobFunc(t Transport) MLFlushJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLFlushJob - Forces any buffered data to be processed by the job.
+// MLFlushJob - Force buffered data to be processed
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-flush-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-flush-job.
 type MLFlushJob func(job_id string, o ...func(*MLFlushJobRequest)) (*Response, error)
 
 // MLFlushJobRequest configures the ML Flush Job API request.
@@ -55,11 +56,11 @@ type MLFlushJobRequest struct {
 
 	JobID string
 
-	AdvanceTime string
+	AdvanceTime interface{}
 	CalcInterim *bool
-	End         string
-	SkipTime    string
-	Start       string
+	End         interface{}
+	SkipTime    interface{}
+	Start       interface{}
 
 	Pretty     bool
 	Human      bool
@@ -108,24 +109,24 @@ func (r MLFlushJobRequest) Do(providedCtx context.Context, transport Transport) 
 
 	params = make(map[string]string)
 
-	if r.AdvanceTime != "" {
-		params["advance_time"] = r.AdvanceTime
+	if r.AdvanceTime != nil {
+		params["advance_time"] = fmt.Sprintf("%v", r.AdvanceTime)
 	}
 
 	if r.CalcInterim != nil {
 		params["calc_interim"] = strconv.FormatBool(*r.CalcInterim)
 	}
 
-	if r.End != "" {
-		params["end"] = r.End
+	if r.End != nil {
+		params["end"] = fmt.Sprintf("%v", r.End)
 	}
 
-	if r.SkipTime != "" {
-		params["skip_time"] = r.SkipTime
+	if r.SkipTime != nil {
+		params["skip_time"] = fmt.Sprintf("%v", r.SkipTime)
 	}
 
-	if r.Start != "" {
-		params["start"] = r.Start
+	if r.Start != nil {
+		params["start"] = fmt.Sprintf("%v", r.Start)
 	}
 
 	if r.Pretty {
@@ -221,7 +222,7 @@ func (f MLFlushJob) WithBody(v io.Reader) func(*MLFlushJobRequest) {
 }
 
 // WithAdvanceTime - advances time to the given value generating results and updating the model for the advanced interval.
-func (f MLFlushJob) WithAdvanceTime(v string) func(*MLFlushJobRequest) {
+func (f MLFlushJob) WithAdvanceTime(v interface{}) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.AdvanceTime = v
 	}
@@ -235,21 +236,21 @@ func (f MLFlushJob) WithCalcInterim(v bool) func(*MLFlushJobRequest) {
 }
 
 // WithEnd - when used in conjunction with calc_interim, specifies the range of buckets on which to calculate interim results.
-func (f MLFlushJob) WithEnd(v string) func(*MLFlushJobRequest) {
+func (f MLFlushJob) WithEnd(v interface{}) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.End = v
 	}
 }
 
 // WithSkipTime - skips time to the given value without generating results or updating the model for the skipped interval.
-func (f MLFlushJob) WithSkipTime(v string) func(*MLFlushJobRequest) {
+func (f MLFlushJob) WithSkipTime(v interface{}) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.SkipTime = v
 	}
 }
 
 // WithStart - when used in conjunction with calc_interim, specifies the range of buckets on which to calculate interim results.
-func (f MLFlushJob) WithStart(v string) func(*MLFlushJobRequest) {
+func (f MLFlushJob) WithStart(v interface{}) func(*MLFlushJobRequest) {
 	return func(r *MLFlushJobRequest) {
 		r.Start = v
 	}

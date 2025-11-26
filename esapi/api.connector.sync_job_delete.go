@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,11 @@ func newConnectorSyncJobDeleteFunc(t Transport) ConnectorSyncJobDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobDelete deletes a connector sync job.
+// ConnectorSyncJobDelete delete a connector sync job
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-sync-job-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-delete.
 type ConnectorSyncJobDelete func(connector_sync_job_id string, o ...func(*ConnectorSyncJobDeleteRequest)) (*Response, error)
 
 // ConnectorSyncJobDeleteRequest configures the Connector Sync Job Delete API request.

@@ -15,19 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
 func newIndicesDiskUsageFunc(t Transport) IndicesDiskUsage {
-	return func(index string, o ...func(*IndicesDiskUsageRequest)) (*Response, error) {
+	return func(index []string, o ...func(*IndicesDiskUsageRequest)) (*Response, error) {
 		var r = IndicesDiskUsageRequest{Index: index}
 		for _, f := range o {
 			f(&r)
@@ -43,19 +44,19 @@ func newIndicesDiskUsageFunc(t Transport) IndicesDiskUsage {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDiskUsage analyzes the disk usage of each field of an index or data stream
+// IndicesDiskUsage analyze the index disk usage
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-disk-usage.html.
-type IndicesDiskUsage func(index string, o ...func(*IndicesDiskUsageRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-disk-usage.
+type IndicesDiskUsage func(index []string, o ...func(*IndicesDiskUsageRequest)) (*Response, error)
 
 // IndicesDiskUsageRequest configures the Indices Disk Usage API request.
 type IndicesDiskUsageRequest struct {
-	Index string
+	Index []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	Flush             *bool
 	IgnoreUnavailable *bool
 	RunExpensiveTasks *bool
@@ -91,12 +92,16 @@ func (r IndicesDiskUsageRequest) Do(providedCtx context.Context, transport Trans
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_disk_usage"))
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_disk_usage"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString(strings.Join(r.Index, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "index", r.Index)
+		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_disk_usage")
@@ -107,8 +112,8 @@ func (r IndicesDiskUsageRequest) Do(providedCtx context.Context, transport Trans
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.Flush != nil {
@@ -209,7 +214,7 @@ func (f IndicesDiskUsage) WithAllowNoIndices(v bool) func(*IndicesDiskUsageReque
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesDiskUsage) WithExpandWildcards(v string) func(*IndicesDiskUsageRequest) {
+func (f IndicesDiskUsage) WithExpandWildcards(v ...string) func(*IndicesDiskUsageRequest) {
 	return func(r *IndicesDiskUsageRequest) {
 		r.ExpandWildcards = v
 	}

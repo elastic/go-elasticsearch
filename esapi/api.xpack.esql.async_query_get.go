@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newEsqlAsyncQueryGetFunc(t Transport) EsqlAsyncQueryGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlAsyncQueryGet - Retrieves the results of a previously submitted async query request given its ID.
+// EsqlAsyncQueryGet - Get async ES|QL query results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-get-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-get.
 type EsqlAsyncQueryGet func(id string, o ...func(*EsqlAsyncQueryGetRequest)) (*Response, error)
 
 // EsqlAsyncQueryGetRequest configures the Esql Async Query Get API request.
@@ -204,7 +204,7 @@ func (f EsqlAsyncQueryGet) WithDropNullColumns(v bool) func(*EsqlAsyncQueryGetRe
 	}
 }
 
-// WithFormat - a short version of the accept header, e.g. json, yaml.
+// WithFormat - a short version of the accept header, for example `json` or `yaml`..
 func (f EsqlAsyncQueryGet) WithFormat(v string) func(*EsqlAsyncQueryGetRequest) {
 	return func(r *EsqlAsyncQueryGetRequest) {
 		r.Format = v

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLPutDatafeedFunc(t Transport) MLPutDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDatafeed - Instantiates a datafeed.
+// MLPutDatafeed - Create a datafeed
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-datafeed.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-datafeed.
 type MLPutDatafeed func(body io.Reader, datafeed_id string, o ...func(*MLPutDatafeedRequest)) (*Response, error)
 
 // MLPutDatafeedRequest configures the ML Put Datafeed API request.
@@ -56,7 +56,7 @@ type MLPutDatafeedRequest struct {
 	DatafeedID string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreThrottled   *bool
 	IgnoreUnavailable *bool
 
@@ -109,8 +109,8 @@ func (r MLPutDatafeedRequest) Do(providedCtx context.Context, transport Transpor
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreThrottled != nil {
@@ -214,7 +214,7 @@ func (f MLPutDatafeed) WithAllowNoIndices(v bool) func(*MLPutDatafeedRequest) {
 }
 
 // WithExpandWildcards - whether source index expressions should get expanded to open or closed indices (default: open).
-func (f MLPutDatafeed) WithExpandWildcards(v string) func(*MLPutDatafeedRequest) {
+func (f MLPutDatafeed) WithExpandWildcards(v ...string) func(*MLPutDatafeedRequest) {
 	return func(r *MLPutDatafeedRequest) {
 		r.ExpandWildcards = v
 	}

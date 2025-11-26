@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,21 +44,23 @@ func newCatComponentTemplatesFunc(t Transport) CatComponentTemplates {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatComponentTemplates returns information about existing component_templates templates.
+// CatComponentTemplates get component templates
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-component-templates.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-component-templates.
 type CatComponentTemplates func(o ...func(*CatComponentTemplatesRequest)) (*Response, error)
 
 // CatComponentTemplatesRequest configures the Cat Component Templates API request.
 type CatComponentTemplatesRequest struct {
 	Name string
 
+	Bytes         string
 	Format        string
 	H             []string
 	Help          *bool
 	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
+	Time          string
 	V             *bool
 
 	Pretty     bool
@@ -108,6 +110,10 @@ func (r CatComponentTemplatesRequest) Do(providedCtx context.Context, transport 
 
 	params = make(map[string]string)
 
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
+
 	if r.Format != "" {
 		params["format"] = r.Format
 	}
@@ -130,6 +136,10 @@ func (r CatComponentTemplatesRequest) Do(providedCtx context.Context, transport 
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -221,6 +231,13 @@ func (f CatComponentTemplates) WithName(v string) func(*CatComponentTemplatesReq
 	}
 }
 
+// WithBytes - the unit in which to display byte values.
+func (f CatComponentTemplates) WithBytes(v string) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
+		r.Bytes = v
+	}
+}
+
 // WithFormat - a short version of the accept header, e.g. json, yaml.
 func (f CatComponentTemplates) WithFormat(v string) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
@@ -260,6 +277,13 @@ func (f CatComponentTemplates) WithMasterTimeout(v time.Duration) func(*CatCompo
 func (f CatComponentTemplates) WithS(v ...string) func(*CatComponentTemplatesRequest) {
 	return func(r *CatComponentTemplatesRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+func (f CatComponentTemplates) WithTime(v string) func(*CatComponentTemplatesRequest) {
+	return func(r *CatComponentTemplatesRequest) {
+		r.Time = v
 	}
 }
 

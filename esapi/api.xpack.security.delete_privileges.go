@@ -15,18 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 )
 
 func newSecurityDeletePrivilegesFunc(t Transport) SecurityDeletePrivileges {
-	return func(name string, application string, o ...func(*SecurityDeletePrivilegesRequest)) (*Response, error) {
+	return func(name []string, application string, o ...func(*SecurityDeletePrivilegesRequest)) (*Response, error) {
 		var r = SecurityDeletePrivilegesRequest{Name: name, Application: application}
 		for _, f := range o {
 			f(&r)
@@ -42,15 +43,15 @@ func newSecurityDeletePrivilegesFunc(t Transport) SecurityDeletePrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDeletePrivileges - Removes application privileges.
+// SecurityDeletePrivileges - Delete application privileges
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-privilege.html.
-type SecurityDeletePrivileges func(name string, application string, o ...func(*SecurityDeletePrivilegesRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-privileges.
+type SecurityDeletePrivileges func(name []string, application string, o ...func(*SecurityDeletePrivilegesRequest)) (*Response, error)
 
 // SecurityDeletePrivilegesRequest configures the Security Delete Privileges API request.
 type SecurityDeletePrivilegesRequest struct {
 	Application string
-	Name        string
+	Name        []string
 
 	Refresh string
 
@@ -85,7 +86,11 @@ func (r SecurityDeletePrivilegesRequest) Do(providedCtx context.Context, transpo
 
 	method = "DELETE"
 
-	path.Grow(7 + 1 + len("_security") + 1 + len("privilege") + 1 + len(r.Application) + 1 + len(r.Name))
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_security") + 1 + len("privilege") + 1 + len(r.Application) + 1 + len(strings.Join(r.Name, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_security")
@@ -97,9 +102,9 @@ func (r SecurityDeletePrivilegesRequest) Do(providedCtx context.Context, transpo
 		instrument.RecordPathPart(ctx, "application", r.Application)
 	}
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(strings.Join(r.Name, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", r.Name)
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
 	}
 
 	params = make(map[string]string)

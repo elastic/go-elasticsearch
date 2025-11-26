@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newWatcherExecuteWatchFunc(t Transport) WatcherExecuteWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherExecuteWatch - Forces the execution of a stored watch.
+// WatcherExecuteWatch - Run a watch
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-execute-watch.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-execute-watch.
 type WatcherExecuteWatch func(o ...func(*WatcherExecuteWatchRequest)) (*Response, error)
 
 // WatcherExecuteWatchRequest configures the Watcher Execute Watch API request.

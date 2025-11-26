@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityOidcPrepareAuthenticationFunc(t Transport) SecurityOidcPrepareAu
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityOidcPrepareAuthentication - Creates an OAuth 2.0 authentication request as a URL string
+// SecurityOidcPrepareAuthentication - Prepare OpenID connect authentication
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-prepare-authentication.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-prepare-authentication.
 type SecurityOidcPrepareAuthentication func(body io.Reader, o ...func(*SecurityOidcPrepareAuthenticationRequest)) (*Response, error)
 
 // SecurityOidcPrepareAuthenticationRequest configures the Security Oidc Prepare Authentication API request.

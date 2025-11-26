@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newIndicesCloseFunc(t Transport) IndicesClose {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesClose closes an index.
+// IndicesClose close an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-close.
 type IndicesClose func(index []string, o ...func(*IndicesCloseRequest)) (*Response, error)
 
 // IndicesCloseRequest configures the Indices Close API request.
@@ -55,7 +55,7 @@ type IndicesCloseRequest struct {
 	Index []string
 
 	AllowNoIndices      *bool
-	ExpandWildcards     string
+	ExpandWildcards     []string
 	IgnoreUnavailable   *bool
 	MasterTimeout       time.Duration
 	Timeout             time.Duration
@@ -112,8 +112,8 @@ func (r IndicesCloseRequest) Do(providedCtx context.Context, transport Transport
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -218,7 +218,7 @@ func (f IndicesClose) WithAllowNoIndices(v bool) func(*IndicesCloseRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesClose) WithExpandWildcards(v string) func(*IndicesCloseRequest) {
+func (f IndicesClose) WithExpandWildcards(v ...string) func(*IndicesCloseRequest) {
 	return func(r *IndicesCloseRequest) {
 		r.ExpandWildcards = v
 	}

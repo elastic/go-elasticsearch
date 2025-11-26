@@ -87,6 +87,7 @@ var skipFiles = []string{
 	".*inference/.*.yml", // incompatible inference tests
 	".*mustache/.*.yml",  // incompatible mustache tests
 	"data_stream/240_data_stream_settings.yml",
+	"index/100_field_name_length_limit.yml", // YAML parse error with nested structures
 }
 
 // TODO: Comments into descriptions for `Skip()`

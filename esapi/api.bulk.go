@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newBulkFunc(t Transport) Bulk {
 
 // ----- API Definition -------------------------------------------------------
 
-// Bulk allows to perform multiple index/update/delete operations in a single request.
+// Bulk bulk index or delete documents
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-bulk.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk.
 type Bulk func(body io.Reader, o ...func(*BulkRequest)) (*Response, error)
 
 // BulkRequest configures the Bulk API request.
@@ -62,7 +62,7 @@ type BulkRequest struct {
 	Refresh               string
 	RequireAlias          *bool
 	RequireDataStream     *bool
-	Routing               string
+	Routing               []string
 	Source                []string
 	SourceExcludes        []string
 	SourceIncludes        []string
@@ -138,8 +138,8 @@ func (r BulkRequest) Do(providedCtx context.Context, transport Transport) (*Resp
 		params["require_data_stream"] = strconv.FormatBool(*r.RequireDataStream)
 	}
 
-	if r.Routing != "" {
-		params["routing"] = r.Routing
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if len(r.Source) > 0 {
@@ -282,7 +282,7 @@ func (f Bulk) WithRefresh(v string) func(*BulkRequest) {
 	}
 }
 
-// WithRequireAlias - if true, the request’s actions must target an index alias. defaults to false..
+// WithRequireAlias - if true, the request's actions must target an index alias. defaults to false..
 func (f Bulk) WithRequireAlias(v bool) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.RequireAlias = &v
@@ -297,7 +297,7 @@ func (f Bulk) WithRequireDataStream(v bool) func(*BulkRequest) {
 }
 
 // WithRouting - specific routing value.
-func (f Bulk) WithRouting(v string) func(*BulkRequest) {
+func (f Bulk) WithRouting(v ...string) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.Routing = v
 	}

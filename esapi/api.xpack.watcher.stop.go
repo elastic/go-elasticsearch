@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newWatcherStopFunc(t Transport) WatcherStop {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherStop - Stops Watcher if it is running.
+// WatcherStop - Stop the watch service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stop.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-stop.
 type WatcherStop func(o ...func(*WatcherStopRequest)) (*Response, error)
 
 // WatcherStopRequest configures the Watcher Stop API request.

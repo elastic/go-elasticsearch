@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,14 +43,14 @@ func newMLGetTrainedModelsFunc(t Transport) MLGetTrainedModels {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetTrainedModels - Retrieves configuration information for a trained inference model.
+// MLGetTrainedModels - Get trained model configuration info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trained-models.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models.
 type MLGetTrainedModels func(o ...func(*MLGetTrainedModelsRequest)) (*Response, error)
 
 // MLGetTrainedModelsRequest configures the ML Get Trained Models API request.
 type MLGetTrainedModelsRequest struct {
-	ModelID string
+	ModelID []string
 
 	AllowNoMatch         *bool
 	DecompressDefinition *bool
@@ -91,17 +91,17 @@ func (r MLGetTrainedModelsRequest) Do(providedCtx context.Context, transport Tra
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("trained_models") + 1 + len(strings.Join(r.ModelID, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
 	path.WriteString("trained_models")
-	if r.ModelID != "" {
+	if len(r.ModelID) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.ModelID)
+		path.WriteString(strings.Join(r.ModelID, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "model_id", r.ModelID)
+			instrument.RecordPathPart(ctx, "model_id", strings.Join(r.ModelID, ","))
 		}
 	}
 
@@ -213,8 +213,8 @@ func (f MLGetTrainedModels) WithContext(v context.Context) func(*MLGetTrainedMod
 	}
 }
 
-// WithModelID - the ID of the trained models to fetch.
-func (f MLGetTrainedModels) WithModelID(v string) func(*MLGetTrainedModelsRequest) {
+// WithModelID - the unique identifier of the trained model or a model alias.  you can get information for multiple trained models in a single api request by using a list of model ids or a wildcard expression..
+func (f MLGetTrainedModels) WithModelID(v ...string) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.ModelID = v
 	}
@@ -248,7 +248,7 @@ func (f MLGetTrainedModels) WithFrom(v int) func(*MLGetTrainedModelsRequest) {
 	}
 }
 
-// WithInclude - a comma-separate list of fields to optionally include. valid options are 'definition' and 'total_feature_importance'. default is none..
+// WithInclude - a comma delimited string of optional fields to include in the responsebody..
 func (f MLGetTrainedModels) WithInclude(v string) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.Include = v

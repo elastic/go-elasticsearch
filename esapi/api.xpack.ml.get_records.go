@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newMLGetRecordsFunc(t Transport) MLGetRecords {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetRecords - Retrieves anomaly records for an anomaly detection job.
+// MLGetRecords - Get anomaly records for an anomaly detection job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-record.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-records.
 type MLGetRecords func(job_id string, o ...func(*MLGetRecordsRequest)) (*Response, error)
 
 // MLGetRecordsRequest configures the ML Get Records API request.
@@ -57,13 +57,13 @@ type MLGetRecordsRequest struct {
 	JobID string
 
 	Desc           *bool
-	End            string
+	End            interface{}
 	ExcludeInterim *bool
 	From           *int
 	RecordScore    interface{}
 	Size           *int
 	Sort           string
-	Start          string
+	Start          interface{}
 
 	Pretty     bool
 	Human      bool
@@ -118,8 +118,8 @@ func (r MLGetRecordsRequest) Do(providedCtx context.Context, transport Transport
 		params["desc"] = strconv.FormatBool(*r.Desc)
 	}
 
-	if r.End != "" {
-		params["end"] = r.End
+	if r.End != nil {
+		params["end"] = fmt.Sprintf("%v", r.End)
 	}
 
 	if r.ExcludeInterim != nil {
@@ -142,8 +142,8 @@ func (r MLGetRecordsRequest) Do(providedCtx context.Context, transport Transport
 		params["sort"] = r.Sort
 	}
 
-	if r.Start != "" {
-		params["start"] = r.Start
+	if r.Start != nil {
+		params["start"] = fmt.Sprintf("%v", r.Start)
 	}
 
 	if r.Pretty {
@@ -246,7 +246,7 @@ func (f MLGetRecords) WithDesc(v bool) func(*MLGetRecordsRequest) {
 }
 
 // WithEnd - end time filter for records.
-func (f MLGetRecords) WithEnd(v string) func(*MLGetRecordsRequest) {
+func (f MLGetRecords) WithEnd(v interface{}) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.End = v
 	}
@@ -288,7 +288,7 @@ func (f MLGetRecords) WithSort(v string) func(*MLGetRecordsRequest) {
 }
 
 // WithStart - start time filter for records.
-func (f MLGetRecords) WithStart(v string) func(*MLGetRecordsRequest) {
+func (f MLGetRecords) WithStart(v interface{}) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.Start = v
 	}

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newSecurityEnrollKibanaFunc(t Transport) SecurityEnrollKibana {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityEnrollKibana - Allows a kibana instance to configure itself to communicate with a secured elasticsearch cluster.
+// SecurityEnrollKibana - Enroll Kibana
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-kibana-enrollment.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enroll-kibana.
 type SecurityEnrollKibana func(o ...func(*SecurityEnrollKibanaRequest)) (*Response, error)
 
 // SecurityEnrollKibanaRequest configures the Security Enroll Kibana API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newMLDeleteModelSnapshotFunc(t Transport) MLDeleteModelSnapshot {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteModelSnapshot - Deletes an existing model snapshot.
+// MLDeleteModelSnapshot - Delete a model snapshot
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-snapshot.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-model-snapshot.
 type MLDeleteModelSnapshot func(snapshot_id string, job_id string, o ...func(*MLDeleteModelSnapshotRequest)) (*Response, error)
 
 // MLDeleteModelSnapshotRequest configures the ML Delete Model Snapshot API request.

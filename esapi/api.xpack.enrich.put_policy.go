@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newEnrichPutPolicyFunc(t Transport) EnrichPutPolicy {
 
 // ----- API Definition -------------------------------------------------------
 
-// EnrichPutPolicy - Creates a new enrich policy.
+// EnrichPutPolicy - Create an enrich policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-enrich-policy-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-put-policy.
 type EnrichPutPolicy func(name string, body io.Reader, o ...func(*EnrichPutPolicyRequest)) (*Response, error)
 
 // EnrichPutPolicyRequest configures the Enrich Put Policy API request.

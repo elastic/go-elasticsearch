@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newAsyncSearchDeleteFunc(t Transport) AsyncSearchDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// AsyncSearchDelete - Deletes an async search by ID. If the search is still running, the search request will be cancelled. Otherwise, the saved search results are deleted.
+// AsyncSearchDelete - Delete an async search
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit.
 type AsyncSearchDelete func(id string, o ...func(*AsyncSearchDeleteRequest)) (*Response, error)
 
 // AsyncSearchDeleteRequest configures the Async Search Delete API request.

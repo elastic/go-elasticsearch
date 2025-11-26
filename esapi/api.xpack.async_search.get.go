@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newAsyncSearchGetFunc(t Transport) AsyncSearchGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// AsyncSearchGet - Retrieves the results of a previously submitted async search request given its ID.
+// AsyncSearchGet - Get async search results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit.
 type AsyncSearchGet func(id string, o ...func(*AsyncSearchGetRequest)) (*Response, error)
 
 // AsyncSearchGetRequest configures the Async Search Get API request.

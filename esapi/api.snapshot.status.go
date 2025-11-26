@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newSnapshotStatusFunc(t Transport) SnapshotStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotStatus returns information about the status of a snapshot.
+// SnapshotStatus get the snapshot status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-status.
 type SnapshotStatus func(o ...func(*SnapshotStatusRequest)) (*Response, error)
 
 // SnapshotStatusRequest configures the Snapshot Status API request.

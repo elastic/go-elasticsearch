@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newSSLCertificatesFunc(t Transport) SSLCertificates {
 
 // ----- API Definition -------------------------------------------------------
 
-// SSLCertificates - Retrieves information about the X.509 certificates used to encrypt communications in the cluster.
+// SSLCertificates - Get SSL certificates
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-ssl.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ssl-certificates.
 type SSLCertificates func(o ...func(*SSLCertificatesRequest)) (*Response, error)
 
 // SSLCertificatesRequest configures the SSL Certificates API request.

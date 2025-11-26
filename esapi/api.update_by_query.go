@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -47,10 +47,9 @@ func newUpdateByQueryFunc(t Transport) UpdateByQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// UpdateByQuery performs an update on every document in the index without changing the source,
-// for example to pick up a mapping change.
+// UpdateByQuery update documents
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update-by-query.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query.
 type UpdateByQuery func(index []string, o ...func(*UpdateByQueryRequest)) (*Response, error)
 
 // UpdateByQueryRequest configures the Update By Query API request.
@@ -65,7 +64,7 @@ type UpdateByQueryRequest struct {
 	Conflicts           string
 	DefaultOperator     string
 	Df                  string
-	ExpandWildcards     string
+	ExpandWildcards     []string
 	From                *int
 	IgnoreUnavailable   *bool
 	Lenient             *bool
@@ -162,8 +161,8 @@ func (r UpdateByQueryRequest) Do(providedCtx context.Context, transport Transpor
 		params["df"] = r.Df
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.From != nil {
@@ -397,7 +396,7 @@ func (f UpdateByQuery) WithDf(v string) func(*UpdateByQueryRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f UpdateByQuery) WithExpandWildcards(v string) func(*UpdateByQueryRequest) {
+func (f UpdateByQuery) WithExpandWildcards(v ...string) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
 		r.ExpandWildcards = v
 	}

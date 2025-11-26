@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,16 +43,17 @@ func newSQLQueryFunc(t Transport) SQLQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// SQLQuery - Executes a SQL request
+// SQLQuery - Get SQL search results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-search-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-query.
 type SQLQuery func(body io.Reader, o ...func(*SQLQueryRequest)) (*Response, error)
 
 // SQLQueryRequest configures the SQL Query API request.
 type SQLQueryRequest struct {
 	Body io.Reader
 
-	Format string
+	Format         string
+	ProjectRouting string
 
 	Pretty     bool
 	Human      bool
@@ -93,6 +94,10 @@ func (r SQLQueryRequest) Do(providedCtx context.Context, transport Transport) (*
 
 	if r.Format != "" {
 		params["format"] = r.Format
+	}
+
+	if r.ProjectRouting != "" {
+		params["project_routing"] = r.ProjectRouting
 	}
 
 	if r.Pretty {
@@ -180,10 +185,17 @@ func (f SQLQuery) WithContext(v context.Context) func(*SQLQueryRequest) {
 	}
 }
 
-// WithFormat - a short version of the accept header, e.g. json, yaml.
+// WithFormat - the format for the response.you can also specify a format using the `accept` http header.if you specify both this parameter and the `accept` http header, this parameter takes precedence..
 func (f SQLQuery) WithFormat(v string) func(*SQLQueryRequest) {
 	return func(r *SQLQueryRequest) {
 		r.Format = v
+	}
+}
+
+// WithProjectRouting - a lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. only supported in serverless..
+func (f SQLQuery) WithProjectRouting(v string) func(*SQLQueryRequest) {
+	return func(r *SQLQueryRequest) {
+		r.ProjectRouting = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSlmStartFunc(t Transport) SlmStart {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmStart - Turns on snapshot lifecycle management (SLM).
+// SlmStart - Start snapshot lifecycle management
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-start.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-start.
 type SlmStart func(o ...func(*SlmStartRequest)) (*Response, error)
 
 // SlmStartRequest configures the Slm Start API request.

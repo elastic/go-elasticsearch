@@ -64,7 +64,7 @@ func (e *Endpoint) DebugInfo() string {
 			if part.Default != nil {
 				fmt.Fprintf(w, ", default: %s", part.Default)
 			}
-			if part.Deprecated {
+			if part.Deprecated.Version != "" {
 				fmt.Fprint(w, ", *deprecated*")
 			}
 			fmt.Fprint(w, "\n")

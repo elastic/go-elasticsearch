@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newMLGetBucketsFunc(t Transport) MLGetBuckets {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetBuckets - Retrieves anomaly detection job results for one or more buckets.
+// MLGetBuckets - Get anomaly detection job results for buckets
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-bucket.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-buckets.
 type MLGetBuckets func(job_id string, o ...func(*MLGetBucketsRequest)) (*Response, error)
 
 // MLGetBucketsRequest configures the ML Get Buckets API request.
@@ -59,13 +59,13 @@ type MLGetBucketsRequest struct {
 
 	AnomalyScore   interface{}
 	Desc           *bool
-	End            string
+	End            interface{}
 	ExcludeInterim *bool
 	Expand         *bool
 	From           *int
 	Size           *int
 	Sort           string
-	Start          string
+	Start          interface{}
 
 	Pretty     bool
 	Human      bool
@@ -131,8 +131,8 @@ func (r MLGetBucketsRequest) Do(providedCtx context.Context, transport Transport
 		params["desc"] = strconv.FormatBool(*r.Desc)
 	}
 
-	if r.End != "" {
-		params["end"] = r.End
+	if r.End != nil {
+		params["end"] = fmt.Sprintf("%v", r.End)
 	}
 
 	if r.ExcludeInterim != nil {
@@ -155,8 +155,8 @@ func (r MLGetBucketsRequest) Do(providedCtx context.Context, transport Transport
 		params["sort"] = r.Sort
 	}
 
-	if r.Start != "" {
-		params["start"] = r.Start
+	if r.Start != nil {
+		params["start"] = fmt.Sprintf("%v", r.Start)
 	}
 
 	if r.Pretty {
@@ -273,7 +273,7 @@ func (f MLGetBuckets) WithDesc(v bool) func(*MLGetBucketsRequest) {
 }
 
 // WithEnd - end time filter for buckets.
-func (f MLGetBuckets) WithEnd(v string) func(*MLGetBucketsRequest) {
+func (f MLGetBuckets) WithEnd(v interface{}) func(*MLGetBucketsRequest) {
 	return func(r *MLGetBucketsRequest) {
 		r.End = v
 	}
@@ -315,7 +315,7 @@ func (f MLGetBuckets) WithSort(v string) func(*MLGetBucketsRequest) {
 }
 
 // WithStart - start time filter for buckets.
-func (f MLGetBuckets) WithStart(v string) func(*MLGetBucketsRequest) {
+func (f MLGetBuckets) WithStart(v interface{}) func(*MLGetBucketsRequest) {
 	return func(r *MLGetBucketsRequest) {
 		r.Start = v
 	}

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newEsqlAsyncQueryDeleteFunc(t Transport) EsqlAsyncQueryDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlAsyncQueryDelete - Delete an async query request given its ID.
+// EsqlAsyncQueryDelete - Delete an async ES|QL query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-delete-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-delete.
 type EsqlAsyncQueryDelete func(id string, o ...func(*EsqlAsyncQueryDeleteRequest)) (*Response, error)
 
 // EsqlAsyncQueryDeleteRequest configures the Esql Async Query Delete API request.

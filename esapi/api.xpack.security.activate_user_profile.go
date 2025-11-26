@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityActivateUserProfileFunc(t Transport) SecurityActivateUserProfile
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityActivateUserProfile - Creates or updates the user profile on behalf of another user.
+// SecurityActivateUserProfile - Activate a user profile
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-activate-user-profile.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-activate-user-profile.
 type SecurityActivateUserProfile func(body io.Reader, o ...func(*SecurityActivateUserProfileRequest)) (*Response, error)
 
 // SecurityActivateUserProfileRequest configures the Security Activate User Profile API request.

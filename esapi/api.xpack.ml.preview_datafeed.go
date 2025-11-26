@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -43,9 +44,9 @@ func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPreviewDatafeed - Previews a datafeed.
+// MLPreviewDatafeed - Preview a datafeed
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-preview-datafeed.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-datafeed.
 type MLPreviewDatafeed func(o ...func(*MLPreviewDatafeedRequest)) (*Response, error)
 
 // MLPreviewDatafeedRequest configures the ML Preview Datafeed API request.
@@ -54,8 +55,8 @@ type MLPreviewDatafeedRequest struct {
 
 	DatafeedID string
 
-	End   string
-	Start string
+	End   interface{}
+	Start interface{}
 
 	Pretty     bool
 	Human      bool
@@ -106,12 +107,12 @@ func (r MLPreviewDatafeedRequest) Do(providedCtx context.Context, transport Tran
 
 	params = make(map[string]string)
 
-	if r.End != "" {
-		params["end"] = r.End
+	if r.End != nil {
+		params["end"] = fmt.Sprintf("%v", r.End)
 	}
 
-	if r.Start != "" {
-		params["start"] = r.Start
+	if r.Start != nil {
+		params["start"] = fmt.Sprintf("%v", r.Start)
 	}
 
 	if r.Pretty {
@@ -214,14 +215,14 @@ func (f MLPreviewDatafeed) WithDatafeedID(v string) func(*MLPreviewDatafeedReque
 }
 
 // WithEnd - the end time when the datafeed preview should stop.
-func (f MLPreviewDatafeed) WithEnd(v string) func(*MLPreviewDatafeedRequest) {
+func (f MLPreviewDatafeed) WithEnd(v interface{}) func(*MLPreviewDatafeedRequest) {
 	return func(r *MLPreviewDatafeedRequest) {
 		r.End = v
 	}
 }
 
 // WithStart - the start time from where the datafeed preview should begin.
-func (f MLPreviewDatafeed) WithStart(v string) func(*MLPreviewDatafeedRequest) {
+func (f MLPreviewDatafeed) WithStart(v interface{}) func(*MLPreviewDatafeedRequest) {
 	return func(r *MLPreviewDatafeedRequest) {
 		r.Start = v
 	}

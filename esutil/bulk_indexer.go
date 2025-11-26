@@ -552,7 +552,7 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 
 		Pipeline:            w.bi.config.Pipeline,
 		Refresh:             w.bi.config.Refresh,
-		Routing:             w.bi.config.Routing,
+		Routing:             func() []string { if w.bi.config.Routing != "" { return []string{w.bi.config.Routing} }; return nil }(),
 		Source:              w.bi.config.Source,
 		SourceExcludes:      w.bi.config.SourceExcludes,
 		SourceIncludes:      w.bi.config.SourceIncludes,

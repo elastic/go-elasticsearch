@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newMLGetOverallBucketsFunc(t Transport) MLGetOverallBuckets {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetOverallBuckets - Retrieves overall bucket results that summarize the bucket results of multiple anomaly detection jobs.
+// MLGetOverallBuckets - Get overall bucket results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-overall-buckets.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-overall-buckets.
 type MLGetOverallBuckets func(job_id string, o ...func(*MLGetOverallBucketsRequest)) (*Response, error)
 
 // MLGetOverallBucketsRequest configures the ML Get Overall Buckets API request.
@@ -58,10 +58,10 @@ type MLGetOverallBucketsRequest struct {
 
 	AllowNoMatch   *bool
 	BucketSpan     string
-	End            string
+	End            interface{}
 	ExcludeInterim *bool
 	OverallScore   interface{}
-	Start          string
+	Start          interface{}
 	TopN           *int
 
 	Pretty     bool
@@ -121,8 +121,8 @@ func (r MLGetOverallBucketsRequest) Do(providedCtx context.Context, transport Tr
 		params["bucket_span"] = r.BucketSpan
 	}
 
-	if r.End != "" {
-		params["end"] = r.End
+	if r.End != nil {
+		params["end"] = fmt.Sprintf("%v", r.End)
 	}
 
 	if r.ExcludeInterim != nil {
@@ -133,8 +133,8 @@ func (r MLGetOverallBucketsRequest) Do(providedCtx context.Context, transport Tr
 		params["overall_score"] = fmt.Sprintf("%v", r.OverallScore)
 	}
 
-	if r.Start != "" {
-		params["start"] = r.Start
+	if r.Start != nil {
+		params["start"] = fmt.Sprintf("%v", r.Start)
 	}
 
 	if r.TopN != nil {
@@ -248,7 +248,7 @@ func (f MLGetOverallBuckets) WithBucketSpan(v string) func(*MLGetOverallBucketsR
 }
 
 // WithEnd - returns overall buckets with timestamps earlier than this time.
-func (f MLGetOverallBuckets) WithEnd(v string) func(*MLGetOverallBucketsRequest) {
+func (f MLGetOverallBuckets) WithEnd(v interface{}) func(*MLGetOverallBucketsRequest) {
 	return func(r *MLGetOverallBucketsRequest) {
 		r.End = v
 	}
@@ -269,7 +269,7 @@ func (f MLGetOverallBuckets) WithOverallScore(v interface{}) func(*MLGetOverallB
 }
 
 // WithStart - returns overall buckets with timestamps after this time.
-func (f MLGetOverallBuckets) WithStart(v string) func(*MLGetOverallBucketsRequest) {
+func (f MLGetOverallBuckets) WithStart(v interface{}) func(*MLGetOverallBucketsRequest) {
 	return func(r *MLGetOverallBucketsRequest) {
 		r.Start = v
 	}

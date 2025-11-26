@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newEnrichGetPolicyFunc(t Transport) EnrichGetPolicy {
 
 // ----- API Definition -------------------------------------------------------
 
-// EnrichGetPolicy - Gets information about an enrich policy.
+// EnrichGetPolicy - Get an enrich policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-enrich-policy-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-get-policy.
 type EnrichGetPolicy func(o ...func(*EnrichGetPolicyRequest)) (*Response, error)
 
 // EnrichGetPolicyRequest configures the Enrich Get Policy API request.

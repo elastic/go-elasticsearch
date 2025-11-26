@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesRecoveryFunc(t Transport) IndicesRecovery {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesRecovery returns information about ongoing index shard recoveries.
+// IndicesRecovery get index recovery information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-recovery.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-recovery.
 type IndicesRecovery func(o ...func(*IndicesRecoveryRequest)) (*Response, error)
 
 // IndicesRecoveryRequest configures the Indices Recovery API request.
@@ -55,7 +55,7 @@ type IndicesRecoveryRequest struct {
 	ActiveOnly        *bool
 	AllowNoIndices    *bool
 	Detailed          *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 
 	Pretty     bool
@@ -115,8 +115,8 @@ func (r IndicesRecoveryRequest) Do(providedCtx context.Context, transport Transp
 		params["detailed"] = strconv.FormatBool(*r.Detailed)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -230,7 +230,7 @@ func (f IndicesRecovery) WithDetailed(v bool) func(*IndicesRecoveryRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesRecovery) WithExpandWildcards(v string) func(*IndicesRecoveryRequest) {
+func (f IndicesRecovery) WithExpandWildcards(v ...string) func(*IndicesRecoveryRequest) {
 	return func(r *IndicesRecoveryRequest) {
 		r.ExpandWildcards = v
 	}

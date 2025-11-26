@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newTransformStartTransformFunc(t Transport) TransformStartTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformStartTransform - Starts one or more transforms.
+// TransformStartTransform - Start a transform
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-start-transform.
 type TransformStartTransform func(transform_id string, o ...func(*TransformStartTransformRequest)) (*Response, error)
 
 // TransformStartTransformRequest configures the Transform Start Transform API request.
