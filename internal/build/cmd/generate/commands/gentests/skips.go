@@ -688,4 +688,23 @@ rank_vectors/rank_vectors_synthetic_vectors.yml:
   - "include synthetic vectors"
   - "Bulk partial update with synthetic vectors"
   - "Partial update with synthetic vectors"
+
+# TDigest synthetic source failures
+analytics/t_digest_fieldtype.yml:
+  - TDigest with synthetic source
+  - TDigest with synthetic source and explicit summary fields
+  - histogram with synthetic source and ignore_malformed
+
+# Downsample number format and type assertion failures
+downsample-with-security/basic.yml:
+  - Downsample index
+
+downsample/basic.yml:
+  - Downsample a downsampled index
+
+downsample/date_histogram.yml:
+  - Date histogram aggregation on time series index and rollup indices
+
+downsample/settings.yml:
+  - Downsample datastream with tier preference
 `
