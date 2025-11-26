@@ -152,7 +152,6 @@ type BaseClient struct {
 	productCheckMu      sync.RWMutex
 	productCheckSuccess bool
 
-	closeC    chan struct{}
 	closeDone uint32
 }
 
@@ -183,7 +182,6 @@ func NewBaseClient(cfg Config) (*BaseClient, error) {
 		disableMetaHeader:   cfg.DisableMetaHeader,
 		metaHeader:          initMetaHeader(tp),
 		compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
-		closeC:              make(chan struct{}),
 	}
 
 	if cfg.DiscoverNodesOnStart {
@@ -229,7 +227,6 @@ func NewClient(cfg Config) (*Client, error) {
 			disableMetaHeader:   cfg.DisableMetaHeader,
 			metaHeader:          initMetaHeader(tp),
 			compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
-			closeC:              make(chan struct{}),
 		},
 	}
 	client.API = esapi.New(client)
@@ -263,7 +260,6 @@ func NewTypedClient(cfg Config) (*TypedClient, error) {
 			disableMetaHeader:   cfg.DisableMetaHeader,
 			metaHeader:          metaHeader,
 			compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
-			closeC:              make(chan struct{}),
 		},
 	}
 	client.MethodAPI = typedapi.NewMethodAPI(client)
@@ -465,15 +461,7 @@ func (c *BaseClient) DiscoverNodes() error {
 }
 
 func (c *BaseClient) isClosed() bool {
-	if c.closeC == nil {
-		return atomic.LoadUint32(&c.closeDone) != 0
-	}
-	select {
-	case <-c.closeC:
-		return true
-	default:
-		return false
-	}
+	return atomic.LoadUint32(&c.closeDone) != 0
 }
 
 // Close closes the client. If the underlying Transport is elastictransport.Closeable, it is closed as well.
@@ -488,10 +476,6 @@ func (c *BaseClient) Close(ctx context.Context) error {
 	}
 
 	if atomic.CompareAndSwapUint32(&c.closeDone, 0, 1) {
-		if c.closeC != nil {
-			close(c.closeC)
-		}
-
 		closeable, ok := c.Transport.(elastictransport.Closeable)
 		if ok {
 			transportClosed := make(chan error, 1)
