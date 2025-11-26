@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIngestSimulateFunc(t Transport) IngestSimulate {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestSimulate allows to simulate a pipeline with example documents.
+// IngestSimulate simulate a pipeline
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-pipeline-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-simulate.
 type IngestSimulate func(body io.Reader, o ...func(*IngestSimulateRequest)) (*Response, error)
 
 // IngestSimulateRequest configures the Ingest Simulate API request.

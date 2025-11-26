@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesReloadSearchAnalyzersFunc(t Transport) IndicesReloadSearchAnalyze
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesReloadSearchAnalyzers - Reloads an index's search analyzers and their resources.
+// IndicesReloadSearchAnalyzers - Reload search analyzers
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-reload-analyzers.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-reload-search-analyzers.
 type IndicesReloadSearchAnalyzers func(index []string, o ...func(*IndicesReloadSearchAnalyzersRequest)) (*Response, error)
 
 // IndicesReloadSearchAnalyzersRequest configures the Indices Reload Search Analyzers API request.
@@ -54,7 +54,7 @@ type IndicesReloadSearchAnalyzersRequest struct {
 	Index []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 	Resource          string
 
@@ -109,8 +109,8 @@ func (r IndicesReloadSearchAnalyzersRequest) Do(providedCtx context.Context, tra
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -207,7 +207,7 @@ func (f IndicesReloadSearchAnalyzers) WithAllowNoIndices(v bool) func(*IndicesRe
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesReloadSearchAnalyzers) WithExpandWildcards(v string) func(*IndicesReloadSearchAnalyzersRequest) {
+func (f IndicesReloadSearchAnalyzers) WithExpandWildcards(v ...string) func(*IndicesReloadSearchAnalyzersRequest) {
 	return func(r *IndicesReloadSearchAnalyzersRequest) {
 		r.ExpandWildcards = v
 	}

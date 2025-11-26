@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLInferTrainedModelFunc(t Transport) MLInferTrainedModel {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLInferTrainedModel - Evaluate a trained model.
+// MLInferTrainedModel - Evaluate a trained model
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/infer-trained-model.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-infer-trained-model.
 type MLInferTrainedModel func(body io.Reader, model_id string, o ...func(*MLInferTrainedModelRequest)) (*Response, error)
 
 // MLInferTrainedModelRequest configures the ML Infer Trained Model API request.

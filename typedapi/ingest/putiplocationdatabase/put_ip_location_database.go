@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Create or update an IP geolocation database configuration.
 package putiplocationdatabase
@@ -380,23 +380,6 @@ func (r *PutIpLocationDatabase) Human(human bool) *PutIpLocationDatabase {
 func (r *PutIpLocationDatabase) Pretty(pretty bool) *PutIpLocationDatabase {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
 
-	return r
-}
-
-// API name: AdditionalDatabaseConfigurationProperty
-// AdditionalDatabaseConfigurationProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (r *PutIpLocationDatabase) AdditionalDatabaseConfigurationProperty(key string, value json.RawMessage) *PutIpLocationDatabase {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	r.req.AdditionalDatabaseConfigurationProperty = tmp
 	return r
 }
 

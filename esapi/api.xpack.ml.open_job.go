@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLOpenJobFunc(t Transport) MLOpenJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLOpenJob - Opens one or more anomaly detection jobs.
+// MLOpenJob - Open anomaly detection jobs
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-open-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-open-job.
 type MLOpenJob func(job_id string, o ...func(*MLOpenJobRequest)) (*Response, error)
 
 // MLOpenJobRequest configures the ML Open Job API request.

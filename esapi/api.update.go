@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newUpdateFunc(t Transport) Update {
 
 // ----- API Definition -------------------------------------------------------
 
-// Update updates a document with a script or partial document.
+// Update update a document
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update.
 type Update func(index string, id string, body io.Reader, o ...func(*UpdateRequest)) (*Response, error)
 
 // UpdateRequest configures the Update API request.
@@ -64,7 +64,7 @@ type UpdateRequest struct {
 	Refresh              string
 	RequireAlias         *bool
 	RetryOnConflict      *int
-	Routing              string
+	Routing              []string
 	Source               []string
 	SourceExcludes       []string
 	SourceIncludes       []string
@@ -147,8 +147,8 @@ func (r UpdateRequest) Do(providedCtx context.Context, transport Transport) (*Re
 		params["retry_on_conflict"] = strconv.FormatInt(int64(*r.RetryOnConflict), 10)
 	}
 
-	if r.Routing != "" {
-		params["routing"] = r.Routing
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if len(r.Source) > 0 {
@@ -306,7 +306,7 @@ func (f Update) WithRetryOnConflict(v int) func(*UpdateRequest) {
 }
 
 // WithRouting - specific routing value.
-func (f Update) WithRouting(v string) func(*UpdateRequest) {
+func (f Update) WithRouting(v ...string) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.Routing = v
 	}

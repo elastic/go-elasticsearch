@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newEsqlQueryFunc(t Transport) EsqlQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlQuery - Executes an ESQL request
+// EsqlQuery - Run an ES|QL query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html.
+// See full documentation at https://www.elastic.co/docs/explore-analyze/query-filter/languages/esql-rest.
 type EsqlQuery func(body io.Reader, o ...func(*EsqlQueryRequest)) (*Response, error)
 
 // EsqlQueryRequest configures the Esql Query API request.
@@ -217,7 +217,7 @@ func (f EsqlQuery) WithDropNullColumns(v bool) func(*EsqlQueryRequest) {
 	}
 }
 
-// WithFormat - a short version of the accept header, e.g. json, yaml.
+// WithFormat - a short version of the accept header, e.g. json, yaml.`csv`, `tsv`, and `txt` formats will return results in a tabular format, excluding other metadata fields from the response..
 func (f EsqlQuery) WithFormat(v string) func(*EsqlQueryRequest) {
 	return func(r *EsqlQueryRequest) {
 		r.Format = v

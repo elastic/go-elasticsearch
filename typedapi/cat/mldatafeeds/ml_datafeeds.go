@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Get datafeeds.
 //
@@ -44,6 +44,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/bytes"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catdatafeedcolumn"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
 )
@@ -373,10 +374,18 @@ func (r *MlDatafeeds) S(catdatafeedcolumns ...catdatafeedcolumn.CatDatafeedColum
 	return r
 }
 
-// Time The unit used to display time values.
-// API name: time
-func (r *MlDatafeeds) Time(time timeunit.TimeUnit) *MlDatafeeds {
-	r.values.Set("time", time.String())
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *MlDatafeeds) Bytes(bytes bytes.Bytes) *MlDatafeeds {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
@@ -395,6 +404,19 @@ func (r *MlDatafeeds) Format(format string) *MlDatafeeds {
 // API name: help
 func (r *MlDatafeeds) Help(help bool) *MlDatafeeds {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *MlDatafeeds) Time(time timeunit.TimeUnit) *MlDatafeeds {
+	r.values.Set("time", time.String())
 
 	return r
 }

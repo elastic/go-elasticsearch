@@ -16,15 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package upgradetransforms
 
 // Response holds the response body struct for the package upgradetransforms
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/transform/upgrade_transforms/UpgradeTransformsResponse.ts#L25-L34
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/transform/upgrade_transforms/UpgradeTransformsResponse.ts#L25-L34
 type Response struct {
-
 	// NeedsUpdate The number of transforms that need to be upgraded.
 	NeedsUpdate int `json:"needs_update"`
 	// NoAction The number of transforms that don’t require upgrading.

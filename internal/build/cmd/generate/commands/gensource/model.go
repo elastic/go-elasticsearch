@@ -142,7 +142,7 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 		var parts []string
 		for partName, part := range path.Parts {
 			// Skip type only for selected APIs at this point
-			if part.Name == "type" && part.Deprecated {
+			if part.Name == "type" && part.Deprecated.Version != "" {
 				if endpoint.Name == "bulk" ||
 					endpoint.Name == "create" ||
 					endpoint.Name == "delete" ||
@@ -275,7 +275,7 @@ type Path struct {
 	Deprecated struct {
 		Version     string `json:"version"`
 		Description string `json:"description"`
-	}
+	} `json:"deprecated"`
 }
 
 // Part represents part of the API endpoint URL.
@@ -289,7 +289,10 @@ type Part struct {
 	Description string `json:"description"`
 	Required    bool   `json:"required"`
 
-	Deprecated bool `json:"deprecated"`
+	Deprecated struct {
+		Version     string `json:"version"`
+		Description string `json:"description"`
+	} `json:"deprecated"`
 }
 
 // Param represents API endpoint parameter.

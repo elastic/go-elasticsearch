@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newLogstashDeletePipelineFunc(t Transport) LogstashDeletePipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// LogstashDeletePipeline - Deletes Logstash Pipelines used by Central Management
+// LogstashDeletePipeline - Delete a Logstash pipeline
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-delete-pipeline.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-delete-pipeline.
 type LogstashDeletePipeline func(id string, o ...func(*LogstashDeletePipelineRequest)) (*Response, error)
 
 // LogstashDeletePipelineRequest configures the Logstash Delete Pipeline API request.

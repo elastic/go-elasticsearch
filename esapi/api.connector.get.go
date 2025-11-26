@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newConnectorGetFunc(t Transport) ConnectorGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorGet returns the details about a connector.
+// ConnectorGet get a connector
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-get.
 type ConnectorGet func(connector_id string, o ...func(*ConnectorGetRequest)) (*Response, error)
 
 // ConnectorGetRequest configures the Connector Get API request.

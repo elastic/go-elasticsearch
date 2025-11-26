@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newSnapshotRestoreFunc(t Transport) SnapshotRestore {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotRestore restores a snapshot.
+// SnapshotRestore restore a snapshot
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-restore.
 type SnapshotRestore func(repository string, snapshot string, o ...func(*SnapshotRestoreRequest)) (*Response, error)
 
 // SnapshotRestoreRequest configures the Snapshot Restore API request.

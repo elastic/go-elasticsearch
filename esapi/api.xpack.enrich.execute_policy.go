@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newEnrichExecutePolicyFunc(t Transport) EnrichExecutePolicy {
 
 // ----- API Definition -------------------------------------------------------
 
-// EnrichExecutePolicy - Creates the enrich index for an existing enrich policy.
+// EnrichExecutePolicy - Run an enrich policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/execute-enrich-policy-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-execute-policy.
 type EnrichExecutePolicy func(name string, o ...func(*EnrichExecutePolicyRequest)) (*Response, error)
 
 // EnrichExecutePolicyRequest configures the Enrich Execute Policy API request.

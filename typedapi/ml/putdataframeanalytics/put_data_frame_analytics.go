@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Create a data frame analytics job.
+//
 // This API creates a data frame analytics job that performs an analysis on the
 // source indices and stores the outcome in a destination index.
 // By default, the query used in the source configuration is `{"match_all":
@@ -93,6 +94,7 @@ func NewPutDataFrameAnalyticsFunc(tp elastictransport.Interface) NewPutDataFrame
 }
 
 // Create a data frame analytics job.
+//
 // This API creates a data frame analytics job that performs an analysis on the
 // source indices and stores the outcome in a destination index.
 // By default, the query used in the source configuration is `{"match_all":

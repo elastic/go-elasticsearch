@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Package catrecoverycolumn
 package catrecoverycolumn
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cat/_types/CatBase.ts#L1014-L1145
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/cat/_types/CatBase.ts#L2273-L2405
 type CatRecoveryColumn struct {
 	Name string
 }
@@ -32,6 +32,14 @@ var (
 	Index = CatRecoveryColumn{"index"}
 
 	Shard = CatRecoveryColumn{"shard"}
+
+	Starttime = CatRecoveryColumn{"start_time"}
+
+	Starttimemillis = CatRecoveryColumn{"start_time_millis"}
+
+	Stoptime = CatRecoveryColumn{"stop_time"}
+
+	Stoptimemillis = CatRecoveryColumn{"stop_time_millis"}
 
 	Time = CatRecoveryColumn{"time"}
 
@@ -72,14 +80,6 @@ var (
 	Translogopsrecovered = CatRecoveryColumn{"translog_ops_recovered"}
 
 	Translogopspercent = CatRecoveryColumn{"translog_ops_percent"}
-
-	Starttime = CatRecoveryColumn{"start_time"}
-
-	Starttimemillis = CatRecoveryColumn{"start_time_millis"}
-
-	Stoptime = CatRecoveryColumn{"stop_time"}
-
-	Stoptimemillis = CatRecoveryColumn{"stop_time_millis"}
 )
 
 func (c CatRecoveryColumn) MarshalText() (text []byte, err error) {
@@ -93,6 +93,14 @@ func (c *CatRecoveryColumn) UnmarshalText(text []byte) error {
 		*c = Index
 	case "shard":
 		*c = Shard
+	case "start_time":
+		*c = Starttime
+	case "start_time_millis":
+		*c = Starttimemillis
+	case "stop_time":
+		*c = Stoptime
+	case "stop_time_millis":
+		*c = Stoptimemillis
 	case "time":
 		*c = Time
 	case "type":
@@ -133,14 +141,6 @@ func (c *CatRecoveryColumn) UnmarshalText(text []byte) error {
 		*c = Translogopsrecovered
 	case "translog_ops_percent":
 		*c = Translogopspercent
-	case "start_time":
-		*c = Starttime
-	case "start_time_millis":
-		*c = Starttimemillis
-	case "stop_time":
-		*c = Stoptime
-	case "stop_time_millis":
-		*c = Stoptimemillis
 	default:
 		*c = CatRecoveryColumn{string(text)}
 	}

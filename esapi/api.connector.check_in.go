@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,11 @@ func newConnectorCheckInFunc(t Transport) ConnectorCheckIn {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorCheckIn updates the last_seen timestamp in the connector document.
+// ConnectorCheckIn check in a connector
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-check-in.
 type ConnectorCheckIn func(connector_id string, o ...func(*ConnectorCheckInRequest)) (*Response, error)
 
 // ConnectorCheckInRequest configures the Connector Check In API request.

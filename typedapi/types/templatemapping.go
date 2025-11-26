@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TemplateMapping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/_types/TemplateMapping.ts#L27-L34
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/indices/_types/TemplateMapping.ts#L27-L34
 type TemplateMapping struct {
 	Aliases       map[string]Alias           `json:"aliases"`
 	IndexPatterns []string                   `json:"index_patterns"`

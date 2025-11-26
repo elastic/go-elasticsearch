@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Get cluster statistics.
+//
 // Get basic index metrics (shard numbers, store size, memory usage) and
 // information about the current nodes that form the cluster (number, roles, os,
 // jvm versions, memory usage, cpu and installed plugins).
@@ -78,6 +79,7 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 }
 
 // Get cluster statistics.
+//
 // Get basic index metrics (shard numbers, store size, memory usage) and
 // information about the current nodes that form the cluster (number, roles, os,
 // jvm versions, memory usage, cpu and installed plugins).

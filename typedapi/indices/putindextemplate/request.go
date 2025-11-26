@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package putindextemplate
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package putindextemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L37-L157
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L37-L160
 type Request struct {
-
 	// AllowAutoCreate This setting overrides the value of the `action.auto_create_index` cluster
 	// setting.
 	// If set to `true` in a template, then indices can be automatically created

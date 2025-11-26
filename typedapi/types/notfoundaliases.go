@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NotFoundAliases type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/get_alias/_types/response.ts#L28-L36
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/indices/get_alias/_types/response.ts#L29-L37
 type NotFoundAliases struct {
 	Error           string                  `json:"error"`
 	NotFoundAliases map[string]IndexAliases `json:"-"`
@@ -66,8 +66,19 @@ func (s *NotFoundAliases) UnmarshalJSON(data []byte) error {
 			s.Error = o
 
 		case "status":
-			if err := dec.Decode(&s.Status); err != nil {
-				return fmt.Errorf("%s | %w", "Status", err)
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Status", err)
+				}
+				s.Status = value
+			case float64:
+				f := int(v)
+				s.Status = f
 			}
 
 		default:

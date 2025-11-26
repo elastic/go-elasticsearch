@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Get the features.
+//
 // Get a list of features that can be included in snapshots using the
 // `feature_states` field when creating a snapshot.
 // You can use this API to determine which feature states to include when taking
@@ -86,6 +87,7 @@ func NewGetFeaturesFunc(tp elastictransport.Interface) NewGetFeatures {
 }
 
 // Get the features.
+//
 // Get a list of features that can be included in snapshots using the
 // `feature_states` field when creating a snapshot.
 // You can use this API to determine which feature states to include when taking

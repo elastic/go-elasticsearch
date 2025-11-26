@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Get a document count.
 //
@@ -44,6 +44,9 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catcountcolumn"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
 )
 
 const (
@@ -328,10 +331,33 @@ func (r *Count) Index(index string) *Count {
 	return r
 }
 
-// H List of columns to appear in the response. Supports simple wildcards.
+// H A comma-separated list of columns names to display. It supports simple
+// wildcards.
 // API name: h
-func (r *Count) H(names ...string) *Count {
-	r.values.Set("h", strings.Join(names, ","))
+func (r *Count) H(catcountcolumns ...catcountcolumn.CatCountColumn) *Count {
+	tmp := []string{}
+	for _, item := range catcountcolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+
+	return r
+}
+
+// ProjectRouting Specifies a subset of projects to target for the search using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *Count) ProjectRouting(projectrouting string) *Count {
+	r.values.Set("project_routing", projectrouting)
 
 	return r
 }
@@ -342,6 +368,22 @@ func (r *Count) H(names ...string) *Count {
 // API name: s
 func (r *Count) S(names ...string) *Count {
 	r.values.Set("s", strings.Join(names, ","))
+
+	return r
+}
+
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *Count) Bytes(bytes bytes.Bytes) *Count {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
@@ -360,6 +402,19 @@ func (r *Count) Format(format string) *Count {
 // API name: help
 func (r *Count) Help(help bool) *Count {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *Count) Time(time timeunit.TimeUnit) *Count {
+	r.values.Set("time", time.String())
 
 	return r
 }

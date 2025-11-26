@@ -16,15 +16,41 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
-package types
+package esdsl
 
-import (
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catanomalydetectorcolumn"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
-// CatAnonalyDetectorColumns type alias.
-//
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cat/_types/CatBase.ts#L402-L404
-type CatAnonalyDetectorColumns []catanomalydetectorcolumn.CatAnomalyDetectorColumn
+type _scriptRescore struct {
+	v *types.ScriptRescore
+}
+
+func NewScriptRescore(script types.ScriptVariant) *_scriptRescore {
+
+	tmp := &_scriptRescore{v: types.NewScriptRescore()}
+
+	tmp.Script(script)
+
+	return tmp
+
+}
+
+func (s *_scriptRescore) Script(script types.ScriptVariant) *_scriptRescore {
+
+	s.v.Script = *script.ScriptCaster()
+
+	return s
+}
+
+func (s *_scriptRescore) RescoreCaster() *types.Rescore {
+	container := types.NewRescore()
+
+	container.Script = s.v
+
+	return container
+}
+
+func (s *_scriptRescore) ScriptRescoreCaster() *types.ScriptRescore {
+	return s.v
+}

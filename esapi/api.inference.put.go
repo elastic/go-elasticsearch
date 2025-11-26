@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutFunc(t Transport) InferencePut {
-	return func(inference_id string, o ...func(*InferencePutRequest)) (*Response, error) {
-		var r = InferencePutRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferencePutRequest)) (*Response, error) {
+		var r = InferencePutRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutFunc(t Transport) InferencePut {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePut configure an inference endpoint for use in the Inference API
+// InferencePut create an inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html.
-type InferencePut func(inference_id string, o ...func(*InferencePutRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put.
+type InferencePut func(body io.Reader, inference_id string, o ...func(*InferencePutRequest)) (*Response, error)
 
 // InferencePutRequest configures the Inference Put API request.
 type InferencePutRequest struct {
@@ -54,6 +55,8 @@ type InferencePutRequest struct {
 
 	InferenceID string
 	TaskType    string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -104,6 +107,10 @@ func (r InferencePutRequest) Do(providedCtx context.Context, transport Transport
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -190,17 +197,17 @@ func (f InferencePut) WithContext(v context.Context) func(*InferencePutRequest) 
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePut) WithBody(v io.Reader) func(*InferencePutRequest) {
-	return func(r *InferencePutRequest) {
-		r.Body = v
-	}
-}
-
 // WithTaskType - the task type.
 func (f InferencePut) WithTaskType(v string) func(*InferencePutRequest) {
 	return func(r *InferencePutRequest) {
 		r.TaskType = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePut) WithTimeout(v time.Duration) func(*InferencePutRequest) {
+	return func(r *InferencePutRequest) {
+		r.Timeout = v
 	}
 }
 

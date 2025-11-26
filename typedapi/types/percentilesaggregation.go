@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PercentilesAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/aggregations/metric.ts#L216-L235
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/_types/aggregations/metric.ts#L220-L239
 type PercentilesAggregation struct {
 	// Field The field on which to run the aggregation.
 	Field  *string `json:"field,omitempty"`
@@ -111,8 +111,19 @@ func (s *PercentilesAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "percents":
-			if err := dec.Decode(&s.Percents); err != nil {
-				return fmt.Errorf("%s | %w", "Percents", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(Float64)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Percents", err)
+				}
+
+				s.Percents = append(s.Percents, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Percents); err != nil {
+					return fmt.Errorf("%s | %w", "Percents", err)
+				}
 			}
 
 		case "script":

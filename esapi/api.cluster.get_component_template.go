@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,14 +44,14 @@ func newClusterGetComponentTemplateFunc(t Transport) ClusterGetComponentTemplate
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterGetComponentTemplate returns one or more component templates
+// ClusterGetComponentTemplate get component templates
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template.
 type ClusterGetComponentTemplate func(o ...func(*ClusterGetComponentTemplateRequest)) (*Response, error)
 
 // ClusterGetComponentTemplateRequest configures the Cluster Get Component Template API request.
 type ClusterGetComponentTemplateRequest struct {
-	Name []string
+	Name string
 
 	FlatSettings    *bool
 	IncludeDefaults *bool
@@ -90,15 +90,15 @@ func (r ClusterGetComponentTemplateRequest) Do(providedCtx context.Context, tran
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_component_template") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(7 + 1 + len("_component_template") + 1 + len(r.Name))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_component_template")
-	if len(r.Name) > 0 {
+	if r.Name != "" {
 		path.WriteString("/")
-		path.WriteString(strings.Join(r.Name, ","))
+		path.WriteString(r.Name)
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
+			instrument.RecordPathPart(ctx, "name", r.Name)
 		}
 	}
 
@@ -202,8 +202,8 @@ func (f ClusterGetComponentTemplate) WithContext(v context.Context) func(*Cluste
 	}
 }
 
-// WithName - the comma separated names of the component templates.
-func (f ClusterGetComponentTemplate) WithName(v ...string) func(*ClusterGetComponentTemplateRequest) {
+// WithName - the name of the component template. wildcard (`*`) expressions are supported..
+func (f ClusterGetComponentTemplate) WithName(v string) func(*ClusterGetComponentTemplateRequest) {
 	return func(r *ClusterGetComponentTemplateRequest) {
 		r.Name = v
 	}

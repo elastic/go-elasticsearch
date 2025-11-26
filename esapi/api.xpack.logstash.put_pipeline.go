@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newLogstashPutPipelineFunc(t Transport) LogstashPutPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// LogstashPutPipeline - Adds and updates Logstash Pipelines used for Central Management
+// LogstashPutPipeline - Create or update a Logstash pipeline
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-put-pipeline.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-put-pipeline.
 type LogstashPutPipeline func(id string, body io.Reader, o ...func(*LogstashPutPipelineRequest)) (*Response, error)
 
 // LogstashPutPipelineRequest configures the Logstash Put Pipeline API request.

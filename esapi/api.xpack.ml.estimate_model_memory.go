@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLEstimateModelMemoryFunc(t Transport) MLEstimateModelMemory {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLEstimateModelMemory - Estimates the model memory
+// MLEstimateModelMemory - Estimate job model memory usage
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-apis.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-estimate-model-memory.
 type MLEstimateModelMemory func(body io.Reader, o ...func(*MLEstimateModelMemoryRequest)) (*Response, error)
 
 // MLEstimateModelMemoryRequest configures the ML Estimate Model Memory API request.

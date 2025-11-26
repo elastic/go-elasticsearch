@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
@@ -71,11 +71,9 @@ func (s *_percentilesAggregation) Missing(missing types.MissingVariant) *_percen
 
 func (s *_percentilesAggregation) Percents(percents ...types.Float64) *_percentilesAggregation {
 
-	for _, v := range percents {
+	s.v.Percents = make([]types.Float64, len(percents))
+	s.v.Percents = percents
 
-		s.v.Percents = append(s.v.Percents, v)
-
-	}
 	return s
 }
 

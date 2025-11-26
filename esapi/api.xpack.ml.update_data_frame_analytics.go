@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLUpdateDataFrameAnalyticsFunc(t Transport) MLUpdateDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpdateDataFrameAnalytics - Updates certain properties of a data frame analytics job.
+// MLUpdateDataFrameAnalytics - Update a data frame analytics job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/update-dfanalytics.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-data-frame-analytics.
 type MLUpdateDataFrameAnalytics func(id string, body io.Reader, o ...func(*MLUpdateDataFrameAnalyticsRequest)) (*Response, error)
 
 // MLUpdateDataFrameAnalyticsRequest configures the ML Update Data Frame Analytics API request.

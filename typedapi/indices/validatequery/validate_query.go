@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Validate a query.
+//
 // Validates a query without running it.
 package validatequery
 
@@ -83,6 +84,7 @@ func NewValidateQueryFunc(tp elastictransport.Interface) NewValidateQuery {
 }
 
 // Validate a query.
+//
 // Validates a query without running it.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-validate-query
@@ -362,7 +364,7 @@ func (r *ValidateQuery) AnalyzeWildcard(analyzewildcard bool) *ValidateQuery {
 	return r
 }
 
-// DefaultOperator The default operator for query string query: `AND` or `OR`.
+// DefaultOperator The default operator for query string query: `and` or `or`.
 // API name: default_operator
 func (r *ValidateQuery) DefaultOperator(defaultoperator operator.Operator) *ValidateQuery {
 	r.values.Set("default_operator", defaultoperator.String())

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Start the watch service.
+//
 // Start the Watcher service if it is not already running.
 package start
 
@@ -70,6 +71,7 @@ func NewStartFunc(tp elastictransport.Interface) NewStart {
 }
 
 // Start the watch service.
+//
 // Start the Watcher service if it is not already running.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-start

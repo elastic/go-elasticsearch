@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
@@ -29,13 +29,11 @@ type _geoLineAggregation struct {
 	v *types.GeoLineAggregation
 }
 
-func NewGeoLineAggregation(point types.GeoLinePointVariant, sort types.GeoLineSortVariant) *_geoLineAggregation {
+func NewGeoLineAggregation(point types.GeoLinePointVariant) *_geoLineAggregation {
 
 	tmp := &_geoLineAggregation{v: types.NewGeoLineAggregation()}
 
 	tmp.Point(point)
-
-	tmp.Sort(sort)
 
 	return tmp
 
@@ -64,7 +62,7 @@ func (s *_geoLineAggregation) Size(size int) *_geoLineAggregation {
 
 func (s *_geoLineAggregation) Sort(sort types.GeoLineSortVariant) *_geoLineAggregation {
 
-	s.v.Sort = *sort.GeoLineSortCaster()
+	s.v.Sort = sort.GeoLineSortCaster()
 
 	return s
 }

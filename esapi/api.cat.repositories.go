@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,19 +44,21 @@ func newCatRepositoriesFunc(t Transport) CatRepositories {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatRepositories returns information about snapshot repositories registered in the cluster.
+// CatRepositories get snapshot repository information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-repositories.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-repositories.
 type CatRepositories func(o ...func(*CatRepositoriesRequest)) (*Response, error)
 
 // CatRepositoriesRequest configures the Cat Repositories API request.
 type CatRepositoriesRequest struct {
+	Bytes         string
 	Format        string
 	H             []string
 	Help          *bool
 	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
+	Time          string
 	V             *bool
 
 	Pretty     bool
@@ -96,6 +98,10 @@ func (r CatRepositoriesRequest) Do(providedCtx context.Context, transport Transp
 
 	params = make(map[string]string)
 
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
+
 	if r.Format != "" {
 		params["format"] = r.Format
 	}
@@ -118,6 +124,10 @@ func (r CatRepositoriesRequest) Do(providedCtx context.Context, transport Transp
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -202,6 +212,13 @@ func (f CatRepositories) WithContext(v context.Context) func(*CatRepositoriesReq
 	}
 }
 
+// WithBytes - the unit in which to display byte values.
+func (f CatRepositories) WithBytes(v string) func(*CatRepositoriesRequest) {
+	return func(r *CatRepositoriesRequest) {
+		r.Bytes = v
+	}
+}
+
 // WithFormat - a short version of the accept header, e.g. json, yaml.
 func (f CatRepositories) WithFormat(v string) func(*CatRepositoriesRequest) {
 	return func(r *CatRepositoriesRequest) {
@@ -241,6 +258,13 @@ func (f CatRepositories) WithMasterTimeout(v time.Duration) func(*CatRepositorie
 func (f CatRepositories) WithS(v ...string) func(*CatRepositoriesRequest) {
 	return func(r *CatRepositoriesRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+func (f CatRepositories) WithTime(v string) func(*CatRepositoriesRequest) {
+	return func(r *CatRepositoriesRequest) {
+		r.Time = v
 	}
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package updateuserprofiledata
 
@@ -27,9 +27,8 @@ import (
 
 // Request holds the request body struct for the package updateuserprofiledata
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/update_user_profile_data/Request.ts#L27-L98
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/security/update_user_profile_data/Request.ts#L27-L98
 type Request struct {
-
 	// Data Non-searchable data that you want to associate with the user profile.
 	// This field supports a nested data structure.
 	// Within the `data` object, top-level keys cannot begin with an underscore

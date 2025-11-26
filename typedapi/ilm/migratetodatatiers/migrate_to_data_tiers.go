@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Migrate to data tiers routing.
+//
 // Switch the indices, ILM policies, and legacy, composable, and component
 // templates from using custom node attributes and attribute-based allocation
 // filters to using data tiers.
@@ -93,6 +94,7 @@ func NewMigrateToDataTiersFunc(tp elastictransport.Interface) NewMigrateToDataTi
 }
 
 // Migrate to data tiers routing.
+//
 // Switch the indices, ILM policies, and legacy, composable, and component
 // templates from using custom node attributes and attribute-based allocation
 // filters to using data tiers.

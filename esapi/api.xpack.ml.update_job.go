@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLUpdateJobFunc(t Transport) MLUpdateJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpdateJob - Updates certain properties of an anomaly detection job.
+// MLUpdateJob - Update an anomaly detection job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-job.
 type MLUpdateJob func(job_id string, body io.Reader, o ...func(*MLUpdateJobRequest)) (*Response, error)
 
 // MLUpdateJobRequest configures the ML Update Job API request.

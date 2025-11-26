@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -43,9 +44,9 @@ func newMLPostDataFunc(t Transport) MLPostData {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPostData - Sends data to an anomaly detection job for analysis.
+// MLPostData - Send data to an anomaly detection job for analysis
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-post-data.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-data.
 type MLPostData func(job_id string, body io.Reader, o ...func(*MLPostDataRequest)) (*Response, error)
 
 // MLPostDataRequest configures the ML Post Data API request.
@@ -54,8 +55,8 @@ type MLPostDataRequest struct {
 
 	JobID string
 
-	ResetEnd   string
-	ResetStart string
+	ResetEnd   interface{}
+	ResetStart interface{}
 
 	Pretty     bool
 	Human      bool
@@ -104,12 +105,12 @@ func (r MLPostDataRequest) Do(providedCtx context.Context, transport Transport) 
 
 	params = make(map[string]string)
 
-	if r.ResetEnd != "" {
-		params["reset_end"] = r.ResetEnd
+	if r.ResetEnd != nil {
+		params["reset_end"] = fmt.Sprintf("%v", r.ResetEnd)
 	}
 
-	if r.ResetStart != "" {
-		params["reset_start"] = r.ResetStart
+	if r.ResetStart != nil {
+		params["reset_start"] = fmt.Sprintf("%v", r.ResetStart)
 	}
 
 	if r.Pretty {
@@ -198,14 +199,14 @@ func (f MLPostData) WithContext(v context.Context) func(*MLPostDataRequest) {
 }
 
 // WithResetEnd - optional parameter to specify the end of the bucket resetting range.
-func (f MLPostData) WithResetEnd(v string) func(*MLPostDataRequest) {
+func (f MLPostData) WithResetEnd(v interface{}) func(*MLPostDataRequest) {
 	return func(r *MLPostDataRequest) {
 		r.ResetEnd = v
 	}
 }
 
 // WithResetStart - optional parameter to specify the start of the bucket resetting range.
-func (f MLPostData) WithResetStart(v string) func(*MLPostDataRequest) {
+func (f MLPostData) WithResetStart(v interface{}) func(*MLPostDataRequest) {
 	return func(r *MLPostDataRequest) {
 		r.ResetStart = v
 	}

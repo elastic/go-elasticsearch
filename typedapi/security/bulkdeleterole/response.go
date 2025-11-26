@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package bulkdeleterole
 
@@ -26,9 +26,8 @@ import (
 
 // Response holds the response body struct for the package bulkdeleterole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/bulk_delete_role/SecurityBulkDeleteRoleResponse.ts#L22-L37
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/security/bulk_delete_role/SecurityBulkDeleteRoleResponse.ts#L22-L37
 type Response struct {
-
 	// Deleted Array of deleted roles
 	Deleted []string `json:"deleted,omitempty"`
 	// Errors Present if any deletes resulted in errors

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package updatejob
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package updatejob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L147
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L148
 type Request struct {
-
 	// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when
 	// there is insufficient machine learning node capacity for it to be
 	// immediately assigned to a node. If `false` and a machine learning node

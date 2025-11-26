@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package query
 
@@ -29,9 +29,8 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/esql/query/QueryRequest.ts#L27-L115
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/esql/query/QueryRequest.ts#L27-L125
 type Request struct {
-
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
 	// individual document as one row. For the JSON, YAML, CBOR and smile formats,
 	// ES|QL can return the results in a columnar fashion where one row represents
@@ -40,13 +39,20 @@ type Request struct {
 	// Filter Specify a Query DSL query in the filter parameter to filter the set of
 	// documents that an ES|QL query runs on.
 	Filter *types.Query `json:"filter,omitempty"`
-	// IncludeCcsMetadata When set to `true` and performing a cross-cluster query, the response will
-	// include an extra `_clusters`
+	// IncludeCcsMetadata When set to `true` and performing a cross-cluster/cross-project query, the
+	// response will include an extra `_clusters`
 	// object with information about the clusters that participated in the search
 	// along with info such as shards
 	// count.
-	IncludeCcsMetadata *bool   `json:"include_ccs_metadata,omitempty"`
-	Locale             *string `json:"locale,omitempty"`
+	IncludeCcsMetadata *bool `json:"include_ccs_metadata,omitempty"`
+	// IncludeExecutionMetadata When set to `true`, the response will include an extra `_clusters`
+	// object with information about the clusters that participated in the search
+	// along with info such as shards
+	// count.
+	// This is similar to `include_ccs_metadata`, but it also returns metadata when
+	// the query is not CCS/CPS
+	IncludeExecutionMetadata *bool   `json:"include_execution_metadata,omitempty"`
+	Locale                   *string `json:"locale,omitempty"`
 	// Params To avoid any attempts of hacking or code injection, extract the values in a
 	// separate list of parameters. Use question mark placeholders (?) in the query
 	// string for each of the parameters.

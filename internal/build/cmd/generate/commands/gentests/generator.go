@@ -435,7 +435,7 @@ func (g *Generator) genCommonSetup() {
 		}
 
 		{
-			res, _ = es.Indices.DeleteIndexTemplate("*")
+			res, _ = es.Indices.DeleteIndexTemplate([]string{"*"})
 			if res != nil && res.Body != nil { defer res.Body.Close() }
 		}
 
@@ -650,7 +650,7 @@ func (g *Generator) genXPackSetup() {
 						if v.Read.Metadata.Reserved {
 							continue
 						}
-						es.Security.DeletePrivileges(k, "_all")
+						es.Security.DeletePrivileges([]string{"_all"}, k)
 					}
 				}
 			}

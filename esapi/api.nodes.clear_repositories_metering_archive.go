@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,11 +44,11 @@ func newNodesClearRepositoriesMeteringArchiveFunc(t Transport) NodesClearReposit
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesClearRepositoriesMeteringArchive removes the archived repositories metering information present in the cluster.
+// NodesClearRepositoriesMeteringArchive clear the archived repositories metering
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-repositories-metering-archive-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-clear-repositories-metering-archive.
 type NodesClearRepositoriesMeteringArchive func(max_archive_version *int, node_id []string, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error)
 
 // NodesClearRepositoriesMeteringArchiveRequest configures the Nodes Clear Repositories Metering Archive API request.

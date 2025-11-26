@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newEqlGetStatusFunc(t Transport) EqlGetStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// EqlGetStatus - Returns the status of a previously submitted async or stored Event Query Language (EQL) search
+// EqlGetStatus - Get the async EQL status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get-status.
 type EqlGetStatus func(id string, o ...func(*EqlGetStatusRequest)) (*Response, error)
 
 // EqlGetStatusRequest configures the Eql Get Status API request.

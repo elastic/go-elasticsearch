@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -31,13 +31,14 @@ import (
 
 // ShardFailure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/Errors.ts#L52-L58
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/_types/Errors.ts#L52-L62
 type ShardFailure struct {
-	Index  *string    `json:"index,omitempty"`
-	Node   *string    `json:"node,omitempty"`
-	Reason ErrorCause `json:"reason"`
-	Shard  int        `json:"shard"`
-	Status *string    `json:"status,omitempty"`
+	Index   *string    `json:"index,omitempty"`
+	Node    *string    `json:"node,omitempty"`
+	Primary *bool      `json:"primary,omitempty"`
+	Reason  ErrorCause `json:"reason"`
+	Shard   *int       `json:"shard,omitempty"`
+	Status  *string    `json:"status,omitempty"`
 }
 
 func (s *ShardFailure) UnmarshalJSON(data []byte) error {
@@ -55,12 +56,12 @@ func (s *ShardFailure) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "index":
+		case "index", "_index":
 			if err := dec.Decode(&s.Index); err != nil {
 				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
-		case "node":
+		case "node", "_node":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
 				return fmt.Errorf("%s | %w", "Node", err)
@@ -72,12 +73,26 @@ func (s *ShardFailure) UnmarshalJSON(data []byte) error {
 			}
 			s.Node = &o
 
+		case "primary":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Primary", err)
+				}
+				s.Primary = &value
+			case bool:
+				s.Primary = &v
+			}
+
 		case "reason":
 			if err := dec.Decode(&s.Reason); err != nil {
 				return fmt.Errorf("%s | %w", "Reason", err)
 			}
 
-		case "shard":
+		case "shard", "_shard":
 
 			var tmp any
 			dec.Decode(&tmp)
@@ -87,10 +102,10 @@ func (s *ShardFailure) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Shard", err)
 				}
-				s.Shard = value
+				s.Shard = &value
 			case float64:
 				f := int(v)
-				s.Shard = f
+				s.Shard = &f
 			}
 
 		case "status":

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -46,9 +46,9 @@ func newAsyncSearchSubmitFunc(t Transport) AsyncSearchSubmit {
 
 // ----- API Definition -------------------------------------------------------
 
-// AsyncSearchSubmit - Executes a search request asynchronously.
+// AsyncSearchSubmit - Run an async search
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit.
 type AsyncSearchSubmit func(o ...func(*AsyncSearchSubmitRequest)) (*Response, error)
 
 // AsyncSearchSubmitRequest configures the Async Search Submit API request.
@@ -66,7 +66,7 @@ type AsyncSearchSubmitRequest struct {
 	DefaultOperator            string
 	Df                         string
 	DocvalueFields             []string
-	ExpandWildcards            string
+	ExpandWildcards            []string
 	Explain                    *bool
 	From                       *int
 	IgnoreThrottled            *bool
@@ -76,6 +76,7 @@ type AsyncSearchSubmitRequest struct {
 	Lenient                    *bool
 	MaxConcurrentShardRequests *int
 	Preference                 string
+	ProjectRouting             string
 	Query                      string
 	RequestCache               *bool
 	RestTotalHitsAsInt         *bool
@@ -182,8 +183,8 @@ func (r AsyncSearchSubmitRequest) Do(providedCtx context.Context, transport Tran
 		params["docvalue_fields"] = strings.Join(r.DocvalueFields, ",")
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.Explain != nil {
@@ -220,6 +221,10 @@ func (r AsyncSearchSubmitRequest) Do(providedCtx context.Context, transport Tran
 
 	if r.Preference != "" {
 		params["preference"] = r.Preference
+	}
+
+	if r.ProjectRouting != "" {
+		params["project_routing"] = r.ProjectRouting
 	}
 
 	if r.Query != "" {
@@ -481,7 +486,7 @@ func (f AsyncSearchSubmit) WithDocvalueFields(v ...string) func(*AsyncSearchSubm
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f AsyncSearchSubmit) WithExpandWildcards(v string) func(*AsyncSearchSubmitRequest) {
+func (f AsyncSearchSubmit) WithExpandWildcards(v ...string) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.ExpandWildcards = v
 	}
@@ -547,6 +552,13 @@ func (f AsyncSearchSubmit) WithMaxConcurrentShardRequests(v int) func(*AsyncSear
 func (f AsyncSearchSubmit) WithPreference(v string) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.Preference = v
+	}
+}
+
+// WithProjectRouting - a lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. only supported in serverless..
+func (f AsyncSearchSubmit) WithProjectRouting(v string) func(*AsyncSearchSubmitRequest) {
+	return func(r *AsyncSearchSubmitRequest) {
+		r.ProjectRouting = v
 	}
 }
 

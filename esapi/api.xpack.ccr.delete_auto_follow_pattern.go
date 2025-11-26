@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newCCRDeleteAutoFollowPatternFunc(t Transport) CCRDeleteAutoFollowPattern {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRDeleteAutoFollowPattern - Deletes auto-follow patterns.
+// CCRDeleteAutoFollowPattern - Delete auto-follow patterns
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-delete-auto-follow-pattern.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-delete-auto-follow-pattern.
 type CCRDeleteAutoFollowPattern func(name string, o ...func(*CCRDeleteAutoFollowPatternRequest)) (*Response, error)
 
 // CCRDeleteAutoFollowPatternRequest configures the CCR Delete Auto Follow Pattern API request.
