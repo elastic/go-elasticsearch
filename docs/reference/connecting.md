@@ -261,13 +261,6 @@ func init() {
 	if err != nil {
 		log.Fatalf("elasticsearch.NewClient: %v", err)
 	}
-	defer func() {
-		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-		defer cancel()
-		if err := client.Close(ctx); err != nil {
-			log.Fatalf("Error closing the client: %s", err)
-		}
-	} ()
 }
 
 func HttpExample(w http.ResponseWriter, r *http.Request) {
