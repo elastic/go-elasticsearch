@@ -23,6 +23,7 @@
 package main
 
 import (
+	"context"
 	"io"
 	"log"
 	"net"
@@ -30,6 +31,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"time"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
@@ -77,6 +79,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}
+	defer func() {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		if err := esclient.Close(ctx); err != nil {
+			log.Fatalf("Error closing the client: %s\n", err)
+		}
+	}()
 
 	es := ExtendedClient{Client: esclient, Custom: &ExtendedAPI{esclient}}
 	<-started

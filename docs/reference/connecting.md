@@ -214,6 +214,13 @@ es, err := elasticsearch.NewDefaultClient()
 if err != nil {
   log.Fatalf("Error creating the client: %s", err)
 }
+defer func() {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if err := es.Close(ctx); err != nil {
+		log.Fatalf("Error closing the client: %s", err)
+	}
+} ()
 
 res, err := es.Info()
 if err != nil {
@@ -236,6 +243,11 @@ This section illustrates the best practices for leveraging the {{es}} client in 
 package httpexample
 
 import (
+	"context"
+	"net/http"
+	"time"
+	"log"
+	
 	"github.com/elastic/go-elasticsearch/v9"
 )
 
@@ -263,6 +275,8 @@ func HttpExample(w http.ResponseWriter, r *http.Request) {
 package httpexample
 
 import (
+	"log"
+	
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/elastic/go-elasticsearch/v9"
 )

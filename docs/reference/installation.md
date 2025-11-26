@@ -34,6 +34,7 @@ cat > main.go <<-END
   package main
 
   import (
+    "context"
     "log"
 
     "github.com/elastic/go-elasticsearch/v9"
@@ -41,6 +42,7 @@ cat > main.go <<-END
 
   func main() {
     es, _ := elasticsearch.NewDefaultClient()
+    defer es.Close(context.Background())
     log.Println(elasticsearch.Version)
     log.Println(es.Info())
   }
