@@ -28,7 +28,6 @@ import (
 )
 
 // Response represents the API response.
-//
 type Response struct {
 	StatusCode int
 	Header     http.Header
@@ -38,7 +37,6 @@ type Response struct {
 // String returns the response as a string.
 //
 // The intended usage is for testing or debugging only.
-//
 func (r *Response) String() string {
 	var (
 		out = new(bytes.Buffer)
@@ -75,7 +73,6 @@ func (r *Response) String() string {
 }
 
 // Status returns the response status as a string.
-//
 func (r *Response) Status() string {
 	var b strings.Builder
 	if r != nil {
@@ -87,19 +84,16 @@ func (r *Response) Status() string {
 }
 
 // IsError returns true when the response status indicates failure.
-//
 func (r *Response) IsError() bool {
 	return r.StatusCode > 299
 }
 
 // Warnings returns the deprecation warnings from response headers.
-//
 func (r *Response) Warnings() []string {
 	return r.Header["Warning"]
 }
 
 // HasWarnings returns true when the response headers contain deprecation warnings.
-//
 func (r *Response) HasWarnings() bool {
 	return len(r.Warnings()) > 0
 }

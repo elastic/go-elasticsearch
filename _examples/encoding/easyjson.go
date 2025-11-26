@@ -19,6 +19,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"math/rand"
 	"os"
@@ -56,6 +57,13 @@ func main() {
 		fmt.Printf("Error creating the client: %s\n", err)
 		os.Exit(2)
 	}
+	defer func() {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		if err := es.Close(ctx); err != nil {
+			fmt.Printf("Error closing the client: %s\n", err)
+		}
+	}()
 
 	fnames = []string{"Alice", "John", "Mary"}
 

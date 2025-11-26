@@ -48,9 +48,10 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/result"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
 
+	"testing/containertest"
+
 	"github.com/testcontainers/testcontainers-go"
 	tces "github.com/testcontainers/testcontainers-go/modules/elasticsearch"
-	"testing/containertest"
 )
 
 func TestElasticsearchIntegration(t *testing.T) {
@@ -77,6 +78,11 @@ func TestElasticsearchIntegration(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Error creating the client: %s", err)
 			}
+			defer func() {
+				if err := es.Close(context.Background()); err != nil {
+					t.Fatalf("Error closing the client: %s", err)
+				}
+			}()
 
 			var total int
 
@@ -129,6 +135,11 @@ func TestElasticsearchIntegration(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Error creating the client: %s", err)
 			}
+			defer func() {
+				if err := es.Close(context.Background()); err != nil {
+					t.Fatalf("Error closing the client: %s", err)
+				}
+			}()
 
 			for i := 0; i < 101; i++ {
 				wg.Add(1)
@@ -152,6 +163,11 @@ func TestElasticsearchIntegration(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Error creating the client: %s", err)
 			}
+			defer func() {
+				if err := es.Close(context.Background()); err != nil {
+					t.Fatalf("Error closing the client: %s", err)
+				}
+			}()
 
 			ctx, cancel := context.WithTimeout(context.Background(), time.Nanosecond)
 			defer cancel()
@@ -188,6 +204,11 @@ func TestElasticsearchIntegration(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Error creating the client: %s", err)
 			}
+			defer func() {
+				if err := es.Close(context.Background()); err != nil {
+					t.Fatalf("Error closing the client: %s", err)
+				}
+			}()
 
 			res, err := es.Info()
 			if err == nil {
@@ -209,6 +230,11 @@ func TestElasticsearchIntegration(t *testing.T) {
 			if err != nil {
 				t.Fatalf("error creating the client: %s", err)
 			}
+			defer func() {
+				if err := es.Close(context.Background()); err != nil {
+					t.Fatalf("Error closing the client: %s", err)
+				}
+			}()
 
 			res, err := es.Info().Do(context.Background())
 			if err != nil {
@@ -231,6 +257,11 @@ func TestElasticsearchIntegration(t *testing.T) {
 			if err != nil {
 				t.Fatalf("error creating the client: %s", err)
 			}
+			defer func() {
+				if err := es.Close(context.Background()); err != nil {
+					t.Fatalf("Error closing the client: %s", err)
+				}
+			}()
 
 			// If the index doesn't exist we create it with a mapping.
 			indexName := "test-index"
@@ -524,6 +555,11 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 				if err != nil {
 					t.Fatalf("Error creating the client: %s", err)
 				}
+				defer func() {
+					if err := es.Close(context.Background()); err != nil {
+						t.Fatalf("Error closing the client: %s", err)
+					}
+				}()
 
 				for i := 0; i < 10; i++ {
 					res, err := es.Info()
@@ -550,6 +586,11 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 					},
 					API: esapi.New(tp),
 				}
+				defer func() {
+					if err := es.Close(context.Background()); err != nil {
+						t.Fatalf("Error closing the client: %s", err)
+					}
+				}()
 
 				for i := 0; i < 10; i++ {
 					res, err := es.Info()
@@ -575,6 +616,11 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 				},
 				API: esapi.New(tr),
 			}
+			defer func() {
+				if err := es.Close(context.Background()); err != nil {
+					t.Fatalf("Error closing the client: %s", err)
+				}
+			}()
 
 			for i := 0; i < 10; i++ {
 				res, err := es.Info()
@@ -596,6 +642,11 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Error creating the client: %s\n", err)
 			}
+			defer func() {
+				if err := es.Close(context.Background()); err != nil {
+					t.Fatalf("Error closing the client: %s", err)
+				}
+			}()
 
 			res, err := es.Info()
 			if err != nil {

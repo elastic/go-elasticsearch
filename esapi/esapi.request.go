@@ -32,13 +32,11 @@ var (
 )
 
 // Request defines the API request.
-//
 type Request interface {
 	Do(ctx context.Context, transport Transport) (*Response, error)
 }
 
 // newRequest creates an HTTP request.
-//
 func newRequest(method, path string, body io.Reader) (*http.Request, error) {
 	return http.NewRequest(method, path, body)
 }

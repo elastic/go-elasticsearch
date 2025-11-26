@@ -19,10 +19,12 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"io"
 	"log"
 	"strings"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/fatih/color"
@@ -43,6 +45,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error creating client: %s", err)
 	}
+	defer func() {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		if err := es.Close(ctx); err != nil {
+			fmt.Printf("Error closing the client: %s\n", err)
+		}
+	}()
 
 	res, err := es.Cluster.Stats(es.Cluster.Stats.WithHuman())
 	if err != nil {

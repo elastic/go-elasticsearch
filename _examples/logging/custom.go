@@ -24,6 +24,7 @@
 package main
 
 import (
+	"context"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -116,6 +117,13 @@ func main() {
 	es, _ := elasticsearch.NewClient(elasticsearch.Config{
 		Logger: &CustomLogger{log},
 	})
+	defer func() {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		if err := es.Close(ctx); err != nil {
+			log.Fatal().Err(err).Msg("Error closing the client")
+		}
+	}()
 
 	// ----------------------------------------------------------------------------------------------
 	{
