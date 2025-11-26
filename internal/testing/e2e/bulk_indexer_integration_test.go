@@ -100,6 +100,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 					PoolCompressor:           tt.PoolCompressor,
 					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
 				})
+				defer es.Close(context.Background())
 
 				es.Indices.Delete([]string{indexName}, es.Indices.Delete.WithIgnoreUnavailable(true))
 				es.Indices.Create(
@@ -171,6 +172,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 					PoolCompressor:           tt.PoolCompressor,
 					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
 				})
+				defer es.Close(context.Background())
 
 				bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 					Index:  "test-index-a",
@@ -245,6 +247,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 					PoolCompressor:           tt.PoolCompressor,
 					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
 				})
+				defer es.Close(context.Background())
 
 				es.Indices.Delete([]string{index}, es.Indices.Delete.WithIgnoreUnavailable(true))
 				es.Indices.Create(index, es.Indices.Create.WithWaitForActiveShards("1"))
@@ -312,6 +315,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 					PoolCompressor:           tt.PoolCompressor,
 					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
 				})
+				defer es.Close(context.Background())
 
 				es.Indices.Delete([]string{index}, es.Indices.Delete.WithIgnoreUnavailable(true))
 				es.Indices.Create(index, es.Indices.Create.WithWaitForActiveShards("1"))
