@@ -24,20 +24,17 @@ import (
 )
 
 // NewJSONReader encodes v into JSON and returns it as an io.Reader.
-//
 func NewJSONReader(v interface{}) io.Reader {
 	return &JSONReader{val: v, buf: nil}
 }
 
 // JSONEncoder defines the interface for custom JSON encoders.
-//
 type JSONEncoder interface {
 	EncodeJSON(io.Writer) error
 }
 
 // JSONReader represents a reader which takes an interface value,
 // encodes it into JSON, and wraps it in an io.Reader.
-//
 type JSONReader struct {
 	val interface{}
 	buf interface {
@@ -47,7 +44,6 @@ type JSONReader struct {
 }
 
 // Read implements the io.Reader interface.
-//
 func (r *JSONReader) Read(p []byte) (int, error) {
 	if r.buf == nil {
 		r.buf = new(bytes.Buffer)
@@ -60,7 +56,6 @@ func (r *JSONReader) Read(p []byte) (int, error) {
 }
 
 // WriteTo implements the io.WriterTo interface.
-//
 func (r *JSONReader) WriteTo(w io.Writer) (int64, error) {
 	cw := countingWriter{Writer: w}
 	err := r.encode(&cw)

@@ -28,6 +28,7 @@ Full documentation is hosted at [GitHub](https://github.com/elastic/go-elasticse
 package main
 
 import (
+  "context"
   "log"
 
   "github.com/elastic/go-elasticsearch/v9"
@@ -35,6 +36,7 @@ import (
 
 func main() {
   es, _ := elasticsearch.NewDefaultClient()
+  defer es.Close(context.Background())
   log.Println(es.Info())
 }
 ```
@@ -55,6 +57,7 @@ func main() {
 	es, _ := elasticsearch.NewTypedClient(elasticsearch.Config{
 		Addresses: []string{"http://localhost:9200"},
 	})
+	defer es.Close(context.Background())
 	log.Println(es.Info().Do(context.Background()))
 }
 ```

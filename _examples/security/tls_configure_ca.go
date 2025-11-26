@@ -21,11 +21,13 @@
 package main
 
 import (
+	"context"
 	"crypto/x509"
 	"flag"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/v9"
 )
@@ -78,6 +80,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("ERROR: Unable to create client: %s", err)
 	}
+	defer func() {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		if err := es.Close(ctx); err != nil {
+			log.Fatalf("Error closing the client: %s\n", err)
+		}
+	}()
 
 	res, err := es.Info()
 	if err != nil {

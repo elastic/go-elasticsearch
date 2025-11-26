@@ -65,6 +65,9 @@ func BenchmarkBulkIndexer(b *testing.B) {
 		b.ResetTimer()
 
 		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransp{}})
+		defer func() {
+			_ = es.Close(context.Background())
+		}()
 		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 			Client:     es,
 			FlushBytes: 1024,
