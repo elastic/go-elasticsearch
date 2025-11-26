@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Explain a document match result.
+//
 // Get information about why a specific document matches, or doesn't match, a
 // query.
 // It computes a score explanation for a query and a specific document.
@@ -91,6 +92,7 @@ func NewExplainFunc(tp elastictransport.Interface) NewExplain {
 }
 
 // Explain a document match result.
+//
 // Get information about why a specific document matches, or doesn't match, a
 // query.
 // It computes a score explanation for a query and a specific document.
@@ -359,7 +361,7 @@ func (r *Explain) AnalyzeWildcard(analyzewildcard bool) *Explain {
 	return r
 }
 
-// DefaultOperator The default operator for query string query: `AND` or `OR`.
+// DefaultOperator The default operator for query string query: `and` or `or`.
 // This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: default_operator
@@ -402,8 +404,8 @@ func (r *Explain) Preference(preference string) *Explain {
 
 // Routing A custom value used to route operations to a specific shard.
 // API name: routing
-func (r *Explain) Routing(routing string) *Explain {
-	r.values.Set("routing", routing)
+func (r *Explain) Routing(routings ...string) *Explain {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }

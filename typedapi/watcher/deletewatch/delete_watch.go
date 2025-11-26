@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Delete a watch.
+//
 // When the watch is removed, the document representing the watch in the
 // `.watches` index is gone and it will never be run again.
 //
@@ -88,6 +89,7 @@ func NewDeleteWatchFunc(tp elastictransport.Interface) NewDeleteWatch {
 }
 
 // Delete a watch.
+//
 // When the watch is removed, the document representing the watch in the
 // `.watches` index is gone and it will never be run again.
 //

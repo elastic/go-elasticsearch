@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MLDatafeed type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/_types/Datafeed.ts#L37-L61
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/ml/_types/Datafeed.ts#L37-L64
 type MLDatafeed struct {
 	Aggregations map[string]Aggregations `json:"aggregations,omitempty"`
 	// Authorization The security privileges that the datafeed uses to run its queries. If Elastic
@@ -41,17 +41,25 @@ type MLDatafeed struct {
 	ChunkingConfig         *ChunkingConfig        `json:"chunking_config,omitempty"`
 	DatafeedId             string                 `json:"datafeed_id"`
 	DelayedDataCheckConfig DelayedDataCheckConfig `json:"delayed_data_check_config"`
-	Frequency              Duration               `json:"frequency,omitempty"`
-	Indexes                []string               `json:"indexes,omitempty"`
-	Indices                []string               `json:"indices"`
-	IndicesOptions         *IndicesOptions        `json:"indices_options,omitempty"`
-	JobId                  string                 `json:"job_id"`
-	MaxEmptySearches       *int                   `json:"max_empty_searches,omitempty"`
-	Query                  Query                  `json:"query"`
-	QueryDelay             Duration               `json:"query_delay,omitempty"`
-	RuntimeMappings        RuntimeFields          `json:"runtime_mappings,omitempty"`
-	ScriptFields           map[string]ScriptField `json:"script_fields,omitempty"`
-	ScrollSize             *int                   `json:"scroll_size,omitempty"`
+	// Frequency The interval at which scheduled queries are made while the datafeed runs in
+	// real time. The default value is either the bucket span for short bucket
+	// spans, or, for longer bucket spans, a sensible fraction of the bucket span.
+	// For example: `150s`. When `frequency` is shorter than the bucket span,
+	// interim results for the last (partial) bucket are written then eventually
+	// overwritten by the full bucket results. If the datafeed uses aggregations,
+	// this value must be divisible by the interval of the date histogram
+	// aggregation.
+	Frequency        Duration               `json:"frequency,omitempty"`
+	Indexes          []string               `json:"indexes,omitempty"`
+	Indices          []string               `json:"indices"`
+	IndicesOptions   *IndicesOptions        `json:"indices_options,omitempty"`
+	JobId            string                 `json:"job_id"`
+	MaxEmptySearches *int                   `json:"max_empty_searches,omitempty"`
+	Query            Query                  `json:"query"`
+	QueryDelay       Duration               `json:"query_delay,omitempty"`
+	RuntimeMappings  RuntimeFields          `json:"runtime_mappings,omitempty"`
+	ScriptFields     map[string]ScriptField `json:"script_fields,omitempty"`
+	ScrollSize       *int                   `json:"scroll_size,omitempty"`
 }
 
 func (s *MLDatafeed) UnmarshalJSON(data []byte) error {

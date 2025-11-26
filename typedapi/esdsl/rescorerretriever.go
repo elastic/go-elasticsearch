@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
@@ -37,12 +37,19 @@ func NewRescorerRetriever(retriever types.RetrieverContainerVariant) *_rescorerR
 
 }
 
-func (s *_rescorerRetriever) Filter(filters ...types.QueryVariant) *_rescorerRetriever {
+func (s *_rescorerRetriever) Rescore(rescores ...types.RescoreVariant) *_rescorerRetriever {
 
-	s.v.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		s.v.Filter[i] = *v.QueryCaster()
+	s.v.Rescore = make([]types.Rescore, len(rescores))
+	for i, v := range rescores {
+		s.v.Rescore[i] = *v.RescoreCaster()
 	}
+
+	return s
+}
+
+func (s *_rescorerRetriever) Retriever(retriever types.RetrieverContainerVariant) *_rescorerRetriever {
+
+	s.v.Retriever = *retriever.RetrieverContainerCaster()
 
 	return s
 }
@@ -61,19 +68,12 @@ func (s *_rescorerRetriever) Name_(name_ string) *_rescorerRetriever {
 	return s
 }
 
-func (s *_rescorerRetriever) Rescore(rescores ...types.RescoreVariant) *_rescorerRetriever {
+func (s *_rescorerRetriever) Filter(filters ...types.QueryVariant) *_rescorerRetriever {
 
-	s.v.Rescore = make([]types.Rescore, len(rescores))
-	for i, v := range rescores {
-		s.v.Rescore[i] = *v.RescoreCaster()
+	s.v.Filter = make([]types.Query, len(filters))
+	for i, v := range filters {
+		s.v.Filter[i] = *v.QueryCaster()
 	}
-
-	return s
-}
-
-func (s *_rescorerRetriever) Retriever(retriever types.RetrieverContainerVariant) *_rescorerRetriever {
-
-	s.v.Retriever = *retriever.RetrieverContainerCaster()
 
 	return s
 }

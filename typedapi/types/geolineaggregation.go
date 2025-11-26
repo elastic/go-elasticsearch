@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // GeoLineAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/aggregations/metric.ts#L130-L155
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/_types/aggregations/metric.ts#L134-L159
 type GeoLineAggregation struct {
 	// IncludeSort When `true`, returns an additional array of the sort values in the feature
 	// properties.
@@ -47,7 +47,7 @@ type GeoLineAggregation struct {
 	// When the `geo_line` aggregation is nested inside a `time_series` aggregation,
 	// this field defaults to `@timestamp`, and any other value will result in
 	// error.
-	Sort GeoLineSort `json:"sort"`
+	Sort *GeoLineSort `json:"sort,omitempty"`
 	// SortOrder The order in which the line is sorted (ascending or descending).
 	SortOrder *sortorder.SortOrder `json:"sort_order,omitempty"`
 }

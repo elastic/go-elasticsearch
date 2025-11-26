@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Delete data stream options.
+//
 // Removes the data stream options from a data stream.
 package deletedatastreamoptions
 
@@ -79,9 +80,10 @@ func NewDeleteDataStreamOptionsFunc(tp elastictransport.Interface) NewDeleteData
 }
 
 // Delete data stream options.
+//
 // Removes the data stream options from a data stream.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream-options
 func New(tp elastictransport.Interface) *DeleteDataStreamOptions {
 	r := &DeleteDataStreamOptions{
 		transport: tp,

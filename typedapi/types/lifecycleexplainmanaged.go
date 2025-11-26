@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -31,12 +31,13 @@ import (
 
 // LifecycleExplainManaged type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ilm/explain_lifecycle/types.ts#L27-L58
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/ilm/explain_lifecycle/types.ts#L33-L68
 type LifecycleExplainManaged struct {
 	Action                  *string                         `json:"action,omitempty"`
 	ActionTime              DateTime                        `json:"action_time,omitempty"`
 	ActionTimeMillis        *int64                          `json:"action_time_millis,omitempty"`
 	Age                     Duration                        `json:"age,omitempty"`
+	AgeInMillis             *int64                          `json:"age_in_millis,omitempty"`
 	FailedStep              *string                         `json:"failed_step,omitempty"`
 	FailedStepRetryCount    *int                            `json:"failed_step_retry_count,omitempty"`
 	Index                   string                          `json:"index"`
@@ -96,6 +97,11 @@ func (s *LifecycleExplainManaged) UnmarshalJSON(data []byte) error {
 		case "age":
 			if err := dec.Decode(&s.Age); err != nil {
 				return fmt.Errorf("%s | %w", "Age", err)
+			}
+
+		case "age_in_millis":
+			if err := dec.Decode(&s.AgeInMillis); err != nil {
+				return fmt.Errorf("%s | %w", "AgeInMillis", err)
 			}
 
 		case "failed_step":
@@ -287,6 +293,7 @@ func (s LifecycleExplainManaged) MarshalJSON() ([]byte, error) {
 		ActionTime:              s.ActionTime,
 		ActionTimeMillis:        s.ActionTimeMillis,
 		Age:                     s.Age,
+		AgeInMillis:             s.AgeInMillis,
 		FailedStep:              s.FailedStep,
 		FailedStepRetryCount:    s.FailedStepRetryCount,
 		Index:                   s.Index,

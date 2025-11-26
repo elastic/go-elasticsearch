@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Get a document's source.
 //
@@ -378,8 +378,8 @@ func (r *GetSource) Refresh(refresh bool) *GetSource {
 
 // Routing A custom value used to route operations to a specific shard.
 // API name: routing
-func (r *GetSource) Routing(routing string) *GetSource {
-	r.values.Set("routing", routing)
+func (r *GetSource) Routing(routings ...string) *GetSource {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }

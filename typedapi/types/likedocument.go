@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // LikeDocument type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/specialized.ts#L174-L196
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/_types/query_dsl/specialized.ts#L174-L196
 type LikeDocument struct {
 	// Doc A document not present in the index.
 	Doc    json.RawMessage `json:"doc,omitempty"`
@@ -43,7 +43,7 @@ type LikeDocument struct {
 	Index_ *string `json:"_index,omitempty"`
 	// PerFieldAnalyzer Overrides the default analyzer.
 	PerFieldAnalyzer map[string]string        `json:"per_field_analyzer,omitempty"`
-	Routing          *string                  `json:"routing,omitempty"`
+	Routing          []string                 `json:"routing,omitempty"`
 	Version          *int64                   `json:"version,omitempty"`
 	VersionType      *versiontype.VersionType `json:"version_type,omitempty"`
 }
@@ -92,8 +92,19 @@ func (s *LikeDocument) UnmarshalJSON(data []byte) error {
 			}
 
 		case "routing":
-			if err := dec.Decode(&s.Routing); err != nil {
-				return fmt.Errorf("%s | %w", "Routing", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
+
+				s.Routing = append(s.Routing, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
 			}
 
 		case "version":

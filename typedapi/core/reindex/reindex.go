@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Reindex documents.
 //
@@ -85,6 +85,18 @@
 // attempt to reindex more documents from the source than `max_docs` until it
 // has successfully indexed `max_docs` documents into the target or it has gone
 // through every document in the source query.
+//
+// It's recommended to reindex on indices with a green status. Reindexing can
+// fail when a node shuts down or crashes.
+// * When requested with `wait_for_completion=true` (default), the request fails
+// if the node shuts down.
+// * When requested with `wait_for_completion=false`, a task id is returned, for
+// use with the task management APIs. The task may disappear or fail if the node
+// shuts down.
+// When retrying a failed reindex operation, it might be necessary to set
+// `conflicts=proceed` or to first delete the partial destination index.
+// Additionally, dry runs, checking disk space, and fetching index recovery
+// information can help address the root cause.
 //
 // Refer to the linked documentation for examples of how to reindex documents.
 package reindex
@@ -209,6 +221,18 @@ func NewReindexFunc(tp elastictransport.Interface) NewReindex {
 // attempt to reindex more documents from the source than `max_docs` until it
 // has successfully indexed `max_docs` documents into the target or it has gone
 // through every document in the source query.
+//
+// It's recommended to reindex on indices with a green status. Reindexing can
+// fail when a node shuts down or crashes.
+// * When requested with `wait_for_completion=true` (default), the request fails
+// if the node shuts down.
+// * When requested with `wait_for_completion=false`, a task id is returned, for
+// use with the task management APIs. The task may disappear or fail if the node
+// shuts down.
+// When retrying a failed reindex operation, it might be necessary to set
+// `conflicts=proceed` or to first delete the partial destination index.
+// Additionally, dry runs, checking disk space, and fetching index recovery
+// information can help address the root cause.
 //
 // Refer to the linked documentation for examples of how to reindex documents.
 //
@@ -611,18 +635,6 @@ func (r *Reindex) Script(script types.ScriptVariant) *Reindex {
 	}
 
 	r.req.Script = script.ScriptCaster()
-
-	return r
-}
-
-// API name: size
-func (r *Reindex) Size(size int64) *Reindex {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Size = &size
 
 	return r
 }

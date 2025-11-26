@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
@@ -26,8 +26,8 @@ type _idsQuery struct {
 	v *types.IdsQuery
 }
 
-// Returns documents based on their IDs.
-// This query uses document IDs stored in the `_id` field.
+// Returns roles based on their IDs.
+// This query uses role document IDs stored in the `_id` field.
 func NewIdsQuery() *_idsQuery {
 
 	return &_idsQuery{v: types.NewIdsQuery()}

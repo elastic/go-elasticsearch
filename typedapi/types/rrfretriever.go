@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RRFRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/Retriever.ts#L135-L144
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/_types/Retriever.ts#L162-L171
 type RRFRetriever struct {
 	Fields []string `json:"fields,omitempty"`
 	// Filter Query to filter the documents that can match.
@@ -48,8 +48,9 @@ type RRFRetriever struct {
 	// RankWindowSize This value determines the size of the individual result sets per query.
 	RankWindowSize *int `json:"rank_window_size,omitempty"`
 	// Retrievers A list of child retrievers to specify which sets of returned top documents
-	// will have the RRF formula applied to them.
-	Retrievers []RetrieverContainer `json:"retrievers"`
+	// will have the RRF formula applied to them. Each retriever can optionally
+	// include a weight parameter.
+	Retrievers []RRFRetrieverEntry `json:"retrievers"`
 }
 
 func (s *RRFRetriever) UnmarshalJSON(data []byte) error {
@@ -161,8 +162,51 @@ func (s *RRFRetriever) UnmarshalJSON(data []byte) error {
 			}
 
 		case "retrievers":
-			if err := dec.Decode(&s.Retrievers); err != nil {
+			messageArray := []json.RawMessage{}
+			if err := dec.Decode(&messageArray); err != nil {
 				return fmt.Errorf("%s | %w", "Retrievers", err)
+			}
+		retrievers_field:
+			for _, message := range messageArray {
+				keyDec := json.NewDecoder(bytes.NewReader(message))
+				for {
+					t, err := keyDec.Token()
+					if err != nil {
+						if errors.Is(err, io.EOF) {
+							break
+						}
+						return fmt.Errorf("%s | %w", "Retrievers", err)
+					}
+
+					switch t {
+
+					case "knn", "linear", "pinned", "rescorer", "rrf", "rule", "standard", "text_similarity_reranker":
+						o := NewRetrieverContainer()
+						localDec := json.NewDecoder(bytes.NewReader(message))
+						if err := localDec.Decode(&o); err != nil {
+							return fmt.Errorf("%s | %w", "Retrievers", err)
+						}
+						s.Retrievers = append(s.Retrievers, o)
+						continue retrievers_field
+
+					case "retriever", "weight":
+						o := NewRRFRetrieverComponent()
+						localDec := json.NewDecoder(bytes.NewReader(message))
+						if err := localDec.Decode(&o); err != nil {
+							return fmt.Errorf("%s | %w", "Retrievers", err)
+						}
+						s.Retrievers = append(s.Retrievers, o)
+						continue retrievers_field
+
+					}
+				}
+
+				var o any
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Retrievers", err)
+				}
+				s.Retrievers = append(s.Retrievers, o)
 			}
 
 		}

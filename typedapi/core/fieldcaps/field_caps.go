@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Get the field capabilities.
 //
@@ -378,8 +378,12 @@ func (r *FieldCaps) IncludeUnmapped(includeunmapped bool) *FieldCaps {
 
 // Filters A comma-separated list of filters to apply to the response.
 // API name: filters
-func (r *FieldCaps) Filters(filters string) *FieldCaps {
-	r.values.Set("filters", filters)
+func (r *FieldCaps) Filters(filters ...string) *FieldCaps {
+	tmp := []string{}
+	for _, item := range filters {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filters", strings.Join(tmp, ","))
 
 	return r
 }
@@ -403,6 +407,25 @@ func (r *FieldCaps) Types(types ...string) *FieldCaps {
 // API name: include_empty_fields
 func (r *FieldCaps) IncludeEmptyFields(includeemptyfields bool) *FieldCaps {
 	r.values.Set("include_empty_fields", strconv.FormatBool(includeemptyfields))
+
+	return r
+}
+
+// ProjectRouting Specifies a subset of projects to target for the field-caps query using
+// project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *FieldCaps) ProjectRouting(projectrouting string) *FieldCaps {
+	r.values.Set("project_routing", projectrouting)
 
 	return r
 }

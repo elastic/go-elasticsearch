@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Get async EQL search results.
+//
 // Get the current status and available results for an async EQL search or a
 // stored synchronous EQL search.
 package get
@@ -79,6 +80,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 }
 
 // Get async EQL search results.
+//
 // Get the current status and available results for an async EQL search or a
 // stored synchronous EQL search.
 //

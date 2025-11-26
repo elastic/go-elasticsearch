@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Find the structure of a text file.
+//
 // The text file must contain data that is suitable to be ingested into
 // Elasticsearch.
 //
@@ -61,6 +62,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/findstructureformat"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -100,6 +102,7 @@ func NewFindStructureFunc(tp elastictransport.Interface) NewFindStructure {
 }
 
 // Find the structure of a text file.
+//
 // The text file must contain data that is suitable to be ingested into
 // Elasticsearch.
 //
@@ -367,8 +370,12 @@ func (r *FindStructure) Charset(charset string) *FindStructure {
 // If the text does not have a header role, columns are named "column1",
 // "column2", "column3", for example.
 // API name: column_names
-func (r *FindStructure) ColumnNames(columnnames string) *FindStructure {
-	r.values.Set("column_names", columnnames)
+func (r *FindStructure) ColumnNames(columnnames ...string) *FindStructure {
+	tmp := []string{}
+	for _, item := range columnnames {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("column_names", strings.Join(tmp, ","))
 
 	return r
 }
@@ -428,8 +435,8 @@ func (r *FindStructure) Explain(explain bool) *FindStructure {
 // the API tolerates up to 5% of rows that have a different number of columns
 // than the first row.
 // API name: format
-func (r *FindStructure) Format(format string) *FindStructure {
-	r.values.Set("format", format)
+func (r *FindStructure) Format(format findstructureformat.FindStructureFormat) *FindStructure {
+	r.values.Set("format", format.String())
 
 	return r
 }

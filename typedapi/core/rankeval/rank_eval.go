@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Evaluate ranked search results.
 //
@@ -39,6 +39,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/searchtype"
 )
 
 const (
@@ -360,8 +361,8 @@ func (r *RankEval) IgnoreUnavailable(ignoreunavailable bool) *RankEval {
 
 // SearchType Search operation type
 // API name: search_type
-func (r *RankEval) SearchType(searchtype string) *RankEval {
-	r.values.Set("search_type", searchtype)
+func (r *RankEval) SearchType(searchtype searchtype.SearchType) *RankEval {
+	r.values.Set("search_type", searchtype.String())
 
 	return r
 }

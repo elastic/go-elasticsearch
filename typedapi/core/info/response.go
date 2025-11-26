@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package info
 
@@ -26,9 +26,8 @@ import (
 
 // Response holds the response body struct for the package info
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/info/RootNodeInfoResponse.ts#L23-L40
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/_global/info/RootNodeInfoResponse.ts#L23-L40
 type Response struct {
-
 	// ClusterName The responding cluster's name.
 	ClusterName string `json:"cluster_name"`
 	ClusterUuid string `json:"cluster_uuid"`

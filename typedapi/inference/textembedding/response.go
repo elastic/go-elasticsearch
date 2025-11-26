@@ -16,30 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package textembedding
 
 import (
-	"encoding/json"
-
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Response holds the response body struct for the package textembedding
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/text_embedding/TextEmbeddingResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/inference/text_embedding/TextEmbeddingResponse.ts#L22-L25
 type Response struct {
-	AdditionalTextEmbeddingInferenceResultProperty map[string]json.RawMessage      `json:"-"`
-	TextEmbedding                                  []types.TextEmbeddingResult     `json:"text_embedding,omitempty"`
-	TextEmbeddingBits                              []types.TextEmbeddingByteResult `json:"text_embedding_bits,omitempty"`
-	TextEmbeddingBytes                             []types.TextEmbeddingByteResult `json:"text_embedding_bytes,omitempty"`
+	TextEmbedding      []types.TextEmbeddingResult     `json:"text_embedding,omitempty"`
+	TextEmbeddingBits  []types.TextEmbeddingByteResult `json:"text_embedding_bits,omitempty"`
+	TextEmbeddingBytes []types.TextEmbeddingByteResult `json:"text_embedding_bytes,omitempty"`
 }
 
 // NewResponse returns a Response
 func NewResponse() *Response {
-	r := &Response{
-		AdditionalTextEmbeddingInferenceResultProperty: make(map[string]json.RawMessage, 0),
-	}
+	r := &Response{}
 	return r
 }

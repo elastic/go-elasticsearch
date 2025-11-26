@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Run an ES|QL query.
+//
 // Get search results for an ES|QL (Elasticsearch query language) query.
 package query
 
@@ -76,6 +77,7 @@ func NewQueryFunc(tp elastictransport.Interface) NewQuery {
 }
 
 // Run an ES|QL query.
+//
 // Get search results for an ES|QL (Elasticsearch query language) query.
 //
 // https://www.elastic.co/docs/explore-analyze/query-filter/languages/esql-rest
@@ -409,8 +411,8 @@ func (r *Query) Filter(filter types.QueryVariant) *Query {
 	return r
 }
 
-// When set to `true` and performing a cross-cluster query, the response will
-// include an extra `_clusters`
+// When set to `true` and performing a cross-cluster/cross-project query, the
+// response will include an extra `_clusters`
 // object with information about the clusters that participated in the search
 // along with info such as shards
 // count.
@@ -422,6 +424,24 @@ func (r *Query) IncludeCcsMetadata(includeccsmetadata bool) *Query {
 	}
 
 	r.req.IncludeCcsMetadata = &includeccsmetadata
+
+	return r
+}
+
+// When set to `true`, the response will include an extra `_clusters`
+// object with information about the clusters that participated in the search
+// along with info such as shards
+// count.
+// This is similar to `include_ccs_metadata`, but it also returns metadata when
+// the query is not CCS/CPS
+// API name: include_execution_metadata
+func (r *Query) IncludeExecutionMetadata(includeexecutionmetadata bool) *Query {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.IncludeExecutionMetadata = &includeexecutionmetadata
 
 	return r
 }

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Get the cluster state.
+//
 // Get comprehensive information about the state of the cluster.
 //
 // The cluster state is an internal data structure which keeps track of a
@@ -110,6 +111,7 @@ func NewStateFunc(tp elastictransport.Interface) NewState {
 }
 
 // Get the cluster state.
+//
 // Get comprehensive information about the state of the cluster.
 //
 // The cluster state is an internal data structure which keeps track of a
@@ -447,7 +449,7 @@ func (r *State) Local(local bool) *State {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Timeout for waiting for new cluster state in case it is blocked
 // API name: master_timeout
 func (r *State) MasterTimeout(duration string) *State {
 	r.values.Set("master_timeout", duration)

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Resume a follower.
+//
 // Resume a cross-cluster replication follower index that was paused.
 // The follower index could have been paused with the pause follower API.
 // Alternatively it could be paused due to replication that cannot be retried
@@ -88,6 +89,7 @@ func NewResumeFollowFunc(tp elastictransport.Interface) NewResumeFollow {
 }
 
 // Resume a follower.
+//
 // Resume a cross-cluster replication follower index that was paused.
 // The follower index could have been paused with the pause follower API.
 // Alternatively it could be paused due to replication that cannot be retried

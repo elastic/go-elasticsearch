@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Check in a connector sync job.
+//
 // Check in a connector sync job and set the `last_seen` field to the current
 // time before updating it in the internal index.
 //
@@ -84,6 +85,7 @@ func NewSyncJobCheckInFunc(tp elastictransport.Interface) NewSyncJobCheckIn {
 }
 
 // Check in a connector sync job.
+//
 // Check in a connector sync job and set the `last_seen` field to the current
 // time before updating it in the internal index.
 //

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Get EQL search results.
+//
 // Returns search results for an Event Query Language (EQL) query.
 // EQL assumes each document in a data stream or index corresponds to an event.
 package search
@@ -86,6 +87,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 }
 
 // Get EQL search results.
+//
 // Returns search results for an Event Query Language (EQL) query.
 // EQL assumes each document in a data stream or index corresponds to an event.
 //
@@ -310,7 +312,7 @@ func (r *Search) Header(key, value string) *Search {
 	return r
 }
 
-// Index The name of the index to scope the operation
+// Index Comma-separated list of index names to scope the operation
 // API Name: index
 func (r *Search) _index(index string) *Search {
 	r.paramSet |= indexMask
@@ -354,6 +356,24 @@ func (r *Search) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *Search {
 // API name: ignore_unavailable
 func (r *Search) IgnoreUnavailable(ignoreunavailable bool) *Search {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
+// ProjectRouting Specifies a subset of projects to target for the search using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *Search) ProjectRouting(projectrouting string) *Search {
+	r.values.Set("project_routing", projectrouting)
 
 	return r
 }
@@ -610,7 +630,7 @@ func (r *Search) TiebreakerField(field string) *Search {
 	return r
 }
 
-// Field containing event timestamp. Default "@timestamp"
+// Field containing event timestamp.
 // API name: timestamp_field
 func (r *Search) TimestampField(field string) *Search {
 	// Initialize the request if it is not already initialized

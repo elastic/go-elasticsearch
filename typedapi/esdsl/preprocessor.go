@@ -16,15 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _preprocessor struct {
 	v *types.Preprocessor
@@ -32,18 +28,6 @@ type _preprocessor struct {
 
 func NewPreprocessor() *_preprocessor {
 	return &_preprocessor{v: types.NewPreprocessor()}
-}
-
-// AdditionalPreprocessorProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_preprocessor) AdditionalPreprocessorProperty(key string, value json.RawMessage) *_preprocessor {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalPreprocessorProperty = tmp
-	return s
 }
 
 func (s *_preprocessor) FrequencyEncoding(frequencyencoding types.FrequencyEncodingPreprocessorVariant) *_preprocessor {

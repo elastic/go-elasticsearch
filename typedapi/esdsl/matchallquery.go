@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
@@ -26,7 +26,7 @@ type _matchAllQuery struct {
 	v *types.MatchAllQuery
 }
 
-// Matches all roles, giving them all a `_score` of 1.0.
+// Matches all documents, giving them all a `_score` of 1.0.
 func NewMatchAllQuery() *_matchAllQuery {
 
 	return &_matchAllQuery{v: types.NewMatchAllQuery()}

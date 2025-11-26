@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
@@ -92,6 +92,13 @@ func (s *_multisearchHeader) Preference(preference string) *_multisearchHeader {
 	return s
 }
 
+func (s *_multisearchHeader) ProjectRouting(projectrouting string) *_multisearchHeader {
+
+	s.v.ProjectRouting = &projectrouting
+
+	return s
+}
+
 func (s *_multisearchHeader) RequestCache(requestcache bool) *_multisearchHeader {
 
 	s.v.RequestCache = &requestcache
@@ -99,9 +106,9 @@ func (s *_multisearchHeader) RequestCache(requestcache bool) *_multisearchHeader
 	return s
 }
 
-func (s *_multisearchHeader) Routing(routing string) *_multisearchHeader {
+func (s *_multisearchHeader) Routing(routings ...string) *_multisearchHeader {
 
-	s.v.Routing = &routing
+	s.v.Routing = routings
 
 	return s
 }

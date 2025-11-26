@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ReindexSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/reindex/types.ts#L69-L110
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/_global/reindex/types.ts#L69-L110
 type ReindexSource struct {
 	// Index The name of the data stream, index, or alias you are copying from.
 	// It accepts a comma-separated list to reindex from multiple sources.
@@ -62,7 +62,7 @@ type ReindexSource struct {
 	Sort []SortCombinations `json:"sort,omitempty"`
 	// SourceFields_ If `true`, reindex all source fields.
 	// Set it to a list to reindex select fields.
-	SourceFields_ []string `json:"_source,omitempty"`
+	SourceFields_ SourceConfig `json:"_source,omitempty"`
 }
 
 func (s *ReindexSource) UnmarshalJSON(data []byte) error {
@@ -149,17 +149,37 @@ func (s *ReindexSource) UnmarshalJSON(data []byte) error {
 			}
 
 		case "_source":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
+				return fmt.Errorf("%s | %w", "SourceFields_", err)
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		sourcefields__field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
 					return fmt.Errorf("%s | %w", "SourceFields_", err)
 				}
 
-				s.SourceFields_ = append(s.SourceFields_, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.SourceFields_); err != nil {
+				switch t {
+
+				case "exclude_vectors", "excludes", "includes":
+					o := NewSourceFilter()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "SourceFields_", err)
+					}
+					s.SourceFields_ = o
+					break sourcefields__field
+
+				}
+			}
+			if s.SourceFields_ == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.SourceFields_); err != nil {
 					return fmt.Errorf("%s | %w", "SourceFields_", err)
 				}
 			}

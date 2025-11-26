@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Create an Azure AI studio inference endpoint.
 //
@@ -392,6 +392,8 @@ func (r *PutAzureaistudio) Pretty(pretty bool) *PutAzureaistudio {
 }
 
 // The chunking configuration object.
+// Applies only to the `text_embedding` task type.
+// Not applicable to the `rerank` or `completion` task types.
 // API name: chunking_settings
 func (r *PutAzureaistudio) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAzureaistudio {
 	// Initialize the request if it is not already initialized
@@ -417,7 +419,7 @@ func (r *PutAzureaistudio) Service(service azureaistudioservicetype.AzureAiStudi
 }
 
 // Settings used to install the inference model. These settings are specific to
-// the `openai` service.
+// the `azureaistudio` service.
 // API name: service_settings
 func (r *PutAzureaistudio) ServiceSettings(servicesettings types.AzureAiStudioServiceSettingsVariant) *PutAzureaistudio {
 	// Initialize the request if it is not already initialized

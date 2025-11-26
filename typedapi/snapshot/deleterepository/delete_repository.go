@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Delete snapshot repositories.
+//
 // When a repository is unregistered, Elasticsearch removes only the reference
 // to the location where the repository is storing the snapshots.
 // The snapshots themselves are left untouched and in place.
@@ -80,6 +81,7 @@ func NewDeleteRepositoryFunc(tp elastictransport.Interface) NewDeleteRepository 
 }
 
 // Delete snapshot repositories.
+//
 // When a repository is unregistered, Elasticsearch removes only the reference
 // to the location where the repository is storing the snapshots.
 // The snapshots themselves are left untouched and in place.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -28,14 +28,17 @@ import (
 	"io"
 	"strconv"
 
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/failurestorestatus"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/result"
 )
 
 // WriteResponseBase type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/Base.ts#L36-L67
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/_types/Base.ts#L37-L72
 type WriteResponseBase struct {
-	ForcedRefresh *bool `json:"forced_refresh,omitempty"`
+	// FailureStore The role of the failure store in this document response
+	FailureStore  *failurestorestatus.FailureStoreStatus `json:"failure_store,omitempty"`
+	ForcedRefresh *bool                                  `json:"forced_refresh,omitempty"`
 	// Id_ The unique identifier for the added document.
 	Id_ string `json:"_id"`
 	// Index_ The name of the index the document was added to.
@@ -68,6 +71,11 @@ func (s *WriteResponseBase) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "failure_store":
+			if err := dec.Decode(&s.FailureStore); err != nil {
+				return fmt.Errorf("%s | %w", "FailureStore", err)
+			}
 
 		case "forced_refresh":
 			var tmp any

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Get Logstash pipelines.
+//
 // Get pipelines that are used for Logstash Central Management.
 package getpipeline
 
@@ -76,6 +77,7 @@ func NewGetPipelineFunc(tp elastictransport.Interface) NewGetPipeline {
 }
 
 // Get Logstash pipelines.
+//
 // Get pipelines that are used for Logstash Central Management.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-get-pipeline

@@ -16,15 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package createapikey
 
 // Response holds the response body struct for the package createapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/create_api_key/SecurityCreateApiKeyResponse.ts#L23-L50
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/security/create_api_key/SecurityCreateApiKeyResponse.ts#L23-L50
 type Response struct {
-
 	// ApiKey Generated API key.
 	ApiKey string `json:"api_key"`
 	// Encoded API key credentials which is the base64-encoding of

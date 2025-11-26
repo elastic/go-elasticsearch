@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndicesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cat/indices/types.ts#L20-L808
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/cat/indices/types.ts#L20-L812
 type IndicesRecord struct {
 	// BulkAvgSizeInBytes average size in bytes of shard bulk
 	BulkAvgSizeInBytes *string `json:"bulk.avg_size_in_bytes,omitempty"`
@@ -51,7 +51,11 @@ type IndicesRecord struct {
 	CreationDateString *string `json:"creation.date.string,omitempty"`
 	// DatasetSize total size of dataset (including the cache for partially mounted indices)
 	DatasetSize *string `json:"dataset.size,omitempty"`
-	// DocsCount available docs
+	// DocsCount The number of documents in the index, including hidden nested documents.
+	// For indices with `semantic_text` fields or other nested field types,
+	// this count includes the internal nested documents.
+	// To get the logical document count (excluding nested documents), use
+	// the `_count` API or `_cat/count` API instead.
 	DocsCount *string `json:"docs.count,omitempty"`
 	// DocsDeleted deleted docs
 	DocsDeleted *string `json:"docs.deleted,omitempty"`

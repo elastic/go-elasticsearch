@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Find the structure of a text field.
+//
 // Find the structure of a text field in an Elasticsearch index.
 //
 // This API provides a starting point for extracting further information from
@@ -97,6 +98,7 @@ func NewFindFieldStructureFunc(tp elastictransport.Interface) NewFindFieldStruct
 }
 
 // Find the structure of a text field.
+//
 // Find the structure of a text field in an Elasticsearch index.
 //
 // This API provides a starting point for extracting further information from
@@ -337,8 +339,12 @@ func (r *FindFieldStructure) Header(key, value string) *FindFieldStructure {
 // If the text does not have a header row, columns are named "column1",
 // "column2", "column3", for example.
 // API name: column_names
-func (r *FindFieldStructure) ColumnNames(columnnames string) *FindFieldStructure {
-	r.values.Set("column_names", columnnames)
+func (r *FindFieldStructure) ColumnNames(columnnames ...string) *FindFieldStructure {
+	tmp := []string{}
+	for _, item := range columnnames {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("column_names", strings.Join(tmp, ","))
 
 	return r
 }

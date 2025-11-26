@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package putalias
 
@@ -33,15 +33,14 @@ import (
 
 // Request holds the request body struct for the package putalias
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L103
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L105
 type Request struct {
-
 	// Filter Query used to limit documents the alias can access.
 	Filter *types.Query `json:"filter,omitempty"`
 	// IndexRouting Value used to route indexing operations to a specific shard.
 	// If specified, this overwrites the `routing` value for indexing operations.
 	// Data stream aliases don’t support this parameter.
-	IndexRouting *string `json:"index_routing,omitempty"`
+	IndexRouting []string `json:"index_routing,omitempty"`
 	// IsWriteIndex If `true`, sets the write index or data stream for the alias.
 	// If an alias points to multiple indices or data streams and `is_write_index`
 	// isn’t set, the alias rejects write requests.
@@ -52,11 +51,11 @@ type Request struct {
 	IsWriteIndex *bool `json:"is_write_index,omitempty"`
 	// Routing Value used to route indexing and search operations to a specific shard.
 	// Data stream aliases don’t support this parameter.
-	Routing *string `json:"routing,omitempty"`
+	Routing []string `json:"routing,omitempty"`
 	// SearchRouting Value used to route search operations to a specific shard.
 	// If specified, this overwrites the `routing` value for search operations.
 	// Data stream aliases don’t support this parameter.
-	SearchRouting *string `json:"search_routing,omitempty"`
+	SearchRouting []string `json:"search_routing,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -98,8 +97,19 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "index_routing":
-			if err := dec.Decode(&s.IndexRouting); err != nil {
-				return fmt.Errorf("%s | %w", "IndexRouting", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "IndexRouting", err)
+				}
+
+				s.IndexRouting = append(s.IndexRouting, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.IndexRouting); err != nil {
+					return fmt.Errorf("%s | %w", "IndexRouting", err)
+				}
 			}
 
 		case "is_write_index":
@@ -117,13 +127,35 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "routing":
-			if err := dec.Decode(&s.Routing); err != nil {
-				return fmt.Errorf("%s | %w", "Routing", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
+
+				s.Routing = append(s.Routing, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
 			}
 
 		case "search_routing":
-			if err := dec.Decode(&s.SearchRouting); err != nil {
-				return fmt.Errorf("%s | %w", "SearchRouting", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "SearchRouting", err)
+				}
+
+				s.SearchRouting = append(s.SearchRouting, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.SearchRouting); err != nil {
+					return fmt.Errorf("%s | %w", "SearchRouting", err)
+				}
 			}
 
 		}

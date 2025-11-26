@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
@@ -31,6 +31,7 @@ type _compositeDateHistogramAggregation struct {
 	v *types.CompositeDateHistogramAggregation
 }
 
+// A date histogram aggregation.
 func NewCompositeDateHistogramAggregation() *_compositeDateHistogramAggregation {
 
 	return &_compositeDateHistogramAggregation{v: types.NewCompositeDateHistogramAggregation()}
@@ -109,6 +110,14 @@ func (s *_compositeDateHistogramAggregation) ValueType(valuetype valuetype.Value
 
 	s.v.ValueType = &valuetype
 	return s
+}
+
+func (s *_compositeDateHistogramAggregation) CompositeAggregationSourceCaster() *types.CompositeAggregationSource {
+	container := types.NewCompositeAggregationSource()
+
+	container.DateHistogram = s.v
+
+	return container
 }
 
 func (s *_compositeDateHistogramAggregation) CompositeDateHistogramAggregationCaster() *types.CompositeDateHistogramAggregation {

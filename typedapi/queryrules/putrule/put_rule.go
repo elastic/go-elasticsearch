@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Create or update a query rule.
+//
 // Create or update a query rule within a query ruleset.
 //
 // IMPORTANT: Due to limitations within pinned queries, you can only pin
@@ -96,6 +97,7 @@ func NewPutRuleFunc(tp elastictransport.Interface) NewPutRule {
 }
 
 // Create or update a query rule.
+//
 // Create or update a query rule within a query ruleset.
 //
 // IMPORTANT: Due to limitations within pinned queries, you can only pin

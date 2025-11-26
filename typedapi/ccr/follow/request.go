@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package follow
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package follow
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ccr/follow/CreateFollowIndexRequest.ts#L26-L124
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/ccr/follow/CreateFollowIndexRequest.ts#L26-L126
 type Request struct {
-
 	// DataStreamName If the leader index is part of a data stream, the name to which the local
 	// data stream for the followed index should be renamed.
 	DataStreamName *string `json:"data_stream_name,omitempty"`

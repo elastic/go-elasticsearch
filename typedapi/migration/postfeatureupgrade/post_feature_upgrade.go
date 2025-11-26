@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Start the feature migration.
+//
 // Version upgrades sometimes require changes to how features store
 // configuration information and data in system indices.
 // This API starts the automatic migration process.
@@ -78,6 +79,7 @@ func NewPostFeatureUpgradeFunc(tp elastictransport.Interface) NewPostFeatureUpgr
 }
 
 // Start the feature migration.
+//
 // Version upgrades sometimes require changes to how features store
 // configuration information and data in system indices.
 // This API starts the automatic migration process.

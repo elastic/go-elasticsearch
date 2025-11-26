@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Forget a follower.
+//
 // Remove the cross-cluster replication follower retention leases from the
 // leader.
 //
@@ -106,6 +107,7 @@ func NewForgetFollowerFunc(tp elastictransport.Interface) NewForgetFollower {
 }
 
 // Forget a follower.
+//
 // Remove the cross-cluster replication follower retention leases from the
 // leader.
 //

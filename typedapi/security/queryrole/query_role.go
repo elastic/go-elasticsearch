@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Find roles with a query.
 //
@@ -423,7 +423,9 @@ func (r *QueryRole) Size(size int) *QueryRole {
 }
 
 // The sort definition.
-// You can sort on `username`, `roles`, or `enabled`.
+// You can sort on `name`, `description`, `metadata`,
+// `applications.application`, `applications.privileges`,
+// and `applications.resources`.
 // In addition, sort can also be applied to the `_doc` field to sort by index
 // order.
 // API name: sort

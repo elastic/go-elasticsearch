@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -31,10 +31,12 @@ import (
 
 // TextEmbedding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/Knn.ts#L94-L97
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/_types/Knn.ts#L108-L117
 type TextEmbedding struct {
-	ModelId   string `json:"model_id"`
-	ModelText string `json:"model_text"`
+	// ModelId Model ID is required for all dense_vector fields but
+	// may be inferred for semantic_text fields
+	ModelId   *string `json:"model_id,omitempty"`
+	ModelText string  `json:"model_text"`
 }
 
 func (s *TextEmbedding) UnmarshalJSON(data []byte) error {
@@ -62,7 +64,7 @@ func (s *TextEmbedding) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.ModelId = o
+			s.ModelId = &o
 
 		case "model_text":
 			var tmp json.RawMessage

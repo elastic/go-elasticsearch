@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -31,12 +31,14 @@ import (
 
 // RolloverAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ilm/_types/Phase.ts#L99-L110
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/ilm/_types/Phase.ts#L99-L113
 type RolloverAction struct {
 	MaxAge              Duration `json:"max_age,omitempty"`
 	MaxDocs             *int64   `json:"max_docs,omitempty"`
 	MaxPrimaryShardDocs *int64   `json:"max_primary_shard_docs,omitempty"`
 	MaxPrimaryShardSize ByteSize `json:"max_primary_shard_size,omitempty"`
+	// MaxSize The `max_size` condition has been deprecated in 9.3.0 and
+	// `max_primary_shard_size` should be used instead
 	MaxSize             ByteSize `json:"max_size,omitempty"`
 	MinAge              Duration `json:"min_age,omitempty"`
 	MinDocs             *int64   `json:"min_docs,omitempty"`

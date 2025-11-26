@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Get index information.
+//
 // Get information about one or more indices. For data streams, the API returns
 // information about the
 // stream’s backing indices.
@@ -82,6 +83,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 }
 
 // Get index information.
+//
 // Get information about one or more indices. For data streams, the API returns
 // information about the
 // stream’s backing indices.

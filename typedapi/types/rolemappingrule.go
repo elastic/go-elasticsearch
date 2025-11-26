@@ -16,60 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // RoleMappingRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/_types/RoleMappingRule.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/security/_types/RoleMappingRule.ts#L23-L31
 type RoleMappingRule struct {
-	AdditionalRoleMappingRuleProperty map[string]json.RawMessage `json:"-"`
-	All                               []RoleMappingRule          `json:"all,omitempty"`
-	Any                               []RoleMappingRule          `json:"any,omitempty"`
-	Except                            *RoleMappingRule           `json:"except,omitempty"`
-	Field                             map[string][]FieldValue    `json:"field,omitempty"`
-}
-
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s RoleMappingRule) MarshalJSON() ([]byte, error) {
-	type opt RoleMappingRule
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalRoleMappingRuleProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalRoleMappingRuleProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
+	All    []RoleMappingRule       `json:"all,omitempty"`
+	Any    []RoleMappingRule       `json:"any,omitempty"`
+	Except *RoleMappingRule        `json:"except,omitempty"`
+	Field  map[string][]FieldValue `json:"field,omitempty"`
 }
 
 // NewRoleMappingRule returns a RoleMappingRule.
 func NewRoleMappingRule() *RoleMappingRule {
 	r := &RoleMappingRule{
-		AdditionalRoleMappingRuleProperty: make(map[string]json.RawMessage),
-		Field:                             make(map[string][]FieldValue),
+		Field: make(map[string][]FieldValue),
 	}
 
 	return r
