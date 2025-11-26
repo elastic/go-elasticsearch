@@ -650,7 +650,7 @@ func (g *Generator) genXPackSetup() {
 						if v.Read.Metadata.Reserved {
 							continue
 						}
-						es.Security.DeletePrivileges(k, "_all")
+						es.Security.DeletePrivileges([]string{"_all"}, k)
 					}
 				}
 			}
