@@ -18,10 +18,10 @@
 package elasticsearch
 
 import (
+	"context"
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"go.opentelemetry.io/otel/trace"
 	"net/http"
 	"net/url"
 	"os"
@@ -30,7 +30,10 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
+
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi"
 
@@ -60,6 +63,14 @@ var (
 	userAgent      string
 	reGoVersion    = regexp.MustCompile(`go(\d+\.\d+\..+)`)
 	reMetaVersion  = regexp.MustCompile("([0-9.]+)(.*)")
+)
+
+var (
+	// ErrClosed is returned when the client is closed.
+	ErrClosed = errors.New("client is closed")
+
+	// ErrAlreadyClosed is returned by the Close method when the client is already closed.
+	ErrAlreadyClosed = errors.New("client is already closed")
 )
 
 func init() {
@@ -140,6 +151,8 @@ type BaseClient struct {
 	disableMetaHeader   bool
 	productCheckMu      sync.RWMutex
 	productCheckSuccess bool
+
+	closeDone uint32
 }
 
 // Client represents the Functional Options API.
@@ -344,6 +357,10 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 
 // Perform delegates to Transport to execute a request and return a response.
 func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
+	if c.isClosed() {
+		return nil, ErrClosed
+	}
+
 	// Compatibility Header
 	if c.compatibilityHeader {
 		if req.Body != nil {
@@ -434,10 +451,50 @@ func (c *BaseClient) Metrics() (elastictransport.Metrics, error) {
 
 // DiscoverNodes reloads the client connections by fetching information from the cluster.
 func (c *BaseClient) DiscoverNodes() error {
+	if c.isClosed() {
+		return ErrClosed
+	}
 	if dt, ok := c.Transport.(elastictransport.Discoverable); ok {
 		return dt.DiscoverNodes()
 	}
 	return errors.New("transport is missing method DiscoverNodes()")
+}
+
+func (c *BaseClient) isClosed() bool {
+	return atomic.LoadUint32(&c.closeDone) != 0
+}
+
+// Close closes the client. If the underlying Transport is elastictransport.Closeable, it is closed as well.
+// Close should only be called once. Later calls to Close will return ErrAlreadyClosed.
+// Once closed, future calls to the client will return ErrClosed.
+// Existing requests may continue to run but may return:
+//   - elastictransport.ErrClosed
+//   - errors.New("connection pool is closed")
+func (c *BaseClient) Close(ctx context.Context) error {
+	if ctx == nil {
+		ctx = context.Background()
+	}
+
+	if atomic.CompareAndSwapUint32(&c.closeDone, 0, 1) {
+		closeable, ok := c.Transport.(elastictransport.Closeable)
+		if ok {
+			transportClosed := make(chan error, 1)
+			go func() {
+				transportClosed <- closeable.Close(context.Background())
+			}()
+
+			select {
+			case err := <-transportClosed:
+				return err
+			case <-ctx.Done():
+				return ctx.Err()
+			}
+		}
+
+		return nil
+	} else {
+		return ErrAlreadyClosed
+	}
 }
 
 // addrsFromEnvironment returns a list of addresses by splitting

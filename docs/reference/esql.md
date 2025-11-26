@@ -58,6 +58,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/esql/query"
@@ -75,6 +76,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer func() {
+		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer cancel()
+		if err := client.Close(ctx); err != nil {
+			log.Fatal(err)
+		}
+    } ()
 
 	queryAuthor := `from library
         | where author == "Isaac Asimov"
