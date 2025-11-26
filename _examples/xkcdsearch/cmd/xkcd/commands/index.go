@@ -18,6 +18,7 @@
 package commands
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"math/rand"
@@ -82,6 +83,13 @@ var indexCmd = &cobra.Command{
 		if err != nil {
 			crawler.log.Fatal().Err(err).Msg("Error creating Elasticsearch client")
 		}
+		defer func() {
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+			defer cancel()
+			if err := es.Close(ctx); err != nil {
+				crawler.log.Fatal().Err(err).Msg("Error closing the client")
+			}
+		}()
 
 		config := xkcdsearch.StoreConfig{Client: es, IndexName: IndexName}
 		store, err := xkcdsearch.NewStore(config)
