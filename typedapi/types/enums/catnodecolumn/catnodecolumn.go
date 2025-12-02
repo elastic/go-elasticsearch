@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Package catnodecolumn
 package catnodecolumn
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cat/_types/CatBase.ts#L560-L1012
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/cat/_types/CatBase.ts#L567-L1024
 type CatNodeColumn struct {
 	Name string
 }
@@ -106,6 +106,8 @@ var (
 	Load5m = CatNodeColumn{"load_5m"}
 
 	Load15m = CatNodeColumn{"load_15m"}
+
+	Availableprocessors = CatNodeColumn{"available_processors"}
 
 	Mappingstotalcount = CatNodeColumn{"mappings.total_count"}
 
@@ -293,6 +295,8 @@ func (c *CatNodeColumn) UnmarshalText(text []byte) error {
 		*c = Load5m
 	case "load_15m":
 		*c = Load15m
+	case "available_processors":
+		*c = Availableprocessors
 	case "mappings.total_count":
 		*c = Mappingstotalcount
 	case "mappings.total_estimated_overhead_in_bytes":

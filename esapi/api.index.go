@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newIndexFunc(t Transport) Index {
 
 // ----- API Definition -------------------------------------------------------
 
-// Index creates or updates a document in an index.
+// Index create or update a document in an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create.
 type Index func(index string, body io.Reader, o ...func(*IndexRequest)) (*Response, error)
 
 // IndexRequest configures the Index API request.
@@ -65,7 +65,7 @@ type IndexRequest struct {
 	Refresh              string
 	RequireAlias         *bool
 	RequireDataStream    *bool
-	Routing              string
+	Routing              []string
 	Timeout              time.Duration
 	Version              *int
 	VersionType          string
@@ -157,8 +157,8 @@ func (r IndexRequest) Do(providedCtx context.Context, transport Transport) (*Res
 		params["require_data_stream"] = strconv.FormatBool(*r.RequireDataStream)
 	}
 
-	if r.Routing != "" {
-		params["routing"] = r.Routing
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if r.Timeout != 0 {
@@ -326,7 +326,7 @@ func (f Index) WithRequireDataStream(v bool) func(*IndexRequest) {
 }
 
 // WithRouting - specific routing value.
-func (f Index) WithRouting(v string) func(*IndexRequest) {
+func (f Index) WithRouting(v ...string) func(*IndexRequest) {
 	return func(r *IndexRequest) {
 		r.Routing = v
 	}

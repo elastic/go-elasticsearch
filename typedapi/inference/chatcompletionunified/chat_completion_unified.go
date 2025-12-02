@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
-// Perform chat completion inference
+// Perform chat completion inference on the service.
 //
 // The chat completion inference API enables real-time responses for chat
 // completion tasks by delivering answers incrementally, reducing response times
@@ -96,7 +96,7 @@ func NewChatCompletionUnifiedFunc(tp elastictransport.Interface) NewChatCompleti
 	}
 }
 
-// Perform chat completion inference
+// Perform chat completion inference on the service.
 //
 // The chat completion inference API enables real-time responses for chat
 // completion tasks by delivering answers incrementally, reducing response times
@@ -430,7 +430,8 @@ func (r *ChatCompletionUnified) Messages(messages ...types.MessageVariant) *Chat
 	return r
 }
 
-// The ID of the model to use.
+// The ID of the model to use. By default, the model ID is set to the value
+// included when creating the inference endpoint.
 // API name: model
 func (r *ChatCompletionUnified) Model(model string) *ChatCompletionUnified {
 	// Initialize the request if it is not already initialized

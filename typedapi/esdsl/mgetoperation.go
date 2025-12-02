@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
@@ -49,9 +49,9 @@ func (s *_mgetOperation) Index_(indexname string) *_mgetOperation {
 	return s
 }
 
-func (s *_mgetOperation) Routing(routing string) *_mgetOperation {
+func (s *_mgetOperation) Routing(routings ...string) *_mgetOperation {
 
-	s.v.Routing = &routing
+	s.v.Routing = routings
 
 	return s
 }

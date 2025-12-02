@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,16 +45,16 @@ func newIndicesGetDataLifecycleFunc(t Transport) IndicesGetDataLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataLifecycle returns the data stream lifecycle of the selected data streams.
+// IndicesGetDataLifecycle get data stream lifecycles
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-get-lifecycle.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-lifecycle.
 type IndicesGetDataLifecycle func(name []string, o ...func(*IndicesGetDataLifecycleRequest)) (*Response, error)
 
 // IndicesGetDataLifecycleRequest configures the Indices Get Data Lifecycle API request.
 type IndicesGetDataLifecycleRequest struct {
 	Name []string
 
-	ExpandWildcards string
+	ExpandWildcards []string
 	IncludeDefaults *bool
 	MasterTimeout   time.Duration
 
@@ -107,8 +107,8 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 
 	params = make(map[string]string)
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IncludeDefaults != nil {
@@ -198,7 +198,7 @@ func (f IndicesGetDataLifecycle) WithContext(v context.Context) func(*IndicesGet
 }
 
 // WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesGetDataLifecycle) WithExpandWildcards(v string) func(*IndicesGetDataLifecycleRequest) {
+func (f IndicesGetDataLifecycle) WithExpandWildcards(v ...string) func(*IndicesGetDataLifecycleRequest) {
 	return func(r *IndicesGetDataLifecycleRequest) {
 		r.ExpandWildcards = v
 	}

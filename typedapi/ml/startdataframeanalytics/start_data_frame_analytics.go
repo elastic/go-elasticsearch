@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Start a data frame analytics job.
+//
 // A data frame analytics job can be started and stopped multiple times
 // throughout its lifecycle.
 // If the destination index does not exist, it is created automatically the
@@ -88,6 +89,7 @@ func NewStartDataFrameAnalyticsFunc(tp elastictransport.Interface) NewStartDataF
 }
 
 // Start a data frame analytics job.
+//
 // A data frame analytics job can be started and stopped multiple times
 // throughout its lifecycle.
 // If the destination index does not exist, it is created automatically the

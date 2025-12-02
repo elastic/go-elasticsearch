@@ -15,19 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
 func newIndicesFieldUsageStatsFunc(t Transport) IndicesFieldUsageStats {
-	return func(index string, o ...func(*IndicesFieldUsageStatsRequest)) (*Response, error) {
+	return func(index []string, o ...func(*IndicesFieldUsageStatsRequest)) (*Response, error) {
 		var r = IndicesFieldUsageStatsRequest{Index: index}
 		for _, f := range o {
 			f(&r)
@@ -43,19 +44,19 @@ func newIndicesFieldUsageStatsFunc(t Transport) IndicesFieldUsageStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesFieldUsageStats returns the field usage stats for each field of an index
+// IndicesFieldUsageStats get field usage stats
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/field-usage-stats.html.
-type IndicesFieldUsageStats func(index string, o ...func(*IndicesFieldUsageStatsRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-field-usage-stats.
+type IndicesFieldUsageStats func(index []string, o ...func(*IndicesFieldUsageStatsRequest)) (*Response, error)
 
 // IndicesFieldUsageStatsRequest configures the Indices Field Usage Stats API request.
 type IndicesFieldUsageStatsRequest struct {
-	Index string
+	Index []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	Fields            []string
 	IgnoreUnavailable *bool
 
@@ -90,12 +91,16 @@ func (r IndicesFieldUsageStatsRequest) Do(providedCtx context.Context, transport
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_field_usage_stats"))
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_field_usage_stats"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString(strings.Join(r.Index, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "index", r.Index)
+		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_field_usage_stats")
@@ -106,8 +111,8 @@ func (r IndicesFieldUsageStatsRequest) Do(providedCtx context.Context, transport
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if len(r.Fields) > 0 {
@@ -204,7 +209,7 @@ func (f IndicesFieldUsageStats) WithAllowNoIndices(v bool) func(*IndicesFieldUsa
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesFieldUsageStats) WithExpandWildcards(v string) func(*IndicesFieldUsageStatsRequest) {
+func (f IndicesFieldUsageStats) WithExpandWildcards(v ...string) func(*IndicesFieldUsageStatsRequest) {
 	return func(r *IndicesFieldUsageStatsRequest) {
 		r.ExpandWildcards = v
 	}

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Restore a snapshot.
+//
 // Restore a snapshot of a cluster or data streams and indices.
 //
 // You can restore a snapshot only to a running cluster with an elected master
@@ -113,6 +114,7 @@ func NewRestoreFunc(tp elastictransport.Interface) NewRestore {
 }
 
 // Restore a snapshot.
+//
 // Restore a snapshot of a cluster or data streams and indices.
 //
 // You can restore a snapshot only to a running cluster with an elected master

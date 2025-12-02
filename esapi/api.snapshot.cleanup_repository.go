@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSnapshotCleanupRepositoryFunc(t Transport) SnapshotCleanupRepository {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotCleanupRepository removes stale data from repository.
+// SnapshotCleanupRepository clean up the snapshot repository
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/clean-up-snapshot-repo-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-cleanup-repository.
 type SnapshotCleanupRepository func(repository string, o ...func(*SnapshotCleanupRepositoryRequest)) (*Response, error)
 
 // SnapshotCleanupRepositoryRequest configures the Snapshot Cleanup Repository API request.

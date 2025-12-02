@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Create a cross-cluster API key.
 //
@@ -409,6 +409,22 @@ func (r *CreateCrossClusterApiKey) Access(access types.AccessVariant) *CreateCro
 	}
 
 	r.req.Access = *access.AccessCaster()
+
+	return r
+}
+
+// The certificate identity to associate with this API key.
+// This field is used to restrict the API key to connections authenticated by a
+// specific TLS certificate.
+// The value should match the certificate's distinguished name (DN) pattern.
+// API name: certificate_identity
+func (r *CreateCrossClusterApiKey) CertificateIdentity(certificateidentity string) *CreateCrossClusterApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.CertificateIdentity = &certificateidentity
 
 	return r
 }

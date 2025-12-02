@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -31,8 +31,10 @@ import (
 
 // NodesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cat/nodes/types.ts#L23-L542
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/cat/nodes/types.ts#L23-L547
 type NodesRecord struct {
+	// AvailableProcessors The number of available processors (logical CPU cores available to the JVM).
+	AvailableProcessors *string `json:"available_processors,omitempty"`
 	// Build The Elasticsearch build hash.
 	Build *string `json:"build,omitempty"`
 	// BulkAvgSizeInBytes The average size in bytes of shard bulk.
@@ -248,6 +250,18 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "available_processors", "ap":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "AvailableProcessors", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.AvailableProcessors = &o
 
 		case "build", "b":
 			var tmp json.RawMessage

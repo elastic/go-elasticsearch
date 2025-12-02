@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
@@ -32,13 +32,6 @@ func NewPhraseSuggester() *_phraseSuggester {
 
 	return &_phraseSuggester{v: types.NewPhraseSuggester()}
 
-}
-
-func (s *_phraseSuggester) Analyzer(analyzer string) *_phraseSuggester {
-
-	s.v.Analyzer = &analyzer
-
-	return s
 }
 
 func (s *_phraseSuggester) Collate(collate types.PhraseSuggestCollateVariant) *_phraseSuggester {
@@ -62,13 +55,6 @@ func (s *_phraseSuggester) DirectGenerator(directgenerators ...types.DirectGener
 		s.v.DirectGenerator = append(s.v.DirectGenerator, *v.DirectGeneratorCaster())
 
 	}
-	return s
-}
-
-func (s *_phraseSuggester) Field(field string) *_phraseSuggester {
-
-	s.v.Field = field
-
 	return s
 }
 
@@ -121,13 +107,6 @@ func (s *_phraseSuggester) ShardSize(shardsize int) *_phraseSuggester {
 	return s
 }
 
-func (s *_phraseSuggester) Size(size int) *_phraseSuggester {
-
-	s.v.Size = &size
-
-	return s
-}
-
 func (s *_phraseSuggester) Smoothing(smoothing types.SmoothingModelContainerVariant) *_phraseSuggester {
 
 	s.v.Smoothing = smoothing.SmoothingModelContainerCaster()
@@ -145,6 +124,27 @@ func (s *_phraseSuggester) Text(text string) *_phraseSuggester {
 func (s *_phraseSuggester) TokenLimit(tokenlimit int) *_phraseSuggester {
 
 	s.v.TokenLimit = &tokenlimit
+
+	return s
+}
+
+func (s *_phraseSuggester) Analyzer(analyzer string) *_phraseSuggester {
+
+	s.v.Analyzer = &analyzer
+
+	return s
+}
+
+func (s *_phraseSuggester) Field(field string) *_phraseSuggester {
+
+	s.v.Field = field
+
+	return s
+}
+
+func (s *_phraseSuggester) Size(size int) *_phraseSuggester {
+
+	s.v.Size = &size
 
 	return s
 }

@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -44,9 +45,9 @@ func newMLStartDatafeedFunc(t Transport) MLStartDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStartDatafeed - Starts one or more datafeeds.
+// MLStartDatafeed - Start datafeeds
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-start-datafeed.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-datafeed.
 type MLStartDatafeed func(datafeed_id string, o ...func(*MLStartDatafeedRequest)) (*Response, error)
 
 // MLStartDatafeedRequest configures the ML Start Datafeed API request.
@@ -55,8 +56,8 @@ type MLStartDatafeedRequest struct {
 
 	DatafeedID string
 
-	End     string
-	Start   string
+	End     interface{}
+	Start   interface{}
 	Timeout time.Duration
 
 	Pretty     bool
@@ -106,12 +107,12 @@ func (r MLStartDatafeedRequest) Do(providedCtx context.Context, transport Transp
 
 	params = make(map[string]string)
 
-	if r.End != "" {
-		params["end"] = r.End
+	if r.End != nil {
+		params["end"] = fmt.Sprintf("%v", r.End)
 	}
 
-	if r.Start != "" {
-		params["start"] = r.Start
+	if r.Start != nil {
+		params["start"] = fmt.Sprintf("%v", r.Start)
 	}
 
 	if r.Timeout != 0 {
@@ -211,14 +212,14 @@ func (f MLStartDatafeed) WithBody(v io.Reader) func(*MLStartDatafeedRequest) {
 }
 
 // WithEnd - the end time when the datafeed should stop. when not set, the datafeed continues in real time.
-func (f MLStartDatafeed) WithEnd(v string) func(*MLStartDatafeedRequest) {
+func (f MLStartDatafeed) WithEnd(v interface{}) func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		r.End = v
 	}
 }
 
 // WithStart - the start time from where the datafeed should begin.
-func (f MLStartDatafeed) WithStart(v string) func(*MLStartDatafeedRequest) {
+func (f MLStartDatafeed) WithStart(v interface{}) func(*MLStartDatafeedRequest) {
 	return func(r *MLStartDatafeedRequest) {
 		r.Start = v
 	}

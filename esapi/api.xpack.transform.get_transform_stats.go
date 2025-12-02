@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
@@ -28,7 +29,7 @@ import (
 )
 
 func newTransformGetTransformStatsFunc(t Transport) TransformGetTransformStats {
-	return func(transform_id string, o ...func(*TransformGetTransformStatsRequest)) (*Response, error) {
+	return func(transform_id []string, o ...func(*TransformGetTransformStatsRequest)) (*Response, error) {
 		var r = TransformGetTransformStatsRequest{TransformID: transform_id}
 		for _, f := range o {
 			f(&r)
@@ -44,14 +45,14 @@ func newTransformGetTransformStatsFunc(t Transport) TransformGetTransformStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformGetTransformStats - Retrieves usage information for transforms.
+// TransformGetTransformStats - Get transform stats
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-stats.html.
-type TransformGetTransformStats func(transform_id string, o ...func(*TransformGetTransformStatsRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-transform-stats.
+type TransformGetTransformStats func(transform_id []string, o ...func(*TransformGetTransformStatsRequest)) (*Response, error)
 
 // TransformGetTransformStatsRequest configures the Transform Get Transform Stats API request.
 type TransformGetTransformStatsRequest struct {
-	TransformID string
+	TransformID []string
 
 	AllowNoMatch *bool
 	From         *int
@@ -89,14 +90,18 @@ func (r TransformGetTransformStatsRequest) Do(providedCtx context.Context, trans
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_stats"))
+	if len(r.TransformID) == 0 {
+		return nil, errors.New("transform_id is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_transform") + 1 + len(strings.Join(r.TransformID, ",")) + 1 + len("_stats"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_transform")
 	path.WriteString("/")
-	path.WriteString(r.TransformID)
+	path.WriteString(strings.Join(r.TransformID, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "transform_id", r.TransformID)
+		instrument.RecordPathPart(ctx, "transform_id", strings.Join(r.TransformID, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_stats")

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,11 +44,11 @@ func newRollupStopJobFunc(t Transport) RollupStopJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupStopJob - Stops an existing, started rollup job.
+// RollupStopJob - Stop rollup jobs
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-stop-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-stop-job.
 type RollupStopJob func(id string, o ...func(*RollupStopJobRequest)) (*Response, error)
 
 // RollupStopJobRequest configures the Rollup Stop Job API request.

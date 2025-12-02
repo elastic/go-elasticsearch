@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,11 +45,9 @@ func newCreateFunc(t Transport) Create {
 
 // ----- API Definition -------------------------------------------------------
 
-// Create creates a new document in the index.
+// Create create a new document in the index
 //
-// Returns a 409 response when a document with a same ID already exists in the index.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-index_.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create.
 type Create func(index string, id string, body io.Reader, o ...func(*CreateRequest)) (*Response, error)
 
 // CreateRequest configures the Create API request.
@@ -64,7 +62,7 @@ type CreateRequest struct {
 	Refresh              string
 	RequireAlias         *bool
 	RequireDataStream    *bool
-	Routing              string
+	Routing              []string
 	Timeout              time.Duration
 	Version              *int
 	VersionType          string
@@ -138,8 +136,8 @@ func (r CreateRequest) Do(providedCtx context.Context, transport Transport) (*Re
 		params["require_data_stream"] = strconv.FormatBool(*r.RequireDataStream)
 	}
 
-	if r.Routing != "" {
-		params["routing"] = r.Routing
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if r.Timeout != 0 {
@@ -279,7 +277,7 @@ func (f Create) WithRequireDataStream(v bool) func(*CreateRequest) {
 }
 
 // WithRouting - specific routing value.
-func (f Create) WithRouting(v string) func(*CreateRequest) {
+func (f Create) WithRouting(v ...string) func(*CreateRequest) {
 	return func(r *CreateRequest) {
 		r.Routing = v
 	}

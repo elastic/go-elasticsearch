@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newWatcherGetSettingsFunc(t Transport) WatcherGetSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherGetSettings - Retrieve settings for the watcher system index
+// WatcherGetSettings - Get Watcher index settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-settings.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-get-settings.
 type WatcherGetSettings func(o ...func(*WatcherGetSettingsRequest)) (*Response, error)
 
 // WatcherGetSettingsRequest configures the Watcher Get Settings API request.

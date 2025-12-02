@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newMLDeleteExpiredDataFunc(t Transport) MLDeleteExpiredData {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteExpiredData - Deletes expired and unused machine learning data.
+// MLDeleteExpiredData - Delete expired ML data
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-expired-data.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-expired-data.
 type MLDeleteExpiredData func(o ...func(*MLDeleteExpiredDataRequest)) (*Response, error)
 
 // MLDeleteExpiredDataRequest configures the ML Delete Expired Data API request.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -32,18 +32,17 @@ import (
 
 // DynamicTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/dynamic-template.ts#L23-L43
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/_types/mapping/dynamic-template.ts#L23-L43
 type DynamicTemplate struct {
-	AdditionalDynamicTemplateProperty map[string]json.RawMessage `json:"-"`
-	Mapping                           Property                   `json:"mapping,omitempty"`
-	Match                             []string                   `json:"match,omitempty"`
-	MatchMappingType                  []string                   `json:"match_mapping_type,omitempty"`
-	MatchPattern                      *matchtype.MatchType       `json:"match_pattern,omitempty"`
-	PathMatch                         []string                   `json:"path_match,omitempty"`
-	PathUnmatch                       []string                   `json:"path_unmatch,omitempty"`
-	Runtime                           *RuntimeField              `json:"runtime,omitempty"`
-	Unmatch                           []string                   `json:"unmatch,omitempty"`
-	UnmatchMappingType                []string                   `json:"unmatch_mapping_type,omitempty"`
+	Mapping            Property             `json:"mapping,omitempty"`
+	Match              []string             `json:"match,omitempty"`
+	MatchMappingType   []string             `json:"match_mapping_type,omitempty"`
+	MatchPattern       *matchtype.MatchType `json:"match_pattern,omitempty"`
+	PathMatch          []string             `json:"path_match,omitempty"`
+	PathUnmatch        []string             `json:"path_unmatch,omitempty"`
+	Runtime            *RuntimeField        `json:"runtime,omitempty"`
+	Unmatch            []string             `json:"unmatch,omitempty"`
+	UnmatchMappingType []string             `json:"unmatch_mapping_type,omitempty"`
 }
 
 func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
@@ -499,58 +498,14 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 				}
 			}
 
-		default:
-
-			if key, ok := t.(string); ok {
-				if s.AdditionalDynamicTemplateProperty == nil {
-					s.AdditionalDynamicTemplateProperty = make(map[string]json.RawMessage, 0)
-				}
-				raw := new(json.RawMessage)
-				if err := dec.Decode(&raw); err != nil {
-					return fmt.Errorf("%s | %w", "AdditionalDynamicTemplateProperty", err)
-				}
-				s.AdditionalDynamicTemplateProperty[key] = *raw
-			}
-
 		}
 	}
 	return nil
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s DynamicTemplate) MarshalJSON() ([]byte, error) {
-	type opt DynamicTemplate
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalDynamicTemplateProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalDynamicTemplateProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewDynamicTemplate returns a DynamicTemplate.
 func NewDynamicTemplate() *DynamicTemplate {
-	r := &DynamicTemplate{
-		AdditionalDynamicTemplateProperty: make(map[string]json.RawMessage),
-	}
+	r := &DynamicTemplate{}
 
 	return r
 }

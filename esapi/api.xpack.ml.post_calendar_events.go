@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLPostCalendarEventsFunc(t Transport) MLPostCalendarEvents {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPostCalendarEvents - Posts scheduled events in a calendar.
+// MLPostCalendarEvents - Add scheduled events to the calendar
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-post-calendar-event.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-calendar-events.
 type MLPostCalendarEvents func(calendar_id string, body io.Reader, o ...func(*MLPostCalendarEventsRequest)) (*Response, error)
 
 // MLPostCalendarEventsRequest configures the ML Post Calendar Events API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,15 +44,16 @@ func newCatSnapshotsFunc(t Transport) CatSnapshots {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatSnapshots returns all snapshots in a specific repository.
+// CatSnapshots get snapshot information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-snapshots.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-snapshots.
 type CatSnapshots func(o ...func(*CatSnapshotsRequest)) (*Response, error)
 
 // CatSnapshotsRequest configures the Cat Snapshots API request.
 type CatSnapshotsRequest struct {
 	Repository []string
 
+	Bytes             string
 	Format            string
 	H                 []string
 	Help              *bool
@@ -108,6 +109,10 @@ func (r CatSnapshotsRequest) Do(providedCtx context.Context, transport Transport
 	}
 
 	params = make(map[string]string)
+
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
 
 	if r.Format != "" {
 		params["format"] = r.Format
@@ -223,6 +228,13 @@ func (f CatSnapshots) WithContext(v context.Context) func(*CatSnapshotsRequest) 
 func (f CatSnapshots) WithRepository(v ...string) func(*CatSnapshotsRequest) {
 	return func(r *CatSnapshotsRequest) {
 		r.Repository = v
+	}
+}
+
+// WithBytes - the unit in which to display byte values.
+func (f CatSnapshots) WithBytes(v string) func(*CatSnapshotsRequest) {
+	return func(r *CatSnapshotsRequest) {
+		r.Bytes = v
 	}
 }
 

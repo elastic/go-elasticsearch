@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Package alibabacloudtasktype
 package alibabacloudtasktype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L355-L360
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/inference/_types/CommonTypes.ts#L391-L396
 type AlibabaCloudTaskType struct {
 	Name string
 }
@@ -33,7 +33,7 @@ var (
 
 	Rerank = AlibabaCloudTaskType{"rerank"}
 
-	Spaceembedding = AlibabaCloudTaskType{"space_embedding"}
+	Sparseembedding = AlibabaCloudTaskType{"sparse_embedding"}
 
 	Textembedding = AlibabaCloudTaskType{"text_embedding"}
 )
@@ -49,8 +49,8 @@ func (a *AlibabaCloudTaskType) UnmarshalText(text []byte) error {
 		*a = Completion
 	case "rerank":
 		*a = Rerank
-	case "space_embedding":
-		*a = Spaceembedding
+	case "sparse_embedding":
+		*a = Sparseembedding
 	case "text_embedding":
 		*a = Textembedding
 	default:

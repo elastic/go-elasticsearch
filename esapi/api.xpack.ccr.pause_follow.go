@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newCCRPauseFollowFunc(t Transport) CCRPauseFollow {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRPauseFollow - Pauses a follower index. The follower index will not fetch any additional operations from the leader index.
+// CCRPauseFollow - Pause a follower
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-pause-follow.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-pause-follow.
 type CCRPauseFollow func(index string, o ...func(*CCRPauseFollowRequest)) (*Response, error)
 
 // CCRPauseFollowRequest configures the CCR Pause Follow API request.

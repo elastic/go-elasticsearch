@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newDanglingIndicesDeleteDanglingIndexFunc(t Transport) DanglingIndicesDelet
 
 // ----- API Definition -------------------------------------------------------
 
-// DanglingIndicesDeleteDanglingIndex deletes the specified dangling index
+// DanglingIndicesDeleteDanglingIndex delete a dangling index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-dangling-indices-delete-dangling-index.
 type DanglingIndicesDeleteDanglingIndex func(index_uuid string, o ...func(*DanglingIndicesDeleteDanglingIndexRequest)) (*Response, error)
 
 // DanglingIndicesDeleteDanglingIndexRequest configures the Dangling Indices Delete Dangling Index API request.

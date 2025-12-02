@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newWatcherUpdateSettingsFunc(t Transport) WatcherUpdateSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherUpdateSettings - Update settings for the watcher system index
+// WatcherUpdateSettings - Update Watcher index settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-update-settings.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-update-settings.
 type WatcherUpdateSettings func(body io.Reader, o ...func(*WatcherUpdateSettingsRequest)) (*Response, error)
 
 // WatcherUpdateSettingsRequest configures the Watcher Update Settings API request.

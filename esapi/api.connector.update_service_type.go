@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newConnectorUpdateServiceDocumentTypeFunc(t Transport) ConnectorUpdateServi
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorUpdateServiceDocumentType updates the service type of the connector.
+// ConnectorUpdateServiceDocumentType update the connector service type
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-service-type-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-service-type.
 type ConnectorUpdateServiceDocumentType func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateServiceDocumentTypeRequest)) (*Response, error)
 
 // ConnectorUpdateServiceDocumentTypeRequest configures the Connector Update Service Document Type API request.

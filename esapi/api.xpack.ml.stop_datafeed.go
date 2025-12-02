@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newMLStopDatafeedFunc(t Transport) MLStopDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStopDatafeed - Stops one or more datafeeds.
+// MLStopDatafeed - Stop datafeeds
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-stop-datafeed.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-datafeed.
 type MLStopDatafeed func(datafeed_id string, o ...func(*MLStopDatafeedRequest)) (*Response, error)
 
 // MLStopDatafeedRequest configures the ML Stop Datafeed API request.

@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 	"strconv"
@@ -29,7 +30,7 @@ import (
 )
 
 func newIndicesPutDataStreamSettingsFunc(t Transport) IndicesPutDataStreamSettings {
-	return func(name string, body io.Reader, o ...func(*IndicesPutDataStreamSettingsRequest)) (*Response, error) {
+	return func(name []string, body io.Reader, o ...func(*IndicesPutDataStreamSettingsRequest)) (*Response, error) {
 		var r = IndicesPutDataStreamSettingsRequest{Name: name, Body: body}
 		for _, f := range o {
 			f(&r)
@@ -45,16 +46,16 @@ func newIndicesPutDataStreamSettingsFunc(t Transport) IndicesPutDataStreamSettin
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutDataStreamSettings updates a data stream's settings
+// IndicesPutDataStreamSettings update data stream settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
-type IndicesPutDataStreamSettings func(name string, body io.Reader, o ...func(*IndicesPutDataStreamSettingsRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-settings.
+type IndicesPutDataStreamSettings func(name []string, body io.Reader, o ...func(*IndicesPutDataStreamSettingsRequest)) (*Response, error)
 
 // IndicesPutDataStreamSettingsRequest configures the Indices Put Data Stream Settings API request.
 type IndicesPutDataStreamSettingsRequest struct {
 	Body io.Reader
 
-	Name string
+	Name []string
 
 	DryRun        *bool
 	MasterTimeout time.Duration
@@ -91,14 +92,18 @@ func (r IndicesPutDataStreamSettingsRequest) Do(providedCtx context.Context, tra
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_data_stream") + 1 + len(r.Name) + 1 + len("_settings"))
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_settings"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_data_stream")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(strings.Join(r.Name, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", r.Name)
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_settings")

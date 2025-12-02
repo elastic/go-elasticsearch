@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newCCRStatsFunc(t Transport) CCRStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRStats - Gets all stats related to cross-cluster replication.
+// CCRStats - Get cross-cluster replication stats
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-stats.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-stats.
 type CCRStats func(o ...func(*CCRStatsRequest)) (*Response, error)
 
 // CCRStatsRequest configures the CCR Stats API request.

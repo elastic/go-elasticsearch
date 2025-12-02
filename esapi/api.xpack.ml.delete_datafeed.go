@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLDeleteDatafeedFunc(t Transport) MLDeleteDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteDatafeed - Deletes an existing datafeed.
+// MLDeleteDatafeed - Delete a datafeed
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-datafeed.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-datafeed.
 type MLDeleteDatafeed func(datafeed_id string, o ...func(*MLDeleteDatafeedRequest)) (*Response, error)
 
 // MLDeleteDatafeedRequest configures the ML Delete Datafeed API request.

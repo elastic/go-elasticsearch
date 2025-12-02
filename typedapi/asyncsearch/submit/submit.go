@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Run an async search.
 //
@@ -42,6 +42,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -297,7 +298,8 @@ func (r Submit) Do(providedCtx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 {
+	if res.StatusCode < 299 || slices.Contains([]int{404, 400, 500, 429}, res.StatusCode) {
+
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -504,6 +506,24 @@ func (r *Submit) Preference(preference string) *Submit {
 	return r
 }
 
+// ProjectRouting Specifies a subset of projects to target for the search using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *Submit) ProjectRouting(projectrouting string) *Submit {
+	r.values.Set("project_routing", projectrouting)
+
+	return r
+}
+
 // RequestCache Specify if request cache should be used for this request or not, defaults to
 // true
 // API name: request_cache
@@ -515,8 +535,8 @@ func (r *Submit) RequestCache(requestcache bool) *Submit {
 
 // Routing A comma-separated list of specific routing values
 // API name: routing
-func (r *Submit) Routing(routing string) *Submit {
-	r.values.Set("routing", routing)
+func (r *Submit) Routing(routings ...string) *Submit {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Get cluster repositories metering.
+//
 // Get repositories metering information for a cluster.
 // This API exposes monotonically non-decreasing counters and it is expected
 // that clients would durably store the information needed to compute
@@ -83,6 +84,7 @@ func NewGetRepositoriesMeteringInfoFunc(tp elastictransport.Interface) NewGetRep
 }
 
 // Get cluster repositories metering.
+//
 // Get repositories metering information for a cluster.
 // This API exposes monotonically non-decreasing counters and it is expected
 // that clients would durably store the information needed to compute

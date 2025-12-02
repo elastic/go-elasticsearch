@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package queryapikeys
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package queryapikeys
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/query_api_keys/QueryApiKeysRequest.ts#L26-L126
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/security/query_api_keys/QueryApiKeysRequest.ts#L26-L127
 type Request struct {
-
 	// Aggregations Any aggregations to run over the corpus of returned API keys.
 	// Aggregations and queries work together. Aggregations are computed only on the
 	// API keys that match the query.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newSimulateIngestFunc(t Transport) SimulateIngest {
 
 // ----- API Definition -------------------------------------------------------
 
-// SimulateIngest simulates running ingest with example documents.
+// SimulateIngest simulate data ingestion
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-ingest-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-simulate-ingest.
 type SimulateIngest func(body io.Reader, o ...func(*SimulateIngestRequest)) (*Response, error)
 
 // SimulateIngestRequest configures the Simulate Ingest API request.
@@ -56,7 +56,8 @@ type SimulateIngestRequest struct {
 
 	Body io.Reader
 
-	Pipeline string
+	MergeType string
+	Pipeline  string
 
 	Pretty     bool
 	Human      bool
@@ -104,6 +105,10 @@ func (r SimulateIngestRequest) Do(providedCtx context.Context, transport Transpo
 	path.WriteString("_simulate")
 
 	params = make(map[string]string)
+
+	if r.MergeType != "" {
+		params["merge_type"] = r.MergeType
+	}
 
 	if r.Pipeline != "" {
 		params["pipeline"] = r.Pipeline
@@ -198,6 +203,13 @@ func (f SimulateIngest) WithContext(v context.Context) func(*SimulateIngestReque
 func (f SimulateIngest) WithIndex(v string) func(*SimulateIngestRequest) {
 	return func(r *SimulateIngestRequest) {
 		r.Index = v
+	}
+}
+
+// WithMergeType - the mapping merge type if mapping overrides are being provided in mapping_addition.the allowed values are one of index or template.the index option merges mappings the way they would be merged into an existing index.the template option merges mappings the way they would be merged into a template..
+func (f SimulateIngest) WithMergeType(v string) func(*SimulateIngestRequest) {
+	return func(r *SimulateIngestRequest) {
+		r.MergeType = v
 	}
 }
 

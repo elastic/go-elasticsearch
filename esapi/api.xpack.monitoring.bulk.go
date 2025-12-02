@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,16 +43,14 @@ func newMonitoringBulkFunc(t Transport) MonitoringBulk {
 
 // ----- API Definition -------------------------------------------------------
 
-// MonitoringBulk - Used by the monitoring features to send monitoring data.
+// MonitoringBulk - Send monitoring data
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/monitor-elasticsearch-cluster.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch.
 type MonitoringBulk func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error)
 
 // MonitoringBulkRequest configures the Monitoring Bulk API request.
 type MonitoringBulkRequest struct {
 	Body io.Reader
-
-	DocumentType string
 
 	Interval         string
 	SystemAPIVersion string
@@ -89,19 +87,9 @@ func (r MonitoringBulkRequest) Do(providedCtx context.Context, transport Transpo
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len("_monitoring") + 1 + len(r.DocumentType) + 1 + len("bulk"))
+	path.Grow(7 + len("/_monitoring/bulk"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_monitoring")
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "type", r.DocumentType)
-		}
-	}
-	path.WriteString("/")
-	path.WriteString("bulk")
+	path.WriteString("/_monitoring/bulk")
 
 	params = make(map[string]string)
 
@@ -199,13 +187,6 @@ func (r MonitoringBulkRequest) Do(providedCtx context.Context, transport Transpo
 func (f MonitoringBulk) WithContext(v context.Context) func(*MonitoringBulkRequest) {
 	return func(r *MonitoringBulkRequest) {
 		r.ctx = v
-	}
-}
-
-// WithDocumentType - default document type for items which don't provide one.
-func (f MonitoringBulk) WithDocumentType(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.DocumentType = v
 	}
 }
 

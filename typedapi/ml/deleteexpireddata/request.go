@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package deleteexpireddata
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package deleteexpireddata
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/delete_expired_data/MlDeleteExpiredDataRequest.ts#L25-L85
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/ml/delete_expired_data/MlDeleteExpiredDataRequest.ts#L25-L85
 type Request struct {
-
 	// RequestsPerSecond The desired requests per second for the deletion processes. The default
 	// behavior is no throttling.
 	RequestsPerSecond *float32 `json:"requests_per_second,omitempty"`

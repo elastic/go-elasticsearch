@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newCatHelpFunc(t Transport) CatHelp {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatHelp returns help for the Cat APIs.
+// CatHelp get CAT help
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-cat.
 type CatHelp func(o ...func(*CatHelpRequest)) (*Response, error)
 
 // CatHelpRequest configures the Cat Help API request.

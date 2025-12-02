@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLUpdateModelSnapshotFunc(t Transport) MLUpdateModelSnapshot {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpdateModelSnapshot - Updates certain properties of a snapshot.
+// MLUpdateModelSnapshot - Update a snapshot
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-snapshot.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-model-snapshot.
 type MLUpdateModelSnapshot func(snapshot_id string, job_id string, body io.Reader, o ...func(*MLUpdateModelSnapshotRequest)) (*Response, error)
 
 // MLUpdateModelSnapshotRequest configures the ML Update Model Snapshot API request.

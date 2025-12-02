@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package types
 
@@ -26,12 +26,18 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // RemoteSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/reindex/types.ts#L112-L140
+// https://github.com/elastic/elasticsearch-specification/blob/aa1459fbdcaf57c653729142b3b6e9982373bb1c/specification/_global/reindex/types.ts#L112-L148
 type RemoteSource struct {
+	// ApiKey The API key to use for authentication with the remote host (as an alternative
+	// to basic auth when the remote cluster is in Elastic Cloud).
+	// (It is not permitted to set this and also to set an `Authorization` header
+	// via `headers`.)
+	ApiKey *string `json:"api_key,omitempty"`
 	// ConnectTimeout The remote connection timeout.
 	ConnectTimeout Duration `json:"connect_timeout,omitempty"`
 	// Headers An object containing the headers of the request.
@@ -39,11 +45,13 @@ type RemoteSource struct {
 	// Host The URL for the remote instance of Elasticsearch that you want to index from.
 	// This information is required when you're indexing from remote.
 	Host string `json:"host"`
-	// Password The password to use for authentication with the remote host.
+	// Password The password to use for authentication with the remote host (required when
+	// using basic auth).
 	Password *string `json:"password,omitempty"`
 	// SocketTimeout The remote socket read timeout.
 	SocketTimeout Duration `json:"socket_timeout,omitempty"`
-	// Username The username to use for authentication with the remote host.
+	// Username The username to use for authentication with the remote host (required when
+	// using basic auth).
 	Username *string `json:"username,omitempty"`
 }
 
@@ -61,6 +69,18 @@ func (s *RemoteSource) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "api_key":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ApiKey", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ApiKey = &o
 
 		case "connect_timeout":
 			if err := dec.Decode(&s.ConnectTimeout); err != nil {

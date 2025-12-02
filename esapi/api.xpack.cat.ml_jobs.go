@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newCatMLJobsFunc(t Transport) CatMLJobs {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatMLJobs - Gets configuration and usage information about anomaly detection jobs.
+// CatMLJobs - Get anomaly detection jobs
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-anomaly-detectors.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-jobs.
 type CatMLJobs func(o ...func(*CatMLJobsRequest)) (*Response, error)
 
 // CatMLJobsRequest configures the CatML Jobs API request.

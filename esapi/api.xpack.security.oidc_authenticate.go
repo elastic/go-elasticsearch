@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityOidcAuthenticateFunc(t Transport) SecurityOidcAuthenticate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityOidcAuthenticate - Exchanges an OpenID Connection authentication response message for an Elasticsearch access token and refresh token pair
+// SecurityOidcAuthenticate - Authenticate OpenID Connect
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-authenticate.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-authenticate.
 type SecurityOidcAuthenticate func(body io.Reader, o ...func(*SecurityOidcAuthenticateRequest)) (*Response, error)
 
 // SecurityOidcAuthenticateRequest configures the Security Oidc Authenticate API request.

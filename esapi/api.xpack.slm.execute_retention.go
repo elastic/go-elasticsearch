@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSlmExecuteRetentionFunc(t Transport) SlmExecuteRetention {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmExecuteRetention - Deletes any snapshots that are expired according to the policy's retention rules.
+// SlmExecuteRetention - Run a retention policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-retention.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-retention.
 type SlmExecuteRetention func(o ...func(*SlmExecuteRetentionRequest)) (*Response, error)
 
 // SlmExecuteRetentionRequest configures the Slm Execute Retention API request.

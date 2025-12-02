@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
@@ -42,33 +42,6 @@ func NewHighlight() *_highlight {
 
 }
 
-func (s *_highlight) BoundaryChars(boundarychars string) *_highlight {
-
-	s.v.BoundaryChars = &boundarychars
-
-	return s
-}
-
-func (s *_highlight) BoundaryMaxScan(boundarymaxscan int) *_highlight {
-
-	s.v.BoundaryMaxScan = &boundarymaxscan
-
-	return s
-}
-
-func (s *_highlight) BoundaryScanner(boundaryscanner boundaryscanner.BoundaryScanner) *_highlight {
-
-	s.v.BoundaryScanner = &boundaryscanner
-	return s
-}
-
-func (s *_highlight) BoundaryScannerLocale(boundaryscannerlocale string) *_highlight {
-
-	s.v.BoundaryScannerLocale = &boundaryscannerlocale
-
-	return s
-}
-
 func (s *_highlight) Encoder(encoder highlighterencoder.HighlighterEncoder) *_highlight {
 
 	s.v.Encoder = &encoder
@@ -82,9 +55,9 @@ func (s *_highlight) Fields(fields []map[string]types.HighlightField) *_highligh
 	return s
 }
 
-func (s *_highlight) ForceSource(forcesource bool) *_highlight {
+func (s *_highlight) BoundaryChars(boundarychars string) *_highlight {
 
-	s.v.ForceSource = &forcesource
+	s.v.BoundaryChars = &boundarychars
 
 	return s
 }
@@ -93,12 +66,6 @@ func (s *_highlight) FragmentSize(fragmentsize int) *_highlight {
 
 	s.v.FragmentSize = &fragmentsize
 
-	return s
-}
-
-func (s *_highlight) Fragmenter(fragmenter highlighterfragmenter.HighlighterFragmenter) *_highlight {
-
-	s.v.Fragmenter = &fragmenter
 	return s
 }
 
@@ -116,16 +83,38 @@ func (s *_highlight) HighlightQuery(highlightquery types.QueryVariant) *_highlig
 	return s
 }
 
-func (s *_highlight) MaxAnalyzedOffset(maxanalyzedoffset int) *_highlight {
+func (s *_highlight) MaxFragmentLength(maxfragmentlength int) *_highlight {
 
-	s.v.MaxAnalyzedOffset = &maxanalyzedoffset
+	s.v.MaxFragmentLength = &maxfragmentlength
 
 	return s
 }
 
-func (s *_highlight) MaxFragmentLength(maxfragmentlength int) *_highlight {
+func (s *_highlight) Order(order highlighterorder.HighlighterOrder) *_highlight {
 
-	s.v.MaxFragmentLength = &maxfragmentlength
+	s.v.Order = &order
+	return s
+}
+
+func (s *_highlight) PreTags(pretags ...string) *_highlight {
+
+	for _, v := range pretags {
+
+		s.v.PreTags = append(s.v.PreTags, v)
+
+	}
+	return s
+}
+
+func (s *_highlight) TagsSchema(tagsschema highlightertagsschema.HighlighterTagsSchema) *_highlight {
+
+	s.v.TagsSchema = &tagsschema
+	return s
+}
+
+func (s *_highlight) BoundaryMaxScan(boundarymaxscan int) *_highlight {
+
+	s.v.BoundaryMaxScan = &boundarymaxscan
 
 	return s
 }
@@ -140,6 +129,59 @@ func (s *_highlight) NoMatchSize(nomatchsize int) *_highlight {
 func (s *_highlight) NumberOfFragments(numberoffragments int) *_highlight {
 
 	s.v.NumberOfFragments = &numberoffragments
+
+	return s
+}
+
+func (s *_highlight) Type(type_ highlightertype.HighlighterType) *_highlight {
+
+	s.v.Type = &type_
+	return s
+}
+
+func (s *_highlight) BoundaryScanner(boundaryscanner boundaryscanner.BoundaryScanner) *_highlight {
+
+	s.v.BoundaryScanner = &boundaryscanner
+	return s
+}
+
+func (s *_highlight) Fragmenter(fragmenter highlighterfragmenter.HighlighterFragmenter) *_highlight {
+
+	s.v.Fragmenter = &fragmenter
+	return s
+}
+
+func (s *_highlight) MaxAnalyzedOffset(maxanalyzedoffset int) *_highlight {
+
+	s.v.MaxAnalyzedOffset = &maxanalyzedoffset
+
+	return s
+}
+
+func (s *_highlight) PhraseLimit(phraselimit int) *_highlight {
+
+	s.v.PhraseLimit = &phraselimit
+
+	return s
+}
+
+func (s *_highlight) RequireFieldMatch(requirefieldmatch bool) *_highlight {
+
+	s.v.RequireFieldMatch = &requirefieldmatch
+
+	return s
+}
+
+func (s *_highlight) BoundaryScannerLocale(boundaryscannerlocale string) *_highlight {
+
+	s.v.BoundaryScannerLocale = &boundaryscannerlocale
+
+	return s
+}
+
+func (s *_highlight) ForceSource(forcesource bool) *_highlight {
+
+	s.v.ForceSource = &forcesource
 
 	return s
 }
@@ -165,19 +207,6 @@ func (s *_highlight) AddOption(key string, value json.RawMessage) *_highlight {
 	return s
 }
 
-func (s *_highlight) Order(order highlighterorder.HighlighterOrder) *_highlight {
-
-	s.v.Order = &order
-	return s
-}
-
-func (s *_highlight) PhraseLimit(phraselimit int) *_highlight {
-
-	s.v.PhraseLimit = &phraselimit
-
-	return s
-}
-
 func (s *_highlight) PostTags(posttags ...string) *_highlight {
 
 	for _, v := range posttags {
@@ -185,35 +214,6 @@ func (s *_highlight) PostTags(posttags ...string) *_highlight {
 		s.v.PostTags = append(s.v.PostTags, v)
 
 	}
-	return s
-}
-
-func (s *_highlight) PreTags(pretags ...string) *_highlight {
-
-	for _, v := range pretags {
-
-		s.v.PreTags = append(s.v.PreTags, v)
-
-	}
-	return s
-}
-
-func (s *_highlight) RequireFieldMatch(requirefieldmatch bool) *_highlight {
-
-	s.v.RequireFieldMatch = &requirefieldmatch
-
-	return s
-}
-
-func (s *_highlight) TagsSchema(tagsschema highlightertagsschema.HighlighterTagsSchema) *_highlight {
-
-	s.v.TagsSchema = &tagsschema
-	return s
-}
-
-func (s *_highlight) Type(type_ highlightertype.HighlighterType) *_highlight {
-
-	s.v.Type = &type_
 	return s
 }
 

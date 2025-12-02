@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Cancel node shutdown preparations.
+//
 // Remove a node from the shutdown list so it can resume normal operations.
 // You must explicitly clear the shutdown request when a node rejoins the
 // cluster or when a node has permanently left the cluster.
@@ -45,7 +46,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
 )
 
 const (
@@ -89,6 +89,7 @@ func NewDeleteNodeFunc(tp elastictransport.Interface) NewDeleteNode {
 }
 
 // Cancel node shutdown preparations.
+//
 // Remove a node from the shutdown list so it can resume normal operations.
 // You must explicitly clear the shutdown request when a node rejoins the
 // cluster or when a node has permanently left the cluster.
@@ -331,8 +332,8 @@ func (r *DeleteNode) _nodeid(nodeid string) *DeleteNode {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *DeleteNode) MasterTimeout(mastertimeout timeunit.TimeUnit) *DeleteNode {
-	r.values.Set("master_timeout", mastertimeout.String())
+func (r *DeleteNode) MasterTimeout(duration string) *DeleteNode {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -340,8 +341,8 @@ func (r *DeleteNode) MasterTimeout(mastertimeout timeunit.TimeUnit) *DeleteNode 
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *DeleteNode) Timeout(timeout timeunit.TimeUnit) *DeleteNode {
-	r.values.Set("timeout", timeout.String())
+func (r *DeleteNode) Timeout(duration string) *DeleteNode {
+	r.values.Set("timeout", duration)
 
 	return r
 }

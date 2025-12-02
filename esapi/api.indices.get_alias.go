@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesGetAliasFunc(t Transport) IndicesGetAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetAlias returns an alias.
+// IndicesGetAlias get aliases
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-alias.
 type IndicesGetAlias func(o ...func(*IndicesGetAliasRequest)) (*Response, error)
 
 // IndicesGetAliasRequest configures the Indices Get Alias API request.
@@ -56,7 +56,7 @@ type IndicesGetAliasRequest struct {
 	Name []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 	MasterTimeout     time.Duration
 
@@ -116,8 +116,8 @@ func (r IndicesGetAliasRequest) Do(providedCtx context.Context, transport Transp
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -228,7 +228,7 @@ func (f IndicesGetAlias) WithAllowNoIndices(v bool) func(*IndicesGetAliasRequest
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesGetAlias) WithExpandWildcards(v string) func(*IndicesGetAliasRequest) {
+func (f IndicesGetAlias) WithExpandWildcards(v ...string) func(*IndicesGetAliasRequest) {
 	return func(r *IndicesGetAliasRequest) {
 		r.ExpandWildcards = v
 	}

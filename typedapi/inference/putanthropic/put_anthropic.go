@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Create an Anthropic inference endpoint.
 //
@@ -392,19 +392,6 @@ func (r *PutAnthropic) Pretty(pretty bool) *PutAnthropic {
 	return r
 }
 
-// The chunking configuration object.
-// API name: chunking_settings
-func (r *PutAnthropic) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAnthropic {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
-
-	return r
-}
-
 // The type of service supported for the specified task type. In this case,
 // `anthropic`.
 // API name: service
@@ -418,7 +405,7 @@ func (r *PutAnthropic) Service(service anthropicservicetype.AnthropicServiceType
 }
 
 // Settings used to install the inference model. These settings are specific to
-// the `watsonxai` service.
+// the `anthropic` service.
 // API name: service_settings
 func (r *PutAnthropic) ServiceSettings(servicesettings types.AnthropicServiceSettingsVariant) *PutAnthropic {
 	// Initialize the request if it is not already initialized

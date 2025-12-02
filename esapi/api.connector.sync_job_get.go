@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,11 @@ func newConnectorSyncJobGetFunc(t Transport) ConnectorSyncJobGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobGet returns the details about a connector sync job.
+// ConnectorSyncJobGet get a connector sync job
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-sync-job-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-get.
 type ConnectorSyncJobGet func(connector_sync_job_id string, o ...func(*ConnectorSyncJobGetRequest)) (*Response, error)
 
 // ConnectorSyncJobGetRequest configures the Connector Sync Job Get API request.

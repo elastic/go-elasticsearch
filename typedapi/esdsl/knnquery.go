@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
@@ -33,13 +33,6 @@ func NewKnnQuery() *_knnQuery {
 
 	return &_knnQuery{v: types.NewKnnQuery()}
 
-}
-
-func (s *_knnQuery) Boost(boost float32) *_knnQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_knnQuery) Field(field string) *_knnQuery {
@@ -73,13 +66,6 @@ func (s *_knnQuery) NumCandidates(numcandidates int) *_knnQuery {
 	return s
 }
 
-func (s *_knnQuery) QueryName_(queryname_ string) *_knnQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_knnQuery) QueryVector(queryvectors ...float32) *_knnQuery {
 
 	s.v.QueryVector = queryvectors
@@ -104,6 +90,27 @@ func (s *_knnQuery) RescoreVector(rescorevector types.RescoreVectorVariant) *_kn
 func (s *_knnQuery) Similarity(similarity float32) *_knnQuery {
 
 	s.v.Similarity = &similarity
+
+	return s
+}
+
+func (s *_knnQuery) VisitPercentage(visitpercentage float32) *_knnQuery {
+
+	s.v.VisitPercentage = &visitpercentage
+
+	return s
+}
+
+func (s *_knnQuery) Boost(boost float32) *_knnQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_knnQuery) QueryName_(queryname_ string) *_knnQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

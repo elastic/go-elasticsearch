@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityGetUserFunc(t Transport) SecurityGetUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUser - Retrieves information about users in the native realm and built-in users.
+// SecurityGetUser - Get users
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user.
 type SecurityGetUser func(o ...func(*SecurityGetUserRequest)) (*Response, error)
 
 // SecurityGetUserRequest configures the Security Get User API request.

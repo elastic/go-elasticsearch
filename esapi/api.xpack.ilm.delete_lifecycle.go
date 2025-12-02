@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newILMDeleteLifecycleFunc(t Transport) ILMDeleteLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMDeleteLifecycle - Deletes the specified lifecycle policy definition. A currently used policy cannot be deleted.
+// ILMDeleteLifecycle - Delete a lifecycle policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-delete-lifecycle.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-delete-lifecycle.
 type ILMDeleteLifecycle func(policy string, o ...func(*ILMDeleteLifecycleRequest)) (*Response, error)
 
 // ILMDeleteLifecycleRequest configures the ILM Delete Lifecycle API request.

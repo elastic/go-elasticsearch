@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 package esdsl
 
@@ -32,16 +32,16 @@ func NewRankEvalMetricMeanReciprocalRank() *_rankEvalMetricMeanReciprocalRank {
 
 }
 
-func (s *_rankEvalMetricMeanReciprocalRank) K(k int) *_rankEvalMetricMeanReciprocalRank {
+func (s *_rankEvalMetricMeanReciprocalRank) RelevantRatingThreshold(relevantratingthreshold int) *_rankEvalMetricMeanReciprocalRank {
 
-	s.v.K = &k
+	s.v.RelevantRatingThreshold = &relevantratingthreshold
 
 	return s
 }
 
-func (s *_rankEvalMetricMeanReciprocalRank) RelevantRatingThreshold(relevantratingthreshold int) *_rankEvalMetricMeanReciprocalRank {
+func (s *_rankEvalMetricMeanReciprocalRank) K(k int) *_rankEvalMetricMeanReciprocalRank {
 
-	s.v.RelevantRatingThreshold = &relevantratingthreshold
+	s.v.K = &k
 
 	return s
 }

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLForecastFunc(t Transport) MLForecast {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLForecast - Predicts the future behavior of a time series by using its historical behavior.
+// MLForecast - Predict future behavior of a time series
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-forecast.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-forecast.
 type MLForecast func(job_id string, o ...func(*MLForecastRequest)) (*Response, error)
 
 // MLForecastRequest configures the ML Forecast API request.

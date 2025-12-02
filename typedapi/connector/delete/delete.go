@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/aa1459fbdcaf57c653729142b3b6e9982373bb1c
 
 // Delete a connector.
 //
@@ -309,8 +309,7 @@ func (r *Delete) _connectorid(connectorid string) *Delete {
 	return r
 }
 
-// DeleteSyncJobs A flag indicating if associated sync jobs should be also removed. Defaults to
-// false.
+// DeleteSyncJobs A flag indicating if associated sync jobs should be also removed.
 // API name: delete_sync_jobs
 func (r *Delete) DeleteSyncJobs(deletesyncjobs bool) *Delete {
 	r.values.Set("delete_sync_jobs", strconv.FormatBool(deletesyncjobs))

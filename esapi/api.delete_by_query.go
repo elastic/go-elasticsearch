@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -47,9 +47,9 @@ func newDeleteByQueryFunc(t Transport) DeleteByQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// DeleteByQuery deletes documents matching the provided query.
+// DeleteByQuery delete documents
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete-by-query.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query.
 type DeleteByQuery func(index []string, body io.Reader, o ...func(*DeleteByQueryRequest)) (*Response, error)
 
 // DeleteByQueryRequest configures the Delete By Query API request.
@@ -64,7 +64,7 @@ type DeleteByQueryRequest struct {
 	Conflicts           string
 	DefaultOperator     string
 	Df                  string
-	ExpandWildcards     string
+	ExpandWildcards     []string
 	From                *int
 	IgnoreUnavailable   *bool
 	Lenient             *bool
@@ -159,8 +159,8 @@ func (r DeleteByQueryRequest) Do(providedCtx context.Context, transport Transpor
 		params["df"] = r.Df
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.From != nil {
@@ -379,7 +379,7 @@ func (f DeleteByQuery) WithDf(v string) func(*DeleteByQueryRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f DeleteByQuery) WithExpandWildcards(v string) func(*DeleteByQueryRequest) {
+func (f DeleteByQuery) WithExpandWildcards(v ...string) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
 		r.ExpandWildcards = v
 	}

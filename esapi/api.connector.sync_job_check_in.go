@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,11 @@ func newConnectorSyncJobCheckInFunc(t Transport) ConnectorSyncJobCheckIn {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobCheckIn checks in a connector sync job (refreshes 'last_seen').
+// ConnectorSyncJobCheckIn check in a connector sync job
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-sync-job-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-check-in.
 type ConnectorSyncJobCheckIn func(connector_sync_job_id string, o ...func(*ConnectorSyncJobCheckInRequest)) (*Response, error)
 
 // ConnectorSyncJobCheckInRequest configures the Connector Sync Job Check In API request.

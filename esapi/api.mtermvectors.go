@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMtermvectorsFunc(t Transport) Mtermvectors {
 
 // ----- API Definition -------------------------------------------------------
 
-// Mtermvectors returns multiple termvectors in one request.
+// Mtermvectors get multiple term vectors
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-termvectors.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mtermvectors.
 type Mtermvectors func(o ...func(*MtermvectorsRequest)) (*Response, error)
 
 // MtermvectorsRequest configures the Mtermvectors API request.
@@ -63,7 +63,7 @@ type MtermvectorsRequest struct {
 	Positions       *bool
 	Preference      string
 	Realtime        *bool
-	Routing         string
+	Routing         []string
 	TermStatistics  *bool
 	Version         *int
 	VersionType     string
@@ -145,8 +145,8 @@ func (r MtermvectorsRequest) Do(providedCtx context.Context, transport Transport
 		params["realtime"] = strconv.FormatBool(*r.Realtime)
 	}
 
-	if r.Routing != "" {
-		params["routing"] = r.Routing
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if r.TermStatistics != nil {
@@ -317,7 +317,7 @@ func (f Mtermvectors) WithRealtime(v bool) func(*MtermvectorsRequest) {
 }
 
 // WithRouting - specific routing value. applies to all returned documents unless otherwise specified in body "params" or "docs"..
-func (f Mtermvectors) WithRouting(v string) func(*MtermvectorsRequest) {
+func (f Mtermvectors) WithRouting(v ...string) func(*MtermvectorsRequest) {
 	return func(r *MtermvectorsRequest) {
 		r.Routing = v
 	}
