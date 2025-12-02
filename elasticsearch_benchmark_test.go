@@ -22,8 +22,6 @@ package elasticsearch_test
 
 import (
 	"context"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"io/ioutil"
 	"net/http"
 	"strconv"
@@ -32,6 +30,8 @@ import (
 
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esapi"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 var defaultResponse = http.Response{
@@ -252,7 +252,7 @@ func (m mockTransp) RoundTrip(request *http.Request) (*http.Response, error) {
 
 func BenchmarkAllocsSearch(t *testing.B) {
 	t.Run("struct search", func(b *testing.B) {
-		c, _ := elasticsearch.NewTypedClient(elasticsearch.Config{
+		c, err := elasticsearch.NewTypedClient(elasticsearch.Config{
 			Transport: &mockTransp{
 				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
 					return &http.Response{
@@ -264,6 +264,10 @@ func BenchmarkAllocsSearch(t *testing.B) {
 				},
 			},
 		})
+
+		if err != nil {
+			b.Fatalf("Unexpected error when creating a client: %s", err)
+		}
 
 		for i := 0; i < b.N; i++ {
 			s := c.Search()
@@ -276,7 +280,7 @@ func BenchmarkAllocsSearch(t *testing.B) {
 	})
 
 	t.Run("esdsl search", func(b *testing.B) {
-		c, _ := elasticsearch.NewTypedClient(elasticsearch.Config{
+		c, err := elasticsearch.NewTypedClient(elasticsearch.Config{
 			Transport: &mockTransp{
 				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
 					return &http.Response{
@@ -288,6 +292,10 @@ func BenchmarkAllocsSearch(t *testing.B) {
 				},
 			},
 		})
+
+		if err != nil {
+			b.Fatalf("Unexpected error when creating a client: %s", err)
+		}
 
 		for i := 0; i < b.N; i++ {
 			s := c.Search()
