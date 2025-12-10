@@ -5,7 +5,7 @@ go 1.21
 toolchain go1.21.0
 
 require (
-	github.com/elastic/elastic-transport-go/v8 v8.7.0
+	github.com/elastic/elastic-transport-go/v8 v8.8.0
 	go.opentelemetry.io/otel/trace v1.28.0
 )
 
