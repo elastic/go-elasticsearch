@@ -40,7 +40,7 @@ func (e *Endpoint) DebugInfo() string {
 	fmt.Fprintln(&out, "Paths:")
 	for _, path := range e.URL.Paths {
 		fmt.Fprintf(w, "%6s\t%s", path.Methods[0], path.Path)
-		if path.Deprecated.Version != "" {
+		if path.Deprecated.Version != "" && path.Deprecated.Version < EsVersion {
 			fmt.Fprintf(w, "\t*deprecated*")
 		}
 		fmt.Fprintf(w, "\n")
@@ -65,7 +65,7 @@ func (e *Endpoint) DebugInfo() string {
 			if part.Default != nil {
 				fmt.Fprintf(w, ", default: %s", part.Default)
 			}
-			if part.Deprecated {
+			if part.Deprecated.Version != "" && part.Deprecated.Version < EsVersion {
 				fmt.Fprint(w, ", *deprecated*")
 			}
 			fmt.Fprint(w, "\n")

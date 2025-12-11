@@ -30,7 +30,6 @@ func init() {
 }
 
 // EnabledFiles contains a list of files where documentation should be generated.
-//
 var EnabledFiles = []string{
 	"aggregations/bucket/datehistogram-aggregation.asciidoc",
 	"aggregations/bucket/filter-aggregation.asciidoc",
@@ -103,7 +102,6 @@ var (
 // Example represents the code example in documentation.
 //
 // See: https://github.com/elastic/built-docs/blob/master/raw/en/elasticsearch/reference/master/alternatives_report.json
-//
 type Example struct {
 	SourceLocation struct {
 		File string
@@ -115,7 +113,6 @@ type Example struct {
 }
 
 // IsEnabled returns true when the example should be processed.
-//
 func (e Example) IsEnabled() bool {
 	// TODO(karmi): Use "filepatch.Match()" to support glob patterns
 
@@ -129,38 +126,32 @@ func (e Example) IsEnabled() bool {
 }
 
 // IsExecutable returns true when the example contains a request.
-//
 func (e Example) IsExecutable() bool {
 	return reHTTPMethod.MatchString(e.Source)
 }
 
 // IsTranslated returns true when the example can be converted to Go source code.
-//
 func (e Example) IsTranslated() bool {
 	return Translator{Example: e}.IsTranslated()
 }
 
 // ID returns example identifier.
-//
 func (e Example) ID() string {
 	return fmt.Sprintf("%s:%d", e.SourceLocation.File, e.SourceLocation.Line)
 }
 
 // Chapter returns the example chapter.
-//
 func (e Example) Chapter() string {
 	r := strings.NewReplacer("/", "_", "-", "_", ".asciidoc", "")
 	return r.Replace(e.SourceLocation.File)
 }
 
 // GithubURL returns a link for the example source.
-//
 func (e Example) GithubURL() string {
 	return fmt.Sprintf("https://github.com/elastic/elasticsearch/blob/master/docs/reference/%s#L%d", e.SourceLocation.File, e.SourceLocation.Line)
 }
 
 // Commands returns the list of commands from source.
-//
 func (e Example) Commands() ([]string, error) {
 	var (
 		buf  strings.Builder
@@ -200,7 +191,6 @@ func (e Example) Commands() ([]string, error) {
 }
 
 // Translated returns the code translated from Console to Go.
-//
 func (e Example) Translated() (string, error) {
 	return Translator{Example: e}.Translate()
 }

@@ -22,18 +22,15 @@ var (
 )
 
 // OverrideFunc defines a function to override generated code for endpoint.
-//
 type OverrideFunc func(*Endpoint, ...interface{}) string
 
 // OverrideRule represents an override rule.
-//
 type OverrideRule struct {
 	Func     OverrideFunc
 	Matching []string
 }
 
 // GetOverride returns an override function for id and API name.
-//
 func (g *Generator) GetOverride(id, apiName string) OverrideFunc {
 	if rr, ok := overrideRules[id]; ok {
 		for _, r := range rr {
@@ -46,7 +43,6 @@ func (g *Generator) GetOverride(id, apiName string) OverrideFunc {
 }
 
 // Match returns true when API name matches a rule.
-//
 func (r OverrideRule) Match(apiName string) bool {
 	for _, v := range r.Matching {
 		if v == "*" {
