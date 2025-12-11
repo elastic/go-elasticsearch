@@ -661,7 +661,6 @@ search.vectors/41_knn_search_half_byte_quantized.yml:
 tsdb/25_id_generation.yml:
   - delete over _bulk
 
-
 # Data stream mappings tests failing in Go test suite
 data_stream/250_data_stream_mappings.yml:
   - "Test single data stream"

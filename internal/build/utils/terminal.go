@@ -35,7 +35,6 @@ func init() {
 }
 
 // PrintErr prints an error to STDERR.
-//
 func PrintErr(err error) {
 	if isTTY {
 		fmt.Fprint(os.Stderr, "\x1b[1;37;41m")
@@ -48,13 +47,11 @@ func PrintErr(err error) {
 }
 
 // IsTTY returns true when os.Stderr is a terminal.
-//
 func IsTTY() bool {
 	return isTTY
 }
 
 // TerminalWidth returns the width of terminal, or zero.
-//
 func TerminalWidth() int {
 	if tWidth < 0 {
 		return 0
