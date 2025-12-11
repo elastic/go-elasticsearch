@@ -1405,6 +1405,126 @@ func TestClose(t *testing.T) {
 	}
 }
 
+func TestIntercepts(t *testing.T) {
+	successTp := func(request *http.Request) (*http.Response, error) {
+		h := request.Header.Clone()
+		h.Add("X-Elastic-Product", "Elasticsearch")
+		h.Add("X-Found-Handling-Cluster", "foo-bar-cluster-id")
+		h.Add("X-Found-Handling-Instance", "0123456789")
+		return &http.Response{
+			StatusCode: http.StatusOK,
+			Header:     h,
+			Body:       io.NopCloser(strings.NewReader(`{}`)),
+		}, nil
+	}
+
+	const (
+		testInterceptReqHeader  = "X-TEST-INTERCEPT-REQ"
+		testInterceptRespHeader = "X-TEST-INTERCEPT-RESP"
+	)
+
+	dummyInterceptorFactory := func(num int) elastictransport.InterceptorFunc {
+		return func(next elastictransport.RoundTripFunc) elastictransport.RoundTripFunc {
+			return func(r *http.Request) (*http.Response, error) {
+				r.Header.Add(testInterceptReqHeader, strconv.Itoa(num))
+				resp, err := next(r)
+				resp.Header.Add(testInterceptRespHeader, strconv.Itoa(num))
+				return resp, err
+			}
+		}
+	}
+
+	validateReqRespH := func(expectReq, expectResp string) func(t *testing.T, resp *esapi.Response) {
+		return func(t *testing.T, resp *esapi.Response) {
+			if strings.Join(resp.Header.Values(testInterceptReqHeader), ",") != expectReq {
+				t.Error("expected header value", resp.Header.Values(testInterceptReqHeader))
+			}
+			if strings.Join(resp.Header.Values(testInterceptRespHeader), ",") != expectResp {
+				t.Error("expected header value", resp.Header.Values(testInterceptRespHeader))
+			}
+		}
+	}
+
+	type args struct {
+		interceptors []elastictransport.InterceptorFunc
+	}
+	tests := []struct {
+		name             string
+		args             args
+		wantErr          bool
+		validateResponse func(t *testing.T, resp *esapi.Response)
+	}{
+		{
+			name:    "interceptor array nil",
+			args:    args{interceptors: nil},
+			wantErr: false,
+		},
+		{
+			name:    "interceptor array empty",
+			args:    args{interceptors: []elastictransport.InterceptorFunc{}},
+			wantErr: false,
+		},
+		{
+			name:             "interceptor array nil interceptor",
+			args:             args{interceptors: []elastictransport.InterceptorFunc{nil, dummyInterceptorFactory(1)}},
+			wantErr:          false,
+			validateResponse: validateReqRespH("1", "1"),
+		},
+		{
+			name:             "interceptor array 1 interceptor",
+			args:             args{interceptors: []elastictransport.InterceptorFunc{dummyInterceptorFactory(1)}},
+			wantErr:          false,
+			validateResponse: validateReqRespH("1", "1"),
+		},
+		{
+			name: "interceptor array many interceptors",
+			args: args{interceptors: []elastictransport.InterceptorFunc{
+				dummyInterceptorFactory(1), dummyInterceptorFactory(2), dummyInterceptorFactory(3)}},
+			wantErr:          false,
+			validateResponse: validateReqRespH("1,2,3", "3,2,1"),
+		},
+		{
+			name: "interceptor returns error",
+			args: args{interceptors: []elastictransport.InterceptorFunc{
+				func(next elastictransport.RoundTripFunc) elastictransport.RoundTripFunc {
+					return func(r *http.Request) (*http.Response, error) {
+						return nil, errors.New("test error")
+					}
+				},
+			}},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Run("typed client", func(t *testing.T) {
+				es, _ := NewTypedClient(Config{
+					Transport:    &mockTransp{RoundTripFunc: successTp},
+					Interceptors: tt.args.interceptors,
+				})
+				_, err := es.Info().Do(context.Background())
+				if (err != nil) != tt.wantErr {
+					t.Errorf("Info() error = %v, wantErr %v", err, tt.wantErr)
+				}
+			})
+			t.Run("low-level client", func(t *testing.T) {
+				es, _ := NewClient(Config{
+					Transport:    &mockTransp{RoundTripFunc: successTp},
+					Interceptors: tt.args.interceptors,
+				})
+				resp, err := es.Info()
+				if (err != nil) != tt.wantErr {
+					t.Errorf("Info() error = %v, wantErr %v", err, tt.wantErr)
+				}
+				if tt.validateResponse != nil {
+					tt.validateResponse(t, resp)
+				}
+			})
+		})
+	}
+}
+
 type mockESTransport struct {
 	PerformFunc func(*http.Request) (*http.Response, error)
 	CloseFunc   func(context.Context) error
