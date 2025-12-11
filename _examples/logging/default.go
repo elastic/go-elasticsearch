@@ -27,6 +27,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -49,6 +50,7 @@ func main() {
 		Logger: &elastictransport.TextLogger{Output: os.Stdout},
 	})
 	run(es, "Text")
+	_ = es.Close(context.Background())
 
 	// ==============================================================================================
 	//
@@ -58,6 +60,7 @@ func main() {
 		Logger: &elastictransport.ColorLogger{Output: os.Stdout},
 	})
 	run(es, "Color")
+	_ = es.Close(context.Background())
 
 	// ==============================================================================================
 	//
@@ -71,6 +74,7 @@ func main() {
 		},
 	})
 	run(es, "Request/Response Body")
+	_ = es.Close(context.Background())
 
 	// ==============================================================================================
 	//
@@ -81,6 +85,7 @@ func main() {
 		Logger: &elastictransport.CurlLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
 	})
 	run(es, "Curl")
+	_ = es.Close(context.Background())
 
 	// ==============================================================================================
 	//
@@ -90,6 +95,7 @@ func main() {
 		Logger: &elastictransport.JSONLogger{Output: os.Stdout},
 	})
 	run(es, "JSON")
+	_ = es.Close(context.Background())
 }
 
 // ------------------------------------------------------------------------------------------------

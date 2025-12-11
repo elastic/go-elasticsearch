@@ -38,6 +38,10 @@ import (
 	"strconv"
 	"strings"
 	"testing"
+	"time"
+
+	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
@@ -1282,6 +1286,142 @@ func TestInstrumentation(t *testing.T) {
 					t.Errorf("path parts not within expected values, got: %#v, want: %#v", instrument.PathParts, test.want.PathParts)
 				}
 			})
+		})
+	}
+}
+
+func TestClose(t *testing.T) {
+	type closeable interface {
+		esapi.Transport
+		elastictransport.Closeable
+	}
+
+	tests := []struct {
+		name string
+		c    func() closeable
+	}{
+		{name: "BaseClient", c: func() closeable {
+			c, _ := NewBaseClient(Config{Transport: &mockTransp{}})
+			return c
+		}},
+		{name: "Client", c: func() closeable {
+			c, _ := NewClient(Config{Transport: &mockTransp{}})
+			return c
+		}},
+		{name: "TypedClient", c: func() closeable {
+			c, _ := NewTypedClient(Config{Transport: &mockTransp{}})
+			return c
+		}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Run("close", func(t *testing.T) {
+				c := tt.c()
+				err := c.Close(context.Background())
+				if err != nil {
+					t.Errorf("unexpected error: %v", err)
+				}
+			})
+
+			t.Run("closed twice", func(t *testing.T) {
+				c := tt.c()
+				_ = c.Close(context.Background())
+				err := c.Close(context.Background())
+				if err != nil {
+					if !errors.Is(err, ErrAlreadyClosed) {
+						t.Errorf("unexpected error: %v", err)
+					}
+				}
+			})
+
+			t.Run("performing a request after close", func(t *testing.T) {
+				c := tt.c()
+				if err := c.Close(context.Background()); err != nil {
+					t.Fatalf("unexpected error: %v", err)
+				}
+				req, err := http.NewRequest(http.MethodGet, "http://localhost:9200", nil)
+				if err != nil {
+					t.Fatalf("unexpected error: %v", err)
+				}
+				if _, err := c.Perform(req); err != nil {
+					if !errors.Is(err, ErrClosed) {
+						t.Fatalf("unexpected error: %v", err)
+					}
+				} else {
+					t.Fatal("expected error")
+				}
+			})
+
+			t.Run("transport close called", func(t *testing.T) {
+				c := tt.c()
+				transportCloseCalled := false
+				mockTransport := &mockESTransport{CloseFunc: func(ctx context.Context) error {
+					transportCloseCalled = true
+					return nil
+				}}
+				switch c := c.(type) {
+				case *BaseClient:
+					c.Transport = mockTransport
+				case *Client:
+					c.Transport = mockTransport
+				case *TypedClient:
+					c.Transport = mockTransport
+				}
+
+				err := c.Close(context.Background())
+				if err != nil {
+					t.Errorf("unexpected error: %v", err)
+				}
+				if !transportCloseCalled {
+					t.Fatal("transport close not called")
+				}
+			})
+
+			t.Run("close timed out, transport close unresponsive", func(t *testing.T) {
+				done := make(chan struct{})
+				t.Cleanup(func() { close(done) })
+				mockTransport := &mockESTransport{CloseFunc: func(ctx context.Context) error {
+					<-done
+					return nil
+				}}
+				c := tt.c()
+				switch c := c.(type) {
+				case *BaseClient:
+					c.Transport = mockTransport
+				case *Client:
+					c.Transport = mockTransport
+				case *TypedClient:
+					c.Transport = mockTransport
+				}
+				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
+				defer cancel()
+				if err := c.Close(ctx); !errors.Is(err, context.DeadlineExceeded) {
+					t.Fatalf("unexpected error: %v", err)
+				}
+			})
+
+			t.Run("close timed out, transport close responsive", func(t *testing.T) {
+				mockTransport := &mockESTransport{CloseFunc: func(ctx context.Context) error {
+					<-ctx.Done()
+					return ctx.Err()
+				}}
+				c := tt.c()
+				switch c := c.(type) {
+				case *BaseClient:
+					c.Transport = mockTransport
+				case *Client:
+					c.Transport = mockTransport
+				case *TypedClient:
+					c.Transport = mockTransport
+				}
+				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
+				defer cancel()
+				if err := c.Close(ctx); !errors.Is(err, context.DeadlineExceeded) {
+					t.Fatalf("unexpected error: %v", err)
+				}
+			})
+
 		})
 	}
 }

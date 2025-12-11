@@ -18,7 +18,10 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"log"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
@@ -39,6 +42,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}
+	defer func() {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		if err := es.Close(ctx); err != nil {
+			fmt.Printf("Error closing the client: %s\n", err)
+		}
+	}()
 
 	doc := struct {
 		Title string `json:"title"`

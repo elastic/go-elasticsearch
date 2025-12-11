@@ -22,12 +22,13 @@ package e2e_test
 
 import (
 	"context"
-	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/go-elasticsearch/v8/esutil"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v8/esutil"
 
 	"testing/containertest"
 )
@@ -60,6 +61,11 @@ func TestJSONReaderIntegration(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Error creating the client: %s\n", err)
 		}
+		defer func() {
+			if err := es.Close(context.Background()); err != nil {
+				t.Fatalf("Error closing the client: %s", err)
+			}
+		}()
 
 		es.Indices.Delete([]string{"test"}, es.Indices.Delete.WithIgnoreUnavailable(true))
 
