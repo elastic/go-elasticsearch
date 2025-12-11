@@ -269,6 +269,53 @@ func TestRef_String(t *testing.T) {
 	}
 }
 
+func TestRef_BaseVersion(t *testing.T) {
+	tests := []struct {
+		name string
+		ref  Ref
+		want string
+	}{
+		{
+			name: "stable version returns same version",
+			ref:  mustParse("8.15.0"),
+			want: "8.15.0",
+		},
+		{
+			name: "snapshot version returns version without prerelease",
+			ref:  mustParse("9.0.0-SNAPSHOT"),
+			want: "9.0.0",
+		},
+		{
+			name: "rc version returns version without prerelease",
+			ref:  mustParse("8.15.0-rc1"),
+			want: "8.15.0",
+		},
+		{
+			name: "alpha version returns version without prerelease",
+			ref:  mustParse("8.15.0-alpha1"),
+			want: "8.15.0",
+		},
+		{
+			name: "branch returns empty string",
+			ref:  mustParse("main"),
+			want: "",
+		},
+		{
+			name: "empty ref returns empty string",
+			ref:  Ref{},
+			want: "",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.ref.BaseVersion(); got != tt.want {
+				t.Errorf("Ref.BaseVersion() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestParse_WithRenameFunction(t *testing.T) {
 	// Test that the rename function is applied correctly to branch names
 	uppercaseRename := func(s string) string {

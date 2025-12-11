@@ -44,31 +44,38 @@ func (c *Client) DownloadRestResources(ctx context.Context, ref ref.Ref, dest st
 
 	var manifestURL string
 
-	if ref.IsPreRelease() {
-		latestSnapshot, err := c.GetLatestSnapshot(ctx, &GetLatestSnapshotRequest{Branch: ref.TargetBranch()})
-		if err != nil {
-			return fmt.Errorf("cannot get latest snapshot: %w", err)
-		}
-		manifestURL = latestSnapshot.ManifestURL
+	// First, check if the latest snapshot at master matches our ref version
+	latestMasterSnapshot, err := c.GetLatestSnapshot(ctx, &GetLatestSnapshotRequest{Branch: "master"})
+	if err == nil && latestMasterSnapshot.Version == ref.String() {
+		manifestURL = latestMasterSnapshot.ManifestURL
 	} else {
+		// Try to find in releases using the base version (without prerelease suffix)
+		baseVersion := ref.BaseVersion()
 		releases, err := c.ListReleases(ctx)
 		if err != nil {
 			return fmt.Errorf("cannot list releases: %w", err)
 		}
+
 		var release *Release
 		for i := range releases.Releases {
-			if releases.Releases[i].Version == ref.String() {
+			if releases.Releases[i].Version == baseVersion {
 				release = &releases.Releases[i]
 				break
 			}
 		}
-		if release == nil {
+
+		if release != nil && release.Manifest != nil {
+			manifestURL = *release.Manifest
+		} else if ref.IsPreRelease() {
+			// Fall back to getting snapshot from target branch
+			latestSnapshot, err := c.GetLatestSnapshot(ctx, &GetLatestSnapshotRequest{Branch: ref.TargetBranch()})
+			if err != nil {
+				return fmt.Errorf("cannot get latest snapshot: %w", err)
+			}
+			manifestURL = latestSnapshot.ManifestURL
+		} else {
 			return fmt.Errorf("release %s not found", ref.String())
 		}
-		if release.Manifest == nil {
-			return fmt.Errorf("release %s does not have a manifest", ref.String())
-		}
-		manifestURL = *release.Manifest
 	}
 
 	manifest, err := c.GetManifest(ctx, &GetManifestRequest{URL: manifestURL})

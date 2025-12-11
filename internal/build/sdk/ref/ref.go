@@ -71,3 +71,12 @@ func (r Ref) String() string {
 	}
 	return r.branch
 }
+
+// BaseVersion returns the version string without any prerelease suffix.
+// For branch refs, it returns an empty string.
+func (r Ref) BaseVersion() string {
+	if r.version != nil {
+		return r.version.WithPreRelease("").String()
+	}
+	return ""
+}
