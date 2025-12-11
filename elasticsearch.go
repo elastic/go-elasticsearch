@@ -112,6 +112,12 @@ type Config struct {
 	ConnectionPoolFunc func([]*elastictransport.Connection, elastictransport.Selector) elastictransport.ConnectionPool
 
 	Instrumentation elastictransport.Instrumentation // Enable instrumentation throughout the client.
+
+	// Interceptors is an array of functions that can mutate the *http.Request / *http.Response on each call to the http.RoundTripper.
+	// These interceptors are applied left to right, meaning the leftmost interceptor will modify the *http.Request first in the chain
+	// and the *http.Response last.
+	// This array is used on instantiation of the transport only and cannot be mutated after transport creation.
+	Interceptors []elastictransport.InterceptorFunc
 }
 
 // NewOpenTelemetryInstrumentation provides the OpenTelemetry integration for both low-level and TypedAPI.
@@ -332,6 +338,7 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		ConnectionPoolFunc: cfg.ConnectionPoolFunc,
 
 		Instrumentation: cfg.Instrumentation,
+		Interceptors:    cfg.Interceptors,
 	}
 
 	tp, err := elastictransport.New(tpConfig)
