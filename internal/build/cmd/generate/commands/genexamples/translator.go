@@ -83,7 +83,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString(")")
@@ -116,7 +116,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString(")")
@@ -149,7 +149,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString(")")
@@ -183,7 +183,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString(")")
@@ -228,7 +228,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString(")")
@@ -268,7 +268,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString("\t)")
@@ -412,7 +412,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString("\tes." + apiName + ".WithPretty(),\n")
@@ -446,7 +446,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString(")")
@@ -602,7 +602,7 @@ var ConsoleToGo = []TranslateRule{
 					if err != nil {
 						return "", fmt.Errorf("error converting params to arguments: %s", err)
 					}
-					fmt.Fprintf(&src, args)
+					fmt.Fprint(&src, args)
 				}
 			}
 
@@ -635,7 +635,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString(")")
@@ -674,7 +674,7 @@ var ConsoleToGo = []TranslateRule{
 					if err != nil {
 						return "", fmt.Errorf("error converting params to arguments: %s", err)
 					}
-					fmt.Fprintf(&src, args)
+					fmt.Fprint(&src, args)
 				}
 			} else {
 				fmt.Fprintf(&src, "%q", matches[1])
@@ -793,7 +793,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			} else {
 				fmt.Fprintf(&src, "[]string{%q}", matches[1])
 			}
@@ -896,7 +896,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString(")")
@@ -929,7 +929,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString(")")
@@ -970,7 +970,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 
 				src.WriteString("\tes." + apiName + ".WithPretty(),\n")
 			}
@@ -1013,7 +1013,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 
 				src.WriteString("\tes." + apiName + ".WithPretty(),\n")
 			}
@@ -1195,7 +1195,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString("\t)")
@@ -1278,7 +1278,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString("\t)")
@@ -1317,7 +1317,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString("\t)")
@@ -1389,7 +1389,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString("\t)")
@@ -1420,7 +1420,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString("\t)")
@@ -1454,7 +1454,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			}
 
 			src.WriteString("\t)")
@@ -1485,7 +1485,7 @@ var ConsoleToGo = []TranslateRule{
 				if err != nil {
 					return "", fmt.Errorf("error converting params to arguments: %s", err)
 				}
-				fmt.Fprintf(&src, args)
+				fmt.Fprint(&src, args)
 			} else {
 				fmt.Fprintf(&src, "[]string{%q}", matches[1])
 			}

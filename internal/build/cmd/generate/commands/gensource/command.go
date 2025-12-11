@@ -20,7 +20,6 @@ package gensource
 import (
 	"bytes"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 	"io"
 	"os"
 	"path/filepath"
@@ -29,6 +28,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
 )
 
@@ -83,7 +83,6 @@ var gensourceCmd = &cobra.Command{
 }
 
 // Command represents the "gensource" command.
-//
 type Command struct {
 	Input          string
 	Output         string
@@ -94,7 +93,6 @@ type Command struct {
 }
 
 // Execute runs the command.
-//
 func (cmd *Command) Execute() (err error) {
 	var inputFiles []string
 
@@ -147,7 +145,9 @@ func (cmd *Command) Execute() (err error) {
 
 	for _, fpath := range inputFiles {
 		fname := filepath.Base(fpath)
-		if fname == "_common.json" || strings.HasPrefix(fname, "_internal") {
+		if fname == "_common.json" ||
+			strings.HasPrefix(fname, "_internal") ||
+			fname == "knn_search.json" {
 			continue
 		}
 
@@ -220,7 +220,7 @@ func (cmd *Command) processFile(f *os.File) (err error) {
 		if utils.IsTTY() {
 			fmt.Fprint(os.Stderr, "\x1b[2m")
 		}
-		fmt.Fprintf(os.Stderr, gen.Endpoint.DebugInfo())
+		fmt.Fprint(os.Stderr, gen.Endpoint.DebugInfo())
 		if utils.IsTTY() {
 			fmt.Fprint(os.Stderr, "\x1b[0m")
 		}
