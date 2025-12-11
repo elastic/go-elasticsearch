@@ -162,22 +162,27 @@ lint:  ## Run lint on the package
 	}
 
 
-apidiff: ## Display API incompabilities
+apidiff: ## Display API incompabilities (base=main to change base branch)
 	@if ! command -v apidiff > /dev/null; then \
 		printf "\033[31;1mERROR: apidiff not installed\033[0m\n"; \
-		printf "go get -u github.com/go-modules-by-example/apidiff\n"; \
-		printf "\033[2m→ https://github.com/go-modules-by-example/index/blob/master/019_apidiff/README.md\033[0m\n\n"; \
+		printf "go install golang.org/x/exp/cmd/apidiff@latest\n"; \
+		printf "\033[2m→ https://pkg.go.dev/golang.org/x/exp/cmd/apidiff\033[0m\n\n"; \
 		false; \
 	fi;
-	@rm -rf tmp/apidiff-OLD tmp/apidiff-NEW
-	@git clone --quiet --local .git/ tmp/apidiff-OLD
+	$(eval base ?= main)
+	@rm -rf tmp/apidiff-OLD tmp/apidiff-NEW tmp/apidiff-OLD.export 2>/dev/null || true
+	@git clone --quiet --local --branch $(base) .git/ tmp/apidiff-OLD
 	@mkdir -p tmp/apidiff-NEW
 	@tar -c --exclude .git --exclude tmp --exclude cmd . | tar -x -C tmp/apidiff-NEW
 	@printf "\033[2m→ Running apidiff...\033[0m\n"
-	@pritnf "tmp/apidiff-OLD/esapi tmp/apidiff-NEW/esapi\n"
+	@printf "Comparing OLD ($(base)) esapi → NEW (working tree) esapi\n"
 	@{ \
 		set -e ; \
-		output=$$(apidiff tmp/apidiff-OLD/esapi tmp/apidiff-NEW/esapi); \
+		cd tmp/apidiff-OLD && apidiff -w $(PWD)/tmp/apidiff-OLD.export github.com/elastic/go-elasticsearch/v9/esapi; \
+	}
+	@{ \
+		set -e ; \
+		output=$$(apidiff $(PWD)/tmp/apidiff-OLD.export ./esapi); \
 		printf "\n$$output\n\n"; \
 		if echo $$output | grep -i -e 'incompatible' - > /dev/null 2>&1; then \
 			printf "\n\033[31;1mFAILURE\033[0m\n\n"; \

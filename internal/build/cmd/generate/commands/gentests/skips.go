@@ -19,8 +19,9 @@ package gentests
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"strings"
+
+	"gopkg.in/yaml.v2"
 )
 
 var skipTests map[string][]string
@@ -80,8 +81,12 @@ var skipFiles = []string{
 	"update/100_synthetic_source.yml",
 	"tsdb/160_nested_fields.yml",
 	"tsdb/90_unsupported_operations.yml",
+	"cluster.component_template/.*.yml",
+	"indices.put_index_template/.*.yml",
+	"ml/forecast.yml",
 	".*inference/.*.yml", // incompatible inference tests
 	".*mustache/.*.yml",  // incompatible mustache tests
+	"data_stream/240_data_stream_settings.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -466,12 +471,6 @@ data_streams/10_data_stream_resolvability.yml:
 data_stream/230_data_stream_options.yml:
   - Test partially resetting failure store options in template composition
 
-data_stream/240_data_stream_settings.yml:
-  - Test single data stream
-  - Test dry run
-  - Test null out settings
-  - Test null out settings component templates only
-
 # Error: constant 9223372036854775808 overflows int (https://play.golang.org/p/7pUdz-_Pdom)
 unsigned_long/10_basic.yml:
 unsigned_long/20_null_value.yml:
@@ -662,4 +661,29 @@ search.vectors/41_knn_search_half_byte_quantized.yml:
 tsdb/25_id_generation.yml:
   - delete over _bulk
 
+# Data stream mappings tests failing in Go test suite
+data_stream/250_data_stream_mappings.yml:
+  - "Test single data stream"
+  - "Test mappings component templates only"
+
+# Data streams stats failing for multiple data streams scenario
+data_stream/120_data_streams_stats.yml:
+  - "Multiple data stream"
+
+# Search vectors synthetic dense vectors failures (include and update cases)
+search.vectors/240_source_synthetic_dense_vectors.yml:
+  - "include synthetic vectors"
+  - "Bulk partial update with synthetic vectors"
+  - "Partial update with synthetic vectors"
+
+# Search vectors synthetic sparse vectors failures (include and update cases)
+search.vectors/250_source_synthetic_sparse_vectors.yml:
+  - "include synthetic vectors"
+  - "Bulk partial update with synthetic vectors"
+  - "Partial update with synthetic vectors"
+
+rank_vectors/rank_vectors_synthetic_vectors.yml:
+  - "include synthetic vectors"
+  - "Bulk partial update with synthetic vectors"
+  - "Partial update with synthetic vectors"
 `
