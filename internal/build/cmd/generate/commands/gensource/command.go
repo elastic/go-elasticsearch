@@ -20,12 +20,13 @@ package gensource
 import (
 	"bytes"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v9/internal/build/cmd"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/elastic/go-elasticsearch/v9/internal/build/cmd"
 
 	"github.com/spf13/cobra"
 
@@ -220,7 +221,7 @@ func (cmd *Command) processFile(f *os.File) (err error) {
 		if utils.IsTTY() {
 			fmt.Fprint(os.Stderr, "\x1b[2m")
 		}
-		fmt.Fprintf(os.Stderr, gen.Endpoint.DebugInfo())
+		fmt.Fprint(os.Stderr, gen.Endpoint.DebugInfo())
 		if utils.IsTTY() {
 			fmt.Fprint(os.Stderr, "\x1b[0m")
 		}
