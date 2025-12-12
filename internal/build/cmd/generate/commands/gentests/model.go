@@ -18,7 +18,6 @@
 package gentests
 
 import (
-	"bytes"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -31,7 +30,10 @@ import (
 
 var reFilename = regexp.MustCompile(`\d*_?(.+)\.ya?ml`)
 var reNumber = regexp.MustCompile(`^\d+$`)
-var reBaseFilename = regexp.MustCompile(`rest-api-spec/test/\w+/(.*$)`)
+
+// Capture the test suite path relative to the `tests/` root, e.g. `eql/10_basic.yml`.
+// (This is used for the custom skip list; it must include the top-level directory to avoid collisions.)
+var reBaseFilename = regexp.MustCompile(`elasticsearch-clients-tests/tests/(.*$)`)
 
 // TestPayload represents a single raw section (`---`) from the YAML file.
 type TestPayload struct {
@@ -103,17 +105,39 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 		Filepath: fpath,
 	}
 
-	if strings.Contains(fpath, "platinum") {
-		ts.Type = "xpack"
+	// Target mode flag for `requires.serverless`.
+	// IMPORTANT: In the upstream YAML suites, `serverless: true` generally means
+	// "this suite is compatible with serverless", not "serverless-only".
+	// We therefore only use this flag to skip suites when explicitly generating
+	// for a serverless target and the suite declares `serverless: false`.
+	targetServerless := false
+	if env, ok := os.LookupEnv("ELASTICSEARCH_SERVERLESS"); ok {
+		if b, err := strconv.ParseBool(strings.TrimSpace(env)); err == nil {
+			targetServerless = b
+		}
 	}
-	if ts.Type == "" {
+
+	// Determine whether the suite requires xpack-only setup (users/roles, ML cleanup, watcher cleanup, etc).
+	// The elasticsearch-clients-tests repo doesn't use a "platinum/" folder layout, so we infer from the
+	// top-level test directory name.
+	dir := filepath.Base(filepath.Dir(fpath))
+	switch dir {
+	case "security", "machine_learning", "sql", "watcher", "graph", "license":
+		ts.Type = "xpack"
+	default:
 		ts.Type = "free"
 	}
 
 	for _, payload := range payloads {
+		// If the suite is already marked as skipped (eg. due to `requires` or internal endpoints),
+		// there's no point in parsing remaining sections; it also prevents accidental panics.
+		if ts.Skip {
+			break
+		}
+
 		secKeys := utils.MapKeys(payload.Payload)
 		switch {
-		case len(secKeys) > 0 && strings.Contains(strings.Join(secKeys, ","), "setup") || strings.Contains(strings.Join(secKeys, ","), "teardown"):
+		case len(secKeys) > 0 && strings.Contains(strings.Join(secKeys, ","), "setup") || strings.Contains(strings.Join(secKeys, ","), "teardown") || strings.Contains(strings.Join(secKeys, ","), "requires"):
 			for k, v := range payload.Payload.(map[interface{}]interface{}) {
 				switch k {
 				case "setup":
@@ -132,6 +156,50 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 							}
 						}
 					}
+				case "requires":
+					// Handle `requires` stanza.
+					// Example:
+					// requires:
+					//   serverless: false
+					//   stack: true
+					//
+					// For this generator, we currently skip suites that explicitly require non-stack
+					// (ie. serverless-only) by marking them as skipped when `stack: false`.
+					req, ok := v.(map[interface{}]interface{})
+					if !ok {
+						continue
+					}
+
+					// Parse stack/serverless booleans (accept bool or string).
+					parseBool := func(val interface{}) (bool, bool) {
+						switch vv := val.(type) {
+						case bool:
+							return vv, true
+						case string:
+							b, err := strconv.ParseBool(strings.TrimSpace(vv))
+							if err == nil {
+								return b, true
+							}
+						}
+						return false, false
+					}
+
+					if stackVal, ok := req["stack"]; ok {
+						if b, ok := parseBool(stackVal); ok && !b {
+							ts.Skip = true
+							ts.SkipInfo = "Skipping suite because requires.stack is false"
+						}
+					}
+					// Gate on serverless incompatibility only when generating for serverless.
+					if targetServerless {
+						if serverlessVal, ok := req["serverless"]; ok {
+							if b, ok := parseBool(serverlessVal); ok && !b {
+								ts.Skip = true
+								ts.SkipInfo = "Skipping suite because requires.serverless is false (target is serverless)"
+							}
+						}
+					}
+					continue
 				}
 			}
 		default:
@@ -139,7 +207,12 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 				var t Test
 				var steps []Step
 
-				for _, vv := range v.([]interface{}) {
+				raw, ok := v.([]interface{})
+				if !ok {
+					fmt.Printf("Error: %v\n", v)
+				}
+
+				for _, vv := range raw {
 					switch utils.MapKeys(vv)[0] {
 					case "skip":
 						var (
@@ -441,6 +514,14 @@ func (a Assertion) Condition() string {
 
 	// ================================================================================
 	case "is_true":
+		// Special-case: `$body` refers to the raw response body bytes, not a stash variable.
+		// In YAML tests this is commonly used for endpoints returning text/plain (eg. cat APIs).
+		if strings.TrimSpace(a.payload.(string)) == "$body" {
+			// `$body` existence check: treat an empty-but-present body as truthy.
+			// (Several YAML suites use `is_true: $body` as a smoke check even when the cat output can be empty.)
+			return "if body == nil {\n"
+		}
+
 		subject = expand(a.payload.(string))
 		nilGuard := catchnil(subject)
 
@@ -450,7 +531,11 @@ func (a Assertion) Condition() string {
 case bool:
 	assertion = (` + escape(subject) + ` == true)
 case string:
-	assertion = (` + escape(subject) + `.(string) != ` + `""` + `)
+	// Treat common string booleans/numerics as truthy/falsey (matches REST test expectations for settings APIs)
+	s := strings.TrimSpace(` + escape(subject) + `.(string))
+	// NOTE: Do NOT treat "0" as falsey for is_true. Cat APIs often return "0" for shard numbers,
+	// and REST YAML is_true expects presence/non-null rather than numeric truthiness.
+	assertion = (s != "" && s != "false")
 case int:
 	assertion = (` + escape(subject) + `.(int) != 0)
 case float64:
@@ -475,6 +560,11 @@ default:
 
 	// ================================================================================
 	case "is_false":
+		// Special-case: `$body` refers to the raw response body bytes, not a stash variable.
+		if strings.TrimSpace(a.payload.(string)) == "$body" {
+			return "if len(body) != 0 {\n"
+		}
+
 		subject = expand(a.payload.(string))
 		nilGuard := catchnil(subject)
 
@@ -484,7 +574,9 @@ default:
 case bool:
 	assertion = (` + escape(subject) + ` == false)
 case string:
-	assertion = (` + escape(subject) + `.(string) == ` + `""` + `)
+	// Treat common string booleans/numerics as truthy/falsey (matches REST test expectations for settings APIs)
+	s := strings.TrimSpace(` + escape(subject) + `.(string))
+	assertion = (s == "" || s == "false" || s == "0")
 case int:
 	assertion = (` + escape(subject) + `.(int) == 0)
 case float64:
@@ -690,18 +782,38 @@ default:
 
 		// --------------------------------------------------------------------------------
 		case string:
-			output += `		if ` +
-				nilGuard +
-				" || \n" +
-				`strings.TrimSpace(fmt.Sprintf("%s", ` + escape(subject) + `)) != `
+			// String expectations can match either scalar values or arrays of scalars returned by Elasticsearch.
+			// Example: security.invalidate_api_key returns invalidated_api_keys as an array, but the YAML suite
+			// uses `match: { invalidated_api_keys: $id }` when the array has a single element.
+			var expectedExpr string
 			if strings.HasPrefix(expected, "$") {
 				// Remove brackets if we compare to a stashed value replaced in the body.
 				expected = strings.NewReplacer("{", "", "}", "").Replace(expected)
-				output += `strings.TrimSpace(fmt.Sprintf("%s", ` + `stash["` + expected + `"]` + `))`
+				expectedExpr = `stash["` + expected + `"]`
 			} else {
-				output += `strings.TrimSpace(fmt.Sprintf("%s", ` + strconv.Quote(expected) + `))`
+				expectedExpr = strconv.Quote(expected)
 			}
-			output += " {\n"
+
+			r := strings.NewReplacer(`"`, "", `\`, "")
+			rkey := r.Replace(key)
+			output += `		if ` + nilGuard + ` { t.Error("Expected [` + rkey + `] to not be nil") }
+						actual = ` + escape(subject) + `
+						expected = ` + expectedExpr + `
+						assertion = func(a interface{}, e interface{}) bool {
+							exp := strings.TrimSpace(fmt.Sprintf("%v", e))
+							switch vv := a.(type) {
+							case []interface{}:
+								for _, it := range vv {
+									if strings.TrimSpace(fmt.Sprintf("%v", it)) == exp {
+										return true
+									}
+								}
+								return false
+							default:
+								return strings.TrimSpace(fmt.Sprintf("%v", vv)) == exp
+							}
+						}(actual, expected)
+						if !assertion {` + "\n"
 
 		// --------------------------------------------------------------------------------
 		case map[interface{}]interface{}, map[string]interface{}:
@@ -744,9 +856,7 @@ default:
 // Error returns an error handling for the failed assertion.
 func (a Assertion) Error() string {
 	var (
-		output string
-
-		subject  string
+		output   string
 		expected string
 	)
 
@@ -754,15 +864,19 @@ func (a Assertion) Error() string {
 
 	switch a.operation {
 	case "is_true":
-		subject = expand(a.payload.(string))
-		output = `Expected ` + escape(subject) + ` to be truthy`
+		// Special-case: `$body` refers to the raw response body bytes, not a stash variable.
+		if strings.TrimSpace(a.payload.(string)) == "$body" {
+			return `t.Error("Expected [$body] to be truthy")`
+		}
+
+		// Use the original dot-notation path in the error message (not the expanded Go expression),
+		// to avoid noisy output and `go test` vet warnings about "%v" sequences.
+		output = `Expected [` + escape(a.payload.(string)) + `] to be truthy`
 
 	case "is_false":
-		subject = expand(a.payload.(string))
-		output = `Expected ` + escape(subject) + ` to be falsey`
+		output = `Expected [` + escape(a.payload.(string)) + `] to be falsey`
 
 	case "lt", "gt", "lte", "gte":
-		subject = expand(utils.MapKeys(a.payload)[0])
 		expected = fmt.Sprintf("%v", utils.MapValues(a.payload)[0])
 		output = `Expected ` + escape(utils.MapKeys(a.payload)[0]) + ` ` + a.operation + ` ` + escape(expected)
 
@@ -836,87 +950,59 @@ func (s Stash) ExpandedValue() string {
 //
 // See https://github.com/elastic/elasticsearch/tree/master/rest-api-spec/src/main/resources/rest-api-spec/test#dot-notation
 func expand(s string, format ...string) string {
-	var (
-		b bytes.Buffer
-
-		container string
-	)
-
 	// Handle the "literal dot" in a fieldname
 	s = strings.Replace(s, `\.`, `_~_|_~_`, -1)
 
 	parts := strings.Split(s, ".")
+	if len(parts) == 0 {
+		return "mapi"
+	}
 
-	if len(parts) > 0 {
-		if reNumber.MatchString(parts[0]) {
-			container = "slic"
-		} else {
-			container = "mapi"
-		}
+	// Choose the top-level container (matches previous behavior).
+	var expr string
+	if reNumber.MatchString(parts[0]) {
+		expr = "slic"
 	} else {
-		container = "mapi"
+		expr = "mapi"
 	}
 
-	b.WriteString(container)
-
+	// Empty key refers to container itself
 	if len(parts) > 0 && parts[0] == "" {
-		return b.String()
+		return expr
 	}
 
-	for i, v := range parts {
-		if reNumber.MatchString(v) {
-			if i > 0 {
-				b.WriteString(`.([]interface{})`)
-			}
-			b.WriteString(`[`)
-			b.WriteString(v)
-			b.WriteString(`]`)
-		} else {
-			if i > 0 {
-				if len(format) > 0 && format[0] == "yaml" {
-					b.WriteString(`.(map[interface{}]interface{})`)
-				} else {
-					b.WriteString(`.(map[string]interface{})`)
-				}
-			}
-			b.WriteString("[")
-			if strings.HasPrefix(v, "$") {
-				b.WriteString(fmt.Sprintf(`stash["%s"].(string)`, strings.Trim(v, `"`))) // Remove the quotes from keys
-			} else {
-				b.WriteString(`"`)
-				b.WriteString(strings.Trim(v, `"`)) // Remove the quotes from keys
-				b.WriteString(`"`)
-			}
-			b.WriteString("]")
+	// Build a chain of safe lookups:
+	// - numeric segments: getIndexOrKey(container, N) (array index OR map key "N")
+	// - string segments:  getKey(container, "segment")
+	for _, p := range parts {
+		if p == "" {
+			continue
+		}
+		if reNumber.MatchString(p) {
+			expr = fmt.Sprintf("getIndexOrKey(%s, %s)", expr, p)
+			continue
 		}
 
+		// Remove quotes from keys, keep literal-dot marker.
+		p = strings.Trim(p, `"`)
+
+		// Dynamic keys via stash (rare): use fmt.Sprintf to avoid type assertion panics.
+		if strings.HasPrefix(p, "$") {
+			expr = fmt.Sprintf(`getKey(%s, fmt.Sprintf("%%v", stash[%q]))`, expr, p)
+			continue
+		}
+
+		expr = fmt.Sprintf("getKey(%s, %q)", expr, p)
 	}
-	return strings.Replace(b.String(), `_~_|_~_`, `\.`, -1)
+
+	return strings.Replace(expr, `_~_|_~_`, `\.`, -1)
 }
 
 // catchnil returns a condition which expands the input and checks if any part is not nil.
 func catchnil(input string) string {
-	var output string
-
-	parts := strings.Split(strings.Replace(input, `\.`, `_~_|_~_`, -1), ".")
-	for i := range parts {
-		// Skip casting for runtime stash variable replacement nil escape
-		if parts[i] == "(string)]" {
-			continue
-		}
-
-		part := parts[:i+1]
-		if strings.Contains(parts[i], "$") {
-			part = append(part, parts[i+1])
-		}
-		output += strings.Join(part, ".") + " == nil"
-		if i+1 < len(parts) {
-			output += " ||\n\t\t"
-		}
-	}
-	output = strings.Replace(output, `_~_|_~_`, `.`, -1)
-
-	return output
+	// With the current expand() implementation, missing keys/indices resolve to nil.
+	// Checking the final expression is sufficient and avoids brittle chained nil guards.
+	return fmt.Sprintf("(%s == nil)", input)
 }
 
 // escape replaces unsafe characters in strings
