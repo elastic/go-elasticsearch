@@ -46,17 +46,19 @@ docker run -e ELASTICSEARCH_BUILD_VERSION=$ELASTICSEARCH_BUILD_VERSION --volume=
   go run main.go download-spec -o /tmp -d
 "
 
-echo -e "\033[34;1mINFO:\033[0m Execute [$TEST_SUITE] >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+echo -e "\033[34;1mINFO:\033[0m Execute (clients-tests) >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
 docker run -t \
   --volume=$WORKSPACE/tmp:/tmp \
   --rm \
   --network "$network_name" \
   --env "ELASTICSEARCH_URL=$elasticsearch_url" \
+  --env "ELASTICSEARCH_CA_CERT=/go-elasticsearch/.buildkite/certs/ca.crt" \
   --env "ELASTICSEARCH_VERSION=$STACK_VERSION" \
   --env "ELASTICSEARCH_BUILD_VERSION=$ELASTICSEARCH_BUILD_VERSION" \
   --env "ELASTICSEARCH_BUILD_HASH=$ELASTICSEARCH_BUILD_HASH" \
+  --env "ELASTICSEARCH_CLIENTS_TESTS_BRANCH=${ELASTICSEARCH_CLIENTS_TESTS_BRANCH:-9.1}" \
   --env "WORKSPACE=${WORKSPACE:-/workspace}" \
   --volume "${WORKSPACE:-workspace}:${WORKSPACE:-/workspace}" \
   elastic/go-elasticsearch \
-  .buildkite/scripts/tests-$TEST_SUITE.sh
+  .buildkite/scripts/tests.sh
