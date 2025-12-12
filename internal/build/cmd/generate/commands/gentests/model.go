@@ -18,7 +18,6 @@
 package gentests
 
 import (
-	"bytes"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -103,10 +102,14 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 		Filepath: fpath,
 	}
 
-	if strings.Contains(fpath, "platinum") {
+	// Determine whether the suite requires xpack-only setup (users/roles, ML cleanup, watcher cleanup, etc).
+	// The elasticsearch-clients-tests repo doesn't use a "platinum/" folder layout, so we infer from the
+	// top-level test directory name.
+	dir := filepath.Base(filepath.Dir(fpath))
+	switch dir {
+	case "security", "machine_learning", "sql", "watcher", "graph", "license":
 		ts.Type = "xpack"
-	}
-	if ts.Type == "" {
+	default:
 		ts.Type = "free"
 	}
 
@@ -507,7 +510,9 @@ func (a Assertion) Condition() string {
 case bool:
 	assertion = (` + escape(subject) + ` == true)
 case string:
-	assertion = (` + escape(subject) + `.(string) != ` + `""` + `)
+	// Treat common string booleans/numerics as truthy/falsey (matches REST test expectations for settings APIs)
+	s := strings.TrimSpace(` + escape(subject) + `.(string))
+	assertion = (s != "" && s != "false" && s != "0")
 case int:
 	assertion = (` + escape(subject) + `.(int) != 0)
 case float64:
@@ -546,7 +551,9 @@ default:
 case bool:
 	assertion = (` + escape(subject) + ` == false)
 case string:
-	assertion = (` + escape(subject) + `.(string) == ` + `""` + `)
+	// Treat common string booleans/numerics as truthy/falsey (matches REST test expectations for settings APIs)
+	s := strings.TrimSpace(` + escape(subject) + `.(string))
+	assertion = (s == "" || s == "false" || s == "0")
 case int:
 	assertion = (` + escape(subject) + `.(int) == 0)
 case float64:
@@ -755,11 +762,11 @@ default:
 			output += `		if ` +
 				nilGuard +
 				" || \n" +
-				`strings.TrimSpace(fmt.Sprintf("%s", ` + escape(subject) + `)) != `
+				`strings.TrimSpace(fmt.Sprintf("%v", ` + escape(subject) + `)) != `
 			if strings.HasPrefix(expected, "$") {
 				// Remove brackets if we compare to a stashed value replaced in the body.
 				expected = strings.NewReplacer("{", "", "}", "").Replace(expected)
-				output += `strings.TrimSpace(fmt.Sprintf("%s", ` + `stash["` + expected + `"]` + `))`
+				output += `strings.TrimSpace(fmt.Sprintf("%v", ` + `stash["` + expected + `"]` + `))`
 			} else {
 				output += `strings.TrimSpace(fmt.Sprintf("%s", ` + strconv.Quote(expected) + `))`
 			}
@@ -806,9 +813,7 @@ default:
 // Error returns an error handling for the failed assertion.
 func (a Assertion) Error() string {
 	var (
-		output string
-
-		subject  string
+		output   string
 		expected string
 	)
 
@@ -821,15 +826,14 @@ func (a Assertion) Error() string {
 			return `t.Error("Expected [$body] to be truthy")`
 		}
 
-		subject = expand(a.payload.(string))
-		output = `Expected ` + escape(subject) + ` to be truthy`
+		// Use the original dot-notation path in the error message (not the expanded Go expression),
+		// to avoid noisy output and `go test` vet warnings about "%v" sequences.
+		output = `Expected [` + escape(a.payload.(string)) + `] to be truthy`
 
 	case "is_false":
-		subject = expand(a.payload.(string))
-		output = `Expected ` + escape(subject) + ` to be falsey`
+		output = `Expected [` + escape(a.payload.(string)) + `] to be falsey`
 
 	case "lt", "gt", "lte", "gte":
-		subject = expand(utils.MapKeys(a.payload)[0])
 		expected = fmt.Sprintf("%v", utils.MapValues(a.payload)[0])
 		output = `Expected ` + escape(utils.MapKeys(a.payload)[0]) + ` ` + a.operation + ` ` + escape(expected)
 
@@ -903,90 +907,59 @@ func (s Stash) ExpandedValue() string {
 //
 // See https://github.com/elastic/elasticsearch/tree/master/rest-api-spec/src/main/resources/rest-api-spec/test#dot-notation
 func expand(s string, format ...string) string {
-	var (
-		b bytes.Buffer
-
-		container string
-	)
-
 	// Handle the "literal dot" in a fieldname
 	s = strings.Replace(s, `\.`, `_~_|_~_`, -1)
 
 	parts := strings.Split(s, ".")
+	if len(parts) == 0 {
+		return "mapi"
+	}
 
-	if len(parts) > 0 {
-		if reNumber.MatchString(parts[0]) {
-			container = "slic"
-		} else {
-			container = "mapi"
-		}
+	// Choose the top-level container (matches previous behavior).
+	var expr string
+	if reNumber.MatchString(parts[0]) {
+		expr = "slic"
 	} else {
-		container = "mapi"
+		expr = "mapi"
 	}
 
-	b.WriteString(container)
-
+	// Empty key refers to container itself
 	if len(parts) > 0 && parts[0] == "" {
-		return b.String()
+		return expr
 	}
 
-	for i, v := range parts {
-		if reNumber.MatchString(v) {
-			if i > 0 {
-				b.WriteString(`.([]interface{})`)
-			}
-			b.WriteString(`[`)
-			b.WriteString(v)
-			b.WriteString(`]`)
-		} else {
-			if i > 0 {
-				if len(format) > 0 && format[0] == "yaml" {
-					b.WriteString(`.(map[interface{}]interface{})`)
-				} else {
-					b.WriteString(`.(map[string]interface{})`)
-				}
-			}
-			b.WriteString("[")
-			if strings.HasPrefix(v, "$") {
-				b.WriteString(fmt.Sprintf(`stash["%s"].(string)`, strings.Trim(v, `"`))) // Remove the quotes from keys
-			} else {
-				b.WriteString(`"`)
-				b.WriteString(strings.Trim(v, `"`)) // Remove the quotes from keys
-				b.WriteString(`"`)
-			}
-			b.WriteString("]")
+	// Build a chain of safe lookups:
+	// - numeric segments: getIndexOrKey(container, N) (array index OR map key "N")
+	// - string segments:  getKey(container, "segment")
+	for _, p := range parts {
+		if p == "" {
+			continue
+		}
+		if reNumber.MatchString(p) {
+			expr = fmt.Sprintf("getIndexOrKey(%s, %s)", expr, p)
+			continue
 		}
 
+		// Remove quotes from keys, keep literal-dot marker.
+		p = strings.Trim(p, `"`)
+
+		// Dynamic keys via stash (rare): use fmt.Sprintf to avoid type assertion panics.
+		if strings.HasPrefix(p, "$") {
+			expr = fmt.Sprintf(`getKey(%s, fmt.Sprintf("%%v", stash[%q]))`, expr, p)
+			continue
+		}
+
+		expr = fmt.Sprintf("getKey(%s, %q)", expr, p)
 	}
-	return strings.Replace(b.String(), `_~_|_~_`, `\.`, -1)
+
+	return strings.Replace(expr, `_~_|_~_`, `\.`, -1)
 }
 
 // catchnil returns a condition which expands the input and checks if any part is not nil.
 func catchnil(input string) string {
-	conds := make([]string, 0)
-
-	parts := strings.Split(strings.Replace(input, `\.`, `_~_|_~_`, -1), ".")
-	for i := range parts {
-		// Skip casting for runtime stash variable replacement nil escape
-		// NOTE: Previously, skipping could leave a dangling `||`; we now build a slice and join at the end.
-		if parts[i] == "(string)]" {
-			continue
-		}
-
-		part := parts[:i+1]
-		if strings.Contains(parts[i], "$") && i+1 < len(parts) {
-			// Include the next token to complete the stash cast, eg:
-			// `mapi[stash["$x"]` + `.(string)]` => `mapi[stash["$x"].(string)]`
-			part = append(part, parts[i+1])
-		}
-
-		conds = append(conds, strings.Join(part, ".")+" == nil")
-	}
-
-	output := strings.Join(conds, " ||\n\t\t")
-	output = strings.Replace(output, `_~_|_~_`, `.`, -1)
-
-	return output
+	// With the current expand() implementation, missing keys/indices resolve to nil.
+	// Checking the final expression is sufficient and avoids brittle chained nil guards.
+	return fmt.Sprintf("(%s == nil)", input)
 }
 
 // escape replaces unsafe characters in strings

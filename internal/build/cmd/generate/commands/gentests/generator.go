@@ -1098,6 +1098,48 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 
 	g.w("\n")
 
+	// Helpers for stash and safe dot-notation navigation.
+	// These avoid brittle type assertions in generated assertions and request parameters.
+	g.w(`
+		mustGetStashString := func(t *testing.T, key string) string {
+			v, ok := stash[key]
+			if !ok || v == nil {
+				t.Fatalf("Missing stash value %s", key)
+			}
+			return fmt.Sprintf("%v", v)
+		}
+		_ = mustGetStashString
+
+		getKey := func(v interface{}, key string) interface{} {
+			switch vv := v.(type) {
+			case map[string]interface{}:
+				return vv[key]
+			case map[interface{}]interface{}:
+				return vv[key]
+			default:
+				return nil
+			}
+		}
+		_ = getKey
+
+		getIndexOrKey := func(v interface{}, idx int) interface{} {
+			switch vv := v.(type) {
+			case []interface{}:
+				if idx < 0 || idx >= len(vv) {
+					return nil
+				}
+				return vv[idx]
+			case map[string]interface{}:
+				return vv[strconv.Itoa(idx)]
+			case map[interface{}]interface{}:
+				return vv[strconv.Itoa(idx)]
+			default:
+				return nil
+			}
+		}
+		_ = getIndexOrKey
+`)
+
 	g.w("\t\t_ = stash\n")
 
 	if t.Steps.ContainsAssertion("is_false", "is_true") {
@@ -1167,7 +1209,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 					matchs := varDetection.FindAllStringSubmatch(body, -1)
 					for _, match := range matchs {
 						bodyVar := match[1]
-						stashVar := fmt.Sprintf(`stash["$%s"].(string)`, match[2])
+						stashVar := fmt.Sprintf(`mustGetStashString(t, "$%s")`, match[2])
 
 						g.w(fmt.Sprintf("`%s`, %s", bodyVar, stashVar))
 					}
@@ -1192,14 +1234,16 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 
 				var value string
 				if strings.HasPrefix(v.(string), "stash[") {
+					keyLit := strings.TrimPrefix(v.(string), "stash[")
+					keyLit = strings.TrimSuffix(keyLit, "]")
 					switch typ {
 					case "bool":
 						value = `fmt.Sprintf("%v", ` + v.(string) + `)`
 					case "string":
-						value = fmt.Sprintf("%s.(string)", v)
+						value = fmt.Sprintf("mustGetStashString(t, %s)", keyLit)
 					case "[]string":
 						// TODO: Comma-separated list => Quoted list
-						value = fmt.Sprintf(`[]string{%s.(string)}`, v)
+						value = fmt.Sprintf(`[]string{%s}`, fmt.Sprintf("mustGetStashString(t, %s)", keyLit))
 					case "int":
 						value = `func() int {
 				switch ` + v.(string) + `.(type) {
