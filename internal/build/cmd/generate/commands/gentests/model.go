@@ -31,7 +31,7 @@ import (
 
 var reFilename = regexp.MustCompile(`\d*_?(.+)\.ya?ml`)
 var reNumber = regexp.MustCompile(`^\d+$`)
-var reBaseFilename = regexp.MustCompile(`rest-api-spec/test/\w+/(.*$)`)
+var reBaseFilename = regexp.MustCompile(`elasticsearch-clients-tests/tests/\w+/(.*$)`)
 
 // TestPayload represents a single raw section (`---`) from the YAML file.
 type TestPayload struct {
@@ -111,9 +111,15 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 	}
 
 	for _, payload := range payloads {
+		// If the suite is already marked as skipped (eg. due to `requires` or internal endpoints),
+		// there's no point in parsing remaining sections; it also prevents accidental panics.
+		if ts.Skip {
+			break
+		}
+
 		secKeys := utils.MapKeys(payload.Payload)
 		switch {
-		case len(secKeys) > 0 && strings.Contains(strings.Join(secKeys, ","), "setup") || strings.Contains(strings.Join(secKeys, ","), "teardown"):
+		case len(secKeys) > 0 && strings.Contains(strings.Join(secKeys, ","), "setup") || strings.Contains(strings.Join(secKeys, ","), "teardown") || strings.Contains(strings.Join(secKeys, ","), "requires"):
 			for k, v := range payload.Payload.(map[interface{}]interface{}) {
 				switch k {
 				case "setup":
@@ -132,6 +138,44 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 							}
 						}
 					}
+				case "requires":
+					// Handle `requires` stanza.
+					// Example:
+					// requires:
+					//   serverless: false
+					//   stack: true
+					//
+					// For this generator, we currently skip suites that explicitly require non-stack
+					// (ie. serverless-only) by marking them as skipped when `stack: false`.
+					req, ok := v.(map[interface{}]interface{})
+					if !ok {
+						continue
+					}
+
+					// Parse stack/serverless booleans (accept bool or string).
+					parseBool := func(val interface{}) (bool, bool) {
+						switch vv := val.(type) {
+						case bool:
+							return vv, true
+						case string:
+							b, err := strconv.ParseBool(strings.TrimSpace(vv))
+							if err == nil {
+								return b, true
+							}
+						}
+						return false, false
+					}
+
+					if stackVal, ok := req["stack"]; ok {
+						if b, ok := parseBool(stackVal); ok && !b {
+							ts.Skip = true
+							ts.SkipInfo = "Skipping suite because requires.stack is false"
+						}
+					}
+					// Parse serverless flag for completeness (no behavior yet beyond stack=false).
+					// intentionally ignored for now; future: gate on a target mode flag
+					_, _ = req["serverless"]
+					continue
 				}
 			}
 		default:
@@ -139,7 +183,12 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 				var t Test
 				var steps []Step
 
-				for _, vv := range v.([]interface{}) {
+				raw, ok := v.([]interface{})
+				if !ok {
+					fmt.Printf("Error: %v\n", v)
+				}
+
+				for _, vv := range raw {
 					switch utils.MapKeys(vv)[0] {
 					case "skip":
 						var (
@@ -441,6 +490,12 @@ func (a Assertion) Condition() string {
 
 	// ================================================================================
 	case "is_true":
+		// Special-case: `$body` refers to the raw response body bytes, not a stash variable.
+		// In YAML tests this is commonly used for endpoints returning text/plain (eg. cat APIs).
+		if strings.TrimSpace(a.payload.(string)) == "$body" {
+			return "if len(body) < 1 {\n"
+		}
+
 		subject = expand(a.payload.(string))
 		nilGuard := catchnil(subject)
 
@@ -475,6 +530,11 @@ default:
 
 	// ================================================================================
 	case "is_false":
+		// Special-case: `$body` refers to the raw response body bytes, not a stash variable.
+		if strings.TrimSpace(a.payload.(string)) == "$body" {
+			return "if len(body) != 0 {\n"
+		}
+
 		subject = expand(a.payload.(string))
 		nilGuard := catchnil(subject)
 
@@ -896,24 +956,27 @@ func expand(s string, format ...string) string {
 
 // catchnil returns a condition which expands the input and checks if any part is not nil.
 func catchnil(input string) string {
-	var output string
+	conds := make([]string, 0)
 
 	parts := strings.Split(strings.Replace(input, `\.`, `_~_|_~_`, -1), ".")
 	for i := range parts {
 		// Skip casting for runtime stash variable replacement nil escape
+		// NOTE: Previously, skipping could leave a dangling `||`; we now build a slice and join at the end.
 		if parts[i] == "(string)]" {
 			continue
 		}
 
 		part := parts[:i+1]
-		if strings.Contains(parts[i], "$") {
+		if strings.Contains(parts[i], "$") && i+1 < len(parts) {
+			// Include the next token to complete the stash cast, eg:
+			// `mapi[stash["$x"]` + `.(string)]` => `mapi[stash["$x"].(string)]`
 			part = append(part, parts[i+1])
 		}
-		output += strings.Join(part, ".") + " == nil"
-		if i+1 < len(parts) {
-			output += " ||\n\t\t"
-		}
+
+		conds = append(conds, strings.Join(part, ".")+" == nil")
 	}
+
+	output := strings.Join(conds, " ||\n\t\t")
 	output = strings.Replace(output, `_~_|_~_`, `.`, -1)
 
 	return output
