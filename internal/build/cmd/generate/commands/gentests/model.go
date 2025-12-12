@@ -493,7 +493,9 @@ func (a Assertion) Condition() string {
 		// Special-case: `$body` refers to the raw response body bytes, not a stash variable.
 		// In YAML tests this is commonly used for endpoints returning text/plain (eg. cat APIs).
 		if strings.TrimSpace(a.payload.(string)) == "$body" {
-			return "if len(body) < 1 {\n"
+			// `$body` existence check: treat an empty-but-present body as truthy.
+			// (Several YAML suites use `is_true: $body` as a smoke check even when the cat output can be empty.)
+			return "if body == nil {\n"
 		}
 
 		subject = expand(a.payload.(string))
@@ -814,6 +816,11 @@ func (a Assertion) Error() string {
 
 	switch a.operation {
 	case "is_true":
+		// Special-case: `$body` refers to the raw response body bytes, not a stash variable.
+		if strings.TrimSpace(a.payload.(string)) == "$body" {
+			return `t.Error("Expected [$body] to be truthy")`
+		}
+
 		subject = expand(a.payload.(string))
 		output = `Expected ` + escape(subject) + ` to be truthy`
 
