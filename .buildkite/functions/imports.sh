@@ -82,7 +82,10 @@ EOF
       -out "${node_crt}" \
       -extfile "${node_ext}" >/dev/null 2>&1
 
-    chmod 600 "${ca_key}" "${node_key}" 2>/dev/null || true
+    # IMPORTANT: These files are bind-mounted into the Elasticsearch container which runs as a non-root user.
+    # Overly strict host permissions (eg 600) can make the key unreadable in-container and prevent startup.
+    chmod 644 "${ca_crt}" "${node_crt}" "${node_key}" 2>/dev/null || true
+    chmod 600 "${ca_key}" 2>/dev/null || true
   fi
 }
 
