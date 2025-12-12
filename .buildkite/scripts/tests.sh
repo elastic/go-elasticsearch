@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-set -euo pipefail
+set -uo pipefail
 
 TIMEFORMAT="(Duration: %0lR)"
 
