@@ -30,7 +30,10 @@ import (
 
 var reFilename = regexp.MustCompile(`\d*_?(.+)\.ya?ml`)
 var reNumber = regexp.MustCompile(`^\d+$`)
-var reBaseFilename = regexp.MustCompile(`elasticsearch-clients-tests/tests/\w+/(.*$)`)
+
+// Capture the test suite path relative to the `tests/` root, e.g. `eql/10_basic.yml`.
+// (This is used for the custom skip list; it must include the top-level directory to avoid collisions.)
+var reBaseFilename = regexp.MustCompile(`elasticsearch-clients-tests/tests/(.*$)`)
 
 // TestPayload represents a single raw section (`---`) from the YAML file.
 type TestPayload struct {

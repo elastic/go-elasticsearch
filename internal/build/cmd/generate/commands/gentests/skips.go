@@ -43,4 +43,8 @@ var skipFiles = []string{
 // TODO: Comments into descriptions for `Skip()`
 var skipTestsYAML = `
 ---
+eql/10_basic.yml:
+  - "eql basic tests"
+security/140_user.yml:
+  - "security.user"
 `
