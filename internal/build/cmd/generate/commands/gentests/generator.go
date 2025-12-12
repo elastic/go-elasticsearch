@@ -20,7 +20,6 @@ package gentests
 import (
 	"bufio"
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -237,14 +236,64 @@ func (g *Generator) genInitializeClient() {
 	cfg := elasticsearch.Config{}
 	`)
 
-	if g.TestSuite.Type == "xpack" {
-		g.w(`
-	cfg.Transport = &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}` + "\n")
+	// When the test runner is pointed at an HTTPS cluster (eg. the Buildkite platinum TLS cluster),
+	// make the client trust the cluster CA. We additionally skip hostname verification (certificate-only)
+	// but still validate the chain against the provided CA.
+	g.w(`
+	if envURLs, ok := os.LookupEnv("ELASTICSEARCH_URL"); ok && strings.TrimSpace(envURLs) != "" {
+		first := strings.TrimSpace(strings.Split(envURLs, ",")[0])
+		if u, err := url.Parse(first); err == nil && u != nil && u.Scheme == "https" {
+			caPath := os.Getenv("ELASTICSEARCH_CA_CERT")
+			if caPath == "" {
+				t.Fatalf("ELASTICSEARCH_CA_CERT must be set when ELASTICSEARCH_URL is https")
+			}
+
+			ca, err := os.ReadFile(caPath)
+			if err != nil {
+				t.Fatalf("Error reading ELASTICSEARCH_CA_CERT %q: %s", caPath, err)
+			}
+			cfg.CACert = ca
+
+			roots := x509.NewCertPool()
+			if ok := roots.AppendCertsFromPEM(ca); !ok {
+				t.Fatalf("Error parsing CA cert in %q", caPath)
+			}
+
+			tp := http.DefaultTransport.(*http.Transport).Clone()
+			tp.TLSClientConfig = &tls.Config{
+				MinVersion:         tls.VersionTLS12,
+				InsecureSkipVerify: true, // required for custom verification callback
+				VerifyPeerCertificate: func(rawCerts [][]byte, _ [][]*x509.Certificate) error {
+					if len(rawCerts) == 0 {
+						return fmt.Errorf("no server certificates presented")
+					}
+
+					leaf, err := x509.ParseCertificate(rawCerts[0])
+					if err != nil {
+						return err
+					}
+
+					intermediates := x509.NewCertPool()
+					for i := 1; i < len(rawCerts); i++ {
+						cert, err := x509.ParseCertificate(rawCerts[i])
+						if err != nil {
+							return err
+						}
+						intermediates.AddCert(cert)
+					}
+
+					_, err = leaf.Verify(x509.VerifyOptions{
+						Roots:         roots,
+						Intermediates: intermediates,
+					})
+					return err
+				},
+			}
+
+			cfg.Transport = tp
+		}
 	}
+`)
 
 	g.w(`
 			if os.Getenv("DEBUG") != "" {
@@ -397,8 +446,8 @@ func (g *Generator) genCommonSetup() {
 		{
 			res, _ = es.Indices.DeleteDataStream(
 				[]string{"*"},
-				es.Indices.DeleteDataStream.WithExpandWildcards("all"),
-				es.Indices.DeleteDataStream.WithExpandWildcards("hidden"))
+				// Do not include hidden/system data streams; several YAML tests assume system resources exist.
+				es.Indices.DeleteDataStream.WithExpandWildcards("open,closed"))
 			if res != nil && res.Body != nil {
 				defer res.Body.Close()
 			}
@@ -407,7 +456,8 @@ func (g *Generator) genCommonSetup() {
 		{
 			res, _ = es.Indices.Delete(
 				[]string{"*"},
-				es.Indices.Delete.WithExpandWildcards("all"))
+				// Do not include hidden/system indices; several YAML tests assume system resources exist.
+				es.Indices.Delete.WithExpandWildcards("open,closed"))
 			if res != nil && res.Body != nil {
 				defer res.Body.Close()
 			}
@@ -1039,6 +1089,48 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 
 	g.w("\n")
 
+	// Helpers for stash and safe dot-notation navigation.
+	// These avoid brittle type assertions in generated assertions and request parameters.
+	g.w(`
+		mustGetStashString := func(t *testing.T, key string) string {
+			v, ok := stash[key]
+			if !ok || v == nil {
+				t.Fatalf("Missing stash value %s", key)
+			}
+			return fmt.Sprintf("%v", v)
+		}
+		_ = mustGetStashString
+
+		getKey := func(v interface{}, key string) interface{} {
+			switch vv := v.(type) {
+			case map[string]interface{}:
+				return vv[key]
+			case map[interface{}]interface{}:
+				return vv[key]
+			default:
+				return nil
+			}
+		}
+		_ = getKey
+
+		getIndexOrKey := func(v interface{}, idx int) interface{} {
+			switch vv := v.(type) {
+			case []interface{}:
+				if idx < 0 || idx >= len(vv) {
+					return nil
+				}
+				return vv[idx]
+			case map[string]interface{}:
+				return vv[strconv.Itoa(idx)]
+			case map[interface{}]interface{}:
+				return vv[strconv.Itoa(idx)]
+			default:
+				return nil
+			}
+		}
+		_ = getIndexOrKey
+`)
+
 	g.w("\t\t_ = stash\n")
 
 	if t.Steps.ContainsAssertion("is_false", "is_true") {
@@ -1061,9 +1153,21 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 
 func (g *Generator) genAction(a Action, skipBody ...bool) {
 	varDetection := regexp.MustCompile(".*(\\$\\{(\\w+)\\}).*")
+	stashInJSONString := regexp.MustCompile(`("\$[^"]+")`)
 
 	// Initialize the request
 	g.w("\t\treq = esapi." + a.Request() + "{\n")
+
+	// SQL async endpoints require content negotiation (format or Accept header).
+	// They don't expose a `Format` param in the generated request types, so default Accept to JSON.
+	if a.Request() == "SQLGetAsyncStatusRequest" || a.Request() == "SQLGetAsyncRequest" || a.Request() == "SQLDeleteAsyncRequest" {
+		if a.headers == nil {
+			a.headers = make(map[string]string)
+		}
+		if _, ok := a.headers["Accept"]; !ok {
+			a.headers["Accept"] = "application/json"
+		}
+	}
 
 	// Pass the parameters
 	for k, v := range a.Params() {
@@ -1108,7 +1212,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 					matchs := varDetection.FindAllStringSubmatch(body, -1)
 					for _, match := range matchs {
 						bodyVar := match[1]
-						stashVar := fmt.Sprintf(`stash["$%s"].(string)`, match[2])
+						stashVar := fmt.Sprintf(`mustGetStashString(t, "$%s")`, match[2])
 
 						g.w(fmt.Sprintf("`%s`, %s", bodyVar, stashVar))
 					}
@@ -1117,7 +1221,15 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 					if !strings.HasSuffix(body, "\n") {
 						body = body + "\n"
 					}
-					g.w("strings.NewReader(`" + body + "`)")
+					// Support stash variables inside literal JSON strings, eg:
+					// { "ids": ["$id"] }
+					// by emitting Go concatenations like the map-body path does.
+					if stashInJSONString.MatchString(body) {
+						j := stashInJSONString.ReplaceAll([]byte(body), []byte("` + strconv.Quote(fmt.Sprintf(\"%v\", stash[$1])) + `"))
+						g.w("strings.NewReader(`" + string(j) + "`)")
+					} else {
+						g.w("strings.NewReader(`" + body + "`)")
+					}
 				}
 
 			} else {
@@ -1133,14 +1245,16 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 
 				var value string
 				if strings.HasPrefix(v.(string), "stash[") {
+					keyLit := strings.TrimPrefix(v.(string), "stash[")
+					keyLit = strings.TrimSuffix(keyLit, "]")
 					switch typ {
 					case "bool":
 						value = `fmt.Sprintf("%v", ` + v.(string) + `)`
 					case "string":
-						value = fmt.Sprintf("%s.(string)", v)
+						value = fmt.Sprintf("mustGetStashString(t, %s)", keyLit)
 					case "[]string":
 						// TODO: Comma-separated list => Quoted list
-						value = fmt.Sprintf(`[]string{%s.(string)}`, v)
+						value = fmt.Sprintf(`[]string{%s}`, fmt.Sprintf("mustGetStashString(t, %s)", keyLit))
 					case "int":
 						value = `func() int {
 				switch ` + v.(string) + `.(type) {
@@ -1284,7 +1398,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 						case string:
 							b.WriteString(vv.(string))
 						default:
-							j, err := json.Marshal(convert(vv))
+							j, err := marshalForYAMLTestJSON(convert(vv))
 							if err != nil {
 								panic(fmt.Sprintf("%s{}.%s: %s (%s)", a.Request(), k, err, v))
 							}
@@ -1296,11 +1410,11 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 					g.w("\t\tstrings.NewReader(`" + b.String() + "`)")
 					// ... or just convert the value to JSON
 				} else {
-					j, err := json.Marshal(convert(v))
+					j, err := marshalForYAMLTestJSON(convert(v))
 					if err != nil {
 						panic(fmt.Sprintf("%s{}.%s: %s (%s)", a.Request(), k, err, v))
 					}
-					g.w("\t\tstrings.NewReader(`" + fmt.Sprintf("%s", j) + "`)")
+					g.w("\t\tstrings.NewReader(`" + string(j) + "`)")
 				}
 			case "*bool":
 				switch v.(type) {
@@ -1317,10 +1431,20 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 			g.w(",\n")
 
 		case map[interface{}]interface{}:
-			g.w("\t\t\t" + k + ": ")
 			// vv := unstash(convert(v).(map[string]interface{}))
 			// fmt.Println(vv)
-			j, err := json.Marshal(convert(v))
+			converted := convert(v)
+			// Some REST tests rely on the runner omitting an empty body entirely.
+			// Example: security.query_user with `body: {}` expects the default behavior, which differs from `{}`.
+			if k == "Body" && a.Request() == "SecurityQueryUserRequest" {
+				if mm, ok := converted.(map[string]interface{}); ok && len(mm) == 0 {
+					// Skip emitting Body altogether.
+					continue
+				}
+			}
+
+			g.w("\t\t\t" + k + ": ")
+			j, err := marshalForYAMLTestJSON(converted)
 			if err != nil {
 				panic(fmt.Sprintf("JSON parse error: %s; %s", err, v))
 			} else {
@@ -1328,7 +1452,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				reStash := regexp.MustCompile(`("\$[^"]+")`)
 				j = reStash.ReplaceAll(j, []byte("` + strconv.Quote(fmt.Sprintf(\"%v\", stash[$1])) + `"))
 
-				g.w("\t\tstrings.NewReader(`" + fmt.Sprintf("%s", j) + "`)")
+				g.w("\t\tstrings.NewReader(`" + string(j) + "`)")
 				g.w(",\n")
 			}
 
