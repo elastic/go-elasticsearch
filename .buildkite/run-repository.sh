@@ -53,6 +53,7 @@ docker run -t \
   --rm \
   --network "$network_name" \
   --env "ELASTICSEARCH_URL=$elasticsearch_url" \
+  --env "ELASTICSEARCH_CA_CERT=/go-elasticsearch/.buildkite/certs/ca.crt" \
   --env "ELASTICSEARCH_VERSION=$STACK_VERSION" \
   --env "ELASTICSEARCH_BUILD_VERSION=$ELASTICSEARCH_BUILD_VERSION" \
   --env "ELASTICSEARCH_BUILD_HASH=$ELASTICSEARCH_BUILD_HASH" \

@@ -237,14 +237,64 @@ func (g *Generator) genInitializeClient() {
 	cfg := elasticsearch.Config{}
 	`)
 
-	if g.TestSuite.Type == "xpack" {
-		g.w(`
-	cfg.Transport = &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}` + "\n")
+	// When the test runner is pointed at an HTTPS cluster (eg. the Buildkite platinum TLS cluster),
+	// make the client trust the cluster CA. We additionally skip hostname verification (certificate-only)
+	// but still validate the chain against the provided CA.
+	g.w(`
+	if envURLs, ok := os.LookupEnv("ELASTICSEARCH_URL"); ok && strings.TrimSpace(envURLs) != "" {
+		first := strings.TrimSpace(strings.Split(envURLs, ",")[0])
+		if u, err := url.Parse(first); err == nil && u != nil && u.Scheme == "https" {
+			caPath := os.Getenv("ELASTICSEARCH_CA_CERT")
+			if caPath == "" {
+				t.Fatalf("ELASTICSEARCH_CA_CERT must be set when ELASTICSEARCH_URL is https")
+			}
+
+			ca, err := os.ReadFile(caPath)
+			if err != nil {
+				t.Fatalf("Error reading ELASTICSEARCH_CA_CERT %q: %s", caPath, err)
+			}
+			cfg.CACert = ca
+
+			roots := x509.NewCertPool()
+			if ok := roots.AppendCertsFromPEM(ca); !ok {
+				t.Fatalf("Error parsing CA cert in %q", caPath)
+			}
+
+			tp := http.DefaultTransport.(*http.Transport).Clone()
+			tp.TLSClientConfig = &tls.Config{
+				MinVersion:         tls.VersionTLS12,
+				InsecureSkipVerify: true, // required for custom verification callback
+				VerifyPeerCertificate: func(rawCerts [][]byte, _ [][]*x509.Certificate) error {
+					if len(rawCerts) == 0 {
+						return fmt.Errorf("no server certificates presented")
+					}
+
+					leaf, err := x509.ParseCertificate(rawCerts[0])
+					if err != nil {
+						return err
+					}
+
+					intermediates := x509.NewCertPool()
+					for i := 1; i < len(rawCerts); i++ {
+						cert, err := x509.ParseCertificate(rawCerts[i])
+						if err != nil {
+							return err
+						}
+						intermediates.AddCert(cert)
+					}
+
+					_, err = leaf.Verify(x509.VerifyOptions{
+						Roots:         roots,
+						Intermediates: intermediates,
+					})
+					return err
+				},
+			}
+
+			cfg.Transport = tp
+		}
 	}
+`)
 
 	g.w(`
 			if os.Getenv("DEBUG") != "" {
