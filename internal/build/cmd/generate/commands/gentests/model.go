@@ -759,18 +759,38 @@ default:
 
 		// --------------------------------------------------------------------------------
 		case string:
-			output += `		if ` +
-				nilGuard +
-				" || \n" +
-				`strings.TrimSpace(fmt.Sprintf("%v", ` + escape(subject) + `)) != `
+			// String expectations can match either scalar values or arrays of scalars returned by Elasticsearch.
+			// Example: security.invalidate_api_key returns invalidated_api_keys as an array, but the YAML suite
+			// uses `match: { invalidated_api_keys: $id }` when the array has a single element.
+			var expectedExpr string
 			if strings.HasPrefix(expected, "$") {
 				// Remove brackets if we compare to a stashed value replaced in the body.
 				expected = strings.NewReplacer("{", "", "}", "").Replace(expected)
-				output += `strings.TrimSpace(fmt.Sprintf("%v", ` + `stash["` + expected + `"]` + `))`
+				expectedExpr = `stash["` + expected + `"]`
 			} else {
-				output += `strings.TrimSpace(fmt.Sprintf("%s", ` + strconv.Quote(expected) + `))`
+				expectedExpr = strconv.Quote(expected)
 			}
-			output += " {\n"
+
+			r := strings.NewReplacer(`"`, "", `\`, "")
+			rkey := r.Replace(key)
+			output += `		if ` + nilGuard + ` { t.Error("Expected [` + rkey + `] to not be nil") }
+						actual = ` + escape(subject) + `
+						expected = ` + expectedExpr + `
+						assertion = func(a interface{}, e interface{}) bool {
+							exp := strings.TrimSpace(fmt.Sprintf("%v", e))
+							switch vv := a.(type) {
+							case []interface{}:
+								for _, it := range vv {
+									if strings.TrimSpace(fmt.Sprintf("%v", it)) == exp {
+										return true
+									}
+								}
+								return false
+							default:
+								return strings.TrimSpace(fmt.Sprintf("%v", vv)) == exp
+							}
+						}(actual, expected)
+						if !assertion {` + "\n"
 
 		// --------------------------------------------------------------------------------
 		case map[interface{}]interface{}, map[string]interface{}:

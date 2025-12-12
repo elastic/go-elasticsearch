@@ -31,7 +31,7 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	yaml "gopkg.in/yaml.v2"
+	yaml "gopkg.in/yaml.v3"
 
 	"github.com/elastic/go-elasticsearch/v9/internal/build/cmd"
 	"github.com/elastic/go-elasticsearch/v9/internal/build/utils"
@@ -239,15 +239,15 @@ func (cmd *Command) processFile(fpath string) (err error) {
 	dec := yaml.NewDecoder(patched)
 
 	for {
-		var payload interface{}
-		err := dec.Decode(&payload)
+		var node yaml.Node
+		err := dec.Decode(&node)
 		if err == io.EOF {
 			break
 		}
 		if err != nil {
 			return fmt.Errorf("parse error: %s", err)
 		}
-		payloads = append(payloads, TestPayload{fpath, payload})
+		payloads = append(payloads, TestPayload{fpath, yamlNodeToInterface(&node)})
 	}
 
 	ts := NewTestSuite(fpath, payloads)

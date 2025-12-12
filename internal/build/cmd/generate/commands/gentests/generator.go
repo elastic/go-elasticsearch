@@ -20,7 +20,6 @@ package gentests
 import (
 	"bufio"
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -447,8 +446,8 @@ func (g *Generator) genCommonSetup() {
 		{
 			res, _ = es.Indices.DeleteDataStream(
 				[]string{"*"},
-				es.Indices.DeleteDataStream.WithExpandWildcards("all"),
-				es.Indices.DeleteDataStream.WithExpandWildcards("hidden"))
+				// Do not include hidden/system data streams; several YAML tests assume system resources exist.
+				es.Indices.DeleteDataStream.WithExpandWildcards("open,closed"))
 			if res != nil && res.Body != nil {
 				defer res.Body.Close()
 			}
@@ -457,7 +456,8 @@ func (g *Generator) genCommonSetup() {
 		{
 			res, _ = es.Indices.Delete(
 				[]string{"*"},
-				es.Indices.Delete.WithExpandWildcards("all"))
+				// Do not include hidden/system indices; several YAML tests assume system resources exist.
+				es.Indices.Delete.WithExpandWildcards("open,closed"))
 			if res != nil && res.Body != nil {
 				defer res.Body.Close()
 			}
@@ -1162,9 +1162,21 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 
 func (g *Generator) genAction(a Action, skipBody ...bool) {
 	varDetection := regexp.MustCompile(".*(\\$\\{(\\w+)\\}).*")
+	stashInJSONString := regexp.MustCompile(`("\$[^"]+")`)
 
 	// Initialize the request
 	g.w("\t\treq = esapi." + a.Request() + "{\n")
+
+	// SQL async endpoints require content negotiation (format or Accept header).
+	// They don't expose a `Format` param in the generated request types, so default Accept to JSON.
+	if a.Request() == "SQLGetAsyncStatusRequest" || a.Request() == "SQLGetAsyncRequest" || a.Request() == "SQLDeleteAsyncRequest" {
+		if a.headers == nil {
+			a.headers = make(map[string]string)
+		}
+		if _, ok := a.headers["Accept"]; !ok {
+			a.headers["Accept"] = "application/json"
+		}
+	}
 
 	// Pass the parameters
 	for k, v := range a.Params() {
@@ -1218,7 +1230,15 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 					if !strings.HasSuffix(body, "\n") {
 						body = body + "\n"
 					}
-					g.w("strings.NewReader(`" + body + "`)")
+					// Support stash variables inside literal JSON strings, eg:
+					// { "ids": ["$id"] }
+					// by emitting Go concatenations like the map-body path does.
+					if stashInJSONString.MatchString(body) {
+						j := stashInJSONString.ReplaceAll([]byte(body), []byte("` + strconv.Quote(fmt.Sprintf(\"%v\", stash[$1])) + `"))
+						g.w("strings.NewReader(`" + string(j) + "`)")
+					} else {
+						g.w("strings.NewReader(`" + body + "`)")
+					}
 				}
 
 			} else {
@@ -1387,7 +1407,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 						case string:
 							b.WriteString(vv.(string))
 						default:
-							j, err := json.Marshal(convert(vv))
+							j, err := marshalForYAMLTestJSON(convert(vv))
 							if err != nil {
 								panic(fmt.Sprintf("%s{}.%s: %s (%s)", a.Request(), k, err, v))
 							}
@@ -1399,11 +1419,11 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 					g.w("\t\tstrings.NewReader(`" + b.String() + "`)")
 					// ... or just convert the value to JSON
 				} else {
-					j, err := json.Marshal(convert(v))
+					j, err := marshalForYAMLTestJSON(convert(v))
 					if err != nil {
 						panic(fmt.Sprintf("%s{}.%s: %s (%s)", a.Request(), k, err, v))
 					}
-					g.w("\t\tstrings.NewReader(`" + fmt.Sprintf("%s", j) + "`)")
+					g.w("\t\tstrings.NewReader(`" + string(j) + "`)")
 				}
 			case "*bool":
 				switch v.(type) {
@@ -1423,7 +1443,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 			g.w("\t\t\t" + k + ": ")
 			// vv := unstash(convert(v).(map[string]interface{}))
 			// fmt.Println(vv)
-			j, err := json.Marshal(convert(v))
+			j, err := marshalForYAMLTestJSON(convert(v))
 			if err != nil {
 				panic(fmt.Sprintf("JSON parse error: %s; %s", err, v))
 			} else {
@@ -1431,7 +1451,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				reStash := regexp.MustCompile(`("\$[^"]+")`)
 				j = reStash.ReplaceAll(j, []byte("` + strconv.Quote(fmt.Sprintf(\"%v\", stash[$1])) + `"))
 
-				g.w("\t\tstrings.NewReader(`" + fmt.Sprintf("%s", j) + "`)")
+				g.w("\t\tstrings.NewReader(`" + string(j) + "`)")
 				g.w(",\n")
 			}
 
