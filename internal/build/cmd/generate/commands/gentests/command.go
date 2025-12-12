@@ -31,19 +31,20 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	yaml "gopkg.in/yaml.v2"
+	yaml "gopkg.in/yaml.v3"
 
 	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
 )
 
 var (
-	input  *string
-	output *string
-	gofmt  *bool
-	color  *bool
-	debug  *bool
-	info   *bool
+	input       *string
+	output      *string
+	gofmt       *bool
+	color       *bool
+	debug       *bool
+	info        *bool
+	skipOnError *bool
 
 	// Populated by 'go generate'
 	apiRegistry map[string]map[string]string
@@ -62,6 +63,7 @@ func init() {
 	color = gentestsCmd.Flags().BoolP("color", "c", true, "Syntax highlight the debug output")
 	debug = gentestsCmd.Flags().BoolP("debug", "d", false, "Print the generated source to terminal")
 	info = gentestsCmd.Flags().Bool("info", false, "Print the API details to terminal")
+	skipOnError = gentestsCmd.Flags().Bool("skip-on-error", false, "Skip generating a test suite when generation fails (warn and continue)")
 
 	gentestsCmd.MarkFlagRequired("input")
 	gentestsCmd.MarkFlagRequired("output")
@@ -80,6 +82,7 @@ var gentestsCmd = &cobra.Command{
 			DebugInfo:      *info,
 			DebugSource:    *debug,
 			ColorizeSource: *color,
+			SkipOnError:    *skipOnError,
 		}
 		err := command.Execute()
 		if err != nil {
@@ -97,6 +100,7 @@ type Command struct {
 	DebugInfo      bool
 	DebugSource    bool
 	ColorizeSource bool
+	SkipOnError    bool
 }
 
 // Execute runs the command.
@@ -190,6 +194,25 @@ func (cmd *Command) Execute() error {
 }
 
 func (cmd *Command) processFile(fpath string) (err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			// Fail-fast is the default (backwards compatible).
+			// When SkipOnError is enabled, we warn and skip this test suite file.
+			if cmd.SkipOnError {
+				if utils.IsTTY() {
+					fmt.Fprint(os.Stderr, "\x1b[0;33m")
+				}
+				fmt.Fprintf(os.Stderr, "WARNING: Skipping %q (generation panic: %v)\n", fpath, r)
+				if utils.IsTTY() {
+					fmt.Fprint(os.Stderr, "\x1b[0m")
+				}
+				err = nil
+				return
+			}
+			panic(r)
+		}
+	}()
+
 	if utils.IsTTY() {
 		fmt.Fprint(os.Stderr, "\x1b[2m")
 	}
@@ -216,15 +239,15 @@ func (cmd *Command) processFile(fpath string) (err error) {
 	dec := yaml.NewDecoder(patched)
 
 	for {
-		var payload interface{}
-		err := dec.Decode(&payload)
+		var node yaml.Node
+		err := dec.Decode(&node)
 		if err == io.EOF {
 			break
 		}
 		if err != nil {
 			return fmt.Errorf("parse error: %s", err)
 		}
-		payloads = append(payloads, TestPayload{fpath, payload})
+		payloads = append(payloads, TestPayload{fpath, yamlNodeToInterface(&node)})
 	}
 
 	ts := NewTestSuite(fpath, payloads)
@@ -260,6 +283,16 @@ func (cmd *Command) processFile(fpath string) (err error) {
 	if err != nil {
 		if cmd.DebugSource {
 			utils.PrintSourceWithErr(out, err)
+		}
+		if cmd.SkipOnError {
+			if utils.IsTTY() {
+				fmt.Fprint(os.Stderr, "\x1b[0;33m")
+			}
+			fmt.Fprintf(os.Stderr, "WARNING: Skipping %q (generation error: %s)\n", fpath, err)
+			if utils.IsTTY() {
+				fmt.Fprint(os.Stderr, "\x1b[0m")
+			}
+			return nil
 		}
 		return fmt.Errorf("error generating output: %s", err)
 	}
