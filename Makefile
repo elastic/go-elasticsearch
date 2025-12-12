@@ -1,6 +1,18 @@
-SHELL := /bin/bash
+# Prefer bash when available (for developer convenience), but fall back to POSIX sh
+# for CI/minimal environments where /bin/bash may not exist.
+_BASH := $(shell command -v bash 2>/dev/null)
+ifeq ($(_BASH),)
+SHELL := /bin/sh
+else
+SHELL := $(_BASH)
+endif
 
 ELASTICSEARCH_DEFAULT_BUILD_VERSION = "9.1.0-SNAPSHOT"
+
+# Elasticsearch common YAML test suites (new layout)
+ELASTICSEARCH_CLIENTS_TESTS_REPO ?= https://github.com/elastic/elasticsearch-clients-tests.git
+ELASTICSEARCH_CLIENTS_TESTS_BRANCH ?= 9.1
+ELASTICSEARCH_CLIENTS_TESTS_DIR ?= tmp/elasticsearch-clients-tests
 
 ##@ Test
 test-unit:  ## Run unit tests
@@ -193,7 +205,7 @@ endif
 	$(eval commits_list = $(shell echo $(commits) | tr ',' ' '))
 	@printf "\033[2m→ Backporting commits [$(commits)]\033[0m\n"
 	@{ \
-		set -e -o pipefail; \
+		set -e; \
 		for commit in $(commits_list); do \
 			git show --pretty='%h | %s' --no-patch $$commit; \
 		done; \
@@ -227,7 +239,7 @@ ifeq ($(version), "")
 endif
 	@printf "\033[2m→ [$(branch)] Creating version $(version)...\033[0m\n"
 	@{ \
-		set -e -o pipefail; \
+		set -e; \
 		cp internal/version/version.go internal/version/version.go.OLD && \
 		cat internal/version/version.go.OLD | sed -e 's/Client = ".*"/Client = "$(version)"/' > internal/version/version.go && \
 		go vet internal/version/version.go && \
@@ -235,10 +247,10 @@ endif
 		git diff --color-words internal/version/version.go | tail -n 1; \
 	}
 	@{ \
-		set -e -o pipefail; \
-		printf "\033[2m→ Commit and create Git tag? (y/n): \033[0m\c"; \
+		set -e; \
+		printf "\033[2m→ Commit and create Git tag? (y/n): \033[0m"; \
 		read continue; \
-		if [[ $$continue == "y" ]]; then \
+		if [ "$$continue" = "y" ]; then \
 			git add internal/version/version.go && \
 			git commit --no-status --quiet --message "Release $(version)" && \
 			git tag --annotate v$(version) --message 'Release $(version)'; \
@@ -306,7 +318,7 @@ endif
 	@docker network inspect elasticsearch > /dev/null 2>&1 || docker network create elasticsearch;
 	@{ \
 		for n in `seq 1 $(nodes)`; do \
-			if [[ -z "$$port" ]]; then \
+			if [ -z "$$port" ]; then \
 				hostport=$$((9199+$$n)); \
 			else \
 				hostport=$$port; \
@@ -396,11 +408,14 @@ endif
 		go run main.go apistruct --output '$(PWD)/$(output)'; \
 	}
 
-gen-tests:  ## Generate the API tests from the YAML specification
-	$(eval input  ?= tmp/rest-api-spec)
+gen-tests: download-client-tests ## Generate the API tests from the YAML specification
+	$(eval input  ?= $(ELASTICSEARCH_CLIENTS_TESTS_DIR))
 	$(eval output ?= esapi/test)
 ifdef debug
 	$(eval args += --debug)
+endif
+ifdef skip_on_error
+	$(eval args += --skip-on-error)
 endif
 ifdef ELASTICSEARCH_BUILD_VERSION
 	$(eval version = $(ELASTICSEARCH_BUILD_VERSION))
@@ -423,12 +438,7 @@ endif
 		cd internal/build && \
 		go get golang.org/x/tools/cmd/goimports && \
 		go generate ./... && \
-		go run main.go apitests --input '$(PWD)/$(input)/test/free/**/*.y*ml' --output '$(PWD)/$(output)' $(args) && \
-		go run main.go apitests --input '$(PWD)/$(input)/test/platinum/**/*.yml' --output '$(PWD)/$(output)/xpack' $(args) && \
-		mkdir -p '$(PWD)/esapi/test/xpack/ml' && \
-		mkdir -p '$(PWD)/esapi/test/xpack/ml-crud' && \
-		mv $(PWD)/esapi/test/xpack/xpack_ml* $(PWD)/esapi/test/xpack/ml/ && \
-		mv $(PWD)/esapi/test/xpack/ml/xpack_ml__jobs_crud_test.go $(PWD)/esapi/test/xpack/ml-crud/; \
+		go run main.go apitests --input '$(PWD)/$(input)/tests/**/*.y*ml' --output '$(PWD)/$(output)' $(args); \
 	}
 
 gen-docs:  ## Generate the skeleton of documentation examples
@@ -437,7 +447,7 @@ gen-docs:  ## Generate the skeleton of documentation examples
 	@{ \
 		set -e; \
 		trap "test -d .git && git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
-		if [[ $(update) == 'yes' ]]; then \
+		if [ "$(update)" = "yes" ]; then \
 			printf "\033[2m→ Updating the alternatives_report.json file\033[0m\n" && \
 			curl -s https://raw.githubusercontent.com/elastic/built-docs/master/raw/en/elasticsearch/reference/master/alternatives_report.json > tmp/alternatives_report.json; \
 		fi; \
@@ -470,6 +480,23 @@ download-specs: ## Download the latest specs for the specified Elasticsearch ver
 		go run main.go download-spec --output '$(PWD)/$(output)'; \
 	}
 
+download-client-tests: ## Download the Elasticsearch clients common YAML test suite repo into ./tmp
+	@mkdir -p tmp
+	@{ \
+		set -e; \
+		if [ -d '$(PWD)/$(ELASTICSEARCH_CLIENTS_TESTS_DIR)/.git' ]; then \
+			printf "\033[2m→ Updating $(ELASTICSEARCH_CLIENTS_TESTS_DIR) (branch $(ELASTICSEARCH_CLIENTS_TESTS_BRANCH))...\033[0m\n"; \
+			cd '$(PWD)/$(ELASTICSEARCH_CLIENTS_TESTS_DIR)' && \
+				git fetch --prune origin && \
+				git checkout --quiet '$(ELASTICSEARCH_CLIENTS_TESTS_BRANCH)' && \
+				git pull --ff-only origin '$(ELASTICSEARCH_CLIENTS_TESTS_BRANCH)'; \
+		else \
+			printf "\033[2m→ Cloning $(ELASTICSEARCH_CLIENTS_TESTS_REPO) (branch $(ELASTICSEARCH_CLIENTS_TESTS_BRANCH))...\033[0m\n"; \
+			git clone --depth 1 --single-branch --branch '$(ELASTICSEARCH_CLIENTS_TESTS_BRANCH)' \
+				'$(ELASTICSEARCH_CLIENTS_TESTS_REPO)' '$(PWD)/$(ELASTICSEARCH_CLIENTS_TESTS_DIR)'; \
+		fi; \
+	}
+
 ##@ Other
 #------------------------------------------------------------------------------
 help:  ## Display help
@@ -477,4 +504,4 @@ help:  ## Display help
 #------------- <https://suva.sh/posts/well-documented-makefiles> --------------
 
 .DEFAULT_GOAL := help
-.PHONY: help apidiff backport cluster cluster-clean cluster-update coverage docker examples gen-api gen-tests godoc lint release test test-api test-bench test-integ test-unit
+.PHONY: help apidiff backport cluster cluster-clean cluster-update coverage docker download-client-tests examples gen-api gen-tests godoc lint release test test-api test-bench test-integ test-unit
