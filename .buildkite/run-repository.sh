@@ -60,4 +60,4 @@ docker run -t \
   --env "WORKSPACE=${WORKSPACE:-/workspace}" \
   --volume "${WORKSPACE:-workspace}:${WORKSPACE:-/workspace}" \
   elastic/go-elasticsearch \
-  sh .buildkite/scripts/tests.sh
+  .buildkite/scripts/tests.sh

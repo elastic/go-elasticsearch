@@ -1,8 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -eu
-# Best-effort pipefail (not supported by all /bin/sh implementations)
-set -o pipefail 2>/dev/null || true
+set -euo pipefail
 
 TIMEFORMAT="(Duration: %0lR)"
 
