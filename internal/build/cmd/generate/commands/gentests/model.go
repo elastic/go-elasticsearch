@@ -102,6 +102,18 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 		Filepath: fpath,
 	}
 
+	// Target mode flag for `requires.serverless`.
+	// IMPORTANT: In the upstream YAML suites, `serverless: true` generally means
+	// "this suite is compatible with serverless", not "serverless-only".
+	// We therefore only use this flag to skip suites when explicitly generating
+	// for a serverless target and the suite declares `serverless: false`.
+	targetServerless := false
+	if env, ok := os.LookupEnv("ELASTICSEARCH_SERVERLESS"); ok {
+		if b, err := strconv.ParseBool(strings.TrimSpace(env)); err == nil {
+			targetServerless = b
+		}
+	}
+
 	// Determine whether the suite requires xpack-only setup (users/roles, ML cleanup, watcher cleanup, etc).
 	// The elasticsearch-clients-tests repo doesn't use a "platinum/" folder layout, so we infer from the
 	// top-level test directory name.
@@ -175,9 +187,15 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 							ts.SkipInfo = "Skipping suite because requires.stack is false"
 						}
 					}
-					// Parse serverless flag for completeness (no behavior yet beyond stack=false).
-					// intentionally ignored for now; future: gate on a target mode flag
-					_, _ = req["serverless"]
+					// Gate on serverless incompatibility only when generating for serverless.
+					if targetServerless {
+						if serverlessVal, ok := req["serverless"]; ok {
+							if b, ok := parseBool(serverlessVal); ok && !b {
+								ts.Skip = true
+								ts.SkipInfo = "Skipping suite because requires.serverless is false (target is serverless)"
+							}
+						}
+					}
 					continue
 				}
 			}
@@ -512,7 +530,9 @@ case bool:
 case string:
 	// Treat common string booleans/numerics as truthy/falsey (matches REST test expectations for settings APIs)
 	s := strings.TrimSpace(` + escape(subject) + `.(string))
-	assertion = (s != "" && s != "false" && s != "0")
+	// NOTE: Do NOT treat "0" as falsey for is_true. Cat APIs often return "0" for shard numbers,
+	// and REST YAML is_true expects presence/non-null rather than numeric truthiness.
+	assertion = (s != "" && s != "false")
 case int:
 	assertion = (` + escape(subject) + `.(int) != 0)
 case float64:

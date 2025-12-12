@@ -1440,10 +1440,20 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 			g.w(",\n")
 
 		case map[interface{}]interface{}:
-			g.w("\t\t\t" + k + ": ")
 			// vv := unstash(convert(v).(map[string]interface{}))
 			// fmt.Println(vv)
-			j, err := marshalForYAMLTestJSON(convert(v))
+			converted := convert(v)
+			// Some REST tests rely on the runner omitting an empty body entirely.
+			// Example: security.query_user with `body: {}` expects the default behavior, which differs from `{}`.
+			if k == "Body" && a.Request() == "SecurityQueryUserRequest" {
+				if mm, ok := converted.(map[string]interface{}); ok && len(mm) == 0 {
+					// Skip emitting Body altogether.
+					continue
+				}
+			}
+
+			g.w("\t\t\t" + k + ": ")
+			j, err := marshalForYAMLTestJSON(converted)
 			if err != nil {
 				panic(fmt.Sprintf("JSON parse error: %s; %s", err, v))
 			} else {
