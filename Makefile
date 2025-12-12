@@ -1,4 +1,11 @@
-SHELL := /bin/bash
+# Prefer bash when available (for developer convenience), but fall back to POSIX sh
+# for CI/minimal environments where /bin/bash may not exist.
+_BASH := $(shell command -v bash 2>/dev/null)
+ifeq ($(_BASH),)
+SHELL := /bin/sh
+else
+SHELL := $(_BASH)
+endif
 
 ELASTICSEARCH_DEFAULT_BUILD_VERSION = "9.1.0-SNAPSHOT"
 
@@ -198,7 +205,7 @@ endif
 	$(eval commits_list = $(shell echo $(commits) | tr ',' ' '))
 	@printf "\033[2m→ Backporting commits [$(commits)]\033[0m\n"
 	@{ \
-		set -e -o pipefail; \
+		set -e; \
 		for commit in $(commits_list); do \
 			git show --pretty='%h | %s' --no-patch $$commit; \
 		done; \
@@ -232,7 +239,7 @@ ifeq ($(version), "")
 endif
 	@printf "\033[2m→ [$(branch)] Creating version $(version)...\033[0m\n"
 	@{ \
-		set -e -o pipefail; \
+		set -e; \
 		cp internal/version/version.go internal/version/version.go.OLD && \
 		cat internal/version/version.go.OLD | sed -e 's/Client = ".*"/Client = "$(version)"/' > internal/version/version.go && \
 		go vet internal/version/version.go && \
@@ -240,10 +247,10 @@ endif
 		git diff --color-words internal/version/version.go | tail -n 1; \
 	}
 	@{ \
-		set -e -o pipefail; \
-		printf "\033[2m→ Commit and create Git tag? (y/n): \033[0m\c"; \
+		set -e; \
+		printf "\033[2m→ Commit and create Git tag? (y/n): \033[0m"; \
 		read continue; \
-		if [[ $$continue == "y" ]]; then \
+		if [ "$$continue" = "y" ]; then \
 			git add internal/version/version.go && \
 			git commit --no-status --quiet --message "Release $(version)" && \
 			git tag --annotate v$(version) --message 'Release $(version)'; \
@@ -311,7 +318,7 @@ endif
 	@docker network inspect elasticsearch > /dev/null 2>&1 || docker network create elasticsearch;
 	@{ \
 		for n in `seq 1 $(nodes)`; do \
-			if [[ -z "$$port" ]]; then \
+			if [ -z "$$port" ]; then \
 				hostport=$$((9199+$$n)); \
 			else \
 				hostport=$$port; \
@@ -440,7 +447,7 @@ gen-docs:  ## Generate the skeleton of documentation examples
 	@{ \
 		set -e; \
 		trap "test -d .git && git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
-		if [[ $(update) == 'yes' ]]; then \
+		if [ "$(update)" = "yes" ]; then \
 			printf "\033[2m→ Updating the alternatives_report.json file\033[0m\n" && \
 			curl -s https://raw.githubusercontent.com/elastic/built-docs/master/raw/en/elasticsearch/reference/master/alternatives_report.json > tmp/alternatives_report.json; \
 		fi; \
