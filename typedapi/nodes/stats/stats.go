@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Get node statistics.
+//
 // Get statistics for nodes in a cluster.
 // By default, all stats are returned. You can limit the returned information by
 // using metrics.
@@ -37,7 +38,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/level"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/nodestatslevel"
 )
 
 const (
@@ -85,6 +86,7 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 }
 
 // Get node statistics.
+//
 // Get statistics for nodes in a cluster.
 // By default, all stats are returned. You can limit the returned information by
 // using metrics.
@@ -393,7 +395,7 @@ func (r *Stats) NodeId(nodeid string) *Stats {
 	return r
 }
 
-// Metric Limit the information returned to the specified metrics
+// Metric Limits the information returned to the specific metrics.
 // API Name: metric
 func (r *Stats) Metric(metric string) *Stats {
 	r.paramSet |= metricMask
@@ -456,10 +458,10 @@ func (r *Stats) IncludeSegmentFileSizes(includesegmentfilesizes bool) *Stats {
 	return r
 }
 
-// Level Indicates whether statistics are aggregated at the cluster, index, or shard
+// Level Indicates whether statistics are aggregated at the node, indices, or shards
 // level.
 // API name: level
-func (r *Stats) Level(level level.Level) *Stats {
+func (r *Stats) Level(level nodestatslevel.NodeStatsLevel) *Stats {
 	r.values.Set("level", level.String())
 
 	return r

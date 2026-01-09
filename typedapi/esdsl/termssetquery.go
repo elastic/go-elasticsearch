@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,13 +36,6 @@ func NewTermsSetQuery(key string) *_termsSetQuery {
 		k: key,
 		v: types.NewTermsSetQuery(),
 	}
-}
-
-func (s *_termsSetQuery) Boost(boost float32) *_termsSetQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_termsSetQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumShouldMatchVariant) *_termsSetQuery {
@@ -66,13 +59,6 @@ func (s *_termsSetQuery) MinimumShouldMatchScript(minimumshouldmatchscript types
 	return s
 }
 
-func (s *_termsSetQuery) QueryName_(queryname_ string) *_termsSetQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_termsSetQuery) Terms(terms ...types.FieldValueVariant) *_termsSetQuery {
 
 	for _, v := range terms {
@@ -80,6 +66,20 @@ func (s *_termsSetQuery) Terms(terms ...types.FieldValueVariant) *_termsSetQuery
 		s.v.Terms = append(s.v.Terms, *v.FieldValueCaster())
 
 	}
+	return s
+}
+
+func (s *_termsSetQuery) Boost(boost float32) *_termsSetQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_termsSetQuery) QueryName_(queryname_ string) *_termsSetQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

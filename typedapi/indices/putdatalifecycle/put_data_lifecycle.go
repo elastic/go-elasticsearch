@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Update data stream lifecycles.
+//
 // Update the data stream lifecycle of the specified data streams.
 package putdatalifecycle
 
@@ -37,6 +38,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/samplingmethod"
 )
 
 const (
@@ -84,6 +86,7 @@ func NewPutDataLifecycleFunc(tp elastictransport.Interface) NewPutDataLifecycle 
 }
 
 // Update data stream lifecycles.
+//
 // Update the data stream lifecycle of the specified data streams.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-lifecycle
@@ -414,14 +417,29 @@ func (r *PutDataLifecycle) DataRetention(duration types.DurationVariant) *PutDat
 // The downsampling configuration to execute for the managed backing index after
 // rollover.
 // API name: downsampling
-func (r *PutDataLifecycle) Downsampling(downsampling types.DataStreamLifecycleDownsamplingVariant) *PutDataLifecycle {
+func (r *PutDataLifecycle) Downsampling(downsamplings ...types.DownsamplingRoundVariant) *PutDataLifecycle {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+	for _, v := range downsamplings {
 
-	r.req.Downsampling = downsampling.DataStreamLifecycleDownsamplingCaster()
+		r.req.Downsampling = append(r.req.Downsampling, *v.DownsamplingRoundCaster())
 
+	}
+	return r
+}
+
+// The method used to downsample the data. There are two options `aggregate` and
+// `last_value`. It requires
+// `downsampling` to be defined. Defaults to `aggregate`.
+// API name: downsampling_method
+func (r *PutDataLifecycle) DownsamplingMethod(downsamplingmethod samplingmethod.SamplingMethod) *PutDataLifecycle {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.DownsamplingMethod = &downsamplingmethod
 	return r
 }
 

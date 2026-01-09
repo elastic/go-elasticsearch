@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Get a script or search template.
+//
 // Retrieves a stored script or search template.
 package getscript
 
@@ -78,6 +79,7 @@ func NewGetScriptFunc(tp elastictransport.Interface) NewGetScript {
 }
 
 // Get a script or search template.
+//
 // Retrieves a stored script or search template.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,6 +36,27 @@ func NewNestedProperty() *_nestedProperty {
 
 }
 
+func (s *_nestedProperty) Enabled(enabled bool) *_nestedProperty {
+
+	s.v.Enabled = &enabled
+
+	return s
+}
+
+func (s *_nestedProperty) IncludeInParent(includeinparent bool) *_nestedProperty {
+
+	s.v.IncludeInParent = &includeinparent
+
+	return s
+}
+
+func (s *_nestedProperty) IncludeInRoot(includeinroot bool) *_nestedProperty {
+
+	s.v.IncludeInRoot = &includeinroot
+
+	return s
+}
+
 func (s *_nestedProperty) CopyTo(fields ...string) *_nestedProperty {
 
 	s.v.CopyTo = fields
@@ -46,13 +67,6 @@ func (s *_nestedProperty) CopyTo(fields ...string) *_nestedProperty {
 func (s *_nestedProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_nestedProperty {
 
 	s.v.Dynamic = &dynamic
-	return s
-}
-
-func (s *_nestedProperty) Enabled(enabled bool) *_nestedProperty {
-
-	s.v.Enabled = &enabled
-
 	return s
 }
 
@@ -80,20 +94,6 @@ func (s *_nestedProperty) AddField(key string, value types.PropertyVariant) *_ne
 func (s *_nestedProperty) IgnoreAbove(ignoreabove int) *_nestedProperty {
 
 	s.v.IgnoreAbove = &ignoreabove
-
-	return s
-}
-
-func (s *_nestedProperty) IncludeInParent(includeinparent bool) *_nestedProperty {
-
-	s.v.IncludeInParent = &includeinparent
-
-	return s
-}
-
-func (s *_nestedProperty) IncludeInRoot(includeinroot bool) *_nestedProperty {
-
-	s.v.IncludeInRoot = &includeinroot
 
 	return s
 }

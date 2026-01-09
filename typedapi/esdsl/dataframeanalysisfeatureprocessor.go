@@ -16,15 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dataframeAnalysisFeatureProcessor struct {
 	v *types.DataframeAnalysisFeatureProcessor
@@ -32,18 +28,6 @@ type _dataframeAnalysisFeatureProcessor struct {
 
 func NewDataframeAnalysisFeatureProcessor() *_dataframeAnalysisFeatureProcessor {
 	return &_dataframeAnalysisFeatureProcessor{v: types.NewDataframeAnalysisFeatureProcessor()}
-}
-
-// AdditionalDataframeAnalysisFeatureProcessorProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_dataframeAnalysisFeatureProcessor) AdditionalDataframeAnalysisFeatureProcessorProperty(key string, value json.RawMessage) *_dataframeAnalysisFeatureProcessor {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalDataframeAnalysisFeatureProcessorProperty = tmp
-	return s
 }
 
 func (s *_dataframeAnalysisFeatureProcessor) FrequencyEncoding(frequencyencoding types.DataframeAnalysisFeatureProcessorFrequencyEncodingVariant) *_dataframeAnalysisFeatureProcessor {

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
-// Perform sparse embedding inference on the service
+// Perform sparse embedding inference on the service.
 package sparseembedding
 
 import (
@@ -81,7 +81,7 @@ func NewSparseEmbeddingFunc(tp elastictransport.Interface) NewSparseEmbedding {
 	}
 }
 
-// Perform sparse embedding inference on the service
+// Perform sparse embedding inference on the service.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *SparseEmbedding {
@@ -379,7 +379,9 @@ func (r *SparseEmbedding) Input(inputs ...string) *SparseEmbedding {
 	return r
 }
 
-// Optional task settings
+// Task settings for the individual inference request. These settings are
+// specific to the <task_type> you specified and override the task settings
+// specified when initializing the service.
 // API name: task_settings
 func (r *SparseEmbedding) TaskSettings(tasksettings json.RawMessage) *SparseEmbedding {
 	// Initialize the request if it is not already initialized

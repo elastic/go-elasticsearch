@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package putopenai
 
@@ -29,10 +29,12 @@ import (
 
 // Response holds the response body struct for the package putopenai
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/put_openai/PutOpenAiResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/inference/put_openai/PutOpenAiResponse.ts#L22-L25
 type Response struct {
-
-	// ChunkingSettings Chunking configuration object
+	// ChunkingSettings The chunking configuration object.
+	// Applies only to the `sparse_embedding` and `text_embedding` task types.
+	// Not applicable to the `rerank`, `completion`, or `chat_completion` task
+	// types.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// InferenceId The inference Id
 	InferenceId string `json:"inference_id"`

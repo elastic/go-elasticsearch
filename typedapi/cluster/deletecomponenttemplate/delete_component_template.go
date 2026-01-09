@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Delete component templates.
+//
 // Component templates are building blocks for constructing index templates that
 // specify index mappings, settings, and aliases.
 package deletecomponenttemplate
@@ -79,6 +80,7 @@ func NewDeleteComponentTemplateFunc(tp elastictransport.Interface) NewDeleteComp
 }
 
 // Delete component templates.
+//
 // Component templates are building blocks for constructing index templates that
 // specify index mappings, settings, and aliases.
 //

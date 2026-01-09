@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Stop a trained model deployment.
 package stoptrainedmodeldeployment
 
 import (
+	gobytes "bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -51,6 +52,10 @@ type StopTrainedModelDeployment struct {
 	path    url.URL
 
 	raw io.Reader
+
+	req      *Request
+	deferred []func(request *Request) error
+	buf      *gobytes.Buffer
 
 	paramSet int
 
@@ -84,6 +89,8 @@ func New(tp elastictransport.Interface) *StopTrainedModelDeployment {
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
+
+		buf: gobytes.NewBuffer(nil),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -91,6 +98,21 @@ func New(tp elastictransport.Interface) *StopTrainedModelDeployment {
 			r.instrument = instrument
 		}
 	}
+
+	return r
+}
+
+// Raw takes a json payload as input which is then passed to the http.Request
+// If specified Raw takes precedence on Request method.
+func (r *StopTrainedModelDeployment) Raw(raw io.Reader) *StopTrainedModelDeployment {
+	r.raw = raw
+
+	return r
+}
+
+// Request allows to set the request property with the appropriate payload.
+func (r *StopTrainedModelDeployment) Request(req *Request) *StopTrainedModelDeployment {
+	r.req = req
 
 	return r
 }
@@ -103,6 +125,31 @@ func (r *StopTrainedModelDeployment) HttpRequest(ctx context.Context) (*http.Req
 	var req *http.Request
 
 	var err error
+
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
+	if r.raw == nil && r.req != nil {
+
+		data, err := json.Marshal(r.req)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not serialise request for StopTrainedModelDeployment: %w", err)
+		}
+
+		r.buf.Write(data)
+
+	}
+
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
 
 	r.path.Scheme = "http"
 
@@ -254,45 +301,6 @@ func (r StopTrainedModelDeployment) Do(providedCtx context.Context) (*Response, 
 	return nil, errorResponse
 }
 
-// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
-// This only exists for endpoints without a request payload and allows for quick control flow.
-func (r StopTrainedModelDeployment) IsSuccess(providedCtx context.Context) (bool, error) {
-	var ctx context.Context
-	r.spanStarted = true
-	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "ml.stop_trained_model_deployment")
-		defer instrument.Close(ctx)
-	}
-	if ctx == nil {
-		ctx = providedCtx
-	}
-
-	res, err := r.Perform(ctx)
-
-	if err != nil {
-		return false, err
-	}
-	io.Copy(io.Discard, res.Body)
-	err = res.Body.Close()
-	if err != nil {
-		return false, err
-	}
-
-	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		return true, nil
-	}
-
-	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the StopTrainedModelDeployment query execution, status code: %d", res.StatusCode)
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordError(ctx, err)
-		}
-		return false, err
-	}
-
-	return false, nil
-}
-
 // Header set a key, value pair in the StopTrainedModelDeployment headers map.
 func (r *StopTrainedModelDeployment) Header(key, value string) *StopTrainedModelDeployment {
 	r.headers.Set(key, value)
@@ -305,32 +313,6 @@ func (r *StopTrainedModelDeployment) Header(key, value string) *StopTrainedModel
 func (r *StopTrainedModelDeployment) _modelid(modelid string) *StopTrainedModelDeployment {
 	r.paramSet |= modelidMask
 	r.modelid = modelid
-
-	return r
-}
-
-// AllowNoMatch Specifies what to do when the request: contains wildcard expressions and
-// there are no deployments that match;
-// contains the  `_all` string or no identifiers and there are no matches; or
-// contains wildcard expressions and
-// there are only partial matches. By default, it returns an empty array when
-// there are no matches and the subset of results when there are partial
-// matches.
-// If `false`, the request returns a 404 status code when there are no matches
-// or only partial matches.
-// API name: allow_no_match
-func (r *StopTrainedModelDeployment) AllowNoMatch(allownomatch bool) *StopTrainedModelDeployment {
-	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
-
-	return r
-}
-
-// Force Forcefully stops the deployment, even if it is used by ingest pipelines. You
-// can't use these pipelines until you
-// restart the model deployment.
-// API name: force
-func (r *StopTrainedModelDeployment) Force(force bool) *StopTrainedModelDeployment {
-	r.values.Set("force", strconv.FormatBool(force))
 
 	return r
 }
@@ -375,6 +357,55 @@ func (r *StopTrainedModelDeployment) Human(human bool) *StopTrainedModelDeployme
 // API name: pretty
 func (r *StopTrainedModelDeployment) Pretty(pretty bool) *StopTrainedModelDeployment {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// Specifies what to do when the request: contains wildcard expressions and
+// there are no deployments that match;
+// contains the  `_all` string or no identifiers and there are no matches; or
+// contains wildcard expressions and
+// there are only partial matches. By default, it returns an empty array when
+// there are no matches and the subset of results when there are partial
+// matches.
+// If `false`, the request returns a 404 status code when there are no matches
+// or only partial matches.
+// API name: allow_no_match
+func (r *StopTrainedModelDeployment) AllowNoMatch(allownomatch bool) *StopTrainedModelDeployment {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.AllowNoMatch = &allownomatch
+
+	return r
+}
+
+// Forcefully stops the deployment, even if it is used by ingest pipelines. You
+// can't use these pipelines until you
+// restart the model deployment.
+// API name: force
+func (r *StopTrainedModelDeployment) Force(force bool) *StopTrainedModelDeployment {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Force = &force
+
+	return r
+}
+
+// If provided, must be the same identifier as in the path.
+// API name: id
+func (r *StopTrainedModelDeployment) Id(id string) *StopTrainedModelDeployment {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Id = &id
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -38,16 +38,16 @@ func NewSpanMultiTermQuery(match types.QueryVariant) *_spanMultiTermQuery {
 
 }
 
-func (s *_spanMultiTermQuery) Boost(boost float32) *_spanMultiTermQuery {
+func (s *_spanMultiTermQuery) Match(match types.QueryVariant) *_spanMultiTermQuery {
 
-	s.v.Boost = &boost
+	s.v.Match = *match.QueryCaster()
 
 	return s
 }
 
-func (s *_spanMultiTermQuery) Match(match types.QueryVariant) *_spanMultiTermQuery {
+func (s *_spanMultiTermQuery) Boost(boost float32) *_spanMultiTermQuery {
 
-	s.v.Match = *match.QueryCaster()
+	s.v.Boost = &boost
 
 	return s
 }

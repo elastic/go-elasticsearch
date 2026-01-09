@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // CohereTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L870-L902
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/inference/_types/CommonTypes.ts#L915-L947
 type CohereTaskSettings struct {
 	// InputType For a `text_embedding` task, the type of input passed to the model.
 	// Valid values are:
@@ -47,7 +47,7 @@ type CohereTaskSettings struct {
 	//
 	// IMPORTANT: The `input_type` field is required when using embedding models
 	// `v3` and higher.
-	InputType *cohereinputtype.CohereInputType `json:"input_type,omitempty"`
+	InputType cohereinputtype.CohereInputType `json:"input_type"`
 	// ReturnDocuments For a `rerank` task, return doc text within the results.
 	ReturnDocuments *bool `json:"return_documents,omitempty"`
 	// TopN For a `rerank` task, the number of most relevant documents to return.

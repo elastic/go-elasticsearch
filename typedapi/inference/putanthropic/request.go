@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package putanthropic
 
@@ -30,16 +30,13 @@ import (
 
 // Request holds the request body struct for the package putanthropic
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/put_anthropic/PutAnthropicRequest.ts#L31-L86
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/inference/put_anthropic/PutAnthropicRequest.ts#L30-L82
 type Request struct {
-
-	// ChunkingSettings The chunking configuration object.
-	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
 	// `anthropic`.
 	Service anthropicservicetype.AnthropicServiceType `json:"service"`
 	// ServiceSettings Settings used to install the inference model. These settings are specific to
-	// the `watsonxai` service.
+	// the `anthropic` service.
 	ServiceSettings types.AnthropicServiceSettings `json:"service_settings"`
 	// TaskSettings Settings to configure the inference task.
 	// These settings are specific to the task type you specified.

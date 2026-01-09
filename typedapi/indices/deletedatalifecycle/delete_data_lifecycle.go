@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Delete data stream lifecycles.
+//
 // Removes the data stream lifecycle from a data stream, rendering it not
 // managed by the data stream lifecycle.
 package deletedatalifecycle
@@ -80,6 +81,7 @@ func NewDeleteDataLifecycleFunc(tp elastictransport.Interface) NewDeleteDataLife
 }
 
 // Delete data stream lifecycles.
+//
 // Removes the data stream lifecycle from a data stream, rendering it not
 // managed by the data stream lifecycle.
 //
@@ -296,7 +298,8 @@ func (r *DeleteDataLifecycle) Header(key, value string) *DeleteDataLifecycle {
 }
 
 // Name A comma-separated list of data streams of which the data stream lifecycle
-// will be deleted; use `*` to get all data streams
+// will be deleted.
+// Use `*` to get all data streams
 // API Name: name
 func (r *DeleteDataLifecycle) _name(name string) *DeleteDataLifecycle {
 	r.paramSet |= nameMask
@@ -318,7 +321,7 @@ func (r *DeleteDataLifecycle) ExpandWildcards(expandwildcards ...expandwildcard.
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *DeleteDataLifecycle) MasterTimeout(duration string) *DeleteDataLifecycle {
 	r.values.Set("master_timeout", duration)
@@ -326,7 +329,7 @@ func (r *DeleteDataLifecycle) MasterTimeout(duration string) *DeleteDataLifecycl
 	return r
 }
 
-// Timeout Explicit timestamp for the document
+// Timeout The period to wait for a response.
 // API name: timeout
 func (r *DeleteDataLifecycle) Timeout(duration string) *DeleteDataLifecycle {
 	r.values.Set("timeout", duration)

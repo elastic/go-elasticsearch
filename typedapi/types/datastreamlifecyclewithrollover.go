@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -27,20 +27,26 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/samplingmethod"
 )
 
 // DataStreamLifecycleWithRollover type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/_types/DataStreamLifecycle.ts#L47-L58
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/indices/_types/DataStreamLifecycle.ts#L53-L64
 type DataStreamLifecycleWithRollover struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame.
 	// Any time after this duration the document could be deleted.
 	// When empty, every document in this data stream will be stored indefinitely.
 	DataRetention Duration `json:"data_retention,omitempty"`
-	// Downsampling The downsampling configuration to execute for the managed backing index after
-	// rollover.
-	Downsampling *DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
+	// Downsampling The list of downsampling rounds to execute as part of this downsampling
+	// configuration
+	Downsampling []DownsamplingRound `json:"downsampling,omitempty"`
+	// DownsamplingMethod The method used to downsample the data. There are two options `aggregate` and
+	// `last_value`. It requires
+	// `downsampling` to be defined. Defaults to `aggregate`.
+	DownsamplingMethod *samplingmethod.SamplingMethod `json:"downsampling_method,omitempty"`
 	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
 	// data stream. A data stream lifecycle
 	// that's disabled (enabled: `false`) will have no effect on the data stream.
@@ -76,6 +82,11 @@ func (s *DataStreamLifecycleWithRollover) UnmarshalJSON(data []byte) error {
 		case "downsampling":
 			if err := dec.Decode(&s.Downsampling); err != nil {
 				return fmt.Errorf("%s | %w", "Downsampling", err)
+			}
+
+		case "downsampling_method":
+			if err := dec.Decode(&s.DownsamplingMethod); err != nil {
+				return fmt.Errorf("%s | %w", "DownsamplingMethod", err)
 			}
 
 		case "enabled":

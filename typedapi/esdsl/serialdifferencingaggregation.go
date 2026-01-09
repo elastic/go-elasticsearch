@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -37,6 +37,13 @@ func NewSerialDifferencingAggregation() *_serialDifferencingAggregation {
 
 }
 
+func (s *_serialDifferencingAggregation) Lag(lag int) *_serialDifferencingAggregation {
+
+	s.v.Lag = &lag
+
+	return s
+}
+
 func (s *_serialDifferencingAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_serialDifferencingAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -54,13 +61,6 @@ func (s *_serialDifferencingAggregation) Format(format string) *_serialDifferenc
 func (s *_serialDifferencingAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_serialDifferencingAggregation {
 
 	s.v.GapPolicy = &gappolicy
-	return s
-}
-
-func (s *_serialDifferencingAggregation) Lag(lag int) *_serialDifferencingAggregation {
-
-	s.v.Lag = &lag
-
 	return s
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -415,6 +415,19 @@ func (u *_property) HistogramProperty(histogramproperty types.HistogramPropertyV
 
 // Interface implementation for HistogramProperty in Property union
 func (u *_histogramProperty) PropertyCaster() *types.Property {
+	t := types.Property(u.v)
+	return &t
+}
+
+func (u *_property) ExponentialHistogramProperty(exponentialhistogramproperty types.ExponentialHistogramPropertyVariant) *_property {
+
+	u.v = exponentialhistogramproperty.ExponentialHistogramPropertyCaster()
+
+	return u
+}
+
+// Interface implementation for ExponentialHistogramProperty in Property union
+func (u *_exponentialHistogramProperty) PropertyCaster() *types.Property {
 	t := types.Property(u.v)
 	return &t
 }

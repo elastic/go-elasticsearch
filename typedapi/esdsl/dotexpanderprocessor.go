@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,16 +36,30 @@ func NewDotExpanderProcessor() *_dotExpanderProcessor {
 
 }
 
-func (s *_dotExpanderProcessor) Description(description string) *_dotExpanderProcessor {
+func (s *_dotExpanderProcessor) Field(field string) *_dotExpanderProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_dotExpanderProcessor) Field(field string) *_dotExpanderProcessor {
+func (s *_dotExpanderProcessor) Override(override bool) *_dotExpanderProcessor {
 
-	s.v.Field = field
+	s.v.Override = &override
+
+	return s
+}
+
+func (s *_dotExpanderProcessor) Path(path string) *_dotExpanderProcessor {
+
+	s.v.Path = &path
+
+	return s
+}
+
+func (s *_dotExpanderProcessor) Description(description string) *_dotExpanderProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -71,20 +85,6 @@ func (s *_dotExpanderProcessor) OnFailure(onfailures ...types.ProcessorContainer
 		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
 
 	}
-	return s
-}
-
-func (s *_dotExpanderProcessor) Override(override bool) *_dotExpanderProcessor {
-
-	s.v.Override = &override
-
-	return s
-}
-
-func (s *_dotExpanderProcessor) Path(path string) *_dotExpanderProcessor {
-
-	s.v.Path = &path
-
 	return s
 }
 

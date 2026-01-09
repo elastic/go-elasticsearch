@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -49,9 +49,9 @@ func (s *_appendProcessor) AllowDuplicates(allowduplicates bool) *_appendProcess
 	return s
 }
 
-func (s *_appendProcessor) Description(description string) *_appendProcessor {
+func (s *_appendProcessor) CopyFrom(field string) *_appendProcessor {
 
-	s.v.Description = &description
+	s.v.CopyFrom = &field
 
 	return s
 }
@@ -59,6 +59,35 @@ func (s *_appendProcessor) Description(description string) *_appendProcessor {
 func (s *_appendProcessor) Field(field string) *_appendProcessor {
 
 	s.v.Field = field
+
+	return s
+}
+
+func (s *_appendProcessor) IgnoreEmptyValues(ignoreemptyvalues bool) *_appendProcessor {
+
+	s.v.IgnoreEmptyValues = &ignoreemptyvalues
+
+	return s
+}
+
+func (s *_appendProcessor) MediaType(mediatype string) *_appendProcessor {
+
+	s.v.MediaType = &mediatype
+
+	return s
+}
+
+func (s *_appendProcessor) Value(values ...json.RawMessage) *_appendProcessor {
+
+	s.v.Value = make([]json.RawMessage, len(values))
+	s.v.Value = values
+
+	return s
+}
+
+func (s *_appendProcessor) Description(description string) *_appendProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -90,14 +119,6 @@ func (s *_appendProcessor) OnFailure(onfailures ...types.ProcessorContainerVaria
 func (s *_appendProcessor) Tag(tag string) *_appendProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_appendProcessor) Value(values ...json.RawMessage) *_appendProcessor {
-
-	s.v.Value = make([]json.RawMessage, len(values))
-	s.v.Value = values
 
 	return s
 }

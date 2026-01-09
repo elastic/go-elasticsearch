@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Update field mappings.
+//
 // Add new fields to an existing data stream or index.
 // You can use the update mapping API to:
 //
@@ -32,7 +33,7 @@
 //
 // Learn how to use the update mapping API with practical examples in the
 // [Update mapping API
-// examples](https://www.elastic.co/docs//manage-data/data-store/mapping/update-mappings-examples)
+// examples](https://www.elastic.co/docs/manage-data/data-store/mapping/update-mappings-examples)
 // guide.
 package putmapping
 
@@ -99,6 +100,7 @@ func NewPutMappingFunc(tp elastictransport.Interface) NewPutMapping {
 }
 
 // Update field mappings.
+//
 // Add new fields to an existing data stream or index.
 // You can use the update mapping API to:
 //
@@ -112,7 +114,7 @@ func NewPutMappingFunc(tp elastictransport.Interface) NewPutMapping {
 //
 // Learn how to use the update mapping API with practical examples in the
 // [Update mapping API
-// examples](https://www.elastic.co/docs//manage-data/data-store/mapping/update-mappings-examples)
+// examples](https://www.elastic.co/docs/manage-data/data-store/mapping/update-mappings-examples)
 // guide.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-mapping
@@ -335,7 +337,8 @@ func (r *PutMapping) Header(key, value string) *PutMapping {
 }
 
 // Index A comma-separated list of index names the mapping should be added to
-// (supports wildcards); use `_all` or omit to add the mapping on all indices.
+// (supports wildcards).
+// Use `_all` or omit to add the mapping on all indices.
 // API Name: index
 func (r *PutMapping) _index(index string) *PutMapping {
 	r.paramSet |= indexMask

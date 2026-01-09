@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/Retriever.ts#L115-L133
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_types/Retriever.ts#L118-L143
 type KnnRetriever struct {
 	// Field The name of the vector field to search against.
 	Field string `json:"field"`
@@ -56,6 +56,9 @@ type KnnRetriever struct {
 	RescoreVector *RescoreVector `json:"rescore_vector,omitempty"`
 	// Similarity The minimum similarity required for a document to be considered a match.
 	Similarity *float32 `json:"similarity,omitempty"`
+	// VisitPercentage The percentage of vectors to explore per shard while doing knn search with
+	// bbq_disk
+	VisitPercentage *float32 `json:"visit_percentage,omitempty"`
 }
 
 func (s *KnnRetriever) UnmarshalJSON(data []byte) error {
@@ -190,6 +193,22 @@ func (s *KnnRetriever) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := float32(v)
 				s.Similarity = &f
+			}
+
+		case "visit_percentage":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "VisitPercentage", err)
+				}
+				f := float32(value)
+				s.VisitPercentage = &f
+			case float64:
+				f := float32(v)
+				s.VisitPercentage = &f
 			}
 
 		}

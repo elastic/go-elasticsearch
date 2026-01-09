@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Get term vector information.
 //
@@ -564,9 +564,11 @@ func (r *Termvectors) Fields(fields ...string) *Termvectors {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+	for _, v := range fields {
 
-	r.req.Fields = fields
+		r.req.Fields = append(r.req.Fields, v)
 
+	}
 	return r
 }
 
@@ -662,13 +664,13 @@ func (r *Termvectors) Positions(positions bool) *Termvectors {
 
 // A custom value that is used to route operations to a specific shard.
 // API name: routing
-func (r *Termvectors) Routing(routing string) *Termvectors {
+func (r *Termvectors) Routing(routings ...string) *Termvectors {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Routing = &routing
+	r.req.Routing = routings
 
 	return r
 }

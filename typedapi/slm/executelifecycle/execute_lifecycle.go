@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Run a policy.
+//
 // Immediately create a snapshot according to the snapshot lifecycle policy
 // without waiting for the scheduled time.
 // The snapshot policy is normally applied according to its schedule, but you
@@ -82,6 +83,7 @@ func NewExecuteLifecycleFunc(tp elastictransport.Interface) NewExecuteLifecycle 
 }
 
 // Run a policy.
+//
 // Immediately create a snapshot according to the snapshot lifecycle policy
 // without waiting for the scheduled time.
 // The snapshot policy is normally applied according to its schedule, but you

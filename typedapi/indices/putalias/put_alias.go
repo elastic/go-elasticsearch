@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Create or update an alias.
+//
 // Adds a data stream or index to an alias.
 package putalias
 
@@ -88,6 +89,7 @@ func NewPutAliasFunc(tp elastictransport.Interface) NewPutAlias {
 }
 
 // Create or update an alias.
+//
 // Adds a data stream or index to an alias.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-alias
@@ -435,13 +437,13 @@ func (r *PutAlias) Filter(filter types.QueryVariant) *PutAlias {
 // If specified, this overwrites the `routing` value for indexing operations.
 // Data stream aliases don’t support this parameter.
 // API name: index_routing
-func (r *PutAlias) IndexRouting(routing string) *PutAlias {
+func (r *PutAlias) IndexRouting(routings ...string) *PutAlias {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.IndexRouting = &routing
+	r.req.IndexRouting = routings
 
 	return r
 }
@@ -468,13 +470,13 @@ func (r *PutAlias) IsWriteIndex(iswriteindex bool) *PutAlias {
 // Value used to route indexing and search operations to a specific shard.
 // Data stream aliases don’t support this parameter.
 // API name: routing
-func (r *PutAlias) Routing(routing string) *PutAlias {
+func (r *PutAlias) Routing(routings ...string) *PutAlias {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Routing = &routing
+	r.req.Routing = routings
 
 	return r
 }
@@ -483,13 +485,13 @@ func (r *PutAlias) Routing(routing string) *PutAlias {
 // If specified, this overwrites the `routing` value for search operations.
 // Data stream aliases don’t support this parameter.
 // API name: search_routing
-func (r *PutAlias) SearchRouting(routing string) *PutAlias {
+func (r *PutAlias) SearchRouting(routings ...string) *PutAlias {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.SearchRouting = &routing
+	r.req.SearchRouting = routings
 
 	return r
 }

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Clean up the snapshot repository.
+//
 // Trigger the review of the contents of a snapshot repository and delete any
 // stale data not referenced by existing snapshots.
 package cleanuprepository
@@ -79,6 +80,7 @@ func NewCleanupRepositoryFunc(tp elastictransport.Interface) NewCleanupRepositor
 }
 
 // Clean up the snapshot repository.
+//
 // Trigger the review of the contents of a snapshot repository and delete any
 // stale data not referenced by existing snapshots.
 //

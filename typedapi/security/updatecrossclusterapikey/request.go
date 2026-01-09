@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package updatecrossclusterapikey
 
@@ -26,15 +26,15 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Request holds the request body struct for the package updatecrossclusterapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/update_cross_cluster_api_key/UpdateCrossClusterApiKeyRequest.ts#L25-L85
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/security/update_cross_cluster_api_key/UpdateCrossClusterApiKeyRequest.ts#L25-L96
 type Request struct {
-
 	// Access The access to be granted to this API key.
 	// The access is composed of permissions for cross cluster search and cross
 	// cluster replication.
@@ -42,6 +42,16 @@ type Request struct {
 	// When specified, the new access assignment fully replaces the previously
 	// assigned access.
 	Access types.Access `json:"access"`
+	// CertificateIdentity The certificate identity to associate with this API key.
+	// This field is used to restrict the API key to connections authenticated by a
+	// specific TLS certificate.
+	// The value should match the certificate's distinguished name (DN) pattern.
+	// When specified, this fully replaces any previously assigned certificate
+	// identity.
+	// To clear an existing certificate identity, explicitly set this field to
+	// `null`.
+	// When omitted, the existing certificate identity remains unchanged.
+	CertificateIdentity *string `json:"certificate_identity,omitempty"`
 	// Expiration The expiration time for the API key.
 	// By default, API keys never expire. This property can be omitted to leave the
 	// value unchanged.
@@ -92,6 +102,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.Access); err != nil {
 				return fmt.Errorf("%s | %w", "Access", err)
 			}
+
+		case "certificate_identity":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "CertificateIdentity", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.CertificateIdentity = &o
 
 		case "expiration":
 			if err := dec.Decode(&s.Expiration); err != nil {

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Claim a connector sync job.
+//
 // This action updates the job status to `in_progress` and sets the `last_seen`
 // and `started_at` timestamps to the current time.
 // Additionally, it can set the `sync_cursor` property for the sync job.
@@ -94,6 +95,7 @@ func NewSyncJobClaimFunc(tp elastictransport.Interface) NewSyncJobClaim {
 }
 
 // Claim a connector sync job.
+//
 // This action updates the job status to `in_progress` and sets the `last_seen`
 // and `started_at` timestamps to the current time.
 // Additionally, it can set the `sync_cursor` property for the sync job.

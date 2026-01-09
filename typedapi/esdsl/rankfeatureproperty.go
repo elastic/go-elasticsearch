@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -34,6 +34,13 @@ func NewRankFeatureProperty() *_rankFeatureProperty {
 
 	return &_rankFeatureProperty{v: types.NewRankFeatureProperty()}
 
+}
+
+func (s *_rankFeatureProperty) PositiveScoreImpact(positivescoreimpact bool) *_rankFeatureProperty {
+
+	s.v.PositiveScoreImpact = &positivescoreimpact
+
+	return s
 }
 
 func (s *_rankFeatureProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_rankFeatureProperty {
@@ -88,13 +95,6 @@ func (s *_rankFeatureProperty) AddMeta(key string, value string) *_rankFeaturePr
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_rankFeatureProperty) PositiveScoreImpact(positivescoreimpact bool) *_rankFeatureProperty {
-
-	s.v.PositiveScoreImpact = &positivescoreimpact
-
 	return s
 }
 

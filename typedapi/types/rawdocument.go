@@ -1,0 +1,424 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
+
+package types
+
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"strconv"
+)
+
+// RawDocument type.
+//
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/indices/get_sample/_types/RawDocument.ts#L24-L33
+type RawDocument struct {
+	// Index Name of the index for this raw document.
+	Index string `json:"index"`
+	// Source The original raw source.
+	Source map[string]Property `json:"source"`
+}
+
+func (s *RawDocument) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "index":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Index", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Index = o
+
+		case "source":
+			if s.Source == nil {
+				s.Source = make(map[string]Property, 0)
+			}
+			refs := make(map[string]json.RawMessage, 0)
+			dec.Decode(&refs)
+			for key, message := range refs {
+				kind := make(map[string]any)
+				buf := bytes.NewReader(message)
+				localDec := json.NewDecoder(buf)
+				localDec.Decode(&kind)
+				buf.Seek(0, io.SeekStart)
+				if _, ok := kind["type"]; !ok {
+					kind["type"] = "object"
+				}
+				switch kind["type"] {
+				case "binary":
+					oo := NewBinaryProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "boolean":
+					oo := NewBooleanProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "{dynamic_type}":
+					oo := NewDynamicProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "join":
+					oo := NewJoinProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "keyword":
+					oo := NewKeywordProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "match_only_text":
+					oo := NewMatchOnlyTextProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "percolator":
+					oo := NewPercolatorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "rank_feature":
+					oo := NewRankFeatureProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "rank_features":
+					oo := NewRankFeaturesProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "search_as_you_type":
+					oo := NewSearchAsYouTypeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "text":
+					oo := NewTextProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "version":
+					oo := NewVersionProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "wildcard":
+					oo := NewWildcardProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "date_nanos":
+					oo := NewDateNanosProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "date":
+					oo := NewDateProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "aggregate_metric_double":
+					oo := NewAggregateMetricDoubleProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "dense_vector":
+					oo := NewDenseVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "flattened":
+					oo := NewFlattenedProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "nested":
+					oo := NewNestedProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "object":
+					oo := NewObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "passthrough":
+					oo := NewPassthroughObjectProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "rank_vectors":
+					oo := NewRankVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "semantic_text":
+					oo := NewSemanticTextProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "sparse_vector":
+					oo := NewSparseVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "completion":
+					oo := NewCompletionProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "constant_keyword":
+					oo := NewConstantKeywordProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "counted_keyword":
+					oo := NewCountedKeywordProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "alias":
+					oo := NewFieldAliasProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "histogram":
+					oo := NewHistogramProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "exponential_histogram":
+					oo := NewExponentialHistogramProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "ip":
+					oo := NewIpProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "murmur3":
+					oo := NewMurmur3HashProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "token_count":
+					oo := NewTokenCountProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "geo_point":
+					oo := NewGeoPointProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "geo_shape":
+					oo := NewGeoShapeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "point":
+					oo := NewPointProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "shape":
+					oo := NewShapeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "byte":
+					oo := NewByteNumberProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "double":
+					oo := NewDoubleNumberProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "float":
+					oo := NewFloatNumberProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "half_float":
+					oo := NewHalfFloatNumberProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "integer":
+					oo := NewIntegerNumberProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "long":
+					oo := NewLongNumberProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "scaled_float":
+					oo := NewScaledFloatNumberProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "short":
+					oo := NewShortNumberProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "unsigned_long":
+					oo := NewUnsignedLongNumberProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "date_range":
+					oo := NewDateRangeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "double_range":
+					oo := NewDoubleRangeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "float_range":
+					oo := NewFloatRangeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "integer_range":
+					oo := NewIntegerRangeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "ip_range":
+					oo := NewIpRangeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "long_range":
+					oo := NewLongRangeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				case "icu_collation_keyword":
+					oo := NewIcuCollationProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Source | %w", err)
+					}
+					s.Source[key] = oo
+				default:
+					oo := new(Property)
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("new(Property) | %w", err)
+					}
+					s.Source[key] = oo
+				}
+			}
+
+		}
+	}
+	return nil
+}
+
+// NewRawDocument returns a RawDocument.
+func NewRawDocument() *RawDocument {
+	r := &RawDocument{
+		Source: make(map[string]Property),
+	}
+
+	return r
+}
