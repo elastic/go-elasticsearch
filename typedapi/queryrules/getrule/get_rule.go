@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Get a query rule.
+//
 // Get details about a query rule within a query ruleset.
 package getrule
 
@@ -83,6 +84,7 @@ func NewGetRuleFunc(tp elastictransport.Interface) NewGetRule {
 }
 
 // Get a query rule.
+//
 // Get details about a query rule within a query ruleset.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-rule

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -43,30 +43,6 @@ func (s *_rRFRetriever) Fields(fields ...string) *_rRFRetriever {
 	return s
 }
 
-func (s *_rRFRetriever) Filter(filters ...types.QueryVariant) *_rRFRetriever {
-
-	s.v.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		s.v.Filter[i] = *v.QueryCaster()
-	}
-
-	return s
-}
-
-func (s *_rRFRetriever) MinScore(minscore float32) *_rRFRetriever {
-
-	s.v.MinScore = &minscore
-
-	return s
-}
-
-func (s *_rRFRetriever) Name_(name_ string) *_rRFRetriever {
-
-	s.v.Name_ = &name_
-
-	return s
-}
-
 func (s *_rRFRetriever) Query(query string) *_rRFRetriever {
 
 	s.v.Query = &query
@@ -88,13 +64,37 @@ func (s *_rRFRetriever) RankWindowSize(rankwindowsize int) *_rRFRetriever {
 	return s
 }
 
-func (s *_rRFRetriever) Retrievers(retrievers ...types.RetrieverContainerVariant) *_rRFRetriever {
+func (s *_rRFRetriever) Retrievers(retrievers ...types.RRFRetrieverEntryVariant) *_rRFRetriever {
 
 	for _, v := range retrievers {
 
-		s.v.Retrievers = append(s.v.Retrievers, *v.RetrieverContainerCaster())
+		s.v.Retrievers = append(s.v.Retrievers, *v.RRFRetrieverEntryCaster())
 
 	}
+	return s
+}
+
+func (s *_rRFRetriever) Filter(filters ...types.QueryVariant) *_rRFRetriever {
+
+	s.v.Filter = make([]types.Query, len(filters))
+	for i, v := range filters {
+		s.v.Filter[i] = *v.QueryCaster()
+	}
+
+	return s
+}
+
+func (s *_rRFRetriever) MinScore(minscore float32) *_rRFRetriever {
+
+	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_rRFRetriever) Name_(name_ string) *_rRFRetriever {
+
+	s.v.Name_ = &name_
+
 	return s
 }
 

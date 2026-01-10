@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Delete an async ES|QL query.
+//
 // If the query is still running, it is cancelled.
 // Otherwise, the stored results are deleted.
 //
@@ -85,6 +86,7 @@ func NewAsyncQueryDeleteFunc(tp elastictransport.Interface) NewAsyncQueryDelete 
 }
 
 // Delete an async ES|QL query.
+//
 // If the query is still running, it is cancelled.
 // Otherwise, the stored results are deleted.
 //

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -35,6 +35,20 @@ func NewUpdateOperation() *_updateOperation {
 
 	return &_updateOperation{v: types.NewUpdateOperation()}
 
+}
+
+func (s *_updateOperation) RequireAlias(requirealias bool) *_updateOperation {
+
+	s.v.RequireAlias = &requirealias
+
+	return s
+}
+
+func (s *_updateOperation) RetryOnConflict(retryonconflict int) *_updateOperation {
+
+	s.v.RetryOnConflict = &retryonconflict
+
+	return s
 }
 
 func (s *_updateOperation) Id_(id string) *_updateOperation {
@@ -65,23 +79,9 @@ func (s *_updateOperation) Index_(indexname string) *_updateOperation {
 	return s
 }
 
-func (s *_updateOperation) RequireAlias(requirealias bool) *_updateOperation {
+func (s *_updateOperation) Routing(routings ...string) *_updateOperation {
 
-	s.v.RequireAlias = &requirealias
-
-	return s
-}
-
-func (s *_updateOperation) RetryOnConflict(retryonconflict int) *_updateOperation {
-
-	s.v.RetryOnConflict = &retryonconflict
-
-	return s
-}
-
-func (s *_updateOperation) Routing(routing string) *_updateOperation {
-
-	s.v.Routing = &routing
+	s.v.Routing = routings
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -30,11 +30,13 @@ type _cohereServiceSettings struct {
 	v *types.CohereServiceSettings
 }
 
-func NewCohereServiceSettings(apikey string) *_cohereServiceSettings {
+func NewCohereServiceSettings(apikey string, modelid string) *_cohereServiceSettings {
 
 	tmp := &_cohereServiceSettings{v: types.NewCohereServiceSettings()}
 
 	tmp.ApiKey(apikey)
+
+	tmp.ModelId(modelid)
 
 	return tmp
 
@@ -55,7 +57,7 @@ func (s *_cohereServiceSettings) EmbeddingType(embeddingtype cohereembeddingtype
 
 func (s *_cohereServiceSettings) ModelId(modelid string) *_cohereServiceSettings {
 
-	s.v.ModelId = &modelid
+	s.v.ModelId = modelid
 
 	return s
 }

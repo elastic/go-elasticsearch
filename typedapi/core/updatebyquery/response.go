@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package updatebyquery
 
@@ -26,9 +26,8 @@ import (
 
 // Response holds the response body struct for the package updatebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/update_by_query/UpdateByQueryResponse.ts#L26-L67
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_global/update_by_query/UpdateByQueryResponse.ts#L27-L76
 type Response struct {
-
 	// Batches The number of scroll responses pulled back by the update by query.
 	Batches *int64 `json:"batches,omitempty"`
 	// Deleted The number of documents that were successfully deleted.
@@ -49,9 +48,11 @@ type Response struct {
 	// Retries The number of retries attempted by update by query.
 	// `bulk` is the number of bulk actions retried.
 	// `search` is the number of search actions retried.
-	Retries   *types.Retries `json:"retries,omitempty"`
-	Task      *string        `json:"task,omitempty"`
-	Throttled types.Duration `json:"throttled,omitempty"`
+	Retries *types.Retries `json:"retries,omitempty"`
+	// Slices Status of each slice if the update by query was sliced
+	Slices    []types.ReindexStatus `json:"slices,omitempty"`
+	Task      *string               `json:"task,omitempty"`
+	Throttled types.Duration        `json:"throttled,omitempty"`
 	// ThrottledMillis The number of milliseconds the request slept to conform to
 	// `requests_per_second`.
 	ThrottledMillis *int64         `json:"throttled_millis,omitempty"`

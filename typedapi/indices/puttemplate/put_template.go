@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Create or update a legacy index template.
+//
 // Index templates define settings, mappings, and aliases that can be applied
 // automatically to new indices.
 // Elasticsearch applies templates to new indices based on an index pattern that
@@ -113,6 +114,7 @@ func NewPutTemplateFunc(tp elastictransport.Interface) NewPutTemplate {
 }
 
 // Create or update a legacy index template.
+//
 // Index templates define settings, mappings, and aliases that can be applied
 // automatically to new indices.
 // Elasticsearch applies templates to new indices based on an index pattern that
@@ -390,7 +392,7 @@ func (r *PutTemplate) MasterTimeout(duration string) *PutTemplate {
 	return r
 }
 
-// Cause User defined reason for creating/updating the index template
+// Cause User defined reason for creating or updating the index template
 // API name: cause
 func (r *PutTemplate) Cause(cause string) *PutTemplate {
 	r.values.Set("cause", cause)

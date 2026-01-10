@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Get the field capabilities.
 //
@@ -378,8 +378,12 @@ func (r *FieldCaps) IncludeUnmapped(includeunmapped bool) *FieldCaps {
 
 // Filters A comma-separated list of filters to apply to the response.
 // API name: filters
-func (r *FieldCaps) Filters(filters string) *FieldCaps {
-	r.values.Set("filters", filters)
+func (r *FieldCaps) Filters(filters ...string) *FieldCaps {
+	tmp := []string{}
+	for _, item := range filters {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filters", strings.Join(tmp, ","))
 
 	return r
 }
@@ -483,6 +487,30 @@ func (r *FieldCaps) IndexFilter(indexfilter types.QueryVariant) *FieldCaps {
 	}
 
 	r.req.IndexFilter = indexfilter.QueryCaster()
+
+	return r
+}
+
+// Specifies a subset of projects to target for the field-caps query using
+// project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *FieldCaps) ProjectRouting(projectrouting string) *FieldCaps {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ProjectRouting = &projectrouting
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,13 +36,6 @@ func NewRegexpQuery(field string, value string) *_regexpQuery {
 
 	tmp.Value(value)
 	return tmp
-}
-
-func (s *_regexpQuery) Boost(boost float32) *_regexpQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_regexpQuery) CaseInsensitive(caseinsensitive bool) *_regexpQuery {
@@ -66,13 +59,6 @@ func (s *_regexpQuery) MaxDeterminizedStates(maxdeterminizedstates int) *_regexp
 	return s
 }
 
-func (s *_regexpQuery) QueryName_(queryname_ string) *_regexpQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_regexpQuery) Rewrite(multitermqueryrewrite string) *_regexpQuery {
 
 	s.v.Rewrite = &multitermqueryrewrite
@@ -83,6 +69,20 @@ func (s *_regexpQuery) Rewrite(multitermqueryrewrite string) *_regexpQuery {
 func (s *_regexpQuery) Value(value string) *_regexpQuery {
 
 	s.v.Value = value
+
+	return s
+}
+
+func (s *_regexpQuery) Boost(boost float32) *_regexpQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_regexpQuery) QueryName_(queryname_ string) *_regexpQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -27,13 +27,9 @@ type _textExpansionInferenceOptions struct {
 }
 
 // Text expansion configuration for inference.
-func NewTextExpansionInferenceOptions(vocabulary types.VocabularyVariant) *_textExpansionInferenceOptions {
+func NewTextExpansionInferenceOptions() *_textExpansionInferenceOptions {
 
-	tmp := &_textExpansionInferenceOptions{v: types.NewTextExpansionInferenceOptions()}
-
-	tmp.Vocabulary(vocabulary)
-
-	return tmp
+	return &_textExpansionInferenceOptions{v: types.NewTextExpansionInferenceOptions()}
 
 }
 
@@ -53,7 +49,7 @@ func (s *_textExpansionInferenceOptions) Tokenization(tokenization types.Tokeniz
 
 func (s *_textExpansionInferenceOptions) Vocabulary(vocabulary types.VocabularyVariant) *_textExpansionInferenceOptions {
 
-	s.v.Vocabulary = *vocabulary.VocabularyCaster()
+	s.v.Vocabulary = vocabulary.VocabularyCaster()
 
 	return s
 }

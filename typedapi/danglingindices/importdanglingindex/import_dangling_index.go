@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Import a dangling index.
 //
@@ -322,7 +322,7 @@ func (r *ImportDanglingIndex) AcceptDataLoss(acceptdataloss bool) *ImportDanglin
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *ImportDanglingIndex) MasterTimeout(duration string) *ImportDanglingIndex {
 	r.values.Set("master_timeout", duration)
@@ -330,7 +330,7 @@ func (r *ImportDanglingIndex) MasterTimeout(duration string) *ImportDanglingInde
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout The period to wait for a response.
 // API name: timeout
 func (r *ImportDanglingIndex) Timeout(duration string) *ImportDanglingIndex {
 	r.values.Set("timeout", duration)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // RankFeatureProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/core.ts#L207-L210
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_types/mapping/core.ts#L208-L211
 type RankFeatureProperty struct {
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`
@@ -253,6 +253,12 @@ func (s *RankFeatureProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "histogram":
 					oo := NewHistogramProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Fields | %w", err)
+					}
+					s.Fields[key] = oo
+				case "exponential_histogram":
+					oo := NewExponentialHistogramProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Fields | %w", err)
 					}
@@ -628,6 +634,12 @@ func (s *RankFeatureProperty) UnmarshalJSON(data []byte) error {
 					s.Properties[key] = oo
 				case "histogram":
 					oo := NewHistogramProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
+				case "exponential_histogram":
+					oo := NewExponentialHistogramProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Properties | %w", err)
 					}

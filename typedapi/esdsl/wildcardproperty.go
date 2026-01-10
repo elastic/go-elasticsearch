@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -34,6 +34,13 @@ func NewWildcardProperty() *_wildcardProperty {
 
 	return &_wildcardProperty{v: types.NewWildcardProperty()}
 
+}
+
+func (s *_wildcardProperty) NullValue(nullvalue string) *_wildcardProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
 }
 
 func (s *_wildcardProperty) CopyTo(fields ...string) *_wildcardProperty {
@@ -102,13 +109,6 @@ func (s *_wildcardProperty) AddMeta(key string, value string) *_wildcardProperty
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_wildcardProperty) NullValue(nullvalue string) *_wildcardProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

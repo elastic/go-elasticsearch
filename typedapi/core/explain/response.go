@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package explain
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package explain
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/explain/ExplainResponse.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_global/explain/ExplainResponse.ts#L23-L31
 type Response struct {
 	Explanation *types.ExplanationDetail `json:"explanation,omitempty"`
 	Get         *types.InlineGet         `json:"get,omitempty"`

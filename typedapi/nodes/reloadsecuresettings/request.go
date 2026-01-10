@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package reloadsecuresettings
 
@@ -30,9 +30,8 @@ import (
 
 // Request holds the request body struct for the package reloadsecuresettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/nodes/reload_secure_settings/ReloadSecureSettingsRequest.ts#L24-L70
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/nodes/reload_secure_settings/ReloadSecureSettingsRequest.ts#L24-L72
 type Request struct {
-
 	// SecureSettingsPassword The password for the Elasticsearch keystore.
 	SecureSettingsPassword *string `json:"secure_settings_password,omitempty"`
 }

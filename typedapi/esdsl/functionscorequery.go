@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,13 +36,6 @@ func NewFunctionScoreQuery() *_functionScoreQuery {
 
 	return &_functionScoreQuery{v: types.NewFunctionScoreQuery()}
 
-}
-
-func (s *_functionScoreQuery) Boost(boost float32) *_functionScoreQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_functionScoreQuery) BoostMode(boostmode functionboostmode.FunctionBoostMode) *_functionScoreQuery {
@@ -82,16 +75,23 @@ func (s *_functionScoreQuery) Query(query types.QueryVariant) *_functionScoreQue
 	return s
 }
 
-func (s *_functionScoreQuery) QueryName_(queryname_ string) *_functionScoreQuery {
+func (s *_functionScoreQuery) ScoreMode(scoremode functionscoremode.FunctionScoreMode) *_functionScoreQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.ScoreMode = &scoremode
+	return s
+}
+
+func (s *_functionScoreQuery) Boost(boost float32) *_functionScoreQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }
 
-func (s *_functionScoreQuery) ScoreMode(scoremode functionscoremode.FunctionScoreMode) *_functionScoreQuery {
+func (s *_functionScoreQuery) QueryName_(queryname_ string) *_functionScoreQuery {
 
-	s.v.ScoreMode = &scoremode
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

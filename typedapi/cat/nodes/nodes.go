@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Get node information.
 //
@@ -289,18 +289,10 @@ func (r *Nodes) Header(key, value string) *Nodes {
 	return r
 }
 
-// Bytes The unit used to display byte values.
-// API name: bytes
-func (r *Nodes) Bytes(bytes bytes.Bytes) *Nodes {
-	r.values.Set("bytes", bytes.String())
-
-	return r
-}
-
 // FullId If `true`, return the full node ID. If `false`, return the shortened node ID.
 // API name: full_id
-func (r *Nodes) FullId(fullid string) *Nodes {
-	r.values.Set("full_id", fullid)
+func (r *Nodes) FullId(fullid bool) *Nodes {
+	r.values.Set("full_id", strconv.FormatBool(fullid))
 
 	return r
 }
@@ -346,10 +338,18 @@ func (r *Nodes) MasterTimeout(duration string) *Nodes {
 	return r
 }
 
-// Time The unit used to display time values.
-// API name: time
-func (r *Nodes) Time(time timeunit.TimeUnit) *Nodes {
-	r.values.Set("time", time.String())
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *Nodes) Bytes(bytes bytes.Bytes) *Nodes {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
@@ -368,6 +368,19 @@ func (r *Nodes) Format(format string) *Nodes {
 // API name: help
 func (r *Nodes) Help(help bool) *Nodes {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *Nodes) Time(time timeunit.TimeUnit) *Nodes {
+	r.values.Set("time", time.String())
 
 	return r
 }

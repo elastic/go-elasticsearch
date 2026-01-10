@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -42,6 +42,19 @@ func NewHighlight() *_highlight {
 
 }
 
+func (s *_highlight) Encoder(encoder highlighterencoder.HighlighterEncoder) *_highlight {
+
+	s.v.Encoder = &encoder
+	return s
+}
+
+func (s *_highlight) Fields(fields []map[string]types.HighlightField) *_highlight {
+
+	s.v.Fields = fields
+
+	return s
+}
+
 func (s *_highlight) BoundaryChars(boundarychars string) *_highlight {
 
 	s.v.BoundaryChars = &boundarychars
@@ -65,19 +78,6 @@ func (s *_highlight) BoundaryScanner(boundaryscanner boundaryscanner.BoundarySca
 func (s *_highlight) BoundaryScannerLocale(boundaryscannerlocale string) *_highlight {
 
 	s.v.BoundaryScannerLocale = &boundaryscannerlocale
-
-	return s
-}
-
-func (s *_highlight) Encoder(encoder highlighterencoder.HighlighterEncoder) *_highlight {
-
-	s.v.Encoder = &encoder
-	return s
-}
-
-func (s *_highlight) Fields(fields []map[string]types.HighlightField) *_highlight {
-
-	s.v.Fields = fields
 
 	return s
 }

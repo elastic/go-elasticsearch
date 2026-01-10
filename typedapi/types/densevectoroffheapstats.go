@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -31,19 +31,23 @@ import (
 
 // DenseVectorOffHeapStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cluster/stats/types.ts#L166-L178
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/cluster/stats/types.ts#L180-L196
 type DenseVectorOffHeapStats struct {
-	Fielddata         map[string]map[string]int64 `json:"fielddata,omitempty"`
-	TotalSize         ByteSize                    `json:"total_size,omitempty"`
-	TotalSizeBytes    int64                       `json:"total_size_bytes"`
-	TotalVebSize      ByteSize                    `json:"total_veb_size,omitempty"`
-	TotalVebSizeBytes int64                       `json:"total_veb_size_bytes"`
-	TotalVecSize      ByteSize                    `json:"total_vec_size,omitempty"`
-	TotalVecSizeBytes int64                       `json:"total_vec_size_bytes"`
-	TotalVeqSize      ByteSize                    `json:"total_veq_size,omitempty"`
-	TotalVeqSizeBytes int64                       `json:"total_veq_size_bytes"`
-	TotalVexSize      ByteSize                    `json:"total_vex_size,omitempty"`
-	TotalVexSizeBytes int64                       `json:"total_vex_size_bytes"`
+	Fielddata           map[string]map[string]int64 `json:"fielddata,omitempty"`
+	TotalCenifSize      ByteSize                    `json:"total_cenif_size,omitempty"`
+	TotalCenifSizeBytes int64                       `json:"total_cenif_size_bytes"`
+	TotalClivfSize      ByteSize                    `json:"total_clivf_size,omitempty"`
+	TotalClivfSizeBytes int64                       `json:"total_clivf_size_bytes"`
+	TotalSize           ByteSize                    `json:"total_size,omitempty"`
+	TotalSizeBytes      int64                       `json:"total_size_bytes"`
+	TotalVebSize        ByteSize                    `json:"total_veb_size,omitempty"`
+	TotalVebSizeBytes   int64                       `json:"total_veb_size_bytes"`
+	TotalVecSize        ByteSize                    `json:"total_vec_size,omitempty"`
+	TotalVecSizeBytes   int64                       `json:"total_vec_size_bytes"`
+	TotalVeqSize        ByteSize                    `json:"total_veq_size,omitempty"`
+	TotalVeqSizeBytes   int64                       `json:"total_veq_size_bytes"`
+	TotalVexSize        ByteSize                    `json:"total_vex_size,omitempty"`
+	TotalVexSizeBytes   int64                       `json:"total_vex_size_bytes"`
 }
 
 func (s *DenseVectorOffHeapStats) UnmarshalJSON(data []byte) error {
@@ -67,6 +71,46 @@ func (s *DenseVectorOffHeapStats) UnmarshalJSON(data []byte) error {
 			}
 			if err := dec.Decode(&s.Fielddata); err != nil {
 				return fmt.Errorf("%s | %w", "Fielddata", err)
+			}
+
+		case "total_cenif_size":
+			if err := dec.Decode(&s.TotalCenifSize); err != nil {
+				return fmt.Errorf("%s | %w", "TotalCenifSize", err)
+			}
+
+		case "total_cenif_size_bytes":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "TotalCenifSizeBytes", err)
+				}
+				s.TotalCenifSizeBytes = value
+			case float64:
+				f := int64(v)
+				s.TotalCenifSizeBytes = f
+			}
+
+		case "total_clivf_size":
+			if err := dec.Decode(&s.TotalClivfSize); err != nil {
+				return fmt.Errorf("%s | %w", "TotalClivfSize", err)
+			}
+
+		case "total_clivf_size_bytes":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "TotalClivfSizeBytes", err)
+				}
+				s.TotalClivfSizeBytes = value
+			case float64:
+				f := int64(v)
+				s.TotalClivfSizeBytes = f
 			}
 
 		case "total_size":

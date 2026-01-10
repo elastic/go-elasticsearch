@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AddAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/update_aliases/types.ts#L41-L95
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/indices/update_aliases/types.ts#L41-L95
 type AddAction struct {
 	// Alias Alias for the action.
 	// Index alias names support date math.
@@ -47,7 +47,7 @@ type AddAction struct {
 	// IndexRouting Value used to route indexing operations to a specific shard.
 	// If specified, this overwrites the `routing` value for indexing operations.
 	// Data stream aliases don’t support this parameter.
-	IndexRouting *string `json:"index_routing,omitempty"`
+	IndexRouting []string `json:"index_routing,omitempty"`
 	// Indices Data streams or indices for the action.
 	// Supports wildcards (`*`).
 	Indices []string `json:"indices,omitempty"`
@@ -59,11 +59,11 @@ type AddAction struct {
 	MustExist *bool `json:"must_exist,omitempty"`
 	// Routing Value used to route indexing and search operations to a specific shard.
 	// Data stream aliases don’t support this parameter.
-	Routing *string `json:"routing,omitempty"`
+	Routing []string `json:"routing,omitempty"`
 	// SearchRouting Value used to route search operations to a specific shard.
 	// If specified, this overwrites the `routing` value for search operations.
 	// Data stream aliases don’t support this parameter.
-	SearchRouting *string `json:"search_routing,omitempty"`
+	SearchRouting []string `json:"search_routing,omitempty"`
 }
 
 func (s *AddAction) UnmarshalJSON(data []byte) error {
@@ -113,8 +113,19 @@ func (s *AddAction) UnmarshalJSON(data []byte) error {
 			}
 
 		case "index_routing":
-			if err := dec.Decode(&s.IndexRouting); err != nil {
-				return fmt.Errorf("%s | %w", "IndexRouting", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "IndexRouting", err)
+				}
+
+				s.IndexRouting = append(s.IndexRouting, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.IndexRouting); err != nil {
+					return fmt.Errorf("%s | %w", "IndexRouting", err)
+				}
 			}
 
 		case "indices":
@@ -176,13 +187,35 @@ func (s *AddAction) UnmarshalJSON(data []byte) error {
 			}
 
 		case "routing":
-			if err := dec.Decode(&s.Routing); err != nil {
-				return fmt.Errorf("%s | %w", "Routing", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
+
+				s.Routing = append(s.Routing, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
 			}
 
 		case "search_routing":
-			if err := dec.Decode(&s.SearchRouting); err != nil {
-				return fmt.Errorf("%s | %w", "SearchRouting", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "SearchRouting", err)
+				}
+
+				s.SearchRouting = append(s.SearchRouting, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.SearchRouting); err != nil {
+					return fmt.Errorf("%s | %w", "SearchRouting", err)
+				}
 			}
 
 		}

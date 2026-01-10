@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -42,13 +42,6 @@ func NewRuleQuery(matchcriteria json.RawMessage, organic types.QueryVariant) *_r
 
 }
 
-func (s *_ruleQuery) Boost(boost float32) *_ruleQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_ruleQuery) MatchCriteria(matchcriteria json.RawMessage) *_ruleQuery {
 
 	s.v.MatchCriteria = matchcriteria
@@ -59,13 +52,6 @@ func (s *_ruleQuery) MatchCriteria(matchcriteria json.RawMessage) *_ruleQuery {
 func (s *_ruleQuery) Organic(organic types.QueryVariant) *_ruleQuery {
 
 	s.v.Organic = *organic.QueryCaster()
-
-	return s
-}
-
-func (s *_ruleQuery) QueryName_(queryname_ string) *_ruleQuery {
-
-	s.v.QueryName_ = &queryname_
 
 	return s
 }
@@ -81,6 +67,20 @@ func (s *_ruleQuery) RulesetIds(rulesetids ...string) *_ruleQuery {
 
 	s.v.RulesetIds = make([]string, len(rulesetids))
 	s.v.RulesetIds = rulesetids
+
+	return s
+}
+
+func (s *_ruleQuery) Boost(boost float32) *_ruleQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_ruleQuery) QueryName_(queryname_ string) *_ruleQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

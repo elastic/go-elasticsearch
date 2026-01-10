@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -35,13 +35,6 @@ func NewGeoBoundingBoxQuery() *_geoBoundingBoxQuery {
 
 	return &_geoBoundingBoxQuery{v: types.NewGeoBoundingBoxQuery()}
 
-}
-
-func (s *_geoBoundingBoxQuery) Boost(boost float32) *_geoBoundingBoxQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_geoBoundingBoxQuery) GeoBoundingBoxQuery(geoboundingboxquery map[string]types.GeoBounds) *_geoBoundingBoxQuery {
@@ -72,13 +65,6 @@ func (s *_geoBoundingBoxQuery) IgnoreUnmapped(ignoreunmapped bool) *_geoBounding
 	return s
 }
 
-func (s *_geoBoundingBoxQuery) QueryName_(queryname_ string) *_geoBoundingBoxQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_geoBoundingBoxQuery) Type(type_ geoexecution.GeoExecution) *_geoBoundingBoxQuery {
 
 	s.v.Type = &type_
@@ -88,6 +74,20 @@ func (s *_geoBoundingBoxQuery) Type(type_ geoexecution.GeoExecution) *_geoBoundi
 func (s *_geoBoundingBoxQuery) ValidationMethod(validationmethod geovalidationmethod.GeoValidationMethod) *_geoBoundingBoxQuery {
 
 	s.v.ValidationMethod = &validationmethod
+	return s
+}
+
+func (s *_geoBoundingBoxQuery) Boost(boost float32) *_geoBoundingBoxQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_geoBoundingBoxQuery) QueryName_(queryname_ string) *_geoBoundingBoxQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

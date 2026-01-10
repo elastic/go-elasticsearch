@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Run a Fleet search.
+//
 // The purpose of the Fleet search API is to provide an API where the search
 // will be run only
 // after the provided checkpoint has been processed and is visible for searches
@@ -90,6 +91,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 }
 
 // Run a Fleet search.
+//
 // The purpose of the Fleet search API is to provide an API where the search
 // will be run only
 // after the provided checkpoint has been processed and is visible for searches
@@ -438,8 +440,8 @@ func (r *Search) RequestCache(requestcache bool) *Search {
 }
 
 // API name: routing
-func (r *Search) Routing(routing string) *Search {
-	r.values.Set("routing", routing)
+func (r *Search) Routing(routings ...string) *Search {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }

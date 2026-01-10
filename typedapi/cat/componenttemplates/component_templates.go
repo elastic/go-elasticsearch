@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Get component templates.
 //
@@ -43,6 +43,9 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catcomponentcolumn"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
 )
 
 const (
@@ -324,10 +327,15 @@ func (r *ComponentTemplates) Name(name string) *ComponentTemplates {
 	return r
 }
 
-// H List of columns to appear in the response. Supports simple wildcards.
+// H A comma-separated list of columns names to display. It supports simple
+// wildcards.
 // API name: h
-func (r *ComponentTemplates) H(names ...string) *ComponentTemplates {
-	r.values.Set("h", strings.Join(names, ","))
+func (r *ComponentTemplates) H(catcomponentcolumns ...catcomponentcolumn.CatComponentColumn) *ComponentTemplates {
+	tmp := []string{}
+	for _, item := range catcomponentcolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -361,6 +369,22 @@ func (r *ComponentTemplates) MasterTimeout(duration string) *ComponentTemplates 
 	return r
 }
 
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *ComponentTemplates) Bytes(bytes bytes.Bytes) *ComponentTemplates {
+	r.values.Set("bytes", bytes.String())
+
+	return r
+}
+
 // Format Specifies the format to return the columnar data in, can be set to
 // `text`, `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
@@ -375,6 +399,19 @@ func (r *ComponentTemplates) Format(format string) *ComponentTemplates {
 // API name: help
 func (r *ComponentTemplates) Help(help bool) *ComponentTemplates {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *ComponentTemplates) Time(time timeunit.TimeUnit) *ComponentTemplates {
+	r.values.Set("time", time.String())
 
 	return r
 }

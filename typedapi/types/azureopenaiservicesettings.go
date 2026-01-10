@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AzureOpenAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L724-L769
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/inference/_types/CommonTypes.ts#L770-L815
 type AzureOpenAIServiceSettings struct {
 	// ApiKey A valid API key for your Azure OpenAI account.
 	// You must specify either `api_key` or `entra_id`.
@@ -62,7 +62,7 @@ type AzureOpenAIServiceSettings struct {
 	// The `azureopenai` service sets a default number of requests allowed per
 	// minute depending on the task type.
 	// For `text_embedding`, it is set to `1440`.
-	// For `completion`, it is set to `120`.
+	// For `completion` and `chat_completion`, it is set to `120`.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 	// ResourceName The name of your Azure OpenAI resource.
 	// You can find this from the list of resources in the Azure Portal for your

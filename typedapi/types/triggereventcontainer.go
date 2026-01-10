@@ -16,57 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // TriggerEventContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/watcher/_types/Trigger.ts#L32-L37
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/watcher/_types/Trigger.ts#L32-L37
 type TriggerEventContainer struct {
-	AdditionalTriggerEventContainerProperty map[string]json.RawMessage `json:"-"`
-	Schedule                                *ScheduleTriggerEvent      `json:"schedule,omitempty"`
-}
-
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s TriggerEventContainer) MarshalJSON() ([]byte, error) {
-	type opt TriggerEventContainer
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalTriggerEventContainerProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalTriggerEventContainerProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
+	Schedule *ScheduleTriggerEvent `json:"schedule,omitempty"`
 }
 
 // NewTriggerEventContainer returns a TriggerEventContainer.
 func NewTriggerEventContainer() *TriggerEventContainer {
-	r := &TriggerEventContainer{
-		AdditionalTriggerEventContainerProperty: make(map[string]json.RawMessage),
-	}
+	r := &TriggerEventContainer{}
 
 	return r
 }

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Bulk update API keys.
+//
 // Update the attributes for multiple API keys.
 //
 // IMPORTANT: It is not possible to use an API key as the authentication
@@ -101,6 +102,7 @@ func NewBulkUpdateApiKeysFunc(tp elastictransport.Interface) NewBulkUpdateApiKey
 }
 
 // Bulk update API keys.
+//
 // Update the attributes for multiple API keys.
 //
 // IMPORTANT: It is not possible to use an API key as the authentication

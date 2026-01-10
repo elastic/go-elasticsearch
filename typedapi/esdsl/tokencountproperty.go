@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -50,6 +50,27 @@ func (s *_tokenCountProperty) Boost(boost types.Float64) *_tokenCountProperty {
 	return s
 }
 
+func (s *_tokenCountProperty) EnablePositionIncrements(enablepositionincrements bool) *_tokenCountProperty {
+
+	s.v.EnablePositionIncrements = &enablepositionincrements
+
+	return s
+}
+
+func (s *_tokenCountProperty) Index(index bool) *_tokenCountProperty {
+
+	s.v.Index = &index
+
+	return s
+}
+
+func (s *_tokenCountProperty) NullValue(nullvalue types.Float64) *_tokenCountProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
 func (s *_tokenCountProperty) CopyTo(fields ...string) *_tokenCountProperty {
 
 	s.v.CopyTo = fields
@@ -67,13 +88,6 @@ func (s *_tokenCountProperty) DocValues(docvalues bool) *_tokenCountProperty {
 func (s *_tokenCountProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_tokenCountProperty {
 
 	s.v.Dynamic = &dynamic
-	return s
-}
-
-func (s *_tokenCountProperty) EnablePositionIncrements(enablepositionincrements bool) *_tokenCountProperty {
-
-	s.v.EnablePositionIncrements = &enablepositionincrements
-
 	return s
 }
 
@@ -105,13 +119,6 @@ func (s *_tokenCountProperty) IgnoreAbove(ignoreabove int) *_tokenCountProperty 
 	return s
 }
 
-func (s *_tokenCountProperty) Index(index bool) *_tokenCountProperty {
-
-	s.v.Index = &index
-
-	return s
-}
-
 func (s *_tokenCountProperty) Meta(meta map[string]string) *_tokenCountProperty {
 
 	s.v.Meta = meta
@@ -130,13 +137,6 @@ func (s *_tokenCountProperty) AddMeta(key string, value string) *_tokenCountProp
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_tokenCountProperty) NullValue(nullvalue types.Float64) *_tokenCountProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

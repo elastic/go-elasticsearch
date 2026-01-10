@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RolloverConditions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/rollover/types.ts#L24-L40
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/indices/rollover/types.ts#L24-L43
 type RolloverConditions struct {
 	MaxAge                   Duration `json:"max_age,omitempty"`
 	MaxAgeMillis             *int64   `json:"max_age_millis,omitempty"`
@@ -39,6 +39,8 @@ type RolloverConditions struct {
 	MaxPrimaryShardDocs      *int64   `json:"max_primary_shard_docs,omitempty"`
 	MaxPrimaryShardSize      ByteSize `json:"max_primary_shard_size,omitempty"`
 	MaxPrimaryShardSizeBytes *int64   `json:"max_primary_shard_size_bytes,omitempty"`
+	// MaxSize The `max_size` condition has been deprecated in 9.3.0 and
+	// `max_primary_shard_size` should be used instead
 	MaxSize                  ByteSize `json:"max_size,omitempty"`
 	MaxSizeBytes             *int64   `json:"max_size_bytes,omitempty"`
 	MinAge                   Duration `json:"min_age,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -32,6 +32,13 @@ func NewGeoBoundsAggregation() *_geoBoundsAggregation {
 
 	return &_geoBoundsAggregation{v: types.NewGeoBoundsAggregation()}
 
+}
+
+func (s *_geoBoundsAggregation) WrapLongitude(wraplongitude bool) *_geoBoundsAggregation {
+
+	s.v.WrapLongitude = &wraplongitude
+
+	return s
 }
 
 func (s *_geoBoundsAggregation) Field(field string) *_geoBoundsAggregation {
@@ -51,13 +58,6 @@ func (s *_geoBoundsAggregation) Missing(missing types.MissingVariant) *_geoBound
 func (s *_geoBoundsAggregation) Script(script types.ScriptVariant) *_geoBoundsAggregation {
 
 	s.v.Script = script.ScriptCaster()
-
-	return s
-}
-
-func (s *_geoBoundsAggregation) WrapLongitude(wraplongitude bool) *_geoBoundsAggregation {
-
-	s.v.WrapLongitude = &wraplongitude
 
 	return s
 }

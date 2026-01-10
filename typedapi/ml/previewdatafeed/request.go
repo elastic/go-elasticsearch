@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package previewdatafeed
 
@@ -29,9 +29,8 @@ import (
 
 // Request holds the request body struct for the package previewdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/preview_datafeed/MlPreviewDatafeedRequest.ts#L26-L81
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/ml/preview_datafeed/MlPreviewDatafeedRequest.ts#L26-L86
 type Request struct {
-
 	// DatafeedConfig The datafeed definition to preview.
 	DatafeedConfig *types.DatafeedConfig `json:"datafeed_config,omitempty"`
 	// JobConfig The configuration details for the anomaly detection job that is associated

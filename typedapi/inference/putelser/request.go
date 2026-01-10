@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package putelser
 
@@ -30,10 +30,10 @@ import (
 
 // Request holds the request body struct for the package putelser
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/put_elser/PutElserRequest.ts#L30-L94
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/inference/put_elser/PutElserRequest.ts#L30-L97
 type Request struct {
-
 	// ChunkingSettings The chunking configuration object.
+	// Note that for ELSER endpoints, the max_chunk_size may not exceed `300`.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
 	// `elser`.

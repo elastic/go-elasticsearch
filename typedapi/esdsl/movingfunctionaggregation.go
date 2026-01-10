@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -39,26 +39,6 @@ func NewMovingFunctionAggregation() *_movingFunctionAggregation {
 
 }
 
-func (s *_movingFunctionAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_movingFunctionAggregation {
-
-	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
-
-	return s
-}
-
-func (s *_movingFunctionAggregation) Format(format string) *_movingFunctionAggregation {
-
-	s.v.Format = &format
-
-	return s
-}
-
-func (s *_movingFunctionAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_movingFunctionAggregation {
-
-	s.v.GapPolicy = &gappolicy
-	return s
-}
-
 func (s *_movingFunctionAggregation) Script(script string) *_movingFunctionAggregation {
 
 	s.v.Script = &script
@@ -77,6 +57,26 @@ func (s *_movingFunctionAggregation) Window(window int) *_movingFunctionAggregat
 
 	s.v.Window = &window
 
+	return s
+}
+
+func (s *_movingFunctionAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_movingFunctionAggregation {
+
+	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
+
+	return s
+}
+
+func (s *_movingFunctionAggregation) Format(format string) *_movingFunctionAggregation {
+
+	s.v.Format = &format
+
+	return s
+}
+
+func (s *_movingFunctionAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_movingFunctionAggregation {
+
+	s.v.GapPolicy = &gappolicy
 	return s
 }
 

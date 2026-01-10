@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // CohereServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L788-L831
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/inference/_types/CommonTypes.ts#L835-L876
 type CohereServiceSettings struct {
 	// ApiKey A valid API key for your Cohere account.
 	// You can find or create your Cohere API keys on the Cohere API key settings
@@ -65,9 +65,7 @@ type CohereServiceSettings struct {
 	// docs](https://docs.cohere.com/reference/rerank-1).
 	// * For the available `text_embedding` models, refer to [Cohere embed
 	// docs](https://docs.cohere.com/reference/embed).
-	//
-	// The default value for a text embedding task is `embed-english-v2.0`.
-	ModelId *string `json:"model_id,omitempty"`
+	ModelId string `json:"model_id"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
 	// Cohere.
 	// By default, the `cohere` service sets the number of requests allowed per
@@ -121,7 +119,7 @@ func (s *CohereServiceSettings) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.ModelId = &o
+			s.ModelId = o
 
 		case "rate_limit":
 			if err := dec.Decode(&s.RateLimit); err != nil {

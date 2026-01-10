@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Search a vector tile.
 //
@@ -590,7 +590,11 @@ func (r *SearchMvt) Header(key, value string) *SearchMvt {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, or aliases to search
+// Index A list of indices, data streams, or aliases to search.
+// It supports wildcards (`*`).
+// To search all data streams and indices, omit this parameter or use `*` or
+// `_all`.
+// To search a remote cluster, use the `<cluster>:<target>` syntax.
 // API Name: index
 func (r *SearchMvt) _index(index string) *SearchMvt {
 	r.paramSet |= indexMask
@@ -599,7 +603,14 @@ func (r *SearchMvt) _index(index string) *SearchMvt {
 	return r
 }
 
-// Field Field containing geospatial data to return
+// Field A field that contains the geospatial data to return.
+// It must be a `geo_point` or `geo_shape` field.
+// The field must have doc values enabled. It cannot be a nested field.
+//
+// NOTE: Vector tiles do not natively support geometry collections.
+// For `geometrycollection` values in a `geo_shape` field, the API returns a
+// hits layer feature for each element of the collection.
+// This behavior may change in a future release.
 // API Name: field
 func (r *SearchMvt) _field(field string) *SearchMvt {
 	r.paramSet |= fieldMask
@@ -608,7 +619,7 @@ func (r *SearchMvt) _field(field string) *SearchMvt {
 	return r
 }
 
-// Zoom Zoom level for the vector tile to search
+// Zoom The zoom level of the vector tile to search. It accepts `0` to `29`.
 // API Name: zoom
 func (r *SearchMvt) _zoom(zoom string) *SearchMvt {
 	r.paramSet |= zoomMask
@@ -617,7 +628,7 @@ func (r *SearchMvt) _zoom(zoom string) *SearchMvt {
 	return r
 }
 
-// X X coordinate for the vector tile to search
+// X The X coordinate for the vector tile to search.
 // API Name: x
 func (r *SearchMvt) _x(x string) *SearchMvt {
 	r.paramSet |= xMask
@@ -626,11 +637,29 @@ func (r *SearchMvt) _x(x string) *SearchMvt {
 	return r
 }
 
-// Y Y coordinate for the vector tile to search
+// Y The Y coordinate for the vector tile to search.
 // API Name: y
 func (r *SearchMvt) _y(y string) *SearchMvt {
 	r.paramSet |= yMask
 	r.y = y
+
+	return r
+}
+
+// ProjectRouting Specifies a subset of projects to target for the search using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *SearchMvt) ProjectRouting(projectrouting string) *SearchMvt {
+	r.values.Set("project_routing", projectrouting)
 
 	return r
 }

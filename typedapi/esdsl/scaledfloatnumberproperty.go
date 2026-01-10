@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,6 +36,20 @@ func NewScaledFloatNumberProperty() *_scaledFloatNumberProperty {
 
 	return &_scaledFloatNumberProperty{v: types.NewScaledFloatNumberProperty()}
 
+}
+
+func (s *_scaledFloatNumberProperty) NullValue(nullvalue types.Float64) *_scaledFloatNumberProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
+func (s *_scaledFloatNumberProperty) ScalingFactor(scalingfactor types.Float64) *_scaledFloatNumberProperty {
+
+	s.v.ScalingFactor = &scalingfactor
+
+	return s
 }
 
 func (s *_scaledFloatNumberProperty) Boost(boost types.Float64) *_scaledFloatNumberProperty {
@@ -135,13 +149,6 @@ func (s *_scaledFloatNumberProperty) AddMeta(key string, value string) *_scaledF
 	return s
 }
 
-func (s *_scaledFloatNumberProperty) NullValue(nullvalue types.Float64) *_scaledFloatNumberProperty {
-
-	s.v.NullValue = &nullvalue
-
-	return s
-}
-
 func (s *_scaledFloatNumberProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_scaledFloatNumberProperty {
 
 	s.v.OnScriptError = &onscripterror
@@ -166,13 +173,6 @@ func (s *_scaledFloatNumberProperty) AddProperty(key string, value types.Propert
 	tmp[key] = *value.PropertyCaster()
 
 	s.v.Properties = tmp
-	return s
-}
-
-func (s *_scaledFloatNumberProperty) ScalingFactor(scalingfactor types.Float64) *_scaledFloatNumberProperty {
-
-	s.v.ScalingFactor = &scalingfactor
-
 	return s
 }
 

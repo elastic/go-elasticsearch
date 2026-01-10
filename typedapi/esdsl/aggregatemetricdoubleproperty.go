@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -45,6 +45,29 @@ func (s *_aggregateMetricDoubleProperty) DefaultMetric(defaultmetric string) *_a
 
 	s.v.DefaultMetric = defaultmetric
 
+	return s
+}
+
+func (s *_aggregateMetricDoubleProperty) IgnoreMalformed(ignoremalformed bool) *_aggregateMetricDoubleProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
+func (s *_aggregateMetricDoubleProperty) Metrics(metrics ...string) *_aggregateMetricDoubleProperty {
+
+	for _, v := range metrics {
+
+		s.v.Metrics = append(s.v.Metrics, v)
+
+	}
+	return s
+}
+
+func (s *_aggregateMetricDoubleProperty) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *_aggregateMetricDoubleProperty {
+
+	s.v.TimeSeriesMetric = &timeseriesmetric
 	return s
 }
 
@@ -82,13 +105,6 @@ func (s *_aggregateMetricDoubleProperty) IgnoreAbove(ignoreabove int) *_aggregat
 	return s
 }
 
-func (s *_aggregateMetricDoubleProperty) IgnoreMalformed(ignoremalformed bool) *_aggregateMetricDoubleProperty {
-
-	s.v.IgnoreMalformed = &ignoremalformed
-
-	return s
-}
-
 func (s *_aggregateMetricDoubleProperty) Meta(meta map[string]string) *_aggregateMetricDoubleProperty {
 
 	s.v.Meta = meta
@@ -107,16 +123,6 @@ func (s *_aggregateMetricDoubleProperty) AddMeta(key string, value string) *_agg
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_aggregateMetricDoubleProperty) Metrics(metrics ...string) *_aggregateMetricDoubleProperty {
-
-	for _, v := range metrics {
-
-		s.v.Metrics = append(s.v.Metrics, v)
-
-	}
 	return s
 }
 
@@ -144,12 +150,6 @@ func (s *_aggregateMetricDoubleProperty) AddProperty(key string, value types.Pro
 func (s *_aggregateMetricDoubleProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_aggregateMetricDoubleProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
-	return s
-}
-
-func (s *_aggregateMetricDoubleProperty) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *_aggregateMetricDoubleProperty {
-
-	s.v.TimeSeriesMetric = &timeseriesmetric
 	return s
 }
 

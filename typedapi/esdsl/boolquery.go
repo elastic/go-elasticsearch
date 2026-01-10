@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -31,13 +31,6 @@ func NewBoolQuery() *_boolQuery {
 
 	return &_boolQuery{v: types.NewBoolQuery()}
 
-}
-
-func (s *_boolQuery) Boost(boost float32) *_boolQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_boolQuery) Filter(filters ...types.QueryVariant) *_boolQuery {
@@ -77,19 +70,26 @@ func (s *_boolQuery) MustNot(mustnots ...types.QueryVariant) *_boolQuery {
 	return s
 }
 
-func (s *_boolQuery) QueryName_(queryname_ string) *_boolQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_boolQuery) Should(shoulds ...types.QueryVariant) *_boolQuery {
 
 	s.v.Should = make([]types.Query, len(shoulds))
 	for i, v := range shoulds {
 		s.v.Should[i] = *v.QueryCaster()
 	}
+
+	return s
+}
+
+func (s *_boolQuery) Boost(boost float32) *_boolQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_boolQuery) QueryName_(queryname_ string) *_boolQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

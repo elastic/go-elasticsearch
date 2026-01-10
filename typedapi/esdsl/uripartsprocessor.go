@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,30 +36,9 @@ func NewUriPartsProcessor() *_uriPartsProcessor {
 
 }
 
-func (s *_uriPartsProcessor) Description(description string) *_uriPartsProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_uriPartsProcessor) Field(field string) *_uriPartsProcessor {
 
 	s.v.Field = field
-
-	return s
-}
-
-func (s *_uriPartsProcessor) If(if_ types.ScriptVariant) *_uriPartsProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_uriPartsProcessor) IgnoreFailure(ignorefailure bool) *_uriPartsProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
 
 	return s
 }
@@ -78,6 +57,41 @@ func (s *_uriPartsProcessor) KeepOriginal(keeporiginal bool) *_uriPartsProcessor
 	return s
 }
 
+func (s *_uriPartsProcessor) RemoveIfSuccessful(removeifsuccessful bool) *_uriPartsProcessor {
+
+	s.v.RemoveIfSuccessful = &removeifsuccessful
+
+	return s
+}
+
+func (s *_uriPartsProcessor) TargetField(field string) *_uriPartsProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_uriPartsProcessor) Description(description string) *_uriPartsProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_uriPartsProcessor) If(if_ types.ScriptVariant) *_uriPartsProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_uriPartsProcessor) IgnoreFailure(ignorefailure bool) *_uriPartsProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
 func (s *_uriPartsProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_uriPartsProcessor {
 
 	for _, v := range onfailures {
@@ -88,23 +102,9 @@ func (s *_uriPartsProcessor) OnFailure(onfailures ...types.ProcessorContainerVar
 	return s
 }
 
-func (s *_uriPartsProcessor) RemoveIfSuccessful(removeifsuccessful bool) *_uriPartsProcessor {
-
-	s.v.RemoveIfSuccessful = &removeifsuccessful
-
-	return s
-}
-
 func (s *_uriPartsProcessor) Tag(tag string) *_uriPartsProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_uriPartsProcessor) TargetField(field string) *_uriPartsProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

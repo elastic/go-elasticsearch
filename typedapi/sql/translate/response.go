@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package translate
 
@@ -33,14 +33,15 @@ import (
 
 // Response holds the response body struct for the package translate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/sql/translate/TranslateSqlResponse.ts#L27-L37
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/sql/translate/TranslateSqlResponse.ts#L28-L39
 type Response struct {
-	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
-	Fields       []types.FieldAndFormat        `json:"fields,omitempty"`
-	Query        *types.Query                  `json:"query,omitempty"`
-	Size         *int64                        `json:"size,omitempty"`
-	Sort         []types.SortCombinations      `json:"sort,omitempty"`
-	Source_      types.SourceConfig            `json:"_source,omitempty"`
+	Aggregations   map[string]types.Aggregations `json:"aggregations,omitempty"`
+	Fields         []types.FieldAndFormat        `json:"fields,omitempty"`
+	Query          *types.Query                  `json:"query,omitempty"`
+	Size           *int64                        `json:"size,omitempty"`
+	Sort           []types.SortCombinations      `json:"sort,omitempty"`
+	Source_        types.SourceConfig            `json:"_source,omitempty"`
+	TrackTotalHits types.TrackHits               `json:"track_total_hits,omitempty"`
 }
 
 // NewResponse returns a Response
@@ -148,6 +149,11 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 				if err := localDec.Decode(&s.Source_); err != nil {
 					return fmt.Errorf("%s | %w", "Source_", err)
 				}
+			}
+
+		case "track_total_hits":
+			if err := dec.Decode(&s.TrackTotalHits); err != nil {
+				return fmt.Errorf("%s | %w", "TrackTotalHits", err)
 			}
 
 		}

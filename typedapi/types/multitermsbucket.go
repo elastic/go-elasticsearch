@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // MultiTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/aggregations/Aggregate.ts#L508-L512
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_types/aggregations/Aggregate.ts#L580-L584
 type MultiTermsBucket struct {
 	Aggregations            map[string]Aggregate `json:"-"`
 	DocCount                int64                `json:"doc_count"`
@@ -226,6 +226,13 @@ func (s *MultiTermsBucket) UnmarshalJSON(data []byte) error {
 							}
 							s.Aggregations[elems[1]] = o
 
+						case "change_point":
+							o := NewChangePointAggregate()
+							if err := dec.Decode(&o); err != nil {
+								return fmt.Errorf("%s | %w", "Aggregations", err)
+							}
+							s.Aggregations[elems[1]] = o
+
 						case "stats":
 							o := NewStatsAggregate()
 							if err := dec.Decode(&o); err != nil {
@@ -249,6 +256,20 @@ func (s *MultiTermsBucket) UnmarshalJSON(data []byte) error {
 
 						case "extended_stats_bucket":
 							o := NewExtendedStatsBucketAggregate()
+							if err := dec.Decode(&o); err != nil {
+								return fmt.Errorf("%s | %w", "Aggregations", err)
+							}
+							s.Aggregations[elems[1]] = o
+
+						case "cartesian_bounds":
+							o := NewCartesianBoundsAggregate()
+							if err := dec.Decode(&o); err != nil {
+								return fmt.Errorf("%s | %w", "Aggregations", err)
+							}
+							s.Aggregations[elems[1]] = o
+
+						case "cartesian_centroid":
+							o := NewCartesianCentroidAggregate()
 							if err := dec.Decode(&o); err != nil {
 								return fmt.Errorf("%s | %w", "Aggregations", err)
 							}

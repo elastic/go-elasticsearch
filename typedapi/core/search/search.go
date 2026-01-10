@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Run a search.
 //
@@ -451,7 +451,7 @@ func (r *Search) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *Search {
 	return r
 }
 
-// DefaultOperator The default operator for the query string query: `AND` or `OR`.
+// DefaultOperator The default operator for the query string query: `and` or `or`.
 // This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: default_operator
@@ -600,8 +600,8 @@ func (r *Search) RequestCache(requestcache bool) *Search {
 
 // Routing A custom value that is used to route operations to a specific shard.
 // API name: routing
-func (r *Search) Routing(routing string) *Search {
-	r.values.Set("routing", routing)
+func (r *Search) Routing(routings ...string) *Search {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }
@@ -689,6 +689,14 @@ func (r *Search) RestTotalHitsAsInt(resttotalhitsasint bool) *Search {
 // API name: _source_excludes
 func (r *Search) SourceExcludes_(fields ...string) *Search {
 	r.values.Set("_source_excludes", strings.Join(fields, ","))
+
+	return r
+}
+
+// SourceExcludeVectors_ Whether vectors should be excluded from _source
+// API name: _source_exclude_vectors
+func (r *Search) SourceExcludeVectors_(sourceexcludevectors_ bool) *Search {
+	r.values.Set("_source_exclude_vectors", strconv.FormatBool(sourceexcludevectors_))
 
 	return r
 }
@@ -1013,6 +1021,29 @@ func (r *Search) Profile(profile bool) *Search {
 	}
 
 	r.req.Profile = &profile
+
+	return r
+}
+
+// Specifies a subset of projects to target for the search using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *Search) ProjectRouting(projectrouting string) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ProjectRouting = &projectrouting
 
 	return r
 }

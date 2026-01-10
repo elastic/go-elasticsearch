@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
-// Perform text embedding inference on the service
+// Perform text embedding inference on the service.
 package textembedding
 
 import (
@@ -81,7 +81,7 @@ func NewTextEmbeddingFunc(tp elastictransport.Interface) NewTextEmbedding {
 	}
 }
 
-// Perform text embedding inference on the service
+// Perform text embedding inference on the service.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *TextEmbedding {
@@ -379,7 +379,35 @@ func (r *TextEmbedding) Input(inputs ...string) *TextEmbedding {
 	return r
 }
 
-// Optional task settings
+// The input data type for the text embedding model. Possible values include:
+// * `SEARCH`
+// * `INGEST`
+// * `CLASSIFICATION`
+// * `CLUSTERING`
+// Not all services support all values. Unsupported values will trigger a
+// validation exception.
+// Accepted values depend on the configured inference service, refer to the
+// relevant service-specific documentation for more info.
+//
+// > info
+// > The `input_type` parameter specified on the root level of the request body
+// will take precedence over the `input_type` parameter specified in
+// `task_settings`.
+// API name: input_type
+func (r *TextEmbedding) InputType(inputtype string) *TextEmbedding {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.InputType = &inputtype
+
+	return r
+}
+
+// Task settings for the individual inference request. These settings are
+// specific to the <task_type> you specified and override the task settings
+// specified when initializing the service.
 // API name: task_settings
 func (r *TextEmbedding) TaskSettings(tasksettings json.RawMessage) *TextEmbedding {
 	// Initialize the request if it is not already initialized

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -26,13 +26,9 @@ type _downsamplingRound struct {
 	v *types.DownsamplingRound
 }
 
-func NewDownsamplingRound(config types.DownsampleConfigVariant) *_downsamplingRound {
+func NewDownsamplingRound() *_downsamplingRound {
 
-	tmp := &_downsamplingRound{v: types.NewDownsamplingRound()}
-
-	tmp.Config(config)
-
-	return tmp
+	return &_downsamplingRound{v: types.NewDownsamplingRound()}
 
 }
 
@@ -43,9 +39,9 @@ func (s *_downsamplingRound) After(duration types.DurationVariant) *_downsamplin
 	return s
 }
 
-func (s *_downsamplingRound) Config(config types.DownsampleConfigVariant) *_downsamplingRound {
+func (s *_downsamplingRound) FixedInterval(durationlarge string) *_downsamplingRound {
 
-	s.v.Config = *config.DownsampleConfigCaster()
+	s.v.FixedInterval = durationlarge
 
 	return s
 }

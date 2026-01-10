@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,6 +36,18 @@ func NewRateAggregation() *_rateAggregation {
 
 	return &_rateAggregation{v: types.NewRateAggregation()}
 
+}
+
+func (s *_rateAggregation) Mode(mode ratemode.RateMode) *_rateAggregation {
+
+	s.v.Mode = &mode
+	return s
+}
+
+func (s *_rateAggregation) Unit(unit calendarinterval.CalendarInterval) *_rateAggregation {
+
+	s.v.Unit = &unit
+	return s
 }
 
 func (s *_rateAggregation) Field(field string) *_rateAggregation {
@@ -59,22 +71,10 @@ func (s *_rateAggregation) Missing(missing types.MissingVariant) *_rateAggregati
 	return s
 }
 
-func (s *_rateAggregation) Mode(mode ratemode.RateMode) *_rateAggregation {
-
-	s.v.Mode = &mode
-	return s
-}
-
 func (s *_rateAggregation) Script(script types.ScriptVariant) *_rateAggregation {
 
 	s.v.Script = script.ScriptCaster()
 
-	return s
-}
-
-func (s *_rateAggregation) Unit(unit calendarinterval.CalendarInterval) *_rateAggregation {
-
-	s.v.Unit = &unit
 	return s
 }
 

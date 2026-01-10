@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -26,14 +26,23 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // NodeReloadResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/nodes/_types/NodeReloadResult.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/nodes/_types/NodeReloadResult.ts#L24-L43
 type NodeReloadResult struct {
+	// KeystoreDigest A SHA-256 hash of the keystore file contents.
+	KeystoreDigest *string `json:"keystore_digest,omitempty"`
+	// KeystoreLastModifiedTime The last modification time of the keystore file.
+	KeystoreLastModifiedTime DateTime `json:"keystore_last_modified_time,omitempty"`
+	// KeystorePath The path to the keystore file.
+	KeystorePath    *string     `json:"keystore_path,omitempty"`
 	Name            string      `json:"name"`
 	ReloadException *ErrorCause `json:"reload_exception,omitempty"`
+	// SecureSettingNames The names of the secure settings that were reloaded.
+	SecureSettingNames []string `json:"secure_setting_names,omitempty"`
 }
 
 func (s *NodeReloadResult) UnmarshalJSON(data []byte) error {
@@ -51,6 +60,35 @@ func (s *NodeReloadResult) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "keystore_digest":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "KeystoreDigest", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.KeystoreDigest = &o
+
+		case "keystore_last_modified_time":
+			if err := dec.Decode(&s.KeystoreLastModifiedTime); err != nil {
+				return fmt.Errorf("%s | %w", "KeystoreLastModifiedTime", err)
+			}
+
+		case "keystore_path":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "KeystorePath", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.KeystorePath = &o
+
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
 				return fmt.Errorf("%s | %w", "Name", err)
@@ -59,6 +97,11 @@ func (s *NodeReloadResult) UnmarshalJSON(data []byte) error {
 		case "reload_exception":
 			if err := dec.Decode(&s.ReloadException); err != nil {
 				return fmt.Errorf("%s | %w", "ReloadException", err)
+			}
+
+		case "secure_setting_names":
+			if err := dec.Decode(&s.SecureSettingNames); err != nil {
+				return fmt.Errorf("%s | %w", "SecureSettingNames", err)
 			}
 
 		}

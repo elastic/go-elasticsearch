@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package search
 
@@ -34,7 +34,7 @@ import (
 
 // Response holds the response body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/search/SearchResponse.ts#L34-L37
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_global/search/SearchResponse.ts#L34-L37
 type Response struct {
 	Aggregations map[string]types.Aggregate `json:"aggregations,omitempty"`
 	Clusters_    *types.ClusterStatistics   `json:"_clusters,omitempty"`
@@ -234,6 +234,13 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 								}
 								s.Aggregations[elems[1]] = o
 
+							case "change_point":
+								o := types.NewChangePointAggregate()
+								if err := dec.Decode(&o); err != nil {
+									return fmt.Errorf("%s | %w", "Aggregations", err)
+								}
+								s.Aggregations[elems[1]] = o
+
 							case "stats":
 								o := types.NewStatsAggregate()
 								if err := dec.Decode(&o); err != nil {
@@ -257,6 +264,20 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 
 							case "extended_stats_bucket":
 								o := types.NewExtendedStatsBucketAggregate()
+								if err := dec.Decode(&o); err != nil {
+									return fmt.Errorf("%s | %w", "Aggregations", err)
+								}
+								s.Aggregations[elems[1]] = o
+
+							case "cartesian_bounds":
+								o := types.NewCartesianBoundsAggregate()
+								if err := dec.Decode(&o); err != nil {
+									return fmt.Errorf("%s | %w", "Aggregations", err)
+								}
+								s.Aggregations[elems[1]] = o
+
+							case "cartesian_centroid":
+								o := types.NewCartesianCentroidAggregate()
 								if err := dec.Decode(&o); err != nil {
 									return fmt.Errorf("%s | %w", "Aggregations", err)
 								}

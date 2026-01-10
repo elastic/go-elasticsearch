@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Get data frame analytics jobs.
 //
@@ -329,19 +329,11 @@ func (r *MlDataFrameAnalytics) Id(id string) *MlDataFrameAnalytics {
 	return r
 }
 
-// AllowNoMatch Whether to ignore if a wildcard expression matches no configs. (This includes
-// `_all` string or when no configs have been specified)
+// AllowNoMatch Whether to ignore if a wildcard expression matches no configs.
+// (This includes `_all` string or when no configs have been specified.)
 // API name: allow_no_match
 func (r *MlDataFrameAnalytics) AllowNoMatch(allownomatch bool) *MlDataFrameAnalytics {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
-
-	return r
-}
-
-// Bytes The unit in which to display byte values
-// API name: bytes
-func (r *MlDataFrameAnalytics) Bytes(bytes bytes.Bytes) *MlDataFrameAnalytics {
-	r.values.Set("bytes", bytes.String())
 
 	return r
 }
@@ -371,10 +363,18 @@ func (r *MlDataFrameAnalytics) S(catdfacolumns ...catdfacolumn.CatDfaColumn) *Ml
 	return r
 }
 
-// Time Unit used to display time values.
-// API name: time
-func (r *MlDataFrameAnalytics) Time(time timeunit.TimeUnit) *MlDataFrameAnalytics {
-	r.values.Set("time", time.String())
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *MlDataFrameAnalytics) Bytes(bytes bytes.Bytes) *MlDataFrameAnalytics {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
@@ -393,6 +393,19 @@ func (r *MlDataFrameAnalytics) Format(format string) *MlDataFrameAnalytics {
 // API name: help
 func (r *MlDataFrameAnalytics) Help(help bool) *MlDataFrameAnalytics {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *MlDataFrameAnalytics) Time(time timeunit.TimeUnit) *MlDataFrameAnalytics {
+	r.values.Set("time", time.String())
 
 	return r
 }

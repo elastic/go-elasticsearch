@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package invalidatetoken
 
@@ -31,9 +31,8 @@ import (
 
 // Request holds the request body struct for the package invalidatetoken
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/invalidate_token/SecurityInvalidateTokenRequest.ts#L23-L71
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/security/invalidate_token/SecurityInvalidateTokenRequest.ts#L23-L73
 type Request struct {
-
 	// RealmName The name of an authentication realm.
 	// This parameter cannot be used with either `refresh_token` or `token`.
 	RealmName *string `json:"realm_name,omitempty"`

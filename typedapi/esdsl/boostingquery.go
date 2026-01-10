@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -42,13 +42,6 @@ func NewBoostingQuery(negative types.QueryVariant, negativeboost types.Float64, 
 
 }
 
-func (s *_boostingQuery) Boost(boost float32) *_boostingQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_boostingQuery) Negative(negative types.QueryVariant) *_boostingQuery {
 
 	s.v.Negative = *negative.QueryCaster()
@@ -66,6 +59,13 @@ func (s *_boostingQuery) NegativeBoost(negativeboost types.Float64) *_boostingQu
 func (s *_boostingQuery) Positive(positive types.QueryVariant) *_boostingQuery {
 
 	s.v.Positive = *positive.QueryCaster()
+
+	return s
+}
+
+func (s *_boostingQuery) Boost(boost float32) *_boostingQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

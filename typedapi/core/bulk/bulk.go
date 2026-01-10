@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Bulk index or delete documents.
+//
 // Perform multiple `index`, `create`, `delete`, and `update` actions in a
 // single request.
 // This reduces overhead and can greatly increase indexing speed.
@@ -114,8 +115,11 @@
 // `Search::Elasticsearch::Client::5_0::Scroll`
 // * Python: Check out `elasticsearch.helpers.*`
 // * JavaScript: Check out `client.helpers.*`
+// * Java: Check out
+// `co.elastic.clients.elasticsearch._helpers.bulk.BulkIngester`
 // * .NET: Check out `BulkAllObservable`
 // * PHP: Check out bulk indexing.
+// * Ruby: Check out `Elasticsearch::Helpers::BulkHelper`
 //
 // **Submitting bulk requests with cURL**
 //
@@ -242,6 +246,7 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 }
 
 // Bulk index or delete documents.
+//
 // Perform multiple `index`, `create`, `delete`, and `update` actions in a
 // single request.
 // This reduces overhead and can greatly increase indexing speed.
@@ -337,8 +342,11 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 // `Search::Elasticsearch::Client::5_0::Scroll`
 // * Python: Check out `elasticsearch.helpers.*`
 // * JavaScript: Check out `client.helpers.*`
+// * Java: Check out
+// `co.elastic.clients.elasticsearch._helpers.bulk.BulkIngester`
 // * .NET: Check out `BulkAllObservable`
 // * PHP: Check out bulk indexing.
+// * Ruby: Check out `Elasticsearch::Helpers::BulkHelper`
 //
 // **Submitting bulk requests with cURL**
 //
@@ -687,8 +695,8 @@ func (r *Bulk) Refresh(refresh refresh.Refresh) *Bulk {
 
 // Routing A custom value that is used to route operations to a specific shard.
 // API name: routing
-func (r *Bulk) Routing(routing string) *Bulk {
-	r.values.Set("routing", routing)
+func (r *Bulk) Routing(routings ...string) *Bulk {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }

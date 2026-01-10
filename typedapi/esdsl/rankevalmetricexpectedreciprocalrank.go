@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,16 +36,16 @@ func NewRankEvalMetricExpectedReciprocalRank(maximumrelevance int) *_rankEvalMet
 
 }
 
-func (s *_rankEvalMetricExpectedReciprocalRank) K(k int) *_rankEvalMetricExpectedReciprocalRank {
+func (s *_rankEvalMetricExpectedReciprocalRank) MaximumRelevance(maximumrelevance int) *_rankEvalMetricExpectedReciprocalRank {
 
-	s.v.K = &k
+	s.v.MaximumRelevance = maximumrelevance
 
 	return s
 }
 
-func (s *_rankEvalMetricExpectedReciprocalRank) MaximumRelevance(maximumrelevance int) *_rankEvalMetricExpectedReciprocalRank {
+func (s *_rankEvalMetricExpectedReciprocalRank) K(k int) *_rankEvalMetricExpectedReciprocalRank {
 
-	s.v.MaximumRelevance = maximumrelevance
+	s.v.K = &k
 
 	return s
 }

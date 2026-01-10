@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DelimitedPayloadTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/analysis/token_filters.ts#L84-L90
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_types/analysis/token_filters.ts#L90-L96
 type DelimitedPayloadTokenFilter struct {
 	// Delimiter Character used to separate tokens from payloads. Defaults to `|`.
 	Delimiter *string `json:"delimiter,omitempty"`

@@ -16,15 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _sparseVectorQuery struct {
 	v *types.SparseVectorQuery
@@ -32,25 +28,6 @@ type _sparseVectorQuery struct {
 
 func NewSparseVectorQuery() *_sparseVectorQuery {
 	return &_sparseVectorQuery{v: types.NewSparseVectorQuery()}
-}
-
-// AdditionalSparseVectorQueryProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_sparseVectorQuery) AdditionalSparseVectorQueryProperty(key string, value json.RawMessage) *_sparseVectorQuery {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalSparseVectorQueryProperty = tmp
-	return s
-}
-
-func (s *_sparseVectorQuery) Boost(boost float32) *_sparseVectorQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_sparseVectorQuery) Field(field string) *_sparseVectorQuery {
@@ -88,13 +65,6 @@ func (s *_sparseVectorQuery) Query(query string) *_sparseVectorQuery {
 	return s
 }
 
-func (s *_sparseVectorQuery) QueryName_(queryname_ string) *_sparseVectorQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_sparseVectorQuery) QueryVector(queryvector map[string]float32) *_sparseVectorQuery {
 
 	s.v.QueryVector = queryvector
@@ -113,6 +83,20 @@ func (s *_sparseVectorQuery) AddQueryVector(key string, value float32) *_sparseV
 	tmp[key] = value
 
 	s.v.QueryVector = tmp
+	return s
+}
+
+func (s *_sparseVectorQuery) Boost(boost float32) *_sparseVectorQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_sparseVectorQuery) QueryName_(queryname_ string) *_sparseVectorQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

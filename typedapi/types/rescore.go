@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -31,11 +31,12 @@ import (
 
 // Rescore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/search/_types/rescoring.ts#L25-L38
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_global/search/_types/rescoring.ts#L26-L41
 type Rescore struct {
 	AdditionalRescoreProperty map[string]json.RawMessage `json:"-"`
 	LearningToRank            *LearningToRank            `json:"learning_to_rank,omitempty"`
 	Query                     *RescoreQuery              `json:"query,omitempty"`
+	Script                    *ScriptRescore             `json:"script,omitempty"`
 	WindowSize                *int                       `json:"window_size,omitempty"`
 }
 
@@ -62,6 +63,11 @@ func (s *Rescore) UnmarshalJSON(data []byte) error {
 		case "query":
 			if err := dec.Decode(&s.Query); err != nil {
 				return fmt.Errorf("%s | %w", "Query", err)
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return fmt.Errorf("%s | %w", "Script", err)
 			}
 
 		case "window_size":

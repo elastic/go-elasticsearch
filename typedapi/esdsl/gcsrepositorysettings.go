@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -57,16 +57,23 @@ func (s *_gcsRepositorySettings) Bucket(bucket string) *_gcsRepositorySettings {
 	return s
 }
 
-func (s *_gcsRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_gcsRepositorySettings {
+func (s *_gcsRepositorySettings) Client(client string) *_gcsRepositorySettings {
 
-	s.v.ChunkSize = *bytesize.ByteSizeCaster()
+	s.v.Client = &client
 
 	return s
 }
 
-func (s *_gcsRepositorySettings) Client(client string) *_gcsRepositorySettings {
+func (s *_gcsRepositorySettings) Readonly(readonly bool) *_gcsRepositorySettings {
 
-	s.v.Client = &client
+	s.v.Readonly = &readonly
+
+	return s
+}
+
+func (s *_gcsRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_gcsRepositorySettings {
+
+	s.v.ChunkSize = *bytesize.ByteSizeCaster()
 
 	return s
 }
@@ -88,13 +95,6 @@ func (s *_gcsRepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSizeVa
 func (s *_gcsRepositorySettings) MaxSnapshotBytesPerSec(bytesize types.ByteSizeVariant) *_gcsRepositorySettings {
 
 	s.v.MaxSnapshotBytesPerSec = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_gcsRepositorySettings) Readonly(readonly bool) *_gcsRepositorySettings {
-
-	s.v.Readonly = &readonly
 
 	return s
 }

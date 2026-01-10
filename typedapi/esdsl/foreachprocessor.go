@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -37,16 +37,30 @@ func NewForeachProcessor(processor types.ProcessorContainerVariant) *_foreachPro
 
 }
 
-func (s *_foreachProcessor) Description(description string) *_foreachProcessor {
+func (s *_foreachProcessor) Field(field string) *_foreachProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_foreachProcessor) Field(field string) *_foreachProcessor {
+func (s *_foreachProcessor) IgnoreMissing(ignoremissing bool) *_foreachProcessor {
 
-	s.v.Field = field
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_foreachProcessor) Processor(processor types.ProcessorContainerVariant) *_foreachProcessor {
+
+	s.v.Processor = *processor.ProcessorContainerCaster()
+
+	return s
+}
+
+func (s *_foreachProcessor) Description(description string) *_foreachProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -65,13 +79,6 @@ func (s *_foreachProcessor) IgnoreFailure(ignorefailure bool) *_foreachProcessor
 	return s
 }
 
-func (s *_foreachProcessor) IgnoreMissing(ignoremissing bool) *_foreachProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_foreachProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_foreachProcessor {
 
 	for _, v := range onfailures {
@@ -79,13 +86,6 @@ func (s *_foreachProcessor) OnFailure(onfailures ...types.ProcessorContainerVari
 		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
 
 	}
-	return s
-}
-
-func (s *_foreachProcessor) Processor(processor types.ProcessorContainerVariant) *_foreachProcessor {
-
-	s.v.Processor = *processor.ProcessorContainerCaster()
-
 	return s
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,6 +36,13 @@ func NewShortNumberProperty() *_shortNumberProperty {
 
 	return &_shortNumberProperty{v: types.NewShortNumberProperty()}
 
+}
+
+func (s *_shortNumberProperty) NullValue(nullvalue int) *_shortNumberProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
 }
 
 func (s *_shortNumberProperty) Boost(boost types.Float64) *_shortNumberProperty {
@@ -132,13 +139,6 @@ func (s *_shortNumberProperty) AddMeta(key string, value string) *_shortNumberPr
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_shortNumberProperty) NullValue(nullvalue int) *_shortNumberProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

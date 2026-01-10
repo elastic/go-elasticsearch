@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -45,6 +45,81 @@ func (s *_keywordProperty) Boost(boost types.Float64) *_keywordProperty {
 	return s
 }
 
+func (s *_keywordProperty) EagerGlobalOrdinals(eagerglobalordinals bool) *_keywordProperty {
+
+	s.v.EagerGlobalOrdinals = &eagerglobalordinals
+
+	return s
+}
+
+func (s *_keywordProperty) Index(index bool) *_keywordProperty {
+
+	s.v.Index = &index
+
+	return s
+}
+
+func (s *_keywordProperty) IndexOptions(indexoptions indexoptions.IndexOptions) *_keywordProperty {
+
+	s.v.IndexOptions = &indexoptions
+	return s
+}
+
+func (s *_keywordProperty) Normalizer(normalizer string) *_keywordProperty {
+
+	s.v.Normalizer = &normalizer
+
+	return s
+}
+
+func (s *_keywordProperty) Norms(norms bool) *_keywordProperty {
+
+	s.v.Norms = &norms
+
+	return s
+}
+
+func (s *_keywordProperty) NullValue(nullvalue string) *_keywordProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
+func (s *_keywordProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_keywordProperty {
+
+	s.v.OnScriptError = &onscripterror
+	return s
+}
+
+func (s *_keywordProperty) Script(script types.ScriptVariant) *_keywordProperty {
+
+	s.v.Script = script.ScriptCaster()
+
+	return s
+}
+
+func (s *_keywordProperty) Similarity(similarity string) *_keywordProperty {
+
+	s.v.Similarity = &similarity
+
+	return s
+}
+
+func (s *_keywordProperty) SplitQueriesOnWhitespace(splitqueriesonwhitespace bool) *_keywordProperty {
+
+	s.v.SplitQueriesOnWhitespace = &splitqueriesonwhitespace
+
+	return s
+}
+
+func (s *_keywordProperty) TimeSeriesDimension(timeseriesdimension bool) *_keywordProperty {
+
+	s.v.TimeSeriesDimension = &timeseriesdimension
+
+	return s
+}
+
 func (s *_keywordProperty) CopyTo(fields ...string) *_keywordProperty {
 
 	s.v.CopyTo = fields
@@ -62,13 +137,6 @@ func (s *_keywordProperty) DocValues(docvalues bool) *_keywordProperty {
 func (s *_keywordProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_keywordProperty {
 
 	s.v.Dynamic = &dynamic
-	return s
-}
-
-func (s *_keywordProperty) EagerGlobalOrdinals(eagerglobalordinals bool) *_keywordProperty {
-
-	s.v.EagerGlobalOrdinals = &eagerglobalordinals
-
 	return s
 }
 
@@ -100,19 +168,6 @@ func (s *_keywordProperty) IgnoreAbove(ignoreabove int) *_keywordProperty {
 	return s
 }
 
-func (s *_keywordProperty) Index(index bool) *_keywordProperty {
-
-	s.v.Index = &index
-
-	return s
-}
-
-func (s *_keywordProperty) IndexOptions(indexoptions indexoptions.IndexOptions) *_keywordProperty {
-
-	s.v.IndexOptions = &indexoptions
-	return s
-}
-
 func (s *_keywordProperty) Meta(meta map[string]string) *_keywordProperty {
 
 	s.v.Meta = meta
@@ -131,33 +186,6 @@ func (s *_keywordProperty) AddMeta(key string, value string) *_keywordProperty {
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_keywordProperty) Normalizer(normalizer string) *_keywordProperty {
-
-	s.v.Normalizer = &normalizer
-
-	return s
-}
-
-func (s *_keywordProperty) Norms(norms bool) *_keywordProperty {
-
-	s.v.Norms = &norms
-
-	return s
-}
-
-func (s *_keywordProperty) NullValue(nullvalue string) *_keywordProperty {
-
-	s.v.NullValue = &nullvalue
-
-	return s
-}
-
-func (s *_keywordProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_keywordProperty {
-
-	s.v.OnScriptError = &onscripterror
 	return s
 }
 
@@ -182,27 +210,6 @@ func (s *_keywordProperty) AddProperty(key string, value types.PropertyVariant) 
 	return s
 }
 
-func (s *_keywordProperty) Script(script types.ScriptVariant) *_keywordProperty {
-
-	s.v.Script = script.ScriptCaster()
-
-	return s
-}
-
-func (s *_keywordProperty) Similarity(similarity string) *_keywordProperty {
-
-	s.v.Similarity = &similarity
-
-	return s
-}
-
-func (s *_keywordProperty) SplitQueriesOnWhitespace(splitqueriesonwhitespace bool) *_keywordProperty {
-
-	s.v.SplitQueriesOnWhitespace = &splitqueriesonwhitespace
-
-	return s
-}
-
 func (s *_keywordProperty) Store(store bool) *_keywordProperty {
 
 	s.v.Store = &store
@@ -213,13 +220,6 @@ func (s *_keywordProperty) Store(store bool) *_keywordProperty {
 func (s *_keywordProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_keywordProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
-	return s
-}
-
-func (s *_keywordProperty) TimeSeriesDimension(timeseriesdimension bool) *_keywordProperty {
-
-	s.v.TimeSeriesDimension = &timeseriesdimension
-
 	return s
 }
 

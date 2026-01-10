@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -44,26 +44,6 @@ func (s *_dateProperty) Boost(boost types.Float64) *_dateProperty {
 	return s
 }
 
-func (s *_dateProperty) CopyTo(fields ...string) *_dateProperty {
-
-	s.v.CopyTo = fields
-
-	return s
-}
-
-func (s *_dateProperty) DocValues(docvalues bool) *_dateProperty {
-
-	s.v.DocValues = &docvalues
-
-	return s
-}
-
-func (s *_dateProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_dateProperty {
-
-	s.v.Dynamic = &dynamic
-	return s
-}
-
 func (s *_dateProperty) Fielddata(fielddata types.NumericFielddataVariant) *_dateProperty {
 
 	s.v.Fielddata = fielddata.NumericFielddataCaster()
@@ -71,37 +51,9 @@ func (s *_dateProperty) Fielddata(fielddata types.NumericFielddataVariant) *_dat
 	return s
 }
 
-func (s *_dateProperty) Fields(fields map[string]types.Property) *_dateProperty {
-
-	s.v.Fields = fields
-	return s
-}
-
-func (s *_dateProperty) AddField(key string, value types.PropertyVariant) *_dateProperty {
-
-	var tmp map[string]types.Property
-	if s.v.Fields == nil {
-		s.v.Fields = make(map[string]types.Property)
-	} else {
-		tmp = s.v.Fields
-	}
-
-	tmp[key] = *value.PropertyCaster()
-
-	s.v.Fields = tmp
-	return s
-}
-
 func (s *_dateProperty) Format(format string) *_dateProperty {
 
 	s.v.Format = &format
-
-	return s
-}
-
-func (s *_dateProperty) IgnoreAbove(ignoreabove int) *_dateProperty {
-
-	s.v.IgnoreAbove = &ignoreabove
 
 	return s
 }
@@ -127,6 +79,81 @@ func (s *_dateProperty) Locale(locale string) *_dateProperty {
 	return s
 }
 
+func (s *_dateProperty) NullValue(datetime types.DateTimeVariant) *_dateProperty {
+
+	s.v.NullValue = *datetime.DateTimeCaster()
+
+	return s
+}
+
+func (s *_dateProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_dateProperty {
+
+	s.v.OnScriptError = &onscripterror
+	return s
+}
+
+func (s *_dateProperty) PrecisionStep(precisionstep int) *_dateProperty {
+
+	s.v.PrecisionStep = &precisionstep
+
+	return s
+}
+
+func (s *_dateProperty) Script(script types.ScriptVariant) *_dateProperty {
+
+	s.v.Script = script.ScriptCaster()
+
+	return s
+}
+
+func (s *_dateProperty) CopyTo(fields ...string) *_dateProperty {
+
+	s.v.CopyTo = fields
+
+	return s
+}
+
+func (s *_dateProperty) DocValues(docvalues bool) *_dateProperty {
+
+	s.v.DocValues = &docvalues
+
+	return s
+}
+
+func (s *_dateProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_dateProperty {
+
+	s.v.Dynamic = &dynamic
+	return s
+}
+
+func (s *_dateProperty) Fields(fields map[string]types.Property) *_dateProperty {
+
+	s.v.Fields = fields
+	return s
+}
+
+func (s *_dateProperty) AddField(key string, value types.PropertyVariant) *_dateProperty {
+
+	var tmp map[string]types.Property
+	if s.v.Fields == nil {
+		s.v.Fields = make(map[string]types.Property)
+	} else {
+		tmp = s.v.Fields
+	}
+
+	tmp[key] = *value.PropertyCaster()
+
+	s.v.Fields = tmp
+	return s
+}
+
+func (s *_dateProperty) IgnoreAbove(ignoreabove int) *_dateProperty {
+
+	s.v.IgnoreAbove = &ignoreabove
+
+	return s
+}
+
 func (s *_dateProperty) Meta(meta map[string]string) *_dateProperty {
 
 	s.v.Meta = meta
@@ -148,26 +175,6 @@ func (s *_dateProperty) AddMeta(key string, value string) *_dateProperty {
 	return s
 }
 
-func (s *_dateProperty) NullValue(datetime types.DateTimeVariant) *_dateProperty {
-
-	s.v.NullValue = *datetime.DateTimeCaster()
-
-	return s
-}
-
-func (s *_dateProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_dateProperty {
-
-	s.v.OnScriptError = &onscripterror
-	return s
-}
-
-func (s *_dateProperty) PrecisionStep(precisionstep int) *_dateProperty {
-
-	s.v.PrecisionStep = &precisionstep
-
-	return s
-}
-
 func (s *_dateProperty) Properties(properties map[string]types.Property) *_dateProperty {
 
 	s.v.Properties = properties
@@ -186,13 +193,6 @@ func (s *_dateProperty) AddProperty(key string, value types.PropertyVariant) *_d
 	tmp[key] = *value.PropertyCaster()
 
 	s.v.Properties = tmp
-	return s
-}
-
-func (s *_dateProperty) Script(script types.ScriptVariant) *_dateProperty {
-
-	s.v.Script = script.ScriptCaster()
-
 	return s
 }
 

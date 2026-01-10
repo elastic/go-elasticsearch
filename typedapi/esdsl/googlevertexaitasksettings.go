@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -35,6 +35,20 @@ func NewGoogleVertexAITaskSettings() *_googleVertexAITaskSettings {
 func (s *_googleVertexAITaskSettings) AutoTruncate(autotruncate bool) *_googleVertexAITaskSettings {
 
 	s.v.AutoTruncate = &autotruncate
+
+	return s
+}
+
+func (s *_googleVertexAITaskSettings) MaxTokens(maxtokens int) *_googleVertexAITaskSettings {
+
+	s.v.MaxTokens = &maxtokens
+
+	return s
+}
+
+func (s *_googleVertexAITaskSettings) ThinkingConfig(thinkingconfig types.ThinkingConfigVariant) *_googleVertexAITaskSettings {
+
+	s.v.ThinkingConfig = thinkingconfig.ThinkingConfigCaster()
 
 	return s
 }

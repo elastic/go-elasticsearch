@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -24,6 +24,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/dynamicmapping"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeseriesmetrictype"
 )
 
 type _histogramProperty struct {
@@ -34,6 +35,19 @@ func NewHistogramProperty() *_histogramProperty {
 
 	return &_histogramProperty{v: types.NewHistogramProperty()}
 
+}
+
+func (s *_histogramProperty) IgnoreMalformed(ignoremalformed bool) *_histogramProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
+func (s *_histogramProperty) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *_histogramProperty {
+
+	s.v.TimeSeriesMetric = &timeseriesmetric
+	return s
 }
 
 func (s *_histogramProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_histogramProperty {
@@ -66,13 +80,6 @@ func (s *_histogramProperty) AddField(key string, value types.PropertyVariant) *
 func (s *_histogramProperty) IgnoreAbove(ignoreabove int) *_histogramProperty {
 
 	s.v.IgnoreAbove = &ignoreabove
-
-	return s
-}
-
-func (s *_histogramProperty) IgnoreMalformed(ignoremalformed bool) *_histogramProperty {
-
-	s.v.IgnoreMalformed = &ignoremalformed
 
 	return s
 }

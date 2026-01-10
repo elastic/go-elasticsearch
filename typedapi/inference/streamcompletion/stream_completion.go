@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
-// Perform streaming inference.
+// Perform streaming completion inference on the service.
+//
 // Get real-time responses for completion tasks by delivering answers
 // incrementally, reducing response times during computation.
 // This API works only with the completion task type.
@@ -97,7 +98,8 @@ func NewStreamCompletionFunc(tp elastictransport.Interface) NewStreamCompletion 
 	}
 }
 
-// Perform streaming inference.
+// Perform streaming completion inference on the service.
+//
 // Get real-time responses for completion tasks by delivering answers
 // incrementally, reducing response times during computation.
 // This API works only with the completion task type.
@@ -416,7 +418,9 @@ func (r *StreamCompletion) Input(inputs ...string) *StreamCompletion {
 	return r
 }
 
-// Optional task settings
+// Task settings for the individual inference request. These settings are
+// specific to the <task_type> you specified and override the task settings
+// specified when initializing the service.
 // API name: task_settings
 func (r *StreamCompletion) TaskSettings(tasksettings json.RawMessage) *StreamCompletion {
 	// Initialize the request if it is not already initialized

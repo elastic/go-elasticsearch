@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package stopdatafeed
 
@@ -33,11 +33,12 @@ import (
 
 // Request holds the request body struct for the package stopdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/stop_datafeed/MlStopDatafeedRequest.ts#L24-L86
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/ml/stop_datafeed/MlStopDatafeedRequest.ts#L24-L97
 type Request struct {
-
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
 	AllowNoMatch *bool `json:"allow_no_match,omitempty"`
+	// CloseJob Refer to the description for the `close_job` query parameter.
+	CloseJob *bool `json:"close_job,omitempty"`
 	// Force Refer to the description for the `force` query parameter.
 	Force *bool `json:"force,omitempty"`
 	// Timeout Refer to the description for the `timeout` query parameter.
@@ -89,6 +90,20 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.AllowNoMatch = &value
 			case bool:
 				s.AllowNoMatch = &v
+			}
+
+		case "close_job":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "CloseJob", err)
+				}
+				s.CloseJob = &value
+			case bool:
+				s.CloseJob = &v
 			}
 
 		case "force":

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Explore graph analytics.
+//
 // Extract and summarize information about the documents and terms in an
 // Elasticsearch data stream or index.
 // The easiest way to understand the behavior of this API is to use the Graph UI
@@ -92,6 +93,7 @@ func NewExploreFunc(tp elastictransport.Interface) NewExplore {
 }
 
 // Explore graph analytics.
+//
 // Extract and summarize information about the documents and terms in an
 // Elasticsearch data stream or index.
 // The easiest way to understand the behavior of this API is to use the Graph UI
@@ -335,8 +337,8 @@ func (r *Explore) _index(index string) *Explore {
 
 // Routing Custom value used to route operations to a specific shard.
 // API name: routing
-func (r *Explore) Routing(routing string) *Explore {
-	r.values.Set("routing", routing)
+func (r *Explore) Routing(routings ...string) *Explore {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }

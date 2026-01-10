@@ -16,11 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+import (
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/samplingmethod"
+)
 
 type _downsampleConfig struct {
 	v *types.DownsampleConfig
@@ -36,6 +39,12 @@ func (s *_downsampleConfig) FixedInterval(durationlarge string) *_downsampleConf
 
 	s.v.FixedInterval = durationlarge
 
+	return s
+}
+
+func (s *_downsampleConfig) SamplingMethod(samplingmethod samplingmethod.SamplingMethod) *_downsampleConfig {
+
+	s.v.SamplingMethod = &samplingmethod
 	return s
 }
 

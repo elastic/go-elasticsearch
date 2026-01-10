@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -31,13 +31,13 @@ import (
 
 // InlineGet type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/common.ts#L319-L332
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_types/common.ts#L334-L347
 type InlineGet struct {
 	Fields       map[string]json.RawMessage `json:"fields,omitempty"`
 	Found        bool                       `json:"found"`
 	Metadata     map[string]json.RawMessage `json:"-"`
 	PrimaryTerm_ *int64                     `json:"_primary_term,omitempty"`
-	Routing_     *string                    `json:"_routing,omitempty"`
+	Routing_     []string                   `json:"_routing,omitempty"`
 	SeqNo_       *int64                     `json:"_seq_no,omitempty"`
 	Source_      json.RawMessage            `json:"_source,omitempty"`
 }
@@ -95,8 +95,19 @@ func (s *InlineGet) UnmarshalJSON(data []byte) error {
 			}
 
 		case "_routing":
-			if err := dec.Decode(&s.Routing_); err != nil {
-				return fmt.Errorf("%s | %w", "Routing_", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Routing_", err)
+				}
+
+				s.Routing_ = append(s.Routing_, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing_); err != nil {
+					return fmt.Errorf("%s | %w", "Routing_", err)
+				}
 			}
 
 		case "_seq_no":

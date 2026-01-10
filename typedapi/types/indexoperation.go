@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/bulk/types.ts#L142-L142
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_global/bulk/types.ts#L142-L142
 type IndexOperation struct {
 	// DynamicTemplates A map from the full name of fields to the name of dynamic templates.
 	// It defaults to an empty map.
@@ -57,7 +57,7 @@ type IndexOperation struct {
 	// RequireAlias If `true`, the request's actions must target an index alias.
 	RequireAlias *bool `json:"require_alias,omitempty"`
 	// Routing A custom value used to route operations to a specific shard.
-	Routing     *string                  `json:"routing,omitempty"`
+	Routing     []string                 `json:"routing,omitempty"`
 	Version     *int64                   `json:"version,omitempty"`
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
 }
@@ -142,8 +142,19 @@ func (s *IndexOperation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "routing":
-			if err := dec.Decode(&s.Routing); err != nil {
-				return fmt.Errorf("%s | %w", "Routing", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
+
+				s.Routing = append(s.Routing, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
 			}
 
 		case "version":

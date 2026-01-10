@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package search
 
@@ -34,9 +34,8 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/eql/search/EqlSearchRequest.ts#L28-L166
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/eql/search/EqlSearchRequest.ts#L34-L192
 type Request struct {
-
 	// AllowPartialSearchResults Allow query execution also in case of shard failures.
 	// If true, the query will keep running and will return results based on the
 	// available shards.
@@ -69,6 +68,16 @@ type Request struct {
 	// one sample per set of join keys, use the
 	// `max_samples_per_key` parameter. Pipes are not supported for sample queries.
 	MaxSamplesPerKey *int `json:"max_samples_per_key,omitempty"`
+	// ProjectRouting Specifies a subset of projects to target using project
+	// metadata tags in a subset of Lucene query syntax.
+	// Allowed Lucene queries: the _alias tag and a single value (possibly
+	// wildcarded).
+	// Examples:
+	//  _alias:my-project
+	//  _alias:_origin
+	//  _alias:*pr*
+	// Supported in serverless only.
+	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query EQL query you wish to run.
 	Query           string                         `json:"query"`
 	ResultPosition  *resultposition.ResultPosition `json:"result_position,omitempty"`
@@ -78,7 +87,7 @@ type Request struct {
 	Size *uint `json:"size,omitempty"`
 	// TiebreakerField Field used to sort hits with the same timestamp in ascending order
 	TiebreakerField *string `json:"tiebreaker_field,omitempty"`
-	// TimestampField Field containing event timestamp. Default "@timestamp"
+	// TimestampField Field containing event timestamp.
 	TimestampField           *string        `json:"timestamp_field,omitempty"`
 	WaitForCompletionTimeout types.Duration `json:"wait_for_completion_timeout,omitempty"`
 }
@@ -233,6 +242,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int(v)
 				s.MaxSamplesPerKey = &f
+			}
+
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
 			}
 
 		case "query":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package updatetrainedmodeldeployment
 
@@ -29,9 +29,8 @@ import (
 
 // Request holds the request body struct for the package updatetrainedmodeldeployment
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/update_trained_model_deployment/MlUpdateTrainedModelDeploymentRequest.ts#L25-L78
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/ml/update_trained_model_deployment/MlUpdateTrainedModelDeploymentRequest.ts#L25-L81
 type Request struct {
-
 	// AdaptiveAllocations Adaptive allocations configuration. When enabled, the number of allocations
 	// is set based on the current load.
 	// If adaptive_allocations is enabled, do not set the number of allocations

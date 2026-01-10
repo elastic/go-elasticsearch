@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -31,16 +31,18 @@ import (
 
 // TextSimilarityReranker type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/Retriever.ts#L146-L157
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_types/Retriever.ts#L175-L192
 type TextSimilarityReranker struct {
+	// ChunkRescorer Whether to rescore on only the best matching chunks.
+	ChunkRescorer *ChunkRescorer `json:"chunk_rescorer,omitempty"`
 	// Field The document field to be used for text similarity comparisons. This field
-	// should contain the text that will be evaluated against the inference_text
+	// should contain the text that will be evaluated against the inference_text.
 	Field string `json:"field"`
 	// Filter Query to filter the documents that can match.
 	Filter []Query `json:"filter,omitempty"`
 	// InferenceId Unique identifier of the inference endpoint created using the inference API.
 	InferenceId *string `json:"inference_id,omitempty"`
-	// InferenceText The text snippet used as the basis for similarity comparison
+	// InferenceText The text snippet used as the basis for similarity comparison.
 	InferenceText string `json:"inference_text"`
 	// MinScore Minimum _score for matching documents. Documents with a lower _score are not
 	// included in the top documents.
@@ -69,6 +71,11 @@ func (s *TextSimilarityReranker) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "chunk_rescorer":
+			if err := dec.Decode(&s.ChunkRescorer); err != nil {
+				return fmt.Errorf("%s | %w", "ChunkRescorer", err)
+			}
 
 		case "field":
 			var tmp json.RawMessage

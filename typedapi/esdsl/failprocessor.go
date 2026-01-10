@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -39,6 +39,13 @@ func NewFailProcessor(message string) *_failProcessor {
 
 }
 
+func (s *_failProcessor) Message(message string) *_failProcessor {
+
+	s.v.Message = message
+
+	return s
+}
+
 func (s *_failProcessor) Description(description string) *_failProcessor {
 
 	s.v.Description = &description
@@ -56,13 +63,6 @@ func (s *_failProcessor) If(if_ types.ScriptVariant) *_failProcessor {
 func (s *_failProcessor) IgnoreFailure(ignorefailure bool) *_failProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
-
-	return s
-}
-
-func (s *_failProcessor) Message(message string) *_failProcessor {
-
-	s.v.Message = message
 
 	return s
 }

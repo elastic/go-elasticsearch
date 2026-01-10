@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package submit
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package submit
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L54-L294
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L56-L432
 type Request struct {
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Collapse     *types.FieldCollapse          `json:"collapse,omitempty"`
@@ -66,6 +66,16 @@ type Request struct {
 	Pit        *types.PointInTimeReference `json:"pit,omitempty"`
 	PostFilter *types.Query                `json:"post_filter,omitempty"`
 	Profile    *bool                       `json:"profile,omitempty"`
+	// ProjectRouting Specifies a subset of projects to target for the search using project
+	// metadata tags in a subset of Lucene query syntax.
+	// Allowed Lucene queries: the _alias tag and a single value (possibly
+	// wildcarded).
+	// Examples:
+	//  _alias:my-project
+	//  _alias:_origin
+	//  _alias:*pr*
+	// Supported in serverless only.
+	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query Defines the search definition using the Query DSL.
 	Query   *types.Query    `json:"query,omitempty"`
 	Rescore []types.Rescore `json:"rescore,omitempty"`
@@ -286,6 +296,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.Profile = &value
 			case bool:
 				s.Profile = &v
+			}
+
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
 			}
 
 		case "query":

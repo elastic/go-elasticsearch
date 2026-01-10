@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,13 +36,6 @@ func NewGeoDistanceQuery() *_geoDistanceQuery {
 
 	return &_geoDistanceQuery{v: types.NewGeoDistanceQuery()}
 
-}
-
-func (s *_geoDistanceQuery) Boost(boost float32) *_geoDistanceQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_geoDistanceQuery) Distance(distance string) *_geoDistanceQuery {
@@ -86,16 +79,23 @@ func (s *_geoDistanceQuery) IgnoreUnmapped(ignoreunmapped bool) *_geoDistanceQue
 	return s
 }
 
-func (s *_geoDistanceQuery) QueryName_(queryname_ string) *_geoDistanceQuery {
+func (s *_geoDistanceQuery) ValidationMethod(validationmethod geovalidationmethod.GeoValidationMethod) *_geoDistanceQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.ValidationMethod = &validationmethod
+	return s
+}
+
+func (s *_geoDistanceQuery) Boost(boost float32) *_geoDistanceQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }
 
-func (s *_geoDistanceQuery) ValidationMethod(validationmethod geovalidationmethod.GeoValidationMethod) *_geoDistanceQuery {
+func (s *_geoDistanceQuery) QueryName_(queryname_ string) *_geoDistanceQuery {
 
-	s.v.ValidationMethod = &validationmethod
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

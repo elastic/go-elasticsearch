@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -35,16 +35,30 @@ func NewUppercaseProcessor() *_uppercaseProcessor {
 
 }
 
-func (s *_uppercaseProcessor) Description(description string) *_uppercaseProcessor {
+func (s *_uppercaseProcessor) Field(field string) *_uppercaseProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_uppercaseProcessor) Field(field string) *_uppercaseProcessor {
+func (s *_uppercaseProcessor) IgnoreMissing(ignoremissing bool) *_uppercaseProcessor {
 
-	s.v.Field = field
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_uppercaseProcessor) TargetField(field string) *_uppercaseProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_uppercaseProcessor) Description(description string) *_uppercaseProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -63,13 +77,6 @@ func (s *_uppercaseProcessor) IgnoreFailure(ignorefailure bool) *_uppercaseProce
 	return s
 }
 
-func (s *_uppercaseProcessor) IgnoreMissing(ignoremissing bool) *_uppercaseProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_uppercaseProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_uppercaseProcessor {
 
 	for _, v := range onfailures {
@@ -83,13 +90,6 @@ func (s *_uppercaseProcessor) OnFailure(onfailures ...types.ProcessorContainerVa
 func (s *_uppercaseProcessor) Tag(tag string) *_uppercaseProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_uppercaseProcessor) TargetField(field string) *_uppercaseProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

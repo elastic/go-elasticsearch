@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -31,9 +31,8 @@ import (
 
 // PinnedQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/specialized.ts#L247-L267
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_types/query_dsl/specialized.ts#L247-L267
 type PinnedQuery struct {
-	AdditionalPinnedQueryProperty map[string]json.RawMessage `json:"-"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
 	// Boost values are relative to the default value of 1.0.
@@ -110,58 +109,14 @@ func (s *PinnedQuery) UnmarshalJSON(data []byte) error {
 			}
 			s.QueryName_ = &o
 
-		default:
-
-			if key, ok := t.(string); ok {
-				if s.AdditionalPinnedQueryProperty == nil {
-					s.AdditionalPinnedQueryProperty = make(map[string]json.RawMessage, 0)
-				}
-				raw := new(json.RawMessage)
-				if err := dec.Decode(&raw); err != nil {
-					return fmt.Errorf("%s | %w", "AdditionalPinnedQueryProperty", err)
-				}
-				s.AdditionalPinnedQueryProperty[key] = *raw
-			}
-
 		}
 	}
 	return nil
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s PinnedQuery) MarshalJSON() ([]byte, error) {
-	type opt PinnedQuery
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalPinnedQueryProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalPinnedQueryProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewPinnedQuery returns a PinnedQuery.
 func NewPinnedQuery() *PinnedQuery {
-	r := &PinnedQuery{
-		AdditionalPinnedQueryProperty: make(map[string]json.RawMessage),
-	}
+	r := &PinnedQuery{}
 
 	return r
 }
