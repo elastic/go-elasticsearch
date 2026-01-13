@@ -660,7 +660,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", strconv.Itoa(*r.` + p + `))
 							}` + "\n")
-						case "string", "enum", "date":
+						case "string", "enum":
 							pathGrow.WriteString(`len(r.` + p + `) + `)
 							pathContent.WriteString(`	path.WriteString(r.` + p + `)` + "\n")
 							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -695,7 +695,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 							p = a.GoName()
 
 							switch a.Type {
-							case "string", "enum", "date":
+							case "string", "enum":
 								pathGrow.WriteString(`1 + len(r.` + p + `) + `)
 								pathContent.WriteString(`	if r.` + p + ` != "" {` + "\n")
 								pathContent.WriteString(`		path.WriteString("/")` + "\n")
