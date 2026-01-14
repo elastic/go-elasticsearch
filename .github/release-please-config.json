@@ -4,6 +4,7 @@
     "include-component-in-tag": false,
     "include-v-in-tag": true,
     "versioning": "always-bump-patch",
+    "draft-pull-request": true,
     "packages": {
         ".": {
             "version-file": "internal/version/version.go"
