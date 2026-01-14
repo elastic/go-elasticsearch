@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,16 +44,17 @@ func newCatTasksFunc(t Transport) CatTasks {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatTasks returns information about the tasks currently executing on one or more nodes in the cluster.
+// CatTasks get task information
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-tasks.
 type CatTasks func(o ...func(*CatTasksRequest)) (*Response, error)
 
 // CatTasksRequest configures the Cat Tasks API request.
 type CatTasksRequest struct {
 	Actions           []string
+	Bytes             string
 	Detailed          *bool
 	Format            string
 	H                 []string
@@ -105,6 +106,10 @@ func (r CatTasksRequest) Do(providedCtx context.Context, transport Transport) (*
 
 	if len(r.Actions) > 0 {
 		params["actions"] = strings.Join(r.Actions, ",")
+	}
+
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
 	}
 
 	if r.Detailed != nil {
@@ -233,6 +238,13 @@ func (f CatTasks) WithContext(v context.Context) func(*CatTasksRequest) {
 func (f CatTasks) WithActions(v ...string) func(*CatTasksRequest) {
 	return func(r *CatTasksRequest) {
 		r.Actions = v
+	}
+}
+
+// WithBytes - the unit in which to display byte values.
+func (f CatTasks) WithBytes(v string) func(*CatTasksRequest) {
+	return func(r *CatTasksRequest) {
+		r.Bytes = v
 	}
 }
 

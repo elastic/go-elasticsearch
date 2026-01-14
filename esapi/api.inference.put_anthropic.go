@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutAnthropicFunc(t Transport) InferencePutAnthropic {
-	return func(anthropic_inference_id string, task_type string, o ...func(*InferencePutAnthropicRequest)) (*Response, error) {
-		var r = InferencePutAnthropicRequest{AnthropicInferenceID: anthropic_inference_id, TaskType: task_type}
+	return func(body io.Reader, anthropic_inference_id string, task_type string, o ...func(*InferencePutAnthropicRequest)) (*Response, error) {
+		var r = InferencePutAnthropicRequest{Body: body, AnthropicInferenceID: anthropic_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutAnthropicFunc(t Transport) InferencePutAnthropic {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAnthropic configure an Anthropic inference endpoint
+// InferencePutAnthropic create an Anthropic inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-anthropic.html.
-type InferencePutAnthropic func(anthropic_inference_id string, task_type string, o ...func(*InferencePutAnthropicRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-anthropic.
+type InferencePutAnthropic func(body io.Reader, anthropic_inference_id string, task_type string, o ...func(*InferencePutAnthropicRequest)) (*Response, error)
 
 // InferencePutAnthropicRequest configures the Inference Put Anthropic API request.
 type InferencePutAnthropicRequest struct {
@@ -54,6 +55,8 @@ type InferencePutAnthropicRequest struct {
 
 	AnthropicInferenceID string
 	TaskType             string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutAnthropicRequest) Do(providedCtx context.Context, transport 
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutAnthropic) WithContext(v context.Context) func(*InferencePut
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutAnthropic) WithBody(v io.Reader) func(*InferencePutAnthropicRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutAnthropic) WithTimeout(v time.Duration) func(*InferencePutAnthropicRequest) {
 	return func(r *InferencePutAnthropicRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,10 +44,9 @@ func newClusterPendingTasksFunc(t Transport) ClusterPendingTasks {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterPendingTasks returns a list of any cluster-level changes (e.g. create index, update mapping,
-// allocate or fail shard) which have not yet been executed.
+// ClusterPendingTasks get the pending cluster tasks
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-pending.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-pending-tasks.
 type ClusterPendingTasks func(o ...func(*ClusterPendingTasksRequest)) (*Response, error)
 
 // ClusterPendingTasksRequest configures the Cluster Pending Tasks API request.

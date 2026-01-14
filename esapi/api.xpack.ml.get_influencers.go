@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newMLGetInfluencersFunc(t Transport) MLGetInfluencers {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetInfluencers - Retrieves anomaly detection job results for one or more influencers.
+// MLGetInfluencers - Get anomaly detection job results for influencers
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-influencer.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-influencers.
 type MLGetInfluencers func(job_id string, o ...func(*MLGetInfluencersRequest)) (*Response, error)
 
 // MLGetInfluencersRequest configures the ML Get Influencers API request.

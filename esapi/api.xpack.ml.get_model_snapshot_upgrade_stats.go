@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLGetModelSnapshotUpgradeStatsFunc(t Transport) MLGetModelSnapshotUpgrad
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetModelSnapshotUpgradeStats - Gets stats for anomaly detection job model snapshot upgrades that are in progress.
+// MLGetModelSnapshotUpgradeStats - Get anomaly detection job model snapshot upgrade usage info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job-model-snapshot-upgrade-stats.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-model-snapshot-upgrade-stats.
 type MLGetModelSnapshotUpgradeStats func(snapshot_id string, job_id string, o ...func(*MLGetModelSnapshotUpgradeStatsRequest)) (*Response, error)
 
 // MLGetModelSnapshotUpgradeStatsRequest configures the ML Get Model Snapshot Upgrade Stats API request.

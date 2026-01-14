@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -47,7 +47,7 @@ func newSearchableSnapshotsClearCacheFunc(t Transport) SearchableSnapshotsClearC
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-clear-cache.
 type SearchableSnapshotsClearCache func(o ...func(*SearchableSnapshotsClearCacheRequest)) (*Response, error)
 
 // SearchableSnapshotsClearCacheRequest configures the Searchable Snapshots Clear Cache API request.
@@ -55,7 +55,7 @@ type SearchableSnapshotsClearCacheRequest struct {
 	Index []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 
 	Pretty     bool
@@ -111,8 +111,8 @@ func (r SearchableSnapshotsClearCacheRequest) Do(providedCtx context.Context, tr
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -197,7 +197,7 @@ func (f SearchableSnapshotsClearCache) WithContext(v context.Context) func(*Sear
 	}
 }
 
-// WithIndex - a list of index names.
+// WithIndex - clear the cache.
 func (f SearchableSnapshotsClearCache) WithIndex(v ...string) func(*SearchableSnapshotsClearCacheRequest) {
 	return func(r *SearchableSnapshotsClearCacheRequest) {
 		r.Index = v
@@ -212,7 +212,7 @@ func (f SearchableSnapshotsClearCache) WithAllowNoIndices(v bool) func(*Searchab
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f SearchableSnapshotsClearCache) WithExpandWildcards(v string) func(*SearchableSnapshotsClearCacheRequest) {
+func (f SearchableSnapshotsClearCache) WithExpandWildcards(v ...string) func(*SearchableSnapshotsClearCacheRequest) {
 	return func(r *SearchableSnapshotsClearCacheRequest) {
 		r.ExpandWildcards = v
 	}

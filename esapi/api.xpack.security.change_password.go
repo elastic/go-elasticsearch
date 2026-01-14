@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityChangePasswordFunc(t Transport) SecurityChangePassword {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityChangePassword - Changes the passwords of users in the native realm and built-in users.
+// SecurityChangePassword - Change passwords
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-change-password.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-change-password.
 type SecurityChangePassword func(body io.Reader, o ...func(*SecurityChangePasswordRequest)) (*Response, error)
 
 // SecurityChangePasswordRequest configures the Security Change Password API request.

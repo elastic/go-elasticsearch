@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
@@ -28,7 +29,7 @@ import (
 )
 
 func newIndicesExplainDataLifecycleFunc(t Transport) IndicesExplainDataLifecycle {
-	return func(index string, o ...func(*IndicesExplainDataLifecycleRequest)) (*Response, error) {
+	return func(index []string, o ...func(*IndicesExplainDataLifecycleRequest)) (*Response, error) {
 		var r = IndicesExplainDataLifecycleRequest{Index: index}
 		for _, f := range o {
 			f(&r)
@@ -44,14 +45,14 @@ func newIndicesExplainDataLifecycleFunc(t Transport) IndicesExplainDataLifecycle
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesExplainDataLifecycle retrieves information about the index's current data stream lifecycle, such as any potential encountered error, time since creation etc.
+// IndicesExplainDataLifecycle get the status for a data stream lifecycle
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-explain-lifecycle.html.
-type IndicesExplainDataLifecycle func(index string, o ...func(*IndicesExplainDataLifecycleRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-explain-data-lifecycle.
+type IndicesExplainDataLifecycle func(index []string, o ...func(*IndicesExplainDataLifecycleRequest)) (*Response, error)
 
 // IndicesExplainDataLifecycleRequest configures the Indices Explain Data Lifecycle API request.
 type IndicesExplainDataLifecycleRequest struct {
-	Index string
+	Index []string
 
 	IncludeDefaults *bool
 	MasterTimeout   time.Duration
@@ -87,12 +88,16 @@ func (r IndicesExplainDataLifecycleRequest) Do(providedCtx context.Context, tran
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_lifecycle") + 1 + len("explain"))
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_lifecycle") + 1 + len("explain"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString(strings.Join(r.Index, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "index", r.Index)
+		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_lifecycle")

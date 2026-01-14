@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newEnrichStatsFunc(t Transport) EnrichStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// EnrichStats - Gets enrich coordinator statistics and information about enrich policies that are currently executing.
+// EnrichStats - Get enrich stats
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-stats-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-stats.
 type EnrichStats func(o ...func(*EnrichStatsRequest)) (*Response, error)
 
 // EnrichStatsRequest configures the Enrich Stats API request.

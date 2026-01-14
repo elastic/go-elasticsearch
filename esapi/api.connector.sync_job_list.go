@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newConnectorSyncJobListFunc(t Transport) ConnectorSyncJobList {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobList lists all connector sync jobs.
+// ConnectorSyncJobList get all connector sync jobs
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-connector-sync-jobs-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-list.
 type ConnectorSyncJobList func(o ...func(*ConnectorSyncJobListRequest)) (*Response, error)
 
 // ConnectorSyncJobListRequest configures the Connector Sync Job List API request.
@@ -221,7 +221,7 @@ func (f ConnectorSyncJobList) WithSize(v int) func(*ConnectorSyncJobListRequest)
 	}
 }
 
-// WithStatus - sync job status, which sync jobs are fetched for.
+// WithStatus - a sync job status to fetch connector sync jobs for.
 func (f ConnectorSyncJobList) WithStatus(v string) func(*ConnectorSyncJobListRequest) {
 	return func(r *ConnectorSyncJobListRequest) {
 		r.Status = v

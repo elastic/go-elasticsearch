@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newILMGetLifecycleFunc(t Transport) ILMGetLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMGetLifecycle - Returns the specified policy definition. Includes the policy version and last modified date.
+// ILMGetLifecycle - Get lifecycle policies
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-lifecycle.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-get-lifecycle.
 type ILMGetLifecycle func(o ...func(*ILMGetLifecycleRequest)) (*Response, error)
 
 // ILMGetLifecycleRequest configures the ILM Get Lifecycle API request.

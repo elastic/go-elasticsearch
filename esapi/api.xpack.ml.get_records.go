@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newMLGetRecordsFunc(t Transport) MLGetRecords {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetRecords - Retrieves anomaly records for an anomaly detection job.
+// MLGetRecords - Get anomaly records for an anomaly detection job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-record.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-records.
 type MLGetRecords func(job_id string, o ...func(*MLGetRecordsRequest)) (*Response, error)
 
 // MLGetRecordsRequest configures the ML Get Records API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newIndicesGetFunc(t Transport) IndicesGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGet returns information about one or more indices.
+// IndicesGet get index information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-index.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get.
 type IndicesGet func(index []string, o ...func(*IndicesGetRequest)) (*Response, error)
 
 // IndicesGetRequest configures the Indices Get API request.
@@ -55,8 +55,8 @@ type IndicesGetRequest struct {
 	Index []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
-	Features          string
+	ExpandWildcards   []string
+	Features          []string
 	FlatSettings      *bool
 	IgnoreUnavailable *bool
 	IncludeDefaults   *bool
@@ -112,12 +112,12 @@ func (r IndicesGetRequest) Do(providedCtx context.Context, transport Transport) 
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
-	if r.Features != "" {
-		params["features"] = r.Features
+	if len(r.Features) > 0 {
+		params["features"] = strings.Join(r.Features, ",")
 	}
 
 	if r.FlatSettings != nil {
@@ -226,14 +226,14 @@ func (f IndicesGet) WithAllowNoIndices(v bool) func(*IndicesGetRequest) {
 }
 
 // WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesGet) WithExpandWildcards(v string) func(*IndicesGetRequest) {
+func (f IndicesGet) WithExpandWildcards(v ...string) func(*IndicesGetRequest) {
 	return func(r *IndicesGetRequest) {
 		r.ExpandWildcards = v
 	}
 }
 
 // WithFeatures - return only information on specified index features.
-func (f IndicesGet) WithFeatures(v string) func(*IndicesGetRequest) {
+func (f IndicesGet) WithFeatures(v ...string) func(*IndicesGetRequest) {
 	return func(r *IndicesGetRequest) {
 		r.Features = v
 	}

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,11 @@ func newRollupGetRollupCapsFunc(t Transport) RollupGetRollupCaps {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupGetRollupCaps - Returns the capabilities of any rollup jobs that have been configured for a specific index or index pattern.
+// RollupGetRollupCaps - Get the rollup job capabilities
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-rollup-caps.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-rollup-caps.
 type RollupGetRollupCaps func(o ...func(*RollupGetRollupCapsRequest)) (*Response, error)
 
 // RollupGetRollupCapsRequest configures the Rollup Get Rollup Caps API request.

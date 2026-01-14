@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newSecurityQueryAPIKeysFunc(t Transport) SecurityQueryAPIKeys {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityQueryAPIKeys - Retrieves information for API keys using a subset of query DSL
+// SecurityQueryAPIKeys - Find API keys with a query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-api-key.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-api-keys.
 type SecurityQueryAPIKeys func(o ...func(*SecurityQueryAPIKeysRequest)) (*Response, error)
 
 // SecurityQueryAPIKeysRequest configures the Security QueryAPI Keys API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityBulkUpdateAPIKeysFunc(t Transport) SecurityBulkUpdateAPIKeys {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityBulkUpdateAPIKeys - Updates the attributes of multiple existing API keys.
+// SecurityBulkUpdateAPIKeys - Bulk update API keys
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-update-api-keys.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-update-api-keys.
 type SecurityBulkUpdateAPIKeys func(body io.Reader, o ...func(*SecurityBulkUpdateAPIKeysRequest)) (*Response, error)
 
 // SecurityBulkUpdateAPIKeysRequest configures the Security Bulk UpdateAPI Keys API request.

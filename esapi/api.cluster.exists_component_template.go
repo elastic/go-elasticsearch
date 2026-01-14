@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
@@ -28,7 +29,7 @@ import (
 )
 
 func newClusterExistsComponentTemplateFunc(t Transport) ClusterExistsComponentTemplate {
-	return func(name string, o ...func(*ClusterExistsComponentTemplateRequest)) (*Response, error) {
+	return func(name []string, o ...func(*ClusterExistsComponentTemplateRequest)) (*Response, error) {
 		var r = ClusterExistsComponentTemplateRequest{Name: name}
 		for _, f := range o {
 			f(&r)
@@ -44,14 +45,14 @@ func newClusterExistsComponentTemplateFunc(t Transport) ClusterExistsComponentTe
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterExistsComponentTemplate returns information about whether a particular component template exist
+// ClusterExistsComponentTemplate check component templates
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
-type ClusterExistsComponentTemplate func(name string, o ...func(*ClusterExistsComponentTemplateRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template.
+type ClusterExistsComponentTemplate func(name []string, o ...func(*ClusterExistsComponentTemplateRequest)) (*Response, error)
 
 // ClusterExistsComponentTemplateRequest configures the Cluster Exists Component Template API request.
 type ClusterExistsComponentTemplateRequest struct {
-	Name string
+	Name []string
 
 	Local         *bool
 	MasterTimeout time.Duration
@@ -87,14 +88,18 @@ func (r ClusterExistsComponentTemplateRequest) Do(providedCtx context.Context, t
 
 	method = "HEAD"
 
-	path.Grow(7 + 1 + len("_component_template") + 1 + len(r.Name))
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_component_template") + 1 + len(strings.Join(r.Name, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_component_template")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(strings.Join(r.Name, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", r.Name)
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
 	}
 
 	params = make(map[string]string)

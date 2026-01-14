@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecuritySamlCompleteLogoutFunc(t Transport) SecuritySamlCompleteLogout {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecuritySamlCompleteLogout - Verifies the logout response sent from the SAML IdP
+// SecuritySamlCompleteLogout - Logout of SAML completely
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-complete-logout.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-complete-logout.
 type SecuritySamlCompleteLogout func(body io.Reader, o ...func(*SecuritySamlCompleteLogoutRequest)) (*Response, error)
 
 // SecuritySamlCompleteLogoutRequest configures the Security Saml Complete Logout API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newSecurityQueryUserFunc(t Transport) SecurityQueryUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityQueryUser - Retrieves information for Users using a subset of query DSL
+// SecurityQueryUser - Find users with a query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-user.
 type SecurityQueryUser func(o ...func(*SecurityQueryUserRequest)) (*Response, error)
 
 // SecurityQueryUserRequest configures the Security Query User API request.

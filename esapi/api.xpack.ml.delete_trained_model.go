@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLDeleteTrainedModelFunc(t Transport) MLDeleteTrainedModel {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteTrainedModel - Deletes an existing trained inference model that is currently not referenced by an ingest pipeline.
+// MLDeleteTrainedModel - Delete an unreferenced trained model
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-trained-models.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model.
 type MLDeleteTrainedModel func(model_id string, o ...func(*MLDeleteTrainedModelRequest)) (*Response, error)
 
 // MLDeleteTrainedModelRequest configures the ML Delete Trained Model API request.

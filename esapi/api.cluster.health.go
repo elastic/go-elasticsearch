@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,16 +44,16 @@ func newClusterHealthFunc(t Transport) ClusterHealth {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterHealth returns basic information about the health of the cluster.
+// ClusterHealth get the cluster health status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-health.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-health.
 type ClusterHealth func(o ...func(*ClusterHealthRequest)) (*Response, error)
 
 // ClusterHealthRequest configures the Cluster Health API request.
 type ClusterHealthRequest struct {
 	Index []string
 
-	ExpandWildcards             string
+	ExpandWildcards             []string
 	Level                       string
 	Local                       *bool
 	MasterTimeout               time.Duration
@@ -112,8 +112,8 @@ func (r ClusterHealthRequest) Do(providedCtx context.Context, transport Transpor
 
 	params = make(map[string]string)
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.Level != "" {
@@ -242,7 +242,7 @@ func (f ClusterHealth) WithIndex(v ...string) func(*ClusterHealthRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f ClusterHealth) WithExpandWildcards(v string) func(*ClusterHealthRequest) {
+func (f ClusterHealth) WithExpandWildcards(v ...string) func(*ClusterHealthRequest) {
 	return func(r *ClusterHealthRequest) {
 		r.ExpandWildcards = v
 	}
