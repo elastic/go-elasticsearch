@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newNodesUsageFunc(t Transport) NodesUsage {
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesUsage returns low-level information about REST actions usage on nodes.
+// NodesUsage get feature usage information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-usage.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-usage.
 type NodesUsage func(o ...func(*NodesUsageRequest)) (*Response, error)
 
 // NodesUsageRequest configures the Nodes Usage API request.

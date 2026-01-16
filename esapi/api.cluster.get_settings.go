@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newClusterGetSettingsFunc(t Transport) ClusterGetSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterGetSettings returns cluster settings.
+// ClusterGetSettings get cluster-wide settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-get-settings.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-get-settings.
 type ClusterGetSettings func(o ...func(*ClusterGetSettingsRequest)) (*Response, error)
 
 // ClusterGetSettingsRequest configures the Cluster Get Settings API request.

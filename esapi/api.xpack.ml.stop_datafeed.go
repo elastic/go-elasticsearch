@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newMLStopDatafeedFunc(t Transport) MLStopDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStopDatafeed - Stops one or more datafeeds.
+// MLStopDatafeed - Stop datafeeds
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-stop-datafeed.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-datafeed.
 type MLStopDatafeed func(datafeed_id string, o ...func(*MLStopDatafeedRequest)) (*Response, error)
 
 // MLStopDatafeedRequest configures the ML Stop Datafeed API request.
@@ -57,6 +57,7 @@ type MLStopDatafeedRequest struct {
 	DatafeedID string
 
 	AllowNoMatch *bool
+	CloseJob     *bool
 	Force        *bool
 	Timeout      time.Duration
 
@@ -109,6 +110,10 @@ func (r MLStopDatafeedRequest) Do(providedCtx context.Context, transport Transpo
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
+	}
+
+	if r.CloseJob != nil {
+		params["close_job"] = strconv.FormatBool(*r.CloseJob)
 	}
 
 	if r.Force != nil {
@@ -215,6 +220,13 @@ func (f MLStopDatafeed) WithBody(v io.Reader) func(*MLStopDatafeedRequest) {
 func (f MLStopDatafeed) WithAllowNoMatch(v bool) func(*MLStopDatafeedRequest) {
 	return func(r *MLStopDatafeedRequest) {
 		r.AllowNoMatch = &v
+	}
+}
+
+// WithCloseJob - true if the job associated with the datafeed should be closed..
+func (f MLStopDatafeed) WithCloseJob(v bool) func(*MLStopDatafeedRequest) {
+	return func(r *MLStopDatafeedRequest) {
+		r.CloseJob = &v
 	}
 }
 

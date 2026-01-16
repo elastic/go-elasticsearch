@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newQueryRulesPutRuleFunc(t Transport) QueryRulesPutRule {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesPutRule creates or updates a query rule within a ruleset.
+// QueryRulesPutRule create or update a query rule
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-query-rule.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-rule.
 type QueryRulesPutRule func(body io.Reader, rule_id string, ruleset_id string, o ...func(*QueryRulesPutRuleRequest)) (*Response, error)
 
 // QueryRulesPutRuleRequest configures the Query Rules Put Rule API request.

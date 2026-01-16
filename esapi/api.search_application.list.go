@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newSearchApplicationListFunc(t Transport) SearchApplicationList {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationList returns the existing search applications.
+// SearchApplicationList get search applications
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-search-applications.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics.
 type SearchApplicationList func(o ...func(*SearchApplicationListRequest)) (*Response, error)
 
 // SearchApplicationListRequest configures the Search Application List API request.

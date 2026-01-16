@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newRollupPutJobFunc(t Transport) RollupPutJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupPutJob - Creates a rollup job.
+// RollupPutJob - Create a rollup job
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-put-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-put-job.
 type RollupPutJob func(id string, body io.Reader, o ...func(*RollupPutJobRequest)) (*Response, error)
 
 // RollupPutJobRequest configures the Rollup Put Job API request.

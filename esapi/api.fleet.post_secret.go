@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,7 +43,7 @@ func newFleetPostSecretFunc(t Transport) FleetPostSecret {
 
 // ----- API Definition -------------------------------------------------------
 
-// FleetPostSecret creates a secret stored by Fleet.
+// FleetPostSecret creates a secret stored by Fleet
 //
 // This API is experimental.
 type FleetPostSecret func(body io.Reader, o ...func(*FleetPostSecretRequest)) (*Response, error)

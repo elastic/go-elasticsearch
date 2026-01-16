@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,16 +44,16 @@ func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataStream - Returns data streams.
+// IndicesGetDataStream - Get data streams
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream.
 type IndicesGetDataStream func(o ...func(*IndicesGetDataStreamRequest)) (*Response, error)
 
 // IndicesGetDataStreamRequest configures the Indices Get Data Stream API request.
 type IndicesGetDataStreamRequest struct {
 	Name []string
 
-	ExpandWildcards string
+	ExpandWildcards []string
 	IncludeDefaults *bool
 	MasterTimeout   time.Duration
 	Verbose         *bool
@@ -103,8 +103,8 @@ func (r IndicesGetDataStreamRequest) Do(providedCtx context.Context, transport T
 
 	params = make(map[string]string)
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IncludeDefaults != nil {
@@ -205,7 +205,7 @@ func (f IndicesGetDataStream) WithName(v ...string) func(*IndicesGetDataStreamRe
 }
 
 // WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesGetDataStream) WithExpandWildcards(v string) func(*IndicesGetDataStreamRequest) {
+func (f IndicesGetDataStream) WithExpandWildcards(v ...string) func(*IndicesGetDataStreamRequest) {
 	return func(r *IndicesGetDataStreamRequest) {
 		r.ExpandWildcards = v
 	}

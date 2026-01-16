@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newSearchApplicationRenderQueryFunc(t Transport) SearchApplicationRenderQue
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationRenderQuery renders a query for given search application search parameters
+// SearchApplicationRenderQuery render a search application query
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-render-query.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-render-query.
 type SearchApplicationRenderQuery func(name string, o ...func(*SearchApplicationRenderQueryRequest)) (*Response, error)
 
 // SearchApplicationRenderQueryRequest configures the Search Application Render Query API request.

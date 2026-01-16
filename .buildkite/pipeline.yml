@@ -6,10 +6,10 @@ steps:
       # NOTE: This controls the Elasticsearch container config (http/no security vs https/security).
       # The YAML test suites are no longer split into free/platinum folders, so we run a single suite.
       TEST_SUITE: "platinum"
-      STACK_VERSION: 9.1.0-SNAPSHOT
+      STACK_VERSION: 9.3.0-SNAPSHOT
       WORKSPACE: /tmp/go-elasticsearch
       # Repo containing the YAML tests (default branch can be overridden per build)
-      ELASTICSEARCH_CLIENTS_TESTS_BRANCH: 9.1
+      ELASTICSEARCH_CLIENTS_TESTS_BRANCH: 9.3
     command: ./.buildkite/run-tests
     artifact_paths: "elasticsearch-api/tmp/*"
   - wait: ~

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newCCRFollowInfoFunc(t Transport) CCRFollowInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRFollowInfo - Retrieves information about all follower indices, including parameters and status for each follower index
+// CCRFollowInfo - Get follower information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-info.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-follow-info.
 type CCRFollowInfo func(index []string, o ...func(*CCRFollowInfoRequest)) (*Response, error)
 
 // CCRFollowInfoRequest configures the CCR Follow Info API request.

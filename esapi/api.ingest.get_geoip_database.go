@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newIngestGetGeoipDatabaseFunc(t Transport) IngestGetGeoipDatabase {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestGetGeoipDatabase returns geoip database configuration.
+// IngestGetGeoipDatabase get GeoIP database configurations
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-geoip-database-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-geoip-database.
 type IngestGetGeoipDatabase func(o ...func(*IngestGetGeoipDatabaseRequest)) (*Response, error)
 
 // IngestGetGeoipDatabaseRequest configures the Ingest Get Geoip Database API request.

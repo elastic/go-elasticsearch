@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,11 +45,11 @@ func newRollupRollupSearchFunc(t Transport) RollupRollupSearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupRollupSearch - Enables searching rolled-up data using the standard query DSL.
+// RollupRollupSearch - Search rolled-up data
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-search.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-rollup-search.
 type RollupRollupSearch func(index []string, body io.Reader, o ...func(*RollupRollupSearchRequest)) (*Response, error)
 
 // RollupRollupSearchRequest configures the Rollup Rollup Search API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newWatcherGetWatchFunc(t Transport) WatcherGetWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherGetWatch - Retrieves a watch by its ID.
+// WatcherGetWatch - Get a watch
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-watch.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-get-watch.
 type WatcherGetWatch func(id string, o ...func(*WatcherGetWatchRequest)) (*Response, error)
 
 // WatcherGetWatchRequest configures the Watcher Get Watch API request.

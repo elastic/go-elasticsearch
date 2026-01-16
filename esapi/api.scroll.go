@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newScrollFunc(t Transport) Scroll {
 
 // ----- API Definition -------------------------------------------------------
 
-// Scroll allows to retrieve a large numbers of results from a single search request.
+// Scroll run a scrolling search
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#request-body-search-scroll.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-scroll.
 type Scroll func(o ...func(*ScrollRequest)) (*Response, error)
 
 // ScrollRequest configures the Scroll API request.

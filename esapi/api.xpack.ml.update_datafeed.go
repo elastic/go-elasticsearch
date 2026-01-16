@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLUpdateDatafeedFunc(t Transport) MLUpdateDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpdateDatafeed - Updates certain properties of a datafeed.
+// MLUpdateDatafeed - Update a datafeed
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-datafeed.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-datafeed.
 type MLUpdateDatafeed func(body io.Reader, datafeed_id string, o ...func(*MLUpdateDatafeedRequest)) (*Response, error)
 
 // MLUpdateDatafeedRequest configures the ML Update Datafeed API request.
@@ -56,7 +56,7 @@ type MLUpdateDatafeedRequest struct {
 	DatafeedID string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreThrottled   *bool
 	IgnoreUnavailable *bool
 
@@ -111,8 +111,8 @@ func (r MLUpdateDatafeedRequest) Do(providedCtx context.Context, transport Trans
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreThrottled != nil {
@@ -216,7 +216,7 @@ func (f MLUpdateDatafeed) WithAllowNoIndices(v bool) func(*MLUpdateDatafeedReque
 }
 
 // WithExpandWildcards - whether source index expressions should get expanded to open or closed indices (default: open).
-func (f MLUpdateDatafeed) WithExpandWildcards(v string) func(*MLUpdateDatafeedRequest) {
+func (f MLUpdateDatafeed) WithExpandWildcards(v ...string) func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.ExpandWildcards = v
 	}

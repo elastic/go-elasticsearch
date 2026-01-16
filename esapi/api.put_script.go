@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newPutScriptFunc(t Transport) PutScript {
 
 // ----- API Definition -------------------------------------------------------
 
-// PutScript creates or updates a script.
+// PutScript create or update a script or search template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-put-script.
 type PutScript func(id string, body io.Reader, o ...func(*PutScriptRequest)) (*Response, error)
 
 // PutScriptRequest configures the Put Script API request.

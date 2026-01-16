@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newTransformUpgradeTransformsFunc(t Transport) TransformUpgradeTransforms {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformUpgradeTransforms - Upgrades all transforms.
+// TransformUpgradeTransforms - Upgrade all transforms
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/upgrade-transforms.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-upgrade-transforms.
 type TransformUpgradeTransforms func(o ...func(*TransformUpgradeTransformsRequest)) (*Response, error)
 
 // TransformUpgradeTransformsRequest configures the Transform Upgrade Transforms API request.

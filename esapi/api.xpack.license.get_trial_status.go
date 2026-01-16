@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newLicenseGetTrialStatusFunc(t Transport) LicenseGetTrialStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicenseGetTrialStatus - Retrieves information about the status of the trial license.
+// LicenseGetTrialStatus - Get the trial status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-trial-status.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get-trial-status.
 type LicenseGetTrialStatus func(o ...func(*LicenseGetTrialStatusRequest)) (*Response, error)
 
 // LicenseGetTrialStatusRequest configures the License Get Trial Status API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -29,8 +29,8 @@ import (
 )
 
 func newIndicesPutDataStreamOptionsFunc(t Transport) IndicesPutDataStreamOptions {
-	return func(name []string, o ...func(*IndicesPutDataStreamOptionsRequest)) (*Response, error) {
-		var r = IndicesPutDataStreamOptionsRequest{Name: name}
+	return func(name []string, body io.Reader, o ...func(*IndicesPutDataStreamOptionsRequest)) (*Response, error) {
+		var r = IndicesPutDataStreamOptionsRequest{Name: name, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,10 +45,10 @@ func newIndicesPutDataStreamOptionsFunc(t Transport) IndicesPutDataStreamOptions
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutDataStreamOptions updates the data stream options of the selected data streams.
+// IndicesPutDataStreamOptions update data stream options
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
-type IndicesPutDataStreamOptions func(name []string, o ...func(*IndicesPutDataStreamOptionsRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-options.
+type IndicesPutDataStreamOptions func(name []string, body io.Reader, o ...func(*IndicesPutDataStreamOptionsRequest)) (*Response, error)
 
 // IndicesPutDataStreamOptionsRequest configures the Indices Put Data Stream Options API request.
 type IndicesPutDataStreamOptionsRequest struct {
@@ -56,7 +56,7 @@ type IndicesPutDataStreamOptionsRequest struct {
 
 	Name []string
 
-	ExpandWildcards string
+	ExpandWildcards []string
 	MasterTimeout   time.Duration
 	Timeout         time.Duration
 
@@ -109,8 +109,8 @@ func (r IndicesPutDataStreamOptionsRequest) Do(providedCtx context.Context, tran
 
 	params = make(map[string]string)
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.MasterTimeout != 0 {
@@ -206,15 +206,8 @@ func (f IndicesPutDataStreamOptions) WithContext(v context.Context) func(*Indice
 	}
 }
 
-// WithBody - The data stream options configuration that consist of the failure store configuration.
-func (f IndicesPutDataStreamOptions) WithBody(v io.Reader) func(*IndicesPutDataStreamOptionsRequest) {
-	return func(r *IndicesPutDataStreamOptionsRequest) {
-		r.Body = v
-	}
-}
-
 // WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesPutDataStreamOptions) WithExpandWildcards(v string) func(*IndicesPutDataStreamOptionsRequest) {
+func (f IndicesPutDataStreamOptions) WithExpandWildcards(v ...string) func(*IndicesPutDataStreamOptionsRequest) {
 	return func(r *IndicesPutDataStreamOptionsRequest) {
 		r.ExpandWildcards = v
 	}

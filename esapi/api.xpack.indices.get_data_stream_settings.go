@@ -15,19 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 	"time"
 )
 
 func newIndicesGetDataStreamSettingsFunc(t Transport) IndicesGetDataStreamSettings {
-	return func(name string, o ...func(*IndicesGetDataStreamSettingsRequest)) (*Response, error) {
+	return func(name []string, o ...func(*IndicesGetDataStreamSettingsRequest)) (*Response, error) {
 		var r = IndicesGetDataStreamSettingsRequest{Name: name}
 		for _, f := range o {
 			f(&r)
@@ -43,14 +44,14 @@ func newIndicesGetDataStreamSettingsFunc(t Transport) IndicesGetDataStreamSettin
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataStreamSettings - Gets a data stream's settings
+// IndicesGetDataStreamSettings - Get data stream settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
-type IndicesGetDataStreamSettings func(name string, o ...func(*IndicesGetDataStreamSettingsRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-settings.
+type IndicesGetDataStreamSettings func(name []string, o ...func(*IndicesGetDataStreamSettingsRequest)) (*Response, error)
 
 // IndicesGetDataStreamSettingsRequest configures the Indices Get Data Stream Settings API request.
 type IndicesGetDataStreamSettingsRequest struct {
-	Name string
+	Name []string
 
 	MasterTimeout time.Duration
 
@@ -85,14 +86,18 @@ func (r IndicesGetDataStreamSettingsRequest) Do(providedCtx context.Context, tra
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_data_stream") + 1 + len(r.Name) + 1 + len("_settings"))
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_settings"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_data_stream")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(strings.Join(r.Name, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", r.Name)
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_settings")

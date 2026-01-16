@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredent
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetServiceCredentials - Retrieves information of all service credentials for a service account.
+// SecurityGetServiceCredentials - Get service account credentials
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-credentials.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-service-credentials.
 type SecurityGetServiceCredentials func(namespace string, service string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error)
 
 // SecurityGetServiceCredentialsRequest configures the Security Get Service Credentials API request.

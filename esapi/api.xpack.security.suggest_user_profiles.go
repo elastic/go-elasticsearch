@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecuritySuggestUserProfilesFunc(t Transport) SecuritySuggestUserProfiles
 
 // ----- API Definition -------------------------------------------------------
 
-// SecuritySuggestUserProfiles - Get suggestions for user profiles that match specified search criteria.
+// SecuritySuggestUserProfiles - Suggest a user profile
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-suggest-user-profile.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-suggest-user-profiles.
 type SecuritySuggestUserProfiles func(o ...func(*SecuritySuggestUserProfilesRequest)) (*Response, error)
 
 // SecuritySuggestUserProfilesRequest configures the Security Suggest User Profiles API request.

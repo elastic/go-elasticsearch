@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLGetCategoriesFunc(t Transport) MLGetCategories {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetCategories - Retrieves anomaly detection job results for one or more categories.
+// MLGetCategories - Get anomaly detection job results for categories
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-category.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-categories.
 type MLGetCategories func(job_id string, o ...func(*MLGetCategoriesRequest)) (*Response, error)
 
 // MLGetCategoriesRequest configures the ML Get Categories API request.

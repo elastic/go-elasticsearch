@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newWatcherActivateWatchFunc(t Transport) WatcherActivateWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherActivateWatch - Activates a currently inactive watch.
+// WatcherActivateWatch - Activate a watch
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-activate-watch.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-activate-watch.
 type WatcherActivateWatch func(watch_id string, o ...func(*WatcherActivateWatchRequest)) (*Response, error)
 
 // WatcherActivateWatchRequest configures the Watcher Activate Watch API request.

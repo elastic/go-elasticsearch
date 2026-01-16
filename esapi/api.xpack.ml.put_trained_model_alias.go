@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLPutTrainedModelAliasFunc(t Transport) MLPutTrainedModelAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutTrainedModelAlias - Creates a new model alias (or reassigns an existing one) to refer to the trained model
+// MLPutTrainedModelAlias - Create or update a trained model alias
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-models-aliases.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-alias.
 type MLPutTrainedModelAlias func(model_alias string, model_id string, o ...func(*MLPutTrainedModelAliasRequest)) (*Response, error)
 
 // MLPutTrainedModelAliasRequest configures the ML Put Trained Model Alias API request.

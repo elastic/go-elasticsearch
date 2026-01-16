@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,14 +43,14 @@ func newMLGetDatafeedsFunc(t Transport) MLGetDatafeeds {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDatafeeds - Retrieves configuration information for datafeeds.
+// MLGetDatafeeds - Get datafeeds configuration info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-datafeed.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-datafeeds.
 type MLGetDatafeeds func(o ...func(*MLGetDatafeedsRequest)) (*Response, error)
 
 // MLGetDatafeedsRequest configures the ML Get Datafeeds API request.
 type MLGetDatafeedsRequest struct {
-	DatafeedID string
+	DatafeedID []string
 
 	AllowNoMatch     *bool
 	ExcludeGenerated *bool
@@ -86,17 +86,17 @@ func (r MLGetDatafeedsRequest) Do(providedCtx context.Context, transport Transpo
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("datafeeds") + 1 + len(strings.Join(r.DatafeedID, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
 	path.WriteString("datafeeds")
-	if r.DatafeedID != "" {
+	if len(r.DatafeedID) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.DatafeedID)
+		path.WriteString(strings.Join(r.DatafeedID, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "datafeed_id", r.DatafeedID)
+			instrument.RecordPathPart(ctx, "datafeed_id", strings.Join(r.DatafeedID, ","))
 		}
 	}
 
@@ -188,8 +188,8 @@ func (f MLGetDatafeeds) WithContext(v context.Context) func(*MLGetDatafeedsReque
 	}
 }
 
-// WithDatafeedID - the ID of the datafeeds to fetch.
-func (f MLGetDatafeeds) WithDatafeedID(v string) func(*MLGetDatafeedsRequest) {
+// WithDatafeedID - identifier for the datafeed. it can be a datafeed identifier or a wildcard expression. if you do not specify one of these options, the api returns information about all datafeeds..
+func (f MLGetDatafeeds) WithDatafeedID(v ...string) func(*MLGetDatafeedsRequest) {
 	return func(r *MLGetDatafeedsRequest) {
 		r.DatafeedID = v
 	}

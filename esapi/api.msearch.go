@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMsearchFunc(t Transport) Msearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// Msearch allows to execute several search operations in one request.
+// Msearch run multiple searches
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-multi-search.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch.
 type Msearch func(body io.Reader, o ...func(*MsearchRequest)) (*Response, error)
 
 // MsearchRequest configures the Msearch API request.
@@ -57,13 +57,14 @@ type MsearchRequest struct {
 
 	AllowNoIndices             *bool
 	CcsMinimizeRoundtrips      *bool
-	ExpandWildcards            string
+	ExpandWildcards            []string
 	IgnoreThrottled            *bool
 	IgnoreUnavailable          *bool
 	IncludeNamedQueriesScore   *bool
 	MaxConcurrentSearches      *int
 	MaxConcurrentShardRequests *int
 	PreFilterShardSize         *int
+	ProjectRouting             string
 	RestTotalHitsAsInt         *bool
 	Routing                    []string
 	SearchType                 string
@@ -122,8 +123,8 @@ func (r MsearchRequest) Do(providedCtx context.Context, transport Transport) (*R
 		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreThrottled != nil {
@@ -152,6 +153,10 @@ func (r MsearchRequest) Do(providedCtx context.Context, transport Transport) (*R
 
 	if r.PreFilterShardSize != nil {
 		params["pre_filter_shard_size"] = strconv.FormatInt(int64(*r.PreFilterShardSize), 10)
+	}
+
+	if r.ProjectRouting != "" {
+		params["project_routing"] = r.ProjectRouting
 	}
 
 	if r.RestTotalHitsAsInt != nil {
@@ -277,7 +282,7 @@ func (f Msearch) WithCcsMinimizeRoundtrips(v bool) func(*MsearchRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f Msearch) WithExpandWildcards(v string) func(*MsearchRequest) {
+func (f Msearch) WithExpandWildcards(v ...string) func(*MsearchRequest) {
 	return func(r *MsearchRequest) {
 		r.ExpandWildcards = v
 	}
@@ -318,10 +323,17 @@ func (f Msearch) WithMaxConcurrentShardRequests(v int) func(*MsearchRequest) {
 	}
 }
 
-// WithPreFilterShardSize - a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. this filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint..
+// WithPreFilterShardSize - a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. this filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint..
 func (f Msearch) WithPreFilterShardSize(v int) func(*MsearchRequest) {
 	return func(r *MsearchRequest) {
 		r.PreFilterShardSize = &v
+	}
+}
+
+// WithProjectRouting - a lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. only supported in serverless..
+func (f Msearch) WithProjectRouting(v string) func(*MsearchRequest) {
+	return func(r *MsearchRequest) {
+		r.ProjectRouting = v
 	}
 }
 

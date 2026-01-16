@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLExplainDataFrameAnalyticsFunc(t Transport) MLExplainDataFrameAnalytics
 
 // ----- API Definition -------------------------------------------------------
 
-// MLExplainDataFrameAnalytics - Explains a data frame analytics config.
+// MLExplainDataFrameAnalytics - Explain data frame analytics config
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/explain-dfanalytics.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-explain-data-frame-analytics.
 type MLExplainDataFrameAnalytics func(o ...func(*MLExplainDataFrameAnalyticsRequest)) (*Response, error)
 
 // MLExplainDataFrameAnalyticsRequest configures the ML Explain Data Frame Analytics API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.3.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newSnapshotCreateRepositoryFunc(t Transport) SnapshotCreateRepository {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotCreateRepository creates a repository.
+// SnapshotCreateRepository create or update a snapshot repository
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-create-repository.
 type SnapshotCreateRepository func(repository string, body io.Reader, o ...func(*SnapshotCreateRepositoryRequest)) (*Response, error)
 
 // SnapshotCreateRepositoryRequest configures the Snapshot Create Repository API request.
