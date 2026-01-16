@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.3.0](https://github.com/elastic/go-elasticsearch/compare/v9.2.1...v9.3.0) (2026-01-16)
+
+
+### Features
+
+* **Typed API:** Update TypedAPI to latest [elasticsearch-specification 9.3.0](https://github.com/elastic/elasticsearch-specification/commit/d82ef79) ([f543b82](https://github.com/elastic/go-elasticsearch/commit/f543b82ec7b9030042503fe700c1a4da87549444))
+* Update APIs to 9.3.0 ([3c657da](https://github.com/elastic/go-elasticsearch/commit/3c657dad775663ed4aed4c52479a3fcba2f3cb07))
+
 ## [9.2.1](https://github.com/elastic/go-elasticsearch/compare/v9.2.0...v9.2.1) (2025-12-11)
 
 
