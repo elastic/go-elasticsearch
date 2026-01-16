@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package status
 
@@ -33,9 +33,8 @@ import (
 
 // Response holds the response body struct for the package status
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/async_search/status/AsyncSearchStatusResponse.ts#L39-L42
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/async_search/status/AsyncSearchStatusResponse.ts#L39-L42
 type Response struct {
-
 	// Clusters_ Metadata about clusters involved in the cross-cluster search.
 	// It is not shown for local-only searches.
 	Clusters_ *types.ClusterStatistics `json:"_clusters,omitempty"`
@@ -47,8 +46,9 @@ type Response struct {
 	CompletionStatus *int `json:"completion_status,omitempty"`
 	// CompletionTime Indicates when the async search completed.
 	// It is present only when the search has completed.
-	CompletionTime         types.DateTime `json:"completion_time,omitempty"`
-	CompletionTimeInMillis *int64         `json:"completion_time_in_millis,omitempty"`
+	CompletionTime         types.DateTime    `json:"completion_time,omitempty"`
+	CompletionTimeInMillis *int64            `json:"completion_time_in_millis,omitempty"`
+	Error                  *types.ErrorCause `json:"error,omitempty"`
 	// ExpirationTime Indicates when the async search will expire.
 	ExpirationTime         types.DateTime `json:"expiration_time,omitempty"`
 	ExpirationTimeInMillis int64          `json:"expiration_time_in_millis"`
@@ -119,6 +119,11 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 		case "completion_time_in_millis":
 			if err := dec.Decode(&s.CompletionTimeInMillis); err != nil {
 				return fmt.Errorf("%s | %w", "CompletionTimeInMillis", err)
+			}
+
+		case "error":
+			if err := dec.Decode(&s.Error); err != nil {
+				return fmt.Errorf("%s | %w", "Error", err)
 			}
 
 		case "expiration_time":

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Close a point in time.
+//
 // A point in time must be opened explicitly before being used in search
 // requests.
 // The `keep_alive` parameter tells Elasticsearch how long it should persist.
@@ -82,6 +83,7 @@ func NewClosePointInTimeFunc(tp elastictransport.Interface) NewClosePointInTime 
 }
 
 // Close a point in time.
+//
 // A point in time must be opened explicitly before being used in search
 // requests.
 // The `keep_alive` parameter tells Elasticsearch how long it should persist.

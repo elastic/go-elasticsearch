@@ -16,22 +16,34 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package count
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Request holds the request body struct for the package count
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/count/CountRequest.ts#L26-L154
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_global/count/CountRequest.ts#L32-L175
 type Request struct {
-
+	// ProjectRouting Specifies a subset of projects to target using project
+	// metadata tags in a subset of Lucene query syntax.
+	// Allowed Lucene queries: the _alias tag and a single value (possibly
+	// wildcarded).
+	// Examples:
+	//  _alias:my-project
+	//  _alias:_origin
+	//  _alias:*pr*
+	// Supported in serverless only.
+	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query Defines the search query using Query DSL. A request body query cannot be used
 	// with the `q` query string parameter.
 	Query *types.Query `json:"query,omitempty"`
@@ -54,4 +66,33 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
+			}
+
+		case "query":
+			if err := dec.Decode(&s.Query); err != nil {
+				return fmt.Errorf("%s | %w", "Query", err)
+			}
+
+		}
+	}
+	return nil
 }

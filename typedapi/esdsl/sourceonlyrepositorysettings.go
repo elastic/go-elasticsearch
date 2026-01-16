@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -30,20 +30,6 @@ func NewSourceOnlyRepositorySettings() *_sourceOnlyRepositorySettings {
 
 	return &_sourceOnlyRepositorySettings{v: types.NewSourceOnlyRepositorySettings()}
 
-}
-
-func (s *_sourceOnlyRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
-
-	s.v.ChunkSize = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_sourceOnlyRepositorySettings) Compress(compress bool) *_sourceOnlyRepositorySettings {
-
-	s.v.Compress = &compress
-
-	return s
 }
 
 func (s *_sourceOnlyRepositorySettings) DelegateType(delegatetype string) *_sourceOnlyRepositorySettings {
@@ -60,6 +46,27 @@ func (s *_sourceOnlyRepositorySettings) MaxNumberOfSnapshots(maxnumberofsnapshot
 	return s
 }
 
+func (s *_sourceOnlyRepositorySettings) ReadOnly(readonly bool) *_sourceOnlyRepositorySettings {
+
+	s.v.ReadOnly = &readonly
+
+	return s
+}
+
+func (s *_sourceOnlyRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
+
+	s.v.ChunkSize = *bytesize.ByteSizeCaster()
+
+	return s
+}
+
+func (s *_sourceOnlyRepositorySettings) Compress(compress bool) *_sourceOnlyRepositorySettings {
+
+	s.v.Compress = &compress
+
+	return s
+}
+
 func (s *_sourceOnlyRepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
 
 	s.v.MaxRestoreBytesPerSec = *bytesize.ByteSizeCaster()
@@ -70,13 +77,6 @@ func (s *_sourceOnlyRepositorySettings) MaxRestoreBytesPerSec(bytesize types.Byt
 func (s *_sourceOnlyRepositorySettings) MaxSnapshotBytesPerSec(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
 
 	s.v.MaxSnapshotBytesPerSec = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_sourceOnlyRepositorySettings) ReadOnly(readonly bool) *_sourceOnlyRepositorySettings {
-
-	s.v.ReadOnly = &readonly
 
 	return s
 }

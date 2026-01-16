@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Convert an index alias to a data stream.
+//
 // Converts an index alias to a data stream.
 // You must have a matching index template that is data stream enabled.
 // The alias must meet the following criteria:
@@ -89,6 +90,7 @@ func NewMigrateToDataStreamFunc(tp elastictransport.Interface) NewMigrateToDataS
 }
 
 // Convert an index alias to a data stream.
+//
 // Converts an index alias to a data stream.
 // You must have a matching index template that is data stream enabled.
 // The alias must meet the following criteria:

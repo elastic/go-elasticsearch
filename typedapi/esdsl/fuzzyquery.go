@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -37,13 +37,6 @@ func NewFuzzyQuery(field string, value string) *_fuzzyQuery {
 
 	tmp.Value(value)
 	return tmp
-}
-
-func (s *_fuzzyQuery) Boost(boost float32) *_fuzzyQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_fuzzyQuery) Fuzziness(fuzziness types.FuzzinessVariant) *_fuzzyQuery {
@@ -67,13 +60,6 @@ func (s *_fuzzyQuery) PrefixLength(prefixlength int) *_fuzzyQuery {
 	return s
 }
 
-func (s *_fuzzyQuery) QueryName_(queryname_ string) *_fuzzyQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_fuzzyQuery) Rewrite(multitermqueryrewrite string) *_fuzzyQuery {
 
 	s.v.Rewrite = &multitermqueryrewrite
@@ -91,6 +77,20 @@ func (s *_fuzzyQuery) Transpositions(transpositions bool) *_fuzzyQuery {
 func (s *_fuzzyQuery) Value(value string) *_fuzzyQuery {
 
 	s.v.Value = value
+
+	return s
+}
+
+func (s *_fuzzyQuery) Boost(boost float32) *_fuzzyQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_fuzzyQuery) QueryName_(queryname_ string) *_fuzzyQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

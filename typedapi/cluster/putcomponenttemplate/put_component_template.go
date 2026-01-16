@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Create or update a component template.
+//
 // Component templates are building blocks for constructing index templates that
 // specify index mappings, settings, and aliases.
 //
@@ -110,6 +111,7 @@ func NewPutComponentTemplateFunc(tp elastictransport.Interface) NewPutComponentT
 }
 
 // Create or update a component template.
+//
 // Component templates are building blocks for constructing index templates that
 // specify index mappings, settings, and aliases.
 //
@@ -485,13 +487,13 @@ func (r *PutComponentTemplate) Meta_(metadata types.MetadataVariant) *PutCompone
 // The template to be applied which includes mappings, settings, or aliases
 // configuration.
 // API name: template
-func (r *PutComponentTemplate) Template(template types.IndexStateVariant) *PutComponentTemplate {
+func (r *PutComponentTemplate) Template(template types.IndexTemplateMappingVariant) *PutComponentTemplate {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Template = *template.IndexStateCaster()
+	r.req.Template = *template.IndexTemplateMappingCaster()
 
 	return r
 }

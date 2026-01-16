@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,13 +36,6 @@ func NewWeightedTokensQuery(key string) *_weightedTokensQuery {
 	}
 }
 
-func (s *_weightedTokensQuery) Boost(boost float32) *_weightedTokensQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_weightedTokensQuery) PruningConfig(pruningconfig types.TokenPruningConfigVariant) *_weightedTokensQuery {
 
 	s.v.PruningConfig = pruningconfig.TokenPruningConfigCaster()
@@ -50,16 +43,23 @@ func (s *_weightedTokensQuery) PruningConfig(pruningconfig types.TokenPruningCon
 	return s
 }
 
-func (s *_weightedTokensQuery) QueryName_(queryname_ string) *_weightedTokensQuery {
+func (s *_weightedTokensQuery) Tokens(tokens []map[string]float32) *_weightedTokensQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.Tokens = tokens
 
 	return s
 }
 
-func (s *_weightedTokensQuery) Tokens(tokens []map[string]float32) *_weightedTokensQuery {
+func (s *_weightedTokensQuery) Boost(boost float32) *_weightedTokensQuery {
 
-	s.v.Tokens = tokens
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_weightedTokensQuery) QueryName_(queryname_ string) *_weightedTokensQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

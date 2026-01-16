@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -31,6 +31,7 @@ type _compositeGeoTileGridAggregation struct {
 	v *types.CompositeGeoTileGridAggregation
 }
 
+// A geotile grid aggregation.
 func NewCompositeGeoTileGridAggregation() *_compositeGeoTileGridAggregation {
 
 	return &_compositeGeoTileGridAggregation{v: types.NewCompositeGeoTileGridAggregation()}
@@ -40,6 +41,13 @@ func NewCompositeGeoTileGridAggregation() *_compositeGeoTileGridAggregation {
 func (s *_compositeGeoTileGridAggregation) Bounds(geobounds types.GeoBoundsVariant) *_compositeGeoTileGridAggregation {
 
 	s.v.Bounds = *geobounds.GeoBoundsCaster()
+
+	return s
+}
+
+func (s *_compositeGeoTileGridAggregation) Precision(precision int) *_compositeGeoTileGridAggregation {
+
+	s.v.Precision = &precision
 
 	return s
 }
@@ -70,13 +78,6 @@ func (s *_compositeGeoTileGridAggregation) Order(order sortorder.SortOrder) *_co
 	return s
 }
 
-func (s *_compositeGeoTileGridAggregation) Precision(precision int) *_compositeGeoTileGridAggregation {
-
-	s.v.Precision = &precision
-
-	return s
-}
-
 func (s *_compositeGeoTileGridAggregation) Script(script types.ScriptVariant) *_compositeGeoTileGridAggregation {
 
 	s.v.Script = script.ScriptCaster()
@@ -88,6 +89,14 @@ func (s *_compositeGeoTileGridAggregation) ValueType(valuetype valuetype.ValueTy
 
 	s.v.ValueType = &valuetype
 	return s
+}
+
+func (s *_compositeGeoTileGridAggregation) CompositeAggregationSourceCaster() *types.CompositeAggregationSource {
+	container := types.NewCompositeAggregationSource()
+
+	container.GeotileGrid = s.v
+
+	return container
 }
 
 func (s *_compositeGeoTileGridAggregation) CompositeGeoTileGridAggregationCaster() *types.CompositeGeoTileGridAggregation {

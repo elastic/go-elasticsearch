@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -53,13 +53,6 @@ func (s *_matchQuery) Analyzer(analyzer string) *_matchQuery {
 func (s *_matchQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsphrasequery bool) *_matchQuery {
 
 	s.v.AutoGenerateSynonymsPhraseQuery = &autogeneratesynonymsphrasequery
-
-	return s
-}
-
-func (s *_matchQuery) Boost(boost float32) *_matchQuery {
-
-	s.v.Boost = &boost
 
 	return s
 }
@@ -133,16 +126,23 @@ func (s *_matchQuery) Query(query string) *_matchQuery {
 	return s
 }
 
-func (s *_matchQuery) QueryName_(queryname_ string) *_matchQuery {
+func (s *_matchQuery) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *_matchQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.ZeroTermsQuery = &zerotermsquery
+	return s
+}
+
+func (s *_matchQuery) Boost(boost float32) *_matchQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }
 
-func (s *_matchQuery) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *_matchQuery {
+func (s *_matchQuery) QueryName_(queryname_ string) *_matchQuery {
 
-	s.v.ZeroTermsQuery = &zerotermsquery
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

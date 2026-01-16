@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package scriptspainlessexecute
 
@@ -30,9 +30,8 @@ import (
 
 // Request holds the request body struct for the package scriptspainlessexecute
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/scripts_painless_execute/ExecutePainlessScriptRequest.ts#L24-L64
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_global/scripts_painless_execute/ExecutePainlessScriptRequest.ts#L25-L67
 type Request struct {
-
 	// Context The context that the script should run in.
 	// NOTE: Result ordering in the field contexts is not guaranteed.
 	Context *painlesscontext.PainlessContext `json:"context,omitempty"`

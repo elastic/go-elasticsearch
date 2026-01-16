@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Get the shutdown status.
 //
@@ -45,7 +45,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
 )
 
 const (
@@ -324,7 +323,7 @@ func (r *GetNode) Header(key, value string) *GetNode {
 	return r
 }
 
-// NodeId Which node for which to retrieve the shutdown status
+// NodeId Comma-separated list of nodes for which to retrieve the shutdown status
 // API Name: nodeid
 func (r *GetNode) NodeId(nodeid string) *GetNode {
 	r.paramSet |= nodeidMask
@@ -336,8 +335,8 @@ func (r *GetNode) NodeId(nodeid string) *GetNode {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *GetNode) MasterTimeout(mastertimeout timeunit.TimeUnit) *GetNode {
-	r.values.Set("master_timeout", mastertimeout.String())
+func (r *GetNode) MasterTimeout(duration string) *GetNode {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

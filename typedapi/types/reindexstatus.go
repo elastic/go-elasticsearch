@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -31,12 +31,14 @@ import (
 
 // ReindexStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/reindex_rethrottle/types.ts#L37-L85
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_types/Reindex.ts#L24-L80
 type ReindexStatus struct {
 	// Batches The number of scroll responses pulled back by the reindex.
 	Batches int64 `json:"batches"`
+	// Cancelled The reason for cancellation if the slice was canceled
+	Cancelled *string `json:"cancelled,omitempty"`
 	// Created The number of documents that were successfully created.
-	Created int64 `json:"created"`
+	Created *int64 `json:"created,omitempty"`
 	// Deleted The number of documents that were successfully deleted.
 	Deleted int64 `json:"deleted"`
 	// Noops The number of documents that were ignored because the script used for the
@@ -46,7 +48,9 @@ type ReindexStatus struct {
 	RequestsPerSecond float32 `json:"requests_per_second"`
 	// Retries The number of retries attempted by reindex. `bulk` is the number of bulk
 	// actions retried and `search` is the number of search actions retried.
-	Retries   Retries  `json:"retries"`
+	Retries Retries `json:"retries"`
+	// SliceId The slice ID
+	SliceId   *int     `json:"slice_id,omitempty"`
 	Throttled Duration `json:"throttled,omitempty"`
 	// ThrottledMillis Number of milliseconds the request slept to conform to `requests_per_second`.
 	ThrottledMillis int64    `json:"throttled_millis"`
@@ -60,7 +64,7 @@ type ReindexStatus struct {
 	Total int64 `json:"total"`
 	// Updated The number of documents that were successfully updated, for example, a
 	// document with same ID already existed prior to reindex updating it.
-	Updated int64 `json:"updated"`
+	Updated *int64 `json:"updated,omitempty"`
 	// VersionConflicts The number of version conflicts that reindex hits.
 	VersionConflicts int64 `json:"version_conflicts"`
 }
@@ -95,6 +99,18 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 				s.Batches = f
 			}
 
+		case "cancelled":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Cancelled", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Cancelled = &o
+
 		case "created":
 			var tmp any
 			dec.Decode(&tmp)
@@ -104,10 +120,10 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Created", err)
 				}
-				s.Created = value
+				s.Created = &value
 			case float64:
 				f := int64(v)
-				s.Created = f
+				s.Created = &f
 			}
 
 		case "deleted":
@@ -161,6 +177,22 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Retries", err)
 			}
 
+		case "slice_id":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "SliceId", err)
+				}
+				s.SliceId = &value
+			case float64:
+				f := int(v)
+				s.SliceId = &f
+			}
+
 		case "throttled":
 			if err := dec.Decode(&s.Throttled); err != nil {
 				return fmt.Errorf("%s | %w", "Throttled", err)
@@ -205,10 +237,10 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Updated", err)
 				}
-				s.Updated = value
+				s.Updated = &value
 			case float64:
 				f := int64(v)
-				s.Updated = f
+				s.Updated = &f
 			}
 
 		case "version_conflicts":

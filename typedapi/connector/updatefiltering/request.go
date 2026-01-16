@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package updatefiltering
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package updatefiltering
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/connector/update_filtering/ConnectorUpdateFilteringRequest.ts#L27-L60
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/connector/update_filtering/ConnectorUpdateFilteringRequest.ts#L27-L62
 type Request struct {
 	AdvancedSnippet *types.FilteringAdvancedSnippet `json:"advanced_snippet,omitempty"`
 	Filtering       []types.FilteringConfig         `json:"filtering,omitempty"`

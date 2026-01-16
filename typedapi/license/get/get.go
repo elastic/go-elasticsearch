@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Get license information.
 //
@@ -303,8 +303,11 @@ func (r *Get) AcceptEnterprise(acceptenterprise bool) *Get {
 	return r
 }
 
-// Local Specifies whether to retrieve local information. The default value is
-// `false`, which means the information is retrieved from the master node.
+// Local Specifies whether to retrieve local information.
+// From 9.2 onwards the default value is `true`, which means the information is
+// retrieved from the responding node.
+// In earlier versions the default is `false`, which means the information is
+// retrieved from the elected master node.
 // API name: local
 func (r *Get) Local(local bool) *Get {
 	r.values.Set("local", strconv.FormatBool(local))

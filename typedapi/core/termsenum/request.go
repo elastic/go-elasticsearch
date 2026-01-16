@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package termsenum
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package termsenum
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L93
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L95
 type Request struct {
-
 	// CaseInsensitive When `true`, the provided search string is matched against index terms
 	// without case sensitivity.
 	CaseInsensitive *bool `json:"case_insensitive,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -53,30 +53,9 @@ func (s *_geoGridProcessor) ChildrenField(field string) *_geoGridProcessor {
 	return s
 }
 
-func (s *_geoGridProcessor) Description(description string) *_geoGridProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_geoGridProcessor) Field(field string) *_geoGridProcessor {
 
 	s.v.Field = field
-
-	return s
-}
-
-func (s *_geoGridProcessor) If(if_ types.ScriptVariant) *_geoGridProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_geoGridProcessor) IgnoreFailure(ignorefailure bool) *_geoGridProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
 
 	return s
 }
@@ -95,16 +74,6 @@ func (s *_geoGridProcessor) NonChildrenField(field string) *_geoGridProcessor {
 	return s
 }
 
-func (s *_geoGridProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_geoGridProcessor {
-
-	for _, v := range onfailures {
-
-		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
-
-	}
-	return s
-}
-
 func (s *_geoGridProcessor) ParentField(field string) *_geoGridProcessor {
 
 	s.v.ParentField = &field
@@ -115,13 +84,6 @@ func (s *_geoGridProcessor) ParentField(field string) *_geoGridProcessor {
 func (s *_geoGridProcessor) PrecisionField(field string) *_geoGridProcessor {
 
 	s.v.PrecisionField = &field
-
-	return s
-}
-
-func (s *_geoGridProcessor) Tag(tag string) *_geoGridProcessor {
-
-	s.v.Tag = &tag
 
 	return s
 }
@@ -142,6 +104,44 @@ func (s *_geoGridProcessor) TargetFormat(targetformat geogridtargetformat.GeoGri
 func (s *_geoGridProcessor) TileType(tiletype geogridtiletype.GeoGridTileType) *_geoGridProcessor {
 
 	s.v.TileType = tiletype
+	return s
+}
+
+func (s *_geoGridProcessor) Description(description string) *_geoGridProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_geoGridProcessor) If(if_ types.ScriptVariant) *_geoGridProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_geoGridProcessor) IgnoreFailure(ignorefailure bool) *_geoGridProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
+func (s *_geoGridProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_geoGridProcessor {
+
+	for _, v := range onfailures {
+
+		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
+
+	}
+	return s
+}
+
+func (s *_geoGridProcessor) Tag(tag string) *_geoGridProcessor {
+
+	s.v.Tag = &tag
+
 	return s
 }
 

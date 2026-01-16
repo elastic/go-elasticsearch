@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Find the structure of text messages.
+//
 // Find the structure of a list of text messages.
 // The messages must contain data that is suitable to be ingested into
 // Elasticsearch.
@@ -104,6 +105,7 @@ func NewFindMessageStructureFunc(tp elastictransport.Interface) NewFindMessageSt
 }
 
 // Find the structure of text messages.
+//
 // Find the structure of a list of text messages.
 // The messages must contain data that is suitable to be ingested into
 // Elasticsearch.
@@ -355,8 +357,12 @@ func (r *FindMessageStructure) Header(key, value string) *FindMessageStructure {
 // If the text does not have a header role, columns are named "column1",
 // "column2", "column3", for example.
 // API name: column_names
-func (r *FindMessageStructure) ColumnNames(columnnames string) *FindMessageStructure {
-	r.values.Set("column_names", columnnames)
+func (r *FindMessageStructure) ColumnNames(columnnames ...string) *FindMessageStructure {
+	tmp := []string{}
+	for _, item := range columnnames {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("column_names", strings.Join(tmp, ","))
 
 	return r
 }

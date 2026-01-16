@@ -16,15 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _intervalsQuery struct {
 	v *types.IntervalsQuery
@@ -32,18 +28,6 @@ type _intervalsQuery struct {
 
 func NewIntervalsQuery() *_intervalsQuery {
 	return &_intervalsQuery{v: types.NewIntervalsQuery()}
-}
-
-// AdditionalIntervalsQueryProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_intervalsQuery) AdditionalIntervalsQueryProperty(key string, value json.RawMessage) *_intervalsQuery {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalIntervalsQueryProperty = tmp
-	return s
 }
 
 func (s *_intervalsQuery) AllOf(allof types.IntervalsAllOfVariant) *_intervalsQuery {
@@ -56,13 +40,6 @@ func (s *_intervalsQuery) AllOf(allof types.IntervalsAllOfVariant) *_intervalsQu
 func (s *_intervalsQuery) AnyOf(anyof types.IntervalsAnyOfVariant) *_intervalsQuery {
 
 	s.v.AnyOf = anyof.IntervalsAnyOfCaster()
-
-	return s
-}
-
-func (s *_intervalsQuery) Boost(boost float32) *_intervalsQuery {
-
-	s.v.Boost = &boost
 
 	return s
 }
@@ -88,13 +65,6 @@ func (s *_intervalsQuery) Prefix(prefix types.IntervalsPrefixVariant) *_interval
 	return s
 }
 
-func (s *_intervalsQuery) QueryName_(queryname_ string) *_intervalsQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_intervalsQuery) Range(range_ types.IntervalsRangeVariant) *_intervalsQuery {
 
 	s.v.Range = range_.IntervalsRangeCaster()
@@ -112,6 +82,20 @@ func (s *_intervalsQuery) Regexp(regexp types.IntervalsRegexpVariant) *_interval
 func (s *_intervalsQuery) Wildcard(wildcard types.IntervalsWildcardVariant) *_intervalsQuery {
 
 	s.v.Wildcard = wildcard.IntervalsWildcardCaster()
+
+	return s
+}
+
+func (s *_intervalsQuery) Boost(boost float32) *_intervalsQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_intervalsQuery) QueryName_(queryname_ string) *_intervalsQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

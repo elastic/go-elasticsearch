@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AzureAiStudioServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L641-L683
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/inference/_types/CommonTypes.ts#L677-L719
 type AzureAiStudioServiceSettings struct {
 	// ApiKey A valid API key of your Azure AI Studio model deployment.
 	// This key can be found on the overview page for your deployment in the
@@ -55,7 +55,8 @@ type AzureAiStudioServiceSettings struct {
 	// Note that some providers may support only certain task types.
 	// Supported providers include:
 	//
-	// * `cohere` - available for `text_embedding` and `completion` task types
+	// * `cohere` - available for `text_embedding`, `rerank` and `completion` task
+	// types
 	// * `databricks` - available for `completion` task type only
 	// * `meta` - available for `completion` task type only
 	// * `microsoft_phi` - available for `completion` task type only

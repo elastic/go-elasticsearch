@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Create or update a watch.
+//
 // When a watch is registered, a new document that represents the watch is added
 // to the `.watches` index and its trigger is immediately registered with the
 // relevant trigger engine.
@@ -101,6 +102,7 @@ func NewPutWatchFunc(tp elastictransport.Interface) NewPutWatch {
 }
 
 // Create or update a watch.
+//
 // When a watch is registered, a new document that represents the watch is added
 // to the `.watches` index and its trigger is immediately registered with the
 // relevant trigger engine.
@@ -360,7 +362,7 @@ func (r *PutWatch) Active(active bool) *PutWatch {
 	return r
 }
 
-// IfPrimaryTerm only update the watch if the last operation that has changed the watch has
+// IfPrimaryTerm Only update the watch if the last operation that has changed the watch has
 // the specified primary term
 // API name: if_primary_term
 func (r *PutWatch) IfPrimaryTerm(ifprimaryterm string) *PutWatch {
@@ -369,7 +371,7 @@ func (r *PutWatch) IfPrimaryTerm(ifprimaryterm string) *PutWatch {
 	return r
 }
 
-// IfSeqNo only update the watch if the last operation that has changed the watch has
+// IfSeqNo Only update the watch if the last operation that has changed the watch has
 // the specified sequence number
 // API name: if_seq_no
 func (r *PutWatch) IfSeqNo(sequencenumber string) *PutWatch {

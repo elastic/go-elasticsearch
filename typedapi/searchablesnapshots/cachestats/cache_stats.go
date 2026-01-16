@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Get cache statistics.
+//
 // Get statistics about the shared cache for partially mounted indices.
 package cachestats
 
@@ -76,6 +77,7 @@ func NewCacheStatsFunc(tp elastictransport.Interface) NewCacheStats {
 }
 
 // Get cache statistics.
+//
 // Get statistics about the shared cache for partially mounted indices.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-cache-stats

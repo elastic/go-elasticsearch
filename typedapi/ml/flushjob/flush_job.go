@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Force buffered data to be processed.
+//
 // The flush jobs API is only applicable when sending data for analysis using
 // the post data API. Depending on the content of the buffer, then it might
 // additionally calculate new results. Both flush and close operations are
@@ -90,6 +91,7 @@ func NewFlushJobFunc(tp elastictransport.Interface) NewFlushJob {
 }
 
 // Force buffered data to be processed.
+//
 // The flush jobs API is only applicable when sending data for analysis using
 // the post data API. Depending on the content of the buffer, then it might
 // additionally calculate new results. Both flush and close operations are

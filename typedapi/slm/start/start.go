@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Start snapshot lifecycle management.
+//
 // Snapshot lifecycle management (SLM) starts automatically when a cluster is
 // formed.
 // Manually starting SLM is necessary only if it has been stopped using the stop
@@ -73,6 +74,7 @@ func NewStartFunc(tp elastictransport.Interface) NewStart {
 }
 
 // Start snapshot lifecycle management.
+//
 // Snapshot lifecycle management (SLM) starts automatically when a cluster is
 // formed.
 // Manually starting SLM is necessary only if it has been stopped using the stop

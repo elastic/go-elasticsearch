@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -37,16 +37,43 @@ func NewFingerprintProcessor() *_fingerprintProcessor {
 
 }
 
-func (s *_fingerprintProcessor) Description(description string) *_fingerprintProcessor {
+func (s *_fingerprintProcessor) Fields(fields ...string) *_fingerprintProcessor {
 
-	s.v.Description = &description
+	s.v.Fields = fields
 
 	return s
 }
 
-func (s *_fingerprintProcessor) Fields(fields ...string) *_fingerprintProcessor {
+func (s *_fingerprintProcessor) IgnoreMissing(ignoremissing bool) *_fingerprintProcessor {
 
-	s.v.Fields = fields
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_fingerprintProcessor) Method(method fingerprintdigest.FingerprintDigest) *_fingerprintProcessor {
+
+	s.v.Method = &method
+	return s
+}
+
+func (s *_fingerprintProcessor) Salt(salt string) *_fingerprintProcessor {
+
+	s.v.Salt = &salt
+
+	return s
+}
+
+func (s *_fingerprintProcessor) TargetField(field string) *_fingerprintProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_fingerprintProcessor) Description(description string) *_fingerprintProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -65,19 +92,6 @@ func (s *_fingerprintProcessor) IgnoreFailure(ignorefailure bool) *_fingerprintP
 	return s
 }
 
-func (s *_fingerprintProcessor) IgnoreMissing(ignoremissing bool) *_fingerprintProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
-func (s *_fingerprintProcessor) Method(method fingerprintdigest.FingerprintDigest) *_fingerprintProcessor {
-
-	s.v.Method = &method
-	return s
-}
-
 func (s *_fingerprintProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_fingerprintProcessor {
 
 	for _, v := range onfailures {
@@ -88,23 +102,9 @@ func (s *_fingerprintProcessor) OnFailure(onfailures ...types.ProcessorContainer
 	return s
 }
 
-func (s *_fingerprintProcessor) Salt(salt string) *_fingerprintProcessor {
-
-	s.v.Salt = &salt
-
-	return s
-}
-
 func (s *_fingerprintProcessor) Tag(tag string) *_fingerprintProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_fingerprintProcessor) TargetField(field string) *_fingerprintProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

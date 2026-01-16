@@ -16,59 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // SyncContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/transform/_types/Transform.ts#L169-L175
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/transform/_types/Transform.ts#L179-L185
 type SyncContainer struct {
-	AdditionalSyncContainerProperty map[string]json.RawMessage `json:"-"`
 	// Time Specifies that the transform uses a time field to synchronize the source and
 	// destination indices.
 	Time *TimeSync `json:"time,omitempty"`
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s SyncContainer) MarshalJSON() ([]byte, error) {
-	type opt SyncContainer
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalSyncContainerProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalSyncContainerProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewSyncContainer returns a SyncContainer.
 func NewSyncContainer() *SyncContainer {
-	r := &SyncContainer{
-		AdditionalSyncContainerProperty: make(map[string]json.RawMessage),
-	}
+	r := &SyncContainer{}
 
 	return r
 }

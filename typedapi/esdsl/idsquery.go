@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -34,6 +34,13 @@ func NewIdsQuery() *_idsQuery {
 
 }
 
+func (s *_idsQuery) Values(ids ...string) *_idsQuery {
+
+	s.v.Values = ids
+
+	return s
+}
+
 func (s *_idsQuery) Boost(boost float32) *_idsQuery {
 
 	s.v.Boost = &boost
@@ -44,13 +51,6 @@ func (s *_idsQuery) Boost(boost float32) *_idsQuery {
 func (s *_idsQuery) QueryName_(queryname_ string) *_idsQuery {
 
 	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
-func (s *_idsQuery) Values(ids ...string) *_idsQuery {
-
-	s.v.Values = ids
 
 	return s
 }

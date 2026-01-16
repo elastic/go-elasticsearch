@@ -16,9 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
-// Perform completion inference on the service
+// Perform completion inference on the service.
+//
+// Get responses for completion tasks.
+// This API works only with the completion task type.
+//
+// IMPORTANT: The inference APIs enable you to use certain services, such as
+// built-in machine learning models (ELSER, E5), models uploaded through Eland,
+// Cohere, OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic,
+// Watsonx.ai, or Hugging Face. For built-in models and models uploaded through
+// Eland, the inference APIs offer an alternative way to use and manage trained
+// models. However, if you do not plan to use the inference APIs to use these
+// models or if you want to use non-NLP models, use the machine learning trained
+// model APIs.
+//
+// This API requires the `monitor_inference` cluster privilege (the built-in
+// `inference_admin` and `inference_user` roles grant this privilege).
 package completion
 
 import (
@@ -81,7 +96,22 @@ func NewCompletionFunc(tp elastictransport.Interface) NewCompletion {
 	}
 }
 
-// Perform completion inference on the service
+// Perform completion inference on the service.
+//
+// Get responses for completion tasks.
+// This API works only with the completion task type.
+//
+// IMPORTANT: The inference APIs enable you to use certain services, such as
+// built-in machine learning models (ELSER, E5), models uploaded through Eland,
+// Cohere, OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic,
+// Watsonx.ai, or Hugging Face. For built-in models and models uploaded through
+// Eland, the inference APIs offer an alternative way to use and manage trained
+// models. However, if you do not plan to use the inference APIs to use these
+// models or if you want to use non-NLP models, use the machine learning trained
+// model APIs.
+//
+// This API requires the `monitor_inference` cluster privilege (the built-in
+// `inference_admin` and `inference_user` roles grant this privilege).
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *Completion {
@@ -379,7 +409,9 @@ func (r *Completion) Input(inputs ...string) *Completion {
 	return r
 }
 
-// Optional task settings
+// Task settings for the individual inference request. These settings are
+// specific to the <task_type> you specified and override the task settings
+// specified when initializing the service.
 // API name: task_settings
 func (r *Completion) TaskSettings(tasksettings json.RawMessage) *Completion {
 	// Initialize the request if it is not already initialized

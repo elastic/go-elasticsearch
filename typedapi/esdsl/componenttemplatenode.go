@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -36,6 +36,20 @@ func NewComponentTemplateNode(template types.ComponentTemplateSummaryVariant) *_
 
 }
 
+func (s *_componentTemplateNode) CreatedDate(datetime types.DateTimeVariant) *_componentTemplateNode {
+
+	s.v.CreatedDate = *datetime.DateTimeCaster()
+
+	return s
+}
+
+func (s *_componentTemplateNode) CreatedDateMillis(epochtimeunitmillis int64) *_componentTemplateNode {
+
+	s.v.CreatedDateMillis = &epochtimeunitmillis
+
+	return s
+}
+
 func (s *_componentTemplateNode) Deprecated(deprecated bool) *_componentTemplateNode {
 
 	s.v.Deprecated = &deprecated
@@ -46,6 +60,20 @@ func (s *_componentTemplateNode) Deprecated(deprecated bool) *_componentTemplate
 func (s *_componentTemplateNode) Meta_(metadata types.MetadataVariant) *_componentTemplateNode {
 
 	s.v.Meta_ = *metadata.MetadataCaster()
+
+	return s
+}
+
+func (s *_componentTemplateNode) ModifiedDate(datetime types.DateTimeVariant) *_componentTemplateNode {
+
+	s.v.ModifiedDate = *datetime.DateTimeCaster()
+
+	return s
+}
+
+func (s *_componentTemplateNode) ModifiedDateMillis(epochtimeunitmillis int64) *_componentTemplateNode {
+
+	s.v.ModifiedDateMillis = &epochtimeunitmillis
 
 	return s
 }

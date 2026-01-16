@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -44,13 +44,6 @@ func (s *_scriptedMetricAggregation) CombineScript(combinescript types.ScriptVar
 	return s
 }
 
-func (s *_scriptedMetricAggregation) Field(field string) *_scriptedMetricAggregation {
-
-	s.v.Field = &field
-
-	return s
-}
-
 func (s *_scriptedMetricAggregation) InitScript(initscript types.ScriptVariant) *_scriptedMetricAggregation {
 
 	s.v.InitScript = initscript.ScriptCaster()
@@ -61,13 +54,6 @@ func (s *_scriptedMetricAggregation) InitScript(initscript types.ScriptVariant) 
 func (s *_scriptedMetricAggregation) MapScript(mapscript types.ScriptVariant) *_scriptedMetricAggregation {
 
 	s.v.MapScript = mapscript.ScriptCaster()
-
-	return s
-}
-
-func (s *_scriptedMetricAggregation) Missing(missing types.MissingVariant) *_scriptedMetricAggregation {
-
-	s.v.Missing = *missing.MissingCaster()
 
 	return s
 }
@@ -96,6 +82,20 @@ func (s *_scriptedMetricAggregation) AddParam(key string, value json.RawMessage)
 func (s *_scriptedMetricAggregation) ReduceScript(reducescript types.ScriptVariant) *_scriptedMetricAggregation {
 
 	s.v.ReduceScript = reducescript.ScriptCaster()
+
+	return s
+}
+
+func (s *_scriptedMetricAggregation) Field(field string) *_scriptedMetricAggregation {
+
+	s.v.Field = &field
+
+	return s
+}
+
+func (s *_scriptedMetricAggregation) Missing(missing types.MissingVariant) *_scriptedMetricAggregation {
+
+	s.v.Missing = *missing.MissingCaster()
 
 	return s
 }

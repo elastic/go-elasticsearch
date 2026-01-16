@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package updatedatafeed
 
@@ -26,23 +26,31 @@ import (
 
 // Response holds the response body struct for the package updatedatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/update_datafeed/MlUpdateDatafeedResponse.ts#L31-L49
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/ml/update_datafeed/MlUpdateDatafeedResponse.ts#L31-L52
 type Response struct {
 	Aggregations           map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Authorization          *types.DatafeedAuthorization  `json:"authorization,omitempty"`
 	ChunkingConfig         types.ChunkingConfig          `json:"chunking_config"`
 	DatafeedId             string                        `json:"datafeed_id"`
 	DelayedDataCheckConfig *types.DelayedDataCheckConfig `json:"delayed_data_check_config,omitempty"`
-	Frequency              types.Duration                `json:"frequency,omitempty"`
-	Indices                []string                      `json:"indices"`
-	IndicesOptions         *types.IndicesOptions         `json:"indices_options,omitempty"`
-	JobId                  string                        `json:"job_id"`
-	MaxEmptySearches       *int                          `json:"max_empty_searches,omitempty"`
-	Query                  types.Query                   `json:"query"`
-	QueryDelay             types.Duration                `json:"query_delay"`
-	RuntimeMappings        types.RuntimeFields           `json:"runtime_mappings,omitempty"`
-	ScriptFields           map[string]types.ScriptField  `json:"script_fields,omitempty"`
-	ScrollSize             int                           `json:"scroll_size"`
+	// Frequency The interval at which scheduled queries are made while the datafeed runs in
+	// real time. The default value is either the bucket span for short bucket
+	// spans, or, for longer bucket spans, a sensible fraction of the bucket span.
+	// For example: `150s`. When `frequency` is shorter than the bucket span,
+	// interim results for the last (partial) bucket are written then eventually
+	// overwritten by the full bucket results. If the datafeed uses aggregations,
+	// this value must be divisible by the interval of the date histogram
+	// aggregation.
+	Frequency        types.Duration               `json:"frequency,omitempty"`
+	Indices          []string                     `json:"indices"`
+	IndicesOptions   *types.IndicesOptions        `json:"indices_options,omitempty"`
+	JobId            string                       `json:"job_id"`
+	MaxEmptySearches *int                         `json:"max_empty_searches,omitempty"`
+	Query            types.Query                  `json:"query"`
+	QueryDelay       types.Duration               `json:"query_delay"`
+	RuntimeMappings  types.RuntimeFields          `json:"runtime_mappings,omitempty"`
+	ScriptFields     map[string]types.ScriptField `json:"script_fields,omitempty"`
+	ScrollSize       int                          `json:"scroll_size"`
 }
 
 // NewResponse returns a Response

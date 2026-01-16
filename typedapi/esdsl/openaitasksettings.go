@@ -16,11 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+import (
+	"encoding/json"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+)
 
 type _openAITaskSettings struct {
 	v *types.OpenAITaskSettings
@@ -30,6 +34,13 @@ func NewOpenAITaskSettings() *_openAITaskSettings {
 
 	return &_openAITaskSettings{v: types.NewOpenAITaskSettings()}
 
+}
+
+func (s *_openAITaskSettings) Headers(headers json.RawMessage) *_openAITaskSettings {
+
+	s.v.Headers = headers
+
+	return s
 }
 
 func (s *_openAITaskSettings) User(user string) *_openAITaskSettings {

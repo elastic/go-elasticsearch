@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Create a new document in the index.
 //
@@ -649,8 +649,8 @@ func (r *Create) RequireDataStream(requiredatastream bool) *Create {
 
 // Routing A custom value that is used to route operations to a specific shard.
 // API name: routing
-func (r *Create) Routing(routing string) *Create {
-	r.values.Set("routing", routing)
+func (r *Create) Routing(routings ...string) *Create {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }

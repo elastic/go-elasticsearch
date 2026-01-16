@@ -16,15 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dataframeEvaluationContainer struct {
 	v *types.DataframeEvaluationContainer
@@ -32,18 +28,6 @@ type _dataframeEvaluationContainer struct {
 
 func NewDataframeEvaluationContainer() *_dataframeEvaluationContainer {
 	return &_dataframeEvaluationContainer{v: types.NewDataframeEvaluationContainer()}
-}
-
-// AdditionalDataframeEvaluationContainerProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_dataframeEvaluationContainer) AdditionalDataframeEvaluationContainerProperty(key string, value json.RawMessage) *_dataframeEvaluationContainer {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalDataframeEvaluationContainerProperty = tmp
-	return s
 }
 
 func (s *_dataframeEvaluationContainer) Classification(classification types.DataframeEvaluationClassificationVariant) *_dataframeEvaluationContainer {

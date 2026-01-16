@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package updatebyquery
 
@@ -30,9 +30,8 @@ import (
 
 // Request holds the request body struct for the package updatebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L349
+// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_global/update_by_query/UpdateByQueryRequest.ts#L38-L357
 type Request struct {
-
 	// Conflicts The preferred behavior when update by query hits version conflicts: `abort`
 	// or `proceed`.
 	Conflicts *conflicts.Conflicts `json:"conflicts,omitempty"`

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Create or update a lifecycle policy.
+//
 // If the specified policy exists, it is replaced and the policy version is
 // incremented.
 //
@@ -87,6 +88,7 @@ func NewPutLifecycleFunc(tp elastictransport.Interface) NewPutLifecycle {
 }
 
 // Create or update a lifecycle policy.
+//
 // If the specified policy exists, it is replaced and the policy version is
 // incremented.
 //

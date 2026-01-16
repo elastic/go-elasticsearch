@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -43,13 +43,6 @@ func NewCircleProcessor(errordistance types.Float64, shapetype shapetype.ShapeTy
 
 }
 
-func (s *_circleProcessor) Description(description string) *_circleProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_circleProcessor) ErrorDistance(errordistance types.Float64) *_circleProcessor {
 
 	s.v.ErrorDistance = errordistance
@@ -60,6 +53,33 @@ func (s *_circleProcessor) ErrorDistance(errordistance types.Float64) *_circlePr
 func (s *_circleProcessor) Field(field string) *_circleProcessor {
 
 	s.v.Field = field
+
+	return s
+}
+
+func (s *_circleProcessor) IgnoreMissing(ignoremissing bool) *_circleProcessor {
+
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_circleProcessor) ShapeType(shapetype shapetype.ShapeType) *_circleProcessor {
+
+	s.v.ShapeType = shapetype
+	return s
+}
+
+func (s *_circleProcessor) TargetField(field string) *_circleProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_circleProcessor) Description(description string) *_circleProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -78,13 +98,6 @@ func (s *_circleProcessor) IgnoreFailure(ignorefailure bool) *_circleProcessor {
 	return s
 }
 
-func (s *_circleProcessor) IgnoreMissing(ignoremissing bool) *_circleProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_circleProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_circleProcessor {
 
 	for _, v := range onfailures {
@@ -95,22 +108,9 @@ func (s *_circleProcessor) OnFailure(onfailures ...types.ProcessorContainerVaria
 	return s
 }
 
-func (s *_circleProcessor) ShapeType(shapetype shapetype.ShapeType) *_circleProcessor {
-
-	s.v.ShapeType = shapetype
-	return s
-}
-
 func (s *_circleProcessor) Tag(tag string) *_circleProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_circleProcessor) TargetField(field string) *_circleProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

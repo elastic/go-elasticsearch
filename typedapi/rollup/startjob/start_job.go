@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Start rollup jobs.
+//
 // If you try to start a job that does not exist, an exception occurs.
 // If you try to start a job that is already started, nothing happens.
 package startjob
@@ -79,6 +80,7 @@ func NewStartJobFunc(tp elastictransport.Interface) NewStartJob {
 }
 
 // Start rollup jobs.
+//
 // If you try to start a job that does not exist, an exception occurs.
 // If you try to start a job that is already started, nothing happens.
 //

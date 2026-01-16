@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 package esdsl
 
@@ -39,6 +39,20 @@ func NewHighlightField() *_highlightField {
 
 	return &_highlightField{v: types.NewHighlightField()}
 
+}
+
+func (s *_highlightField) FragmentOffset(fragmentoffset int) *_highlightField {
+
+	s.v.FragmentOffset = &fragmentoffset
+
+	return s
+}
+
+func (s *_highlightField) MatchedFields(fields ...string) *_highlightField {
+
+	s.v.MatchedFields = fields
+
+	return s
 }
 
 func (s *_highlightField) BoundaryChars(boundarychars string) *_highlightField {
@@ -75,13 +89,6 @@ func (s *_highlightField) ForceSource(forcesource bool) *_highlightField {
 	return s
 }
 
-func (s *_highlightField) FragmentOffset(fragmentoffset int) *_highlightField {
-
-	s.v.FragmentOffset = &fragmentoffset
-
-	return s
-}
-
 func (s *_highlightField) FragmentSize(fragmentsize int) *_highlightField {
 
 	s.v.FragmentSize = &fragmentsize
@@ -105,13 +112,6 @@ func (s *_highlightField) HighlightFilter(highlightfilter bool) *_highlightField
 func (s *_highlightField) HighlightQuery(highlightquery types.QueryVariant) *_highlightField {
 
 	s.v.HighlightQuery = highlightquery.QueryCaster()
-
-	return s
-}
-
-func (s *_highlightField) MatchedFields(fields ...string) *_highlightField {
-
-	s.v.MatchedFields = fields
 
 	return s
 }

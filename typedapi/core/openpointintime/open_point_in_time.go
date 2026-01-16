@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
 
 // Open a point in time.
 //
@@ -465,8 +465,8 @@ func (r *OpenPointInTime) Preference(preference string) *OpenPointInTime {
 
 // Routing A custom value that is used to route operations to a specific shard.
 // API name: routing
-func (r *OpenPointInTime) Routing(routing string) *OpenPointInTime {
-	r.values.Set("routing", routing)
+func (r *OpenPointInTime) Routing(routings ...string) *OpenPointInTime {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }
@@ -561,6 +561,29 @@ func (r *OpenPointInTime) IndexFilter(indexfilter types.QueryVariant) *OpenPoint
 	}
 
 	r.req.IndexFilter = indexfilter.QueryCaster()
+
+	return r
+}
+
+// Specifies a subset of projects to target for the PIT request using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *OpenPointInTime) ProjectRouting(projectrouting string) *OpenPointInTime {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ProjectRouting = &projectrouting
 
 	return r
 }
