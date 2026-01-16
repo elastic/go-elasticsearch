@@ -303,6 +303,11 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 			part.Endpoint = &endpoint
 			part.Name = partName
 			applyParamOverride(endpoint.Name, partName, &part.Type)
+
+			// Date types are handled as strings in the esapi client
+			if part.Type == "date" {
+				part.Type = "string"
+			}
 		}
 	}
 
@@ -347,6 +352,11 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 	for paramName, p := range endpoint.URL.Params {
 		p.Endpoint = &endpoint
 		p.Name = paramName
+
+		// Date types are handled as strings in the esapi client
+		if p.Type == "date" {
+			p.Type = "string"
+		}
 	}
 
 	// Update the AllParts field
