@@ -3,6 +3,7 @@
     "release-type": "go",
     "include-component-in-tag": false,
     "include-v-in-tag": true,
+    "include-v-in-release-name": false,
     "versioning": "always-bump-patch",
     "draft-pull-request": true,
     "packages": {
