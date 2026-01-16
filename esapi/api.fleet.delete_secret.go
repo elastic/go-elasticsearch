@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,7 +42,7 @@ func newFleetDeleteSecretFunc(t Transport) FleetDeleteSecret {
 
 // ----- API Definition -------------------------------------------------------
 
-// FleetDeleteSecret deletes a secret stored by Fleet.
+// FleetDeleteSecret deletes a secret stored by Fleet
 //
 // This API is experimental.
 type FleetDeleteSecret func(id string, o ...func(*FleetDeleteSecretRequest)) (*Response, error)

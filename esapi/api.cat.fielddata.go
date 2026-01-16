@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newCatFielddataFunc(t Transport) CatFielddata {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatFielddata shows how much heap memory is currently being used by fielddata on every data node in the cluster.
+// CatFielddata get field data cache information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-fielddata.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-fielddata.
 type CatFielddata func(o ...func(*CatFielddataRequest)) (*Response, error)
 
 // CatFielddataRequest configures the Cat Fielddata API request.
@@ -57,6 +57,7 @@ type CatFielddataRequest struct {
 	H      []string
 	Help   *bool
 	S      []string
+	Time   string
 	V      *bool
 
 	Pretty     bool
@@ -128,6 +129,10 @@ func (r CatFielddataRequest) Do(providedCtx context.Context, transport Transport
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -251,6 +256,13 @@ func (f CatFielddata) WithHelp(v bool) func(*CatFielddataRequest) {
 func (f CatFielddata) WithS(v ...string) func(*CatFielddataRequest) {
 	return func(r *CatFielddataRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+func (f CatFielddata) WithTime(v string) func(*CatFielddataRequest) {
+	return func(r *CatFielddataRequest) {
+		r.Time = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSQLClearCursorFunc(t Transport) SQLClearCursor {
 
 // ----- API Definition -------------------------------------------------------
 
-// SQLClearCursor - Clears the SQL cursor
+// SQLClearCursor - Clear an SQL search cursor
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-sql-cursor-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-clear-cursor.
 type SQLClearCursor func(body io.Reader, o ...func(*SQLClearCursorRequest)) (*Response, error)
 
 // SQLClearCursorRequest configures the SQL Clear Cursor API request.

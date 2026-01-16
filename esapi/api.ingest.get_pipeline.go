@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIngestGetPipelineFunc(t Transport) IngestGetPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestGetPipeline returns a pipeline.
+// IngestGetPipeline get pipelines
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-pipeline-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-pipeline.
 type IngestGetPipeline func(o ...func(*IngestGetPipelineRequest)) (*Response, error)
 
 // IngestGetPipelineRequest configures the Ingest Get Pipeline API request.

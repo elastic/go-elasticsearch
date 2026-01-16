@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0 (9732617): DO NOT EDIT
+// Code generated from specification version 9.4.0 (5b64e57): DO NOT EDIT
 
 package esapi
 
@@ -107,8 +107,11 @@ type API struct {
 	EsqlAsyncQueryGet                             EsqlAsyncQueryGet
 	EsqlAsyncQuery                                EsqlAsyncQuery
 	EsqlAsyncQueryStop                            EsqlAsyncQueryStop
+	EsqlDeleteView                                EsqlDeleteView
 	EsqlGetQuery                                  EsqlGetQuery
+	EsqlGetView                                   EsqlGetView
 	EsqlListQueries                               EsqlListQueries
+	EsqlPutView                                   EsqlPutView
 	EsqlQuery                                     EsqlQuery
 	Exists                                        Exists
 	ExistsSource                                  ExistsSource
@@ -135,6 +138,7 @@ type API struct {
 	InferenceDelete                               InferenceDelete
 	InferenceGet                                  InferenceGet
 	InferenceInference                            InferenceInference
+	InferencePutAi21                              InferencePutAi21
 	InferencePutAlibabacloud                      InferencePutAlibabacloud
 	InferencePutAmazonbedrock                     InferencePutAmazonbedrock
 	InferencePutAmazonsagemaker                   InferencePutAmazonsagemaker
@@ -142,16 +146,21 @@ type API struct {
 	InferencePutAzureaistudio                     InferencePutAzureaistudio
 	InferencePutAzureopenai                       InferencePutAzureopenai
 	InferencePutCohere                            InferencePutCohere
+	InferencePutContextualai                      InferencePutContextualai
 	InferencePutCustom                            InferencePutCustom
 	InferencePutDeepseek                          InferencePutDeepseek
 	InferencePutElasticsearch                     InferencePutElasticsearch
 	InferencePutElser                             InferencePutElser
 	InferencePutGoogleaistudio                    InferencePutGoogleaistudio
 	InferencePutGooglevertexai                    InferencePutGooglevertexai
+	InferencePutGroq                              InferencePutGroq
 	InferencePutHuggingFace                       InferencePutHuggingFace
 	InferencePutJinaai                            InferencePutJinaai
+	InferencePutLlama                             InferencePutLlama
 	InferencePutMistral                           InferencePutMistral
+	InferencePutNvidia                            InferencePutNvidia
 	InferencePutOpenai                            InferencePutOpenai
+	InferencePutOpenshiftAi                       InferencePutOpenshiftAi
 	InferencePut                                  InferencePut
 	InferencePutVoyageai                          InferencePutVoyageai
 	InferencePutWatsonx                           InferencePutWatsonx
@@ -174,6 +183,12 @@ type API struct {
 	ProfilingStacktraces                          ProfilingStacktraces
 	ProfilingStatus                               ProfilingStatus
 	ProfilingTopnFunctions                        ProfilingTopnFunctions
+	ProjectRoutingCreateMany                      ProjectRoutingCreateMany
+	ProjectRoutingCreate                          ProjectRoutingCreate
+	ProjectRoutingDelete                          ProjectRoutingDelete
+	ProjectRoutingGetMany                         ProjectRoutingGetMany
+	ProjectRoutingGet                             ProjectRoutingGet
+	ProjectTags                                   ProjectTags
 	PutScript                                     PutScript
 	QueryRulesDeleteRule                          QueryRulesDeleteRule
 	QueryRulesDeleteRuleset                       QueryRulesDeleteRuleset
@@ -184,6 +199,9 @@ type API struct {
 	QueryRulesPutRuleset                          QueryRulesPutRuleset
 	QueryRulesTest                                QueryRulesTest
 	RankEval                                      RankEval
+	ReindexCancel                                 ReindexCancel
+	ReindexGet                                    ReindexGet
+	ReindexList                                   ReindexList
 	Reindex                                       Reindex
 	ReindexRethrottle                             ReindexRethrottle
 	RenderSearchTemplate                          RenderSearchTemplate
@@ -244,6 +262,7 @@ type API struct {
 	TransformPutTransform                         TransformPutTransform
 	TransformResetTransform                       TransformResetTransform
 	TransformScheduleNowTransform                 TransformScheduleNowTransform
+	TransformSetUpgradeMode                       TransformSetUpgradeMode
 	TransformStartTransform                       TransformStartTransform
 	TransformStopTransform                        TransformStopTransform
 	TransformUpdateTransform                      TransformUpdateTransform
@@ -257,6 +276,7 @@ type API struct {
 type Cat struct {
 	Aliases              CatAliases
 	Allocation           CatAllocation
+	CircuitBreaker       CatCircuitBreaker
 	ComponentTemplates   CatComponentTemplates
 	Count                CatCount
 	Fielddata            CatFielddata
@@ -305,75 +325,83 @@ type Cluster struct {
 
 // Indices contains the Indices APIs
 type Indices struct {
-	AddBlock                IndicesAddBlock
-	Analyze                 IndicesAnalyze
-	CancelMigrateReindex    IndicesCancelMigrateReindex
-	ClearCache              IndicesClearCache
-	Clone                   IndicesClone
-	Close                   IndicesClose
-	CreateDataStream        IndicesCreateDataStream
-	CreateFrom              IndicesCreateFrom
-	Create                  IndicesCreate
-	DataStreamsStats        IndicesDataStreamsStats
-	DeleteAlias             IndicesDeleteAlias
-	DeleteDataLifecycle     IndicesDeleteDataLifecycle
-	DeleteDataStreamOptions IndicesDeleteDataStreamOptions
-	DeleteDataStream        IndicesDeleteDataStream
-	DeleteIndexTemplate     IndicesDeleteIndexTemplate
-	Delete                  IndicesDelete
-	DeleteTemplate          IndicesDeleteTemplate
-	DiskUsage               IndicesDiskUsage
-	Downsample              IndicesDownsample
-	ExistsAlias             IndicesExistsAlias
-	ExistsIndexTemplate     IndicesExistsIndexTemplate
-	Exists                  IndicesExists
-	ExistsTemplate          IndicesExistsTemplate
-	ExplainDataLifecycle    IndicesExplainDataLifecycle
-	FieldUsageStats         IndicesFieldUsageStats
-	Flush                   IndicesFlush
-	Forcemerge              IndicesForcemerge
-	GetAlias                IndicesGetAlias
-	GetDataLifecycle        IndicesGetDataLifecycle
-	GetDataLifecycleStats   IndicesGetDataLifecycleStats
-	GetDataStreamOptions    IndicesGetDataStreamOptions
-	GetDataStream           IndicesGetDataStream
-	GetDataStreamSettings   IndicesGetDataStreamSettings
-	GetFieldMapping         IndicesGetFieldMapping
-	GetIndexTemplate        IndicesGetIndexTemplate
-	GetMapping              IndicesGetMapping
-	GetMigrateReindexStatus IndicesGetMigrateReindexStatus
-	Get                     IndicesGet
-	GetSettings             IndicesGetSettings
-	GetTemplate             IndicesGetTemplate
-	MigrateReindex          IndicesMigrateReindex
-	MigrateToDataStream     IndicesMigrateToDataStream
-	ModifyDataStream        IndicesModifyDataStream
-	Open                    IndicesOpen
-	PromoteDataStream       IndicesPromoteDataStream
-	PutAlias                IndicesPutAlias
-	PutDataLifecycle        IndicesPutDataLifecycle
-	PutDataStreamOptions    IndicesPutDataStreamOptions
-	PutDataStreamSettings   IndicesPutDataStreamSettings
-	PutIndexTemplate        IndicesPutIndexTemplate
-	PutMapping              IndicesPutMapping
-	PutSettings             IndicesPutSettings
-	PutTemplate             IndicesPutTemplate
-	Recovery                IndicesRecovery
-	Refresh                 IndicesRefresh
-	ReloadSearchAnalyzers   IndicesReloadSearchAnalyzers
-	RemoveBlock             IndicesRemoveBlock
-	ResolveCluster          IndicesResolveCluster
-	ResolveIndex            IndicesResolveIndex
-	Rollover                IndicesRollover
-	Segments                IndicesSegments
-	ShardStores             IndicesShardStores
-	Shrink                  IndicesShrink
-	SimulateIndexTemplate   IndicesSimulateIndexTemplate
-	SimulateTemplate        IndicesSimulateTemplate
-	Split                   IndicesSplit
-	Stats                   IndicesStats
-	UpdateAliases           IndicesUpdateAliases
-	ValidateQuery           IndicesValidateQuery
+	AddBlock                  IndicesAddBlock
+	Analyze                   IndicesAnalyze
+	CancelMigrateReindex      IndicesCancelMigrateReindex
+	ClearCache                IndicesClearCache
+	Clone                     IndicesClone
+	Close                     IndicesClose
+	CreateDataStream          IndicesCreateDataStream
+	CreateFrom                IndicesCreateFrom
+	Create                    IndicesCreate
+	DataStreamsStats          IndicesDataStreamsStats
+	DeleteAlias               IndicesDeleteAlias
+	DeleteDataLifecycle       IndicesDeleteDataLifecycle
+	DeleteDataStreamOptions   IndicesDeleteDataStreamOptions
+	DeleteDataStream          IndicesDeleteDataStream
+	DeleteIndexTemplate       IndicesDeleteIndexTemplate
+	Delete                    IndicesDelete
+	DeleteSampleConfiguration IndicesDeleteSampleConfiguration
+	DeleteTemplate            IndicesDeleteTemplate
+	DiskUsage                 IndicesDiskUsage
+	Downsample                IndicesDownsample
+	ExistsAlias               IndicesExistsAlias
+	ExistsIndexTemplate       IndicesExistsIndexTemplate
+	Exists                    IndicesExists
+	ExistsTemplate            IndicesExistsTemplate
+	ExplainDataLifecycle      IndicesExplainDataLifecycle
+	FieldUsageStats           IndicesFieldUsageStats
+	Flush                     IndicesFlush
+	Forcemerge                IndicesForcemerge
+	GetAlias                  IndicesGetAlias
+	GetAllSampleConfiguration IndicesGetAllSampleConfiguration
+	GetDataLifecycle          IndicesGetDataLifecycle
+	GetDataLifecycleStats     IndicesGetDataLifecycleStats
+	GetDataStreamMappings     IndicesGetDataStreamMappings
+	GetDataStreamOptions      IndicesGetDataStreamOptions
+	GetDataStream             IndicesGetDataStream
+	GetDataStreamSettings     IndicesGetDataStreamSettings
+	GetFieldMapping           IndicesGetFieldMapping
+	GetIndexTemplate          IndicesGetIndexTemplate
+	GetMapping                IndicesGetMapping
+	GetMigrateReindexStatus   IndicesGetMigrateReindexStatus
+	Get                       IndicesGet
+	GetSampleConfiguration    IndicesGetSampleConfiguration
+	GetSample                 IndicesGetSample
+	GetSampleStats            IndicesGetSampleStats
+	GetSettings               IndicesGetSettings
+	GetTemplate               IndicesGetTemplate
+	MigrateReindex            IndicesMigrateReindex
+	MigrateToDataStream       IndicesMigrateToDataStream
+	ModifyDataStream          IndicesModifyDataStream
+	Open                      IndicesOpen
+	PromoteDataStream         IndicesPromoteDataStream
+	PutAlias                  IndicesPutAlias
+	PutDataLifecycle          IndicesPutDataLifecycle
+	PutDataStreamMappings     IndicesPutDataStreamMappings
+	PutDataStreamOptions      IndicesPutDataStreamOptions
+	PutDataStreamSettings     IndicesPutDataStreamSettings
+	PutIndexTemplate          IndicesPutIndexTemplate
+	PutMapping                IndicesPutMapping
+	PutSampleConfiguration    IndicesPutSampleConfiguration
+	PutSettings               IndicesPutSettings
+	PutTemplate               IndicesPutTemplate
+	Recovery                  IndicesRecovery
+	Refresh                   IndicesRefresh
+	ReloadSearchAnalyzers     IndicesReloadSearchAnalyzers
+	RemoveBlock               IndicesRemoveBlock
+	ResolveCluster            IndicesResolveCluster
+	ResolveIndex              IndicesResolveIndex
+	Rollover                  IndicesRollover
+	Segments                  IndicesSegments
+	ShardStores               IndicesShardStores
+	Shrink                    IndicesShrink
+	SimulateIndexTemplate     IndicesSimulateIndexTemplate
+	SimulateTemplate          IndicesSimulateTemplate
+	Split                     IndicesSplit
+	Stats                     IndicesStats
+	UpdateAliases             IndicesUpdateAliases
+	ValidateQuery             IndicesValidateQuery
 }
 
 // Ingest contains the Ingest APIs
@@ -619,6 +647,7 @@ type Security struct {
 	GetServiceAccounts          SecurityGetServiceAccounts
 	GetServiceCredentials       SecurityGetServiceCredentials
 	GetSettings                 SecurityGetSettings
+	GetStats                    SecurityGetStats
 	GetToken                    SecurityGetToken
 	GetUserPrivileges           SecurityGetUserPrivileges
 	GetUserProfile              SecurityGetUserProfile
@@ -756,8 +785,11 @@ func New(t Transport) *API {
 		EsqlAsyncQueryGet:                  newEsqlAsyncQueryGetFunc(t),
 		EsqlAsyncQuery:                     newEsqlAsyncQueryFunc(t),
 		EsqlAsyncQueryStop:                 newEsqlAsyncQueryStopFunc(t),
+		EsqlDeleteView:                     newEsqlDeleteViewFunc(t),
 		EsqlGetQuery:                       newEsqlGetQueryFunc(t),
+		EsqlGetView:                        newEsqlGetViewFunc(t),
 		EsqlListQueries:                    newEsqlListQueriesFunc(t),
+		EsqlPutView:                        newEsqlPutViewFunc(t),
 		EsqlQuery:                          newEsqlQueryFunc(t),
 		Exists:                             newExistsFunc(t),
 		ExistsSource:                       newExistsSourceFunc(t),
@@ -784,6 +816,7 @@ func New(t Transport) *API {
 		InferenceDelete:                    newInferenceDeleteFunc(t),
 		InferenceGet:                       newInferenceGetFunc(t),
 		InferenceInference:                 newInferenceInferenceFunc(t),
+		InferencePutAi21:                   newInferencePutAi21Func(t),
 		InferencePutAlibabacloud:           newInferencePutAlibabacloudFunc(t),
 		InferencePutAmazonbedrock:          newInferencePutAmazonbedrockFunc(t),
 		InferencePutAmazonsagemaker:        newInferencePutAmazonsagemakerFunc(t),
@@ -791,16 +824,21 @@ func New(t Transport) *API {
 		InferencePutAzureaistudio:          newInferencePutAzureaistudioFunc(t),
 		InferencePutAzureopenai:            newInferencePutAzureopenaiFunc(t),
 		InferencePutCohere:                 newInferencePutCohereFunc(t),
+		InferencePutContextualai:           newInferencePutContextualaiFunc(t),
 		InferencePutCustom:                 newInferencePutCustomFunc(t),
 		InferencePutDeepseek:               newInferencePutDeepseekFunc(t),
 		InferencePutElasticsearch:          newInferencePutElasticsearchFunc(t),
 		InferencePutElser:                  newInferencePutElserFunc(t),
 		InferencePutGoogleaistudio:         newInferencePutGoogleaistudioFunc(t),
 		InferencePutGooglevertexai:         newInferencePutGooglevertexaiFunc(t),
+		InferencePutGroq:                   newInferencePutGroqFunc(t),
 		InferencePutHuggingFace:            newInferencePutHuggingFaceFunc(t),
 		InferencePutJinaai:                 newInferencePutJinaaiFunc(t),
+		InferencePutLlama:                  newInferencePutLlamaFunc(t),
 		InferencePutMistral:                newInferencePutMistralFunc(t),
+		InferencePutNvidia:                 newInferencePutNvidiaFunc(t),
 		InferencePutOpenai:                 newInferencePutOpenaiFunc(t),
+		InferencePutOpenshiftAi:            newInferencePutOpenshiftAiFunc(t),
 		InferencePut:                       newInferencePutFunc(t),
 		InferencePutVoyageai:               newInferencePutVoyageaiFunc(t),
 		InferencePutWatsonx:                newInferencePutWatsonxFunc(t),
@@ -823,6 +861,12 @@ func New(t Transport) *API {
 		ProfilingStacktraces:               newProfilingStacktracesFunc(t),
 		ProfilingStatus:                    newProfilingStatusFunc(t),
 		ProfilingTopnFunctions:             newProfilingTopnFunctionsFunc(t),
+		ProjectRoutingCreateMany:           newProjectRoutingCreateManyFunc(t),
+		ProjectRoutingCreate:               newProjectRoutingCreateFunc(t),
+		ProjectRoutingDelete:               newProjectRoutingDeleteFunc(t),
+		ProjectRoutingGetMany:              newProjectRoutingGetManyFunc(t),
+		ProjectRoutingGet:                  newProjectRoutingGetFunc(t),
+		ProjectTags:                        newProjectTagsFunc(t),
 		PutScript:                          newPutScriptFunc(t),
 		QueryRulesDeleteRule:               newQueryRulesDeleteRuleFunc(t),
 		QueryRulesDeleteRuleset:            newQueryRulesDeleteRulesetFunc(t),
@@ -833,6 +877,9 @@ func New(t Transport) *API {
 		QueryRulesPutRuleset:               newQueryRulesPutRulesetFunc(t),
 		QueryRulesTest:                     newQueryRulesTestFunc(t),
 		RankEval:                           newRankEvalFunc(t),
+		ReindexCancel:                      newReindexCancelFunc(t),
+		ReindexGet:                         newReindexGetFunc(t),
+		ReindexList:                        newReindexListFunc(t),
 		Reindex:                            newReindexFunc(t),
 		ReindexRethrottle:                  newReindexRethrottleFunc(t),
 		RenderSearchTemplate:               newRenderSearchTemplateFunc(t),
@@ -893,6 +940,7 @@ func New(t Transport) *API {
 		TransformPutTransform:                         newTransformPutTransformFunc(t),
 		TransformResetTransform:                       newTransformResetTransformFunc(t),
 		TransformScheduleNowTransform:                 newTransformScheduleNowTransformFunc(t),
+		TransformSetUpgradeMode:                       newTransformSetUpgradeModeFunc(t),
 		TransformStartTransform:                       newTransformStartTransformFunc(t),
 		TransformStopTransform:                        newTransformStopTransformFunc(t),
 		TransformUpdateTransform:                      newTransformUpdateTransformFunc(t),
@@ -903,6 +951,7 @@ func New(t Transport) *API {
 		Cat: &Cat{
 			Aliases:              newCatAliasesFunc(t),
 			Allocation:           newCatAllocationFunc(t),
+			CircuitBreaker:       newCatCircuitBreakerFunc(t),
 			ComponentTemplates:   newCatComponentTemplatesFunc(t),
 			Count:                newCatCountFunc(t),
 			Fielddata:            newCatFielddataFunc(t),
@@ -947,75 +996,83 @@ func New(t Transport) *API {
 			Stats:                        newClusterStatsFunc(t),
 		},
 		Indices: &Indices{
-			AddBlock:                newIndicesAddBlockFunc(t),
-			Analyze:                 newIndicesAnalyzeFunc(t),
-			CancelMigrateReindex:    newIndicesCancelMigrateReindexFunc(t),
-			ClearCache:              newIndicesClearCacheFunc(t),
-			Clone:                   newIndicesCloneFunc(t),
-			Close:                   newIndicesCloseFunc(t),
-			CreateDataStream:        newIndicesCreateDataStreamFunc(t),
-			CreateFrom:              newIndicesCreateFromFunc(t),
-			Create:                  newIndicesCreateFunc(t),
-			DataStreamsStats:        newIndicesDataStreamsStatsFunc(t),
-			DeleteAlias:             newIndicesDeleteAliasFunc(t),
-			DeleteDataLifecycle:     newIndicesDeleteDataLifecycleFunc(t),
-			DeleteDataStreamOptions: newIndicesDeleteDataStreamOptionsFunc(t),
-			DeleteDataStream:        newIndicesDeleteDataStreamFunc(t),
-			DeleteIndexTemplate:     newIndicesDeleteIndexTemplateFunc(t),
-			Delete:                  newIndicesDeleteFunc(t),
-			DeleteTemplate:          newIndicesDeleteTemplateFunc(t),
-			DiskUsage:               newIndicesDiskUsageFunc(t),
-			Downsample:              newIndicesDownsampleFunc(t),
-			ExistsAlias:             newIndicesExistsAliasFunc(t),
-			ExistsIndexTemplate:     newIndicesExistsIndexTemplateFunc(t),
-			Exists:                  newIndicesExistsFunc(t),
-			ExistsTemplate:          newIndicesExistsTemplateFunc(t),
-			ExplainDataLifecycle:    newIndicesExplainDataLifecycleFunc(t),
-			FieldUsageStats:         newIndicesFieldUsageStatsFunc(t),
-			Flush:                   newIndicesFlushFunc(t),
-			Forcemerge:              newIndicesForcemergeFunc(t),
-			GetAlias:                newIndicesGetAliasFunc(t),
-			GetDataLifecycle:        newIndicesGetDataLifecycleFunc(t),
-			GetDataLifecycleStats:   newIndicesGetDataLifecycleStatsFunc(t),
-			GetDataStreamOptions:    newIndicesGetDataStreamOptionsFunc(t),
-			GetDataStream:           newIndicesGetDataStreamFunc(t),
-			GetDataStreamSettings:   newIndicesGetDataStreamSettingsFunc(t),
-			GetFieldMapping:         newIndicesGetFieldMappingFunc(t),
-			GetIndexTemplate:        newIndicesGetIndexTemplateFunc(t),
-			GetMapping:              newIndicesGetMappingFunc(t),
-			GetMigrateReindexStatus: newIndicesGetMigrateReindexStatusFunc(t),
-			Get:                     newIndicesGetFunc(t),
-			GetSettings:             newIndicesGetSettingsFunc(t),
-			GetTemplate:             newIndicesGetTemplateFunc(t),
-			MigrateReindex:          newIndicesMigrateReindexFunc(t),
-			MigrateToDataStream:     newIndicesMigrateToDataStreamFunc(t),
-			ModifyDataStream:        newIndicesModifyDataStreamFunc(t),
-			Open:                    newIndicesOpenFunc(t),
-			PromoteDataStream:       newIndicesPromoteDataStreamFunc(t),
-			PutAlias:                newIndicesPutAliasFunc(t),
-			PutDataLifecycle:        newIndicesPutDataLifecycleFunc(t),
-			PutDataStreamOptions:    newIndicesPutDataStreamOptionsFunc(t),
-			PutDataStreamSettings:   newIndicesPutDataStreamSettingsFunc(t),
-			PutIndexTemplate:        newIndicesPutIndexTemplateFunc(t),
-			PutMapping:              newIndicesPutMappingFunc(t),
-			PutSettings:             newIndicesPutSettingsFunc(t),
-			PutTemplate:             newIndicesPutTemplateFunc(t),
-			Recovery:                newIndicesRecoveryFunc(t),
-			Refresh:                 newIndicesRefreshFunc(t),
-			ReloadSearchAnalyzers:   newIndicesReloadSearchAnalyzersFunc(t),
-			RemoveBlock:             newIndicesRemoveBlockFunc(t),
-			ResolveCluster:          newIndicesResolveClusterFunc(t),
-			ResolveIndex:            newIndicesResolveIndexFunc(t),
-			Rollover:                newIndicesRolloverFunc(t),
-			Segments:                newIndicesSegmentsFunc(t),
-			ShardStores:             newIndicesShardStoresFunc(t),
-			Shrink:                  newIndicesShrinkFunc(t),
-			SimulateIndexTemplate:   newIndicesSimulateIndexTemplateFunc(t),
-			SimulateTemplate:        newIndicesSimulateTemplateFunc(t),
-			Split:                   newIndicesSplitFunc(t),
-			Stats:                   newIndicesStatsFunc(t),
-			UpdateAliases:           newIndicesUpdateAliasesFunc(t),
-			ValidateQuery:           newIndicesValidateQueryFunc(t),
+			AddBlock:                  newIndicesAddBlockFunc(t),
+			Analyze:                   newIndicesAnalyzeFunc(t),
+			CancelMigrateReindex:      newIndicesCancelMigrateReindexFunc(t),
+			ClearCache:                newIndicesClearCacheFunc(t),
+			Clone:                     newIndicesCloneFunc(t),
+			Close:                     newIndicesCloseFunc(t),
+			CreateDataStream:          newIndicesCreateDataStreamFunc(t),
+			CreateFrom:                newIndicesCreateFromFunc(t),
+			Create:                    newIndicesCreateFunc(t),
+			DataStreamsStats:          newIndicesDataStreamsStatsFunc(t),
+			DeleteAlias:               newIndicesDeleteAliasFunc(t),
+			DeleteDataLifecycle:       newIndicesDeleteDataLifecycleFunc(t),
+			DeleteDataStreamOptions:   newIndicesDeleteDataStreamOptionsFunc(t),
+			DeleteDataStream:          newIndicesDeleteDataStreamFunc(t),
+			DeleteIndexTemplate:       newIndicesDeleteIndexTemplateFunc(t),
+			Delete:                    newIndicesDeleteFunc(t),
+			DeleteSampleConfiguration: newIndicesDeleteSampleConfigurationFunc(t),
+			DeleteTemplate:            newIndicesDeleteTemplateFunc(t),
+			DiskUsage:                 newIndicesDiskUsageFunc(t),
+			Downsample:                newIndicesDownsampleFunc(t),
+			ExistsAlias:               newIndicesExistsAliasFunc(t),
+			ExistsIndexTemplate:       newIndicesExistsIndexTemplateFunc(t),
+			Exists:                    newIndicesExistsFunc(t),
+			ExistsTemplate:            newIndicesExistsTemplateFunc(t),
+			ExplainDataLifecycle:      newIndicesExplainDataLifecycleFunc(t),
+			FieldUsageStats:           newIndicesFieldUsageStatsFunc(t),
+			Flush:                     newIndicesFlushFunc(t),
+			Forcemerge:                newIndicesForcemergeFunc(t),
+			GetAlias:                  newIndicesGetAliasFunc(t),
+			GetAllSampleConfiguration: newIndicesGetAllSampleConfigurationFunc(t),
+			GetDataLifecycle:          newIndicesGetDataLifecycleFunc(t),
+			GetDataLifecycleStats:     newIndicesGetDataLifecycleStatsFunc(t),
+			GetDataStreamMappings:     newIndicesGetDataStreamMappingsFunc(t),
+			GetDataStreamOptions:      newIndicesGetDataStreamOptionsFunc(t),
+			GetDataStream:             newIndicesGetDataStreamFunc(t),
+			GetDataStreamSettings:     newIndicesGetDataStreamSettingsFunc(t),
+			GetFieldMapping:           newIndicesGetFieldMappingFunc(t),
+			GetIndexTemplate:          newIndicesGetIndexTemplateFunc(t),
+			GetMapping:                newIndicesGetMappingFunc(t),
+			GetMigrateReindexStatus:   newIndicesGetMigrateReindexStatusFunc(t),
+			Get:                       newIndicesGetFunc(t),
+			GetSampleConfiguration:    newIndicesGetSampleConfigurationFunc(t),
+			GetSample:                 newIndicesGetSampleFunc(t),
+			GetSampleStats:            newIndicesGetSampleStatsFunc(t),
+			GetSettings:               newIndicesGetSettingsFunc(t),
+			GetTemplate:               newIndicesGetTemplateFunc(t),
+			MigrateReindex:            newIndicesMigrateReindexFunc(t),
+			MigrateToDataStream:       newIndicesMigrateToDataStreamFunc(t),
+			ModifyDataStream:          newIndicesModifyDataStreamFunc(t),
+			Open:                      newIndicesOpenFunc(t),
+			PromoteDataStream:         newIndicesPromoteDataStreamFunc(t),
+			PutAlias:                  newIndicesPutAliasFunc(t),
+			PutDataLifecycle:          newIndicesPutDataLifecycleFunc(t),
+			PutDataStreamMappings:     newIndicesPutDataStreamMappingsFunc(t),
+			PutDataStreamOptions:      newIndicesPutDataStreamOptionsFunc(t),
+			PutDataStreamSettings:     newIndicesPutDataStreamSettingsFunc(t),
+			PutIndexTemplate:          newIndicesPutIndexTemplateFunc(t),
+			PutMapping:                newIndicesPutMappingFunc(t),
+			PutSampleConfiguration:    newIndicesPutSampleConfigurationFunc(t),
+			PutSettings:               newIndicesPutSettingsFunc(t),
+			PutTemplate:               newIndicesPutTemplateFunc(t),
+			Recovery:                  newIndicesRecoveryFunc(t),
+			Refresh:                   newIndicesRefreshFunc(t),
+			ReloadSearchAnalyzers:     newIndicesReloadSearchAnalyzersFunc(t),
+			RemoveBlock:               newIndicesRemoveBlockFunc(t),
+			ResolveCluster:            newIndicesResolveClusterFunc(t),
+			ResolveIndex:              newIndicesResolveIndexFunc(t),
+			Rollover:                  newIndicesRolloverFunc(t),
+			Segments:                  newIndicesSegmentsFunc(t),
+			ShardStores:               newIndicesShardStoresFunc(t),
+			Shrink:                    newIndicesShrinkFunc(t),
+			SimulateIndexTemplate:     newIndicesSimulateIndexTemplateFunc(t),
+			SimulateTemplate:          newIndicesSimulateTemplateFunc(t),
+			Split:                     newIndicesSplitFunc(t),
+			Stats:                     newIndicesStatsFunc(t),
+			UpdateAliases:             newIndicesUpdateAliasesFunc(t),
+			ValidateQuery:             newIndicesValidateQueryFunc(t),
 		},
 		Ingest: &Ingest{
 			DeleteGeoipDatabase:      newIngestDeleteGeoipDatabaseFunc(t),
@@ -1232,6 +1289,7 @@ func New(t Transport) *API {
 			GetServiceAccounts:          newSecurityGetServiceAccountsFunc(t),
 			GetServiceCredentials:       newSecurityGetServiceCredentialsFunc(t),
 			GetSettings:                 newSecurityGetSettingsFunc(t),
+			GetStats:                    newSecurityGetStatsFunc(t),
 			GetToken:                    newSecurityGetTokenFunc(t),
 			GetUserPrivileges:           newSecurityGetUserPrivilegesFunc(t),
 			GetUserProfile:              newSecurityGetUserProfileFunc(t),

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,16 +44,16 @@ func newIndicesDeleteDataLifecycleFunc(t Transport) IndicesDeleteDataLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDeleteDataLifecycle deletes the data stream lifecycle of the selected data streams.
+// IndicesDeleteDataLifecycle delete data stream lifecycles
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-delete-lifecycle.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-lifecycle.
 type IndicesDeleteDataLifecycle func(name []string, o ...func(*IndicesDeleteDataLifecycleRequest)) (*Response, error)
 
 // IndicesDeleteDataLifecycleRequest configures the Indices Delete Data Lifecycle API request.
 type IndicesDeleteDataLifecycleRequest struct {
 	Name []string
 
-	ExpandWildcards string
+	ExpandWildcards []string
 	MasterTimeout   time.Duration
 	Timeout         time.Duration
 
@@ -106,8 +106,8 @@ func (r IndicesDeleteDataLifecycleRequest) Do(providedCtx context.Context, trans
 
 	params = make(map[string]string)
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.MasterTimeout != 0 {
@@ -197,7 +197,7 @@ func (f IndicesDeleteDataLifecycle) WithContext(v context.Context) func(*Indices
 }
 
 // WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesDeleteDataLifecycle) WithExpandWildcards(v string) func(*IndicesDeleteDataLifecycleRequest) {
+func (f IndicesDeleteDataLifecycle) WithExpandWildcards(v ...string) func(*IndicesDeleteDataLifecycleRequest) {
 	return func(r *IndicesDeleteDataLifecycleRequest) {
 		r.ExpandWildcards = v
 	}

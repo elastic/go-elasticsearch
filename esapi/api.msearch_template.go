@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMsearchTemplateFunc(t Transport) MsearchTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// MsearchTemplate allows to execute several search template operations in one request.
+// MsearchTemplate run multiple templated searches
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch-template.
 type MsearchTemplate func(body io.Reader, o ...func(*MsearchTemplateRequest)) (*Response, error)
 
 // MsearchTemplateRequest configures the Msearch Template API request.
@@ -57,6 +57,7 @@ type MsearchTemplateRequest struct {
 
 	CcsMinimizeRoundtrips *bool
 	MaxConcurrentSearches *int
+	ProjectRouting        string
 	RestTotalHitsAsInt    *bool
 	SearchType            string
 	TypedKeys             *bool
@@ -114,6 +115,10 @@ func (r MsearchTemplateRequest) Do(providedCtx context.Context, transport Transp
 
 	if r.MaxConcurrentSearches != nil {
 		params["max_concurrent_searches"] = strconv.FormatInt(int64(*r.MaxConcurrentSearches), 10)
+	}
+
+	if r.ProjectRouting != "" {
+		params["project_routing"] = r.ProjectRouting
 	}
 
 	if r.RestTotalHitsAsInt != nil {
@@ -231,6 +236,13 @@ func (f MsearchTemplate) WithCcsMinimizeRoundtrips(v bool) func(*MsearchTemplate
 func (f MsearchTemplate) WithMaxConcurrentSearches(v int) func(*MsearchTemplateRequest) {
 	return func(r *MsearchTemplateRequest) {
 		r.MaxConcurrentSearches = &v
+	}
+}
+
+// WithProjectRouting - a lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. only supported in serverless..
+func (f MsearchTemplate) WithProjectRouting(v string) func(*MsearchTemplateRequest) {
+	return func(r *MsearchTemplateRequest) {
+		r.ProjectRouting = v
 	}
 }
 

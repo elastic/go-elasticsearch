@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newNodesHotThreadsFunc(t Transport) NodesHotThreads {
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesHotThreads returns information about hot threads on each node in the cluster.
+// NodesHotThreads get the hot threads for nodes
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-hot-threads.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-hot-threads.
 type NodesHotThreads func(o ...func(*NodesHotThreadsRequest)) (*Response, error)
 
 // NodesHotThreadsRequest configures the Nodes Hot Threads API request.

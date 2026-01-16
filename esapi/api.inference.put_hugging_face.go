@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutHuggingFaceFunc(t Transport) InferencePutHuggingFace {
-	return func(huggingface_inference_id string, task_type string, o ...func(*InferencePutHuggingFaceRequest)) (*Response, error) {
-		var r = InferencePutHuggingFaceRequest{HuggingfaceInferenceID: huggingface_inference_id, TaskType: task_type}
+	return func(body io.Reader, huggingface_inference_id string, task_type string, o ...func(*InferencePutHuggingFaceRequest)) (*Response, error) {
+		var r = InferencePutHuggingFaceRequest{Body: body, HuggingfaceInferenceID: huggingface_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutHuggingFaceFunc(t Transport) InferencePutHuggingFace {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutHuggingFace configure a HuggingFace inference endpoint
+// InferencePutHuggingFace create a Hugging Face inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-hugging-face.html.
-type InferencePutHuggingFace func(huggingface_inference_id string, task_type string, o ...func(*InferencePutHuggingFaceRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-hugging-face.
+type InferencePutHuggingFace func(body io.Reader, huggingface_inference_id string, task_type string, o ...func(*InferencePutHuggingFaceRequest)) (*Response, error)
 
 // InferencePutHuggingFaceRequest configures the Inference Put Hugging Face API request.
 type InferencePutHuggingFaceRequest struct {
@@ -54,6 +55,8 @@ type InferencePutHuggingFaceRequest struct {
 
 	HuggingfaceInferenceID string
 	TaskType               string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutHuggingFaceRequest) Do(providedCtx context.Context, transpor
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutHuggingFace) WithContext(v context.Context) func(*InferenceP
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutHuggingFace) WithBody(v io.Reader) func(*InferencePutHuggingFaceRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutHuggingFace) WithTimeout(v time.Duration) func(*InferencePutHuggingFaceRequest) {
 	return func(r *InferencePutHuggingFaceRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

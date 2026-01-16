@@ -26,6 +26,7 @@ import (
 	"net/http"
 	"runtime"
 	"strconv"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -552,7 +553,7 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 
 		Pipeline:            w.bi.config.Pipeline,
 		Refresh:             w.bi.config.Refresh,
-		Routing:             w.bi.config.Routing,
+		Routing:             strings.Split(w.bi.config.Routing, ","),
 		Source:              w.bi.config.Source,
 		SourceExcludes:      w.bi.config.SourceExcludes,
 		SourceIncludes:      w.bi.config.SourceIncludes,

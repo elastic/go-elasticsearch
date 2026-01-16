@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesSegmentsFunc(t Transport) IndicesSegments {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesSegments provides low-level information about segments in a Lucene index.
+// IndicesSegments get index segments
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-segments.
 type IndicesSegments func(o ...func(*IndicesSegmentsRequest)) (*Response, error)
 
 // IndicesSegmentsRequest configures the Indices Segments API request.
@@ -53,7 +53,7 @@ type IndicesSegmentsRequest struct {
 	Index []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 
 	Pretty     bool
@@ -105,8 +105,8 @@ func (r IndicesSegmentsRequest) Do(providedCtx context.Context, transport Transp
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -206,7 +206,7 @@ func (f IndicesSegments) WithAllowNoIndices(v bool) func(*IndicesSegmentsRequest
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesSegments) WithExpandWildcards(v string) func(*IndicesSegmentsRequest) {
+func (f IndicesSegments) WithExpandWildcards(v ...string) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.ExpandWildcards = v
 	}

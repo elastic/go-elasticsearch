@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSlmStopFunc(t Transport) SlmStop {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmStop - Turns off snapshot lifecycle management (SLM).
+// SlmStop - Stop snapshot lifecycle management
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-stop.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-stop.
 type SlmStop func(o ...func(*SlmStopRequest)) (*Response, error)
 
 // SlmStopRequest configures the Slm Stop API request.

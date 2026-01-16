@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,19 +43,21 @@ func newCatCountFunc(t Transport) CatCount {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatCount provides quick access to the document count of the entire cluster, or individual indices.
+// CatCount get a document count
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-count.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-count.
 type CatCount func(o ...func(*CatCountRequest)) (*Response, error)
 
 // CatCountRequest configures the Cat Count API request.
 type CatCountRequest struct {
 	Index []string
 
+	Bytes  string
 	Format string
 	H      []string
 	Help   *bool
 	S      []string
+	Time   string
 	V      *bool
 
 	Pretty     bool
@@ -105,6 +107,10 @@ func (r CatCountRequest) Do(providedCtx context.Context, transport Transport) (*
 
 	params = make(map[string]string)
 
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
+
 	if r.Format != "" {
 		params["format"] = r.Format
 	}
@@ -119,6 +125,10 @@ func (r CatCountRequest) Do(providedCtx context.Context, transport Transport) (*
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -210,6 +220,13 @@ func (f CatCount) WithIndex(v ...string) func(*CatCountRequest) {
 	}
 }
 
+// WithBytes - the unit in which to display byte values.
+func (f CatCount) WithBytes(v string) func(*CatCountRequest) {
+	return func(r *CatCountRequest) {
+		r.Bytes = v
+	}
+}
+
 // WithFormat - a short version of the accept header, e.g. json, yaml.
 func (f CatCount) WithFormat(v string) func(*CatCountRequest) {
 	return func(r *CatCountRequest) {
@@ -235,6 +252,13 @@ func (f CatCount) WithHelp(v bool) func(*CatCountRequest) {
 func (f CatCount) WithS(v ...string) func(*CatCountRequest) {
 	return func(r *CatCountRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+func (f CatCount) WithTime(v string) func(*CatCountRequest) {
+	return func(r *CatCountRequest) {
+		r.Time = v
 	}
 }
 

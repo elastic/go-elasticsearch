@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSlmExecuteLifecycleFunc(t Transport) SlmExecuteLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmExecuteLifecycle - Immediately creates a snapshot according to the lifecycle policy, without waiting for the scheduled time.
+// SlmExecuteLifecycle - Run a policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-lifecycle.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-lifecycle.
 type SlmExecuteLifecycle func(policy_id string, o ...func(*SlmExecuteLifecycleRequest)) (*Response, error)
 
 // SlmExecuteLifecycleRequest configures the Slm Execute Lifecycle API request.

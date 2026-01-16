@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLSetUpgradeModeFunc(t Transport) MLSetUpgradeMode {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLSetUpgradeMode - Sets a cluster wide upgrade_mode setting that prepares machine learning indices for an upgrade.
+// MLSetUpgradeMode - Set upgrade_mode for ML indices
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-set-upgrade-mode.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-set-upgrade-mode.
 type MLSetUpgradeMode func(o ...func(*MLSetUpgradeModeRequest)) (*Response, error)
 
 // MLSetUpgradeModeRequest configures the ML Set Upgrade Mode API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesGetSettingsFunc(t Transport) IndicesGetSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetSettings returns settings for one or more indices.
+// IndicesGetSettings get index settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-settings.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-settings.
 type IndicesGetSettings func(o ...func(*IndicesGetSettingsRequest)) (*Response, error)
 
 // IndicesGetSettingsRequest configures the Indices Get Settings API request.
@@ -56,7 +56,7 @@ type IndicesGetSettingsRequest struct {
 	Name []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	FlatSettings      *bool
 	IgnoreUnavailable *bool
 	IncludeDefaults   *bool
@@ -119,8 +119,8 @@ func (r IndicesGetSettingsRequest) Do(providedCtx context.Context, transport Tra
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.FlatSettings != nil {
@@ -243,7 +243,7 @@ func (f IndicesGetSettings) WithAllowNoIndices(v bool) func(*IndicesGetSettingsR
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesGetSettings) WithExpandWildcards(v string) func(*IndicesGetSettingsRequest) {
+func (f IndicesGetSettings) WithExpandWildcards(v ...string) func(*IndicesGetSettingsRequest) {
 	return func(r *IndicesGetSettingsRequest) {
 		r.ExpandWildcards = v
 	}

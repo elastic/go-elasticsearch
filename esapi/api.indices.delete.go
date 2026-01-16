@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newIndicesDeleteFunc(t Transport) IndicesDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDelete deletes an index.
+// IndicesDelete delete indices
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-index.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete.
 type IndicesDelete func(index []string, o ...func(*IndicesDeleteRequest)) (*Response, error)
 
 // IndicesDeleteRequest configures the Indices Delete API request.
@@ -55,7 +55,7 @@ type IndicesDeleteRequest struct {
 	Index []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 	MasterTimeout     time.Duration
 	Timeout           time.Duration
@@ -109,8 +109,8 @@ func (r IndicesDeleteRequest) Do(providedCtx context.Context, transport Transpor
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -211,7 +211,7 @@ func (f IndicesDelete) WithAllowNoIndices(v bool) func(*IndicesDeleteRequest) {
 }
 
 // WithExpandWildcards - whether wildcard expressions should get expanded to open, closed, or hidden indices.
-func (f IndicesDelete) WithExpandWildcards(v string) func(*IndicesDeleteRequest) {
+func (f IndicesDelete) WithExpandWildcards(v ...string) func(*IndicesDeleteRequest) {
 	return func(r *IndicesDeleteRequest) {
 		r.ExpandWildcards = v
 	}

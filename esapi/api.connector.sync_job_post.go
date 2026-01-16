@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newConnectorSyncJobPostFunc(t Transport) ConnectorSyncJobPost {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobPost creates a connector sync job.
+// ConnectorSyncJobPost create a connector sync job
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-sync-job-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-post.
 type ConnectorSyncJobPost func(body io.Reader, o ...func(*ConnectorSyncJobPostRequest)) (*Response, error)
 
 // ConnectorSyncJobPostRequest configures the Connector Sync Job Post API request.

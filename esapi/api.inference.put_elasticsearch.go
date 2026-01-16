@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutElasticsearchFunc(t Transport) InferencePutElasticsearch {
-	return func(elasticsearch_inference_id string, task_type string, o ...func(*InferencePutElasticsearchRequest)) (*Response, error) {
-		var r = InferencePutElasticsearchRequest{ElasticsearchInferenceID: elasticsearch_inference_id, TaskType: task_type}
+	return func(body io.Reader, elasticsearch_inference_id string, task_type string, o ...func(*InferencePutElasticsearchRequest)) (*Response, error) {
+		var r = InferencePutElasticsearchRequest{Body: body, ElasticsearchInferenceID: elasticsearch_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutElasticsearchFunc(t Transport) InferencePutElasticsearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutElasticsearch configure an Elasticsearch inference endpoint
+// InferencePutElasticsearch create an Elasticsearch inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-elasticsearch.html.
-type InferencePutElasticsearch func(elasticsearch_inference_id string, task_type string, o ...func(*InferencePutElasticsearchRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elasticsearch.
+type InferencePutElasticsearch func(body io.Reader, elasticsearch_inference_id string, task_type string, o ...func(*InferencePutElasticsearchRequest)) (*Response, error)
 
 // InferencePutElasticsearchRequest configures the Inference Put Elasticsearch API request.
 type InferencePutElasticsearchRequest struct {
@@ -54,6 +55,8 @@ type InferencePutElasticsearchRequest struct {
 
 	ElasticsearchInferenceID string
 	TaskType                 string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutElasticsearchRequest) Do(providedCtx context.Context, transp
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutElasticsearch) WithContext(v context.Context) func(*Inferenc
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutElasticsearch) WithBody(v io.Reader) func(*InferencePutElasticsearchRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutElasticsearch) WithTimeout(v time.Duration) func(*InferencePutElasticsearchRequest) {
 	return func(r *InferencePutElasticsearchRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

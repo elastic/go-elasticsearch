@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,11 @@ func newSearchApplicationGetFunc(t Transport) SearchApplicationGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationGet returns the details about a search application.
+// SearchApplicationGet get search application details
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-search-application.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get.
 type SearchApplicationGet func(name string, o ...func(*SearchApplicationGetRequest)) (*Response, error)
 
 // SearchApplicationGetRequest configures the Search Application Get API request.

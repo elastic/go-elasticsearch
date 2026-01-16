@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutElserFunc(t Transport) InferencePutElser {
-	return func(elser_inference_id string, task_type string, o ...func(*InferencePutElserRequest)) (*Response, error) {
-		var r = InferencePutElserRequest{ElserInferenceID: elser_inference_id, TaskType: task_type}
+	return func(body io.Reader, elser_inference_id string, task_type string, o ...func(*InferencePutElserRequest)) (*Response, error) {
+		var r = InferencePutElserRequest{Body: body, ElserInferenceID: elser_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutElserFunc(t Transport) InferencePutElser {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutElser configure an ELSER inference endpoint
+// InferencePutElser create an ELSER inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-elser.html.
-type InferencePutElser func(elser_inference_id string, task_type string, o ...func(*InferencePutElserRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elser.
+type InferencePutElser func(body io.Reader, elser_inference_id string, task_type string, o ...func(*InferencePutElserRequest)) (*Response, error)
 
 // InferencePutElserRequest configures the Inference Put Elser API request.
 type InferencePutElserRequest struct {
@@ -54,6 +55,8 @@ type InferencePutElserRequest struct {
 
 	ElserInferenceID string
 	TaskType         string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutElserRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutElser) WithContext(v context.Context) func(*InferencePutElse
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutElser) WithBody(v io.Reader) func(*InferencePutElserRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutElser) WithTimeout(v time.Duration) func(*InferencePutElserRequest) {
 	return func(r *InferencePutElserRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

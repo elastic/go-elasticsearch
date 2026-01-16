@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newCatMLTrainedModelsFunc(t Transport) CatMLTrainedModels {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatMLTrainedModels - Gets configuration and usage information about inference trained models.
+// CatMLTrainedModels - Get trained models
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-trained-model.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-trained-models.
 type CatMLTrainedModels func(o ...func(*CatMLTrainedModelsRequest)) (*Response, error)
 
 // CatMLTrainedModelsRequest configures the CatML Trained Models API request.

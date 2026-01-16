@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newCatAllocationFunc(t Transport) CatAllocation {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatAllocation provides a snapshot of how many shards are allocated to each data node and how much disk space they are using.
+// CatAllocation get shard allocation information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-allocation.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-allocation.
 type CatAllocation func(o ...func(*CatAllocationRequest)) (*Response, error)
 
 // CatAllocationRequest configures the Cat Allocation API request.
@@ -60,6 +60,7 @@ type CatAllocationRequest struct {
 	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
+	Time          string
 	V             *bool
 
 	Pretty     bool
@@ -135,6 +136,10 @@ func (r CatAllocationRequest) Do(providedCtx context.Context, transport Transpor
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -272,6 +277,13 @@ func (f CatAllocation) WithMasterTimeout(v time.Duration) func(*CatAllocationReq
 func (f CatAllocation) WithS(v ...string) func(*CatAllocationRequest) {
 	return func(r *CatAllocationRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+func (f CatAllocation) WithTime(v string) func(*CatAllocationRequest) {
+	return func(r *CatAllocationRequest) {
+		r.Time = v
 	}
 }
 

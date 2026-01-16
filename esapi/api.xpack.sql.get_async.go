@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSQLGetAsyncFunc(t Transport) SQLGetAsync {
 
 // ----- API Definition -------------------------------------------------------
 
-// SQLGetAsync - Returns the current status and available results for an async SQL search or stored synchronous SQL search
+// SQLGetAsync - Get async SQL search results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-async-sql-search-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async.
 type SQLGetAsync func(id string, o ...func(*SQLGetAsyncRequest)) (*Response, error)
 
 // SQLGetAsyncRequest configures the SQL Get Async API request.

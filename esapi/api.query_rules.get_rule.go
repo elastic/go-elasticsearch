@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newQueryRulesGetRuleFunc(t Transport) QueryRulesGetRule {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesGetRule returns the details about an individual query rule within a ruleset.
+// QueryRulesGetRule get a query rule
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-query-rule.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-rule.
 type QueryRulesGetRule func(rule_id string, ruleset_id string, o ...func(*QueryRulesGetRuleRequest)) (*Response, error)
 
 // QueryRulesGetRuleRequest configures the Query Rules Get Rule API request.

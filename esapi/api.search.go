@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -46,9 +46,9 @@ func newSearchFunc(t Transport) Search {
 
 // ----- API Definition -------------------------------------------------------
 
-// Search returns results matching a query.
+// Search run a search
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search.
 type Search func(o ...func(*SearchRequest)) (*Response, error)
 
 // SearchRequest configures the Search API request.
@@ -66,7 +66,7 @@ type SearchRequest struct {
 	DefaultOperator            string
 	Df                         string
 	DocvalueFields             []string
-	ExpandWildcards            string
+	ExpandWildcards            []string
 	Explain                    *bool
 	ForceSyntheticSource       *bool
 	From                       *int
@@ -87,6 +87,7 @@ type SearchRequest struct {
 	Size                       *int
 	Sort                       []string
 	Source                     []string
+	SourceExcludeVectors       *bool
 	SourceExcludes             []string
 	SourceIncludes             []string
 	Stats                      []string
@@ -183,8 +184,8 @@ func (r SearchRequest) Do(providedCtx context.Context, transport Transport) (*Re
 		params["docvalue_fields"] = strings.Join(r.DocvalueFields, ",")
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.Explain != nil {
@@ -265,6 +266,10 @@ func (r SearchRequest) Do(providedCtx context.Context, transport Transport) (*Re
 
 	if len(r.Source) > 0 {
 		params["_source"] = strings.Join(r.Source, ",")
+	}
+
+	if r.SourceExcludeVectors != nil {
+		params["_source_exclude_vectors"] = strconv.FormatBool(*r.SourceExcludeVectors)
 	}
 
 	if len(r.SourceExcludes) > 0 {
@@ -486,7 +491,7 @@ func (f Search) WithDocvalueFields(v ...string) func(*SearchRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f Search) WithExpandWildcards(v string) func(*SearchRequest) {
+func (f Search) WithExpandWildcards(v ...string) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.ExpandWildcards = v
 	}
@@ -555,7 +560,7 @@ func (f Search) WithPreference(v string) func(*SearchRequest) {
 	}
 }
 
-// WithPreFilterShardSize - a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. this filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint..
+// WithPreFilterShardSize - a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. this filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint..
 func (f Search) WithPreFilterShardSize(v int) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.PreFilterShardSize = &v
@@ -629,6 +634,13 @@ func (f Search) WithSort(v ...string) func(*SearchRequest) {
 func (f Search) WithSource(v ...string) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.Source = v
+	}
+}
+
+// WithSourceExcludeVectors - whether vectors should be excluded from _source.
+func (f Search) WithSourceExcludeVectors(v bool) func(*SearchRequest) {
+	return func(r *SearchRequest) {
+		r.SourceExcludeVectors = &v
 	}
 }
 

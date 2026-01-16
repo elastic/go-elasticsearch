@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesCreateFunc(t Transport) IndicesCreate {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesCreate creates an index with optional settings and mappings.
+// IndicesCreate create an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create.
 type IndicesCreate func(index string, o ...func(*IndicesCreateRequest)) (*Response, error)
 
 // IndicesCreateRequest configures the Indices Create API request.

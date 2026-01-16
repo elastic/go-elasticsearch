@@ -15,19 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
 func newSnapshotRepositoryVerifyIntegrityFunc(t Transport) SnapshotRepositoryVerifyIntegrity {
-	return func(repository string, o ...func(*SnapshotRepositoryVerifyIntegrityRequest)) (*Response, error) {
+	return func(repository []string, o ...func(*SnapshotRepositoryVerifyIntegrityRequest)) (*Response, error) {
 		var r = SnapshotRepositoryVerifyIntegrityRequest{Repository: repository}
 		for _, f := range o {
 			f(&r)
@@ -43,16 +44,16 @@ func newSnapshotRepositoryVerifyIntegrityFunc(t Transport) SnapshotRepositoryVer
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotRepositoryVerifyIntegrity verifies the integrity of the contents of a snapshot repository
+// SnapshotRepositoryVerifyIntegrity verify the repository integrity
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
-type SnapshotRepositoryVerifyIntegrity func(repository string, o ...func(*SnapshotRepositoryVerifyIntegrityRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-repository-verify-integrity.
+type SnapshotRepositoryVerifyIntegrity func(repository []string, o ...func(*SnapshotRepositoryVerifyIntegrityRequest)) (*Response, error)
 
 // SnapshotRepositoryVerifyIntegrityRequest configures the Snapshot Repository Verify Integrity API request.
 type SnapshotRepositoryVerifyIntegrityRequest struct {
-	Repository string
+	Repository []string
 
 	BlobThreadPoolConcurrency            *int
 	IndexSnapshotVerificationConcurrency *int
@@ -94,14 +95,18 @@ func (r SnapshotRepositoryVerifyIntegrityRequest) Do(providedCtx context.Context
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len("_snapshot") + 1 + len(r.Repository) + 1 + len("_verify_integrity"))
+	if len(r.Repository) == 0 {
+		return nil, errors.New("repository is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_snapshot") + 1 + len(strings.Join(r.Repository, ",")) + 1 + len("_verify_integrity"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_snapshot")
 	path.WriteString("/")
-	path.WriteString(r.Repository)
+	path.WriteString(strings.Join(r.Repository, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "repository", r.Repository)
+		instrument.RecordPathPart(ctx, "repository", strings.Join(r.Repository, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_verify_integrity")

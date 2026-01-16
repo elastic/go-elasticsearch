@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newSynonymsPutSynonymFunc(t Transport) SynonymsPutSynonym {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsPutSynonym creates or updates a synonyms set
+// SynonymsPutSynonym create or update a synonym set
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonyms-set.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym.
 type SynonymsPutSynonym func(id string, body io.Reader, o ...func(*SynonymsPutSynonymRequest)) (*Response, error)
 
 // SynonymsPutSynonymRequest configures the Synonyms Put Synonym API request.

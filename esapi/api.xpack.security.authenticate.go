@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newSecurityAuthenticateFunc(t Transport) SecurityAuthenticate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityAuthenticate - Enables authentication as a user and retrieve information about the authenticated user.
+// SecurityAuthenticate - Authenticate a user
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-authenticate.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-authenticate.
 type SecurityAuthenticate func(o ...func(*SecurityAuthenticateRequest)) (*Response, error)
 
 // SecurityAuthenticateRequest configures the Security Authenticate API request.

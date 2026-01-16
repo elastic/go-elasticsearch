@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutAmazonsagemakerFunc(t Transport) InferencePutAmazonsagemaker {
-	return func(amazonsagemaker_inference_id string, task_type string, o ...func(*InferencePutAmazonsagemakerRequest)) (*Response, error) {
-		var r = InferencePutAmazonsagemakerRequest{AmazonsagemakerInferenceID: amazonsagemaker_inference_id, TaskType: task_type}
+	return func(body io.Reader, amazonsagemaker_inference_id string, task_type string, o ...func(*InferencePutAmazonsagemakerRequest)) (*Response, error) {
+		var r = InferencePutAmazonsagemakerRequest{Body: body, AmazonsagemakerInferenceID: amazonsagemaker_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutAmazonsagemakerFunc(t Transport) InferencePutAmazonsagemaker
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAmazonsagemaker configure a Amazon SageMaker inference endpoint
+// InferencePutAmazonsagemaker create an Amazon SageMaker inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-amazon-sagemaker.html.
-type InferencePutAmazonsagemaker func(amazonsagemaker_inference_id string, task_type string, o ...func(*InferencePutAmazonsagemakerRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonsagemaker.
+type InferencePutAmazonsagemaker func(body io.Reader, amazonsagemaker_inference_id string, task_type string, o ...func(*InferencePutAmazonsagemakerRequest)) (*Response, error)
 
 // InferencePutAmazonsagemakerRequest configures the Inference Put Amazonsagemaker API request.
 type InferencePutAmazonsagemakerRequest struct {
@@ -54,6 +55,8 @@ type InferencePutAmazonsagemakerRequest struct {
 
 	AmazonsagemakerInferenceID string
 	TaskType                   string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutAmazonsagemakerRequest) Do(providedCtx context.Context, tran
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutAmazonsagemaker) WithContext(v context.Context) func(*Infere
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutAmazonsagemaker) WithBody(v io.Reader) func(*InferencePutAmazonsagemakerRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutAmazonsagemaker) WithTimeout(v time.Duration) func(*InferencePutAmazonsagemakerRequest) {
 	return func(r *InferencePutAmazonsagemakerRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

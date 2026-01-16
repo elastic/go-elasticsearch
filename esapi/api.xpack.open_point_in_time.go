@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -26,10 +26,11 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newOpenPointInTimeFunc(t Transport) OpenPointInTime {
-	return func(index []string, keep_alive string, o ...func(*OpenPointInTimeRequest)) (*Response, error) {
+	return func(index []string, keep_alive time.Duration, o ...func(*OpenPointInTimeRequest)) (*Response, error) {
 		var r = OpenPointInTimeRequest{Index: index, KeepAlive: keep_alive}
 		for _, f := range o {
 			f(&r)
@@ -45,10 +46,10 @@ func newOpenPointInTimeFunc(t Transport) OpenPointInTime {
 
 // ----- API Definition -------------------------------------------------------
 
-// OpenPointInTime - Open a point in time that can be used in subsequent searches
+// OpenPointInTime - Open a point in time
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time-api.html.
-type OpenPointInTime func(index []string, keep_alive string, o ...func(*OpenPointInTimeRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time.
+type OpenPointInTime func(index []string, keep_alive time.Duration, o ...func(*OpenPointInTimeRequest)) (*Response, error)
 
 // OpenPointInTimeRequest configures the Open Point In Time API request.
 type OpenPointInTimeRequest struct {
@@ -57,12 +58,12 @@ type OpenPointInTimeRequest struct {
 	Body io.Reader
 
 	AllowPartialSearchResults  *bool
-	ExpandWildcards            string
+	ExpandWildcards            []string
 	IgnoreUnavailable          *bool
-	KeepAlive                  string
+	KeepAlive                  time.Duration
 	MaxConcurrentShardRequests *int
 	Preference                 string
-	Routing                    string
+	Routing                    []string
 
 	Pretty     bool
 	Human      bool
@@ -115,16 +116,16 @@ func (r OpenPointInTimeRequest) Do(providedCtx context.Context, transport Transp
 		params["allow_partial_search_results"] = strconv.FormatBool(*r.AllowPartialSearchResults)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
-	if r.KeepAlive != "" {
-		params["keep_alive"] = r.KeepAlive
+	if r.KeepAlive != 0 {
+		params["keep_alive"] = formatDuration(r.KeepAlive)
 	}
 
 	if r.MaxConcurrentShardRequests != nil {
@@ -135,8 +136,8 @@ func (r OpenPointInTimeRequest) Do(providedCtx context.Context, transport Transp
 		params["preference"] = r.Preference
 	}
 
-	if r.Routing != "" {
-		params["routing"] = r.Routing
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if r.Pretty {
@@ -239,7 +240,7 @@ func (f OpenPointInTime) WithAllowPartialSearchResults(v bool) func(*OpenPointIn
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f OpenPointInTime) WithExpandWildcards(v string) func(*OpenPointInTimeRequest) {
+func (f OpenPointInTime) WithExpandWildcards(v ...string) func(*OpenPointInTimeRequest) {
 	return func(r *OpenPointInTimeRequest) {
 		r.ExpandWildcards = v
 	}
@@ -253,7 +254,7 @@ func (f OpenPointInTime) WithIgnoreUnavailable(v bool) func(*OpenPointInTimeRequ
 }
 
 // WithKeepAlive - specific the time to live for the point in time.
-func (f OpenPointInTime) WithKeepAlive(v string) func(*OpenPointInTimeRequest) {
+func (f OpenPointInTime) WithKeepAlive(v time.Duration) func(*OpenPointInTimeRequest) {
 	return func(r *OpenPointInTimeRequest) {
 		r.KeepAlive = v
 	}
@@ -274,7 +275,7 @@ func (f OpenPointInTime) WithPreference(v string) func(*OpenPointInTimeRequest) 
 }
 
 // WithRouting - specific routing value.
-func (f OpenPointInTime) WithRouting(v string) func(*OpenPointInTimeRequest) {
+func (f OpenPointInTime) WithRouting(v ...string) func(*OpenPointInTimeRequest) {
 	return func(r *OpenPointInTimeRequest) {
 		r.Routing = v
 	}

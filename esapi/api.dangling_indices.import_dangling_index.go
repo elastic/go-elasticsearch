@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newDanglingIndicesImportDanglingIndexFunc(t Transport) DanglingIndicesImpor
 
 // ----- API Definition -------------------------------------------------------
 
-// DanglingIndicesImportDanglingIndex imports the specified dangling index
+// DanglingIndicesImportDanglingIndex import a dangling index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-dangling-indices-import-dangling-index.
 type DanglingIndicesImportDanglingIndex func(index_uuid string, o ...func(*DanglingIndicesImportDanglingIndexRequest)) (*Response, error)
 
 // DanglingIndicesImportDanglingIndexRequest configures the Dangling Indices Import Dangling Index API request.

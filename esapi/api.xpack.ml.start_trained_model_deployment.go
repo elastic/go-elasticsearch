@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newMLStartTrainedModelDeploymentFunc(t Transport) MLStartTrainedModelDeploy
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStartTrainedModelDeployment - Start a trained model deployment.
+// MLStartTrainedModelDeployment - Start a trained model deployment
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/start-trained-model-deployment.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-trained-model-deployment.
 type MLStartTrainedModelDeployment func(model_id string, o ...func(*MLStartTrainedModelDeploymentRequest)) (*Response, error)
 
 // MLStartTrainedModelDeploymentRequest configures the ML Start Trained Model Deployment API request.
@@ -287,7 +287,7 @@ func (f MLStartTrainedModelDeployment) WithTimeout(v time.Duration) func(*MLStar
 	}
 }
 
-// WithWaitFor - the allocation status for which to wait.
+// WithWaitFor - specifies the allocation status to wait for before returning..
 func (f MLStartTrainedModelDeployment) WithWaitFor(v string) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.WaitFor = v

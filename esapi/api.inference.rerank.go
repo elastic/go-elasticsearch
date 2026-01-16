@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceRerankFunc(t Transport) InferenceRerank {
-	return func(inference_id string, o ...func(*InferenceRerankRequest)) (*Response, error) {
-		var r = InferenceRerankRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceRerankRequest)) (*Response, error) {
+		var r = InferenceRerankRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,16 +44,18 @@ func newInferenceRerankFunc(t Transport) InferenceRerank {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceRerank perform reranking inference
+// InferenceRerank perform reranking inference on the service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
-type InferenceRerank func(inference_id string, o ...func(*InferenceRerankRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference.
+type InferenceRerank func(body io.Reader, inference_id string, o ...func(*InferenceRerankRequest)) (*Response, error)
 
 // InferenceRerankRequest configures the Inference Rerank API request.
 type InferenceRerankRequest struct {
 	Body io.Reader
 
 	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +101,10 @@ func (r InferenceRerankRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -184,10 +191,10 @@ func (f InferenceRerank) WithContext(v context.Context) func(*InferenceRerankReq
 	}
 }
 
-// WithBody - The inference payload.
-func (f InferenceRerank) WithBody(v io.Reader) func(*InferenceRerankRequest) {
+// WithTimeout - the amount of time to wait for the inference request to complete..
+func (f InferenceRerank) WithTimeout(v time.Duration) func(*InferenceRerankRequest) {
 	return func(r *InferenceRerankRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

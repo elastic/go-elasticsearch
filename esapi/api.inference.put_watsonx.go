@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutWatsonxFunc(t Transport) InferencePutWatsonx {
-	return func(task_type string, watsonx_inference_id string, o ...func(*InferencePutWatsonxRequest)) (*Response, error) {
-		var r = InferencePutWatsonxRequest{TaskType: task_type, WatsonxInferenceID: watsonx_inference_id}
+	return func(body io.Reader, task_type string, watsonx_inference_id string, o ...func(*InferencePutWatsonxRequest)) (*Response, error) {
+		var r = InferencePutWatsonxRequest{Body: body, TaskType: task_type, WatsonxInferenceID: watsonx_inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutWatsonxFunc(t Transport) InferencePutWatsonx {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutWatsonx configure a Watsonx inference endpoint
+// InferencePutWatsonx create a Watsonx inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-watsonx-ai.html.
-type InferencePutWatsonx func(task_type string, watsonx_inference_id string, o ...func(*InferencePutWatsonxRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-watsonx.
+type InferencePutWatsonx func(body io.Reader, task_type string, watsonx_inference_id string, o ...func(*InferencePutWatsonxRequest)) (*Response, error)
 
 // InferencePutWatsonxRequest configures the Inference Put Watsonx API request.
 type InferencePutWatsonxRequest struct {
@@ -54,6 +55,8 @@ type InferencePutWatsonxRequest struct {
 
 	TaskType           string
 	WatsonxInferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutWatsonxRequest) Do(providedCtx context.Context, transport Tr
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutWatsonx) WithContext(v context.Context) func(*InferencePutWa
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutWatsonx) WithBody(v io.Reader) func(*InferencePutWatsonxRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutWatsonx) WithTimeout(v time.Duration) func(*InferencePutWatsonxRequest) {
 	return func(r *InferencePutWatsonxRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

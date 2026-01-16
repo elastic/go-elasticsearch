@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesValidateQueryFunc(t Transport) IndicesValidateQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesValidateQuery allows a user to validate a potentially expensive query without executing it.
+// IndicesValidateQuery validate a query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-validate.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-validate-query.
 type IndicesValidateQuery func(o ...func(*IndicesValidateQueryRequest)) (*Response, error)
 
 // IndicesValidateQueryRequest configures the Indices Validate Query API request.
@@ -61,7 +61,7 @@ type IndicesValidateQueryRequest struct {
 	AnalyzeWildcard   *bool
 	DefaultOperator   string
 	Df                string
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	Explain           *bool
 	IgnoreUnavailable *bool
 	Lenient           *bool
@@ -139,8 +139,8 @@ func (r IndicesValidateQueryRequest) Do(providedCtx context.Context, transport T
 		params["df"] = r.Df
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.Explain != nil {
@@ -305,7 +305,7 @@ func (f IndicesValidateQuery) WithDf(v string) func(*IndicesValidateQueryRequest
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesValidateQuery) WithExpandWildcards(v string) func(*IndicesValidateQueryRequest) {
+func (f IndicesValidateQuery) WithExpandWildcards(v ...string) func(*IndicesValidateQueryRequest) {
 	return func(r *IndicesValidateQueryRequest) {
 		r.ExpandWildcards = v
 	}

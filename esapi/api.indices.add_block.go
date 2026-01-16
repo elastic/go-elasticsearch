@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newIndicesAddBlockFunc(t Transport) IndicesAddBlock {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesAddBlock adds a block to an index.
+// IndicesAddBlock add an index block
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/index-modules-blocks.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-add-block.
 type IndicesAddBlock func(index []string, block string, o ...func(*IndicesAddBlockRequest)) (*Response, error)
 
 // IndicesAddBlockRequest configures the Indices Add Block API request.
@@ -57,7 +57,7 @@ type IndicesAddBlockRequest struct {
 	Block string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 	MasterTimeout     time.Duration
 	Timeout           time.Duration
@@ -118,8 +118,8 @@ func (r IndicesAddBlockRequest) Do(providedCtx context.Context, transport Transp
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -220,7 +220,7 @@ func (f IndicesAddBlock) WithAllowNoIndices(v bool) func(*IndicesAddBlockRequest
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesAddBlock) WithExpandWildcards(v string) func(*IndicesAddBlockRequest) {
+func (f IndicesAddBlock) WithExpandWildcards(v ...string) func(*IndicesAddBlockRequest) {
 	return func(r *IndicesAddBlockRequest) {
 		r.ExpandWildcards = v
 	}

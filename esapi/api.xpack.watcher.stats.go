@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newWatcherStatsFunc(t Transport) WatcherStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherStats - Retrieves the current Watcher metrics.
+// WatcherStats - Get Watcher statistics
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-stats.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-stats.
 type WatcherStats func(o ...func(*WatcherStatsRequest)) (*Response, error)
 
 // WatcherStatsRequest configures the Watcher Stats API request.

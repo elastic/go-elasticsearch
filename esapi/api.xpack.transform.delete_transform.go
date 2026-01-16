@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newTransformDeleteTransformFunc(t Transport) TransformDeleteTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformDeleteTransform - Deletes an existing transform.
+// TransformDeleteTransform - Delete a transform
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-transform.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-delete-transform.
 type TransformDeleteTransform func(transform_id string, o ...func(*TransformDeleteTransformRequest)) (*Response, error)
 
 // TransformDeleteTransformRequest configures the Transform Delete Transform API request.

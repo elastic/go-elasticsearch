@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newIndicesExistsAliasFunc(t Transport) IndicesExistsAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesExistsAlias returns information about whether a particular alias exists.
+// IndicesExistsAlias check aliases
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists-alias.
 type IndicesExistsAlias func(name []string, o ...func(*IndicesExistsAliasRequest)) (*Response, error)
 
 // IndicesExistsAliasRequest configures the Indices Exists Alias API request.
@@ -57,7 +57,7 @@ type IndicesExistsAliasRequest struct {
 	Name []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 	MasterTimeout     time.Duration
 
@@ -119,8 +119,8 @@ func (r IndicesExistsAliasRequest) Do(providedCtx context.Context, transport Tra
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -224,7 +224,7 @@ func (f IndicesExistsAlias) WithAllowNoIndices(v bool) func(*IndicesExistsAliasR
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesExistsAlias) WithExpandWildcards(v string) func(*IndicesExistsAliasRequest) {
+func (f IndicesExistsAlias) WithExpandWildcards(v ...string) func(*IndicesExistsAliasRequest) {
 	return func(r *IndicesExistsAliasRequest) {
 		r.ExpandWildcards = v
 	}

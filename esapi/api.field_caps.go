@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newFieldCapsFunc(t Transport) FieldCaps {
 
 // ----- API Definition -------------------------------------------------------
 
-// FieldCaps returns the information about the capabilities of fields among multiple indices.
+// FieldCaps get the field capabilities
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-field-caps.
 type FieldCaps func(o ...func(*FieldCapsRequest)) (*Response, error)
 
 // FieldCapsRequest configures the Field Caps API request.
@@ -56,7 +56,7 @@ type FieldCapsRequest struct {
 	Body io.Reader
 
 	AllowNoIndices     *bool
-	ExpandWildcards    string
+	ExpandWildcards    []string
 	Fields             []string
 	Filters            []string
 	IgnoreUnavailable  *bool
@@ -113,8 +113,8 @@ func (r FieldCapsRequest) Do(providedCtx context.Context, transport Transport) (
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if len(r.Fields) > 0 {
@@ -248,7 +248,7 @@ func (f FieldCaps) WithAllowNoIndices(v bool) func(*FieldCapsRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f FieldCaps) WithExpandWildcards(v string) func(*FieldCapsRequest) {
+func (f FieldCaps) WithExpandWildcards(v ...string) func(*FieldCapsRequest) {
 	return func(r *FieldCapsRequest) {
 		r.ExpandWildcards = v
 	}

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesResolveClusterFunc(t Transport) IndicesResolveCluster {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesResolveCluster resolves the specified index expressions to return information about each cluster. If no index expression is provided, this endpoint will return information about all the remote clusters that are configured on the local cluster.
+// IndicesResolveCluster resolve the cluster
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-cluster-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-cluster.
 type IndicesResolveCluster func(o ...func(*IndicesResolveClusterRequest)) (*Response, error)
 
 // IndicesResolveClusterRequest configures the Indices Resolve Cluster API request.
@@ -54,7 +54,7 @@ type IndicesResolveClusterRequest struct {
 	Name []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreThrottled   *bool
 	IgnoreUnavailable *bool
 	Timeout           time.Duration
@@ -110,8 +110,8 @@ func (r IndicesResolveClusterRequest) Do(providedCtx context.Context, transport 
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreThrottled != nil {
@@ -219,7 +219,7 @@ func (f IndicesResolveCluster) WithAllowNoIndices(v bool) func(*IndicesResolveCl
 }
 
 // WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open). only allowed when providing an index expression..
-func (f IndicesResolveCluster) WithExpandWildcards(v string) func(*IndicesResolveClusterRequest) {
+func (f IndicesResolveCluster) WithExpandWildcards(v ...string) func(*IndicesResolveClusterRequest) {
 	return func(r *IndicesResolveClusterRequest) {
 		r.ExpandWildcards = v
 	}

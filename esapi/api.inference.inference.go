@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceInferenceFunc(t Transport) InferenceInference {
-	return func(inference_id string, o ...func(*InferenceInferenceRequest)) (*Response, error) {
-		var r = InferenceInferenceRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceInferenceRequest)) (*Response, error) {
+		var r = InferenceInferenceRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferenceInferenceFunc(t Transport) InferenceInference {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceInference perform inference
+// InferenceInference perform inference on the service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
-type InferenceInference func(inference_id string, o ...func(*InferenceInferenceRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference.
+type InferenceInference func(body io.Reader, inference_id string, o ...func(*InferenceInferenceRequest)) (*Response, error)
 
 // InferenceInferenceRequest configures the Inference Inference API request.
 type InferenceInferenceRequest struct {
@@ -54,6 +55,8 @@ type InferenceInferenceRequest struct {
 
 	InferenceID string
 	TaskType    string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -104,6 +107,10 @@ func (r InferenceInferenceRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -190,17 +197,17 @@ func (f InferenceInference) WithContext(v context.Context) func(*InferenceInfere
 	}
 }
 
-// WithBody - The inference payload.
-func (f InferenceInference) WithBody(v io.Reader) func(*InferenceInferenceRequest) {
-	return func(r *InferenceInferenceRequest) {
-		r.Body = v
-	}
-}
-
 // WithTaskType - the task type.
 func (f InferenceInference) WithTaskType(v string) func(*InferenceInferenceRequest) {
 	return func(r *InferenceInferenceRequest) {
 		r.TaskType = v
+	}
+}
+
+// WithTimeout - the amount of time to wait for the inference request to complete..
+func (f InferenceInference) WithTimeout(v time.Duration) func(*InferenceInferenceRequest) {
+	return func(r *InferenceInferenceRequest) {
+		r.Timeout = v
 	}
 }
 

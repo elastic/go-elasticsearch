@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newCatIndicesFunc(t Transport) CatIndices {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatIndices returns information about indices: number of primaries and replicas, document counts, disk size, ...
+// CatIndices get index information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-indices.
 type CatIndices func(o ...func(*CatIndicesRequest)) (*Response, error)
 
 // CatIndicesRequest configures the Cat Indices API request.
@@ -54,7 +54,7 @@ type CatIndicesRequest struct {
 	Index []string
 
 	Bytes                   string
-	ExpandWildcards         string
+	ExpandWildcards         []string
 	Format                  string
 	H                       []string
 	Health                  string
@@ -117,8 +117,8 @@ func (r CatIndicesRequest) Do(providedCtx context.Context, transport Transport) 
 		params["bytes"] = r.Bytes
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.Format != "" {
@@ -254,7 +254,7 @@ func (f CatIndices) WithBytes(v string) func(*CatIndicesRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f CatIndices) WithExpandWildcards(v string) func(*CatIndicesRequest) {
+func (f CatIndices) WithExpandWildcards(v ...string) func(*CatIndicesRequest) {
 	return func(r *CatIndicesRequest) {
 		r.ExpandWildcards = v
 	}

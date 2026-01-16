@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -28,8 +28,8 @@ import (
 )
 
 func newIndicesShrinkFunc(t Transport) IndicesShrink {
-	return func(index string, target string, o ...func(*IndicesShrinkRequest)) (*Response, error) {
-		var r = IndicesShrinkRequest{Index: index, Target: target}
+	return func(index string, body io.Reader, target string, o ...func(*IndicesShrinkRequest)) (*Response, error) {
+		var r = IndicesShrinkRequest{Index: index, Body: body, Target: target}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,10 +44,10 @@ func newIndicesShrinkFunc(t Transport) IndicesShrink {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesShrink allow to shrink an existing index into a new index with fewer primary shards.
+// IndicesShrink shrink an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shrink-index.html.
-type IndicesShrink func(index string, target string, o ...func(*IndicesShrinkRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-shrink.
+type IndicesShrink func(index string, body io.Reader, target string, o ...func(*IndicesShrinkRequest)) (*Response, error)
 
 // IndicesShrinkRequest configures the Indices Shrink API request.
 type IndicesShrinkRequest struct {
@@ -203,13 +203,6 @@ func (r IndicesShrinkRequest) Do(providedCtx context.Context, transport Transpor
 func (f IndicesShrink) WithContext(v context.Context) func(*IndicesShrinkRequest) {
 	return func(r *IndicesShrinkRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The configuration for the target index (`settings` and `aliases`).
-func (f IndicesShrink) WithBody(v io.Reader) func(*IndicesShrinkRequest) {
-	return func(r *IndicesShrinkRequest) {
-		r.Body = v
 	}
 }
 

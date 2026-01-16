@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newILMStopFunc(t Transport) ILMStop {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMStop - Halts all lifecycle management operations and stops the index lifecycle management (ILM) plugin
+// ILMStop - Stop the ILM plugin
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-stop.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-stop.
 type ILMStop func(o ...func(*ILMStopRequest)) (*Response, error)
 
 // ILMStopRequest configures the ILM Stop API request.

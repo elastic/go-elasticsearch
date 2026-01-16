@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newMigrationDeprecationsFunc(t Transport) MigrationDeprecations {
 
 // ----- API Definition -------------------------------------------------------
 
-// MigrationDeprecations - Retrieves information about different cluster, node, and index level settings that use deprecated features that will be removed or changed in the next major version.
+// MigrationDeprecations - Get deprecation information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-deprecation.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-deprecations.
 type MigrationDeprecations func(o ...func(*MigrationDeprecationsRequest)) (*Response, error)
 
 // MigrationDeprecationsRequest configures the Migration Deprecations API request.

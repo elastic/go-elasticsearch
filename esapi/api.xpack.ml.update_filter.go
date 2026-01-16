@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLUpdateFilterFunc(t Transport) MLUpdateFilter {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpdateFilter - Updates the description of a filter, adds items, or removes items.
+// MLUpdateFilter - Update a filter
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-filter.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-filter.
 type MLUpdateFilter func(body io.Reader, filter_id string, o ...func(*MLUpdateFilterRequest)) (*Response, error)
 
 // MLUpdateFilterRequest configures the ML Update Filter API request.

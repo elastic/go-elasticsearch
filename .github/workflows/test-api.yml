@@ -11,7 +11,7 @@ jobs:
   test-free:
     name: Free
     env:
-      ELASTICSEARCH_VERSION: elasticsearch:9.1.0-SNAPSHOT
+      ELASTICSEARCH_VERSION: elasticsearch:9.4.0-SNAPSHOT
       ELASTICSEARCH_URL: http://localhost:9200
     runs-on: ubuntu-latest
     steps:

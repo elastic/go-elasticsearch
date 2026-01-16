@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutVoyageaiFunc(t Transport) InferencePutVoyageai {
-	return func(task_type string, voyageai_inference_id string, o ...func(*InferencePutVoyageaiRequest)) (*Response, error) {
-		var r = InferencePutVoyageaiRequest{TaskType: task_type, VoyageaiInferenceID: voyageai_inference_id}
+	return func(body io.Reader, task_type string, voyageai_inference_id string, o ...func(*InferencePutVoyageaiRequest)) (*Response, error) {
+		var r = InferencePutVoyageaiRequest{Body: body, TaskType: task_type, VoyageaiInferenceID: voyageai_inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutVoyageaiFunc(t Transport) InferencePutVoyageai {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutVoyageai configure a VoyageAI inference endpoint
+// InferencePutVoyageai create a VoyageAI inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/inference-apis.html.
-type InferencePutVoyageai func(task_type string, voyageai_inference_id string, o ...func(*InferencePutVoyageaiRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-voyageai.
+type InferencePutVoyageai func(body io.Reader, task_type string, voyageai_inference_id string, o ...func(*InferencePutVoyageaiRequest)) (*Response, error)
 
 // InferencePutVoyageaiRequest configures the Inference Put Voyageai API request.
 type InferencePutVoyageaiRequest struct {
@@ -54,6 +55,8 @@ type InferencePutVoyageaiRequest struct {
 
 	TaskType            string
 	VoyageaiInferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutVoyageaiRequest) Do(providedCtx context.Context, transport T
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutVoyageai) WithContext(v context.Context) func(*InferencePutV
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutVoyageai) WithBody(v io.Reader) func(*InferencePutVoyageaiRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutVoyageai) WithTimeout(v time.Duration) func(*InferencePutVoyageaiRequest) {
 	return func(r *InferencePutVoyageaiRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

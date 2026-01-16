@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -44,9 +45,9 @@ func newCountFunc(t Transport) Count {
 
 // ----- API Definition -------------------------------------------------------
 
-// Count returns number of documents matching a query.
+// Count count search results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-count.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-count.
 type Count func(o ...func(*CountRequest)) (*Response, error)
 
 // CountRequest configures the Count API request.
@@ -60,11 +61,11 @@ type CountRequest struct {
 	AnalyzeWildcard   *bool
 	DefaultOperator   string
 	Df                string
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreThrottled   *bool
 	IgnoreUnavailable *bool
 	Lenient           *bool
-	MinScore          *int
+	MinScore          interface{}
 	Preference        string
 	Query             string
 	Routing           []string
@@ -135,8 +136,8 @@ func (r CountRequest) Do(providedCtx context.Context, transport Transport) (*Res
 		params["df"] = r.Df
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreThrottled != nil {
@@ -152,7 +153,7 @@ func (r CountRequest) Do(providedCtx context.Context, transport Transport) (*Res
 	}
 
 	if r.MinScore != nil {
-		params["min_score"] = strconv.FormatInt(int64(*r.MinScore), 10)
+		params["min_score"] = fmt.Sprintf("%v", r.MinScore)
 	}
 
 	if r.Preference != "" {
@@ -306,7 +307,7 @@ func (f Count) WithDf(v string) func(*CountRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f Count) WithExpandWildcards(v string) func(*CountRequest) {
+func (f Count) WithExpandWildcards(v ...string) func(*CountRequest) {
 	return func(r *CountRequest) {
 		r.ExpandWildcards = v
 	}
@@ -334,9 +335,9 @@ func (f Count) WithLenient(v bool) func(*CountRequest) {
 }
 
 // WithMinScore - include only documents with a specific `_score` value in the result.
-func (f Count) WithMinScore(v int) func(*CountRequest) {
+func (f Count) WithMinScore(v interface{}) func(*CountRequest) {
 	return func(r *CountRequest) {
-		r.MinScore = &v
+		r.MinScore = v
 	}
 }
 

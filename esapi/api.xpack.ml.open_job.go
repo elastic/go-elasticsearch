@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newMLOpenJobFunc(t Transport) MLOpenJob {
@@ -43,9 +44,9 @@ func newMLOpenJobFunc(t Transport) MLOpenJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLOpenJob - Opens one or more anomaly detection jobs.
+// MLOpenJob - Open anomaly detection jobs
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-open-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-open-job.
 type MLOpenJob func(job_id string, o ...func(*MLOpenJobRequest)) (*Response, error)
 
 // MLOpenJobRequest configures the ML Open Job API request.
@@ -53,6 +54,8 @@ type MLOpenJobRequest struct {
 	Body io.Reader
 
 	JobID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -100,6 +103,10 @@ func (r MLOpenJobRequest) Do(providedCtx context.Context, transport Transport) (
 	path.WriteString("_open")
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -190,6 +197,13 @@ func (f MLOpenJob) WithContext(v context.Context) func(*MLOpenJobRequest) {
 func (f MLOpenJob) WithBody(v io.Reader) func(*MLOpenJobRequest) {
 	return func(r *MLOpenJobRequest) {
 		r.Body = v
+	}
+}
+
+// WithTimeout - controls the time to wait until a job has opened..
+func (f MLOpenJob) WithTimeout(v time.Duration) func(*MLOpenJobRequest) {
+	return func(r *MLOpenJobRequest) {
+		r.Timeout = v
 	}
 }
 

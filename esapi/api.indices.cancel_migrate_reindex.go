@@ -15,18 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 )
 
 func newIndicesCancelMigrateReindexFunc(t Transport) IndicesCancelMigrateReindex {
-	return func(index string, o ...func(*IndicesCancelMigrateReindexRequest)) (*Response, error) {
+	return func(index []string, o ...func(*IndicesCancelMigrateReindexRequest)) (*Response, error) {
 		var r = IndicesCancelMigrateReindexRequest{Index: index}
 		for _, f := range o {
 			f(&r)
@@ -42,16 +43,14 @@ func newIndicesCancelMigrateReindexFunc(t Transport) IndicesCancelMigrateReindex
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesCancelMigrateReindex this API returns the status of a migration reindex attempt for a data stream or index
+// IndicesCancelMigrateReindex cancel a migration reindex operation
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-stream-reindex-cancel-api.html.
-type IndicesCancelMigrateReindex func(index string, o ...func(*IndicesCancelMigrateReindexRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-cancel-migrate-reindex.
+type IndicesCancelMigrateReindex func(index []string, o ...func(*IndicesCancelMigrateReindexRequest)) (*Response, error)
 
 // IndicesCancelMigrateReindexRequest configures the Indices Cancel Migrate Reindex API request.
 type IndicesCancelMigrateReindexRequest struct {
-	Index string
+	Index []string
 
 	Pretty     bool
 	Human      bool
@@ -84,16 +83,20 @@ func (r IndicesCancelMigrateReindexRequest) Do(providedCtx context.Context, tran
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len("_migration") + 1 + len("reindex") + 1 + len(r.Index) + 1 + len("_cancel"))
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_migration") + 1 + len("reindex") + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_cancel"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_migration")
 	path.WriteString("/")
 	path.WriteString("reindex")
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString(strings.Join(r.Index, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "index", r.Index)
+		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_cancel")
