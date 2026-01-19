@@ -116,3 +116,7 @@
 
 - name: "skip: gencheck"
   color: "#ededed"
+
+- name: "apidiff"
+  color: "#5319e7"
+  description: "Run apidiff API compatibility checks on PRs"

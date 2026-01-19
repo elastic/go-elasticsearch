@@ -8,7 +8,7 @@
     "bootstrap-sha": "b36369e449cde695ab35b5e55a1b42ced5a3b9c9",
     "last-release-sha": "b36369e449cde695ab35b5e55a1b42ced5a3b9c9",
     "draft-pull-request": true,
-    "initial-version": "9.3.0",
+    "extra-label": "apidiff",
     "packages": {
         ".": {
             "version-file": "internal/version/version.go"
