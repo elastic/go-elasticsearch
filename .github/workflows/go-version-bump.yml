@@ -81,7 +81,7 @@ jobs:
           echo "target=$latest2" >> "$GITHUB_OUTPUT"
 
           {
-            echo "updated_modules<<'EOF'"
+            echo "updated_modules<<EOF"
             for entry in "${updates[@]}"; do
               echo "$entry"
             done
@@ -89,7 +89,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
           {
-            echo "updated_files<<'EOF'"
+            echo "updated_files<<EOF"
             for entry in "${updated_files[@]}"; do
               echo "$entry"
             done
