@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -40,6 +40,47 @@ func NewIpProperty() *_ipProperty {
 func (s *_ipProperty) Boost(boost types.Float64) *_ipProperty {
 
 	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_ipProperty) IgnoreMalformed(ignoremalformed bool) *_ipProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
+func (s *_ipProperty) Index(index bool) *_ipProperty {
+
+	s.v.Index = &index
+
+	return s
+}
+
+func (s *_ipProperty) NullValue(nullvalue string) *_ipProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
+func (s *_ipProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_ipProperty {
+
+	s.v.OnScriptError = &onscripterror
+	return s
+}
+
+func (s *_ipProperty) Script(script types.ScriptVariant) *_ipProperty {
+
+	s.v.Script = script.ScriptCaster()
+
+	return s
+}
+
+func (s *_ipProperty) TimeSeriesDimension(timeseriesdimension bool) *_ipProperty {
+
+	s.v.TimeSeriesDimension = &timeseriesdimension
 
 	return s
 }
@@ -92,20 +133,6 @@ func (s *_ipProperty) IgnoreAbove(ignoreabove int) *_ipProperty {
 	return s
 }
 
-func (s *_ipProperty) IgnoreMalformed(ignoremalformed bool) *_ipProperty {
-
-	s.v.IgnoreMalformed = &ignoremalformed
-
-	return s
-}
-
-func (s *_ipProperty) Index(index bool) *_ipProperty {
-
-	s.v.Index = &index
-
-	return s
-}
-
 func (s *_ipProperty) Meta(meta map[string]string) *_ipProperty {
 
 	s.v.Meta = meta
@@ -124,19 +151,6 @@ func (s *_ipProperty) AddMeta(key string, value string) *_ipProperty {
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_ipProperty) NullValue(nullvalue string) *_ipProperty {
-
-	s.v.NullValue = &nullvalue
-
-	return s
-}
-
-func (s *_ipProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_ipProperty {
-
-	s.v.OnScriptError = &onscripterror
 	return s
 }
 
@@ -161,13 +175,6 @@ func (s *_ipProperty) AddProperty(key string, value types.PropertyVariant) *_ipP
 	return s
 }
 
-func (s *_ipProperty) Script(script types.ScriptVariant) *_ipProperty {
-
-	s.v.Script = script.ScriptCaster()
-
-	return s
-}
-
 func (s *_ipProperty) Store(store bool) *_ipProperty {
 
 	s.v.Store = &store
@@ -178,13 +185,6 @@ func (s *_ipProperty) Store(store bool) *_ipProperty {
 func (s *_ipProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_ipProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
-	return s
-}
-
-func (s *_ipProperty) TimeSeriesDimension(timeseriesdimension bool) *_ipProperty {
-
-	s.v.TimeSeriesDimension = &timeseriesdimension
-
 	return s
 }
 

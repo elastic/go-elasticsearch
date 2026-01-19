@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package update
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package update
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/update/UpdateRequest.ts#L38-L196
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_global/update/UpdateRequest.ts#L39-L199
 type Request struct {
-
 	// DetectNoop If `true`, the `result` in the response is set to `noop` (no operation) when
 	// there are no changes to the document.
 	DetectNoop *bool `json:"detect_noop,omitempty"`

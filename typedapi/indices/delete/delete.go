@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Delete indices.
+//
 // Deleting an index deletes its documents, shards, and metadata.
 // It does not delete related Kibana components, such as data views,
 // visualizations, or dashboards.
@@ -86,6 +87,7 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 }
 
 // Delete indices.
+//
 // Deleting an index deletes its documents, shards, and metadata.
 // It does not delete related Kibana components, such as data views,
 // visualizations, or dashboards.

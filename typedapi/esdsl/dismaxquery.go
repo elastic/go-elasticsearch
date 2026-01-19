@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -37,13 +37,6 @@ func NewDisMaxQuery() *_disMaxQuery {
 
 }
 
-func (s *_disMaxQuery) Boost(boost float32) *_disMaxQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_disMaxQuery) Queries(queries ...types.QueryVariant) *_disMaxQuery {
 
 	for _, v := range queries {
@@ -54,16 +47,23 @@ func (s *_disMaxQuery) Queries(queries ...types.QueryVariant) *_disMaxQuery {
 	return s
 }
 
-func (s *_disMaxQuery) QueryName_(queryname_ string) *_disMaxQuery {
+func (s *_disMaxQuery) TieBreaker(tiebreaker types.Float64) *_disMaxQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.TieBreaker = &tiebreaker
 
 	return s
 }
 
-func (s *_disMaxQuery) TieBreaker(tiebreaker types.Float64) *_disMaxQuery {
+func (s *_disMaxQuery) Boost(boost float32) *_disMaxQuery {
 
-	s.v.TieBreaker = &tiebreaker
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_disMaxQuery) QueryName_(queryname_ string) *_disMaxQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

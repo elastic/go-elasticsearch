@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -36,6 +36,12 @@ func NewMatrixStatsAggregation() *_matrixStatsAggregation {
 
 	return &_matrixStatsAggregation{v: types.NewMatrixStatsAggregation()}
 
+}
+
+func (s *_matrixStatsAggregation) Mode(mode sortmode.SortMode) *_matrixStatsAggregation {
+
+	s.v.Mode = &mode
+	return s
 }
 
 func (s *_matrixStatsAggregation) Fields(fields ...string) *_matrixStatsAggregation {
@@ -63,12 +69,6 @@ func (s *_matrixStatsAggregation) AddMissing(key string, value types.Float64) *_
 	tmp[key] = value
 
 	s.v.Missing = tmp
-	return s
-}
-
-func (s *_matrixStatsAggregation) Mode(mode sortmode.SortMode) *_matrixStatsAggregation {
-
-	s.v.Mode = &mode
 	return s
 }
 

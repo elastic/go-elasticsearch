@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -31,6 +31,20 @@ func NewPipelineProcessor() *_pipelineProcessor {
 
 	return &_pipelineProcessor{v: types.NewPipelineProcessor()}
 
+}
+
+func (s *_pipelineProcessor) IgnoreMissingPipeline(ignoremissingpipeline bool) *_pipelineProcessor {
+
+	s.v.IgnoreMissingPipeline = &ignoremissingpipeline
+
+	return s
+}
+
+func (s *_pipelineProcessor) Name(name string) *_pipelineProcessor {
+
+	s.v.Name = name
+
+	return s
 }
 
 func (s *_pipelineProcessor) Description(description string) *_pipelineProcessor {
@@ -50,20 +64,6 @@ func (s *_pipelineProcessor) If(if_ types.ScriptVariant) *_pipelineProcessor {
 func (s *_pipelineProcessor) IgnoreFailure(ignorefailure bool) *_pipelineProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
-
-	return s
-}
-
-func (s *_pipelineProcessor) IgnoreMissingPipeline(ignoremissingpipeline bool) *_pipelineProcessor {
-
-	s.v.IgnoreMissingPipeline = &ignoremissingpipeline
-
-	return s
-}
-
-func (s *_pipelineProcessor) Name(name string) *_pipelineProcessor {
-
-	s.v.Name = name
 
 	return s
 }

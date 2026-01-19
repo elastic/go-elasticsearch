@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // ShapeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/geo.ts#L81-L93
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/mapping/geo.ts#L81-L93
 type ShapeProperty struct {
 	Coerce          *bool                          `json:"coerce,omitempty"`
 	CopyTo          []string                       `json:"copy_to,omitempty"`
@@ -304,6 +304,12 @@ func (s *ShapeProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "histogram":
 					oo := NewHistogramProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Fields | %w", err)
+					}
+					s.Fields[key] = oo
+				case "exponential_histogram":
+					oo := NewExponentialHistogramProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Fields | %w", err)
 					}
@@ -698,6 +704,12 @@ func (s *ShapeProperty) UnmarshalJSON(data []byte) error {
 					s.Properties[key] = oo
 				case "histogram":
 					oo := NewHistogramProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
+				case "exponential_histogram":
+					oo := NewExponentialHistogramProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Properties | %w", err)
 					}

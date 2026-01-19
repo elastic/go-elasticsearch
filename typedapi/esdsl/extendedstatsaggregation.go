@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -32,6 +32,13 @@ func NewExtendedStatsAggregation() *_extendedStatsAggregation {
 
 	return &_extendedStatsAggregation{v: types.NewExtendedStatsAggregation()}
 
+}
+
+func (s *_extendedStatsAggregation) Sigma(sigma types.Float64) *_extendedStatsAggregation {
+
+	s.v.Sigma = &sigma
+
+	return s
 }
 
 func (s *_extendedStatsAggregation) Field(field string) *_extendedStatsAggregation {
@@ -58,13 +65,6 @@ func (s *_extendedStatsAggregation) Missing(missing types.MissingVariant) *_exte
 func (s *_extendedStatsAggregation) Script(script types.ScriptVariant) *_extendedStatsAggregation {
 
 	s.v.Script = script.ScriptCaster()
-
-	return s
-}
-
-func (s *_extendedStatsAggregation) Sigma(sigma types.Float64) *_extendedStatsAggregation {
-
-	s.v.Sigma = &sigma
 
 	return s
 }

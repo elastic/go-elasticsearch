@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // CustomTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1138-L1152
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/CommonTypes.ts#L1206-L1220
 type CustomTaskSettings struct {
 	// Parameters Specifies parameters that are required to run the custom service. The
 	// parameters depend on the model your custom service uses.

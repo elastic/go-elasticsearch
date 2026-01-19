@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Create an Elasticsearch inference endpoint.
 //
@@ -441,6 +441,8 @@ func (r *PutElasticsearch) Pretty(pretty bool) *PutElasticsearch {
 }
 
 // The chunking configuration object.
+// Applies only to the `sparse_embedding` and `text_embedding` task types.
+// Not applicable to the `rerank` task type.
 // API name: chunking_settings
 func (r *PutElasticsearch) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutElasticsearch {
 	// Initialize the request if it is not already initialized

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -83,9 +83,9 @@ func (s *_reindexSource) Sort(sorts ...types.SortCombinationsVariant) *_reindexS
 	return s
 }
 
-func (s *_reindexSource) SourceFields_(fields ...string) *_reindexSource {
+func (s *_reindexSource) SourceFields_(sourceconfig types.SourceConfigVariant) *_reindexSource {
 
-	s.v.SourceFields_ = fields
+	s.v.SourceFields_ = *sourceconfig.SourceConfigCaster()
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package msearchtemplate
 
@@ -33,7 +33,7 @@ import (
 
 // Response holds the response body struct for the package msearchtemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/msearch_template/MultiSearchTemplateResponse.ts#L22-L33
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_global/msearch_template/MultiSearchTemplateResponse.ts#L22-L33
 type Response struct {
 	Responses []types.MsearchResponseItem `json:"responses"`
 	Took      int64                       `json:"took"`

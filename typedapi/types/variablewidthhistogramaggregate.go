@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // VariableWidthHistogramAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/aggregations/Aggregate.ts#L402-L404
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/aggregations/Aggregate.ts#L474-L476
 type VariableWidthHistogramAggregate struct {
 	Buckets BucketsVariableWidthHistogramBucket `json:"buckets"`
 	Meta    Metadata                            `json:"meta,omitempty"`

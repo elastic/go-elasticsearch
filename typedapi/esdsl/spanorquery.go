@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -33,13 +33,6 @@ func NewSpanOrQuery() *_spanOrQuery {
 
 }
 
-func (s *_spanOrQuery) Boost(boost float32) *_spanOrQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_spanOrQuery) Clauses(clauses ...types.SpanQueryVariant) *_spanOrQuery {
 
 	for _, v := range clauses {
@@ -47,6 +40,13 @@ func (s *_spanOrQuery) Clauses(clauses ...types.SpanQueryVariant) *_spanOrQuery 
 		s.v.Clauses = append(s.v.Clauses, *v.SpanQueryCaster())
 
 	}
+	return s
+}
+
+func (s *_spanOrQuery) Boost(boost float32) *_spanOrQuery {
+
+	s.v.Boost = &boost
+
 	return s
 }
 

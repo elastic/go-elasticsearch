@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // OneHotEncodingPreprocessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/put_trained_model/types.ts#L44-L47
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/ml/put_trained_model/types.ts#L44-L47
 type OneHotEncodingPreprocessor struct {
 	Field  string            `json:"field"`
 	HotMap map[string]string `json:"hot_map"`

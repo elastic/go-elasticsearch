@@ -16,60 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // InferenceConfigContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/aggregations/pipeline.ts#L236-L242
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/aggregations/pipeline.ts#L238-L244
 type InferenceConfigContainer struct {
-	AdditionalInferenceConfigContainerProperty map[string]json.RawMessage `json:"-"`
 	// Classification Classification configuration for inference.
 	Classification *ClassificationInferenceOptions `json:"classification,omitempty"`
 	// Regression Regression configuration for inference.
 	Regression *RegressionInferenceOptions `json:"regression,omitempty"`
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s InferenceConfigContainer) MarshalJSON() ([]byte, error) {
-	type opt InferenceConfigContainer
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalInferenceConfigContainerProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalInferenceConfigContainerProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewInferenceConfigContainer returns a InferenceConfigContainer.
 func NewInferenceConfigContainer() *InferenceConfigContainer {
-	r := &InferenceConfigContainer{
-		AdditionalInferenceConfigContainerProperty: make(map[string]json.RawMessage),
-	}
+	r := &InferenceConfigContainer{}
 
 	return r
 }

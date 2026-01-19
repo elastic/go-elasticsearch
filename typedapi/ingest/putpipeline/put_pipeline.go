@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Create or update a pipeline.
+//
 // Changes made using this API take effect immediately.
 package putpipeline
 
@@ -36,6 +37,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/fieldaccesspattern"
 )
 
 const (
@@ -83,6 +85,7 @@ func NewPutPipelineFunc(tp elastictransport.Interface) NewPutPipeline {
 }
 
 // Create or update a pipeline.
+//
 // Changes made using this API take effect immediately.
 //
 // https://www.elastic.co/docs/manage-data/ingest/transform-enrich/ingest-pipelines
@@ -335,8 +338,8 @@ func (r *PutPipeline) Timeout(duration string) *PutPipeline {
 
 // IfVersion Required version for optimistic concurrency control for pipeline updates
 // API name: if_version
-func (r *PutPipeline) IfVersion(versionnumber string) *PutPipeline {
-	r.values.Set("if_version", versionnumber)
+func (r *PutPipeline) IfVersion(ifversion int) *PutPipeline {
+	r.values.Set("if_version", strconv.Itoa(ifversion))
 
 	return r
 }
@@ -411,6 +414,18 @@ func (r *PutPipeline) Description(description string) *PutPipeline {
 
 	r.req.Description = &description
 
+	return r
+}
+
+// Controls how processors in this pipeline should read and write data on a
+// document's source.
+// API name: field_access_pattern
+func (r *PutPipeline) FieldAccessPattern(fieldaccesspattern fieldaccesspattern.FieldAccessPattern) *PutPipeline {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.FieldAccessPattern = &fieldaccesspattern
 	return r
 }
 

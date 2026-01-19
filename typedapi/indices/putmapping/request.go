@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package putmapping
 
@@ -34,9 +34,8 @@ import (
 
 // Request holds the request body struct for the package putmapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/put_mapping/IndicesPutMappingRequest.ts#L41-L164
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/indices/put_mapping/IndicesPutMappingRequest.ts#L42-L172
 type Request struct {
-
 	// DateDetection Controls whether dynamic date detection is enabled.
 	DateDetection *bool `json:"date_detection,omitempty"`
 	// Dynamic Controls whether new fields are added dynamically.
@@ -343,6 +342,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					s.Properties[key] = oo
 				case "histogram":
 					oo := types.NewHistogramProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
+				case "exponential_histogram":
+					oo := types.NewExponentialHistogramProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Properties | %w", err)
 					}

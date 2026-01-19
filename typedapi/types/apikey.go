@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // ApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/_types/ApiKey.ts#L27-L113
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/security/_types/ApiKey.ts#L27-L120
 type ApiKey struct {
 	// Access The access granted to cross-cluster API keys.
 	// The access is composed of permissions for cross cluster search and cross
@@ -42,6 +42,11 @@ type ApiKey struct {
 	// When specified, the new access assignment fully replaces the previously
 	// assigned access.
 	Access *Access `json:"access,omitempty"`
+	// CertificateIdentity The certificate identity associated with a cross-cluster API key.
+	// Restricts the API key to connections authenticated by a specific TLS
+	// certificate.
+	// Only applicable to cross-cluster API keys.
+	CertificateIdentity *string `json:"certificate_identity,omitempty"`
 	// Creation Creation time for the API key in milliseconds.
 	Creation int64 `json:"creation"`
 	// Expiration Expiration time for the API key in milliseconds.
@@ -103,6 +108,18 @@ func (s *ApiKey) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.Access); err != nil {
 				return fmt.Errorf("%s | %w", "Access", err)
 			}
+
+		case "certificate_identity":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "CertificateIdentity", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.CertificateIdentity = &o
 
 		case "creation":
 			if err := dec.Decode(&s.Creation); err != nil {

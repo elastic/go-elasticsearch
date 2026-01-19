@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -30,12 +30,12 @@ import (
 
 // TermsLookup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/term.ts#L266-L271
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/query_dsl/term.ts#L267-L272
 type TermsLookup struct {
-	Id      string  `json:"id"`
-	Index   string  `json:"index"`
-	Path    string  `json:"path"`
-	Routing *string `json:"routing,omitempty"`
+	Id      string   `json:"id"`
+	Index   string   `json:"index"`
+	Path    string   `json:"path"`
+	Routing []string `json:"routing,omitempty"`
 }
 
 func (s *TermsLookup) UnmarshalJSON(data []byte) error {
@@ -69,8 +69,19 @@ func (s *TermsLookup) UnmarshalJSON(data []byte) error {
 			}
 
 		case "routing":
-			if err := dec.Decode(&s.Routing); err != nil {
-				return fmt.Errorf("%s | %w", "Routing", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
+
+				s.Routing = append(s.Routing, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
 			}
 
 		}

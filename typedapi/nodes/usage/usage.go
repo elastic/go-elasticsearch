@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get feature usage information.
 package usage
@@ -331,8 +331,9 @@ func (r *Usage) Header(key, value string) *Usage {
 }
 
 // NodeId A comma-separated list of node IDs or names to limit the returned
-// information; use `_local` to return information from the node you're
-// connecting to, leave empty to get information from all nodes
+// information.
+// Use `_local` to return information from the node you're connecting to, leave
+// empty to get information from all nodes.
 // API Name: nodeid
 func (r *Usage) NodeId(nodeid string) *Usage {
 	r.paramSet |= nodeidMask
@@ -342,7 +343,8 @@ func (r *Usage) NodeId(nodeid string) *Usage {
 }
 
 // Metric Limits the information returned to the specific metrics.
-// A comma-separated list of the following options: `_all`, `rest_actions`.
+// A comma-separated list of the following options: `_all`, `rest_actions`,
+// `aggregations`.
 // API Name: metric
 func (r *Usage) Metric(metric string) *Usage {
 	r.paramSet |= metricMask

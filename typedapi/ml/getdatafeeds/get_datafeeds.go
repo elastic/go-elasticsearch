@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get datafeeds configuration info.
+//
 // You can get information for multiple datafeeds in a single API request by
 // using a comma-separated list of datafeeds or a wildcard expression. You can
 // get information for all datafeeds by using `_all`, by specifying `*` as the
@@ -80,6 +81,7 @@ func NewGetDatafeedsFunc(tp elastictransport.Interface) NewGetDatafeeds {
 }
 
 // Get datafeeds configuration info.
+//
 // You can get information for multiple datafeeds in a single API request by
 // using a comma-separated list of datafeeds or a wildcard expression. You can
 // get information for all datafeeds by using `_all`, by specifying `*` as the

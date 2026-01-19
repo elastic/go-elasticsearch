@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package termvectors
 
@@ -34,9 +34,8 @@ import (
 
 // Request holds the request body struct for the package termvectors
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/termvectors/TermVectorsRequest.ts#L33-L241
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_global/termvectors/TermVectorsRequest.ts#L34-L244
 type Request struct {
-
 	// Doc An artificial document (a document not present in the index) for which you
 	// want to retrieve term vectors.
 	Doc json.RawMessage `json:"doc,omitempty"`
@@ -71,7 +70,7 @@ type Request struct {
 	// Positions If `true`, the response includes term positions.
 	Positions *bool `json:"positions,omitempty"`
 	// Routing A custom value that is used to route operations to a specific shard.
-	Routing *string `json:"routing,omitempty"`
+	Routing []string `json:"routing,omitempty"`
 	// TermStatistics If `true`, the response includes:
 	//
 	// * The total term frequency (how often a term occurs in all documents).
@@ -142,19 +141,8 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "fields":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Fields", err)
-				}
-
-				s.Fields = append(s.Fields, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Fields); err != nil {
-					return fmt.Errorf("%s | %w", "Fields", err)
-				}
+			if err := dec.Decode(&s.Fields); err != nil {
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "filter":
@@ -213,8 +201,19 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "routing":
-			if err := dec.Decode(&s.Routing); err != nil {
-				return fmt.Errorf("%s | %w", "Routing", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
+
+				s.Routing = append(s.Routing, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
 			}
 
 		case "term_statistics":

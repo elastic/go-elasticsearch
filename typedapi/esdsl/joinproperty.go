@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -36,16 +36,22 @@ func NewJoinProperty() *_joinProperty {
 
 }
 
-func (s *_joinProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_joinProperty {
-
-	s.v.Dynamic = &dynamic
-	return s
-}
-
 func (s *_joinProperty) EagerGlobalOrdinals(eagerglobalordinals bool) *_joinProperty {
 
 	s.v.EagerGlobalOrdinals = &eagerglobalordinals
 
+	return s
+}
+
+func (s *_joinProperty) Relations(relations map[string][]string) *_joinProperty {
+
+	s.v.Relations = relations
+	return s
+}
+
+func (s *_joinProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_joinProperty {
+
+	s.v.Dynamic = &dynamic
 	return s
 }
 
@@ -116,12 +122,6 @@ func (s *_joinProperty) AddProperty(key string, value types.PropertyVariant) *_j
 	tmp[key] = *value.PropertyCaster()
 
 	s.v.Properties = tmp
-	return s
-}
-
-func (s *_joinProperty) Relations(relations map[string][]string) *_joinProperty {
-
-	s.v.Relations = relations
 	return s
 }
 

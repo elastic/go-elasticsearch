@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -58,16 +58,60 @@ func (s *_flattenedProperty) DocValues(docvalues bool) *_flattenedProperty {
 	return s
 }
 
-func (s *_flattenedProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_flattenedProperty {
-
-	s.v.Dynamic = &dynamic
-	return s
-}
-
 func (s *_flattenedProperty) EagerGlobalOrdinals(eagerglobalordinals bool) *_flattenedProperty {
 
 	s.v.EagerGlobalOrdinals = &eagerglobalordinals
 
+	return s
+}
+
+func (s *_flattenedProperty) Index(index bool) *_flattenedProperty {
+
+	s.v.Index = &index
+
+	return s
+}
+
+func (s *_flattenedProperty) IndexOptions(indexoptions indexoptions.IndexOptions) *_flattenedProperty {
+
+	s.v.IndexOptions = &indexoptions
+	return s
+}
+
+func (s *_flattenedProperty) NullValue(nullvalue string) *_flattenedProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
+func (s *_flattenedProperty) Similarity(similarity string) *_flattenedProperty {
+
+	s.v.Similarity = &similarity
+
+	return s
+}
+
+func (s *_flattenedProperty) SplitQueriesOnWhitespace(splitqueriesonwhitespace bool) *_flattenedProperty {
+
+	s.v.SplitQueriesOnWhitespace = &splitqueriesonwhitespace
+
+	return s
+}
+
+func (s *_flattenedProperty) TimeSeriesDimensions(timeseriesdimensions ...string) *_flattenedProperty {
+
+	for _, v := range timeseriesdimensions {
+
+		s.v.TimeSeriesDimensions = append(s.v.TimeSeriesDimensions, v)
+
+	}
+	return s
+}
+
+func (s *_flattenedProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_flattenedProperty {
+
+	s.v.Dynamic = &dynamic
 	return s
 }
 
@@ -99,19 +143,6 @@ func (s *_flattenedProperty) IgnoreAbove(ignoreabove int) *_flattenedProperty {
 	return s
 }
 
-func (s *_flattenedProperty) Index(index bool) *_flattenedProperty {
-
-	s.v.Index = &index
-
-	return s
-}
-
-func (s *_flattenedProperty) IndexOptions(indexoptions indexoptions.IndexOptions) *_flattenedProperty {
-
-	s.v.IndexOptions = &indexoptions
-	return s
-}
-
 func (s *_flattenedProperty) Meta(meta map[string]string) *_flattenedProperty {
 
 	s.v.Meta = meta
@@ -130,13 +161,6 @@ func (s *_flattenedProperty) AddMeta(key string, value string) *_flattenedProper
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_flattenedProperty) NullValue(nullvalue string) *_flattenedProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 
@@ -161,33 +185,9 @@ func (s *_flattenedProperty) AddProperty(key string, value types.PropertyVariant
 	return s
 }
 
-func (s *_flattenedProperty) Similarity(similarity string) *_flattenedProperty {
-
-	s.v.Similarity = &similarity
-
-	return s
-}
-
-func (s *_flattenedProperty) SplitQueriesOnWhitespace(splitqueriesonwhitespace bool) *_flattenedProperty {
-
-	s.v.SplitQueriesOnWhitespace = &splitqueriesonwhitespace
-
-	return s
-}
-
 func (s *_flattenedProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_flattenedProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
-	return s
-}
-
-func (s *_flattenedProperty) TimeSeriesDimensions(timeseriesdimensions ...string) *_flattenedProperty {
-
-	for _, v := range timeseriesdimensions {
-
-		s.v.TimeSeriesDimensions = append(s.v.TimeSeriesDimensions, v)
-
-	}
 	return s
 }
 

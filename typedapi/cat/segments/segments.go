@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get segment information.
 //
@@ -42,6 +42,8 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/bytes"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catsegmentscolumn"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
 )
 
 const (
@@ -322,14 +324,6 @@ func (r *Segments) Index(index string) *Segments {
 	return r
 }
 
-// Bytes The unit used to display byte values.
-// API name: bytes
-func (r *Segments) Bytes(bytes bytes.Bytes) *Segments {
-	r.values.Set("bytes", bytes.String())
-
-	return r
-}
-
 // H A comma-separated list of columns names to display.
 // It supports simple wildcards.
 // API name: h
@@ -373,6 +367,77 @@ func (r *Segments) MasterTimeout(duration string) *Segments {
 	return r
 }
 
+// ExpandWildcards Type of index that wildcard expressions can match. If the request can target
+// data streams, this argument
+// determines whether wildcard expressions match hidden data streams. Supports
+// comma-separated values,
+// such as open,hidden.
+// API name: expand_wildcards
+func (r *Segments) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Segments {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+
+	return r
+}
+
+// AllowNoIndices If false, the request returns an error if any wildcard expression, index
+// alias, or _all value targets only
+// missing or closed indices. This behavior applies even if the request targets
+// other open indices. For example,
+// a request targeting foo*,bar* returns an error if an index starts with foo
+// but no index starts with bar.
+// API name: allow_no_indices
+func (r *Segments) AllowNoIndices(allownoindices bool) *Segments {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
+
+	return r
+}
+
+// IgnoreThrottled If true, concrete, expanded or aliased indices are ignored when frozen.
+// API name: ignore_throttled
+func (r *Segments) IgnoreThrottled(ignorethrottled bool) *Segments {
+	r.values.Set("ignore_throttled", strconv.FormatBool(ignorethrottled))
+
+	return r
+}
+
+// IgnoreUnavailable If true, missing or closed indices are not included in the response.
+// API name: ignore_unavailable
+func (r *Segments) IgnoreUnavailable(ignoreunavailable bool) *Segments {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
+// AllowClosed If true, allow closed indices to be returned in the response otherwise if
+// false, keep the legacy behaviour
+// of throwing an exception if index pattern matches closed indices
+// API name: allow_closed
+func (r *Segments) AllowClosed(allowclosed bool) *Segments {
+	r.values.Set("allow_closed", strconv.FormatBool(allowclosed))
+
+	return r
+}
+
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *Segments) Bytes(bytes bytes.Bytes) *Segments {
+	r.values.Set("bytes", bytes.String())
+
+	return r
+}
+
 // Format Specifies the format to return the columnar data in, can be set to
 // `text`, `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
@@ -387,6 +452,19 @@ func (r *Segments) Format(format string) *Segments {
 // API name: help
 func (r *Segments) Help(help bool) *Segments {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *Segments) Time(time timeunit.TimeUnit) *Segments {
+	r.values.Set("time", time.String())
 
 	return r
 }

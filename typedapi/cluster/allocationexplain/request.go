@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package allocationexplain
 
@@ -31,17 +31,17 @@ import (
 
 // Request holds the request body struct for the package allocationexplain
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cluster/allocation_explain/ClusterAllocationExplainRequest.ts#L25-L81
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/cluster/allocation_explain/ClusterAllocationExplainRequest.ts#L25-L101
 type Request struct {
-
-	// CurrentNode Specifies the node ID or the name of the node to only explain a shard that is
-	// currently located on the specified node.
+	// CurrentNode Explain a shard only if it is currently located on the specified node name or
+	// node ID.
 	CurrentNode *string `json:"current_node,omitempty"`
-	// Index Specifies the name of the index that you would like an explanation for.
+	// Index The name of the index that you would like an explanation for.
 	Index *string `json:"index,omitempty"`
-	// Primary If true, returns explanation for the primary shard for the given shard ID.
+	// Primary If true, returns an explanation for the primary shard for the specified shard
+	// ID.
 	Primary *bool `json:"primary,omitempty"`
-	// Shard Specifies the ID of the shard that you would like an explanation for.
+	// Shard An identifier for the shard that you would like an explanation for.
 	Shard *int `json:"shard,omitempty"`
 }
 
@@ -79,16 +79,9 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "current_node":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.CurrentNode); err != nil {
 				return fmt.Errorf("%s | %w", "CurrentNode", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.CurrentNode = &o
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {

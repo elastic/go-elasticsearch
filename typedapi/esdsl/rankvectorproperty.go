@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -44,15 +44,15 @@ func (s *_rankVectorProperty) Dims(dims int) *_rankVectorProperty {
 	return s
 }
 
-func (s *_rankVectorProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_rankVectorProperty {
-
-	s.v.Dynamic = &dynamic
-	return s
-}
-
 func (s *_rankVectorProperty) ElementType(elementtype rankvectorelementtype.RankVectorElementType) *_rankVectorProperty {
 
 	s.v.ElementType = &elementtype
+	return s
+}
+
+func (s *_rankVectorProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_rankVectorProperty {
+
+	s.v.Dynamic = &dynamic
 	return s
 }
 

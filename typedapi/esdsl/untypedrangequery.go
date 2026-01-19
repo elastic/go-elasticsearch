@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -40,16 +40,23 @@ func NewUntypedRangeQuery(key string) *_untypedRangeQuery {
 	}
 }
 
-func (s *_untypedRangeQuery) Boost(boost float32) *_untypedRangeQuery {
+func (s *_untypedRangeQuery) Format(dateformat string) *_untypedRangeQuery {
 
-	s.v.Boost = &boost
+	s.v.Format = &dateformat
 
 	return s
 }
 
-func (s *_untypedRangeQuery) Format(dateformat string) *_untypedRangeQuery {
+func (s *_untypedRangeQuery) TimeZone(timezone string) *_untypedRangeQuery {
 
-	s.v.Format = &dateformat
+	s.v.TimeZone = &timezone
+
+	return s
+}
+
+func (s *_untypedRangeQuery) Boost(boost float32) *_untypedRangeQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }
@@ -92,13 +99,6 @@ func (s *_untypedRangeQuery) QueryName_(queryname_ string) *_untypedRangeQuery {
 func (s *_untypedRangeQuery) Relation(relation rangerelation.RangeRelation) *_untypedRangeQuery {
 
 	s.v.Relation = &relation
-	return s
-}
-
-func (s *_untypedRangeQuery) TimeZone(timezone string) *_untypedRangeQuery {
-
-	s.v.TimeZone = &timezone
-
 	return s
 }
 

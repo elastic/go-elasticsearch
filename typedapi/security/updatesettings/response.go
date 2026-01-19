@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package updatesettings
 
 // Response holds the response body struct for the package updatesettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/update_settings/SecurityUpdateSettingsResponse.ts#L20-L24
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/security/update_settings/SecurityUpdateSettingsResponse.ts#L20-L24
 type Response struct {
 	Acknowledged bool `json:"acknowledged"`
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -34,6 +34,13 @@ func NewFieldAliasProperty() *_fieldAliasProperty {
 
 	return &_fieldAliasProperty{v: types.NewFieldAliasProperty()}
 
+}
+
+func (s *_fieldAliasProperty) Path(field string) *_fieldAliasProperty {
+
+	s.v.Path = &field
+
+	return s
 }
 
 func (s *_fieldAliasProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_fieldAliasProperty {
@@ -88,13 +95,6 @@ func (s *_fieldAliasProperty) AddMeta(key string, value string) *_fieldAliasProp
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_fieldAliasProperty) Path(field string) *_fieldAliasProperty {
-
-	s.v.Path = &field
-
 	return s
 }
 

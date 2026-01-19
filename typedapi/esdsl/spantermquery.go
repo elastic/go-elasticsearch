@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -38,6 +38,13 @@ func NewSpanTermQuery(field string, value types.FieldValueVariant) *_spanTermQue
 	return tmp
 }
 
+func (s *_spanTermQuery) Value(fieldvalue types.FieldValueVariant) *_spanTermQuery {
+
+	s.v.Value = *fieldvalue.FieldValueCaster()
+
+	return s
+}
+
 func (s *_spanTermQuery) Boost(boost float32) *_spanTermQuery {
 
 	s.v.Boost = &boost
@@ -48,13 +55,6 @@ func (s *_spanTermQuery) Boost(boost float32) *_spanTermQuery {
 func (s *_spanTermQuery) QueryName_(queryname_ string) *_spanTermQuery {
 
 	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
-func (s *_spanTermQuery) Value(fieldvalue types.FieldValueVariant) *_spanTermQuery {
-
-	s.v.Value = *fieldvalue.FieldValueCaster()
 
 	return s
 }

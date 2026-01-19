@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -39,9 +39,9 @@ func (s *_alias) Filter(filter types.QueryVariant) *_alias {
 	return s
 }
 
-func (s *_alias) IndexRouting(routing string) *_alias {
+func (s *_alias) IndexRouting(routings ...string) *_alias {
 
-	s.v.IndexRouting = &routing
+	s.v.IndexRouting = routings
 
 	return s
 }
@@ -60,16 +60,16 @@ func (s *_alias) IsWriteIndex(iswriteindex bool) *_alias {
 	return s
 }
 
-func (s *_alias) Routing(routing string) *_alias {
+func (s *_alias) Routing(routings ...string) *_alias {
 
-	s.v.Routing = &routing
+	s.v.Routing = routings
 
 	return s
 }
 
-func (s *_alias) SearchRouting(routing string) *_alias {
+func (s *_alias) SearchRouting(routings ...string) *_alias {
 
-	s.v.SearchRouting = &routing
+	s.v.SearchRouting = routings
 
 	return s
 }

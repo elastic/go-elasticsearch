@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Run a search application search.
+//
 // Generate and run an Elasticsearch query that uses the specified query
 // parameteter and the search template associated with the search application or
 // default template.
@@ -87,6 +88,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 }
 
 // Run a search application search.
+//
 // Generate and run an Elasticsearch query that uses the specified query
 // parameteter and the search template associated with the search application or
 // default template.

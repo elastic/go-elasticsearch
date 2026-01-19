@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Start a trial.
+//
 // Start a 30-day trial, which gives access to all subscription features.
 //
 // NOTE: You are allowed to start a trial only if your cluster has not already
@@ -78,6 +79,7 @@ func NewPostStartTrialFunc(tp elastictransport.Interface) NewPostStartTrial {
 }
 
 // Start a trial.
+//
 // Start a 30-day trial, which gives access to all subscription features.
 //
 // NOTE: You are allowed to start a trial only if your cluster has not already
@@ -294,7 +296,7 @@ func (r *PostStartTrial) Header(key, value string) *PostStartTrial {
 	return r
 }
 
-// Acknowledge whether the user has acknowledged acknowledge messages (default: false)
+// Acknowledge Whether the user has acknowledged acknowledge messages
 // API name: acknowledge
 func (r *PostStartTrial) Acknowledge(acknowledge bool) *PostStartTrial {
 	r.values.Set("acknowledge", strconv.FormatBool(acknowledge))
@@ -302,7 +304,7 @@ func (r *PostStartTrial) Acknowledge(acknowledge bool) *PostStartTrial {
 	return r
 }
 
-// Type The type of trial license to generate (default: "trial")
+// Type The type of trial license to generate
 // API name: type
 func (r *PostStartTrial) Type(type_ string) *PostStartTrial {
 	r.values.Set("type", type_)

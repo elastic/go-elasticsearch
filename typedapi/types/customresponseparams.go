@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // CustomResponseParams type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L987-L1125
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/CommonTypes.ts#L1039-L1193
 type CustomResponseParams struct {
 	// JsonParser Specifies the JSON parser that is used to parse the response from the custom
 	// service.
@@ -62,6 +62,23 @@ type CustomResponseParams struct {
 	//	    "text_embeddings":"$.data[*].embedding[*]"
 	//	  }
 	//	}
+	//
+	// # Elasticsearch supports the following embedding types:
+	// * float
+	// * byte
+	// * bit (or binary)
+	//
+	// To specify the embedding type for the response, the `embedding_type`
+	// field should be added in the `json_parser` object. Here's an example:
+	//
+	//	"response":{
+	//	  "json_parser":{
+	//	    "text_embeddings":"$.data[*].embedding[*]",
+	//	    "embedding_type":"bit"
+	//	  }
+	//	}
+	//
+	// If `embedding_type` is not specified, it defaults to `float`.
 	//
 	// # sparse_embedding
 	// # For a response like this:

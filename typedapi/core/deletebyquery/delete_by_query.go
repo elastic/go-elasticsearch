@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Delete documents.
 //
@@ -610,7 +610,7 @@ func (r *DeleteByQuery) Conflicts(conflicts conflicts.Conflicts) *DeleteByQuery 
 	return r
 }
 
-// DefaultOperator The default operator for query string query: `AND` or `OR`.
+// DefaultOperator The default operator for query string query: `and` or `or`.
 // This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: default_operator
@@ -714,8 +714,8 @@ func (r *DeleteByQuery) RequestsPerSecond(requestspersecond string) *DeleteByQue
 
 // Routing A custom value used to route operations to a specific shard.
 // API name: routing
-func (r *DeleteByQuery) Routing(routing string) *DeleteByQuery {
-	r.values.Set("routing", routing)
+func (r *DeleteByQuery) Routing(routings ...string) *DeleteByQuery {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }
@@ -766,18 +766,6 @@ func (r *DeleteByQuery) SearchType(searchtype searchtype.SearchType) *DeleteByQu
 // API name: slices
 func (r *DeleteByQuery) Slices(slices string) *DeleteByQuery {
 	r.values.Set("slices", slices)
-
-	return r
-}
-
-// Sort A comma-separated list of `<field>:<direction>` pairs.
-// API name: sort
-func (r *DeleteByQuery) Sort(sorts ...string) *DeleteByQuery {
-	tmp := []string{}
-	for _, item := range sorts {
-		tmp = append(tmp, fmt.Sprintf("%v", item))
-	}
-	r.values.Set("sort", strings.Join(tmp, ","))
 
 	return r
 }
@@ -932,6 +920,21 @@ func (r *DeleteByQuery) Slice(slice types.SlicedScrollVariant) *DeleteByQuery {
 	}
 
 	r.req.Slice = slice.SlicedScrollCaster()
+
+	return r
+}
+
+// A sort object that specifies the order of deleted documents.
+// API name: sort
+func (r *DeleteByQuery) Sort(sorts ...types.SortCombinationsVariant) *DeleteByQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	for _, v := range sorts {
+		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
+	}
 
 	return r
 }

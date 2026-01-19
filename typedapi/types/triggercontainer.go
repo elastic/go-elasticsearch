@@ -16,57 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // TriggerContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/watcher/_types/Trigger.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/watcher/_types/Trigger.ts#L23-L28
 type TriggerContainer struct {
-	AdditionalTriggerContainerProperty map[string]json.RawMessage `json:"-"`
-	Schedule                           *ScheduleContainer         `json:"schedule,omitempty"`
-}
-
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s TriggerContainer) MarshalJSON() ([]byte, error) {
-	type opt TriggerContainer
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalTriggerContainerProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalTriggerContainerProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
+	Schedule *ScheduleContainer `json:"schedule,omitempty"`
 }
 
 // NewTriggerContainer returns a TriggerContainer.
 func NewTriggerContainer() *TriggerContainer {
-	r := &TriggerContainer{
-		AdditionalTriggerContainerProperty: make(map[string]json.RawMessage),
-	}
+	r := &TriggerContainer{}
 
 	return r
 }

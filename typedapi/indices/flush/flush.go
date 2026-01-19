@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Flush data streams or indices.
+//
 // Flushing a data stream or index is the process of making sure that any data
 // that is currently only stored in the transaction log is also permanently
 // stored in the Lucene index.
@@ -99,6 +100,7 @@ func NewFlushFunc(tp elastictransport.Interface) NewFlush {
 }
 
 // Flush data streams or indices.
+//
 // Flushing a data stream or index is the process of making sure that any data
 // that is currently only stored in the transaction log is also permanently
 // stored in the Lucene index.

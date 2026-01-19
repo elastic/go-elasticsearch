@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -40,13 +40,6 @@ func NewNestedQuery(query types.QueryVariant) *_nestedQuery {
 
 	return tmp
 
-}
-
-func (s *_nestedQuery) Boost(boost float32) *_nestedQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_nestedQuery) IgnoreUnmapped(ignoreunmapped bool) *_nestedQuery {
@@ -77,16 +70,23 @@ func (s *_nestedQuery) Query(query types.QueryVariant) *_nestedQuery {
 	return s
 }
 
-func (s *_nestedQuery) QueryName_(queryname_ string) *_nestedQuery {
+func (s *_nestedQuery) ScoreMode(scoremode childscoremode.ChildScoreMode) *_nestedQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.ScoreMode = &scoremode
+	return s
+}
+
+func (s *_nestedQuery) Boost(boost float32) *_nestedQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }
 
-func (s *_nestedQuery) ScoreMode(scoremode childscoremode.ChildScoreMode) *_nestedQuery {
+func (s *_nestedQuery) QueryName_(queryname_ string) *_nestedQuery {
 
-	s.v.ScoreMode = &scoremode
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

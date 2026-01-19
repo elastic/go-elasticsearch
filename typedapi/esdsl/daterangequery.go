@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -38,16 +38,23 @@ func NewDateRangeQuery(key string) *_dateRangeQuery {
 	}
 }
 
-func (s *_dateRangeQuery) Boost(boost float32) *_dateRangeQuery {
+func (s *_dateRangeQuery) Format(dateformat string) *_dateRangeQuery {
 
-	s.v.Boost = &boost
+	s.v.Format = &dateformat
 
 	return s
 }
 
-func (s *_dateRangeQuery) Format(dateformat string) *_dateRangeQuery {
+func (s *_dateRangeQuery) TimeZone(timezone string) *_dateRangeQuery {
 
-	s.v.Format = &dateformat
+	s.v.TimeZone = &timezone
+
+	return s
+}
+
+func (s *_dateRangeQuery) Boost(boost float32) *_dateRangeQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }
@@ -90,13 +97,6 @@ func (s *_dateRangeQuery) QueryName_(queryname_ string) *_dateRangeQuery {
 func (s *_dateRangeQuery) Relation(relation rangerelation.RangeRelation) *_dateRangeQuery {
 
 	s.v.Relation = &relation
-	return s
-}
-
-func (s *_dateRangeQuery) TimeZone(timezone string) *_dateRangeQuery {
-
-	s.v.TimeZone = &timezone
-
 	return s
 }
 

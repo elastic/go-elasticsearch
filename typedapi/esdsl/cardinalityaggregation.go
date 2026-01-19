@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -43,20 +43,6 @@ func (s *_cardinalityAggregation) ExecutionHint(executionhint cardinalityexecuti
 	return s
 }
 
-func (s *_cardinalityAggregation) Field(field string) *_cardinalityAggregation {
-
-	s.v.Field = &field
-
-	return s
-}
-
-func (s *_cardinalityAggregation) Missing(missing types.MissingVariant) *_cardinalityAggregation {
-
-	s.v.Missing = *missing.MissingCaster()
-
-	return s
-}
-
 func (s *_cardinalityAggregation) PrecisionThreshold(precisionthreshold int) *_cardinalityAggregation {
 
 	s.v.PrecisionThreshold = &precisionthreshold
@@ -67,6 +53,20 @@ func (s *_cardinalityAggregation) PrecisionThreshold(precisionthreshold int) *_c
 func (s *_cardinalityAggregation) Rehash(rehash bool) *_cardinalityAggregation {
 
 	s.v.Rehash = &rehash
+
+	return s
+}
+
+func (s *_cardinalityAggregation) Field(field string) *_cardinalityAggregation {
+
+	s.v.Field = &field
+
+	return s
+}
+
+func (s *_cardinalityAggregation) Missing(missing types.MissingVariant) *_cardinalityAggregation {
+
+	s.v.Missing = *missing.MissingCaster()
 
 	return s
 }

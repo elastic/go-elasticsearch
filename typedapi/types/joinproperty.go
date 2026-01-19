@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // JoinProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/core.ts#L103-L107
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/mapping/core.ts#L104-L108
 type JoinProperty struct {
 	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	EagerGlobalOrdinals *bool                          `json:"eager_global_ordinals,omitempty"`
@@ -268,6 +268,12 @@ func (s *JoinProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "histogram":
 					oo := NewHistogramProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Fields | %w", err)
+					}
+					s.Fields[key] = oo
+				case "exponential_histogram":
+					oo := NewExponentialHistogramProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Fields | %w", err)
 					}
@@ -633,6 +639,12 @@ func (s *JoinProperty) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Properties | %w", err)
 					}
 					s.Properties[key] = oo
+				case "exponential_histogram":
+					oo := NewExponentialHistogramProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
 				case "ip":
 					oo := NewIpProperty()
 					if err := localDec.Decode(&oo); err != nil {
@@ -787,22 +799,21 @@ func (s *JoinProperty) UnmarshalJSON(data []byte) error {
 			rawMsg := make(map[string]json.RawMessage, 0)
 			dec.Decode(&rawMsg)
 			for key, value := range rawMsg {
-				switch {
-				case bytes.HasPrefix(value, []byte("\"")), bytes.HasPrefix(value, []byte("{")):
-					o := new(string)
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
-						return fmt.Errorf("%s | %w", "Relations", err)
-					}
-					s.Relations[key] = append(s.Relations[key], *o)
-				default:
-					o := []string{}
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
+				v := bytes.TrimSpace(value)
+				if len(v) > 0 && v[0] == '[' {
+					var o []string
+					if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "Relations", err)
 					}
 					s.Relations[key] = o
+					continue
 				}
+
+				var o string
+				if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Relations", err)
+				}
+				s.Relations[key] = append(s.Relations[key], o)
 			}
 
 		case "synthetic_source_keep":

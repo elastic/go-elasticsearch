@@ -16,20 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // IntervalsFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/fulltext.ts#L114-L154
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/query_dsl/fulltext.ts#L114-L154
 type IntervalsFilter struct {
-	AdditionalIntervalsFilterProperty map[string]json.RawMessage `json:"-"`
 	// After Query used to return intervals that follow an interval from the `filter`
 	// rule.
 	After *Intervals `json:"after,omitempty"`
@@ -59,40 +53,9 @@ type IntervalsFilter struct {
 	Script *Script `json:"script,omitempty"`
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s IntervalsFilter) MarshalJSON() ([]byte, error) {
-	type opt IntervalsFilter
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalIntervalsFilterProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalIntervalsFilterProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewIntervalsFilter returns a IntervalsFilter.
 func NewIntervalsFilter() *IntervalsFilter {
-	r := &IntervalsFilter{
-		AdditionalIntervalsFilterProperty: make(map[string]json.RawMessage),
-	}
+	r := &IntervalsFilter{}
 
 	return r
 }

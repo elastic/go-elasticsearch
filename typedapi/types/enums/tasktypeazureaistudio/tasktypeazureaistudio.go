@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Package tasktypeazureaistudio
 package tasktypeazureaistudio
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/TaskType.ts#L60-L63
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/TaskType.ts#L65-L69
 type TaskTypeAzureAIStudio struct {
 	Name string
 }
@@ -32,6 +32,8 @@ var (
 	Textembedding = TaskTypeAzureAIStudio{"text_embedding"}
 
 	Completion = TaskTypeAzureAIStudio{"completion"}
+
+	Rerank = TaskTypeAzureAIStudio{"rerank"}
 )
 
 func (t TaskTypeAzureAIStudio) MarshalText() (text []byte, err error) {
@@ -45,6 +47,8 @@ func (t *TaskTypeAzureAIStudio) UnmarshalText(text []byte) error {
 		*t = Textembedding
 	case "completion":
 		*t = Completion
+	case "rerank":
+		*t = Rerank
 	default:
 		*t = TaskTypeAzureAIStudio{string(text)}
 	}

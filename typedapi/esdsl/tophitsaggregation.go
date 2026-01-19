@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -50,13 +50,6 @@ func (s *_topHitsAggregation) Explain(explain bool) *_topHitsAggregation {
 	return s
 }
 
-func (s *_topHitsAggregation) Field(field string) *_topHitsAggregation {
-
-	s.v.Field = &field
-
-	return s
-}
-
 func (s *_topHitsAggregation) Fields(fields ...types.FieldAndFormatVariant) *_topHitsAggregation {
 
 	for _, v := range fields {
@@ -77,20 +70,6 @@ func (s *_topHitsAggregation) From(from int) *_topHitsAggregation {
 func (s *_topHitsAggregation) Highlight(highlight types.HighlightVariant) *_topHitsAggregation {
 
 	s.v.Highlight = highlight.HighlightCaster()
-
-	return s
-}
-
-func (s *_topHitsAggregation) Missing(missing types.MissingVariant) *_topHitsAggregation {
-
-	s.v.Missing = *missing.MissingCaster()
-
-	return s
-}
-
-func (s *_topHitsAggregation) Script(script types.ScriptVariant) *_topHitsAggregation {
-
-	s.v.Script = script.ScriptCaster()
 
 	return s
 }
@@ -163,6 +142,27 @@ func (s *_topHitsAggregation) TrackScores(trackscores bool) *_topHitsAggregation
 func (s *_topHitsAggregation) Version(version bool) *_topHitsAggregation {
 
 	s.v.Version = &version
+
+	return s
+}
+
+func (s *_topHitsAggregation) Field(field string) *_topHitsAggregation {
+
+	s.v.Field = &field
+
+	return s
+}
+
+func (s *_topHitsAggregation) Missing(missing types.MissingVariant) *_topHitsAggregation {
+
+	s.v.Missing = *missing.MissingCaster()
+
+	return s
+}
+
+func (s *_topHitsAggregation) Script(script types.ScriptVariant) *_topHitsAggregation {
+
+	s.v.Script = script.ScriptCaster()
 
 	return s
 }

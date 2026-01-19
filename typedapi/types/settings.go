@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Settings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/transform/_types/Transform.ts#L98-L144
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/transform/_types/Transform.ts#L98-L154
 type Settings struct {
 	// AlignCheckpoints Specifies whether the transform checkpoint ranges should be optimized for
 	// performance. Such optimization can align
@@ -66,6 +66,16 @@ type Settings struct {
 	// retries other than infinite fails in
 	// validation.
 	Unattended *bool `json:"unattended,omitempty"`
+	// UsePointInTime Specifies whether the transform checkpoint will use the Point In Time API
+	// while searching over the source index.
+	// In general, Point In Time is an optimization that will reduce pressure on the
+	// source index by reducing the amount
+	// of refreshes and merges, but it can be expensive if a large number of Point
+	// In Times are opened and closed for a
+	// given index. The benefits and impact depend on the data being searched, the
+	// ingest rate into the source index, and
+	// the amount of other consumers searching the same source index.
+	UsePointInTime *bool `json:"use_point_in_time,omitempty"`
 }
 
 func (s *Settings) UnmarshalJSON(data []byte) error {
@@ -169,6 +179,20 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 				s.Unattended = &value
 			case bool:
 				s.Unattended = &v
+			}
+
+		case "use_point_in_time":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "UsePointInTime", err)
+				}
+				s.UsePointInTime = &value
+			case bool:
+				s.UsePointInTime = &v
 			}
 
 		}

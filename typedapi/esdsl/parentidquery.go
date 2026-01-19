@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -33,13 +33,6 @@ func NewParentIdQuery() *_parentIdQuery {
 
 }
 
-func (s *_parentIdQuery) Boost(boost float32) *_parentIdQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_parentIdQuery) Id(id string) *_parentIdQuery {
 
 	s.v.Id = &id
@@ -54,16 +47,23 @@ func (s *_parentIdQuery) IgnoreUnmapped(ignoreunmapped bool) *_parentIdQuery {
 	return s
 }
 
-func (s *_parentIdQuery) QueryName_(queryname_ string) *_parentIdQuery {
+func (s *_parentIdQuery) Type(relationname string) *_parentIdQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.Type = &relationname
 
 	return s
 }
 
-func (s *_parentIdQuery) Type(relationname string) *_parentIdQuery {
+func (s *_parentIdQuery) Boost(boost float32) *_parentIdQuery {
 
-	s.v.Type = &relationname
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_parentIdQuery) QueryName_(queryname_ string) *_parentIdQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

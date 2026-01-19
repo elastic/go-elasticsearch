@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -31,14 +31,14 @@ import (
 
 // TextExpansionInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/_types/inference.ts#L264-L271
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/ml/_types/inference.ts#L266-L273
 type TextExpansionInferenceOptions struct {
 	// ResultsField The field that is added to incoming documents to contain the inference
 	// prediction. Defaults to predicted_value.
 	ResultsField *string `json:"results_field,omitempty"`
 	// Tokenization The tokenization options
 	Tokenization *TokenizationConfigContainer `json:"tokenization,omitempty"`
-	Vocabulary   Vocabulary                   `json:"vocabulary"`
+	Vocabulary   *Vocabulary                  `json:"vocabulary,omitempty"`
 }
 
 func (s *TextExpansionInferenceOptions) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // ProcessorContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ingest/_types/Processors.ts#L28-L302
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/ingest/_types/Processors.ts#L28-L307
 type ProcessorContainer struct {
 	AdditionalProcessorContainerProperty map[string]json.RawMessage `json:"-"`
 	// Append Appends one or more values to an existing array if the field already exists
@@ -50,6 +50,8 @@ type ProcessorContainer struct {
 	// An error will occur if the field is not a supported format or resultant value
 	// exceeds 2^63.
 	Bytes *BytesProcessor `json:"bytes,omitempty"`
+	// Cef Converts a CEF message into a structured format.
+	Cef *CefProcessor `json:"cef,omitempty"`
 	// Circle Converts circle definitions of shapes to regular polygons which approximate
 	// them.
 	Circle *CircleProcessor `json:"circle,omitempty"`

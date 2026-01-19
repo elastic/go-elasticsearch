@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -39,13 +39,6 @@ func NewScriptScoreQuery(query types.QueryVariant, script types.ScriptVariant) *
 
 }
 
-func (s *_scriptScoreQuery) Boost(boost float32) *_scriptScoreQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_scriptScoreQuery) MinScore(minscore float32) *_scriptScoreQuery {
 
 	s.v.MinScore = &minscore
@@ -60,16 +53,23 @@ func (s *_scriptScoreQuery) Query(query types.QueryVariant) *_scriptScoreQuery {
 	return s
 }
 
-func (s *_scriptScoreQuery) QueryName_(queryname_ string) *_scriptScoreQuery {
+func (s *_scriptScoreQuery) Script(script types.ScriptVariant) *_scriptScoreQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.Script = *script.ScriptCaster()
 
 	return s
 }
 
-func (s *_scriptScoreQuery) Script(script types.ScriptVariant) *_scriptScoreQuery {
+func (s *_scriptScoreQuery) Boost(boost float32) *_scriptScoreQuery {
 
-	s.v.Script = *script.ScriptCaster()
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_scriptScoreQuery) QueryName_(queryname_ string) *_scriptScoreQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

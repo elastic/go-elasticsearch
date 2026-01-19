@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Run a grok processor.
+//
 // Extract structured fields out of a single text field within a document.
 // You must choose which field to extract matched fields from, as well as the
 // grok pattern you expect will match.
@@ -74,6 +75,7 @@ func NewProcessorGrokFunc(tp elastictransport.Interface) NewProcessorGrok {
 }
 
 // Run a grok processor.
+//
 // Extract structured fields out of a single text field within a document.
 // You must choose which field to extract matched fields from, as well as the
 // grok pattern you expect will match.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package getcategories
 
@@ -29,9 +29,8 @@ import (
 
 // Request holds the request body struct for the package getcategories
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/get_categories/MlGetCategoriesRequest.ts#L25-L82
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/ml/get_categories/MlGetCategoriesRequest.ts#L25-L85
 type Request struct {
-
 	// Page Configures pagination.
 	// This parameter has the `from` and `size` properties.
 	Page *types.Page `json:"page,omitempty"`

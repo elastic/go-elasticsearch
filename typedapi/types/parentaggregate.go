@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // ParentAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/aggregations/Aggregate.ts#L896-L900
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/aggregations/Aggregate.ts#L968-L972
 type ParentAggregate struct {
 	Aggregations map[string]Aggregate `json:"-"`
 	DocCount     int64                `json:"doc_count"`
@@ -197,6 +197,13 @@ func (s *ParentAggregate) UnmarshalJSON(data []byte) error {
 							}
 							s.Aggregations[elems[1]] = o
 
+						case "change_point":
+							o := NewChangePointAggregate()
+							if err := dec.Decode(&o); err != nil {
+								return fmt.Errorf("%s | %w", "Aggregations", err)
+							}
+							s.Aggregations[elems[1]] = o
+
 						case "stats":
 							o := NewStatsAggregate()
 							if err := dec.Decode(&o); err != nil {
@@ -220,6 +227,20 @@ func (s *ParentAggregate) UnmarshalJSON(data []byte) error {
 
 						case "extended_stats_bucket":
 							o := NewExtendedStatsBucketAggregate()
+							if err := dec.Decode(&o); err != nil {
+								return fmt.Errorf("%s | %w", "Aggregations", err)
+							}
+							s.Aggregations[elems[1]] = o
+
+						case "cartesian_bounds":
+							o := NewCartesianBoundsAggregate()
+							if err := dec.Decode(&o); err != nil {
+								return fmt.Errorf("%s | %w", "Aggregations", err)
+							}
+							s.Aggregations[elems[1]] = o
+
+						case "cartesian_centroid":
+							o := NewCartesianCentroidAggregate()
 							if err := dec.Decode(&o); err != nil {
 								return fmt.Errorf("%s | %w", "Aggregations", err)
 							}
