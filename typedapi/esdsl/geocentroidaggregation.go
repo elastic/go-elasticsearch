@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -41,16 +41,16 @@ func (s *_geoCentroidAggregation) Count(count int64) *_geoCentroidAggregation {
 	return s
 }
 
-func (s *_geoCentroidAggregation) Field(field string) *_geoCentroidAggregation {
+func (s *_geoCentroidAggregation) Location(geolocation types.GeoLocationVariant) *_geoCentroidAggregation {
 
-	s.v.Field = &field
+	s.v.Location = *geolocation.GeoLocationCaster()
 
 	return s
 }
 
-func (s *_geoCentroidAggregation) Location(geolocation types.GeoLocationVariant) *_geoCentroidAggregation {
+func (s *_geoCentroidAggregation) Field(field string) *_geoCentroidAggregation {
 
-	s.v.Location = *geolocation.GeoLocationCaster()
+	s.v.Field = &field
 
 	return s
 }

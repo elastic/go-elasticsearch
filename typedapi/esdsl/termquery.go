@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -27,7 +27,7 @@ type _termQuery struct {
 	v *types.TermQuery
 }
 
-// Returns users that contain an exact term in a provided field.
+// Returns documents that contain an exact term in a provided field.
 // To return a document, the query term must exactly match the queried field's
 // value, including whitespace and capitalization.
 func NewTermQuery(field string, value types.FieldValueVariant) *_termQuery {
@@ -40,13 +40,6 @@ func NewTermQuery(field string, value types.FieldValueVariant) *_termQuery {
 	return tmp
 }
 
-func (s *_termQuery) Boost(boost float32) *_termQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_termQuery) CaseInsensitive(caseinsensitive bool) *_termQuery {
 
 	s.v.CaseInsensitive = &caseinsensitive
@@ -54,16 +47,23 @@ func (s *_termQuery) CaseInsensitive(caseinsensitive bool) *_termQuery {
 	return s
 }
 
-func (s *_termQuery) QueryName_(queryname_ string) *_termQuery {
+func (s *_termQuery) Value(fieldvalue types.FieldValueVariant) *_termQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.Value = *fieldvalue.FieldValueCaster()
 
 	return s
 }
 
-func (s *_termQuery) Value(fieldvalue types.FieldValueVariant) *_termQuery {
+func (s *_termQuery) Boost(boost float32) *_termQuery {
 
-	s.v.Value = *fieldvalue.FieldValueCaster()
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_termQuery) QueryName_(queryname_ string) *_termQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

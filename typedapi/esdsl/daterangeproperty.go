@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -34,6 +34,13 @@ func NewDateRangeProperty() *_dateRangeProperty {
 
 	return &_dateRangeProperty{v: types.NewDateRangeProperty()}
 
+}
+
+func (s *_dateRangeProperty) Format(format string) *_dateRangeProperty {
+
+	s.v.Format = &format
+
+	return s
 }
 
 func (s *_dateRangeProperty) Boost(boost types.Float64) *_dateRangeProperty {
@@ -88,13 +95,6 @@ func (s *_dateRangeProperty) AddField(key string, value types.PropertyVariant) *
 	tmp[key] = *value.PropertyCaster()
 
 	s.v.Fields = tmp
-	return s
-}
-
-func (s *_dateRangeProperty) Format(format string) *_dateRangeProperty {
-
-	s.v.Format = &format
-
 	return s
 }
 

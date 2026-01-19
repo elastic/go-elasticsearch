@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -39,30 +39,9 @@ func NewRedactProcessor() *_redactProcessor {
 
 }
 
-func (s *_redactProcessor) Description(description string) *_redactProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_redactProcessor) Field(field string) *_redactProcessor {
 
 	s.v.Field = field
-
-	return s
-}
-
-func (s *_redactProcessor) If(if_ types.ScriptVariant) *_redactProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_redactProcessor) IgnoreFailure(ignorefailure bool) *_redactProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
 
 	return s
 }
@@ -71,16 +50,6 @@ func (s *_redactProcessor) IgnoreMissing(ignoremissing bool) *_redactProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
 
-	return s
-}
-
-func (s *_redactProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_redactProcessor {
-
-	for _, v := range onfailures {
-
-		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
-
-	}
 	return s
 }
 
@@ -136,16 +105,47 @@ func (s *_redactProcessor) Suffix(suffix string) *_redactProcessor {
 	return s
 }
 
-func (s *_redactProcessor) Tag(tag string) *_redactProcessor {
+func (s *_redactProcessor) TraceRedact(traceredact bool) *_redactProcessor {
 
-	s.v.Tag = &tag
+	s.v.TraceRedact = &traceredact
 
 	return s
 }
 
-func (s *_redactProcessor) TraceRedact(traceredact bool) *_redactProcessor {
+func (s *_redactProcessor) Description(description string) *_redactProcessor {
 
-	s.v.TraceRedact = &traceredact
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_redactProcessor) If(if_ types.ScriptVariant) *_redactProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_redactProcessor) IgnoreFailure(ignorefailure bool) *_redactProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
+func (s *_redactProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_redactProcessor {
+
+	for _, v := range onfailures {
+
+		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
+
+	}
+	return s
+}
+
+func (s *_redactProcessor) Tag(tag string) *_redactProcessor {
+
+	s.v.Tag = &tag
 
 	return s
 }

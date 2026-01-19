@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package query
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/sql/query/QuerySqlRequest.ts#L27-L151
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/sql/query/QuerySqlRequest.ts#L28-L167
 type Request struct {
-
 	// AllowPartialSearchResults If `true`, the response has partial results when there are shard request
 	// timeouts or shard failures.
 	// If `false`, the API returns an error with no partial results.
@@ -79,6 +78,16 @@ type Request struct {
 	PageTimeout types.Duration `json:"page_timeout,omitempty"`
 	// Params The values for parameters in the query.
 	Params []json.RawMessage `json:"params,omitempty"`
+	// ProjectRouting Specifies a subset of projects to target using project
+	// metadata tags in a subset of Lucene query syntax.
+	// Allowed Lucene queries: the _alias tag and a single value (possibly
+	// wildcarded).
+	// Examples:
+	//  _alias:my-project
+	//  _alias:_origin
+	//  _alias:*pr*
+	// Supported in serverless only.
+	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query The SQL query to run.
 	Query *string `json:"query,omitempty"`
 	// RequestTimeout The timeout before the request fails.
@@ -259,6 +268,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "params":
 			if err := dec.Decode(&s.Params); err != nil {
 				return fmt.Errorf("%s | %w", "Params", err)
+			}
+
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
 			}
 
 		case "query":

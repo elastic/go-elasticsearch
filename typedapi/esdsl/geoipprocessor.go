@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -37,13 +37,6 @@ func NewGeoIpProcessor() *_geoIpProcessor {
 func (s *_geoIpProcessor) DatabaseFile(databasefile string) *_geoIpProcessor {
 
 	s.v.DatabaseFile = &databasefile
-
-	return s
-}
-
-func (s *_geoIpProcessor) Description(description string) *_geoIpProcessor {
-
-	s.v.Description = &description
 
 	return s
 }
@@ -69,6 +62,37 @@ func (s *_geoIpProcessor) FirstOnly(firstonly bool) *_geoIpProcessor {
 	return s
 }
 
+func (s *_geoIpProcessor) IgnoreMissing(ignoremissing bool) *_geoIpProcessor {
+
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_geoIpProcessor) Properties(properties ...string) *_geoIpProcessor {
+
+	for _, v := range properties {
+
+		s.v.Properties = append(s.v.Properties, v)
+
+	}
+	return s
+}
+
+func (s *_geoIpProcessor) TargetField(field string) *_geoIpProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_geoIpProcessor) Description(description string) *_geoIpProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
 func (s *_geoIpProcessor) If(if_ types.ScriptVariant) *_geoIpProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -83,13 +107,6 @@ func (s *_geoIpProcessor) IgnoreFailure(ignorefailure bool) *_geoIpProcessor {
 	return s
 }
 
-func (s *_geoIpProcessor) IgnoreMissing(ignoremissing bool) *_geoIpProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_geoIpProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_geoIpProcessor {
 
 	for _, v := range onfailures {
@@ -100,26 +117,9 @@ func (s *_geoIpProcessor) OnFailure(onfailures ...types.ProcessorContainerVarian
 	return s
 }
 
-func (s *_geoIpProcessor) Properties(properties ...string) *_geoIpProcessor {
-
-	for _, v := range properties {
-
-		s.v.Properties = append(s.v.Properties, v)
-
-	}
-	return s
-}
-
 func (s *_geoIpProcessor) Tag(tag string) *_geoIpProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_geoIpProcessor) TargetField(field string) *_geoIpProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

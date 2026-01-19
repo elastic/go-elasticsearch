@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -38,6 +38,12 @@ func NewNormalizeAggregation() *_normalizeAggregation {
 
 }
 
+func (s *_normalizeAggregation) Method(method normalizemethod.NormalizeMethod) *_normalizeAggregation {
+
+	s.v.Method = &method
+	return s
+}
+
 func (s *_normalizeAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_normalizeAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -55,12 +61,6 @@ func (s *_normalizeAggregation) Format(format string) *_normalizeAggregation {
 func (s *_normalizeAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_normalizeAggregation {
 
 	s.v.GapPolicy = &gappolicy
-	return s
-}
-
-func (s *_normalizeAggregation) Method(method normalizemethod.NormalizeMethod) *_normalizeAggregation {
-
-	s.v.Method = &method
 	return s
 }
 

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get the snapshot status.
+//
 // Get a detailed description of the current state for each shard participating
 // in the snapshot.
 //
@@ -32,6 +33,18 @@
 // This usage is preferred.
 // If needed, you can specify `<repository>` and `<snapshot>` to retrieve
 // information for specific snapshots, even if they're not currently running.
+//
+// Note that the stats will not be available for any shard snapshots in an
+// ongoing snapshot completed by a node that (even momentarily) left the
+// cluster.
+// Loading the stats from the repository is an expensive operation (see the
+// WARNING below).
+// Therefore the stats values for such shards will be -1 even though the "stage"
+// value will be "DONE", in order to minimize latency.
+// A "description" field will be present for a shard snapshot completed by a
+// departed node explaining why the shard snapshot's stats results are invalid.
+// Consequently, the total stats for the index will be less than expected due to
+// the missing values from these shards.
 //
 // WARNING: Using the API to return the status of any snapshots other than
 // currently running snapshots can be expensive.
@@ -103,6 +116,7 @@ func NewStatusFunc(tp elastictransport.Interface) NewStatus {
 }
 
 // Get the snapshot status.
+//
 // Get a detailed description of the current state for each shard participating
 // in the snapshot.
 //
@@ -116,6 +130,18 @@ func NewStatusFunc(tp elastictransport.Interface) NewStatus {
 // This usage is preferred.
 // If needed, you can specify `<repository>` and `<snapshot>` to retrieve
 // information for specific snapshots, even if they're not currently running.
+//
+// Note that the stats will not be available for any shard snapshots in an
+// ongoing snapshot completed by a node that (even momentarily) left the
+// cluster.
+// Loading the stats from the repository is an expensive operation (see the
+// WARNING below).
+// Therefore the stats values for such shards will be -1 even though the "stage"
+// value will be "DONE", in order to minimize latency.
+// A "description" field will be present for a shard snapshot completed by a
+// departed node explaining why the shard snapshot's stats results are invalid.
+// Consequently, the total stats for the index will be less than expected due to
+// the missing values from these shards.
 //
 // WARNING: Using the API to return the status of any snapshots other than
 // currently running snapshots can be expensive.

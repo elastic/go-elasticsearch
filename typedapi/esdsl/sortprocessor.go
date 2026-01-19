@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -40,16 +40,29 @@ func NewSortProcessor() *_sortProcessor {
 
 }
 
-func (s *_sortProcessor) Description(description string) *_sortProcessor {
+func (s *_sortProcessor) Field(field string) *_sortProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_sortProcessor) Field(field string) *_sortProcessor {
+func (s *_sortProcessor) Order(order sortorder.SortOrder) *_sortProcessor {
 
-	s.v.Field = field
+	s.v.Order = &order
+	return s
+}
+
+func (s *_sortProcessor) TargetField(field string) *_sortProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_sortProcessor) Description(description string) *_sortProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -78,22 +91,9 @@ func (s *_sortProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 	return s
 }
 
-func (s *_sortProcessor) Order(order sortorder.SortOrder) *_sortProcessor {
-
-	s.v.Order = &order
-	return s
-}
-
 func (s *_sortProcessor) Tag(tag string) *_sortProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_sortProcessor) TargetField(field string) *_sortProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

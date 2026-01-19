@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -39,13 +39,6 @@ func NewSpanNotQuery(exclude types.SpanQueryVariant, include types.SpanQueryVari
 
 	return tmp
 
-}
-
-func (s *_spanNotQuery) Boost(boost float32) *_spanNotQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_spanNotQuery) Dist(dist int) *_spanNotQuery {
@@ -79,6 +72,13 @@ func (s *_spanNotQuery) Post(post int) *_spanNotQuery {
 func (s *_spanNotQuery) Pre(pre int) *_spanNotQuery {
 
 	s.v.Pre = &pre
+
+	return s
+}
+
+func (s *_spanNotQuery) Boost(boost float32) *_spanNotQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

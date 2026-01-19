@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Stop datafeeds.
+//
 // A datafeed that is stopped ceases to retrieve data from Elasticsearch. A
 // datafeed can be started and stopped
 // multiple times throughout its lifecycle.
@@ -85,6 +86,7 @@ func NewStopDatafeedFunc(tp elastictransport.Interface) NewStopDatafeed {
 }
 
 // Stop datafeeds.
+//
 // A datafeed that is stopped ceases to retrieve data from Elasticsearch. A
 // datafeed can be started and stopped
 // multiple times throughout its lifecycle.
@@ -378,6 +380,19 @@ func (r *StopDatafeed) AllowNoMatch(allownomatch bool) *StopDatafeed {
 	}
 
 	r.req.AllowNoMatch = &allownomatch
+
+	return r
+}
+
+// Refer to the description for the `close_job` query parameter.
+// API name: close_job
+func (r *StopDatafeed) CloseJob(closejob bool) *StopDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.CloseJob = &closejob
 
 	return r
 }

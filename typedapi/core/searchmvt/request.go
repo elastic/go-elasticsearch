@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package searchmvt
 
@@ -35,9 +35,8 @@ import (
 
 // Request holds the request body struct for the package searchmvt
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/search_mvt/SearchMvtRequest.ts#L33-L334
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_global/search_mvt/SearchMvtRequest.ts#L39-L356
 type Request struct {
-
 	// Aggs Sub-aggregations for the geotile_grid.
 	//
 	// It supports the following aggregation types:
@@ -94,6 +93,16 @@ type Request struct {
 	// centroid
 	// of the cell.
 	GridType *gridtype.GridType `json:"grid_type,omitempty"`
+	// ProjectRouting Specifies a subset of projects to target for the search using project
+	// metadata tags in a subset of Lucene query syntax.
+	// Allowed Lucene queries: the _alias tag and a single value (possibly
+	// wildcarded).
+	// Examples:
+	//  _alias:my-project
+	//  _alias:_origin
+	//  _alias:*pr*
+	// Supported in serverless only.
+	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query The query DSL used to filter documents for the search.
 	Query *types.Query `json:"query,omitempty"`
 	// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
@@ -262,6 +271,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "grid_type":
 			if err := dec.Decode(&s.GridType); err != nil {
 				return fmt.Errorf("%s | %w", "GridType", err)
+			}
+
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
 			}
 
 		case "query":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -36,20 +36,6 @@ func NewSharedFileSystemRepositorySettings(location string) *_sharedFileSystemRe
 
 }
 
-func (s *_sharedFileSystemRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_sharedFileSystemRepositorySettings {
-
-	s.v.ChunkSize = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_sharedFileSystemRepositorySettings) Compress(compress bool) *_sharedFileSystemRepositorySettings {
-
-	s.v.Compress = &compress
-
-	return s
-}
-
 func (s *_sharedFileSystemRepositorySettings) Location(location string) *_sharedFileSystemRepositorySettings {
 
 	s.v.Location = location
@@ -64,6 +50,27 @@ func (s *_sharedFileSystemRepositorySettings) MaxNumberOfSnapshots(maxnumberofsn
 	return s
 }
 
+func (s *_sharedFileSystemRepositorySettings) Readonly(readonly bool) *_sharedFileSystemRepositorySettings {
+
+	s.v.Readonly = &readonly
+
+	return s
+}
+
+func (s *_sharedFileSystemRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_sharedFileSystemRepositorySettings {
+
+	s.v.ChunkSize = *bytesize.ByteSizeCaster()
+
+	return s
+}
+
+func (s *_sharedFileSystemRepositorySettings) Compress(compress bool) *_sharedFileSystemRepositorySettings {
+
+	s.v.Compress = &compress
+
+	return s
+}
+
 func (s *_sharedFileSystemRepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSizeVariant) *_sharedFileSystemRepositorySettings {
 
 	s.v.MaxRestoreBytesPerSec = *bytesize.ByteSizeCaster()
@@ -74,13 +81,6 @@ func (s *_sharedFileSystemRepositorySettings) MaxRestoreBytesPerSec(bytesize typ
 func (s *_sharedFileSystemRepositorySettings) MaxSnapshotBytesPerSec(bytesize types.ByteSizeVariant) *_sharedFileSystemRepositorySettings {
 
 	s.v.MaxSnapshotBytesPerSec = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_sharedFileSystemRepositorySettings) Readonly(readonly bool) *_sharedFileSystemRepositorySettings {
-
-	s.v.Readonly = &readonly
 
 	return s
 }

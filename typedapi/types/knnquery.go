@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/Knn.ts#L64-L87
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/Knn.ts#L71-L101
 type KnnQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -57,6 +57,9 @@ type KnnQuery struct {
 	RescoreVector *RescoreVector `json:"rescore_vector,omitempty"`
 	// Similarity The minimum similarity for a vector to be considered a match
 	Similarity *float32 `json:"similarity,omitempty"`
+	// VisitPercentage The percentage of vectors to explore per shard while doing knn search with
+	// bbq_disk
+	VisitPercentage *float32 `json:"visit_percentage,omitempty"`
 }
 
 func (s *KnnQuery) UnmarshalJSON(data []byte) error {
@@ -184,6 +187,22 @@ func (s *KnnQuery) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := float32(v)
 				s.Similarity = &f
+			}
+
+		case "visit_percentage":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "VisitPercentage", err)
+				}
+				f := float32(value)
+				s.VisitPercentage = &f
+			case float64:
+				f := float32(v)
+				s.VisitPercentage = &f
 			}
 
 		}

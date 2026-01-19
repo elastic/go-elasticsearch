@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -48,6 +48,20 @@ func (s *_elasticsearchServiceSettings) AdaptiveAllocations(adaptiveallocations 
 func (s *_elasticsearchServiceSettings) DeploymentId(deploymentid string) *_elasticsearchServiceSettings {
 
 	s.v.DeploymentId = &deploymentid
+
+	return s
+}
+
+func (s *_elasticsearchServiceSettings) LongDocumentStrategy(longdocumentstrategy string) *_elasticsearchServiceSettings {
+
+	s.v.LongDocumentStrategy = &longdocumentstrategy
+
+	return s
+}
+
+func (s *_elasticsearchServiceSettings) MaxChunksPerDoc(maxchunksperdoc int) *_elasticsearchServiceSettings {
+
+	s.v.MaxChunksPerDoc = &maxchunksperdoc
 
 	return s
 }

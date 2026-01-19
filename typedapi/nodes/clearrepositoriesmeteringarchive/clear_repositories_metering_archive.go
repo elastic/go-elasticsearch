@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Clear the archived repositories metering.
+//
 // Clear the archived repositories metering information in the cluster.
 package clearrepositoriesmeteringarchive
 
@@ -83,6 +84,7 @@ func NewClearRepositoriesMeteringArchiveFunc(tp elastictransport.Interface) NewC
 }
 
 // Clear the archived repositories metering.
+//
 // Clear the archived repositories metering information in the cluster.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-clear-repositories-metering-archive

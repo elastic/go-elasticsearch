@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package putdatalifecycle
 
@@ -29,13 +29,13 @@ import (
 	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/samplingmethod"
 )
 
 // Request holds the request body struct for the package putdatalifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L25-L93
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L26-L102
 type Request struct {
-
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame.
 	// Any time after this duration the document could be deleted.
@@ -43,7 +43,11 @@ type Request struct {
 	DataRetention types.Duration `json:"data_retention,omitempty"`
 	// Downsampling The downsampling configuration to execute for the managed backing index after
 	// rollover.
-	Downsampling *types.DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
+	Downsampling []types.DownsamplingRound `json:"downsampling,omitempty"`
+	// DownsamplingMethod The method used to downsample the data. There are two options `aggregate` and
+	// `last_value`. It requires
+	// `downsampling` to be defined. Defaults to `aggregate`.
+	DownsamplingMethod *samplingmethod.SamplingMethod `json:"downsampling_method,omitempty"`
 	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
 	// data stream. A data stream lifecycle
 	// that's disabled (enabled: `false`) will have no effect on the data stream.
@@ -91,6 +95,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "downsampling":
 			if err := dec.Decode(&s.Downsampling); err != nil {
 				return fmt.Errorf("%s | %w", "Downsampling", err)
+			}
+
+		case "downsampling_method":
+			if err := dec.Decode(&s.DownsamplingMethod); err != nil {
+				return fmt.Errorf("%s | %w", "DownsamplingMethod", err)
 			}
 
 		case "enabled":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -37,13 +37,6 @@ func NewGrokProcessor() *_grokProcessor {
 
 }
 
-func (s *_grokProcessor) Description(description string) *_grokProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_grokProcessor) EcsCompatibility(ecscompatibility string) *_grokProcessor {
 
 	s.v.EcsCompatibility = &ecscompatibility
@@ -58,34 +51,10 @@ func (s *_grokProcessor) Field(field string) *_grokProcessor {
 	return s
 }
 
-func (s *_grokProcessor) If(if_ types.ScriptVariant) *_grokProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_grokProcessor) IgnoreFailure(ignorefailure bool) *_grokProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
-
-	return s
-}
-
 func (s *_grokProcessor) IgnoreMissing(ignoremissing bool) *_grokProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
 
-	return s
-}
-
-func (s *_grokProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_grokProcessor {
-
-	for _, v := range onfailures {
-
-		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
-
-	}
 	return s
 }
 
@@ -120,16 +89,47 @@ func (s *_grokProcessor) Patterns(patterns ...string) *_grokProcessor {
 	return s
 }
 
-func (s *_grokProcessor) Tag(tag string) *_grokProcessor {
+func (s *_grokProcessor) TraceMatch(tracematch bool) *_grokProcessor {
 
-	s.v.Tag = &tag
+	s.v.TraceMatch = &tracematch
 
 	return s
 }
 
-func (s *_grokProcessor) TraceMatch(tracematch bool) *_grokProcessor {
+func (s *_grokProcessor) Description(description string) *_grokProcessor {
 
-	s.v.TraceMatch = &tracematch
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_grokProcessor) If(if_ types.ScriptVariant) *_grokProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_grokProcessor) IgnoreFailure(ignorefailure bool) *_grokProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
+func (s *_grokProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_grokProcessor {
+
+	for _, v := range onfailures {
+
+		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
+
+	}
+	return s
+}
+
+func (s *_grokProcessor) Tag(tag string) *_grokProcessor {
+
+	s.v.Tag = &tag
 
 	return s
 }

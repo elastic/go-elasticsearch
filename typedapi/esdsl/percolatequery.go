@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -35,13 +35,6 @@ func NewPercolateQuery() *_percolateQuery {
 
 	return &_percolateQuery{v: types.NewPercolateQuery()}
 
-}
-
-func (s *_percolateQuery) Boost(boost float32) *_percolateQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_percolateQuery) Document(document json.RawMessage) *_percolateQuery {
@@ -96,16 +89,9 @@ func (s *_percolateQuery) Preference(preference string) *_percolateQuery {
 	return s
 }
 
-func (s *_percolateQuery) QueryName_(queryname_ string) *_percolateQuery {
+func (s *_percolateQuery) Routing(routings ...string) *_percolateQuery {
 
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
-func (s *_percolateQuery) Routing(routing string) *_percolateQuery {
-
-	s.v.Routing = &routing
+	s.v.Routing = routings
 
 	return s
 }
@@ -113,6 +99,20 @@ func (s *_percolateQuery) Routing(routing string) *_percolateQuery {
 func (s *_percolateQuery) Version(versionnumber int64) *_percolateQuery {
 
 	s.v.Version = &versionnumber
+
+	return s
+}
+
+func (s *_percolateQuery) Boost(boost float32) *_percolateQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_percolateQuery) QueryName_(queryname_ string) *_percolateQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

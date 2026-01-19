@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -36,13 +36,6 @@ func NewHasParentQuery(query types.QueryVariant) *_hasParentQuery {
 
 	return tmp
 
-}
-
-func (s *_hasParentQuery) Boost(boost float32) *_hasParentQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_hasParentQuery) IgnoreUnmapped(ignoreunmapped bool) *_hasParentQuery {
@@ -73,16 +66,23 @@ func (s *_hasParentQuery) Query(query types.QueryVariant) *_hasParentQuery {
 	return s
 }
 
-func (s *_hasParentQuery) QueryName_(queryname_ string) *_hasParentQuery {
+func (s *_hasParentQuery) Score(score bool) *_hasParentQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.Score = &score
 
 	return s
 }
 
-func (s *_hasParentQuery) Score(score bool) *_hasParentQuery {
+func (s *_hasParentQuery) Boost(boost float32) *_hasParentQuery {
 
-	s.v.Score = &score
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_hasParentQuery) QueryName_(queryname_ string) *_hasParentQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

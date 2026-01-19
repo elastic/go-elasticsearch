@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -37,6 +37,20 @@ func NewInferenceAggregation() *_inferenceAggregation {
 
 }
 
+func (s *_inferenceAggregation) InferenceConfig(inferenceconfig types.InferenceConfigContainerVariant) *_inferenceAggregation {
+
+	s.v.InferenceConfig = inferenceconfig.InferenceConfigContainerCaster()
+
+	return s
+}
+
+func (s *_inferenceAggregation) ModelId(name string) *_inferenceAggregation {
+
+	s.v.ModelId = name
+
+	return s
+}
+
 func (s *_inferenceAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_inferenceAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -54,20 +68,6 @@ func (s *_inferenceAggregation) Format(format string) *_inferenceAggregation {
 func (s *_inferenceAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_inferenceAggregation {
 
 	s.v.GapPolicy = &gappolicy
-	return s
-}
-
-func (s *_inferenceAggregation) InferenceConfig(inferenceconfig types.InferenceConfigContainerVariant) *_inferenceAggregation {
-
-	s.v.InferenceConfig = inferenceconfig.InferenceConfigContainerCaster()
-
-	return s
-}
-
-func (s *_inferenceAggregation) ModelId(name string) *_inferenceAggregation {
-
-	s.v.ModelId = name
-
 	return s
 }
 

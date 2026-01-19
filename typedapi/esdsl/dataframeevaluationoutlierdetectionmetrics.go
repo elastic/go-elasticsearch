@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -34,13 +34,6 @@ func NewDataframeEvaluationOutlierDetectionMetrics() *_dataframeEvaluationOutlie
 
 	return &_dataframeEvaluationOutlierDetectionMetrics{v: types.NewDataframeEvaluationOutlierDetectionMetrics()}
 
-}
-
-func (s *_dataframeEvaluationOutlierDetectionMetrics) AucRoc(aucroc types.DataframeEvaluationClassificationMetricsAucRocVariant) *_dataframeEvaluationOutlierDetectionMetrics {
-
-	s.v.AucRoc = aucroc.DataframeEvaluationClassificationMetricsAucRocCaster()
-
-	return s
 }
 
 func (s *_dataframeEvaluationOutlierDetectionMetrics) ConfusionMatrix(confusionmatrix map[string]json.RawMessage) *_dataframeEvaluationOutlierDetectionMetrics {
@@ -61,6 +54,13 @@ func (s *_dataframeEvaluationOutlierDetectionMetrics) AddConfusionMatrix(key str
 	tmp[key] = value
 
 	s.v.ConfusionMatrix = tmp
+	return s
+}
+
+func (s *_dataframeEvaluationOutlierDetectionMetrics) AucRoc(aucroc types.DataframeEvaluationClassificationMetricsAucRocVariant) *_dataframeEvaluationOutlierDetectionMetrics {
+
+	s.v.AucRoc = aucroc.DataframeEvaluationClassificationMetricsAucRocCaster()
+
 	return s
 }
 

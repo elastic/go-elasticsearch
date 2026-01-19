@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -35,6 +35,34 @@ func NewSemanticTextProperty() *_semanticTextProperty {
 func (s *_semanticTextProperty) ChunkingSettings(chunkingsettings types.ChunkingSettingsVariant) *_semanticTextProperty {
 
 	s.v.ChunkingSettings = chunkingsettings.ChunkingSettingsCaster()
+
+	return s
+}
+
+func (s *_semanticTextProperty) Fields(fields map[string]types.Property) *_semanticTextProperty {
+
+	s.v.Fields = fields
+	return s
+}
+
+func (s *_semanticTextProperty) AddField(key string, value types.PropertyVariant) *_semanticTextProperty {
+
+	var tmp map[string]types.Property
+	if s.v.Fields == nil {
+		s.v.Fields = make(map[string]types.Property)
+	} else {
+		tmp = s.v.Fields
+	}
+
+	tmp[key] = *value.PropertyCaster()
+
+	s.v.Fields = tmp
+	return s
+}
+
+func (s *_semanticTextProperty) IndexOptions(indexoptions types.SemanticTextIndexOptionsVariant) *_semanticTextProperty {
+
+	s.v.IndexOptions = indexoptions.SemanticTextIndexOptionsCaster()
 
 	return s
 }

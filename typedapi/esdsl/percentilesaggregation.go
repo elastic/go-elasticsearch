@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -34,20 +34,6 @@ func NewPercentilesAggregation() *_percentilesAggregation {
 
 }
 
-func (s *_percentilesAggregation) Field(field string) *_percentilesAggregation {
-
-	s.v.Field = &field
-
-	return s
-}
-
-func (s *_percentilesAggregation) Format(format string) *_percentilesAggregation {
-
-	s.v.Format = &format
-
-	return s
-}
-
 func (s *_percentilesAggregation) Hdr(hdr types.HdrMethodVariant) *_percentilesAggregation {
 
 	s.v.Hdr = hdr.HdrMethodCaster()
@@ -62,26 +48,10 @@ func (s *_percentilesAggregation) Keyed(keyed bool) *_percentilesAggregation {
 	return s
 }
 
-func (s *_percentilesAggregation) Missing(missing types.MissingVariant) *_percentilesAggregation {
-
-	s.v.Missing = *missing.MissingCaster()
-
-	return s
-}
-
 func (s *_percentilesAggregation) Percents(percents ...types.Float64) *_percentilesAggregation {
 
-	for _, v := range percents {
-
-		s.v.Percents = append(s.v.Percents, v)
-
-	}
-	return s
-}
-
-func (s *_percentilesAggregation) Script(script types.ScriptVariant) *_percentilesAggregation {
-
-	s.v.Script = script.ScriptCaster()
+	s.v.Percents = make([]types.Float64, len(percents))
+	s.v.Percents = percents
 
 	return s
 }
@@ -89,6 +59,34 @@ func (s *_percentilesAggregation) Script(script types.ScriptVariant) *_percentil
 func (s *_percentilesAggregation) Tdigest(tdigest types.TDigestVariant) *_percentilesAggregation {
 
 	s.v.Tdigest = tdigest.TDigestCaster()
+
+	return s
+}
+
+func (s *_percentilesAggregation) Field(field string) *_percentilesAggregation {
+
+	s.v.Field = &field
+
+	return s
+}
+
+func (s *_percentilesAggregation) Format(format string) *_percentilesAggregation {
+
+	s.v.Format = &format
+
+	return s
+}
+
+func (s *_percentilesAggregation) Missing(missing types.MissingVariant) *_percentilesAggregation {
+
+	s.v.Missing = *missing.MissingCaster()
+
+	return s
+}
+
+func (s *_percentilesAggregation) Script(script types.ScriptVariant) *_percentilesAggregation {
+
+	s.v.Script = script.ScriptCaster()
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get index information.
 //
@@ -57,6 +57,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catindicescolumn"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/healthstatus"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
@@ -355,14 +356,6 @@ func (r *Indices) Index(index string) *Indices {
 	return r
 }
 
-// Bytes The unit used to display byte values.
-// API name: bytes
-func (r *Indices) Bytes(bytes bytes.Bytes) *Indices {
-	r.values.Set("bytes", bytes.String())
-
-	return r
-}
-
 // ExpandWildcards The type of index that wildcard patterns can match.
 // API name: expand_wildcards
 func (r *Indices) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Indices {
@@ -401,14 +394,6 @@ func (r *Indices) Pri(pri bool) *Indices {
 	return r
 }
 
-// Time The unit used to display time values.
-// API name: time
-func (r *Indices) Time(time timeunit.TimeUnit) *Indices {
-	r.values.Set("time", time.String())
-
-	return r
-}
-
 // MasterTimeout Period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *Indices) MasterTimeout(duration string) *Indices {
@@ -417,10 +402,15 @@ func (r *Indices) MasterTimeout(duration string) *Indices {
 	return r
 }
 
-// H List of columns to appear in the response. Supports simple wildcards.
+// H A comma-separated list of columns names to display. It supports simple
+// wildcards.
 // API name: h
-func (r *Indices) H(names ...string) *Indices {
-	r.values.Set("h", strings.Join(names, ","))
+func (r *Indices) H(catindicescolumns ...catindicescolumn.CatIndicesColumn) *Indices {
+	tmp := []string{}
+	for _, item := range catindicescolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -431,6 +421,22 @@ func (r *Indices) H(names ...string) *Indices {
 // API name: s
 func (r *Indices) S(names ...string) *Indices {
 	r.values.Set("s", strings.Join(names, ","))
+
+	return r
+}
+
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *Indices) Bytes(bytes bytes.Bytes) *Indices {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
@@ -449,6 +455,19 @@ func (r *Indices) Format(format string) *Indices {
 // API name: help
 func (r *Indices) Help(help bool) *Indices {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *Indices) Time(time timeunit.TimeUnit) *Indices {
+	r.values.Set("time", time.String())
 
 	return r
 }

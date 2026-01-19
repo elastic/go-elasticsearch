@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -56,30 +56,9 @@ func (s *_dateIndexNameProcessor) DateRounding(daterounding string) *_dateIndexN
 	return s
 }
 
-func (s *_dateIndexNameProcessor) Description(description string) *_dateIndexNameProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_dateIndexNameProcessor) Field(field string) *_dateIndexNameProcessor {
 
 	s.v.Field = field
-
-	return s
-}
-
-func (s *_dateIndexNameProcessor) If(if_ types.ScriptVariant) *_dateIndexNameProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_dateIndexNameProcessor) IgnoreFailure(ignorefailure bool) *_dateIndexNameProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
 
 	return s
 }
@@ -105,6 +84,34 @@ func (s *_dateIndexNameProcessor) Locale(locale string) *_dateIndexNameProcessor
 	return s
 }
 
+func (s *_dateIndexNameProcessor) Timezone(timezone string) *_dateIndexNameProcessor {
+
+	s.v.Timezone = &timezone
+
+	return s
+}
+
+func (s *_dateIndexNameProcessor) Description(description string) *_dateIndexNameProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_dateIndexNameProcessor) If(if_ types.ScriptVariant) *_dateIndexNameProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_dateIndexNameProcessor) IgnoreFailure(ignorefailure bool) *_dateIndexNameProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
 func (s *_dateIndexNameProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_dateIndexNameProcessor {
 
 	for _, v := range onfailures {
@@ -118,13 +125,6 @@ func (s *_dateIndexNameProcessor) OnFailure(onfailures ...types.ProcessorContain
 func (s *_dateIndexNameProcessor) Tag(tag string) *_dateIndexNameProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_dateIndexNameProcessor) Timezone(timezone string) *_dateIndexNameProcessor {
-
-	s.v.Timezone = &timezone
 
 	return s
 }

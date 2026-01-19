@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -31,8 +31,19 @@ import (
 
 // OpenAITaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1598-L1604
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/CommonTypes.ts#L1978-L1995
 type OpenAITaskSettings struct {
+	// Headers Specifies custom HTTP header parameters.
+	// For example:
+	// ```
+	//
+	//	"headers":{
+	//	  "Custom-Header": "Some-Value",
+	//	  "Another-Custom-Header": "Another-Value"
+	//	}
+	//
+	// ```
+	Headers json.RawMessage `json:"headers,omitempty"`
 	// User For a `completion` or `text_embedding` task, specify the user issuing the
 	// request.
 	// This information can be used for abuse detection.
@@ -53,6 +64,11 @@ func (s *OpenAITaskSettings) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "headers":
+			if err := dec.Decode(&s.Headers); err != nil {
+				return fmt.Errorf("%s | %w", "Headers", err)
+			}
 
 		case "user":
 			var tmp json.RawMessage

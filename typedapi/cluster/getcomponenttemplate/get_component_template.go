@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get component templates.
+//
 // Get information about component templates.
 package getcomponenttemplate
 
@@ -76,6 +77,7 @@ func NewGetComponentTemplateFunc(tp elastictransport.Interface) NewGetComponentT
 }
 
 // Get component templates.
+//
 // Get information about component templates.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
@@ -293,8 +295,8 @@ func (r *GetComponentTemplate) Header(key, value string) *GetComponentTemplate {
 	return r
 }
 
-// Name Comma-separated list of component template names used to limit the request.
-// Wildcard (`*`) expressions are supported.
+// Name Name of component template to retrieve. Wildcard (`*`) expressions are
+// supported.
 // API Name: name
 func (r *GetComponentTemplate) Name(name string) *GetComponentTemplate {
 	r.paramSet |= nameMask
@@ -324,7 +326,7 @@ func (r *GetComponentTemplate) SettingsFilter(settingsfilters ...string) *GetCom
 	return r
 }
 
-// IncludeDefaults Return all default configurations for the component template (default: false)
+// IncludeDefaults Return all default configurations for the component template
 // API name: include_defaults
 func (r *GetComponentTemplate) IncludeDefaults(includedefaults bool) *GetComponentTemplate {
 	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))

@@ -16,20 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // OperationContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/bulk/types.ts#L158-L180
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_global/bulk/types.ts#L158-L180
 type OperationContainer struct {
-	AdditionalOperationContainerProperty map[string]json.RawMessage `json:"-"`
 	// Create Index the specified document if it does not already exist.
 	// The following line must contain the source data to be indexed.
 	Create *CreateOperation `json:"create,omitempty"`
@@ -44,40 +38,9 @@ type OperationContainer struct {
 	Update *UpdateOperation `json:"update,omitempty"`
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s OperationContainer) MarshalJSON() ([]byte, error) {
-	type opt OperationContainer
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalOperationContainerProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalOperationContainerProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewOperationContainer returns a OperationContainer.
 func NewOperationContainer() *OperationContainer {
-	r := &OperationContainer{
-		AdditionalOperationContainerProperty: make(map[string]json.RawMessage),
-	}
+	r := &OperationContainer{}
 
 	return r
 }

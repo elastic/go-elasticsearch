@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -38,13 +38,6 @@ func NewCsvProcessor() *_csvProcessor {
 
 }
 
-func (s *_csvProcessor) Description(description string) *_csvProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_csvProcessor) EmptyValue(emptyvalue json.RawMessage) *_csvProcessor {
 
 	s.v.EmptyValue = emptyvalue
@@ -55,6 +48,48 @@ func (s *_csvProcessor) EmptyValue(emptyvalue json.RawMessage) *_csvProcessor {
 func (s *_csvProcessor) Field(field string) *_csvProcessor {
 
 	s.v.Field = field
+
+	return s
+}
+
+func (s *_csvProcessor) IgnoreMissing(ignoremissing bool) *_csvProcessor {
+
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_csvProcessor) Quote(quote string) *_csvProcessor {
+
+	s.v.Quote = &quote
+
+	return s
+}
+
+func (s *_csvProcessor) Separator(separator string) *_csvProcessor {
+
+	s.v.Separator = &separator
+
+	return s
+}
+
+func (s *_csvProcessor) TargetFields(fields ...string) *_csvProcessor {
+
+	s.v.TargetFields = fields
+
+	return s
+}
+
+func (s *_csvProcessor) Trim(trim bool) *_csvProcessor {
+
+	s.v.Trim = &trim
+
+	return s
+}
+
+func (s *_csvProcessor) Description(description string) *_csvProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -73,13 +108,6 @@ func (s *_csvProcessor) IgnoreFailure(ignorefailure bool) *_csvProcessor {
 	return s
 }
 
-func (s *_csvProcessor) IgnoreMissing(ignoremissing bool) *_csvProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_csvProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_csvProcessor {
 
 	for _, v := range onfailures {
@@ -90,37 +118,9 @@ func (s *_csvProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant)
 	return s
 }
 
-func (s *_csvProcessor) Quote(quote string) *_csvProcessor {
-
-	s.v.Quote = &quote
-
-	return s
-}
-
-func (s *_csvProcessor) Separator(separator string) *_csvProcessor {
-
-	s.v.Separator = &separator
-
-	return s
-}
-
 func (s *_csvProcessor) Tag(tag string) *_csvProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_csvProcessor) TargetFields(fields ...string) *_csvProcessor {
-
-	s.v.TargetFields = fields
-
-	return s
-}
-
-func (s *_csvProcessor) Trim(trim bool) *_csvProcessor {
-
-	s.v.Trim = &trim
 
 	return s
 }

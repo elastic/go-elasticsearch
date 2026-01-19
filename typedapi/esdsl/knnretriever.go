@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -48,33 +48,9 @@ func (s *_knnRetriever) Field(field string) *_knnRetriever {
 	return s
 }
 
-func (s *_knnRetriever) Filter(filters ...types.QueryVariant) *_knnRetriever {
-
-	s.v.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		s.v.Filter[i] = *v.QueryCaster()
-	}
-
-	return s
-}
-
 func (s *_knnRetriever) K(k int) *_knnRetriever {
 
 	s.v.K = k
-
-	return s
-}
-
-func (s *_knnRetriever) MinScore(minscore float32) *_knnRetriever {
-
-	s.v.MinScore = &minscore
-
-	return s
-}
-
-func (s *_knnRetriever) Name_(name_ string) *_knnRetriever {
-
-	s.v.Name_ = &name_
 
 	return s
 }
@@ -110,6 +86,37 @@ func (s *_knnRetriever) RescoreVector(rescorevector types.RescoreVectorVariant) 
 func (s *_knnRetriever) Similarity(similarity float32) *_knnRetriever {
 
 	s.v.Similarity = &similarity
+
+	return s
+}
+
+func (s *_knnRetriever) VisitPercentage(visitpercentage float32) *_knnRetriever {
+
+	s.v.VisitPercentage = &visitpercentage
+
+	return s
+}
+
+func (s *_knnRetriever) Filter(filters ...types.QueryVariant) *_knnRetriever {
+
+	s.v.Filter = make([]types.Query, len(filters))
+	for i, v := range filters {
+		s.v.Filter[i] = *v.QueryCaster()
+	}
+
+	return s
+}
+
+func (s *_knnRetriever) MinScore(minscore float32) *_knnRetriever {
+
+	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_knnRetriever) Name_(name_ string) *_knnRetriever {
+
+	s.v.Name_ = &name_
 
 	return s
 }

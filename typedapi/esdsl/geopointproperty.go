@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -36,6 +36,53 @@ func NewGeoPointProperty() *_geoPointProperty {
 
 	return &_geoPointProperty{v: types.NewGeoPointProperty()}
 
+}
+
+func (s *_geoPointProperty) IgnoreMalformed(ignoremalformed bool) *_geoPointProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
+func (s *_geoPointProperty) IgnoreZValue(ignorezvalue bool) *_geoPointProperty {
+
+	s.v.IgnoreZValue = &ignorezvalue
+
+	return s
+}
+
+func (s *_geoPointProperty) Index(index bool) *_geoPointProperty {
+
+	s.v.Index = &index
+
+	return s
+}
+
+func (s *_geoPointProperty) NullValue(geolocation types.GeoLocationVariant) *_geoPointProperty {
+
+	s.v.NullValue = *geolocation.GeoLocationCaster()
+
+	return s
+}
+
+func (s *_geoPointProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_geoPointProperty {
+
+	s.v.OnScriptError = &onscripterror
+	return s
+}
+
+func (s *_geoPointProperty) Script(script types.ScriptVariant) *_geoPointProperty {
+
+	s.v.Script = script.ScriptCaster()
+
+	return s
+}
+
+func (s *_geoPointProperty) TimeSeriesMetric(timeseriesmetric geopointmetrictype.GeoPointMetricType) *_geoPointProperty {
+
+	s.v.TimeSeriesMetric = &timeseriesmetric
+	return s
 }
 
 func (s *_geoPointProperty) CopyTo(fields ...string) *_geoPointProperty {
@@ -86,27 +133,6 @@ func (s *_geoPointProperty) IgnoreAbove(ignoreabove int) *_geoPointProperty {
 	return s
 }
 
-func (s *_geoPointProperty) IgnoreMalformed(ignoremalformed bool) *_geoPointProperty {
-
-	s.v.IgnoreMalformed = &ignoremalformed
-
-	return s
-}
-
-func (s *_geoPointProperty) IgnoreZValue(ignorezvalue bool) *_geoPointProperty {
-
-	s.v.IgnoreZValue = &ignorezvalue
-
-	return s
-}
-
-func (s *_geoPointProperty) Index(index bool) *_geoPointProperty {
-
-	s.v.Index = &index
-
-	return s
-}
-
 func (s *_geoPointProperty) Meta(meta map[string]string) *_geoPointProperty {
 
 	s.v.Meta = meta
@@ -125,19 +151,6 @@ func (s *_geoPointProperty) AddMeta(key string, value string) *_geoPointProperty
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_geoPointProperty) NullValue(geolocation types.GeoLocationVariant) *_geoPointProperty {
-
-	s.v.NullValue = *geolocation.GeoLocationCaster()
-
-	return s
-}
-
-func (s *_geoPointProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_geoPointProperty {
-
-	s.v.OnScriptError = &onscripterror
 	return s
 }
 
@@ -162,13 +175,6 @@ func (s *_geoPointProperty) AddProperty(key string, value types.PropertyVariant)
 	return s
 }
 
-func (s *_geoPointProperty) Script(script types.ScriptVariant) *_geoPointProperty {
-
-	s.v.Script = script.ScriptCaster()
-
-	return s
-}
-
 func (s *_geoPointProperty) Store(store bool) *_geoPointProperty {
 
 	s.v.Store = &store
@@ -179,12 +185,6 @@ func (s *_geoPointProperty) Store(store bool) *_geoPointProperty {
 func (s *_geoPointProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_geoPointProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
-	return s
-}
-
-func (s *_geoPointProperty) TimeSeriesMetric(timeseriesmetric geopointmetrictype.GeoPointMetricType) *_geoPointProperty {
-
-	s.v.TimeSeriesMetric = &timeseriesmetric
 	return s
 }
 

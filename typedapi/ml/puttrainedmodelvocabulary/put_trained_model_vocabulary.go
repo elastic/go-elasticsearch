@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Create a trained model vocabulary.
+//
 // This API is supported only for natural language processing (NLP) models.
 // The vocabulary is stored in the index as described in
 // `inference_config.*.vocabulary` of the trained model definition.
@@ -85,6 +86,7 @@ func NewPutTrainedModelVocabularyFunc(tp elastictransport.Interface) NewPutTrain
 }
 
 // Create a trained model vocabulary.
+//
 // This API is supported only for natural language processing (NLP) models.
 // The vocabulary is stored in the index as described in
 // `inference_config.*.vocabulary` of the trained model definition.

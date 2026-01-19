@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Run an async ES|QL query.
+//
 // Asynchronously run an ES|QL (Elasticsearch query language) query, monitor its
 // progress, and retrieve results when they become available.
 //
@@ -80,6 +81,7 @@ func NewAsyncQueryFunc(tp elastictransport.Interface) NewAsyncQuery {
 }
 
 // Run an async ES|QL query.
+//
 // Asynchronously run an ES|QL (Elasticsearch query language) query, monitor its
 // progress, and retrieve results when they become available.
 //
@@ -425,8 +427,8 @@ func (r *AsyncQuery) Filter(filter types.QueryVariant) *AsyncQuery {
 	return r
 }
 
-// When set to `true` and performing a cross-cluster query, the response will
-// include an extra `_clusters`
+// When set to `true` and performing a cross-cluster/cross-project query, the
+// response will include an extra `_clusters`
 // object with information about the clusters that participated in the search
 // along with info such as shards
 // count.
@@ -438,6 +440,24 @@ func (r *AsyncQuery) IncludeCcsMetadata(includeccsmetadata bool) *AsyncQuery {
 	}
 
 	r.req.IncludeCcsMetadata = &includeccsmetadata
+
+	return r
+}
+
+// When set to `true`, the response will include an extra `_clusters`
+// object with information about the clusters that participated in the search
+// along with info such as shards
+// count.
+// This is similar to `include_ccs_metadata`, but it also returns metadata when
+// the query is not CCS/CPS
+// API name: include_execution_metadata
+func (r *AsyncQuery) IncludeExecutionMetadata(includeexecutionmetadata bool) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.IncludeExecutionMetadata = &includeexecutionmetadata
 
 	return r
 }

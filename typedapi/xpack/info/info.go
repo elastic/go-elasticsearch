@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get information.
+//
 // The information provided by the API includes:
 //
 // * Build information including the build number and timestamp.
@@ -76,6 +77,7 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 }
 
 // Get information.
+//
 // The information provided by the API includes:
 //
 // * Build information including the build number and timestamp.
@@ -301,7 +303,7 @@ func (r *Info) Categories(categories ...xpackcategory.XPackCategory) *Info {
 	return r
 }
 
-// AcceptEnterprise If this param is used it must be set to true
+// AcceptEnterprise If used, this otherwise ignored parameter must be set to true
 // API name: accept_enterprise
 func (r *Info) AcceptEnterprise(acceptenterprise bool) *Info {
 	r.values.Set("accept_enterprise", strconv.FormatBool(acceptenterprise))

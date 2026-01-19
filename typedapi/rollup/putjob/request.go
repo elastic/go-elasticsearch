@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package putjob
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package putjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/rollup/put_job/CreateRollupJobRequest.ts#L27-L105
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/rollup/put_job/CreateRollupJobRequest.ts#L27-L107
 type Request struct {
-
 	// Cron A cron string which defines the intervals when the rollup job should be
 	// executed. When the interval
 	// triggers, the indexer attempts to rollup the data in the index pattern. The

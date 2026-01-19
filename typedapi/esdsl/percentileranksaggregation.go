@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -34,20 +34,6 @@ func NewPercentileRanksAggregation() *_percentileRanksAggregation {
 
 }
 
-func (s *_percentileRanksAggregation) Field(field string) *_percentileRanksAggregation {
-
-	s.v.Field = &field
-
-	return s
-}
-
-func (s *_percentileRanksAggregation) Format(format string) *_percentileRanksAggregation {
-
-	s.v.Format = &format
-
-	return s
-}
-
 func (s *_percentileRanksAggregation) Hdr(hdr types.HdrMethodVariant) *_percentileRanksAggregation {
 
 	s.v.Hdr = hdr.HdrMethodCaster()
@@ -62,20 +48,6 @@ func (s *_percentileRanksAggregation) Keyed(keyed bool) *_percentileRanksAggrega
 	return s
 }
 
-func (s *_percentileRanksAggregation) Missing(missing types.MissingVariant) *_percentileRanksAggregation {
-
-	s.v.Missing = *missing.MissingCaster()
-
-	return s
-}
-
-func (s *_percentileRanksAggregation) Script(script types.ScriptVariant) *_percentileRanksAggregation {
-
-	s.v.Script = script.ScriptCaster()
-
-	return s
-}
-
 func (s *_percentileRanksAggregation) Tdigest(tdigest types.TDigestVariant) *_percentileRanksAggregation {
 
 	s.v.Tdigest = tdigest.TDigestCaster()
@@ -86,6 +58,34 @@ func (s *_percentileRanksAggregation) Tdigest(tdigest types.TDigestVariant) *_pe
 func (s *_percentileRanksAggregation) Values(values []types.Float64) *_percentileRanksAggregation {
 
 	s.v.Values = &values
+
+	return s
+}
+
+func (s *_percentileRanksAggregation) Field(field string) *_percentileRanksAggregation {
+
+	s.v.Field = &field
+
+	return s
+}
+
+func (s *_percentileRanksAggregation) Format(format string) *_percentileRanksAggregation {
+
+	s.v.Format = &format
+
+	return s
+}
+
+func (s *_percentileRanksAggregation) Missing(missing types.MissingVariant) *_percentileRanksAggregation {
+
+	s.v.Missing = *missing.MissingCaster()
+
+	return s
+}
+
+func (s *_percentileRanksAggregation) Script(script types.ScriptVariant) *_percentileRanksAggregation {
+
+	s.v.Script = script.ScriptCaster()
 
 	return s
 }

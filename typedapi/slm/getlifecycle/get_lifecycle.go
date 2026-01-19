@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get policy information.
+//
 // Get snapshot lifecycle policy definitions and information about the latest
 // snapshot attempts.
 package getlifecycle
@@ -77,6 +78,7 @@ func NewGetLifecycleFunc(tp elastictransport.Interface) NewGetLifecycle {
 }
 
 // Get policy information.
+//
 // Get snapshot lifecycle policy definitions and information about the latest
 // snapshot attempts.
 //
@@ -299,7 +301,7 @@ func (r *GetLifecycle) Header(key, value string) *GetLifecycle {
 	return r
 }
 
-// PolicyId Comma-separated list of snapshot lifecycle policies to retrieve
+// PolicyId A comma-separated list of snapshot lifecycle policy identifiers.
 // API Name: policyid
 func (r *GetLifecycle) PolicyId(policyid string) *GetLifecycle {
 	r.paramSet |= policyidMask

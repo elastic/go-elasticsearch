@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -46,16 +46,24 @@ func (s *_rerouteProcessor) Dataset(datasets ...string) *_rerouteProcessor {
 	return s
 }
 
-func (s *_rerouteProcessor) Description(description string) *_rerouteProcessor {
+func (s *_rerouteProcessor) Destination(destination string) *_rerouteProcessor {
 
-	s.v.Description = &description
+	s.v.Destination = &destination
 
 	return s
 }
 
-func (s *_rerouteProcessor) Destination(destination string) *_rerouteProcessor {
+func (s *_rerouteProcessor) Namespace(namespaces ...string) *_rerouteProcessor {
 
-	s.v.Destination = &destination
+	s.v.Namespace = make([]string, len(namespaces))
+	s.v.Namespace = namespaces
+
+	return s
+}
+
+func (s *_rerouteProcessor) Description(description string) *_rerouteProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -70,14 +78,6 @@ func (s *_rerouteProcessor) If(if_ types.ScriptVariant) *_rerouteProcessor {
 func (s *_rerouteProcessor) IgnoreFailure(ignorefailure bool) *_rerouteProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
-
-	return s
-}
-
-func (s *_rerouteProcessor) Namespace(namespaces ...string) *_rerouteProcessor {
-
-	s.v.Namespace = make([]string, len(namespaces))
-	s.v.Namespace = namespaces
 
 	return s
 }

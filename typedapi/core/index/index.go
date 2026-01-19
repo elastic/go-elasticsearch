@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Create or update a document in an index.
 //
@@ -204,6 +204,8 @@
 //	    "id": "elkbee"
 //	  }
 //	}
+//
+// ```
 //
 // In this example, the operation will succeed since the supplied version of 2
 // is higher than the current document version of 1.
@@ -471,6 +473,8 @@ func NewIndexFunc(tp elastictransport.Interface) NewIndex {
 //	    "id": "elkbee"
 //	  }
 //	}
+//
+// ```
 //
 // In this example, the operation will succeed since the supplied version of 2
 // is higher than the current document version of 1.
@@ -820,8 +824,8 @@ func (r *Index) Refresh(refresh refresh.Refresh) *Index {
 
 // Routing A custom value that is used to route operations to a specific shard.
 // API name: routing
-func (r *Index) Routing(routing string) *Index {
-	r.values.Set("routing", routing)
+func (r *Index) Routing(routings ...string) *Index {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package analyze
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package analyze
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/analyze/IndicesAnalyzeRequest.ts#L27-L119
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/indices/analyze/IndicesAnalyzeRequest.ts#L27-L122
 type Request struct {
-
 	// Analyzer The name of the analyzer that should be applied to the provided `text`.
 	// This could be a built-in analyzer, or an analyzer that’s been configured in
 	// the index.

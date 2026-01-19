@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -43,33 +43,9 @@ func NewRuleRetriever(matchcriteria json.RawMessage, retriever types.RetrieverCo
 
 }
 
-func (s *_ruleRetriever) Filter(filters ...types.QueryVariant) *_ruleRetriever {
-
-	s.v.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		s.v.Filter[i] = *v.QueryCaster()
-	}
-
-	return s
-}
-
 func (s *_ruleRetriever) MatchCriteria(matchcriteria json.RawMessage) *_ruleRetriever {
 
 	s.v.MatchCriteria = matchcriteria
-
-	return s
-}
-
-func (s *_ruleRetriever) MinScore(minscore float32) *_ruleRetriever {
-
-	s.v.MinScore = &minscore
-
-	return s
-}
-
-func (s *_ruleRetriever) Name_(name_ string) *_ruleRetriever {
-
-	s.v.Name_ = &name_
 
 	return s
 }
@@ -92,6 +68,30 @@ func (s *_ruleRetriever) RulesetIds(rulesetids ...string) *_ruleRetriever {
 
 	s.v.RulesetIds = make([]string, len(rulesetids))
 	s.v.RulesetIds = rulesetids
+
+	return s
+}
+
+func (s *_ruleRetriever) Filter(filters ...types.QueryVariant) *_ruleRetriever {
+
+	s.v.Filter = make([]types.Query, len(filters))
+	for i, v := range filters {
+		s.v.Filter[i] = *v.QueryCaster()
+	}
+
+	return s
+}
+
+func (s *_ruleRetriever) MinScore(minscore float32) *_ruleRetriever {
+
+	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_ruleRetriever) Name_(name_ string) *_ruleRetriever {
+
+	s.v.Name_ = &name_
 
 	return s
 }

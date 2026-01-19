@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package deletebyquery
 
@@ -26,9 +26,8 @@ import (
 
 // Response holds the response body struct for the package deletebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/delete_by_query/DeleteByQueryResponse.ts#L26-L88
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_global/delete_by_query/DeleteByQueryResponse.ts#L27-L93
 type Response struct {
-
 	// Batches The number of scroll responses pulled back by the delete by query.
 	Batches *int64 `json:"batches,omitempty"`
 	// Deleted The number of documents that were successfully deleted.
@@ -52,10 +51,12 @@ type Response struct {
 	// Retries The number of retries attempted by delete by query.
 	// `bulk` is the number of bulk actions retried.
 	// `search` is the number of search actions retried.
-	Retries   *types.Retries `json:"retries,omitempty"`
-	SliceId   *int           `json:"slice_id,omitempty"`
-	Task      *string        `json:"task,omitempty"`
-	Throttled types.Duration `json:"throttled,omitempty"`
+	Retries *types.Retries `json:"retries,omitempty"`
+	SliceId *int           `json:"slice_id,omitempty"`
+	// Slices Status of each slice if the delete by query was sliced
+	Slices    []types.ReindexStatus `json:"slices,omitempty"`
+	Task      *string               `json:"task,omitempty"`
+	Throttled types.Duration        `json:"throttled,omitempty"`
 	// ThrottledMillis The number of milliseconds the request slept to conform to
 	// `requests_per_second`.
 	ThrottledMillis *int64         `json:"throttled_millis,omitempty"`

@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+)
+
 // IndexTemplateMapping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L159-L181
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L167-L194
 type IndexTemplateMapping struct {
 	// Aliases Aliases to add.
 	// If the index template includes a `data_stream` object, these are data stream
@@ -30,14 +38,63 @@ type IndexTemplateMapping struct {
 	// Otherwise, these are index aliases.
 	// Data stream aliases ignore the `index_routing`, `routing`, and
 	// `search_routing` options.
-	Aliases   map[string]Alias     `json:"aliases,omitempty"`
-	Lifecycle *DataStreamLifecycle `json:"lifecycle,omitempty"`
+	Aliases           map[string]Alias           `json:"aliases,omitempty"`
+	DataStreamOptions *DataStreamOptionsTemplate `json:"data_stream_options,omitempty"`
+	Lifecycle         *DataStreamLifecycle       `json:"lifecycle,omitempty"`
 	// Mappings Mapping for fields in the index.
 	// If specified, this mapping can include field names, field data types, and
 	// mapping parameters.
 	Mappings *TypeMapping `json:"mappings,omitempty"`
 	// Settings Configuration options for the index.
 	Settings *IndexSettings `json:"settings,omitempty"`
+}
+
+func (s *IndexTemplateMapping) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "aliases":
+			if s.Aliases == nil {
+				s.Aliases = make(map[string]Alias, 0)
+			}
+			if err := dec.Decode(&s.Aliases); err != nil {
+				return fmt.Errorf("%s | %w", "Aliases", err)
+			}
+
+		case "data_stream_options":
+			if err := dec.Decode(&s.DataStreamOptions); err != nil {
+				return fmt.Errorf("%s | %w", "DataStreamOptions", err)
+			}
+
+		case "lifecycle":
+			if err := dec.Decode(&s.Lifecycle); err != nil {
+				return fmt.Errorf("%s | %w", "Lifecycle", err)
+			}
+
+		case "mappings":
+			if err := dec.Decode(&s.Mappings); err != nil {
+				return fmt.Errorf("%s | %w", "Mappings", err)
+			}
+
+		case "settings":
+			if err := dec.Decode(&s.Settings); err != nil {
+				return fmt.Errorf("%s | %w", "Settings", err)
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewIndexTemplateMapping returns a IndexTemplateMapping.

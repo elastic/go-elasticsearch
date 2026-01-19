@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -34,6 +34,20 @@ func NewSparseVectorProperty() *_sparseVectorProperty {
 
 	return &_sparseVectorProperty{v: types.NewSparseVectorProperty()}
 
+}
+
+func (s *_sparseVectorProperty) IndexOptions(indexoptions types.SparseVectorIndexOptionsVariant) *_sparseVectorProperty {
+
+	s.v.IndexOptions = indexoptions.SparseVectorIndexOptionsCaster()
+
+	return s
+}
+
+func (s *_sparseVectorProperty) Store(store bool) *_sparseVectorProperty {
+
+	s.v.Store = &store
+
+	return s
 }
 
 func (s *_sparseVectorProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_sparseVectorProperty {
@@ -66,13 +80,6 @@ func (s *_sparseVectorProperty) AddField(key string, value types.PropertyVariant
 func (s *_sparseVectorProperty) IgnoreAbove(ignoreabove int) *_sparseVectorProperty {
 
 	s.v.IgnoreAbove = &ignoreabove
-
-	return s
-}
-
-func (s *_sparseVectorProperty) IndexOptions(indexoptions types.SparseVectorIndexOptionsVariant) *_sparseVectorProperty {
-
-	s.v.IndexOptions = indexoptions.SparseVectorIndexOptionsCaster()
 
 	return s
 }
@@ -116,13 +123,6 @@ func (s *_sparseVectorProperty) AddProperty(key string, value types.PropertyVari
 	tmp[key] = *value.PropertyCaster()
 
 	s.v.Properties = tmp
-	return s
-}
-
-func (s *_sparseVectorProperty) Store(store bool) *_sparseVectorProperty {
-
-	s.v.Store = &store
-
 	return s
 }
 
