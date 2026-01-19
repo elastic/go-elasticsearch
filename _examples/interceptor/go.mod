@@ -1,6 +1,6 @@
 module github.com/elastic/go-elasticsearch/v9/_examples/interceptor
 
-go 1.23.0
+go 1.24
 
 replace github.com/elastic/go-elasticsearch/v9 => ../..
 
