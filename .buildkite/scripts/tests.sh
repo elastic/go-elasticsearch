@@ -20,7 +20,7 @@ printf "\033[34;1mINFO:\033[0m Generating tests from elasticsearch-clients-tests
 
 # `gen-tests` depends on `download-client-tests` and will clone/update the repo under ./tmp.
 cd /go-elasticsearch || exit 1
-ELASTICSEARCH_CLIENTS_TESTS_BRANCH="${ELASTICSEARCH_CLIENTS_TESTS_BRANCH:-9.3}" \
+ELASTICSEARCH_CLIENTS_TESTS_BRANCH="${ELASTICSEARCH_CLIENTS_TESTS_BRANCH:-main}" \
   make gen-tests
 
 printf "\033[34;1mINFO:\033[0m Download tests deps >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m\n"
