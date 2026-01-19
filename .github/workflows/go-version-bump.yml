@@ -84,7 +84,11 @@ jobs:
           {
             echo "updated_modules<<EOF"
             for entry in "${updates[@]}"; do
-              echo "$entry"
+              file="${entry%%:*}"
+              change="${entry#*: }"
+              from="${change%% -> *}"
+              to="${change##* -> }"
+              echo "| \`${file}\` | ${from} | ${to} |"
             done
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
@@ -137,5 +141,8 @@ jobs:
             Bumps Go version to ${{ steps.go-versions.outputs.target }}.
 
             Updated go.mod files:
+
+            | Module | From | To |
+            | --- | --- | --- |
             ${{ steps.go-versions.outputs.updated_modules }}
 
