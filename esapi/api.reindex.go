@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -46,11 +46,9 @@ func newReindexFunc(t Transport) Reindex {
 
 // ----- API Definition -------------------------------------------------------
 
-// Reindex allows to copy documents from one index to another, optionally filtering the source
-// documents by a query, changing the destination index settings, or fetching the
-// documents from a remote cluster.
+// Reindex reindex documents
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex.
 type Reindex func(body io.Reader, o ...func(*ReindexRequest)) (*Response, error)
 
 // ReindexRequest configures the Reindex API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLPreviewDataFrameAnalyticsFunc(t Transport) MLPreviewDataFrameAnalytics
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPreviewDataFrameAnalytics - Previews that will be analyzed given a data frame analytics config.
+// MLPreviewDataFrameAnalytics - Preview features used by data frame analytics
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/preview-dfanalytics.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-data-frame-analytics.
 type MLPreviewDataFrameAnalytics func(o ...func(*MLPreviewDataFrameAnalyticsRequest)) (*Response, error)
 
 // MLPreviewDataFrameAnalyticsRequest configures the ML Preview Data Frame Analytics API request.

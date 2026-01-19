@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesForcemergeFunc(t Transport) IndicesForcemerge {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesForcemerge performs the force merge operation on one or more indices.
+// IndicesForcemerge force a merge
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-forcemerge.
 type IndicesForcemerge func(o ...func(*IndicesForcemergeRequest)) (*Response, error)
 
 // IndicesForcemergeRequest configures the Indices Forcemerge API request.
@@ -53,7 +53,7 @@ type IndicesForcemergeRequest struct {
 	Index []string
 
 	AllowNoIndices     *bool
-	ExpandWildcards    string
+	ExpandWildcards    []string
 	Flush              *bool
 	IgnoreUnavailable  *bool
 	MaxNumSegments     *int
@@ -109,8 +109,8 @@ func (r IndicesForcemergeRequest) Do(providedCtx context.Context, transport Tran
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.Flush != nil {
@@ -226,7 +226,7 @@ func (f IndicesForcemerge) WithAllowNoIndices(v bool) func(*IndicesForcemergeReq
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesForcemerge) WithExpandWildcards(v string) func(*IndicesForcemergeRequest) {
+func (f IndicesForcemerge) WithExpandWildcards(v ...string) func(*IndicesForcemergeRequest) {
 	return func(r *IndicesForcemergeRequest) {
 		r.ExpandWildcards = v
 	}

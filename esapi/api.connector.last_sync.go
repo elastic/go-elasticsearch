@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newConnectorLastSyncFunc(t Transport) ConnectorLastSync {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorLastSync updates the stats of last sync in the connector document.
+// ConnectorLastSync update the connector last sync stats
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-last-sync-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-last-sync.
 type ConnectorLastSync func(body io.Reader, connector_id string, o ...func(*ConnectorLastSyncRequest)) (*Response, error)
 
 // ConnectorLastSyncRequest configures the Connector Last Sync API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLRevertModelSnapshotFunc(t Transport) MLRevertModelSnapshot {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLRevertModelSnapshot - Reverts to a specific snapshot.
+// MLRevertModelSnapshot - Revert to a snapshot
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-revert-snapshot.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-revert-model-snapshot.
 type MLRevertModelSnapshot func(snapshot_id string, job_id string, o ...func(*MLRevertModelSnapshotRequest)) (*Response, error)
 
 // MLRevertModelSnapshotRequest configures the ML Revert Model Snapshot API request.

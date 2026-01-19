@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,14 +43,14 @@ func newMLGetTrainedModelsStatsFunc(t Transport) MLGetTrainedModelsStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetTrainedModelsStats - Retrieves usage information for trained inference models.
+// MLGetTrainedModelsStats - Get trained models usage info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trained-models-stats.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models-stats.
 type MLGetTrainedModelsStats func(o ...func(*MLGetTrainedModelsStatsRequest)) (*Response, error)
 
 // MLGetTrainedModelsStatsRequest configures the ML Get Trained Models Stats API request.
 type MLGetTrainedModelsStatsRequest struct {
-	ModelID string
+	ModelID []string
 
 	AllowNoMatch *bool
 	From         *int
@@ -87,17 +87,17 @@ func (r MLGetTrainedModelsStatsRequest) Do(providedCtx context.Context, transpor
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_ml") + 1 + len("trained_models") + 1 + len(r.ModelID) + 1 + len("_stats"))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("trained_models") + 1 + len(strings.Join(r.ModelID, ",")) + 1 + len("_stats"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
 	path.WriteString("trained_models")
-	if r.ModelID != "" {
+	if len(r.ModelID) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.ModelID)
+		path.WriteString(strings.Join(r.ModelID, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "model_id", r.ModelID)
+			instrument.RecordPathPart(ctx, "model_id", strings.Join(r.ModelID, ","))
 		}
 	}
 	path.WriteString("/")
@@ -195,8 +195,8 @@ func (f MLGetTrainedModelsStats) WithContext(v context.Context) func(*MLGetTrain
 	}
 }
 
-// WithModelID - the ID of the trained models stats to fetch.
-func (f MLGetTrainedModelsStats) WithModelID(v string) func(*MLGetTrainedModelsStatsRequest) {
+// WithModelID - the unique identifier of the trained model or a model alias. it can be a list or a wildcard expression..
+func (f MLGetTrainedModelsStats) WithModelID(v ...string) func(*MLGetTrainedModelsStatsRequest) {
 	return func(r *MLGetTrainedModelsStatsRequest) {
 		r.ModelID = v
 	}

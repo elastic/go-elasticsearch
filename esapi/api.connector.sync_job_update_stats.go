@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newConnectorSyncJobUpdateStatsFunc(t Transport) ConnectorSyncJobUpdateStats
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobUpdateStats updates the stats fields in the connector sync job document.
+// ConnectorSyncJobUpdateStats set the connector sync job stats
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-stats-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-update-stats.
 type ConnectorSyncJobUpdateStats func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobUpdateStatsRequest)) (*Response, error)
 
 // ConnectorSyncJobUpdateStatsRequest configures the Connector Sync Job Update Stats API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newILMGetStatusFunc(t Transport) ILMGetStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMGetStatus - Retrieves the current index lifecycle management (ILM) status.
+// ILMGetStatus - Get the ILM status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-status.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-get-status.
 type ILMGetStatus func(o ...func(*ILMGetStatusRequest)) (*Response, error)
 
 // ILMGetStatusRequest configures the ILM Get Status API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutMistralFunc(t Transport) InferencePutMistral {
-	return func(mistral_inference_id string, task_type string, o ...func(*InferencePutMistralRequest)) (*Response, error) {
-		var r = InferencePutMistralRequest{MistralInferenceID: mistral_inference_id, TaskType: task_type}
+	return func(body io.Reader, mistral_inference_id string, task_type string, o ...func(*InferencePutMistralRequest)) (*Response, error) {
+		var r = InferencePutMistralRequest{Body: body, MistralInferenceID: mistral_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutMistralFunc(t Transport) InferencePutMistral {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutMistral configure a Mistral inference endpoint
+// InferencePutMistral create a Mistral inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-mistral.html.
-type InferencePutMistral func(mistral_inference_id string, task_type string, o ...func(*InferencePutMistralRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-mistral.
+type InferencePutMistral func(body io.Reader, mistral_inference_id string, task_type string, o ...func(*InferencePutMistralRequest)) (*Response, error)
 
 // InferencePutMistralRequest configures the Inference Put Mistral API request.
 type InferencePutMistralRequest struct {
@@ -54,6 +55,8 @@ type InferencePutMistralRequest struct {
 
 	MistralInferenceID string
 	TaskType           string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutMistralRequest) Do(providedCtx context.Context, transport Tr
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutMistral) WithContext(v context.Context) func(*InferencePutMi
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutMistral) WithBody(v io.Reader) func(*InferencePutMistralRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutMistral) WithTimeout(v time.Duration) func(*InferencePutMistralRequest) {
 	return func(r *InferencePutMistralRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

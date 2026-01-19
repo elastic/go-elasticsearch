@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLPutCalendarFunc(t Transport) MLPutCalendar {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutCalendar - Instantiates a calendar.
+// MLPutCalendar - Create a calendar
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-calendar.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar.
 type MLPutCalendar func(calendar_id string, o ...func(*MLPutCalendarRequest)) (*Response, error)
 
 // MLPutCalendarRequest configures the ML Put Calendar API request.

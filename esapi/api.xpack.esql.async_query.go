@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newEsqlAsyncQueryFunc(t Transport) EsqlAsyncQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlAsyncQuery - Executes an ESQL request asynchronously
+// EsqlAsyncQuery - Run an async ES|QL query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query.
 type EsqlAsyncQuery func(body io.Reader, o ...func(*EsqlAsyncQueryRequest)) (*Response, error)
 
 // EsqlAsyncQueryRequest configures the Esql Async Query API request.
@@ -217,7 +217,7 @@ func (f EsqlAsyncQuery) WithDropNullColumns(v bool) func(*EsqlAsyncQueryRequest)
 	}
 }
 
-// WithFormat - a short version of the accept header, e.g. json, yaml.
+// WithFormat - a short version of the accept header, e.g. json, yaml.`csv`, `tsv`, and `txt` formats will return results in a tabular format, excluding other metadata fields from the response.for async requests, nothing will be returned if the async query doesn't finish within the timeout.the query ID and running status are available in the `x-elasticsearch-async-ID` and `x-elasticsearch-async-is-running` http headers of the response, respectively..
 func (f EsqlAsyncQuery) WithFormat(v string) func(*EsqlAsyncQueryRequest) {
 	return func(r *EsqlAsyncQueryRequest) {
 		r.Format = v

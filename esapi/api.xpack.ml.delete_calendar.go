@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newMLDeleteCalendarFunc(t Transport) MLDeleteCalendar {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteCalendar - Deletes a calendar.
+// MLDeleteCalendar - Delete a calendar
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-calendar.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar.
 type MLDeleteCalendar func(calendar_id string, o ...func(*MLDeleteCalendarRequest)) (*Response, error)
 
 // MLDeleteCalendarRequest configures the ML Delete Calendar API request.

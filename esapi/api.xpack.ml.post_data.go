@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLPostDataFunc(t Transport) MLPostData {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPostData - Sends data to an anomaly detection job for analysis.
+// MLPostData - Send data to an anomaly detection job for analysis
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-post-data.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-data.
 type MLPostData func(job_id string, body io.Reader, o ...func(*MLPostDataRequest)) (*Response, error)
 
 // MLPostDataRequest configures the ML Post Data API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newSearchTemplateFunc(t Transport) SearchTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchTemplate allows to use the Mustache language to pre-render a search definition.
+// SearchTemplate run a search with a search template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-template.
 type SearchTemplate func(body io.Reader, o ...func(*SearchTemplateRequest)) (*Response, error)
 
 // SearchTemplateRequest configures the Search Template API request.
@@ -58,7 +58,7 @@ type SearchTemplateRequest struct {
 
 	AllowNoIndices        *bool
 	CcsMinimizeRoundtrips *bool
-	ExpandWildcards       string
+	ExpandWildcards       []string
 	Explain               *bool
 	IgnoreThrottled       *bool
 	IgnoreUnavailable     *bool
@@ -125,8 +125,8 @@ func (r SearchTemplateRequest) Do(providedCtx context.Context, transport Transpo
 		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.Explain != nil {
@@ -276,7 +276,7 @@ func (f SearchTemplate) WithCcsMinimizeRoundtrips(v bool) func(*SearchTemplateRe
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f SearchTemplate) WithExpandWildcards(v string) func(*SearchTemplateRequest) {
+func (f SearchTemplate) WithExpandWildcards(v ...string) func(*SearchTemplateRequest) {
 	return func(r *SearchTemplateRequest) {
 		r.ExpandWildcards = v
 	}

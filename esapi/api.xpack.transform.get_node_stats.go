@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,7 +42,7 @@ func newTransformGetNodeStatsFunc(t Transport) TransformGetNodeStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformGetNodeStats - Retrieves transform usage information for transform nodes.
+// TransformGetNodeStats - Retrieves transform usage information for transform nodes
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-node-stats.html.
 type TransformGetNodeStats func(o ...func(*TransformGetNodeStatsRequest)) (*Response, error)

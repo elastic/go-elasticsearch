@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesStatsFunc(t Transport) IndicesStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesStats provides statistics on operations happening in an index.
+// IndicesStats get index statistics
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-stats.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-stats.
 type IndicesStats func(o ...func(*IndicesStatsRequest)) (*Response, error)
 
 // IndicesStatsRequest configures the Indices Stats API request.
@@ -55,7 +55,7 @@ type IndicesStatsRequest struct {
 	Metric []string
 
 	CompletionFields        []string
-	ExpandWildcards         string
+	ExpandWildcards         []string
 	FielddataFields         []string
 	Fields                  []string
 	ForbidClosedIndices     *bool
@@ -120,8 +120,8 @@ func (r IndicesStatsRequest) Do(providedCtx context.Context, transport Transport
 		params["completion_fields"] = strings.Join(r.CompletionFields, ",")
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if len(r.FielddataFields) > 0 {
@@ -252,7 +252,7 @@ func (f IndicesStats) WithCompletionFields(v ...string) func(*IndicesStatsReques
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesStats) WithExpandWildcards(v string) func(*IndicesStatsRequest) {
+func (f IndicesStats) WithExpandWildcards(v ...string) func(*IndicesStatsRequest) {
 	return func(r *IndicesStatsRequest) {
 		r.ExpandWildcards = v
 	}

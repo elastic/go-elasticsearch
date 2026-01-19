@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newExistsSourceFunc(t Transport) ExistsSource {
 
 // ----- API Definition -------------------------------------------------------
 
-// ExistsSource returns information about whether a document source exists in an index.
+// ExistsSource check for a document source
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get.
 type ExistsSource func(index string, id string, o ...func(*ExistsSourceRequest)) (*Response, error)
 
 // ExistsSourceRequest configures the Exists Source API request.
@@ -56,7 +56,7 @@ type ExistsSourceRequest struct {
 	Preference     string
 	Realtime       *bool
 	Refresh        *bool
-	Routing        string
+	Routing        []string
 	Source         []string
 	SourceExcludes []string
 	SourceIncludes []string
@@ -123,8 +123,8 @@ func (r ExistsSourceRequest) Do(providedCtx context.Context, transport Transport
 		params["refresh"] = strconv.FormatBool(*r.Refresh)
 	}
 
-	if r.Routing != "" {
-		params["routing"] = r.Routing
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if len(r.Source) > 0 {
@@ -247,7 +247,7 @@ func (f ExistsSource) WithRefresh(v bool) func(*ExistsSourceRequest) {
 }
 
 // WithRouting - specific routing value.
-func (f ExistsSource) WithRouting(v string) func(*ExistsSourceRequest) {
+func (f ExistsSource) WithRouting(v ...string) func(*ExistsSourceRequest) {
 	return func(r *ExistsSourceRequest) {
 		r.Routing = v
 	}

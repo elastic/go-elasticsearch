@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLGetCalendarsFunc(t Transport) MLGetCalendars {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetCalendars - Retrieves configuration information for calendars.
+// MLGetCalendars - Get calendar configuration info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-calendar.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-calendars.
 type MLGetCalendars func(o ...func(*MLGetCalendarsRequest)) (*Response, error)
 
 // MLGetCalendarsRequest configures the ML Get Calendars API request.

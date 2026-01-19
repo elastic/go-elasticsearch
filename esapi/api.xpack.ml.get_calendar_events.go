@@ -15,13 +15,12 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -44,16 +43,16 @@ func newMLGetCalendarEventsFunc(t Transport) MLGetCalendarEvents {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetCalendarEvents - Retrieves information about the scheduled events in calendars.
+// MLGetCalendarEvents - Get info about events in calendars
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-calendar-event.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-calendar-events.
 type MLGetCalendarEvents func(calendar_id string, o ...func(*MLGetCalendarEventsRequest)) (*Response, error)
 
 // MLGetCalendarEventsRequest configures the ML Get Calendar Events API request.
 type MLGetCalendarEventsRequest struct {
 	CalendarID string
 
-	End   interface{}
+	End   string
 	From  *int
 	JobID string
 	Size  *int
@@ -106,8 +105,8 @@ func (r MLGetCalendarEventsRequest) Do(providedCtx context.Context, transport Tr
 
 	params = make(map[string]string)
 
-	if r.End != nil {
-		params["end"] = fmt.Sprintf("%v", r.End)
+	if r.End != "" {
+		params["end"] = r.End
 	}
 
 	if r.From != nil {
@@ -205,7 +204,7 @@ func (f MLGetCalendarEvents) WithContext(v context.Context) func(*MLGetCalendarE
 }
 
 // WithEnd - get events before this time.
-func (f MLGetCalendarEvents) WithEnd(v interface{}) func(*MLGetCalendarEventsRequest) {
+func (f MLGetCalendarEvents) WithEnd(v string) func(*MLGetCalendarEventsRequest) {
 	return func(r *MLGetCalendarEventsRequest) {
 		r.End = v
 	}

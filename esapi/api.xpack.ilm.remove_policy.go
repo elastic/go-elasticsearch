@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newILMRemovePolicyFunc(t Transport) ILMRemovePolicy {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMRemovePolicy - Removes the assigned lifecycle policy and stops managing the specified index
+// ILMRemovePolicy - Remove policies from an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-remove-policy.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-remove-policy.
 type ILMRemovePolicy func(index string, o ...func(*ILMRemovePolicyRequest)) (*Response, error)
 
 // ILMRemovePolicyRequest configures the ILM Remove Policy API request.

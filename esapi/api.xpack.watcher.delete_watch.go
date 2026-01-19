@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newWatcherDeleteWatchFunc(t Transport) WatcherDeleteWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherDeleteWatch - Removes a watch from Watcher.
+// WatcherDeleteWatch - Delete a watch
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-delete-watch.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-delete-watch.
 type WatcherDeleteWatch func(id string, o ...func(*WatcherDeleteWatchRequest)) (*Response, error)
 
 // WatcherDeleteWatchRequest configures the Watcher Delete Watch API request.

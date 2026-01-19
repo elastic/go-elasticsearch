@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLPutTrainedModelVocabularyFunc(t Transport) MLPutTrainedModelVocabulary
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutTrainedModelVocabulary - Creates a trained model vocabulary
+// MLPutTrainedModelVocabulary - Create a trained model vocabulary
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-model-vocabulary.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-vocabulary.
 type MLPutTrainedModelVocabulary func(body io.Reader, model_id string, o ...func(*MLPutTrainedModelVocabularyRequest)) (*Response, error)
 
 // MLPutTrainedModelVocabularyRequest configures the ML Put Trained Model Vocabulary API request.

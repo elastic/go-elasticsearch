@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newWatcherStartFunc(t Transport) WatcherStart {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherStart - Starts Watcher if it is not already running.
+// WatcherStart - Start the watch service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-start.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-start.
 type WatcherStart func(o ...func(*WatcherStartRequest)) (*Response, error)
 
 // WatcherStartRequest configures the Watcher Start API request.

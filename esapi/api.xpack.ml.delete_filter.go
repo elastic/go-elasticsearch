@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newMLDeleteFilterFunc(t Transport) MLDeleteFilter {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteFilter - Deletes a filter.
+// MLDeleteFilter - Delete a filter
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-filter.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-filter.
 type MLDeleteFilter func(filter_id string, o ...func(*MLDeleteFilterRequest)) (*Response, error)
 
 // MLDeleteFilterRequest configures the ML Delete Filter API request.

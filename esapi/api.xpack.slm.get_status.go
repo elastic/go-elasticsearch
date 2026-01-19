@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSlmGetStatusFunc(t Transport) SlmGetStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmGetStatus - Retrieves the status of snapshot lifecycle management (SLM).
+// SlmGetStatus - Get the snapshot lifecycle management status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get-status.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-status.
 type SlmGetStatus func(o ...func(*SlmGetStatusRequest)) (*Response, error)
 
 // SlmGetStatusRequest configures the Slm Get Status API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newQueryRulesDeleteRulesetFunc(t Transport) QueryRulesDeleteRuleset {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesDeleteRuleset deletes a query ruleset.
+// QueryRulesDeleteRuleset delete a query ruleset
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-query-ruleset.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-ruleset.
 type QueryRulesDeleteRuleset func(ruleset_id string, o ...func(*QueryRulesDeleteRulesetRequest)) (*Response, error)
 
 // QueryRulesDeleteRulesetRequest configures the Query Rules Delete Ruleset API request.

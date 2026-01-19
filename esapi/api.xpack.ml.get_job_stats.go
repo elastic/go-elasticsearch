@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLGetJobStatsFunc(t Transport) MLGetJobStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetJobStats - Retrieves usage information for anomaly detection jobs.
+// MLGetJobStats - Get anomaly detection job stats
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job-stats.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-job-stats.
 type MLGetJobStats func(o ...func(*MLGetJobStatsRequest)) (*Response, error)
 
 // MLGetJobStatsRequest configures the ML Get Job Stats API request.

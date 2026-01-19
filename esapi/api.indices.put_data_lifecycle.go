@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -29,8 +29,8 @@ import (
 )
 
 func newIndicesPutDataLifecycleFunc(t Transport) IndicesPutDataLifecycle {
-	return func(name []string, o ...func(*IndicesPutDataLifecycleRequest)) (*Response, error) {
-		var r = IndicesPutDataLifecycleRequest{Name: name}
+	return func(name []string, body io.Reader, o ...func(*IndicesPutDataLifecycleRequest)) (*Response, error) {
+		var r = IndicesPutDataLifecycleRequest{Name: name, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,10 +45,10 @@ func newIndicesPutDataLifecycleFunc(t Transport) IndicesPutDataLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutDataLifecycle updates the data stream lifecycle of the selected data streams.
+// IndicesPutDataLifecycle update data stream lifecycles
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-put-lifecycle.html.
-type IndicesPutDataLifecycle func(name []string, o ...func(*IndicesPutDataLifecycleRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-lifecycle.
+type IndicesPutDataLifecycle func(name []string, body io.Reader, o ...func(*IndicesPutDataLifecycleRequest)) (*Response, error)
 
 // IndicesPutDataLifecycleRequest configures the Indices Put Data Lifecycle API request.
 type IndicesPutDataLifecycleRequest struct {
@@ -56,7 +56,7 @@ type IndicesPutDataLifecycleRequest struct {
 
 	Name []string
 
-	ExpandWildcards string
+	ExpandWildcards []string
 	MasterTimeout   time.Duration
 	Timeout         time.Duration
 
@@ -109,8 +109,8 @@ func (r IndicesPutDataLifecycleRequest) Do(providedCtx context.Context, transpor
 
 	params = make(map[string]string)
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.MasterTimeout != 0 {
@@ -206,15 +206,8 @@ func (f IndicesPutDataLifecycle) WithContext(v context.Context) func(*IndicesPut
 	}
 }
 
-// WithBody - The data stream lifecycle configuration that consist of the data retention.
-func (f IndicesPutDataLifecycle) WithBody(v io.Reader) func(*IndicesPutDataLifecycleRequest) {
-	return func(r *IndicesPutDataLifecycleRequest) {
-		r.Body = v
-	}
-}
-
 // WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesPutDataLifecycle) WithExpandWildcards(v string) func(*IndicesPutDataLifecycleRequest) {
+func (f IndicesPutDataLifecycle) WithExpandWildcards(v ...string) func(*IndicesPutDataLifecycleRequest) {
 	return func(r *IndicesPutDataLifecycleRequest) {
 		r.ExpandWildcards = v
 	}

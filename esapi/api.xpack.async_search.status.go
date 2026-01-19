@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newAsyncSearchStatusFunc(t Transport) AsyncSearchStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// AsyncSearchStatus - Retrieves the status of a previously submitted async search request given its ID.
+// AsyncSearchStatus - Get the async search status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit.
 type AsyncSearchStatus func(id string, o ...func(*AsyncSearchStatusRequest)) (*Response, error)
 
 // AsyncSearchStatusRequest configures the Async Search Status API request.

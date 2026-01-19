@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -29,8 +29,8 @@ import (
 )
 
 func newGraphExploreFunc(t Transport) GraphExplore {
-	return func(index []string, o ...func(*GraphExploreRequest)) (*Response, error) {
-		var r = GraphExploreRequest{Index: index}
+	return func(index []string, body io.Reader, o ...func(*GraphExploreRequest)) (*Response, error) {
+		var r = GraphExploreRequest{Index: index, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,10 +45,10 @@ func newGraphExploreFunc(t Transport) GraphExplore {
 
 // ----- API Definition -------------------------------------------------------
 
-// GraphExplore - Explore extracted and summarized information about the documents and terms in an index.
+// GraphExplore - Explore graph analytics
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/graph-explore-api.html.
-type GraphExplore func(index []string, o ...func(*GraphExploreRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-graph.
+type GraphExplore func(index []string, body io.Reader, o ...func(*GraphExploreRequest)) (*Response, error)
 
 // GraphExploreRequest configures the Graph Explore API request.
 type GraphExploreRequest struct {
@@ -56,7 +56,7 @@ type GraphExploreRequest struct {
 
 	Body io.Reader
 
-	Routing string
+	Routing []string
 	Timeout time.Duration
 
 	Pretty     bool
@@ -108,8 +108,8 @@ func (r GraphExploreRequest) Do(providedCtx context.Context, transport Transport
 
 	params = make(map[string]string)
 
-	if r.Routing != "" {
-		params["routing"] = r.Routing
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if r.Timeout != 0 {
@@ -201,15 +201,8 @@ func (f GraphExplore) WithContext(v context.Context) func(*GraphExploreRequest) 
 	}
 }
 
-// WithBody - Graph Query DSL.
-func (f GraphExplore) WithBody(v io.Reader) func(*GraphExploreRequest) {
-	return func(r *GraphExploreRequest) {
-		r.Body = v
-	}
-}
-
 // WithRouting - specific routing value.
-func (f GraphExplore) WithRouting(v string) func(*GraphExploreRequest) {
+func (f GraphExplore) WithRouting(v ...string) func(*GraphExploreRequest) {
 	return func(r *GraphExploreRequest) {
 		r.Routing = v
 	}

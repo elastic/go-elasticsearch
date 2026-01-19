@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newIndicesPutMappingFunc(t Transport) IndicesPutMapping {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutMapping updates the index mappings.
+// IndicesPutMapping update field mappings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-mapping.
 type IndicesPutMapping func(index []string, body io.Reader, o ...func(*IndicesPutMappingRequest)) (*Response, error)
 
 // IndicesPutMappingRequest configures the Indices Put Mapping API request.
@@ -57,7 +57,7 @@ type IndicesPutMappingRequest struct {
 	Body io.Reader
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 	MasterTimeout     time.Duration
 	Timeout           time.Duration
@@ -108,8 +108,8 @@ func (r IndicesPutMappingRequest) Do(providedCtx context.Context, transport Tran
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -221,7 +221,7 @@ func (f IndicesPutMapping) WithAllowNoIndices(v bool) func(*IndicesPutMappingReq
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesPutMapping) WithExpandWildcards(v string) func(*IndicesPutMappingRequest) {
+func (f IndicesPutMapping) WithExpandWildcards(v ...string) func(*IndicesPutMappingRequest) {
 	return func(r *IndicesPutMappingRequest) {
 		r.ExpandWildcards = v
 	}

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesShardStoresFunc(t Transport) IndicesShardStores {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesShardStores provides store information for shard copies of indices.
+// IndicesShardStores get index shard stores
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shards-stores.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-shard-stores.
 type IndicesShardStores func(o ...func(*IndicesShardStoresRequest)) (*Response, error)
 
 // IndicesShardStoresRequest configures the Indices Shard Stores API request.
@@ -53,7 +53,7 @@ type IndicesShardStoresRequest struct {
 	Index []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 	Status            []string
 
@@ -106,8 +106,8 @@ func (r IndicesShardStoresRequest) Do(providedCtx context.Context, transport Tra
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -211,7 +211,7 @@ func (f IndicesShardStores) WithAllowNoIndices(v bool) func(*IndicesShardStoresR
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesShardStores) WithExpandWildcards(v string) func(*IndicesShardStoresRequest) {
+func (f IndicesShardStores) WithExpandWildcards(v ...string) func(*IndicesShardStoresRequest) {
 	return func(r *IndicesShardStoresRequest) {
 		r.ExpandWildcards = v
 	}

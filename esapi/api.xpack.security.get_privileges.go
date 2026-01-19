@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,15 +42,15 @@ func newSecurityGetPrivilegesFunc(t Transport) SecurityGetPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetPrivileges - Retrieves application privileges.
+// SecurityGetPrivileges - Get application privileges
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-privileges.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-privileges.
 type SecurityGetPrivileges func(o ...func(*SecurityGetPrivilegesRequest)) (*Response, error)
 
 // SecurityGetPrivilegesRequest configures the Security Get Privileges API request.
 type SecurityGetPrivilegesRequest struct {
 	Application string
-	Name        string
+	Name        []string
 
 	Pretty     bool
 	Human      bool
@@ -83,7 +83,7 @@ func (r SecurityGetPrivilegesRequest) Do(providedCtx context.Context, transport 
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_security") + 1 + len("privilege") + 1 + len(r.Application) + 1 + len(r.Name))
+	path.Grow(7 + 1 + len("_security") + 1 + len("privilege") + 1 + len(r.Application) + 1 + len(strings.Join(r.Name, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_security")
@@ -96,11 +96,11 @@ func (r SecurityGetPrivilegesRequest) Do(providedCtx context.Context, transport 
 			instrument.RecordPathPart(ctx, "application", r.Application)
 		}
 	}
-	if r.Name != "" {
+	if len(r.Name) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.Name)
+		path.WriteString(strings.Join(r.Name, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "name", r.Name)
+			instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
 		}
 	}
 
@@ -191,8 +191,8 @@ func (f SecurityGetPrivileges) WithApplication(v string) func(*SecurityGetPrivil
 	}
 }
 
-// WithName - privilege name.
-func (f SecurityGetPrivileges) WithName(v string) func(*SecurityGetPrivilegesRequest) {
+// WithName - comma-separated list of privilege names. if you do not specify this parameter, the api returns information about all privileges for the requested application..
+func (f SecurityGetPrivileges) WithName(v ...string) func(*SecurityGetPrivilegesRequest) {
 	return func(r *SecurityGetPrivilegesRequest) {
 		r.Name = v
 	}

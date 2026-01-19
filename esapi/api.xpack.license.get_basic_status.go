@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newLicenseGetBasicStatusFunc(t Transport) LicenseGetBasicStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicenseGetBasicStatus - Retrieves information about the status of the basic license.
+// LicenseGetBasicStatus - Get the basic license status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-basic-status.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get-basic-status.
 type LicenseGetBasicStatus func(o ...func(*LicenseGetBasicStatusRequest)) (*Response, error)
 
 // LicenseGetBasicStatusRequest configures the License Get Basic Status API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecuritySamlPrepareAuthenticationFunc(t Transport) SecuritySamlPrepareAu
 
 // ----- API Definition -------------------------------------------------------
 
-// SecuritySamlPrepareAuthentication - Creates a SAML authentication request
+// SecuritySamlPrepareAuthentication - Prepare SAML authentication
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-prepare-authentication.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-prepare-authentication.
 type SecuritySamlPrepareAuthentication func(body io.Reader, o ...func(*SecuritySamlPrepareAuthenticationRequest)) (*Response, error)
 
 // SecuritySamlPrepareAuthenticationRequest configures the Security Saml Prepare Authentication API request.

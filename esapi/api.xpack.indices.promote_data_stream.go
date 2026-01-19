@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesPromoteDataStreamFunc(t Transport) IndicesPromoteDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPromoteDataStream - Promotes a data stream from a replicated data stream managed by CCR to a regular data stream
+// IndicesPromoteDataStream - Promote a data stream
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-promote-data-stream.
 type IndicesPromoteDataStream func(name string, o ...func(*IndicesPromoteDataStreamRequest)) (*Response, error)
 
 // IndicesPromoteDataStreamRequest configures the Indices Promote Data Stream API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutGooglevertexaiFunc(t Transport) InferencePutGooglevertexai {
-	return func(googlevertexai_inference_id string, task_type string, o ...func(*InferencePutGooglevertexaiRequest)) (*Response, error) {
-		var r = InferencePutGooglevertexaiRequest{GooglevertexaiInferenceID: googlevertexai_inference_id, TaskType: task_type}
+	return func(body io.Reader, googlevertexai_inference_id string, task_type string, o ...func(*InferencePutGooglevertexaiRequest)) (*Response, error) {
+		var r = InferencePutGooglevertexaiRequest{Body: body, GooglevertexaiInferenceID: googlevertexai_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutGooglevertexaiFunc(t Transport) InferencePutGooglevertexai {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutGooglevertexai configure a Google Vertex AI inference endpoint
+// InferencePutGooglevertexai create a Google Vertex AI inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-google-vertex-ai.html.
-type InferencePutGooglevertexai func(googlevertexai_inference_id string, task_type string, o ...func(*InferencePutGooglevertexaiRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googlevertexai.
+type InferencePutGooglevertexai func(body io.Reader, googlevertexai_inference_id string, task_type string, o ...func(*InferencePutGooglevertexaiRequest)) (*Response, error)
 
 // InferencePutGooglevertexaiRequest configures the Inference Put Googlevertexai API request.
 type InferencePutGooglevertexaiRequest struct {
@@ -54,6 +55,8 @@ type InferencePutGooglevertexaiRequest struct {
 
 	GooglevertexaiInferenceID string
 	TaskType                  string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutGooglevertexaiRequest) Do(providedCtx context.Context, trans
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutGooglevertexai) WithContext(v context.Context) func(*Inferen
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutGooglevertexai) WithBody(v io.Reader) func(*InferencePutGooglevertexaiRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutGooglevertexai) WithTimeout(v time.Duration) func(*InferencePutGooglevertexaiRequest) {
 	return func(r *InferencePutGooglevertexaiRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 
