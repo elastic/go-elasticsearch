@@ -47,7 +47,8 @@ jobs:
           latest1=$(echo "$latest_two" | awk '{print $1}')
           latest2=$(echo "$latest_two" | awk '{print $2}')
 
-          mapfile -t go_mod_files < <(find . -name go.mod -print | grep -v '^./_examples/' | grep -v '^./_benchmarks/')
+          mapfile -t go_mod_files < <(find . -name go.mod -print \
+            | grep -v '^./internal/build/')
 
           needs_update=false
           updates=()
