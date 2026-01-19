@@ -140,7 +140,7 @@ jobs:
           commit-message: "feat!: bump go version to ${{ steps.go-versions.outputs.target }}"
           committer: "Elastic Machine <elasticmachine@users.noreply.github.com>"
           author: "Elastic Machine <elasticmachine@users.noreply.github.com>"
-          branch: "go-version-bump-${{ steps.go-versions.outputs.target }}"
+          branch: "go-version-bump--branches--main"
           delete-branch: true
           base: main
           title: "feat!: bump go version to ${{ steps.go-versions.outputs.target }}"
