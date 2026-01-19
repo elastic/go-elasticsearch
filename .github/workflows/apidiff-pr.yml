@@ -1,0 +1,138 @@
+name: Apidiff PR
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  apidiff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.x'
+
+      - name: Install apidiff
+        run: go install golang.org/x/exp/cmd/apidiff@latest
+
+      - name: Run apidiff against release tag
+        id: apidiff
+        run: |
+          set -euo pipefail
+
+          version=$(python - <<'PY'
+          import json
+          with open(".github/.release-please-manifest.json", "r", encoding="utf-8") as f:
+              data = json.load(f)
+          print(data["."])
+          PY
+          )
+          tag="v${version}"
+          echo "target_tag=${tag}" >> "${GITHUB_OUTPUT}"
+
+          work_dir="$PWD"
+          old_dir="${work_dir}/tmp/apidiff-old"
+          comments_dir="${work_dir}/tmp/apidiff-comments"
+          mkdir -p "${comments_dir}"
+
+          module_path=$(awk '/^module /{print $2}' go.mod)
+
+          git fetch --tags --force
+          git worktree add "${old_dir}" "${tag}"
+
+          make_comment() {
+            local pkg="$1"
+            local label="$2"
+            local output="$3"
+            local status="$4"
+            local marker="<!-- apidiff:${pkg} -->"
+            local outfile="${comments_dir}/${pkg}.md"
+
+            {
+              echo "${marker}"
+              echo "## apidiff: ${label} (vs ${tag})"
+              echo
+              if [ -z "${output}" ]; then
+                if [ "${status}" -ne 0 ]; then
+                  echo "apidiff failed (exit ${status}). Check workflow logs."
+                else
+                  echo "No incompatible changes found."
+                fi
+              else
+                echo '```'
+                echo "${output}"
+                echo '```'
+              fi
+            } > "${outfile}"
+          }
+
+          run_apidiff() {
+            local pkg="$1"
+            local label="$2"
+            local pkg_path="$3"
+            local pkg_dir="$4"
+            local export_file="${work_dir}/tmp/apidiff-old-${pkg}.export"
+
+            (cd "${old_dir}" && apidiff -w "${export_file}" "${pkg_path}")
+
+            set +e
+            output=$(apidiff "${export_file}" "${work_dir}/${pkg_dir}" 2>&1)
+            status=$?
+            set -e
+
+            make_comment "${pkg}" "${label}" "${output}" "${status}"
+          }
+
+          run_apidiff root "root" "${module_path}" "."
+          run_apidiff esapi "esapi" "${module_path}/esapi" "esapi"
+          run_apidiff esutil "esutil" "${module_path}/esutil" "esutil"
+          run_apidiff typedapi "typedapi" "${module_path}/typedapi" "typedapi"
+
+          git worktree remove "${old_dir}" --force
+
+      - name: Post apidiff comments
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue_number = context.payload.pull_request.number;
+            const packages = ['root', 'esapi', 'esutil', 'typedapi'];
+
+            const comments = await github.paginate(
+              github.rest.issues.listComments,
+              { owner, repo, issue_number, per_page: 100 }
+            );
+
+            for (const pkg of packages) {
+              const marker = `<!-- apidiff:${pkg} -->`;
+              const body = fs.readFileSync(`tmp/apidiff-comments/${pkg}.md`, 'utf8');
+              const existing = comments.find((comment) => comment.body?.includes(marker));
+
+              if (existing) {
+                await github.rest.issues.updateComment({
+                  owner,
+                  repo,
+                  comment_id: existing.id,
+                  body,
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number,
+                  body,
+                });
+              }
+            }
+
