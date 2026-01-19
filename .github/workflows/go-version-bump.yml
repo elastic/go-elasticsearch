@@ -34,18 +34,23 @@ jobs:
               .[] |
               select(.stable == true) |
               .version |
-              sub("^go";"") |
-              split(".") |
-              .[0:2] |
-              join(".")
+              sub("^go";"")
             ) as $v
-            ([]; if index($v) then . else . + [$v] end)
+            ([]; 
+              ($v | split(".") | .[0:2] | join(".")) as $minor |
+              if (map(.minor) | index($minor)) then . else . + [{minor: $minor, patch: $v}] end
+            )
             | .[0:2]
-            | @tsv
+            | map("\(.minor)\t\(.patch)")
+            | .[]
           ')
 
-          latest1=$(echo "$latest_two" | awk '{print $1}')
-          latest2=$(echo "$latest_two" | awk '{print $2}')
+          latest1_minor=$(echo "$latest_two" | awk 'NR==1{print $1}')
+          latest1_patch=$(echo "$latest_two" | awk 'NR==1{print $2}')
+          latest2_minor=$(echo "$latest_two" | awk 'NR==2{print $1}')
+          latest2_patch=$(echo "$latest_two" | awk 'NR==2{print $2}')
+          target_minor=$latest2_minor
+          target_patch=$latest2_patch
 
           mapfile -t go_mod_files < <(find . -name go.mod -print \
             | grep -v '^./internal/build/')
@@ -57,16 +62,16 @@ jobs:
           for mod_file in "${go_mod_files[@]}"; do
             current_go=$(awk '/^go / {print $2}' "$mod_file")
 
-            if [[ "$current_go" == "$latest1" || "$current_go" == "$latest2" ]]; then
+            if [[ "$current_go" == "$latest1_minor" || "$current_go" == "$latest2_minor" ]]; then
               continue
             fi
 
-            sed -i -e "s/^go .*/go ${latest2}/" "$mod_file"
+            sed -i -e "s/^go .*/go ${target_minor}/" "$mod_file"
             if grep -q '^toolchain ' "$mod_file"; then
-              sed -i -e "s/^toolchain .*/toolchain go${latest2}.0/" "$mod_file"
+              sed -i -e "s/^toolchain .*/toolchain go${target_patch}/" "$mod_file"
             fi
 
-            updates+=("${mod_file#./}: ${current_go} -> ${latest2}")
+            updates+=("${mod_file#./}: ${current_go} -> ${target_minor}")
             updated_files+=("${mod_file#./}")
             needs_update=true
           done
@@ -77,9 +82,11 @@ jobs:
           fi
 
           echo "needs_update=true" >> "$GITHUB_OUTPUT"
-          echo "latest1=$latest1" >> "$GITHUB_OUTPUT"
-          echo "latest2=$latest2" >> "$GITHUB_OUTPUT"
-          echo "target=$latest2" >> "$GITHUB_OUTPUT"
+          echo "latest1=$latest1_minor" >> "$GITHUB_OUTPUT"
+          echo "latest2=$latest2_minor" >> "$GITHUB_OUTPUT"
+          echo "target_minor=$target_minor" >> "$GITHUB_OUTPUT"
+          echo "target_patch=$target_patch" >> "$GITHUB_OUTPUT"
+          echo "target=$target_patch" >> "$GITHUB_OUTPUT"
 
           {
             echo "updated_modules<<EOF"
@@ -105,13 +112,13 @@ jobs:
         if: steps.go-versions.outputs.needs_update == 'true'
         uses: actions/setup-go@v2.1.3
         with:
-          go-version: ${{ steps.go-versions.outputs.target }}.0
+          go-version: ${{ steps.go-versions.outputs.target_patch }}
 
       - name: Update go.mod and tidy
         if: steps.go-versions.outputs.needs_update == 'true'
         shell: bash
         env:
-          GOTOOLCHAIN: go${{ steps.go-versions.outputs.target }}.0
+          GOTOOLCHAIN: go${{ steps.go-versions.outputs.target_patch }}
         run: |
           set -euo pipefail
 
