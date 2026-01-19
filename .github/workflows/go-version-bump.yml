@@ -47,7 +47,8 @@ jobs:
           latest1=$(echo "$latest_two" | awk '{print $1}')
           latest2=$(echo "$latest_two" | awk '{print $2}')
 
-          mapfile -t go_mod_files < <(find . -name go.mod -print | grep -v '^./_examples/' | grep -v '^./_benchmarks/')
+          mapfile -t go_mod_files < <(find . -name go.mod -print \
+            | grep -v '^./internal/build/')
 
           needs_update=false
           updates=()
@@ -81,7 +82,7 @@ jobs:
           echo "target=$latest2" >> "$GITHUB_OUTPUT"
 
           {
-            echo "updated_modules<<'EOF'"
+            echo "updated_modules<<EOF"
             for entry in "${updates[@]}"; do
               echo "$entry"
             done
@@ -89,7 +90,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
           {
-            echo "updated_files<<'EOF'"
+            echo "updated_files<<EOF"
             for entry in "${updated_files[@]}"; do
               echo "$entry"
             done
@@ -100,11 +101,13 @@ jobs:
         if: steps.go-versions.outputs.needs_update == 'true'
         uses: actions/setup-go@v2.1.3
         with:
-          go-version: ${{ steps.go-versions.outputs.target }}
+          go-version: ${{ steps.go-versions.outputs.target }}.0
 
       - name: Update go.mod and tidy
         if: steps.go-versions.outputs.needs_update == 'true'
         shell: bash
+        env:
+          GOTOOLCHAIN: go${{ steps.go-versions.outputs.target }}.0
         run: |
           set -euo pipefail
 
