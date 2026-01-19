@@ -2,6 +2,7 @@ name: Apidiff PR
 
 on:
   pull_request:
+    types: [opened, synchronize, labeled, unlabeled]
 
 permissions:
   contents: read
@@ -12,6 +13,7 @@ env:
 
 jobs:
   apidiff:
+    if: contains(github.event.pull_request.labels.*.name, 'apidiff')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
