@@ -6,6 +6,7 @@
     "include-v-in-release-name": false,
     "versioning": "always-bump-patch",
     "draft-pull-request": true,
+    "extra-label": "apidiff",
     "packages": {
         ".": {
             "version-file": "internal/version/version.go"
