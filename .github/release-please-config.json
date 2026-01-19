@@ -6,6 +6,7 @@
     "include-v-in-release-name": false,
     "versioning": "always-bump-patch",
     "bootstrap-sha": "bcb9ad5b70be9d497df748ca8ff9f7451c6019a9",
+    "last-release-sha": "b36369e449cde695ab35b5e55a1b42ced5a3b9c9",
     "draft-pull-request": true,
     "extra-label": "apidiff",
     "packages": {
