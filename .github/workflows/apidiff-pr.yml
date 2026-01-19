@@ -7,6 +7,9 @@ permissions:
   contents: read
   pull-requests: write
 
+env:
+  APIDIFF_FALLBACK_TAG: v9.2.1
+
 jobs:
   apidiff:
     runs-on: ubuntu-latest
@@ -35,6 +38,14 @@ jobs:
           PY
           )
           tag="v${version}"
+          fallback="${APIDIFF_FALLBACK_TAG:-}"
+          if ! git rev-parse --verify --quiet "${tag}" >/dev/null; then
+            if [ -z "${fallback}" ]; then
+              echo "Tag ${tag} not found and no fallback provided." >&2
+              exit 1
+            fi
+            tag="${fallback}"
+          fi
           echo "target_tag=${tag}" >> "${GITHUB_OUTPUT}"
 
           work_dir="$PWD"
