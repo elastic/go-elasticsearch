@@ -160,6 +160,10 @@ totalPricesAgg, err := es.Search().
 
 ## Indexing dense vectors [dense_vectors]
 
+```{applies_to}
+stack: ga 9.3
+```
+
 When working with vector embeddings for semantic search or machine learning applications, the typed API provides specialized types for encoding dense vectors that can significantly improve indexing performance.
 
 ### Using DenseVectorF32 for optimized indexing [_using_densevectorf32]
