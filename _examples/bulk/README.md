@@ -55,6 +55,21 @@ indexer.Add(
 indexer.Close(context.Background())
 ```
 
+## `base64.go`
+
+The [`base64.go`](base64.go) example demonstrates indexing dense vectors using base64 encoding
+with the typed Bulk API and a public Elasticsearch Rally track dataset.
+
+```bash
+go run base64.go -count=20000 -batch=500
+
+# Bulk Base64: documents [20,000] batch size [500]
+# ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+# → Loaded 20,000 documents
+# ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+# Sucessfuly indexed [20,000] documents in 3.102s (6,446 docs/sec)
+```
+
 Please refer to the [`benchmarks`](benchmarks) folder for performance tests with different types of payload.
 
 See the [`kafka`](kafka) folder for an end-to-end example of using the bulk helper for indexing data from a Kafka topic.
