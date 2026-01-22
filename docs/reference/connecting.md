@@ -64,8 +64,8 @@ cfg := elasticsearch.Config{
             "https://localhost:9200",
         },
         Username: "elastic",
-        Password: ELASTIC_PASSWORD
-        CACert:   cert
+        Password: ELASTIC_PASSWORD,
+        CACert:   cert,
 }
 es, err := elasticsearch.NewClient(cfg)
 ```
@@ -81,8 +81,8 @@ cfg := elasticsearch.Config{
             "https://localhost:9200",
         },
         Username: "elastic",
-        Password: ELASTIC_PASSWORD
-        CertificateFingerprint: CERT_FINGERPRINT
+        Password: ELASTIC_PASSWORD,
+        CertificateFingerprint: CERT_FINGERPRINT,
 }
 es, err := elasticsearch.NewClient(cfg)
 ```
