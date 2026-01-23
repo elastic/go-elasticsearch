@@ -488,7 +488,12 @@ func (w *worker) writeBody(item *BulkIndexerItem) error {
 			}
 			return err
 		}
-		item.Body.Seek(0, io.SeekStart)
+		if _, err := item.Body.Seek(0, io.SeekStart); err != nil {
+			if w.bi.config.OnError != nil {
+				w.bi.config.OnError(context.Background(), err)
+			}
+			return err
+		}
 		w.buf.WriteRune('\n')
 	}
 	return nil
