@@ -16,11 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
+// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+import (
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/openaisimilaritytype"
+)
 
 type _openAIServiceSettings struct {
 	v *types.OpenAIServiceSettings
@@ -70,6 +73,12 @@ func (s *_openAIServiceSettings) RateLimit(ratelimit types.RateLimitSettingVaria
 
 	s.v.RateLimit = ratelimit.RateLimitSettingCaster()
 
+	return s
+}
+
+func (s *_openAIServiceSettings) Similarity(similarity openaisimilaritytype.OpenAISimilarityType) *_openAIServiceSettings {
+
+	s.v.Similarity = &similarity
 	return s
 }
 

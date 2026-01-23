@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
+// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IngestDocumentSimulation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/simulate/ingest/SimulateIngestResponse.ts#L36-L80
+// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/simulate/ingest/SimulateIngestResponse.ts#L36-L80
 type IngestDocumentSimulation struct {
 	EffectiveMapping *TypeMapping `json:"effective_mapping,omitempty"`
 	// Error Any error resulting from simulatng ingest on this doc. This can be an error
@@ -138,7 +138,7 @@ func (s *IngestDocumentSimulation) UnmarshalJSON(data []byte) error {
 func (s IngestDocumentSimulation) MarshalJSON() ([]byte, error) {
 	type opt IngestDocumentSimulation
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {
@@ -151,7 +151,11 @@ func (s IngestDocumentSimulation) MarshalJSON() ([]byte, error) {
 
 	// We inline the additional fields from the underlying map
 	for key, value := range s.IngestDocumentSimulation {
-		tmp[fmt.Sprintf("%s", key)] = value
+		marshaled, err := json.Marshal(value)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal additional property %q: %w", key, err)
+		}
+		tmp[fmt.Sprintf("%s", key)] = marshaled
 	}
 	delete(tmp, "IngestDocumentSimulation")
 

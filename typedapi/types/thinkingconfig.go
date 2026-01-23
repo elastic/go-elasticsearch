@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
+// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ThinkingConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/inference/_types/CommonTypes.ts#L1541-L1546
+// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/CommonTypes.ts#L1529-L1534
 type ThinkingConfig struct {
 	// ThinkingBudget Indicates the desired thinking budget in tokens.
 	ThinkingBudget *int `json:"thinking_budget,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
+// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ComponentTemplateNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/cluster/_types/ComponentTemplate.ts#L34-L67
+// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/cluster/_types/ComponentTemplate.ts#L34-L67
 type ComponentTemplateNode struct {
 	// CreatedDate Date and time when the component template was created. Only returned if the
 	// `human` query parameter is `true`.

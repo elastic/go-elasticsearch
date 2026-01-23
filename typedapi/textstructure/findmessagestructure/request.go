@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
+// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
 
 package findmessagestructure
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package findmessagestructure
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/text_structure/find_message_structure/FindMessageStructureRequest.ts#L25-L178
+// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/text_structure/find_message_structure/FindMessageStructureRequest.ts#L25-L178
 type Request struct {
 	// Messages The list of messages you want to analyze.
 	Messages []string `json:"messages"`

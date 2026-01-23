@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
+// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // UserQueryContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/security/query_user/types.ts#L37-L101
+// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/security/query_user/types.ts#L37-L101
 type UserQueryContainer struct {
 	AdditionalUserQueryContainerProperty map[string]json.RawMessage `json:"-"`
 	// Bool matches users matching boolean combinations of other queries.
@@ -182,7 +182,7 @@ func (s *UserQueryContainer) UnmarshalJSON(data []byte) error {
 func (s UserQueryContainer) MarshalJSON() ([]byte, error) {
 	type opt UserQueryContainer
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {
