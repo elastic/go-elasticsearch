@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
+// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
 
 package types
 
@@ -27,11 +27,13 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/openaisimilaritytype"
 )
 
 // OpenAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/inference/_types/CommonTypes.ts#L1897-L1939
+// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/CommonTypes.ts#L1896-L1940
 type OpenAIServiceSettings struct {
 	// ApiKey A valid API key of your OpenAI account.
 	// You can find your OpenAI API keys in your OpenAI account under the API keys
@@ -40,9 +42,6 @@ type OpenAIServiceSettings struct {
 	// IMPORTANT: You need to provide the API key only once, during the inference
 	// model creation.
 	// The get inference endpoint API does not retrieve your API key.
-	// After creating the inference model, you cannot change the associated API key.
-	// If you want to use a different API key, delete the inference model and
-	// recreate it with the same name and the updated API key.
 	ApiKey string `json:"api_key"`
 	// Dimensions The number of dimensions the resulting output embeddings should have.
 	// It is supported only in `text-embedding-3` and later models.
@@ -63,6 +62,9 @@ type OpenAIServiceSettings struct {
 	// For `text_embedding`, it is set to `3000`.
 	// For `completion`, it is set to `500`.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
+	// Similarity For a `text_embedding` task, the similarity measure. One of cosine,
+	// dot_product, l2_norm. Defaults to `dot_product`.
+	Similarity *openaisimilaritytype.OpenAISimilarityType `json:"similarity,omitempty"`
 	// Url The URL endpoint to use for the requests.
 	// It can be changed for testing purposes.
 	Url *string `json:"url,omitempty"`
@@ -138,6 +140,11 @@ func (s *OpenAIServiceSettings) UnmarshalJSON(data []byte) error {
 		case "rate_limit":
 			if err := dec.Decode(&s.RateLimit); err != nil {
 				return fmt.Errorf("%s | %w", "RateLimit", err)
+			}
+
+		case "similarity":
+			if err := dec.Decode(&s.Similarity); err != nil {
+				return fmt.Errorf("%s | %w", "Similarity", err)
 			}
 
 		case "url":

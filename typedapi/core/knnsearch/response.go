@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27
+// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
 
 package knnsearch
 
@@ -28,7 +28,7 @@ import (
 
 // Response holds the response body struct for the package knnsearch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d82ef79f6af3e5ddb412e64fc4477ca1833d4a27/specification/_global/knn_search/KnnSearchResponse.ts#L26-L54
+// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_global/knn_search/KnnSearchResponse.ts#L26-L54
 type Response struct {
 	// Fields The field values for the documents. These fields
 	// must be specified in the request using the `fields` parameter.
