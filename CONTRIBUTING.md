@@ -27,8 +27,6 @@ The code for each API lives in individual files in the `esapi` subfolder, this c
 
 Please run the tests locally with `make test` and make sure everything is in order.
 
-If your changes address the generator, you can run the integration with the following command:
+If your changes address the generator, you can run the integration tests with the following command:
 
-`TEST_SUITE=free STACK_VERSION=8.0.0-SNAPSHOT WORKSPACE=/tmp/workspace/$STACK_VERSION .ci/run-tests`
-
-TEST_SUITE can either be `free` or `platinum`, STACK_VERSION reflects the targeted Elasticsearch version of the client.
+`TEST_SUITE=platinum STACK_VERSION=9.4.0-SNAPSHOT WORKSPACE=/tmp/workspace/$STACK_VERSION .buildkite/run-tests`
