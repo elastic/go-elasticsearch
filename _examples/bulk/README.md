@@ -8,13 +8,13 @@ The [`default.go`](default.go) example demonstrates how to properly operate the 
 The example intentionally doesn't use any abstractions or helper functions, to demonstrate the low-level mechanics of
 working with the Bulk API:
 
-* iterating over a slice of data and preparing the `meta`/`data` pairs,
-* filling a buffer with the payload until the configured threshold for a single batch is reached,
-* sending a batch to Elasticsearch,
-* checking for a request failure or a failed response,
-* checking for individual errors in the response,
-* updating a counter of indexed and failed documents,
-* printing a report.
+- iterating over a slice of data and preparing the `meta`/`data` pairs,
+- filling a buffer with the payload until the configured threshold for a single batch is reached,
+- sending a batch to Elasticsearch,
+- checking for a request failure or a failed response,
+- checking for individual errors in the response,
+- updating a counter of indexed and failed documents,
+- printing a report.
 
 ```bash
 go run default.go -count=100000 -batch=25000

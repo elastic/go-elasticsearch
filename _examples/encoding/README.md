@@ -8,7 +8,7 @@ The [`github.com/tidwall/gjson`](https://github.com/tidwall/gjson) package allow
 easy access to JSON properties, without parsing the payload into a data structure,
 and is therefore convenient when accessing only selected parts of the response.
 
-``` golang
+```golang
 var json = `{"foo":{"bar":"BAZ"}}`
 fmt.Println(gjson.Get(json, "foo.bar"))
 // => BAZ
@@ -48,7 +48,7 @@ doc := Document{Title: "Test"}
 es.Search(es.Search.WithBody(esutil.NewJSONReader(&doc)))
 ```
 
------
+---
 
 ### Benchmarks
 

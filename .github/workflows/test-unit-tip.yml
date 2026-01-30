@@ -31,7 +31,7 @@ jobs:
           bash make.bash
           echo "GOROOT=$GOROOT" >> $GITHUB_ENV
           echo "$GOROOT/bin" >> $GITHUB_PATH
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with: { fetch-depth: 1 }
       - run: go version
       - run: make test-unit race=true

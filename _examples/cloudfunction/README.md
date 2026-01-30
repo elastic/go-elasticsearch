@@ -3,7 +3,7 @@
 This example demonstrates how to use the Elasticsearch Go client with
 [_Google Cloud Functions_](https://cloud.google.com/functions/docs/concepts/go-runtime).
 
- ![Screenshot](screenshot.png)
+![Screenshot](screenshot.png)
 
 Deploy the function with the **`gcloud`** command:
 

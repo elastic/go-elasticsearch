@@ -56,13 +56,12 @@ The [`cmd/custom_observability/main.go`](cmd/custom_observability/main.go) examp
 
 It shows three interceptors for:
 
-* **Logging**: Request/response details using `slog`
-* **Metrics**: Request counter and duration histogram
-* **Tracing**: Distributed tracing with spans
+- **Logging**: Request/response details using `slog`
+- **Metrics**: Request counter and duration histogram
+- **Tracing**: Distributed tracing with spans
 
 > **Note:** The client has built-in observability functionality. Prefer using the built-in options where possible.
 
 ```bash
 go run cmd/custom_observability/main.go
 ```
-

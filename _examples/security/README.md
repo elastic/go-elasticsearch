@@ -32,7 +32,6 @@ curl --cacert certificates/ca/ca.crt https://elastic:elastic@localhost:9200
 
 > NOTE: On Mac OS X, you may need to add the certificate to the Keychain with `security add-trusted-cert -p ssl certificates/ca/ca.crt`. To remove it, run `security remove-trusted-cert certificates/ca/ca.crt`.
 
-
 ## Using the client configuration option
 
 To pass the certificate authority (CA) to the client, so it can verify the server certificate,
@@ -59,7 +58,6 @@ go run tls_with_ca.go
 # [200 OK] {
 # ...
 ```
-
 
 ## Manual transport configuration
 

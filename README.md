@@ -64,13 +64,13 @@ of the getting started documentation.
 
 ## Operations
 
-* [Creating an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_creating_an_index)
-* [Indexing documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_indexing_documents)
-* [Getting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_getting_documents)
-* [Searching documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_searching_documents)
-* [Updating documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_updating_documents)
-* [Deleting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_documents)
-* [Deleting an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_an_index)
+- [Creating an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_creating_an_index)
+- [Indexing documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_indexing_documents)
+- [Getting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_getting_documents)
+- [Searching documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_searching_documents)
+- [Updating documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_updating_documents)
+- [Deleting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_documents)
+- [Deleting an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_an_index)
 <!-- ----------------------------------------------------------------------------------------------- -->
 
 ## Helpers

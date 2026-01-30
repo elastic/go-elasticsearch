@@ -6,14 +6,12 @@ mapped_pages:
 
 # ES|QL in the Go client [esql]
 
-
 This page helps you understand and use [ES|QL](docs-content://explore-analyze/query-filter/languages/esql.md) in the Go client.
 
 There are two ways to use ES|QL in the Go client:
 
-* Use the Elasticsearch [ES|QL API](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-esql) directly: This is the most flexible approach, but it’s also the most complex because you must handle results in their raw form. You can choose the precise format of results, such as JSON, CSV, or text.
-* Use ES|QL mapping helpers: These mappers take care of parsing the raw response into something readily usable by the application. Helpers are available for object mapping and iterative objects.
-
+- Use the Elasticsearch [ES|QL API](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-esql) directly: This is the most flexible approach, but it’s also the most complex because you must handle results in their raw form. You can choose the precise format of results, such as JSON, CSV, or text.
+- Use ES|QL mapping helpers: These mappers take care of parsing the raw response into something readily usable by the application. Helpers are available for object mapping and iterative objects.
 
 ## How to use the ES|QL API [esql-how-to]
 
@@ -42,14 +40,13 @@ for _, row := range rows {
 }
 ```
 
-
 ## Consume ES|QL results [esql-consume-results]
 
 The previous example showed that although the raw ES|QL API offers maximum flexibility, additional work is required in order to make use of the result data.
 
 To simplify things, try working with these two main representations of ES|QL results (each with its own mapping helper):
 
-* **Objects**, where each row in the results is mapped to an object from your application domain. This is similar to what ORMs (object relational mappers) commonly do.
+- **Objects**, where each row in the results is mapped to an object from your application domain. This is similar to what ORMs (object relational mappers) commonly do.
 
 ```go
 package main
@@ -101,7 +98,7 @@ func main() {
 }
 ```
 
-* **Iterative Objects**, where each row in the results is mapped to an object from your application domain, one at a time.
+- **Iterative Objects**, where each row in the results is mapped to an object from your application domain, one at a time.
 
 ```go
 queryAuthor := `from library

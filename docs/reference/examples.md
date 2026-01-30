@@ -7,17 +7,16 @@ mapped_pages:
 
 This sections lists a series of frequent use cases that will help you start with this new API.
 
-* [Creating an index](#indices)
-* [Indexing a document](#indexing)
-* [Retrieving a document](#retrieving_document)
-* [Search](#search)
-* [Aggregations](#aggregations)
-* [Indexing dense vectors](#dense_vectors)
+- [Creating an index](#indices)
+- [Indexing a document](#indexing)
+- [Retrieving a document](#retrieving_document)
+- [Search](#search)
+- [Aggregations](#aggregations)
+- [Indexing dense vectors](#dense_vectors)
 
 ::::{note}
 This is a work in progress, the documentation will evolve in the future.
 ::::
-
 
 ## Creating an index [indices]
 
@@ -34,7 +33,6 @@ res, err := es.Indices.Create("test-index").
     }).
     Do(nil)
 ```
-
 
 ## Indexing a document [indexing]
 
@@ -67,7 +65,6 @@ res, err := es.Index("index_name").
 			}`)).Do(context.Background())
 ```
 
-
 ## Retrieving a document [retrieving_document]
 
 Retrieving a document follows the API as part of the argument of the endpoint. In order you provide the `index`, the `id` and then run the query:
@@ -75,7 +72,6 @@ Retrieving a document follows the API as part of the argument of the endpoint. I
 ```go
 res, err := es.Get("index_name", "doc_id").Do(context.Background())
 ```
-
 
 ## Checking for a document existence [_checking_for_a_document_existence]
 
@@ -90,7 +86,6 @@ if exists, err := es.Exists("index_name", "doc_id").IsSuccess(nil); exists {
 ```
 
 Result is `true` if everything succeeds, `false` if the document doesn’t exist. If an error occurs during the request, you will be granted with a `false` and the relevant error.
-
 
 ## Search [search]
 
@@ -115,7 +110,6 @@ res, err := es.Search().
 3. Match query specifies that `name` should match `Foo`.
 4. The query is run with a `context.Background` and returns the response.
 
-
 It produces the following JSON:
 
 ```json
@@ -129,7 +123,6 @@ It produces the following JSON:
   }
 }
 ```
-
 
 ## Aggregations [aggregations]
 
@@ -156,7 +149,6 @@ totalPricesAgg, err := es.Search().
 2. Sets the size to 0 to retrieve only the result of the aggregation.
 3. Specifies the field name on which the sum aggregation runs.
 4. The `SumAggregation` is part of the `Aggregations` map.
-
 
 ## Indexing dense vectors [dense_vectors]
 
@@ -191,7 +183,6 @@ res, err := es.Index("my-vectors").
 1. Use `types.DenseVectorF32` instead of `[]float32` for vector fields.
 2. Assign float32 slices directly; base64 encoding happens automatically during serialization.
 
-
 ### Creating an index with dense vector mapping [_creating_dense_vector_index]
 
 Before indexing documents with vectors, create an index with the appropriate dense vector mapping:
@@ -215,7 +206,6 @@ res, err := es.Indices.
 2. Specify the dimensionality of your vectors (e.g., 1536 for OpenAI embeddings).
 3. Enable indexing to support kNN search capabilities.
 4. Set the similarity metric: `Cosine`, `DotProduct`, or `L2Norm`.
-
 
 ### Searching with kNN [_knn_search]
 
@@ -244,7 +234,6 @@ res, err := es.Search().
 5. Return the top 10 nearest neighbors.
 6. Consider 100 candidates during the search for better accuracy.
 
-
 ### Performance benefits [_performance_benefits]
 
 Using `types.DenseVectorF32` provides significant performance improvements over standard JSON arrays of floats:
@@ -256,7 +245,6 @@ Using `types.DenseVectorF32` provides significant performance improvements over 
 ::::{note}
 For best performance, use `types.DenseVectorF32` when your vectors are already in `[]float32` format. If you have pre-encoded bytes, use `types.DenseVectorBytes` to avoid re-encoding.
 ::::
-
 
 ### Using DenseVectorBytes [_using_densevectorbytes]
 
@@ -279,6 +267,3 @@ res, err := es.Index("my-vectors").
 
 1. Use `types.DenseVectorBytes` when you have pre-encoded bytes.
 2. Provide the raw byte representation of your vector data.
-
-
-

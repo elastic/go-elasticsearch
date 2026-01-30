@@ -16,4 +16,3 @@ client, err := elasticsearch.NewTypedClient(elasticsearch.Config{
 ```
 
 The code is generated from the [elasticsearch-specification](https://github.com/elastic/elasticsearch-specification).
-

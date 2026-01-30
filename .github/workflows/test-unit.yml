@@ -28,7 +28,7 @@ jobs:
         go: ['1.x']
       fail-fast: false
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with: { fetch-depth: 1 }
       - uses: actions/setup-go@v2.1.3
         with: { go-version: "${{ matrix.go }}" }
@@ -44,7 +44,7 @@ jobs:
     name: Benchmarks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with: { fetch-depth: 1 }
       - uses: actions/setup-go@v2.1.3
         with: { go-version: '1.x' }

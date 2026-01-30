@@ -7,11 +7,9 @@ mapped_pages:
 
 This page guides you through the installation process of the Go client, shows you how to instantiate the client, and how to perform basic Elasticsearch operations with it. You can use the client with either a low-level API or a fully typed API. This getting started shows you examples of both APIs.
 
-
 ### Requirements [_requirements]
 
 Go version 1.21+
-
 
 ### Installation [_installation]
 
@@ -21,8 +19,7 @@ To install the latest version of the client, run the following command:
 go get github.com/elastic/go-elasticsearch/v9@latest
 ```
 
-Refer to the [*Installation*](/reference/installation.md) page to learn more.
-
+Refer to the [_Installation_](/reference/installation.md) page to learn more.
 
 ### Connecting [_connecting]
 
@@ -38,6 +35,7 @@ client, err := elasticsearch.NewClient(elasticsearch.Config{
     APIKey: "<ApiKey>",
 })
 ```
+
 ::::::
 
 ::::::{tab-item} Fully-typed API
@@ -50,6 +48,7 @@ typedClient, err := elasticsearch.NewTypedClient(elasticsearch.Config{
     APIKey:  "<ApiKey>",
 })
 ```
+
 ::::::
 
 :::::::
@@ -61,13 +60,11 @@ You can generate an API key on the **Management** page under Security.
 
 ![Create API key](images/create-api-key.png)
 
-For other connection options, refer to the [*Connecting*](/reference/connecting.md) section.
-
+For other connection options, refer to the [_Connecting_](/reference/connecting.md) section.
 
 ### Operations [_operations]
 
 Time to use Elasticsearch! This section walks you through the basic, and most important, operations of Elasticsearch. For more operations and more advanced examples, refer to the [Examples](/reference/examples.md) page.
-
 
 #### Creating an index [_creating_an_index]
 
@@ -80,6 +77,7 @@ This is how you create the `my_index` index with the low level API:
 ```go
 client.Indices.Create("my_index")
 ```
+
 ::::::
 
 ::::::{tab-item} Fully-typed API
@@ -89,6 +87,7 @@ This is how you create the `my_index` index with the fully-typed API:
 ```go
 typedClient.Indices.Create("my_index").Do(context.TODO())
 ```
+
 ::::::
 
 :::::::
@@ -110,6 +109,7 @@ document := struct {
 data, _ := json.Marshal(document)
 client.Index("my_index", bytes.NewReader(data))
 ```
+
 ::::::
 
 ::::::{tab-item} Fully-typed API
@@ -127,6 +127,7 @@ typedClient.Index("my_index").
 		Request(document).
 		Do(context.TODO())
 ```
+
 ::::::
 
 :::::::
@@ -142,6 +143,7 @@ You can get documents by using the following code with the low-level API:
 ```go
 client.Get("my_index", "id")
 ```
+
 ::::::
 
 ::::::{tab-item} Fully-typed API
@@ -151,6 +153,7 @@ This is how you can get documents by using the fully-typed API:
 ```go
 typedClient.Get("my_index", "id").Do(context.TODO())
 ```
+
 ::::::
 
 :::::::
@@ -170,6 +173,7 @@ client.Search(
     client.Search.WithBody(strings.NewReader(query)),
 )
 ```
+
 ::::::
 
 ::::::{tab-item} Fully-typed API
@@ -184,6 +188,7 @@ typedClient.Search().
     }).
     Do(context.TODO())
 ```
+
 ::::::
 
 :::::::
@@ -199,6 +204,7 @@ This is how you can update a document, for example to add a new field, by using 
 ```go
 client.Update("my_index", "id", strings.NewReader(`{doc: { language: "Go" }}`))
 ```
+
 ::::::
 
 ::::::{tab-item} Fully-typed API
@@ -211,6 +217,7 @@ typedClient.Update("my_index", "id").
         Doc: json.RawMessage(`{ language: "Go" }`),
     }).Do(context.TODO())
 ```
+
 ::::::
 
 :::::::
@@ -221,16 +228,20 @@ typedClient.Update("my_index", "id").
 :group: apis
 ::::::{tab-item} Low-level API
 :sync: lowLevel
+
 ```go
 client.Delete("my_index", "id")
 ```
+
 ::::::
 
 ::::::{tab-item} Fully-typed API
 :sync: typed
+
 ```go
 typedClient.Delete("my_index", "id").Do(context.TODO())
 ```
+
 ::::::
 
 :::::::
@@ -241,20 +252,24 @@ typedClient.Delete("my_index", "id").Do(context.TODO())
 :group: apis
 ::::::{tab-item} Low-level API
 :sync: lowLevel
+
 ```go
 client.Indices.Delete([]string{"my_index"})
 ```
+
 ::::::
 
 ::::::{tab-item} Fully-typed API
 :sync: typed
+
 ```go
 typedClient.Indices.Delete("my_index").Do(context.TODO())
 ```
+
 ::::::
 
 :::::::
 
 ## Further reading [_further_reading]
 
-* Learn more about the [*Typed API*](/reference/typed-api.md), a strongly typed Golang API for {{es}}.
+- Learn more about the [_Typed API_](/reference/typed-api.md), a strongly typed Golang API for {{es}}.

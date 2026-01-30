@@ -120,13 +120,13 @@ the size and structure of your data, the index settings and mappings, the cluste
 
 The benchmarks have been run in the following environment:
 
-* OS: Ubuntu 18.04.4 LTS (5.0.0-1031-gcp)
-* Client: A `n2-standard-8` [GCP instance](https://cloud.google.com/compute/docs/machine-types#n2_machine_types) (8
+- OS: Ubuntu 18.04.4 LTS (5.0.0-1031-gcp)
+- Client: A `n2-standard-8` [GCP instance](https://cloud.google.com/compute/docs/machine-types#n2_machine_types) (8
   vCPUs/32GB RAM)
-* Server: A `n2-standard-16` [GCP instance](https://cloud.google.com/compute/docs/machine-types#n2_machine_types) (16
+- Server: A `n2-standard-16` [GCP instance](https://cloud.google.com/compute/docs/machine-types#n2_machine_types) (16
   vCPUs/64GB RAM)
-* Disk: A [local SSD](https://cloud.google.com/compute/docs/disks#localssds) formatted as `ext4` on NVMe interface for
+- Disk: A [local SSD](https://cloud.google.com/compute/docs/disks#localssds) formatted as `ext4` on NVMe interface for
   Elasticsearch data
-* A single-node Elasticsearch cluster, `7.6.0`, [default distribution](https://www.elastic.co/downloads/elasticsearch),
+- A single-node Elasticsearch cluster, `7.6.0`, [default distribution](https://www.elastic.co/downloads/elasticsearch),
   installed from a TAR, with 4GB locked for heap
-* Nginx 1.17.8 with [`nginx.conf`](etc/nginx.conf)
+- Nginx 1.17.8 with [`nginx.conf`](etc/nginx.conf)

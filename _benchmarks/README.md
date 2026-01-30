@@ -6,4 +6,3 @@ The `benchmarks` package contains the general configuration for the benchmarks. 
 
 The code for setting up the benchmarks infrastructure is available at
 <https://github.com/elastic/elasticsearch-clients-benchmarks>. It uses Terraform to create, setup and configure the "target" and "runner" system.
-
