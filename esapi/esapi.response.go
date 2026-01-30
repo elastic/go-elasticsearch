@@ -21,7 +21,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strconv"
 	"strings"
@@ -50,14 +49,14 @@ func (r *Response) String() string {
 		defer r.Body.Close()
 
 		if _, err := io.Copy(b2, tr); err != nil {
-			out.WriteString(fmt.Sprintf("<error reading response body: %v>", err))
+			_, _ = fmt.Fprintf(out, "<error reading response body: %v>", err)
 			return out.String()
 		}
-		defer func() { r.Body = ioutil.NopCloser(b1) }()
+		defer func() { r.Body = io.NopCloser(b1) }()
 	}
 
 	if r != nil {
-		out.WriteString(fmt.Sprintf("[%d %s]", r.StatusCode, http.StatusText(r.StatusCode)))
+		_, _ = fmt.Fprintf(out, "[%d %s]", r.StatusCode, http.StatusText(r.StatusCode))
 		if r.StatusCode > 0 {
 			out.WriteRune(' ')
 		}
@@ -66,7 +65,7 @@ func (r *Response) String() string {
 	}
 
 	if r != nil && r.Body != nil {
-		out.ReadFrom(b2) // errcheck exclude (*bytes.Buffer).ReadFrom
+		_, _ = out.ReadFrom(b2)
 	}
 
 	return out.String()

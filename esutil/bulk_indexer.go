@@ -120,6 +120,8 @@ type BulkIndexerItem struct {
 }
 
 // marshallMeta format as JSON the item metadata.
+//
+//nolint:gocyclo
 func (item *BulkIndexerItem) marshallMeta() {
 	// Pre-allocate a buffer large enough for most use cases.
 	// 'aux = aux[:0]' resets the length without changing the capacity.
@@ -179,7 +181,6 @@ func (item *BulkIndexerItem) marshallMeta() {
 		}
 		item.meta.WriteString(`"require_alias":`)
 		item.meta.Write(strconv.AppendBool(aux, item.RequireAlias))
-		aux = aux[:0]
 	}
 
 	if item.DocumentID != "" && item.IfSeqNo != nil && item.IfPrimaryTerm != nil {
@@ -488,7 +489,7 @@ func (w *worker) writeBody(item *BulkIndexerItem) error {
 			}
 			return err
 		}
-		item.Body.Seek(0, io.SeekStart)
+		item.Body.Seek(0, io.SeekStart) // nolint:errcheck
 		w.buf.WriteRune('\n')
 	}
 	return nil
@@ -510,6 +511,8 @@ func (w *worker) flush(ctx context.Context) bool {
 }
 
 // flushBuffer writes out the worker buffer.
+//
+//nolint:gocyclo
 func (w *worker) flushBuffer(ctx context.Context) error {
 	if w.bi.config.OnFlushStart != nil {
 		ctx = w.bi.config.OnFlushStart(ctx)
@@ -579,24 +582,24 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 	res, err := req.Do(ctx, w.bi.config.Client)
 	if err != nil {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
-		err := fmt.Errorf("flush: %w", err)
-		w.handleError(ctx, err)
-		return err
+		flushErr := fmt.Errorf("flush: %w", err)
+		w.handleError(ctx, flushErr)
+		return flushErr
 	}
 	if res.Body != nil {
-		defer res.Body.Close()
+		defer func() { _ = res.Body.Close() }()
 	}
 	if res.IsError() {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
-		err := fmt.Errorf("flush: %s", res.String())
-		w.handleError(ctx, err)
-		return err
+		flushErr := fmt.Errorf("flush: %s", res.String())
+		w.handleError(ctx, flushErr)
+		return flushErr
 	}
 
-	if err := w.bi.config.Decoder.UnmarshalFromReader(res.Body, &blk); err != nil {
+	if unmarshalErr := w.bi.config.Decoder.UnmarshalFromReader(res.Body, &blk); unmarshalErr != nil {
 		// TODO(karmi): Wrap error (include response struct)
-		w.handleError(ctx, fmt.Errorf("flush: %w", err))
-		return fmt.Errorf("flush: error parsing response body: %w", err)
+		w.handleError(ctx, fmt.Errorf("flush: %w", unmarshalErr))
+		return fmt.Errorf("flush: error parsing response body: %w", unmarshalErr)
 	}
 
 	for i, blkItem := range blk.Items {
