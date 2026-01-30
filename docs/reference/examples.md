@@ -238,7 +238,7 @@ res, err := es.Search().
 
 Using `types.DenseVectorF32` provides significant performance improvements over standard JSON arrays of floats:
 
-- **Reduced payload size**: Base64 encoding is more compact than JSON number arrays
+- **Reduced payload size**: base64 encoding is more compact than JSON number arrays
 - **Faster parsing**: Eliminates JSON number parsing overhead
 - **Improved indexing speed**: Performance gains increase with vector dimensionality and can improve indexing speeds by up to 3x
 

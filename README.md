@@ -24,7 +24,7 @@ Starting from version `8.12.0`, this library follow the Go language [policy](htt
 ### Elasticsearch
 
 Language clients are forward compatible; meaning that clients support communicating with greater or equal minor versions of Elasticsearch.
-Elasticsearch language clients are only backwards compatible with default distributions and without guarantees made.
+Elasticsearch language clients are only backward compatible with default distributions and without guarantees made.
 
 When using Go modules, include the version in the import path, and specify either an explicit version or a branch:
 

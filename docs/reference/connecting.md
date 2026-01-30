@@ -83,7 +83,7 @@ cfg := elasticsearch.Config{
 es, err := elasticsearch.NewClient(cfg)
 ```
 
-The certificate fingerprint can be calculated using openssl x509 with the certificate file:
+The certificate fingerprint can be calculated using OpenSSL x509 with the certificate file:
 
 ```sh
 openssl x509 -fingerprint -sha256 -noout -in /path/to/http_ca.crt

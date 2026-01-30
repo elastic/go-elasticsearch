@@ -90,7 +90,7 @@ While not part of the initial release responses will be added at a later date.
 
 ## Types [types]
 
-Requests and responses are relying on a collection of structures generated from the [elasticsearch-specification](https://github.com/elastic/elasticsearch-specification) in the `types` package. Each type comes with json tags.
+Requests and responses are relying on a collection of structures generated from the [elasticsearch-specification](https://github.com/elastic/elasticsearch-specification) in the `types` package. Each type comes with JSON tags.
 
 ## Enums [_enums]
 

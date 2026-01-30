@@ -56,7 +56,7 @@ go run main.go
 The language clients are forward compatible; meaning that the clients support communicating with greater or equal minor versions of {{es}} without breaking.
 It does not mean that the clients automatically support new features of newer {{es}} versions; it is only possible after a release of a new client version.
 For example, a 8.12 client version won't automatically support the new features of the 8.13 version of {{es}}, the 8.13 client version is required for that.
-{{es}} language clients are only backwards compatible with default distributions and without guarantees made.
+{{es}} language clients are only backward compatible with default distributions and without guarantees made.
 
 | Elasticsearch Version | Elasticsearch-Go Branch | Supported |
 | --------------------- | ----------------------- | --------- |

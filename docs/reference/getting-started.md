@@ -24,7 +24,7 @@ Refer to the [_Installation_](/reference/installation.md) page to learn more.
 ## Connecting [_connecting]
 
 :::::::{tab-set}
-:group: apis
+:group: APIs
 ::::::{tab-item} Low-level API
 :sync: lowLevel
 You can connect to the Elastic Cloud using an API key and the Elasticsearch endpoint for the low level API:
@@ -69,7 +69,7 @@ Time to use Elasticsearch! This section walks you through the basic, and most im
 ### Creating an index [_creating_an_index]
 
 :::::::{tab-set}
-:group: apis
+:group: APIs
 ::::::{tab-item} Low-level API
 :sync: lowLevel
 This is how you create the `my_index` index with the low level API:
@@ -95,7 +95,7 @@ typedClient.Indices.Create("my_index").Do(context.TODO())
 ### Indexing documents [_indexing_documents]
 
 :::::::{tab-set}
-:group: apis
+:group: APIs
 ::::::{tab-item} Low-level API
 :sync: lowLevel
 This is a simple way of indexing a document by using the low-level API:
@@ -135,7 +135,7 @@ typedClient.Index("my_index").
 ### Getting documents [_getting_documents]
 
 :::::::{tab-set}
-:group: apis
+:group: APIs
 ::::::{tab-item} Low-level API
 :sync: lowLevel
 You can get documents by using the following code with the low-level API:
@@ -161,7 +161,7 @@ typedClient.Get("my_index", "id").Do(context.TODO())
 ### Searching documents [_searching_documents]
 
 :::::::{tab-set}
-:group: apis
+:group: APIs
 ::::::{tab-item} Low-level API
 :sync: lowLevel
 This is how you can create a single match query with the low-level API:
@@ -196,7 +196,7 @@ typedClient.Search().
 ### Updating documents [_updating_documents]
 
 :::::::{tab-set}
-:group: apis
+:group: APIs
 ::::::{tab-item} Low-level API
 :sync: lowLevel
 This is how you can update a document, for example to add a new field, by using the low-level API:
@@ -225,7 +225,7 @@ typedClient.Update("my_index", "id").
 ### Deleting documents [_deleting_documents]
 
 :::::::{tab-set}
-:group: apis
+:group: APIs
 ::::::{tab-item} Low-level API
 :sync: lowLevel
 
@@ -249,7 +249,7 @@ typedClient.Delete("my_index", "id").Do(context.TODO())
 ### Deleting an index [_deleting_an_index]
 
 :::::::{tab-set}
-:group: apis
+:group: APIs
 ::::::{tab-item} Low-level API
 :sync: lowLevel
 
@@ -272,4 +272,4 @@ typedClient.Indices.Delete("my_index").Do(context.TODO())
 
 ## Further reading [_further_reading]
 
-- Learn more about the [_Typed API_](/reference/typed-api.md), a strongly typed Golang API for {{es}}.
+- Learn more about the [_Typed API_](/reference/typed-api.md), a strongly typed Go API for {{es}}.
