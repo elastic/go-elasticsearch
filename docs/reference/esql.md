@@ -10,7 +10,7 @@ This page helps you understand and use [ES|QL](docs-content://explore-analyze/qu
 
 There are two ways to use ES|QL in the Go client:
 
-- Use the Elasticsearch [ES|QL API](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-esql) directly: This is the most flexible approach, but it’s also the most complex because you must handle results in their raw form. You can choose the precise format of results, such as JSON, CSV, or text.
+- Use the Elasticsearch [ES|QL API](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-esql) directly: This is the most flexible approach, but it's also the most complex because you must handle results in their raw form. You can choose the precise format of results, such as JSON, CSV, or text.
 - Use ES|QL mapping helpers: These mappers take care of parsing the raw response into something readily usable by the application. Helpers are available for object mapping and iterative objects.
 
 ## How to use the ES|QL API [esql-how-to]
@@ -52,49 +52,49 @@ To simplify things, try working with these two main representations of ES|QL res
 package main
 
 import (
-	"context"
-	"fmt"
-	"log"
-	"time"
+    "context"
+    "fmt"
+    "log"
+    "time"
 
-	"github.com/elastic/go-elasticsearch/v9"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/esql/query"
+    "github.com/elastic/go-elasticsearch/v9"
+    "github.com/elastic/go-elasticsearch/v9/typedapi/esql/query"
 )
 
 type Book struct {
-	Name        string `json:"name"`
-	Author      string `json:"author"`
-	ReleaseDate string `json:"release_date"`
-	PageCount   int    `json:"page_count"`
+    Name        string `json:"name"`
+    Author      string `json:"author"`
+    ReleaseDate string `json:"release_date"`
+    PageCount   int    `json:"page_count"`
 }
 
 func main() {
-	client, err := elasticsearch.NewTypedClient(elasticsearch.Config{Addresses: []string{"ELASTICSEARCH_URL"}})
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer func() {
-		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-		defer cancel()
-		if err := client.Close(ctx); err != nil {
-			log.Fatal(err)
-		}
+    client, err := elasticsearch.NewTypedClient(elasticsearch.Config{Addresses: []string{"ELASTICSEARCH_URL"}})
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer func() {
+        ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+        defer cancel()
+        if err := client.Close(ctx); err != nil {
+            log.Fatal(err)
+        }
     } ()
 
-	queryAuthor := `from library
+    queryAuthor := `from library
         | where author == "Isaac Asimov"
         | sort release_date desc
         | limit 10`
 
-	qry := client.Esql.Query().Query(queryAuthor)
-	books, err := query.Helper[Book](context.Background(), qry)
-	if err != nil {
-		log.Fatal(err)
-	}
+    qry := client.Esql.Query().Query(queryAuthor)
+    books, err := query.Helper[Book](context.Background(), qry)
+    if err != nil {
+        log.Fatal(err)
+    }
 
-	for _, book := range books {
-		fmt.Println(book)
-	}
+    for _, book := range books {
+        fmt.Println(book)
+    }
 }
 ```
 

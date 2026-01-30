@@ -50,18 +50,18 @@ func main() {
 package main
 
 import (
-	"context"
-	"log"
+    "context"
+    "log"
 
-	"github.com/elastic/go-elasticsearch/v9"
+    "github.com/elastic/go-elasticsearch/v9"
 )
 
 func main() {
-	es, _ := elasticsearch.NewTypedClient(elasticsearch.Config{
-		Addresses: []string{"http://localhost:9200"},
-	})
-	defer es.Close(context.Background())
-	log.Println(es.Info().Do(context.Background()))
+    es, _ := elasticsearch.NewTypedClient(elasticsearch.Config{
+        Addresses: []string{"http://localhost:9200"},
+    })
+    defer es.Close(context.Background())
+    log.Println(es.Info().Do(context.Background()))
 }
 ```
 
@@ -85,7 +85,7 @@ Copyright 2019 {{es}}.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
-```
+```text
 http://www.apache.org/licenses/LICENSE-2.0
 ```
 

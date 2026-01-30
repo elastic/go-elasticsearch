@@ -7,11 +7,11 @@ mapped_pages:
 
 This page guides you through the installation process of the Go client, shows you how to instantiate the client, and how to perform basic Elasticsearch operations with it. You can use the client with either a low-level API or a fully typed API. This getting started shows you examples of both APIs.
 
-### Requirements [_requirements]
+## Requirements [_requirements]
 
 Go version 1.21+
 
-### Installation [_installation]
+## Installation [_installation]
 
 To install the latest version of the client, run the following command:
 
@@ -21,7 +21,7 @@ go get github.com/elastic/go-elasticsearch/v9@latest
 
 Refer to the [_Installation_](/reference/installation.md) page to learn more.
 
-### Connecting [_connecting]
+## Connecting [_connecting]
 
 :::::::{tab-set}
 :group: apis
@@ -62,11 +62,11 @@ You can generate an API key on the **Management** page under Security.
 
 For other connection options, refer to the [_Connecting_](/reference/connecting.md) section.
 
-### Operations [_operations]
+## Operations [_operations]
 
 Time to use Elasticsearch! This section walks you through the basic, and most important, operations of Elasticsearch. For more operations and more advanced examples, refer to the [Examples](/reference/examples.md) page.
 
-#### Creating an index [_creating_an_index]
+### Creating an index [_creating_an_index]
 
 :::::::{tab-set}
 :group: apis
@@ -92,7 +92,7 @@ typedClient.Indices.Create("my_index").Do(context.TODO())
 
 :::::::
 
-#### Indexing documents [_indexing_documents]
+### Indexing documents [_indexing_documents]
 
 :::::::{tab-set}
 :group: apis
@@ -123,16 +123,16 @@ document := struct {
     "go-elasticsearch",
 }
 typedClient.Index("my_index").
-		Id("1").
-		Request(document).
-		Do(context.TODO())
+        Id("1").
+        Request(document).
+        Do(context.TODO())
 ```
 
 ::::::
 
 :::::::
 
-#### Getting documents [_getting_documents]
+### Getting documents [_getting_documents]
 
 :::::::{tab-set}
 :group: apis
@@ -158,7 +158,7 @@ typedClient.Get("my_index", "id").Do(context.TODO())
 
 :::::::
 
-#### Searching documents [_searching_documents]
+### Searching documents [_searching_documents]
 
 :::::::{tab-set}
 :group: apis
@@ -193,7 +193,7 @@ typedClient.Search().
 
 :::::::
 
-#### Updating documents [_updating_documents]
+### Updating documents [_updating_documents]
 
 :::::::{tab-set}
 :group: apis
@@ -213,7 +213,7 @@ This is how you can update a document with the fully-typed API:
 
 ```go
 typedClient.Update("my_index", "id").
-	Request(&update.Request{
+    Request(&update.Request{
         Doc: json.RawMessage(`{ language: "Go" }`),
     }).Do(context.TODO())
 ```
@@ -222,7 +222,7 @@ typedClient.Update("my_index", "id").
 
 :::::::
 
-#### Deleting documents [_deleting_documents]
+### Deleting documents [_deleting_documents]
 
 :::::::{tab-set}
 :group: apis
@@ -246,7 +246,7 @@ typedClient.Delete("my_index", "id").Do(context.TODO())
 
 :::::::
 
-#### Deleting an index [_deleting_an_index]
+### Deleting an index [_deleting_an_index]
 
 :::::::{tab-set}
 :group: apis

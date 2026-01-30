@@ -26,7 +26,7 @@ See the [`elasticsearch-cluster.yml`](elasticsearch-cluster.yml) file for detail
 
 Use `curl` to verify access to the cluster:
 
-```
+```bash
 curl --cacert certificates/ca/ca.crt https://elastic:elastic@localhost:9200
 ```
 
@@ -42,12 +42,12 @@ use the `elasticsearch.Config.CACert` configuration option:
 cert, _ := ioutil.ReadFile(*cacert)
 
 es, _ := elasticsearch.NewClient(
-	elasticsearch.Config{
-		// ...
+    elasticsearch.Config{
+        // ...
 
-		// --> Pass the certificate to the client
-		CACert: cert,
-	})
+        // --> Pass the certificate to the client
+        CACert: cert,
+    })
 ```
 
 Run the full example:

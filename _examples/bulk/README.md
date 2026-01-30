@@ -47,11 +47,11 @@ The helper allows you to `Add()` bulk indexer items, and flushes each batch base
 ```golang
 indexer, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{})
 indexer.Add(
-	context.Background(),
-	esutil.BulkIndexerItem{
-		Action: "index",
-		Body:   strings.NewReader(`{"title":"Test"}`),
-	})
+    context.Background(),
+    esutil.BulkIndexerItem{
+        Action: "index",
+        Body:   strings.NewReader(`{"title":"Test"}`),
+    })
 indexer.Close(context.Background())
 ```
 

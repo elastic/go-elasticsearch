@@ -58,11 +58,11 @@ Alternatively, you can use the `Raw` method and provide the already serialized J
 
 ```go
 res, err := es.Index("index_name").
-			Raw([]byte(`{
-			  "id": 1,
-			  "name": "Foo",
-			  "price": 10
-			}`)).Do(context.Background())
+            Raw([]byte(`{
+              "id": 1,
+              "name": "Foo",
+              "price": 10
+            }`)).Do(context.Background())
 ```
 
 ## Retrieving a document [retrieving_document]
@@ -85,11 +85,11 @@ if exists, err := es.Exists("index_name", "doc_id").IsSuccess(nil); exists {
 }
 ```
 
-Result is `true` if everything succeeds, `false` if the document doesn’t exist. If an error occurs during the request, you will be granted with a `false` and the relevant error.
+Result is `true` if everything succeeds, `false` if the document doesn't exist. If an error occurs during the request, you will be granted with a `false` and the relevant error.
 
 ## Search [search]
 
-Building a search query can be done with structs or builder. As an example, let’s search for a document with a field `name` with a value of `Foo` in the index named `index_name`.
+Building a search query can be done with structs or builder. As an example, let's search for a document with a field `name` with a value of `Foo` in the index named `index_name`.
 
 With a struct request:
 

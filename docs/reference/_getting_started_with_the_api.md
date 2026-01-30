@@ -11,7 +11,7 @@ Connection to an {{es}} cluster is identical to the existing client, only the AP
 
 ```go
 client, err := elasticsearch.NewTypedClient(elasticsearch.Config{
-	// Proper configuration for your Elasticsearch cluster.
+    // Proper configuration for your Elasticsearch cluster.
 })
 ```
 
