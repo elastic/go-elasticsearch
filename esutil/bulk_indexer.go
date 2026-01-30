@@ -489,7 +489,7 @@ func (w *worker) writeBody(item *BulkIndexerItem) error {
 			}
 			return err
 		}
-		item.Body.Seek(0, io.SeekStart) // nolint:errcheck
+		item.Body.Seek(0, io.SeekStart)
 		w.buf.WriteRune('\n')
 	}
 	return nil
