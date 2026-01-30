@@ -74,7 +74,7 @@ if exists, err := es.Core.Exists("index_name", "doc_id").IsSuccess(context.Backg
 
 ## Requests [requests]
 
-Requests are modeled around structures that follows as closely as possible the {{es}} API and uses the standard `json/encoding` for serialization. Corresponding request can be found withing the same package as its endpoint and comes with a Builder that allows you to deep dive into the API by following the types.
+Requests are modeled around structures that follows as closely as possible the {{es}} API and uses the standard `json/encoding` for serialization. Corresponding request can be found within the same package as its endpoint and comes with a Builder that allows you to deep dive into the API by following the types.
 
 ```go
 types.Query{

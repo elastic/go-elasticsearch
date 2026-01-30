@@ -121,7 +121,7 @@ func main() {
 	dur := time.Since(start)
 	rate := float64(len(docs)) / dur.Seconds()
 	log.Printf(
-		"Sucessfuly indexed [%s] documents in %s (%.0f docs/sec)",
+		"Successfully indexed [%s] documents in %s (%.0f docs/sec)",
 		humanize.Comma(int64(len(docs))),
 		dur.Truncate(time.Millisecond),
 		rate,

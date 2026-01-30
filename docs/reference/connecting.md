@@ -150,7 +150,7 @@ This section contains code snippets to show you how to authenticate with {{es}}.
 
 ### Basic authentication [auth-basic]
 
-To set the cluster endpoints, the username, and the password programatically, pass a configuration object to the `elasticsearch.NewClient()` function.
+To set the cluster endpoints, the username, and the password programmatically, pass a configuration object to the `elasticsearch.NewClient()` function.
 
 ```go
 cfg := elasticsearch.Config{

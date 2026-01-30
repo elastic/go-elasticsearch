@@ -14,4 +14,3 @@ paths = [
     # Test file contains embedded test certificates for unit testing
     '''elasticsearch_internal_test\.go''',
 ]
-

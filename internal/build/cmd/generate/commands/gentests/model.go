@@ -500,7 +500,7 @@ func (a Action) Params() map[string]interface{} {
 
 // Condition returns the condition for the assertion.
 //
-// TODO: Evaulate https://pkg.go.dev/github.com/google/go-cmp/cmp
+// TODO: Evaluate https://pkg.go.dev/github.com/google/go-cmp/cmp
 func (a Assertion) Condition() string {
 	var (
 		output string

@@ -2,7 +2,7 @@
 # shellcheck disable=SC2154
 #
 # Version 1.1
-# - Moved to .buildkite folder and seperated out `run-repository.sh`
+# - Moved to .buildkite folder and separated out `run-repository.sh`
 # - Add `$RUNSCRIPTS` env var for running Elasticsearch dependent products
 script_path=$(dirname "$(realpath -s "$0")")
 # shellcheck source=.buildkite/functions/imports.sh

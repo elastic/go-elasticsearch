@@ -1,0 +1,2 @@
+[codespell]
+skip = go.sum,*/go.sum
