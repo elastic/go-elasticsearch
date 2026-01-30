@@ -80,6 +80,9 @@ jobs:
           # Get build hash from running cluster
           echo "ELASTICSEARCH_BUILD_HASH=$(curl -sSk ${{ env.ELASTICSEARCH_URL }} | jq -r '.version.build_hash')" >> $GITHUB_ENV
 
+      - name: Download specification
+        run: make download-specs
+
       - name: Generate tests from elasticsearch-clients-tests
         run: make gen-tests
 
