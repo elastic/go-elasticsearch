@@ -2,13 +2,13 @@
 
 This example demonstrates how to instrument the Elasticsearch client.
 
-### OpenCensus
+## OpenCensus
 
 The [**`opencensus.go`**](./opencensus.go) example uses the [`ochttp.Transport`](https://pkg.go.dev/go.opencensus.io/plugin/ochttp#example-Transport) wrapper to auto-instrument the client calls, and provides a simple exporter which prints information to the terminal.
 
-<a href="https://asciinema.org/a/KhyP3GuuHPJAZQAmrgmdwS7uf" target="_blank"><img src="https://asciinema.org/a/KhyP3GuuHPJAZQAmrgmdwS7uf.svg" width="750" /></a>
+<a href="https://asciinema.org/a/KhyP3GuuHPJAZQAmrgmdwS7uf" target="_blank"><img src="https://asciinema.org/a/KhyP3GuuHPJAZQAmrgmdwS7uf.svg" width="750" alt="OpenCensus instrumentation demo" /></a>
 
-### Elastic APM
+## Elastic APM
 
 The [**`apmelasticsearch.go`**](./apmelasticsearch.go) example demonstrates instrumenting the client with the [Go agent for Elastic APM](https://github.com/elastic/apm-agent-go): configuring the transactions for multiple types, creating custom spans within a transaction, and reporting errors.
 

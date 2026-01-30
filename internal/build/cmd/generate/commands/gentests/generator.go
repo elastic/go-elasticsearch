@@ -1218,8 +1218,8 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				if varDetection.MatchString(body) {
 					g.w("strings.NewReader(strings.NewReplacer(")
 
-					matchs := varDetection.FindAllStringSubmatch(body, -1)
-					for _, match := range matchs {
+					matches := varDetection.FindAllStringSubmatch(body, -1)
+					for _, match := range matches {
 						bodyVar := match[1]
 						stashVar := fmt.Sprintf(`mustGetStashString(t, "$%s")`, match[2])
 

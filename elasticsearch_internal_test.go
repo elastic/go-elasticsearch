@@ -625,7 +625,7 @@ oftUHvkHS0Vv/LicMEOufFGslb4T9aPJ7oyhoSlz9CfAutDWk/q/
 
 	if errors.Unwrap(err).Error() != `x509: “instance” certificate is not standards compliant` {
 		if ok := errors.As(err, &x509.UnknownAuthorityError{}); !ok {
-			t.Fatalf("Uknown error, expected UnknownAuthorityError, got: %s", err)
+			t.Fatalf("Unknown error, expected UnknownAuthorityError, got: %s", err)
 		}
 	}
 
@@ -965,7 +965,7 @@ func TestContentTypeOverride(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 	})
-	t.Run("overriden CBOR Content-Type functional options style", func(t *testing.T) {
+	t.Run("overridden CBOR Content-Type functional options style", func(t *testing.T) {
 		contentType := "application/cbor"
 
 		tp, err := elastictransport.New(elastictransport.Config{
@@ -1003,7 +1003,7 @@ func TestContentTypeOverride(t *testing.T) {
 			c.Search.WithBody(strings.NewReader("")),
 		)
 	})
-	t.Run("overriden CBOR Content-Type direct call style", func(t *testing.T) {
+	t.Run("overridden CBOR Content-Type direct call style", func(t *testing.T) {
 		contentType := "application/cbor"
 
 		tp, err := elastictransport.New(elastictransport.Config{

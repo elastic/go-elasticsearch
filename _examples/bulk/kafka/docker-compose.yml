@@ -10,7 +10,7 @@ services:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-      KAFKA_OPTS: '-Dzookeeper.4lw.commands.whitelist=ruok'
+      KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=ruok"
     healthcheck:
       test: echo "ruok" | nc localhost 2181 | grep "imok"
 
@@ -29,7 +29,7 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_HEAP_OPTS: '-Xms${KAFKA_MEMORY} -Xmx${KAFKA_MEMORY}'
+      KAFKA_HEAP_OPTS: "-Xms${KAFKA_MEMORY} -Xmx${KAFKA_MEMORY}"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
@@ -43,7 +43,7 @@ services:
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka:29092
       CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper:2181
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
-      CONFLUENT_METRICS_ENABLE: 'true'
+      CONFLUENT_METRICS_ENABLE: "true"
     restart: on-failure
     healthcheck:
       test: nc -z localhost 9092
@@ -60,8 +60,8 @@ services:
     networks:
       - kafka
     environment:
-      CONTROL_CENTER_BOOTSTRAP_SERVERS: 'kafka:29092'
-      CONTROL_CENTER_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: "kafka:29092"
+      CONTROL_CENTER_ZOOKEEPER_CONNECT: "zookeeper:2181"
       CONTROL_CENTER_REPLICATION_FACTOR: 1
       CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
@@ -98,7 +98,7 @@ services:
   kibana:
     container_name: kibana
     image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
-    depends_on: [ 'elasticsearch' ]
+    depends_on: ["elasticsearch"]
     networks:
       - elasticsearch
     ports:

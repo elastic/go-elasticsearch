@@ -1,3 +1,5 @@
+# Examples
+
 This directory contains examples and recipes for the Elasticsearch Go client.
 
 ## Configuration & Customization

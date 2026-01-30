@@ -378,7 +378,7 @@ func TestElasticsearchIntegration(t *testing.T) {
 				Do(context.Background())
 
 			if err != nil {
-				t.Fatalf("error runnning search query: %s", err)
+				t.Fatalf("error running search query: %s", err)
 			}
 
 			if res.Hits.Total.Value == 1 {

@@ -242,7 +242,7 @@ func (cmd *Command) processFile(f *os.File) (err error) {
 		if cmd.ColorizeSource {
 			src, err = utils.Chromatize(tee)
 			if err != nil {
-				return fmt.Errorf("error syntax highligting the output: %s", err)
+				return fmt.Errorf("error syntax highlighting the output: %s", err)
 			}
 
 			_, err = io.Copy(os.Stderr, src)

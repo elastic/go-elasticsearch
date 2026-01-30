@@ -304,7 +304,7 @@ func (cmd *Command) processFile(fpath string) (err error) {
 
 		src, err = utils.Chromatize(tee)
 		if err != nil {
-			return fmt.Errorf("error syntax highligting the output: %s", err)
+			return fmt.Errorf("error syntax highlighting the output: %s", err)
 		}
 
 		_, err = io.Copy(os.Stderr, src)

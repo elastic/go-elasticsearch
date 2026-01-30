@@ -24,7 +24,7 @@ Starting from version `8.12.0`, this library follow the Go language [policy](htt
 ### Elasticsearch
 
 Language clients are forward compatible; meaning that clients support communicating with greater or equal minor versions of Elasticsearch.
-Elasticsearch language clients are only backwards compatible with default distributions and without guarantees made.
+Elasticsearch language clients are only backward compatible with default distributions and without guarantees made.
 
 When using Go modules, include the version in the import path, and specify either an explicit version or a branch:
 
@@ -64,13 +64,13 @@ of the getting started documentation.
 
 ## Operations
 
-* [Creating an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_creating_an_index)
-* [Indexing documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_indexing_documents)
-* [Getting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_getting_documents)
-* [Searching documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_searching_documents)
-* [Updating documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_updating_documents)
-* [Deleting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_documents)
-* [Deleting an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_an_index)
+- [Creating an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_creating_an_index)
+- [Indexing documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_indexing_documents)
+- [Getting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_getting_documents)
+- [Searching documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_searching_documents)
+- [Updating documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_updating_documents)
+- [Deleting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_documents)
+- [Deleting an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_an_index)
 <!-- ----------------------------------------------------------------------------------------------- -->
 
 ## Helpers
@@ -81,7 +81,9 @@ The `esutil` package provides convenience helpers for working with the client. A
 
 ## Examples
 
-The **[`_examples`](./_examples)** folder contains a number of recipes and comprehensive examples to get you started with the client, including configuration and customization of the client, using a custom certificate authority (CA) for security (TLS), mocking the transport for unit tests, embedding the client in a custom type, building queries, performing requests individually and in bulk, and parsing the responses.
+The **[`_examples`](./_examples)** folder contains a number of recipes and comprehensive examples to get you started with the client,
+including configuration and customization of the client, using a custom certificate authority (CA) for security (TLS),
+mocking the transport for unit tests, embedding the client in a custom type, building queries, performing requests individually and in bulk, and parsing the responses.
 
 <!-- ----------------------------------------------------------------------------------------------- -->
 

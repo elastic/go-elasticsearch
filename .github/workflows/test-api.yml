@@ -1,9 +1,10 @@
+---
 name: API
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: "0 2 * * *"
 
 env:
   GITHUB_ACTIONS: true
@@ -21,7 +22,7 @@ jobs:
         with: { fetch-depth: 1 }
 
       - uses: actions/setup-go@v5
-        with: { go-version: '1.x' }
+        with: { go-version: "1.x" }
 
       - run: go version
 
@@ -71,20 +72,20 @@ jobs:
         run: |
           # Wait for Elasticsearch to be ready
           for i in {1..60}; do
-            if curl -sSk --fail ${{ env.ELASTICSEARCH_URL }}/_cluster/health?pretty; then
+            if curl -sSk --fail "${{ env.ELASTICSEARCH_URL }}/_cluster/health?pretty"; then
               break
             fi
             echo "Waiting for Elasticsearch... ($i/60)"
             sleep 5
           done
           # Get build info from running cluster
-          curl -sSk ${{ env.ELASTICSEARCH_URL }} | jq .
-          BUILD_HASH=$(curl -sSk ${{ env.ELASTICSEARCH_URL }} | jq -r '.version.build_hash')
+          curl -sSk "${{ env.ELASTICSEARCH_URL }}" | jq .
+          BUILD_HASH=$(curl -sSk "${{ env.ELASTICSEARCH_URL }}" | jq -r '.version.build_hash')
           if [ -z "$BUILD_HASH" ] || [ "$BUILD_HASH" = "null" ]; then
             echo "ERROR: Failed to get build hash from Elasticsearch"
             exit 1
           fi
-          echo "ELASTICSEARCH_BUILD_HASH=$BUILD_HASH" >> $GITHUB_ENV
+          echo "ELASTICSEARCH_BUILD_HASH=$BUILD_HASH" >> "$GITHUB_ENV"
           echo "Build hash: $BUILD_HASH"
 
       - name: Download specification

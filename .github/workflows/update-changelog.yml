@@ -1,7 +1,7 @@
+---
 name: Update Changelog
 on:
   workflow_dispatch:
-
 
 jobs:
   update-changelog:
@@ -18,7 +18,7 @@ jobs:
         uses: elastic/clients-team-automations/update_changelog@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          title: 'Changelog'
-          min_version: '8.0.0'
-          releases_per_page: '100'
-          changelog_path: 'CHANGELOG.md'
+          title: "Changelog"
+          min_version: "8.0.0"
+          releases_per_page: "100"
+          changelog_path: "CHANGELOG.md"

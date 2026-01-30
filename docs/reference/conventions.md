@@ -7,12 +7,12 @@ mapped_pages:
 
 This section details the conventions upon which the typed client is built.
 
-* [Structure](#structure)
-* [Naming](#naming)
-* [Endpoints](#endpoints)
-* [Requests](#requests)
-* [Responses](#responses)
-* [Types](#types)
+- [Structure](#structure)
+- [Naming](#naming)
+- [Endpoints](#endpoints)
+- [Requests](#requests)
+- [Responses](#responses)
+- [Types](#types)
 
 ## Structure [structure]
 
@@ -24,14 +24,12 @@ Each endpoint resides in its own package within `typedapi` and contains the clie
 
 The requests are based on a collection of structures generated from the [elasticsearch-specification](https://github.com/elastic/elasticsearch-specification) repository and gathered in a `types` package within `typedapi`.
 
-
 ## Naming [naming]
 
 Whenever appropriate, names may be suffixed with an underscore:
 
-* To avoid collision with protected keywords (`range`, `if`, `type`, and so on).
-* To reflect the presence of a leading underscore in the API like `\_index` vs `Index_` or `\_source` vs `Source_`.
-
+- To avoid collision with protected keywords (`range`, `if`, `type`, and so on).
+- To reflect the presence of a leading underscore in the API like `\_index` vs `Index_` or `\_source` vs `Source_`.
 
 ## Endpoints [endpoints]
 
@@ -74,10 +72,9 @@ if exists, err := es.Core.Exists("index_name", "doc_id").IsSuccess(context.Backg
 }
 ```
 
-
 ## Requests [requests]
 
-Requests are modeled around structures that follows as closely as possible the {{es}} API and uses the standard `json/encoding` for serialization. Corresponding request can be found withing the same package as its endpoint and comes with a Builder that allows you to deep dive into the API by following the types.
+Requests are modeled around structures that follows as closely as possible the {{es}} API and uses the standard `json/encoding` for serialization. Corresponding request can be found within the same package as its endpoint and comes with a Builder that allows you to deep dive into the API by following the types.
 
 ```go
 types.Query{
@@ -87,16 +84,13 @@ types.Query{
 }
 ```
 
-
 ## Responses [responses]
 
 While not part of the initial release responses will be added at a later date.
 
-
 ## Types [types]
 
-Requests and responses are relying on a collection of structures generated from the [elasticsearch-specification](https://github.com/elastic/elasticsearch-specification) in the `types` package. Each type comes with json tags.
-
+Requests and responses are relying on a collection of structures generated from the [elasticsearch-specification](https://github.com/elastic/elasticsearch-specification) in the `types` package. Each type comes with JSON tags.
 
 ## Enums [_enums]
 
@@ -108,9 +102,6 @@ refresh.False => "false"
 refresh.Waitfor => "wait_for"
 ```
 
-
 ## Unions [_unions]
 
 To capture the expressiveness of the API union fields are represented by a type alias to an interface.
-
-

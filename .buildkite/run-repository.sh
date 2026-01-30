@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2154
 #
 # Called by entry point `run-test` use this script to add your repository specific test commands
 #
@@ -6,10 +7,11 @@
 #
 # Its recommended to call `imports.sh` as defined here so that you get access to all variables defined there
 #
-# Any parameters that test-matrix.yml defines should be declared here with appropiate defaults
+# Any parameters that test-matrix.yml defines should be declared here with appropriate defaults
 
-script_path=$(dirname $(realpath -s $0))
-source $script_path/functions/imports.sh
+script_path=$(dirname "$(realpath -s "$0")")
+# shellcheck source=.buildkite/functions/imports.sh
+source "$script_path"/functions/imports.sh
 set -euo pipefail
 
 echo -e "\033[34;1mINFO:\033[0m VERSION: ${STACK_VERSION}\033[0m"
@@ -18,12 +20,12 @@ echo -e "\033[34;1mINFO:\033[0m RUNSCRIPTS: ${RUNSCRIPTS}\033[0m"
 echo -e "\033[34;1mINFO:\033[0m URL: ${elasticsearch_url}\033[0m"
 
 echo -e "\033[34;1mINFO:\033[0m pinging Elasticsearch ..\033[0m"
-curl --insecure --fail $external_elasticsearch_url/_cluster/health?pretty
+curl --insecure --fail "$external_elasticsearch_url/_cluster/health?pretty"
 
 if [[ "$RUNSCRIPTS" = *"enterprise-search"* ]]; then
-  enterprise_search_url="http://localhost:3002"
-  echo -e "\033[34;1mINFO:\033[0m pinging Enterprise Search ..\033[0m"
-  curl -I --fail $enterprise_search_url
+	enterprise_search_url="http://localhost:3002"
+	echo -e "\033[34;1mINFO:\033[0m pinging Enterprise Search ..\033[0m"
+	curl -I --fail $enterprise_search_url
 fi
 
 echo -e "\033[32;1mSUCCESS:\033[0m successfully started the ${STACK_VERSION} stack.\033[0m"
@@ -31,17 +33,17 @@ echo -e "\033[32;1mSUCCESS:\033[0m successfully started the ${STACK_VERSION} sta
 echo -e "\033[34;1mINFO:\033[0m Building the [elastic/go-elasticsearch] image... \033[0m"
 
 docker build \
-    --file .buildkite/Dockerfile \
-    --tag elastic/go-elasticsearch \
-    .
+	--file .buildkite/Dockerfile \
+	--tag elastic/go-elasticsearch \
+	.
 
 echo -e "\033[34;1mINFO:\033[0m Retrieving Elasticsearch Version & Hash from container... \033[0m"
 
-ELASTICSEARCH_BUILD_VERSION=$(curl -sSk $external_elasticsearch_url | jq -r '.version.number')
-ELASTICSEARCH_BUILD_HASH=$(curl -sSk $external_elasticsearch_url | jq -r '.version.build_hash')
+ELASTICSEARCH_BUILD_VERSION=$(curl -sSk "$external_elasticsearch_url" | jq -r '.version.number')
+ELASTICSEARCH_BUILD_HASH=$(curl -sSk "$external_elasticsearch_url" | jq -r '.version.build_hash')
 
 echo -e "\033[34;1mINFO:\033[0m Download Elasticsearch specs... \033[0m"
-docker run -e ELASTICSEARCH_BUILD_VERSION=$ELASTICSEARCH_BUILD_VERSION --volume=$WORKSPACE/tmp:/tmp --workdir=/go-elasticsearch/internal/build --rm elastic/go-elasticsearch /bin/sh -c "
+docker run -e ELASTICSEARCH_BUILD_VERSION="$ELASTICSEARCH_BUILD_VERSION" --volume="$WORKSPACE"/tmp:/tmp --workdir=/go-elasticsearch/internal/build --rm elastic/go-elasticsearch /bin/sh -c "
   go mod download
   go run main.go download-spec -o /tmp -d
 "
@@ -49,16 +51,16 @@ docker run -e ELASTICSEARCH_BUILD_VERSION=$ELASTICSEARCH_BUILD_VERSION --volume=
 echo -e "\033[34;1mINFO:\033[0m Execute (clients-tests) >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
 
 docker run -t \
-  --volume=$WORKSPACE/tmp:/tmp \
-  --rm \
-  --network "$network_name" \
-  --env "ELASTICSEARCH_URL=$elasticsearch_url" \
-  --env "ELASTICSEARCH_CA_CERT=/go-elasticsearch/.buildkite/certs/ca.crt" \
-  --env "ELASTICSEARCH_VERSION=$STACK_VERSION" \
-  --env "ELASTICSEARCH_BUILD_VERSION=$ELASTICSEARCH_BUILD_VERSION" \
-  --env "ELASTICSEARCH_BUILD_HASH=$ELASTICSEARCH_BUILD_HASH" \
-  --env "ELASTICSEARCH_CLIENTS_TESTS_BRANCH=${ELASTICSEARCH_CLIENTS_TESTS_BRANCH:-main}" \
-  --env "WORKSPACE=${WORKSPACE:-/workspace}" \
-  --volume "${WORKSPACE:-workspace}:${WORKSPACE:-/workspace}" \
-  elastic/go-elasticsearch \
-  .buildkite/scripts/tests.sh
+	--volume="$WORKSPACE"/tmp:/tmp \
+	--rm \
+	--network "$network_name" \
+	--env "ELASTICSEARCH_URL=$elasticsearch_url" \
+	--env "ELASTICSEARCH_CA_CERT=/go-elasticsearch/.buildkite/certs/ca.crt" \
+	--env "ELASTICSEARCH_VERSION=$STACK_VERSION" \
+	--env "ELASTICSEARCH_BUILD_VERSION=$ELASTICSEARCH_BUILD_VERSION" \
+	--env "ELASTICSEARCH_BUILD_HASH=$ELASTICSEARCH_BUILD_HASH" \
+	--env "ELASTICSEARCH_CLIENTS_TESTS_BRANCH=${ELASTICSEARCH_CLIENTS_TESTS_BRANCH:-main}" \
+	--env "WORKSPACE=${WORKSPACE:-/workspace}" \
+	--volume "${WORKSPACE:-workspace}:${WORKSPACE:-/workspace}" \
+	elastic/go-elasticsearch \
+	.buildkite/scripts/tests.sh

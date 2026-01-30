@@ -153,11 +153,11 @@ func BenchmarkClientAPI(b *testing.B) {
 		b.ResetTimer()
 
 		body := `{"foo" : "bar"}`
-		indx := []string{"test"}
+		index := []string{"test"}
 
 		for i := 0; i < b.N; i++ {
 			req := esapi.SearchRequest{
-				Index:   indx,
+				Index:   index,
 				Body:    strings.NewReader(body),
 				Size:    esapi.IntPtr(25),
 				Pretty:  true,
@@ -173,11 +173,11 @@ func BenchmarkClientAPI(b *testing.B) {
 		b.ResetTimer()
 
 		body := `{"foo" : "bar"}`
-		indx := "test"
+		index := "test"
 
 		for i := 0; i < b.N; i++ {
 			_, err := client.Search(
-				client.Search.WithIndex(indx),
+				client.Search.WithIndex(index),
 				client.Search.WithBody(strings.NewReader(body)),
 				client.Search.WithSize(25),
 				client.Search.WithPretty(),

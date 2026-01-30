@@ -1,3 +1,4 @@
+---
 name: Apidiff PR
 
 on:
@@ -22,7 +23,7 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.x'
+          go-version: "1.x"
 
       - name: Install apidiff
         run: go install golang.org/x/exp/cmd/apidiff@latest
@@ -148,4 +149,3 @@ jobs:
                 });
               }
             }
-
