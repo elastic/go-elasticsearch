@@ -148,7 +148,7 @@ If your {{es}} cluster is behind a load balancer like when using Elastic Cloud y
 
 This section contains code snippets to show you how to authenticate with {{es}}.
 
-## Basic authentication [auth-basic]
+### Basic authentication [auth-basic]
 
 To set the cluster endpoints, the username, and the password programmatically, pass a configuration object to the `elasticsearch.NewClient()` function.
 
@@ -170,7 +170,7 @@ You can also include the username and password in the endpoint URL:
 'https://username:password@localhost:9200'
 ```
 
-## HTTP Bearer authentication [auth-token]
+### HTTP Bearer authentication [auth-token]
 
 HTTP Bearer authentication uses the `ServiceToken` parameter by passing the token as a string. This authentication method is used by [Service Account Tokens](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-service-token) and [Bearer Tokens](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-token).
 
@@ -226,7 +226,7 @@ The most influential optimization is to initialize the client outside of the fun
 This practice does not only improve performance but also enables background functionality as – for example – [sniffing](https://www.elastic.co/blog/elasticsearch-sniffing-best-practices-what-when-why-how).
 The following examples provide a skeleton for the best practices.
 
-## GCP Cloud Functions [connecting-faas-gcp]
+### GCP Cloud Functions [connecting-faas-gcp]
 
 ```go
 package httpexample
@@ -257,7 +257,7 @@ func HttpExample(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-## AWS Lambda [connecting-faas-aws]
+### AWS Lambda [connecting-faas-aws]
 
 ```go
 package httpexample
