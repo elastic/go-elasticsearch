@@ -72,11 +72,11 @@ if [[ "$TEST_SUITE" == "platinum" ]]; then
     --env xpack.security.transport.ssl.certificate_authorities=certs/ca.crt
 END
 ))
-  # shellcheck disable=SC2207
+  # shellcheck disable=SC2207,SC2086
   volumes+=($(cat <<-END
-    --volume "$ssl_cert":/usr/share/elasticsearch/config/certs/testnode.crt
-    --volume "$ssl_key":/usr/share/elasticsearch/config/certs/testnode.key
-    --volume "$ssl_ca":/usr/share/elasticsearch/config/certs/ca.crt
+    --volume $ssl_cert:/usr/share/elasticsearch/config/certs/testnode.crt
+    --volume $ssl_key:/usr/share/elasticsearch/config/certs/testnode.key
+    --volume $ssl_ca:/usr/share/elasticsearch/config/certs/ca.crt
 END
 ))
 else
@@ -125,9 +125,9 @@ END
 ))
   echo "$i: $http_port $node_url "
   volume_name=${node_name}-${suffix}-data
-  # shellcheck disable=SC2207
+  # shellcheck disable=SC2207,SC2086
   volumes+=($(cat <<-END
-    --volume "$volume_name":/usr/share/elasticsearch/data${i}
+    --volume $volume_name:/usr/share/elasticsearch/data${i}
 END
 ))
 
