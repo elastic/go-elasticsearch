@@ -349,6 +349,9 @@ endif
 				--env "node.attr.testattr=test" \
 				--env "path.repo=/tmp" \
 				--env "repositories.url.allowed_urls=http://snapshot.test*" \
+				--env "action.destructive_requires_name=false" \
+				--env "ingest.geoip.downloader.enabled=false" \
+				--env "cluster.deprecation_indexing.enabled=false" \
 				--env "xpack.security.enabled=false" \
 				--env ES_JAVA_OPTS="-Xms1g -Xmx1g" \
 				$(xpack_env) \
