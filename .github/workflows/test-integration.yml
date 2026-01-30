@@ -1,3 +1,4 @@
+---
 name: Integration
 
 on:
@@ -30,7 +31,7 @@ jobs:
         with: { go-version: "1.x" }
       - run: go version
       - run: make test-integ race=true
-      - uses: codecov/codecov-action@v1 # nolint:action
+      - uses: codecov/codecov-action@v1
         with:
           file: tmp/integration-client.cov
           flags: integration

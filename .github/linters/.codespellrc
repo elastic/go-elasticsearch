@@ -1,2 +1,2 @@
 [codespell]
-skip = go.sum,*/go.sum
+skip = go.sum,*/go.sum,elasticsearch_internal_test.go

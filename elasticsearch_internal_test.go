@@ -623,7 +623,7 @@ oftUHvkHS0Vv/LicMEOufFGslb4T9aPJ7oyhoSlz9CfAutDWk/q/
 	client, _ := NewClient(config)
 	_, err = client.Info()
 
-	if errors.Unwrap(err).Error() != `x509: "instance" certificate is not standards compliant` {
+	if errors.Unwrap(err).Error() != `x509: “instance” certificate is not standards compliant` {
 		if ok := errors.As(err, &x509.UnknownAuthorityError{}); !ok {
 			t.Fatalf("Unknown error, expected UnknownAuthorityError, got: %s", err)
 		}
