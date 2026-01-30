@@ -14,6 +14,7 @@ or
 [![Unit](https://github.com/elastic/go-elasticsearch/actions/workflows/test-unit.yml/badge.svg?branch=main)](https://github.com/elastic/go-elasticsearch/actions/workflows/test-unit.yml?query=branch%3Amain)
 [![Integration](https://github.com/elastic/go-elasticsearch/actions/workflows/test-integration.yml/badge.svg?branch=main)](https://github.com/elastic/go-elasticsearch/actions/workflows/test-integration.yml?query=branch%3Amain)
 [![API](https://github.com/elastic/go-elasticsearch/actions/workflows/test-api.yml/badge.svg?branch=main)](https://github.com/elastic/go-elasticsearch/actions/workflows/test-api.yml?query=branch%3Amain)
+[![Lint](https://github.com/elastic/go-elasticsearch/actions/workflows/lint.yml/badge.svg?branch=main&event=push)](https://github.com/elastic/go-elasticsearch/actions/workflows/lint.yml)
 
 ## Compatibility
 
