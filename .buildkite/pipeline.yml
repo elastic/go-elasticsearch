@@ -1,3 +1,4 @@
+---
 steps:
   - label: ":elasticsearch: :golang: Elasticsearch Go Test Suite (clients-tests)"
     agents:

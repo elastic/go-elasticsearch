@@ -1,3 +1,4 @@
+---
 - name: "Area: Build"
   description: "Includes dependencies"
   color: "#7bc86c"

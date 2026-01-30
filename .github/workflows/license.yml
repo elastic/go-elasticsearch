@@ -1,3 +1,4 @@
+---
 name: License headers
 
 on: [pull_request]
