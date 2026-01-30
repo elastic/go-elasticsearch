@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2154
 #
 # Launch one or more Elasticsearch nodes via the Docker image,
 # to form a cluster suitable for running the REST API tests.
@@ -22,20 +23,22 @@
 # - Use https only when TEST_SUITE is "platinum", when "free" use http
 # - Set xpack.security.enabled=false for "free" and xpack.security.enabled=true for "platinum"
 
-script_path=$(dirname $(realpath -s $0))
-source $script_path/functions/imports.sh
+script_path=$(dirname "$(realpath -s "$0")")
+# shellcheck source=.buildkite/functions/imports.sh
+source "$script_path"/functions/imports.sh
 set -euo pipefail
 
 echo -e "\033[34;1mINFO:\033[0m Take down node if called twice with the same arguments (DETACH=true) or on seperate terminals \033[0m"
-cleanup_node $es_node_name
+cleanup_node "$es_node_name"
 
 master_node_name=${es_node_name}
-cluster_name=${moniker}${suffix}
+cluster_name="${moniker}${suffix}"
 
 # Set vm.max_map_count kernel setting to 262144
 sudo sysctl -w vm.max_map_count=262144
 
 declare -a volumes
+# shellcheck disable=SC2207
 environment=($(cat <<-END
   --env ELASTIC_PASSWORD=$elastic_password
   --env node.name=$es_node_name
@@ -53,6 +56,7 @@ environment=($(cat <<-END
 END
 ))
 if [[ "$TEST_SUITE" == "platinum" ]]; then
+  # shellcheck disable=SC2207
   environment+=($(cat <<-END
     --env xpack.security.enabled=true
     --env xpack.license.self_generated.type=trial
@@ -68,13 +72,15 @@ if [[ "$TEST_SUITE" == "platinum" ]]; then
     --env xpack.security.transport.ssl.certificate_authorities=certs/ca.crt
 END
 ))
+  # shellcheck disable=SC2207
   volumes+=($(cat <<-END
-    --volume $ssl_cert:/usr/share/elasticsearch/config/certs/testnode.crt
-    --volume $ssl_key:/usr/share/elasticsearch/config/certs/testnode.key
-    --volume $ssl_ca:/usr/share/elasticsearch/config/certs/ca.crt
+    --volume "$ssl_cert":/usr/share/elasticsearch/config/certs/testnode.crt
+    --volume "$ssl_key":/usr/share/elasticsearch/config/certs/testnode.key
+    --volume "$ssl_ca":/usr/share/elasticsearch/config/certs/ca.crt
 END
 ))
 else
+  # shellcheck disable=SC2207
   environment+=($(cat <<-END
     --env node.roles=data,data_cold,data_content,data_frozen,data_hot,data_warm,ingest,master,ml,remote_cluster_client,transform
     --env xpack.security.enabled=false
@@ -108,18 +114,20 @@ done
 
 NUMBER_OF_NODES=${NUMBER_OF_NODES-1}
 http_port=9200
-for (( i=0; i<$NUMBER_OF_NODES; i++, http_port++ )); do
+for (( i=0; i<NUMBER_OF_NODES; i++, http_port++ )); do
   node_name=${es_node_name}$i
   node_url=${external_elasticsearch_url/9200/${http_port}}$i
   if [[ "$i" == "0" ]]; then node_name=$es_node_name; fi
+  # shellcheck disable=SC2207
   environment+=($(cat <<-END
     --env node.name=$node_name
 END
 ))
   echo "$i: $http_port $node_url "
   volume_name=${node_name}-${suffix}-data
+  # shellcheck disable=SC2207
   volumes+=($(cat <<-END
-    --volume $volume_name:/usr/share/elasticsearch/data${i}
+    --volume "$volume_name":/usr/share/elasticsearch/data${i}
 END
 ))
 

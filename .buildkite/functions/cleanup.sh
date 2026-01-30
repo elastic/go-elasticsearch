@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2154
 #
 # Shared cleanup routines between different steps
 #
@@ -8,13 +9,13 @@
 # - Initial version after refactor
 
 function cleanup_volume {
-  if [[ "$(docker volume ls -q -f name=$1)" ]]; then
+  if [[ "$(docker volume ls -q -f name="$1")" ]]; then
     echo -e "\033[34;1mINFO:\033[0m Removing volume $1\033[0m"
     (docker volume rm "$1") || true
   fi
 }
 function container_running {
-  if [[ "$(docker ps -q -f name=$1)" ]]; then
+  if [[ "$(docker ps -q -f name="$1")" ]]; then
     return 0;
     else return 1;
   fi
@@ -30,7 +31,7 @@ function cleanup_node {
   fi
 }
 function cleanup_network {
-  if [[ "$(docker network ls -q -f name=$1)" ]]; then
+  if [[ "$(docker network ls -q -f name="$1")" ]]; then
     echo -e "\033[34;1mINFO:\033[0m Removing network $1\033[0m"
     (docker network rm "$1") || true
   fi
@@ -58,10 +59,10 @@ function cleanup_all_in_network {
     echo -e "\033[34;1mINFO:\033[0m $1 is already deleted\033[0m"
     return 0
   fi
-  containers=$(docker network inspect -f '{{ range $key, $value := .Containers }}{{ printf "%s\n" .Name}}{{ end }}' $1)
+  containers=$(docker network inspect -f '{{ range $key, $value := .Containers }}{{ printf "%s\n" .Name}}{{ end }}' "$1")
   while read -r container; do
     cleanup_node "$container"
   done <<< "$containers"
-  cleanup_network $1
+  cleanup_network "$1"
   echo -e "\033[32;1mSUCCESS:\033[0m Cleaned up and exiting\033[0m"
 };

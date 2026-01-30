@@ -17,7 +17,7 @@ require_stack_version
 
 # Ensure script_path is always set when this file is sourced.
 # Callers typically set it, but we defensively default it here to avoid writing certs under /certs.
-export script_path=${script_path:-$(dirname $(realpath -s $0))}
+export script_path=${script_path:-$(dirname "$(realpath -s "$0")")}
 
 function ensure_tls_certs() {
   # Generates/refreshes a local CA + node certificate for the platinum TLS cluster.
@@ -109,7 +109,8 @@ if [[ -z $es_node_name ]]; then
   export elasticsearch_container="${elasticsearch_image}:${STACK_VERSION}"
 
   export suffix=rest-test
-  export moniker=$(echo "$elasticsearch_container" | tr -C "[:alnum:]" '-')
+  moniker=$(echo "$elasticsearch_container" | tr -C "[:alnum:]" '-')
+  export moniker
   export network_name=${moniker}${suffix}
 
   export ssl_cert="${script_path}/certs/testnode.crt"
@@ -122,13 +123,15 @@ fi
 if [[ "${TEST_SUITE}" == "platinum" ]]; then
   ensure_tls_certs
 fi
-source $script_path/functions/cleanup.sh
-source $script_path/functions/wait-for-container.sh
-trap "cleanup_trap ${network_name}" EXIT
+# shellcheck source=cleanup.sh
+source "$script_path"/functions/cleanup.sh
+# shellcheck source=wait-for-container.sh
+source "$script_path"/functions/wait-for-container.sh
+trap 'cleanup_trap ${network_name}' EXIT
 
 
 if [[ "$CLEANUP" == "true" ]]; then
-  cleanup_all_in_network $network_name
+  cleanup_all_in_network "$network_name"
   exit 0
 fi
 
