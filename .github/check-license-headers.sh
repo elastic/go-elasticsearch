@@ -8,8 +8,8 @@
 # header.
 
 if [ "$TRACE" != "" ]; then
-    export PS4='${BASH_SOURCE}:${LINENO}: ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
-    set -o xtrace
+	export PS4='${BASH_SOURCE}:${LINENO}: ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+	set -o xtrace
 fi
 set -o errexit
 set -o pipefail
@@ -18,27 +18,26 @@ TOP=$(cd "$(dirname "$0")/.." >/dev/null && pwd)
 NLINES=$(wc -l .github/license-header.txt | awk '{print $1}')
 
 function check_license_header {
-    local f
-    f=$1
-    if ! diff .github/license-header.txt <(head -"$NLINES" "$f") >/dev/null; then
-        echo "check-license-headers: error: '$f' does not have required license header, see 'diff -u .github/license-header.txt <(head -$NLINES $f)'"
-        return 1
-    else
-        return 0
-    fi
+	local f
+	f=$1
+	if ! diff .github/license-header.txt <(head -"$NLINES" "$f") >/dev/null; then
+		echo "check-license-headers: error: '$f' does not have required license header, see 'diff -u .github/license-header.txt <(head -$NLINES $f)'"
+		return 1
+	else
+		return 0
+	fi
 }
-
 
 cd "$TOP"
 nErrors=0
 for f in $(git ls-files | grep '\.go$'); do
-    if ! check_license_header "$f"; then
-        nErrors=$((nErrors+1))
-    fi
+	if ! check_license_header "$f"; then
+		nErrors=$((nErrors + 1))
+	fi
 done
 
 if [[ $nErrors -eq 0 ]]; then
-    exit 0
+	exit 0
 else
-    exit 1
+	exit 1
 fi

@@ -69,6 +69,7 @@ jobs:
 
       - name: Wait for Elasticsearch and get build info
         run: |
+          # shellcheck disable=SC2086
           # Wait for Elasticsearch to be ready
           for i in {1..60}; do
             if curl -sSk --fail ${{ env.ELASTICSEARCH_URL }}/_cluster/health?pretty; then

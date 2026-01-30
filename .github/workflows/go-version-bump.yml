@@ -27,6 +27,7 @@ jobs:
         id: go-versions
         shell: bash
         run: |
+          # shellcheck disable=SC2034,SC2129
           set -euo pipefail
 
           latest_two=$(curl -s https://go.dev/dl/?mode=json | jq -r '

@@ -34,7 +34,7 @@ jobs:
         with: { go-version: "${{ matrix.go }}" }
       - run: go version
       - run: make test-unit race=true
-      - uses: codecov/codecov-action@v1
+      - uses: codecov/codecov-action@v1  # nolint:action
         with:
           file: tmp/unit.cov
           flags: unit

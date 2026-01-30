@@ -13,12 +13,12 @@ echo -e "\033[1m>>>>> Start [$STACK_VERSION container] >>>>>>>>>>>>>>>>>>>>>>>>>
 DETACH=true bash .buildkite/run-elasticsearch.sh
 
 if [[ -n "$RUNSCRIPTS" ]]; then
-  for RUNSCRIPT in ${RUNSCRIPTS//,/ } ; do
-    echo -e "\033[1m>>>>> Running run-$RUNSCRIPT.sh >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
-    CONTAINER_NAME=${RUNSCRIPT} \
-      DETACH=true \
-      bash ".buildkite/run-${RUNSCRIPT}.sh"
-  done
+	for RUNSCRIPT in ${RUNSCRIPTS//,/ }; do
+		echo -e "\033[1m>>>>> Running run-$RUNSCRIPT.sh >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"
+		CONTAINER_NAME=${RUNSCRIPT} \
+			DETACH=true \
+			bash ".buildkite/run-${RUNSCRIPT}.sh"
+	done
 fi
 
 echo -e "\033[1m>>>>> Repository specific tests >>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[0m"

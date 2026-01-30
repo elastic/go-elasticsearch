@@ -15,6 +15,7 @@ jobs:
       # https://github.com/actions/setup-go/issues/21#issuecomment-565741980
       - name: Install Go HEAD
         run: |
+          # shellcheck disable=SC2006,SC2046,SC2086,SC2155
           export GOROOT_BOOTSTRAP=`go env GOROOT`
           export GOROOT_FINAL=/go
           export GOROOT=$HOME/gotip
