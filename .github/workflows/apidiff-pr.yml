@@ -9,7 +9,7 @@ permissions:
   pull-requests: write
 
 env:
-  APIDIFF_FALLBACK_TAG: v9.2.1
+  APIDIFF_FALLBACK_TAG: v8.19.1
 
 jobs:
   apidiff:
@@ -42,13 +42,21 @@ jobs:
           PY
           )
           tag="v${version}"
+          echo "Parsed version: ${version}"
+          echo "Looking for tag: ${tag}"
           fallback="${APIDIFF_FALLBACK_TAG:-}"
           if ! git rev-parse --verify --quiet "${tag}" >/dev/null; then
+            echo "Tag ${tag} not found, checking available tags..."
+            git tag -l "v8.*" | tail -5
+            git tag -l "v9.*" | tail -5
             if [ -z "${fallback}" ]; then
               echo "Tag ${tag} not found and no fallback provided." >&2
               exit 1
             fi
+            echo "Using fallback tag: ${fallback}"
             tag="${fallback}"
+          else
+            echo "Found tag: ${tag}"
           fi
           echo "target_tag=${tag}" >> "${GITHUB_OUTPUT}"
 
