@@ -29,17 +29,20 @@ jobs:
 
       - name: Run apidiff against release tag
         id: apidiff
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
         run: |
           set -euo pipefail
 
-          version=$(python - <<'PY'
-          import json
-          with open(".github/.release-please-manifest.json", "r", encoding="utf-8") as f:
-              data = json.load(f)
-          print(data["."])
-          PY
-          )
+          git fetch --tags --force
+          git fetch origin "${BASE_REF}"
+
+          # Read manifest from base branch (before PR changes) to get the current released version
+          version=$(git show "origin/${BASE_REF}:.github/.release-please-manifest.json" | python -c "import json,sys; print(json.load(sys.stdin)['.'])")
           tag="v${version}"
+          echo "Base branch: ${BASE_REF}"
+          echo "Parsed version from base: ${version}"
+          echo "Looking for tag: ${tag}"
           fallback="${APIDIFF_FALLBACK_TAG:-}"
           if ! git rev-parse --verify --quiet "${tag}" >/dev/null; then
             if [ -z "${fallback}" ]; then
@@ -57,7 +60,6 @@ jobs:
 
           module_path=$(awk '/^module /{print $2}' go.mod)
 
-          git fetch --tags --force
           git worktree add "${old_dir}" "${tag}"
 
           make_comment() {
