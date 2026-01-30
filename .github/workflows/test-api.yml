@@ -67,6 +67,29 @@ jobs:
           docker pull --quiet docker.elastic.co/elasticsearch/elasticsearch:${{ env.STACK_VERSION }}
           make cluster-clean cluster-update cluster flavor=platinum detach=true version="elasticsearch:${{ env.STACK_VERSION }}"
 
+      - name: Wait for Elasticsearch and get build info
+        run: |
+          # Wait for Elasticsearch to be ready
+          for i in {1..60}; do
+            if curl -sSk --fail ${{ env.ELASTICSEARCH_URL }}/_cluster/health?pretty; then
+              break
+            fi
+            echo "Waiting for Elasticsearch... ($i/60)"
+            sleep 5
+          done
+          # Get build info from running cluster
+          curl -sSk ${{ env.ELASTICSEARCH_URL }} | jq .
+          BUILD_HASH=$(curl -sSk ${{ env.ELASTICSEARCH_URL }} | jq -r '.version.build_hash')
+          if [ -z "$BUILD_HASH" ] || [ "$BUILD_HASH" = "null" ]; then
+            echo "ERROR: Failed to get build hash from Elasticsearch"
+            exit 1
+          fi
+          echo "ELASTICSEARCH_BUILD_HASH=$BUILD_HASH" >> $GITHUB_ENV
+          echo "Build hash: $BUILD_HASH"
+
+      - name: Download specification
+        run: make download-specs
+
       - name: Generate tests from elasticsearch-clients-tests
         run: make gen-tests
 
