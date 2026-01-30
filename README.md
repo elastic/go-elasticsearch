@@ -7,7 +7,7 @@ or
 **[sign-up](https://cloud.elastic.co/registration?elektra=en-ess-sign-up-page)**
 **for a free trial of Elastic Cloud**.
 
-[![Go Reference](https://pkg.go.dev/github.com/elastic/go-elasticsearch?status.svg)](https://pkg.go.dev/github.com/elastic/go-elasticsearch/v9)
+[![Go Reference](https://pkg.go.dev/badge/github.com/elastic/go-elasticsearch/v9.svg)](https://pkg.go.dev/github.com/elastic/go-elasticsearch/v9)
 [![Go Report Card](https://goreportcard.com/badge/github.com/elastic/go-elasticsearch)](https://goreportcard.com/report/github.com/elastic/go-elasticsearch)
 [![codecov.io](https://codecov.io/github/elastic/go-elasticsearch/coverage.svg?branch=main)](https://codecov.io/gh/elastic/go-elasticsearch?branch=main)
 [![Build](https://github.com/elastic/go-elasticsearch/workflows/Build/badge.svg)](https://github.com/elastic/go-elasticsearch/actions?query=branch%3Amain)
