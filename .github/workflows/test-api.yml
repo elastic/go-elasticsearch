@@ -71,14 +71,21 @@ jobs:
         run: |
           # Wait for Elasticsearch to be ready
           for i in {1..60}; do
-            if curl -sSk ${{ env.ELASTICSEARCH_URL }}/_cluster/health?pretty; then
+            if curl -sSk --fail ${{ env.ELASTICSEARCH_URL }}/_cluster/health?pretty; then
               break
             fi
             echo "Waiting for Elasticsearch... ($i/60)"
             sleep 5
           done
-          # Get build hash from running cluster
-          echo "ELASTICSEARCH_BUILD_HASH=$(curl -sSk ${{ env.ELASTICSEARCH_URL }} | jq -r '.version.build_hash')" >> $GITHUB_ENV
+          # Get build info from running cluster
+          curl -sSk ${{ env.ELASTICSEARCH_URL }} | jq .
+          BUILD_HASH=$(curl -sSk ${{ env.ELASTICSEARCH_URL }} | jq -r '.version.build_hash')
+          if [ -z "$BUILD_HASH" ] || [ "$BUILD_HASH" = "null" ]; then
+            echo "ERROR: Failed to get build hash from Elasticsearch"
+            exit 1
+          fi
+          echo "ELASTICSEARCH_BUILD_HASH=$BUILD_HASH" >> $GITHUB_ENV
+          echo "Build hash: $BUILD_HASH"
 
       - name: Download specification
         run: make download-specs
