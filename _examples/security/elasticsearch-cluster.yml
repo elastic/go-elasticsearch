@@ -38,7 +38,8 @@ services:
       test: curl --cacert /usr/share/elasticsearch/config/certificates/ca/ca.crt --max-time 120 --retry 120 --retry-delay 1 --show-error --silent https://elastic:${ELASTIC_PASSWORD}@localhost:9200
 
 networks:
-  elasticstack: { labels: { elasticstack.description: "Network for the Elastic Stack" }}
+  elasticstack:
+    { labels: { elasticstack.description: "Network for the Elastic Stack" } }
 
 volumes:
-  es-data: { labels: { elasticstack.description: "Elasticsearch data" }}
+  es-data: { labels: { elasticstack.description: "Elasticsearch data" } }

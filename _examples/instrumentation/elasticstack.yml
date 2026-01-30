@@ -1,14 +1,14 @@
 # docker-compose --file elasticstack.yml up --build
 # docker-compose --file elasticstack.yml down --volumes --remove-orphans
 
-version: '3.2'
+version: "3.2"
 
 services:
   # --- Application -----------------------------------------------------------
   application:
     container_name: application
     build: .
-    networks: ['elasticstack']
+    networks: ["elasticstack"]
     depends_on:
       - elasticsearch
       - kibana
@@ -20,7 +20,7 @@ services:
     container_name: elasticsearch
     volumes:
       - es_data:/usr/share/elasticsearch/data:delegated
-    networks: ['elasticstack']
+    networks: ["elasticstack"]
     environment:
       - "cluster.name=go-elasticsearch-instrumentation"
       - "cluster.routing.allocation.disk.threshold_enabled=false"
@@ -41,12 +41,12 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:${VERSION:-7.0.0}
     container_name: kibana
-    networks: ['elasticstack']
+    networks: ["elasticstack"]
     environment:
       - "ELASTICSEARCH_URL=http://elasticsearch:9200"
     ports:
       - "5601:5601"
-    depends_on: ['elasticsearch']
+    depends_on: ["elasticsearch"]
     healthcheck:
       test: curl --max-time 60 --retry 60 --retry-delay 1 --retry-connrefused --show-error --silent http://localhost:5601
 
@@ -54,14 +54,14 @@ services:
   apm-server:
     image: docker.elastic.co/apm/apm-server:${VERSION:-7.0.0}
     container_name: apm_server
-    networks: ['elasticstack']
+    networks: ["elasticstack"]
     command: >
       ./apm-server run -e \
         -E output.elasticsearch.hosts=http://elasticsearch:9200 \
         -E setup.kibana.host=http://kibana:5601
     expose:
       - "8200"
-    depends_on: ['elasticsearch', 'kibana']
+    depends_on: ["elasticsearch", "kibana"]
     healthcheck:
       test: curl --max-time 60 --retry 60 --retry-delay 1 --retry-connrefused --show-error --silent http://localhost:8200/healthcheck
 

@@ -3,7 +3,7 @@ name: API
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: "0 2 * * *"
 
 env:
   GITHUB_ACTIONS: true
@@ -21,7 +21,7 @@ jobs:
         with: { fetch-depth: 1 }
 
       - uses: actions/setup-go@v5
-        with: { go-version: '1.x' }
+        with: { go-version: "1.x" }
 
       - run: go version
 

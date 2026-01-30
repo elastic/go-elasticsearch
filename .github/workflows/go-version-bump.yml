@@ -2,7 +2,7 @@ name: Bump Go Version
 
 on:
   schedule:
-    - cron: '0 2 * * 1'
+    - cron: "0 2 * * 1"
   workflow_dispatch:
 
 permissions:
@@ -153,4 +153,3 @@ jobs:
             | Module | From | To |
             | --- | --- | --- |
             ${{ steps.go-versions.outputs.updated_modules }}
-

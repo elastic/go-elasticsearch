@@ -2,11 +2,9 @@
 setup:
   - do: { info: {} }
   - do: { info: {} }
-
 ---
 teardown:
   - do: { info: {} }
-
 ---
 "First":
   - setup:
@@ -32,10 +30,11 @@ teardown:
   - match:
       $body: /.*elasticsearch.*/
 
+
 # Comment
 ---
 "Second":
-  - do: { info: { } }
+  - do: { info: {} }
   - do:
       cluster.health:
         level: "indices"

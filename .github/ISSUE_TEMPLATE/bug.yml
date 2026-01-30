@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         Thanks for reporting an issue! Please search existing issues before creating a new one.
-        
+
         Github is reserved for bug reports and feature requests. If you have a question or
         an unconfirmed bug, please visit the [forums](https://discuss.elastic.co/tag/language-clients).
 
@@ -77,11 +77,11 @@ body:
       placeholder: |
         ```go
         package main
-        
+
         import (
           "fmt"
         )
-        
+
         func main() {
           fmt.Println("Hello, world!")
         }
