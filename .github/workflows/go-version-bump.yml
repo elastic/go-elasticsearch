@@ -81,12 +81,14 @@ jobs:
             exit 0
           fi
 
-          echo "needs_update=true" >> "$GITHUB_OUTPUT"
-          echo "latest1=$latest1_minor" >> "$GITHUB_OUTPUT"
-          echo "latest2=$latest2_minor" >> "$GITHUB_OUTPUT"
-          echo "target_minor=$target_minor" >> "$GITHUB_OUTPUT"
-          echo "target_patch=$target_patch" >> "$GITHUB_OUTPUT"
-          echo "target=$target_patch" >> "$GITHUB_OUTPUT"
+          {
+            echo "needs_update=true"
+            echo "latest1=$latest1_minor"
+            echo "latest2=$latest2_minor"
+            echo "target_minor=$target_minor"
+            echo "target_patch=$target_patch"
+            echo "target=$target_patch"
+          } >> "$GITHUB_OUTPUT"
 
           {
             echo "updated_modules<<EOF"

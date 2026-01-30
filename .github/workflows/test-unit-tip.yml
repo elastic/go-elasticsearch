@@ -16,7 +16,8 @@ jobs:
       # https://github.com/actions/setup-go/issues/21#issuecomment-565741980
       - name: Install Go HEAD
         run: |
-          export GOROOT_BOOTSTRAP="$(go env GOROOT)"
+          GOROOT_BOOTSTRAP="$(go env GOROOT)"
+          export GOROOT_BOOTSTRAP
           export GOROOT_FINAL=/go
           export GOROOT="$HOME/gotip"
           mkdir "$HOME/gotip"
