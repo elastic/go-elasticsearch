@@ -33,6 +33,8 @@ jobs:
         run: |
           set -euo pipefail
 
+          git fetch --tags --force
+
           version=$(python - <<'PY'
           import json
           with open(".github/.release-please-manifest.json", "r", encoding="utf-8") as f:
@@ -58,7 +60,6 @@ jobs:
 
           module_path=$(awk '/^module /{print $2}' go.mod)
 
-          git fetch --tags --force
           git worktree add "${old_dir}" "${tag}"
 
           make_comment() {
