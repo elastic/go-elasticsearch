@@ -41,12 +41,11 @@ jobs:
         id: bump-version
         if: steps.release-please.outputs.release_created == 'true'
         run: |
-          # shellcheck disable=SC2086
-          NEXT_PATCH=$((${{ steps.release-please.outputs.patch }} + 1))
+          NEXT_PATCH=$(( ${{ steps.release-please.outputs.patch }} + 1 ))
           NEXT_VERSION="${{ steps.release-please.outputs.major }}.${{ steps.release-please.outputs.minor }}.${NEXT_PATCH}-SNAPSHOT"
           echo "Next version: $NEXT_VERSION"
           sed -i "s/const Version = \".*\"/const Version = \"$NEXT_VERSION\"/" internal/version/version.go
-          echo "next_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+          echo "next_version=$NEXT_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Create Version Bump Pull Request
         if: steps.release-please.outputs.release_created == 'true'

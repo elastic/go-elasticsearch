@@ -16,23 +16,22 @@ jobs:
       # https://github.com/actions/setup-go/issues/21#issuecomment-565741980
       - name: Install Go HEAD
         run: |
-          # shellcheck disable=SC2006,SC2046,SC2086,SC2155
-          export GOROOT_BOOTSTRAP=`go env GOROOT`
+          export GOROOT_BOOTSTRAP="$(go env GOROOT)"
           export GOROOT_FINAL=/go
-          export GOROOT=$HOME/gotip
-          mkdir $HOME/gotip
-          cd $HOME/gotip
+          export GOROOT="$HOME/gotip"
+          mkdir "$HOME/gotip"
+          cd "$HOME/gotip"
 
           curl -s 'https://go.googlesource.com/go/+/refs/heads/master?format=JSON' | awk '/"commit"/{print substr($2,2,40);exit}' >HEAD
           awk '{printf("gotip-%s",substr($0,0,7))}' <HEAD >VERSION
 
-          curl -s -o go.tar.gz https://go.googlesource.com/go/+archive/`cat HEAD`.tar.gz
+          curl -s -o go.tar.gz "https://go.googlesource.com/go/+archive/$(cat HEAD).tar.gz"
           tar xfz go.tar.gz
 
           cd src
           bash make.bash
-          echo "GOROOT=$GOROOT" >> $GITHUB_ENV
-          echo "$GOROOT/bin" >> $GITHUB_PATH
+          echo "GOROOT=$GOROOT" >> "$GITHUB_ENV"
+          echo "$GOROOT/bin" >> "$GITHUB_PATH"
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1

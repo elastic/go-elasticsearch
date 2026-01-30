@@ -28,7 +28,6 @@ jobs:
         id: go-versions
         shell: bash
         run: |
-          # shellcheck disable=SC2034,SC2129
           set -euo pipefail
 
           latest_two=$(curl -s https://go.dev/dl/?mode=json | jq -r '
@@ -48,7 +47,6 @@ jobs:
           ')
 
           latest1_minor=$(echo "$latest_two" | awk 'NR==1{print $1}')
-          latest1_patch=$(echo "$latest_two" | awk 'NR==1{print $2}')
           latest2_minor=$(echo "$latest_two" | awk 'NR==2{print $1}')
           latest2_patch=$(echo "$latest_two" | awk 'NR==2{print $2}')
           target_minor=$latest2_minor
