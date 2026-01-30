@@ -88,9 +88,6 @@ jobs:
             echo "target_minor=$target_minor"
             echo "target_patch=$target_patch"
             echo "target=$target_patch"
-          } >> "$GITHUB_OUTPUT"
-
-          {
             echo "updated_modules<<EOF"
             for entry in "${updates[@]}"; do
               file="${entry%%:*}"
@@ -100,9 +97,6 @@ jobs:
               echo "| \`${file}\` | ${from} | ${to} |"
             done
             echo "EOF"
-          } >> "$GITHUB_OUTPUT"
-
-          {
             echo "updated_files<<EOF"
             for entry in "${updated_files[@]}"; do
               echo "$entry"
