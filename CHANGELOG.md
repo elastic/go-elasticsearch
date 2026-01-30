@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.19.2](https://github.com/elastic/go-elasticsearch/compare/v8.19.1...v8.19.2) (2026-01-30)
+
+
+### Bug Fixes
+
+* **esutil:** Handle error from Seek in BulkIndexer.writeBody ([#1160](https://github.com/elastic/go-elasticsearch/issues/1160)) ([cf53b87](https://github.com/elastic/go-elasticsearch/commit/cf53b871a28d808ed8b0da82e6d5cc9d3b0218c8))
+
 ## [8.19.1](https://github.com/elastic/go-elasticsearch/compare/v8.19.0...v8.19.1) (2025-12-12)
 
 
