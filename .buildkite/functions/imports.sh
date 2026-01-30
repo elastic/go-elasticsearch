@@ -123,9 +123,9 @@ fi
 if [[ "${TEST_SUITE}" == "platinum" ]]; then
   ensure_tls_certs
 fi
-# shellcheck source=cleanup.sh
+# shellcheck source=.buildkite/functions/cleanup.sh
 source "$script_path"/functions/cleanup.sh
-# shellcheck source=wait-for-container.sh
+# shellcheck source=.buildkite/functions/wait-for-container.sh
 source "$script_path"/functions/wait-for-container.sh
 trap 'cleanup_trap ${network_name}' EXIT
 

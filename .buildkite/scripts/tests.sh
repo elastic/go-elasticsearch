@@ -29,7 +29,7 @@ go mod tidy
 
 printf "\033[34;1mINFO:\033[0m Running the tests\033[0m\n"
 
-gotestsum --format=short-verbose --junitfile=$WORKSPACE/TEST-integration-api-junit.xml -- -tags=integration -timeout=1h ./...
+gotestsum --format=short-verbose --junitfile="$WORKSPACE"/TEST-integration-api-junit.xml -- -tags=integration -timeout=1h ./...
 status=$?
 
 exit $status

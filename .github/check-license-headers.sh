@@ -20,7 +20,7 @@ NLINES=$(wc -l .github/license-header.txt | awk '{print $1}')
 function check_license_header {
     local f
     f=$1
-    if ! diff .github/license-header.txt <(head -$NLINES "$f") >/dev/null; then
+    if ! diff .github/license-header.txt <(head -"$NLINES" "$f") >/dev/null; then
         echo "check-license-headers: error: '$f' does not have required license header, see 'diff -u .github/license-header.txt <(head -$NLINES $f)'"
         return 1
     else
@@ -32,7 +32,7 @@ function check_license_header {
 cd "$TOP"
 nErrors=0
 for f in $(git ls-files | grep '\.go$'); do
-    if ! check_license_header $f; then
+    if ! check_license_header "$f"; then
         nErrors=$((nErrors+1))
     fi
 done
