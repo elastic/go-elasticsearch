@@ -324,9 +324,9 @@ ifeq ($(flavor), platinum)
 	$(eval xpack_env += --env "xpack.security.transport.ssl.key=certs/testnode.key")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate=certs/testnode.crt")
 	$(eval xpack_env += --env "xpack.security.transport.ssl.certificate_authorities=certs/ca.crt")
-	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/testnode.crt:/usr/share/elasticsearch/config/certs/testnode.crt")
-	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/testnode.key:/usr/share/elasticsearch/config/certs/testnode.key")
-	$(eval xpack_volumes += --volume "$(PWD)/.ci/certs/ca.crt:/usr/share/elasticsearch/config/certs/ca.crt")
+	$(eval xpack_volumes += --volume "$(PWD)/.buildkite/certs/testnode.crt:/usr/share/elasticsearch/config/certs/testnode.crt")
+	$(eval xpack_volumes += --volume "$(PWD)/.buildkite/certs/testnode.key:/usr/share/elasticsearch/config/certs/testnode.key")
+	$(eval xpack_volumes += --volume "$(PWD)/.buildkite/certs/ca.crt:/usr/share/elasticsearch/config/certs/ca.crt")
 endif
 	@docker network inspect elasticsearch > /dev/null 2>&1 || docker network create elasticsearch;
 	@{ \
@@ -390,7 +390,7 @@ cluster-clean: ## Remove unused Docker volumes and networks
 	docker network prune --force
 
 docker: ## Build the Docker image and run it
-	docker build --file .ci/Dockerfile --tag elastic/go-elasticsearch .
+	docker build --file .buildkite/Dockerfile --tag elastic/go-elasticsearch .
 	docker run -it --network elasticsearch --volume $(PWD)/tmp:/tmp:rw,delegated --rm elastic/go-elasticsearch
 
 ##@ Generator

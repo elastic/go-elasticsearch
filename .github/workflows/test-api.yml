@@ -1,6 +1,7 @@
 name: API
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 2 * * *'
 
@@ -8,67 +9,71 @@ env:
   GITHUB_ACTIONS: true
 
 jobs:
-  test-free:
-    name: Free
+  test-api:
+    name: API Tests (Platinum)
     env:
-      ELASTICSEARCH_VERSION: elasticsearch:9.4.0-SNAPSHOT
-      ELASTICSEARCH_URL: http://localhost:9200
+      STACK_VERSION: 9.4.0-SNAPSHOT
+      ELASTICSEARCH_URL: https://elastic:elastic@localhost:9200
+      ELASTICSEARCH_CLIENTS_TESTS_BRANCH: main
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with: { fetch-depth: 1 }
-      - uses: actions/setup-go@v2.1.3
+
+      - uses: actions/setup-go@v5
         with: { go-version: '1.x' }
+
       - run: go version
+
+      - name: Install gotestsum
+        run: go install gotest.tools/gotestsum@latest
+
       - name: Increase system limits
         run: |
           sudo swapoff -a
           sudo sysctl -w vm.swappiness=1
           sudo sysctl -w fs.file-max=262144
           sudo sysctl -w vm.max_map_count=262144
+
+      - name: Generate TLS certificates
+        run: |
+          mkdir -p .buildkite/certs
+          # Generate CA
+          openssl genrsa -out .buildkite/certs/ca.key 2048
+          openssl req -x509 -new -sha256 -days 3650 \
+            -key .buildkite/certs/ca.key \
+            -subj "/CN=go-elasticsearch-ci-ca" \
+            -out .buildkite/certs/ca.crt
+          # Generate node certificate
+          openssl genrsa -out .buildkite/certs/testnode.key 2048
+          openssl req -new -sha256 \
+            -key .buildkite/certs/testnode.key \
+            -subj "/CN=es1" \
+            -out .buildkite/certs/testnode.csr
+          cat > .buildkite/certs/testnode.ext <<EOF
+          subjectAltName=DNS:es1,DNS:localhost,IP:127.0.0.1
+          extendedKeyUsage=serverAuth
+          keyUsage=digitalSignature,keyEncipherment
+          EOF
+          openssl x509 -req -sha256 -days 3650 \
+            -in .buildkite/certs/testnode.csr \
+            -CA .buildkite/certs/ca.crt -CAkey .buildkite/certs/ca.key -CAcreateserial \
+            -out .buildkite/certs/testnode.crt \
+            -extfile .buildkite/certs/testnode.ext
+          chmod 644 .buildkite/certs/ca.crt .buildkite/certs/testnode.crt .buildkite/certs/testnode.key
+
       - name: Launch Elasticsearch
         run: |
-          docker pull --quiet docker.elastic.co/elasticsearch/${{ env.ELASTICSEARCH_VERSION }}
-          docker pull --quiet appropriate/curl
-          make cluster-clean cluster-update cluster detach=true version="${{ env.ELASTICSEARCH_VERSION }}"
-      - name: Download Elasticsearch source
-        run: |
-          curl -s ${{ env.ELASTICSEARCH_URL }} | jq -r '.version.build_hash' > elasticsearch_build_hash && cat elasticsearch_build_hash
-          curl -sSL --retry 3 -o elasticsearch-$(cat elasticsearch_build_hash).zip https://github.com/elastic/elasticsearch/archive/$(cat elasticsearch_build_hash).zip && \
-            unzip -q -o elasticsearch-$(cat elasticsearch_build_hash).zip '*.properties' '*.json' '*.yml' -d tmp && \
-            mv tmp/elasticsearch-$(cat elasticsearch_build_hash)* tmp/elasticsearch
-      - run: ELASTICSEARCH_BUILD_HASH=$(cat elasticsearch_build_hash) make gen-tests
-      - run: make test-api
+          docker pull --quiet docker.elastic.co/elasticsearch/elasticsearch:${{ env.STACK_VERSION }}
+          make cluster-clean cluster-update cluster flavor=platinum detach=true version="elasticsearch:${{ env.STACK_VERSION }}"
 
-  test-platinum:
-      name: Platinum
-      env:
-        ELASTICSEARCH_VERSION: elasticsearch:9.1.0-SNAPSHOT
-        ELASTICSEARCH_URL: https://elastic:elastic@localhost:9200
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-          with: { fetch-depth: 1 }
-        - uses: actions/setup-go@v2.1.3
-          with: { go-version: '1.x' }
-        - run: go version
-        - name: Increase system limits
-          run: |
-            sudo swapoff -a
-            sudo sysctl -w vm.swappiness=1
-            sudo sysctl -w fs.file-max=262144
-            sudo sysctl -w vm.max_map_count=262144
-        - name: Launch Elasticsearch
-          run: |
-            docker pull --quiet docker.elastic.co/elasticsearch/${{ env.ELASTICSEARCH_VERSION }}
-            docker pull --quiet appropriate/curl
-            make cluster-clean cluster-update cluster flavor=platinum detach=true version="${{ env.ELASTICSEARCH_VERSION }}"
-        - name: Download Elasticsearch source
-          run: |
-            curl -sSk ${{ env.ELASTICSEARCH_URL }}
-            curl -sSk ${{ env.ELASTICSEARCH_URL }} | jq -r '.version.build_hash' > elasticsearch_build_hash && cat elasticsearch_build_hash && \
-            curl -sSL --retry 3 -o elasticsearch-$(cat elasticsearch_build_hash).zip https://github.com/elastic/elasticsearch/archive/$(cat elasticsearch_build_hash).zip && \
-              unzip -q -o elasticsearch-$(cat elasticsearch_build_hash).zip '*.properties' '*.json' '*.yml' -d tmp && \
-              mv tmp/elasticsearch-$(cat elasticsearch_build_hash)* tmp/elasticsearch
-        - run: ELASTICSEARCH_BUILD_HASH=$(cat elasticsearch_build_hash) make gen-tests
-        - run: make test-api flavor=xpack
+      - name: Generate tests from elasticsearch-clients-tests
+        run: make gen-tests
+
+      - name: Run API tests
+        env:
+          ELASTICSEARCH_CA_CERT: ${{ github.workspace }}/.buildkite/certs/ca.crt
+        run: |
+          cd esapi/test
+          go mod tidy
+          gotestsum --format=short-verbose -- -tags=integration -timeout=1h ./...
