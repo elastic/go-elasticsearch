@@ -22,7 +22,7 @@ package esapi
 
 import (
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 	"testing"
@@ -30,7 +30,7 @@ import (
 
 type errReader struct{}
 
-func (errReader) Read(p []byte) (n int, err error) { return 1, errors.New("MOCK ERROR") }
+func (errReader) Read(_ []byte) (n int, err error) { return 1, errors.New("MOCK ERROR") }
 
 func TestAPIResponse(t *testing.T) {
 	var (
@@ -41,7 +41,7 @@ func TestAPIResponse(t *testing.T) {
 	t.Run("String", func(t *testing.T) {
 		body = `{"foo":"bar"}`
 
-		res = &Response{StatusCode: 200, Body: ioutil.NopCloser(strings.NewReader(body))}
+		res = &Response{StatusCode: 200, Body: io.NopCloser(strings.NewReader(body))}
 
 		expected := `[200 OK]` + ` ` + body
 		if res.String() != expected {
@@ -66,7 +66,7 @@ func TestAPIResponse(t *testing.T) {
 	})
 
 	t.Run("String Error", func(t *testing.T) {
-		res = &Response{StatusCode: 200, Body: ioutil.NopCloser(errReader{})}
+		res = &Response{StatusCode: 200, Body: io.NopCloser(errReader{})}
 
 		if !strings.Contains(res.String(), `error reading response`) {
 			t.Errorf("Expected response string to contain 'error reading response', got: %s", res.String())

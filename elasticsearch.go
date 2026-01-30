@@ -191,7 +191,7 @@ func NewBaseClient(cfg Config) (*BaseClient, error) {
 	}
 
 	if cfg.DiscoverNodesOnStart {
-		go client.DiscoverNodes()
+		go func() { _ = client.DiscoverNodes() }()
 	}
 
 	return client, nil
@@ -238,7 +238,7 @@ func NewClient(cfg Config) (*Client, error) {
 	client.API = esapi.New(client)
 
 	if cfg.DiscoverNodesOnStart {
-		go client.DiscoverNodes()
+		go func() { _ = client.DiscoverNodes() }()
 	}
 
 	return client, nil
@@ -271,7 +271,7 @@ func NewTypedClient(cfg Config) (*TypedClient, error) {
 	client.MethodAPI = typedapi.NewMethodAPI(client)
 
 	if cfg.DiscoverNodesOnStart {
-		go client.DiscoverNodes()
+		go func() { _ = client.DiscoverNodes() }()
 	}
 
 	return client, nil
@@ -499,9 +499,8 @@ func (c *BaseClient) Close(ctx context.Context) error {
 		}
 
 		return nil
-	} else {
-		return ErrAlreadyClosed
 	}
+	return ErrAlreadyClosed
 }
 
 // addrsFromEnvironment returns a list of addresses by splitting

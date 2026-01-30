@@ -22,7 +22,7 @@ package elasticsearch_test
 
 import (
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -42,14 +42,14 @@ var defaultResponse = http.Response{
 		"Content-Type":      {"application/json"},
 		"X-Elastic-Product": {"Elasticsearch"},
 	}),
-	Body: ioutil.NopCloser(strings.NewReader(`{}`)),
+	Body: io.NopCloser(strings.NewReader(`{}`)),
 }
 
 type FakeTransport struct {
 	FakeResponse *http.Response
 }
 
-func (t *FakeTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+func (t *FakeTransport) RoundTrip(_ *http.Request) (*http.Response, error) {
 	return t.FakeResponse, nil
 }
 
@@ -254,12 +254,12 @@ func BenchmarkAllocsSearch(t *testing.B) {
 	t.Run("struct search", func(b *testing.B) {
 		c, err := elasticsearch.NewTypedClient(elasticsearch.Config{
 			Transport: &mockTransp{
-				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 						StatusCode: http.StatusOK,
 						Status:     "OK",
-						Body:       ioutil.NopCloser(strings.NewReader("{}")),
+						Body:       io.NopCloser(strings.NewReader("{}")),
 					}, nil
 				},
 			},
@@ -275,19 +275,22 @@ func BenchmarkAllocsSearch(t *testing.B) {
 			s.Query(&types.Query{
 				MatchAll: types.NewMatchAllQuery(),
 			})
-			s.Do(context.Background())
+			_, err := s.Do(context.Background())
+			if err != nil {
+				b.Fatalf("Unexpected error when getting a response: %s", err)
+			}
 		}
 	})
 
 	t.Run("esdsl search", func(b *testing.B) {
 		c, err := elasticsearch.NewTypedClient(elasticsearch.Config{
 			Transport: &mockTransp{
-				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 						StatusCode: http.StatusOK,
 						Status:     "OK",
-						Body:       ioutil.NopCloser(strings.NewReader("{}")),
+						Body:       io.NopCloser(strings.NewReader("{}")),
 					}, nil
 				},
 			},
@@ -301,7 +304,10 @@ func BenchmarkAllocsSearch(t *testing.B) {
 			s := c.Search()
 			s.Index("foo")
 			s.Query(esdsl.NewMatchAllQuery())
-			s.Do(context.Background())
+			_, err := s.Do(context.Background())
+			if err != nil {
+				b.Fatalf("Unexpected error when getting a response: %s", err)
+			}
 		}
 	})
 }
