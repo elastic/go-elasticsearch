@@ -1175,6 +1175,100 @@ func TestBulkIndexer(t *testing.T) {
 			t.Fatalf("Expected detection of oversize payload, got: \n%s", logbuf.String())
 		}
 	})
+
+	t.Run("FlushedBytes and FlushedMs", func(t *testing.T) {
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+				time.Sleep(10 * time.Millisecond) // Simulate some latency
+				return &http.Response{
+					StatusCode: http.StatusOK,
+					Status:     "200 OK",
+					Body:       io.NopCloser(strings.NewReader(`{"items":[{"index": {}}]}`)),
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				}, nil
+			},
+		}})
+
+		cfg := BulkIndexerConfig{
+			NumWorkers: 1,
+			Client:     es,
+		}
+
+		bi, _ := NewBulkIndexer(cfg)
+
+		err := bi.Add(context.Background(), BulkIndexerItem{
+			Action: "index",
+			Body:   strings.NewReader(`{"title":"foo"}`),
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if err := bi.Close(context.Background()); err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+
+		stats := bi.Stats()
+
+		if stats.NumFlushed != 1 {
+			t.Errorf("Unexpected NumFlushed: want=%d, got=%d", 1, stats.NumFlushed)
+		}
+
+		if stats.FlushedBytes == 0 {
+			t.Errorf("Expected FlushedBytes > 0, got=%d", stats.FlushedBytes)
+		}
+
+		if stats.FlushedMs == 0 {
+			t.Errorf("Expected FlushedMs > 0, got=%d", stats.FlushedMs)
+		}
+	})
+
+	t.Run("FlushedBytes and FlushedMs not recorded on error response", func(t *testing.T) {
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+				return &http.Response{
+					StatusCode: http.StatusInternalServerError,
+					Status:     "500 Internal Server Error",
+					Body:       io.NopCloser(strings.NewReader(`{"error":"something went wrong"}`)),
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				}, nil
+			},
+		}})
+
+		cfg := BulkIndexerConfig{
+			NumWorkers: 1,
+			Client:     es,
+			OnError:    func(_ context.Context, _ error) {}, // Suppress error logging
+		}
+
+		bi, _ := NewBulkIndexer(cfg)
+
+		err := bi.Add(context.Background(), BulkIndexerItem{
+			Action: "index",
+			Body:   strings.NewReader(`{"title":"foo"}`),
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		bi.Close(context.Background())
+
+		stats := bi.Stats()
+
+		// On error response, items should be marked as failed
+		if stats.NumFailed != 1 {
+			t.Errorf("Unexpected NumFailed: want=%d, got=%d", 1, stats.NumFailed)
+		}
+
+		// FlushedBytes and FlushedMs should NOT be recorded on error
+		if stats.FlushedBytes != 0 {
+			t.Errorf("Expected FlushedBytes == 0 on error, got=%d", stats.FlushedBytes)
+		}
+
+		if stats.FlushedMs != 0 {
+			t.Errorf("Expected FlushedMs == 0 on error, got=%d", stats.FlushedMs)
+		}
+	})
 }
 
 func TestBulkIndexerItem(t *testing.T) {
