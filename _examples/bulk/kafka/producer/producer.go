@@ -35,7 +35,6 @@ var (
 )
 
 func init() {
-	rand.Seed(time.Now().UnixNano())
 	kafka.DefaultClientID = "go-elasticsearch-kafka-demo"
 }
 
@@ -61,25 +60,21 @@ func (p *Producer) Run(ctx context.Context) error {
 		Brokers: []string{p.BrokerURL},
 		Topic:   p.TopicName,
 	})
+	defer p.writer.Close()
 
 	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
 
-	for {
-		select {
-		case t := <-ticker.C:
-			for i := 1; i <= p.MessageRate; i++ {
-				messages = append(messages, kafka.Message{Value: p.generateMessage(t)})
-			}
-			if err := p.writer.WriteMessages(ctx, messages...); err != nil {
-				messages = messages[:0]
-				return err
-			}
-			messages = messages[:0]
+	for t := range ticker.C {
+		for i := 1; i <= p.MessageRate; i++ {
+			messages = append(messages, kafka.Message{Value: p.generateMessage(t)})
 		}
+		if err := p.writer.WriteMessages(ctx, messages...); err != nil {
+			messages = messages[:0]
+			return err
+		}
+		messages = messages[:0]
 	}
-
-	p.writer.Close()
-	ticker.Stop()
 
 	return nil
 }
