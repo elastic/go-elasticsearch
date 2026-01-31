@@ -587,7 +587,7 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 	}
 	req.Header.Set(elasticsearch.HeaderClientMeta, "h=bp")
 
-	t := time.Now()
+	start := time.Now()
 	res, err := req.Do(ctx, w.bi.config.Client)
 	if err != nil {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
@@ -595,8 +595,6 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 		w.handleError(ctx, flushErr)
 		return flushErr
 	}
-	elapsed := time.Since(t)
-	atomic.AddUint64(&w.bi.stats.flushedMs, uint64(elapsed.Milliseconds()))
 
 	if res.Body != nil {
 		defer func() { _ = res.Body.Close() }()
@@ -655,6 +653,9 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 	}
 
 	atomic.AddUint64(&w.bi.stats.flushedBytes, uint64(bufLen))
+	if elapsed := time.Since(start).Milliseconds(); elapsed > 0 {
+		atomic.AddUint64(&w.bi.stats.flushedMs, uint64(elapsed)) //nolint:gosec // elapsed is guaranteed positive
+	}
 
 	return err
 }
