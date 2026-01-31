@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -36,16 +36,30 @@ func NewTrimProcessor() *_trimProcessor {
 
 }
 
-func (s *_trimProcessor) Description(description string) *_trimProcessor {
+func (s *_trimProcessor) Field(field string) *_trimProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_trimProcessor) Field(field string) *_trimProcessor {
+func (s *_trimProcessor) IgnoreMissing(ignoremissing bool) *_trimProcessor {
 
-	s.v.Field = field
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_trimProcessor) TargetField(field string) *_trimProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_trimProcessor) Description(description string) *_trimProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -64,13 +78,6 @@ func (s *_trimProcessor) IgnoreFailure(ignorefailure bool) *_trimProcessor {
 	return s
 }
 
-func (s *_trimProcessor) IgnoreMissing(ignoremissing bool) *_trimProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_trimProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_trimProcessor {
 
 	for _, v := range onfailures {
@@ -84,13 +91,6 @@ func (s *_trimProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 func (s *_trimProcessor) Tag(tag string) *_trimProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_trimProcessor) TargetField(field string) *_trimProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

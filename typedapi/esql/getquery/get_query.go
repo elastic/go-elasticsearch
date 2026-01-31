@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get a specific running ES|QL query information.
+//
 // Returns an object extended information about a running ES|QL query.
 package getquery
 
@@ -78,7 +79,10 @@ func NewGetQueryFunc(tp elastictransport.Interface) NewGetQuery {
 }
 
 // Get a specific running ES|QL query information.
+//
 // Returns an object extended information about a running ES|QL query.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-query
 func New(tp elastictransport.Interface) *GetQuery {
 	r := &GetQuery{
 		transport: tp,

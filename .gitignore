@@ -1,5 +1,8 @@
 tmp/
 *.test
 
+# Generated TLS certificates for CI
+.buildkite/certs/
+
 #jetBrains editors
 .idea

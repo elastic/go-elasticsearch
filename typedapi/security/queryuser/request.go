@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package queryuser
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package queryuser
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/query_user/SecurityQueryUserRequest.ts#L25-L91
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/security/query_user/SecurityQueryUserRequest.ts#L26-L94
 type Request struct {
-
 	// From The starting document offset.
 	// It must not be negative.
 	// By default, you cannot page through more than 10,000 hits using the `from`

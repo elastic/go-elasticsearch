@@ -55,8 +55,8 @@ func ExampleNewBulkIndexer() {
 	defer func() {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
-		if err := es.Close(ctx); err != nil {
-			log.Fatalf("Error closing the client: %s", err)
+		if closeErr := es.Close(ctx); closeErr != nil {
+			log.Fatalf("Error closing the client: %s", closeErr)
 		}
 	}()
 
@@ -69,7 +69,8 @@ func ExampleNewBulkIndexer() {
 		FlushBytes: 5e+6,   // The flush threshold in bytes (default: 5M)
 	})
 	if err != nil {
-		log.Fatalf("Error creating the indexer: %s", err)
+		log.Printf("Error creating the indexer: %s", err)
+		return
 	}
 
 	// Add an item to the indexer
@@ -88,7 +89,7 @@ func ExampleNewBulkIndexer() {
 
 			// OnSuccess is the optional callback for each successful operation
 			OnSuccess: func(
-				ctx context.Context,
+				_ context.Context,
 				item esutil.BulkIndexerItem,
 				res esutil.BulkIndexerResponseItem,
 			) {
@@ -97,8 +98,8 @@ func ExampleNewBulkIndexer() {
 
 			// OnFailure is the optional callback for each failed operation
 			OnFailure: func(
-				ctx context.Context,
-				item esutil.BulkIndexerItem,
+				_ context.Context,
+				_ esutil.BulkIndexerItem,
 				res esutil.BulkIndexerResponseItem, err error,
 			) {
 				if err != nil {
@@ -110,23 +111,26 @@ func ExampleNewBulkIndexer() {
 		},
 	)
 	if err != nil {
-		log.Fatalf("Unexpected error: %s", err)
+		log.Printf("Unexpected error: %s", err)
+		return
 	}
 
 	// Close the indexer channel and flush remaining items
 	//
 	if err := indexer.Close(context.Background()); err != nil {
-		log.Fatalf("Unexpected error: %s", err)
+		log.Printf("Unexpected error: %s", err)
+		return
 	}
 
 	// Report the indexer statistics
 	//
 	stats := indexer.Stats()
 	if stats.NumFailed > 0 {
-		log.Fatalf("Indexed [%d] documents with [%d] errors", stats.NumFlushed, stats.NumFailed)
-	} else {
-		log.Printf("Successfully indexed [%d] documents", stats.NumFlushed)
+		log.Printf("Indexed [%d] documents with [%d] errors", stats.NumFlushed, stats.NumFailed)
+		return
 	}
+
+	log.Printf("Successfully indexed [%d] documents", stats.NumFlushed)
 
 	// For optimal performance, consider using a third-party package for JSON decoding and HTTP transport.
 	//

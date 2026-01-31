@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Create or update a synonym rule.
+//
 // Create or update a synonym rule in a synonym set.
 //
 // If any of the synonym rules included is invalid, the API returns an error.
@@ -93,6 +94,7 @@ func NewPutSynonymRuleFunc(tp elastictransport.Interface) NewPutSynonymRule {
 }
 
 // Create or update a synonym rule.
+//
 // Create or update a synonym rule in a synonym set.
 //
 // If any of the synonym rules included is invalid, the API returns an error.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newCatMLDataFrameAnalyticsFunc(t Transport) CatMLDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatMLDataFrameAnalytics - Gets configuration and usage information about data frame analytics jobs.
+// CatMLDataFrameAnalytics - Get data frame analytics jobs
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-dfanalytics.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-data-frame-analytics.
 type CatMLDataFrameAnalytics func(o ...func(*CatMLDataFrameAnalyticsRequest)) (*Response, error)
 
 // CatMLDataFrameAnalyticsRequest configures the CatML Data Frame Analytics API request.

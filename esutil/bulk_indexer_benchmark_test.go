@@ -23,7 +23,7 @@ package esutil_test
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -54,8 +54,8 @@ var mockResponseBody = `{
 
 type mockTransp struct{}
 
-func (t *mockTransp) RoundTrip(req *http.Request) (*http.Response, error) {
-	return &http.Response{Body: ioutil.NopCloser(strings.NewReader(mockResponseBody))}, nil // 1x alloc
+func (t *mockTransp) RoundTrip(_ *http.Request) (*http.Response, error) {
+	return &http.Response{Body: io.NopCloser(strings.NewReader(mockResponseBody))}, nil // 1x alloc
 }
 
 func BenchmarkBulkIndexer(b *testing.B) {
@@ -64,15 +64,21 @@ func BenchmarkBulkIndexer(b *testing.B) {
 	b.Run("Basic", func(b *testing.B) {
 		b.ResetTimer()
 
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransp{}})
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransp{}})
+		if err != nil {
+			b.Fatalf("Unexpected error: %s", err)
+		}
 		defer func() {
 			_ = es.Close(context.Background())
 		}()
-		bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+		bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 			Client:     es,
 			FlushBytes: 1024,
 		})
-		defer bi.Close(context.Background())
+		if err != nil {
+			b.Fatalf("Unexpected error: %s", err)
+		}
+		defer func() { _ = bi.Close(context.Background()) }()
 
 		docID := make([]byte, 0, 16)
 		var docIDBuf bytes.Buffer
@@ -81,7 +87,7 @@ func BenchmarkBulkIndexer(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			docID = strconv.AppendInt(docID, int64(i), 10)
 			docIDBuf.Write(docID)
-			bi.Add(context.Background(), esutil.BulkIndexerItem{
+			_ = bi.Add(context.Background(), esutil.BulkIndexerItem{
 				Action:     "index",
 				DocumentID: docIDBuf.String(),                  // 1x alloc
 				Body:       strings.NewReader(`{"foo":"bar"}`), // 1x alloc

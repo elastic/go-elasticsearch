@@ -40,7 +40,10 @@ func EsVersion(fpath string) (string, error) {
 // GitCommit returns the Git commit from environment variable or parsing information from fpath, or an error.
 func GitCommit(fpath string) (string, error) {
 	if esBuildHash := os.Getenv("ELASTICSEARCH_BUILD_HASH"); esBuildHash != "" {
-		return esBuildHash[:7], nil
+		if len(esBuildHash) >= 7 {
+			return esBuildHash[:7], nil
+		}
+		return esBuildHash, nil
 	}
 	return "", fmt.Errorf("ELASTICSEARCH_BUILD_HASH is empty")
 }

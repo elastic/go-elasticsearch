@@ -1,8 +1,9 @@
+---
 name: Integration
 
 on:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: "0 1 * * *"
   push:
     branches:
       - github-actions
@@ -17,17 +18,17 @@ on:
 
 env:
   GITHUB_ACTIONS: true
-  ELASTICSEARCH_VERSION: elasticsearch:8.3.0-SNAPSHOT
+  ELASTICSEARCH_VERSION: elasticsearch:9.4.0-SNAPSHOT
 
 jobs:
   test-integration:
     name: Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with: { fetch-depth: 1 }
       - uses: actions/setup-go@v2.1.3
-        with: { go-version: '1.x' }
+        with: { go-version: "1.x" }
       - run: go version
       - run: make test-integ race=true
       - uses: codecov/codecov-action@v1
@@ -39,10 +40,10 @@ jobs:
     name: Examples
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with: { fetch-depth: 1 }
       - uses: actions/setup-go@v2.1.3
-        with: { go-version: '1.x' }
+        with: { go-version: "1.x" }
       - run: go version
       - name: Increase system limits
         run: |

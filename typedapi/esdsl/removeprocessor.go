@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -34,30 +34,9 @@ func NewRemoveProcessor() *_removeProcessor {
 
 }
 
-func (s *_removeProcessor) Description(description string) *_removeProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_removeProcessor) Field(fields ...string) *_removeProcessor {
 
 	s.v.Field = fields
-
-	return s
-}
-
-func (s *_removeProcessor) If(if_ types.ScriptVariant) *_removeProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_removeProcessor) IgnoreFailure(ignorefailure bool) *_removeProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
 
 	return s
 }
@@ -72,6 +51,27 @@ func (s *_removeProcessor) IgnoreMissing(ignoremissing bool) *_removeProcessor {
 func (s *_removeProcessor) Keep(fields ...string) *_removeProcessor {
 
 	s.v.Keep = fields
+
+	return s
+}
+
+func (s *_removeProcessor) Description(description string) *_removeProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_removeProcessor) If(if_ types.ScriptVariant) *_removeProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_removeProcessor) IgnoreFailure(ignorefailure bool) *_removeProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
 
 	return s
 }

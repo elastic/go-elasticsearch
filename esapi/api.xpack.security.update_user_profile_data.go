@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newSecurityUpdateUserProfileDataFunc(t Transport) SecurityUpdateUserProfile
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityUpdateUserProfileData - Update application specific data for the user profile of the given unique ID.
+// SecurityUpdateUserProfileData - Update user profile data
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-user-profile-data.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-user-profile-data.
 type SecurityUpdateUserProfileData func(body io.Reader, uid string, o ...func(*SecurityUpdateUserProfileDataRequest)) (*Response, error)
 
 // SecurityUpdateUserProfileDataRequest configures the Security Update User Profile Data API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceChatCompletionUnifiedFunc(t Transport) InferenceChatCompletionUnified {
-	return func(inference_id string, o ...func(*InferenceChatCompletionUnifiedRequest)) (*Response, error) {
-		var r = InferenceChatCompletionUnifiedRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceChatCompletionUnifiedRequest)) (*Response, error) {
+		var r = InferenceChatCompletionUnifiedRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,14 +46,16 @@ func newInferenceChatCompletionUnifiedFunc(t Transport) InferenceChatCompletionU
 
 // InferenceChatCompletionUnified perform chat completion inference
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/chat-completion-inference.html.
-type InferenceChatCompletionUnified func(inference_id string, o ...func(*InferenceChatCompletionUnifiedRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-unified-inference.
+type InferenceChatCompletionUnified func(body io.Reader, inference_id string, o ...func(*InferenceChatCompletionUnifiedRequest)) (*Response, error)
 
 // InferenceChatCompletionUnifiedRequest configures the Inference Chat Completion Unified API request.
 type InferenceChatCompletionUnifiedRequest struct {
 	Body io.Reader
 
 	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -100,6 +103,10 @@ func (r InferenceChatCompletionUnifiedRequest) Do(providedCtx context.Context, t
 	path.WriteString("_stream")
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -186,10 +193,10 @@ func (f InferenceChatCompletionUnified) WithContext(v context.Context) func(*Inf
 	}
 }
 
-// WithBody - The inference payload.
-func (f InferenceChatCompletionUnified) WithBody(v io.Reader) func(*InferenceChatCompletionUnifiedRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference request to complete..
+func (f InferenceChatCompletionUnified) WithTimeout(v time.Duration) func(*InferenceChatCompletionUnifiedRequest) {
 	return func(r *InferenceChatCompletionUnifiedRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

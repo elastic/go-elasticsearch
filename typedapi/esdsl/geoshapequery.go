@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -32,13 +32,6 @@ func NewGeoShapeQuery() *_geoShapeQuery {
 
 	return &_geoShapeQuery{v: types.NewGeoShapeQuery()}
 
-}
-
-func (s *_geoShapeQuery) Boost(boost float32) *_geoShapeQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_geoShapeQuery) GeoShapeQuery(geoshapequery map[string]types.GeoShapeFieldQuery) *_geoShapeQuery {
@@ -65,6 +58,13 @@ func (s *_geoShapeQuery) AddGeoShapeQuery(key string, value types.GeoShapeFieldQ
 func (s *_geoShapeQuery) IgnoreUnmapped(ignoreunmapped bool) *_geoShapeQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped
+
+	return s
+}
+
+func (s *_geoShapeQuery) Boost(boost float32) *_geoShapeQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

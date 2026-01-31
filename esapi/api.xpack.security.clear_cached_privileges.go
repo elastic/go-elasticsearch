@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityClearCachedPrivilegesFunc(t Transport) SecurityClearCachedPrivil
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityClearCachedPrivileges - Evicts application privileges from the native application privileges cache.
+// SecurityClearCachedPrivileges - Clear the privileges cache
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-privilege-cache.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-privileges.
 type SecurityClearCachedPrivileges func(application []string, o ...func(*SecurityClearCachedPrivilegesRequest)) (*Response, error)
 
 // SecurityClearCachedPrivilegesRequest configures the Security Clear Cached Privileges API request.

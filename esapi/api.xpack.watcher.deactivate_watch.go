@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newWatcherDeactivateWatchFunc(t Transport) WatcherDeactivateWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherDeactivateWatch - Deactivates a currently active watch.
+// WatcherDeactivateWatch - Deactivate a watch
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-deactivate-watch.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-deactivate-watch.
 type WatcherDeactivateWatch func(watch_id string, o ...func(*WatcherDeactivateWatchRequest)) (*Response, error)
 
 // WatcherDeactivateWatchRequest configures the Watcher Deactivate Watch API request.

@@ -15,13 +15,12 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -45,9 +44,9 @@ func newMLGetModelSnapshotsFunc(t Transport) MLGetModelSnapshots {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetModelSnapshots - Retrieves information about model snapshots.
+// MLGetModelSnapshots - Get model snapshots info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-snapshot.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-model-snapshots.
 type MLGetModelSnapshots func(job_id string, o ...func(*MLGetModelSnapshotsRequest)) (*Response, error)
 
 // MLGetModelSnapshotsRequest configures the ML Get Model Snapshots API request.
@@ -58,11 +57,11 @@ type MLGetModelSnapshotsRequest struct {
 	SnapshotID string
 
 	Desc  *bool
-	End   interface{}
+	End   string
 	From  *int
 	Size  *int
 	Sort  string
-	Start interface{}
+	Start string
 
 	Pretty     bool
 	Human      bool
@@ -122,8 +121,8 @@ func (r MLGetModelSnapshotsRequest) Do(providedCtx context.Context, transport Tr
 		params["desc"] = strconv.FormatBool(*r.Desc)
 	}
 
-	if r.End != nil {
-		params["end"] = fmt.Sprintf("%v", r.End)
+	if r.End != "" {
+		params["end"] = r.End
 	}
 
 	if r.From != nil {
@@ -138,8 +137,8 @@ func (r MLGetModelSnapshotsRequest) Do(providedCtx context.Context, transport Tr
 		params["sort"] = r.Sort
 	}
 
-	if r.Start != nil {
-		params["start"] = fmt.Sprintf("%v", r.Start)
+	if r.Start != "" {
+		params["start"] = r.Start
 	}
 
 	if r.Pretty {
@@ -249,7 +248,7 @@ func (f MLGetModelSnapshots) WithDesc(v bool) func(*MLGetModelSnapshotsRequest) 
 }
 
 // WithEnd - the filter 'end' query parameter.
-func (f MLGetModelSnapshots) WithEnd(v interface{}) func(*MLGetModelSnapshotsRequest) {
+func (f MLGetModelSnapshots) WithEnd(v string) func(*MLGetModelSnapshotsRequest) {
 	return func(r *MLGetModelSnapshotsRequest) {
 		r.End = v
 	}
@@ -277,7 +276,7 @@ func (f MLGetModelSnapshots) WithSort(v string) func(*MLGetModelSnapshotsRequest
 }
 
 // WithStart - the filter 'start' query parameter.
-func (f MLGetModelSnapshots) WithStart(v interface{}) func(*MLGetModelSnapshotsRequest) {
+func (f MLGetModelSnapshots) WithStart(v string) func(*MLGetModelSnapshotsRequest) {
 	return func(r *MLGetModelSnapshotsRequest) {
 		r.Start = v
 	}

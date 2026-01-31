@@ -1,4 +1,4 @@
-project: 'Go client'
+project: "Go client"
 products:
   - id: elasticsearch-client
 cross_links:
@@ -7,7 +7,7 @@ cross_links:
 toc:
   - toc: reference
 subs:
-  serverless-full:   "Elastic Cloud Serverless"
-  serverless-short:   "Serverless"
-  es-serverless:   "Elasticsearch Serverless"
-  es:   "Elasticsearch"
+  serverless-full: "Elastic Cloud Serverless"
+  serverless-short: "Serverless"
+  es-serverless: "Elasticsearch Serverless"
+  es: "Elasticsearch"

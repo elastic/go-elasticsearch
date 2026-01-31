@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -26,6 +26,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newMLGetOverallBucketsFunc(t Transport) MLGetOverallBuckets {
@@ -45,9 +46,9 @@ func newMLGetOverallBucketsFunc(t Transport) MLGetOverallBuckets {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetOverallBuckets - Retrieves overall bucket results that summarize the bucket results of multiple anomaly detection jobs.
+// MLGetOverallBuckets - Get overall bucket results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-overall-buckets.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-overall-buckets.
 type MLGetOverallBuckets func(job_id string, o ...func(*MLGetOverallBucketsRequest)) (*Response, error)
 
 // MLGetOverallBucketsRequest configures the ML Get Overall Buckets API request.
@@ -57,7 +58,7 @@ type MLGetOverallBucketsRequest struct {
 	JobID string
 
 	AllowNoMatch   *bool
-	BucketSpan     string
+	BucketSpan     time.Duration
 	End            string
 	ExcludeInterim *bool
 	OverallScore   interface{}
@@ -117,8 +118,8 @@ func (r MLGetOverallBucketsRequest) Do(providedCtx context.Context, transport Tr
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
 	}
 
-	if r.BucketSpan != "" {
-		params["bucket_span"] = r.BucketSpan
+	if r.BucketSpan != 0 {
+		params["bucket_span"] = formatDuration(r.BucketSpan)
 	}
 
 	if r.End != "" {
@@ -241,7 +242,7 @@ func (f MLGetOverallBuckets) WithAllowNoMatch(v bool) func(*MLGetOverallBucketsR
 }
 
 // WithBucketSpan - the span of the overall buckets. defaults to the longest job bucket_span.
-func (f MLGetOverallBuckets) WithBucketSpan(v string) func(*MLGetOverallBucketsRequest) {
+func (f MLGetOverallBuckets) WithBucketSpan(v time.Duration) func(*MLGetOverallBucketsRequest) {
 	return func(r *MLGetOverallBucketsRequest) {
 		r.BucketSpan = v
 	}

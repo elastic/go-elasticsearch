@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newGetSourceFunc(t Transport) GetSource {
 
 // ----- API Definition -------------------------------------------------------
 
-// GetSource returns the source of a document.
+// GetSource get a document's source
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get.
 type GetSource func(index string, id string, o ...func(*GetSourceRequest)) (*Response, error)
 
 // GetSourceRequest configures the Get Source API request.
@@ -56,7 +56,7 @@ type GetSourceRequest struct {
 	Preference     string
 	Realtime       *bool
 	Refresh        *bool
-	Routing        string
+	Routing        []string
 	Source         []string
 	SourceExcludes []string
 	SourceIncludes []string
@@ -123,8 +123,8 @@ func (r GetSourceRequest) Do(providedCtx context.Context, transport Transport) (
 		params["refresh"] = strconv.FormatBool(*r.Refresh)
 	}
 
-	if r.Routing != "" {
-		params["routing"] = r.Routing
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if len(r.Source) > 0 {
@@ -247,7 +247,7 @@ func (f GetSource) WithRefresh(v bool) func(*GetSourceRequest) {
 }
 
 // WithRouting - specific routing value.
-func (f GetSource) WithRouting(v string) func(*GetSourceRequest) {
+func (f GetSource) WithRouting(v ...string) func(*GetSourceRequest) {
 	return func(r *GetSourceRequest) {
 		r.Routing = v
 	}

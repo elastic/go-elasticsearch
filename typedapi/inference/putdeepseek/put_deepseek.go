@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Create a DeepSeek inference endpoint.
 //
@@ -387,19 +387,6 @@ func (r *PutDeepseek) Human(human bool) *PutDeepseek {
 // API name: pretty
 func (r *PutDeepseek) Pretty(pretty bool) *PutDeepseek {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
-
-	return r
-}
-
-// The chunking configuration object.
-// API name: chunking_settings
-func (r *PutDeepseek) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutDeepseek {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
 
 	return r
 }

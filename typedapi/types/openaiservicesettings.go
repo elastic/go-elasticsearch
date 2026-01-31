@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -27,11 +27,13 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/openaisimilaritytype"
 )
 
 // OpenAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1554-L1596
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/CommonTypes.ts#L1924-L1970
 type OpenAIServiceSettings struct {
 	// ApiKey A valid API key of your OpenAI account.
 	// You can find your OpenAI API keys in your OpenAI account under the API keys
@@ -63,6 +65,9 @@ type OpenAIServiceSettings struct {
 	// For `text_embedding`, it is set to `3000`.
 	// For `completion`, it is set to `500`.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
+	// Similarity For a `text_embedding` task, the similarity measure. One of cosine,
+	// dot_product, l2_norm. Defaults to `dot_product`.
+	Similarity *openaisimilaritytype.OpenAISimilarityType `json:"similarity,omitempty"`
 	// Url The URL endpoint to use for the requests.
 	// It can be changed for testing purposes.
 	Url *string `json:"url,omitempty"`
@@ -138,6 +143,11 @@ func (s *OpenAIServiceSettings) UnmarshalJSON(data []byte) error {
 		case "rate_limit":
 			if err := dec.Decode(&s.RateLimit); err != nil {
 				return fmt.Errorf("%s | %w", "RateLimit", err)
+			}
+
+		case "similarity":
+			if err := dec.Decode(&s.Similarity); err != nil {
+				return fmt.Errorf("%s | %w", "Similarity", err)
 			}
 
 		case "url":

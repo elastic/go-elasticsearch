@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Create or update a synonym set.
+//
 // Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
 // If you need to manage more synonym rules, you can create multiple synonym
 // sets.
@@ -93,6 +94,7 @@ func NewPutSynonymFunc(tp elastictransport.Interface) NewPutSynonym {
 }
 
 // Create or update a synonym set.
+//
 // Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
 // If you need to manage more synonym rules, you can create multiple synonym
 // sets.

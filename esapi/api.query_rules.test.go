@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,9 @@ func newQueryRulesTestFunc(t Transport) QueryRulesTest {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesTest tests a query ruleset to identify the rules that would match input criteria
+// QueryRulesTest test a query ruleset
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/test-query-ruleset.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-test.
 type QueryRulesTest func(body io.Reader, ruleset_id string, o ...func(*QueryRulesTestRequest)) (*Response, error)
 
 // QueryRulesTestRequest configures the Query Rules Test API request.

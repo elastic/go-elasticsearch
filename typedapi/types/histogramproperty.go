@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -30,11 +30,12 @@ import (
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/dynamicmapping"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeseriesmetrictype"
 )
 
 // HistogramProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/specialized.ts#L69-L72
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/mapping/specialized.ts#L71-L75
 type HistogramProperty struct {
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields          map[string]Property            `json:"fields,omitempty"`
@@ -44,6 +45,7 @@ type HistogramProperty struct {
 	Meta                map[string]string                                `json:"meta,omitempty"`
 	Properties          map[string]Property                              `json:"properties,omitempty"`
 	SyntheticSourceKeep *syntheticsourcekeepenum.SyntheticSourceKeepEnum `json:"synthetic_source_keep,omitempty"`
+	TimeSeriesMetric    *timeseriesmetrictype.TimeSeriesMetricType       `json:"time_series_metric,omitempty"`
 	Type                string                                           `json:"type,omitempty"`
 }
 
@@ -253,6 +255,12 @@ func (s *HistogramProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "histogram":
 					oo := NewHistogramProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Fields | %w", err)
+					}
+					s.Fields[key] = oo
+				case "exponential_histogram":
+					oo := NewExponentialHistogramProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return fmt.Errorf("Fields | %w", err)
 					}
@@ -632,6 +640,12 @@ func (s *HistogramProperty) UnmarshalJSON(data []byte) error {
 						return fmt.Errorf("Properties | %w", err)
 					}
 					s.Properties[key] = oo
+				case "exponential_histogram":
+					oo := NewExponentialHistogramProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("Properties | %w", err)
+					}
+					s.Properties[key] = oo
 				case "ip":
 					oo := NewIpProperty()
 					if err := localDec.Decode(&oo); err != nil {
@@ -784,6 +798,11 @@ func (s *HistogramProperty) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "SyntheticSourceKeep", err)
 			}
 
+		case "time_series_metric":
+			if err := dec.Decode(&s.TimeSeriesMetric); err != nil {
+				return fmt.Errorf("%s | %w", "TimeSeriesMetric", err)
+			}
+
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
 				return fmt.Errorf("%s | %w", "Type", err)
@@ -805,6 +824,7 @@ func (s HistogramProperty) MarshalJSON() ([]byte, error) {
 		Meta:                s.Meta,
 		Properties:          s.Properties,
 		SyntheticSourceKeep: s.SyntheticSourceKeep,
+		TimeSeriesMetric:    s.TimeSeriesMetric,
 		Type:                s.Type,
 	}
 

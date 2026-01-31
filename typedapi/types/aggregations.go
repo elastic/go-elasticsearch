@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Aggregations type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/aggregations/AggregationContainer.ts#L107-L533
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/aggregations/AggregationContainer.ts#L110-L555
 type Aggregations struct {
 	AdditionalAggregationsProperty map[string]json.RawMessage `json:"-"`
 	// AdjacencyMatrix A bucket aggregation returning a form of adjacency matrix.
@@ -76,8 +76,23 @@ type Aggregations struct {
 	// Cardinality A single-value metrics aggregation that calculates an approximate count of
 	// distinct values.
 	Cardinality *CardinalityAggregation `json:"cardinality,omitempty"`
+	// CartesianBounds A metric aggregation that computes the spatial bounding box containing all
+	// values for a Point or Shape field.
+	CartesianBounds *CartesianBoundsAggregation `json:"cartesian_bounds,omitempty"`
+	// CartesianCentroid A metric aggregation that computes the weighted centroid from all coordinate
+	// values for point and shape fields.
+	CartesianCentroid *CartesianCentroidAggregation `json:"cartesian_centroid,omitempty"`
 	// CategorizeText A multi-bucket aggregation that groups semi-structured text into buckets.
 	CategorizeText *CategorizeTextAggregation `json:"categorize_text,omitempty"`
+	// ChangePoint A sibling pipeline that detects, spikes, dips, and change points in a metric.
+	// Given a distribution of values provided by the sibling multi-bucket
+	// aggregation,
+	// this aggregation indicates the bucket of any spike or dip and/or the bucket
+	// at which
+	// the largest change in the distribution of values, if they are statistically
+	// significant.
+	// There must be at least 22 bucketed values. Fewer than 1,000 is preferred.
+	ChangePoint *ChangePointAggregation `json:"change_point,omitempty"`
 	// Children A single bucket aggregation that selects child documents that have the
 	// specified type, as defined in a `join` field.
 	Children *ChildrenAggregation `json:"children,omitempty"`
@@ -374,9 +389,24 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Cardinality", err)
 			}
 
+		case "cartesian_bounds":
+			if err := dec.Decode(&s.CartesianBounds); err != nil {
+				return fmt.Errorf("%s | %w", "CartesianBounds", err)
+			}
+
+		case "cartesian_centroid":
+			if err := dec.Decode(&s.CartesianCentroid); err != nil {
+				return fmt.Errorf("%s | %w", "CartesianCentroid", err)
+			}
+
 		case "categorize_text":
 			if err := dec.Decode(&s.CategorizeText); err != nil {
 				return fmt.Errorf("%s | %w", "CategorizeText", err)
+			}
+
+		case "change_point":
+			if err := dec.Decode(&s.ChangePoint); err != nil {
+				return fmt.Errorf("%s | %w", "ChangePoint", err)
 			}
 
 		case "children":
@@ -439,7 +469,7 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Filters", err)
 			}
 
-		case "frequent_item_sets":
+		case "frequent_item_sets", "frequent_items":
 			if err := dec.Decode(&s.FrequentItemSets); err != nil {
 				return fmt.Errorf("%s | %w", "FrequentItemSets", err)
 			}

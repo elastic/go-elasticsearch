@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,16 +44,16 @@ func newCatThreadPoolFunc(t Transport) CatThreadPool {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatThreadPool returns cluster-wide thread pool statistics per node.
-// By default the active, queue and rejected statistics are returned for all thread pools.
+// CatThreadPool get thread pool statistics
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-thread-pool.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-thread-pool.
 type CatThreadPool func(o ...func(*CatThreadPoolRequest)) (*Response, error)
 
 // CatThreadPoolRequest configures the Cat Thread Pool API request.
 type CatThreadPoolRequest struct {
 	ThreadPoolPatterns []string
 
+	Bytes         string
 	Format        string
 	H             []string
 	Help          *bool
@@ -109,6 +109,10 @@ func (r CatThreadPoolRequest) Do(providedCtx context.Context, transport Transpor
 	}
 
 	params = make(map[string]string)
+
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
 
 	if r.Format != "" {
 		params["format"] = r.Format
@@ -224,6 +228,13 @@ func (f CatThreadPool) WithContext(v context.Context) func(*CatThreadPoolRequest
 func (f CatThreadPool) WithThreadPoolPatterns(v ...string) func(*CatThreadPoolRequest) {
 	return func(r *CatThreadPoolRequest) {
 		r.ThreadPoolPatterns = v
+	}
+}
+
+// WithBytes - the unit in which to display byte values.
+func (f CatThreadPool) WithBytes(v string) func(*CatThreadPoolRequest) {
+	return func(r *CatThreadPoolRequest) {
+		r.Bytes = v
 	}
 }
 

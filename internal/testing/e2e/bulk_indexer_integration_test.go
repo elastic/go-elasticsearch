@@ -90,7 +90,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				var countSuccessful uint64
 				indexName := "test-bulk-integration"
 
-				es, _ := elasticsearch.NewClient(elasticsearch.Config{
+				es, err := elasticsearch.NewClient(elasticsearch.Config{
 					Addresses:                tcCfg.Addresses,
 					Username:                 tcCfg.Username,
 					Password:                 tcCfg.Password,
@@ -100,6 +100,9 @@ func TestBulkIndexerIntegration(t *testing.T) {
 					PoolCompressor:           tt.PoolCompressor,
 					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 				defer es.Close(context.Background())
 
 				es.Indices.Delete([]string{indexName}, es.Indices.Delete.WithIgnoreUnavailable(true))
@@ -108,10 +111,13 @@ func TestBulkIndexerIntegration(t *testing.T) {
 					es.Indices.Create.WithBody(strings.NewReader(`{"settings": {"number_of_shards": 1, "number_of_replicas": 0, "refresh_interval":"5s"}}`)),
 					es.Indices.Create.WithWaitForActiveShards("1"))
 
-				bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+				bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 					Index:  indexName,
 					Client: es,
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 
 				numItems := 100000
 				start := time.Now().UTC()
@@ -162,7 +168,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 			})
 
 			t.Run("Multiple indices", func(t *testing.T) {
-				es, _ := elasticsearch.NewClient(elasticsearch.Config{
+				es, err := elasticsearch.NewClient(elasticsearch.Config{
 					Addresses:                tcCfg.Addresses,
 					Username:                 tcCfg.Username,
 					Password:                 tcCfg.Password,
@@ -172,12 +178,18 @@ func TestBulkIndexerIntegration(t *testing.T) {
 					PoolCompressor:           tt.PoolCompressor,
 					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 				defer es.Close(context.Background())
 
-				bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+				bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 					Index:  "test-index-a",
 					Client: es,
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 
 				// Default index
 				for i := 1; i <= 10; i++ {
@@ -237,7 +249,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 			t.Run("External version", func(t *testing.T) {
 				var index string = "test-index-a"
 
-				es, _ := elasticsearch.NewClient(elasticsearch.Config{
+				es, err := elasticsearch.NewClient(elasticsearch.Config{
 					Addresses:                tcCfg.Addresses,
 					Username:                 tcCfg.Username,
 					Password:                 tcCfg.Password,
@@ -247,6 +259,9 @@ func TestBulkIndexerIntegration(t *testing.T) {
 					PoolCompressor:           tt.PoolCompressor,
 					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 				defer es.Close(context.Background())
 
 				es.Indices.Delete([]string{index}, es.Indices.Delete.WithIgnoreUnavailable(true))
@@ -288,16 +303,22 @@ func TestBulkIndexerIntegration(t *testing.T) {
 					}
 				}
 
-				bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+				bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 					Index:  index,
 					Client: es,
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 				bulkIndex(bi, 500)
 
-				bi, _ = esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+				bi, err = esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 					Index:  index,
 					Client: es,
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 				bulkIndex(bi, 900)
 			})
 
@@ -305,7 +326,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				var index string = "test-index-a"
 				var alias string = "test-alias-a"
 
-				es, _ := elasticsearch.NewClient(elasticsearch.Config{
+				es, err := elasticsearch.NewClient(elasticsearch.Config{
 					Addresses:                tcCfg.Addresses,
 					Username:                 tcCfg.Username,
 					Password:                 tcCfg.Password,
@@ -315,15 +336,21 @@ func TestBulkIndexerIntegration(t *testing.T) {
 					PoolCompressor:           tt.PoolCompressor,
 					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 				defer es.Close(context.Background())
 
 				es.Indices.Delete([]string{index}, es.Indices.Delete.WithIgnoreUnavailable(true))
 				es.Indices.Create(index, es.Indices.Create.WithWaitForActiveShards("1"))
 				es.Indices.PutAlias([]string{index}, alias)
 
-				bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+				bi, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 					Client: es,
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 				func(bulkIndexer esutil.BulkIndexer) {
 					var countTotal int = 10
 					var countSuccessful uint64

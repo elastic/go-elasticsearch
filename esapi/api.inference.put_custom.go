@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferencePutCustomFunc(t Transport) InferencePutCustom {
-	return func(custom_inference_id string, task_type string, o ...func(*InferencePutCustomRequest)) (*Response, error) {
-		var r = InferencePutCustomRequest{CustomInferenceID: custom_inference_id, TaskType: task_type}
+	return func(body io.Reader, custom_inference_id string, task_type string, o ...func(*InferencePutCustomRequest)) (*Response, error) {
+		var r = InferencePutCustomRequest{Body: body, CustomInferenceID: custom_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +43,10 @@ func newInferencePutCustomFunc(t Transport) InferencePutCustom {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutCustom configure a custom inference endpoint
+// InferencePutCustom create a custom inference endpoint
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom.
-type InferencePutCustom func(custom_inference_id string, task_type string, o ...func(*InferencePutCustomRequest)) (*Response, error)
+type InferencePutCustom func(body io.Reader, custom_inference_id string, task_type string, o ...func(*InferencePutCustomRequest)) (*Response, error)
 
 // InferencePutCustomRequest configures the Inference Put Custom API request.
 type InferencePutCustomRequest struct {
@@ -185,13 +185,6 @@ func (r InferencePutCustomRequest) Do(providedCtx context.Context, transport Tra
 func (f InferencePutCustom) WithContext(v context.Context) func(*InferencePutCustomRequest) {
 	return func(r *InferencePutCustomRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutCustom) WithBody(v io.Reader) func(*InferencePutCustomRequest) {
-	return func(r *InferencePutCustomRequest) {
-		r.Body = v
 	}
 }
 

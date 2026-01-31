@@ -1,15 +1,17 @@
 module github.com/elastic/go-elasticsearch/v9/_examples/bulk/kafka
 
-go 1.23
+go 1.24
 
-toolchain go1.24.2
+toolchain go1.24.12
 
 replace github.com/elastic/go-elasticsearch/v9 => ../../..
 
 require (
+	github.com/dustin/go-humanize v1.0.1
 	github.com/elastic/go-elasticsearch/v9 v9.0.0-00010101000000-000000000000
 	github.com/segmentio/kafka-go v0.4.25
-	go.elastic.co/apm v1.14.0
+	go.elastic.co/apm v1.15.0
+	go.elastic.co/apm/module/apmelasticsearch v1.15.0
 )
 
 require (
@@ -28,6 +30,7 @@ require (
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/prometheus/procfs v0.0.3 // indirect
 	github.com/santhosh-tekuri/jsonschema v1.2.4 // indirect
+	go.elastic.co/apm/module/apmhttp v1.15.0 // indirect
 	go.elastic.co/fastjson v1.1.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/otel v1.35.0 // indirect

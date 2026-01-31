@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutCohereFunc(t Transport) InferencePutCohere {
-	return func(cohere_inference_id string, task_type string, o ...func(*InferencePutCohereRequest)) (*Response, error) {
-		var r = InferencePutCohereRequest{CohereInferenceID: cohere_inference_id, TaskType: task_type}
+	return func(body io.Reader, cohere_inference_id string, task_type string, o ...func(*InferencePutCohereRequest)) (*Response, error) {
+		var r = InferencePutCohereRequest{Body: body, CohereInferenceID: cohere_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutCohereFunc(t Transport) InferencePutCohere {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutCohere configure a Cohere inference endpoint
+// InferencePutCohere create a Cohere inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-cohere.html.
-type InferencePutCohere func(cohere_inference_id string, task_type string, o ...func(*InferencePutCohereRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-cohere.
+type InferencePutCohere func(body io.Reader, cohere_inference_id string, task_type string, o ...func(*InferencePutCohereRequest)) (*Response, error)
 
 // InferencePutCohereRequest configures the Inference Put Cohere API request.
 type InferencePutCohereRequest struct {
@@ -54,6 +55,8 @@ type InferencePutCohereRequest struct {
 
 	CohereInferenceID string
 	TaskType          string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutCohereRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutCohere) WithContext(v context.Context) func(*InferencePutCoh
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutCohere) WithBody(v io.Reader) func(*InferencePutCohereRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutCohere) WithTimeout(v time.Duration) func(*InferencePutCohereRequest) {
 	return func(r *InferencePutCohereRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

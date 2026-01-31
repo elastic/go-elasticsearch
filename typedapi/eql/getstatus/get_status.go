@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get the async EQL status.
+//
 // Get the current status for an async EQL search or a stored synchronous EQL
 // search without returning results.
 package getstatus
@@ -79,6 +80,7 @@ func NewGetStatusFunc(tp elastictransport.Interface) NewGetStatus {
 }
 
 // Get the async EQL status.
+//
 // Get the current status for an async EQL search or a stored synchronous EQL
 // search without returning results.
 //

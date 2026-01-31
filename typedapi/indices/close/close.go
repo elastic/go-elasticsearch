@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Close an index.
+//
 // A closed index is blocked for read or write operations and does not allow all
 // operations that opened indices allow.
 // It is not possible to index documents or to search for documents in a closed
@@ -106,6 +107,7 @@ func NewCloseFunc(tp elastictransport.Interface) NewClose {
 }
 
 // Close an index.
+//
 // A closed index is blocked for read or write operations and does not allow all
 // operations that opened indices allow.
 // It is not possible to index documents or to search for documents in a closed

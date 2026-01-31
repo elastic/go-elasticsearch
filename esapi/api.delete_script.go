@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newDeleteScriptFunc(t Transport) DeleteScript {
 
 // ----- API Definition -------------------------------------------------------
 
-// DeleteScript deletes a script.
+// DeleteScript delete a script or search template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-script.
 type DeleteScript func(id string, o ...func(*DeleteScriptRequest)) (*Response, error)
 
 // DeleteScriptRequest configures the Delete Script API request.

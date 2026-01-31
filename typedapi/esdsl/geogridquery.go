@@ -16,15 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _geoGridQuery struct {
 	v *types.GeoGridQuery
@@ -32,25 +28,6 @@ type _geoGridQuery struct {
 
 func NewGeoGridQuery() *_geoGridQuery {
 	return &_geoGridQuery{v: types.NewGeoGridQuery()}
-}
-
-// AdditionalGeoGridQueryProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_geoGridQuery) AdditionalGeoGridQueryProperty(key string, value json.RawMessage) *_geoGridQuery {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalGeoGridQueryProperty = tmp
-	return s
-}
-
-func (s *_geoGridQuery) Boost(boost float32) *_geoGridQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_geoGridQuery) Geohash(geohash string) *_geoGridQuery {
@@ -70,6 +47,13 @@ func (s *_geoGridQuery) Geohex(geohexcell string) *_geoGridQuery {
 func (s *_geoGridQuery) Geotile(geotile string) *_geoGridQuery {
 
 	s.v.Geotile = &geotile
+
+	return s
+}
+
+func (s *_geoGridQuery) Boost(boost float32) *_geoGridQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

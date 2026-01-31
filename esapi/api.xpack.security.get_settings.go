@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityGetSettingsFunc(t Transport) SecurityGetSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetSettings - Retrieve settings for the security system indices
+// SecurityGetSettings - Get security index settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-settings.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-settings.
 type SecurityGetSettings func(o ...func(*SecurityGetSettingsRequest)) (*Response, error)
 
 // SecurityGetSettingsRequest configures the Security Get Settings API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newConnectorSyncJobErrorFunc(t Transport) ConnectorSyncJobError {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobError sets an error for a connector sync job.
+// ConnectorSyncJobError set a connector sync job error
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-error-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-error.
 type ConnectorSyncJobError func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobErrorRequest)) (*Response, error)
 
 // ConnectorSyncJobErrorRequest configures the Connector Sync Job Error API request.

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityGetTokenFunc(t Transport) SecurityGetToken {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetToken - Creates a bearer token for access without requiring basic authentication.
+// SecurityGetToken - Get a token
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-token.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-token.
 type SecurityGetToken func(body io.Reader, o ...func(*SecurityGetTokenRequest)) (*Response, error)
 
 // SecurityGetTokenRequest configures the Security Get Token API request.

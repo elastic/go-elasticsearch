@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesCloneFunc(t Transport) IndicesClone {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesClone clones an index
+// IndicesClone clone an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clone-index.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-clone.
 type IndicesClone func(index string, target string, o ...func(*IndicesCloneRequest)) (*Response, error)
 
 // IndicesCloneRequest configures the Indices Clone API request.

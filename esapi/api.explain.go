@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newExplainFunc(t Transport) Explain {
 
 // ----- API Definition -------------------------------------------------------
 
-// Explain returns information about why a specific matches (or doesn't match) a query.
+// Explain explain a document match result
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-explain.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain.
 type Explain func(index string, id string, o ...func(*ExplainRequest)) (*Response, error)
 
 // ExplainRequest configures the Explain API request.
@@ -63,7 +63,7 @@ type ExplainRequest struct {
 	Lenient         *bool
 	Preference      string
 	Query           string
-	Routing         string
+	Routing         []string
 	Source          []string
 	SourceExcludes  []string
 	SourceIncludes  []string
@@ -145,8 +145,8 @@ func (r ExplainRequest) Do(providedCtx context.Context, transport Transport) (*R
 		params["q"] = r.Query
 	}
 
-	if r.Routing != "" {
-		params["routing"] = r.Routing
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if len(r.Source) > 0 {
@@ -307,7 +307,7 @@ func (f Explain) WithQuery(v string) func(*ExplainRequest) {
 }
 
 // WithRouting - specific routing value.
-func (f Explain) WithRouting(v string) func(*ExplainRequest) {
+func (f Explain) WithRouting(v ...string) func(*ExplainRequest) {
 	return func(r *ExplainRequest) {
 		r.Routing = v
 	}

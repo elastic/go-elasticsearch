@@ -26,7 +26,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -46,7 +45,7 @@ import (
 )
 
 var defaultRoundTripFunc = func(*http.Request) (*http.Response, error) {
-	return &http.Response{Body: ioutil.NopCloser(strings.NewReader(`{}`))}, nil
+	return &http.Response{Body: io.NopCloser(strings.NewReader(`{}`))}, nil
 }
 
 type mockTransport struct {
@@ -60,6 +59,7 @@ func (t *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	return t.RoundTripFunc(req)
 }
 
+//nolint:gocyclo
 func TestBulkIndexer(t *testing.T) {
 	t.Run("Basic", func(t *testing.T) {
 		tests := []struct {
@@ -91,7 +91,7 @@ func TestBulkIndexer(t *testing.T) {
 					numItems  = 6
 				)
 
-				es, _ := tt.makeClient(elasticsearch.Config{Transport: &mockTransport{
+				es, err := tt.makeClient(elasticsearch.Config{Transport: &mockTransport{
 					RoundTripFunc: func(*http.Request) (*http.Response, error) {
 						countReqs++
 						switch countReqs {
@@ -102,13 +102,20 @@ func TestBulkIndexer(t *testing.T) {
 						case 3:
 							testfile = "testdata/bulk_response_1c.json"
 						}
-						bodyContent, _ := ioutil.ReadFile(testfile)
+						bodyContent, err := os.ReadFile(testfile)
+						if err != nil {
+							t.Fatalf("Unexpected error: %s", err)
+						}
 						return &http.Response{
-							Body:   ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
+							Body:   io.NopCloser(bytes.NewBuffer(bodyContent)),
 							Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 						}, nil
 					},
 				}})
+
+				if err != nil {
+					t.Errorf("Unexpected error: %s", err)
+				}
 
 				cfg := BulkIndexerConfig{
 					NumWorkers:    1,
@@ -119,7 +126,10 @@ func TestBulkIndexer(t *testing.T) {
 					cfg.DebugLogger = log.New(os.Stdout, "", 0)
 				}
 
-				bi, _ := NewBulkIndexer(cfg)
+				bi, err := NewBulkIndexer(cfg)
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 
 				for i := 1; i <= numItems; i++ {
 					wg.Add(1)
@@ -284,8 +294,14 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("Add() Timeout", func(t *testing.T) {
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, Client: es})
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		bi, err := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, Client: es})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 		ctx, cancel := context.WithTimeout(context.Background(), time.Nanosecond)
 		defer cancel()
 		time.Sleep(100 * time.Millisecond)
@@ -310,15 +326,21 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("Close() Cancel", func(t *testing.T) {
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		bi, err := NewBulkIndexer(BulkIndexerConfig{
 			NumWorkers: 1,
 			FlushBytes: 1,
 			Client:     es,
 		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
 		for i := 0; i < 10; i++ {
-			bi.Add(context.Background(), BulkIndexerItem{Action: "foo"})
+			_ = bi.Add(context.Background(), BulkIndexerItem{Action: "foo"})
 		}
 
 		ctx, cancel := context.WithCancel(context.Background())
@@ -344,21 +366,27 @@ func TestBulkIndexer(t *testing.T) {
 			}
 		}
 
-		es, _ := elasticsearch.NewClient(esCfg)
+		es, err := elasticsearch.NewClient(esCfg)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
 		var indexerError error
 		biCfg := BulkIndexerConfig{
 			NumWorkers: 1,
 			Client:     es,
-			OnError:    func(ctx context.Context, err error) { indexerError = err },
+			OnError:    func(_ context.Context, err error) { indexerError = err },
 		}
 		if os.Getenv("DEBUG") != "" {
 			biCfg.DebugLogger = log.New(os.Stdout, "", 0)
 		}
 
-		bi, _ := NewBulkIndexer(biCfg)
+		bi, err := NewBulkIndexer(biCfg)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
-		if err := bi.Add(context.Background(), BulkIndexerItem{
+		if err = bi.Add(context.Background(), BulkIndexerItem{
 			Action: "foo",
 		}); err != nil {
 			t.Fatalf("Unexpected error: %s", err)
@@ -381,41 +409,47 @@ func TestBulkIndexer(t *testing.T) {
 
 			numItems       = 4
 			numFailed      = 2
-			bodyContent, _ = ioutil.ReadFile("testdata/bulk_response_2.json")
+			bodyContent, _ = os.ReadFile("testdata/bulk_response_2.json")
 		)
 
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
 			RoundTripFunc: func(*http.Request) (*http.Response, error) {
 				return &http.Response{
-					Body:   ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
+					Body:   io.NopCloser(bytes.NewBuffer(bodyContent)),
 					Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 				}, nil
 			},
 		}})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
 		cfg := BulkIndexerConfig{NumWorkers: 1, Client: es}
 		if os.Getenv("DEBUG") != "" {
 			cfg.DebugLogger = log.New(os.Stdout, "", 0)
 		}
 
-		bi, _ := NewBulkIndexer(cfg)
+		bi, err := NewBulkIndexer(cfg)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
-		successFunc := func(ctx context.Context, item BulkIndexerItem, res BulkIndexerResponseItem) {
+		successFunc := func(_ context.Context, item BulkIndexerItem, _ BulkIndexerResponseItem) {
 			atomic.AddUint64(&countSuccessful, 1)
 
-			buf, err := ioutil.ReadAll(item.Body)
+			buf, err := io.ReadAll(item.Body)
 			if err != nil {
 				t.Fatalf("Unexpected error: %s", err)
 			}
 			successfulItemBodies = append(successfulItemBodies, string(buf))
 		}
-		failureFunc := func(ctx context.Context, item BulkIndexerItem, res BulkIndexerResponseItem, err error) {
+		failureFunc := func(_ context.Context, item BulkIndexerItem, _ BulkIndexerResponseItem, _ error) {
 			atomic.AddUint64(&countFailed, 1)
 			failedIDs = append(failedIDs, item.DocumentID)
 
-			buf, err := ioutil.ReadAll(item.Body)
-			if err != nil {
-				t.Fatalf("Unexpected error: %s", err)
+			buf, rerr := io.ReadAll(item.Body)
+			if rerr != nil {
+				t.Fatalf("Unexpected error: %s", rerr)
 			}
 			failedItemBodies = append(failedItemBodies, string(buf))
 		}
@@ -514,8 +548,11 @@ func TestBulkIndexer(t *testing.T) {
 
 	t.Run("OnFlush callbacks", func(t *testing.T) {
 		type contextKey string
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		bi, err := NewBulkIndexer(BulkIndexerConfig{
 			Client: es,
 			Index:  "foo",
 			OnFlushStart: func(ctx context.Context) context.Context {
@@ -530,8 +567,10 @@ func TestBulkIndexer(t *testing.T) {
 				fmt.Printf(">>> Flush finished (duration: %s)\n", duration)
 			},
 		})
-
-		err := bi.Add(context.Background(), BulkIndexerItem{
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		err = bi.Add(context.Background(), BulkIndexerItem{
 			Action: "index",
 			Body:   strings.NewReader(`{"title":"foo"}`),
 		})
@@ -551,16 +590,19 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("Automatic flush", func(t *testing.T) {
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
 			RoundTripFunc: func(*http.Request) (*http.Response, error) {
 				return &http.Response{
 					StatusCode: http.StatusOK,
 					Status:     "200 OK",
-					Body:       ioutil.NopCloser(strings.NewReader(`{"items":[{"index": {}}]}`)),
+					Body:       io.NopCloser(strings.NewReader(`{"items":[{"index": {}}]}`)),
 					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 				}, nil
 			},
 		}})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
 		cfg := BulkIndexerConfig{
 			NumWorkers:    1,
@@ -571,10 +613,16 @@ func TestBulkIndexer(t *testing.T) {
 			cfg.DebugLogger = log.New(os.Stdout, "", 0)
 		}
 
-		bi, _ := NewBulkIndexer(cfg)
+		bi, err := NewBulkIndexer(cfg)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
-		bi.Add(context.Background(),
+		err = bi.Add(context.Background(),
 			BulkIndexerItem{Action: "index", Body: strings.NewReader(`{"title":"foo"}`)})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
 		// Allow some time for auto-flush to kick in
 		time.Sleep(250 * time.Millisecond)
@@ -619,14 +667,17 @@ func TestBulkIndexer(t *testing.T) {
 						return &http.Response{
 							StatusCode: http.StatusTooManyRequests,
 							Status:     "429 TooManyRequests",
-							Body:       ioutil.NopCloser(strings.NewReader(`{"took":1}`)),
+							Body:       io.NopCloser(strings.NewReader(`{"took":1}`)),
 						}, nil
 					}
-					bodyContent, _ := ioutil.ReadFile("testdata/bulk_response_1c.json")
+					bodyContent, err := os.ReadFile("testdata/bulk_response_1c.json")
+					if err != nil {
+						t.Fatalf("Unexpected error: %s", err)
+					}
 					return &http.Response{
 						StatusCode: http.StatusOK,
 						Status:     "200 OK",
-						Body:       ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
+						Body:       io.NopCloser(bytes.NewBuffer(bodyContent)),
 						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 					}, nil
 				},
@@ -644,18 +695,24 @@ func TestBulkIndexer(t *testing.T) {
 		if os.Getenv("DEBUG") != "" {
 			esCfg.Logger = &elastictransport.ColorLogger{Output: os.Stdout}
 		}
-		es, _ := elasticsearch.NewClient(esCfg)
+		es, err := elasticsearch.NewClient(esCfg)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
 		biCfg := BulkIndexerConfig{NumWorkers: 1, FlushBytes: 28 * 2, Client: es}
 		if os.Getenv("DEBUG") != "" {
 			biCfg.DebugLogger = log.New(os.Stdout, "", 0)
 		}
 
-		bi, _ := NewBulkIndexer(biCfg)
+		bi, err := NewBulkIndexer(biCfg)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
 		for i := 1; i <= numItems; i++ {
 			wg.Add(1)
-			go func(i int) {
+			go func(_ int) {
 				defer wg.Done()
 				err := bi.Add(context.Background(), BulkIndexerItem{
 					Action: "foo",
@@ -736,18 +793,18 @@ func TestBulkIndexer(t *testing.T) {
 
 		for i := 1; i <= numItems; i++ {
 			wg.Add(1)
-			go func(i int) {
+			go func(_ int) {
 				defer wg.Done()
 				err := bi.Add(context.Background(), BulkIndexerItem{
 					Action: "foo",
 					Body:   strings.NewReader(`{"title":"foo"}`),
-					OnFailure: func(ctx context.Context, item BulkIndexerItem, item2 BulkIndexerResponseItem, err error) {
+					OnFailure: func(_ context.Context, _ BulkIndexerItem, _ BulkIndexerResponseItem, err error) {
 						_ = biiFailureCallbacksCalled.Add(1)
 						if err == nil {
 							t.Errorf("Unexpected nil error in BulkIndexerItem.OnFailure callback")
 						}
 					},
-					OnSuccess: func(ctx context.Context, item BulkIndexerItem, item2 BulkIndexerResponseItem) {
+					OnSuccess: func(_ context.Context, _ BulkIndexerItem, _ BulkIndexerResponseItem) {
 						_ = biiSuccessCallbacksCalled.Add(1)
 					},
 				})
@@ -783,7 +840,7 @@ func TestBulkIndexer(t *testing.T) {
 			Decoder: customJSONDecoder{
 				err: fmt.Errorf("Custom JSON decoder error"),
 			},
-			OnError: func(ctx context.Context, err error) {
+			OnError: func(_ context.Context, _ error) {
 				_ = biFailureCallbacksCalled.Add(1)
 			},
 		})
@@ -794,7 +851,7 @@ func TestBulkIndexer(t *testing.T) {
 			Action:     "index",
 			DocumentID: "1",
 			Body:       strings.NewReader(`{"title":"foo"}`),
-			OnFailure: func(ctx context.Context, item BulkIndexerItem, item2 BulkIndexerResponseItem, err error) {
+			OnFailure: func(_ context.Context, _ BulkIndexerItem, _ BulkIndexerResponseItem, err error) {
 				_ = biiFailureCallbacksCalled.Add(1)
 				if err == nil {
 					t.Errorf("Unexpected nil error in BulkIndexerItem.OnFailure callback")
@@ -821,10 +878,16 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("Custom JSON Decoder", func(t *testing.T) {
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
-		bi, _ := NewBulkIndexer(BulkIndexerConfig{Client: es, Decoder: customJSONDecoder{}})
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		bi, err := NewBulkIndexer(BulkIndexerConfig{Client: es, Decoder: customJSONDecoder{}})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
 
-		err := bi.Add(context.Background(), BulkIndexerItem{
+		err = bi.Add(context.Background(), BulkIndexerItem{
 			Action:     "index",
 			DocumentID: "1",
 			Body:       strings.NewReader(`{"title":"foo"}`),
@@ -1091,10 +1154,10 @@ func TestBulkIndexer(t *testing.T) {
 		}
 	})
 
-	t.Run("Concurrent Flushing", func(t *testing.T) {
+	t.Run("Concurrent Flushing", func(_ *testing.T) {
 		esConfig := elasticsearch.Config{
 			Transport: &mockTransport{
-				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						StatusCode: http.StatusOK,
 						Status:     "200 OK",
@@ -1136,7 +1199,7 @@ func TestBulkIndexer(t *testing.T) {
 	t.Run("Oversized Payload", func(t *testing.T) {
 		esConfig := elasticsearch.Config{
 			Transport: &mockTransport{
-				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						StatusCode: http.StatusOK,
 						Status:     "200 OK",
@@ -1164,7 +1227,7 @@ func TestBulkIndexer(t *testing.T) {
 			log.Fatal(err)
 		}
 
-		bi.Add(context.Background(), BulkIndexerItem{
+		_ = bi.Add(context.Background(), BulkIndexerItem{
 			Action:     "index",
 			DocumentID: strconv.Itoa(1),
 			Body:       strings.NewReader(`{"title":"foo"}`),
@@ -1173,6 +1236,100 @@ func TestBulkIndexer(t *testing.T) {
 
 		if !bytes.Contains(logbuf.Bytes(), []byte("[worker-001] Oversize Payload in item [index:1]")) {
 			t.Fatalf("Expected detection of oversize payload, got: \n%s", logbuf.String())
+		}
+	})
+
+	t.Run("FlushedBytes and FlushedMs", func(t *testing.T) {
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+				time.Sleep(10 * time.Millisecond) // Simulate some latency
+				return &http.Response{
+					StatusCode: http.StatusOK,
+					Status:     "200 OK",
+					Body:       io.NopCloser(strings.NewReader(`{"items":[{"index": {}}]}`)),
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				}, nil
+			},
+		}})
+
+		cfg := BulkIndexerConfig{
+			NumWorkers: 1,
+			Client:     es,
+		}
+
+		bi, _ := NewBulkIndexer(cfg)
+
+		err := bi.Add(context.Background(), BulkIndexerItem{
+			Action: "index",
+			Body:   strings.NewReader(`{"title":"foo"}`),
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if err := bi.Close(context.Background()); err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+
+		stats := bi.Stats()
+
+		if stats.NumFlushed != 1 {
+			t.Errorf("Unexpected NumFlushed: want=%d, got=%d", 1, stats.NumFlushed)
+		}
+
+		if stats.FlushedBytes == 0 {
+			t.Errorf("Expected FlushedBytes > 0, got=%d", stats.FlushedBytes)
+		}
+
+		if stats.FlushedMs == 0 {
+			t.Errorf("Expected FlushedMs > 0, got=%d", stats.FlushedMs)
+		}
+	})
+
+	t.Run("FlushedBytes and FlushedMs not recorded on error response", func(t *testing.T) {
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+				return &http.Response{
+					StatusCode: http.StatusInternalServerError,
+					Status:     "500 Internal Server Error",
+					Body:       io.NopCloser(strings.NewReader(`{"error":"something went wrong"}`)),
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				}, nil
+			},
+		}})
+
+		cfg := BulkIndexerConfig{
+			NumWorkers: 1,
+			Client:     es,
+			OnError:    func(_ context.Context, _ error) {}, // Suppress error logging
+		}
+
+		bi, _ := NewBulkIndexer(cfg)
+
+		err := bi.Add(context.Background(), BulkIndexerItem{
+			Action: "index",
+			Body:   strings.NewReader(`{"title":"foo"}`),
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		bi.Close(context.Background())
+
+		stats := bi.Stats()
+
+		// On error response, items should be marked as failed
+		if stats.NumFailed != 1 {
+			t.Errorf("Unexpected NumFailed: want=%d, got=%d", 1, stats.NumFailed)
+		}
+
+		// FlushedBytes and FlushedMs should NOT be recorded on error
+		if stats.FlushedBytes != 0 {
+			t.Errorf("Expected FlushedBytes == 0 on error, got=%d", stats.FlushedBytes)
+		}
+
+		if stats.FlushedMs != 0 {
+			t.Errorf("Expected FlushedMs == 0 on error, got=%d", stats.FlushedMs)
 		}
 	})
 }
@@ -1187,7 +1344,7 @@ func TestBulkIndexerItem(t *testing.T) {
 			Body:       strings.NewReader(body),
 		}
 		bi.marshallMeta()
-		bi.computeLength()
+		_ = bi.computeLength()
 		if bi.payloadLength != expectedLength {
 			t.Fatalf("invalid length, expected %d, got %d", expectedLength, bi.payloadLength)
 		}
@@ -1200,7 +1357,7 @@ func TestBulkIndexerItem(t *testing.T) {
 			Body:       strings.NewReader(""),
 		}
 		bi.marshallMeta()
-		bi.computeLength()
+		_ = bi.computeLength()
 		if bi.payloadLength != expectedLength {
 			t.Fatalf("invalid length, expected %d, got %d", expectedLength, bi.payloadLength)
 		}

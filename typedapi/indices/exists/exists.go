@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Check indices.
+//
 // Check if one or more indices, index aliases, or data streams exist.
 package exists
 
@@ -77,6 +78,7 @@ func NewExistsFunc(tp elastictransport.Interface) NewExists {
 }
 
 // Check indices.
+//
 // Check if one or more indices, index aliases, or data streams exist.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists

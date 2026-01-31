@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Start the ILM plugin.
+//
 // Start the index lifecycle management plugin if it is currently stopped.
 // ILM is started automatically when the cluster is formed.
 // Restarting ILM is necessary only when it has been stopped using the stop ILM
@@ -73,6 +74,7 @@ func NewStartFunc(tp elastictransport.Interface) NewStart {
 }
 
 // Start the ILM plugin.
+//
 // Start the index lifecycle management plugin if it is currently stopped.
 // ILM is started automatically when the cluster is formed.
 // Restarting ILM is necessary only when it has been stopped using the stop ILM

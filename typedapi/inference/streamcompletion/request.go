@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package streamcompletion
 
@@ -30,16 +30,17 @@ import (
 
 // Request holds the request body struct for the package streamcompletion
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/stream_completion/StreamInferenceRequest.ts#L25-L71
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/stream_completion/StreamInferenceRequest.ts#L25-L74
 type Request struct {
-
 	// Input The text on which you want to perform the inference task.
 	// It can be a single string or an array.
 	//
 	// NOTE: Inference endpoints for the completion task type currently only support
 	// a single string as input.
 	Input []string `json:"input"`
-	// TaskSettings Optional task settings
+	// TaskSettings Task settings for the individual inference request. These settings are
+	// specific to the <task_type> you specified and override the task settings
+	// specified when initializing the service.
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 }
 

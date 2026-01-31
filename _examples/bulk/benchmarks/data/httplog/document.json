@@ -72,9 +72,7 @@
   },
   "nginx": {
     "access": {
-      "remote_ip_list": [
-        "172.23.0.1"
-      ]
+      "remote_ip_list": ["172.23.0.1"]
     }
   },
   "fileset": {
@@ -83,9 +81,7 @@
   "url": {
     "original": "/"
   },
-  "tags": [
-    "service-A"
-  ],
+  "tags": ["service-A"],
   "input": {
     "type": "container"
   },

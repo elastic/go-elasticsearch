@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLUpgradeJobSnapshotFunc(t Transport) MLUpgradeJobSnapshot {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpgradeJobSnapshot - Upgrades a given job snapshot to the current major version.
+// MLUpgradeJobSnapshot - Upgrade a snapshot
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-upgrade-job-model-snapshot.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-upgrade-job-snapshot.
 type MLUpgradeJobSnapshot func(snapshot_id string, job_id string, o ...func(*MLUpgradeJobSnapshotRequest)) (*Response, error)
 
 // MLUpgradeJobSnapshotRequest configures the ML Upgrade Job Snapshot API request.

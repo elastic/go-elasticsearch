@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newDeleteByQueryRethrottleFunc(t Transport) DeleteByQueryRethrottle {
 
 // ----- API Definition -------------------------------------------------------
 
-// DeleteByQueryRethrottle changes the number of requests per second for a particular Delete By Query operation.
+// DeleteByQueryRethrottle throttle a delete by query operation
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query-rethrottle.
 type DeleteByQueryRethrottle func(task_id string, requests_per_second *int, o ...func(*DeleteByQueryRethrottleRequest)) (*Response, error)
 
 // DeleteByQueryRethrottleRequest configures the Delete By Query Rethrottle API request.

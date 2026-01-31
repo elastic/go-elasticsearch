@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityGetUserProfileFunc(t Transport) SecurityGetUserProfile {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUserProfile - Retrieves user profiles for the given unique ID(s).
+// SecurityGetUserProfile - Get a user profile
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-profile.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user-profile.
 type SecurityGetUserProfile func(uid []string, o ...func(*SecurityGetUserProfileRequest)) (*Response, error)
 
 // SecurityGetUserProfileRequest configures the Security Get User Profile API request.

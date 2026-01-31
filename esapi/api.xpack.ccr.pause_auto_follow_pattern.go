@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newCCRPauseAutoFollowPatternFunc(t Transport) CCRPauseAutoFollowPattern {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRPauseAutoFollowPattern - Pauses an auto-follow pattern
+// CCRPauseAutoFollowPattern - Pause an auto-follow pattern
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-pause-auto-follow-pattern.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-pause-auto-follow-pattern.
 type CCRPauseAutoFollowPattern func(name string, o ...func(*CCRPauseAutoFollowPatternRequest)) (*Response, error)
 
 // CCRPauseAutoFollowPatternRequest configures the CCR Pause Auto Follow Pattern API request.

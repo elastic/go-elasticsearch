@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newMLDeleteForecastFunc(t Transport) MLDeleteForecast {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteForecast - Deletes forecasts from a machine learning job.
+// MLDeleteForecast - Delete forecasts from a job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-forecast.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-forecast.
 type MLDeleteForecast func(job_id string, o ...func(*MLDeleteForecastRequest)) (*Response, error)
 
 // MLDeleteForecastRequest configures the ML Delete Forecast API request.

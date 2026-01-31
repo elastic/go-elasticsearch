@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -56,16 +56,23 @@ func (s *_jsonProcessor) AllowDuplicateKeys(allowduplicatekeys bool) *_jsonProce
 	return s
 }
 
-func (s *_jsonProcessor) Description(description string) *_jsonProcessor {
+func (s *_jsonProcessor) Field(field string) *_jsonProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_jsonProcessor) Field(field string) *_jsonProcessor {
+func (s *_jsonProcessor) TargetField(field string) *_jsonProcessor {
 
-	s.v.Field = field
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_jsonProcessor) Description(description string) *_jsonProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -97,13 +104,6 @@ func (s *_jsonProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 func (s *_jsonProcessor) Tag(tag string) *_jsonProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_jsonProcessor) TargetField(field string) *_jsonProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

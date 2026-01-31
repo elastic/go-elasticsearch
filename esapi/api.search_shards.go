@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newSearchShardsFunc(t Transport) SearchShards {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchShards returns information about the indices and shards that a search request would be executed against.
+// SearchShards get the search shards
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-shards.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-shards.
 type SearchShards func(o ...func(*SearchShardsRequest)) (*Response, error)
 
 // SearchShardsRequest configures the Search Shards API request.
@@ -54,12 +54,12 @@ type SearchShardsRequest struct {
 	Index []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 	Local             *bool
 	MasterTimeout     time.Duration
 	Preference        string
-	Routing           string
+	Routing           []string
 
 	Pretty     bool
 	Human      bool
@@ -110,8 +110,8 @@ func (r SearchShardsRequest) Do(providedCtx context.Context, transport Transport
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -130,8 +130,8 @@ func (r SearchShardsRequest) Do(providedCtx context.Context, transport Transport
 		params["preference"] = r.Preference
 	}
 
-	if r.Routing != "" {
-		params["routing"] = r.Routing
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if r.Pretty {
@@ -227,7 +227,7 @@ func (f SearchShards) WithAllowNoIndices(v bool) func(*SearchShardsRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f SearchShards) WithExpandWildcards(v string) func(*SearchShardsRequest) {
+func (f SearchShards) WithExpandWildcards(v ...string) func(*SearchShardsRequest) {
 	return func(r *SearchShardsRequest) {
 		r.ExpandWildcards = v
 	}
@@ -262,7 +262,7 @@ func (f SearchShards) WithPreference(v string) func(*SearchShardsRequest) {
 }
 
 // WithRouting - specific routing value.
-func (f SearchShards) WithRouting(v string) func(*SearchShardsRequest) {
+func (f SearchShards) WithRouting(v ...string) func(*SearchShardsRequest) {
 	return func(r *SearchShardsRequest) {
 		r.Routing = v
 	}

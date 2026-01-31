@@ -33,12 +33,13 @@ func ExampleResponse_IsError() {
 	if err != nil {
 		log.Fatalf("ERROR: %v", err)
 	}
-	defer res.Body.Close()
+	defer func() { _ = res.Body.Close() }()
 
 	// Handle error response (3xx, 4xx, 5xx)
 	//
 	if res.IsError() {
-		log.Fatalf("ERROR: %s", res.Status())
+		log.Printf("ERROR: %s", res.Status())
+		return
 	}
 
 	// Handle successful response (2xx)

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newClusterPutComponentTemplateFunc(t Transport) ClusterPutComponentTemplate
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterPutComponentTemplate creates or updates a component template
+// ClusterPutComponentTemplate create or update a component template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template.
 type ClusterPutComponentTemplate func(name string, body io.Reader, o ...func(*ClusterPutComponentTemplateRequest)) (*Response, error)
 
 // ClusterPutComponentTemplateRequest configures the Cluster Put Component Template API request.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DenseVectorIndexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/mapping/DenseVectorProperty.ts#L129-L166
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/mapping/DenseVectorProperty.ts#L134-L179
 type DenseVectorIndexOptions struct {
 	// ConfidenceInterval The confidence interval to use when quantizing the vectors. Can be any value
 	// between and including `0.90` and
@@ -64,9 +64,13 @@ type DenseVectorIndexOptions struct {
 	// Only applicable to `hnsw`, `int8_hnsw`, `bbq_hnsw`, and `int4_hnsw` index
 	// types.
 	M *int `json:"m,omitempty"`
-	// RescoreVector The rescore vector options. This is only applicable to `bbq_hnsw`,
-	// `int4_hnsw`, `int8_hnsw`, `bbq_flat`, `int4_flat`, and `int8_flat` index
-	// types.
+	// OnDiskRescore `true` if vector rescoring should be done on-disk
+	//
+	// Only applicable to `bbq_disk`, `bbq_hnsw`, `int4_hnsw`, `int8_hnsw`
+	OnDiskRescore *bool `json:"on_disk_rescore,omitempty"`
+	// RescoreVector The rescore vector options. This is only applicable to `bbq_disk`,
+	// `bbq_hnsw`, `int4_hnsw`, `int8_hnsw`, `bbq_flat`, `int4_flat`, and
+	// `int8_flat` index types.
 	RescoreVector *DenseVectorIndexOptionsRescoreVector `json:"rescore_vector,omitempty"`
 	// Type The type of kNN algorithm to use.
 	Type densevectorindexoptionstype.DenseVectorIndexOptionsType `json:"type"`
@@ -133,6 +137,20 @@ func (s *DenseVectorIndexOptions) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int(v)
 				s.M = &f
+			}
+
+		case "on_disk_rescore":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "OnDiskRescore", err)
+				}
+				s.OnDiskRescore = &value
+			case bool:
+				s.OnDiskRescore = &v
 			}
 
 		case "rescore_vector":

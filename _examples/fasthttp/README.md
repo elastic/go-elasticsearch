@@ -15,5 +15,5 @@ To run the benchmarks:
 
     make bench
 
-    BenchmarkHTTPClient/Info()-4         	    1591	   7139770 ns/op	   16725 B/op	     132 allocs/op
-    BenchmarkFastHTTPClient/Info()-4     	   10000	   1315049 ns/op	    2255 B/op	      24 allocs/op
+    BenchmarkHTTPClient/Info()-4              1591      7139770 ns/op     16725 B/op       132 allocs/op
+    BenchmarkFastHTTPClient/Info()-4         10000      1315049 ns/op      2255 B/op        24 allocs/op

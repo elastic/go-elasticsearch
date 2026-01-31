@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -36,13 +36,6 @@ func NewIpLocationProcessor() *_ipLocationProcessor {
 func (s *_ipLocationProcessor) DatabaseFile(databasefile string) *_ipLocationProcessor {
 
 	s.v.DatabaseFile = &databasefile
-
-	return s
-}
-
-func (s *_ipLocationProcessor) Description(description string) *_ipLocationProcessor {
-
-	s.v.Description = &description
 
 	return s
 }
@@ -68,6 +61,37 @@ func (s *_ipLocationProcessor) FirstOnly(firstonly bool) *_ipLocationProcessor {
 	return s
 }
 
+func (s *_ipLocationProcessor) IgnoreMissing(ignoremissing bool) *_ipLocationProcessor {
+
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_ipLocationProcessor) Properties(properties ...string) *_ipLocationProcessor {
+
+	for _, v := range properties {
+
+		s.v.Properties = append(s.v.Properties, v)
+
+	}
+	return s
+}
+
+func (s *_ipLocationProcessor) TargetField(field string) *_ipLocationProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_ipLocationProcessor) Description(description string) *_ipLocationProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
 func (s *_ipLocationProcessor) If(if_ types.ScriptVariant) *_ipLocationProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -82,13 +106,6 @@ func (s *_ipLocationProcessor) IgnoreFailure(ignorefailure bool) *_ipLocationPro
 	return s
 }
 
-func (s *_ipLocationProcessor) IgnoreMissing(ignoremissing bool) *_ipLocationProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_ipLocationProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_ipLocationProcessor {
 
 	for _, v := range onfailures {
@@ -99,26 +116,9 @@ func (s *_ipLocationProcessor) OnFailure(onfailures ...types.ProcessorContainerV
 	return s
 }
 
-func (s *_ipLocationProcessor) Properties(properties ...string) *_ipLocationProcessor {
-
-	for _, v := range properties {
-
-		s.v.Properties = append(s.v.Properties, v)
-
-	}
-	return s
-}
-
 func (s *_ipLocationProcessor) Tag(tag string) *_ipLocationProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_ipLocationProcessor) TargetField(field string) *_ipLocationProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

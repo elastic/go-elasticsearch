@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,11 +44,11 @@ func newSearchApplicationSearchFunc(t Transport) SearchApplicationSearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationSearch perform a search against a search application
+// SearchApplicationSearch run a search application search
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-search.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-search.
 type SearchApplicationSearch func(name string, o ...func(*SearchApplicationSearchRequest)) (*Response, error)
 
 // SearchApplicationSearchRequest configures the Search Application Search API request.

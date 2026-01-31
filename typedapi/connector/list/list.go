@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get all connectors.
 //
@@ -278,7 +278,7 @@ func (r *List) Header(key, value string) *List {
 	return r
 }
 
-// From Starting offset (default: 0)
+// From Starting offset
 // API name: from
 func (r *List) From(from int) *List {
 	r.values.Set("from", strconv.Itoa(from))

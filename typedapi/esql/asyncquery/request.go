@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package asyncquery
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package asyncquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/esql/async_query/AsyncQueryRequest.ts#L28-L138
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/esql/async_query/AsyncQueryRequest.ts#L28-L156
 type Request struct {
-
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
 	// individual document as one row. For the JSON, YAML, CBOR and smile formats,
 	// ES|QL can return the results in a columnar fashion where one row represents
@@ -44,12 +43,19 @@ type Request struct {
 	// Filter Specify a Query DSL query in the filter parameter to filter the set of
 	// documents that an ES|QL query runs on.
 	Filter *types.Query `json:"filter,omitempty"`
-	// IncludeCcsMetadata When set to `true` and performing a cross-cluster query, the response will
-	// include an extra `_clusters`
+	// IncludeCcsMetadata When set to `true` and performing a cross-cluster/cross-project query, the
+	// response will include an extra `_clusters`
 	// object with information about the clusters that participated in the search
 	// along with info such as shards
 	// count.
 	IncludeCcsMetadata *bool `json:"include_ccs_metadata,omitempty"`
+	// IncludeExecutionMetadata When set to `true`, the response will include an extra `_clusters`
+	// object with information about the clusters that participated in the search
+	// along with info such as shards
+	// count.
+	// This is similar to `include_ccs_metadata`, but it also returns metadata when
+	// the query is not CCS/CPS
+	IncludeExecutionMetadata *bool `json:"include_execution_metadata,omitempty"`
 	// KeepAlive The period for which the query and its results are stored in the cluster.
 	// The default period is five days.
 	// When this period expires, the query and its results are deleted, even if the
@@ -155,6 +161,20 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.IncludeCcsMetadata = &value
 			case bool:
 				s.IncludeCcsMetadata = &v
+			}
+
+		case "include_execution_metadata":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IncludeExecutionMetadata", err)
+				}
+				s.IncludeExecutionMetadata = &value
+			case bool:
+				s.IncludeExecutionMetadata = &v
 			}
 
 		case "keep_alive":

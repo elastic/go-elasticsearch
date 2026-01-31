@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newCatMLDatafeedsFunc(t Transport) CatMLDatafeeds {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatMLDatafeeds - Gets configuration and usage information about datafeeds.
+// CatMLDatafeeds - Get datafeeds
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-datafeeds.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-datafeeds.
 type CatMLDatafeeds func(o ...func(*CatMLDatafeedsRequest)) (*Response, error)
 
 // CatMLDatafeedsRequest configures the CatML Datafeeds API request.
@@ -53,6 +53,7 @@ type CatMLDatafeedsRequest struct {
 	DatafeedID string
 
 	AllowNoMatch *bool
+	Bytes        string
 	Format       string
 	H            []string
 	Help         *bool
@@ -111,6 +112,10 @@ func (r CatMLDatafeedsRequest) Do(providedCtx context.Context, transport Transpo
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
+	}
+
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
 	}
 
 	if r.Format != "" {
@@ -226,6 +231,13 @@ func (f CatMLDatafeeds) WithDatafeedID(v string) func(*CatMLDatafeedsRequest) {
 func (f CatMLDatafeeds) WithAllowNoMatch(v bool) func(*CatMLDatafeedsRequest) {
 	return func(r *CatMLDatafeedsRequest) {
 		r.AllowNoMatch = &v
+	}
+}
+
+// WithBytes - the unit in which to display byte values.
+func (f CatMLDatafeeds) WithBytes(v string) func(*CatMLDatafeedsRequest) {
+	return func(r *CatMLDatafeedsRequest) {
+		r.Bytes = v
 	}
 }
 

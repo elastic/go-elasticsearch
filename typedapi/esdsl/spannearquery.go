@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -33,13 +33,6 @@ func NewSpanNearQuery() *_spanNearQuery {
 
 	return &_spanNearQuery{v: types.NewSpanNearQuery()}
 
-}
-
-func (s *_spanNearQuery) Boost(boost float32) *_spanNearQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_spanNearQuery) Clauses(clauses ...types.SpanQueryVariant) *_spanNearQuery {
@@ -59,16 +52,23 @@ func (s *_spanNearQuery) InOrder(inorder bool) *_spanNearQuery {
 	return s
 }
 
-func (s *_spanNearQuery) QueryName_(queryname_ string) *_spanNearQuery {
+func (s *_spanNearQuery) Slop(slop int) *_spanNearQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.Slop = &slop
 
 	return s
 }
 
-func (s *_spanNearQuery) Slop(slop int) *_spanNearQuery {
+func (s *_spanNearQuery) Boost(boost float32) *_spanNearQuery {
 
-	s.v.Slop = &slop
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_spanNearQuery) QueryName_(queryname_ string) *_spanNearQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

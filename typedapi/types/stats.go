@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // Stats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/nodes/_types/Stats.ts#L30-L114
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/nodes/_types/Stats.ts#L30-L114
 type Stats struct {
 	// AdaptiveSelection Statistics about adaptive replica selection.
 	AdaptiveSelection map[string]AdaptiveSelection `json:"adaptive_selection,omitempty"`
@@ -211,22 +211,21 @@ func (s *Stats) UnmarshalJSON(data []byte) error {
 			rawMsg := make(map[string]json.RawMessage, 0)
 			dec.Decode(&rawMsg)
 			for key, value := range rawMsg {
-				switch {
-				case bytes.HasPrefix(value, []byte("\"")), bytes.HasPrefix(value, []byte("{")):
-					o := NewScriptCache()
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
-						return fmt.Errorf("%s | %w", "ScriptCache", err)
-					}
-					s.ScriptCache[key] = append(s.ScriptCache[key], *o)
-				default:
-					o := []ScriptCache{}
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
+				v := bytes.TrimSpace(value)
+				if len(v) > 0 && v[0] == '[' {
+					var o []ScriptCache
+					if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "ScriptCache", err)
 					}
 					s.ScriptCache[key] = o
+					continue
 				}
+
+				var o ScriptCache
+				if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "ScriptCache", err)
+				}
+				s.ScriptCache[key] = append(s.ScriptCache[key], o)
 			}
 
 		case "thread_pool":

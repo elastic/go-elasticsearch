@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newSecurityDisableUserProfileFunc(t Transport) SecurityDisableUserProfile {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDisableUserProfile - Disables a user profile so it's not visible in user profile searches.
+// SecurityDisableUserProfile - Disable a user profile
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-disable-user-profile.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-disable-user-profile.
 type SecurityDisableUserProfile func(uid string, o ...func(*SecurityDisableUserProfileRequest)) (*Response, error)
 
 // SecurityDisableUserProfileRequest configures the Security Disable User Profile API request.

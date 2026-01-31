@@ -33,12 +33,177 @@ import (
 
 var (
 	apiDescriptions map[interface{}]interface{}
+	paramOverrides  map[string]map[string]ParamOverride
 )
+
+// ParamOverride defines a type override for a parameter.
+type ParamOverride struct {
+	UntilVersion string
+	Type         string `json:"type"`
+}
+
+// overrideSpec defines overrides grouped by pattern for concise definition.
+type overrideSpec struct {
+	UntilVersion string
+	Type         string
+	Param        string
+	Endpoints    []string
+}
+
+var overrideSpecs = []overrideSpec{
+	// expand_wildcards -> string
+	{"9.3.0", "string", "expand_wildcards", []string{
+		"async_search.submit",
+		"cat.aliases",
+		"cat.indices",
+		"cluster.get_component_template",
+		"cluster.health",
+		"cluster.state",
+		"count",
+		"delete_by_query",
+		"eql.search",
+		"field_caps",
+		"indices.add_block",
+		"indices.clear_cache",
+		"indices.close",
+		"indices.delete",
+		"indices.delete_data_lifecycle",
+		"indices.delete_data_stream",
+		"indices.delete_data_stream_options",
+		"indices.disk_usage",
+		"indices.exists",
+		"indices.exists_alias",
+		"indices.field_usage_stats",
+		"indices.flush",
+		"indices.forcemerge",
+		"indices.get",
+		"indices.get_alias",
+		"indices.get_data_lifecycle",
+		"indices.get_data_stream",
+		"indices.get_data_stream_options",
+		"indices.get_field_mapping",
+		"indices.get_mapping",
+		"indices.get_settings",
+		"indices.open",
+		"indices.put_data_lifecycle",
+		"indices.put_data_stream_options",
+		"indices.put_mapping",
+		"indices.put_settings",
+		"indices.recovery",
+		"indices.refresh",
+		"indices.reload_search_analyzers",
+		"indices.remove_block",
+		"indices.resolve_cluster",
+		"indices.resolve_index",
+		"indices.segments",
+		"indices.shard_stores",
+		"indices.stats",
+		"indices.validate_query",
+		"ml.put_datafeed",
+		"ml.put_job",
+		"ml.update_datafeed",
+		"msearch",
+		"open_point_in_time",
+		"rank_eval",
+		"search",
+		"search_shards",
+		"search_template",
+		"searchable_snapshots.clear_cache",
+		"update_by_query",
+	}},
+	// routing -> string
+	{"9.3.0", "string", "routing", []string{
+		"bulk",
+		"create",
+		"delete",
+		"exists",
+		"exists_source",
+		"explain",
+		"field_caps",
+		"get",
+		"get_source",
+		"graph.explore",
+		"index",
+		"mget",
+		"mtermvectors",
+		"open_point_in_time",
+		"search_shards",
+		"termvectors",
+		"update",
+	}},
+	// name -> list
+	{"9.3.0", "list", "name", []string{
+		"cluster.get_component_template",
+	}},
+	// features -> string
+	{"9.3.0", "string", "features", []string{
+		"indices.get",
+	}},
+	// ML date parameters: start -> string
+	{"9.3.0", "string", "start", []string{
+		"ml.flush_job",
+		"ml.get_buckets",
+		"ml.get_calendar_events",
+		"ml.get_influencers",
+		"ml.get_overall_buckets",
+		"ml.get_records",
+		"ml.preview_datafeed",
+		"ml.start_datafeed",
+	}},
+	// ML date parameters: end -> string
+	{"9.3.0", "string", "end", []string{
+		"ml.flush_job",
+		"ml.get_buckets",
+		"ml.get_influencers",
+		"ml.get_overall_buckets",
+		"ml.get_records",
+		"ml.preview_datafeed",
+		"ml.start_datafeed",
+	}},
+	// ML specific parameters
+	{"9.3.0", "string", "advance_time", []string{"ml.flush_job"}},
+	{"9.3.0", "string", "skip_time", []string{"ml.flush_job"}},
+	{"9.3.0", "string", "reset_start", []string{"ml.post_data"}},
+	{"9.3.0", "string", "reset_end", []string{"ml.post_data"}},
+}
 
 func init() {
 	err := yaml.NewDecoder(strings.NewReader(apiDescriptionsYAML)).Decode(&apiDescriptions)
 	if err != nil {
 		panic(fmt.Sprintf("ERROR: %v", err))
+	}
+
+	// Build paramOverrides lookup map from overrideSpecs
+	paramOverrides = make(map[string]map[string]ParamOverride)
+	for _, spec := range overrideSpecs {
+		for _, endpoint := range spec.Endpoints {
+			if paramOverrides[endpoint] == nil {
+				paramOverrides[endpoint] = make(map[string]ParamOverride)
+			}
+			paramOverrides[endpoint][spec.Param] = ParamOverride{
+				UntilVersion: spec.UntilVersion,
+				Type:         spec.Type,
+			}
+		}
+	}
+}
+
+func GetParamOverride(endpointName, paramName string) (ParamOverride, bool) {
+	if override, ok := paramOverrides[endpointName][paramName]; ok {
+		if override.UntilVersion != "" {
+			if EsVersion >= override.UntilVersion {
+				return ParamOverride{}, false
+			}
+		}
+		return override, true
+	}
+	return ParamOverride{}, false
+}
+
+// applyParamOverride applies a type override to a parameter or part if one exists.
+func applyParamOverride(endpointName, paramName string, paramType *string) {
+	if override, ok := GetParamOverride(endpointName, paramName); ok {
+		*paramType = override.Type
 	}
 }
 
@@ -107,11 +272,14 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 		"error_trace": true,
 		"filter_path": true,
 	}
-	for name, _ := range endpoint.Params {
+	for name, param := range endpoint.Params {
 		// remove from endpoint if it's in the skip list
 		if _, ok := paramSkipList[name]; ok {
 			delete(endpoint.Params, name)
+			continue
 		}
+
+		applyParamOverride(endpoint.Name, name, &param.Type)
 	}
 
 	if fpath, ok := f.(*os.File); ok {
@@ -134,6 +302,12 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 		for partName, part := range path.Parts {
 			part.Endpoint = &endpoint
 			part.Name = partName
+			applyParamOverride(endpoint.Name, partName, &part.Type)
+
+			// Date types are handled as strings in the esapi client
+			if part.Type == "date" {
+				part.Type = "string"
+			}
 		}
 	}
 
@@ -142,7 +316,7 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 		var parts []string
 		for partName, part := range path.Parts {
 			// Skip type only for selected APIs at this point
-			if part.Name == "type" && part.Deprecated {
+			if part.Name == "type" && part.Deprecated.Version != "" {
 				if endpoint.Name == "bulk" ||
 					endpoint.Name == "create" ||
 					endpoint.Name == "delete" ||
@@ -178,6 +352,11 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 	for paramName, p := range endpoint.URL.Params {
 		p.Endpoint = &endpoint
 		p.Name = paramName
+
+		// Date types are handled as strings in the esapi client
+		if p.Type == "date" {
+			p.Type = "string"
+		}
 	}
 
 	// Update the AllParts field
@@ -289,7 +468,10 @@ type Part struct {
 	Description string `json:"description"`
 	Required    bool   `json:"required"`
 
-	Deprecated bool `json:"deprecated"`
+	Deprecated struct {
+		Version     string `json:"version"`
+		Description string `json:"description"`
+	}
 }
 
 // Param represents API endpoint parameter.

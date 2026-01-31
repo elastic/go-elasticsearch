@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newMLInfoFunc(t Transport) MLInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLInfo - Returns defaults and limits used by machine learning.
+// MLInfo - Get machine learning information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-ml-info.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-info.
 type MLInfo func(o ...func(*MLInfoRequest)) (*Response, error)
 
 // MLInfoRequest configures the ML Info API request.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -31,6 +31,7 @@ type _compositeDateHistogramAggregation struct {
 	v *types.CompositeDateHistogramAggregation
 }
 
+// A date histogram aggregation.
 func NewCompositeDateHistogramAggregation() *_compositeDateHistogramAggregation {
 
 	return &_compositeDateHistogramAggregation{v: types.NewCompositeDateHistogramAggregation()}
@@ -40,13 +41,6 @@ func NewCompositeDateHistogramAggregation() *_compositeDateHistogramAggregation 
 func (s *_compositeDateHistogramAggregation) CalendarInterval(durationlarge string) *_compositeDateHistogramAggregation {
 
 	s.v.CalendarInterval = &durationlarge
-
-	return s
-}
-
-func (s *_compositeDateHistogramAggregation) Field(field string) *_compositeDateHistogramAggregation {
-
-	s.v.Field = &field
 
 	return s
 }
@@ -65,6 +59,27 @@ func (s *_compositeDateHistogramAggregation) Format(format string) *_compositeDa
 	return s
 }
 
+func (s *_compositeDateHistogramAggregation) Offset(duration types.DurationVariant) *_compositeDateHistogramAggregation {
+
+	s.v.Offset = *duration.DurationCaster()
+
+	return s
+}
+
+func (s *_compositeDateHistogramAggregation) TimeZone(timezone string) *_compositeDateHistogramAggregation {
+
+	s.v.TimeZone = &timezone
+
+	return s
+}
+
+func (s *_compositeDateHistogramAggregation) Field(field string) *_compositeDateHistogramAggregation {
+
+	s.v.Field = &field
+
+	return s
+}
+
 func (s *_compositeDateHistogramAggregation) MissingBucket(missingbucket bool) *_compositeDateHistogramAggregation {
 
 	s.v.MissingBucket = &missingbucket
@@ -75,13 +90,6 @@ func (s *_compositeDateHistogramAggregation) MissingBucket(missingbucket bool) *
 func (s *_compositeDateHistogramAggregation) MissingOrder(missingorder missingorder.MissingOrder) *_compositeDateHistogramAggregation {
 
 	s.v.MissingOrder = &missingorder
-	return s
-}
-
-func (s *_compositeDateHistogramAggregation) Offset(duration types.DurationVariant) *_compositeDateHistogramAggregation {
-
-	s.v.Offset = *duration.DurationCaster()
-
 	return s
 }
 
@@ -98,17 +106,18 @@ func (s *_compositeDateHistogramAggregation) Script(script types.ScriptVariant) 
 	return s
 }
 
-func (s *_compositeDateHistogramAggregation) TimeZone(timezone string) *_compositeDateHistogramAggregation {
-
-	s.v.TimeZone = &timezone
-
-	return s
-}
-
 func (s *_compositeDateHistogramAggregation) ValueType(valuetype valuetype.ValueType) *_compositeDateHistogramAggregation {
 
 	s.v.ValueType = &valuetype
 	return s
+}
+
+func (s *_compositeDateHistogramAggregation) CompositeAggregationSourceCaster() *types.CompositeAggregationSource {
+	container := types.NewCompositeAggregationSource()
+
+	container.DateHistogram = s.v
+
+	return container
 }
 
 func (s *_compositeDateHistogramAggregation) CompositeDateHistogramAggregationCaster() *types.CompositeDateHistogramAggregation {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -37,13 +37,6 @@ func NewTextExpansionQuery(key string) *_textExpansionQuery {
 	}
 }
 
-func (s *_textExpansionQuery) Boost(boost float32) *_textExpansionQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_textExpansionQuery) ModelId(modelid string) *_textExpansionQuery {
 
 	s.v.ModelId = modelid
@@ -61,6 +54,13 @@ func (s *_textExpansionQuery) ModelText(modeltext string) *_textExpansionQuery {
 func (s *_textExpansionQuery) PruningConfig(pruningconfig types.TokenPruningConfigVariant) *_textExpansionQuery {
 
 	s.v.PruningConfig = pruningconfig.TokenPruningConfigCaster()
+
+	return s
+}
+
+func (s *_textExpansionQuery) Boost(boost float32) *_textExpansionQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

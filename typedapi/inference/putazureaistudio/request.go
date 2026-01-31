@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package putazureaistudio
 
@@ -30,16 +30,17 @@ import (
 
 // Request holds the request body struct for the package putazureaistudio
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/put_azureaistudio/PutAzureAiStudioRequest.ts#L31-L85
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/put_azureaistudio/PutAzureAiStudioRequest.ts#L31-L89
 type Request struct {
-
 	// ChunkingSettings The chunking configuration object.
+	// Applies only to the `text_embedding` task type.
+	// Not applicable to the `rerank` or `completion` task types.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
 	// `azureaistudio`.
 	Service azureaistudioservicetype.AzureAiStudioServiceType `json:"service"`
 	// ServiceSettings Settings used to install the inference model. These settings are specific to
-	// the `openai` service.
+	// the `azureaistudio` service.
 	ServiceSettings types.AzureAiStudioServiceSettings `json:"service_settings"`
 	// TaskSettings Settings to configure the inference task.
 	// These settings are specific to the task type you specified.

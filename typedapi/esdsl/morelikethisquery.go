@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -39,13 +39,6 @@ func NewMoreLikeThisQuery() *_moreLikeThisQuery {
 func (s *_moreLikeThisQuery) Analyzer(analyzer string) *_moreLikeThisQuery {
 
 	s.v.Analyzer = &analyzer
-
-	return s
-}
-
-func (s *_moreLikeThisQuery) Boost(boost float32) *_moreLikeThisQuery {
-
-	s.v.Boost = &boost
 
 	return s
 }
@@ -140,16 +133,9 @@ func (s *_moreLikeThisQuery) MinimumShouldMatch(minimumshouldmatch types.Minimum
 	return s
 }
 
-func (s *_moreLikeThisQuery) QueryName_(queryname_ string) *_moreLikeThisQuery {
+func (s *_moreLikeThisQuery) Routing(routings ...string) *_moreLikeThisQuery {
 
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
-func (s *_moreLikeThisQuery) Routing(routing string) *_moreLikeThisQuery {
-
-	s.v.Routing = &routing
+	s.v.Routing = routings
 
 	return s
 }
@@ -181,6 +167,20 @@ func (s *_moreLikeThisQuery) Version(versionnumber int64) *_moreLikeThisQuery {
 func (s *_moreLikeThisQuery) VersionType(versiontype versiontype.VersionType) *_moreLikeThisQuery {
 
 	s.v.VersionType = &versiontype
+	return s
+}
+
+func (s *_moreLikeThisQuery) Boost(boost float32) *_moreLikeThisQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_moreLikeThisQuery) QueryName_(queryname_ string) *_moreLikeThisQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

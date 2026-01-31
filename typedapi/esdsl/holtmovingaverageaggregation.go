@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -37,6 +37,13 @@ func NewHoltMovingAverageAggregation(settings types.HoltLinearModelSettingsVaria
 
 	return tmp
 
+}
+
+func (s *_holtMovingAverageAggregation) Settings(settings types.HoltLinearModelSettingsVariant) *_holtMovingAverageAggregation {
+
+	s.v.Settings = *settings.HoltLinearModelSettingsCaster()
+
+	return s
 }
 
 func (s *_holtMovingAverageAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_holtMovingAverageAggregation {
@@ -69,13 +76,6 @@ func (s *_holtMovingAverageAggregation) Minimize(minimize bool) *_holtMovingAver
 func (s *_holtMovingAverageAggregation) Predict(predict int) *_holtMovingAverageAggregation {
 
 	s.v.Predict = &predict
-
-	return s
-}
-
-func (s *_holtMovingAverageAggregation) Settings(settings types.HoltLinearModelSettingsVariant) *_holtMovingAverageAggregation {
-
-	s.v.Settings = *settings.HoltLinearModelSettingsCaster()
 
 	return s
 }

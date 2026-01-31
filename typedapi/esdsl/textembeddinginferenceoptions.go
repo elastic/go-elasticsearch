@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -27,13 +27,9 @@ type _textEmbeddingInferenceOptions struct {
 }
 
 // Text embedding configuration for inference.
-func NewTextEmbeddingInferenceOptions(vocabulary types.VocabularyVariant) *_textEmbeddingInferenceOptions {
+func NewTextEmbeddingInferenceOptions() *_textEmbeddingInferenceOptions {
 
-	tmp := &_textEmbeddingInferenceOptions{v: types.NewTextEmbeddingInferenceOptions()}
-
-	tmp.Vocabulary(vocabulary)
-
-	return tmp
+	return &_textEmbeddingInferenceOptions{v: types.NewTextEmbeddingInferenceOptions()}
 
 }
 
@@ -60,7 +56,7 @@ func (s *_textEmbeddingInferenceOptions) Tokenization(tokenization types.Tokeniz
 
 func (s *_textEmbeddingInferenceOptions) Vocabulary(vocabulary types.VocabularyVariant) *_textEmbeddingInferenceOptions {
 
-	s.v.Vocabulary = *vocabulary.VocabularyCaster()
+	s.v.Vocabulary = vocabulary.VocabularyCaster()
 
 	return s
 }

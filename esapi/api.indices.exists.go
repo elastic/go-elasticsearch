@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesExistsFunc(t Transport) IndicesExists {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesExists returns information about whether a particular index exists.
+// IndicesExists check indices
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-exists.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists.
 type IndicesExists func(index []string, o ...func(*IndicesExistsRequest)) (*Response, error)
 
 // IndicesExistsRequest configures the Indices Exists API request.
@@ -54,7 +54,7 @@ type IndicesExistsRequest struct {
 	Index []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	FlatSettings      *bool
 	IgnoreUnavailable *bool
 	IncludeDefaults   *bool
@@ -109,8 +109,8 @@ func (r IndicesExistsRequest) Do(providedCtx context.Context, transport Transpor
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.FlatSettings != nil {
@@ -215,7 +215,7 @@ func (f IndicesExists) WithAllowNoIndices(v bool) func(*IndicesExistsRequest) {
 }
 
 // WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesExists) WithExpandWildcards(v string) func(*IndicesExistsRequest) {
+func (f IndicesExists) WithExpandWildcards(v ...string) func(*IndicesExistsRequest) {
 	return func(r *IndicesExistsRequest) {
 		r.ExpandWildcards = v
 	}

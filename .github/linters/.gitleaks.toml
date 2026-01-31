@@ -1,0 +1,16 @@
+# Gitleaks configuration
+# https://github.com/gitleaks/gitleaks
+
+[extend]
+# Use the default gitleaks config as a base
+useDefault = true
+
+[[rules]]
+id = "private-key"
+description = "Private Key"
+
+[rules.allowlist]
+paths = [
+    # Test file contains embedded test certificates for unit testing
+    '''elasticsearch_internal_test\.go''',
+]

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package revertmodelsnapshot
 
@@ -27,9 +27,8 @@ import (
 
 // Request holds the request body struct for the package revertmodelsnapshot
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/revert_model_snapshot/MlRevertModelSnapshotRequest.ts#L23-L77
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/ml/revert_model_snapshot/MlRevertModelSnapshotRequest.ts#L23-L80
 type Request struct {
-
 	// DeleteInterveningResults Refer to the description for the `delete_intervening_results` query
 	// parameter.
 	DeleteInterveningResults *bool `json:"delete_intervening_results,omitempty"`

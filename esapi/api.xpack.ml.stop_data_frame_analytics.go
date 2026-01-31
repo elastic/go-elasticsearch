@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newMLStopDataFrameAnalyticsFunc(t Transport) MLStopDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStopDataFrameAnalytics - Stops one or more data frame analytics jobs.
+// MLStopDataFrameAnalytics - Stop data frame analytics jobs
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/stop-dfanalytics.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-data-frame-analytics.
 type MLStopDataFrameAnalytics func(id string, o ...func(*MLStopDataFrameAnalyticsRequest)) (*Response, error)
 
 // MLStopDataFrameAnalyticsRequest configures the ML Stop Data Frame Analytics API request.

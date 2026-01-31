@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesGetFieldMappingFunc(t Transport) IndicesGetFieldMapping {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetFieldMapping returns mapping for one or more fields.
+// IndicesGetFieldMapping get mapping definitions
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-field-mapping.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-mapping.
 type IndicesGetFieldMapping func(fields []string, o ...func(*IndicesGetFieldMappingRequest)) (*Response, error)
 
 // IndicesGetFieldMappingRequest configures the Indices Get Field Mapping API request.
@@ -56,7 +56,7 @@ type IndicesGetFieldMappingRequest struct {
 	Fields []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 	IncludeDefaults   *bool
 
@@ -120,8 +120,8 @@ func (r IndicesGetFieldMappingRequest) Do(providedCtx context.Context, transport
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -225,7 +225,7 @@ func (f IndicesGetFieldMapping) WithAllowNoIndices(v bool) func(*IndicesGetField
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesGetFieldMapping) WithExpandWildcards(v string) func(*IndicesGetFieldMappingRequest) {
+func (f IndicesGetFieldMapping) WithExpandWildcards(v ...string) func(*IndicesGetFieldMappingRequest) {
 	return func(r *IndicesGetFieldMappingRequest) {
 		r.ExpandWildcards = v
 	}

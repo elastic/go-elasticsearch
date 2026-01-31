@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get trained models.
 //
@@ -338,14 +338,6 @@ func (r *MlTrainedModels) AllowNoMatch(allownomatch bool) *MlTrainedModels {
 	return r
 }
 
-// Bytes The unit used to display byte values.
-// API name: bytes
-func (r *MlTrainedModels) Bytes(bytes bytes.Bytes) *MlTrainedModels {
-	r.values.Set("bytes", bytes.String())
-
-	return r
-}
-
 // H A comma-separated list of column names to display.
 // API name: h
 func (r *MlTrainedModels) H(cattrainedmodelscolumns ...cattrainedmodelscolumn.CatTrainedModelsColumn) *MlTrainedModels {
@@ -386,10 +378,18 @@ func (r *MlTrainedModels) Size(size int) *MlTrainedModels {
 	return r
 }
 
-// Time Unit used to display time values.
-// API name: time
-func (r *MlTrainedModels) Time(time timeunit.TimeUnit) *MlTrainedModels {
-	r.values.Set("time", time.String())
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *MlTrainedModels) Bytes(bytes bytes.Bytes) *MlTrainedModels {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
@@ -408,6 +408,19 @@ func (r *MlTrainedModels) Format(format string) *MlTrainedModels {
 // API name: help
 func (r *MlTrainedModels) Help(help bool) *MlTrainedModels {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *MlTrainedModels) Time(time timeunit.TimeUnit) *MlTrainedModels {
+	r.values.Set("time", time.String())
 
 	return r
 }

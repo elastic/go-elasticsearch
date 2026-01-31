@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -57,13 +57,6 @@ func (s *_dataframeEvaluationClassificationMetrics) AddAccuracy(key string, valu
 	return s
 }
 
-func (s *_dataframeEvaluationClassificationMetrics) AucRoc(aucroc types.DataframeEvaluationClassificationMetricsAucRocVariant) *_dataframeEvaluationClassificationMetrics {
-
-	s.v.AucRoc = aucroc.DataframeEvaluationClassificationMetricsAucRocCaster()
-
-	return s
-}
-
 func (s *_dataframeEvaluationClassificationMetrics) MulticlassConfusionMatrix(multiclassconfusionmatrix map[string]json.RawMessage) *_dataframeEvaluationClassificationMetrics {
 
 	s.v.MulticlassConfusionMatrix = multiclassconfusionmatrix
@@ -82,6 +75,13 @@ func (s *_dataframeEvaluationClassificationMetrics) AddMulticlassConfusionMatrix
 	tmp[key] = value
 
 	s.v.MulticlassConfusionMatrix = tmp
+	return s
+}
+
+func (s *_dataframeEvaluationClassificationMetrics) AucRoc(aucroc types.DataframeEvaluationClassificationMetricsAucRocVariant) *_dataframeEvaluationClassificationMetrics {
+
+	s.v.AucRoc = aucroc.DataframeEvaluationClassificationMetricsAucRocCaster()
+
 	return s
 }
 

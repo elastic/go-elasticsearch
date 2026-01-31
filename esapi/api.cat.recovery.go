@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newCatRecoveryFunc(t Transport) CatRecovery {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatRecovery returns information about index shard recoveries, both on-going completed.
+// CatRecovery get shard recovery information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-recovery.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-recovery.
 type CatRecovery func(o ...func(*CatRecoveryRequest)) (*Response, error)
 
 // CatRecoveryRequest configures the Cat Recovery API request.

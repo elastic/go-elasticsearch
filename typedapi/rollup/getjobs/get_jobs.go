@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get rollup job information.
+//
 // Get the configuration, stats, and status of rollup jobs.
 //
 // NOTE: This API returns only active (both `STARTED` and `STOPPED`) jobs.
@@ -82,6 +83,7 @@ func NewGetJobsFunc(tp elastictransport.Interface) NewGetJobs {
 }
 
 // Get rollup job information.
+//
 // Get the configuration, stats, and status of rollup jobs.
 //
 // NOTE: This API returns only active (both `STARTED` and `STOPPED`) jobs.

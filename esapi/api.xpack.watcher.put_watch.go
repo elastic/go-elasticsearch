@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -28,8 +28,8 @@ import (
 )
 
 func newWatcherPutWatchFunc(t Transport) WatcherPutWatch {
-	return func(id string, o ...func(*WatcherPutWatchRequest)) (*Response, error) {
-		var r = WatcherPutWatchRequest{WatchID: id}
+	return func(id string, body io.Reader, o ...func(*WatcherPutWatchRequest)) (*Response, error) {
+		var r = WatcherPutWatchRequest{WatchID: id, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,10 +44,10 @@ func newWatcherPutWatchFunc(t Transport) WatcherPutWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherPutWatch - Creates a new watch, or updates an existing one.
+// WatcherPutWatch - Create or update a watch
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-put-watch.html.
-type WatcherPutWatch func(id string, o ...func(*WatcherPutWatchRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-put-watch.
+type WatcherPutWatch func(id string, body io.Reader, o ...func(*WatcherPutWatchRequest)) (*Response, error)
 
 // WatcherPutWatchRequest configures the Watcher Put Watch API request.
 type WatcherPutWatchRequest struct {
@@ -203,13 +203,6 @@ func (r WatcherPutWatchRequest) Do(providedCtx context.Context, transport Transp
 func (f WatcherPutWatch) WithContext(v context.Context) func(*WatcherPutWatchRequest) {
 	return func(r *WatcherPutWatchRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The watch.
-func (f WatcherPutWatch) WithBody(v io.Reader) func(*WatcherPutWatchRequest) {
-	return func(r *WatcherPutWatchRequest) {
-		r.Body = v
 	}
 }
 

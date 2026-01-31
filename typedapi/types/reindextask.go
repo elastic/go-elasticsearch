@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -31,10 +31,11 @@ import (
 
 // ReindexTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/reindex_rethrottle/types.ts#L87-L98
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_global/reindex_rethrottle/types.ts#L31-L43
 type ReindexTask struct {
 	Action             string        `json:"action"`
 	Cancellable        bool          `json:"cancellable"`
+	Cancelled          bool          `json:"cancelled"`
 	Description        string        `json:"description"`
 	Headers            HttpHeaders   `json:"headers"`
 	Id                 int64         `json:"id"`
@@ -84,6 +85,20 @@ func (s *ReindexTask) UnmarshalJSON(data []byte) error {
 				s.Cancellable = value
 			case bool:
 				s.Cancellable = v
+			}
+
+		case "cancelled":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Cancelled", err)
+				}
+				s.Cancelled = value
+			case bool:
+				s.Cancelled = v
 			}
 
 		case "description":

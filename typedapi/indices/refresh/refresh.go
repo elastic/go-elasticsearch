@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Refresh an index.
+//
 // A refresh makes recent operations performed on one or more indices available
 // for search.
 // For data streams, the API runs the refresh operation on the stream’s backing
@@ -29,6 +30,9 @@
 // seconds.
 // You can change this default interval with the `index.refresh_interval`
 // setting.
+//
+// In Elastic Cloud Serverless, the default refresh interval is 5 seconds across
+// all indices.
 //
 // Refresh requests are synchronous and do not return a response until the
 // refresh operation completes.
@@ -100,6 +104,7 @@ func NewRefreshFunc(tp elastictransport.Interface) NewRefresh {
 }
 
 // Refresh an index.
+//
 // A refresh makes recent operations performed on one or more indices available
 // for search.
 // For data streams, the API runs the refresh operation on the stream’s backing
@@ -110,6 +115,9 @@ func NewRefreshFunc(tp elastictransport.Interface) NewRefresh {
 // seconds.
 // You can change this default interval with the `index.refresh_interval`
 // setting.
+//
+// In Elastic Cloud Serverless, the default refresh interval is 5 seconds across
+// all indices.
 //
 // Refresh requests are synchronous and do not return a response until the
 // refresh operation completes.

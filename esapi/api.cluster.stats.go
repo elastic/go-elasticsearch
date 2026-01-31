@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newClusterStatsFunc(t Transport) ClusterStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterStats returns high-level overview of cluster statistics.
+// ClusterStats get cluster statistics
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-stats.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-stats.
 type ClusterStats func(o ...func(*ClusterStatsRequest)) (*Response, error)
 
 // ClusterStatsRequest configures the Cluster Stats API request.

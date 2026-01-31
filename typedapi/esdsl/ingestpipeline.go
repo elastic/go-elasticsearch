@@ -16,11 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+import (
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/fieldaccesspattern"
+)
 
 type _ingestPipeline struct {
 	v *types.IngestPipeline
@@ -30,6 +33,20 @@ func NewIngestPipeline() *_ingestPipeline {
 
 	return &_ingestPipeline{v: types.NewIngestPipeline()}
 
+}
+
+func (s *_ingestPipeline) CreatedDate(datetime types.DateTimeVariant) *_ingestPipeline {
+
+	s.v.CreatedDate = *datetime.DateTimeCaster()
+
+	return s
+}
+
+func (s *_ingestPipeline) CreatedDateMillis(epochtimeunitmillis int64) *_ingestPipeline {
+
+	s.v.CreatedDateMillis = &epochtimeunitmillis
+
+	return s
 }
 
 func (s *_ingestPipeline) Deprecated(deprecated bool) *_ingestPipeline {
@@ -46,9 +63,29 @@ func (s *_ingestPipeline) Description(description string) *_ingestPipeline {
 	return s
 }
 
+func (s *_ingestPipeline) FieldAccessPattern(fieldaccesspattern fieldaccesspattern.FieldAccessPattern) *_ingestPipeline {
+
+	s.v.FieldAccessPattern = &fieldaccesspattern
+	return s
+}
+
 func (s *_ingestPipeline) Meta_(metadata types.MetadataVariant) *_ingestPipeline {
 
 	s.v.Meta_ = *metadata.MetadataCaster()
+
+	return s
+}
+
+func (s *_ingestPipeline) ModifiedDate(datetime types.DateTimeVariant) *_ingestPipeline {
+
+	s.v.ModifiedDate = *datetime.DateTimeCaster()
+
+	return s
+}
+
+func (s *_ingestPipeline) ModifiedDateMillis(epochtimeunitmillis int64) *_ingestPipeline {
+
+	s.v.ModifiedDateMillis = &epochtimeunitmillis
 
 	return s
 }

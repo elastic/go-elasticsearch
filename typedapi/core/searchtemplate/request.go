@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package searchtemplate
 
@@ -33,9 +33,8 @@ import (
 
 // Request holds the request body struct for the package searchtemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/search_template/SearchTemplateRequest.ts#L33-L153
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_global/search_template/SearchTemplateRequest.ts#L35-L172
 type Request struct {
-
 	// Explain If `true`, returns detailed information about score calculation as part of
 	// each hit.
 	// If you specify both this and the `explain` query parameter, the API uses only
@@ -50,6 +49,16 @@ type Request struct {
 	Params map[string]json.RawMessage `json:"params,omitempty"`
 	// Profile If `true`, the query execution is profiled.
 	Profile *bool `json:"profile,omitempty"`
+	// ProjectRouting Specifies a subset of projects to target for the search using project
+	// metadata tags in a subset of Lucene query syntax.
+	// Allowed Lucene queries: the _alias tag and a single value (possibly
+	// wildcarded).
+	// Examples:
+	//  _alias:my-project
+	//  _alias:_origin
+	//  _alias:*pr*
+	// Supported in serverless only.
+	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Source An inline search template. Supports the same parameters as the search API's
 	// request body. It also supports Mustache variables. If no `id` is specified,
 	// this
@@ -131,6 +140,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.Profile = &value
 			case bool:
 				s.Profile = &v
+			}
+
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
 			}
 
 		case "source":

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newClusterInfoFunc(t Transport) ClusterInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterInfo returns different information about the cluster.
+// ClusterInfo get cluster info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-info.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-info.
 type ClusterInfo func(target []string, o ...func(*ClusterInfoRequest)) (*Response, error)
 
 // ClusterInfoRequest configures the Cluster Info API request.

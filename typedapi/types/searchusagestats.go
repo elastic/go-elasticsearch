@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -31,13 +31,14 @@ import (
 
 // SearchUsageStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/cluster/stats/types.ts#L149-L155
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/cluster/stats/types.ts#L149-L157
 type SearchUsageStats struct {
-	Queries    map[string]int64 `json:"queries"`
-	Rescorers  map[string]int64 `json:"rescorers"`
-	Retrievers map[string]int64 `json:"retrievers"`
-	Sections   map[string]int64 `json:"sections"`
-	Total      int64            `json:"total"`
+	Extended   ExtendedSearchUsage `json:"extended"`
+	Queries    map[string]int64    `json:"queries"`
+	Rescorers  map[string]int64    `json:"rescorers"`
+	Retrievers map[string]int64    `json:"retrievers"`
+	Sections   map[string]int64    `json:"sections"`
+	Total      int64               `json:"total"`
 }
 
 func (s *SearchUsageStats) UnmarshalJSON(data []byte) error {
@@ -54,6 +55,11 @@ func (s *SearchUsageStats) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "extended":
+			if err := dec.Decode(&s.Extended); err != nil {
+				return fmt.Errorf("%s | %w", "Extended", err)
+			}
 
 		case "queries":
 			if s.Queries == nil {

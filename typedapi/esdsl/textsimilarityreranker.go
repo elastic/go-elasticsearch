@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -42,19 +42,16 @@ func NewTextSimilarityReranker(field string, inferencetext string, retriever typ
 
 }
 
-func (s *_textSimilarityReranker) Field(field string) *_textSimilarityReranker {
+func (s *_textSimilarityReranker) ChunkRescorer(chunkrescorer types.ChunkRescorerVariant) *_textSimilarityReranker {
 
-	s.v.Field = field
+	s.v.ChunkRescorer = chunkrescorer.ChunkRescorerCaster()
 
 	return s
 }
 
-func (s *_textSimilarityReranker) Filter(filters ...types.QueryVariant) *_textSimilarityReranker {
+func (s *_textSimilarityReranker) Field(field string) *_textSimilarityReranker {
 
-	s.v.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		s.v.Filter[i] = *v.QueryCaster()
-	}
+	s.v.Field = field
 
 	return s
 }
@@ -73,20 +70,6 @@ func (s *_textSimilarityReranker) InferenceText(inferencetext string) *_textSimi
 	return s
 }
 
-func (s *_textSimilarityReranker) MinScore(minscore float32) *_textSimilarityReranker {
-
-	s.v.MinScore = &minscore
-
-	return s
-}
-
-func (s *_textSimilarityReranker) Name_(name_ string) *_textSimilarityReranker {
-
-	s.v.Name_ = &name_
-
-	return s
-}
-
 func (s *_textSimilarityReranker) RankWindowSize(rankwindowsize int) *_textSimilarityReranker {
 
 	s.v.RankWindowSize = &rankwindowsize
@@ -97,6 +80,30 @@ func (s *_textSimilarityReranker) RankWindowSize(rankwindowsize int) *_textSimil
 func (s *_textSimilarityReranker) Retriever(retriever types.RetrieverContainerVariant) *_textSimilarityReranker {
 
 	s.v.Retriever = *retriever.RetrieverContainerCaster()
+
+	return s
+}
+
+func (s *_textSimilarityReranker) Filter(filters ...types.QueryVariant) *_textSimilarityReranker {
+
+	s.v.Filter = make([]types.Query, len(filters))
+	for i, v := range filters {
+		s.v.Filter[i] = *v.QueryCaster()
+	}
+
+	return s
+}
+
+func (s *_textSimilarityReranker) MinScore(minscore float32) *_textSimilarityReranker {
+
+	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_textSimilarityReranker) Name_(name_ string) *_textSimilarityReranker {
+
+	s.v.Name_ = &name_
 
 	return s
 }

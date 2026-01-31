@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newIngestGeoIPStatsFunc(t Transport) IngestGeoIPStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestGeoIPStats returns statistical information about geoip databases
+// IngestGeoIPStats get GeoIP statistics
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/geoip-stats-api.html.
+// See full documentation at https://www.elastic.co/docs/reference/enrich-processor/geoip-processor.
 type IngestGeoIPStats func(o ...func(*IngestGeoIPStatsRequest)) (*Response, error)
 
 // IngestGeoIPStatsRequest configures the Ingest GeoIP Stats API request.

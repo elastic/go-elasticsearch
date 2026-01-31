@@ -1,24 +1,24 @@
-version: '3.5'
+version: "3.5"
 services:
   search_api:
-    container_name: 'xkcd-search'
+    container_name: "xkcd-search"
     build: .
-    restart: 'on-failure'
+    restart: "on-failure"
     ports:
-      - '8000:8000'
+      - "8000:8000"
     depends_on:
       - elasticsearch
     networks:
       - elastic
   elasticsearch:
-    container_name: 'es01'
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:8.1-SNAPSHOT'
+    container_name: "es01"
+    image: "docker.elastic.co/elasticsearch/elasticsearch:8.1-SNAPSHOT"
     environment:
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - xpack.security.enabled=false
     ports:
-      - '9200:9200'
+      - "9200:9200"
     networks:
       - elastic
     volumes:

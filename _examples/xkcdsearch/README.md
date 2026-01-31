@@ -4,7 +4,7 @@ This example demonstrates how to use the Elasticsearch Go client to implement a 
 
 ![Screenshot](screenshot.png)
 
-The utility fetches information from the [xkcd.com](xkcd.com) JSON API, indexes it into Elasticsearch, and provides both a command-line and web interface to search the data. See a live version at <https://xkcd-golang.app.elstc.co>.
+The utility fetches information from the [xkcd.com](xkcd.com) JSON API, indices it into Elasticsearch, and provides both a command-line and web interface to search the data. See a live version at <https://xkcd-golang.app.elstc.co>.
 
 Run the main executable to list the options:
 

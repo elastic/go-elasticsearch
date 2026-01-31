@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,11 @@ func newRollupGetJobsFunc(t Transport) RollupGetJobs {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupGetJobs - Retrieves the configuration, stats, and status of rollup jobs.
+// RollupGetJobs - Get rollup job information
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-jobs.
 type RollupGetJobs func(o ...func(*RollupGetJobsRequest)) (*Response, error)
 
 // RollupGetJobsRequest configures the Rollup Get Jobs API request.
