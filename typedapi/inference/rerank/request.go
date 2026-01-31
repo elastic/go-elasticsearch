@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package rerank
 
@@ -31,22 +31,20 @@ import (
 
 // Request holds the request body struct for the package rerank
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/rerank/RerankRequest.ts#L25-L72
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/rerank/RerankRequest.ts#L26-L80
 type Request struct {
-
-	// Input The text on which you want to perform the inference task.
-	// It can be a single string or an array.
-	//
-	// > info
-	// > Inference endpoints for the `completion` task type currently only support a
-	// single string as input.
+	// Input The documents to rank.
 	Input []string `json:"input"`
 	// Query Query input.
 	Query string `json:"query"`
+	// ReturnDocuments Include the document text in the response.
+	ReturnDocuments *bool `json:"return_documents,omitempty"`
 	// TaskSettings Task settings for the individual inference request.
 	// These settings are specific to the task type you specified and override the
 	// task settings specified when initializing the service.
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
+	// TopN Limit the response to the top N documents.
+	TopN *int `json:"top_n,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -83,19 +81,8 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "input":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Input", err)
-				}
-
-				s.Input = append(s.Input, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Input); err != nil {
-					return fmt.Errorf("%s | %w", "Input", err)
-				}
+			if err := dec.Decode(&s.Input); err != nil {
+				return fmt.Errorf("%s | %w", "Input", err)
 			}
 
 		case "query":
@@ -110,9 +97,39 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 			s.Query = o
 
+		case "return_documents":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ReturnDocuments", err)
+				}
+				s.ReturnDocuments = &value
+			case bool:
+				s.ReturnDocuments = &v
+			}
+
 		case "task_settings":
 			if err := dec.Decode(&s.TaskSettings); err != nil {
 				return fmt.Errorf("%s | %w", "TaskSettings", err)
+			}
+
+		case "top_n":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "TopN", err)
+				}
+				s.TopN = &value
+			case float64:
+				f := int(v)
+				s.TopN = &f
 			}
 
 		}

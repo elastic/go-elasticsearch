@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -33,13 +33,6 @@ func NewCommunityIDProcessor() *_communityIDProcessor {
 
 	return &_communityIDProcessor{v: types.NewCommunityIDProcessor()}
 
-}
-
-func (s *_communityIDProcessor) Description(description string) *_communityIDProcessor {
-
-	s.v.Description = &description
-
-	return s
 }
 
 func (s *_communityIDProcessor) DestinationIp(field string) *_communityIDProcessor {
@@ -77,34 +70,10 @@ func (s *_communityIDProcessor) IcmpType(field string) *_communityIDProcessor {
 	return s
 }
 
-func (s *_communityIDProcessor) If(if_ types.ScriptVariant) *_communityIDProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_communityIDProcessor) IgnoreFailure(ignorefailure bool) *_communityIDProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
-
-	return s
-}
-
 func (s *_communityIDProcessor) IgnoreMissing(ignoremissing bool) *_communityIDProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
 
-	return s
-}
-
-func (s *_communityIDProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_communityIDProcessor {
-
-	for _, v := range onfailures {
-
-		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
-
-	}
 	return s
 }
 
@@ -129,13 +98,6 @@ func (s *_communityIDProcessor) SourcePort(field string) *_communityIDProcessor 
 	return s
 }
 
-func (s *_communityIDProcessor) Tag(tag string) *_communityIDProcessor {
-
-	s.v.Tag = &tag
-
-	return s
-}
-
 func (s *_communityIDProcessor) TargetField(field string) *_communityIDProcessor {
 
 	s.v.TargetField = &field
@@ -146,6 +108,44 @@ func (s *_communityIDProcessor) TargetField(field string) *_communityIDProcessor
 func (s *_communityIDProcessor) Transport(field string) *_communityIDProcessor {
 
 	s.v.Transport = &field
+
+	return s
+}
+
+func (s *_communityIDProcessor) Description(description string) *_communityIDProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_communityIDProcessor) If(if_ types.ScriptVariant) *_communityIDProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_communityIDProcessor) IgnoreFailure(ignorefailure bool) *_communityIDProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
+func (s *_communityIDProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_communityIDProcessor {
+
+	for _, v := range onfailures {
+
+		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
+
+	}
+	return s
+}
+
+func (s *_communityIDProcessor) Tag(tag string) *_communityIDProcessor {
+
+	s.v.Tag = &tag
 
 	return s
 }

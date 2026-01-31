@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -33,9 +33,12 @@ import (
 
 // InferenceEndpointInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/Services.ts#L67-L79
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/Services.ts#L75-L87
 type InferenceEndpointInfo struct {
-	// ChunkingSettings Chunking configuration object
+	// ChunkingSettings The chunking configuration object.
+	// Applies only to the `sparse_embedding` and `text_embedding` task types.
+	// Not applicable to the `rerank`, `completion`, or `chat_completion` task
+	// types.
 	ChunkingSettings *InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// InferenceId The inference Id
 	InferenceId string `json:"inference_id"`

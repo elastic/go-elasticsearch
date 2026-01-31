@@ -1,0 +1,5 @@
+---
+paths:
+  .github/workflows/{test-integration.yml,test-unit.yml}:
+    ignore:
+      - 'the runner of ".+" action is too old to run on GitHub Actions'

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutGoogleaistudioFunc(t Transport) InferencePutGoogleaistudio {
-	return func(googleaistudio_inference_id string, task_type string, o ...func(*InferencePutGoogleaistudioRequest)) (*Response, error) {
-		var r = InferencePutGoogleaistudioRequest{GoogleaistudioInferenceID: googleaistudio_inference_id, TaskType: task_type}
+	return func(body io.Reader, googleaistudio_inference_id string, task_type string, o ...func(*InferencePutGoogleaistudioRequest)) (*Response, error) {
+		var r = InferencePutGoogleaistudioRequest{Body: body, GoogleaistudioInferenceID: googleaistudio_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutGoogleaistudioFunc(t Transport) InferencePutGoogleaistudio {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutGoogleaistudio configure a Google AI Studio inference endpoint
+// InferencePutGoogleaistudio create an Google AI Studio inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-google-ai-studio.html.
-type InferencePutGoogleaistudio func(googleaistudio_inference_id string, task_type string, o ...func(*InferencePutGoogleaistudioRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googleaistudio.
+type InferencePutGoogleaistudio func(body io.Reader, googleaistudio_inference_id string, task_type string, o ...func(*InferencePutGoogleaistudioRequest)) (*Response, error)
 
 // InferencePutGoogleaistudioRequest configures the Inference Put Googleaistudio API request.
 type InferencePutGoogleaistudioRequest struct {
@@ -54,6 +55,8 @@ type InferencePutGoogleaistudioRequest struct {
 
 	GoogleaistudioInferenceID string
 	TaskType                  string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutGoogleaistudioRequest) Do(providedCtx context.Context, trans
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutGoogleaistudio) WithContext(v context.Context) func(*Inferen
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutGoogleaistudio) WithBody(v io.Reader) func(*InferencePutGoogleaistudioRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutGoogleaistudio) WithTimeout(v time.Duration) func(*InferencePutGoogleaistudioRequest) {
 	return func(r *InferencePutGoogleaistudioRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

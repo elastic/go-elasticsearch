@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -34,33 +34,12 @@ func NewTopMetricsAggregation() *_topMetricsAggregation {
 
 }
 
-func (s *_topMetricsAggregation) Field(field string) *_topMetricsAggregation {
-
-	s.v.Field = &field
-
-	return s
-}
-
 func (s *_topMetricsAggregation) Metrics(metrics ...types.TopMetricsValueVariant) *_topMetricsAggregation {
 
 	s.v.Metrics = make([]types.TopMetricsValue, len(metrics))
 	for i, v := range metrics {
 		s.v.Metrics[i] = *v.TopMetricsValueCaster()
 	}
-
-	return s
-}
-
-func (s *_topMetricsAggregation) Missing(missing types.MissingVariant) *_topMetricsAggregation {
-
-	s.v.Missing = *missing.MissingCaster()
-
-	return s
-}
-
-func (s *_topMetricsAggregation) Script(script types.ScriptVariant) *_topMetricsAggregation {
-
-	s.v.Script = script.ScriptCaster()
 
 	return s
 }
@@ -77,6 +56,27 @@ func (s *_topMetricsAggregation) Sort(sorts ...types.SortCombinationsVariant) *_
 	for _, v := range sorts {
 		s.v.Sort = append(s.v.Sort, *v.SortCombinationsCaster())
 	}
+
+	return s
+}
+
+func (s *_topMetricsAggregation) Field(field string) *_topMetricsAggregation {
+
+	s.v.Field = &field
+
+	return s
+}
+
+func (s *_topMetricsAggregation) Missing(missing types.MissingVariant) *_topMetricsAggregation {
+
+	s.v.Missing = *missing.MissingCaster()
+
+	return s
+}
+
+func (s *_topMetricsAggregation) Script(script types.ScriptVariant) *_topMetricsAggregation {
+
+	s.v.Script = script.ScriptCaster()
 
 	return s
 }

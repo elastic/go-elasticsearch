@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get anomaly detection jobs configuration info.
+//
 // You can get information for multiple anomaly detection jobs in a single API
 // request by using a group name, a comma-separated list of jobs, or a wildcard
 // expression. You can get information for all anomaly detection jobs by using
@@ -79,6 +80,7 @@ func NewGetJobsFunc(tp elastictransport.Interface) NewGetJobs {
 }
 
 // Get anomaly detection jobs configuration info.
+//
 // You can get information for multiple anomaly detection jobs in a single API
 // request by using a group name, a comma-separated list of jobs, or a wildcard
 // expression. You can get information for all anomaly detection jobs by using

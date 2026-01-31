@@ -19,7 +19,7 @@ package esapi_test
 
 import (
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -34,14 +34,14 @@ import (
 var (
 	defaultResponse = &http.Response{
 		StatusCode: 200,
-		Body:       ioutil.NopCloser(strings.NewReader("MOCK")),
+		Body:       io.NopCloser(strings.NewReader("MOCK")),
 		Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 	}
 	defaultRoundTripFn = func(*http.Request) (*http.Response, error) { return defaultResponse, nil }
 	errorRoundTripFn   = func(*http.Request) (*http.Response, error) {
 		return &http.Response{
 			StatusCode: 400,
-			Body: ioutil.NopCloser(strings.NewReader(`
+			Body: io.NopCloser(strings.NewReader(`
 					{ "error" : {
 					    "root_cause" : [
 					      {
@@ -93,6 +93,7 @@ func newFakeClientWithError(b *testing.B) *elasticsearch.Client {
 	return es
 }
 
+//nolint:gocyclo
 func BenchmarkAPI(b *testing.B) {
 	var es = newFakeClient(b)
 	var eserr = newFakeClientWithError(b)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -36,20 +36,6 @@ func NewTermSuggester() *_termSuggester {
 
 	return &_termSuggester{v: types.NewTermSuggester()}
 
-}
-
-func (s *_termSuggester) Analyzer(analyzer string) *_termSuggester {
-
-	s.v.Analyzer = &analyzer
-
-	return s
-}
-
-func (s *_termSuggester) Field(field string) *_termSuggester {
-
-	s.v.Field = field
-
-	return s
 }
 
 func (s *_termSuggester) LowercaseTerms(lowercaseterms bool) *_termSuggester {
@@ -108,13 +94,6 @@ func (s *_termSuggester) ShardSize(shardsize int) *_termSuggester {
 	return s
 }
 
-func (s *_termSuggester) Size(size int) *_termSuggester {
-
-	s.v.Size = &size
-
-	return s
-}
-
 func (s *_termSuggester) Sort(sort suggestsort.SuggestSort) *_termSuggester {
 
 	s.v.Sort = &sort
@@ -136,6 +115,27 @@ func (s *_termSuggester) SuggestMode(suggestmode suggestmode.SuggestMode) *_term
 func (s *_termSuggester) Text(text string) *_termSuggester {
 
 	s.v.Text = &text
+
+	return s
+}
+
+func (s *_termSuggester) Analyzer(analyzer string) *_termSuggester {
+
+	s.v.Analyzer = &analyzer
+
+	return s
+}
+
+func (s *_termSuggester) Field(field string) *_termSuggester {
+
+	s.v.Field = field
+
+	return s
+}
+
+func (s *_termSuggester) Size(size int) *_termSuggester {
+
+	s.v.Size = &size
 
 	return s
 }

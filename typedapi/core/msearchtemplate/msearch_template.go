@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Run multiple templated searches.
 //
@@ -375,6 +375,24 @@ func (r *MsearchTemplate) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *Mse
 // API name: max_concurrent_searches
 func (r *MsearchTemplate) MaxConcurrentSearches(maxconcurrentsearches string) *MsearchTemplate {
 	r.values.Set("max_concurrent_searches", maxconcurrentsearches)
+
+	return r
+}
+
+// ProjectRouting Specifies a subset of projects to target for the search using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *MsearchTemplate) ProjectRouting(projectrouting string) *MsearchTemplate {
+	r.values.Set("project_routing", projectrouting)
 
 	return r
 }

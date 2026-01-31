@@ -16,11 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
-import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+import (
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/samplingmethod"
+)
 
 type _dataStreamLifecycle struct {
 	v *types.DataStreamLifecycle
@@ -39,10 +42,19 @@ func (s *_dataStreamLifecycle) DataRetention(duration types.DurationVariant) *_d
 	return s
 }
 
-func (s *_dataStreamLifecycle) Downsampling(downsampling types.DataStreamLifecycleDownsamplingVariant) *_dataStreamLifecycle {
+func (s *_dataStreamLifecycle) Downsampling(downsamplings ...types.DownsamplingRoundVariant) *_dataStreamLifecycle {
 
-	s.v.Downsampling = downsampling.DataStreamLifecycleDownsamplingCaster()
+	for _, v := range downsamplings {
 
+		s.v.Downsampling = append(s.v.Downsampling, *v.DownsamplingRoundCaster())
+
+	}
+	return s
+}
+
+func (s *_dataStreamLifecycle) DownsamplingMethod(downsamplingmethod samplingmethod.SamplingMethod) *_dataStreamLifecycle {
+
+	s.v.DownsamplingMethod = &downsamplingmethod
 	return s
 }
 

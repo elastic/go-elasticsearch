@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Get multiple documents.
 //
@@ -400,8 +400,8 @@ func (r *Mget) Refresh(refresh bool) *Mget {
 
 // Routing Custom value used to route operations to a specific shard.
 // API name: routing
-func (r *Mget) Routing(routing string) *Mget {
-	r.values.Set("routing", routing)
+func (r *Mget) Routing(routings ...string) *Mget {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }

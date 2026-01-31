@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package reindex
 
@@ -26,9 +26,8 @@ import (
 
 // Response holds the response body struct for the package reindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/reindex/ReindexResponse.ts#L26-L92
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_global/reindex/ReindexResponse.ts#L27-L97
 type Response struct {
-
 	// Batches The number of scroll responses that were pulled back by the reindex.
 	Batches *int64 `json:"batches,omitempty"`
 	// Created The number of documents that were successfully created.
@@ -52,7 +51,9 @@ type Response struct {
 	// Retries The number of retries attempted by reindex.
 	Retries *types.Retries `json:"retries,omitempty"`
 	SliceId *int           `json:"slice_id,omitempty"`
-	Task    *string        `json:"task,omitempty"`
+	// Slices Status of each slice if the reindex was sliced
+	Slices []types.ReindexStatus `json:"slices,omitempty"`
+	Task   *string               `json:"task,omitempty"`
 	// ThrottledMillis The number of milliseconds the request slept to conform to
 	// `requests_per_second`.
 	ThrottledMillis *int64 `json:"throttled_millis,omitempty"`

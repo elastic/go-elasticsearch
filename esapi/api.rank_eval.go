@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newRankEvalFunc(t Transport) RankEval {
 
 // ----- API Definition -------------------------------------------------------
 
-// RankEval allows to evaluate the quality of ranked search results over a set of typical search queries
+// RankEval evaluate ranked search results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-rank-eval.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rank-eval.
 type RankEval func(body io.Reader, o ...func(*RankEvalRequest)) (*Response, error)
 
 // RankEvalRequest configures the Rank Eval API request.
@@ -56,7 +56,7 @@ type RankEvalRequest struct {
 	Body io.Reader
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 	SearchType        string
 
@@ -109,8 +109,8 @@ func (r RankEvalRequest) Do(providedCtx context.Context, transport Transport) (*
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -221,7 +221,7 @@ func (f RankEval) WithAllowNoIndices(v bool) func(*RankEvalRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f RankEval) WithExpandWildcards(v string) func(*RankEvalRequest) {
+func (f RankEval) WithExpandWildcards(v ...string) func(*RankEvalRequest) {
 	return func(r *RankEvalRequest) {
 		r.ExpandWildcards = v
 	}

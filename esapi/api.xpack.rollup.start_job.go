@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,11 @@ func newRollupStartJobFunc(t Transport) RollupStartJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupStartJob - Starts an existing, stopped rollup job.
+// RollupStartJob - Start rollup jobs
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-start-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-start-job.
 type RollupStartJob func(id string, o ...func(*RollupStartJobRequest)) (*Response, error)
 
 // RollupStartJobRequest configures the Rollup Start Job API request.

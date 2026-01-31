@@ -58,6 +58,9 @@ func (c *Consumer) Run(ctx context.Context) (err error) {
 		ReadLagInterval: 1 * time.Second,
 	})
 
+	defer c.reader.Close()
+	defer c.Indexer.Close(ctx)
+
 	for {
 		msg, err := c.reader.ReadMessage(ctx)
 		if err != nil {
@@ -91,10 +94,6 @@ func (c *Consumer) Run(ctx context.Context) (err error) {
 			return fmt.Errorf("indexer: %s", err)
 		}
 	}
-	c.reader.Close()
-	c.Indexer.Close(ctx)
-
-	return nil
 }
 
 type Stats struct {

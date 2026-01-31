@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPreviewDatafeed - Previews a datafeed.
+// MLPreviewDatafeed - Preview a datafeed
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-preview-datafeed.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-datafeed.
 type MLPreviewDatafeed func(o ...func(*MLPreviewDatafeedRequest)) (*Response, error)
 
 // MLPreviewDatafeedRequest configures the ML Preview Datafeed API request.

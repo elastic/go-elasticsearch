@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -38,13 +38,6 @@ func NewSpanFieldMaskingQuery(query types.SpanQueryVariant) *_spanFieldMaskingQu
 
 }
 
-func (s *_spanFieldMaskingQuery) Boost(boost float32) *_spanFieldMaskingQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_spanFieldMaskingQuery) Field(field string) *_spanFieldMaskingQuery {
 
 	s.v.Field = field
@@ -55,6 +48,13 @@ func (s *_spanFieldMaskingQuery) Field(field string) *_spanFieldMaskingQuery {
 func (s *_spanFieldMaskingQuery) Query(query types.SpanQueryVariant) *_spanFieldMaskingQuery {
 
 	s.v.Query = *query.SpanQueryCaster()
+
+	return s
+}
+
+func (s *_spanFieldMaskingQuery) Boost(boost float32) *_spanFieldMaskingQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

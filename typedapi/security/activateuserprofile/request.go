@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package activateuserprofile
 
@@ -29,9 +29,8 @@ import (
 
 // Request holds the request body struct for the package activateuserprofile
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/activate_user_profile/Request.ts#L23-L76
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/security/activate_user_profile/Request.ts#L24-L79
 type Request struct {
-
 	// AccessToken The user's Elasticsearch access token or JWT.
 	// Both `access` and `id` JWT token types are supported and they depend on the
 	// underlying JWT realm configuration.

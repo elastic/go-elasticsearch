@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package textembedding
 
@@ -26,17 +26,34 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // Request holds the request body struct for the package textembedding
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/text_embedding/TextEmbeddingRequest.ts#L25-L63
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/text_embedding/TextEmbeddingRequest.ts#L25-L79
 type Request struct {
-
 	// Input Inference input.
 	// Either a string or an array of strings.
 	Input []string `json:"input"`
-	// TaskSettings Optional task settings
+	// InputType The input data type for the text embedding model. Possible values include:
+	// * `SEARCH`
+	// * `INGEST`
+	// * `CLASSIFICATION`
+	// * `CLUSTERING`
+	// Not all services support all values. Unsupported values will trigger a
+	// validation exception.
+	// Accepted values depend on the configured inference service, refer to the
+	// relevant service-specific documentation for more info.
+	//
+	// > info
+	// > The `input_type` parameter specified on the root level of the request body
+	// will take precedence over the `input_type` parameter specified in
+	// `task_settings`.
+	InputType *string `json:"input_type,omitempty"`
+	// TaskSettings Task settings for the individual inference request. These settings are
+	// specific to the <task_type> you specified and override the task settings
+	// specified when initializing the service.
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 }
 
@@ -88,6 +105,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					return fmt.Errorf("%s | %w", "Input", err)
 				}
 			}
+
+		case "input_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "InputType", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.InputType = &o
 
 		case "task_settings":
 			if err := dec.Decode(&s.TaskSettings); err != nil {

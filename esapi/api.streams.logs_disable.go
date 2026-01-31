@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -45,7 +45,9 @@ func newStreamsLogsDisableFunc(t Transport) StreamsLogsDisable {
 
 // StreamsLogsDisable disable the Logs Streams feature for this cluster
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/streams-logs-disable.html.
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch#TODO.
 type StreamsLogsDisable func(o ...func(*StreamsLogsDisableRequest)) (*Response, error)
 
 // StreamsLogsDisableRequest configures the Streams Logs Disable API request.

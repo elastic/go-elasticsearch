@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -39,23 +39,9 @@ func (s *_azureRepositorySettings) BasePath(basepath string) *_azureRepositorySe
 	return s
 }
 
-func (s *_azureRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_azureRepositorySettings {
-
-	s.v.ChunkSize = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
 func (s *_azureRepositorySettings) Client(client string) *_azureRepositorySettings {
 
 	s.v.Client = &client
-
-	return s
-}
-
-func (s *_azureRepositorySettings) Compress(compress bool) *_azureRepositorySettings {
-
-	s.v.Compress = &compress
 
 	return s
 }
@@ -88,6 +74,27 @@ func (s *_azureRepositorySettings) MaxConcurrentBatchDeletes(maxconcurrentbatchd
 	return s
 }
 
+func (s *_azureRepositorySettings) Readonly(readonly bool) *_azureRepositorySettings {
+
+	s.v.Readonly = &readonly
+
+	return s
+}
+
+func (s *_azureRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_azureRepositorySettings {
+
+	s.v.ChunkSize = *bytesize.ByteSizeCaster()
+
+	return s
+}
+
+func (s *_azureRepositorySettings) Compress(compress bool) *_azureRepositorySettings {
+
+	s.v.Compress = &compress
+
+	return s
+}
+
 func (s *_azureRepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSizeVariant) *_azureRepositorySettings {
 
 	s.v.MaxRestoreBytesPerSec = *bytesize.ByteSizeCaster()
@@ -98,13 +105,6 @@ func (s *_azureRepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSize
 func (s *_azureRepositorySettings) MaxSnapshotBytesPerSec(bytesize types.ByteSizeVariant) *_azureRepositorySettings {
 
 	s.v.MaxSnapshotBytesPerSec = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_azureRepositorySettings) Readonly(readonly bool) *_azureRepositorySettings {
-
-	s.v.Readonly = &readonly
 
 	return s
 }

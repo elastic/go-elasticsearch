@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newConnectorUpdateNativeFunc(t Transport) ConnectorUpdateNative {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorUpdateNative updates the is_native flag of the connector.
+// ConnectorUpdateNative update the connector is_native flag
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/connector-apis.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-native.
 type ConnectorUpdateNative func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateNativeRequest)) (*Response, error)
 
 // ConnectorUpdateNativeRequest configures the Connector Update Native API request.

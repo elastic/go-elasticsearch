@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -34,6 +34,27 @@ func NewPointProperty() *_pointProperty {
 
 	return &_pointProperty{v: types.NewPointProperty()}
 
+}
+
+func (s *_pointProperty) IgnoreMalformed(ignoremalformed bool) *_pointProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
+func (s *_pointProperty) IgnoreZValue(ignorezvalue bool) *_pointProperty {
+
+	s.v.IgnoreZValue = &ignorezvalue
+
+	return s
+}
+
+func (s *_pointProperty) NullValue(nullvalue string) *_pointProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
 }
 
 func (s *_pointProperty) CopyTo(fields ...string) *_pointProperty {
@@ -84,20 +105,6 @@ func (s *_pointProperty) IgnoreAbove(ignoreabove int) *_pointProperty {
 	return s
 }
 
-func (s *_pointProperty) IgnoreMalformed(ignoremalformed bool) *_pointProperty {
-
-	s.v.IgnoreMalformed = &ignoremalformed
-
-	return s
-}
-
-func (s *_pointProperty) IgnoreZValue(ignorezvalue bool) *_pointProperty {
-
-	s.v.IgnoreZValue = &ignorezvalue
-
-	return s
-}
-
 func (s *_pointProperty) Meta(meta map[string]string) *_pointProperty {
 
 	s.v.Meta = meta
@@ -116,13 +123,6 @@ func (s *_pointProperty) AddMeta(key string, value string) *_pointProperty {
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_pointProperty) NullValue(nullvalue string) *_pointProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

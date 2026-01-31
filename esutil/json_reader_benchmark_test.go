@@ -25,7 +25,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"strings"
 	"testing"
 
@@ -59,8 +58,8 @@ func BenchmarkJSONReader(b *testing.B) {
 
 		var buf bytes.Buffer
 		for i := 0; i < b.N; i++ {
-			json.NewEncoder(&buf).Encode(map[string]string{"foo": "bar"})
-			if string(buf.String()) != `{"foo":"bar"}`+"\n" {
+			_ = json.NewEncoder(&buf).Encode(map[string]string{"foo": "bar"})
+			if buf.String() != `{"foo":"bar"}`+"\n" {
 				b.Fatalf("Unexpected output: %q", buf.String())
 			}
 			buf.Reset()
@@ -71,7 +70,10 @@ func BenchmarkJSONReader(b *testing.B) {
 		b.ResetTimer()
 
 		for i := 0; i < b.N; i++ {
-			out, _ := ioutil.ReadAll(esutil.NewJSONReader(map[string]string{"foo": "bar"}))
+			out, err := io.ReadAll(esutil.NewJSONReader(map[string]string{"foo": "bar"}))
+			if err != nil {
+				b.Fatalf("Unexpected error: %s", err)
+			}
 			if string(out) != `{"foo":"bar"}`+"\n" {
 				b.Fatalf("Unexpected output: %q", out)
 			}
@@ -83,7 +85,7 @@ func BenchmarkJSONReader(b *testing.B) {
 
 		var buf bytes.Buffer
 		for i := 0; i < b.N; i++ {
-			io.Copy(&buf, esutil.NewJSONReader(map[string]string{"foo": "bar"}))
+			_, _ = io.Copy(&buf, esutil.NewJSONReader(map[string]string{"foo": "bar"}))
 			if buf.String() != `{"foo":"bar"}`+"\n" {
 				b.Fatalf("Unexpected output: %q", buf.String())
 			}
@@ -95,7 +97,10 @@ func BenchmarkJSONReader(b *testing.B) {
 		b.ResetTimer()
 
 		for i := 0; i < b.N; i++ {
-			out, _ := ioutil.ReadAll(esutil.NewJSONReader(Foo{Bar: "baz"}))
+			out, err := io.ReadAll(esutil.NewJSONReader(Foo{Bar: "baz"}))
+			if err != nil {
+				b.Fatalf("Unexpected error: %s", err)
+			}
 			if string(out) != `{"bar":"BAZ"}`+"\n" {
 				b.Fatalf("Unexpected output: %q", out)
 			}

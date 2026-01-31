@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -39,13 +39,6 @@ func NewSpanFirstQuery(end int, match types.SpanQueryVariant) *_spanFirstQuery {
 
 }
 
-func (s *_spanFirstQuery) Boost(boost float32) *_spanFirstQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_spanFirstQuery) End(end int) *_spanFirstQuery {
 
 	s.v.End = end
@@ -56,6 +49,13 @@ func (s *_spanFirstQuery) End(end int) *_spanFirstQuery {
 func (s *_spanFirstQuery) Match(match types.SpanQueryVariant) *_spanFirstQuery {
 
 	s.v.Match = *match.SpanQueryCaster()
+
+	return s
+}
+
+func (s *_spanFirstQuery) Boost(boost float32) *_spanFirstQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

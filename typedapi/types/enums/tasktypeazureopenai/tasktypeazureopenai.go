@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Package tasktypeazureopenai
 package tasktypeazureopenai
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/TaskType.ts#L65-L68
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/TaskType.ts#L71-L75
 type TaskTypeAzureOpenAI struct {
 	Name string
 }
@@ -32,6 +32,8 @@ var (
 	Textembedding = TaskTypeAzureOpenAI{"text_embedding"}
 
 	Completion = TaskTypeAzureOpenAI{"completion"}
+
+	Chatcompletion = TaskTypeAzureOpenAI{"chat_completion"}
 )
 
 func (t TaskTypeAzureOpenAI) MarshalText() (text []byte, err error) {
@@ -45,6 +47,8 @@ func (t *TaskTypeAzureOpenAI) UnmarshalText(text []byte) error {
 		*t = Textembedding
 	case "completion":
 		*t = Completion
+	case "chat_completion":
+		*t = Chatcompletion
 	default:
 		*t = TaskTypeAzureOpenAI{string(text)}
 	}

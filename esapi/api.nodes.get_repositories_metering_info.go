@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newNodesGetRepositoriesMeteringInfoFunc(t Transport) NodesGetRepositoriesMe
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesGetRepositoriesMeteringInfo returns cluster repositories metering information.
+// NodesGetRepositoriesMeteringInfo get cluster repositories metering
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-repositories-metering-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-get-repositories-metering-info.
 type NodesGetRepositoriesMeteringInfo func(node_id []string, o ...func(*NodesGetRepositoriesMeteringInfoRequest)) (*Response, error)
 
 // NodesGetRepositoriesMeteringInfoRequest configures the Nodes Get Repositories Metering Info API request.

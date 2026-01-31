@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,14 +43,14 @@ func newMLGetJobsFunc(t Transport) MLGetJobs {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetJobs - Retrieves configuration information for anomaly detection jobs.
+// MLGetJobs - Get anomaly detection jobs configuration info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-jobs.
 type MLGetJobs func(o ...func(*MLGetJobsRequest)) (*Response, error)
 
 // MLGetJobsRequest configures the ML Get Jobs API request.
 type MLGetJobsRequest struct {
-	JobID string
+	JobID []string
 
 	AllowNoMatch     *bool
 	ExcludeGenerated *bool
@@ -86,17 +86,17 @@ func (r MLGetJobsRequest) Do(providedCtx context.Context, transport Transport) (
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(r.JobID))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("anomaly_detectors") + 1 + len(strings.Join(r.JobID, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
 	path.WriteString("anomaly_detectors")
-	if r.JobID != "" {
+	if len(r.JobID) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.JobID)
+		path.WriteString(strings.Join(r.JobID, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "job_id", r.JobID)
+			instrument.RecordPathPart(ctx, "job_id", strings.Join(r.JobID, ","))
 		}
 	}
 
@@ -188,8 +188,8 @@ func (f MLGetJobs) WithContext(v context.Context) func(*MLGetJobsRequest) {
 	}
 }
 
-// WithJobID - the ID of the jobs to fetch.
-func (f MLGetJobs) WithJobID(v string) func(*MLGetJobsRequest) {
+// WithJobID - comma-separated list of identifiers for the anomaly detection job. it can be a job identifier, a group name, or a wildcard expression. if you do not specify one of these options, the api returns information for all anomaly detection jobs..
+func (f MLGetJobs) WithJobID(v ...string) func(*MLGetJobsRequest) {
 	return func(r *MLGetJobsRequest) {
 		r.JobID = v
 	}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -34,30 +34,9 @@ func NewNetworkDirectionProcessor() *_networkDirectionProcessor {
 
 }
 
-func (s *_networkDirectionProcessor) Description(description string) *_networkDirectionProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_networkDirectionProcessor) DestinationIp(field string) *_networkDirectionProcessor {
 
 	s.v.DestinationIp = &field
-
-	return s
-}
-
-func (s *_networkDirectionProcessor) If(if_ types.ScriptVariant) *_networkDirectionProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_networkDirectionProcessor) IgnoreFailure(ignorefailure bool) *_networkDirectionProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
 
 	return s
 }
@@ -86,6 +65,41 @@ func (s *_networkDirectionProcessor) InternalNetworksField(field string) *_netwo
 	return s
 }
 
+func (s *_networkDirectionProcessor) SourceIp(field string) *_networkDirectionProcessor {
+
+	s.v.SourceIp = &field
+
+	return s
+}
+
+func (s *_networkDirectionProcessor) TargetField(field string) *_networkDirectionProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_networkDirectionProcessor) Description(description string) *_networkDirectionProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_networkDirectionProcessor) If(if_ types.ScriptVariant) *_networkDirectionProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_networkDirectionProcessor) IgnoreFailure(ignorefailure bool) *_networkDirectionProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
 func (s *_networkDirectionProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_networkDirectionProcessor {
 
 	for _, v := range onfailures {
@@ -96,23 +110,9 @@ func (s *_networkDirectionProcessor) OnFailure(onfailures ...types.ProcessorCont
 	return s
 }
 
-func (s *_networkDirectionProcessor) SourceIp(field string) *_networkDirectionProcessor {
-
-	s.v.SourceIp = &field
-
-	return s
-}
-
 func (s *_networkDirectionProcessor) Tag(tag string) *_networkDirectionProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_networkDirectionProcessor) TargetField(field string) *_networkDirectionProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // MultisearchHeader type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/msearch/types.ts#L31-L46
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_global/msearch/types.ts#L37-L53
 type MultisearchHeader struct {
 	AllowNoIndices            *bool                           `json:"allow_no_indices,omitempty"`
 	AllowPartialSearchResults *bool                           `json:"allow_partial_search_results,omitempty"`
@@ -44,8 +44,9 @@ type MultisearchHeader struct {
 	IgnoreUnavailable         *bool                           `json:"ignore_unavailable,omitempty"`
 	Index                     []string                        `json:"index,omitempty"`
 	Preference                *string                         `json:"preference,omitempty"`
+	ProjectRouting            *string                         `json:"project_routing,omitempty"`
 	RequestCache              *bool                           `json:"request_cache,omitempty"`
-	Routing                   *string                         `json:"routing,omitempty"`
+	Routing                   []string                        `json:"routing,omitempty"`
 	SearchType                *searchtype.SearchType          `json:"search_type,omitempty"`
 }
 
@@ -178,6 +179,11 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			}
 			s.Preference = &o
 
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
+			}
+
 		case "request_cache":
 			var tmp any
 			dec.Decode(&tmp)
@@ -193,8 +199,19 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			}
 
 		case "routing":
-			if err := dec.Decode(&s.Routing); err != nil {
-				return fmt.Errorf("%s | %w", "Routing", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
+
+				s.Routing = append(s.Routing, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
 			}
 
 		case "search_type":

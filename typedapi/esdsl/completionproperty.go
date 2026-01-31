@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -50,6 +50,34 @@ func (s *_completionProperty) Contexts(contexts ...types.SuggestContextVariant) 
 		s.v.Contexts = append(s.v.Contexts, *v.SuggestContextCaster())
 
 	}
+	return s
+}
+
+func (s *_completionProperty) MaxInputLength(maxinputlength int) *_completionProperty {
+
+	s.v.MaxInputLength = &maxinputlength
+
+	return s
+}
+
+func (s *_completionProperty) PreservePositionIncrements(preservepositionincrements bool) *_completionProperty {
+
+	s.v.PreservePositionIncrements = &preservepositionincrements
+
+	return s
+}
+
+func (s *_completionProperty) PreserveSeparators(preserveseparators bool) *_completionProperty {
+
+	s.v.PreserveSeparators = &preserveseparators
+
+	return s
+}
+
+func (s *_completionProperty) SearchAnalyzer(searchanalyzer string) *_completionProperty {
+
+	s.v.SearchAnalyzer = &searchanalyzer
+
 	return s
 }
 
@@ -101,13 +129,6 @@ func (s *_completionProperty) IgnoreAbove(ignoreabove int) *_completionProperty 
 	return s
 }
 
-func (s *_completionProperty) MaxInputLength(maxinputlength int) *_completionProperty {
-
-	s.v.MaxInputLength = &maxinputlength
-
-	return s
-}
-
 func (s *_completionProperty) Meta(meta map[string]string) *_completionProperty {
 
 	s.v.Meta = meta
@@ -129,20 +150,6 @@ func (s *_completionProperty) AddMeta(key string, value string) *_completionProp
 	return s
 }
 
-func (s *_completionProperty) PreservePositionIncrements(preservepositionincrements bool) *_completionProperty {
-
-	s.v.PreservePositionIncrements = &preservepositionincrements
-
-	return s
-}
-
-func (s *_completionProperty) PreserveSeparators(preserveseparators bool) *_completionProperty {
-
-	s.v.PreserveSeparators = &preserveseparators
-
-	return s
-}
-
 func (s *_completionProperty) Properties(properties map[string]types.Property) *_completionProperty {
 
 	s.v.Properties = properties
@@ -161,13 +168,6 @@ func (s *_completionProperty) AddProperty(key string, value types.PropertyVarian
 	tmp[key] = *value.PropertyCaster()
 
 	s.v.Properties = tmp
-	return s
-}
-
-func (s *_completionProperty) SearchAnalyzer(searchanalyzer string) *_completionProperty {
-
-	s.v.SearchAnalyzer = &searchanalyzer
-
 	return s
 }
 

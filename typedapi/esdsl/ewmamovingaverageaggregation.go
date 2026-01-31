@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -37,6 +37,13 @@ func NewEwmaMovingAverageAggregation(settings types.EwmaModelSettingsVariant) *_
 
 	return tmp
 
+}
+
+func (s *_ewmaMovingAverageAggregation) Settings(settings types.EwmaModelSettingsVariant) *_ewmaMovingAverageAggregation {
+
+	s.v.Settings = *settings.EwmaModelSettingsCaster()
+
+	return s
 }
 
 func (s *_ewmaMovingAverageAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_ewmaMovingAverageAggregation {
@@ -69,13 +76,6 @@ func (s *_ewmaMovingAverageAggregation) Minimize(minimize bool) *_ewmaMovingAver
 func (s *_ewmaMovingAverageAggregation) Predict(predict int) *_ewmaMovingAverageAggregation {
 
 	s.v.Predict = &predict
-
-	return s
-}
-
-func (s *_ewmaMovingAverageAggregation) Settings(settings types.EwmaModelSettingsVariant) *_ewmaMovingAverageAggregation {
-
-	s.v.Settings = *settings.EwmaModelSettingsCaster()
 
 	return s
 }

@@ -1,8 +1,9 @@
+---
 name: Unit
 
 on:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: "0 1 * * *"
   push:
     branches:
       - github-actions
@@ -25,13 +26,15 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
-        go: ['1.x']
+        go: ["1.x"]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v2
-        with: { fetch-depth: 1 }
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - uses: actions/setup-go@v2.1.3
-        with: { go-version: "${{ matrix.go }}" }
+        with:
+          go-version: "${{ matrix.go }}"
       - run: go version
       - run: make test-unit race=true
       - uses: codecov/codecov-action@v1
@@ -44,9 +47,11 @@ jobs:
     name: Benchmarks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with: { fetch-depth: 1 }
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - uses: actions/setup-go@v2.1.3
-        with: { go-version: '1.x' }
+        with:
+          go-version: "1.x"
       - run: go version
       - run: make test-bench

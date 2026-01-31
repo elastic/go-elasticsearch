@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newClusterStateFunc(t Transport) ClusterState {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterState returns a comprehensive information about the state of the cluster.
+// ClusterState get the cluster state
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-state.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-state.
 type ClusterState func(o ...func(*ClusterStateRequest)) (*Response, error)
 
 // ClusterStateRequest configures the Cluster State API request.
@@ -56,7 +56,7 @@ type ClusterStateRequest struct {
 	Metric []string
 
 	AllowNoIndices         *bool
-	ExpandWildcards        string
+	ExpandWildcards        []string
 	FlatSettings           *bool
 	IgnoreUnavailable      *bool
 	Local                  *bool
@@ -122,8 +122,8 @@ func (r ClusterStateRequest) Do(providedCtx context.Context, transport Transport
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.FlatSettings != nil {
@@ -250,7 +250,7 @@ func (f ClusterState) WithAllowNoIndices(v bool) func(*ClusterStateRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f ClusterState) WithExpandWildcards(v string) func(*ClusterStateRequest) {
+func (f ClusterState) WithExpandWildcards(v ...string) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.ExpandWildcards = v
 	}
@@ -277,7 +277,7 @@ func (f ClusterState) WithLocal(v bool) func(*ClusterStateRequest) {
 	}
 }
 
-// WithMasterTimeout - specify timeout for connection to master.
+// WithMasterTimeout - timeout for waiting for new cluster state in case it is blocked.
 func (f ClusterState) WithMasterTimeout(v time.Duration) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.MasterTimeout = v

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package clone
 
@@ -29,9 +29,8 @@ import (
 
 // Request holds the request body struct for the package clone
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/clone/IndicesCloneRequest.ts#L27-L127
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/indices/clone/IndicesCloneRequest.ts#L27-L130
 type Request struct {
-
 	// Aliases Aliases for the resulting index.
 	Aliases map[string]types.Alias `json:"aliases,omitempty"`
 	// Settings Configuration options for the target index.

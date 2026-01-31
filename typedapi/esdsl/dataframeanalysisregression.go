@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -39,6 +39,20 @@ func NewDataframeAnalysisRegression(dependentvariable string) *_dataframeAnalysi
 
 	return tmp
 
+}
+
+func (s *_dataframeAnalysisRegression) LossFunction(lossfunction string) *_dataframeAnalysisRegression {
+
+	s.v.LossFunction = &lossfunction
+
+	return s
+}
+
+func (s *_dataframeAnalysisRegression) LossFunctionParameter(lossfunctionparameter types.Float64) *_dataframeAnalysisRegression {
+
+	s.v.LossFunctionParameter = &lossfunctionparameter
+
+	return s
 }
 
 func (s *_dataframeAnalysisRegression) Alpha(alpha types.Float64) *_dataframeAnalysisRegression {
@@ -110,20 +124,6 @@ func (s *_dataframeAnalysisRegression) Gamma(gamma types.Float64) *_dataframeAna
 func (s *_dataframeAnalysisRegression) Lambda(lambda types.Float64) *_dataframeAnalysisRegression {
 
 	s.v.Lambda = &lambda
-
-	return s
-}
-
-func (s *_dataframeAnalysisRegression) LossFunction(lossfunction string) *_dataframeAnalysisRegression {
-
-	s.v.LossFunction = &lossfunction
-
-	return s
-}
-
-func (s *_dataframeAnalysisRegression) LossFunctionParameter(lossfunctionparameter types.Float64) *_dataframeAnalysisRegression {
-
-	s.v.LossFunctionParameter = &lossfunctionparameter
 
 	return s
 }

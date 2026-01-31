@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -39,16 +39,30 @@ func NewJoinProcessor(separator string) *_joinProcessor {
 
 }
 
-func (s *_joinProcessor) Description(description string) *_joinProcessor {
+func (s *_joinProcessor) Field(field string) *_joinProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_joinProcessor) Field(field string) *_joinProcessor {
+func (s *_joinProcessor) Separator(separator string) *_joinProcessor {
 
-	s.v.Field = field
+	s.v.Separator = separator
+
+	return s
+}
+
+func (s *_joinProcessor) TargetField(field string) *_joinProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_joinProcessor) Description(description string) *_joinProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -77,23 +91,9 @@ func (s *_joinProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 	return s
 }
 
-func (s *_joinProcessor) Separator(separator string) *_joinProcessor {
-
-	s.v.Separator = separator
-
-	return s
-}
-
 func (s *_joinProcessor) Tag(tag string) *_joinProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_joinProcessor) TargetField(field string) *_joinProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

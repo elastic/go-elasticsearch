@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,16 +43,16 @@ func newClusterPostVotingConfigExclusionsFunc(t Transport) ClusterPostVotingConf
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterPostVotingConfigExclusions updates the cluster voting config exclusions by node ids or node names.
+// ClusterPostVotingConfigExclusions update voting configuration exclusions
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/voting-config-exclusions.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-post-voting-config-exclusions.
 type ClusterPostVotingConfigExclusions func(o ...func(*ClusterPostVotingConfigExclusionsRequest)) (*Response, error)
 
 // ClusterPostVotingConfigExclusionsRequest configures the Cluster Post Voting Config Exclusions API request.
 type ClusterPostVotingConfigExclusionsRequest struct {
 	MasterTimeout time.Duration
-	NodeIds       string
-	NodeNames     string
+	NodeIds       []string
+	NodeNames     []string
 	Timeout       time.Duration
 
 	Pretty     bool
@@ -96,12 +96,12 @@ func (r ClusterPostVotingConfigExclusionsRequest) Do(providedCtx context.Context
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
-	if r.NodeIds != "" {
-		params["node_ids"] = r.NodeIds
+	if len(r.NodeIds) > 0 {
+		params["node_ids"] = strings.Join(r.NodeIds, ",")
 	}
 
-	if r.NodeNames != "" {
-		params["node_names"] = r.NodeNames
+	if len(r.NodeNames) > 0 {
+		params["node_names"] = strings.Join(r.NodeNames, ",")
 	}
 
 	if r.Timeout != 0 {
@@ -194,14 +194,14 @@ func (f ClusterPostVotingConfigExclusions) WithMasterTimeout(v time.Duration) fu
 }
 
 // WithNodeIds - a list of the persistent ids of the nodes to exclude from the voting configuration. if specified, you may not also specify ?node_names..
-func (f ClusterPostVotingConfigExclusions) WithNodeIds(v string) func(*ClusterPostVotingConfigExclusionsRequest) {
+func (f ClusterPostVotingConfigExclusions) WithNodeIds(v ...string) func(*ClusterPostVotingConfigExclusionsRequest) {
 	return func(r *ClusterPostVotingConfigExclusionsRequest) {
 		r.NodeIds = v
 	}
 }
 
 // WithNodeNames - a list of the names of the nodes to exclude from the voting configuration. if specified, you may not also specify ?node_ids..
-func (f ClusterPostVotingConfigExclusions) WithNodeNames(v string) func(*ClusterPostVotingConfigExclusionsRequest) {
+func (f ClusterPostVotingConfigExclusions) WithNodeNames(v ...string) func(*ClusterPostVotingConfigExclusionsRequest) {
 	return func(r *ClusterPostVotingConfigExclusionsRequest) {
 		r.NodeNames = v
 	}

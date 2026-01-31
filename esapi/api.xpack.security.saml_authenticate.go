@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecuritySamlAuthenticateFunc(t Transport) SecuritySamlAuthenticate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecuritySamlAuthenticate - Exchanges a SAML Response message for an Elasticsearch access token and refresh token pair
+// SecuritySamlAuthenticate - Authenticate SAML
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-authenticate.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-authenticate.
 type SecuritySamlAuthenticate func(body io.Reader, o ...func(*SecuritySamlAuthenticateRequest)) (*Response, error)
 
 // SecuritySamlAuthenticateRequest configures the Security Saml Authenticate API request.

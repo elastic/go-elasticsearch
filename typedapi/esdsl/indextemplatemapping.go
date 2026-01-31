@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -50,6 +50,13 @@ func (s *_indexTemplateMapping) AddAlias(key string, value types.AliasVariant) *
 	tmp[key] = *value.AliasCaster()
 
 	s.v.Aliases = tmp
+	return s
+}
+
+func (s *_indexTemplateMapping) DataStreamOptions(datastreamoptions types.DataStreamOptionsTemplateVariant) *_indexTemplateMapping {
+
+	s.v.DataStreamOptions = datastreamoptions.DataStreamOptionsTemplateCaster()
+
 	return s
 }
 

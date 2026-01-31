@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newIndicesGetMappingFunc(t Transport) IndicesGetMapping {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetMapping returns mappings for one or more indices.
+// IndicesGetMapping get mapping definitions
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-mapping.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-mapping.
 type IndicesGetMapping func(o ...func(*IndicesGetMappingRequest)) (*Response, error)
 
 // IndicesGetMappingRequest configures the Indices Get Mapping API request.
@@ -54,7 +54,7 @@ type IndicesGetMappingRequest struct {
 	Index []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	IgnoreUnavailable *bool
 	Local             *bool
 	MasterTimeout     time.Duration
@@ -108,8 +108,8 @@ func (r IndicesGetMappingRequest) Do(providedCtx context.Context, transport Tran
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -217,7 +217,7 @@ func (f IndicesGetMapping) WithAllowNoIndices(v bool) func(*IndicesGetMappingReq
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesGetMapping) WithExpandWildcards(v string) func(*IndicesGetMappingRequest) {
+func (f IndicesGetMapping) WithExpandWildcards(v ...string) func(*IndicesGetMappingRequest) {
 	return func(r *IndicesGetMappingRequest) {
 		r.ExpandWildcards = v
 	}

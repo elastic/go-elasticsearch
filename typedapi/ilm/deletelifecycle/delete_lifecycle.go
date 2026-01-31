@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Delete a lifecycle policy.
+//
 // You cannot delete policies that are currently in use. If the policy is being
 // used to manage any indices, the request fails and returns an error.
 package deletelifecycle
@@ -79,6 +80,7 @@ func NewDeleteLifecycleFunc(tp elastictransport.Interface) NewDeleteLifecycle {
 }
 
 // Delete a lifecycle policy.
+//
 // You cannot delete policies that are currently in use. If the policy is being
 // used to manage any indices, the request fails and returns an error.
 //

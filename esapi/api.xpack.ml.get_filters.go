@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,14 +43,14 @@ func newMLGetFiltersFunc(t Transport) MLGetFilters {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetFilters - Retrieves filters.
+// MLGetFilters - Get filters
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-filter.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-filters.
 type MLGetFilters func(o ...func(*MLGetFiltersRequest)) (*Response, error)
 
 // MLGetFiltersRequest configures the ML Get Filters API request.
 type MLGetFiltersRequest struct {
-	FilterID string
+	FilterID []string
 
 	From *int
 	Size *int
@@ -86,17 +86,17 @@ func (r MLGetFiltersRequest) Do(providedCtx context.Context, transport Transport
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_ml") + 1 + len("filters") + 1 + len(r.FilterID))
+	path.Grow(7 + 1 + len("_ml") + 1 + len("filters") + 1 + len(strings.Join(r.FilterID, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
 	path.WriteString("/")
 	path.WriteString("filters")
-	if r.FilterID != "" {
+	if len(r.FilterID) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.FilterID)
+		path.WriteString(strings.Join(r.FilterID, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "filter_id", r.FilterID)
+			instrument.RecordPathPart(ctx, "filter_id", strings.Join(r.FilterID, ","))
 		}
 	}
 
@@ -188,8 +188,8 @@ func (f MLGetFilters) WithContext(v context.Context) func(*MLGetFiltersRequest) 
 	}
 }
 
-// WithFilterID - the ID of the filter to fetch.
-func (f MLGetFilters) WithFilterID(v string) func(*MLGetFiltersRequest) {
+// WithFilterID - comma-separated list of strings that uniquely identify a filter..
+func (f MLGetFilters) WithFilterID(v ...string) func(*MLGetFiltersRequest) {
 	return func(r *MLGetFiltersRequest) {
 		r.FilterID = v
 	}

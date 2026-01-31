@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -39,13 +39,6 @@ func NewScriptProcessor() *_scriptProcessor {
 
 }
 
-func (s *_scriptProcessor) Description(description string) *_scriptProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_scriptProcessor) Id(id string) *_scriptProcessor {
 
 	s.v.Id = &id
@@ -53,33 +46,9 @@ func (s *_scriptProcessor) Id(id string) *_scriptProcessor {
 	return s
 }
 
-func (s *_scriptProcessor) If(if_ types.ScriptVariant) *_scriptProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_scriptProcessor) IgnoreFailure(ignorefailure bool) *_scriptProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
-
-	return s
-}
-
 func (s *_scriptProcessor) Lang(lang scriptlanguage.ScriptLanguage) *_scriptProcessor {
 
 	s.v.Lang = &lang
-	return s
-}
-
-func (s *_scriptProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_scriptProcessor {
-
-	for _, v := range onfailures {
-
-		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
-
-	}
 	return s
 }
 
@@ -108,6 +77,37 @@ func (s *_scriptProcessor) Source(scriptsource types.ScriptSourceVariant) *_scri
 
 	s.v.Source = *scriptsource.ScriptSourceCaster()
 
+	return s
+}
+
+func (s *_scriptProcessor) Description(description string) *_scriptProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_scriptProcessor) If(if_ types.ScriptVariant) *_scriptProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_scriptProcessor) IgnoreFailure(ignorefailure bool) *_scriptProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
+func (s *_scriptProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_scriptProcessor {
+
+	for _, v := range onfailures {
+
+		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
+
+	}
 	return s
 }
 

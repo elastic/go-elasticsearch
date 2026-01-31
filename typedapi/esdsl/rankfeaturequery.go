@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -32,13 +32,6 @@ func NewRankFeatureQuery() *_rankFeatureQuery {
 
 	return &_rankFeatureQuery{v: types.NewRankFeatureQuery()}
 
-}
-
-func (s *_rankFeatureQuery) Boost(boost float32) *_rankFeatureQuery {
-
-	s.v.Boost = &boost
-
-	return s
 }
 
 func (s *_rankFeatureQuery) Field(field string) *_rankFeatureQuery {
@@ -62,13 +55,6 @@ func (s *_rankFeatureQuery) Log(log types.RankFeatureFunctionLogarithmVariant) *
 	return s
 }
 
-func (s *_rankFeatureQuery) QueryName_(queryname_ string) *_rankFeatureQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_rankFeatureQuery) Saturation(saturation types.RankFeatureFunctionSaturationVariant) *_rankFeatureQuery {
 
 	s.v.Saturation = saturation.RankFeatureFunctionSaturationCaster()
@@ -79,6 +65,20 @@ func (s *_rankFeatureQuery) Saturation(saturation types.RankFeatureFunctionSatur
 func (s *_rankFeatureQuery) Sigmoid(sigmoid types.RankFeatureFunctionSigmoidVariant) *_rankFeatureQuery {
 
 	s.v.Sigmoid = sigmoid.RankFeatureFunctionSigmoidCaster()
+
+	return s
+}
+
+func (s *_rankFeatureQuery) Boost(boost float32) *_rankFeatureQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_rankFeatureQuery) QueryName_(queryname_ string) *_rankFeatureQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

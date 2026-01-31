@@ -4,41 +4,41 @@ The [`benchmarks.go`](benchmarks.go) file executes end-to-end benchmarks for `es
 configure indexer parameters, index settings, number of runs. See `go run benchmarks.go --help` for an overview of
 configuration options:
 
-```
+```text
 go run benchmarks.go --help
   -count int
-    	Number of documents to generate (default 100000)
+        Number of documents to generate (default 100000)
   -dataset string
-    	Dataset to use for indexing (default "small")
+        Dataset to use for indexing (default "small")
   -debug
-    	Enable logging output
+        Enable logging output
   -easyjson
-    	Use mailru/easyjson for JSON decoding
+        Use mailru/easyjson for JSON decoding
   -fasthttp
-    	Use valyala/fasthttp for HTTP transport
+        Use valyala/fasthttp for HTTP transport
   -flush value
-    	Flush threshold in bytes (default 3MB)
+        Flush threshold in bytes (default 3MB)
   -index string
-    	Index name (default "test-bulk-benchmarks")
+        Index name (default "test-bulk-benchmarks")
   -mockserver
-    	Measure added, not flushed items
+        Measure added, not flushed items
   -replicas int
-    	Number of index replicas (default 0)
+        Number of index replicas (default 0)
   -runs int
-    	Number of runs (default 10)
+        Number of runs (default 10)
   -shards int
-    	Number of index shards (default 3)
+        Number of index shards (default 3)
   -wait duration
-    	Wait duration between runs (default 1s)
+        Wait duration between runs (default 1s)
   -warmup int
-    	Number of warmup runs (default 3)
+        Number of warmup runs (default 3)
   -workers int
-    	Number of indexer workers (default 4)
+        Number of indexer workers (default 4)
 ```
 
 Before running the benchmarks, install `easyjson` and generate the auxiliary files:
 
-```
+```bash
 go mod download
 go get -u github.com/mailru/easyjson/...
 grep '~/go/bin' ~/.profile || echo 'export PATH=$PATH:~/go/bin' >> ~/.profile && source ~/.profile
@@ -49,7 +49,7 @@ go generate -v ./model
 
 The [`small`](data/small/document.json) dataset uses a small document (126B).
 
-```
+```text
 ELASTICSEARCH_URL=http://server:9200 go run benchmarks.go --dataset=small --count=1_000_000 --flush=2MB --shards=5 --replicas=0 --fasthttp=true --easyjson=true
 small: run [10x] warmup [3x] shards [5] replicas [0] workers [8] flush [2.0 MB] wait [1s] fasthttp easyjson
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -72,7 +72,7 @@ docs/sec: min [279,173] max [289,351] mean [286,987]
 The [`httplog`](data/httplog/document.json) dataset uses a bigger document (2.5K), corresponding to a log event gathered
 by [Filebeat](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-nginx.html) from Nginx.
 
-```
+```text
 ELASTICSEARCH_URL=http://server:9200 go run benchmarks.go --dataset=httplog --count=1_000_000 --flush=3MB --shards=5 --replicas=0 --fasthttp=true --easyjson=true
 httplog: run [10x] warmup [3x] shards [5] replicas [0] workers [8] flush [3.0 MB] wait [1s] fasthttp easyjson
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -95,7 +95,7 @@ docs/sec: min [50,165] max [53,072] mean [52,011]
 The `--mockserver` flag allows to run the benchmark against a "mock server", in this case Nginx, to understand a
 theoretical performance of the client, without the overhead of a real Elasticsearch cluster.
 
-```
+```text
 ELASTICSEARCH_URL=http://server:8000 go run benchmarks.go --dataset=small --count=1_000_000 --flush=2MB --warmup=0 --mockserver
 small: run [10x] warmup [0x] shards [3] replicas [0] workers [8] flush [2.0 MB] wait [1s]
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -120,13 +120,13 @@ the size and structure of your data, the index settings and mappings, the cluste
 
 The benchmarks have been run in the following environment:
 
-* OS: Ubuntu 18.04.4 LTS (5.0.0-1031-gcp)
-* Client: A `n2-standard-8` [GCP instance](https://cloud.google.com/compute/docs/machine-types#n2_machine_types) (8
+- OS: Ubuntu 18.04.4 LTS (5.0.0-1031-gcp)
+- Client: A `n2-standard-8` [GCP instance](https://cloud.google.com/compute/docs/machine-types#n2_machine_types) (8
   vCPUs/32GB RAM)
-* Server: A `n2-standard-16` [GCP instance](https://cloud.google.com/compute/docs/machine-types#n2_machine_types) (16
+- Server: A `n2-standard-16` [GCP instance](https://cloud.google.com/compute/docs/machine-types#n2_machine_types) (16
   vCPUs/64GB RAM)
-* Disk: A [local SSD](https://cloud.google.com/compute/docs/disks#localssds) formatted as `ext4` on NVMe interface for
+- Disk: A [local SSD](https://cloud.google.com/compute/docs/disks#localssds) formatted as `ext4` on NVMe interface for
   Elasticsearch data
-* A single-node Elasticsearch cluster, `7.6.0`, [default distribution](https://www.elastic.co/downloads/elasticsearch),
+- A single-node Elasticsearch cluster, `7.6.0`, [default distribution](https://www.elastic.co/downloads/elasticsearch),
   installed from a TAR, with 4GB locked for heap
-* Nginx 1.17.8 with [`nginx.conf`](etc/nginx.conf)
+- Nginx 1.17.8 with [`nginx.conf`](etc/nginx.conf)

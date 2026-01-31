@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityBulkPutRoleFunc(t Transport) SecurityBulkPutRole {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityBulkPutRole - Bulk adds and updates roles in the native realm.
+// SecurityBulkPutRole - Bulk create or update roles
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-put-role.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-put-role.
 type SecurityBulkPutRole func(body io.Reader, o ...func(*SecurityBulkPutRoleRequest)) (*Response, error)
 
 // SecurityBulkPutRoleRequest configures the Security Bulk Put Role API request.

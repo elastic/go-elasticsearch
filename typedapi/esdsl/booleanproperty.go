@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -44,6 +44,54 @@ func (s *_booleanProperty) Boost(boost types.Float64) *_booleanProperty {
 	return s
 }
 
+func (s *_booleanProperty) Fielddata(fielddata types.NumericFielddataVariant) *_booleanProperty {
+
+	s.v.Fielddata = fielddata.NumericFielddataCaster()
+
+	return s
+}
+
+func (s *_booleanProperty) IgnoreMalformed(ignoremalformed bool) *_booleanProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
+func (s *_booleanProperty) Index(index bool) *_booleanProperty {
+
+	s.v.Index = &index
+
+	return s
+}
+
+func (s *_booleanProperty) NullValue(nullvalue bool) *_booleanProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
+func (s *_booleanProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_booleanProperty {
+
+	s.v.OnScriptError = &onscripterror
+	return s
+}
+
+func (s *_booleanProperty) Script(script types.ScriptVariant) *_booleanProperty {
+
+	s.v.Script = script.ScriptCaster()
+
+	return s
+}
+
+func (s *_booleanProperty) TimeSeriesDimension(timeseriesdimension bool) *_booleanProperty {
+
+	s.v.TimeSeriesDimension = &timeseriesdimension
+
+	return s
+}
+
 func (s *_booleanProperty) CopyTo(fields ...string) *_booleanProperty {
 
 	s.v.CopyTo = fields
@@ -61,13 +109,6 @@ func (s *_booleanProperty) DocValues(docvalues bool) *_booleanProperty {
 func (s *_booleanProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_booleanProperty {
 
 	s.v.Dynamic = &dynamic
-	return s
-}
-
-func (s *_booleanProperty) Fielddata(fielddata types.NumericFielddataVariant) *_booleanProperty {
-
-	s.v.Fielddata = fielddata.NumericFielddataCaster()
-
 	return s
 }
 
@@ -99,20 +140,6 @@ func (s *_booleanProperty) IgnoreAbove(ignoreabove int) *_booleanProperty {
 	return s
 }
 
-func (s *_booleanProperty) IgnoreMalformed(ignoremalformed bool) *_booleanProperty {
-
-	s.v.IgnoreMalformed = &ignoremalformed
-
-	return s
-}
-
-func (s *_booleanProperty) Index(index bool) *_booleanProperty {
-
-	s.v.Index = &index
-
-	return s
-}
-
 func (s *_booleanProperty) Meta(meta map[string]string) *_booleanProperty {
 
 	s.v.Meta = meta
@@ -131,19 +158,6 @@ func (s *_booleanProperty) AddMeta(key string, value string) *_booleanProperty {
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_booleanProperty) NullValue(nullvalue bool) *_booleanProperty {
-
-	s.v.NullValue = &nullvalue
-
-	return s
-}
-
-func (s *_booleanProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_booleanProperty {
-
-	s.v.OnScriptError = &onscripterror
 	return s
 }
 
@@ -168,13 +182,6 @@ func (s *_booleanProperty) AddProperty(key string, value types.PropertyVariant) 
 	return s
 }
 
-func (s *_booleanProperty) Script(script types.ScriptVariant) *_booleanProperty {
-
-	s.v.Script = script.ScriptCaster()
-
-	return s
-}
-
 func (s *_booleanProperty) Store(store bool) *_booleanProperty {
 
 	s.v.Store = &store
@@ -185,13 +192,6 @@ func (s *_booleanProperty) Store(store bool) *_booleanProperty {
 func (s *_booleanProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_booleanProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
-	return s
-}
-
-func (s *_booleanProperty) TimeSeriesDimension(timeseriesdimension bool) *_booleanProperty {
-
-	s.v.TimeSeriesDimension = &timeseriesdimension
-
 	return s
 }
 

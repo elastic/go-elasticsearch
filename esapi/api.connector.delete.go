@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newConnectorDeleteFunc(t Transport) ConnectorDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorDelete deletes a connector.
+// ConnectorDelete delete a connector
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-delete.
 type ConnectorDelete func(connector_id string, o ...func(*ConnectorDeleteRequest)) (*Response, error)
 
 // ConnectorDeleteRequest configures the Connector Delete API request.

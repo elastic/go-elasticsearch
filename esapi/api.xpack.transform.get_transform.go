@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,14 +43,14 @@ func newTransformGetTransformFunc(t Transport) TransformGetTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformGetTransform - Retrieves configuration information for transforms.
+// TransformGetTransform - Get transforms
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-transform.
 type TransformGetTransform func(o ...func(*TransformGetTransformRequest)) (*Response, error)
 
 // TransformGetTransformRequest configures the Transform Get Transform API request.
 type TransformGetTransformRequest struct {
-	TransformID string
+	TransformID []string
 
 	AllowNoMatch     *bool
 	ExcludeGenerated *bool
@@ -88,15 +88,15 @@ func (r TransformGetTransformRequest) Do(providedCtx context.Context, transport 
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_transform") + 1 + len(r.TransformID))
+	path.Grow(7 + 1 + len("_transform") + 1 + len(strings.Join(r.TransformID, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_transform")
-	if r.TransformID != "" {
+	if len(r.TransformID) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.TransformID)
+		path.WriteString(strings.Join(r.TransformID, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "transform_id", r.TransformID)
+			instrument.RecordPathPart(ctx, "transform_id", strings.Join(r.TransformID, ","))
 		}
 	}
 
@@ -196,8 +196,8 @@ func (f TransformGetTransform) WithContext(v context.Context) func(*TransformGet
 	}
 }
 
-// WithTransformID - the ID or comma delimited list of ID expressions of the transforms to get, '_all' or '*' implies get all transforms.
-func (f TransformGetTransform) WithTransformID(v string) func(*TransformGetTransformRequest) {
+// WithTransformID - comma-separated list of transform identifiers or wildcard expressions. you can get information for all transforms by using `_all`, by specifying `*` as the `<transform_id>`, or by omitting the `<transform_id>`..
+func (f TransformGetTransform) WithTransformID(v ...string) func(*TransformGetTransformRequest) {
 	return func(r *TransformGetTransformRequest) {
 		r.TransformID = v
 	}

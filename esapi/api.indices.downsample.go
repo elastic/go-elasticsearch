@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -47,7 +47,7 @@ func newIndicesDownsampleFunc(t Transport) IndicesDownsample {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-downsample.
 type IndicesDownsample func(index string, body io.Reader, target_index string, o ...func(*IndicesDownsampleRequest)) (*Response, error)
 
 // IndicesDownsampleRequest configures the Indices Downsample API request.

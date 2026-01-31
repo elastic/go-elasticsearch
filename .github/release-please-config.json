@@ -1,17 +1,22 @@
 {
-    "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-    "release-type": "go",
-    "include-component-in-tag": false,
-    "include-v-in-tag": true,
-    "versioning": "always-bump-patch",
-    "packages": {
-        ".": {
-            "version-file": "internal/version/version.go"
-        }
-    },
-    "plugins": [
-        {
-            "type": "sentence-case"
-        }
-    ]
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "go",
+  "include-component-in-tag": false,
+  "include-v-in-tag": true,
+  "include-v-in-release-name": false,
+  "versioning": "always-bump-patch",
+  "bootstrap-sha": "bcb9ad5b70be9d497df748ca8ff9f7451c6019a9",
+  "draft-pull-request": true,
+  "extra-label": "apidiff",
+  "always-update": true,
+  "packages": {
+    ".": {
+      "version-file": "internal/version/version.go"
+    }
+  },
+  "plugins": [
+    {
+      "type": "sentence-case"
+    }
+  ]
 }

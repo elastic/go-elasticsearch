@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -37,26 +37,6 @@ func NewMovingPercentilesAggregation() *_movingPercentilesAggregation {
 
 }
 
-func (s *_movingPercentilesAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_movingPercentilesAggregation {
-
-	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
-
-	return s
-}
-
-func (s *_movingPercentilesAggregation) Format(format string) *_movingPercentilesAggregation {
-
-	s.v.Format = &format
-
-	return s
-}
-
-func (s *_movingPercentilesAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_movingPercentilesAggregation {
-
-	s.v.GapPolicy = &gappolicy
-	return s
-}
-
 func (s *_movingPercentilesAggregation) Keyed(keyed bool) *_movingPercentilesAggregation {
 
 	s.v.Keyed = &keyed
@@ -75,6 +55,26 @@ func (s *_movingPercentilesAggregation) Window(window int) *_movingPercentilesAg
 
 	s.v.Window = &window
 
+	return s
+}
+
+func (s *_movingPercentilesAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_movingPercentilesAggregation {
+
+	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
+
+	return s
+}
+
+func (s *_movingPercentilesAggregation) Format(format string) *_movingPercentilesAggregation {
+
+	s.v.Format = &format
+
+	return s
+}
+
+func (s *_movingPercentilesAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_movingPercentilesAggregation {
+
+	s.v.GapPolicy = &gappolicy
 	return s
 }
 

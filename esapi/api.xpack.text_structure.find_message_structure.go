@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,9 @@ func newTextStructureFindMessageStructureFunc(t Transport) TextStructureFindMess
 
 // ----- API Definition -------------------------------------------------------
 
-// TextStructureFindMessageStructure - Finds the structure of a list of messages. The messages must contain data that is suitable to be ingested into Elasticsearch.
+// TextStructureFindMessageStructure - Find the structure of text messages
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/find-message-structure.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-text-structure-find-message-structure.
 type TextStructureFindMessageStructure func(body io.Reader, o ...func(*TextStructureFindMessageStructureRequest)) (*Response, error)
 
 // TextStructureFindMessageStructureRequest configures the Text Structure Find Message Structure API request.
@@ -246,7 +246,7 @@ func (f TextStructureFindMessageStructure) WithDelimiter(v string) func(*TextStr
 	}
 }
 
-// WithEcsCompatibility - optional parameter to specify the compatibility mode with ecs grok patterns - may be either 'v1' or 'disabled'.
+// WithEcsCompatibility - the mode of compatibility with ecs compliant grok patterns.use this parameter to specify whether to use ecs grok patterns instead of legacy ones when the structure finder creates a grok pattern.this setting primarily has an impact when a whole message grok pattern such as `%{catalinalog}` matches the input.if the structure finder identifies a common structure but has no idea of meaning then generic field names such as `path`, `ipaddress`, `field1`, and `field2` are used in the `grok_pattern` output, with the intention that a user who knows the meanings rename these fields before using it..
 func (f TextStructureFindMessageStructure) WithEcsCompatibility(v string) func(*TextStructureFindMessageStructureRequest) {
 	return func(r *TextStructureFindMessageStructureRequest) {
 		r.EcsCompatibility = v

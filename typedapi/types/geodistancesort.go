@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // GeoDistanceSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/sort.ts#L58-L70
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/sort.ts#L58-L70
 type GeoDistanceSort struct {
 	DistanceType    *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
 	GeoDistanceSort map[string][]GeoLocation         `json:"-"`
@@ -106,22 +106,21 @@ func (s *GeoDistanceSort) UnmarshalJSON(data []byte) error {
 			rawMsg := make(map[string]json.RawMessage, 0)
 			dec.Decode(&rawMsg)
 			for key, value := range rawMsg {
-				switch {
-				case bytes.HasPrefix(value, []byte("\"")), bytes.HasPrefix(value, []byte("{")):
-					o := new(GeoLocation)
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
-						return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
-					}
-					s.GeoDistanceSort[key] = append(s.GeoDistanceSort[key], o)
-				default:
-					o := []GeoLocation{}
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
+				v := bytes.TrimSpace(value)
+				if len(v) > 0 && v[0] == '[' {
+					var o []GeoLocation
+					if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
 					}
 					s.GeoDistanceSort[key] = o
+					continue
 				}
+
+				var o GeoLocation
+				if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
+				}
+				s.GeoDistanceSort[key] = append(s.GeoDistanceSort[key], o)
 			}
 
 		}

@@ -16,15 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _smoothingModelContainer struct {
 	v *types.SmoothingModelContainer
@@ -32,18 +28,6 @@ type _smoothingModelContainer struct {
 
 func NewSmoothingModelContainer() *_smoothingModelContainer {
 	return &_smoothingModelContainer{v: types.NewSmoothingModelContainer()}
-}
-
-// AdditionalSmoothingModelContainerProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_smoothingModelContainer) AdditionalSmoothingModelContainerProperty(key string, value json.RawMessage) *_smoothingModelContainer {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalSmoothingModelContainerProperty = tmp
-	return s
 }
 
 func (s *_smoothingModelContainer) Laplace(laplace types.LaplaceSmoothingModelVariant) *_smoothingModelContainer {

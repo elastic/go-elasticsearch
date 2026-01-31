@@ -16,15 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Resolve indices.
+//
 // Resolve the names and/or index patterns for indices, aliases, and data
 // streams.
 // Multiple patterns and remote clusters are supported.
 package resolveindex
 
 import (
+	gobytes "bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -38,6 +40,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indexmode"
 )
 
 const (
@@ -55,6 +58,10 @@ type ResolveIndex struct {
 	path    url.URL
 
 	raw io.Reader
+
+	req      *Request
+	deferred []func(request *Request) error
+	buf      *gobytes.Buffer
 
 	paramSet int
 
@@ -81,6 +88,7 @@ func NewResolveIndexFunc(tp elastictransport.Interface) NewResolveIndex {
 }
 
 // Resolve indices.
+//
 // Resolve the names and/or index patterns for indices, aliases, and data
 // streams.
 // Multiple patterns and remote clusters are supported.
@@ -91,6 +99,8 @@ func New(tp elastictransport.Interface) *ResolveIndex {
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
+
+		buf: gobytes.NewBuffer(nil),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -98,6 +108,21 @@ func New(tp elastictransport.Interface) *ResolveIndex {
 			r.instrument = instrument
 		}
 	}
+
+	return r
+}
+
+// Raw takes a json payload as input which is then passed to the http.Request
+// If specified Raw takes precedence on Request method.
+func (r *ResolveIndex) Raw(raw io.Reader) *ResolveIndex {
+	r.raw = raw
+
+	return r
+}
+
+// Request allows to set the request property with the appropriate payload.
+func (r *ResolveIndex) Request(req *Request) *ResolveIndex {
+	r.req = req
 
 	return r
 }
@@ -110,6 +135,31 @@ func (r *ResolveIndex) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var req *http.Request
 
 	var err error
+
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
+	if r.raw == nil && r.req != nil {
+
+		data, err := json.Marshal(r.req)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not serialise request for ResolveIndex: %w", err)
+		}
+
+		r.buf.Write(data)
+
+	}
+
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
 
 	r.path.Scheme = "http"
 
@@ -126,7 +176,7 @@ func (r *ResolveIndex) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 		path.WriteString(r.name)
 
-		method = http.MethodGet
+		method = http.MethodPost
 	}
 
 	r.path.Path = path.String()
@@ -251,45 +301,6 @@ func (r ResolveIndex) Do(providedCtx context.Context) (*Response, error) {
 	return nil, errorResponse
 }
 
-// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
-// This only exists for endpoints without a request payload and allows for quick control flow.
-func (r ResolveIndex) IsSuccess(providedCtx context.Context) (bool, error) {
-	var ctx context.Context
-	r.spanStarted = true
-	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "indices.resolve_index")
-		defer instrument.Close(ctx)
-	}
-	if ctx == nil {
-		ctx = providedCtx
-	}
-
-	res, err := r.Perform(ctx)
-
-	if err != nil {
-		return false, err
-	}
-	io.Copy(io.Discard, res.Body)
-	err = res.Body.Close()
-	if err != nil {
-		return false, err
-	}
-
-	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		return true, nil
-	}
-
-	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the ResolveIndex query execution, status code: %d", res.StatusCode)
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordError(ctx, err)
-		}
-		return false, err
-	}
-
-	return false, nil
-}
-
 // Header set a key, value pair in the ResolveIndex headers map.
 func (r *ResolveIndex) Header(key, value string) *ResolveIndex {
 	r.headers.Set(key, value)
@@ -345,6 +356,19 @@ func (r *ResolveIndex) AllowNoIndices(allownoindices bool) *ResolveIndex {
 	return r
 }
 
+// Mode Filter indices by index mode - standard, lookup, time_series, etc.
+// Comma-separated list of IndexMode. Empty means no filter.
+// API name: mode
+func (r *ResolveIndex) Mode(modes ...indexmode.IndexMode) *ResolveIndex {
+	tmp := []string{}
+	for _, item := range modes {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("mode", strings.Join(tmp, ","))
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -385,6 +409,29 @@ func (r *ResolveIndex) Human(human bool) *ResolveIndex {
 // API name: pretty
 func (r *ResolveIndex) Pretty(pretty bool) *ResolveIndex {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// Specifies a subset of projects to target using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *ResolveIndex) ProjectRouting(projectrouting string) *ResolveIndex {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ProjectRouting = &projectrouting
 
 	return r
 }

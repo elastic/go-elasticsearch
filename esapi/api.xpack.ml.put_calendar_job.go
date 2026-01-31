@@ -15,18 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 )
 
 func newMLPutCalendarJobFunc(t Transport) MLPutCalendarJob {
-	return func(calendar_id string, job_id string, o ...func(*MLPutCalendarJobRequest)) (*Response, error) {
+	return func(calendar_id string, job_id []string, o ...func(*MLPutCalendarJobRequest)) (*Response, error) {
 		var r = MLPutCalendarJobRequest{CalendarID: calendar_id, JobID: job_id}
 		for _, f := range o {
 			f(&r)
@@ -42,15 +43,15 @@ func newMLPutCalendarJobFunc(t Transport) MLPutCalendarJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutCalendarJob - Adds an anomaly detection job to a calendar.
+// MLPutCalendarJob - Add anomaly detection job to calendar
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-calendar-job.html.
-type MLPutCalendarJob func(calendar_id string, job_id string, o ...func(*MLPutCalendarJobRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar-job.
+type MLPutCalendarJob func(calendar_id string, job_id []string, o ...func(*MLPutCalendarJobRequest)) (*Response, error)
 
 // MLPutCalendarJobRequest configures the ML Put Calendar Job API request.
 type MLPutCalendarJobRequest struct {
 	CalendarID string
-	JobID      string
+	JobID      []string
 
 	Pretty     bool
 	Human      bool
@@ -83,7 +84,11 @@ func (r MLPutCalendarJobRequest) Do(providedCtx context.Context, transport Trans
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_ml") + 1 + len("calendars") + 1 + len(r.CalendarID) + 1 + len("jobs") + 1 + len(r.JobID))
+	if len(r.JobID) == 0 {
+		return nil, errors.New("job_id is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_ml") + 1 + len("calendars") + 1 + len(r.CalendarID) + 1 + len("jobs") + 1 + len(strings.Join(r.JobID, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
@@ -97,9 +102,9 @@ func (r MLPutCalendarJobRequest) Do(providedCtx context.Context, transport Trans
 	path.WriteString("/")
 	path.WriteString("jobs")
 	path.WriteString("/")
-	path.WriteString(r.JobID)
+	path.WriteString(strings.Join(r.JobID, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "job_id", r.JobID)
+		instrument.RecordPathPart(ctx, "job_id", strings.Join(r.JobID, ","))
 	}
 
 	params = make(map[string]string)

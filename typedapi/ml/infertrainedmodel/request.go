@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package infertrainedmodel
 
@@ -29,9 +29,8 @@ import (
 
 // Request holds the request body struct for the package infertrainedmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/infer_trained_model/MlInferTrainedModelRequest.ts#L27-L67
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/ml/infer_trained_model/MlInferTrainedModelRequest.ts#L27-L70
 type Request struct {
-
 	// Docs An array of objects to pass to the model for inference. The objects should
 	// contain a fields matching your
 	// configured trained model input. Typically, for NLP models, the field name is

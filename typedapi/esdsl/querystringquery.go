@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -66,13 +66,6 @@ func (s *_queryStringQuery) Analyzer(analyzer string) *_queryStringQuery {
 func (s *_queryStringQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsphrasequery bool) *_queryStringQuery {
 
 	s.v.AutoGenerateSynonymsPhraseQuery = &autogeneratesynonymsphrasequery
-
-	return s
-}
-
-func (s *_queryStringQuery) Boost(boost float32) *_queryStringQuery {
-
-	s.v.Boost = &boost
 
 	return s
 }
@@ -184,13 +177,6 @@ func (s *_queryStringQuery) Query(query string) *_queryStringQuery {
 	return s
 }
 
-func (s *_queryStringQuery) QueryName_(queryname_ string) *_queryStringQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_queryStringQuery) QuoteAnalyzer(quoteanalyzer string) *_queryStringQuery {
 
 	s.v.QuoteAnalyzer = &quoteanalyzer
@@ -229,6 +215,20 @@ func (s *_queryStringQuery) TimeZone(timezone string) *_queryStringQuery {
 func (s *_queryStringQuery) Type(type_ textquerytype.TextQueryType) *_queryStringQuery {
 
 	s.v.Type = &type_
+	return s
+}
+
+func (s *_queryStringQuery) Boost(boost float32) *_queryStringQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_queryStringQuery) QueryName_(queryname_ string) *_queryStringQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

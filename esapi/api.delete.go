@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,9 +44,9 @@ func newDeleteFunc(t Transport) Delete {
 
 // ----- API Definition -------------------------------------------------------
 
-// Delete removes a document from the index.
+// Delete delete a document
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-delete.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete.
 type Delete func(index string, id string, o ...func(*DeleteRequest)) (*Response, error)
 
 // DeleteRequest configures the Delete API request.
@@ -57,7 +57,7 @@ type DeleteRequest struct {
 	IfPrimaryTerm       *int
 	IfSeqNo             *int
 	Refresh             string
-	Routing             string
+	Routing             []string
 	Timeout             time.Duration
 	Version             *int
 	VersionType         string
@@ -123,8 +123,8 @@ func (r DeleteRequest) Do(providedCtx context.Context, transport Transport) (*Re
 		params["refresh"] = r.Refresh
 	}
 
-	if r.Routing != "" {
-		params["routing"] = r.Routing
+	if len(r.Routing) > 0 {
+		params["routing"] = strings.Join(r.Routing, ",")
 	}
 
 	if r.Timeout != 0 {
@@ -243,7 +243,7 @@ func (f Delete) WithRefresh(v string) func(*DeleteRequest) {
 }
 
 // WithRouting - specific routing value.
-func (f Delete) WithRouting(v string) func(*DeleteRequest) {
+func (f Delete) WithRouting(v ...string) func(*DeleteRequest) {
 	return func(r *DeleteRequest) {
 		r.Routing = v
 	}

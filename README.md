@@ -7,24 +7,25 @@ or
 **[sign-up](https://cloud.elastic.co/registration?elektra=en-ess-sign-up-page)**
 **for a free trial of Elastic Cloud**.
 
-[![Go Reference](https://pkg.go.dev/github.com/elastic/go-elasticsearch?status.svg)](https://pkg.go.dev/github.com/elastic/go-elasticsearch/v9)
+[![Go Reference](https://pkg.go.dev/badge/github.com/elastic/go-elasticsearch/v9.svg)](https://pkg.go.dev/github.com/elastic/go-elasticsearch/v9)
 [![Go Report Card](https://goreportcard.com/badge/github.com/elastic/go-elasticsearch)](https://goreportcard.com/report/github.com/elastic/go-elasticsearch)
 [![codecov.io](https://codecov.io/github/elastic/go-elasticsearch/coverage.svg?branch=main)](https://codecov.io/gh/elastic/go-elasticsearch?branch=main)
-[![Build](https://github.com/elastic/go-elasticsearch/workflows/Build/badge.svg)](https://github.com/elastic/go-elasticsearch/actions?query=branch%3Amain)
-[![Unit](https://github.com/elastic/go-elasticsearch/workflows/Unit/badge.svg)](https://github.com/elastic/go-elasticsearch/actions?query=branch%3Amain)
-[![Integration](https://github.com/elastic/go-elasticsearch/workflows/Integration/badge.svg)](https://github.com/elastic/go-elasticsearch/actions?query=branch%3Amain)
-[![API](https://github.com/elastic/go-elasticsearch/workflows/API/badge.svg)](https://github.com/elastic/go-elasticsearch/actions?query=branch%3Amain)
+[![Build](https://github.com/elastic/go-elasticsearch/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/elastic/go-elasticsearch/actions/workflows/build.yml?query=branch%3Amain)
+[![Unit](https://github.com/elastic/go-elasticsearch/actions/workflows/test-unit.yml/badge.svg?branch=main)](https://github.com/elastic/go-elasticsearch/actions/workflows/test-unit.yml?query=branch%3Amain)
+[![Integration](https://github.com/elastic/go-elasticsearch/actions/workflows/test-integration.yml/badge.svg?branch=main)](https://github.com/elastic/go-elasticsearch/actions/workflows/test-integration.yml?query=branch%3Amain)
+[![API](https://github.com/elastic/go-elasticsearch/actions/workflows/test-api.yml/badge.svg?branch=main)](https://github.com/elastic/go-elasticsearch/actions/workflows/test-api.yml?query=branch%3Amain)
+[![Lint](https://github.com/elastic/go-elasticsearch/actions/workflows/lint.yml/badge.svg?branch=main&event=push)](https://github.com/elastic/go-elasticsearch/actions/workflows/lint.yml)
 
 ## Compatibility
 
 ### Go
 
-Starting from version `8.12.0`, this library follow the Go language [policy](https://go.dev/doc/devel/release#policy). Each major Go release is supported until there are two newer major releases. For example, Go 1.5 was supported until the Go 1.7 release, and Go 1.6 was supported until the Go 1.8 release.
+Starting from version `8.12.0`, this library follows the Go language's [release policy](https://go.dev/doc/devel/release#policy). Each major Go release is supported until there are two newer major releases. For example, Go 1.5 was supported until the Go 1.7 release, and Go 1.6 was supported until the Go 1.8 release.
 
 ### Elasticsearch
 
 Language clients are forward compatible; meaning that clients support communicating with greater or equal minor versions of Elasticsearch.
-Elasticsearch language clients are only backwards compatible with default distributions and without guarantees made.
+Elasticsearch language clients are only backward compatible with default distributions and without guarantees made.
 
 When using Go modules, include the version in the import path, and specify either an explicit version or a branch:
 
@@ -39,12 +40,12 @@ It's possible to use multiple versions of the client in a single project:
 
     // main.go
     import (
-      elasticsearch7 "github.com/elastic/go-elasticsearch/v8"
-      elasticsearch8 "github.com/elastic/go-elasticsearch/v9"
+      elasticsearch8 "github.com/elastic/go-elasticsearch/v8"
+      elasticsearch9 "github.com/elastic/go-elasticsearch/v9"
     )
     // ...
-    es8, _ := elasticsearch7.NewDefaultClient()
-    es9, _ := elasticsearch8.NewDefaultClient()
+    es8, _ := elasticsearch8.NewDefaultClient()
+    es9, _ := elasticsearch9.NewDefaultClient()
 
 The `main` branch of the client is compatible with the current `master` branch of Elasticsearch.
 
@@ -64,13 +65,13 @@ of the getting started documentation.
 
 ## Operations
 
-* [Creating an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_creating_an_index)
-* [Indexing documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_indexing_documents)
-* [Getting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_getting_documents)
-* [Searching documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_searching_documents)
-* [Updating documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_updating_documents)
-* [Deleting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_documents)
-* [Deleting an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_an_index)
+- [Creating an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_creating_an_index)
+- [Indexing documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_indexing_documents)
+- [Getting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_getting_documents)
+- [Searching documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_searching_documents)
+- [Updating documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_updating_documents)
+- [Deleting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_documents)
+- [Deleting an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_an_index)
 <!-- ----------------------------------------------------------------------------------------------- -->
 
 ## Helpers
@@ -81,7 +82,9 @@ The `esutil` package provides convenience helpers for working with the client. A
 
 ## Examples
 
-The **[`_examples`](./_examples)** folder contains a number of recipes and comprehensive examples to get you started with the client, including configuration and customization of the client, using a custom certificate authority (CA) for security (TLS), mocking the transport for unit tests, embedding the client in a custom type, building queries, performing requests individually and in bulk, and parsing the responses.
+The **[`_examples`](./_examples)** folder contains a number of recipes and comprehensive examples to get you started with the client,
+including configuration and customization of the client, using a custom certificate authority (CA) for security (TLS),
+mocking the transport for unit tests, embedding the client in a custom type, building queries, performing requests individually and in bulk, and parsing the responses.
 
 <!-- ----------------------------------------------------------------------------------------------- -->
 

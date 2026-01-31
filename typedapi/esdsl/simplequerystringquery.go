@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -58,13 +58,6 @@ func (s *_simpleQueryStringQuery) Analyzer(analyzer string) *_simpleQueryStringQ
 func (s *_simpleQueryStringQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsphrasequery bool) *_simpleQueryStringQuery {
 
 	s.v.AutoGenerateSynonymsPhraseQuery = &autogeneratesynonymsphrasequery
-
-	return s
-}
-
-func (s *_simpleQueryStringQuery) Boost(boost float32) *_simpleQueryStringQuery {
-
-	s.v.Boost = &boost
 
 	return s
 }
@@ -134,16 +127,23 @@ func (s *_simpleQueryStringQuery) Query(query string) *_simpleQueryStringQuery {
 	return s
 }
 
-func (s *_simpleQueryStringQuery) QueryName_(queryname_ string) *_simpleQueryStringQuery {
+func (s *_simpleQueryStringQuery) QuoteFieldSuffix(quotefieldsuffix string) *_simpleQueryStringQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.QuoteFieldSuffix = &quotefieldsuffix
 
 	return s
 }
 
-func (s *_simpleQueryStringQuery) QuoteFieldSuffix(quotefieldsuffix string) *_simpleQueryStringQuery {
+func (s *_simpleQueryStringQuery) Boost(boost float32) *_simpleQueryStringQuery {
 
-	s.v.QuoteFieldSuffix = &quotefieldsuffix
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_simpleQueryStringQuery) QueryName_(queryname_ string) *_simpleQueryStringQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

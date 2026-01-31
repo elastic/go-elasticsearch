@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -33,8 +33,21 @@ import (
 
 // JinaAITaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/_types/CommonTypes.ts#L1470-L1491
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/CommonTypes.ts#L1699-L1729
 type JinaAITaskSettings struct {
+	// LateChunking For a `text_embedding` task, controls when text is split into chunks.
+	// When set to `true`, a request from Elasticsearch contains only chunks related
+	// to a single document. Instead of batching chunks across documents,
+	// Elasticsearch sends them in separate requests. This ensures that chunk
+	// embeddings retain context from the entire document, improving semantic
+	// quality.
+	//
+	// If a document exceeds the model's context limits, late chunking is
+	// automatically disabled for that document only and standard chunking is used
+	// instead.
+	//
+	// If not specified, defaults to `false`.
+	LateChunking *bool `json:"late_chunking,omitempty"`
 	// ReturnDocuments For a `rerank` task, return the doc text within the results.
 	ReturnDocuments *bool `json:"return_documents,omitempty"`
 	// Task For a `text_embedding` task, the task passed to the model.
@@ -68,6 +81,20 @@ func (s *JinaAITaskSettings) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "late_chunking":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "LateChunking", err)
+				}
+				s.LateChunking = &value
+			case bool:
+				s.LateChunking = &v
+			}
 
 		case "return_documents":
 			var tmp any

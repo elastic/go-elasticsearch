@@ -7,7 +7,7 @@ mapped_pages:
 
 ## Request structures [_request_structures]
 
-Each endpoint comes  with a Request type that represents the body of its request. For example, a simple search request for a term "Foo" in the `name` field could be written like this:
+Each endpoint comes with a Request type that represents the body of its request. For example, a simple search request for a term "Foo" in the `name` field could be written like this:
 
 ```go
 search.Request{
@@ -18,7 +18,6 @@ search.Request{
     },
 }
 ```
-
 
 ## Raw JSON [_raw_json]
 
@@ -38,5 +37,3 @@ es.Search().Raw([]byte(`{
 ```
 
 No further validation or serialization is done on what is sent through this method, setting a payload with this takes precedence over any request structure you may submit before running the query.
-
-

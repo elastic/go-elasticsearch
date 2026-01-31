@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package poststartbasic
 
@@ -33,7 +33,7 @@ import (
 
 // Response holds the response body struct for the package poststartbasic
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/license/post_start_basic/StartBasicLicenseResponse.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/license/post_start_basic/StartBasicLicenseResponse.ts#L23-L31
 type Response struct {
 	Acknowledge     map[string][]string      `json:"acknowledge,omitempty"`
 	Acknowledged    bool                     `json:"acknowledged"`
@@ -71,22 +71,21 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			rawMsg := make(map[string]json.RawMessage, 0)
 			dec.Decode(&rawMsg)
 			for key, value := range rawMsg {
-				switch {
-				case bytes.HasPrefix(value, []byte("\"")), bytes.HasPrefix(value, []byte("{")):
-					o := new(string)
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
-						return fmt.Errorf("%s | %w", "Acknowledge", err)
-					}
-					s.Acknowledge[key] = append(s.Acknowledge[key], *o)
-				default:
-					o := []string{}
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
+				v := bytes.TrimSpace(value)
+				if len(v) > 0 && v[0] == '[' {
+					var o []string
+					if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "Acknowledge", err)
 					}
 					s.Acknowledge[key] = o
+					continue
 				}
+
+				var o string
+				if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Acknowledge", err)
+				}
+				s.Acknowledge[key] = append(s.Acknowledge[key], o)
 			}
 
 		case "acknowledged":

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,11 +43,11 @@ func newConnectorUpdateSchedulingFunc(t Transport) ConnectorUpdateScheduling {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorUpdateScheduling updates the scheduling field in the connector document.
+// ConnectorUpdateScheduling update the connector scheduling
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-scheduling-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-scheduling.
 type ConnectorUpdateScheduling func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateSchedulingRequest)) (*Response, error)
 
 // ConnectorUpdateSchedulingRequest configures the Connector Update Scheduling API request.

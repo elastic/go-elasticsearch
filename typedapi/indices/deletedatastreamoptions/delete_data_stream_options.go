@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Delete data stream options.
+//
 // Removes the data stream options from a data stream.
 package deletedatastreamoptions
 
@@ -79,9 +80,10 @@ func NewDeleteDataStreamOptionsFunc(tp elastictransport.Interface) NewDeleteData
 }
 
 // Delete data stream options.
+//
 // Removes the data stream options from a data stream.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream-options
 func New(tp elastictransport.Interface) *DeleteDataStreamOptions {
 	r := &DeleteDataStreamOptions{
 		transport: tp,
@@ -294,7 +296,8 @@ func (r *DeleteDataStreamOptions) Header(key, value string) *DeleteDataStreamOpt
 }
 
 // Name A comma-separated list of data streams of which the data stream options will
-// be deleted; use `*` to get all data streams
+// be deleted.
+// Use `*` to get all data streams
 // API Name: name
 func (r *DeleteDataStreamOptions) _name(name string) *DeleteDataStreamOptions {
 	r.paramSet |= nameMask
@@ -304,7 +307,6 @@ func (r *DeleteDataStreamOptions) _name(name string) *DeleteDataStreamOptions {
 }
 
 // ExpandWildcards Whether wildcard expressions should get expanded to open or closed indices
-// (default: open)
 // API name: expand_wildcards
 func (r *DeleteDataStreamOptions) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *DeleteDataStreamOptions {
 	tmp := []string{}
@@ -316,7 +318,7 @@ func (r *DeleteDataStreamOptions) ExpandWildcards(expandwildcards ...expandwildc
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *DeleteDataStreamOptions) MasterTimeout(duration string) *DeleteDataStreamOptions {
 	r.values.Set("master_timeout", duration)
@@ -324,7 +326,7 @@ func (r *DeleteDataStreamOptions) MasterTimeout(duration string) *DeleteDataStre
 	return r
 }
 
-// Timeout Explicit timestamp for the document
+// Timeout The period to wait for a response.
 // API name: timeout
 func (r *DeleteDataStreamOptions) Timeout(duration string) *DeleteDataStreamOptions {
 	r.values.Set("timeout", duration)

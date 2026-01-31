@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,11 +42,11 @@ func newSearchApplicationPutBehavioralAnalyticsFunc(t Transport) SearchApplicati
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationPutBehavioralAnalytics creates a behavioral analytics collection.
+// SearchApplicationPutBehavioralAnalytics create a behavioral analytics collection
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-analytics-collection.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-put-behavioral-analytics.
 type SearchApplicationPutBehavioralAnalytics func(name string, o ...func(*SearchApplicationPutBehavioralAnalyticsRequest)) (*Response, error)
 
 // SearchApplicationPutBehavioralAnalyticsRequest configures the Search Application Put Behavioral Analytics API request.

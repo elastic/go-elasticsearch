@@ -16,15 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _functionScore struct {
 	v *types.FunctionScore
@@ -32,18 +28,6 @@ type _functionScore struct {
 
 func NewFunctionScore() *_functionScore {
 	return &_functionScore{v: types.NewFunctionScore()}
-}
-
-// AdditionalFunctionScoreProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_functionScore) AdditionalFunctionScoreProperty(key string, value json.RawMessage) *_functionScore {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalFunctionScoreProperty = tmp
-	return s
 }
 
 func (s *_functionScore) Exp(decayfunction types.DecayFunctionVariant) *_functionScore {

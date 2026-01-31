@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,16 +44,16 @@ func newIndicesDeleteDataStreamOptionsFunc(t Transport) IndicesDeleteDataStreamO
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDeleteDataStreamOptions - Deletes the data stream options of the selected data streams.
+// IndicesDeleteDataStreamOptions - Delete data stream options
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream-options.
 type IndicesDeleteDataStreamOptions func(name []string, o ...func(*IndicesDeleteDataStreamOptionsRequest)) (*Response, error)
 
 // IndicesDeleteDataStreamOptionsRequest configures the Indices Delete Data Stream Options API request.
 type IndicesDeleteDataStreamOptionsRequest struct {
 	Name []string
 
-	ExpandWildcards string
+	ExpandWildcards []string
 	MasterTimeout   time.Duration
 	Timeout         time.Duration
 
@@ -106,8 +106,8 @@ func (r IndicesDeleteDataStreamOptionsRequest) Do(providedCtx context.Context, t
 
 	params = make(map[string]string)
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.MasterTimeout != 0 {
@@ -197,7 +197,7 @@ func (f IndicesDeleteDataStreamOptions) WithContext(v context.Context) func(*Ind
 }
 
 // WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesDeleteDataStreamOptions) WithExpandWildcards(v string) func(*IndicesDeleteDataStreamOptionsRequest) {
+func (f IndicesDeleteDataStreamOptions) WithExpandWildcards(v ...string) func(*IndicesDeleteDataStreamOptionsRequest) {
 	return func(r *IndicesDeleteDataStreamOptionsRequest) {
 		r.ExpandWildcards = v
 	}

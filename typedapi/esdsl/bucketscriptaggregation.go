@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -37,6 +37,13 @@ func NewBucketScriptAggregation() *_bucketScriptAggregation {
 
 }
 
+func (s *_bucketScriptAggregation) Script(script types.ScriptVariant) *_bucketScriptAggregation {
+
+	s.v.Script = script.ScriptCaster()
+
+	return s
+}
+
 func (s *_bucketScriptAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_bucketScriptAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -54,13 +61,6 @@ func (s *_bucketScriptAggregation) Format(format string) *_bucketScriptAggregati
 func (s *_bucketScriptAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_bucketScriptAggregation {
 
 	s.v.GapPolicy = &gappolicy
-	return s
-}
-
-func (s *_bucketScriptAggregation) Script(script types.ScriptVariant) *_bucketScriptAggregation {
-
-	s.v.Script = script.ScriptCaster()
-
 	return s
 }
 

@@ -26,6 +26,7 @@ import (
 	"net/http"
 	"runtime"
 	"strconv"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -96,6 +97,7 @@ type BulkIndexerStats struct {
 	NumDeleted   uint64
 	NumRequests  uint64
 	FlushedBytes uint64
+	FlushedMs    uint64
 }
 
 // BulkIndexerItem represents an indexer item.
@@ -119,6 +121,8 @@ type BulkIndexerItem struct {
 }
 
 // marshallMeta format as JSON the item metadata.
+//
+//nolint:gocyclo
 func (item *BulkIndexerItem) marshallMeta() {
 	// Pre-allocate a buffer large enough for most use cases.
 	// 'aux = aux[:0]' resets the length without changing the capacity.
@@ -178,7 +182,6 @@ func (item *BulkIndexerItem) marshallMeta() {
 		}
 		item.meta.WriteString(`"require_alias":`)
 		item.meta.Write(strconv.AppendBool(aux, item.RequireAlias))
-		aux = aux[:0]
 	}
 
 	if item.DocumentID != "" && item.IfSeqNo != nil && item.IfPrimaryTerm != nil {
@@ -278,6 +281,7 @@ type bulkIndexerStats struct {
 	numDeleted   uint64
 	numRequests  uint64
 	flushedBytes uint64
+	flushedMs    uint64
 }
 
 // NewBulkIndexer creates a new bulk indexer.
@@ -372,6 +376,7 @@ func (bi *bulkIndexer) Stats() BulkIndexerStats {
 		NumDeleted:   atomic.LoadUint64(&bi.stats.numDeleted),
 		NumRequests:  atomic.LoadUint64(&bi.stats.numRequests),
 		FlushedBytes: atomic.LoadUint64(&bi.stats.flushedBytes),
+		FlushedMs:    atomic.LoadUint64(&bi.stats.flushedMs),
 	}
 }
 
@@ -487,7 +492,12 @@ func (w *worker) writeBody(item *BulkIndexerItem) error {
 			}
 			return err
 		}
-		item.Body.Seek(0, io.SeekStart)
+		if _, err := item.Body.Seek(0, io.SeekStart); err != nil {
+			if w.bi.config.OnError != nil {
+				w.bi.config.OnError(context.Background(), err)
+			}
+			return err
+		}
 		w.buf.WriteRune('\n')
 	}
 	return nil
@@ -509,6 +519,8 @@ func (w *worker) flush(ctx context.Context) bool {
 }
 
 // flushBuffer writes out the worker buffer.
+//
+//nolint:gocyclo
 func (w *worker) flushBuffer(ctx context.Context) error {
 	if w.bi.config.OnFlushStart != nil {
 		ctx = w.bi.config.OnFlushStart(ctx)
@@ -552,7 +564,7 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 
 		Pipeline:            w.bi.config.Pipeline,
 		Refresh:             w.bi.config.Refresh,
-		Routing:             w.bi.config.Routing,
+		Routing:             strings.Split(w.bi.config.Routing, ","),
 		Source:              w.bi.config.Source,
 		SourceExcludes:      w.bi.config.SourceExcludes,
 		SourceIncludes:      w.bi.config.SourceIncludes,
@@ -575,27 +587,29 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 	}
 	req.Header.Set(elasticsearch.HeaderClientMeta, "h=bp")
 
+	start := time.Now()
 	res, err := req.Do(ctx, w.bi.config.Client)
 	if err != nil {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
-		err := fmt.Errorf("flush: %w", err)
-		w.handleError(ctx, err)
-		return err
+		flushErr := fmt.Errorf("flush: %w", err)
+		w.handleError(ctx, flushErr)
+		return flushErr
 	}
+
 	if res.Body != nil {
-		defer res.Body.Close()
+		defer func() { _ = res.Body.Close() }()
 	}
 	if res.IsError() {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
-		err := fmt.Errorf("flush: %s", res.String())
-		w.handleError(ctx, err)
-		return err
+		flushErr := fmt.Errorf("flush: %s", res.String())
+		w.handleError(ctx, flushErr)
+		return flushErr
 	}
 
-	if err := w.bi.config.Decoder.UnmarshalFromReader(res.Body, &blk); err != nil {
+	if unmarshalErr := w.bi.config.Decoder.UnmarshalFromReader(res.Body, &blk); unmarshalErr != nil {
 		// TODO(karmi): Wrap error (include response struct)
-		w.handleError(ctx, fmt.Errorf("flush: %w", err))
-		return fmt.Errorf("flush: error parsing response body: %w", err)
+		w.handleError(ctx, fmt.Errorf("flush: %w", unmarshalErr))
+		return fmt.Errorf("flush: error parsing response body: %w", unmarshalErr)
 	}
 
 	for i, blkItem := range blk.Items {
@@ -639,6 +653,9 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 	}
 
 	atomic.AddUint64(&w.bi.stats.flushedBytes, uint64(bufLen))
+	if elapsed := time.Since(start).Milliseconds(); elapsed > 0 {
+		atomic.AddUint64(&w.bi.stats.flushedMs, uint64(elapsed)) //nolint:gosec // elapsed is guaranteed positive
+	}
 
 	return err
 }

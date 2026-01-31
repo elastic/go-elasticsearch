@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newSecurityClearCachedRolesFunc(t Transport) SecurityClearCachedRoles {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityClearCachedRoles - Evicts roles from the native role cache.
+// SecurityClearCachedRoles - Clear the roles cache
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-role-cache.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-roles.
 type SecurityClearCachedRoles func(name []string, o ...func(*SecurityClearCachedRolesRequest)) (*Response, error)
 
 // SecurityClearCachedRolesRequest configures the Security Clear Cached Roles API request.

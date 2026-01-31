@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -44,16 +44,16 @@ func newIndicesDeleteDataStreamFunc(t Transport) IndicesDeleteDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDeleteDataStream - Deletes a data stream.
+// IndicesDeleteDataStream - Delete data streams
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream.
 type IndicesDeleteDataStream func(name []string, o ...func(*IndicesDeleteDataStreamRequest)) (*Response, error)
 
 // IndicesDeleteDataStreamRequest configures the Indices Delete Data Stream API request.
 type IndicesDeleteDataStreamRequest struct {
 	Name []string
 
-	ExpandWildcards string
+	ExpandWildcards []string
 	MasterTimeout   time.Duration
 
 	Pretty     bool
@@ -103,8 +103,8 @@ func (r IndicesDeleteDataStreamRequest) Do(providedCtx context.Context, transpor
 
 	params = make(map[string]string)
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.MasterTimeout != 0 {
@@ -190,7 +190,7 @@ func (f IndicesDeleteDataStream) WithContext(v context.Context) func(*IndicesDel
 }
 
 // WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesDeleteDataStream) WithExpandWildcards(v string) func(*IndicesDeleteDataStreamRequest) {
+func (f IndicesDeleteDataStream) WithExpandWildcards(v ...string) func(*IndicesDeleteDataStreamRequest) {
 	return func(r *IndicesDeleteDataStreamRequest) {
 		r.ExpandWildcards = v
 	}

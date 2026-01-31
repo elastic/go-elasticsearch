@@ -16,20 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // Intervals type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/fulltext.ts#L83-L112
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/query_dsl/fulltext.ts#L83-L112
 type Intervals struct {
-	AdditionalIntervalsProperty map[string]json.RawMessage `json:"-"`
 	// AllOf Returns matches that span a combination of other rules.
 	AllOf *IntervalsAllOf `json:"all_of,omitempty"`
 	// AnyOf Returns intervals produced by any of its sub-rules.
@@ -46,40 +40,9 @@ type Intervals struct {
 	Wildcard *IntervalsWildcard `json:"wildcard,omitempty"`
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s Intervals) MarshalJSON() ([]byte, error) {
-	type opt Intervals
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalIntervalsProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalIntervalsProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewIntervals returns a Intervals.
 func NewIntervals() *Intervals {
-	r := &Intervals{
-		AdditionalIntervalsProperty: make(map[string]json.RawMessage),
-	}
+	r := &Intervals{}
 
 	return r
 }

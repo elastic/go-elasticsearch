@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -42,9 +42,9 @@ func newSecurityGetRoleFunc(t Transport) SecurityGetRole {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetRole - Retrieves roles in the native realm.
+// SecurityGetRole - Get roles
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-role.
 type SecurityGetRole func(o ...func(*SecurityGetRoleRequest)) (*Response, error)
 
 // SecurityGetRoleRequest configures the Security Get Role API request.

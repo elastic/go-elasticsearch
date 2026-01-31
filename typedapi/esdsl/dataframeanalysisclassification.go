@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -37,16 +37,23 @@ func NewDataframeAnalysisClassification(dependentvariable string) *_dataframeAna
 
 }
 
-func (s *_dataframeAnalysisClassification) Alpha(alpha types.Float64) *_dataframeAnalysisClassification {
+func (s *_dataframeAnalysisClassification) ClassAssignmentObjective(classassignmentobjective string) *_dataframeAnalysisClassification {
 
-	s.v.Alpha = &alpha
+	s.v.ClassAssignmentObjective = &classassignmentobjective
 
 	return s
 }
 
-func (s *_dataframeAnalysisClassification) ClassAssignmentObjective(classassignmentobjective string) *_dataframeAnalysisClassification {
+func (s *_dataframeAnalysisClassification) NumTopClasses(numtopclasses int) *_dataframeAnalysisClassification {
 
-	s.v.ClassAssignmentObjective = &classassignmentobjective
+	s.v.NumTopClasses = &numtopclasses
+
+	return s
+}
+
+func (s *_dataframeAnalysisClassification) Alpha(alpha types.Float64) *_dataframeAnalysisClassification {
+
+	s.v.Alpha = &alpha
 
 	return s
 }
@@ -127,13 +134,6 @@ func (s *_dataframeAnalysisClassification) MaxOptimizationRoundsPerHyperparamete
 func (s *_dataframeAnalysisClassification) MaxTrees(maxtrees int) *_dataframeAnalysisClassification {
 
 	s.v.MaxTrees = &maxtrees
-
-	return s
-}
-
-func (s *_dataframeAnalysisClassification) NumTopClasses(numtopclasses int) *_dataframeAnalysisClassification {
-
-	s.v.NumTopClasses = &numtopclasses
 
 	return s
 }

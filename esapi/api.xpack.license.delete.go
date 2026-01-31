@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newLicenseDeleteFunc(t Transport) LicenseDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicenseDelete - Deletes licensing information for the cluster
+// LicenseDelete - Delete the license
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-license.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-delete.
 type LicenseDelete func(o ...func(*LicenseDeleteRequest)) (*Response, error)
 
 // LicenseDeleteRequest configures the License Delete API request.

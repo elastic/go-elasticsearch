@@ -26,12 +26,11 @@ See the [`elasticsearch-cluster.yml`](elasticsearch-cluster.yml) file for detail
 
 Use `curl` to verify access to the cluster:
 
-```
+```bash
 curl --cacert certificates/ca/ca.crt https://elastic:elastic@localhost:9200
 ```
 
 > NOTE: On Mac OS X, you may need to add the certificate to the Keychain with `security add-trusted-cert -p ssl certificates/ca/ca.crt`. To remove it, run `security remove-trusted-cert certificates/ca/ca.crt`.
-
 
 ## Using the client configuration option
 
@@ -43,12 +42,12 @@ use the `elasticsearch.Config.CACert` configuration option:
 cert, _ := ioutil.ReadFile(*cacert)
 
 es, _ := elasticsearch.NewClient(
-	elasticsearch.Config{
-		// ...
+    elasticsearch.Config{
+        // ...
 
-		// --> Pass the certificate to the client
-		CACert: cert,
-	})
+        // --> Pass the certificate to the client
+        CACert: cert,
+    })
 ```
 
 Run the full example:
@@ -59,7 +58,6 @@ go run tls_with_ca.go
 # [200 OK] {
 # ...
 ```
-
 
 ## Manual transport configuration
 

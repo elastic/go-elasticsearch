@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -30,6 +30,13 @@ func NewRemoteSource() *_remoteSource {
 
 	return &_remoteSource{v: types.NewRemoteSource()}
 
+}
+
+func (s *_remoteSource) ApiKey(apikey string) *_remoteSource {
+
+	s.v.ApiKey = &apikey
+
+	return s
 }
 
 func (s *_remoteSource) ConnectTimeout(duration types.DurationVariant) *_remoteSource {

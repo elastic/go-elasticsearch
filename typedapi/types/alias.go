@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -31,23 +31,23 @@ import (
 
 // Alias type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/_types/Alias.ts#L23-L53
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/indices/_types/Alias.ts#L23-L53
 type Alias struct {
 	// Filter Query used to limit documents the alias can access.
 	Filter *Query `json:"filter,omitempty"`
 	// IndexRouting Value used to route indexing operations to a specific shard.
 	// If specified, this overwrites the `routing` value for indexing operations.
-	IndexRouting *string `json:"index_routing,omitempty"`
+	IndexRouting []string `json:"index_routing,omitempty"`
 	// IsHidden If `true`, the alias is hidden.
 	// All indices for the alias must have the same `is_hidden` value.
 	IsHidden *bool `json:"is_hidden,omitempty"`
 	// IsWriteIndex If `true`, the index is the write index for the alias.
 	IsWriteIndex *bool `json:"is_write_index,omitempty"`
 	// Routing Value used to route indexing and search operations to a specific shard.
-	Routing *string `json:"routing,omitempty"`
+	Routing []string `json:"routing,omitempty"`
 	// SearchRouting Value used to route search operations to a specific shard.
 	// If specified, this overwrites the `routing` value for search operations.
-	SearchRouting *string `json:"search_routing,omitempty"`
+	SearchRouting []string `json:"search_routing,omitempty"`
 }
 
 func (s *Alias) UnmarshalJSON(data []byte) error {
@@ -71,8 +71,19 @@ func (s *Alias) UnmarshalJSON(data []byte) error {
 			}
 
 		case "index_routing":
-			if err := dec.Decode(&s.IndexRouting); err != nil {
-				return fmt.Errorf("%s | %w", "IndexRouting", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "IndexRouting", err)
+				}
+
+				s.IndexRouting = append(s.IndexRouting, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.IndexRouting); err != nil {
+					return fmt.Errorf("%s | %w", "IndexRouting", err)
+				}
 			}
 
 		case "is_hidden":
@@ -104,13 +115,35 @@ func (s *Alias) UnmarshalJSON(data []byte) error {
 			}
 
 		case "routing":
-			if err := dec.Decode(&s.Routing); err != nil {
-				return fmt.Errorf("%s | %w", "Routing", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
+
+				s.Routing = append(s.Routing, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
+					return fmt.Errorf("%s | %w", "Routing", err)
+				}
 			}
 
 		case "search_routing":
-			if err := dec.Decode(&s.SearchRouting); err != nil {
-				return fmt.Errorf("%s | %w", "SearchRouting", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "SearchRouting", err)
+				}
+
+				s.SearchRouting = append(s.SearchRouting, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.SearchRouting); err != nil {
+					return fmt.Errorf("%s | %w", "SearchRouting", err)
+				}
 			}
 
 		}

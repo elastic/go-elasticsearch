@@ -22,7 +22,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v9/internal/build/cmd"
 	"io"
 	"io/ioutil"
 	"os"
@@ -30,6 +29,8 @@ import (
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/elastic/go-elasticsearch/v9/internal/build/cmd"
 
 	"github.com/spf13/cobra"
 	"golang.org/x/tools/imports"
@@ -274,7 +275,7 @@ func (cmd *SrcCommand) processExample(e Example) error {
 		if cmd.ColorizeSource {
 			src, err = utils.Chromatize(tee)
 			if err != nil {
-				return fmt.Errorf("error syntax highligting the output: %s", err)
+				return fmt.Errorf("error syntax highlighting the output: %s", err)
 			}
 
 			_, err = io.Copy(os.Stderr, src)

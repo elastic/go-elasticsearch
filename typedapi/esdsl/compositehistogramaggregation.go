@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package esdsl
 
@@ -31,6 +31,7 @@ type _compositeHistogramAggregation struct {
 	v *types.CompositeHistogramAggregation
 }
 
+// A histogram aggregation.
 func NewCompositeHistogramAggregation(interval types.Float64) *_compositeHistogramAggregation {
 
 	tmp := &_compositeHistogramAggregation{v: types.NewCompositeHistogramAggregation()}
@@ -41,16 +42,16 @@ func NewCompositeHistogramAggregation(interval types.Float64) *_compositeHistogr
 
 }
 
-func (s *_compositeHistogramAggregation) Field(field string) *_compositeHistogramAggregation {
+func (s *_compositeHistogramAggregation) Interval(interval types.Float64) *_compositeHistogramAggregation {
 
-	s.v.Field = &field
+	s.v.Interval = interval
 
 	return s
 }
 
-func (s *_compositeHistogramAggregation) Interval(interval types.Float64) *_compositeHistogramAggregation {
+func (s *_compositeHistogramAggregation) Field(field string) *_compositeHistogramAggregation {
 
-	s.v.Interval = interval
+	s.v.Field = &field
 
 	return s
 }
@@ -85,6 +86,14 @@ func (s *_compositeHistogramAggregation) ValueType(valuetype valuetype.ValueType
 
 	s.v.ValueType = &valuetype
 	return s
+}
+
+func (s *_compositeHistogramAggregation) CompositeAggregationSourceCaster() *types.CompositeAggregationSource {
+	container := types.NewCompositeAggregationSource()
+
+	container.Histogram = s.v
+
+	return container
 }
 
 func (s *_compositeHistogramAggregation) CompositeHistogramAggregationCaster() *types.CompositeHistogramAggregation {

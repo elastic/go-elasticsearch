@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Create an Google AI Studio inference endpoint.
 //
@@ -392,6 +392,8 @@ func (r *PutGoogleaistudio) Pretty(pretty bool) *PutGoogleaistudio {
 }
 
 // The chunking configuration object.
+// Applies only to the `text_embedding` task type.
+// Not applicable to the `completion` task type.
 // API name: chunking_settings
 func (r *PutGoogleaistudio) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutGoogleaistudio {
 	// Initialize the request if it is not already initialized

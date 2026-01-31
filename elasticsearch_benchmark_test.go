@@ -22,9 +22,7 @@ package elasticsearch_test
 
 import (
 	"context"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -32,6 +30,8 @@ import (
 
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esapi"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 var defaultResponse = http.Response{
@@ -42,14 +42,14 @@ var defaultResponse = http.Response{
 		"Content-Type":      {"application/json"},
 		"X-Elastic-Product": {"Elasticsearch"},
 	}),
-	Body: ioutil.NopCloser(strings.NewReader(`{}`)),
+	Body: io.NopCloser(strings.NewReader(`{}`)),
 }
 
 type FakeTransport struct {
 	FakeResponse *http.Response
 }
 
-func (t *FakeTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+func (t *FakeTransport) RoundTrip(_ *http.Request) (*http.Response, error) {
 	return t.FakeResponse, nil
 }
 
@@ -153,11 +153,11 @@ func BenchmarkClientAPI(b *testing.B) {
 		b.ResetTimer()
 
 		body := `{"foo" : "bar"}`
-		indx := []string{"test"}
+		index := []string{"test"}
 
 		for i := 0; i < b.N; i++ {
 			req := esapi.SearchRequest{
-				Index:   indx,
+				Index:   index,
 				Body:    strings.NewReader(body),
 				Size:    esapi.IntPtr(25),
 				Pretty:  true,
@@ -173,11 +173,11 @@ func BenchmarkClientAPI(b *testing.B) {
 		b.ResetTimer()
 
 		body := `{"foo" : "bar"}`
-		indx := "test"
+		index := "test"
 
 		for i := 0; i < b.N; i++ {
 			_, err := client.Search(
-				client.Search.WithIndex(indx),
+				client.Search.WithIndex(index),
 				client.Search.WithBody(strings.NewReader(body)),
 				client.Search.WithSize(25),
 				client.Search.WithPretty(),
@@ -252,18 +252,22 @@ func (m mockTransp) RoundTrip(request *http.Request) (*http.Response, error) {
 
 func BenchmarkAllocsSearch(t *testing.B) {
 	t.Run("struct search", func(b *testing.B) {
-		c, _ := elasticsearch.NewTypedClient(elasticsearch.Config{
+		c, err := elasticsearch.NewTypedClient(elasticsearch.Config{
 			Transport: &mockTransp{
-				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 						StatusCode: http.StatusOK,
 						Status:     "OK",
-						Body:       ioutil.NopCloser(strings.NewReader("{}")),
+						Body:       io.NopCloser(strings.NewReader("{}")),
 					}, nil
 				},
 			},
 		})
+
+		if err != nil {
+			b.Fatalf("Unexpected error when creating a client: %s", err)
+		}
 
 		for i := 0; i < b.N; i++ {
 			s := c.Search()
@@ -271,29 +275,39 @@ func BenchmarkAllocsSearch(t *testing.B) {
 			s.Query(&types.Query{
 				MatchAll: types.NewMatchAllQuery(),
 			})
-			s.Do(context.Background())
+			_, err := s.Do(context.Background())
+			if err != nil {
+				b.Fatalf("Unexpected error when getting a response: %s", err)
+			}
 		}
 	})
 
 	t.Run("esdsl search", func(b *testing.B) {
-		c, _ := elasticsearch.NewTypedClient(elasticsearch.Config{
+		c, err := elasticsearch.NewTypedClient(elasticsearch.Config{
 			Transport: &mockTransp{
-				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 						StatusCode: http.StatusOK,
 						Status:     "OK",
-						Body:       ioutil.NopCloser(strings.NewReader("{}")),
+						Body:       io.NopCloser(strings.NewReader("{}")),
 					}, nil
 				},
 			},
 		})
 
+		if err != nil {
+			b.Fatalf("Unexpected error when creating a client: %s", err)
+		}
+
 		for i := 0; i < b.N; i++ {
 			s := c.Search()
 			s.Index("foo")
 			s.Query(esdsl.NewMatchAllQuery())
-			s.Do(context.Background())
+			_, err := s.Do(context.Background())
+			if err != nil {
+				b.Fatalf("Unexpected error when getting a response: %s", err)
+			}
 		}
 	})
 }

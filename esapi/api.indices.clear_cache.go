@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -43,9 +43,9 @@ func newIndicesClearCacheFunc(t Transport) IndicesClearCache {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesClearCache clears all or specific caches for one or more indices.
+// IndicesClearCache clear the cache
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clearcache.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-clear-cache.
 type IndicesClearCache func(o ...func(*IndicesClearCacheRequest)) (*Response, error)
 
 // IndicesClearCacheRequest configures the Indices Clear Cache API request.
@@ -53,7 +53,7 @@ type IndicesClearCacheRequest struct {
 	Index []string
 
 	AllowNoIndices    *bool
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	Fielddata         *bool
 	Fields            []string
 	IgnoreUnavailable *bool
@@ -111,8 +111,8 @@ func (r IndicesClearCacheRequest) Do(providedCtx context.Context, transport Tran
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.Fielddata != nil {
@@ -232,7 +232,7 @@ func (f IndicesClearCache) WithAllowNoIndices(v bool) func(*IndicesClearCacheReq
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesClearCache) WithExpandWildcards(v string) func(*IndicesClearCacheRequest) {
+func (f IndicesClearCache) WithExpandWildcards(v ...string) func(*IndicesClearCacheRequest) {
 	return func(r *IndicesClearCacheRequest) {
 		r.ExpandWildcards = v
 	}

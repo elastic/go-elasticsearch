@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.1.0: DO NOT EDIT
+// Code generated from specification version 9.4.0: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutAzureaistudioFunc(t Transport) InferencePutAzureaistudio {
-	return func(azureaistudio_inference_id string, task_type string, o ...func(*InferencePutAzureaistudioRequest)) (*Response, error) {
-		var r = InferencePutAzureaistudioRequest{AzureaistudioInferenceID: azureaistudio_inference_id, TaskType: task_type}
+	return func(body io.Reader, azureaistudio_inference_id string, task_type string, o ...func(*InferencePutAzureaistudioRequest)) (*Response, error) {
+		var r = InferencePutAzureaistudioRequest{Body: body, AzureaistudioInferenceID: azureaistudio_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,10 +44,10 @@ func newInferencePutAzureaistudioFunc(t Transport) InferencePutAzureaistudio {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAzureaistudio configure an Azure AI Studio inference endpoint
+// InferencePutAzureaistudio create an Azure AI studio inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-azure-ai-studio.html.
-type InferencePutAzureaistudio func(azureaistudio_inference_id string, task_type string, o ...func(*InferencePutAzureaistudioRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureaistudio.
+type InferencePutAzureaistudio func(body io.Reader, azureaistudio_inference_id string, task_type string, o ...func(*InferencePutAzureaistudioRequest)) (*Response, error)
 
 // InferencePutAzureaistudioRequest configures the Inference Put Azureaistudio API request.
 type InferencePutAzureaistudioRequest struct {
@@ -54,6 +55,8 @@ type InferencePutAzureaistudioRequest struct {
 
 	AzureaistudioInferenceID string
 	TaskType                 string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutAzureaistudioRequest) Do(providedCtx context.Context, transp
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutAzureaistudio) WithContext(v context.Context) func(*Inferenc
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutAzureaistudio) WithBody(v io.Reader) func(*InferencePutAzureaistudioRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutAzureaistudio) WithTimeout(v time.Duration) func(*InferencePutAzureaistudioRequest) {
 	return func(r *InferencePutAzureaistudioRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

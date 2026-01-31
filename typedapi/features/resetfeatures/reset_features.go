@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Reset the features.
+//
 // Clear all of the state information stored in system indices by Elasticsearch
 // features, including the security and machine learning indices.
 //
@@ -93,6 +94,7 @@ func NewResetFeaturesFunc(tp elastictransport.Interface) NewResetFeatures {
 }
 
 // Reset the features.
+//
 // Clear all of the state information stored in system indices by Elasticsearch
 // features, including the security and machine learning indices.
 //

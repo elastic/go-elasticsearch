@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 // Count search results.
+//
 // Get the number of documents matching a query.
 //
 // The query can be provided either by using a simple query string as a
@@ -96,6 +97,7 @@ func NewCountFunc(tp elastictransport.Interface) NewCount {
 }
 
 // Count search results.
+//
 // Get the number of documents matching a query.
 //
 // The query can be provided either by using a simple query string as a
@@ -379,7 +381,7 @@ func (r *Count) AnalyzeWildcard(analyzewildcard bool) *Count {
 	return r
 }
 
-// DefaultOperator The default operator for query string query: `AND` or `OR`.
+// DefaultOperator The default operator for query string query: `and` or `or`.
 // This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: default_operator
@@ -463,8 +465,8 @@ func (r *Count) Preference(preference string) *Count {
 
 // Routing A custom value used to route operations to a specific shard.
 // API name: routing
-func (r *Count) Routing(routing string) *Count {
-	r.values.Set("routing", routing)
+func (r *Count) Routing(routings ...string) *Count {
+	r.values.Set("routing", strings.Join(routings, ","))
 
 	return r
 }
@@ -534,6 +536,29 @@ func (r *Count) Human(human bool) *Count {
 // API name: pretty
 func (r *Count) Pretty(pretty bool) *Count {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// Specifies a subset of projects to target using project
+// metadata tags in a subset of Lucene query syntax.
+// Allowed Lucene queries: the _alias tag and a single value (possibly
+// wildcarded).
+// Examples:
+//
+//	_alias:my-project
+//	_alias:_origin
+//	_alias:*pr*
+//
+// Supported in serverless only.
+// API name: project_routing
+func (r *Count) ProjectRouting(projectrouting string) *Count {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ProjectRouting = &projectrouting
 
 	return r
 }

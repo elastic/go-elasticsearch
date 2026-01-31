@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/907d11a72a6bfd37b777d526880c56202889609e
+// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
 
 package types
 
@@ -31,11 +31,14 @@ import (
 
 // AppendProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ingest/_types/Processors.ts#L329-L344
+// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/ingest/_types/Processors.ts#L334-L366
 type AppendProcessor struct {
 	// AllowDuplicates If `false`, the processor does not append values already present in the
 	// field.
 	AllowDuplicates *bool `json:"allow_duplicates,omitempty"`
+	// CopyFrom The origin field which will be appended to `field`, cannot set `value`
+	// simultaneously.
+	CopyFrom *string `json:"copy_from,omitempty"`
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
 	Description *string `json:"description,omitempty"`
@@ -44,15 +47,25 @@ type AppendProcessor struct {
 	Field string `json:"field"`
 	// If Conditionally execute the processor.
 	If *Script `json:"if,omitempty"`
+	// IgnoreEmptyValues If `true`, the processor will skip empty values from the source (e.g. empty
+	// strings, and null values),
+	// rather than appending them to the field.
+	IgnoreEmptyValues *bool `json:"ignore_empty_values,omitempty"`
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// MediaType The media type for encoding `value`.
+	// Applies only when value is a template snippet.
+	// Must be one of `application/json`, `text/plain`, or
+	// `application/x-www-form-urlencoded`.
+	MediaType *string `json:"media_type,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// Tag Identifier for the processor.
 	// Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
-	// Value The value to be appended. Supports template snippets.
-	Value []json.RawMessage `json:"value"`
+	// Value The value to be appended. Supports template snippets. May specify only one of
+	// `value` or `copy_from`.
+	Value []json.RawMessage `json:"value,omitempty"`
 }
 
 func (s *AppendProcessor) UnmarshalJSON(data []byte) error {
@@ -84,6 +97,11 @@ func (s *AppendProcessor) UnmarshalJSON(data []byte) error {
 				s.AllowDuplicates = &v
 			}
 
+		case "copy_from":
+			if err := dec.Decode(&s.CopyFrom); err != nil {
+				return fmt.Errorf("%s | %w", "CopyFrom", err)
+			}
+
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -106,6 +124,20 @@ func (s *AppendProcessor) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "If", err)
 			}
 
+		case "ignore_empty_values":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IgnoreEmptyValues", err)
+				}
+				s.IgnoreEmptyValues = &value
+			case bool:
+				s.IgnoreEmptyValues = &v
+			}
+
 		case "ignore_failure":
 			var tmp any
 			dec.Decode(&tmp)
@@ -119,6 +151,18 @@ func (s *AppendProcessor) UnmarshalJSON(data []byte) error {
 			case bool:
 				s.IgnoreFailure = &v
 			}
+
+		case "media_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "MediaType", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.MediaType = &o
 
 		case "on_failure":
 			if err := dec.Decode(&s.OnFailure); err != nil {

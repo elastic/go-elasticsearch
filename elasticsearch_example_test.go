@@ -86,5 +86,5 @@ func ExampleNewClient_logger() {
 		Logger: &elastictransport.ColorLogger{Output: os.Stdout},
 	}
 
-	elasticsearch.NewClient(cfg)
+	_, _ = elasticsearch.NewClient(cfg)
 }
