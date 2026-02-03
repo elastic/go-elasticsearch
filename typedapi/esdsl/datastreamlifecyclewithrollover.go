@@ -32,6 +32,13 @@ func NewDataStreamLifecycleWithRollover() *_dataStreamLifecycleWithRollover {
 
 }
 
+func (s *_dataStreamLifecycleWithRollover) Rollover(rollover types.DataStreamLifecycleRolloverConditionsVariant) *_dataStreamLifecycleWithRollover {
+
+	s.v.Rollover = rollover.DataStreamLifecycleRolloverConditionsCaster()
+
+	return s
+}
+
 func (s *_dataStreamLifecycleWithRollover) DataRetention(duration types.DurationVariant) *_dataStreamLifecycleWithRollover {
 
 	s.v.DataRetention = *duration.DurationCaster()
@@ -49,13 +56,6 @@ func (s *_dataStreamLifecycleWithRollover) Downsampling(downsampling types.DataS
 func (s *_dataStreamLifecycleWithRollover) Enabled(enabled bool) *_dataStreamLifecycleWithRollover {
 
 	s.v.Enabled = &enabled
-
-	return s
-}
-
-func (s *_dataStreamLifecycleWithRollover) Rollover(rollover types.DataStreamLifecycleRolloverConditionsVariant) *_dataStreamLifecycleWithRollover {
-
-	s.v.Rollover = rollover.DataStreamLifecycleRolloverConditionsCaster()
 
 	return s
 }

@@ -34,13 +34,6 @@ func NewDateProcessor() *_dateProcessor {
 
 }
 
-func (s *_dateProcessor) Description(description string) *_dateProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_dateProcessor) Field(field string) *_dateProcessor {
 
 	s.v.Field = field
@@ -58,20 +51,6 @@ func (s *_dateProcessor) Formats(formats ...string) *_dateProcessor {
 	return s
 }
 
-func (s *_dateProcessor) If(if_ types.ScriptVariant) *_dateProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_dateProcessor) IgnoreFailure(ignorefailure bool) *_dateProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
-
-	return s
-}
-
 func (s *_dateProcessor) Locale(locale string) *_dateProcessor {
 
 	s.v.Locale = &locale
@@ -79,26 +58,9 @@ func (s *_dateProcessor) Locale(locale string) *_dateProcessor {
 	return s
 }
 
-func (s *_dateProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_dateProcessor {
-
-	for _, v := range onfailures {
-
-		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
-
-	}
-	return s
-}
-
 func (s *_dateProcessor) OutputFormat(outputformat string) *_dateProcessor {
 
 	s.v.OutputFormat = &outputformat
-
-	return s
-}
-
-func (s *_dateProcessor) Tag(tag string) *_dateProcessor {
-
-	s.v.Tag = &tag
 
 	return s
 }
@@ -113,6 +75,44 @@ func (s *_dateProcessor) TargetField(field string) *_dateProcessor {
 func (s *_dateProcessor) Timezone(timezone string) *_dateProcessor {
 
 	s.v.Timezone = &timezone
+
+	return s
+}
+
+func (s *_dateProcessor) Description(description string) *_dateProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_dateProcessor) If(if_ types.ScriptVariant) *_dateProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_dateProcessor) IgnoreFailure(ignorefailure bool) *_dateProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
+func (s *_dateProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_dateProcessor {
+
+	for _, v := range onfailures {
+
+		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
+
+	}
+	return s
+}
+
+func (s *_dateProcessor) Tag(tag string) *_dateProcessor {
+
+	s.v.Tag = &tag
 
 	return s
 }

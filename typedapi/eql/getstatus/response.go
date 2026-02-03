@@ -24,7 +24,6 @@ package getstatus
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/eql/get_status/EqlGetStatusResponse.ts#L24-L51
 type Response struct {
-
 	// CompletionStatus For a completed search shows the http status code of the completed search.
 	CompletionStatus *int `json:"completion_status,omitempty"`
 	// ExpirationTimeInMillis Shows a timestamp when the eql search will be expired, in milliseconds since

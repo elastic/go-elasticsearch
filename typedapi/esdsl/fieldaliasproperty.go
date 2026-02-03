@@ -36,6 +36,13 @@ func NewFieldAliasProperty() *_fieldAliasProperty {
 
 }
 
+func (s *_fieldAliasProperty) Path(field string) *_fieldAliasProperty {
+
+	s.v.Path = &field
+
+	return s
+}
+
 func (s *_fieldAliasProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_fieldAliasProperty {
 
 	s.v.Dynamic = &dynamic
@@ -88,13 +95,6 @@ func (s *_fieldAliasProperty) AddMeta(key string, value string) *_fieldAliasProp
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_fieldAliasProperty) Path(field string) *_fieldAliasProperty {
-
-	s.v.Path = &field
-
 	return s
 }
 

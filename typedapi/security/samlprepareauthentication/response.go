@@ -24,7 +24,6 @@ package samlprepareauthentication
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/saml_prepare_authentication/Response.ts#L22-L37
 type Response struct {
-
 	// Id A unique identifier for the SAML Request to be stored by the caller of the
 	// API.
 	Id string `json:"id"`

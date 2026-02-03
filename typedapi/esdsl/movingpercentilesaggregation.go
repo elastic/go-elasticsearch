@@ -37,26 +37,6 @@ func NewMovingPercentilesAggregation() *_movingPercentilesAggregation {
 
 }
 
-func (s *_movingPercentilesAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_movingPercentilesAggregation {
-
-	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
-
-	return s
-}
-
-func (s *_movingPercentilesAggregation) Format(format string) *_movingPercentilesAggregation {
-
-	s.v.Format = &format
-
-	return s
-}
-
-func (s *_movingPercentilesAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_movingPercentilesAggregation {
-
-	s.v.GapPolicy = &gappolicy
-	return s
-}
-
 func (s *_movingPercentilesAggregation) Keyed(keyed bool) *_movingPercentilesAggregation {
 
 	s.v.Keyed = &keyed
@@ -75,6 +55,26 @@ func (s *_movingPercentilesAggregation) Window(window int) *_movingPercentilesAg
 
 	s.v.Window = &window
 
+	return s
+}
+
+func (s *_movingPercentilesAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_movingPercentilesAggregation {
+
+	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
+
+	return s
+}
+
+func (s *_movingPercentilesAggregation) Format(format string) *_movingPercentilesAggregation {
+
+	s.v.Format = &format
+
+	return s
+}
+
+func (s *_movingPercentilesAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_movingPercentilesAggregation {
+
+	s.v.GapPolicy = &gappolicy
 	return s
 }
 

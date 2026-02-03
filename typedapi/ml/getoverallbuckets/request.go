@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L153
 type Request struct {
-
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
 	AllowNoMatch *bool `json:"allow_no_match,omitempty"`
 	// BucketSpan Refer to the description for the `bucket_span` query parameter.

@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L25-L93
 type Request struct {
-
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame.
 	// Any time after this duration the document could be deleted.

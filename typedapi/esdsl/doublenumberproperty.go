@@ -38,6 +38,13 @@ func NewDoubleNumberProperty() *_doubleNumberProperty {
 
 }
 
+func (s *_doubleNumberProperty) NullValue(nullvalue types.Float64) *_doubleNumberProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
 func (s *_doubleNumberProperty) Boost(boost types.Float64) *_doubleNumberProperty {
 
 	s.v.Boost = &boost
@@ -132,13 +139,6 @@ func (s *_doubleNumberProperty) AddMeta(key string, value string) *_doubleNumber
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_doubleNumberProperty) NullValue(nullvalue types.Float64) *_doubleNumberProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/query_role/QueryRolesResponse.ts#L23-L43
 type Response struct {
-
 	// Count The number of roles returned in the response.
 	Count int `json:"count"`
 	// Roles A list of roles that match the query.

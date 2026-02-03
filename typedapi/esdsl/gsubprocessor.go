@@ -43,16 +43,44 @@ func NewGsubProcessor(pattern string, replacement string) *_gsubProcessor {
 
 }
 
-func (s *_gsubProcessor) Description(description string) *_gsubProcessor {
+func (s *_gsubProcessor) Field(field string) *_gsubProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_gsubProcessor) Field(field string) *_gsubProcessor {
+func (s *_gsubProcessor) IgnoreMissing(ignoremissing bool) *_gsubProcessor {
 
-	s.v.Field = field
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_gsubProcessor) Pattern(pattern string) *_gsubProcessor {
+
+	s.v.Pattern = pattern
+
+	return s
+}
+
+func (s *_gsubProcessor) Replacement(replacement string) *_gsubProcessor {
+
+	s.v.Replacement = replacement
+
+	return s
+}
+
+func (s *_gsubProcessor) TargetField(field string) *_gsubProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_gsubProcessor) Description(description string) *_gsubProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -71,13 +99,6 @@ func (s *_gsubProcessor) IgnoreFailure(ignorefailure bool) *_gsubProcessor {
 	return s
 }
 
-func (s *_gsubProcessor) IgnoreMissing(ignoremissing bool) *_gsubProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_gsubProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_gsubProcessor {
 
 	for _, v := range onfailures {
@@ -88,30 +109,9 @@ func (s *_gsubProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 	return s
 }
 
-func (s *_gsubProcessor) Pattern(pattern string) *_gsubProcessor {
-
-	s.v.Pattern = pattern
-
-	return s
-}
-
-func (s *_gsubProcessor) Replacement(replacement string) *_gsubProcessor {
-
-	s.v.Replacement = replacement
-
-	return s
-}
-
 func (s *_gsubProcessor) Tag(tag string) *_gsubProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_gsubProcessor) TargetField(field string) *_gsubProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

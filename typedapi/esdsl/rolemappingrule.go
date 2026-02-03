@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _roleMappingRule struct {
 	v *types.RoleMappingRule
@@ -32,18 +28,6 @@ type _roleMappingRule struct {
 
 func NewRoleMappingRule() *_roleMappingRule {
 	return &_roleMappingRule{v: types.NewRoleMappingRule()}
-}
-
-// AdditionalRoleMappingRuleProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_roleMappingRule) AdditionalRoleMappingRuleProperty(key string, value json.RawMessage) *_roleMappingRule {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalRoleMappingRuleProperty = tmp
-	return s
 }
 
 func (s *_roleMappingRule) All(alls ...types.RoleMappingRuleVariant) *_roleMappingRule {

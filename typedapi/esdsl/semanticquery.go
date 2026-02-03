@@ -39,13 +39,6 @@ func NewSemanticQuery(field string, query string) *_semanticQuery {
 
 }
 
-func (s *_semanticQuery) Boost(boost float32) *_semanticQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_semanticQuery) Field(field string) *_semanticQuery {
 
 	s.v.Field = field
@@ -56,6 +49,13 @@ func (s *_semanticQuery) Field(field string) *_semanticQuery {
 func (s *_semanticQuery) Query(query string) *_semanticQuery {
 
 	s.v.Query = query
+
+	return s
+}
+
+func (s *_semanticQuery) Boost(boost float32) *_semanticQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/revert_model_snapshot/MlRevertModelSnapshotRequest.ts#L23-L77
 type Request struct {
-
 	// DeleteInterveningResults Refer to the description for the `delete_intervening_results` query
 	// parameter.
 	DeleteInterveningResults *bool `json:"delete_intervening_results,omitempty"`

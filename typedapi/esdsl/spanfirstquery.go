@@ -39,13 +39,6 @@ func NewSpanFirstQuery(end int, match types.SpanQueryVariant) *_spanFirstQuery {
 
 }
 
-func (s *_spanFirstQuery) Boost(boost float32) *_spanFirstQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_spanFirstQuery) End(end int) *_spanFirstQuery {
 
 	s.v.End = end
@@ -56,6 +49,13 @@ func (s *_spanFirstQuery) End(end int) *_spanFirstQuery {
 func (s *_spanFirstQuery) Match(match types.SpanQueryVariant) *_spanFirstQuery {
 
 	s.v.Match = *match.SpanQueryCaster()
+
+	return s
+}
+
+func (s *_spanFirstQuery) Boost(boost float32) *_spanFirstQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/search_application/get/SearchApplicationsGetResponse.ts#L22-L25
 type Response struct {
-
 	// AnalyticsCollectionName Analytics collection associated to the Search Application.
 	AnalyticsCollectionName *string `json:"analytics_collection_name,omitempty"`
 	// Indices Indices that are part of the Search Application.

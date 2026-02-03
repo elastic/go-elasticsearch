@@ -30,7 +30,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/sql/query/QuerySqlResponse.ts#L23-L60
 type Response struct {
-
 	// Columns Column headings for the search results. Each object is a column.
 	Columns []types.Column `json:"columns,omitempty"`
 	// Cursor The cursor for the next set of paginated results.

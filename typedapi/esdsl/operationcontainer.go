@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _operationContainer struct {
 	v *types.OperationContainer
@@ -32,18 +28,6 @@ type _operationContainer struct {
 
 func NewOperationContainer() *_operationContainer {
 	return &_operationContainer{v: types.NewOperationContainer()}
-}
-
-// AdditionalOperationContainerProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_operationContainer) AdditionalOperationContainerProperty(key string, value json.RawMessage) *_operationContainer {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalOperationContainerProperty = tmp
-	return s
 }
 
 func (s *_operationContainer) Create(create types.CreateOperationVariant) *_operationContainer {

@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/bulk_update_api_keys/SecurityBulkUpdateApiKeysRequest.ts#L26-L83
 type Request struct {
-
 	// Expiration Expiration time for the API keys.
 	// By default, API keys never expire.
 	// This property can be omitted to leave the value unchanged.

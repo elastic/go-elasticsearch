@@ -36,16 +36,30 @@ func NewRegisteredDomainProcessor() *_registeredDomainProcessor {
 
 }
 
-func (s *_registeredDomainProcessor) Description(description string) *_registeredDomainProcessor {
+func (s *_registeredDomainProcessor) Field(field string) *_registeredDomainProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_registeredDomainProcessor) Field(field string) *_registeredDomainProcessor {
+func (s *_registeredDomainProcessor) IgnoreMissing(ignoremissing bool) *_registeredDomainProcessor {
 
-	s.v.Field = field
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_registeredDomainProcessor) TargetField(field string) *_registeredDomainProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_registeredDomainProcessor) Description(description string) *_registeredDomainProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -64,13 +78,6 @@ func (s *_registeredDomainProcessor) IgnoreFailure(ignorefailure bool) *_registe
 	return s
 }
 
-func (s *_registeredDomainProcessor) IgnoreMissing(ignoremissing bool) *_registeredDomainProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_registeredDomainProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_registeredDomainProcessor {
 
 	for _, v := range onfailures {
@@ -84,13 +91,6 @@ func (s *_registeredDomainProcessor) OnFailure(onfailures ...types.ProcessorCont
 func (s *_registeredDomainProcessor) Tag(tag string) *_registeredDomainProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_registeredDomainProcessor) TargetField(field string) *_registeredDomainProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

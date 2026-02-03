@@ -32,7 +32,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/put_watsonx/PutWatsonxRequest.ts#L29-L75
 type Request struct {
-
 	// Service The type of service supported for the specified task type. In this case,
 	// `watsonxai`.
 	Service watsonxservicetype.WatsonxServiceType `json:"service"`

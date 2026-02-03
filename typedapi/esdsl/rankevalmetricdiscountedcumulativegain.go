@@ -32,16 +32,16 @@ func NewRankEvalMetricDiscountedCumulativeGain() *_rankEvalMetricDiscountedCumul
 
 }
 
-func (s *_rankEvalMetricDiscountedCumulativeGain) K(k int) *_rankEvalMetricDiscountedCumulativeGain {
+func (s *_rankEvalMetricDiscountedCumulativeGain) Normalize(normalize bool) *_rankEvalMetricDiscountedCumulativeGain {
 
-	s.v.K = &k
+	s.v.Normalize = &normalize
 
 	return s
 }
 
-func (s *_rankEvalMetricDiscountedCumulativeGain) Normalize(normalize bool) *_rankEvalMetricDiscountedCumulativeGain {
+func (s *_rankEvalMetricDiscountedCumulativeGain) K(k int) *_rankEvalMetricDiscountedCumulativeGain {
 
-	s.v.Normalize = &normalize
+	s.v.K = &k
 
 	return s
 }

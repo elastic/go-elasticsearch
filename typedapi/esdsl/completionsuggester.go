@@ -33,23 +33,9 @@ func NewCompletionSuggester() *_completionSuggester {
 
 }
 
-func (s *_completionSuggester) Analyzer(analyzer string) *_completionSuggester {
-
-	s.v.Analyzer = &analyzer
-
-	return s
-}
-
 func (s *_completionSuggester) Contexts(contexts map[string][]types.CompletionContext) *_completionSuggester {
 
 	s.v.Contexts = contexts
-	return s
-}
-
-func (s *_completionSuggester) Field(field string) *_completionSuggester {
-
-	s.v.Field = field
-
 	return s
 }
 
@@ -67,16 +53,30 @@ func (s *_completionSuggester) Regex(regex types.RegexOptionsVariant) *_completi
 	return s
 }
 
-func (s *_completionSuggester) Size(size int) *_completionSuggester {
+func (s *_completionSuggester) SkipDuplicates(skipduplicates bool) *_completionSuggester {
 
-	s.v.Size = &size
+	s.v.SkipDuplicates = &skipduplicates
 
 	return s
 }
 
-func (s *_completionSuggester) SkipDuplicates(skipduplicates bool) *_completionSuggester {
+func (s *_completionSuggester) Analyzer(analyzer string) *_completionSuggester {
 
-	s.v.SkipDuplicates = &skipduplicates
+	s.v.Analyzer = &analyzer
+
+	return s
+}
+
+func (s *_completionSuggester) Field(field string) *_completionSuggester {
+
+	s.v.Field = field
+
+	return s
+}
+
+func (s *_completionSuggester) Size(size int) *_completionSuggester {
+
+	s.v.Size = &size
 
 	return s
 }

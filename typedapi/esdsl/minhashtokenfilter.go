@@ -53,16 +53,16 @@ func (s *_minHashTokenFilter) HashSetSize(hashsetsize int) *_minHashTokenFilter 
 	return s
 }
 
-func (s *_minHashTokenFilter) Version(versionstring string) *_minHashTokenFilter {
+func (s *_minHashTokenFilter) WithRotation(withrotation bool) *_minHashTokenFilter {
 
-	s.v.Version = &versionstring
+	s.v.WithRotation = &withrotation
 
 	return s
 }
 
-func (s *_minHashTokenFilter) WithRotation(withrotation bool) *_minHashTokenFilter {
+func (s *_minHashTokenFilter) Version(versionstring string) *_minHashTokenFilter {
 
-	s.v.WithRotation = &withrotation
+	s.v.Version = &versionstring
 
 	return s
 }

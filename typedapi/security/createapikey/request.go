@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L86
 type Request struct {
-
 	// Expiration The expiration time for the API key.
 	// By default, API keys never expire.
 	Expiration types.Duration `json:"expiration,omitempty"`

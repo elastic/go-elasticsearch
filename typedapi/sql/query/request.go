@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/sql/query/QuerySqlRequest.ts#L28-L164
 type Request struct {
-
 	// AllowPartialSearchResults If `true`, the response has partial results when there are shard request
 	// timeouts or shard failures.
 	// If `false`, the API returns an error with no partial results.

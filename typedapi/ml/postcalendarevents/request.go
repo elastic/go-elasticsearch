@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/post_calendar_events/MlPostCalendarEventsRequest.ts#L24-L48
 type Request struct {
-
 	// Events A list of one of more scheduled events. The event’s start and end times can
 	// be specified as integer milliseconds since the epoch or as a string in ISO
 	// 8601 format.

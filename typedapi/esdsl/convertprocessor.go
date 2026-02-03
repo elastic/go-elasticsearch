@@ -42,16 +42,36 @@ func NewConvertProcessor(type_ converttype.ConvertType) *_convertProcessor {
 
 }
 
-func (s *_convertProcessor) Description(description string) *_convertProcessor {
+func (s *_convertProcessor) Field(field string) *_convertProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_convertProcessor) Field(field string) *_convertProcessor {
+func (s *_convertProcessor) IgnoreMissing(ignoremissing bool) *_convertProcessor {
 
-	s.v.Field = field
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_convertProcessor) TargetField(field string) *_convertProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_convertProcessor) Type(type_ converttype.ConvertType) *_convertProcessor {
+
+	s.v.Type = type_
+	return s
+}
+
+func (s *_convertProcessor) Description(description string) *_convertProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -70,13 +90,6 @@ func (s *_convertProcessor) IgnoreFailure(ignorefailure bool) *_convertProcessor
 	return s
 }
 
-func (s *_convertProcessor) IgnoreMissing(ignoremissing bool) *_convertProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_convertProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_convertProcessor {
 
 	for _, v := range onfailures {
@@ -91,19 +104,6 @@ func (s *_convertProcessor) Tag(tag string) *_convertProcessor {
 
 	s.v.Tag = &tag
 
-	return s
-}
-
-func (s *_convertProcessor) TargetField(field string) *_convertProcessor {
-
-	s.v.TargetField = &field
-
-	return s
-}
-
-func (s *_convertProcessor) Type(type_ converttype.ConvertType) *_convertProcessor {
-
-	s.v.Type = type_
 	return s
 }
 

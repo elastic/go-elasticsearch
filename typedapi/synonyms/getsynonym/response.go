@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/synonyms/get_synonym/SynonymsGetResponse.ts#L23-L34
 type Response struct {
-
 	// Count The total number of synonyms rules that the synonyms set contains.
 	Count int `json:"count"`
 	// SynonymsSet Synonym rule details.

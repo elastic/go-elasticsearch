@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/search/SearchRequest.ts#L54-L608
 type Request struct {
-
 	// Aggregations Defines the aggregations that are run as part of the search request.
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	// Collapse Collapses search results the values of the specified field.

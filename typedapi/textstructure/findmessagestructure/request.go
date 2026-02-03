@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/text_structure/find_message_structure/FindMessageStructureRequest.ts#L25-L174
 type Request struct {
-
 	// Messages The list of messages you want to analyze.
 	Messages []string `json:"messages"`
 }

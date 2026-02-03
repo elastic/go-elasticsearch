@@ -38,6 +38,13 @@ func NewScriptQuery(script types.ScriptVariant) *_scriptQuery {
 
 }
 
+func (s *_scriptQuery) Script(script types.ScriptVariant) *_scriptQuery {
+
+	s.v.Script = *script.ScriptCaster()
+
+	return s
+}
+
 func (s *_scriptQuery) Boost(boost float32) *_scriptQuery {
 
 	s.v.Boost = &boost
@@ -48,13 +55,6 @@ func (s *_scriptQuery) Boost(boost float32) *_scriptQuery {
 func (s *_scriptQuery) QueryName_(queryname_ string) *_scriptQuery {
 
 	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
-func (s *_scriptQuery) Script(script types.ScriptVariant) *_scriptQuery {
-
-	s.v.Script = *script.ScriptCaster()
 
 	return s
 }

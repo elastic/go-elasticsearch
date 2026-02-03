@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/preview_datafeed/MlPreviewDatafeedRequest.ts#L26-L81
 type Request struct {
-
 	// DatafeedConfig The datafeed definition to preview.
 	DatafeedConfig *types.DatafeedConfig `json:"datafeed_config,omitempty"`
 	// JobConfig The configuration details for the anomaly detection job that is associated

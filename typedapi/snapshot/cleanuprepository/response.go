@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/snapshot/cleanup_repository/SnapshotCleanupRepositoryResponse.ts#L22-L27
 type Response struct {
-
 	// Results Statistics for cleanup operations.
 	Results types.CleanupRepositoryResults `json:"results"`
 }

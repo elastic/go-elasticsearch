@@ -26,23 +26,23 @@ type _existsQuery struct {
 	v *types.ExistsQuery
 }
 
-// Returns users that contain an indexed value for a field.
+// Returns documents that contain an indexed value for a field.
 func NewExistsQuery() *_existsQuery {
 
 	return &_existsQuery{v: types.NewExistsQuery()}
 
 }
 
-func (s *_existsQuery) Boost(boost float32) *_existsQuery {
+func (s *_existsQuery) Field(field string) *_existsQuery {
 
-	s.v.Boost = &boost
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_existsQuery) Field(field string) *_existsQuery {
+func (s *_existsQuery) Boost(boost float32) *_existsQuery {
 
-	s.v.Field = field
+	s.v.Boost = &boost
 
 	return s
 }

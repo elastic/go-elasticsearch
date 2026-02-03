@@ -34,13 +34,6 @@ func NewGeoShapeQuery() *_geoShapeQuery {
 
 }
 
-func (s *_geoShapeQuery) Boost(boost float32) *_geoShapeQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_geoShapeQuery) GeoShapeQuery(geoshapequery map[string]types.GeoShapeFieldQuery) *_geoShapeQuery {
 
 	s.v.GeoShapeQuery = geoshapequery
@@ -65,6 +58,13 @@ func (s *_geoShapeQuery) AddGeoShapeQuery(key string, value types.GeoShapeFieldQ
 func (s *_geoShapeQuery) IgnoreUnmapped(ignoreunmapped bool) *_geoShapeQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped
+
+	return s
+}
+
+func (s *_geoShapeQuery) Boost(boost float32) *_geoShapeQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

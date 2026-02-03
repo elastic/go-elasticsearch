@@ -37,16 +37,16 @@ func NewWrapperQuery(query string) *_wrapperQuery {
 
 }
 
-func (s *_wrapperQuery) Boost(boost float32) *_wrapperQuery {
+func (s *_wrapperQuery) Query(query string) *_wrapperQuery {
 
-	s.v.Boost = &boost
+	s.v.Query = query
 
 	return s
 }
 
-func (s *_wrapperQuery) Query(query string) *_wrapperQuery {
+func (s *_wrapperQuery) Boost(boost float32) *_wrapperQuery {
 
-	s.v.Query = query
+	s.v.Boost = &boost
 
 	return s
 }

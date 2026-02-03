@@ -32,7 +32,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/put_ai21/PutAi21Request.ts#L29-L73
 type Request struct {
-
 	// Service The type of service supported for the specified task type. In this case,
 	// `ai21`.
 	Service ai21servicetype.Ai21ServiceType `json:"service"`

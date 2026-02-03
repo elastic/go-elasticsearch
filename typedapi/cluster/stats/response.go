@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/cluster/stats/ClusterStatsResponse.ts#L71-L74
 type Response struct {
-
 	// Ccs Cross-cluster stats
 	Ccs types.CCSStats `json:"ccs"`
 	// ClusterName Name of the cluster, based on the cluster name setting.

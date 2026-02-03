@@ -37,6 +37,20 @@ func NewUpdateOperation() *_updateOperation {
 
 }
 
+func (s *_updateOperation) RequireAlias(requirealias bool) *_updateOperation {
+
+	s.v.RequireAlias = &requirealias
+
+	return s
+}
+
+func (s *_updateOperation) RetryOnConflict(retryonconflict int) *_updateOperation {
+
+	s.v.RetryOnConflict = &retryonconflict
+
+	return s
+}
+
 func (s *_updateOperation) Id_(id string) *_updateOperation {
 
 	s.v.Id_ = &id
@@ -61,20 +75,6 @@ func (s *_updateOperation) IfSeqNo(sequencenumber int64) *_updateOperation {
 func (s *_updateOperation) Index_(indexname string) *_updateOperation {
 
 	s.v.Index_ = &indexname
-
-	return s
-}
-
-func (s *_updateOperation) RequireAlias(requirealias bool) *_updateOperation {
-
-	s.v.RequireAlias = &requirealias
-
-	return s
-}
-
-func (s *_updateOperation) RetryOnConflict(retryonconflict int) *_updateOperation {
-
-	s.v.RetryOnConflict = &retryonconflict
 
 	return s
 }

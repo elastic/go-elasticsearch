@@ -37,16 +37,23 @@ func NewDataframeAnalysisClassification(dependentvariable string) *_dataframeAna
 
 }
 
-func (s *_dataframeAnalysisClassification) Alpha(alpha types.Float64) *_dataframeAnalysisClassification {
+func (s *_dataframeAnalysisClassification) ClassAssignmentObjective(classassignmentobjective string) *_dataframeAnalysisClassification {
 
-	s.v.Alpha = &alpha
+	s.v.ClassAssignmentObjective = &classassignmentobjective
 
 	return s
 }
 
-func (s *_dataframeAnalysisClassification) ClassAssignmentObjective(classassignmentobjective string) *_dataframeAnalysisClassification {
+func (s *_dataframeAnalysisClassification) NumTopClasses(numtopclasses int) *_dataframeAnalysisClassification {
 
-	s.v.ClassAssignmentObjective = &classassignmentobjective
+	s.v.NumTopClasses = &numtopclasses
+
+	return s
+}
+
+func (s *_dataframeAnalysisClassification) Alpha(alpha types.Float64) *_dataframeAnalysisClassification {
+
+	s.v.Alpha = &alpha
 
 	return s
 }
@@ -127,13 +134,6 @@ func (s *_dataframeAnalysisClassification) MaxOptimizationRoundsPerHyperparamete
 func (s *_dataframeAnalysisClassification) MaxTrees(maxtrees int) *_dataframeAnalysisClassification {
 
 	s.v.MaxTrees = &maxtrees
-
-	return s
-}
-
-func (s *_dataframeAnalysisClassification) NumTopClasses(numtopclasses int) *_dataframeAnalysisClassification {
-
-	s.v.NumTopClasses = &numtopclasses
 
 	return s
 }

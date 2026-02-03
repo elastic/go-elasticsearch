@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/enrich/stats/EnrichStatsResponse.ts#L22-L39
 type Response struct {
-
 	// CacheStats Objects containing information about the enrich cache stats on each ingest
 	// node.
 	CacheStats []types.CacheStats `json:"cache_stats,omitempty"`

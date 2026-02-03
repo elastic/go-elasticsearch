@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/update_by_query/UpdateByQueryResponse.ts#L26-L67
 type Response struct {
-
 	// Batches The number of scroll responses pulled back by the update by query.
 	Batches *int64 `json:"batches,omitempty"`
 	// Deleted The number of documents that were successfully deleted.

@@ -37,6 +37,13 @@ func NewSerialDifferencingAggregation() *_serialDifferencingAggregation {
 
 }
 
+func (s *_serialDifferencingAggregation) Lag(lag int) *_serialDifferencingAggregation {
+
+	s.v.Lag = &lag
+
+	return s
+}
+
 func (s *_serialDifferencingAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_serialDifferencingAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -54,13 +61,6 @@ func (s *_serialDifferencingAggregation) Format(format string) *_serialDifferenc
 func (s *_serialDifferencingAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_serialDifferencingAggregation {
 
 	s.v.GapPolicy = &gappolicy
-	return s
-}
-
-func (s *_serialDifferencingAggregation) Lag(lag int) *_serialDifferencingAggregation {
-
-	s.v.Lag = &lag
-
 	return s
 }
 

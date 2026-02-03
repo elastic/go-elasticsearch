@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _databaseConfiguration struct {
 	v *types.DatabaseConfiguration
@@ -32,18 +28,6 @@ type _databaseConfiguration struct {
 
 func NewDatabaseConfiguration() *_databaseConfiguration {
 	return &_databaseConfiguration{v: types.NewDatabaseConfiguration()}
-}
-
-// AdditionalDatabaseConfigurationProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_databaseConfiguration) AdditionalDatabaseConfigurationProperty(key string, value json.RawMessage) *_databaseConfiguration {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalDatabaseConfigurationProperty = tmp
-	return s
 }
 
 func (s *_databaseConfiguration) Ipinfo(ipinfo types.IpinfoVariant) *_databaseConfiguration {

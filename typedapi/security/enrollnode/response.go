@@ -24,7 +24,6 @@ package enrollnode
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/enroll_node/Response.ts#L20-L47
 type Response struct {
-
 	// HttpCaCert The CA certificate that can be used by the new node in order to sign its
 	// certificate for the HTTP layer, as a Base64 encoded string of the ASN.1 DER
 	// encoding of the certificate.

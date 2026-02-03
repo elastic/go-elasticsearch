@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/cluster/put_component_template/ClusterPutComponentTemplateRequest.ts#L25-L110
 type Request struct {
-
 	// Deprecated Marks this index template as deprecated. When creating or updating a
 	// non-deprecated index template
 	// that uses deprecated components, Elasticsearch will emit a deprecation

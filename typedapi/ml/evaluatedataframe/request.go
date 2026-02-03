@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/evaluate_data_frame/MlEvaluateDataFrameRequest.ts#L25-L61
 type Request struct {
-
 	// Evaluation Defines the type of evaluation you want to perform.
 	Evaluation types.DataframeEvaluationContainer `json:"evaluation"`
 	// Index Defines the `index` in which the evaluation will be performed.

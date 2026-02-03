@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/snapshot/verify_repository/SnapshotVerifyRepositoryResponse.ts#L23-L31
 type Response struct {
-
 	// Nodes Information about the nodes connected to the snapshot repository.
 	// The key is the ID of the node.
 	Nodes map[string]types.CompactNodeInfo `json:"nodes"`

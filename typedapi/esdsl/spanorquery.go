@@ -33,13 +33,6 @@ func NewSpanOrQuery() *_spanOrQuery {
 
 }
 
-func (s *_spanOrQuery) Boost(boost float32) *_spanOrQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_spanOrQuery) Clauses(clauses ...types.SpanQueryVariant) *_spanOrQuery {
 
 	for _, v := range clauses {
@@ -47,6 +40,13 @@ func (s *_spanOrQuery) Clauses(clauses ...types.SpanQueryVariant) *_spanOrQuery 
 		s.v.Clauses = append(s.v.Clauses, *v.SpanQueryCaster())
 
 	}
+	return s
+}
+
+func (s *_spanOrQuery) Boost(boost float32) *_spanOrQuery {
+
+	s.v.Boost = &boost
+
 	return s
 }
 

@@ -36,6 +36,13 @@ func NewDateRangeProperty() *_dateRangeProperty {
 
 }
 
+func (s *_dateRangeProperty) Format(format string) *_dateRangeProperty {
+
+	s.v.Format = &format
+
+	return s
+}
+
 func (s *_dateRangeProperty) Boost(boost types.Float64) *_dateRangeProperty {
 
 	s.v.Boost = &boost
@@ -88,13 +95,6 @@ func (s *_dateRangeProperty) AddField(key string, value types.PropertyVariant) *
 	tmp[key] = *value.PropertyCaster()
 
 	s.v.Fields = tmp
-	return s
-}
-
-func (s *_dateRangeProperty) Format(format string) *_dateRangeProperty {
-
-	s.v.Format = &format
-
 	return s
 }
 

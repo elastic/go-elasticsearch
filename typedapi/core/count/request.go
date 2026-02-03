@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/count/CountRequest.ts#L31-L171
 type Request struct {
-
 	// Query Defines the search query using Query DSL. A request body query cannot be used
 	// with the `q` query string parameter.
 	Query *types.Query `json:"query,omitempty"`

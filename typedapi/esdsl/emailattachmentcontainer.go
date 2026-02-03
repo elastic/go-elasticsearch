@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _emailAttachmentContainer struct {
 	v *types.EmailAttachmentContainer
@@ -32,18 +28,6 @@ type _emailAttachmentContainer struct {
 
 func NewEmailAttachmentContainer() *_emailAttachmentContainer {
 	return &_emailAttachmentContainer{v: types.NewEmailAttachmentContainer()}
-}
-
-// AdditionalEmailAttachmentContainerProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_emailAttachmentContainer) AdditionalEmailAttachmentContainerProperty(key string, value json.RawMessage) *_emailAttachmentContainer {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalEmailAttachmentContainerProperty = tmp
-	return s
 }
 
 func (s *_emailAttachmentContainer) Data(data types.DataEmailAttachmentVariant) *_emailAttachmentContainer {

@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/search_application/search/SearchApplicationsSearchRequest.ts#L24-L61
 type Request struct {
-
 	// Params Query parameters specific to this request, which will override any defaults
 	// specified in the template.
 	Params map[string]json.RawMessage `json:"params,omitempty"`

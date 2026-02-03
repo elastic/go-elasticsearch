@@ -182,7 +182,7 @@ func (s *RoleQueryContainer) UnmarshalJSON(data []byte) error {
 func (s RoleQueryContainer) MarshalJSON() ([]byte, error) {
 	type opt RoleQueryContainer
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {

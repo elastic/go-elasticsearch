@@ -36,7 +36,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/query_rules/put_rule/QueryRulePutRequest.ts#L28-L80
 type Request struct {
-
 	// Actions The actions to take when the rule is matched.
 	// The format of this action depends on the rule type.
 	Actions types.QueryRuleActions `json:"actions"`

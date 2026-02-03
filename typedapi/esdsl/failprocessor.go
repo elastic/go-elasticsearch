@@ -39,6 +39,13 @@ func NewFailProcessor(message string) *_failProcessor {
 
 }
 
+func (s *_failProcessor) Message(message string) *_failProcessor {
+
+	s.v.Message = message
+
+	return s
+}
+
 func (s *_failProcessor) Description(description string) *_failProcessor {
 
 	s.v.Description = &description
@@ -56,13 +63,6 @@ func (s *_failProcessor) If(if_ types.ScriptVariant) *_failProcessor {
 func (s *_failProcessor) IgnoreFailure(ignorefailure bool) *_failProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
-
-	return s
-}
-
-func (s *_failProcessor) Message(message string) *_failProcessor {
-
-	s.v.Message = message
 
 	return s
 }

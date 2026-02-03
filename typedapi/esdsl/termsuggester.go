@@ -38,20 +38,6 @@ func NewTermSuggester() *_termSuggester {
 
 }
 
-func (s *_termSuggester) Analyzer(analyzer string) *_termSuggester {
-
-	s.v.Analyzer = &analyzer
-
-	return s
-}
-
-func (s *_termSuggester) Field(field string) *_termSuggester {
-
-	s.v.Field = field
-
-	return s
-}
-
 func (s *_termSuggester) LowercaseTerms(lowercaseterms bool) *_termSuggester {
 
 	s.v.LowercaseTerms = &lowercaseterms
@@ -108,13 +94,6 @@ func (s *_termSuggester) ShardSize(shardsize int) *_termSuggester {
 	return s
 }
 
-func (s *_termSuggester) Size(size int) *_termSuggester {
-
-	s.v.Size = &size
-
-	return s
-}
-
 func (s *_termSuggester) Sort(sort suggestsort.SuggestSort) *_termSuggester {
 
 	s.v.Sort = &sort
@@ -136,6 +115,27 @@ func (s *_termSuggester) SuggestMode(suggestmode suggestmode.SuggestMode) *_term
 func (s *_termSuggester) Text(text string) *_termSuggester {
 
 	s.v.Text = &text
+
+	return s
+}
+
+func (s *_termSuggester) Analyzer(analyzer string) *_termSuggester {
+
+	s.v.Analyzer = &analyzer
+
+	return s
+}
+
+func (s *_termSuggester) Field(field string) *_termSuggester {
+
+	s.v.Field = field
+
+	return s
+}
+
+func (s *_termSuggester) Size(size int) *_termSuggester {
+
+	s.v.Size = &size
 
 	return s
 }

@@ -40,16 +40,30 @@ func NewBytesProcessor() *_bytesProcessor {
 
 }
 
-func (s *_bytesProcessor) Description(description string) *_bytesProcessor {
+func (s *_bytesProcessor) Field(field string) *_bytesProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_bytesProcessor) Field(field string) *_bytesProcessor {
+func (s *_bytesProcessor) IgnoreMissing(ignoremissing bool) *_bytesProcessor {
 
-	s.v.Field = field
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_bytesProcessor) TargetField(field string) *_bytesProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_bytesProcessor) Description(description string) *_bytesProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -68,13 +82,6 @@ func (s *_bytesProcessor) IgnoreFailure(ignorefailure bool) *_bytesProcessor {
 	return s
 }
 
-func (s *_bytesProcessor) IgnoreMissing(ignoremissing bool) *_bytesProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_bytesProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_bytesProcessor {
 
 	for _, v := range onfailures {
@@ -88,13 +95,6 @@ func (s *_bytesProcessor) OnFailure(onfailures ...types.ProcessorContainerVarian
 func (s *_bytesProcessor) Tag(tag string) *_bytesProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_bytesProcessor) TargetField(field string) *_bytesProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }
