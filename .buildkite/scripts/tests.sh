@@ -29,7 +29,15 @@ go mod tidy
 
 printf "\033[34;1mINFO:\033[0m Running the tests\033[0m\n"
 
-gotestsum --format=short-verbose --junitfile="$WORKSPACE"/TEST-integration-api-junit.xml -- -tags=integration -timeout=1h ./...
+cpu_count="$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 2)"
+parallel="${GO_TEST_PARALLEL:-$cpu_count}"
+if [ "$parallel" -lt 1 ]; then
+	parallel=1
+fi
+
+printf "\033[34;1mINFO:\033[0m go test -parallel=%s (cpus=%s)\033[0m\n" "$parallel" "$cpu_count"
+
+gotestsum --format=short-verbose --junitfile="$WORKSPACE"/TEST-integration-api-junit.xml -- -tags=integration -timeout=1h -parallel="$parallel" ./...
 status=$?
 
 exit $status
