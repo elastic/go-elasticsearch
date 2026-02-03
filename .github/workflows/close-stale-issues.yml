@@ -21,12 +21,13 @@ jobs:
           any-of-issue-labels: "State: Awaiting Response"
           any-of-pr-labels: "State: Awaiting Response"
           stale-issue-label: "State: Stale"
+          stale-pr-label: "State: Stale"
           stale-issue-message: "This issue is stale because it has been open 5 days with no activity. Remove stale label or comment or this will be closed in 2 days."
-          close-issue-message: "This issue was closed because it has been stale for 2 days with no activity."
           stale-pr-message: "This PR is stale because it has been open 5 days with no activity. Remove stale label or comment or this will be closed in 2 days."
+          close-issue-message: "This issue was closed because it has been stale for 2 days with no activity."
           close-pr-message: "This PR was closed because it has been stale for 2 days with no activity."
           days-before-issue-stale: 5
-          days-before-issue-close: 2
           days-before-pr-stale: 5
+          days-before-issue-close: 2
           days-before-pr-close: 2
           labels-to-remove-when-unstale: "State: Awaiting Response"
