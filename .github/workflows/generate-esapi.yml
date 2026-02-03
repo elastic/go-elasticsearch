@@ -1,0 +1,290 @@
+name: Generate ESAPI Client
+
+on:
+  workflow_dispatch:
+    inputs:
+      branches:
+        description: "Comma-separated list of branches, optionally with spec version (e.g., main,9.3=9.3.0,8.19=8.19.0)"
+        required: false
+        type: string
+        default: "main"
+      dry-run:
+        description: "Skip PR creation when true."
+        required: false
+        type: boolean
+        default: false
+      issue-on-fail:
+        description: "Create or comment on issues when failures occur."
+        required: false
+        type: boolean
+        default: true
+  schedule:
+    - cron: "0 9 * * 1"
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  ISSUE_ASSIGNEES: MattDevy
+
+jobs:
+  plan:
+    name: Plan branch matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        name: Build matrix from inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          input="${{ github.event_name == 'schedule' && 'main,9.3,9.2,8.19' || inputs.branches }}"
+
+          # Remove spaces around commas and split into array
+          IFS=',' read -ra entries <<< "${input//[[:space:]]/}"
+
+          if [[ ${#entries[@]} -eq 0 ]] || [[ -z "${entries[0]}" ]]; then
+            echo "No branches specified. Provide at least one branch." >&2
+            exit 1
+          fi
+
+          # Parse each entry into branch and optional spec-version
+          matrix_json="$(python3 -c '
+          import json
+          import sys
+
+          items = []
+          for entry in sys.argv[1:]:
+              if "=" in entry:
+                  branch, spec_version = entry.split("=", 1)
+              else:
+                  branch = entry
+                  spec_version = ""
+              items.append({"branch": branch, "specVersion": spec_version})
+
+          print(json.dumps({"include": items}))
+          ' "${entries[@]}")"
+
+          echo "matrix=$matrix_json" >> "$GITHUB_OUTPUT"
+
+  generate:
+    name: Generate (${{ matrix.branch }})
+    needs: plan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.branch }}
+          fetch-depth: 1
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Install goimports
+        run: go install golang.org/x/tools/cmd/goimports@latest
+
+      - name: Derive ES version
+        id: es-version
+        run: |
+          spec_version="${{ matrix.specVersion }}"
+          if [[ -n "$spec_version" ]]; then
+            echo "es_version=$spec_version" >> "$GITHUB_OUTPUT"
+          elif [[ "${{ matrix.branch }}" == "main" ]]; then
+            # Extract version from internal/version/version.go
+            es_version=$(grep -E 'Version\s*=\s*"' internal/version/version.go | sed -E 's/.*"([^"]+)".*/\1/')
+            echo "es_version=$es_version" >> "$GITHUB_OUTPUT"
+          else
+            # Use branch name as version base (e.g., 9.3 -> 9.3.0-SNAPSHOT)
+            echo "es_version=${{ matrix.branch }}.0-SNAPSHOT" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Using ES version: $(cat "$GITHUB_OUTPUT" | grep es_version | cut -d= -f2)"
+
+      - name: Clean old generated files
+        run: |
+          rm -rf esapi/api.*.go
+          rm -rf esapi/test/*_test.go
+
+      - name: Download REST API specs
+        env:
+          ELASTICSEARCH_BUILD_VERSION: ${{ steps.es-version.outputs.es_version }}
+        run: make download-specs
+
+      - name: Extract spec metadata
+        id: spec-metadata
+        run: |
+          if [[ -f tmp/elasticsearch.json ]]; then
+            commit_hash=$(jq -r '.projects.elasticsearch.commit_hash // empty' tmp/elasticsearch.json)
+            if [[ -n "$commit_hash" ]]; then
+              echo "commit_hash=$commit_hash" >> "$GITHUB_OUTPUT"
+              echo "short_hash=${commit_hash:0:7}" >> "$GITHUB_OUTPUT"
+              echo "Spec commit hash: $commit_hash"
+            else
+              echo "commit_hash=unknown" >> "$GITHUB_OUTPUT"
+              echo "short_hash=unknown" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "commit_hash=unknown" >> "$GITHUB_OUTPUT"
+            echo "short_hash=unknown" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate API source files
+        env:
+          ELASTICSEARCH_BUILD_VERSION: ${{ steps.es-version.outputs.es_version }}
+          ELASTICSEARCH_BUILD_HASH: ${{ steps.spec-metadata.outputs.commit_hash }}
+        run: make gen-api
+
+      - name: Generate API tests
+        env:
+          ELASTICSEARCH_BUILD_VERSION: ${{ steps.es-version.outputs.es_version }}
+          ELASTICSEARCH_BUILD_HASH: ${{ steps.spec-metadata.outputs.commit_hash }}
+        run: make gen-tests
+
+      - name: Prepare test module
+        working-directory: esapi/test
+        run: go mod tidy
+
+      - name: Ensure esapi builds
+        run: go build ./esapi/...
+
+      - name: Ensure test module builds
+        working-directory: esapi/test
+        run: go build ./...
+
+      - name: Fetch ephemeral GitHub token
+        if: ${{ github.event_name != 'schedule' && !inputs.dry-run }}
+        id: fetch-token
+        uses: elastic/ci-gh-actions/fetch-github-token@8a7604dfdd4e7fe21f969bfe9ff96e17635ea577 # v1.0.0
+        with:
+          vault-instance: "ci-prod"
+
+      - name: Create PR
+        if: ${{ github.event_name != 'schedule' && !inputs.dry-run }}
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ steps.fetch-token.outputs.token }}
+          commit-message: "chore(esapi): update ${{ matrix.branch }} client from spec ${{ steps.spec-metadata.outputs.short_hash }}"
+          committer: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+          author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+          branch: "esapi-update-${{ matrix.branch }}"
+          delete-branch: true
+          base: ${{ matrix.branch }}
+          title: "chore(esapi): update ${{ matrix.branch }} client from spec ${{ steps.spec-metadata.outputs.short_hash }}"
+          body: |
+            Update ${{ matrix.branch }} esapi client from REST API specification.
+
+            **Spec version:** ${{ steps.es-version.outputs.es_version }}
+            **Spec commit:** ${{ steps.spec-metadata.outputs.commit_hash }}
+          labels: "skip: gencheck"
+
+      - name: Report failure
+        if: ${{ always() && failure() && (github.event_name == 'schedule' || inputs.issue-on-fail) }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = "${{ matrix.branch }}";
+            const specVersion = "${{ matrix.specVersion }}";
+            const workflow = "${{ github.workflow }}";
+            const runUrl = "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}";
+            const actor = "${{ github.actor }}";
+            const repoFullName = "${{ github.repository }}";
+            const [owner, repo] = repoFullName.split("/");
+
+            const title = `Generate esapi failed for ${branch}`;
+            const body = [
+              `**Workflow:** ${workflow}`,
+              `**Run:** ${runUrl}`,
+              `**Actor:** ${actor}`,
+              `**Branch:** ${branch}`,
+              `**Spec version:** ${specVersion || "(default)"}`,
+              "",
+              "Please check the workflow logs for the failing step(s).",
+            ].join("\n");
+
+            const query = `repo:${repoFullName} is:issue in:title "${title}" state:open`;
+            const search = await github.rest.search.issuesAndPullRequests({
+              q: query,
+              per_page: 1,
+            });
+
+            if (search.data.items.length > 0) {
+              const issue = search.data.items[0];
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body,
+              });
+              return;
+            }
+
+            await github.rest.issues.create({
+              owner,
+              repo,
+              title,
+              body,
+              ...(process.env.ISSUE_ASSIGNEES
+                ? {
+                    assignees: process.env.ISSUE_ASSIGNEES
+                      .split(",")
+                      .map((assignee) => assignee.trim())
+                      .filter((assignee) => assignee.length > 0),
+                  }
+                : {}),
+            });
+
+      - name: Report success
+        if: ${{ always() && success() && (github.event_name == 'schedule' || inputs.issue-on-fail) }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = "${{ matrix.branch }}";
+            const workflow = "${{ github.workflow }}";
+            const runUrl = "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}";
+            const repoFullName = "${{ github.repository }}";
+            const [owner, repo] = repoFullName.split("/");
+
+            const title = `Generate esapi failed for ${branch}`;
+            const body = [
+              "Generation succeeded.",
+              `**Workflow:** ${workflow}`,
+              `**Run:** ${runUrl}`,
+            ].join("\n");
+
+            const query = `repo:${repoFullName} is:issue in:title "${title}" state:open`;
+            const search = await github.rest.search.issuesAndPullRequests({
+              q: query,
+              per_page: 1,
+            });
+
+            if (search.data.items.length === 0) {
+              return;
+            }
+
+            const issue = search.data.items[0];
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: issue.number,
+              body,
+            });
+
+            await github.rest.issues.update({
+              owner,
+              repo,
+              issue_number: issue.number,
+              state: "closed",
+            });
