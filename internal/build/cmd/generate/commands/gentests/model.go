@@ -49,6 +49,10 @@ type TestSuite struct {
 	SkipInfo string
 	Type     string
 
+	ParallelSafe    bool
+	ParallelReason  string
+	ParallelCleanup ParallelCleanup
+
 	Setup    []Action
 	Teardown []Action
 
@@ -292,6 +296,8 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 		}
 	}
 
+	ts.classifyParallelSafety()
+
 	return ts
 }
 
@@ -366,6 +372,33 @@ func (ts TestSuite) Filename() string {
 	b.WriteString(strings.ToLower(bname))
 
 	return b.String()
+}
+
+// BaseFilename extracts and returns the test filename in form of `foo/bar/10_qux.yml`.
+func (ts TestSuite) BaseFilename() string {
+	parts := reBaseFilename.FindStringSubmatch(ts.Filepath)
+	if len(parts) < 1 {
+		panic(fmt.Sprintf("Unexpected parts for path [%s]: %s", ts.Filepath, parts))
+	}
+	return strings.TrimPrefix(parts[1], string(filepath.Separator))
+}
+
+func (ts TestSuite) collectActions() []Action {
+	actions := make([]Action, 0, len(ts.Setup)+len(ts.Teardown))
+	actions = append(actions, ts.Setup...)
+	actions = append(actions, ts.Teardown...)
+
+	for _, test := range ts.Tests {
+		actions = append(actions, test.Setup...)
+		actions = append(actions, test.Teardown...)
+		for _, step := range test.Steps {
+			if action, ok := step.(Action); ok {
+				actions = append(actions, action)
+			}
+		}
+	}
+
+	return actions
 }
 
 // SkipEsVersion returns true if the test suite should be skipped.

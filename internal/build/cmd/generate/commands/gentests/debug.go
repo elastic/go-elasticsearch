@@ -31,6 +31,14 @@ func (tg TestSuite) DebugInfo() string {
 	fmt.Fprintln(&out, strings.Repeat("─", utils.TerminalWidth()))
 	fmt.Fprint(&out, "["+tg.Name()+"]\n")
 	fmt.Fprintln(&out, strings.Repeat("─", utils.TerminalWidth()))
+	if tg.ParallelSafe {
+		fmt.Fprintln(&out, "[parallel] enabled")
+		if len(tg.ParallelCleanup.Indices) > 0 || len(tg.ParallelCleanup.DataStreams) > 0 {
+			fmt.Fprintf(&out, "[parallel] cleanup indices=%v data_streams=%v\n", tg.ParallelCleanup.Indices, tg.ParallelCleanup.DataStreams)
+		}
+	} else if tg.ParallelReason != "" {
+		fmt.Fprintf(&out, "[parallel] disabled: %s\n", tg.ParallelReason)
+	}
 
 	if len(tg.Setup) > 0 {
 		for _, a := range tg.Setup {

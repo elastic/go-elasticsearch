@@ -58,9 +58,15 @@ func (g *Generator) Output() (io.Reader, error) {
 
 	g.genFileHeader()
 	g.w("func Test" + name + "(t *testing.T) {\n")
+	if g.TestSuite.ParallelSafe {
+		g.w("\tt.Parallel()\n")
+	}
 	g.genInitializeClient()
 	g.genHelpers()
 	g.genCommonSetup()
+	if g.TestSuite.ParallelSafe {
+		g.genParallelSetup()
+	}
 	if g.TestSuite.Type == "xpack" {
 		g.genXPackSetup()
 	}
@@ -85,7 +91,11 @@ func (g *Generator) Output() (io.Reader, error) {
 		g.w("\t" + `t.Run("` + strings.ReplaceAll(t.Name, " ", "_") + `", ` + "func(t *testing.T) {\n")
 		if !g.genSkip(t) {
 			g.w("\tdefer recoverPanic(t)\n")
-			g.w("\tcommonSetup()\n")
+			if g.TestSuite.ParallelSafe {
+				g.w("\tparallelSetup()\n")
+			} else {
+				g.w("\tcommonSetup()\n")
+			}
 			if g.TestSuite.Type == "xpack" {
 				g.w("\txpackSetup()\n")
 			}
@@ -530,6 +540,56 @@ func (g *Generator) genCommonSetup() {
 	_ = commonSetup
 
 	`)
+}
+
+func (g *Generator) genParallelSetup() {
+	g.w(`
+	// ----- Parallel-safe Setup -----------------------------------------------------
+	parallelSetup := func() {
+		var res *esapi.Response
+
+		{
+			res, _ = es.Cluster.Health(es.Cluster.Health.WithWaitForStatus("yellow"))
+			if res != nil && res.Body != nil {
+				defer res.Body.Close()
+			}
+		}
+`)
+
+	for _, dataStream := range g.TestSuite.ParallelCleanup.DataStreams {
+		g.w(fmt.Sprintf(`
+		{
+			res, _ = es.Indices.DeleteDataStream(
+				[]string{%q},
+				es.Indices.DeleteDataStream.WithIgnoreUnavailable(true),
+			)
+			if res != nil && res.Body != nil {
+				defer res.Body.Close()
+			}
+		}
+`, dataStream))
+	}
+
+	for _, index := range g.TestSuite.ParallelCleanup.Indices {
+		g.w(fmt.Sprintf(`
+		{
+			res, _ = es.Indices.Delete(
+				[]string{%q},
+				es.Indices.Delete.WithIgnoreUnavailable(true),
+				es.Indices.Delete.WithExpandWildcards("open,closed"),
+			)
+			if res != nil && res.Body != nil {
+				defer res.Body.Close()
+			}
+		}
+`, index))
+	}
+
+	g.w(`
+	}
+	_ = parallelSetup
+
+`)
 }
 
 // Reference: https://github.com/elastic/elasticsearch/blob/master/x-pack/plugin/src/test/java/org/elasticsearch/xpack/test/rest/XPackRestIT.java
