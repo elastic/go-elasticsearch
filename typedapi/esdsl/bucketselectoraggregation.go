@@ -37,6 +37,13 @@ func NewBucketSelectorAggregation() *_bucketSelectorAggregation {
 
 }
 
+func (s *_bucketSelectorAggregation) Script(script types.ScriptVariant) *_bucketSelectorAggregation {
+
+	s.v.Script = script.ScriptCaster()
+
+	return s
+}
+
 func (s *_bucketSelectorAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_bucketSelectorAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -54,13 +61,6 @@ func (s *_bucketSelectorAggregation) Format(format string) *_bucketSelectorAggre
 func (s *_bucketSelectorAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_bucketSelectorAggregation {
 
 	s.v.GapPolicy = &gappolicy
-	return s
-}
-
-func (s *_bucketSelectorAggregation) Script(script types.ScriptVariant) *_bucketSelectorAggregation {
-
-	s.v.Script = script.ScriptCaster()
-
 	return s
 }
 

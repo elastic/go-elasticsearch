@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/bulk_put_role/SecurityBulkPutRoleRequest.ts#L25-L52
 type Request struct {
-
 	// Roles A dictionary of role name to RoleDescriptor objects to add or update
 	Roles map[string]types.RoleDescriptor `json:"roles"`
 }

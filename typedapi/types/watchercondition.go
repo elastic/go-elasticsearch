@@ -21,9 +21,6 @@
 package types
 
 import (
-	"encoding/json"
-	"fmt"
-
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/conditionop"
 )
 
@@ -31,49 +28,18 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/watcher/_types/Conditions.ts#L51-L63
 type WatcherCondition struct {
-	AdditionalWatcherConditionProperty map[string]json.RawMessage                        `json:"-"`
-	Always                             *AlwaysCondition                                  `json:"always,omitempty"`
-	ArrayCompare                       map[string]ArrayCompareCondition                  `json:"array_compare,omitempty"`
-	Compare                            map[string]map[conditionop.ConditionOp]FieldValue `json:"compare,omitempty"`
-	Never                              *NeverCondition                                   `json:"never,omitempty"`
-	Script                             *ScriptCondition                                  `json:"script,omitempty"`
-}
-
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s WatcherCondition) MarshalJSON() ([]byte, error) {
-	type opt WatcherCondition
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalWatcherConditionProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalWatcherConditionProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
+	Always       *AlwaysCondition                                  `json:"always,omitempty"`
+	ArrayCompare map[string]ArrayCompareCondition                  `json:"array_compare,omitempty"`
+	Compare      map[string]map[conditionop.ConditionOp]FieldValue `json:"compare,omitempty"`
+	Never        *NeverCondition                                   `json:"never,omitempty"`
+	Script       *ScriptCondition                                  `json:"script,omitempty"`
 }
 
 // NewWatcherCondition returns a WatcherCondition.
 func NewWatcherCondition() *WatcherCondition {
 	r := &WatcherCondition{
-		AdditionalWatcherConditionProperty: make(map[string]json.RawMessage),
-		ArrayCompare:                       make(map[string]ArrayCompareCondition),
-		Compare:                            make(map[string]map[conditionop.ConditionOp]FieldValue),
+		ArrayCompare: make(map[string]ArrayCompareCondition),
+		Compare:      make(map[string]map[conditionop.ConditionOp]FieldValue),
 	}
 
 	return r

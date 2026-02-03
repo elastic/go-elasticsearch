@@ -38,16 +38,16 @@ func NewSpanMultiTermQuery(match types.QueryVariant) *_spanMultiTermQuery {
 
 }
 
-func (s *_spanMultiTermQuery) Boost(boost float32) *_spanMultiTermQuery {
+func (s *_spanMultiTermQuery) Match(match types.QueryVariant) *_spanMultiTermQuery {
 
-	s.v.Boost = &boost
+	s.v.Match = *match.QueryCaster()
 
 	return s
 }
 
-func (s *_spanMultiTermQuery) Match(match types.QueryVariant) *_spanMultiTermQuery {
+func (s *_spanMultiTermQuery) Boost(boost float32) *_spanMultiTermQuery {
 
-	s.v.Match = *match.QueryCaster()
+	s.v.Boost = &boost
 
 	return s
 }

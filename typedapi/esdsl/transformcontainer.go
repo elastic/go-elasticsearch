@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _transformContainer struct {
 	v *types.TransformContainer
@@ -32,18 +28,6 @@ type _transformContainer struct {
 
 func NewTransformContainer() *_transformContainer {
 	return &_transformContainer{v: types.NewTransformContainer()}
-}
-
-// AdditionalTransformContainerProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_transformContainer) AdditionalTransformContainerProperty(key string, value json.RawMessage) *_transformContainer {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalTransformContainerProperty = tmp
-	return s
 }
 
 func (s *_transformContainer) Chain(chains ...types.TransformContainerVariant) *_transformContainer {

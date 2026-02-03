@@ -71,22 +71,21 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			rawMsg := make(map[string]json.RawMessage, 0)
 			dec.Decode(&rawMsg)
 			for key, value := range rawMsg {
-				switch {
-				case bytes.HasPrefix(value, []byte("\"")), bytes.HasPrefix(value, []byte("{")):
-					o := new(string)
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
-						return fmt.Errorf("%s | %w", "Acknowledge", err)
-					}
-					s.Acknowledge[key] = append(s.Acknowledge[key], *o)
-				default:
-					o := []string{}
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
+				v := bytes.TrimSpace(value)
+				if len(v) > 0 && v[0] == '[' {
+					var o []string
+					if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "Acknowledge", err)
 					}
 					s.Acknowledge[key] = o
+					continue
 				}
+
+				var o string
+				if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Acknowledge", err)
+				}
+				s.Acknowledge[key] = append(s.Acknowledge[key], o)
 			}
 
 		case "acknowledged":

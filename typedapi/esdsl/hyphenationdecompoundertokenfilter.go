@@ -43,6 +43,20 @@ func (s *_hyphenationDecompounderTokenFilter) HyphenationPatternsPath(hyphenatio
 	return s
 }
 
+func (s *_hyphenationDecompounderTokenFilter) NoOverlappingMatches(nooverlappingmatches bool) *_hyphenationDecompounderTokenFilter {
+
+	s.v.NoOverlappingMatches = &nooverlappingmatches
+
+	return s
+}
+
+func (s *_hyphenationDecompounderTokenFilter) NoSubMatches(nosubmatches bool) *_hyphenationDecompounderTokenFilter {
+
+	s.v.NoSubMatches = &nosubmatches
+
+	return s
+}
+
 func (s *_hyphenationDecompounderTokenFilter) MaxSubwordSize(maxsubwordsize int) *_hyphenationDecompounderTokenFilter {
 
 	s.v.MaxSubwordSize = &maxsubwordsize
@@ -60,20 +74,6 @@ func (s *_hyphenationDecompounderTokenFilter) MinSubwordSize(minsubwordsize int)
 func (s *_hyphenationDecompounderTokenFilter) MinWordSize(minwordsize int) *_hyphenationDecompounderTokenFilter {
 
 	s.v.MinWordSize = &minwordsize
-
-	return s
-}
-
-func (s *_hyphenationDecompounderTokenFilter) NoOverlappingMatches(nooverlappingmatches bool) *_hyphenationDecompounderTokenFilter {
-
-	s.v.NoOverlappingMatches = &nooverlappingmatches
-
-	return s
-}
-
-func (s *_hyphenationDecompounderTokenFilter) NoSubMatches(nosubmatches bool) *_hyphenationDecompounderTokenFilter {
-
-	s.v.NoSubMatches = &nosubmatches
 
 	return s
 }

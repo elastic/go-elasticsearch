@@ -20,55 +20,18 @@
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // Preprocessor type.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/put_trained_model/types.ts#L31-L36
 type Preprocessor struct {
-	AdditionalPreprocessorProperty map[string]json.RawMessage      `json:"-"`
-	FrequencyEncoding              *FrequencyEncodingPreprocessor  `json:"frequency_encoding,omitempty"`
-	OneHotEncoding                 *OneHotEncodingPreprocessor     `json:"one_hot_encoding,omitempty"`
-	TargetMeanEncoding             *TargetMeanEncodingPreprocessor `json:"target_mean_encoding,omitempty"`
-}
-
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s Preprocessor) MarshalJSON() ([]byte, error) {
-	type opt Preprocessor
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalPreprocessorProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalPreprocessorProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
+	FrequencyEncoding  *FrequencyEncodingPreprocessor  `json:"frequency_encoding,omitempty"`
+	OneHotEncoding     *OneHotEncodingPreprocessor     `json:"one_hot_encoding,omitempty"`
+	TargetMeanEncoding *TargetMeanEncodingPreprocessor `json:"target_mean_encoding,omitempty"`
 }
 
 // NewPreprocessor returns a Preprocessor.
 func NewPreprocessor() *Preprocessor {
-	r := &Preprocessor{
-		AdditionalPreprocessorProperty: make(map[string]json.RawMessage),
-	}
+	r := &Preprocessor{}
 
 	return r
 }

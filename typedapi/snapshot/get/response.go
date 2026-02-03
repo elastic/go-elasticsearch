@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/snapshot/get/SnapshotGetResponse.ts#L25-L47
 type Response struct {
-
 	// Next If the request contained a size limit and there might be more results, a
 	// `next` field will be added to the response.
 	// It can be used as the `after` query parameter to fetch additional results.

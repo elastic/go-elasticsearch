@@ -60,13 +60,6 @@ func (s *_icuCollationProperty) CaseLevel(caselevel bool) *_icuCollationProperty
 	return s
 }
 
-func (s *_icuCollationProperty) CopyTo(fields ...string) *_icuCollationProperty {
-
-	s.v.CopyTo = fields
-
-	return s
-}
-
 func (s *_icuCollationProperty) Country(country string) *_icuCollationProperty {
 
 	s.v.Country = &country
@@ -77,6 +70,88 @@ func (s *_icuCollationProperty) Country(country string) *_icuCollationProperty {
 func (s *_icuCollationProperty) Decomposition(decomposition icucollationdecomposition.IcuCollationDecomposition) *_icuCollationProperty {
 
 	s.v.Decomposition = &decomposition
+	return s
+}
+
+func (s *_icuCollationProperty) HiraganaQuaternaryMode(hiraganaquaternarymode bool) *_icuCollationProperty {
+
+	s.v.HiraganaQuaternaryMode = &hiraganaquaternarymode
+
+	return s
+}
+
+func (s *_icuCollationProperty) Index(index bool) *_icuCollationProperty {
+
+	s.v.Index = &index
+
+	return s
+}
+
+func (s *_icuCollationProperty) IndexOptions(indexoptions indexoptions.IndexOptions) *_icuCollationProperty {
+
+	s.v.IndexOptions = &indexoptions
+	return s
+}
+
+func (s *_icuCollationProperty) Language(language string) *_icuCollationProperty {
+
+	s.v.Language = &language
+
+	return s
+}
+
+func (s *_icuCollationProperty) Norms(norms bool) *_icuCollationProperty {
+
+	s.v.Norms = &norms
+
+	return s
+}
+
+func (s *_icuCollationProperty) NullValue(nullvalue string) *_icuCollationProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
+func (s *_icuCollationProperty) Numeric(numeric bool) *_icuCollationProperty {
+
+	s.v.Numeric = &numeric
+
+	return s
+}
+
+func (s *_icuCollationProperty) Rules(rules string) *_icuCollationProperty {
+
+	s.v.Rules = &rules
+
+	return s
+}
+
+func (s *_icuCollationProperty) Strength(strength icucollationstrength.IcuCollationStrength) *_icuCollationProperty {
+
+	s.v.Strength = &strength
+	return s
+}
+
+func (s *_icuCollationProperty) VariableTop(variabletop string) *_icuCollationProperty {
+
+	s.v.VariableTop = &variabletop
+
+	return s
+}
+
+func (s *_icuCollationProperty) Variant(variant string) *_icuCollationProperty {
+
+	s.v.Variant = &variant
+
+	return s
+}
+
+func (s *_icuCollationProperty) CopyTo(fields ...string) *_icuCollationProperty {
+
+	s.v.CopyTo = fields
+
 	return s
 }
 
@@ -114,36 +189,9 @@ func (s *_icuCollationProperty) AddField(key string, value types.PropertyVariant
 	return s
 }
 
-func (s *_icuCollationProperty) HiraganaQuaternaryMode(hiraganaquaternarymode bool) *_icuCollationProperty {
-
-	s.v.HiraganaQuaternaryMode = &hiraganaquaternarymode
-
-	return s
-}
-
 func (s *_icuCollationProperty) IgnoreAbove(ignoreabove int) *_icuCollationProperty {
 
 	s.v.IgnoreAbove = &ignoreabove
-
-	return s
-}
-
-func (s *_icuCollationProperty) Index(index bool) *_icuCollationProperty {
-
-	s.v.Index = &index
-
-	return s
-}
-
-func (s *_icuCollationProperty) IndexOptions(indexoptions indexoptions.IndexOptions) *_icuCollationProperty {
-
-	s.v.IndexOptions = &indexoptions
-	return s
-}
-
-func (s *_icuCollationProperty) Language(language string) *_icuCollationProperty {
-
-	s.v.Language = &language
 
 	return s
 }
@@ -169,27 +217,6 @@ func (s *_icuCollationProperty) AddMeta(key string, value string) *_icuCollation
 	return s
 }
 
-func (s *_icuCollationProperty) Norms(norms bool) *_icuCollationProperty {
-
-	s.v.Norms = &norms
-
-	return s
-}
-
-func (s *_icuCollationProperty) NullValue(nullvalue string) *_icuCollationProperty {
-
-	s.v.NullValue = &nullvalue
-
-	return s
-}
-
-func (s *_icuCollationProperty) Numeric(numeric bool) *_icuCollationProperty {
-
-	s.v.Numeric = &numeric
-
-	return s
-}
-
 func (s *_icuCollationProperty) Properties(properties map[string]types.Property) *_icuCollationProperty {
 
 	s.v.Properties = properties
@@ -211,13 +238,6 @@ func (s *_icuCollationProperty) AddProperty(key string, value types.PropertyVari
 	return s
 }
 
-func (s *_icuCollationProperty) Rules(rules string) *_icuCollationProperty {
-
-	s.v.Rules = &rules
-
-	return s
-}
-
 func (s *_icuCollationProperty) Store(store bool) *_icuCollationProperty {
 
 	s.v.Store = &store
@@ -225,29 +245,9 @@ func (s *_icuCollationProperty) Store(store bool) *_icuCollationProperty {
 	return s
 }
 
-func (s *_icuCollationProperty) Strength(strength icucollationstrength.IcuCollationStrength) *_icuCollationProperty {
-
-	s.v.Strength = &strength
-	return s
-}
-
 func (s *_icuCollationProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_icuCollationProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
-	return s
-}
-
-func (s *_icuCollationProperty) VariableTop(variabletop string) *_icuCollationProperty {
-
-	s.v.VariableTop = &variabletop
-
-	return s
-}
-
-func (s *_icuCollationProperty) Variant(variant string) *_icuCollationProperty {
-
-	s.v.Variant = &variant
-
 	return s
 }
 

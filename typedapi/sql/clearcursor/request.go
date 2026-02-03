@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/sql/clear_cursor/ClearSqlCursorRequest.ts#L22-L42
 type Request struct {
-
 	// Cursor Cursor to clear.
 	Cursor string `json:"cursor"`
 }

@@ -39,6 +39,13 @@ func NewHoltWintersMovingAverageAggregation(settings types.HoltWintersModelSetti
 
 }
 
+func (s *_holtWintersMovingAverageAggregation) Settings(settings types.HoltWintersModelSettingsVariant) *_holtWintersMovingAverageAggregation {
+
+	s.v.Settings = *settings.HoltWintersModelSettingsCaster()
+
+	return s
+}
+
 func (s *_holtWintersMovingAverageAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_holtWintersMovingAverageAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -69,13 +76,6 @@ func (s *_holtWintersMovingAverageAggregation) Minimize(minimize bool) *_holtWin
 func (s *_holtWintersMovingAverageAggregation) Predict(predict int) *_holtWintersMovingAverageAggregation {
 
 	s.v.Predict = &predict
-
-	return s
-}
-
-func (s *_holtWintersMovingAverageAggregation) Settings(settings types.HoltWintersModelSettingsVariant) *_holtWintersMovingAverageAggregation {
-
-	s.v.Settings = *settings.HoltWintersModelSettingsCaster()
 
 	return s
 }

@@ -38,6 +38,12 @@ func NewMatrixStatsAggregation() *_matrixStatsAggregation {
 
 }
 
+func (s *_matrixStatsAggregation) Mode(mode sortmode.SortMode) *_matrixStatsAggregation {
+
+	s.v.Mode = &mode
+	return s
+}
+
 func (s *_matrixStatsAggregation) Fields(fields ...string) *_matrixStatsAggregation {
 
 	s.v.Fields = fields
@@ -63,12 +69,6 @@ func (s *_matrixStatsAggregation) AddMissing(key string, value types.Float64) *_
 	tmp[key] = value
 
 	s.v.Missing = tmp
-	return s
-}
-
-func (s *_matrixStatsAggregation) Mode(mode sortmode.SortMode) *_matrixStatsAggregation {
-
-	s.v.Mode = &mode
 	return s
 }
 

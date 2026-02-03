@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/evaluate_data_frame/MlEvaluateDataFrameResponse.ts#L26-L44
 type Response struct {
-
 	// Classification Evaluation results for a classification analysis.
 	// It outputs a prediction that identifies to which of the classes each document
 	// belongs.

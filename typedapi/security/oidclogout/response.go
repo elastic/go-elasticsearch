@@ -24,7 +24,6 @@ package oidclogout
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/oidc_logout/Response.ts#L20-L27
 type Response struct {
-
 	// Redirect A URI that points to the end session endpoint of the OpenID Connect Provider
 	// with all the parameters of the logout request as HTTP GET parameters.
 	Redirect string `json:"redirect"`

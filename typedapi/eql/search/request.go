@@ -36,7 +36,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/eql/search/EqlSearchRequest.ts#L28-L166
 type Request struct {
-
 	// AllowPartialSearchResults Allow query execution also in case of shard failures.
 	// If true, the query will keep running and will return results based on the
 	// available shards.

@@ -47,13 +47,6 @@ func (s *_commonTermsQuery) Analyzer(analyzer string) *_commonTermsQuery {
 	return s
 }
 
-func (s *_commonTermsQuery) Boost(boost float32) *_commonTermsQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_commonTermsQuery) CutoffFrequency(cutofffrequency types.Float64) *_commonTermsQuery {
 
 	s.v.CutoffFrequency = &cutofffrequency
@@ -83,6 +76,13 @@ func (s *_commonTermsQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumS
 func (s *_commonTermsQuery) Query(query string) *_commonTermsQuery {
 
 	s.v.Query = query
+
+	return s
+}
+
+func (s *_commonTermsQuery) Boost(boost float32) *_commonTermsQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

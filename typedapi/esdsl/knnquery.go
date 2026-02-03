@@ -35,13 +35,6 @@ func NewKnnQuery() *_knnQuery {
 
 }
 
-func (s *_knnQuery) Boost(boost float32) *_knnQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_knnQuery) Field(field string) *_knnQuery {
 
 	s.v.Field = field
@@ -73,13 +66,6 @@ func (s *_knnQuery) NumCandidates(numcandidates int) *_knnQuery {
 	return s
 }
 
-func (s *_knnQuery) QueryName_(queryname_ string) *_knnQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_knnQuery) QueryVector(queryvectors ...float32) *_knnQuery {
 
 	s.v.QueryVector = queryvectors
@@ -104,6 +90,20 @@ func (s *_knnQuery) RescoreVector(rescorevector types.RescoreVectorVariant) *_kn
 func (s *_knnQuery) Similarity(similarity float32) *_knnQuery {
 
 	s.v.Similarity = &similarity
+
+	return s
+}
+
+func (s *_knnQuery) Boost(boost float32) *_knnQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_knnQuery) QueryName_(queryname_ string) *_knnQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

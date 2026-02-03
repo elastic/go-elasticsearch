@@ -36,16 +36,22 @@ func NewJoinProperty() *_joinProperty {
 
 }
 
-func (s *_joinProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_joinProperty {
-
-	s.v.Dynamic = &dynamic
-	return s
-}
-
 func (s *_joinProperty) EagerGlobalOrdinals(eagerglobalordinals bool) *_joinProperty {
 
 	s.v.EagerGlobalOrdinals = &eagerglobalordinals
 
+	return s
+}
+
+func (s *_joinProperty) Relations(relations map[string][]string) *_joinProperty {
+
+	s.v.Relations = relations
+	return s
+}
+
+func (s *_joinProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_joinProperty {
+
+	s.v.Dynamic = &dynamic
 	return s
 }
 
@@ -116,12 +122,6 @@ func (s *_joinProperty) AddProperty(key string, value types.PropertyVariant) *_j
 	tmp[key] = *value.PropertyCaster()
 
 	s.v.Properties = tmp
-	return s
-}
-
-func (s *_joinProperty) Relations(relations map[string][]string) *_joinProperty {
-
-	s.v.Relations = relations
 	return s
 }
 

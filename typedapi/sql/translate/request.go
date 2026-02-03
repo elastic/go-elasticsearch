@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/sql/translate/TranslateSqlRequest.ts#L25-L65
 type Request struct {
-
 	// FetchSize The maximum number of rows (or entries) to return in one response.
 	FetchSize *int `json:"fetch_size,omitempty"`
 	// Filter The Elasticsearch query DSL for additional filtering.

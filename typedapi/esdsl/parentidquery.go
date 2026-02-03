@@ -33,13 +33,6 @@ func NewParentIdQuery() *_parentIdQuery {
 
 }
 
-func (s *_parentIdQuery) Boost(boost float32) *_parentIdQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_parentIdQuery) Id(id string) *_parentIdQuery {
 
 	s.v.Id = &id
@@ -54,16 +47,23 @@ func (s *_parentIdQuery) IgnoreUnmapped(ignoreunmapped bool) *_parentIdQuery {
 	return s
 }
 
-func (s *_parentIdQuery) QueryName_(queryname_ string) *_parentIdQuery {
+func (s *_parentIdQuery) Type(relationname string) *_parentIdQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.Type = &relationname
 
 	return s
 }
 
-func (s *_parentIdQuery) Type(relationname string) *_parentIdQuery {
+func (s *_parentIdQuery) Boost(boost float32) *_parentIdQuery {
 
-	s.v.Type = &relationname
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_parentIdQuery) QueryName_(queryname_ string) *_parentIdQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

@@ -40,13 +40,6 @@ func NewHasChildQuery(query types.QueryVariant) *_hasChildQuery {
 
 }
 
-func (s *_hasChildQuery) Boost(boost float32) *_hasChildQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_hasChildQuery) IgnoreUnmapped(ignoreunmapped bool) *_hasChildQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped
@@ -82,13 +75,6 @@ func (s *_hasChildQuery) Query(query types.QueryVariant) *_hasChildQuery {
 	return s
 }
 
-func (s *_hasChildQuery) QueryName_(queryname_ string) *_hasChildQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_hasChildQuery) ScoreMode(scoremode childscoremode.ChildScoreMode) *_hasChildQuery {
 
 	s.v.ScoreMode = &scoremode
@@ -98,6 +84,20 @@ func (s *_hasChildQuery) ScoreMode(scoremode childscoremode.ChildScoreMode) *_ha
 func (s *_hasChildQuery) Type(relationname string) *_hasChildQuery {
 
 	s.v.Type = relationname
+
+	return s
+}
+
+func (s *_hasChildQuery) Boost(boost float32) *_hasChildQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_hasChildQuery) QueryName_(queryname_ string) *_hasChildQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

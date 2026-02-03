@@ -64,23 +64,9 @@ func (s *_s3RepositorySettings) CannedAcl(cannedacl string) *_s3RepositorySettin
 	return s
 }
 
-func (s *_s3RepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_s3RepositorySettings {
-
-	s.v.ChunkSize = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
 func (s *_s3RepositorySettings) Client(client string) *_s3RepositorySettings {
 
 	s.v.Client = &client
-
-	return s
-}
-
-func (s *_s3RepositorySettings) Compress(compress bool) *_s3RepositorySettings {
-
-	s.v.Compress = &compress
 
 	return s
 }
@@ -109,20 +95,6 @@ func (s *_s3RepositorySettings) MaxMultipartParts(maxmultipartparts int) *_s3Rep
 func (s *_s3RepositorySettings) MaxMultipartUploadCleanupSize(maxmultipartuploadcleanupsize int) *_s3RepositorySettings {
 
 	s.v.MaxMultipartUploadCleanupSize = &maxmultipartuploadcleanupsize
-
-	return s
-}
-
-func (s *_s3RepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSizeVariant) *_s3RepositorySettings {
-
-	s.v.MaxRestoreBytesPerSec = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_s3RepositorySettings) MaxSnapshotBytesPerSec(bytesize types.ByteSizeVariant) *_s3RepositorySettings {
-
-	s.v.MaxSnapshotBytesPerSec = *bytesize.ByteSizeCaster()
 
 	return s
 }
@@ -165,6 +137,34 @@ func (s *_s3RepositorySettings) ThrottledDeleteRetryMaximumDelay(duration types.
 func (s *_s3RepositorySettings) ThrottledDeleteRetryMaximumNumberOfRetries(throttleddeleteretrymaximumnumberofretries int) *_s3RepositorySettings {
 
 	s.v.ThrottledDeleteRetryMaximumNumberOfRetries = &throttleddeleteretrymaximumnumberofretries
+
+	return s
+}
+
+func (s *_s3RepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_s3RepositorySettings {
+
+	s.v.ChunkSize = *bytesize.ByteSizeCaster()
+
+	return s
+}
+
+func (s *_s3RepositorySettings) Compress(compress bool) *_s3RepositorySettings {
+
+	s.v.Compress = &compress
+
+	return s
+}
+
+func (s *_s3RepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSizeVariant) *_s3RepositorySettings {
+
+	s.v.MaxRestoreBytesPerSec = *bytesize.ByteSizeCaster()
+
+	return s
+}
+
+func (s *_s3RepositorySettings) MaxSnapshotBytesPerSec(bytesize types.ByteSizeVariant) *_s3RepositorySettings {
+
+	s.v.MaxSnapshotBytesPerSec = *bytesize.ByteSizeCaster()
 
 	return s
 }

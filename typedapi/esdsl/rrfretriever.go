@@ -43,30 +43,6 @@ func (s *_rRFRetriever) Fields(fields ...string) *_rRFRetriever {
 	return s
 }
 
-func (s *_rRFRetriever) Filter(filters ...types.QueryVariant) *_rRFRetriever {
-
-	s.v.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		s.v.Filter[i] = *v.QueryCaster()
-	}
-
-	return s
-}
-
-func (s *_rRFRetriever) MinScore(minscore float32) *_rRFRetriever {
-
-	s.v.MinScore = &minscore
-
-	return s
-}
-
-func (s *_rRFRetriever) Name_(name_ string) *_rRFRetriever {
-
-	s.v.Name_ = &name_
-
-	return s
-}
-
 func (s *_rRFRetriever) Query(query string) *_rRFRetriever {
 
 	s.v.Query = &query
@@ -95,6 +71,30 @@ func (s *_rRFRetriever) Retrievers(retrievers ...types.RetrieverContainerVariant
 		s.v.Retrievers = append(s.v.Retrievers, *v.RetrieverContainerCaster())
 
 	}
+	return s
+}
+
+func (s *_rRFRetriever) Filter(filters ...types.QueryVariant) *_rRFRetriever {
+
+	s.v.Filter = make([]types.Query, len(filters))
+	for i, v := range filters {
+		s.v.Filter[i] = *v.QueryCaster()
+	}
+
+	return s
+}
+
+func (s *_rRFRetriever) MinScore(minscore float32) *_rRFRetriever {
+
+	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_rRFRetriever) Name_(name_ string) *_rRFRetriever {
+
+	s.v.Name_ = &name_
+
 	return s
 }
 

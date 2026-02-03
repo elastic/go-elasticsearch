@@ -32,7 +32,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/completion/CompletionRequest.ts#L25-L63
 type Request struct {
-
 	// Input Inference input.
 	// Either a string or an array of strings.
 	Input []string `json:"input"`

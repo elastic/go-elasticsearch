@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/get_buckets/MlGetBucketsRequest.ts#L26-L145
 type Request struct {
-
 	// AnomalyScore Refer to the description for the `anomaly_score` query parameter.
 	AnomalyScore *types.Float64 `json:"anomaly_score,omitempty"`
 	// Desc Refer to the description for the `desc` query parameter.

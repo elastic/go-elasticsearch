@@ -57,13 +57,6 @@ func (s *_matchQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsphrase
 	return s
 }
 
-func (s *_matchQuery) Boost(boost float32) *_matchQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_matchQuery) CutoffFrequency(cutofffrequency types.Float64) *_matchQuery {
 
 	s.v.CutoffFrequency = &cutofffrequency
@@ -133,16 +126,23 @@ func (s *_matchQuery) Query(query string) *_matchQuery {
 	return s
 }
 
-func (s *_matchQuery) QueryName_(queryname_ string) *_matchQuery {
+func (s *_matchQuery) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *_matchQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.ZeroTermsQuery = &zerotermsquery
+	return s
+}
+
+func (s *_matchQuery) Boost(boost float32) *_matchQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }
 
-func (s *_matchQuery) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *_matchQuery {
+func (s *_matchQuery) QueryName_(queryname_ string) *_matchQuery {
 
-	s.v.ZeroTermsQuery = &zerotermsquery
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

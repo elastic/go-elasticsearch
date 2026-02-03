@@ -39,6 +39,13 @@ func NewEwmaMovingAverageAggregation(settings types.EwmaModelSettingsVariant) *_
 
 }
 
+func (s *_ewmaMovingAverageAggregation) Settings(settings types.EwmaModelSettingsVariant) *_ewmaMovingAverageAggregation {
+
+	s.v.Settings = *settings.EwmaModelSettingsCaster()
+
+	return s
+}
+
 func (s *_ewmaMovingAverageAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_ewmaMovingAverageAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -69,13 +76,6 @@ func (s *_ewmaMovingAverageAggregation) Minimize(minimize bool) *_ewmaMovingAver
 func (s *_ewmaMovingAverageAggregation) Predict(predict int) *_ewmaMovingAverageAggregation {
 
 	s.v.Predict = &predict
-
-	return s
-}
-
-func (s *_ewmaMovingAverageAggregation) Settings(settings types.EwmaModelSettingsVariant) *_ewmaMovingAverageAggregation {
-
-	s.v.Settings = *settings.EwmaModelSettingsCaster()
 
 	return s
 }

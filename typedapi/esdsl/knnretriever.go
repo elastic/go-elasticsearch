@@ -48,33 +48,9 @@ func (s *_knnRetriever) Field(field string) *_knnRetriever {
 	return s
 }
 
-func (s *_knnRetriever) Filter(filters ...types.QueryVariant) *_knnRetriever {
-
-	s.v.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		s.v.Filter[i] = *v.QueryCaster()
-	}
-
-	return s
-}
-
 func (s *_knnRetriever) K(k int) *_knnRetriever {
 
 	s.v.K = k
-
-	return s
-}
-
-func (s *_knnRetriever) MinScore(minscore float32) *_knnRetriever {
-
-	s.v.MinScore = &minscore
-
-	return s
-}
-
-func (s *_knnRetriever) Name_(name_ string) *_knnRetriever {
-
-	s.v.Name_ = &name_
 
 	return s
 }
@@ -110,6 +86,30 @@ func (s *_knnRetriever) RescoreVector(rescorevector types.RescoreVectorVariant) 
 func (s *_knnRetriever) Similarity(similarity float32) *_knnRetriever {
 
 	s.v.Similarity = &similarity
+
+	return s
+}
+
+func (s *_knnRetriever) Filter(filters ...types.QueryVariant) *_knnRetriever {
+
+	s.v.Filter = make([]types.Query, len(filters))
+	for i, v := range filters {
+		s.v.Filter[i] = *v.QueryCaster()
+	}
+
+	return s
+}
+
+func (s *_knnRetriever) MinScore(minscore float32) *_knnRetriever {
+
+	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_knnRetriever) Name_(name_ string) *_knnRetriever {
+
+	s.v.Name_ = &name_
 
 	return s
 }

@@ -20,6 +20,14 @@
 
 package types
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+)
+
 // Hint type.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/suggest_user_profiles/types.ts#L23-L34
@@ -30,6 +38,55 @@ type Hint struct {
 	Labels map[string][]string `json:"labels,omitempty"`
 	// Uids A list of profile UIDs to match against.
 	Uids []string `json:"uids,omitempty"`
+}
+
+func (s *Hint) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "labels":
+			if s.Labels == nil {
+				s.Labels = make(map[string][]string, 0)
+			}
+			rawMsg := make(map[string]json.RawMessage, 0)
+			dec.Decode(&rawMsg)
+			for key, value := range rawMsg {
+				v := bytes.TrimSpace(value)
+				if len(v) > 0 && v[0] == '[' {
+					var o []string
+					if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Labels", err)
+					}
+					s.Labels[key] = o
+					continue
+				}
+
+				var o string
+				if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Labels", err)
+				}
+				s.Labels[key] = append(s.Labels[key], o)
+			}
+
+		case "uids":
+			if err := dec.Decode(&s.Uids); err != nil {
+				return fmt.Errorf("%s | %w", "Uids", err)
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewHint returns a Hint.

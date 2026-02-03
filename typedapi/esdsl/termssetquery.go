@@ -38,13 +38,6 @@ func NewTermsSetQuery(key string) *_termsSetQuery {
 	}
 }
 
-func (s *_termsSetQuery) Boost(boost float32) *_termsSetQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_termsSetQuery) MinimumShouldMatch(minimumshouldmatch types.MinimumShouldMatchVariant) *_termsSetQuery {
 
 	s.v.MinimumShouldMatch = *minimumshouldmatch.MinimumShouldMatchCaster()
@@ -66,13 +59,6 @@ func (s *_termsSetQuery) MinimumShouldMatchScript(minimumshouldmatchscript types
 	return s
 }
 
-func (s *_termsSetQuery) QueryName_(queryname_ string) *_termsSetQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_termsSetQuery) Terms(terms ...types.FieldValueVariant) *_termsSetQuery {
 
 	for _, v := range terms {
@@ -80,6 +66,20 @@ func (s *_termsSetQuery) Terms(terms ...types.FieldValueVariant) *_termsSetQuery
 		s.v.Terms = append(s.v.Terms, *v.FieldValueCaster())
 
 	}
+	return s
+}
+
+func (s *_termsSetQuery) Boost(boost float32) *_termsSetQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_termsSetQuery) QueryName_(queryname_ string) *_termsSetQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

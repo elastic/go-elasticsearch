@@ -38,6 +38,13 @@ func NewConstantKeywordProperty() *_constantKeywordProperty {
 
 }
 
+func (s *_constantKeywordProperty) Value(value json.RawMessage) *_constantKeywordProperty {
+
+	s.v.Value = value
+
+	return s
+}
+
 func (s *_constantKeywordProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_constantKeywordProperty {
 
 	s.v.Dynamic = &dynamic
@@ -117,13 +124,6 @@ func (s *_constantKeywordProperty) AddProperty(key string, value types.PropertyV
 func (s *_constantKeywordProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_constantKeywordProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
-	return s
-}
-
-func (s *_constantKeywordProperty) Value(value json.RawMessage) *_constantKeywordProperty {
-
-	s.v.Value = value
-
 	return s
 }
 

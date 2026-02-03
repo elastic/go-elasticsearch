@@ -34,18 +34,6 @@ func NewWatcherInput() *_watcherInput {
 	return &_watcherInput{v: types.NewWatcherInput()}
 }
 
-// AdditionalWatcherInputProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_watcherInput) AdditionalWatcherInputProperty(key string, value json.RawMessage) *_watcherInput {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalWatcherInputProperty = tmp
-	return s
-}
-
 func (s *_watcherInput) Chain(chain types.ChainInputVariant) *_watcherInput {
 
 	s.v.Chain = chain.ChainInputCaster()

@@ -37,6 +37,20 @@ func NewInferenceAggregation() *_inferenceAggregation {
 
 }
 
+func (s *_inferenceAggregation) InferenceConfig(inferenceconfig types.InferenceConfigContainerVariant) *_inferenceAggregation {
+
+	s.v.InferenceConfig = inferenceconfig.InferenceConfigContainerCaster()
+
+	return s
+}
+
+func (s *_inferenceAggregation) ModelId(name string) *_inferenceAggregation {
+
+	s.v.ModelId = name
+
+	return s
+}
+
 func (s *_inferenceAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_inferenceAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -54,20 +68,6 @@ func (s *_inferenceAggregation) Format(format string) *_inferenceAggregation {
 func (s *_inferenceAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_inferenceAggregation {
 
 	s.v.GapPolicy = &gappolicy
-	return s
-}
-
-func (s *_inferenceAggregation) InferenceConfig(inferenceconfig types.InferenceConfigContainerVariant) *_inferenceAggregation {
-
-	s.v.InferenceConfig = inferenceconfig.InferenceConfigContainerCaster()
-
-	return s
-}
-
-func (s *_inferenceAggregation) ModelId(name string) *_inferenceAggregation {
-
-	s.v.ModelId = name
-
 	return s
 }
 

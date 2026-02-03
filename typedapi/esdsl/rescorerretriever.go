@@ -37,6 +37,23 @@ func NewRescorerRetriever(retriever types.RetrieverContainerVariant) *_rescorerR
 
 }
 
+func (s *_rescorerRetriever) Rescore(rescores ...types.RescoreVariant) *_rescorerRetriever {
+
+	s.v.Rescore = make([]types.Rescore, len(rescores))
+	for i, v := range rescores {
+		s.v.Rescore[i] = *v.RescoreCaster()
+	}
+
+	return s
+}
+
+func (s *_rescorerRetriever) Retriever(retriever types.RetrieverContainerVariant) *_rescorerRetriever {
+
+	s.v.Retriever = *retriever.RetrieverContainerCaster()
+
+	return s
+}
+
 func (s *_rescorerRetriever) Filter(filters ...types.QueryVariant) *_rescorerRetriever {
 
 	s.v.Filter = make([]types.Query, len(filters))
@@ -57,23 +74,6 @@ func (s *_rescorerRetriever) MinScore(minscore float32) *_rescorerRetriever {
 func (s *_rescorerRetriever) Name_(name_ string) *_rescorerRetriever {
 
 	s.v.Name_ = &name_
-
-	return s
-}
-
-func (s *_rescorerRetriever) Rescore(rescores ...types.RescoreVariant) *_rescorerRetriever {
-
-	s.v.Rescore = make([]types.Rescore, len(rescores))
-	for i, v := range rescores {
-		s.v.Rescore[i] = *v.RescoreCaster()
-	}
-
-	return s
-}
-
-func (s *_rescorerRetriever) Retriever(retriever types.RetrieverContainerVariant) *_rescorerRetriever {
-
-	s.v.Retriever = *retriever.RetrieverContainerCaster()
 
 	return s
 }

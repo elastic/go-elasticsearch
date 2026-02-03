@@ -36,16 +36,16 @@ func NewRankEvalMetricExpectedReciprocalRank(maximumrelevance int) *_rankEvalMet
 
 }
 
-func (s *_rankEvalMetricExpectedReciprocalRank) K(k int) *_rankEvalMetricExpectedReciprocalRank {
+func (s *_rankEvalMetricExpectedReciprocalRank) MaximumRelevance(maximumrelevance int) *_rankEvalMetricExpectedReciprocalRank {
 
-	s.v.K = &k
+	s.v.MaximumRelevance = maximumrelevance
 
 	return s
 }
 
-func (s *_rankEvalMetricExpectedReciprocalRank) MaximumRelevance(maximumrelevance int) *_rankEvalMetricExpectedReciprocalRank {
+func (s *_rankEvalMetricExpectedReciprocalRank) K(k int) *_rankEvalMetricExpectedReciprocalRank {
 
-	s.v.MaximumRelevance = maximumrelevance
+	s.v.K = &k
 
 	return s
 }

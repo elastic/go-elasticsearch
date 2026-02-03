@@ -39,6 +39,13 @@ func (s *_wordDelimiterGraphTokenFilter) AdjustOffsets(adjustoffsets bool) *_wor
 	return s
 }
 
+func (s *_wordDelimiterGraphTokenFilter) IgnoreKeywords(ignorekeywords bool) *_wordDelimiterGraphTokenFilter {
+
+	s.v.IgnoreKeywords = &ignorekeywords
+
+	return s
+}
+
 func (s *_wordDelimiterGraphTokenFilter) CatenateAll(catenateall bool) *_wordDelimiterGraphTokenFilter {
 
 	s.v.CatenateAll = &catenateall
@@ -70,13 +77,6 @@ func (s *_wordDelimiterGraphTokenFilter) GenerateNumberParts(generatenumberparts
 func (s *_wordDelimiterGraphTokenFilter) GenerateWordParts(generatewordparts bool) *_wordDelimiterGraphTokenFilter {
 
 	s.v.GenerateWordParts = &generatewordparts
-
-	return s
-}
-
-func (s *_wordDelimiterGraphTokenFilter) IgnoreKeywords(ignorekeywords bool) *_wordDelimiterGraphTokenFilter {
-
-	s.v.IgnoreKeywords = &ignorekeywords
 
 	return s
 }

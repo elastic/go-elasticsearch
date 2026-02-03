@@ -38,6 +38,12 @@ func NewNormalizeAggregation() *_normalizeAggregation {
 
 }
 
+func (s *_normalizeAggregation) Method(method normalizemethod.NormalizeMethod) *_normalizeAggregation {
+
+	s.v.Method = &method
+	return s
+}
+
 func (s *_normalizeAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_normalizeAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -55,12 +61,6 @@ func (s *_normalizeAggregation) Format(format string) *_normalizeAggregation {
 func (s *_normalizeAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_normalizeAggregation {
 
 	s.v.GapPolicy = &gappolicy
-	return s
-}
-
-func (s *_normalizeAggregation) Method(method normalizemethod.NormalizeMethod) *_normalizeAggregation {
-
-	s.v.Method = &method
 	return s
 }
 

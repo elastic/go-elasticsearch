@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/update_cross_cluster_api_key/UpdateCrossClusterApiKeyRequest.ts#L25-L85
 type Request struct {
-
 	// Access The access to be granted to this API key.
 	// The access is composed of permissions for cross cluster search and cross
 	// cluster replication.

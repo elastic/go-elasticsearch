@@ -46,23 +46,9 @@ func (s *_setProcessor) CopyFrom(field string) *_setProcessor {
 	return s
 }
 
-func (s *_setProcessor) Description(description string) *_setProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_setProcessor) Field(field string) *_setProcessor {
 
 	s.v.Field = field
-
-	return s
-}
-
-func (s *_setProcessor) If(if_ types.ScriptVariant) *_setProcessor {
-
-	s.v.If = if_.ScriptCaster()
 
 	return s
 }
@@ -74,16 +60,44 @@ func (s *_setProcessor) IgnoreEmptyValue(ignoreemptyvalue bool) *_setProcessor {
 	return s
 }
 
-func (s *_setProcessor) IgnoreFailure(ignorefailure bool) *_setProcessor {
+func (s *_setProcessor) MediaType(mediatype string) *_setProcessor {
 
-	s.v.IgnoreFailure = &ignorefailure
+	s.v.MediaType = &mediatype
 
 	return s
 }
 
-func (s *_setProcessor) MediaType(mediatype string) *_setProcessor {
+func (s *_setProcessor) Override(override bool) *_setProcessor {
 
-	s.v.MediaType = &mediatype
+	s.v.Override = &override
+
+	return s
+}
+
+func (s *_setProcessor) Value(value json.RawMessage) *_setProcessor {
+
+	s.v.Value = value
+
+	return s
+}
+
+func (s *_setProcessor) Description(description string) *_setProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_setProcessor) If(if_ types.ScriptVariant) *_setProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_setProcessor) IgnoreFailure(ignorefailure bool) *_setProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
 
 	return s
 }
@@ -98,23 +112,9 @@ func (s *_setProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant)
 	return s
 }
 
-func (s *_setProcessor) Override(override bool) *_setProcessor {
-
-	s.v.Override = &override
-
-	return s
-}
-
 func (s *_setProcessor) Tag(tag string) *_setProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_setProcessor) Value(value json.RawMessage) *_setProcessor {
-
-	s.v.Value = value
 
 	return s
 }

@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/validate_query/IndicesValidateQueryRequest.ts#L25-L122
 type Request struct {
-
 	// Query Query in the Lucene query string syntax.
 	Query *types.Query `json:"query,omitempty"`
 }

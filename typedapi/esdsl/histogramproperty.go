@@ -36,6 +36,13 @@ func NewHistogramProperty() *_histogramProperty {
 
 }
 
+func (s *_histogramProperty) IgnoreMalformed(ignoremalformed bool) *_histogramProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
 func (s *_histogramProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_histogramProperty {
 
 	s.v.Dynamic = &dynamic
@@ -66,13 +73,6 @@ func (s *_histogramProperty) AddField(key string, value types.PropertyVariant) *
 func (s *_histogramProperty) IgnoreAbove(ignoreabove int) *_histogramProperty {
 
 	s.v.IgnoreAbove = &ignoreabove
-
-	return s
-}
-
-func (s *_histogramProperty) IgnoreMalformed(ignoremalformed bool) *_histogramProperty {
-
-	s.v.IgnoreMalformed = &ignoremalformed
 
 	return s
 }

@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/connector/sync_job_error/SyncJobErrorRequest.ts#L23-L52
 type Request struct {
-
 	// Error The error for the connector sync job error field.
 	Error string `json:"error"`
 }

@@ -44,15 +44,15 @@ func (s *_rankVectorProperty) Dims(dims int) *_rankVectorProperty {
 	return s
 }
 
-func (s *_rankVectorProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_rankVectorProperty {
-
-	s.v.Dynamic = &dynamic
-	return s
-}
-
 func (s *_rankVectorProperty) ElementType(elementtype rankvectorelementtype.RankVectorElementType) *_rankVectorProperty {
 
 	s.v.ElementType = &elementtype
+	return s
+}
+
+func (s *_rankVectorProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_rankVectorProperty {
+
+	s.v.Dynamic = &dynamic
 	return s
 }
 

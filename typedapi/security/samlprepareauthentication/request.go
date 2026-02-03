@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/saml_prepare_authentication/Request.ts#L22-L67
 type Request struct {
-
 	// Acs The Assertion Consumer Service URL that matches the one of the SAML realms in
 	// Elasticsearch.
 	// The realm is used to generate the authentication request. You must specify

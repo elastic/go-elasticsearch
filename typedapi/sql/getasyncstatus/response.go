@@ -24,7 +24,6 @@ package getasyncstatus
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/sql/get_async_status/SqlGetAsyncStatusResponse.ts#L23-L55
 type Response struct {
-
 	// CompletionStatus The HTTP status code for the search.
 	// The API returns this property only for completed searches.
 	CompletionStatus *uint `json:"completion_status,omitempty"`

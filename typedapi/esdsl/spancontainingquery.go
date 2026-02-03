@@ -46,16 +46,16 @@ func (s *_spanContainingQuery) Big(big types.SpanQueryVariant) *_spanContainingQ
 	return s
 }
 
-func (s *_spanContainingQuery) Boost(boost float32) *_spanContainingQuery {
+func (s *_spanContainingQuery) Little(little types.SpanQueryVariant) *_spanContainingQuery {
 
-	s.v.Boost = &boost
+	s.v.Little = *little.SpanQueryCaster()
 
 	return s
 }
 
-func (s *_spanContainingQuery) Little(little types.SpanQueryVariant) *_spanContainingQuery {
+func (s *_spanContainingQuery) Boost(boost float32) *_spanContainingQuery {
 
-	s.v.Little = *little.SpanQueryCaster()
+	s.v.Boost = &boost
 
 	return s
 }

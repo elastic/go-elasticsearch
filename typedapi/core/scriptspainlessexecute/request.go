@@ -32,7 +32,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/scripts_painless_execute/ExecutePainlessScriptRequest.ts#L24-L64
 type Request struct {
-
 	// Context The context that the script should run in.
 	// NOTE: Result ordering in the field contexts is not guaranteed.
 	Context *painlesscontext.PainlessContext `json:"context,omitempty"`

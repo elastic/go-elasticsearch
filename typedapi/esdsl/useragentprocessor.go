@@ -38,13 +38,6 @@ func NewUserAgentProcessor() *_userAgentProcessor {
 
 }
 
-func (s *_userAgentProcessor) Description(description string) *_userAgentProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_userAgentProcessor) ExtractDeviceType(extractdevicetype bool) *_userAgentProcessor {
 
 	s.v.ExtractDeviceType = &extractdevicetype
@@ -59,34 +52,10 @@ func (s *_userAgentProcessor) Field(field string) *_userAgentProcessor {
 	return s
 }
 
-func (s *_userAgentProcessor) If(if_ types.ScriptVariant) *_userAgentProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_userAgentProcessor) IgnoreFailure(ignorefailure bool) *_userAgentProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
-
-	return s
-}
-
 func (s *_userAgentProcessor) IgnoreMissing(ignoremissing bool) *_userAgentProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
 
-	return s
-}
-
-func (s *_userAgentProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_userAgentProcessor {
-
-	for _, v := range onfailures {
-
-		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
-
-	}
 	return s
 }
 
@@ -107,16 +76,47 @@ func (s *_userAgentProcessor) RegexFile(regexfile string) *_userAgentProcessor {
 	return s
 }
 
-func (s *_userAgentProcessor) Tag(tag string) *_userAgentProcessor {
+func (s *_userAgentProcessor) TargetField(field string) *_userAgentProcessor {
 
-	s.v.Tag = &tag
+	s.v.TargetField = &field
 
 	return s
 }
 
-func (s *_userAgentProcessor) TargetField(field string) *_userAgentProcessor {
+func (s *_userAgentProcessor) Description(description string) *_userAgentProcessor {
 
-	s.v.TargetField = &field
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_userAgentProcessor) If(if_ types.ScriptVariant) *_userAgentProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_userAgentProcessor) IgnoreFailure(ignorefailure bool) *_userAgentProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
+func (s *_userAgentProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_userAgentProcessor {
+
+	for _, v := range onfailures {
+
+		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
+
+	}
+	return s
+}
+
+func (s *_userAgentProcessor) Tag(tag string) *_userAgentProcessor {
+
+	s.v.Tag = &tag
 
 	return s
 }

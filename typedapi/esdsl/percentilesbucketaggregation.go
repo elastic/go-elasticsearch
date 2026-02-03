@@ -37,6 +37,16 @@ func NewPercentilesBucketAggregation() *_percentilesBucketAggregation {
 
 }
 
+func (s *_percentilesBucketAggregation) Percents(percents ...types.Float64) *_percentilesBucketAggregation {
+
+	for _, v := range percents {
+
+		s.v.Percents = append(s.v.Percents, v)
+
+	}
+	return s
+}
+
 func (s *_percentilesBucketAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_percentilesBucketAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -54,16 +64,6 @@ func (s *_percentilesBucketAggregation) Format(format string) *_percentilesBucke
 func (s *_percentilesBucketAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_percentilesBucketAggregation {
 
 	s.v.GapPolicy = &gappolicy
-	return s
-}
-
-func (s *_percentilesBucketAggregation) Percents(percents ...types.Float64) *_percentilesBucketAggregation {
-
-	for _, v := range percents {
-
-		s.v.Percents = append(s.v.Percents, v)
-
-	}
 	return s
 }
 

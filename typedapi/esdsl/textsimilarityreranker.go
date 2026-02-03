@@ -49,16 +49,6 @@ func (s *_textSimilarityReranker) Field(field string) *_textSimilarityReranker {
 	return s
 }
 
-func (s *_textSimilarityReranker) Filter(filters ...types.QueryVariant) *_textSimilarityReranker {
-
-	s.v.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		s.v.Filter[i] = *v.QueryCaster()
-	}
-
-	return s
-}
-
 func (s *_textSimilarityReranker) InferenceId(inferenceid string) *_textSimilarityReranker {
 
 	s.v.InferenceId = &inferenceid
@@ -73,20 +63,6 @@ func (s *_textSimilarityReranker) InferenceText(inferencetext string) *_textSimi
 	return s
 }
 
-func (s *_textSimilarityReranker) MinScore(minscore float32) *_textSimilarityReranker {
-
-	s.v.MinScore = &minscore
-
-	return s
-}
-
-func (s *_textSimilarityReranker) Name_(name_ string) *_textSimilarityReranker {
-
-	s.v.Name_ = &name_
-
-	return s
-}
-
 func (s *_textSimilarityReranker) RankWindowSize(rankwindowsize int) *_textSimilarityReranker {
 
 	s.v.RankWindowSize = &rankwindowsize
@@ -97,6 +73,30 @@ func (s *_textSimilarityReranker) RankWindowSize(rankwindowsize int) *_textSimil
 func (s *_textSimilarityReranker) Retriever(retriever types.RetrieverContainerVariant) *_textSimilarityReranker {
 
 	s.v.Retriever = *retriever.RetrieverContainerCaster()
+
+	return s
+}
+
+func (s *_textSimilarityReranker) Filter(filters ...types.QueryVariant) *_textSimilarityReranker {
+
+	s.v.Filter = make([]types.Query, len(filters))
+	for i, v := range filters {
+		s.v.Filter[i] = *v.QueryCaster()
+	}
+
+	return s
+}
+
+func (s *_textSimilarityReranker) MinScore(minscore float32) *_textSimilarityReranker {
+
+	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_textSimilarityReranker) Name_(name_ string) *_textSimilarityReranker {
+
+	s.v.Name_ = &name_
 
 	return s
 }

@@ -36,6 +36,20 @@ func NewSparseVectorProperty() *_sparseVectorProperty {
 
 }
 
+func (s *_sparseVectorProperty) IndexOptions(indexoptions types.SparseVectorIndexOptionsVariant) *_sparseVectorProperty {
+
+	s.v.IndexOptions = indexoptions.SparseVectorIndexOptionsCaster()
+
+	return s
+}
+
+func (s *_sparseVectorProperty) Store(store bool) *_sparseVectorProperty {
+
+	s.v.Store = &store
+
+	return s
+}
+
 func (s *_sparseVectorProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_sparseVectorProperty {
 
 	s.v.Dynamic = &dynamic
@@ -66,13 +80,6 @@ func (s *_sparseVectorProperty) AddField(key string, value types.PropertyVariant
 func (s *_sparseVectorProperty) IgnoreAbove(ignoreabove int) *_sparseVectorProperty {
 
 	s.v.IgnoreAbove = &ignoreabove
-
-	return s
-}
-
-func (s *_sparseVectorProperty) IndexOptions(indexoptions types.SparseVectorIndexOptionsVariant) *_sparseVectorProperty {
-
-	s.v.IndexOptions = indexoptions.SparseVectorIndexOptionsCaster()
 
 	return s
 }
@@ -116,13 +123,6 @@ func (s *_sparseVectorProperty) AddProperty(key string, value types.PropertyVari
 	tmp[key] = *value.PropertyCaster()
 
 	s.v.Properties = tmp
-	return s
-}
-
-func (s *_sparseVectorProperty) Store(store bool) *_sparseVectorProperty {
-
-	s.v.Store = &store
-
 	return s
 }
 

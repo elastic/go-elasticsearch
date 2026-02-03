@@ -41,16 +41,16 @@ func (s *_geoCentroidAggregation) Count(count int64) *_geoCentroidAggregation {
 	return s
 }
 
-func (s *_geoCentroidAggregation) Field(field string) *_geoCentroidAggregation {
+func (s *_geoCentroidAggregation) Location(geolocation types.GeoLocationVariant) *_geoCentroidAggregation {
 
-	s.v.Field = &field
+	s.v.Location = *geolocation.GeoLocationCaster()
 
 	return s
 }
 
-func (s *_geoCentroidAggregation) Location(geolocation types.GeoLocationVariant) *_geoCentroidAggregation {
+func (s *_geoCentroidAggregation) Field(field string) *_geoCentroidAggregation {
 
-	s.v.Location = *geolocation.GeoLocationCaster()
+	s.v.Field = &field
 
 	return s
 }

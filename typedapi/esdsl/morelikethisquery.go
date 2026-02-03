@@ -43,13 +43,6 @@ func (s *_moreLikeThisQuery) Analyzer(analyzer string) *_moreLikeThisQuery {
 	return s
 }
 
-func (s *_moreLikeThisQuery) Boost(boost float32) *_moreLikeThisQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_moreLikeThisQuery) BoostTerms(boostterms types.Float64) *_moreLikeThisQuery {
 
 	s.v.BoostTerms = &boostterms
@@ -140,13 +133,6 @@ func (s *_moreLikeThisQuery) MinimumShouldMatch(minimumshouldmatch types.Minimum
 	return s
 }
 
-func (s *_moreLikeThisQuery) QueryName_(queryname_ string) *_moreLikeThisQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_moreLikeThisQuery) Routing(routing string) *_moreLikeThisQuery {
 
 	s.v.Routing = &routing
@@ -181,6 +167,20 @@ func (s *_moreLikeThisQuery) Version(versionnumber int64) *_moreLikeThisQuery {
 func (s *_moreLikeThisQuery) VersionType(versiontype versiontype.VersionType) *_moreLikeThisQuery {
 
 	s.v.VersionType = &versiontype
+	return s
+}
+
+func (s *_moreLikeThisQuery) Boost(boost float32) *_moreLikeThisQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_moreLikeThisQuery) QueryName_(queryname_ string) *_moreLikeThisQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

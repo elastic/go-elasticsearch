@@ -35,16 +35,26 @@ func NewSetSecurityUserProcessor() *_setSecurityUserProcessor {
 
 }
 
-func (s *_setSecurityUserProcessor) Description(description string) *_setSecurityUserProcessor {
+func (s *_setSecurityUserProcessor) Field(field string) *_setSecurityUserProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_setSecurityUserProcessor) Field(field string) *_setSecurityUserProcessor {
+func (s *_setSecurityUserProcessor) Properties(properties ...string) *_setSecurityUserProcessor {
 
-	s.v.Field = field
+	for _, v := range properties {
+
+		s.v.Properties = append(s.v.Properties, v)
+
+	}
+	return s
+}
+
+func (s *_setSecurityUserProcessor) Description(description string) *_setSecurityUserProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -68,16 +78,6 @@ func (s *_setSecurityUserProcessor) OnFailure(onfailures ...types.ProcessorConta
 	for _, v := range onfailures {
 
 		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
-
-	}
-	return s
-}
-
-func (s *_setSecurityUserProcessor) Properties(properties ...string) *_setSecurityUserProcessor {
-
-	for _, v := range properties {
-
-		s.v.Properties = append(s.v.Properties, v)
 
 	}
 	return s

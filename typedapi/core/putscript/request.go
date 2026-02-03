@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/put_script/PutScriptRequest.ts#L25-L87
 type Request struct {
-
 	// Script The script or search template, its parameters, and its language.
 	Script types.StoredScript `json:"script"`
 }

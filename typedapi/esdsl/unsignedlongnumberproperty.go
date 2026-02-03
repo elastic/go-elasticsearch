@@ -38,6 +38,13 @@ func NewUnsignedLongNumberProperty() *_unsignedLongNumberProperty {
 
 }
 
+func (s *_unsignedLongNumberProperty) NullValue(nullvalue uint64) *_unsignedLongNumberProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
 func (s *_unsignedLongNumberProperty) Boost(boost types.Float64) *_unsignedLongNumberProperty {
 
 	s.v.Boost = &boost
@@ -132,13 +139,6 @@ func (s *_unsignedLongNumberProperty) AddMeta(key string, value string) *_unsign
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_unsignedLongNumberProperty) NullValue(nullvalue uint64) *_unsignedLongNumberProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

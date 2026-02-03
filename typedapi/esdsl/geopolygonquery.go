@@ -35,13 +35,6 @@ func NewGeoPolygonQuery() *_geoPolygonQuery {
 
 }
 
-func (s *_geoPolygonQuery) Boost(boost float32) *_geoPolygonQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_geoPolygonQuery) GeoPolygonQuery(geopolygonquery map[string]types.GeoPolygonPoints) *_geoPolygonQuery {
 
 	s.v.GeoPolygonQuery = geopolygonquery
@@ -70,16 +63,23 @@ func (s *_geoPolygonQuery) IgnoreUnmapped(ignoreunmapped bool) *_geoPolygonQuery
 	return s
 }
 
-func (s *_geoPolygonQuery) QueryName_(queryname_ string) *_geoPolygonQuery {
+func (s *_geoPolygonQuery) ValidationMethod(validationmethod geovalidationmethod.GeoValidationMethod) *_geoPolygonQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.ValidationMethod = &validationmethod
+	return s
+}
+
+func (s *_geoPolygonQuery) Boost(boost float32) *_geoPolygonQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }
 
-func (s *_geoPolygonQuery) ValidationMethod(validationmethod geovalidationmethod.GeoValidationMethod) *_geoPolygonQuery {
+func (s *_geoPolygonQuery) QueryName_(queryname_ string) *_geoPolygonQuery {
 
-	s.v.ValidationMethod = &validationmethod
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

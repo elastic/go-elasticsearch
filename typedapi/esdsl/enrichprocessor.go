@@ -40,30 +40,9 @@ func NewEnrichProcessor(policyname string) *_enrichProcessor {
 
 }
 
-func (s *_enrichProcessor) Description(description string) *_enrichProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_enrichProcessor) Field(field string) *_enrichProcessor {
 
 	s.v.Field = field
-
-	return s
-}
-
-func (s *_enrichProcessor) If(if_ types.ScriptVariant) *_enrichProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_enrichProcessor) IgnoreFailure(ignorefailure bool) *_enrichProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
 
 	return s
 }
@@ -79,16 +58,6 @@ func (s *_enrichProcessor) MaxMatches(maxmatches int) *_enrichProcessor {
 
 	s.v.MaxMatches = &maxmatches
 
-	return s
-}
-
-func (s *_enrichProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_enrichProcessor {
-
-	for _, v := range onfailures {
-
-		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
-
-	}
 	return s
 }
 
@@ -112,16 +81,47 @@ func (s *_enrichProcessor) ShapeRelation(shaperelation geoshaperelation.GeoShape
 	return s
 }
 
-func (s *_enrichProcessor) Tag(tag string) *_enrichProcessor {
+func (s *_enrichProcessor) TargetField(field string) *_enrichProcessor {
 
-	s.v.Tag = &tag
+	s.v.TargetField = field
 
 	return s
 }
 
-func (s *_enrichProcessor) TargetField(field string) *_enrichProcessor {
+func (s *_enrichProcessor) Description(description string) *_enrichProcessor {
 
-	s.v.TargetField = field
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_enrichProcessor) If(if_ types.ScriptVariant) *_enrichProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_enrichProcessor) IgnoreFailure(ignorefailure bool) *_enrichProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
+func (s *_enrichProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_enrichProcessor {
+
+	for _, v := range onfailures {
+
+		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
+
+	}
+	return s
+}
+
+func (s *_enrichProcessor) Tag(tag string) *_enrichProcessor {
+
+	s.v.Tag = &tag
 
 	return s
 }

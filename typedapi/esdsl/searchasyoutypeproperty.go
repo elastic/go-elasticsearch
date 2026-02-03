@@ -45,6 +45,60 @@ func (s *_searchAsYouTypeProperty) Analyzer(analyzer string) *_searchAsYouTypePr
 	return s
 }
 
+func (s *_searchAsYouTypeProperty) Index(index bool) *_searchAsYouTypeProperty {
+
+	s.v.Index = &index
+
+	return s
+}
+
+func (s *_searchAsYouTypeProperty) IndexOptions(indexoptions indexoptions.IndexOptions) *_searchAsYouTypeProperty {
+
+	s.v.IndexOptions = &indexoptions
+	return s
+}
+
+func (s *_searchAsYouTypeProperty) MaxShingleSize(maxshinglesize int) *_searchAsYouTypeProperty {
+
+	s.v.MaxShingleSize = &maxshinglesize
+
+	return s
+}
+
+func (s *_searchAsYouTypeProperty) Norms(norms bool) *_searchAsYouTypeProperty {
+
+	s.v.Norms = &norms
+
+	return s
+}
+
+func (s *_searchAsYouTypeProperty) SearchAnalyzer(searchanalyzer string) *_searchAsYouTypeProperty {
+
+	s.v.SearchAnalyzer = &searchanalyzer
+
+	return s
+}
+
+func (s *_searchAsYouTypeProperty) SearchQuoteAnalyzer(searchquoteanalyzer string) *_searchAsYouTypeProperty {
+
+	s.v.SearchQuoteAnalyzer = &searchquoteanalyzer
+
+	return s
+}
+
+func (s *_searchAsYouTypeProperty) Similarity(similarity string) *_searchAsYouTypeProperty {
+
+	s.v.Similarity = &similarity
+
+	return s
+}
+
+func (s *_searchAsYouTypeProperty) TermVector(termvector termvectoroption.TermVectorOption) *_searchAsYouTypeProperty {
+
+	s.v.TermVector = &termvector
+	return s
+}
+
 func (s *_searchAsYouTypeProperty) CopyTo(fields ...string) *_searchAsYouTypeProperty {
 
 	s.v.CopyTo = fields
@@ -86,26 +140,6 @@ func (s *_searchAsYouTypeProperty) IgnoreAbove(ignoreabove int) *_searchAsYouTyp
 	return s
 }
 
-func (s *_searchAsYouTypeProperty) Index(index bool) *_searchAsYouTypeProperty {
-
-	s.v.Index = &index
-
-	return s
-}
-
-func (s *_searchAsYouTypeProperty) IndexOptions(indexoptions indexoptions.IndexOptions) *_searchAsYouTypeProperty {
-
-	s.v.IndexOptions = &indexoptions
-	return s
-}
-
-func (s *_searchAsYouTypeProperty) MaxShingleSize(maxshinglesize int) *_searchAsYouTypeProperty {
-
-	s.v.MaxShingleSize = &maxshinglesize
-
-	return s
-}
-
 func (s *_searchAsYouTypeProperty) Meta(meta map[string]string) *_searchAsYouTypeProperty {
 
 	s.v.Meta = meta
@@ -124,13 +158,6 @@ func (s *_searchAsYouTypeProperty) AddMeta(key string, value string) *_searchAsY
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_searchAsYouTypeProperty) Norms(norms bool) *_searchAsYouTypeProperty {
-
-	s.v.Norms = &norms
-
 	return s
 }
 
@@ -155,27 +182,6 @@ func (s *_searchAsYouTypeProperty) AddProperty(key string, value types.PropertyV
 	return s
 }
 
-func (s *_searchAsYouTypeProperty) SearchAnalyzer(searchanalyzer string) *_searchAsYouTypeProperty {
-
-	s.v.SearchAnalyzer = &searchanalyzer
-
-	return s
-}
-
-func (s *_searchAsYouTypeProperty) SearchQuoteAnalyzer(searchquoteanalyzer string) *_searchAsYouTypeProperty {
-
-	s.v.SearchQuoteAnalyzer = &searchquoteanalyzer
-
-	return s
-}
-
-func (s *_searchAsYouTypeProperty) Similarity(similarity string) *_searchAsYouTypeProperty {
-
-	s.v.Similarity = &similarity
-
-	return s
-}
-
 func (s *_searchAsYouTypeProperty) Store(store bool) *_searchAsYouTypeProperty {
 
 	s.v.Store = &store
@@ -186,12 +192,6 @@ func (s *_searchAsYouTypeProperty) Store(store bool) *_searchAsYouTypeProperty {
 func (s *_searchAsYouTypeProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_searchAsYouTypeProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
-	return s
-}
-
-func (s *_searchAsYouTypeProperty) TermVector(termvector termvectoroption.TermVectorOption) *_searchAsYouTypeProperty {
-
-	s.v.TermVector = &termvector
 	return s
 }
 

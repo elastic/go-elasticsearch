@@ -38,6 +38,13 @@ func NewShortNumberProperty() *_shortNumberProperty {
 
 }
 
+func (s *_shortNumberProperty) NullValue(nullvalue int) *_shortNumberProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
 func (s *_shortNumberProperty) Boost(boost types.Float64) *_shortNumberProperty {
 
 	s.v.Boost = &boost
@@ -132,13 +139,6 @@ func (s *_shortNumberProperty) AddMeta(key string, value string) *_shortNumberPr
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_shortNumberProperty) NullValue(nullvalue int) *_shortNumberProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

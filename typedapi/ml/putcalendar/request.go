@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/put_calendar/MlPutCalendarRequest.ts#L23-L51
 type Request struct {
-
 	// Description A description of the calendar.
 	Description *string `json:"description,omitempty"`
 	// JobIds An array of anomaly detection job identifiers.

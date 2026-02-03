@@ -38,16 +38,44 @@ func NewSplitProcessor(separator string) *_splitProcessor {
 
 }
 
-func (s *_splitProcessor) Description(description string) *_splitProcessor {
+func (s *_splitProcessor) Field(field string) *_splitProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_splitProcessor) Field(field string) *_splitProcessor {
+func (s *_splitProcessor) IgnoreMissing(ignoremissing bool) *_splitProcessor {
 
-	s.v.Field = field
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_splitProcessor) PreserveTrailing(preservetrailing bool) *_splitProcessor {
+
+	s.v.PreserveTrailing = &preservetrailing
+
+	return s
+}
+
+func (s *_splitProcessor) Separator(separator string) *_splitProcessor {
+
+	s.v.Separator = separator
+
+	return s
+}
+
+func (s *_splitProcessor) TargetField(field string) *_splitProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_splitProcessor) Description(description string) *_splitProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -66,13 +94,6 @@ func (s *_splitProcessor) IgnoreFailure(ignorefailure bool) *_splitProcessor {
 	return s
 }
 
-func (s *_splitProcessor) IgnoreMissing(ignoremissing bool) *_splitProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_splitProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_splitProcessor {
 
 	for _, v := range onfailures {
@@ -83,30 +104,9 @@ func (s *_splitProcessor) OnFailure(onfailures ...types.ProcessorContainerVarian
 	return s
 }
 
-func (s *_splitProcessor) PreserveTrailing(preservetrailing bool) *_splitProcessor {
-
-	s.v.PreserveTrailing = &preservetrailing
-
-	return s
-}
-
-func (s *_splitProcessor) Separator(separator string) *_splitProcessor {
-
-	s.v.Separator = separator
-
-	return s
-}
-
 func (s *_splitProcessor) Tag(tag string) *_splitProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_splitProcessor) TargetField(field string) *_splitProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }
