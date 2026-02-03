@@ -159,22 +159,33 @@ func TestBase64BulkIndexing(t *testing.T) {
 		b64Docs = append(b64Docs, b64Doc)
 	}
 
-	docs20k := []Doc{}
-	b64Docs20k := []B64Doc{}
-	// repeat to have 20k documents
-	for i := 0; i < 20; i++ {
-		docs20k = append(docs20k, docs...)
-		b64Docs20k = append(b64Docs20k, b64Docs...)
+	repeats := 20
+	iterations := 3
+	runChunkSizes := []int{100, 250, 500, 1000}
+	if testing.Short() {
+		repeats = 2
+		iterations = 1
+		runChunkSizes = []int{200}
+	}
+
+	docsAll := make([]Doc, 0, len(docs)*repeats)
+	b64DocsAll := make([]B64Doc, 0, len(b64Docs)*repeats)
+	// repeat to have a larger dataset
+	for i := 0; i < repeats; i++ {
+		docsAll = append(docsAll, docs...)
+		b64DocsAll = append(b64DocsAll, b64Docs...)
 	}
 
 	t.Run("Testing vectors as []float32 and base64", func(t *testing.T) {
 		var index = "vec-test"
 
-		runs := []Run{
-			{DatasetSize: 20000, ChunkSize: 100},
-			{DatasetSize: 20000, ChunkSize: 250},
-			{DatasetSize: 20000, ChunkSize: 500},
-			{DatasetSize: 20000, ChunkSize: 1000},
+		if testing.Short() {
+			t.Logf("Short mode enabled: repeats=%d iterations=%d chunkSizes=%v", repeats, iterations, runChunkSizes)
+		}
+
+		runs := make([]Run, 0, len(runChunkSizes))
+		for _, chunkSize := range runChunkSizes {
+			runs = append(runs, Run{DatasetSize: len(docsAll), ChunkSize: chunkSize})
 		}
 
 		results := []RunResult{}
@@ -193,12 +204,12 @@ func TestBase64BulkIndexing(t *testing.T) {
 
 			floatDuration := []int{}
 			base64Duration := []int{}
-			for i := 0; i < 3; i++ {
+			for i := 0; i < iterations; i++ {
 				// float32
 				floatDurationAsMillis := 0
 				setupElasticsearch(t, esClient, index)
 
-				for chunk := range slices.Chunk(docs20k, run.ChunkSize) {
+				for chunk := range slices.Chunk(docsAll, run.ChunkSize) {
 					d, err := ingestDocs(t, esClient, index, chunk)
 					if err != nil {
 						t.Fatalf("Error executing bulk request for float32 with %d docs: %s", run.DatasetSize, err)
@@ -210,7 +221,7 @@ func TestBase64BulkIndexing(t *testing.T) {
 				// base64
 				base64DurationAsMillis := 0
 				setupElasticsearch(t, esClient, index)
-				for chunk := range slices.Chunk(b64Docs20k, run.ChunkSize) {
+				for chunk := range slices.Chunk(b64DocsAll, run.ChunkSize) {
 					d, err := ingestDocs(t, esClient, index, chunk)
 					if err != nil {
 						t.Fatalf("Error executing bulk request for base64 with %d docs: %s", run.DatasetSize, err)
