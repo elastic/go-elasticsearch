@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/get_categories/MlGetCategoriesRequest.ts#L25-L82
 type Request struct {
-
 	// Page Configures pagination.
 	// This parameter has the `from` and `size` properties.
 	Page *types.Page `json:"page,omitempty"`

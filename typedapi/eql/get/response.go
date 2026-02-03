@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/eql/get/EqlGetResponse.ts#L22-L24
 type Response struct {
-
 	// Hits Contains matching events and sequences. Also contains related metadata.
 	Hits types.EqlHits `json:"hits"`
 	// Id Identifier for the search.

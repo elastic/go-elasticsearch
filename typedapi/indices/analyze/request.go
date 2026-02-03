@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/analyze/IndicesAnalyzeRequest.ts#L27-L119
 type Request struct {
-
 	// Analyzer The name of the analyzer that should be applied to the provided `text`.
 	// This could be a built-in analyzer, or an analyzer that’s been configured in
 	// the index.

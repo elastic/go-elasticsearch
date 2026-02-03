@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L103
 type Request struct {
-
 	// Filter Query used to limit documents the alias can access.
 	Filter *types.Query `json:"filter,omitempty"`
 	// IndexRouting Value used to route indexing operations to a specific shard.

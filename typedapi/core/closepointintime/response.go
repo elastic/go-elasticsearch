@@ -24,7 +24,6 @@ package closepointintime
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/close_point_in_time/ClosePointInTimeResponse.ts#L22-L42
 type Response struct {
-
 	// NumFreed The number of search contexts that were successfully closed.
 	NumFreed int `json:"num_freed"`
 	// Succeeded If `true`, all search contexts associated with the point-in-time ID were

@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/put_role/SecurityPutRoleResponse.ts#L22-L29
 type Response struct {
-
 	// Role When an existing role is updated, `created` is set to `false`.
 	Role types.CreatedStatus `json:"role"`
 }

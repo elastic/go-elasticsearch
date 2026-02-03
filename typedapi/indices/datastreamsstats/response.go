@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/data_streams_stats/IndicesDataStreamsStatsResponse.ts#L25-L43
 type Response struct {
-
 	// BackingIndices Total number of backing indices for the selected data streams.
 	BackingIndices int `json:"backing_indices"`
 	// DataStreamCount Total number of selected data streams.

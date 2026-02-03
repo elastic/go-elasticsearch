@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ilm/move_to_step/MoveToStepRequest.ts#L24-L64
 type Request struct {
-
 	// CurrentStep The step that the index is expected to be in.
 	CurrentStep types.StepKey `json:"current_step"`
 	// NextStep The step that you want to run.

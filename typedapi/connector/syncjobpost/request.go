@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/connector/sync_job_post/SyncJobPostRequest.ts#L23-L51
 type Request struct {
-
 	// Id The id of the associated connector
 	Id            string                                     `json:"id"`
 	JobType       *syncjobtype.SyncJobType                   `json:"job_type,omitempty"`

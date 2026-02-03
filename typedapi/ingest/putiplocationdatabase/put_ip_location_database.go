@@ -383,17 +383,6 @@ func (r *PutIpLocationDatabase) Pretty(pretty bool) *PutIpLocationDatabase {
 	return r
 }
 
-// API name: AdditionalDatabaseConfigurationProperty
-func (r *PutIpLocationDatabase) AdditionalDatabaseConfigurationProperty(additionaldatabaseconfigurationproperty map[string]json.RawMessage) *PutIpLocationDatabase {
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.AdditionalDatabaseConfigurationProperty = additionaldatabaseconfigurationproperty
-
-	return r
-}
-
 // API name: ipinfo
 func (r *PutIpLocationDatabase) Ipinfo(ipinfo *types.Ipinfo) *PutIpLocationDatabase {
 	if r.req == nil {

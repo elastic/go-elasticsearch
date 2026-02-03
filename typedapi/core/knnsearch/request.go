@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/knn_search/KnnSearchRequest.ts#L26-L112
 type Request struct {
-
 	// DocvalueFields The request returns doc values for field names matching these patterns
 	// in the `hits.fields` property of the response.
 	// It accepts wildcard (`*`) patterns.

@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/mget/MultiGetRequest.ts#L25-L127
 type Request struct {
-
 	// Docs The documents you want to retrieve. Required if no index is specified in the
 	// request URI.
 	Docs []types.MgetOperation `json:"docs,omitempty"`

@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/invalidate_api_key/SecurityInvalidateApiKeyResponse.ts#L23-L46
 type Response struct {
-
 	// ErrorCount The number of errors that were encountered when invalidating the API keys.
 	ErrorCount int `json:"error_count"`
 	// ErrorDetails Details about the errors.

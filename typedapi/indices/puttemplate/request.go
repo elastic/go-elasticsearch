@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/put_template/IndicesPutTemplateRequest.ts#L29-L125
 type Request struct {
-
 	// Aliases Aliases for the index.
 	Aliases map[string]types.Alias `json:"aliases,omitempty"`
 	// IndexPatterns Array of wildcard expressions used to match the names

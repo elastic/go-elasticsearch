@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/close_job/MlCloseJobRequest.ts#L24-L85
 type Request struct {
-
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
 	AllowNoMatch *bool `json:"allow_no_match,omitempty"`
 	// Force Refer to the descriptiion for the `force` query parameter.

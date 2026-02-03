@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/start_datafeed/MlStartDatafeedRequest.ts#L24-L99
 type Request struct {
-
 	// End Refer to the description for the `end` query parameter.
 	End types.DateTime `json:"end,omitempty"`
 	// Start Refer to the description for the `start` query parameter.

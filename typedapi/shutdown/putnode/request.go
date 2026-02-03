@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/shutdown/put_node/ShutdownPutNodeRequest.ts#L25-L108
 type Request struct {
-
 	// AllocationDelay Only valid if type is restart.
 	// Controls how long Elasticsearch will wait for the node to restart and join
 	// the cluster before reassigning its shards to other nodes.

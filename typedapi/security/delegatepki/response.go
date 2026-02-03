@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/delegate_pki/SecurityDelegatePkiResponse.ts#L24-L41
 type Response struct {
-
 	// AccessToken An access token associated with the subject distinguished name of the
 	// client's certificate.
 	AccessToken    string                `json:"access_token"`

@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/put_jinaai/PutJinaAiResponse.ts#L22-L24
 type Response struct {
-
 	// ChunkingSettings Chunking configuration object
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// InferenceId The inference Id

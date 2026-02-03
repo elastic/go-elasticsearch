@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/text_structure/find_structure/FindStructureResponse.ts#L27-L97
 type Response struct {
-
 	// Charset The character encoding used to parse the text.
 	Charset string `json:"charset"`
 	// ColumnNames If `format` is `delimited`, the `column_names` field lists the column names

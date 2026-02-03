@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/bulk_put_role/SecurityBulkPutRoleResponse.ts#L22-L41
 type Response struct {
-
 	// Created Array of created roles
 	Created []string `json:"created,omitempty"`
 	// Errors Present if any updates resulted in errors

@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/create/IndicesCreateRequest.ts#L28-L108
 type Request struct {
-
 	// Aliases Aliases for the index.
 	Aliases map[string]types.Alias `json:"aliases,omitempty"`
 	// Mappings Mapping for fields in the index. If specified, this mapping can include:

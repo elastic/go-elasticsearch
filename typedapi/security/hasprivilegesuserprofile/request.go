@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/has_privileges_user_profile/Request.ts#L24-L55
 type Request struct {
-
 	// Privileges An object containing all the privileges to be checked.
 	Privileges types.PrivilegesCheck `json:"privileges"`
 	// Uids A list of profile IDs. The privileges are checked for associated users of the

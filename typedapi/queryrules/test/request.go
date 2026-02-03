@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/query_rules/test/QueryRulesetTestRequest.ts#L24-L57
 type Request struct {
-
 	// MatchCriteria The match criteria to apply to rules in the given query ruleset.
 	// Match criteria should match the keys defined in the `criteria.metadata` field
 	// of the rule.

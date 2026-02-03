@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L37-L184
 type Request struct {
-
 	// Aggregations If set, the datafeed performs aggregation searches.
 	// Support for aggregations is limited and should be used only with low
 	// cardinality data.

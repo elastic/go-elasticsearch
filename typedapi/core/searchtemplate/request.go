@@ -33,7 +33,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/search_template/SearchTemplateRequest.ts#L32-L152
 type Request struct {
-
 	// Explain If `true`, returns detailed information about score calculation as part of
 	// each hit.
 	// If you specify both this and the `explain` query parameter, the API uses only

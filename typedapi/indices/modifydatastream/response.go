@@ -24,7 +24,6 @@ package modifydatastream
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/modify_data_stream/IndicesModifyDataStreamResponse.ts#L22-L24
 type Response struct {
-
 	// Acknowledged For a successful response, this value is always true. On failure, an
 	// exception is returned instead.
 	Acknowledged bool `json:"acknowledged"`

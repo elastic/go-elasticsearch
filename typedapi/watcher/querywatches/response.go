@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/watcher/query_watches/WatcherQueryWatchesResponse.ts#L23-L34
 type Response struct {
-
 	// Count The total number of watches found.
 	Count int `json:"count"`
 	// Watches A list of watches based on the `from`, `size`, or `search_after` request body

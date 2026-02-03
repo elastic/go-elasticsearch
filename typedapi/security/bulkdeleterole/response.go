@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/bulk_delete_role/SecurityBulkDeleteRoleResponse.ts#L22-L37
 type Response struct {
-
 	// Deleted Array of deleted roles
 	Deleted []string `json:"deleted,omitempty"`
 	// Errors Present if any deletes resulted in errors

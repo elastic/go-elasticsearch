@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/simulate_template/IndicesSimulateTemplateRequest.ts#L27-L135
 type Request struct {
-
 	// AllowAutoCreate This setting overrides the value of the `action.auto_create_index` cluster
 	// setting.
 	// If set to `true` in a template, then indices can be automatically created

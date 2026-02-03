@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/cluster/put_settings/ClusterPutSettingsRequest.ts#L25-L71
 type Request struct {
-
 	// Persistent The settings that persist after the cluster restarts.
 	Persistent map[string]json.RawMessage `json:"persistent,omitempty"`
 	// Transient The settings that do not persist after the cluster restarts.

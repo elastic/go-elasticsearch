@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/snapshot/create/SnapshotCreateRequest.ts#L24-L92
 type Request struct {
-
 	// FeatureStates Feature states to include in the snapshot. Each feature state includes one or
 	// more system indices containing related data. You can view a list of eligible
 	// features using the get features API. If `include_global_state` is `true`, all

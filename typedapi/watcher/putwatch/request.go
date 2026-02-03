@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L31-L110
 type Request struct {
-
 	// Actions The list of actions that will be run if the condition matches.
 	Actions map[string]types.WatcherAction `json:"actions,omitempty"`
 	// Condition The condition that defines if the actions should be run.

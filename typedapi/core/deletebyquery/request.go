@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/delete_by_query/DeleteByQueryRequest.ts#L36-L314
 type Request struct {
-
 	// MaxDocs The maximum number of documents to delete.
 	MaxDocs *int64 `json:"max_docs,omitempty"`
 	// Query The documents to delete specified with Query DSL.

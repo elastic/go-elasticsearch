@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/saml_logout/Request.ts#L22-L57
 type Request struct {
-
 	// RefreshToken The refresh token that was returned as a response to calling the SAML
 	// authenticate API.
 	// Alternatively, the most recent refresh token that was received after
