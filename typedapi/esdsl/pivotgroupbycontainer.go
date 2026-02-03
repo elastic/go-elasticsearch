@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _pivotGroupByContainer struct {
 	v *types.PivotGroupByContainer
@@ -32,18 +28,6 @@ type _pivotGroupByContainer struct {
 
 func NewPivotGroupByContainer() *_pivotGroupByContainer {
 	return &_pivotGroupByContainer{v: types.NewPivotGroupByContainer()}
-}
-
-// AdditionalPivotGroupByContainerProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_pivotGroupByContainer) AdditionalPivotGroupByContainerProperty(key string, value json.RawMessage) *_pivotGroupByContainer {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalPivotGroupByContainerProperty = tmp
-	return s
 }
 
 func (s *_pivotGroupByContainer) DateHistogram(datehistogram types.DateHistogramAggregationVariant) *_pivotGroupByContainer {

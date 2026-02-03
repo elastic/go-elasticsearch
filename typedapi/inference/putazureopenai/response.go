@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/put_azureopenai/PutAzureOpenAiResponse.ts#L22-L25
 type Response struct {
-
 	// ChunkingSettings Chunking configuration object
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// InferenceId The inference Id

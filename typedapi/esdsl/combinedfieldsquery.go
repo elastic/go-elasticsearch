@@ -49,13 +49,6 @@ func (s *_combinedFieldsQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynon
 	return s
 }
 
-func (s *_combinedFieldsQuery) Boost(boost float32) *_combinedFieldsQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_combinedFieldsQuery) Fields(fields ...string) *_combinedFieldsQuery {
 
 	for _, v := range fields {
@@ -86,16 +79,23 @@ func (s *_combinedFieldsQuery) Query(query string) *_combinedFieldsQuery {
 	return s
 }
 
-func (s *_combinedFieldsQuery) QueryName_(queryname_ string) *_combinedFieldsQuery {
+func (s *_combinedFieldsQuery) ZeroTermsQuery(zerotermsquery combinedfieldszeroterms.CombinedFieldsZeroTerms) *_combinedFieldsQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.ZeroTermsQuery = &zerotermsquery
+	return s
+}
+
+func (s *_combinedFieldsQuery) Boost(boost float32) *_combinedFieldsQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }
 
-func (s *_combinedFieldsQuery) ZeroTermsQuery(zerotermsquery combinedfieldszeroterms.CombinedFieldsZeroTerms) *_combinedFieldsQuery {
+func (s *_combinedFieldsQuery) QueryName_(queryname_ string) *_combinedFieldsQuery {
 
-	s.v.ZeroTermsQuery = &zerotermsquery
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

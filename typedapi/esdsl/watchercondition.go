@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _watcherCondition struct {
 	v *types.WatcherCondition
@@ -32,18 +28,6 @@ type _watcherCondition struct {
 
 func NewWatcherCondition() *_watcherCondition {
 	return &_watcherCondition{v: types.NewWatcherCondition()}
-}
-
-// AdditionalWatcherConditionProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_watcherCondition) AdditionalWatcherConditionProperty(key string, value json.RawMessage) *_watcherCondition {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalWatcherConditionProperty = tmp
-	return s
 }
 
 func (s *_watcherCondition) Always(always types.AlwaysConditionVariant) *_watcherCondition {

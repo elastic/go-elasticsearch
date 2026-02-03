@@ -36,6 +36,27 @@ func NewNestedProperty() *_nestedProperty {
 
 }
 
+func (s *_nestedProperty) Enabled(enabled bool) *_nestedProperty {
+
+	s.v.Enabled = &enabled
+
+	return s
+}
+
+func (s *_nestedProperty) IncludeInParent(includeinparent bool) *_nestedProperty {
+
+	s.v.IncludeInParent = &includeinparent
+
+	return s
+}
+
+func (s *_nestedProperty) IncludeInRoot(includeinroot bool) *_nestedProperty {
+
+	s.v.IncludeInRoot = &includeinroot
+
+	return s
+}
+
 func (s *_nestedProperty) CopyTo(fields ...string) *_nestedProperty {
 
 	s.v.CopyTo = fields
@@ -46,13 +67,6 @@ func (s *_nestedProperty) CopyTo(fields ...string) *_nestedProperty {
 func (s *_nestedProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_nestedProperty {
 
 	s.v.Dynamic = &dynamic
-	return s
-}
-
-func (s *_nestedProperty) Enabled(enabled bool) *_nestedProperty {
-
-	s.v.Enabled = &enabled
-
 	return s
 }
 
@@ -80,20 +94,6 @@ func (s *_nestedProperty) AddField(key string, value types.PropertyVariant) *_ne
 func (s *_nestedProperty) IgnoreAbove(ignoreabove int) *_nestedProperty {
 
 	s.v.IgnoreAbove = &ignoreabove
-
-	return s
-}
-
-func (s *_nestedProperty) IncludeInParent(includeinparent bool) *_nestedProperty {
-
-	s.v.IncludeInParent = &includeinparent
-
-	return s
-}
-
-func (s *_nestedProperty) IncludeInRoot(includeinroot bool) *_nestedProperty {
-
-	s.v.IncludeInRoot = &includeinroot
 
 	return s
 }

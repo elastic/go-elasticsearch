@@ -37,16 +37,30 @@ func NewForeachProcessor(processor types.ProcessorContainerVariant) *_foreachPro
 
 }
 
-func (s *_foreachProcessor) Description(description string) *_foreachProcessor {
+func (s *_foreachProcessor) Field(field string) *_foreachProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_foreachProcessor) Field(field string) *_foreachProcessor {
+func (s *_foreachProcessor) IgnoreMissing(ignoremissing bool) *_foreachProcessor {
 
-	s.v.Field = field
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_foreachProcessor) Processor(processor types.ProcessorContainerVariant) *_foreachProcessor {
+
+	s.v.Processor = *processor.ProcessorContainerCaster()
+
+	return s
+}
+
+func (s *_foreachProcessor) Description(description string) *_foreachProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -65,13 +79,6 @@ func (s *_foreachProcessor) IgnoreFailure(ignorefailure bool) *_foreachProcessor
 	return s
 }
 
-func (s *_foreachProcessor) IgnoreMissing(ignoremissing bool) *_foreachProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_foreachProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_foreachProcessor {
 
 	for _, v := range onfailures {
@@ -79,13 +86,6 @@ func (s *_foreachProcessor) OnFailure(onfailures ...types.ProcessorContainerVari
 		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
 
 	}
-	return s
-}
-
-func (s *_foreachProcessor) Processor(processor types.ProcessorContainerVariant) *_foreachProcessor {
-
-	s.v.Processor = *processor.ProcessorContainerCaster()
-
 	return s
 }
 

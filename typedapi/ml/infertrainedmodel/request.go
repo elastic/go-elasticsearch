@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/infer_trained_model/MlInferTrainedModelRequest.ts#L27-L67
 type Request struct {
-
 	// Docs An array of objects to pass to the model for inference. The objects should
 	// contain a fields matching your
 	// configured trained model input. Typically, for NLP models, the field name is

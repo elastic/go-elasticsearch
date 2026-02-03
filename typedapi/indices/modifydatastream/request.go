@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/modify_data_stream/IndicesModifyDataStreamRequest.ts#L23-L45
 type Request struct {
-
 	// Actions Actions to perform.
 	Actions []types.IndicesModifyAction `json:"actions"`
 }

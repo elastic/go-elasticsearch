@@ -30,7 +30,7 @@ type _numberRangeQuery struct {
 	v *types.NumberRangeQuery
 }
 
-// Returns users that contain terms within a provided range.
+// Returns documents that contain terms within a provided range.
 func NewNumberRangeQuery(key string) *_numberRangeQuery {
 	return &_numberRangeQuery{
 		k: key,

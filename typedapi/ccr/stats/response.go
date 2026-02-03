@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ccr/stats/CcrStatsResponse.ts#L22-L29
 type Response struct {
-
 	// AutoFollowStats Statistics for the auto-follow coordinator.
 	AutoFollowStats types.AutoFollowStats `json:"auto_follow_stats"`
 	// FollowStats Shard-level statistics for follower indices.

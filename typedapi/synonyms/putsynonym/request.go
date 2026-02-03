@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/synonyms/put_synonym/SynonymsPutRequest.ts#L23-L67
 type Request struct {
-
 	// SynonymsSet The synonym rules definitions for the synonyms set.
 	SynonymsSet []types.SynonymRule `json:"synonyms_set"`
 }

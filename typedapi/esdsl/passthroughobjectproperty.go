@@ -36,6 +36,27 @@ func NewPassthroughObjectProperty() *_passthroughObjectProperty {
 
 }
 
+func (s *_passthroughObjectProperty) Enabled(enabled bool) *_passthroughObjectProperty {
+
+	s.v.Enabled = &enabled
+
+	return s
+}
+
+func (s *_passthroughObjectProperty) Priority(priority int) *_passthroughObjectProperty {
+
+	s.v.Priority = &priority
+
+	return s
+}
+
+func (s *_passthroughObjectProperty) TimeSeriesDimension(timeseriesdimension bool) *_passthroughObjectProperty {
+
+	s.v.TimeSeriesDimension = &timeseriesdimension
+
+	return s
+}
+
 func (s *_passthroughObjectProperty) CopyTo(fields ...string) *_passthroughObjectProperty {
 
 	s.v.CopyTo = fields
@@ -46,13 +67,6 @@ func (s *_passthroughObjectProperty) CopyTo(fields ...string) *_passthroughObjec
 func (s *_passthroughObjectProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_passthroughObjectProperty {
 
 	s.v.Dynamic = &dynamic
-	return s
-}
-
-func (s *_passthroughObjectProperty) Enabled(enabled bool) *_passthroughObjectProperty {
-
-	s.v.Enabled = &enabled
-
 	return s
 }
 
@@ -105,13 +119,6 @@ func (s *_passthroughObjectProperty) AddMeta(key string, value string) *_passthr
 	return s
 }
 
-func (s *_passthroughObjectProperty) Priority(priority int) *_passthroughObjectProperty {
-
-	s.v.Priority = &priority
-
-	return s
-}
-
 func (s *_passthroughObjectProperty) Properties(properties map[string]types.Property) *_passthroughObjectProperty {
 
 	s.v.Properties = properties
@@ -143,13 +150,6 @@ func (s *_passthroughObjectProperty) Store(store bool) *_passthroughObjectProper
 func (s *_passthroughObjectProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_passthroughObjectProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
-	return s
-}
-
-func (s *_passthroughObjectProperty) TimeSeriesDimension(timeseriesdimension bool) *_passthroughObjectProperty {
-
-	s.v.TimeSeriesDimension = &timeseriesdimension
-
 	return s
 }
 

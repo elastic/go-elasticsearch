@@ -36,6 +36,13 @@ func NewCountedKeywordProperty() *_countedKeywordProperty {
 
 }
 
+func (s *_countedKeywordProperty) Index(index bool) *_countedKeywordProperty {
+
+	s.v.Index = &index
+
+	return s
+}
+
 func (s *_countedKeywordProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_countedKeywordProperty {
 
 	s.v.Dynamic = &dynamic
@@ -66,13 +73,6 @@ func (s *_countedKeywordProperty) AddField(key string, value types.PropertyVaria
 func (s *_countedKeywordProperty) IgnoreAbove(ignoreabove int) *_countedKeywordProperty {
 
 	s.v.IgnoreAbove = &ignoreabove
-
-	return s
-}
-
-func (s *_countedKeywordProperty) Index(index bool) *_countedKeywordProperty {
-
-	s.v.Index = &index
 
 	return s
 }

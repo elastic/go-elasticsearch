@@ -36,7 +36,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/termvectors/TermVectorsRequest.ts#L33-L241
 type Request struct {
-
 	// Doc An artificial document (a document not present in the index) for which you
 	// want to retrieve term vectors.
 	Doc json.RawMessage `json:"doc,omitempty"`

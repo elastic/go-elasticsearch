@@ -45,13 +45,6 @@ func (s *_bucketKsAggregation) Alternative(alternatives ...string) *_bucketKsAgg
 	return s
 }
 
-func (s *_bucketKsAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_bucketKsAggregation {
-
-	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
-
-	return s
-}
-
 func (s *_bucketKsAggregation) Fractions(fractions ...types.Float64) *_bucketKsAggregation {
 
 	for _, v := range fractions {
@@ -65,6 +58,13 @@ func (s *_bucketKsAggregation) Fractions(fractions ...types.Float64) *_bucketKsA
 func (s *_bucketKsAggregation) SamplingMethod(samplingmethod string) *_bucketKsAggregation {
 
 	s.v.SamplingMethod = &samplingmethod
+
+	return s
+}
+
+func (s *_bucketKsAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_bucketKsAggregation {
+
+	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
 
 	return s
 }

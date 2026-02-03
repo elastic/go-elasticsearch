@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/put_data_stream_options/IndicesPutDataStreamOptionsRequest.ts#L25-L79
 type Request struct {
-
 	// FailureStore If defined, it will update the failure store configuration of every data
 	// stream resolved by the name expression.
 	FailureStore *types.DataStreamFailureStore `json:"failure_store,omitempty"`

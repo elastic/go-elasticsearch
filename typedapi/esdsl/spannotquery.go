@@ -41,13 +41,6 @@ func NewSpanNotQuery(exclude types.SpanQueryVariant, include types.SpanQueryVari
 
 }
 
-func (s *_spanNotQuery) Boost(boost float32) *_spanNotQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_spanNotQuery) Dist(dist int) *_spanNotQuery {
 
 	s.v.Dist = &dist
@@ -79,6 +72,13 @@ func (s *_spanNotQuery) Post(post int) *_spanNotQuery {
 func (s *_spanNotQuery) Pre(pre int) *_spanNotQuery {
 
 	s.v.Pre = &pre
+
+	return s
+}
+
+func (s *_spanNotQuery) Boost(boost float32) *_spanNotQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

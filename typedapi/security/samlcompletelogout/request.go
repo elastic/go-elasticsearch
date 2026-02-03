@@ -33,7 +33,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/saml_complete_logout/Request.ts#L23-L61
 type Request struct {
-
 	// Content If the SAML IdP sends the logout response with the HTTP-Post binding, this
 	// field must be set to the value of the SAMLResponse form parameter from the
 	// logout response.

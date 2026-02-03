@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/async_search/submit/AsyncSearchSubmitResponse.ts#L22-L25
 type Response struct {
-
 	// CompletionTime Indicates when the async search completed.
 	// It is present only when the search has completed.
 	CompletionTime         types.DateTime `json:"completion_time,omitempty"`

@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/oidc_logout/Request.ts#L22-L52
 type Request struct {
-
 	// RefreshToken The refresh token to be invalidated.
 	RefreshToken *string `json:"refresh_token,omitempty"`
 	// Token The access token to be invalidated.

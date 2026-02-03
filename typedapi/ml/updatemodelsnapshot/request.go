@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/update_model_snapshot/MlUpdateModelSnapshotRequest.ts#L23-L63
 type Request struct {
-
 	// Description A description of the model snapshot.
 	Description *string `json:"description,omitempty"`
 	// Retain If `true`, this snapshot will not be deleted during automatic cleanup of

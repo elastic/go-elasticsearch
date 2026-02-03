@@ -45,16 +45,30 @@ func (s *_dissectProcessor) AppendSeparator(appendseparator string) *_dissectPro
 	return s
 }
 
-func (s *_dissectProcessor) Description(description string) *_dissectProcessor {
+func (s *_dissectProcessor) Field(field string) *_dissectProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_dissectProcessor) Field(field string) *_dissectProcessor {
+func (s *_dissectProcessor) IgnoreMissing(ignoremissing bool) *_dissectProcessor {
 
-	s.v.Field = field
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_dissectProcessor) Pattern(pattern string) *_dissectProcessor {
+
+	s.v.Pattern = pattern
+
+	return s
+}
+
+func (s *_dissectProcessor) Description(description string) *_dissectProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -73,13 +87,6 @@ func (s *_dissectProcessor) IgnoreFailure(ignorefailure bool) *_dissectProcessor
 	return s
 }
 
-func (s *_dissectProcessor) IgnoreMissing(ignoremissing bool) *_dissectProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_dissectProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_dissectProcessor {
 
 	for _, v := range onfailures {
@@ -87,13 +94,6 @@ func (s *_dissectProcessor) OnFailure(onfailures ...types.ProcessorContainerVari
 		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
 
 	}
-	return s
-}
-
-func (s *_dissectProcessor) Pattern(pattern string) *_dissectProcessor {
-
-	s.v.Pattern = pattern
-
 	return s
 }
 

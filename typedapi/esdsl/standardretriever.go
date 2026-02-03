@@ -40,30 +40,6 @@ func (s *_standardRetriever) Collapse(collapse types.FieldCollapseVariant) *_sta
 	return s
 }
 
-func (s *_standardRetriever) Filter(filters ...types.QueryVariant) *_standardRetriever {
-
-	s.v.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		s.v.Filter[i] = *v.QueryCaster()
-	}
-
-	return s
-}
-
-func (s *_standardRetriever) MinScore(minscore float32) *_standardRetriever {
-
-	s.v.MinScore = &minscore
-
-	return s
-}
-
-func (s *_standardRetriever) Name_(name_ string) *_standardRetriever {
-
-	s.v.Name_ = &name_
-
-	return s
-}
-
 func (s *_standardRetriever) Query(query types.QueryVariant) *_standardRetriever {
 
 	s.v.Query = query.QueryCaster()
@@ -92,6 +68,30 @@ func (s *_standardRetriever) Sort(sorts ...types.SortCombinationsVariant) *_stan
 func (s *_standardRetriever) TerminateAfter(terminateafter int) *_standardRetriever {
 
 	s.v.TerminateAfter = &terminateafter
+
+	return s
+}
+
+func (s *_standardRetriever) Filter(filters ...types.QueryVariant) *_standardRetriever {
+
+	s.v.Filter = make([]types.Query, len(filters))
+	for i, v := range filters {
+		s.v.Filter[i] = *v.QueryCaster()
+	}
+
+	return s
+}
+
+func (s *_standardRetriever) MinScore(minscore float32) *_standardRetriever {
+
+	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_standardRetriever) Name_(name_ string) *_standardRetriever {
+
+	s.v.Name_ = &name_
 
 	return s
 }

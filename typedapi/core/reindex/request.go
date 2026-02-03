@@ -32,7 +32,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/reindex/ReindexRequest.ts#L27-L178
 type Request struct {
-
 	// Conflicts Indicates whether to continue reindexing even when there are conflicts.
 	Conflicts *conflicts.Conflicts `json:"conflicts,omitempty"`
 	// Dest The destination you are copying to.

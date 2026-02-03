@@ -38,6 +38,13 @@ func NewLongNumberProperty() *_longNumberProperty {
 
 }
 
+func (s *_longNumberProperty) NullValue(nullvalue int64) *_longNumberProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
 func (s *_longNumberProperty) Boost(boost types.Float64) *_longNumberProperty {
 
 	s.v.Boost = &boost
@@ -132,13 +139,6 @@ func (s *_longNumberProperty) AddMeta(key string, value string) *_longNumberProp
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_longNumberProperty) NullValue(nullvalue int64) *_longNumberProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

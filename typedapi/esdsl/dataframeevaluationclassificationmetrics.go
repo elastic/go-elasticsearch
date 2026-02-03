@@ -57,13 +57,6 @@ func (s *_dataframeEvaluationClassificationMetrics) AddAccuracy(key string, valu
 	return s
 }
 
-func (s *_dataframeEvaluationClassificationMetrics) AucRoc(aucroc types.DataframeEvaluationClassificationMetricsAucRocVariant) *_dataframeEvaluationClassificationMetrics {
-
-	s.v.AucRoc = aucroc.DataframeEvaluationClassificationMetricsAucRocCaster()
-
-	return s
-}
-
 func (s *_dataframeEvaluationClassificationMetrics) MulticlassConfusionMatrix(multiclassconfusionmatrix map[string]json.RawMessage) *_dataframeEvaluationClassificationMetrics {
 
 	s.v.MulticlassConfusionMatrix = multiclassconfusionmatrix
@@ -82,6 +75,13 @@ func (s *_dataframeEvaluationClassificationMetrics) AddMulticlassConfusionMatrix
 	tmp[key] = value
 
 	s.v.MulticlassConfusionMatrix = tmp
+	return s
+}
+
+func (s *_dataframeEvaluationClassificationMetrics) AucRoc(aucroc types.DataframeEvaluationClassificationMetricsAucRocVariant) *_dataframeEvaluationClassificationMetrics {
+
+	s.v.AucRoc = aucroc.DataframeEvaluationClassificationMetricsAucRocCaster()
+
 	return s
 }
 

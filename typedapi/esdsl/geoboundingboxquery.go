@@ -37,13 +37,6 @@ func NewGeoBoundingBoxQuery() *_geoBoundingBoxQuery {
 
 }
 
-func (s *_geoBoundingBoxQuery) Boost(boost float32) *_geoBoundingBoxQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_geoBoundingBoxQuery) GeoBoundingBoxQuery(geoboundingboxquery map[string]types.GeoBounds) *_geoBoundingBoxQuery {
 
 	s.v.GeoBoundingBoxQuery = geoboundingboxquery
@@ -72,13 +65,6 @@ func (s *_geoBoundingBoxQuery) IgnoreUnmapped(ignoreunmapped bool) *_geoBounding
 	return s
 }
 
-func (s *_geoBoundingBoxQuery) QueryName_(queryname_ string) *_geoBoundingBoxQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_geoBoundingBoxQuery) Type(type_ geoexecution.GeoExecution) *_geoBoundingBoxQuery {
 
 	s.v.Type = &type_
@@ -88,6 +74,20 @@ func (s *_geoBoundingBoxQuery) Type(type_ geoexecution.GeoExecution) *_geoBoundi
 func (s *_geoBoundingBoxQuery) ValidationMethod(validationmethod geovalidationmethod.GeoValidationMethod) *_geoBoundingBoxQuery {
 
 	s.v.ValidationMethod = &validationmethod
+	return s
+}
+
+func (s *_geoBoundingBoxQuery) Boost(boost float32) *_geoBoundingBoxQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_geoBoundingBoxQuery) QueryName_(queryname_ string) *_geoBoundingBoxQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

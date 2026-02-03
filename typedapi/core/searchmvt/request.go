@@ -37,7 +37,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/search_mvt/SearchMvtRequest.ts#L33-L334
 type Request struct {
-
 	// Aggs Sub-aggregations for the geotile_grid.
 	//
 	// It supports the following aggregation types:

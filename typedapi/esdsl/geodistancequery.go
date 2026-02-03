@@ -38,13 +38,6 @@ func NewGeoDistanceQuery() *_geoDistanceQuery {
 
 }
 
-func (s *_geoDistanceQuery) Boost(boost float32) *_geoDistanceQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_geoDistanceQuery) Distance(distance string) *_geoDistanceQuery {
 
 	s.v.Distance = distance
@@ -86,16 +79,23 @@ func (s *_geoDistanceQuery) IgnoreUnmapped(ignoreunmapped bool) *_geoDistanceQue
 	return s
 }
 
-func (s *_geoDistanceQuery) QueryName_(queryname_ string) *_geoDistanceQuery {
+func (s *_geoDistanceQuery) ValidationMethod(validationmethod geovalidationmethod.GeoValidationMethod) *_geoDistanceQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.ValidationMethod = &validationmethod
+	return s
+}
+
+func (s *_geoDistanceQuery) Boost(boost float32) *_geoDistanceQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }
 
-func (s *_geoDistanceQuery) ValidationMethod(validationmethod geovalidationmethod.GeoValidationMethod) *_geoDistanceQuery {
+func (s *_geoDistanceQuery) QueryName_(queryname_ string) *_geoDistanceQuery {
 
-	s.v.ValidationMethod = &validationmethod
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

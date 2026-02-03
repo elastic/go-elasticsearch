@@ -47,30 +47,6 @@ func (s *_linearRetriever) Fields(fields ...string) *_linearRetriever {
 	return s
 }
 
-func (s *_linearRetriever) Filter(filters ...types.QueryVariant) *_linearRetriever {
-
-	s.v.Filter = make([]types.Query, len(filters))
-	for i, v := range filters {
-		s.v.Filter[i] = *v.QueryCaster()
-	}
-
-	return s
-}
-
-func (s *_linearRetriever) MinScore(minscore float32) *_linearRetriever {
-
-	s.v.MinScore = &minscore
-
-	return s
-}
-
-func (s *_linearRetriever) Name_(name_ string) *_linearRetriever {
-
-	s.v.Name_ = &name_
-
-	return s
-}
-
 func (s *_linearRetriever) Normalizer(normalizer scorenormalizer.ScoreNormalizer) *_linearRetriever {
 
 	s.v.Normalizer = &normalizer
@@ -98,6 +74,30 @@ func (s *_linearRetriever) Retrievers(retrievers ...types.InnerRetrieverVariant)
 		s.v.Retrievers = append(s.v.Retrievers, *v.InnerRetrieverCaster())
 
 	}
+	return s
+}
+
+func (s *_linearRetriever) Filter(filters ...types.QueryVariant) *_linearRetriever {
+
+	s.v.Filter = make([]types.Query, len(filters))
+	for i, v := range filters {
+		s.v.Filter[i] = *v.QueryCaster()
+	}
+
+	return s
+}
+
+func (s *_linearRetriever) MinScore(minscore float32) *_linearRetriever {
+
+	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_linearRetriever) Name_(name_ string) *_linearRetriever {
+
+	s.v.Name_ = &name_
+
 	return s
 }
 

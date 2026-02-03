@@ -24,7 +24,6 @@ package clearscroll
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/clear_scroll/ClearScrollResponse.ts#L22-L43
 type Response struct {
-
 	// NumFreed The number of scrolling search requests cleared.
 	NumFreed int `json:"num_freed"`
 	// Succeeded If `true`, the request succeeded.

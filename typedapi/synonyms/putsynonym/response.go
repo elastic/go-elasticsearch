@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/synonyms/put_synonym/SynonymsPutResponse.ts#L23-L36
 type Response struct {
-
 	// ReloadAnalyzersDetails Updating a synonyms set can reload the associated analyzers in case refresh
 	// is set to true.
 	// This information is the analyzers reloading result.

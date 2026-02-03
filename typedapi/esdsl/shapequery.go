@@ -33,23 +33,9 @@ func NewShapeQuery() *_shapeQuery {
 
 }
 
-func (s *_shapeQuery) Boost(boost float32) *_shapeQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_shapeQuery) IgnoreUnmapped(ignoreunmapped bool) *_shapeQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped
-
-	return s
-}
-
-func (s *_shapeQuery) QueryName_(queryname_ string) *_shapeQuery {
-
-	s.v.QueryName_ = &queryname_
 
 	return s
 }
@@ -72,6 +58,20 @@ func (s *_shapeQuery) AddShapeQuery(key string, value types.ShapeFieldQueryVaria
 	tmp[key] = *value.ShapeFieldQueryCaster()
 
 	s.v.ShapeQuery = tmp
+	return s
+}
+
+func (s *_shapeQuery) Boost(boost float32) *_shapeQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_shapeQuery) QueryName_(queryname_ string) *_shapeQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _tableValuesContainer struct {
 	v *types.TableValuesContainer
@@ -32,18 +28,6 @@ type _tableValuesContainer struct {
 
 func NewTableValuesContainer() *_tableValuesContainer {
 	return &_tableValuesContainer{v: types.NewTableValuesContainer()}
-}
-
-// AdditionalTableValuesContainerProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_tableValuesContainer) AdditionalTableValuesContainerProperty(key string, value json.RawMessage) *_tableValuesContainer {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalTableValuesContainerProperty = tmp
-	return s
 }
 
 func (s *_tableValuesContainer) Float64(float64s ...[]types.Float64) *_tableValuesContainer {

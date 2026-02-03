@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/query_rules/get_ruleset/QueryRulesetGetResponse.ts#L22-L25
 type Response struct {
-
 	// Rules Rules associated with the query ruleset.
 	Rules []types.QueryRule `json:"rules"`
 	// RulesetId A unique identifier for the ruleset.

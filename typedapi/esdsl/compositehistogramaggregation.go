@@ -41,16 +41,16 @@ func NewCompositeHistogramAggregation(interval types.Float64) *_compositeHistogr
 
 }
 
-func (s *_compositeHistogramAggregation) Field(field string) *_compositeHistogramAggregation {
+func (s *_compositeHistogramAggregation) Interval(interval types.Float64) *_compositeHistogramAggregation {
 
-	s.v.Field = &field
+	s.v.Interval = interval
 
 	return s
 }
 
-func (s *_compositeHistogramAggregation) Interval(interval types.Float64) *_compositeHistogramAggregation {
+func (s *_compositeHistogramAggregation) Field(field string) *_compositeHistogramAggregation {
 
-	s.v.Interval = interval
+	s.v.Field = &field
 
 	return s
 }

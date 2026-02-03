@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/preview_data_frame_analytics/MlPreviewDataFrameAnalyticsRequest.ts#L24-L60
 type Request struct {
-
 	// Config A data frame analytics config as described in create data frame analytics
 	// jobs. Note that `id` and `dest` don’t need to be provided in the context of
 	// this API.

@@ -44,6 +44,13 @@ func (s *_compositeGeoTileGridAggregation) Bounds(geobounds types.GeoBoundsVaria
 	return s
 }
 
+func (s *_compositeGeoTileGridAggregation) Precision(precision int) *_compositeGeoTileGridAggregation {
+
+	s.v.Precision = &precision
+
+	return s
+}
+
 func (s *_compositeGeoTileGridAggregation) Field(field string) *_compositeGeoTileGridAggregation {
 
 	s.v.Field = &field
@@ -67,13 +74,6 @@ func (s *_compositeGeoTileGridAggregation) MissingOrder(missingorder missingorde
 func (s *_compositeGeoTileGridAggregation) Order(order sortorder.SortOrder) *_compositeGeoTileGridAggregation {
 
 	s.v.Order = &order
-	return s
-}
-
-func (s *_compositeGeoTileGridAggregation) Precision(precision int) *_compositeGeoTileGridAggregation {
-
-	s.v.Precision = &precision
-
 	return s
 }
 

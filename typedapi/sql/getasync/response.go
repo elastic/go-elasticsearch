@@ -30,7 +30,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/sql/get_async/SqlGetAsyncResponse.ts#L23-L60
 type Response struct {
-
 	// Columns Column headings for the search results. Each object is a column.
 	Columns []types.Column `json:"columns,omitempty"`
 	// Cursor The cursor for the next set of paginated results.

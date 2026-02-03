@@ -32,7 +32,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/put_trained_model/MlPutTrainedModelRequest.ts#L31-L135
 type Request struct {
-
 	// CompressedDefinition The compressed (GZipped and Base64 encoded) inference definition of the
 	// model. If compressed_definition is specified, then definition cannot be
 	// specified.

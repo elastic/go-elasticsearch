@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ingest/geo_ip_stats/IngestGeoIpStatsResponse.ts#L24-L31
 type Response struct {
-
 	// Nodes Downloaded GeoIP2 databases for each node.
 	Nodes map[string]types.GeoIpNodeDatabases `json:"nodes"`
 	// Stats Download statistics for all GeoIP2 databases.

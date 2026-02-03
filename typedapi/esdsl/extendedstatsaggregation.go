@@ -34,6 +34,13 @@ func NewExtendedStatsAggregation() *_extendedStatsAggregation {
 
 }
 
+func (s *_extendedStatsAggregation) Sigma(sigma types.Float64) *_extendedStatsAggregation {
+
+	s.v.Sigma = &sigma
+
+	return s
+}
+
 func (s *_extendedStatsAggregation) Field(field string) *_extendedStatsAggregation {
 
 	s.v.Field = &field
@@ -58,13 +65,6 @@ func (s *_extendedStatsAggregation) Missing(missing types.MissingVariant) *_exte
 func (s *_extendedStatsAggregation) Script(script types.ScriptVariant) *_extendedStatsAggregation {
 
 	s.v.Script = script.ScriptCaster()
-
-	return s
-}
-
-func (s *_extendedStatsAggregation) Sigma(sigma types.Float64) *_extendedStatsAggregation {
-
-	s.v.Sigma = &sigma
 
 	return s
 }

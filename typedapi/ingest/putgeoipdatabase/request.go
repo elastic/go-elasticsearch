@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ingest/put_geoip_database/PutGeoipDatabaseRequest.ts#L25-L66
 type Request struct {
-
 	// Maxmind The configuration necessary to identify which IP geolocation provider to use
 	// to download the database, as well as any provider-specific configuration
 	// necessary for such downloading.

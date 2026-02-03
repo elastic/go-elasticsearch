@@ -38,6 +38,20 @@ func NewScaledFloatNumberProperty() *_scaledFloatNumberProperty {
 
 }
 
+func (s *_scaledFloatNumberProperty) NullValue(nullvalue types.Float64) *_scaledFloatNumberProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
+func (s *_scaledFloatNumberProperty) ScalingFactor(scalingfactor types.Float64) *_scaledFloatNumberProperty {
+
+	s.v.ScalingFactor = &scalingfactor
+
+	return s
+}
+
 func (s *_scaledFloatNumberProperty) Boost(boost types.Float64) *_scaledFloatNumberProperty {
 
 	s.v.Boost = &boost
@@ -135,13 +149,6 @@ func (s *_scaledFloatNumberProperty) AddMeta(key string, value string) *_scaledF
 	return s
 }
 
-func (s *_scaledFloatNumberProperty) NullValue(nullvalue types.Float64) *_scaledFloatNumberProperty {
-
-	s.v.NullValue = &nullvalue
-
-	return s
-}
-
 func (s *_scaledFloatNumberProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_scaledFloatNumberProperty {
 
 	s.v.OnScriptError = &onscripterror
@@ -166,13 +173,6 @@ func (s *_scaledFloatNumberProperty) AddProperty(key string, value types.Propert
 	tmp[key] = *value.PropertyCaster()
 
 	s.v.Properties = tmp
-	return s
-}
-
-func (s *_scaledFloatNumberProperty) ScalingFactor(scalingfactor types.Float64) *_scaledFloatNumberProperty {
-
-	s.v.ScalingFactor = &scalingfactor
-
 	return s
 }
 

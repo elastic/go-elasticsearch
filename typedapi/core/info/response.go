@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/info/RootNodeInfoResponse.ts#L23-L40
 type Response struct {
-
 	// ClusterName The responding cluster's name.
 	ClusterName string `json:"cluster_name"`
 	ClusterUuid string `json:"cluster_uuid"`
