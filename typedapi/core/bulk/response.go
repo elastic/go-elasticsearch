@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/bulk/BulkResponse.ts#L24-L45
 type Response struct {
-
 	// Errors If `true`, one or more of the operations in the bulk request did not complete
 	// successfully.
 	Errors     bool   `json:"errors"`

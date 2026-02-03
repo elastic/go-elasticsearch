@@ -24,7 +24,6 @@ package deleteuser
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/delete_user/SecurityDeleteUserResponse.ts#L20-L28
 type Response struct {
-
 	// Found If the user is successfully deleted, the request returns `{"found": true}`.
 	// Otherwise, `found` is set to `false`.
 	Found bool `json:"found"`

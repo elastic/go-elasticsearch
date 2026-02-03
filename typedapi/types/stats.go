@@ -211,22 +211,21 @@ func (s *Stats) UnmarshalJSON(data []byte) error {
 			rawMsg := make(map[string]json.RawMessage, 0)
 			dec.Decode(&rawMsg)
 			for key, value := range rawMsg {
-				switch {
-				case bytes.HasPrefix(value, []byte("\"")), bytes.HasPrefix(value, []byte("{")):
-					o := NewScriptCache()
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
-						return fmt.Errorf("%s | %w", "ScriptCache", err)
-					}
-					s.ScriptCache[key] = append(s.ScriptCache[key], *o)
-				default:
-					o := []ScriptCache{}
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
+				v := bytes.TrimSpace(value)
+				if len(v) > 0 && v[0] == '[' {
+					var o []ScriptCache
+					if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "ScriptCache", err)
 					}
 					s.ScriptCache[key] = o
+					continue
 				}
+
+				var o ScriptCache
+				if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "ScriptCache", err)
+				}
+				s.ScriptCache[key] = append(s.ScriptCache[key], o)
 			}
 
 		case "thread_pool":

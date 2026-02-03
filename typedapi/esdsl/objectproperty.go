@@ -37,6 +37,19 @@ func NewObjectProperty() *_objectProperty {
 
 }
 
+func (s *_objectProperty) Enabled(enabled bool) *_objectProperty {
+
+	s.v.Enabled = &enabled
+
+	return s
+}
+
+func (s *_objectProperty) Subobjects(subobjects subobjects.Subobjects) *_objectProperty {
+
+	s.v.Subobjects = &subobjects
+	return s
+}
+
 func (s *_objectProperty) CopyTo(fields ...string) *_objectProperty {
 
 	s.v.CopyTo = fields
@@ -47,13 +60,6 @@ func (s *_objectProperty) CopyTo(fields ...string) *_objectProperty {
 func (s *_objectProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_objectProperty {
 
 	s.v.Dynamic = &dynamic
-	return s
-}
-
-func (s *_objectProperty) Enabled(enabled bool) *_objectProperty {
-
-	s.v.Enabled = &enabled
-
 	return s
 }
 
@@ -131,12 +137,6 @@ func (s *_objectProperty) Store(store bool) *_objectProperty {
 
 	s.v.Store = &store
 
-	return s
-}
-
-func (s *_objectProperty) Subobjects(subobjects subobjects.Subobjects) *_objectProperty {
-
-	s.v.Subobjects = &subobjects
 	return s
 }
 

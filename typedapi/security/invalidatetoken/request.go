@@ -33,7 +33,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/invalidate_token/SecurityInvalidateTokenRequest.ts#L23-L71
 type Request struct {
-
 	// RealmName The name of an authentication realm.
 	// This parameter cannot be used with either `refresh_token` or `token`.
 	RealmName *string `json:"realm_name,omitempty"`

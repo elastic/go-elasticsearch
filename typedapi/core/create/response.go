@@ -30,7 +30,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/create/CreateResponse.ts#L22-L25
 type Response struct {
-
 	// FailureStore The role of the failure store in this document response
 	FailureStore  *failurestorestatus.FailureStoreStatus `json:"failure_store,omitempty"`
 	ForcedRefresh *bool                                  `json:"forced_refresh,omitempty"`

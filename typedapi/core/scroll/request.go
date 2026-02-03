@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/scroll/ScrollRequest.ts#L24-L88
 type Request struct {
-
 	// Scroll The period to retain the search context for scrolling.
 	Scroll types.Duration `json:"scroll,omitempty"`
 	// ScrollId The scroll ID of the search.

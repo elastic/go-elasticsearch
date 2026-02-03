@@ -24,7 +24,6 @@ package openjob
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/open_job/MlOpenJobResponse.ts#L22-L31
 type Response struct {
-
 	// Node The ID of the node that the job was started on. In serverless this will be
 	// the "serverless".
 	// If the job is allowed to open lazily and has not yet been assigned to a node,

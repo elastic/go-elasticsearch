@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/query_user/SecurityQueryUserResponse.ts#L23-L38
 type Response struct {
-
 	// Count The number of users returned in the response.
 	Count int `json:"count"`
 	// Total The total number of users found.

@@ -33,7 +33,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/change_password/SecurityChangePasswordRequest.ts#L23-L65
 type Request struct {
-
 	// Password The new password value. Passwords must be at least 6 characters long.
 	Password *string `json:"password,omitempty"`
 	// PasswordHash A hash of the new password value. This must be produced using the same

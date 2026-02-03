@@ -35,30 +35,9 @@ func NewAttachmentProcessor() *_attachmentProcessor {
 
 }
 
-func (s *_attachmentProcessor) Description(description string) *_attachmentProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_attachmentProcessor) Field(field string) *_attachmentProcessor {
 
 	s.v.Field = field
-
-	return s
-}
-
-func (s *_attachmentProcessor) If(if_ types.ScriptVariant) *_attachmentProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_attachmentProcessor) IgnoreFailure(ignorefailure bool) *_attachmentProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
 
 	return s
 }
@@ -81,16 +60,6 @@ func (s *_attachmentProcessor) IndexedCharsField(field string) *_attachmentProce
 
 	s.v.IndexedCharsField = &field
 
-	return s
-}
-
-func (s *_attachmentProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_attachmentProcessor {
-
-	for _, v := range onfailures {
-
-		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
-
-	}
 	return s
 }
 
@@ -118,16 +87,47 @@ func (s *_attachmentProcessor) ResourceName(resourcename string) *_attachmentPro
 	return s
 }
 
-func (s *_attachmentProcessor) Tag(tag string) *_attachmentProcessor {
+func (s *_attachmentProcessor) TargetField(field string) *_attachmentProcessor {
 
-	s.v.Tag = &tag
+	s.v.TargetField = &field
 
 	return s
 }
 
-func (s *_attachmentProcessor) TargetField(field string) *_attachmentProcessor {
+func (s *_attachmentProcessor) Description(description string) *_attachmentProcessor {
 
-	s.v.TargetField = &field
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_attachmentProcessor) If(if_ types.ScriptVariant) *_attachmentProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_attachmentProcessor) IgnoreFailure(ignorefailure bool) *_attachmentProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
+func (s *_attachmentProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_attachmentProcessor {
+
+	for _, v := range onfailures {
+
+		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
+
+	}
+	return s
+}
+
+func (s *_attachmentProcessor) Tag(tag string) *_attachmentProcessor {
+
+	s.v.Tag = &tag
 
 	return s
 }

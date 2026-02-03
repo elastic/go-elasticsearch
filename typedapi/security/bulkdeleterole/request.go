@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/bulk_delete_role/SecurityBulkDeleteRoleRequest.ts#L23-L50
 type Request struct {
-
 	// Names An array of role names to delete
 	Names []string `json:"names"`
 }

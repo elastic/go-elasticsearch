@@ -36,6 +36,13 @@ func NewRankFeatureProperty() *_rankFeatureProperty {
 
 }
 
+func (s *_rankFeatureProperty) PositiveScoreImpact(positivescoreimpact bool) *_rankFeatureProperty {
+
+	s.v.PositiveScoreImpact = &positivescoreimpact
+
+	return s
+}
+
 func (s *_rankFeatureProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_rankFeatureProperty {
 
 	s.v.Dynamic = &dynamic
@@ -88,13 +95,6 @@ func (s *_rankFeatureProperty) AddMeta(key string, value string) *_rankFeaturePr
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_rankFeatureProperty) PositiveScoreImpact(positivescoreimpact bool) *_rankFeatureProperty {
-
-	s.v.PositiveScoreImpact = &positivescoreimpact
-
 	return s
 }
 

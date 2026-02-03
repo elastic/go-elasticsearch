@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/cluster/reroute/ClusterRerouteRequest.ts#L25-L91
 type Request struct {
-
 	// Commands Defines the commands to perform.
 	Commands []types.Command `json:"commands,omitempty"`
 }

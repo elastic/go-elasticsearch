@@ -40,13 +40,6 @@ func NewTermQuery(field string, value types.FieldValueVariant) *_termQuery {
 	return tmp
 }
 
-func (s *_termQuery) Boost(boost float32) *_termQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_termQuery) CaseInsensitive(caseinsensitive bool) *_termQuery {
 
 	s.v.CaseInsensitive = &caseinsensitive
@@ -54,16 +47,23 @@ func (s *_termQuery) CaseInsensitive(caseinsensitive bool) *_termQuery {
 	return s
 }
 
-func (s *_termQuery) QueryName_(queryname_ string) *_termQuery {
+func (s *_termQuery) Value(fieldvalue types.FieldValueVariant) *_termQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.Value = *fieldvalue.FieldValueCaster()
 
 	return s
 }
 
-func (s *_termQuery) Value(fieldvalue types.FieldValueVariant) *_termQuery {
+func (s *_termQuery) Boost(boost float32) *_termQuery {
 
-	s.v.Value = *fieldvalue.FieldValueCaster()
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_termQuery) QueryName_(queryname_ string) *_termQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

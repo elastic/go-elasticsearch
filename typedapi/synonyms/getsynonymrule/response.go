@@ -24,7 +24,6 @@ package getsynonymrule
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/synonyms/get_synonym_rule/SynonymRuleGetResponse.ts#L22-L25
 type Response struct {
-
 	// Id Synonym Rule identifier
 	Id string `json:"id"`
 	// Synonyms Synonyms, in Solr format, that conform the synonym rule.

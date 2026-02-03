@@ -38,6 +38,13 @@ func NewFloatNumberProperty() *_floatNumberProperty {
 
 }
 
+func (s *_floatNumberProperty) NullValue(nullvalue float32) *_floatNumberProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
 func (s *_floatNumberProperty) Boost(boost types.Float64) *_floatNumberProperty {
 
 	s.v.Boost = &boost
@@ -132,13 +139,6 @@ func (s *_floatNumberProperty) AddMeta(key string, value string) *_floatNumberPr
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_floatNumberProperty) NullValue(nullvalue float32) *_floatNumberProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

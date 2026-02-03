@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/suggest_user_profiles/Request.ts#L24-L81
 type Request struct {
-
 	// Data A comma-separated list of filters for the `data` field of the profile
 	// document.
 	// To return all content use `data=*`.

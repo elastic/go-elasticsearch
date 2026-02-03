@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/rollup/rollup_search/RollupSearchRequest.ts#L27-L89
 type Request struct {
-
 	// Aggregations Specifies aggregations.
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	// Query Specifies a DSL query that is subject to some limitations.

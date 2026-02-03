@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _compositeAggregationSource struct {
 	v *types.CompositeAggregationSource
@@ -32,18 +28,6 @@ type _compositeAggregationSource struct {
 
 func NewCompositeAggregationSource() *_compositeAggregationSource {
 	return &_compositeAggregationSource{v: types.NewCompositeAggregationSource()}
-}
-
-// AdditionalCompositeAggregationSourceProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_compositeAggregationSource) AdditionalCompositeAggregationSourceProperty(key string, value json.RawMessage) *_compositeAggregationSource {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalCompositeAggregationSourceProperty = tmp
-	return s
 }
 
 func (s *_compositeAggregationSource) DateHistogram(datehistogram types.CompositeDateHistogramAggregationVariant) *_compositeAggregationSource {

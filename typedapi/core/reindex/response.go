@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/reindex/ReindexResponse.ts#L26-L92
 type Response struct {
-
 	// Batches The number of scroll responses that were pulled back by the reindex.
 	Batches *int64 `json:"batches,omitempty"`
 	// Created The number of documents that were successfully created.

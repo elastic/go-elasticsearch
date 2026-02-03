@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/nodes/get_repositories_metering_info/GetRepositoriesMeteringInfoResponse.ts#L36-L39
 type Response struct {
-
 	// ClusterName Name of the cluster. Based on the `cluster.name` setting.
 	ClusterName string `json:"cluster_name"`
 	// NodeStats Contains statistics about the number of nodes selected by the request’s node

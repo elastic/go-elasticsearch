@@ -32,7 +32,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/text_structure/test_grok_pattern/TestGrokPatternRequest.ts#L23-L59
 type Request struct {
-
 	// GrokPattern The Grok pattern to run on the text.
 	GrokPattern string `json:"grok_pattern"`
 	// Text The lines of text to run the Grok pattern on.

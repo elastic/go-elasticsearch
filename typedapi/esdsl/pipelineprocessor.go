@@ -33,6 +33,20 @@ func NewPipelineProcessor() *_pipelineProcessor {
 
 }
 
+func (s *_pipelineProcessor) IgnoreMissingPipeline(ignoremissingpipeline bool) *_pipelineProcessor {
+
+	s.v.IgnoreMissingPipeline = &ignoremissingpipeline
+
+	return s
+}
+
+func (s *_pipelineProcessor) Name(name string) *_pipelineProcessor {
+
+	s.v.Name = name
+
+	return s
+}
+
 func (s *_pipelineProcessor) Description(description string) *_pipelineProcessor {
 
 	s.v.Description = &description
@@ -50,20 +64,6 @@ func (s *_pipelineProcessor) If(if_ types.ScriptVariant) *_pipelineProcessor {
 func (s *_pipelineProcessor) IgnoreFailure(ignorefailure bool) *_pipelineProcessor {
 
 	s.v.IgnoreFailure = &ignorefailure
-
-	return s
-}
-
-func (s *_pipelineProcessor) IgnoreMissingPipeline(ignoremissingpipeline bool) *_pipelineProcessor {
-
-	s.v.IgnoreMissingPipeline = &ignoremissingpipeline
-
-	return s
-}
-
-func (s *_pipelineProcessor) Name(name string) *_pipelineProcessor {
-
-	s.v.Name = name
 
 	return s
 }

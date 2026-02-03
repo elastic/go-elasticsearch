@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/delegate_pki/SecurityDelegatePkiRequest.ts#L22-L57
 type Request struct {
-
 	// X509CertificateChain The X509Certificate chain, which is represented as an ordered string array.
 	// Each string in the array is a base64-encoded (Section 4 of RFC4648 - not
 	// base64url-encoded) of the certificate's DER encoding.

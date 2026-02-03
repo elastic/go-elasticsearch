@@ -38,13 +38,6 @@ func NewFunctionScoreQuery() *_functionScoreQuery {
 
 }
 
-func (s *_functionScoreQuery) Boost(boost float32) *_functionScoreQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_functionScoreQuery) BoostMode(boostmode functionboostmode.FunctionBoostMode) *_functionScoreQuery {
 
 	s.v.BoostMode = &boostmode
@@ -82,16 +75,23 @@ func (s *_functionScoreQuery) Query(query types.QueryVariant) *_functionScoreQue
 	return s
 }
 
-func (s *_functionScoreQuery) QueryName_(queryname_ string) *_functionScoreQuery {
+func (s *_functionScoreQuery) ScoreMode(scoremode functionscoremode.FunctionScoreMode) *_functionScoreQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.ScoreMode = &scoremode
+	return s
+}
+
+func (s *_functionScoreQuery) Boost(boost float32) *_functionScoreQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }
 
-func (s *_functionScoreQuery) ScoreMode(scoremode functionscoremode.FunctionScoreMode) *_functionScoreQuery {
+func (s *_functionScoreQuery) QueryName_(queryname_ string) *_functionScoreQuery {
 
-	s.v.ScoreMode = &scoremode
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

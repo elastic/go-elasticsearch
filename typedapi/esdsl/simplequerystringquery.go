@@ -62,13 +62,6 @@ func (s *_simpleQueryStringQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesy
 	return s
 }
 
-func (s *_simpleQueryStringQuery) Boost(boost float32) *_simpleQueryStringQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_simpleQueryStringQuery) DefaultOperator(defaultoperator operator.Operator) *_simpleQueryStringQuery {
 
 	s.v.DefaultOperator = &defaultoperator
@@ -134,16 +127,23 @@ func (s *_simpleQueryStringQuery) Query(query string) *_simpleQueryStringQuery {
 	return s
 }
 
-func (s *_simpleQueryStringQuery) QueryName_(queryname_ string) *_simpleQueryStringQuery {
+func (s *_simpleQueryStringQuery) QuoteFieldSuffix(quotefieldsuffix string) *_simpleQueryStringQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.QuoteFieldSuffix = &quotefieldsuffix
 
 	return s
 }
 
-func (s *_simpleQueryStringQuery) QuoteFieldSuffix(quotefieldsuffix string) *_simpleQueryStringQuery {
+func (s *_simpleQueryStringQuery) Boost(boost float32) *_simpleQueryStringQuery {
 
-	s.v.QuoteFieldSuffix = &quotefieldsuffix
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_simpleQueryStringQuery) QueryName_(queryname_ string) *_simpleQueryStringQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

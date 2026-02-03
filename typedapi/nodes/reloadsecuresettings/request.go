@@ -32,7 +32,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/nodes/reload_secure_settings/ReloadSecureSettingsRequest.ts#L24-L70
 type Request struct {
-
 	// SecureSettingsPassword The password for the Elasticsearch keystore.
 	SecureSettingsPassword *string `json:"secure_settings_password,omitempty"`
 }

@@ -38,16 +38,16 @@ func NewConstantScoreQuery(filter types.QueryVariant) *_constantScoreQuery {
 
 }
 
-func (s *_constantScoreQuery) Boost(boost float32) *_constantScoreQuery {
+func (s *_constantScoreQuery) Filter(filter types.QueryVariant) *_constantScoreQuery {
 
-	s.v.Boost = &boost
+	s.v.Filter = *filter.QueryCaster()
 
 	return s
 }
 
-func (s *_constantScoreQuery) Filter(filter types.QueryVariant) *_constantScoreQuery {
+func (s *_constantScoreQuery) Boost(boost float32) *_constantScoreQuery {
 
-	s.v.Filter = *filter.QueryCaster()
+	s.v.Boost = &boost
 
 	return s
 }

@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/update_user_profile_data/Request.ts#L27-L98
 type Request struct {
-
 	// Data Non-searchable data that you want to associate with the user profile.
 	// This field supports a nested data structure.
 	// Within the `data` object, top-level keys cannot begin with an underscore

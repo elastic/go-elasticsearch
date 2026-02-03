@@ -20,16 +20,10 @@
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // CompositeAggregationSource type.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/aggregations/bucket.ts#L151-L171
 type CompositeAggregationSource struct {
-	AdditionalCompositeAggregationSourceProperty map[string]json.RawMessage `json:"-"`
 	// DateHistogram A date histogram aggregation.
 	DateHistogram *CompositeDateHistogramAggregation `json:"date_histogram,omitempty"`
 	// GeotileGrid A geotile grid aggregation.
@@ -40,40 +34,9 @@ type CompositeAggregationSource struct {
 	Terms *CompositeTermsAggregation `json:"terms,omitempty"`
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s CompositeAggregationSource) MarshalJSON() ([]byte, error) {
-	type opt CompositeAggregationSource
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalCompositeAggregationSourceProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalCompositeAggregationSourceProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewCompositeAggregationSource returns a CompositeAggregationSource.
 func NewCompositeAggregationSource() *CompositeAggregationSource {
-	r := &CompositeAggregationSource{
-		AdditionalCompositeAggregationSourceProperty: make(map[string]json.RawMessage),
-	}
+	r := &CompositeAggregationSource{}
 
 	return r
 }

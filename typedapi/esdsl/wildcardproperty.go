@@ -36,6 +36,13 @@ func NewWildcardProperty() *_wildcardProperty {
 
 }
 
+func (s *_wildcardProperty) NullValue(nullvalue string) *_wildcardProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
 func (s *_wildcardProperty) CopyTo(fields ...string) *_wildcardProperty {
 
 	s.v.CopyTo = fields
@@ -102,13 +109,6 @@ func (s *_wildcardProperty) AddMeta(key string, value string) *_wildcardProperty
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_wildcardProperty) NullValue(nullvalue string) *_wildcardProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

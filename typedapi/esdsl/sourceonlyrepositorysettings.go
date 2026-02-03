@@ -32,20 +32,6 @@ func NewSourceOnlyRepositorySettings() *_sourceOnlyRepositorySettings {
 
 }
 
-func (s *_sourceOnlyRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
-
-	s.v.ChunkSize = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_sourceOnlyRepositorySettings) Compress(compress bool) *_sourceOnlyRepositorySettings {
-
-	s.v.Compress = &compress
-
-	return s
-}
-
 func (s *_sourceOnlyRepositorySettings) DelegateType(delegatetype string) *_sourceOnlyRepositorySettings {
 
 	s.v.DelegateType = &delegatetype
@@ -60,6 +46,27 @@ func (s *_sourceOnlyRepositorySettings) MaxNumberOfSnapshots(maxnumberofsnapshot
 	return s
 }
 
+func (s *_sourceOnlyRepositorySettings) ReadOnly(readonly bool) *_sourceOnlyRepositorySettings {
+
+	s.v.ReadOnly = &readonly
+
+	return s
+}
+
+func (s *_sourceOnlyRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
+
+	s.v.ChunkSize = *bytesize.ByteSizeCaster()
+
+	return s
+}
+
+func (s *_sourceOnlyRepositorySettings) Compress(compress bool) *_sourceOnlyRepositorySettings {
+
+	s.v.Compress = &compress
+
+	return s
+}
+
 func (s *_sourceOnlyRepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
 
 	s.v.MaxRestoreBytesPerSec = *bytesize.ByteSizeCaster()
@@ -70,13 +77,6 @@ func (s *_sourceOnlyRepositorySettings) MaxRestoreBytesPerSec(bytesize types.Byt
 func (s *_sourceOnlyRepositorySettings) MaxSnapshotBytesPerSec(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
 
 	s.v.MaxSnapshotBytesPerSec = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_sourceOnlyRepositorySettings) ReadOnly(readonly bool) *_sourceOnlyRepositorySettings {
-
-	s.v.ReadOnly = &readonly
 
 	return s
 }

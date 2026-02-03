@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/simulate/ingest/SimulateIngestRequest.ts#L29-L108
 type Request struct {
-
 	// ComponentTemplateSubstitutions A map of component template names to substitute component template definition
 	// objects.
 	ComponentTemplateSubstitutions map[string]types.ComponentTemplateNode `json:"component_template_substitutions,omitempty"`

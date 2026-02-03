@@ -24,7 +24,6 @@ package putiplocationdatabase
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ingest/put_ip_location_database/PutIpLocationDatabaseResponse.ts#L22-L25
 type Response struct {
-
 	// Acknowledged For a successful response, this value is always true. On failure, an
 	// exception is returned instead.
 	Acknowledged bool `json:"acknowledged"`

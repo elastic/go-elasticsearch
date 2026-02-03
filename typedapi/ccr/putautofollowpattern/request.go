@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ccr/put_auto_follow_pattern/PutAutoFollowPatternRequest.ts#L27-L133
 type Request struct {
-
 	// FollowIndexPattern The name of follower index. The template {{leader_index}} can be used to
 	// derive the name of the follower index from the name of the leader index. When
 	// following a data stream, use {{leader_index}}; CCR does not support changes

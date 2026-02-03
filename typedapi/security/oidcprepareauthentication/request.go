@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/oidc_prepare_authentication/Request.ts#L22-L71
 type Request struct {
-
 	// Iss In the case of a third party initiated single sign on, this is the issuer
 	// identifier for the OP that the RP is to send the authentication request to.
 	// It cannot be specified when *realm* is specified.

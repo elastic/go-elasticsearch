@@ -39,13 +39,6 @@ func NewInferenceProcessor() *_inferenceProcessor {
 
 }
 
-func (s *_inferenceProcessor) Description(description string) *_inferenceProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_inferenceProcessor) FieldMap(fieldmap map[string]json.RawMessage) *_inferenceProcessor {
 
 	s.v.FieldMap = fieldmap
@@ -64,20 +57,6 @@ func (s *_inferenceProcessor) AddFieldMap(key string, value json.RawMessage) *_i
 	tmp[key] = value
 
 	s.v.FieldMap = tmp
-	return s
-}
-
-func (s *_inferenceProcessor) If(if_ types.ScriptVariant) *_inferenceProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_inferenceProcessor) IgnoreFailure(ignorefailure bool) *_inferenceProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
-
 	return s
 }
 
@@ -112,6 +91,34 @@ func (s *_inferenceProcessor) ModelId(id string) *_inferenceProcessor {
 	return s
 }
 
+func (s *_inferenceProcessor) TargetField(field string) *_inferenceProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_inferenceProcessor) Description(description string) *_inferenceProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_inferenceProcessor) If(if_ types.ScriptVariant) *_inferenceProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_inferenceProcessor) IgnoreFailure(ignorefailure bool) *_inferenceProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
 func (s *_inferenceProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_inferenceProcessor {
 
 	for _, v := range onfailures {
@@ -125,13 +132,6 @@ func (s *_inferenceProcessor) OnFailure(onfailures ...types.ProcessorContainerVa
 func (s *_inferenceProcessor) Tag(tag string) *_inferenceProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_inferenceProcessor) TargetField(field string) *_inferenceProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

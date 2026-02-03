@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/put_filter/MlPutFilterRequest.ts#L23-L58
 type Request struct {
-
 	// Description A description of the filter.
 	Description *string `json:"description,omitempty"`
 	// Items The items of the filter. A wildcard `*` can be used at the beginning or the

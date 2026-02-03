@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/suggest_user_profiles/Response.ts#L29-L44
 type Response struct {
-
 	// Profiles A list of profile documents, ordered by relevance, that match the search
 	// criteria.
 	Profiles []types.UserProfile `json:"profiles"`

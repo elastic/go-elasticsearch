@@ -30,7 +30,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/rank_eval/RankEvalResponse.ts#L26-L34
 type Response struct {
-
 	// Details The details section contains one entry for every query in the original
 	// requests section, keyed by the search request id
 	Details  map[string]types.RankEvalMetricDetail `json:"details"`

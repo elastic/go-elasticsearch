@@ -45,13 +45,6 @@ func (s *_compositeDateHistogramAggregation) CalendarInterval(durationlarge stri
 	return s
 }
 
-func (s *_compositeDateHistogramAggregation) Field(field string) *_compositeDateHistogramAggregation {
-
-	s.v.Field = &field
-
-	return s
-}
-
 func (s *_compositeDateHistogramAggregation) FixedInterval(durationlarge string) *_compositeDateHistogramAggregation {
 
 	s.v.FixedInterval = &durationlarge
@@ -62,6 +55,27 @@ func (s *_compositeDateHistogramAggregation) FixedInterval(durationlarge string)
 func (s *_compositeDateHistogramAggregation) Format(format string) *_compositeDateHistogramAggregation {
 
 	s.v.Format = &format
+
+	return s
+}
+
+func (s *_compositeDateHistogramAggregation) Offset(duration types.DurationVariant) *_compositeDateHistogramAggregation {
+
+	s.v.Offset = *duration.DurationCaster()
+
+	return s
+}
+
+func (s *_compositeDateHistogramAggregation) TimeZone(timezone string) *_compositeDateHistogramAggregation {
+
+	s.v.TimeZone = &timezone
+
+	return s
+}
+
+func (s *_compositeDateHistogramAggregation) Field(field string) *_compositeDateHistogramAggregation {
+
+	s.v.Field = &field
 
 	return s
 }
@@ -79,13 +93,6 @@ func (s *_compositeDateHistogramAggregation) MissingOrder(missingorder missingor
 	return s
 }
 
-func (s *_compositeDateHistogramAggregation) Offset(duration types.DurationVariant) *_compositeDateHistogramAggregation {
-
-	s.v.Offset = *duration.DurationCaster()
-
-	return s
-}
-
 func (s *_compositeDateHistogramAggregation) Order(order sortorder.SortOrder) *_compositeDateHistogramAggregation {
 
 	s.v.Order = &order
@@ -95,13 +102,6 @@ func (s *_compositeDateHistogramAggregation) Order(order sortorder.SortOrder) *_
 func (s *_compositeDateHistogramAggregation) Script(script types.ScriptVariant) *_compositeDateHistogramAggregation {
 
 	s.v.Script = script.ScriptCaster()
-
-	return s
-}
-
-func (s *_compositeDateHistogramAggregation) TimeZone(timezone string) *_compositeDateHistogramAggregation {
-
-	s.v.TimeZone = &timezone
 
 	return s
 }

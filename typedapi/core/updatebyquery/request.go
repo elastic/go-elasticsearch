@@ -32,7 +32,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L349
 type Request struct {
-
 	// Conflicts The preferred behavior when update by query hits version conflicts: `abort`
 	// or `proceed`.
 	Conflicts *conflicts.Conflicts `json:"conflicts,omitempty"`

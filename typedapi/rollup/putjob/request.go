@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/rollup/put_job/CreateRollupJobRequest.ts#L27-L105
 type Request struct {
-
 	// Cron A cron string which defines the intervals when the rollup job should be
 	// executed. When the interval
 	// triggers, the indexer attempts to rollup the data in the index pattern. The

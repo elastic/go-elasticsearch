@@ -51,13 +51,6 @@ func (s *_matchPhrasePrefixQuery) Analyzer(analyzer string) *_matchPhrasePrefixQ
 	return s
 }
 
-func (s *_matchPhrasePrefixQuery) Boost(boost float32) *_matchPhrasePrefixQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_matchPhrasePrefixQuery) MaxExpansions(maxexpansions int) *_matchPhrasePrefixQuery {
 
 	s.v.MaxExpansions = &maxexpansions
@@ -72,13 +65,6 @@ func (s *_matchPhrasePrefixQuery) Query(query string) *_matchPhrasePrefixQuery {
 	return s
 }
 
-func (s *_matchPhrasePrefixQuery) QueryName_(queryname_ string) *_matchPhrasePrefixQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_matchPhrasePrefixQuery) Slop(slop int) *_matchPhrasePrefixQuery {
 
 	s.v.Slop = &slop
@@ -89,6 +75,20 @@ func (s *_matchPhrasePrefixQuery) Slop(slop int) *_matchPhrasePrefixQuery {
 func (s *_matchPhrasePrefixQuery) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *_matchPhrasePrefixQuery {
 
 	s.v.ZeroTermsQuery = &zerotermsquery
+	return s
+}
+
+func (s *_matchPhrasePrefixQuery) Boost(boost float32) *_matchPhrasePrefixQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_matchPhrasePrefixQuery) QueryName_(queryname_ string) *_matchPhrasePrefixQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

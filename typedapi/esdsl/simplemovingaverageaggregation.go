@@ -39,6 +39,13 @@ func NewSimpleMovingAverageAggregation(settings types.EmptyObjectVariant) *_simp
 
 }
 
+func (s *_simpleMovingAverageAggregation) Settings(settings types.EmptyObjectVariant) *_simpleMovingAverageAggregation {
+
+	s.v.Settings = *settings.EmptyObjectCaster()
+
+	return s
+}
+
 func (s *_simpleMovingAverageAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_simpleMovingAverageAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -69,13 +76,6 @@ func (s *_simpleMovingAverageAggregation) Minimize(minimize bool) *_simpleMoving
 func (s *_simpleMovingAverageAggregation) Predict(predict int) *_simpleMovingAverageAggregation {
 
 	s.v.Predict = &predict
-
-	return s
-}
-
-func (s *_simpleMovingAverageAggregation) Settings(settings types.EmptyObjectVariant) *_simpleMovingAverageAggregation {
-
-	s.v.Settings = *settings.EmptyObjectCaster()
 
 	return s
 }

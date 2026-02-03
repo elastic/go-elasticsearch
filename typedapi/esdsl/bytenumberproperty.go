@@ -38,6 +38,13 @@ func NewByteNumberProperty() *_byteNumberProperty {
 
 }
 
+func (s *_byteNumberProperty) NullValue(nullvalue byte) *_byteNumberProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
 func (s *_byteNumberProperty) Boost(boost types.Float64) *_byteNumberProperty {
 
 	s.v.Boost = &boost
@@ -132,13 +139,6 @@ func (s *_byteNumberProperty) AddMeta(key string, value string) *_byteNumberProp
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_byteNumberProperty) NullValue(nullvalue byte) *_byteNumberProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

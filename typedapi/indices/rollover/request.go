@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/rollover/IndicesRolloverRequest.ts#L29-L153
 type Request struct {
-
 	// Aliases Aliases for the target index.
 	// Data streams do not support this parameter.
 	Aliases map[string]types.Alias `json:"aliases,omitempty"`

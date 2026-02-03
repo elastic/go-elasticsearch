@@ -38,13 +38,6 @@ func NewRegexpQuery(field string, value string) *_regexpQuery {
 	return tmp
 }
 
-func (s *_regexpQuery) Boost(boost float32) *_regexpQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_regexpQuery) CaseInsensitive(caseinsensitive bool) *_regexpQuery {
 
 	s.v.CaseInsensitive = &caseinsensitive
@@ -66,13 +59,6 @@ func (s *_regexpQuery) MaxDeterminizedStates(maxdeterminizedstates int) *_regexp
 	return s
 }
 
-func (s *_regexpQuery) QueryName_(queryname_ string) *_regexpQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_regexpQuery) Rewrite(multitermqueryrewrite string) *_regexpQuery {
 
 	s.v.Rewrite = &multitermqueryrewrite
@@ -83,6 +69,20 @@ func (s *_regexpQuery) Rewrite(multitermqueryrewrite string) *_regexpQuery {
 func (s *_regexpQuery) Value(value string) *_regexpQuery {
 
 	s.v.Value = value
+
+	return s
+}
+
+func (s *_regexpQuery) Boost(boost float32) *_regexpQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_regexpQuery) QueryName_(queryname_ string) *_regexpQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

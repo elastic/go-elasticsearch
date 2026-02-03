@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/stop_datafeed/MlStopDatafeedRequest.ts#L24-L86
 type Request struct {
-
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
 	AllowNoMatch *bool `json:"allow_no_match,omitempty"`
 	// Force Refer to the description for the `force` query parameter.

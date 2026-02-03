@@ -26,27 +26,13 @@ type _termsQuery struct {
 	v *types.TermsQuery
 }
 
-// Returns roles that contain one or more exact terms in a provided field.
+// Returns documents that contain one or more exact terms in a provided field.
 // To return a document, one or more terms must exactly match a field value,
 // including whitespace and capitalization.
 func NewTermsQuery() *_termsQuery {
 
 	return &_termsQuery{v: types.NewTermsQuery()}
 
-}
-
-func (s *_termsQuery) Boost(boost float32) *_termsQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
-func (s *_termsQuery) QueryName_(queryname_ string) *_termsQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
 }
 
 func (s *_termsQuery) TermsQuery(termsquery map[string]types.TermsQueryField) *_termsQuery {
@@ -67,6 +53,20 @@ func (s *_termsQuery) AddTermsQuery(key string, value types.TermsQueryFieldVaria
 	tmp[key] = *value.TermsQueryFieldCaster()
 
 	s.v.TermsQuery = tmp
+	return s
+}
+
+func (s *_termsQuery) Boost(boost float32) *_termsQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_termsQuery) QueryName_(queryname_ string) *_termsQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

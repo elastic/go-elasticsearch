@@ -35,13 +35,6 @@ func NewKnnQuery() *_knnQuery {
 
 }
 
-func (s *_knnQuery) Boost(boost float32) *_knnQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_knnQuery) Field(field string) *_knnQuery {
 
 	s.v.Field = field
@@ -69,13 +62,6 @@ func (s *_knnQuery) K(k int) *_knnQuery {
 func (s *_knnQuery) NumCandidates(numcandidates int) *_knnQuery {
 
 	s.v.NumCandidates = &numcandidates
-
-	return s
-}
-
-func (s *_knnQuery) QueryName_(queryname_ string) *_knnQuery {
-
-	s.v.QueryName_ = &queryname_
 
 	return s
 }
@@ -111,6 +97,20 @@ func (s *_knnQuery) Similarity(similarity float32) *_knnQuery {
 func (s *_knnQuery) VisitPercentage(visitpercentage float32) *_knnQuery {
 
 	s.v.VisitPercentage = &visitpercentage
+
+	return s
+}
+
+func (s *_knnQuery) Boost(boost float32) *_knnQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_knnQuery) QueryName_(queryname_ string) *_knnQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

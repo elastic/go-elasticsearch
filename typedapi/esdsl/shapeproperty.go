@@ -44,6 +44,26 @@ func (s *_shapeProperty) Coerce(coerce bool) *_shapeProperty {
 	return s
 }
 
+func (s *_shapeProperty) IgnoreMalformed(ignoremalformed bool) *_shapeProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
+func (s *_shapeProperty) IgnoreZValue(ignorezvalue bool) *_shapeProperty {
+
+	s.v.IgnoreZValue = &ignorezvalue
+
+	return s
+}
+
+func (s *_shapeProperty) Orientation(orientation geoorientation.GeoOrientation) *_shapeProperty {
+
+	s.v.Orientation = &orientation
+	return s
+}
+
 func (s *_shapeProperty) CopyTo(fields ...string) *_shapeProperty {
 
 	s.v.CopyTo = fields
@@ -92,20 +112,6 @@ func (s *_shapeProperty) IgnoreAbove(ignoreabove int) *_shapeProperty {
 	return s
 }
 
-func (s *_shapeProperty) IgnoreMalformed(ignoremalformed bool) *_shapeProperty {
-
-	s.v.IgnoreMalformed = &ignoremalformed
-
-	return s
-}
-
-func (s *_shapeProperty) IgnoreZValue(ignorezvalue bool) *_shapeProperty {
-
-	s.v.IgnoreZValue = &ignorezvalue
-
-	return s
-}
-
 func (s *_shapeProperty) Meta(meta map[string]string) *_shapeProperty {
 
 	s.v.Meta = meta
@@ -124,12 +130,6 @@ func (s *_shapeProperty) AddMeta(key string, value string) *_shapeProperty {
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_shapeProperty) Orientation(orientation geoorientation.GeoOrientation) *_shapeProperty {
-
-	s.v.Orientation = &orientation
 	return s
 }
 

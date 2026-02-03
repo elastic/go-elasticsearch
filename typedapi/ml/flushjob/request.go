@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/flush_job/MlFlushJobRequest.ts#L24-L108
 type Request struct {
-
 	// AdvanceTime Refer to the description for the `advance_time` query parameter.
 	AdvanceTime types.DateTime `json:"advance_time,omitempty"`
 	// CalcInterim Refer to the description for the `calc_interim` query parameter.

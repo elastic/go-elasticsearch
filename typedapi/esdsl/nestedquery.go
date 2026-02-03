@@ -42,13 +42,6 @@ func NewNestedQuery(query types.QueryVariant) *_nestedQuery {
 
 }
 
-func (s *_nestedQuery) Boost(boost float32) *_nestedQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_nestedQuery) IgnoreUnmapped(ignoreunmapped bool) *_nestedQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped
@@ -77,16 +70,23 @@ func (s *_nestedQuery) Query(query types.QueryVariant) *_nestedQuery {
 	return s
 }
 
-func (s *_nestedQuery) QueryName_(queryname_ string) *_nestedQuery {
+func (s *_nestedQuery) ScoreMode(scoremode childscoremode.ChildScoreMode) *_nestedQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.ScoreMode = &scoremode
+	return s
+}
+
+func (s *_nestedQuery) Boost(boost float32) *_nestedQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }
 
-func (s *_nestedQuery) ScoreMode(scoremode childscoremode.ChildScoreMode) *_nestedQuery {
+func (s *_nestedQuery) QueryName_(queryname_ string) *_nestedQuery {
 
-	s.v.ScoreMode = &scoremode
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 
