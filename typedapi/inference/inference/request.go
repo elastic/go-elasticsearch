@@ -33,7 +33,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/inference/InferenceRequest.ts#L26-L104
 type Request struct {
-
 	// Input The text on which you want to perform the inference task.
 	// It can be a single string or an array.
 	//

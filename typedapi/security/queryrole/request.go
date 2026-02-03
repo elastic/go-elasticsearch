@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/query_role/QueryRolesRequest.ts#L25-L85
 type Request struct {
-
 	// From The starting document offset.
 	// It must not be negative.
 	// By default, you cannot page through more than 10,000 hits using the `from`

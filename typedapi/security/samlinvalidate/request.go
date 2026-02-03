@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/saml_invalidate/Request.ts#L22-L61
 type Request struct {
-
 	// Acs The Assertion Consumer Service URL that matches the one of the SAML realm in
 	// Elasticsearch that should be used. You must specify either this parameter or
 	// the `realm` parameter.

@@ -36,7 +36,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/put_mapping/IndicesPutMappingRequest.ts#L41-L180
 type Request struct {
-
 	// DateDetection Controls whether dynamic date detection is enabled.
 	DateDetection *bool `json:"date_detection,omitempty"`
 	// Dynamic Controls whether new fields are added dynamically.

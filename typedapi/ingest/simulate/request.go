@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ingest/simulate/SimulatePipelineRequest.ts#L25-L72
 type Request struct {
-
 	// Docs Sample documents to test in the pipeline.
 	Docs []types.Document `json:"docs"`
 	// Pipeline The pipeline to test.

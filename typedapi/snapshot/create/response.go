@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/snapshot/create/SnapshotCreateResponse.ts#L22-L35
 type Response struct {
-
 	// Accepted Equals `true` if the snapshot was accepted. Present when the request had
 	// `wait_for_completion` set to `false`
 	Accepted *bool `json:"accepted,omitempty"`

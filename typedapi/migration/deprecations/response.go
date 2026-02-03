@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/migration/deprecations/DeprecationInfoResponse.ts#L23-L54
 type Response struct {
-
 	// ClusterSettings Cluster-level deprecation warnings.
 	ClusterSettings []types.Deprecation            `json:"cluster_settings"`
 	DataStreams     map[string][]types.Deprecation `json:"data_streams"`

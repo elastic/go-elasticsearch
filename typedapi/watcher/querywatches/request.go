@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/watcher/query_watches/WatcherQueryWatchesRequest.ts#L25-L70
 type Request struct {
-
 	// From The offset from the first result to fetch.
 	// It must be non-negative.
 	From *int `json:"from,omitempty"`

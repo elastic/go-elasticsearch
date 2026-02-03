@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/update_aliases/IndicesUpdateAliasesRequest.ts#L24-L59
 type Request struct {
-
 	// Actions Actions to perform.
 	Actions []types.IndicesAction `json:"actions,omitempty"`
 }

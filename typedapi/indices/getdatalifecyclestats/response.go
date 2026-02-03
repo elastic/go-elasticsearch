@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/get_data_lifecycle_stats/IndicesGetDataLifecycleStatsResponse.ts#L24-L44
 type Response struct {
-
 	// DataStreamCount The count of data streams currently being managed by the data stream
 	// lifecycle.
 	DataStreamCount int `json:"data_stream_count"`

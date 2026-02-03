@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/field_caps/FieldCapabilitiesRequest.ts#L25-L130
 type Request struct {
-
 	// Fields A list of fields to retrieve capabilities for. Wildcard (`*`) expressions are
 	// supported.
 	Fields []string `json:"fields,omitempty"`

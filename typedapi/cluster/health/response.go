@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/cluster/health/ClusterHealthResponse.ts#L26-L37
 type Response struct {
-
 	// ActivePrimaryShards The number of active primary shards.
 	ActivePrimaryShards int `json:"active_primary_shards"`
 	// ActiveShards The total number of active primary and replica shards.

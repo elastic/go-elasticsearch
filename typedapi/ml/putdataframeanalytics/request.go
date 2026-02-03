@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/put_data_frame_analytics/MlPutDataFrameAnalyticsRequest.ts#L30-L155
 type Request struct {
-
 	// AllowLazyStart Specifies whether this job can start when there is insufficient machine
 	// learning node capacity for it to be immediately assigned to a node. If
 	// set to `false` and a machine learning node with capacity to run the job

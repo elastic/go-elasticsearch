@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/get/GetResponse.ts#L23-L34
 type Response struct {
-
 	// Fields If the `stored_fields` parameter is set to `true` and `found` is `true`, it
 	// contains the document fields stored in the index.
 	Fields map[string]json.RawMessage `json:"fields,omitempty"`

@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/get_settings/SecurityGetSettingsResponse.ts#L21-L36
 type Response struct {
-
 	// Security Settings for the index used for most security configuration, including native
 	// realm users and roles configured with the API.
 	Security types.SecuritySettings `json:"security"`

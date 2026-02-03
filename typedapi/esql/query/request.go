@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/esql/query/QueryRequest.ts#L27-L115
 type Request struct {
-
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
 	// individual document as one row. For the JSON, YAML, CBOR and smile formats,
 	// ES|QL can return the results in a columnar fashion where one row represents

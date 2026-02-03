@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/update_filter/MlUpdateFilterRequest.ts#L23-L60
 type Request struct {
-
 	// AddItems The items to add to the filter.
 	AddItems []string `json:"add_items,omitempty"`
 	// Description A description for the filter.

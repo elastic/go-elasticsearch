@@ -24,7 +24,6 @@ package createcrossclusterapikey
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/create_cross_cluster_api_key/CreateCrossClusterApiKeyResponse.ts#L23-L48
 type Response struct {
-
 	// ApiKey Generated API key.
 	ApiKey string `json:"api_key"`
 	// Encoded API key credentials which is the base64-encoding of

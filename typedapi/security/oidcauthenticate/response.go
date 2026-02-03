@@ -24,7 +24,6 @@ package oidcauthenticate
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/oidc_authenticate/Response.ts#L22-L41
 type Response struct {
-
 	// AccessToken The Elasticsearch access token.
 	AccessToken string `json:"access_token"`
 	// ExpiresIn The duration (in seconds) of the tokens.

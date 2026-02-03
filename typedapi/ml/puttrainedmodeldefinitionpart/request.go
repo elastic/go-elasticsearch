@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/put_trained_model_definition_part/MlPutTrainedModelDefinitionPartRequest.ts#L24-L65
 type Request struct {
-
 	// Definition The definition part for the model. Must be a base64 encoded string.
 	Definition string `json:"definition"`
 	// TotalDefinitionLength The total uncompressed definition length in bytes. Not base64 encoded.

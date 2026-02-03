@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/update/UpdateRequest.ts#L38-L194
 type Request struct {
-
 	// DetectNoop If `true`, the `result` in the response is set to `noop` (no operation) when
 	// there are no changes to the document.
 	DetectNoop *bool `json:"detect_noop,omitempty"`

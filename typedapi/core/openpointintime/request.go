@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/open_point_in_time/OpenPointInTimeRequest.ts#L26-L127
 type Request struct {
-
 	// IndexFilter Filter indices if the provided query rewrites to `match_none` on every shard.
 	IndexFilter *types.Query `json:"index_filter,omitempty"`
 }

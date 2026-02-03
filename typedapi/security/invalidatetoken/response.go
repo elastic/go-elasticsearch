@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/invalidate_token/SecurityInvalidateTokenResponse.ts#L23-L46
 type Response struct {
-
 	// ErrorCount The number of errors that were encountered when invalidating the tokens.
 	ErrorCount int64 `json:"error_count"`
 	// ErrorDetails Details about the errors.

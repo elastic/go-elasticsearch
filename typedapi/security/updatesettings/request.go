@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/update_settings/SecurityUpdateSettingsRequest.ts#L24-L71
 type Request struct {
-
 	// Security Settings for the index used for most security configuration, including native
 	// realm users and roles configured with the API.
 	Security *types.SecuritySettings `json:"security,omitempty"`

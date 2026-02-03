@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/get_calendars/MlGetCalendarsRequest.ts#L25-L63
 type Request struct {
-
 	// Page This object is supported only when you omit the calendar identifier.
 	Page *types.Page `json:"page,omitempty"`
 }

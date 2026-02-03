@@ -30,7 +30,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/knn_search/KnnSearchResponse.ts#L26-L54
 type Response struct {
-
 	// Fields The field values for the documents. These fields
 	// must be specified in the request using the `fields` parameter.
 	Fields map[string]json.RawMessage `json:"fields,omitempty"`

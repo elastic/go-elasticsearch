@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/get_token/GetUserAccessTokenRequest.ts#L25-L90
 type Request struct {
-
 	// GrantType The type of grant.
 	// Supported grant types are: `password`, `_kerberos`, `client_credentials`, and
 	// `refresh_token`.

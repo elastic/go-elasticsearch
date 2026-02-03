@@ -24,7 +24,6 @@ package putautoscalingpolicy
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/autoscaling/put_autoscaling_policy/PutAutoscalingPolicyResponse.ts#L22-L24
 type Response struct {
-
 	// Acknowledged For a successful response, this value is always true. On failure, an
 	// exception is returned instead.
 	Acknowledged bool `json:"acknowledged"`

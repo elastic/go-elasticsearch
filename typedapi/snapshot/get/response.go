@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/snapshot/get/SnapshotGetResponse.ts#L25-L42
 type Response struct {
-
 	// Remaining The number of remaining snapshots that were not returned due to size limits
 	// and that can be fetched by additional requests using the next field value.
 	Remaining int                          `json:"remaining"`

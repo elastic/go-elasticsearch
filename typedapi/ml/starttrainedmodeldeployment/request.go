@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/start_trained_model_deployment/MlStartTrainedModelDeploymentRequest.ts#L30-L111
 type Request struct {
-
 	// AdaptiveAllocations Adaptive allocations configuration. When enabled, the number of allocations
 	// is set based on the current load.
 	// If adaptive_allocations is enabled, do not set the number of allocations

@@ -36,7 +36,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L102
 type Request struct {
-
 	// AccessToken The user's access token.
 	// If you specify the `access_token` grant type, this parameter is required.
 	// It is not valid with other grant types.

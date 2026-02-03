@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/rank_eval/RankEvalRequest.ts#L24-L76
 type Request struct {
-
 	// Metric Definition of the evaluation metric to calculate.
 	Metric *types.RankEvalMetric `json:"metric,omitempty"`
 	// Requests A set of typical search requests, together with their provided ratings.

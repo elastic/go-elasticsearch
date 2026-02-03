@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/connector/sync_job_update_stats/SyncJobUpdateStatsRequest.ts#L24-L78
 type Request struct {
-
 	// DeletedDocumentCount The number of documents the sync job deleted.
 	DeletedDocumentCount int64 `json:"deleted_document_count"`
 	// IndexedDocumentCount The number of documents the sync job indexed.

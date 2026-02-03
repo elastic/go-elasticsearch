@@ -33,7 +33,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/put_calendar_job/MlPutCalendarJobResponse.ts#L22-L31
 type Response struct {
-
 	// CalendarId A string that uniquely identifies a calendar.
 	CalendarId string `json:"calendar_id"`
 	// Description A description of the calendar.

@@ -21,8 +21,6 @@
 package textembedding
 
 import (
-	"encoding/json"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
@@ -30,16 +28,13 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/text_embedding/TextEmbeddingResponse.ts#L22-L24
 type Response struct {
-	AdditionalTextEmbeddingInferenceResultProperty map[string]json.RawMessage      `json:"-"`
-	TextEmbedding                                  []types.TextEmbeddingResult     `json:"text_embedding,omitempty"`
-	TextEmbeddingBits                              []types.TextEmbeddingByteResult `json:"text_embedding_bits,omitempty"`
-	TextEmbeddingBytes                             []types.TextEmbeddingByteResult `json:"text_embedding_bytes,omitempty"`
+	TextEmbedding      []types.TextEmbeddingResult     `json:"text_embedding,omitempty"`
+	TextEmbeddingBits  []types.TextEmbeddingByteResult `json:"text_embedding_bits,omitempty"`
+	TextEmbeddingBytes []types.TextEmbeddingByteResult `json:"text_embedding_bytes,omitempty"`
 }
 
 // NewResponse returns a Response
 func NewResponse() *Response {
-	r := &Response{
-		AdditionalTextEmbeddingInferenceResultProperty: make(map[string]json.RawMessage, 0),
-	}
+	r := &Response{}
 	return r
 }
