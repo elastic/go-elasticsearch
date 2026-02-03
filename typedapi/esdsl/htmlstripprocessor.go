@@ -35,16 +35,30 @@ func NewHtmlStripProcessor() *_htmlStripProcessor {
 
 }
 
-func (s *_htmlStripProcessor) Description(description string) *_htmlStripProcessor {
+func (s *_htmlStripProcessor) Field(field string) *_htmlStripProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_htmlStripProcessor) Field(field string) *_htmlStripProcessor {
+func (s *_htmlStripProcessor) IgnoreMissing(ignoremissing bool) *_htmlStripProcessor {
 
-	s.v.Field = field
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_htmlStripProcessor) TargetField(field string) *_htmlStripProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_htmlStripProcessor) Description(description string) *_htmlStripProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -63,13 +77,6 @@ func (s *_htmlStripProcessor) IgnoreFailure(ignorefailure bool) *_htmlStripProce
 	return s
 }
 
-func (s *_htmlStripProcessor) IgnoreMissing(ignoremissing bool) *_htmlStripProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_htmlStripProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_htmlStripProcessor {
 
 	for _, v := range onfailures {
@@ -83,13 +90,6 @@ func (s *_htmlStripProcessor) OnFailure(onfailures ...types.ProcessorContainerVa
 func (s *_htmlStripProcessor) Tag(tag string) *_htmlStripProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_htmlStripProcessor) TargetField(field string) *_htmlStripProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

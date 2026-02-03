@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _inferenceConfigCreateContainer struct {
 	v *types.InferenceConfigCreateContainer
@@ -32,18 +28,6 @@ type _inferenceConfigCreateContainer struct {
 
 func NewInferenceConfigCreateContainer() *_inferenceConfigCreateContainer {
 	return &_inferenceConfigCreateContainer{v: types.NewInferenceConfigCreateContainer()}
-}
-
-// AdditionalInferenceConfigCreateContainerProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_inferenceConfigCreateContainer) AdditionalInferenceConfigCreateContainerProperty(key string, value json.RawMessage) *_inferenceConfigCreateContainer {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalInferenceConfigCreateContainerProperty = tmp
-	return s
 }
 
 func (s *_inferenceConfigCreateContainer) Classification(classification types.ClassificationInferenceOptionsVariant) *_inferenceConfigCreateContainer {

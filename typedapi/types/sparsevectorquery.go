@@ -33,7 +33,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_types/query_dsl/SparseVectorQuery.ts#L26-L80
 type SparseVectorQuery struct {
-	AdditionalSparseVectorQueryProperty map[string]json.RawMessage `json:"-"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
 	// Boost values are relative to the default value of 1.0.
@@ -165,58 +164,15 @@ func (s *SparseVectorQuery) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "QueryVector", err)
 			}
 
-		default:
-
-			if key, ok := t.(string); ok {
-				if s.AdditionalSparseVectorQueryProperty == nil {
-					s.AdditionalSparseVectorQueryProperty = make(map[string]json.RawMessage, 0)
-				}
-				raw := new(json.RawMessage)
-				if err := dec.Decode(&raw); err != nil {
-					return fmt.Errorf("%s | %w", "AdditionalSparseVectorQueryProperty", err)
-				}
-				s.AdditionalSparseVectorQueryProperty[key] = *raw
-			}
-
 		}
 	}
 	return nil
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s SparseVectorQuery) MarshalJSON() ([]byte, error) {
-	type opt SparseVectorQuery
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalSparseVectorQueryProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalSparseVectorQueryProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewSparseVectorQuery returns a SparseVectorQuery.
 func NewSparseVectorQuery() *SparseVectorQuery {
 	r := &SparseVectorQuery{
-		AdditionalSparseVectorQueryProperty: make(map[string]json.RawMessage),
-		QueryVector:                         make(map[string]float32),
+		QueryVector: make(map[string]float32),
 	}
 
 	return r

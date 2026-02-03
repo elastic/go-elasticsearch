@@ -34,6 +34,13 @@ func NewGeoBoundsAggregation() *_geoBoundsAggregation {
 
 }
 
+func (s *_geoBoundsAggregation) WrapLongitude(wraplongitude bool) *_geoBoundsAggregation {
+
+	s.v.WrapLongitude = &wraplongitude
+
+	return s
+}
+
 func (s *_geoBoundsAggregation) Field(field string) *_geoBoundsAggregation {
 
 	s.v.Field = &field
@@ -51,13 +58,6 @@ func (s *_geoBoundsAggregation) Missing(missing types.MissingVariant) *_geoBound
 func (s *_geoBoundsAggregation) Script(script types.ScriptVariant) *_geoBoundsAggregation {
 
 	s.v.Script = script.ScriptCaster()
-
-	return s
-}
-
-func (s *_geoBoundsAggregation) WrapLongitude(wraplongitude bool) *_geoBoundsAggregation {
-
-	s.v.WrapLongitude = &wraplongitude
 
 	return s
 }

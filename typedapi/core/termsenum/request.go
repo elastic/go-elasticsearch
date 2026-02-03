@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L93
 type Request struct {
-
 	// CaseInsensitive When `true`, the provided search string is matched against index terms
 	// without case sensitivity.
 	CaseInsensitive *bool `json:"case_insensitive,omitempty"`

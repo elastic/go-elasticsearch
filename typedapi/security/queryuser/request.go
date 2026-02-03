@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/query_user/SecurityQueryUserRequest.ts#L25-L91
 type Request struct {
-
 	// From The starting document offset.
 	// It must not be negative.
 	// By default, you cannot page through more than 10,000 hits using the `from`

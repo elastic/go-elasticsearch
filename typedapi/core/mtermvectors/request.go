@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/_global/mtermvectors/MultiTermVectorsRequest.ts#L31-L134
 type Request struct {
-
 	// Docs An array of existing or artificial documents.
 	Docs []types.MTermVectorsOperation `json:"docs,omitempty"`
 	// Ids A simplified syntax to specify documents by their ID if they're in the same

@@ -34,13 +34,6 @@ func NewRankFeatureQuery() *_rankFeatureQuery {
 
 }
 
-func (s *_rankFeatureQuery) Boost(boost float32) *_rankFeatureQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_rankFeatureQuery) Field(field string) *_rankFeatureQuery {
 
 	s.v.Field = field
@@ -62,13 +55,6 @@ func (s *_rankFeatureQuery) Log(log types.RankFeatureFunctionLogarithmVariant) *
 	return s
 }
 
-func (s *_rankFeatureQuery) QueryName_(queryname_ string) *_rankFeatureQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_rankFeatureQuery) Saturation(saturation types.RankFeatureFunctionSaturationVariant) *_rankFeatureQuery {
 
 	s.v.Saturation = saturation.RankFeatureFunctionSaturationCaster()
@@ -79,6 +65,20 @@ func (s *_rankFeatureQuery) Saturation(saturation types.RankFeatureFunctionSatur
 func (s *_rankFeatureQuery) Sigmoid(sigmoid types.RankFeatureFunctionSigmoidVariant) *_rankFeatureQuery {
 
 	s.v.Sigmoid = sigmoid.RankFeatureFunctionSigmoidCaster()
+
+	return s
+}
+
+func (s *_rankFeatureQuery) Boost(boost float32) *_rankFeatureQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_rankFeatureQuery) QueryName_(queryname_ string) *_rankFeatureQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

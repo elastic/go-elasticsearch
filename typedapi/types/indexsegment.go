@@ -20,11 +20,63 @@
 
 package types
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+)
+
 // IndexSegment type.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/indices/segments/types.ts#L24-L26
 type IndexSegment struct {
 	Shards map[string][]ShardsSegment `json:"shards"`
+}
+
+func (s *IndexSegment) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "shards":
+			if s.Shards == nil {
+				s.Shards = make(map[string][]ShardsSegment, 0)
+			}
+			rawMsg := make(map[string]json.RawMessage, 0)
+			dec.Decode(&rawMsg)
+			for key, value := range rawMsg {
+				v := bytes.TrimSpace(value)
+				if len(v) > 0 && v[0] == '[' {
+					var o []ShardsSegment
+					if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Shards", err)
+					}
+					s.Shards[key] = o
+					continue
+				}
+
+				var o ShardsSegment
+				if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Shards", err)
+				}
+				s.Shards[key] = append(s.Shards[key], o)
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewIndexSegment returns a IndexSegment.

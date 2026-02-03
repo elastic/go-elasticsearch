@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/enroll_kibana/Response.ts#L20-L29
 type Response struct {
-
 	// HttpCa The CA certificate used to sign the node certificates that Elasticsearch uses
 	// for TLS on the HTTP layer.
 	// The certificate is returned as a Base64 encoded string of the ASN.1 DER

@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/query_rules/get_rule/QueryRuleGetResponse.ts#L22-L25
 type Response struct {
-
 	// Actions The actions to take when the rule is matched.
 	// The format of this action depends on the rule type.
 	Actions types.QueryRuleActions `json:"actions"`

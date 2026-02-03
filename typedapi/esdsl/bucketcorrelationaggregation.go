@@ -38,16 +38,16 @@ func NewBucketCorrelationAggregation(function types.BucketCorrelationFunctionVar
 
 }
 
-func (s *_bucketCorrelationAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_bucketCorrelationAggregation {
+func (s *_bucketCorrelationAggregation) Function(function types.BucketCorrelationFunctionVariant) *_bucketCorrelationAggregation {
 
-	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
+	s.v.Function = *function.BucketCorrelationFunctionCaster()
 
 	return s
 }
 
-func (s *_bucketCorrelationAggregation) Function(function types.BucketCorrelationFunctionVariant) *_bucketCorrelationAggregation {
+func (s *_bucketCorrelationAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_bucketCorrelationAggregation {
 
-	s.v.Function = *function.BucketCorrelationFunctionCaster()
+	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
 
 	return s
 }

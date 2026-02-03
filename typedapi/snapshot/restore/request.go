@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L175
 type Request struct {
-
 	// FeatureStates The feature states to restore.
 	// If `include_global_state` is `true`, the request restores all feature states
 	// in the snapshot by default.

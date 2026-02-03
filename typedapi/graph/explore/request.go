@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/graph/explore/GraphExploreRequest.ts#L28-L84
 type Request struct {
-
 	// Connections Specifies or more fields from which you want to extract terms that are
 	// associated with the specified vertices.
 	Connections *types.Hop `json:"connections,omitempty"`

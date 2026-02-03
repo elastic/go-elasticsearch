@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/get_builtin_privileges/SecurityGetBuiltinPrivilegesResponse.ts#L26-L42
 type Response struct {
-
 	// Cluster The list of cluster privileges that are understood by this version of
 	// Elasticsearch.
 	Cluster []clusterprivilege.ClusterPrivilege `json:"cluster"`

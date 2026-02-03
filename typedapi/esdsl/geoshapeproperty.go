@@ -45,6 +45,39 @@ func (s *_geoShapeProperty) Coerce(coerce bool) *_geoShapeProperty {
 	return s
 }
 
+func (s *_geoShapeProperty) IgnoreMalformed(ignoremalformed bool) *_geoShapeProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
+func (s *_geoShapeProperty) IgnoreZValue(ignorezvalue bool) *_geoShapeProperty {
+
+	s.v.IgnoreZValue = &ignorezvalue
+
+	return s
+}
+
+func (s *_geoShapeProperty) Index(index bool) *_geoShapeProperty {
+
+	s.v.Index = &index
+
+	return s
+}
+
+func (s *_geoShapeProperty) Orientation(orientation geoorientation.GeoOrientation) *_geoShapeProperty {
+
+	s.v.Orientation = &orientation
+	return s
+}
+
+func (s *_geoShapeProperty) Strategy(strategy geostrategy.GeoStrategy) *_geoShapeProperty {
+
+	s.v.Strategy = &strategy
+	return s
+}
+
 func (s *_geoShapeProperty) CopyTo(fields ...string) *_geoShapeProperty {
 
 	s.v.CopyTo = fields
@@ -93,27 +126,6 @@ func (s *_geoShapeProperty) IgnoreAbove(ignoreabove int) *_geoShapeProperty {
 	return s
 }
 
-func (s *_geoShapeProperty) IgnoreMalformed(ignoremalformed bool) *_geoShapeProperty {
-
-	s.v.IgnoreMalformed = &ignoremalformed
-
-	return s
-}
-
-func (s *_geoShapeProperty) IgnoreZValue(ignorezvalue bool) *_geoShapeProperty {
-
-	s.v.IgnoreZValue = &ignorezvalue
-
-	return s
-}
-
-func (s *_geoShapeProperty) Index(index bool) *_geoShapeProperty {
-
-	s.v.Index = &index
-
-	return s
-}
-
 func (s *_geoShapeProperty) Meta(meta map[string]string) *_geoShapeProperty {
 
 	s.v.Meta = meta
@@ -132,12 +144,6 @@ func (s *_geoShapeProperty) AddMeta(key string, value string) *_geoShapeProperty
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_geoShapeProperty) Orientation(orientation geoorientation.GeoOrientation) *_geoShapeProperty {
-
-	s.v.Orientation = &orientation
 	return s
 }
 
@@ -166,12 +172,6 @@ func (s *_geoShapeProperty) Store(store bool) *_geoShapeProperty {
 
 	s.v.Store = &store
 
-	return s
-}
-
-func (s *_geoShapeProperty) Strategy(strategy geostrategy.GeoStrategy) *_geoShapeProperty {
-
-	s.v.Strategy = &strategy
 	return s
 }
 

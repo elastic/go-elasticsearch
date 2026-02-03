@@ -50,13 +50,6 @@ func (s *_matchBoolPrefixQuery) Analyzer(analyzer string) *_matchBoolPrefixQuery
 	return s
 }
 
-func (s *_matchBoolPrefixQuery) Boost(boost float32) *_matchBoolPrefixQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_matchBoolPrefixQuery) Fuzziness(fuzziness types.FuzzinessVariant) *_matchBoolPrefixQuery {
 
 	s.v.Fuzziness = *fuzziness.FuzzinessCaster()
@@ -108,6 +101,13 @@ func (s *_matchBoolPrefixQuery) PrefixLength(prefixlength int) *_matchBoolPrefix
 func (s *_matchBoolPrefixQuery) Query(query string) *_matchBoolPrefixQuery {
 
 	s.v.Query = query
+
+	return s
+}
+
+func (s *_matchBoolPrefixQuery) Boost(boost float32) *_matchBoolPrefixQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

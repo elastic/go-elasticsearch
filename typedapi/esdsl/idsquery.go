@@ -34,6 +34,13 @@ func NewIdsQuery() *_idsQuery {
 
 }
 
+func (s *_idsQuery) Values(ids ...string) *_idsQuery {
+
+	s.v.Values = ids
+
+	return s
+}
+
 func (s *_idsQuery) Boost(boost float32) *_idsQuery {
 
 	s.v.Boost = &boost
@@ -44,13 +51,6 @@ func (s *_idsQuery) Boost(boost float32) *_idsQuery {
 func (s *_idsQuery) QueryName_(queryname_ string) *_idsQuery {
 
 	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
-func (s *_idsQuery) Values(ids ...string) *_idsQuery {
-
-	s.v.Values = ids
 
 	return s
 }

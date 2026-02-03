@@ -37,6 +37,13 @@ func NewExtendedStatsBucketAggregation() *_extendedStatsBucketAggregation {
 
 }
 
+func (s *_extendedStatsBucketAggregation) Sigma(sigma types.Float64) *_extendedStatsBucketAggregation {
+
+	s.v.Sigma = &sigma
+
+	return s
+}
+
 func (s *_extendedStatsBucketAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_extendedStatsBucketAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -54,13 +61,6 @@ func (s *_extendedStatsBucketAggregation) Format(format string) *_extendedStatsB
 func (s *_extendedStatsBucketAggregation) GapPolicy(gappolicy gappolicy.GapPolicy) *_extendedStatsBucketAggregation {
 
 	s.v.GapPolicy = &gappolicy
-	return s
-}
-
-func (s *_extendedStatsBucketAggregation) Sigma(sigma types.Float64) *_extendedStatsBucketAggregation {
-
-	s.v.Sigma = &sigma
-
 	return s
 }
 

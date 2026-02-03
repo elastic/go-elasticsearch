@@ -38,6 +38,13 @@ func NewIntegerNumberProperty() *_integerNumberProperty {
 
 }
 
+func (s *_integerNumberProperty) NullValue(nullvalue int) *_integerNumberProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
 func (s *_integerNumberProperty) Boost(boost types.Float64) *_integerNumberProperty {
 
 	s.v.Boost = &boost
@@ -132,13 +139,6 @@ func (s *_integerNumberProperty) AddMeta(key string, value string) *_integerNumb
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_integerNumberProperty) NullValue(nullvalue int) *_integerNumberProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

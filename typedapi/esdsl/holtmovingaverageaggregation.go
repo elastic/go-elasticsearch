@@ -39,6 +39,13 @@ func NewHoltMovingAverageAggregation(settings types.HoltLinearModelSettingsVaria
 
 }
 
+func (s *_holtMovingAverageAggregation) Settings(settings types.HoltLinearModelSettingsVariant) *_holtMovingAverageAggregation {
+
+	s.v.Settings = *settings.HoltLinearModelSettingsCaster()
+
+	return s
+}
+
 func (s *_holtMovingAverageAggregation) BucketsPath(bucketspath types.BucketsPathVariant) *_holtMovingAverageAggregation {
 
 	s.v.BucketsPath = *bucketspath.BucketsPathCaster()
@@ -69,13 +76,6 @@ func (s *_holtMovingAverageAggregation) Minimize(minimize bool) *_holtMovingAver
 func (s *_holtMovingAverageAggregation) Predict(predict int) *_holtMovingAverageAggregation {
 
 	s.v.Predict = &predict
-
-	return s
-}
-
-func (s *_holtMovingAverageAggregation) Settings(settings types.HoltLinearModelSettingsVariant) *_holtMovingAverageAggregation {
-
-	s.v.Settings = *settings.HoltLinearModelSettingsCaster()
 
 	return s
 }

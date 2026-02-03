@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/enrich/put_policy/PutEnrichPolicyRequest.ts#L25-L67
 type Request struct {
-
 	// GeoMatch Matches enrich data to incoming documents based on a `geo_shape` query.
 	GeoMatch *types.EnrichPolicy `json:"geo_match,omitempty"`
 	// Match Matches enrich data to incoming documents based on a `term` query.

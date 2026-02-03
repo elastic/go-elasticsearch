@@ -26,7 +26,7 @@ type _matchAllQuery struct {
 	v *types.MatchAllQuery
 }
 
-// Matches all roles, giving them all a `_score` of 1.0.
+// Matches all documents, giving them all a `_score` of 1.0.
 func NewMatchAllQuery() *_matchAllQuery {
 
 	return &_matchAllQuery{v: types.NewMatchAllQuery()}

@@ -36,13 +36,6 @@ func NewDataframeEvaluationOutlierDetectionMetrics() *_dataframeEvaluationOutlie
 
 }
 
-func (s *_dataframeEvaluationOutlierDetectionMetrics) AucRoc(aucroc types.DataframeEvaluationClassificationMetricsAucRocVariant) *_dataframeEvaluationOutlierDetectionMetrics {
-
-	s.v.AucRoc = aucroc.DataframeEvaluationClassificationMetricsAucRocCaster()
-
-	return s
-}
-
 func (s *_dataframeEvaluationOutlierDetectionMetrics) ConfusionMatrix(confusionmatrix map[string]json.RawMessage) *_dataframeEvaluationOutlierDetectionMetrics {
 
 	s.v.ConfusionMatrix = confusionmatrix
@@ -61,6 +54,13 @@ func (s *_dataframeEvaluationOutlierDetectionMetrics) AddConfusionMatrix(key str
 	tmp[key] = value
 
 	s.v.ConfusionMatrix = tmp
+	return s
+}
+
+func (s *_dataframeEvaluationOutlierDetectionMetrics) AucRoc(aucroc types.DataframeEvaluationClassificationMetricsAucRocVariant) *_dataframeEvaluationOutlierDetectionMetrics {
+
+	s.v.AucRoc = aucroc.DataframeEvaluationClassificationMetricsAucRocCaster()
+
 	return s
 }
 

@@ -20,56 +20,19 @@
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // PivotGroupByContainer type.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/transform/_types/Transform.ts#L70-L78
 type PivotGroupByContainer struct {
-	AdditionalPivotGroupByContainerProperty map[string]json.RawMessage `json:"-"`
-	DateHistogram                           *DateHistogramAggregation  `json:"date_histogram,omitempty"`
-	GeotileGrid                             *GeoTileGridAggregation    `json:"geotile_grid,omitempty"`
-	Histogram                               *HistogramAggregation      `json:"histogram,omitempty"`
-	Terms                                   *TermsAggregation          `json:"terms,omitempty"`
-}
-
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s PivotGroupByContainer) MarshalJSON() ([]byte, error) {
-	type opt PivotGroupByContainer
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalPivotGroupByContainerProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalPivotGroupByContainerProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
+	DateHistogram *DateHistogramAggregation `json:"date_histogram,omitempty"`
+	GeotileGrid   *GeoTileGridAggregation   `json:"geotile_grid,omitempty"`
+	Histogram     *HistogramAggregation     `json:"histogram,omitempty"`
+	Terms         *TermsAggregation         `json:"terms,omitempty"`
 }
 
 // NewPivotGroupByContainer returns a PivotGroupByContainer.
 func NewPivotGroupByContainer() *PivotGroupByContainer {
-	r := &PivotGroupByContainer{
-		AdditionalPivotGroupByContainerProperty: make(map[string]json.RawMessage),
-	}
+	r := &PivotGroupByContainer{}
 
 	return r
 }

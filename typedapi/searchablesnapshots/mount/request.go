@@ -32,7 +32,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/searchable_snapshots/mount/SearchableSnapshotsMountRequest.ts#L26-L92
 type Request struct {
-
 	// IgnoreIndexSettings The names of settings that should be removed from the index when it is
 	// mounted.
 	IgnoreIndexSettings []string `json:"ignore_index_settings,omitempty"`

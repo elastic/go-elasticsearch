@@ -36,20 +36,6 @@ func NewReadOnlyUrlRepositorySettings(url string) *_readOnlyUrlRepositorySetting
 
 }
 
-func (s *_readOnlyUrlRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_readOnlyUrlRepositorySettings {
-
-	s.v.ChunkSize = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_readOnlyUrlRepositorySettings) Compress(compress bool) *_readOnlyUrlRepositorySettings {
-
-	s.v.Compress = &compress
-
-	return s
-}
-
 func (s *_readOnlyUrlRepositorySettings) HttpMaxRetries(httpmaxretries int) *_readOnlyUrlRepositorySettings {
 
 	s.v.HttpMaxRetries = &httpmaxretries
@@ -71,6 +57,27 @@ func (s *_readOnlyUrlRepositorySettings) MaxNumberOfSnapshots(maxnumberofsnapsho
 	return s
 }
 
+func (s *_readOnlyUrlRepositorySettings) Url(url string) *_readOnlyUrlRepositorySettings {
+
+	s.v.Url = url
+
+	return s
+}
+
+func (s *_readOnlyUrlRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_readOnlyUrlRepositorySettings {
+
+	s.v.ChunkSize = *bytesize.ByteSizeCaster()
+
+	return s
+}
+
+func (s *_readOnlyUrlRepositorySettings) Compress(compress bool) *_readOnlyUrlRepositorySettings {
+
+	s.v.Compress = &compress
+
+	return s
+}
+
 func (s *_readOnlyUrlRepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSizeVariant) *_readOnlyUrlRepositorySettings {
 
 	s.v.MaxRestoreBytesPerSec = *bytesize.ByteSizeCaster()
@@ -81,13 +88,6 @@ func (s *_readOnlyUrlRepositorySettings) MaxRestoreBytesPerSec(bytesize types.By
 func (s *_readOnlyUrlRepositorySettings) MaxSnapshotBytesPerSec(bytesize types.ByteSizeVariant) *_readOnlyUrlRepositorySettings {
 
 	s.v.MaxSnapshotBytesPerSec = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_readOnlyUrlRepositorySettings) Url(url string) *_readOnlyUrlRepositorySettings {
-
-	s.v.Url = url
 
 	return s
 }

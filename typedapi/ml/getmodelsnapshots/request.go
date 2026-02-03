@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/get_model_snapshots/MlGetModelSnapshotsRequest.ts#L26-L108
 type Request struct {
-
 	// Desc Refer to the description for the `desc` query parameter.
 	Desc *bool `json:"desc,omitempty"`
 	// End Refer to the description for the `end` query parameter.

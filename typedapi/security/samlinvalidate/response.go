@@ -24,7 +24,6 @@ package samlinvalidate
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/saml_invalidate/Response.ts#L22-L37
 type Response struct {
-
 	// Invalidated The number of tokens that were invalidated as part of this logout.
 	Invalidated int `json:"invalidated"`
 	// Realm The realm name of the SAML realm in Elasticsearch that authenticated the

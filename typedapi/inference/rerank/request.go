@@ -33,7 +33,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/rerank/RerankRequest.ts#L25-L72
 type Request struct {
-
 	// Input The text on which you want to perform the inference task.
 	// It can be a single string or an array.
 	//

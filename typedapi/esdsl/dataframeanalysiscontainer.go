@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _dataframeAnalysisContainer struct {
 	v *types.DataframeAnalysisContainer
@@ -32,18 +28,6 @@ type _dataframeAnalysisContainer struct {
 
 func NewDataframeAnalysisContainer() *_dataframeAnalysisContainer {
 	return &_dataframeAnalysisContainer{v: types.NewDataframeAnalysisContainer()}
-}
-
-// AdditionalDataframeAnalysisContainerProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_dataframeAnalysisContainer) AdditionalDataframeAnalysisContainerProperty(key string, value json.RawMessage) *_dataframeAnalysisContainer {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalDataframeAnalysisContainerProperty = tmp
-	return s
 }
 
 func (s *_dataframeAnalysisContainer) Classification(classification types.DataframeAnalysisClassificationVariant) *_dataframeAnalysisContainer {

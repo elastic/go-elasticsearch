@@ -40,13 +40,6 @@ func NewKeyValueProcessor(fieldsplit string, valuesplit string) *_keyValueProces
 
 }
 
-func (s *_keyValueProcessor) Description(description string) *_keyValueProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_keyValueProcessor) ExcludeKeys(excludekeys ...string) *_keyValueProcessor {
 
 	for _, v := range excludekeys {
@@ -71,20 +64,6 @@ func (s *_keyValueProcessor) FieldSplit(fieldsplit string) *_keyValueProcessor {
 	return s
 }
 
-func (s *_keyValueProcessor) If(if_ types.ScriptVariant) *_keyValueProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_keyValueProcessor) IgnoreFailure(ignorefailure bool) *_keyValueProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
-
-	return s
-}
-
 func (s *_keyValueProcessor) IgnoreMissing(ignoremissing bool) *_keyValueProcessor {
 
 	s.v.IgnoreMissing = &ignoremissing
@@ -102,16 +81,6 @@ func (s *_keyValueProcessor) IncludeKeys(includekeys ...string) *_keyValueProces
 	return s
 }
 
-func (s *_keyValueProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_keyValueProcessor {
-
-	for _, v := range onfailures {
-
-		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
-
-	}
-	return s
-}
-
 func (s *_keyValueProcessor) Prefix(prefix string) *_keyValueProcessor {
 
 	s.v.Prefix = &prefix
@@ -122,13 +91,6 @@ func (s *_keyValueProcessor) Prefix(prefix string) *_keyValueProcessor {
 func (s *_keyValueProcessor) StripBrackets(stripbrackets bool) *_keyValueProcessor {
 
 	s.v.StripBrackets = &stripbrackets
-
-	return s
-}
-
-func (s *_keyValueProcessor) Tag(tag string) *_keyValueProcessor {
-
-	s.v.Tag = &tag
 
 	return s
 }
@@ -157,6 +119,44 @@ func (s *_keyValueProcessor) TrimValue(trimvalue string) *_keyValueProcessor {
 func (s *_keyValueProcessor) ValueSplit(valuesplit string) *_keyValueProcessor {
 
 	s.v.ValueSplit = valuesplit
+
+	return s
+}
+
+func (s *_keyValueProcessor) Description(description string) *_keyValueProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_keyValueProcessor) If(if_ types.ScriptVariant) *_keyValueProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_keyValueProcessor) IgnoreFailure(ignorefailure bool) *_keyValueProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
+
+	return s
+}
+
+func (s *_keyValueProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_keyValueProcessor {
+
+	for _, v := range onfailures {
+
+		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
+
+	}
+	return s
+}
+
+func (s *_keyValueProcessor) Tag(tag string) *_keyValueProcessor {
+
+	s.v.Tag = &tag
 
 	return s
 }

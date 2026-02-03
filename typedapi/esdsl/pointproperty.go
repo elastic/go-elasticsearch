@@ -36,6 +36,27 @@ func NewPointProperty() *_pointProperty {
 
 }
 
+func (s *_pointProperty) IgnoreMalformed(ignoremalformed bool) *_pointProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
+func (s *_pointProperty) IgnoreZValue(ignorezvalue bool) *_pointProperty {
+
+	s.v.IgnoreZValue = &ignorezvalue
+
+	return s
+}
+
+func (s *_pointProperty) NullValue(nullvalue string) *_pointProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
 func (s *_pointProperty) CopyTo(fields ...string) *_pointProperty {
 
 	s.v.CopyTo = fields
@@ -84,20 +105,6 @@ func (s *_pointProperty) IgnoreAbove(ignoreabove int) *_pointProperty {
 	return s
 }
 
-func (s *_pointProperty) IgnoreMalformed(ignoremalformed bool) *_pointProperty {
-
-	s.v.IgnoreMalformed = &ignoremalformed
-
-	return s
-}
-
-func (s *_pointProperty) IgnoreZValue(ignorezvalue bool) *_pointProperty {
-
-	s.v.IgnoreZValue = &ignorezvalue
-
-	return s
-}
-
 func (s *_pointProperty) Meta(meta map[string]string) *_pointProperty {
 
 	s.v.Meta = meta
@@ -116,13 +123,6 @@ func (s *_pointProperty) AddMeta(key string, value string) *_pointProperty {
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_pointProperty) NullValue(nullvalue string) *_pointProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

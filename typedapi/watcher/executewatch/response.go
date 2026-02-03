@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/watcher/execute_watch/WatcherExecuteWatchResponse.ts#L23-L34
 type Response struct {
-
 	// Id_ The watch record identifier as it would be stored in the `.watcher-history`
 	// index.
 	Id_ string `json:"_id"`

@@ -37,13 +37,6 @@ func NewTextExpansionQuery(key string) *_textExpansionQuery {
 	}
 }
 
-func (s *_textExpansionQuery) Boost(boost float32) *_textExpansionQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_textExpansionQuery) ModelId(modelid string) *_textExpansionQuery {
 
 	s.v.ModelId = modelid
@@ -61,6 +54,13 @@ func (s *_textExpansionQuery) ModelText(modeltext string) *_textExpansionQuery {
 func (s *_textExpansionQuery) PruningConfig(pruningconfig types.TokenPruningConfigVariant) *_textExpansionQuery {
 
 	s.v.PruningConfig = pruningconfig.TokenPruningConfigCaster()
+
+	return s
+}
+
+func (s *_textExpansionQuery) Boost(boost float32) *_textExpansionQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

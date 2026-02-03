@@ -41,13 +41,6 @@ func (s *_geoIpProcessor) DatabaseFile(databasefile string) *_geoIpProcessor {
 	return s
 }
 
-func (s *_geoIpProcessor) Description(description string) *_geoIpProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_geoIpProcessor) DownloadDatabaseOnPipelineCreation(downloaddatabaseonpipelinecreation bool) *_geoIpProcessor {
 
 	s.v.DownloadDatabaseOnPipelineCreation = &downloaddatabaseonpipelinecreation
@@ -69,6 +62,37 @@ func (s *_geoIpProcessor) FirstOnly(firstonly bool) *_geoIpProcessor {
 	return s
 }
 
+func (s *_geoIpProcessor) IgnoreMissing(ignoremissing bool) *_geoIpProcessor {
+
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_geoIpProcessor) Properties(properties ...string) *_geoIpProcessor {
+
+	for _, v := range properties {
+
+		s.v.Properties = append(s.v.Properties, v)
+
+	}
+	return s
+}
+
+func (s *_geoIpProcessor) TargetField(field string) *_geoIpProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_geoIpProcessor) Description(description string) *_geoIpProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
 func (s *_geoIpProcessor) If(if_ types.ScriptVariant) *_geoIpProcessor {
 
 	s.v.If = if_.ScriptCaster()
@@ -83,13 +107,6 @@ func (s *_geoIpProcessor) IgnoreFailure(ignorefailure bool) *_geoIpProcessor {
 	return s
 }
 
-func (s *_geoIpProcessor) IgnoreMissing(ignoremissing bool) *_geoIpProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_geoIpProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_geoIpProcessor {
 
 	for _, v := range onfailures {
@@ -100,26 +117,9 @@ func (s *_geoIpProcessor) OnFailure(onfailures ...types.ProcessorContainerVarian
 	return s
 }
 
-func (s *_geoIpProcessor) Properties(properties ...string) *_geoIpProcessor {
-
-	for _, v := range properties {
-
-		s.v.Properties = append(s.v.Properties, v)
-
-	}
-	return s
-}
-
 func (s *_geoIpProcessor) Tag(tag string) *_geoIpProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_geoIpProcessor) TargetField(field string) *_geoIpProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

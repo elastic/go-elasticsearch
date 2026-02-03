@@ -41,6 +41,20 @@ func NewHighlightField() *_highlightField {
 
 }
 
+func (s *_highlightField) FragmentOffset(fragmentoffset int) *_highlightField {
+
+	s.v.FragmentOffset = &fragmentoffset
+
+	return s
+}
+
+func (s *_highlightField) MatchedFields(fields ...string) *_highlightField {
+
+	s.v.MatchedFields = fields
+
+	return s
+}
+
 func (s *_highlightField) BoundaryChars(boundarychars string) *_highlightField {
 
 	s.v.BoundaryChars = &boundarychars
@@ -75,13 +89,6 @@ func (s *_highlightField) ForceSource(forcesource bool) *_highlightField {
 	return s
 }
 
-func (s *_highlightField) FragmentOffset(fragmentoffset int) *_highlightField {
-
-	s.v.FragmentOffset = &fragmentoffset
-
-	return s
-}
-
 func (s *_highlightField) FragmentSize(fragmentsize int) *_highlightField {
 
 	s.v.FragmentSize = &fragmentsize
@@ -105,13 +112,6 @@ func (s *_highlightField) HighlightFilter(highlightfilter bool) *_highlightField
 func (s *_highlightField) HighlightQuery(highlightquery types.QueryVariant) *_highlightField {
 
 	s.v.HighlightQuery = highlightquery.QueryCaster()
-
-	return s
-}
-
-func (s *_highlightField) MatchedFields(fields ...string) *_highlightField {
-
-	s.v.MatchedFields = fields
 
 	return s
 }

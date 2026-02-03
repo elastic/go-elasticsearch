@@ -20,16 +20,10 @@
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // InferenceConfigUpdateContainer type.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/_types/inference.ts#L315-L337
 type InferenceConfigUpdateContainer struct {
-	AdditionalInferenceConfigUpdateContainerProperty map[string]json.RawMessage `json:"-"`
 	// Classification Classification configuration for inference.
 	Classification *ClassificationInferenceOptions `json:"classification,omitempty"`
 	// FillMask Fill mask configuration for inference.
@@ -52,40 +46,9 @@ type InferenceConfigUpdateContainer struct {
 	ZeroShotClassification *ZeroShotClassificationInferenceUpdateOptions `json:"zero_shot_classification,omitempty"`
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s InferenceConfigUpdateContainer) MarshalJSON() ([]byte, error) {
-	type opt InferenceConfigUpdateContainer
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalInferenceConfigUpdateContainerProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalInferenceConfigUpdateContainerProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewInferenceConfigUpdateContainer returns a InferenceConfigUpdateContainer.
 func NewInferenceConfigUpdateContainer() *InferenceConfigUpdateContainer {
-	r := &InferenceConfigUpdateContainer{
-		AdditionalInferenceConfigUpdateContainerProperty: make(map[string]json.RawMessage),
-	}
+	r := &InferenceConfigUpdateContainer{}
 
 	return r
 }

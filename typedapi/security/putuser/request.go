@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/put_user/SecurityPutUserRequest.ts#L23-L101
 type Request struct {
-
 	// Email The email of the user.
 	Email *string `json:"email,omitempty"`
 	// Enabled Specifies whether the user is enabled.

@@ -24,7 +24,6 @@ package start
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/watcher/start/WatcherStartResponse.ts#L22-L25
 type Response struct {
-
 	// Acknowledged For a successful response, this value is always true. On failure, an
 	// exception is returned instead.
 	Acknowledged bool `json:"acknowledged"`

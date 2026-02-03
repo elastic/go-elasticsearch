@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ccr/follow_stats/FollowIndexStatsResponse.ts#L22-L27
 type Response struct {
-
 	// Indices An array of follower index statistics.
 	Indices []types.FollowIndexStats `json:"indices"`
 }

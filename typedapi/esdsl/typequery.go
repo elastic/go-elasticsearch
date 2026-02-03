@@ -36,6 +36,13 @@ func NewTypeQuery(value string) *_typeQuery {
 
 }
 
+func (s *_typeQuery) Value(value string) *_typeQuery {
+
+	s.v.Value = value
+
+	return s
+}
+
 func (s *_typeQuery) Boost(boost float32) *_typeQuery {
 
 	s.v.Boost = &boost
@@ -46,13 +53,6 @@ func (s *_typeQuery) Boost(boost float32) *_typeQuery {
 func (s *_typeQuery) QueryName_(queryname_ string) *_typeQuery {
 
 	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
-func (s *_typeQuery) Value(value string) *_typeQuery {
-
-	s.v.Value = value
 
 	return s
 }

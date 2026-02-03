@@ -21,8 +21,6 @@
 package inference
 
 import (
-	"encoding/json"
-
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
@@ -30,19 +28,16 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/inference/inference/InferenceResponse.ts#L22-L25
 type Response struct {
-	AdditionalInferenceResultProperty map[string]json.RawMessage      `json:"-"`
-	Completion                        []types.CompletionResult        `json:"completion,omitempty"`
-	Rerank                            []types.RankedDocument          `json:"rerank,omitempty"`
-	SparseEmbedding                   []types.SparseEmbeddingResult   `json:"sparse_embedding,omitempty"`
-	TextEmbedding                     []types.TextEmbeddingResult     `json:"text_embedding,omitempty"`
-	TextEmbeddingBits                 []types.TextEmbeddingByteResult `json:"text_embedding_bits,omitempty"`
-	TextEmbeddingBytes                []types.TextEmbeddingByteResult `json:"text_embedding_bytes,omitempty"`
+	Completion         []types.CompletionResult        `json:"completion,omitempty"`
+	Rerank             []types.RankedDocument          `json:"rerank,omitempty"`
+	SparseEmbedding    []types.SparseEmbeddingResult   `json:"sparse_embedding,omitempty"`
+	TextEmbedding      []types.TextEmbeddingResult     `json:"text_embedding,omitempty"`
+	TextEmbeddingBits  []types.TextEmbeddingByteResult `json:"text_embedding_bits,omitempty"`
+	TextEmbeddingBytes []types.TextEmbeddingByteResult `json:"text_embedding_bytes,omitempty"`
 }
 
 // NewResponse returns a Response
 func NewResponse() *Response {
-	r := &Response{
-		AdditionalInferenceResultProperty: make(map[string]json.RawMessage, 0),
-	}
+	r := &Response{}
 	return r
 }

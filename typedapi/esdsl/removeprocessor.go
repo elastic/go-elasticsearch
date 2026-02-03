@@ -34,30 +34,9 @@ func NewRemoveProcessor() *_removeProcessor {
 
 }
 
-func (s *_removeProcessor) Description(description string) *_removeProcessor {
-
-	s.v.Description = &description
-
-	return s
-}
-
 func (s *_removeProcessor) Field(fields ...string) *_removeProcessor {
 
 	s.v.Field = fields
-
-	return s
-}
-
-func (s *_removeProcessor) If(if_ types.ScriptVariant) *_removeProcessor {
-
-	s.v.If = if_.ScriptCaster()
-
-	return s
-}
-
-func (s *_removeProcessor) IgnoreFailure(ignorefailure bool) *_removeProcessor {
-
-	s.v.IgnoreFailure = &ignorefailure
 
 	return s
 }
@@ -72,6 +51,27 @@ func (s *_removeProcessor) IgnoreMissing(ignoremissing bool) *_removeProcessor {
 func (s *_removeProcessor) Keep(fields ...string) *_removeProcessor {
 
 	s.v.Keep = fields
+
+	return s
+}
+
+func (s *_removeProcessor) Description(description string) *_removeProcessor {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_removeProcessor) If(if_ types.ScriptVariant) *_removeProcessor {
+
+	s.v.If = if_.ScriptCaster()
+
+	return s
+}
+
+func (s *_removeProcessor) IgnoreFailure(ignorefailure bool) *_removeProcessor {
+
+	s.v.IgnoreFailure = &ignorefailure
 
 	return s
 }

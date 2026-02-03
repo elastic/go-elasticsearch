@@ -42,13 +42,6 @@ func NewBoostingQuery(negative types.QueryVariant, negativeboost types.Float64, 
 
 }
 
-func (s *_boostingQuery) Boost(boost float32) *_boostingQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_boostingQuery) Negative(negative types.QueryVariant) *_boostingQuery {
 
 	s.v.Negative = *negative.QueryCaster()
@@ -66,6 +59,13 @@ func (s *_boostingQuery) NegativeBoost(negativeboost types.Float64) *_boostingQu
 func (s *_boostingQuery) Positive(positive types.QueryVariant) *_boostingQuery {
 
 	s.v.Positive = *positive.QueryCaster()
+
+	return s
+}
+
+func (s *_boostingQuery) Boost(boost float32) *_boostingQuery {
+
+	s.v.Boost = &boost
 
 	return s
 }

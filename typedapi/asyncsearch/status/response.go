@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/async_search/status/AsyncSearchStatusResponse.ts#L39-L42
 type Response struct {
-
 	// Clusters_ Metadata about clusters involved in the cross-cluster search.
 	// It is not shown for local-only searches.
 	Clusters_ *types.ClusterStatistics `json:"_clusters,omitempty"`

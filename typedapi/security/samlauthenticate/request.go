@@ -33,7 +33,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/security/saml_authenticate/Request.ts#L23-L61
 type Request struct {
-
 	// Content The SAML response as it was sent by the user's browser, usually a Base64
 	// encoded XML document.
 	Content string `json:"content"`

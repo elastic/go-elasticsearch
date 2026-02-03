@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/snapshot/repository_analyze/SnapshotAnalyzeRepositoryResponse.ts#L24-L108
 type Response struct {
-
 	// BlobCount The number of blobs written to the repository during the test.
 	BlobCount int `json:"blob_count"`
 	// BlobPath The path in the repository under which all the blobs were written during the

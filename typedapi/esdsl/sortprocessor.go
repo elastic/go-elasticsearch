@@ -40,16 +40,29 @@ func NewSortProcessor() *_sortProcessor {
 
 }
 
-func (s *_sortProcessor) Description(description string) *_sortProcessor {
+func (s *_sortProcessor) Field(field string) *_sortProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_sortProcessor) Field(field string) *_sortProcessor {
+func (s *_sortProcessor) Order(order sortorder.SortOrder) *_sortProcessor {
 
-	s.v.Field = field
+	s.v.Order = &order
+	return s
+}
+
+func (s *_sortProcessor) TargetField(field string) *_sortProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_sortProcessor) Description(description string) *_sortProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -78,22 +91,9 @@ func (s *_sortProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant
 	return s
 }
 
-func (s *_sortProcessor) Order(order sortorder.SortOrder) *_sortProcessor {
-
-	s.v.Order = &order
-	return s
-}
-
 func (s *_sortProcessor) Tag(tag string) *_sortProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_sortProcessor) TargetField(field string) *_sortProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

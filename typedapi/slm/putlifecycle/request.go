@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/slm/put_lifecycle/PutSnapshotLifecycleRequest.ts#L26-L89
 type Request struct {
-
 	// Config Configuration for each snapshot created by the policy.
 	Config *types.Configuration `json:"config,omitempty"`
 	// Name Name automatically assigned to each snapshot created by the policy. Date math

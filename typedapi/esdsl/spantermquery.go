@@ -38,6 +38,13 @@ func NewSpanTermQuery(field string, value types.FieldValueVariant) *_spanTermQue
 	return tmp
 }
 
+func (s *_spanTermQuery) Value(fieldvalue types.FieldValueVariant) *_spanTermQuery {
+
+	s.v.Value = *fieldvalue.FieldValueCaster()
+
+	return s
+}
+
 func (s *_spanTermQuery) Boost(boost float32) *_spanTermQuery {
 
 	s.v.Boost = &boost
@@ -48,13 +55,6 @@ func (s *_spanTermQuery) Boost(boost float32) *_spanTermQuery {
 func (s *_spanTermQuery) QueryName_(queryname_ string) *_spanTermQuery {
 
 	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
-func (s *_spanTermQuery) Value(fieldvalue types.FieldValueVariant) *_spanTermQuery {
-
-	s.v.Value = *fieldvalue.FieldValueCaster()
 
 	return s
 }

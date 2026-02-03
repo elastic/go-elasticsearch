@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _intervals struct {
 	v *types.Intervals
@@ -32,18 +28,6 @@ type _intervals struct {
 
 func NewIntervals() *_intervals {
 	return &_intervals{v: types.NewIntervals()}
-}
-
-// AdditionalIntervalsProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_intervals) AdditionalIntervalsProperty(key string, value json.RawMessage) *_intervals {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalIntervalsProperty = tmp
-	return s
 }
 
 func (s *_intervals) AllOf(allof types.IntervalsAllOfVariant) *_intervals {

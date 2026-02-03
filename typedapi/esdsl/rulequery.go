@@ -42,13 +42,6 @@ func NewRuleQuery(matchcriteria json.RawMessage, organic types.QueryVariant) *_r
 
 }
 
-func (s *_ruleQuery) Boost(boost float32) *_ruleQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_ruleQuery) MatchCriteria(matchcriteria json.RawMessage) *_ruleQuery {
 
 	s.v.MatchCriteria = matchcriteria
@@ -59,13 +52,6 @@ func (s *_ruleQuery) MatchCriteria(matchcriteria json.RawMessage) *_ruleQuery {
 func (s *_ruleQuery) Organic(organic types.QueryVariant) *_ruleQuery {
 
 	s.v.Organic = *organic.QueryCaster()
-
-	return s
-}
-
-func (s *_ruleQuery) QueryName_(queryname_ string) *_ruleQuery {
-
-	s.v.QueryName_ = &queryname_
 
 	return s
 }
@@ -81,6 +67,20 @@ func (s *_ruleQuery) RulesetIds(rulesetids ...string) *_ruleQuery {
 
 	s.v.RulesetIds = make([]string, len(rulesetids))
 	s.v.RulesetIds = rulesetids
+
+	return s
+}
+
+func (s *_ruleQuery) Boost(boost float32) *_ruleQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_ruleQuery) QueryName_(queryname_ string) *_ruleQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

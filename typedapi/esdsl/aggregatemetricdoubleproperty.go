@@ -48,6 +48,29 @@ func (s *_aggregateMetricDoubleProperty) DefaultMetric(defaultmetric string) *_a
 	return s
 }
 
+func (s *_aggregateMetricDoubleProperty) IgnoreMalformed(ignoremalformed bool) *_aggregateMetricDoubleProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
+func (s *_aggregateMetricDoubleProperty) Metrics(metrics ...string) *_aggregateMetricDoubleProperty {
+
+	for _, v := range metrics {
+
+		s.v.Metrics = append(s.v.Metrics, v)
+
+	}
+	return s
+}
+
+func (s *_aggregateMetricDoubleProperty) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *_aggregateMetricDoubleProperty {
+
+	s.v.TimeSeriesMetric = &timeseriesmetric
+	return s
+}
+
 func (s *_aggregateMetricDoubleProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_aggregateMetricDoubleProperty {
 
 	s.v.Dynamic = &dynamic
@@ -82,13 +105,6 @@ func (s *_aggregateMetricDoubleProperty) IgnoreAbove(ignoreabove int) *_aggregat
 	return s
 }
 
-func (s *_aggregateMetricDoubleProperty) IgnoreMalformed(ignoremalformed bool) *_aggregateMetricDoubleProperty {
-
-	s.v.IgnoreMalformed = &ignoremalformed
-
-	return s
-}
-
 func (s *_aggregateMetricDoubleProperty) Meta(meta map[string]string) *_aggregateMetricDoubleProperty {
 
 	s.v.Meta = meta
@@ -107,16 +123,6 @@ func (s *_aggregateMetricDoubleProperty) AddMeta(key string, value string) *_agg
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_aggregateMetricDoubleProperty) Metrics(metrics ...string) *_aggregateMetricDoubleProperty {
-
-	for _, v := range metrics {
-
-		s.v.Metrics = append(s.v.Metrics, v)
-
-	}
 	return s
 }
 
@@ -144,12 +150,6 @@ func (s *_aggregateMetricDoubleProperty) AddProperty(key string, value types.Pro
 func (s *_aggregateMetricDoubleProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_aggregateMetricDoubleProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
-	return s
-}
-
-func (s *_aggregateMetricDoubleProperty) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *_aggregateMetricDoubleProperty {
-
-	s.v.TimeSeriesMetric = &timeseriesmetric
 	return s
 }
 

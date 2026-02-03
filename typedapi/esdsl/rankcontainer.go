@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _rankContainer struct {
 	v *types.RankContainer
@@ -32,18 +28,6 @@ type _rankContainer struct {
 
 func NewRankContainer() *_rankContainer {
 	return &_rankContainer{v: types.NewRankContainer()}
-}
-
-// AdditionalRankContainerProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_rankContainer) AdditionalRankContainerProperty(key string, value json.RawMessage) *_rankContainer {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalRankContainerProperty = tmp
-	return s
 }
 
 func (s *_rankContainer) Rrf(rrf types.RrfRankVariant) *_rankContainer {

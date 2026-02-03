@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/907d11a72a6bfd37b777d526880c56202889609e/specification/ml/explain_data_frame_analytics/MlExplainDataFrameAnalyticsResponse.ts#L25-L32
 type Response struct {
-
 	// FieldSelection An array of objects that explain selection for each field, sorted by the
 	// field names.
 	FieldSelection []types.DataframeAnalyticsFieldSelection `json:"field_selection"`
