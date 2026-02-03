@@ -36,7 +36,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/query_api_keys/QueryApiKeysResponse.ts#L26-L45
 type Response struct {
-
 	// Aggregations The aggregations result, if requested.
 	Aggregations map[string]types.ApiKeyAggregate `json:"aggregations,omitempty"`
 	// ApiKeys A list of API key information.

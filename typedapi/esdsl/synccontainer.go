@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _syncContainer struct {
 	v *types.SyncContainer
@@ -32,18 +28,6 @@ type _syncContainer struct {
 
 func NewSyncContainer() *_syncContainer {
 	return &_syncContainer{v: types.NewSyncContainer()}
-}
-
-// AdditionalSyncContainerProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_syncContainer) AdditionalSyncContainerProperty(key string, value json.RawMessage) *_syncContainer {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalSyncContainerProperty = tmp
-	return s
 }
 
 func (s *_syncContainer) Time(time types.TimeSyncVariant) *_syncContainer {

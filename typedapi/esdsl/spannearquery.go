@@ -35,13 +35,6 @@ func NewSpanNearQuery() *_spanNearQuery {
 
 }
 
-func (s *_spanNearQuery) Boost(boost float32) *_spanNearQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_spanNearQuery) Clauses(clauses ...types.SpanQueryVariant) *_spanNearQuery {
 
 	for _, v := range clauses {
@@ -59,16 +52,23 @@ func (s *_spanNearQuery) InOrder(inorder bool) *_spanNearQuery {
 	return s
 }
 
-func (s *_spanNearQuery) QueryName_(queryname_ string) *_spanNearQuery {
+func (s *_spanNearQuery) Slop(slop int) *_spanNearQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.Slop = &slop
 
 	return s
 }
 
-func (s *_spanNearQuery) Slop(slop int) *_spanNearQuery {
+func (s *_spanNearQuery) Boost(boost float32) *_spanNearQuery {
 
-	s.v.Slop = &slop
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_spanNearQuery) QueryName_(queryname_ string) *_spanNearQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

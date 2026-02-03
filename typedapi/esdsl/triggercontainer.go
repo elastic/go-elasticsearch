@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _triggerContainer struct {
 	v *types.TriggerContainer
@@ -32,18 +28,6 @@ type _triggerContainer struct {
 
 func NewTriggerContainer() *_triggerContainer {
 	return &_triggerContainer{v: types.NewTriggerContainer()}
-}
-
-// AdditionalTriggerContainerProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_triggerContainer) AdditionalTriggerContainerProperty(key string, value json.RawMessage) *_triggerContainer {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalTriggerContainerProperty = tmp
-	return s
 }
 
 func (s *_triggerContainer) Schedule(schedule types.ScheduleContainerVariant) *_triggerContainer {

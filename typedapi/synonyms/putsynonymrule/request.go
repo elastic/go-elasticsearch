@@ -32,7 +32,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/synonyms/put_synonym_rule/SynonymRulePutRequest.ts#L23-L69
 type Request struct {
-
 	// Synonyms The synonym rule information definition, which must be in Solr format.
 	Synonyms string `json:"synonyms"`
 }

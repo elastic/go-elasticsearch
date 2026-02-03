@@ -38,6 +38,13 @@ func NewHalfFloatNumberProperty() *_halfFloatNumberProperty {
 
 }
 
+func (s *_halfFloatNumberProperty) NullValue(nullvalue float32) *_halfFloatNumberProperty {
+
+	s.v.NullValue = &nullvalue
+
+	return s
+}
+
 func (s *_halfFloatNumberProperty) Boost(boost types.Float64) *_halfFloatNumberProperty {
 
 	s.v.Boost = &boost
@@ -132,13 +139,6 @@ func (s *_halfFloatNumberProperty) AddMeta(key string, value string) *_halfFloat
 	tmp[key] = value
 
 	s.v.Meta = tmp
-	return s
-}
-
-func (s *_halfFloatNumberProperty) NullValue(nullvalue float32) *_halfFloatNumberProperty {
-
-	s.v.NullValue = &nullvalue
-
 	return s
 }
 

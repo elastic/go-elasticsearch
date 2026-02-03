@@ -30,7 +30,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/delete/DeleteResponse.ts#L22-L35
 type Response struct {
-
 	// FailureStore The role of the failure store in this document response
 	FailureStore  *failurestorestatus.FailureStoreStatus `json:"failure_store,omitempty"`
 	ForcedRefresh *bool                                  `json:"forced_refresh,omitempty"`

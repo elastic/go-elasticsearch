@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/get_trained_models_stats/MlGetTrainedModelStatsResponse.ts#L23-L33
 type Response struct {
-
 	// Count The total number of trained model statistics that matched the requested ID
 	// patterns. Could be higher than the number of items in the trained_model_stats
 	// array as the size of the array is restricted by the supplied size parameter.

@@ -36,7 +36,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/put_role/SecurityPutRoleRequest.ts#L32-L111
 type Request struct {
-
 	// Applications A list of application privilege entries.
 	Applications []types.ApplicationPrivileges `json:"applications,omitempty"`
 	// Cluster A list of cluster privileges. These privileges define the cluster-level

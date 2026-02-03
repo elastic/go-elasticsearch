@@ -48,23 +48,9 @@ func (s *_matchPhraseQuery) Analyzer(analyzer string) *_matchPhraseQuery {
 	return s
 }
 
-func (s *_matchPhraseQuery) Boost(boost float32) *_matchPhraseQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_matchPhraseQuery) Query(query string) *_matchPhraseQuery {
 
 	s.v.Query = query
-
-	return s
-}
-
-func (s *_matchPhraseQuery) QueryName_(queryname_ string) *_matchPhraseQuery {
-
-	s.v.QueryName_ = &queryname_
 
 	return s
 }
@@ -79,6 +65,20 @@ func (s *_matchPhraseQuery) Slop(slop int) *_matchPhraseQuery {
 func (s *_matchPhraseQuery) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *_matchPhraseQuery {
 
 	s.v.ZeroTermsQuery = &zerotermsquery
+	return s
+}
+
+func (s *_matchPhraseQuery) Boost(boost float32) *_matchPhraseQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_matchPhraseQuery) QueryName_(queryname_ string) *_matchPhraseQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

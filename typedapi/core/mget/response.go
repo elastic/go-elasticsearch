@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/mget/MultiGetResponse.ts#L22-L31
 type Response struct {
-
 	// Docs The response includes a docs array that contains the documents in the order
 	// specified in the request.
 	// The structure of the returned documents is similar to that returned by the

@@ -38,13 +38,6 @@ func NewHasParentQuery(query types.QueryVariant) *_hasParentQuery {
 
 }
 
-func (s *_hasParentQuery) Boost(boost float32) *_hasParentQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_hasParentQuery) IgnoreUnmapped(ignoreunmapped bool) *_hasParentQuery {
 
 	s.v.IgnoreUnmapped = &ignoreunmapped
@@ -73,16 +66,23 @@ func (s *_hasParentQuery) Query(query types.QueryVariant) *_hasParentQuery {
 	return s
 }
 
-func (s *_hasParentQuery) QueryName_(queryname_ string) *_hasParentQuery {
+func (s *_hasParentQuery) Score(score bool) *_hasParentQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.Score = &score
 
 	return s
 }
 
-func (s *_hasParentQuery) Score(score bool) *_hasParentQuery {
+func (s *_hasParentQuery) Boost(boost float32) *_hasParentQuery {
 
-	s.v.Score = &score
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_hasParentQuery) QueryName_(queryname_ string) *_hasParentQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

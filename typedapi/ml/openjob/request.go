@@ -34,7 +34,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/open_job/MlOpenJobRequest.ts#L24-L67
 type Request struct {
-
 	// Timeout Refer to the description for the `timeout` query parameter.
 	Timeout types.Duration `json:"timeout,omitempty"`
 }

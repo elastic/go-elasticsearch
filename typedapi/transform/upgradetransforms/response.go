@@ -24,7 +24,6 @@ package upgradetransforms
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/transform/upgrade_transforms/UpgradeTransformsResponse.ts#L25-L34
 type Response struct {
-
 	// NeedsUpdate The number of transforms that need to be upgraded.
 	NeedsUpdate int `json:"needs_update"`
 	// NoAction The number of transforms that don’t require upgrading.

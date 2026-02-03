@@ -29,7 +29,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/connector/sync_job_claim/SyncJobClaimRequest.ts#L23-L61
 type Request struct {
-
 	// SyncCursor The cursor object from the last incremental sync job.
 	// This should reference the `sync_cursor` field in the connector state for
 	// which the job runs.

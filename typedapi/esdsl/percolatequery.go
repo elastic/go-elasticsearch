@@ -37,13 +37,6 @@ func NewPercolateQuery() *_percolateQuery {
 
 }
 
-func (s *_percolateQuery) Boost(boost float32) *_percolateQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_percolateQuery) Document(document json.RawMessage) *_percolateQuery {
 
 	s.v.Document = document
@@ -96,13 +89,6 @@ func (s *_percolateQuery) Preference(preference string) *_percolateQuery {
 	return s
 }
 
-func (s *_percolateQuery) QueryName_(queryname_ string) *_percolateQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_percolateQuery) Routing(routing string) *_percolateQuery {
 
 	s.v.Routing = &routing
@@ -113,6 +99,20 @@ func (s *_percolateQuery) Routing(routing string) *_percolateQuery {
 func (s *_percolateQuery) Version(versionnumber int64) *_percolateQuery {
 
 	s.v.Version = &versionnumber
+
+	return s
+}
+
+func (s *_percolateQuery) Boost(boost float32) *_percolateQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_percolateQuery) QueryName_(queryname_ string) *_percolateQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

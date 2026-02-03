@@ -61,26 +61,6 @@ func (s *_dynamicProperty) Coerce(coerce bool) *_dynamicProperty {
 	return s
 }
 
-func (s *_dynamicProperty) CopyTo(fields ...string) *_dynamicProperty {
-
-	s.v.CopyTo = fields
-
-	return s
-}
-
-func (s *_dynamicProperty) DocValues(docvalues bool) *_dynamicProperty {
-
-	s.v.DocValues = &docvalues
-
-	return s
-}
-
-func (s *_dynamicProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_dynamicProperty {
-
-	s.v.Dynamic = &dynamic
-	return s
-}
-
 func (s *_dynamicProperty) EagerGlobalOrdinals(eagerglobalordinals bool) *_dynamicProperty {
 
 	s.v.EagerGlobalOrdinals = &eagerglobalordinals
@@ -95,37 +75,9 @@ func (s *_dynamicProperty) Enabled(enabled bool) *_dynamicProperty {
 	return s
 }
 
-func (s *_dynamicProperty) Fields(fields map[string]types.Property) *_dynamicProperty {
-
-	s.v.Fields = fields
-	return s
-}
-
-func (s *_dynamicProperty) AddField(key string, value types.PropertyVariant) *_dynamicProperty {
-
-	var tmp map[string]types.Property
-	if s.v.Fields == nil {
-		s.v.Fields = make(map[string]types.Property)
-	} else {
-		tmp = s.v.Fields
-	}
-
-	tmp[key] = *value.PropertyCaster()
-
-	s.v.Fields = tmp
-	return s
-}
-
 func (s *_dynamicProperty) Format(format string) *_dynamicProperty {
 
 	s.v.Format = &format
-
-	return s
-}
-
-func (s *_dynamicProperty) IgnoreAbove(ignoreabove int) *_dynamicProperty {
-
-	s.v.IgnoreAbove = &ignoreabove
 
 	return s
 }
@@ -171,27 +123,6 @@ func (s *_dynamicProperty) Locale(locale string) *_dynamicProperty {
 	return s
 }
 
-func (s *_dynamicProperty) Meta(meta map[string]string) *_dynamicProperty {
-
-	s.v.Meta = meta
-	return s
-}
-
-func (s *_dynamicProperty) AddMeta(key string, value string) *_dynamicProperty {
-
-	var tmp map[string]string
-	if s.v.Meta == nil {
-		s.v.Meta = make(map[string]string)
-	} else {
-		tmp = s.v.Meta
-	}
-
-	tmp[key] = value
-
-	s.v.Meta = tmp
-	return s
-}
-
 func (s *_dynamicProperty) Norms(norms bool) *_dynamicProperty {
 
 	s.v.Norms = &norms
@@ -226,27 +157,6 @@ func (s *_dynamicProperty) PrecisionStep(precisionstep int) *_dynamicProperty {
 	return s
 }
 
-func (s *_dynamicProperty) Properties(properties map[string]types.Property) *_dynamicProperty {
-
-	s.v.Properties = properties
-	return s
-}
-
-func (s *_dynamicProperty) AddProperty(key string, value types.PropertyVariant) *_dynamicProperty {
-
-	var tmp map[string]types.Property
-	if s.v.Properties == nil {
-		s.v.Properties = make(map[string]types.Property)
-	} else {
-		tmp = s.v.Properties
-	}
-
-	tmp[key] = *value.PropertyCaster()
-
-	s.v.Properties = tmp
-	return s
-}
-
 func (s *_dynamicProperty) Script(script types.ScriptVariant) *_dynamicProperty {
 
 	s.v.Script = script.ScriptCaster()
@@ -268,6 +178,108 @@ func (s *_dynamicProperty) SearchQuoteAnalyzer(searchquoteanalyzer string) *_dyn
 	return s
 }
 
+func (s *_dynamicProperty) TermVector(termvector termvectoroption.TermVectorOption) *_dynamicProperty {
+
+	s.v.TermVector = &termvector
+	return s
+}
+
+func (s *_dynamicProperty) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *_dynamicProperty {
+
+	s.v.TimeSeriesMetric = &timeseriesmetric
+	return s
+}
+
+func (s *_dynamicProperty) CopyTo(fields ...string) *_dynamicProperty {
+
+	s.v.CopyTo = fields
+
+	return s
+}
+
+func (s *_dynamicProperty) DocValues(docvalues bool) *_dynamicProperty {
+
+	s.v.DocValues = &docvalues
+
+	return s
+}
+
+func (s *_dynamicProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_dynamicProperty {
+
+	s.v.Dynamic = &dynamic
+	return s
+}
+
+func (s *_dynamicProperty) Fields(fields map[string]types.Property) *_dynamicProperty {
+
+	s.v.Fields = fields
+	return s
+}
+
+func (s *_dynamicProperty) AddField(key string, value types.PropertyVariant) *_dynamicProperty {
+
+	var tmp map[string]types.Property
+	if s.v.Fields == nil {
+		s.v.Fields = make(map[string]types.Property)
+	} else {
+		tmp = s.v.Fields
+	}
+
+	tmp[key] = *value.PropertyCaster()
+
+	s.v.Fields = tmp
+	return s
+}
+
+func (s *_dynamicProperty) IgnoreAbove(ignoreabove int) *_dynamicProperty {
+
+	s.v.IgnoreAbove = &ignoreabove
+
+	return s
+}
+
+func (s *_dynamicProperty) Meta(meta map[string]string) *_dynamicProperty {
+
+	s.v.Meta = meta
+	return s
+}
+
+func (s *_dynamicProperty) AddMeta(key string, value string) *_dynamicProperty {
+
+	var tmp map[string]string
+	if s.v.Meta == nil {
+		s.v.Meta = make(map[string]string)
+	} else {
+		tmp = s.v.Meta
+	}
+
+	tmp[key] = value
+
+	s.v.Meta = tmp
+	return s
+}
+
+func (s *_dynamicProperty) Properties(properties map[string]types.Property) *_dynamicProperty {
+
+	s.v.Properties = properties
+	return s
+}
+
+func (s *_dynamicProperty) AddProperty(key string, value types.PropertyVariant) *_dynamicProperty {
+
+	var tmp map[string]types.Property
+	if s.v.Properties == nil {
+		s.v.Properties = make(map[string]types.Property)
+	} else {
+		tmp = s.v.Properties
+	}
+
+	tmp[key] = *value.PropertyCaster()
+
+	s.v.Properties = tmp
+	return s
+}
+
 func (s *_dynamicProperty) Store(store bool) *_dynamicProperty {
 
 	s.v.Store = &store
@@ -278,18 +290,6 @@ func (s *_dynamicProperty) Store(store bool) *_dynamicProperty {
 func (s *_dynamicProperty) SyntheticSourceKeep(syntheticsourcekeep syntheticsourcekeepenum.SyntheticSourceKeepEnum) *_dynamicProperty {
 
 	s.v.SyntheticSourceKeep = &syntheticsourcekeep
-	return s
-}
-
-func (s *_dynamicProperty) TermVector(termvector termvectoroption.TermVectorOption) *_dynamicProperty {
-
-	s.v.TermVector = &termvector
-	return s
-}
-
-func (s *_dynamicProperty) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *_dynamicProperty {
-
-	s.v.TimeSeriesMetric = &timeseriesmetric
 	return s
 }
 

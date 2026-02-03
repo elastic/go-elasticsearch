@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/explain/ExplainRequest.ts#L26-L125
 type Request struct {
-
 	// Query Defines the search definition using the Query DSL.
 	Query *types.Query `json:"query,omitempty"`
 }

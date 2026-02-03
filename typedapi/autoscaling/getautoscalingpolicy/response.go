@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/autoscaling/get_autoscaling_policy/GetAutoscalingPolicyResponse.ts#L22-L25
 type Response struct {
-
 	// Deciders Decider settings.
 	Deciders map[string]json.RawMessage `json:"deciders"`
 	Roles    []string                   `json:"roles"`

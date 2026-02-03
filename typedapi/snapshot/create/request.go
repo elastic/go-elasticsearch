@@ -36,7 +36,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/snapshot/create/SnapshotCreateRequest.ts#L24-L126
 type Request struct {
-
 	// ExpandWildcards Determines how wildcard patterns in the `indices` parameter match data
 	// streams and indices.
 	// It supports comma-separated values such as `open,hidden`.

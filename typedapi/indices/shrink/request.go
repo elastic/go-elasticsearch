@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/shrink/IndicesShrinkRequest.ts#L27-L113
 type Request struct {
-
 	// Aliases The key is the alias name.
 	// Index alias names support date math.
 	Aliases map[string]types.Alias `json:"aliases,omitempty"`

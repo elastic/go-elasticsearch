@@ -43,20 +43,6 @@ func (s *_cardinalityAggregation) ExecutionHint(executionhint cardinalityexecuti
 	return s
 }
 
-func (s *_cardinalityAggregation) Field(field string) *_cardinalityAggregation {
-
-	s.v.Field = &field
-
-	return s
-}
-
-func (s *_cardinalityAggregation) Missing(missing types.MissingVariant) *_cardinalityAggregation {
-
-	s.v.Missing = *missing.MissingCaster()
-
-	return s
-}
-
 func (s *_cardinalityAggregation) PrecisionThreshold(precisionthreshold int) *_cardinalityAggregation {
 
 	s.v.PrecisionThreshold = &precisionthreshold
@@ -67,6 +53,20 @@ func (s *_cardinalityAggregation) PrecisionThreshold(precisionthreshold int) *_c
 func (s *_cardinalityAggregation) Rehash(rehash bool) *_cardinalityAggregation {
 
 	s.v.Rehash = &rehash
+
+	return s
+}
+
+func (s *_cardinalityAggregation) Field(field string) *_cardinalityAggregation {
+
+	s.v.Field = &field
+
+	return s
+}
+
+func (s *_cardinalityAggregation) Missing(missing types.MissingVariant) *_cardinalityAggregation {
+
+	s.v.Missing = *missing.MissingCaster()
 
 	return s
 }

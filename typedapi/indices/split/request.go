@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/split/IndicesSplitRequest.ts#L27-L113
 type Request struct {
-
 	// Aliases Aliases for the resulting index.
 	Aliases map[string]types.Alias `json:"aliases,omitempty"`
 	// Settings Configuration options for the target index.

@@ -38,6 +38,18 @@ func NewRateAggregation() *_rateAggregation {
 
 }
 
+func (s *_rateAggregation) Mode(mode ratemode.RateMode) *_rateAggregation {
+
+	s.v.Mode = &mode
+	return s
+}
+
+func (s *_rateAggregation) Unit(unit calendarinterval.CalendarInterval) *_rateAggregation {
+
+	s.v.Unit = &unit
+	return s
+}
+
 func (s *_rateAggregation) Field(field string) *_rateAggregation {
 
 	s.v.Field = &field
@@ -59,22 +71,10 @@ func (s *_rateAggregation) Missing(missing types.MissingVariant) *_rateAggregati
 	return s
 }
 
-func (s *_rateAggregation) Mode(mode ratemode.RateMode) *_rateAggregation {
-
-	s.v.Mode = &mode
-	return s
-}
-
 func (s *_rateAggregation) Script(script types.ScriptVariant) *_rateAggregation {
 
 	s.v.Script = script.ScriptCaster()
 
-	return s
-}
-
-func (s *_rateAggregation) Unit(unit calendarinterval.CalendarInterval) *_rateAggregation {
-
-	s.v.Unit = &unit
 	return s
 }
 

@@ -20,60 +20,23 @@
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // ChangeType type.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/aggregations/Aggregate.ts#L398-L410
 type ChangeType struct {
-	AdditionalChangeTypeProperty map[string]json.RawMessage `json:"-"`
-	Dip                          *Dip                       `json:"dip,omitempty"`
-	DistributionChange           *DistributionChange        `json:"distribution_change,omitempty"`
-	Indeterminable               *Indeterminable            `json:"indeterminable,omitempty"`
-	NonStationary                *NonStationary             `json:"non_stationary,omitempty"`
-	Spike                        *Spike                     `json:"spike,omitempty"`
-	Stationary                   *Stationary                `json:"stationary,omitempty"`
-	StepChange                   *StepChange                `json:"step_change,omitempty"`
-	TrendChange                  *TrendChange               `json:"trend_change,omitempty"`
-}
-
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s ChangeType) MarshalJSON() ([]byte, error) {
-	type opt ChangeType
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalChangeTypeProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalChangeTypeProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
+	Dip                *Dip                `json:"dip,omitempty"`
+	DistributionChange *DistributionChange `json:"distribution_change,omitempty"`
+	Indeterminable     *Indeterminable     `json:"indeterminable,omitempty"`
+	NonStationary      *NonStationary      `json:"non_stationary,omitempty"`
+	Spike              *Spike              `json:"spike,omitempty"`
+	Stationary         *Stationary         `json:"stationary,omitempty"`
+	StepChange         *StepChange         `json:"step_change,omitempty"`
+	TrendChange        *TrendChange        `json:"trend_change,omitempty"`
 }
 
 // NewChangeType returns a ChangeType.
 func NewChangeType() *ChangeType {
-	r := &ChangeType{
-		AdditionalChangeTypeProperty: make(map[string]json.RawMessage),
-	}
+	r := &ChangeType{}
 
 	return r
 }

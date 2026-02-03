@@ -35,16 +35,30 @@ func NewLowercaseProcessor() *_lowercaseProcessor {
 
 }
 
-func (s *_lowercaseProcessor) Description(description string) *_lowercaseProcessor {
+func (s *_lowercaseProcessor) Field(field string) *_lowercaseProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_lowercaseProcessor) Field(field string) *_lowercaseProcessor {
+func (s *_lowercaseProcessor) IgnoreMissing(ignoremissing bool) *_lowercaseProcessor {
 
-	s.v.Field = field
+	s.v.IgnoreMissing = &ignoremissing
+
+	return s
+}
+
+func (s *_lowercaseProcessor) TargetField(field string) *_lowercaseProcessor {
+
+	s.v.TargetField = &field
+
+	return s
+}
+
+func (s *_lowercaseProcessor) Description(description string) *_lowercaseProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -63,13 +77,6 @@ func (s *_lowercaseProcessor) IgnoreFailure(ignorefailure bool) *_lowercaseProce
 	return s
 }
 
-func (s *_lowercaseProcessor) IgnoreMissing(ignoremissing bool) *_lowercaseProcessor {
-
-	s.v.IgnoreMissing = &ignoremissing
-
-	return s
-}
-
 func (s *_lowercaseProcessor) OnFailure(onfailures ...types.ProcessorContainerVariant) *_lowercaseProcessor {
 
 	for _, v := range onfailures {
@@ -83,13 +90,6 @@ func (s *_lowercaseProcessor) OnFailure(onfailures ...types.ProcessorContainerVa
 func (s *_lowercaseProcessor) Tag(tag string) *_lowercaseProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_lowercaseProcessor) TargetField(field string) *_lowercaseProcessor {
-
-	s.v.TargetField = &field
 
 	return s
 }

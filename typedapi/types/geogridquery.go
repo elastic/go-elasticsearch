@@ -33,7 +33,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/query_dsl/geo.ts#L98-L103
 type GeoGridQuery struct {
-	AdditionalGeoGridQueryProperty map[string]json.RawMessage `json:"-"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
 	// Boost values are relative to the default value of 1.0.
@@ -104,58 +103,14 @@ func (s *GeoGridQuery) UnmarshalJSON(data []byte) error {
 			}
 			s.QueryName_ = &o
 
-		default:
-
-			if key, ok := t.(string); ok {
-				if s.AdditionalGeoGridQueryProperty == nil {
-					s.AdditionalGeoGridQueryProperty = make(map[string]json.RawMessage, 0)
-				}
-				raw := new(json.RawMessage)
-				if err := dec.Decode(&raw); err != nil {
-					return fmt.Errorf("%s | %w", "AdditionalGeoGridQueryProperty", err)
-				}
-				s.AdditionalGeoGridQueryProperty[key] = *raw
-			}
-
 		}
 	}
 	return nil
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s GeoGridQuery) MarshalJSON() ([]byte, error) {
-	type opt GeoGridQuery
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalGeoGridQueryProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalGeoGridQueryProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewGeoGridQuery returns a GeoGridQuery.
 func NewGeoGridQuery() *GeoGridQuery {
-	r := &GeoGridQuery{
-		AdditionalGeoGridQueryProperty: make(map[string]json.RawMessage),
-	}
+	r := &GeoGridQuery{}
 
 	return r
 }

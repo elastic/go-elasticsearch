@@ -58,13 +58,6 @@ func (s *_multiMatchQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynonymsp
 	return s
 }
 
-func (s *_multiMatchQuery) Boost(boost float32) *_multiMatchQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_multiMatchQuery) CutoffFrequency(cutofffrequency types.Float64) *_multiMatchQuery {
 
 	s.v.CutoffFrequency = &cutofffrequency
@@ -141,13 +134,6 @@ func (s *_multiMatchQuery) Query(query string) *_multiMatchQuery {
 	return s
 }
 
-func (s *_multiMatchQuery) QueryName_(queryname_ string) *_multiMatchQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_multiMatchQuery) Slop(slop int) *_multiMatchQuery {
 
 	s.v.Slop = &slop
@@ -171,6 +157,20 @@ func (s *_multiMatchQuery) Type(type_ textquerytype.TextQueryType) *_multiMatchQ
 func (s *_multiMatchQuery) ZeroTermsQuery(zerotermsquery zerotermsquery.ZeroTermsQuery) *_multiMatchQuery {
 
 	s.v.ZeroTermsQuery = &zerotermsquery
+	return s
+}
+
+func (s *_multiMatchQuery) Boost(boost float32) *_multiMatchQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_multiMatchQuery) QueryName_(queryname_ string) *_multiMatchQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

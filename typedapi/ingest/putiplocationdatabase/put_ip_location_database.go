@@ -383,23 +383,6 @@ func (r *PutIpLocationDatabase) Pretty(pretty bool) *PutIpLocationDatabase {
 	return r
 }
 
-// API name: AdditionalDatabaseConfigurationProperty
-// AdditionalDatabaseConfigurationProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (r *PutIpLocationDatabase) AdditionalDatabaseConfigurationProperty(key string, value json.RawMessage) *PutIpLocationDatabase {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	r.req.AdditionalDatabaseConfigurationProperty = tmp
-	return r
-}
-
 // API name: ipinfo
 func (r *PutIpLocationDatabase) Ipinfo(ipinfo types.IpinfoVariant) *PutIpLocationDatabase {
 	// Initialize the request if it is not already initialized

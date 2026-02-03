@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/activate_user_profile/Request.ts#L23-L76
 type Request struct {
-
 	// AccessToken The user's Elasticsearch access token or JWT.
 	// Both `access` and `id` JWT token types are supported and they depend on the
 	// underlying JWT realm configuration.

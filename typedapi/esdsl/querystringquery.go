@@ -70,13 +70,6 @@ func (s *_queryStringQuery) AutoGenerateSynonymsPhraseQuery(autogeneratesynonyms
 	return s
 }
 
-func (s *_queryStringQuery) Boost(boost float32) *_queryStringQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_queryStringQuery) DefaultField(field string) *_queryStringQuery {
 
 	s.v.DefaultField = &field
@@ -184,13 +177,6 @@ func (s *_queryStringQuery) Query(query string) *_queryStringQuery {
 	return s
 }
 
-func (s *_queryStringQuery) QueryName_(queryname_ string) *_queryStringQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_queryStringQuery) QuoteAnalyzer(quoteanalyzer string) *_queryStringQuery {
 
 	s.v.QuoteAnalyzer = &quoteanalyzer
@@ -229,6 +215,20 @@ func (s *_queryStringQuery) TimeZone(timezone string) *_queryStringQuery {
 func (s *_queryStringQuery) Type(type_ textquerytype.TextQueryType) *_queryStringQuery {
 
 	s.v.Type = &type_
+	return s
+}
+
+func (s *_queryStringQuery) Boost(boost float32) *_queryStringQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_queryStringQuery) QueryName_(queryname_ string) *_queryStringQuery {
+
+	s.v.QueryName_ = &queryname_
+
 	return s
 }
 

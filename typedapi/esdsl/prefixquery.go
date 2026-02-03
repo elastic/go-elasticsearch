@@ -38,23 +38,9 @@ func NewPrefixQuery(field string, value string) *_prefixQuery {
 	return tmp
 }
 
-func (s *_prefixQuery) Boost(boost float32) *_prefixQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_prefixQuery) CaseInsensitive(caseinsensitive bool) *_prefixQuery {
 
 	s.v.CaseInsensitive = &caseinsensitive
-
-	return s
-}
-
-func (s *_prefixQuery) QueryName_(queryname_ string) *_prefixQuery {
-
-	s.v.QueryName_ = &queryname_
 
 	return s
 }
@@ -69,6 +55,20 @@ func (s *_prefixQuery) Rewrite(multitermqueryrewrite string) *_prefixQuery {
 func (s *_prefixQuery) Value(value string) *_prefixQuery {
 
 	s.v.Value = value
+
+	return s
+}
+
+func (s *_prefixQuery) Boost(boost float32) *_prefixQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_prefixQuery) QueryName_(queryname_ string) *_prefixQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

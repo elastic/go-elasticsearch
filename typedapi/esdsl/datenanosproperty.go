@@ -44,6 +44,54 @@ func (s *_dateNanosProperty) Boost(boost types.Float64) *_dateNanosProperty {
 	return s
 }
 
+func (s *_dateNanosProperty) Format(format string) *_dateNanosProperty {
+
+	s.v.Format = &format
+
+	return s
+}
+
+func (s *_dateNanosProperty) IgnoreMalformed(ignoremalformed bool) *_dateNanosProperty {
+
+	s.v.IgnoreMalformed = &ignoremalformed
+
+	return s
+}
+
+func (s *_dateNanosProperty) Index(index bool) *_dateNanosProperty {
+
+	s.v.Index = &index
+
+	return s
+}
+
+func (s *_dateNanosProperty) NullValue(datetime types.DateTimeVariant) *_dateNanosProperty {
+
+	s.v.NullValue = *datetime.DateTimeCaster()
+
+	return s
+}
+
+func (s *_dateNanosProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_dateNanosProperty {
+
+	s.v.OnScriptError = &onscripterror
+	return s
+}
+
+func (s *_dateNanosProperty) PrecisionStep(precisionstep int) *_dateNanosProperty {
+
+	s.v.PrecisionStep = &precisionstep
+
+	return s
+}
+
+func (s *_dateNanosProperty) Script(script types.ScriptVariant) *_dateNanosProperty {
+
+	s.v.Script = script.ScriptCaster()
+
+	return s
+}
+
 func (s *_dateNanosProperty) CopyTo(fields ...string) *_dateNanosProperty {
 
 	s.v.CopyTo = fields
@@ -85,30 +133,9 @@ func (s *_dateNanosProperty) AddField(key string, value types.PropertyVariant) *
 	return s
 }
 
-func (s *_dateNanosProperty) Format(format string) *_dateNanosProperty {
-
-	s.v.Format = &format
-
-	return s
-}
-
 func (s *_dateNanosProperty) IgnoreAbove(ignoreabove int) *_dateNanosProperty {
 
 	s.v.IgnoreAbove = &ignoreabove
-
-	return s
-}
-
-func (s *_dateNanosProperty) IgnoreMalformed(ignoremalformed bool) *_dateNanosProperty {
-
-	s.v.IgnoreMalformed = &ignoremalformed
-
-	return s
-}
-
-func (s *_dateNanosProperty) Index(index bool) *_dateNanosProperty {
-
-	s.v.Index = &index
 
 	return s
 }
@@ -134,26 +161,6 @@ func (s *_dateNanosProperty) AddMeta(key string, value string) *_dateNanosProper
 	return s
 }
 
-func (s *_dateNanosProperty) NullValue(datetime types.DateTimeVariant) *_dateNanosProperty {
-
-	s.v.NullValue = *datetime.DateTimeCaster()
-
-	return s
-}
-
-func (s *_dateNanosProperty) OnScriptError(onscripterror onscripterror.OnScriptError) *_dateNanosProperty {
-
-	s.v.OnScriptError = &onscripterror
-	return s
-}
-
-func (s *_dateNanosProperty) PrecisionStep(precisionstep int) *_dateNanosProperty {
-
-	s.v.PrecisionStep = &precisionstep
-
-	return s
-}
-
 func (s *_dateNanosProperty) Properties(properties map[string]types.Property) *_dateNanosProperty {
 
 	s.v.Properties = properties
@@ -172,13 +179,6 @@ func (s *_dateNanosProperty) AddProperty(key string, value types.PropertyVariant
 	tmp[key] = *value.PropertyCaster()
 
 	s.v.Properties = tmp
-	return s
-}
-
-func (s *_dateNanosProperty) Script(script types.ScriptVariant) *_dateNanosProperty {
-
-	s.v.Script = script.ScriptCaster()
-
 	return s
 }
 

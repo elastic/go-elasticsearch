@@ -36,20 +36,6 @@ func NewSharedFileSystemRepositorySettings(location string) *_sharedFileSystemRe
 
 }
 
-func (s *_sharedFileSystemRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_sharedFileSystemRepositorySettings {
-
-	s.v.ChunkSize = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_sharedFileSystemRepositorySettings) Compress(compress bool) *_sharedFileSystemRepositorySettings {
-
-	s.v.Compress = &compress
-
-	return s
-}
-
 func (s *_sharedFileSystemRepositorySettings) Location(location string) *_sharedFileSystemRepositorySettings {
 
 	s.v.Location = location
@@ -64,6 +50,27 @@ func (s *_sharedFileSystemRepositorySettings) MaxNumberOfSnapshots(maxnumberofsn
 	return s
 }
 
+func (s *_sharedFileSystemRepositorySettings) Readonly(readonly bool) *_sharedFileSystemRepositorySettings {
+
+	s.v.Readonly = &readonly
+
+	return s
+}
+
+func (s *_sharedFileSystemRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_sharedFileSystemRepositorySettings {
+
+	s.v.ChunkSize = *bytesize.ByteSizeCaster()
+
+	return s
+}
+
+func (s *_sharedFileSystemRepositorySettings) Compress(compress bool) *_sharedFileSystemRepositorySettings {
+
+	s.v.Compress = &compress
+
+	return s
+}
+
 func (s *_sharedFileSystemRepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSizeVariant) *_sharedFileSystemRepositorySettings {
 
 	s.v.MaxRestoreBytesPerSec = *bytesize.ByteSizeCaster()
@@ -74,13 +81,6 @@ func (s *_sharedFileSystemRepositorySettings) MaxRestoreBytesPerSec(bytesize typ
 func (s *_sharedFileSystemRepositorySettings) MaxSnapshotBytesPerSec(bytesize types.ByteSizeVariant) *_sharedFileSystemRepositorySettings {
 
 	s.v.MaxSnapshotBytesPerSec = *bytesize.ByteSizeCaster()
-
-	return s
-}
-
-func (s *_sharedFileSystemRepositorySettings) Readonly(readonly bool) *_sharedFileSystemRepositorySettings {
-
-	s.v.Readonly = &readonly
 
 	return s
 }

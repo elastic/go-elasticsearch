@@ -20,19 +20,13 @@
 
 package types
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // IndicesAction type.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/update_aliases/types.ts#L23-L39
 type IndicesAction struct {
 	// Add Adds a data stream or index to an alias.
 	// If the alias doesn’t exist, the `add` action creates it.
-	Add                             *AddAction                 `json:"add,omitempty"`
-	AdditionalIndicesActionProperty map[string]json.RawMessage `json:"-"`
+	Add *AddAction `json:"add,omitempty"`
 	// Remove Removes a data stream or index from an alias.
 	Remove *RemoveAction `json:"remove,omitempty"`
 	// RemoveIndex Deletes an index.
@@ -40,40 +34,9 @@ type IndicesAction struct {
 	RemoveIndex *RemoveIndexAction `json:"remove_index,omitempty"`
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s IndicesAction) MarshalJSON() ([]byte, error) {
-	type opt IndicesAction
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
-
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalIndicesActionProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalIndicesActionProperty")
-
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
 // NewIndicesAction returns a IndicesAction.
 func NewIndicesAction() *IndicesAction {
-	r := &IndicesAction{
-		AdditionalIndicesActionProperty: make(map[string]json.RawMessage),
-	}
+	r := &IndicesAction{}
 
 	return r
 }

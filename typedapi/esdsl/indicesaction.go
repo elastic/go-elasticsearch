@@ -20,11 +20,7 @@
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _indicesAction struct {
 	v *types.IndicesAction
@@ -38,18 +34,6 @@ func (s *_indicesAction) Add(add types.AddActionVariant) *_indicesAction {
 
 	s.v.Add = add.AddActionCaster()
 
-	return s
-}
-
-// AdditionalIndicesActionProperty is a single key dictionnary.
-// It will replace the current value on each call.
-func (s *_indicesAction) AdditionalIndicesActionProperty(key string, value json.RawMessage) *_indicesAction {
-
-	tmp := make(map[string]json.RawMessage)
-
-	tmp[key] = value
-
-	s.v.AdditionalIndicesActionProperty = tmp
 	return s
 }
 

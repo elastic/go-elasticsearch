@@ -56,16 +56,24 @@ func (s *_appendProcessor) CopyFrom(field string) *_appendProcessor {
 	return s
 }
 
-func (s *_appendProcessor) Description(description string) *_appendProcessor {
+func (s *_appendProcessor) Field(field string) *_appendProcessor {
 
-	s.v.Description = &description
+	s.v.Field = field
 
 	return s
 }
 
-func (s *_appendProcessor) Field(field string) *_appendProcessor {
+func (s *_appendProcessor) Value(values ...json.RawMessage) *_appendProcessor {
 
-	s.v.Field = field
+	s.v.Value = make([]json.RawMessage, len(values))
+	s.v.Value = values
+
+	return s
+}
+
+func (s *_appendProcessor) Description(description string) *_appendProcessor {
+
+	s.v.Description = &description
 
 	return s
 }
@@ -97,14 +105,6 @@ func (s *_appendProcessor) OnFailure(onfailures ...types.ProcessorContainerVaria
 func (s *_appendProcessor) Tag(tag string) *_appendProcessor {
 
 	s.v.Tag = &tag
-
-	return s
-}
-
-func (s *_appendProcessor) Value(values ...json.RawMessage) *_appendProcessor {
-
-	s.v.Value = make([]json.RawMessage, len(values))
-	s.v.Value = values
 
 	return s
 }

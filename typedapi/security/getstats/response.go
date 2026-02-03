@@ -28,7 +28,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/get_stats/SecurityStatsResponse.ts#L24-L31
 type Response struct {
-
 	// Nodes A map of node IDs to security statistics for that node.
 	Nodes map[string]types.NodeSecurityStats `json:"nodes"`
 }

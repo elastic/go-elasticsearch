@@ -31,7 +31,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/estimate_model_memory/MlEstimateModelMemoryRequest.ts#L26-L71
 type Request struct {
-
 	// AnalysisConfig For a list of the properties that you can specify in the
 	// `analysis_config` component of the body of this API.
 	AnalysisConfig *types.AnalysisConfig `json:"analysis_config,omitempty"`

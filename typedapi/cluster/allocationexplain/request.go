@@ -33,7 +33,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/cluster/allocation_explain/ClusterAllocationExplainRequest.ts#L25-L98
 type Request struct {
-
 	// CurrentNode Explain a shard only if it is currently located on the specified node name or
 	// node ID.
 	CurrentNode *string `json:"current_node,omitempty"`

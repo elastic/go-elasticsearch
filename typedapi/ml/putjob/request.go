@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/put_job/MlPutJobRequest.ts#L30-L151
 type Request struct {
-
 	// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when there
 	// is insufficient machine learning node capacity for it to be immediately
 	// assigned to a node. By default, if a machine learning node with capacity to

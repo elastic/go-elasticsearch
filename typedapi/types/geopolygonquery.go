@@ -131,7 +131,7 @@ func (s *GeoPolygonQuery) UnmarshalJSON(data []byte) error {
 func (s GeoPolygonQuery) MarshalJSON() ([]byte, error) {
 	type opt GeoPolygonQuery
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {
@@ -144,7 +144,11 @@ func (s GeoPolygonQuery) MarshalJSON() ([]byte, error) {
 
 	// We inline the additional fields from the underlying map
 	for key, value := range s.GeoPolygonQuery {
-		tmp[fmt.Sprintf("%s", key)] = value
+		marshaled, err := json.Marshal(value)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal additional property %q: %w", key, err)
+		}
+		tmp[fmt.Sprintf("%s", key)] = marshaled
 	}
 	delete(tmp, "GeoPolygonQuery")
 

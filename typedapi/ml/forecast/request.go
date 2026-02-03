@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/forecast/MlForecastJobRequest.ts#L24-L95
 type Request struct {
-
 	// Duration Refer to the description for the `duration` query parameter.
 	Duration types.Duration `json:"duration,omitempty"`
 	// ExpiresIn Refer to the description for the `expires_in` query parameter.

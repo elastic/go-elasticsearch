@@ -34,6 +34,13 @@ func NewStringStatsAggregation() *_stringStatsAggregation {
 
 }
 
+func (s *_stringStatsAggregation) ShowDistribution(showdistribution bool) *_stringStatsAggregation {
+
+	s.v.ShowDistribution = &showdistribution
+
+	return s
+}
+
 func (s *_stringStatsAggregation) Field(field string) *_stringStatsAggregation {
 
 	s.v.Field = &field
@@ -51,13 +58,6 @@ func (s *_stringStatsAggregation) Missing(missing types.MissingVariant) *_string
 func (s *_stringStatsAggregation) Script(script types.ScriptVariant) *_stringStatsAggregation {
 
 	s.v.Script = script.ScriptCaster()
-
-	return s
-}
-
-func (s *_stringStatsAggregation) ShowDistribution(showdistribution bool) *_stringStatsAggregation {
-
-	s.v.ShowDistribution = &showdistribution
 
 	return s
 }

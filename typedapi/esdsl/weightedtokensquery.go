@@ -36,13 +36,6 @@ func NewWeightedTokensQuery(key string) *_weightedTokensQuery {
 	}
 }
 
-func (s *_weightedTokensQuery) Boost(boost float32) *_weightedTokensQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_weightedTokensQuery) PruningConfig(pruningconfig types.TokenPruningConfigVariant) *_weightedTokensQuery {
 
 	s.v.PruningConfig = pruningconfig.TokenPruningConfigCaster()
@@ -50,16 +43,23 @@ func (s *_weightedTokensQuery) PruningConfig(pruningconfig types.TokenPruningCon
 	return s
 }
 
-func (s *_weightedTokensQuery) QueryName_(queryname_ string) *_weightedTokensQuery {
+func (s *_weightedTokensQuery) Tokens(tokens []map[string]float32) *_weightedTokensQuery {
 
-	s.v.QueryName_ = &queryname_
+	s.v.Tokens = tokens
 
 	return s
 }
 
-func (s *_weightedTokensQuery) Tokens(tokens []map[string]float32) *_weightedTokensQuery {
+func (s *_weightedTokensQuery) Boost(boost float32) *_weightedTokensQuery {
 
-	s.v.Tokens = tokens
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_weightedTokensQuery) QueryName_(queryname_ string) *_weightedTokensQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

@@ -21,55 +21,86 @@
 package types
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 )
 
 // RoleMappingRule type.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/_types/RoleMappingRule.ts#L23-L31
 type RoleMappingRule struct {
-	AdditionalRoleMappingRuleProperty map[string]json.RawMessage `json:"-"`
-	All                               []RoleMappingRule          `json:"all,omitempty"`
-	Any                               []RoleMappingRule          `json:"any,omitempty"`
-	Except                            *RoleMappingRule           `json:"except,omitempty"`
-	Field                             map[string][]FieldValue    `json:"field,omitempty"`
+	All    []RoleMappingRule       `json:"all,omitempty"`
+	Any    []RoleMappingRule       `json:"any,omitempty"`
+	Except *RoleMappingRule        `json:"except,omitempty"`
+	Field  map[string][]FieldValue `json:"field,omitempty"`
 }
 
-// MarhsalJSON overrides marshalling for types with additional properties
-func (s RoleMappingRule) MarshalJSON() ([]byte, error) {
-	type opt RoleMappingRule
-	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+func (s *RoleMappingRule) UnmarshalJSON(data []byte) error {
 
-	data, err := json.Marshal(opt(s))
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(data, &tmp)
-	if err != nil {
-		return nil, err
-	}
+	dec := json.NewDecoder(bytes.NewReader(data))
 
-	// We inline the additional fields from the underlying map
-	for key, value := range s.AdditionalRoleMappingRuleProperty {
-		tmp[fmt.Sprintf("%s", key)] = value
-	}
-	delete(tmp, "AdditionalRoleMappingRuleProperty")
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
 
-	data, err = json.Marshal(tmp)
-	if err != nil {
-		return nil, err
-	}
+		switch t {
 
-	return data, nil
+		case "all":
+			if err := dec.Decode(&s.All); err != nil {
+				return fmt.Errorf("%s | %w", "All", err)
+			}
+
+		case "any":
+			if err := dec.Decode(&s.Any); err != nil {
+				return fmt.Errorf("%s | %w", "Any", err)
+			}
+
+		case "except":
+			if err := dec.Decode(&s.Except); err != nil {
+				return fmt.Errorf("%s | %w", "Except", err)
+			}
+
+		case "field":
+			if s.Field == nil {
+				s.Field = make(map[string][]FieldValue, 0)
+			}
+			rawMsg := make(map[string]json.RawMessage, 0)
+			dec.Decode(&rawMsg)
+			for key, value := range rawMsg {
+				v := bytes.TrimSpace(value)
+				if len(v) > 0 && v[0] == '[' {
+					var o []FieldValue
+					if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Field", err)
+					}
+					s.Field[key] = o
+					continue
+				}
+
+				var o FieldValue
+				if err := json.NewDecoder(bytes.NewReader(v)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Field", err)
+				}
+				s.Field[key] = append(s.Field[key], o)
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRoleMappingRule returns a RoleMappingRule.
 func NewRoleMappingRule() *RoleMappingRule {
 	r := &RoleMappingRule{
-		AdditionalRoleMappingRuleProperty: make(map[string]json.RawMessage),
-		Field:                             make(map[string][]FieldValue),
+		Field: make(map[string][]FieldValue),
 	}
 
 	return r

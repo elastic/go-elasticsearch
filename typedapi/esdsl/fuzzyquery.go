@@ -39,13 +39,6 @@ func NewFuzzyQuery(field string, value string) *_fuzzyQuery {
 	return tmp
 }
 
-func (s *_fuzzyQuery) Boost(boost float32) *_fuzzyQuery {
-
-	s.v.Boost = &boost
-
-	return s
-}
-
 func (s *_fuzzyQuery) Fuzziness(fuzziness types.FuzzinessVariant) *_fuzzyQuery {
 
 	s.v.Fuzziness = *fuzziness.FuzzinessCaster()
@@ -67,13 +60,6 @@ func (s *_fuzzyQuery) PrefixLength(prefixlength int) *_fuzzyQuery {
 	return s
 }
 
-func (s *_fuzzyQuery) QueryName_(queryname_ string) *_fuzzyQuery {
-
-	s.v.QueryName_ = &queryname_
-
-	return s
-}
-
 func (s *_fuzzyQuery) Rewrite(multitermqueryrewrite string) *_fuzzyQuery {
 
 	s.v.Rewrite = &multitermqueryrewrite
@@ -91,6 +77,20 @@ func (s *_fuzzyQuery) Transpositions(transpositions bool) *_fuzzyQuery {
 func (s *_fuzzyQuery) Value(value string) *_fuzzyQuery {
 
 	s.v.Value = value
+
+	return s
+}
+
+func (s *_fuzzyQuery) Boost(boost float32) *_fuzzyQuery {
+
+	s.v.Boost = &boost
+
+	return s
+}
+
+func (s *_fuzzyQuery) QueryName_(queryname_ string) *_fuzzyQuery {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

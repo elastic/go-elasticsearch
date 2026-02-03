@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/put_role_mapping/SecurityPutRoleMappingRequest.ts#L25-L103
 type Request struct {
-
 	// Enabled Mappings that have `enabled` set to `false` are ignored when role mapping is
 	// performed.
 	Enabled *bool `json:"enabled,omitempty"`

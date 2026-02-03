@@ -35,7 +35,6 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/delete_expired_data/MlDeleteExpiredDataRequest.ts#L25-L85
 type Request struct {
-
 	// RequestsPerSecond The desired requests per second for the deletion processes. The default
 	// behavior is no throttling.
 	RequestsPerSecond *float32 `json:"requests_per_second,omitempty"`

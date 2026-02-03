@@ -45,15 +45,35 @@ func (s *_denseVectorProperty) Dims(dims int) *_denseVectorProperty {
 	return s
 }
 
-func (s *_denseVectorProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_denseVectorProperty {
-
-	s.v.Dynamic = &dynamic
-	return s
-}
-
 func (s *_denseVectorProperty) ElementType(elementtype densevectorelementtype.DenseVectorElementType) *_denseVectorProperty {
 
 	s.v.ElementType = &elementtype
+	return s
+}
+
+func (s *_denseVectorProperty) Index(index bool) *_denseVectorProperty {
+
+	s.v.Index = &index
+
+	return s
+}
+
+func (s *_denseVectorProperty) IndexOptions(indexoptions types.DenseVectorIndexOptionsVariant) *_denseVectorProperty {
+
+	s.v.IndexOptions = indexoptions.DenseVectorIndexOptionsCaster()
+
+	return s
+}
+
+func (s *_denseVectorProperty) Similarity(similarity densevectorsimilarity.DenseVectorSimilarity) *_denseVectorProperty {
+
+	s.v.Similarity = &similarity
+	return s
+}
+
+func (s *_denseVectorProperty) Dynamic(dynamic dynamicmapping.DynamicMapping) *_denseVectorProperty {
+
+	s.v.Dynamic = &dynamic
 	return s
 }
 
@@ -81,20 +101,6 @@ func (s *_denseVectorProperty) AddField(key string, value types.PropertyVariant)
 func (s *_denseVectorProperty) IgnoreAbove(ignoreabove int) *_denseVectorProperty {
 
 	s.v.IgnoreAbove = &ignoreabove
-
-	return s
-}
-
-func (s *_denseVectorProperty) Index(index bool) *_denseVectorProperty {
-
-	s.v.Index = &index
-
-	return s
-}
-
-func (s *_denseVectorProperty) IndexOptions(indexoptions types.DenseVectorIndexOptionsVariant) *_denseVectorProperty {
-
-	s.v.IndexOptions = indexoptions.DenseVectorIndexOptionsCaster()
 
 	return s
 }
@@ -138,12 +144,6 @@ func (s *_denseVectorProperty) AddProperty(key string, value types.PropertyVaria
 	tmp[key] = *value.PropertyCaster()
 
 	s.v.Properties = tmp
-	return s
-}
-
-func (s *_denseVectorProperty) Similarity(similarity densevectorsimilarity.DenseVectorSimilarity) *_denseVectorProperty {
-
-	s.v.Similarity = &similarity
 	return s
 }
 

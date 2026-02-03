@@ -24,7 +24,6 @@ package upgradejobsnapshot
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/upgrade_job_snapshot/MlUpgradeJobSnapshotResponse.ts#L22-L31
 type Response struct {
-
 	// Completed When true, this means the task is complete. When false, it is still running.
 	Completed bool `json:"completed"`
 	// Node The ID of the node that the upgrade task was started on if it is still
