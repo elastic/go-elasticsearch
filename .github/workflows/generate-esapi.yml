@@ -4,22 +4,22 @@ on:
   workflow_dispatch:
     inputs:
       branches:
-        description: 'Comma-separated list of branches, optionally with spec version (e.g., main,9.3=9.3.0,8.19=8.19.0)'
+        description: "Comma-separated list of branches, optionally with spec version (e.g., main,9.3=9.3.0,8.19=8.19.0)"
         required: false
         type: string
-        default: 'main'
+        default: "main"
       dry-run:
-        description: 'Skip PR creation when true.'
+        description: "Skip PR creation when true."
         required: false
         type: boolean
         default: false
       issue-on-fail:
-        description: 'Create or comment on issues when failures occur.'
+        description: "Create or comment on issues when failures occur."
         required: false
         type: boolean
         default: true
   schedule:
-    - cron: '0 9 * * 1'
+    - cron: "0 9 * * 1"
 
 permissions:
   contents: read
@@ -288,4 +288,3 @@ jobs:
               issue_number: issue.number,
               state: "closed",
             });
-
