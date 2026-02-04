@@ -67,12 +67,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 		},
 	}
 
-	stackVersion := elasticsearch.Version
-	if v := os.Getenv("STACK_VERSION"); v != "" {
-		stackVersion = v
-	}
-
-	elasticsearchSrv, err := containertest.NewElasticsearchService(stackVersion, containertest.WithResolveLatestPatch(true))
+	elasticsearchSrv, err := containertest.NewElasticsearchService(containertest.ElasticStackImage)
 	if err != nil {
 		t.Fatalf("Error setting up Elasticsearch container: %s", err)
 	}

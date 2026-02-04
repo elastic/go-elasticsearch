@@ -25,6 +25,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"regexp"
 	"sort"
 	"strconv"
@@ -41,6 +42,26 @@ const (
 	elasticDockerAPIURL  = "https://docker.elastic.co/v2"
 	elasticESRepository  = "elasticsearch/elasticsearch"
 )
+
+// ElasticStackImage is the resolved Elasticsearch Docker image version.
+// It is set at init time by resolving the latest available patch version
+// for the configured major.minor (from STACK_VERSION env or library version).
+var ElasticStackImage string
+
+func init() {
+	stackVersion := elasticsearch.Version
+	if v := os.Getenv("STACK_VERSION"); v != "" {
+		stackVersion = v
+	}
+
+	resolved, err := ResolveLatestPatchVersion(stackVersion)
+	if err != nil {
+		// Fall back to the original version if resolution fails
+		ElasticStackImage = stackVersion
+		return
+	}
+	ElasticStackImage = resolved
+}
 
 // ElasticsearchService wraps an Elasticsearch container and its configuration.
 type ElasticsearchService struct {
@@ -66,21 +87,11 @@ func (es *ElasticsearchService) Terminate(ctx context.Context) error {
 }
 
 type elasticsearchServiceConfig struct {
-	resolveLatestPatch bool
-	env                map[string]string
+	env map[string]string
 }
 
 // ElasticsearchServiceOption configures ElasticsearchService creation.
 type ElasticsearchServiceOption func(*elasticsearchServiceConfig)
-
-// WithResolveLatestPatch resolves the latest available patch version for the
-// given major.minor from the Docker registry. Release builds are prioritized
-// over SNAPSHOTs.
-func WithResolveLatestPatch(resolve bool) ElasticsearchServiceOption {
-	return func(c *elasticsearchServiceConfig) {
-		c.resolveLatestPatch = resolve
-	}
-}
 
 // WithEnv sets environment variables for the Elasticsearch container.
 func WithEnv(env map[string]string) ElasticsearchServiceOption {
@@ -96,17 +107,8 @@ func NewElasticsearchService(stackVersion string, opts ...ElasticsearchServiceOp
 		opt(cfg)
 	}
 
-	version := stackVersion
-	if cfg.resolveLatestPatch {
-		resolved, err := ResolveLatestPatchVersion(stackVersion)
-		if err != nil {
-			return nil, fmt.Errorf("failed to resolve latest patch version: %w", err)
-		}
-		version = resolved
-	}
-
 	containerOpts := []testcontainers.ContainerCustomizer{
-		testcontainers.WithImage("docker.elastic.co/elasticsearch/elasticsearch:" + version),
+		testcontainers.WithImage("docker.elastic.co/elasticsearch/elasticsearch:" + stackVersion),
 		tces.WithPassword("changeme"),
 	}
 	if cfg.env != nil {

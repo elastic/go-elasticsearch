@@ -53,12 +53,7 @@ import (
 )
 
 func TestElasticsearchIntegration(t *testing.T) {
-	stackVersion := elasticsearch.Version
-	if v := os.Getenv("STACK_VERSION"); v != "" {
-		stackVersion = v
-	}
-
-	elasticsearchSrv, err := containertest.NewElasticsearchService(stackVersion, containertest.WithResolveLatestPatch(true))
+	elasticsearchSrv, err := containertest.NewElasticsearchService(containertest.ElasticStackImage)
 	if err != nil {
 		t.Fatalf("Error setting up Elasticsearch container: %s", err)
 	}
@@ -561,14 +556,8 @@ func (t *ReplacedTransport) Count() uint64 {
 }
 
 func TestElasticsearchInsecureIntegration(t *testing.T) {
-	stackVersion := elasticsearch.Version
-	if v := os.Getenv("STACK_VERSION"); v != "" {
-		stackVersion = v
-	}
-
 	elasticsearchSrv, err := containertest.NewElasticsearchService(
-		stackVersion,
-		containertest.WithResolveLatestPatch(true),
+		containertest.ElasticStackImage,
 		containertest.WithEnv(map[string]string{
 			"xpack.security.enabled": "false",
 		}),
