@@ -8,7 +8,7 @@
   "bootstrap-sha": "b36369e449cde695ab35b5e55a1b42ced5a3b9c9",
   "last-release-sha": "b36369e449cde695ab35b5e55a1b42ced5a3b9c9",
   "draft-pull-request": true,
-  "extra-label": "apidiff",
+  "extra-label": "apidiff: release",
   "always-update": true,
   "packages": {
     ".": {
