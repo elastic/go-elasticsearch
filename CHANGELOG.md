@@ -1,5 +1,18 @@
 # Changelog
 
+## [8.19.2](https://github.com/elastic/go-elasticsearch/compare/v8.19.1...v8.19.2) (2026-02-04)
+
+
+### Features
+
+* Expose FlushedMs metric in BulkIndexer ([#1188](https://github.com/elastic/go-elasticsearch/issues/1188)) ([9199fa4](https://github.com/elastic/go-elasticsearch/commit/9199fa4c7691b21d1cab21d2a2f4c0d339a04813))
+
+
+### Bug Fixes
+
+* **esutil:** Handle error from Seek in BulkIndexer.writeBody ([#1160](https://github.com/elastic/go-elasticsearch/issues/1160)) ([cf53b87](https://github.com/elastic/go-elasticsearch/commit/cf53b871a28d808ed8b0da82e6d5cc9d3b0218c8))
+* **Typed API:** Marshal Additional Properties into json.RawMessage instead of any to avoid loss of precision ([#1196](https://github.com/elastic/go-elasticsearch/issues/1196)) ([08855c2](https://github.com/elastic/go-elasticsearch/commit/08855c2965d78b331a6249ac4e5e3b7f2cf85b8e))
+
 ## [8.19.1](https://github.com/elastic/go-elasticsearch/compare/v8.19.0...v8.19.1) (2025-12-12)
 
 
