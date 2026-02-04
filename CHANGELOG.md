@@ -1,5 +1,44 @@
 # Changelog
 
+## [9.3.0](https://github.com/elastic/go-elasticsearch/compare/v9.2.1...v9.3.0) (2026-02-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* Upgrade Go version from 1.23 to 1.24 ([#1137](https://github.com/elastic/go-elasticsearch/issues/1137))
+* **API:** API methods and request fields that previously accepted a single string for resource identifiers (e.g., indices, names, IDs, routing, features) now require `[]string`. Corresponding WithX helpers now accept variadic arguments (`...string`).
+* **API:** All `ExpandWildcards` request fields were changed from `string` to `[]string`, and `WithExpandWildcards` helpers now accept variadic arguments (`...string`).
+* **API:** Routing parameters across document, search, and multi-document APIs were changed from `string` to `[]string`, and related `WithRouting` helpers now accept variadic arguments (`...string`).
+* **API:** Duration-based parameters previously expressed as `string` now use `time.Duration` (e.g., KeepAlive, Interval, BucketSpan). Call sites must pass `time.Duration` values.
+* **API:** ML APIs using `interface{}` for start/end time parameters now require `string` values, removing support for arbitrary types.
+* **API:** Several top-level API methods now require `[]string` instead of `string` for path parameters that support multiple resources (e.g., indices, templates, data streams, transforms, repositories, privileges).
+* **API:** MonitoringBulk was refactored: `DocumentType` support was removed, Interval is now `time.Duration`, and required parameters were added explicitly to the method signature.
+* **API:** Some WithX functional options changed between single-value and variadic forms to match API behaviour. Existing option usage may require updates.
+* **API:** Request struct fields were updated to reflect REST API semantics, including changes from `string` to `[]string` and removal of deprecated fields. Direct struct initialization may require changes.
+
+### Features
+
+* **API:** Introduce strong typing for duration values ([3c657da](https://github.com/elastic/go-elasticsearch/commit/3c657dad775663ed4aed4c52479a3fcba2f3cb07))
+* **API:** Support multi-value resource parameters ([3c657da](https://github.com/elastic/go-elasticsearch/commit/3c657dad775663ed4aed4c52479a3fcba2f3cb07))
+* **API:** Support multiple resources per request ([3c657da](https://github.com/elastic/go-elasticsearch/commit/3c657dad775663ed4aed4c52479a3fcba2f3cb07))
+* **API:** Update APIs to 9.3.0 ([3c657da](https://github.com/elastic/go-elasticsearch/commit/3c657dad775663ed4aed4c52479a3fcba2f3cb07))
+* Expose FlushedMs metric in BulkIndexer ([#1191](https://github.com/elastic/go-elasticsearch/issues/1191)) ([d67d0be](https://github.com/elastic/go-elasticsearch/commit/d67d0be4d940e6bc5425f0e598d058666d4397bf))
+* **Typed API:** Add `DenseVectorF32` and `DenseVectorBytes` types, improving indexing performance of dense vectors by up to 3x when used instead of a float32 array ([f543b82](https://github.com/elastic/go-elasticsearch/commit/f543b82ec7b9030042503fe700c1a4da87549444))
+* **Typed API:** Update TypedAPI to latest [elasticsearch-specification 9.3.0](https://github.com/elastic/elasticsearch-specification/commit/d82ef79) ([f543b82](https://github.com/elastic/go-elasticsearch/commit/f543b82ec7b9030042503fe700c1a4da87549444))
+* Upgrade Go version from 1.23 to 1.24 ([#1137](https://github.com/elastic/go-elasticsearch/issues/1137)) ([05f15eb](https://github.com/elastic/go-elasticsearch/commit/05f15ebe85ae558ae4cb341c8127519a63f29048))
+
+
+### Bug Fixes
+
+* **API:** Align request structs with Elasticsearch REST spec ([3c657da](https://github.com/elastic/go-elasticsearch/commit/3c657dad775663ed4aed4c52479a3fcba2f3cb07))
+* **API:** Align routing parameters with REST API ([3c657da](https://github.com/elastic/go-elasticsearch/commit/3c657dad775663ed4aed4c52479a3fcba2f3cb07))
+* **API:** Correct functional option cardinality ([3c657da](https://github.com/elastic/go-elasticsearch/commit/3c657dad775663ed4aed4c52479a3fcba2f3cb07))
+* **API:** Modernize MonitoringBulk API ([3c657da](https://github.com/elastic/go-elasticsearch/commit/3c657dad775663ed4aed4c52479a3fcba2f3cb07))
+* **API:** Normalize expand_wildcards handling ([3c657da](https://github.com/elastic/go-elasticsearch/commit/3c657dad775663ed4aed4c52479a3fcba2f3cb07))
+* **API:** Simplify ML time range parameters ([3c657da](https://github.com/elastic/go-elasticsearch/commit/3c657dad775663ed4aed4c52479a3fcba2f3cb07))
+* **esutil:** Handle error from Seek in BulkIndexer.writeBody ([#1162](https://github.com/elastic/go-elasticsearch/issues/1162)) ([ab7b3bb](https://github.com/elastic/go-elasticsearch/commit/ab7b3bb8537adec921ecb97a8b816dcf7dca83cf))
+* **Typed API:** Marshal Additional Properties into `json.RawMessage` instead of `any` to avoid loss of precision ([#1147](https://github.com/elastic/go-elasticsearch/issues/1147)) ([e3e61d6](https://github.com/elastic/go-elasticsearch/commit/e3e61d6e3dd446842c5490036a527a1cf642b7c9))
+
 ## [9.2.2](https://github.com/elastic/go-elasticsearch/compare/v9.2.1...v9.2.2) (2026-02-04)
 
 
