@@ -22,7 +22,6 @@ package e2e_test
 
 import (
 	"context"
-	"os"
 	"strings"
 	"testing"
 
@@ -34,12 +33,7 @@ import (
 )
 
 func TestJSONReaderIntegration(t *testing.T) {
-	stackVersion := elasticsearch.Version
-	if v := os.Getenv("STACK_VERSION"); v != "" {
-		stackVersion = v
-	}
-
-	elasticsearchSrv, err := containertest.NewElasticsearchService(stackVersion)
+	elasticsearchSrv, err := containertest.NewElasticsearchService(containertest.ElasticStackImage)
 	if err != nil {
 		t.Fatalf("Error setting up Elasticsearch container: %s", err)
 	}

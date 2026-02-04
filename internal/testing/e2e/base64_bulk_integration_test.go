@@ -72,11 +72,6 @@ type RunResult struct {
 }
 
 func TestBase64BulkIndexing(t *testing.T) {
-	stackVersion := elasticsearch.Version
-	if v := os.Getenv("STACK_VERSION"); v != "" {
-		stackVersion = v
-	}
-
 	// If ELASTICSEARCH_URL is set use the external cluster instead of starting a testcontainer.
 	var (
 		esClient         *elasticsearch.TypedClient
@@ -95,7 +90,7 @@ func TestBase64BulkIndexing(t *testing.T) {
 		}
 	} else {
 		// Start a testcontainer Elasticsearch instance as before.
-		elasticsearchSrv, err = containertest.NewElasticsearchService(stackVersion)
+		elasticsearchSrv, err = containertest.NewElasticsearchService(containertest.ElasticStackImage)
 		if err != nil {
 			t.Fatalf("Error setting up Elasticsearch container: %s", err)
 		}
