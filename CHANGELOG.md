@@ -1,5 +1,43 @@
 # Changelog
 
+## [9.2.2](https://github.com/elastic/go-elasticsearch/compare/v9.2.1...v9.2.2) (2026-02-04)
+
+
+### Features
+
+* Expose FlushedMs metric in BulkIndexer ([#1190](https://github.com/elastic/go-elasticsearch/issues/1190)) ([5e2c25a](https://github.com/elastic/go-elasticsearch/commit/5e2c25a39f43b236d25f471e823d90a37409946a))
+
+
+### Bug Fixes
+
+* **esutil:** Handle error from Seek in BulkIndexer.writeBody ([#1161](https://github.com/elastic/go-elasticsearch/issues/1161)) ([5394405](https://github.com/elastic/go-elasticsearch/commit/539440533c89ff30f08a1354c18851a816ac62b3))
+* **Typed API:** Marshal Additional Properties into json.RawMessage instead of any to avoid loss of precision ([#1201](https://github.com/elastic/go-elasticsearch/issues/1201)) ([b5ceeee](https://github.com/elastic/go-elasticsearch/commit/b5ceeee371a6ec51e8c10b44be41702ef758a27c))
+
+## [9.1.2](https://github.com/elastic/go-elasticsearch/compare/v9.1.1...v9.1.2) (2026-02-04)
+
+
+### Features
+
+* Expose FlushedMs metric in BulkIndexer ([#1189](https://github.com/elastic/go-elasticsearch/issues/1189)) ([b2be5bb](https://github.com/elastic/go-elasticsearch/commit/b2be5bb2f74237ab6c9ab63b370e7f94bbc699f9))
+
+
+### Bug Fixes
+
+* **Typed API:** Marshal Additional Properties into json.RawMessage instead of any to avoid loss of precision ([#1200](https://github.com/elastic/go-elasticsearch/issues/1200)) ([f32bfca](https://github.com/elastic/go-elasticsearch/commit/f32bfca5859d22932ebfb68e40c7e5ea342c2a25))
+
+## [8.19.2](https://github.com/elastic/go-elasticsearch/compare/v8.19.1...v8.19.2) (2026-02-04)
+
+
+### Features
+
+* Expose FlushedMs metric in BulkIndexer ([#1188](https://github.com/elastic/go-elasticsearch/issues/1188)) ([9199fa4](https://github.com/elastic/go-elasticsearch/commit/9199fa4c7691b21d1cab21d2a2f4c0d339a04813))
+
+
+### Bug Fixes
+
+* **esutil:** Handle error from Seek in BulkIndexer.writeBody ([#1160](https://github.com/elastic/go-elasticsearch/issues/1160)) ([cf53b87](https://github.com/elastic/go-elasticsearch/commit/cf53b871a28d808ed8b0da82e6d5cc9d3b0218c8))
+* **Typed API:** Marshal Additional Properties into json.RawMessage instead of any to avoid loss of precision ([#1196](https://github.com/elastic/go-elasticsearch/issues/1196)) ([08855c2](https://github.com/elastic/go-elasticsearch/commit/08855c2965d78b331a6249ac4e5e3b7f2cf85b8e))
+
 ## [9.2.1](https://github.com/elastic/go-elasticsearch/compare/v9.2.0...v9.2.1) (2025-12-11)
 
 
@@ -42,7 +80,7 @@
 
 * Notify items if an error occurs in bulk indexer ([#615](https://github.com/elastic/go-elasticsearch/issues/615)) ([#1057](https://github.com/elastic/go-elasticsearch/issues/1057)) ([00b0ac1](https://github.com/elastic/go-elasticsearch/commit/00b0ac19af728ea10bd61571c3dc4de71e6ce130))
 
-## [9.2.0](https://github.com/elastic/go-elasticsearch/compare/v9.1.1...v9.2.0) (2025-10-29)
+## [9.2.0](https://github.com/elastic/go-elasticsearch/compare/v9.1.2...v9.2.0) (2025-10-29)
 
 
 ### API
@@ -93,7 +131,7 @@
 
 * This patch release fixes the broken build found in 8.18.0. If you are using the `TypedClient`, you should update to this version.
 
-## [9.0.0](https://github.com/elastic/go-elasticsearch/compare/v8.19.1...v9.0.0) (2025-04-17)
+## [9.0.0](https://github.com/elastic/go-elasticsearch/compare/v8.19.2...v9.0.0) (2025-04-17)
 
 
 * The client now requires **Go 1.23** or later.
