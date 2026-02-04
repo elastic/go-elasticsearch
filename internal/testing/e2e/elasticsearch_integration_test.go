@@ -49,18 +49,10 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
 
 	"testing/containertest"
-
-	"github.com/testcontainers/testcontainers-go"
-	tces "github.com/testcontainers/testcontainers-go/modules/elasticsearch"
 )
 
 func TestElasticsearchIntegration(t *testing.T) {
-	stackVersion := elasticsearch.Version
-	if v := os.Getenv("STACK_VERSION"); v != "" {
-		stackVersion = v
-	}
-
-	elasticsearchSrv, err := containertest.NewElasticsearchService(stackVersion)
+	elasticsearchSrv, err := containertest.NewElasticsearchService(containertest.ElasticStackImage)
 	if err != nil {
 		t.Fatalf("Error setting up Elasticsearch container: %s", err)
 	}
@@ -377,7 +369,7 @@ func TestElasticsearchIntegration(t *testing.T) {
 				Do(context.Background())
 
 			if err != nil {
-				t.Fatalf("error runnning search query: %s", err)
+				t.Fatalf("error running search query: %s", err)
 			}
 
 			if res.Hits.Total.Value == 1 {
@@ -529,18 +521,22 @@ func (t *ReplacedTransport) Count() uint64 {
 }
 
 func TestElasticsearchInsecureIntegration(t *testing.T) {
-	elasticsearchContainer, err := tces.RunContainer(
-		context.Background(),
-		testcontainers.WithImage("docker.elastic.co/elasticsearch/elasticsearch:"+elasticsearch.Version),
-		testcontainers.WithEnv(map[string]string{
+	elasticsearchSrv, err := containertest.NewElasticsearchService(
+		containertest.ElasticStackImage,
+		containertest.WithEnv(map[string]string{
 			"xpack.security.enabled": "false",
 		}),
 	)
 	if err != nil {
 		t.Fatal(err)
 	}
+	defer func() {
+		if err := elasticsearchSrv.Terminate(context.Background()); err != nil {
+			t.Fatalf("Error terminating Elasticsearch container: %s", err)
+		}
+	}()
 
-	t.Setenv("ELASTICSEARCH_URL", elasticsearchContainer.Settings.Address)
+	t.Setenv("ELASTICSEARCH_URL", elasticsearchSrv.ESConfig().Addresses[0])
 
 	t.Run("CustomTransport", func(t *testing.T) {
 		t.Run("TestClientCustomTransport", func(t *testing.T) {
@@ -571,14 +567,20 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 			})
 
 			t.Run("Manual", func(t *testing.T) {
-				u, _ := url.Parse(elasticsearchContainer.Settings.Address)
+				u, err := url.Parse(elasticsearchSrv.ESConfig().Addresses[0])
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 
-				tp, _ := elastictransport.New(elastictransport.Config{
+				tp, err := elastictransport.New(elastictransport.Config{
 					URLs: []*url.URL{
 						u,
 					},
 					Transport: http.DefaultTransport,
 				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
 
 				es := elasticsearch.Client{
 					BaseClient: elasticsearch.BaseClient{
@@ -605,7 +607,7 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 
 	t.Run("TestClientReplaceTransport", func(t *testing.T) {
 		t.Run("Replaced", func(t *testing.T) {
-			u, err := url.Parse(elasticsearchContainer.Settings.Address)
+			u, err := url.Parse(elasticsearchSrv.ESConfig().Addresses[0])
 			if err != nil {
 				t.Fatalf("cannot parse Elasticsearch docker container url: %s", err)
 			}
