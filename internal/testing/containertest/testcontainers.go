@@ -37,14 +37,12 @@ import (
 )
 
 const (
-	// Docker registry URLs for Elastic
 	elasticDockerAuthURL = "https://docker-auth.elastic.co/auth"
 	elasticDockerAPIURL  = "https://docker.elastic.co/v2"
 	elasticESRepository  = "elasticsearch/elasticsearch"
 )
 
-// ElasticsearchService represents an Elasticsearch service, storing
-// the container and configuration options.
+// ElasticsearchService wraps an Elasticsearch container and its configuration.
 type ElasticsearchService struct {
 	container     *tces.ElasticsearchContainer
 	configOptions tces.Options
@@ -67,27 +65,31 @@ func (es *ElasticsearchService) Terminate(ctx context.Context) error {
 	return es.container.Terminate(ctx)
 }
 
-// elasticsearchServiceConfig holds configuration for creating an ElasticsearchService.
 type elasticsearchServiceConfig struct {
 	resolveLatestPatch bool
+	env                map[string]string
 }
 
-// ElasticsearchServiceOption is a functional option for configuring ElasticsearchService.
+// ElasticsearchServiceOption configures ElasticsearchService creation.
 type ElasticsearchServiceOption func(*elasticsearchServiceConfig)
 
-// WithResolveLatestPatch enables automatic resolution of the latest available
-// patch version for the given major.minor version from the Docker registry.
-// When enabled, if the exact version doesn't exist, it will find and use
-// the latest patch version that has an available Docker image.
+// WithResolveLatestPatch resolves the latest available patch version for the
+// given major.minor from the Docker registry. Release builds are prioritized
+// over SNAPSHOTs.
 func WithResolveLatestPatch(resolve bool) ElasticsearchServiceOption {
 	return func(c *elasticsearchServiceConfig) {
 		c.resolveLatestPatch = resolve
 	}
 }
 
+// WithEnv sets environment variables for the Elasticsearch container.
+func WithEnv(env map[string]string) ElasticsearchServiceOption {
+	return func(c *elasticsearchServiceConfig) {
+		c.env = env
+	}
+}
+
 // NewElasticsearchService creates a new Elasticsearch container service.
-// The stackVersion parameter specifies the Elasticsearch version to use.
-// Optional configuration can be provided via ElasticsearchServiceOption functions.
 func NewElasticsearchService(stackVersion string, opts ...ElasticsearchServiceOption) (*ElasticsearchService, error) {
 	cfg := &elasticsearchServiceConfig{}
 	for _, opt := range opts {
@@ -103,11 +105,15 @@ func NewElasticsearchService(stackVersion string, opts ...ElasticsearchServiceOp
 		version = resolved
 	}
 
-	elasticsearchContainer, err := tces.RunContainer(
-		context.Background(),
-		testcontainers.WithImage("docker.elastic.co/elasticsearch/elasticsearch:"+version),
+	containerOpts := []testcontainers.ContainerCustomizer{
+		testcontainers.WithImage("docker.elastic.co/elasticsearch/elasticsearch:" + version),
 		tces.WithPassword("changeme"),
-	)
+	}
+	if cfg.env != nil {
+		containerOpts = append(containerOpts, testcontainers.WithEnv(cfg.env))
+	}
+
+	elasticsearchContainer, err := tces.RunContainer(context.Background(), containerOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -118,18 +124,15 @@ func NewElasticsearchService(stackVersion string, opts ...ElasticsearchServiceOp
 	}, nil
 }
 
-// tokenResponse represents the response from the Docker auth service.
 type tokenResponse struct {
 	Token string `json:"token"`
 }
 
-// tagsResponse represents the response from the Docker registry tags list endpoint.
 type tagsResponse struct {
 	Name string   `json:"name"`
 	Tags []string `json:"tags"`
 }
 
-// getRegistryToken obtains an anonymous bearer token for accessing the Elastic Docker registry.
 func getRegistryToken() (string, error) {
 	url := fmt.Sprintf("%s?service=token-service&scope=repository:%s:pull", elasticDockerAuthURL, elasticESRepository)
 
@@ -151,8 +154,7 @@ func getRegistryToken() (string, error) {
 	return tokenResp.Token, nil
 }
 
-// FetchAvailableTags retrieves all available tags for the Elasticsearch Docker image
-// from the Elastic Docker registry.
+// FetchAvailableTags retrieves all available Elasticsearch image tags from the Docker registry.
 func FetchAvailableTags() ([]string, error) {
 	token, err := getRegistryToken()
 	if err != nil {
@@ -186,18 +188,16 @@ func FetchAvailableTags() ([]string, error) {
 	return tagsResp.Tags, nil
 }
 
-// parsedVersion represents a parsed semantic version for sorting purposes.
 type parsedVersion struct {
 	major      int
 	minor      int
 	patch      int
 	preRelease string
 	original   string
+	isSnapshot bool
 }
 
-// parseVersion parses a version string into its components.
 func parseVersion(version string) (parsedVersion, error) {
-	// Pattern to match versions like "9.3.0" or "9.3.0-SNAPSHOT"
 	pattern := regexp.MustCompile(`^(\d+)\.(\d+)\.(\d+)(?:-(.+))?$`)
 	matches := pattern.FindStringSubmatch(version)
 	if matches == nil {
@@ -223,9 +223,7 @@ func parseVersion(version string) (parsedVersion, error) {
 }
 
 // ResolveLatestPatchVersion finds the latest available patch version for the given
-// version's major.minor from the Docker registry.
-// If the input version has a -SNAPSHOT suffix, it will only match SNAPSHOT versions.
-// Otherwise, it will only match stable (non-SNAPSHOT) versions.
+// major.minor from the Docker registry. Release builds are prioritized over SNAPSHOTs.
 func ResolveLatestPatchVersion(inputVersion string) (string, error) {
 	parsed, err := parseVersion(inputVersion)
 	if err != nil {
@@ -239,33 +237,31 @@ func ResolveLatestPatchVersion(inputVersion string) (string, error) {
 
 	isSnapshot := strings.HasSuffix(inputVersion, "-SNAPSHOT")
 
-	// Filter tags matching major.minor and snapshot preference
 	var candidates []parsedVersion
 	for _, tag := range tags {
 		tagParsed, err := parseVersion(tag)
 		if err != nil {
-			continue // Skip tags that don't match version pattern
+			continue
 		}
 
-		// Must match major.minor
 		if tagParsed.major != parsed.major || tagParsed.minor != parsed.minor {
 			continue
 		}
 
-		// Match snapshot preference
 		tagIsSnapshot := strings.HasSuffix(tag, "-SNAPSHOT")
+
 		if isSnapshot {
-			// For SNAPSHOT input, only match clean SNAPSHOT tags (no commit hash)
-			if !tagIsSnapshot || strings.Contains(tagParsed.preRelease, "-") {
+			// Accept both release and clean SNAPSHOT tags (no commit hash)
+			if tagParsed.preRelease != "" && tagParsed.preRelease != "SNAPSHOT" {
 				continue
 			}
 		} else {
-			// For stable input, only match non-prerelease versions
 			if tagParsed.preRelease != "" {
 				continue
 			}
 		}
 
+		tagParsed.isSnapshot = tagIsSnapshot
 		candidates = append(candidates, tagParsed)
 	}
 
@@ -273,8 +269,11 @@ func ResolveLatestPatchVersion(inputVersion string) (string, error) {
 		return "", fmt.Errorf("no matching version found for %s", inputVersion)
 	}
 
-	// Sort by patch version descending to get the latest
+	// Sort: release before SNAPSHOT, then by patch descending
 	sort.Slice(candidates, func(i, j int) bool {
+		if candidates[i].isSnapshot != candidates[j].isSnapshot {
+			return !candidates[i].isSnapshot
+		}
 		return candidates[i].patch > candidates[j].patch
 	})
 

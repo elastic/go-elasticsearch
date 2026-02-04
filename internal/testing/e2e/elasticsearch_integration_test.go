@@ -50,9 +50,6 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortorder"
 
 	"testing/containertest"
-
-	"github.com/testcontainers/testcontainers-go"
-	tces "github.com/testcontainers/testcontainers-go/modules/elasticsearch"
 )
 
 func TestElasticsearchIntegration(t *testing.T) {
@@ -564,18 +561,28 @@ func (t *ReplacedTransport) Count() uint64 {
 }
 
 func TestElasticsearchInsecureIntegration(t *testing.T) {
-	elasticsearchContainer, err := tces.RunContainer(
-		context.Background(),
-		testcontainers.WithImage("docker.elastic.co/elasticsearch/elasticsearch:"+elasticsearch.Version),
-		testcontainers.WithEnv(map[string]string{
+	stackVersion := elasticsearch.Version
+	if v := os.Getenv("STACK_VERSION"); v != "" {
+		stackVersion = v
+	}
+
+	elasticsearchSrv, err := containertest.NewElasticsearchService(
+		stackVersion,
+		containertest.WithResolveLatestPatch(true),
+		containertest.WithEnv(map[string]string{
 			"xpack.security.enabled": "false",
 		}),
 	)
 	if err != nil {
 		t.Fatal(err)
 	}
+	defer func() {
+		if err := elasticsearchSrv.Terminate(context.Background()); err != nil {
+			t.Fatalf("Error terminating Elasticsearch container: %s", err)
+		}
+	}()
 
-	t.Setenv("ELASTICSEARCH_URL", elasticsearchContainer.Settings.Address)
+	t.Setenv("ELASTICSEARCH_URL", elasticsearchSrv.ESConfig().Addresses[0])
 
 	t.Run("CustomTransport", func(t *testing.T) {
 		t.Run("TestClientCustomTransport", func(t *testing.T) {
