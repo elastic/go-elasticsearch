@@ -1,3 +1,4 @@
+---
 name: Apidiff PR
 
 on:
@@ -9,11 +10,11 @@ permissions:
   pull-requests: write
 
 env:
-  APIDIFF_FALLBACK_TAG: v8.19.1
+  APIDIFF_FALLBACK_TAG: v8.19.2
 
 jobs:
   apidiff:
-    if: contains(github.event.pull_request.labels.*.name, 'apidiff')
+    if: "contains(github.event.pull_request.labels.*.name, 'apidiff: release') || contains(github.event.pull_request.labels.*.name, 'apidiff: pr')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,42 +23,21 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.x'
+          go-version: "1.x"
 
       - name: Install apidiff
         run: go install golang.org/x/exp/cmd/apidiff@latest
 
-      - name: Run apidiff against release tag
+      - name: Run apidiff
         id: apidiff
         env:
           BASE_REF: ${{ github.event.pull_request.base.ref }}
+          COMPARE_RELEASE: "${{ contains(github.event.pull_request.labels.*.name, 'apidiff: release') }}"
         run: |
           set -euo pipefail
 
           git fetch --tags --force
           git fetch origin "${BASE_REF}"
-
-          # Read manifest from base branch (before PR changes) to get the current released version
-          version=$(git show "origin/${BASE_REF}:.github/.release-please-manifest.json" | python -c "import json,sys; print(json.load(sys.stdin)['.'])")
-          tag="v${version}"
-          echo "Base branch: ${BASE_REF}"
-          echo "Parsed version from base: ${version}"
-          echo "Looking for tag: ${tag}"
-          fallback="${APIDIFF_FALLBACK_TAG:-}"
-          if ! git rev-parse --verify --quiet "${tag}" >/dev/null; then
-            echo "Tag ${tag} not found, checking available tags..."
-            git tag -l "v8.*" | tail -5
-            git tag -l "v9.*" | tail -5
-            if [ -z "${fallback}" ]; then
-              echo "Tag ${tag} not found and no fallback provided." >&2
-              exit 1
-            fi
-            echo "Using fallback tag: ${fallback}"
-            tag="${fallback}"
-          else
-            echo "Found tag: ${tag}"
-          fi
-          echo "target_tag=${tag}" >> "${GITHUB_OUTPUT}"
 
           work_dir="$PWD"
           old_dir="${work_dir}/tmp/apidiff-old"
@@ -66,7 +46,35 @@ jobs:
 
           module_path=$(awk '/^module /{print $2}' go.mod)
 
-          git worktree add "${old_dir}" "${tag}"
+          if [ "${COMPARE_RELEASE}" = "true" ]; then
+            # Compare against the previous release tag
+            version=$(git show "origin/${BASE_REF}:.github/.release-please-manifest.json" | python3 -c "import json,sys; print(json.load(sys.stdin)['.'])")
+            target="v${version}"
+            echo "Mode: release comparison"
+            echo "Base branch: ${BASE_REF}"
+            echo "Parsed version from base: ${version}"
+            echo "Looking for tag: ${target}"
+            fallback="${APIDIFF_FALLBACK_TAG:-}"
+            if ! git rev-parse --verify --quiet "${target}" >/dev/null; then
+              if [ -z "${fallback}" ]; then
+                echo "Tag ${target} not found and no fallback provided." >&2
+                exit 1
+              fi
+              target="${fallback}"
+            fi
+            compare_label="${target}"
+          else
+            # Compare against the base branch of the PR
+            target="origin/${BASE_REF}"
+            compare_label="${BASE_REF}"
+            echo "Mode: base branch comparison"
+            echo "Comparing against: ${target}"
+          fi
+
+          echo "target=${target}" >> "${GITHUB_OUTPUT}"
+          echo "compare_label=${compare_label}" >> "${GITHUB_OUTPUT}"
+
+          git worktree add "${old_dir}" "${target}"
 
           make_comment() {
             local pkg="$1"
@@ -78,7 +86,7 @@ jobs:
 
             {
               echo "${marker}"
-              echo "## apidiff: ${label} (vs ${tag})"
+              echo "## apidiff: ${label} (vs ${compare_label})"
               echo
               if [ -z "${output}" ]; then
                 if [ "${status}" -ne 0 ]; then
@@ -156,4 +164,3 @@ jobs:
                 });
               }
             }
-
