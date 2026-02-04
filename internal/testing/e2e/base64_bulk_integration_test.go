@@ -95,7 +95,7 @@ func TestBase64BulkIndexing(t *testing.T) {
 		}
 	} else {
 		// Start a testcontainer Elasticsearch instance as before.
-		elasticsearchSrv, err = containertest.NewElasticsearchService(stackVersion)
+		elasticsearchSrv, err = containertest.NewElasticsearchService(stackVersion, containertest.WithResolveLatestPatch(true))
 		if err != nil {
 			t.Fatalf("Error setting up Elasticsearch container: %s", err)
 		}
