@@ -306,9 +306,9 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 	}
 
 	if len(urls) == 0 {
-		u, err := url.Parse(defaultURL)
+		u, parseErr := url.Parse(defaultURL)
 		if err != nil {
-			return nil, fmt.Errorf("cannot parse default URL: %v", err)
+			return nil, fmt.Errorf("cannot parse default URL: %v", parseErr)
 		}
 		urls = append(urls, u)
 	}
