@@ -1,5 +1,18 @@
 # Changelog
 
+## [8.19.2](https://github.com/elastic/go-elasticsearch/compare/v8.19.1...v8.19.2) (2026-02-04)
+
+
+### Features
+
+* Expose FlushedMs metric in BulkIndexer ([#1188](https://github.com/elastic/go-elasticsearch/issues/1188)) ([9199fa4](https://github.com/elastic/go-elasticsearch/commit/9199fa4c7691b21d1cab21d2a2f4c0d339a04813))
+
+
+### Bug Fixes
+
+* **esutil:** Handle error from Seek in BulkIndexer.writeBody ([#1160](https://github.com/elastic/go-elasticsearch/issues/1160)) ([cf53b87](https://github.com/elastic/go-elasticsearch/commit/cf53b871a28d808ed8b0da82e6d5cc9d3b0218c8))
+* **Typed API:** Marshal Additional Properties into json.RawMessage instead of any to avoid loss of precision ([#1196](https://github.com/elastic/go-elasticsearch/issues/1196)) ([08855c2](https://github.com/elastic/go-elasticsearch/commit/08855c2965d78b331a6249ac4e5e3b7f2cf85b8e))
+
 ## [9.1.1](https://github.com/elastic/go-elasticsearch/compare/v9.1.0...v9.1.1) (2025-12-11)
 
 
@@ -14,43 +27,66 @@
 
 * Notify items if an error occurs in bulk indexer ([#615](https://github.com/elastic/go-elasticsearch/issues/615)) ([#1058](https://github.com/elastic/go-elasticsearch/issues/1058)) ([22d2e7c](https://github.com/elastic/go-elasticsearch/commit/22d2e7c6f36b6453a6c566020d38d69c2d4f10a4))
 
-## 9.1.0
+## [8.19.1](https://github.com/elastic/go-elasticsearch/compare/v8.19.0...v8.19.1) (2025-12-12)
 
-## API
+
+### Features
+
+* Add Close method to BaseClient ([#1056](https://github.com/elastic/go-elasticsearch/issues/1056)) ([#1076](https://github.com/elastic/go-elasticsearch/issues/1076)) ([e73cb92](https://github.com/elastic/go-elasticsearch/commit/e73cb926cff6fdd5f1be3bcc6d2f8889587dd9bb))
+* Add queue size multiplier config to BulkIndexer ([#1029](https://github.com/elastic/go-elasticsearch/issues/1029)) ([#1055](https://github.com/elastic/go-elasticsearch/issues/1055)) ([cdaf2aa](https://github.com/elastic/go-elasticsearch/commit/cdaf2aa28586ea938230b165487f9489e2039944))
+* Add support for interceptors in Elasticsearch client ([#1080](https://github.com/elastic/go-elasticsearch/issues/1080)) ([#1086](https://github.com/elastic/go-elasticsearch/issues/1086)) ([f4bda5f](https://github.com/elastic/go-elasticsearch/commit/f4bda5ff2682c18fee2dc66e4abc85e56b5222a5))
+
+
+### Bug Fixes
+
+* Notify items if an error occurs in bulk indexer ([#615](https://github.com/elastic/go-elasticsearch/issues/615)) ([#1057](https://github.com/elastic/go-elasticsearch/issues/1057)) ([00b0ac1](https://github.com/elastic/go-elasticsearch/commit/00b0ac19af728ea10bd61571c3dc4de71e6ce130))
+
+## [9.1.0](https://github.com/elastic/go-elasticsearch/compare/v9.0.1...v9.1.0) (2025-07-31)
+
+
+### API
 
 * Updated APIs to 9.1.0
 
-## Typed API
+### Typed API
 
 * Update TypedAPI to latest [elasticsearch-specification 9.1](https://github.com/elastic/elasticsearch-specification/commit/907d11a)
 * This release introduces a new `MethodAPI` used by the `TypedClient` which makes the client friendlier for dead code elimination. 
   Reducing the size of the client when only a subset of the APIs are used. The old `API` structure remains available for backward compatibility, but it is now deprecated.
 
-## 8.19.0
+## [9.0.1](https://github.com/elastic/go-elasticsearch/compare/v9.0.0...v9.0.1) (2025-07-31)
 
-## API
 
-* Updated APIs to 8.19.0
-
-## Typed API
-
-* Update TypedAPI to latest [elasticsearch-specification 8.19](https://github.com/elastic/elasticsearch-specification/commit/470b4b9)
-
-## 9.0.1
-
-## API
+### API
 
 * Updated APIs to 9.0.4
 
-## Typed API
+### Typed API
 
 * Update TypedAPI to latest [elasticsearch-specification 9.0](https://github.com/elastic/elasticsearch-specification/commit/e585438)
 
-## 9.0.0
+## [8.19.0](https://github.com/elastic/go-elasticsearch/compare/v8.18.1...v8.19.0) (2025-07-31)
+
+
+### API
+
+* Updated APIs to 8.19.0
+
+### Typed API
+
+* Update TypedAPI to latest [elasticsearch-specification 8.19](https://github.com/elastic/elasticsearch-specification/commit/470b4b9)
+
+## [8.18.1](https://github.com/elastic/go-elasticsearch/compare/v8.18.0...v8.18.1) (2025-06-17)
+
+
+* This patch release fixes the broken build found in 8.18.0. If you are using the `TypedClient`, you should update to this version.
+
+## [9.0.0](https://github.com/elastic/go-elasticsearch/compare/v8.19.2...v9.0.0) (2025-04-17)
+
 
 * The client now requires **Go 1.23** or later.
 
-## New
+#### New
 
 * This release introduces an optional package for the `TypedAPI` named `esdsl`.  
   It provides a domain-specific language (DSL) for building Elasticsearch queries in Go.  
@@ -177,21 +213,21 @@
 }
 ```
 
-## API
+### API
 
 * Updated APIs to 9.0.0
 
-## Typed API
+### Typed API
 
 * Update APIs to 9.0.0 ([52c473e](https://github.com/elastic/elasticsearch-specification/tree/52c473efb1fb5320a5bac12572d0b285882862fb))
 
+## [8.18.0](https://github.com/elastic/go-elasticsearch/compare/v8.17.1...v8.18.0) (2025-04-17)
 
-## 8.18.0
 
 * Update `elastictransport` to `8.7.0`.
 * Thanks to @zaneli, the `TypedClient` can now be used in the `BulkIndexer`.
 
-## New
+### New
 
 * This release adds a `BaseClient` constructor with no attached APIs, allowing it to be used purely as a transport layer instead of a full-featured API client.
 
@@ -240,35 +276,38 @@ if err != nil {
 log.Printf("Elasticsearch version typedapi: %s\n", typedRes.Version.Int)
 ```
 
-## API
+### API
 
 * Updated APIs to 8.18.0
 
-## Typed API
+### Typed API
 
 * Update APIs to 8.18.0 ([f6a370d](https://github.com/elastic/elasticsearch-specification/tree/f6a370d0fba975752c644fc730f7c45610e28f36))
 
-## 8.17.1
+## [8.17.1](https://github.com/elastic/go-elasticsearch/compare/v8.17.0...v8.17.1) (2025-02-11)
 
-* Update elastictransport to 8.6.1
+
+* Update elastictransport to 8.6.1 fixes #912 
 
 Thanks to @AkisAya and @jmfrees for their contributions!
 
-## 8.17.0
+## [8.17.0](https://github.com/elastic/go-elasticsearch/compare/v8.16.0...v8.17.0) (2024-12-17)
+
 
 * Expose BulkIndexer total flushed bytes metric [#914](https://github.com/elastic/go-elasticsearch/pull/914) thanks to @aureleoules
 
-## API
+### API
 
 Updated APIs to 8.17.0
 
-## Typed API
+### Typed API
 
 Update APIs to latest [elasticsearch-specification 8.17](https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64)
 
-## 8.16.0
+## [8.16.0](https://github.com/elastic/go-elasticsearch/compare/v8.15.0...v8.16.0) (2024-11-14)
 
-## API
+
+### API
 
 * `InferenceStreamInference` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/stream-inference-api.html)
 * `QueryRulesTest` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/test-query-ruleset.html)
@@ -276,23 +315,25 @@ Update APIs to latest [elasticsearch-specification 8.17](https://github.com/elas
 * `Ingest.GetIPLocationDatabase` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/get-ip-location-database-api.html)
 * `Ingest.PutIPLocationDatabase` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/put-ip-location-database-api.html)
 
-## Typed API
+### Typed API
 
 Update APIs to latest [elasticsearch-specification 8.16](https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3)
 
-## 8.15.0
+## [8.15.0](https://github.com/elastic/go-elasticsearch/compare/v8.14.0...v8.15.0) (2024-11-14)
 
-## API
+
+### API
 
 * API is generated from the Elasticsearch 8.15.0 specification. 
 
-## Typed API
+### Typed API
 
 Update APIs to latest [elasticsearch-specification 8.15](https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10)
 
-## 8.14.0
+## [8.14.0](https://github.com/elastic/go-elasticsearch/compare/v8.13.1...v8.14.0) (2024-06-06)
 
-## API
+
+### API
 
 New APIs:
 
@@ -301,22 +342,23 @@ New APIs:
  * TextStructureFindFieldStructure [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/find-field-structure.html)
  * TextStructureFindMessageStructure [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/find-message-structure.html)
 
-## Typed API
+### Typed API
 
 New APIs:
 
  * UpdateTrainedModelDeployment [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/update-trained-model-deployment.html)
 
-## Transport
+### Transport
  * Fixed a deadlock in the connection pool https://github.com/elastic/elastic-transport-go/issues/20
 
-## 8.13.1
+## [8.13.1](https://github.com/elastic/go-elasticsearch/compare/v8.13.0...v8.13.1) (2024-04-11)
 
-## Typed API
+
+### Typed API
 
 Update APIs to latest [elasticsearch-specification 8.13](https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757)
 
-## Fixes
+#### Fixes
 
 This patch release brings a fix to the initialisation of the `Request` in endpoints which would prevent using the shortcuts for fields. 
 Canonical`.Request()` method was unaffected.
@@ -330,9 +372,10 @@ Canonical`.Request()` method was unaffected.
 * `Ml.ValidateDetector`
 * `SearchApplication.Put`
 
-## 8.13.0
+## [8.13.0](https://github.com/elastic/go-elasticsearch/compare/v8.12.1...v8.13.0) (2024-03-27)
 
-## API 
+
+### API 
 
 New APIS:
 
@@ -355,42 +398,44 @@ New APIS:
 * `Indices.ResolveCluster` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-cluster-api.html)
 * `Security.QueryUser` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html)
 
-## Typed API
+### Typed API
 
 * `indices.ResolveCluster` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-cluster-api.html)
 * `textstructure.TestGrokPattern` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/test-grok-pattern.html)
 
-Thanks to @pakio, transport now has an optional pool based compression option. [link](https://github.com/elastic/elastic-transport-go/pull/19)
-
+Thanks to @pakio, transport now has an optional pool based compression option. https://github.com/elastic/elastic-transport-go/pull/19
 And to @tblyler for fixing a very subtle memory leak in the `BulkIndexer`. #797
 
-## 8.12.1
+## [8.12.1](https://github.com/elastic/go-elasticsearch/compare/v8.12.0...v8.12.1) (2024-02-22)
+
 
 * Fix: ticker memory leak in bulk indexer due to internal flush call resetting the ticker. #797
 * Fix: Scroll now uses the body to pass the scroll_id. #785
 * Add: generated UnmarshalJSON for Requests to allow injecting payloads using aliases.
-* Fix: `put_synonym_rule` was not working due to a type issue in the [Elasticsearch API Specification](https://github.com/elastic/elasticsearch-specification/pull/2407).
 
-## 8.12.0
+Many thanks to @tblyler, @frkntplglu and @HaraldNordgren for their contribution!
 
-## Client
+## [8.12.0](https://github.com/elastic/go-elasticsearch/compare/v8.11.1...v8.12.0) (2024-01-18)
 
-### Golang version
+
+### Client
+
+#### Golang version
 
 The client now requires Golang version 1.20
 
-### OpenTelemetry
+#### OpenTelemetry
 
 The client now provides OpenTelemetry integration. This integration can be enabled in the config using the `elasticsearch.NewOpenTelemetryInstrumentation`.
 Once set up, the provided `context` will be used to record spans with useful information about the request being made to the server.
 
 More about what you can expect in the [Semantic Conventions for Elasticsearch](https://opentelemetry.io/docs/specs/semconv/database/elasticsearch/).
 
-### BulkIndexer
+#### BulkIndexer
 
 `if_seq_no` & `if_primary_term` are now supported thanks to @benjyiw [#783](https://github.com/elastic/go-elasticsearch/pull/783)
 
-## API
+### API
 
 * `SimulateIngest`
 * `ConnectorCheckIn`
@@ -415,7 +460,7 @@ More about what you can expect in the [Semantic Conventions for Elasticsearch](h
 * `ConnectorUpdatePipeline`
 * `ConnectorUpdateScheduling`
 
-## Typed API
+### Typed API
 
 * `Esql.Query` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-rest.html)
 * `Fleet.PostSecret`
@@ -428,15 +473,17 @@ More about what you can expect in the [Semantic Conventions for Elasticsearch](h
   * `GetSettings` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-settings.html)
   * `UpdateSettings` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-settings.html)
 
-## 8.11.1
+## [8.11.1](https://github.com/elastic/go-elasticsearch/compare/v8.11.0...v8.11.1) (2023-11-27)
 
-## Typed API
+
+### Typed API
 
 * Fix https://github.com/elastic/go-elasticsearch/issues/756 preventing from settings indices in `indices.PutSettings`
 
-## 8.11.0
+## [8.11.0](https://github.com/elastic/go-elasticsearch/compare/v8.10.1...v8.11.0) (2023-11-09)
 
-## API
+
+#### API
 
 **Experimental APIs**
 
@@ -446,25 +493,27 @@ More about what you can expect in the [Semantic Conventions for Elasticsearch](h
 * `InferenceInference`   [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html)
 * `InferencePutModel`    [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html)
 
-## Typed API
+#### Typed API
 
 * Mandatory URL parameters are not exposed as functions anymore as they already exist in the constructor.
 
-## New Compatibility Policy
+### New Compatibility Policy
 
 Starting from version `8.12.0`, this library follow the Go language [policy](https://go.dev/doc/devel/release#policy). Each major Go release is supported until there are two newer major releases. For example, Go 1.5 was supported until the Go 1.7 release, and Go 1.6 was supported until the Go 1.8 release.
 
 If you have any questions or concerns, please do not hesitate to reach out to us.
 
-## 8.10.1
+## [8.10.1](https://github.com/elastic/go-elasticsearch/compare/v8.10.0...v8.10.1) (2023-10-12)
 
-## Typed API
+
+### Typed API
 
 Update APIs to latest [elasticsearch-specification 8.10](https://github.com/elastic/elasticsearch-specification/commit/3b09f9d8e90178243f8a340a7bc324aab152c602)
 
-## 8.10.0
+## [8.10.0](https://github.com/elastic/go-elasticsearch/compare/v8.9.0...v8.10.0) (2023-09-13)
 
-## API
+
+### API
 **Experimental APIs for internal use**
 * `FleetDeleteSecret`
 * `FleetGetSecret`
@@ -479,7 +528,7 @@ Update APIs to latest [elasticsearch-specification 8.10](https://github.com/elas
 `Security.GetSettings`
 `Security.UpdateSettings`
 
-## Typed API
+### Typed API
 **Exprimental APIs**
 
 `QueryRuleset.List`
@@ -490,9 +539,10 @@ Update APIs to latest [elasticsearch-specification 8.10](https://github.com/elas
 **Beta**
 * [Synonyms](https://www.elastic.co/guide/en/elasticsearch/reference/current/synonyms-apis.html)
 
-## 8.9.0
+## [8.9.0](https://github.com/elastic/go-elasticsearch/compare/v8.8.2...v8.9.0) (2023-07-27)
 
-## API
+
+### API
 **New API**
 
 * `Cluster.Info` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-info.html)
@@ -506,7 +556,7 @@ Update APIs to latest [elasticsearch-specification 8.10](https://github.com/elas
 * `Security.CreateCrossClusterAPIKey` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-cross-cluster-api-key.html)
 * `Security.UpdateCrossClusterAPIKey` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-cross-cluster-api-key.html)
 
-## Typed API
+### Typed API
 
 * Propagated request fields towards the endpoint for ease of access, taking priority over same-name query string fields.
 * Added a stub for Do methods on endpoints that only support a boolean response such as `core.exists`. 
@@ -517,17 +567,45 @@ Update APIs to latest [elasticsearch-specification 8.10](https://github.com/elas
 
 * Fixed a deserialization issue for `Property` & `Analyzer` #696
 
-## 8.8.2
+## [8.8.2](https://github.com/elastic/go-elasticsearch/compare/v8.8.0...v8.8.2) (2023-07-05)
 
-## Typed API
 
-* Fixed deserialization for `Suggest` in search responses.
-* Fixed double-quoted strings in deserialization for unions normalized as string. #684
-* Fixed handling of `core.Get` response when the index did not exist. #678
+### Typed API
 
-## 8.7.0
+ * Fixed deserialization for `Suggest` in search responses.
+ * Fixed double-quoted strings in deserialization for unions normalized as string. #684
+ * Fixed handling of `core.Get` response when the index did not exist. #678
 
-## API
+## [8.8.0](https://github.com/elastic/go-elasticsearch/compare/v8.7.1...v8.8.0) (2023-05-25)
+
+
+### API
+
+**New APIs**
+
+* `Watcher.GetSettings` Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/watcher-api-get-settings.html
+* `Watcher.UpdateSettings` Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/watcher-api-update-settings.html
+
+**Experimental APIs**
+
+* `ML.DeleteDataLifecycle` Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/dlm-delete-lifecycle.html
+* `ML.ExplainDataLifecycle` Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/dlm-explain-lifecycle.html
+* `ML.GetDataLifecycle` Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/dlm-get-lifecycle.html
+* `ML.PutDataLifecycle` Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/dlm-put-lifecycle.html
+
+* `SearchApplications` https://www.elastic.co/guide/en/elasticsearch/reference/8.8/search-application-apis.html
+
+## [8.7.1](https://github.com/elastic/go-elasticsearch/compare/v8.7.0...v8.7.1) (2023-05-02)
+
+
+### Typed API
+
+* This release include fixes for responses deserialization. [#654](https://github.com/elastic/go-elasticsearch/issues/654) [#655](https://github.com/elastic/go-elasticsearch/issues/655)
+
+## [8.7.0](https://github.com/elastic/go-elasticsearch/compare/v8.6.0...v8.7.0) (2023-03-30)
+
+
+### API
 
 * `ML.DeleteJob`: Added `WithDeleteUserAnnotations`. Should annotations added by the user be deleted.
 * `ML.ResetJob`: Added `WithDeleteUserAnnotations`. Should annotations added by the user be deleted.
@@ -540,7 +618,7 @@ Update APIs to latest [elasticsearch-specification 8.10](https://github.com/elas
 `TransformScheduleNowTransform` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/8.7/schedule-now-transform.html).
 `HealthReport` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/8.7/health-api.html).
 
-## Typed API
+### Typed API
 
 * Inclusion of responses structures.
 
@@ -552,9 +630,12 @@ Update APIs to latest [elasticsearch-specification 8.10](https://github.com/elas
 * `.Raw` now takes a reader as input.
 * User defined values such as `_source` in `Hits` are now `json.RawMessage` to highlight they later deserializable nature.  
 
-## 8.6.0
+[AdditionalProperties](https://github.com/elastic/elasticsearch-specification/blob/main/docs/behaviors.md#additionalproperties--additionalproperty), like the ones found in multi-bucket aggregations, are not yet supported.
 
-## API
+## [8.6.0](https://github.com/elastic/go-elasticsearch/compare/v8.5.0...v8.6.0) (2023-01-11)
+
+
+### API
 
 * `ML.StartTrainedModelDeployment`: Added `WithPriority`
 
@@ -562,14 +643,15 @@ Update APIs to latest [elasticsearch-specification 8.10](https://github.com/elas
 * `ML.UpdateTrainedModelDeployment`: Updates certain properties of trained model deployment.
 
 
-## Client
+### Client
 **BulkIndexer**
 
 Improvements were made to the BulkIndexer memory usage to allow better handling under burst use cases. Thanks to @christos68k and @rockdaboot !
 
-## 8.5.0
+## [8.5.0](https://github.com/elastic/go-elasticsearch/compare/v8.4.0...v8.5.0) (2022-11-17)
 
-## API
+
+### API
 
 * `ML.StartTrainedModelDeployment`: Description of `NumberOfAllocations` has been changed in "The total number of allocations this model is assigned across machine learning nodes".
 * `Security.GetAPIKey`: Added `WithLimitedBy` boolean parameter. Flag to show the limited-by role descriptors of API Keys.
@@ -599,7 +681,7 @@ Improvements were made to the BulkIndexer memory usage to allow better handling 
 * `Security.BulkUpdateAPIKeys` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-update-api-keys.html).
 * `Indices.Downsample` (Experimental API) [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html)
 
-## Typed API
+### Typed API
 
 Following multiple feedbacks we decided to remove the builder API for the type tree.
 
@@ -609,9 +691,10 @@ In addition, a bug was fixed preventing the use of wildcards in index names, and
 
 The Typed API remains in `alpha` stage while its development continues.
 
-## 8.4.0
+## [8.4.0](https://github.com/elastic/go-elasticsearch/compare/v8.4.0-alpha.2...v8.4.0) (2022-08-24)
 
-## API
+
+### API
 
 * `get`, `mget` and `search` added `force_synthetic_source`: Should this request force synthetic _source? Use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. Fetches with this enabled will be slower the enabling synthetic source natively in the index.
 * `ML.StartTrainedModelDeployment` added `cache_size`: A byte-size value for configuring the inference cache size. For example, 20mb.
@@ -621,7 +704,7 @@ The Typed API remains in `alpha` stage while its development continues.
 
 * `Security.UpdateAPIKey` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/8.4/security-api-update-api-key.html).
 
-## Typed API
+### Typed API
 
 As highlighted in the release not for the 8.4.0-alpha.1, this release marks the beginning of the newly arrived `TypedClient`.
 
@@ -629,60 +712,63 @@ This new API is still in `alpha` stage and will be release alongside the existin
 
 A few examples of standard use-cases can be found in the [TypedAPI section of the documentation](https://www.elastic.co/guide/en/elasticsearch/client/go-api/master/typedapi.html).
 
-## 8.4.0-alpha.2
+## [8.4.0-alpha.2](https://github.com/elastic/go-elasticsearch/compare/v8.4.0-alpha.1...v8.4.0-alpha.2) (2022-08-18)
+
 
 This second prerelease of the 8.4.0 updates the API for the client and fixes the serialization for types using [additional properties](https://github.com/elastic/elasticsearch-specification/blob/main/docs/behaviors.md#additionalproperties--additionalproperty).
 
-## 8.4.0-alpha.1
+## [8.4.0-alpha.1](https://github.com/elastic/go-elasticsearch/compare/v8.3.0...v8.4.0-alpha.1) (2022-07-13)
 
-This prerelease introduces a new typed API generated from the [elasticsearch-specification](https://github.com/elastic/elasticsearch-specification). This generation from the common specification allows us to provide a complete API which uses an exhaustive hierarchy of types  reflecting the possibilities given by Elasticsearch.
+
+This prerelease introduces a new typed API generated from the [elasticsearch-specification](https://github.com/elastic/elasticsearch-specification). This generation from the common specification allows us to provide a complete API which uses an exhaustive hierarchy of types  reflecting the possibilities given by Elasticsearch. 
 
 This new API is the next iteration of the Go client for Elasticsearch, it now lives alongside the existing API, it is in `alpha` state and will gain features over time and releases.
 
-## What's new
+### What's new
 
 The `TypedClient` is built around a fluent builder for easier request creation and a collection of structures and helpers that mimics as closely as possible the Elasticsearch JSON API.
 
 As a first example, here is a search request:
 ```go
 cfg := elasticsearch.Config{
-// Define your configuration
+	// Define your configuration
 }
 es, _ := elasticsearch.NewTypedClient(cfg)
 res, err := es.Search().
-Index("index_name").
-Request(&search.Request{
-Query: &types.QueryContainer{
-Match: map[types.Field]types.MatchQuery{
-"name": {Query: "Foo"},
-},
-},
-},
-).Do(context.Background())
+    Index("index_name").
+    Request(&search.Request{
+        Query: &types.QueryContainer{
+            Match: map[types.Field]types.MatchQuery{
+                "name": {Query: "Foo"},
+            },
+        },
+    },
+    ).Do(context.Background())
 ```
 
 The `Request` uses the structures found in the `typedapi/types` package which will lead you along the possibilities. A builder for each structure that allows easier access and declaration is also provided.
 
 More on the specifics and a few examples of standard use-cases can be found in the [TypedAPI section of the documentation](https://www.elastic.co/guide/en/elasticsearch/client/go-api/master/typedapi.html).
 
-## Limitations
+### Limitations
 
 While most of the endpoints are covered, a few points are still being worked on and will be part of future releases:
 
 * NDJSON endpoints: `bulk`, `msearch`, `msearch_template`, `ML.post_data`, `find_structure`, to name a few.
 * Response and Errors structures with deserialization.
 
-## Transport & config
+### Transport & config
 
 While being different, the new API uses all the existing layers that were built so far, `elastic-transport-go` remains the preferred transport and all your configuration and credentials applies, same as before.
 
-## Feedback
+### Feedback
 
 Feedback is very welcome, play with it, use it, let us know what you think!
 
-## 8.3.0
+## [8.3.0](https://github.com/elastic/go-elasticsearch/compare/v8.2.0...v8.3.0) (2022-06-28)
 
-## API
+
+### API
 
 * `ML.InferTrainedModelDeployment` renamed to `InferTrainedModel`
 * `ML.PreviewDatafeed` has two new parameters, `start` and `end`. [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/8.3/ml-preview-datafeed.html)
@@ -695,13 +781,15 @@ Feedback is very welcome, play with it, use it, let us know what you think!
 
 * `Security.HasPrivilegesUserProfile` (Experimental API) [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges-user-profile.html)
 
-## 8.2.0
-## Client
+## [8.2.0](https://github.com/elastic/go-elasticsearch/compare/v8.1.0...v8.2.0) (2022-05-04)
+
+
+### Client
 
 * Fixed a serialisation error for `retry_on_conflict` in the BulkIndexer. Thanks to @lpflpf for the help!
-* Fixed a concurrent map error in the BulkIndexer when custom headers are applied. Thanks to @chzhuo for the contribution!
+* Fixed a concurrent map error in the BulkIndexer when custom headers are applied. Thanks to @chzhuo for the contribution! 
 
-## API
+### API
 
 **New APIs**
 
@@ -715,14 +803,16 @@ Feedback is very welcome, play with it, use it, let us know what you think!
 * `Security.suggestUserProfiles` (Experimental API) [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-suggest-user-profile.html)
 * `Security.updateUserProfileData` (Experimental API) [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-user-profile-data.html)
 
-## 8.1.0
-## API
+## [8.1.0](https://github.com/elastic/go-elasticsearch/compare/v8.0.0...v8.1.0) (2022-03-09)
 
-* API is generated from the Elasticsearch 8.1.0 specification.
+
+### API
+
+ * API is generated from the Elasticsearch 8.1.0 specification.
 
 **New parameters**
 
-* `WithWaitForCompletion` for `Indices.Forcemerge`
+* `WithWaitForCompletion` for `Indices.Forcemerge` 
 * `WithFeatures` for `Indices.Get`
 * `WithForce` for `ML.DeleteTrainedModel`
 
@@ -731,14 +821,16 @@ Feedback is very welcome, play with it, use it, let us know what you think!
 * `OidcAuthenticate`, `OidcLogout` and `OidcPrepareAuthentication` [see documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api.html#security-openid-apis)
 * `TransformResetTransform`
 
-## 8.0.0
-## Client
+## [8.0.0](https://github.com/elastic/go-elasticsearch/releases/tag/v8.0.0) (2022-02-10)
 
-* The client now uses `elastic-transport-go` dependency which lives in its [own repository](https://github.com/elastic/elastic-transport-go/).
-* With the knewly extracted transport, the `retryOnTimeout` has been replaced with a `retryOnError` callback. This allows to select more finely which error should be retried by the client.
-* `BulkIndexerItem` `Body` field is now an `io.ReadSeeker` allowing reread without increasing memory consumption.
-* `BulkIndexerItem` know correctly uses the `routing` property instead of the deprecated `_routing`.
 
-## API
+### Client
 
-* API is generated from the Elasticsearch 8.0.0 specification.
+ * The client now uses `elastic-transport-go` dependency which lives in its [own repository](https://github.com/elastic/elastic-transport-go/).
+ * With the knewly extracted transport, the `retryOnTimeout` has been replaced with a `retryOnError` callback. This allows to select more finely which error should be retried by the client.
+ * `BulkIndexerItem` `Body` field is now an `io.ReadSeeker` allowing reread without increasing memory consumption.
+ * `BulkIndexerItem` know correctly uses the `routing` property instead of the deprecated `_routing`.
+
+### API
+
+ * API is generated from the Elasticsearch 8.0.0 specification.
