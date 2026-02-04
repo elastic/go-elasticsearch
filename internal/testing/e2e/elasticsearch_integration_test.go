@@ -602,7 +602,7 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 			})
 
 			t.Run("Manual", func(t *testing.T) {
-				u, err := url.Parse(elasticsearchContainer.Settings.Address)
+				u, err := url.Parse(tcCfg.Addresses[0])
 				if err != nil {
 					t.Fatalf("Unexpected error: %s", err)
 				}
@@ -642,7 +642,7 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 
 	t.Run("TestClientReplaceTransport", func(t *testing.T) {
 		t.Run("Replaced", func(t *testing.T) {
-			u, err := url.Parse(elasticsearchContainer.Settings.Address)
+			u, err := url.Parse(tcCfg.Addresses[0])
 			if err != nil {
 				t.Fatalf("cannot parse Elasticsearch docker container url: %s", err)
 			}
