@@ -170,7 +170,9 @@ func (s *RoleQueryContainer) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "AdditionalRoleQueryContainerProperty", err)
 				}
-				s.AdditionalRoleQueryContainerProperty[key] = *raw
+				if raw != nil {
+					s.AdditionalRoleQueryContainerProperty[key] = *raw
+				}
 			}
 
 		}

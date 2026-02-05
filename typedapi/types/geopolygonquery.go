@@ -119,7 +119,9 @@ func (s *GeoPolygonQuery) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "GeoPolygonQuery", err)
 				}
-				s.GeoPolygonQuery[key] = *raw
+				if raw != nil {
+					s.GeoPolygonQuery[key] = *raw
+				}
 			}
 
 		}
