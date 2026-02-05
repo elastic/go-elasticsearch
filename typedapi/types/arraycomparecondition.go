@@ -76,12 +76,14 @@ func (s *ArrayCompareCondition) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "ArrayCompareCondition", err)
 				}
-				enum := conditionop.ConditionOp{}
-				err := enum.UnmarshalText([]byte(key))
-				if err != nil {
-					return fmt.Errorf("cannot unmarshal enum conditionop.ConditionOp: %w", err)
+				if raw != nil {
+					enum := conditionop.ConditionOp{}
+					err := enum.UnmarshalText([]byte(key))
+					if err != nil {
+						return fmt.Errorf("cannot unmarshal enum conditionop.ConditionOp: %w", err)
+					}
+					s.ArrayCompareCondition[enum] = *raw
 				}
-				s.ArrayCompareCondition[enum] = *raw
 			}
 
 		}

@@ -21,8 +21,11 @@
 package types
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 )
 
 // SortOptions type.
@@ -34,6 +37,61 @@ type SortOptions struct {
 	Score_       *ScoreSort           `json:"_score,omitempty"`
 	Script_      *ScriptSort          `json:"_script,omitempty"`
 	SortOptions  map[string]FieldSort `json:"-"`
+}
+
+func (s *SortOptions) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "_doc":
+			if err := dec.Decode(&s.Doc_); err != nil {
+				return fmt.Errorf("%s | %w", "Doc_", err)
+			}
+
+		case "_geo_distance":
+			if err := dec.Decode(&s.GeoDistance_); err != nil {
+				return fmt.Errorf("%s | %w", "GeoDistance_", err)
+			}
+
+		case "_score":
+			if err := dec.Decode(&s.Score_); err != nil {
+				return fmt.Errorf("%s | %w", "Score_", err)
+			}
+
+		case "_script":
+			if err := dec.Decode(&s.Script_); err != nil {
+				return fmt.Errorf("%s | %w", "Script_", err)
+			}
+
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.SortOptions == nil {
+					s.SortOptions = make(map[string]FieldSort, 0)
+				}
+				raw := NewFieldSort()
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "SortOptions", err)
+				}
+				if raw != nil {
+					s.SortOptions[key] = *raw
+				}
+			}
+
+		}
+	}
+	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties

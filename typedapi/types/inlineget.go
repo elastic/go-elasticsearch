@@ -119,7 +119,9 @@ func (s *InlineGet) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "Metadata", err)
 				}
-				s.Metadata[key] = *raw
+				if raw != nil {
+					s.Metadata[key] = *raw
+				}
 			}
 
 		}

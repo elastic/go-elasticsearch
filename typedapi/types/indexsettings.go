@@ -694,7 +694,9 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "IndexSettings", err)
 				}
-				s.IndexSettings[key] = *raw
+				if raw != nil {
+					s.IndexSettings[key] = *raw
+				}
 			}
 
 		}
