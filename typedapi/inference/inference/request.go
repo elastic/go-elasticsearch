@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package inference
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package inference
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/inference/InferenceRequest.ts#L26-L106
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/inference/InferenceRequest.ts#L26-L106
 type Request struct {
 	// Input The text on which you want to perform the inference task.
 	// It can be a single string or an array.
@@ -40,9 +40,9 @@ type Request struct {
 	// > Inference endpoints for the `completion` task type currently only support a
 	// single string as input.
 	Input []string `json:"input"`
-	// InputType Specifies the input data type for the text embedding model. The `input_type`
-	// parameter only applies to Inference Endpoints with the `text_embedding` task
-	// type. Possible values include:
+	// InputType Specifies the input data type for the embedding model. The `input_type`
+	// parameter only applies to Inference Endpoints with the `embedding` or
+	// `text_embedding` task type. Possible values include:
 	// * `SEARCH`
 	// * `INGEST`
 	// * `CLASSIFICATION`

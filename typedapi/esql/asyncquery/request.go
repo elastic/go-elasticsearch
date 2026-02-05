@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package asyncquery
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package asyncquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/esql/async_query/AsyncQueryRequest.ts#L28-L156
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/esql/async_query/AsyncQueryRequest.ts#L28-L163
 type Request struct {
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
 	// individual document as one row. For the JSON, YAML, CBOR and smile formats,
@@ -68,8 +68,10 @@ type Request struct {
 	// If false, the query and its results are stored in the cluster only if the
 	// request does not complete during the period set by the
 	// `wait_for_completion_timeout` parameter.
-	KeepOnCompletion *bool   `json:"keep_on_completion,omitempty"`
-	Locale           *string `json:"locale,omitempty"`
+	KeepOnCompletion *bool `json:"keep_on_completion,omitempty"`
+	// Locale Returns results (especially dates) formatted per the conventions of the
+	// locale.
+	Locale *string `json:"locale,omitempty"`
 	// Params To avoid any attempts of hacking or code injection, extract the values in a
 	// separate list of parameters. Use question mark placeholders (?) in the query
 	// string for each of the parameters.
@@ -87,6 +89,8 @@ type Request struct {
 	// Tables Tables to use with the LOOKUP operation. The top level key is the table
 	// name and the next level key is the column name.
 	Tables map[string]map[string]types.TableValuesContainer `json:"tables,omitempty"`
+	// TimeZone Sets the default timezone of the query.
+	TimeZone *string `json:"time_zone,omitempty"`
 	// WaitForCompletionTimeout The period to wait for the request to finish.
 	// By default, the request waits for 1 second for the query results.
 	// If the query completes during this period, results are returned
@@ -246,6 +250,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.Tables); err != nil {
 				return fmt.Errorf("%s | %w", "Tables", err)
 			}
+
+		case "time_zone":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "TimeZone", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.TimeZone = &o
 
 		case "wait_for_completion_timeout":
 			if err := dec.Decode(&s.WaitForCompletionTimeout); err != nil {

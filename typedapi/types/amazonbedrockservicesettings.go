@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AmazonBedrockServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/CommonTypes.ts#L402-L444
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/_types/CommonTypes.ts#L521-L563
 type AmazonBedrockServiceSettings struct {
 	// AccessKey A valid AWS access key that has permissions to use Amazon Bedrock and access
 	// to models for inference requests.
@@ -46,16 +46,17 @@ type AmazonBedrockServiceSettings struct {
 	// Supported providers include:
 	//
 	// * `amazontitan` - available for `text_embedding` and `completion` task types
-	// * `anthropic` - available for `completion` task type only
-	// * `ai21labs` - available for `completion` task type only
-	// * `cohere` - available for `text_embedding` and `completion` task types
-	// * `meta` - available for `completion` task type only
-	// * `mistral` - available for `completion` task type only
+	// * `anthropic` - available for `chat_completion` and `completion` task types
+	// * `ai21labs` - available for `chat_completion` and `completion` task types
+	// * `cohere` - available for `chat_completion`, `completion` and
+	// `text_embedding` task types
+	// * `meta` - available for `chat_completion` and `completion` task types
+	// * `mistral` - available for `chat_completion` and `completion` task types
 	Provider *string `json:"provider,omitempty"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// Watsonx.
-	// By default, the `watsonxai` service sets the number of requests allowed per
-	// minute to 120.
+	// Amazon Bedrock.
+	// By default, the `amazonbedrock` service sets the number of requests allowed
+	// per minute to 240.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 	// Region The region that your model or ARN is deployed in.
 	// The list of available regions per model can be found in the Amazon Bedrock

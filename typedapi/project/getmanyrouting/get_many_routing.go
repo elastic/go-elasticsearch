@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
-// Get named project routing expressions.
+// Get project routing expressions.
 package getmanyrouting
 
 import (
@@ -68,9 +68,7 @@ func NewGetManyRoutingFunc(tp elastictransport.Interface) NewGetManyRouting {
 	}
 }
 
-// Get named project routing expressions.
-//
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Get project routing expressions.
 func New(tp elastictransport.Interface) *GetManyRouting {
 	r := &GetManyRouting{
 		transport: tp,

@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package query
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/esql/query/QueryRequest.ts#L28-L128
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/esql/query/QueryRequest.ts#L28-L135
 type Request struct {
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
 	// individual document as one row. For the JSON, YAML, CBOR and smile formats,
@@ -51,12 +55,14 @@ type Request struct {
 	// count.
 	// This is similar to `include_ccs_metadata`, but it also returns metadata when
 	// the query is not CCS/CPS
-	IncludeExecutionMetadata *bool   `json:"include_execution_metadata,omitempty"`
-	Locale                   *string `json:"locale,omitempty"`
+	IncludeExecutionMetadata *bool `json:"include_execution_metadata,omitempty"`
+	// Locale Returns results (especially dates) formatted per the conventions of the
+	// locale.
+	Locale *string `json:"locale,omitempty"`
 	// Params To avoid any attempts of hacking or code injection, extract the values in a
 	// separate list of parameters. Use question mark placeholders (?) in the query
 	// string for each of the parameters.
-	Params []types.FieldValue `json:"params,omitempty"`
+	Params types.ESQLParams `json:"params,omitempty"`
 	// Profile If provided and `true` the response will include an extra `profile` object
 	// with information on how the query was executed. This information is for human
 	// debugging
@@ -70,6 +76,8 @@ type Request struct {
 	// Tables Tables to use with the LOOKUP operation. The top level key is the table
 	// name and the next level key is the column name.
 	Tables map[string]map[string]types.TableValuesContainer `json:"tables,omitempty"`
+	// TimeZone Sets the default timezone of the query.
+	TimeZone *string `json:"time_zone,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -91,4 +99,133 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "columnar":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Columnar", err)
+				}
+				s.Columnar = &value
+			case bool:
+				s.Columnar = &v
+			}
+
+		case "filter":
+			if err := dec.Decode(&s.Filter); err != nil {
+				return fmt.Errorf("%s | %w", "Filter", err)
+			}
+
+		case "include_ccs_metadata":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IncludeCcsMetadata", err)
+				}
+				s.IncludeCcsMetadata = &value
+			case bool:
+				s.IncludeCcsMetadata = &v
+			}
+
+		case "include_execution_metadata":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IncludeExecutionMetadata", err)
+				}
+				s.IncludeExecutionMetadata = &value
+			case bool:
+				s.IncludeExecutionMetadata = &v
+			}
+
+		case "locale":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Locale", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Locale = &o
+
+		case "params":
+			if err := dec.Decode(&s.Params); err != nil {
+				return fmt.Errorf("%s | %w", "Params", err)
+			}
+
+		case "profile":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Profile", err)
+				}
+				s.Profile = &value
+			case bool:
+				s.Profile = &v
+			}
+
+		case "query":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Query", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Query = o
+
+		case "tables":
+			if s.Tables == nil {
+				s.Tables = make(map[string]map[string]types.TableValuesContainer, 0)
+			}
+			if err := dec.Decode(&s.Tables); err != nil {
+				return fmt.Errorf("%s | %w", "Tables", err)
+			}
+
+		case "time_zone":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "TimeZone", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.TimeZone = &o
+
+		}
+	}
+	return nil
 }

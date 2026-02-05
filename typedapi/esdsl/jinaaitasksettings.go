@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package esdsl
 
@@ -35,6 +35,12 @@ func NewJinaAITaskSettings() *_jinaAITaskSettings {
 
 }
 
+func (s *_jinaAITaskSettings) InputType(inputtype jinaaitextembeddingtask.JinaAITextEmbeddingTask) *_jinaAITaskSettings {
+
+	s.v.InputType = &inputtype
+	return s
+}
+
 func (s *_jinaAITaskSettings) LateChunking(latechunking bool) *_jinaAITaskSettings {
 
 	s.v.LateChunking = &latechunking
@@ -46,12 +52,6 @@ func (s *_jinaAITaskSettings) ReturnDocuments(returndocuments bool) *_jinaAITask
 
 	s.v.ReturnDocuments = &returndocuments
 
-	return s
-}
-
-func (s *_jinaAITaskSettings) Task(task jinaaitextembeddingtask.JinaAITextEmbeddingTask) *_jinaAITaskSettings {
-
-	s.v.Task = &task
 	return s
 }
 

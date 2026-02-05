@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
 // RetrieverContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/Retriever.ts#L29-L54
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/Retriever.ts#L29-L54
 type RetrieverContainer struct {
 	// Diversify A retriever that diversifies the results from its child retriever.
 	Diversify *DiversifyRetriever `json:"diversify,omitempty"`
@@ -63,6 +63,9 @@ func (s *RetrieverContainer) RetrieverContainerCaster() *RetrieverContainer {
 }
 
 func (s *RetrieverContainer) RRFRetrieverEntryCaster() *RRFRetrieverEntry {
+	if s == nil {
+		return nil
+	}
 	o := RRFRetrieverEntry(s)
 	return &o
 }

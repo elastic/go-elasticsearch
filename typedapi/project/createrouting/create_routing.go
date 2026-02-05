@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
-// Create of update a single named project routing expression.
+// Create or update a project routing expression.
 package createrouting
 
 import (
@@ -81,9 +81,7 @@ func NewCreateRoutingFunc(tp elastictransport.Interface) NewCreateRouting {
 	}
 }
 
-// Create of update a single named project routing expression.
-//
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Create or update a project routing expression.
 func New(tp elastictransport.Interface) *CreateRouting {
 	r := &CreateRouting{
 		transport: tp,

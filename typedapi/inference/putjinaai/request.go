@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package putjinaai
 
@@ -30,10 +30,10 @@ import (
 
 // Request holds the request body struct for the package putjinaai
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/put_jinaai/PutJinaAiRequest.ts#L31-L92
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/put_jinaai/PutJinaAiRequest.ts#L31-L92
 type Request struct {
 	// ChunkingSettings The chunking configuration object.
-	// Applies only to the `text_embedding` task type.
+	// Applies only to the `embedding` and text_embedding` task types.
 	// Not applicable to the `rerank` task type.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
