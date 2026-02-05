@@ -113,7 +113,9 @@ func (s *ShapeQuery) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "ShapeQuery", err)
 				}
-				s.ShapeQuery[key] = *raw
+				if raw != nil {
+					s.ShapeQuery[key] = *raw
+				}
 			}
 
 		}

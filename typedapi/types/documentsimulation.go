@@ -120,7 +120,9 @@ func (s *DocumentSimulation) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "DocumentSimulation", err)
 				}
-				s.DocumentSimulation[key] = *raw
+				if raw != nil {
+					s.DocumentSimulation[key] = *raw
+				}
 			}
 
 		}

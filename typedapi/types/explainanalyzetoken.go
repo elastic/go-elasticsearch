@@ -195,7 +195,9 @@ func (s *ExplainAnalyzeToken) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "ExplainAnalyzeToken", err)
 				}
-				s.ExplainAnalyzeToken[key] = *raw
+				if raw != nil {
+					s.ExplainAnalyzeToken[key] = *raw
+				}
 			}
 
 		}

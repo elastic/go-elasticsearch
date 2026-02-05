@@ -133,7 +133,9 @@ func (s *InlineGetDictUserDefined) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "InlineGetDictUserDefined", err)
 				}
-				s.InlineGetDictUserDefined[key] = *raw
+				if raw != nil {
+					s.InlineGetDictUserDefined[key] = *raw
+				}
 			}
 
 		}

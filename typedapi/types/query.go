@@ -605,7 +605,9 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "AdditionalQueryProperty", err)
 				}
-				s.AdditionalQueryProperty[key] = *raw
+				if raw != nil {
+					s.AdditionalQueryProperty[key] = *raw
+				}
 			}
 
 		}
