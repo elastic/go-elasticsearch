@@ -80,7 +80,9 @@ func (s *NotFoundAliases) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "NotFoundAliases", err)
 				}
-				s.NotFoundAliases[key] = *raw
+				if raw != nil {
+					s.NotFoundAliases[key] = *raw
+				}
 			}
 
 		}

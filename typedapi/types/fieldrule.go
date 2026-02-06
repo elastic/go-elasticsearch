@@ -111,7 +111,9 @@ func (s *FieldRule) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "AdditionalFieldRuleProperty", err)
 				}
-				s.AdditionalFieldRuleProperty[key] = *raw
+				if raw != nil {
+					s.AdditionalFieldRuleProperty[key] = *raw
+				}
 			}
 
 		}

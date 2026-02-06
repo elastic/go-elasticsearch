@@ -90,7 +90,9 @@ func (s *Rescore) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "AdditionalRescoreProperty", err)
 				}
-				s.AdditionalRescoreProperty[key] = *raw
+				if raw != nil {
+					s.AdditionalRescoreProperty[key] = *raw
+				}
 			}
 
 		}

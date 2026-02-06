@@ -767,7 +767,9 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "AdditionalAggregationsProperty", err)
 				}
-				s.AdditionalAggregationsProperty[key] = *raw
+				if raw != nil {
+					s.AdditionalAggregationsProperty[key] = *raw
+				}
 			}
 
 		}
