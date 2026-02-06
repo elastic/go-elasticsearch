@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardCommit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/indices/stats/types.ts#L112-L117
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/indices/stats/types.ts#L112-L117
 type ShardCommit struct {
 	Generation int               `json:"generation"`
 	Id         string            `json:"id"`

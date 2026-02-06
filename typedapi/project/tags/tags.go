@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 // Get tags.
 //
@@ -24,6 +24,7 @@
 package tags
 
 import (
+	gobytes "bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -49,6 +50,10 @@ type Tags struct {
 	path    url.URL
 
 	raw io.Reader
+
+	req      *Request
+	deferred []func(request *Request) error
+	buf      *gobytes.Buffer
 
 	paramSet int
 
@@ -80,6 +85,8 @@ func New(tp elastictransport.Interface) *Tags {
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
+
+		buf: gobytes.NewBuffer(nil),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -87,6 +94,21 @@ func New(tp elastictransport.Interface) *Tags {
 			r.instrument = instrument
 		}
 	}
+
+	return r
+}
+
+// Raw takes a json payload as input which is then passed to the http.Request
+// If specified Raw takes precedence on Request method.
+func (r *Tags) Raw(raw io.Reader) *Tags {
+	r.raw = raw
+
+	return r
+}
+
+// Request allows to set the request property with the appropriate payload.
+func (r *Tags) Request(req *Request) *Tags {
+	r.req = req
 
 	return r
 }
@@ -99,6 +121,31 @@ func (r *Tags) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var req *http.Request
 
 	var err error
+
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
+	if r.raw == nil && r.req != nil {
+
+		data, err := json.Marshal(r.req)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not serialise request for Tags: %w", err)
+		}
+
+		r.buf.Write(data)
+
+	}
+
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
 
 	r.path.Scheme = "http"
 
@@ -234,57 +281,9 @@ func (r Tags) Do(providedCtx context.Context) (*Response, error) {
 	return nil, errorResponse
 }
 
-// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
-// This only exists for endpoints without a request payload and allows for quick control flow.
-func (r Tags) IsSuccess(providedCtx context.Context) (bool, error) {
-	var ctx context.Context
-	r.spanStarted = true
-	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "project.tags")
-		defer instrument.Close(ctx)
-	}
-	if ctx == nil {
-		ctx = providedCtx
-	}
-
-	res, err := r.Perform(ctx)
-
-	if err != nil {
-		return false, err
-	}
-	io.Copy(io.Discard, res.Body)
-	err = res.Body.Close()
-	if err != nil {
-		return false, err
-	}
-
-	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		return true, nil
-	}
-
-	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the Tags query execution, status code: %d", res.StatusCode)
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordError(ctx, err)
-		}
-		return false, err
-	}
-
-	return false, nil
-}
-
 // Header set a key, value pair in the Tags headers map.
 func (r *Tags) Header(key, value string) *Tags {
 	r.headers.Set(key, value)
-
-	return r
-}
-
-// ProjectRouting A Lucene query using project metadata tags used to filter which projects are
-// returned in the response, such as _alias:_origin or _alias:*pr*.
-// API name: project_routing
-func (r *Tags) ProjectRouting(projectrouting string) *Tags {
-	r.values.Set("project_routing", projectrouting)
 
 	return r
 }
@@ -329,6 +328,20 @@ func (r *Tags) Human(human bool) *Tags {
 // API name: pretty
 func (r *Tags) Pretty(pretty bool) *Tags {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// A Lucene query using project metadata tags used to filter which projects are
+// returned in the response, such as _alias:_origin or _alias:*pr*.
+// API name: project_routing
+func (r *Tags) ProjectRouting(projectrouting string) *Tags {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ProjectRouting = &projectrouting
 
 	return r
 }

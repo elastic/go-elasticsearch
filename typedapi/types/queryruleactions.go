@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
 // QueryRuleActions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/query_rules/_types/QueryRuleset.ts#L110-L126
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/query_rules/_types/QueryRuleset.ts#L110-L126
 type QueryRuleActions struct {
 	// Docs The documents to apply the rule to.
 	// Only one of `ids` or `docs` may be specified and at least one must be

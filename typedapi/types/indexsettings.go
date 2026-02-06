@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/indices/_types/IndexSettings.ts#L70-L184
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/indices/_types/IndexSettings.ts#L70-L184
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -694,7 +694,9 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "IndexSettings", err)
 				}
-				s.IndexSettings[key] = *raw
+				if raw != nil {
+					s.IndexSettings[key] = *raw
+				}
 			}
 
 		}
@@ -706,7 +708,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 func (s IndexSettings) MarshalJSON() ([]byte, error) {
 	type opt IndexSettings
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {

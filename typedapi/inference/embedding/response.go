@@ -16,11 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
-package types
+package embedding
 
-// ESQLParam type alias.
+import (
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+)
+
+// Response holds the response body struct for the package embedding
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/esql/_types/types.ts#L22-L22
-type ESQLParam []FieldValue
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/embedding/EmbeddingResponse.ts#L22-L25
+type Response struct {
+	Embeddings      []types.DenseEmbeddingResult     `json:"embeddings,omitempty"`
+	EmbeddingsBits  []types.DenseEmbeddingByteResult `json:"embeddings_bits,omitempty"`
+	EmbeddingsBytes []types.DenseEmbeddingByteResult `json:"embeddings_bytes,omitempty"`
+}
+
+// NewResponse returns a Response
+func NewResponse() *Response {
+	r := &Response{}
+	return r
+}

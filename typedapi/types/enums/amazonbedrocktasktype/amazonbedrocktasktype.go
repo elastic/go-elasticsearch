@@ -16,19 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 // Package amazonbedrocktasktype
 package amazonbedrocktasktype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/CommonTypes.ts#L472-L475
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/_types/CommonTypes.ts#L591-L595
 type AmazonBedrockTaskType struct {
 	Name string
 }
 
 var (
+	Chatcompletion = AmazonBedrockTaskType{"chat_completion"}
+
 	Completion = AmazonBedrockTaskType{"completion"}
 
 	Textembedding = AmazonBedrockTaskType{"text_embedding"}
@@ -41,6 +43,8 @@ func (a AmazonBedrockTaskType) MarshalText() (text []byte, err error) {
 func (a *AmazonBedrockTaskType) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
+	case "chat_completion":
+		*a = Chatcompletion
 	case "completion":
 		*a = Completion
 	case "text_embedding":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ChunkRescorerChunkingSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/mapping/ChunkingSettings.ts#L38-L52
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/mapping/ChunkingSettings.ts#L38-L52
 type ChunkRescorerChunkingSettings struct {
 	// MaxChunkSize The maximum size of a chunk in words.
 	// This value cannot be lower than `20` (for `sentence` strategy) or `10` (for

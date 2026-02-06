@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InlineGet type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/common.ts#L334-L347
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/common.ts#L334-L347
 type InlineGet struct {
 	Fields       map[string]json.RawMessage `json:"fields,omitempty"`
 	Found        bool                       `json:"found"`
@@ -130,7 +130,9 @@ func (s *InlineGet) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "Metadata", err)
 				}
-				s.Metadata[key] = *raw
+				if raw != nil {
+					s.Metadata[key] = *raw
+				}
 			}
 
 		}
@@ -142,7 +144,7 @@ func (s *InlineGet) UnmarshalJSON(data []byte) error {
 func (s InlineGet) MarshalJSON() ([]byte, error) {
 	type opt InlineGet
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {

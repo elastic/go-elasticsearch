@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AzureAiStudioServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/CommonTypes.ts#L677-L719
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/_types/CommonTypes.ts#L797-L837
 type AzureAiStudioServiceSettings struct {
 	// ApiKey A valid API key of your Azure AI Studio model deployment.
 	// This key can be found on the overview page for your deployment in the
@@ -40,9 +40,6 @@ type AzureAiStudioServiceSettings struct {
 	// IMPORTANT: You need to provide the API key only once, during the inference
 	// model creation.
 	// The get inference endpoint API does not retrieve your API key.
-	// After creating the inference model, you cannot change the associated API key.
-	// If you want to use a different API key, delete the inference model and
-	// recreate it with the same name and the updated API key.
 	ApiKey string `json:"api_key"`
 	// EndpointType The type of endpoint that is available for deployment through Azure AI
 	// Studio: `token` or `realtime`.

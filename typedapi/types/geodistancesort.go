@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // GeoDistanceSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/sort.ts#L58-L70
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/sort.ts#L58-L70
 type GeoDistanceSort struct {
 	DistanceType    *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
 	GeoDistanceSort map[string][]GeoLocation         `json:"-"`
@@ -132,7 +132,7 @@ func (s *GeoDistanceSort) UnmarshalJSON(data []byte) error {
 func (s GeoDistanceSort) MarshalJSON() ([]byte, error) {
 	type opt GeoDistanceSort
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {
@@ -145,7 +145,11 @@ func (s GeoDistanceSort) MarshalJSON() ([]byte, error) {
 
 	// We inline the additional fields from the underlying map
 	for key, value := range s.GeoDistanceSort {
-		tmp[fmt.Sprintf("%s", key)] = value
+		marshaled, err := json.Marshal(value)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal additional property %q: %w", key, err)
+		}
+		tmp[fmt.Sprintf("%s", key)] = marshaled
 	}
 	delete(tmp, "GeoDistanceSort")
 

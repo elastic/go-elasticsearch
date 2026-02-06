@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeEvaluationSummaryAucRoc type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/ml/evaluate_data_frame/types.ts#L91-L93
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/ml/evaluate_data_frame/types.ts#L91-L93
 type DataframeEvaluationSummaryAucRoc struct {
 	Curve []DataframeEvaluationSummaryAucRocCurveItem `json:"curve,omitempty"`
 	Value Float64                                     `json:"value"`

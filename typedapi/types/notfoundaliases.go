@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NotFoundAliases type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/indices/get_alias/_types/response.ts#L29-L37
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/indices/get_alias/_types/response.ts#L29-L37
 type NotFoundAliases struct {
 	Error           string                  `json:"error"`
 	NotFoundAliases map[string]IndexAliases `json:"-"`
@@ -91,7 +91,9 @@ func (s *NotFoundAliases) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "NotFoundAliases", err)
 				}
-				s.NotFoundAliases[key] = *raw
+				if raw != nil {
+					s.NotFoundAliases[key] = *raw
+				}
 			}
 
 		}
@@ -103,7 +105,7 @@ func (s *NotFoundAliases) UnmarshalJSON(data []byte) error {
 func (s NotFoundAliases) MarshalJSON() ([]byte, error) {
 	type opt NotFoundAliases
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {
@@ -116,7 +118,11 @@ func (s NotFoundAliases) MarshalJSON() ([]byte, error) {
 
 	// We inline the additional fields from the underlying map
 	for key, value := range s.NotFoundAliases {
-		tmp[fmt.Sprintf("%s", key)] = value
+		marshaled, err := json.Marshal(value)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal additional property %q: %w", key, err)
+		}
+		tmp[fmt.Sprintf("%s", key)] = marshaled
 	}
 	delete(tmp, "NotFoundAliases")
 

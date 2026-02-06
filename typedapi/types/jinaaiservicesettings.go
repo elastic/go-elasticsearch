@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -28,33 +28,50 @@ import (
 	"io"
 	"strconv"
 
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/jinaaielementtype"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/jinaaisimilaritytype"
 )
 
 // JinaAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/CommonTypes.ts#L1668-L1697
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/_types/CommonTypes.ts#L1774-L1822
 type JinaAIServiceSettings struct {
 	// ApiKey A valid API key of your JinaAI account.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
 	// model creation.
 	// The get inference endpoint API does not retrieve your API key.
-	// After creating the inference model, you cannot change the associated API key.
-	// If you want to use a different API key, delete the inference model and
-	// recreate it with the same name and the updated API key.
 	ApiKey string `json:"api_key"`
+	// Dimensions For an `embedding` or `text_embedding` task, the number of dimensions the
+	// resulting output embeddings should have.
+	// By default, the model's standard output dimension is used.
+	// Refer to the Jina documentation for more information.
+	Dimensions *int `json:"dimensions,omitempty"`
+	// ElementType For an `embedding` or `text_embedding` task, the data type returned by the
+	// model.
+	// Use `bit` for binary embeddings, which are encoded as bytes with signed int8
+	// precision.
+	// Use `binary` for binary embeddings, which are encoded as bytes with signed
+	// int8 precision (this is a synonym of `bit`).
+	// Use `float` for the default float embeddings.
+	ElementType *jinaaielementtype.JinaAIElementType `json:"element_type,omitempty"`
 	// ModelId The name of the model to use for the inference task.
-	// For a `rerank` task, it is required.
-	// For a `text_embedding` task, it is optional.
-	ModelId *string `json:"model_id,omitempty"`
+	ModelId string `json:"model_id"`
+	// MultimodalModel For the `embedding` task, whether the model supports multimodal inputs. If
+	// true, requests sent to the Jina model
+	// will use the multimodal request format (a list of objects). If false,
+	// requests sent to the model will use the same
+	// format as the `text_embedding` task (a list of strings). Setting this to
+	// `false` allows the `embedding` task to be
+	// used with models that do not support multimodal requests.
+	MultimodalModel *bool `json:"multimodal_model,omitempty"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
 	// JinaAI.
 	// By default, the `jinaai` service sets the number of requests allowed per
 	// minute to 2000 for all task types.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
-	// Similarity For a `text_embedding` task, the similarity measure. One of cosine,
-	// dot_product, l2_norm.
+	// Similarity For an `embedding` or `text_embedding` task, the similarity measure. One of
+	// cosine, dot_product, l2_norm.
 	// The default values varies with the embedding type.
 	// For example, a float embedding type uses a `dot_product` similarity measure
 	// by default.
@@ -88,6 +105,27 @@ func (s *JinaAIServiceSettings) UnmarshalJSON(data []byte) error {
 			}
 			s.ApiKey = o
 
+		case "dimensions":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Dimensions", err)
+				}
+				s.Dimensions = &value
+			case float64:
+				f := int(v)
+				s.Dimensions = &f
+			}
+
+		case "element_type":
+			if err := dec.Decode(&s.ElementType); err != nil {
+				return fmt.Errorf("%s | %w", "ElementType", err)
+			}
+
 		case "model_id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -98,7 +136,21 @@ func (s *JinaAIServiceSettings) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.ModelId = &o
+			s.ModelId = o
+
+		case "multimodal_model":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MultimodalModel", err)
+				}
+				s.MultimodalModel = &value
+			case bool:
+				s.MultimodalModel = &v
+			}
 
 		case "rate_limit":
 			if err := dec.Decode(&s.RateLimit); err != nil {

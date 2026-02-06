@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // OpenAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/CommonTypes.ts#L1924-L1970
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/_types/CommonTypes.ts#L2054-L2098
 type OpenAIServiceSettings struct {
 	// ApiKey A valid API key of your OpenAI account.
 	// You can find your OpenAI API keys in your OpenAI account under the API keys
@@ -42,9 +42,6 @@ type OpenAIServiceSettings struct {
 	// IMPORTANT: You need to provide the API key only once, during the inference
 	// model creation.
 	// The get inference endpoint API does not retrieve your API key.
-	// After creating the inference model, you cannot change the associated API key.
-	// If you want to use a different API key, delete the inference model and
-	// recreate it with the same name and the updated API key.
 	ApiKey string `json:"api_key"`
 	// Dimensions The number of dimensions the resulting output embeddings should have.
 	// It is supported only in `text-embedding-3` and later models.

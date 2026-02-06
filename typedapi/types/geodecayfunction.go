@@ -16,20 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/multivaluemode"
 )
 
 // GeoDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/query_dsl/compound.ts#L212-L215
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/query_dsl/compound.ts#L212-L215
 type GeoDecayFunction struct {
 	DecayFunctionBaseGeoLocationDistance map[string]DecayPlacementGeoLocationDistance `json:"-"`
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the
@@ -37,11 +40,51 @@ type GeoDecayFunction struct {
 	MultiValueMode *multivaluemode.MultiValueMode `json:"multi_value_mode,omitempty"`
 }
 
+func (s *GeoDecayFunction) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "multi_value_mode":
+			if err := dec.Decode(&s.MultiValueMode); err != nil {
+				return fmt.Errorf("%s | %w", "MultiValueMode", err)
+			}
+
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.DecayFunctionBaseGeoLocationDistance == nil {
+					s.DecayFunctionBaseGeoLocationDistance = make(map[string]DecayPlacementGeoLocationDistance, 0)
+				}
+				raw := NewDecayPlacementGeoLocationDistance()
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "DecayFunctionBaseGeoLocationDistance", err)
+				}
+				if raw != nil {
+					s.DecayFunctionBaseGeoLocationDistance[key] = *raw
+				}
+			}
+
+		}
+	}
+	return nil
+}
+
 // MarhsalJSON overrides marshalling for types with additional properties
 func (s GeoDecayFunction) MarshalJSON() ([]byte, error) {
 	type opt GeoDecayFunction
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {
@@ -54,7 +97,11 @@ func (s GeoDecayFunction) MarshalJSON() ([]byte, error) {
 
 	// We inline the additional fields from the underlying map
 	for key, value := range s.DecayFunctionBaseGeoLocationDistance {
-		tmp[fmt.Sprintf("%s", key)] = value
+		marshaled, err := json.Marshal(value)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal additional property %q: %w", key, err)
+		}
+		tmp[fmt.Sprintf("%s", key)] = marshaled
 	}
 	delete(tmp, "DecayFunctionBaseGeoLocationDistance")
 
@@ -84,6 +131,9 @@ func (s *GeoDecayFunction) GeoDecayFunctionCaster() *GeoDecayFunction {
 }
 
 func (s *GeoDecayFunction) DecayFunctionCaster() *DecayFunction {
+	if s == nil {
+		return nil
+	}
 	o := DecayFunction(s)
 	return &o
 }

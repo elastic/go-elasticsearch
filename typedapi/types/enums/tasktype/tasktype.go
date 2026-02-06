@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 // Package tasktype
 package tasktype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/TaskType.ts#L20-L29
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/_types/TaskType.ts#L20-L30
 type TaskType struct {
 	Name string
 }
@@ -38,6 +38,8 @@ var (
 	Completion = TaskType{"completion"}
 
 	Chatcompletion = TaskType{"chat_completion"}
+
+	Embedding = TaskType{"embedding"}
 )
 
 func (t TaskType) MarshalText() (text []byte, err error) {
@@ -57,6 +59,8 @@ func (t *TaskType) UnmarshalText(text []byte) error {
 		*t = Completion
 	case "chat_completion":
 		*t = Chatcompletion
+	case "embedding":
+		*t = Embedding
 	default:
 		*t = TaskType{string(text)}
 	}

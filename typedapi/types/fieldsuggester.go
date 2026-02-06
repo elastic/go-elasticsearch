@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FieldSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_global/search/_types/suggester.ts#L110-L143
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_global/search/_types/suggester.ts#L110-L143
 type FieldSuggester struct {
 	AdditionalFieldSuggesterProperty map[string]json.RawMessage `json:"-"`
 	// Completion Provides auto-complete/search-as-you-type functionality.
@@ -126,7 +126,9 @@ func (s *FieldSuggester) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "AdditionalFieldSuggesterProperty", err)
 				}
-				s.AdditionalFieldSuggesterProperty[key] = *raw
+				if raw != nil {
+					s.AdditionalFieldSuggesterProperty[key] = *raw
+				}
 			}
 
 		}
@@ -138,7 +140,7 @@ func (s *FieldSuggester) UnmarshalJSON(data []byte) error {
 func (s FieldSuggester) MarshalJSON() ([]byte, error) {
 	type opt FieldSuggester
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {

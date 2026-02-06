@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package typedapi
 
@@ -287,6 +287,7 @@ import (
 	inference_chat_completion_unified "github.com/elastic/go-elasticsearch/v9/typedapi/inference/chatcompletionunified"
 	inference_completion "github.com/elastic/go-elasticsearch/v9/typedapi/inference/completion"
 	inference_delete "github.com/elastic/go-elasticsearch/v9/typedapi/inference/delete"
+	inference_embedding "github.com/elastic/go-elasticsearch/v9/typedapi/inference/embedding"
 	inference_get "github.com/elastic/go-elasticsearch/v9/typedapi/inference/get"
 	inference_inference "github.com/elastic/go-elasticsearch/v9/typedapi/inference/inference"
 	inference_put "github.com/elastic/go-elasticsearch/v9/typedapi/inference/put"
@@ -925,6 +926,7 @@ type Inference struct {
 	ChatCompletionUnified inference_chat_completion_unified.NewChatCompletionUnified
 	Completion            inference_completion.NewCompletion
 	Delete                inference_delete.NewDelete
+	Embedding             inference_embedding.NewEmbedding
 	Get                   inference_get.NewGet
 	Inference             inference_inference.NewInference
 	Put                   inference_put.NewPut
@@ -1739,6 +1741,7 @@ func New(tp elastictransport.Interface) *API {
 			ChatCompletionUnified: inference_chat_completion_unified.NewChatCompletionUnifiedFunc(tp),
 			Completion:            inference_completion.NewCompletionFunc(tp),
 			Delete:                inference_delete.NewDeleteFunc(tp),
+			Embedding:             inference_embedding.NewEmbeddingFunc(tp),
 			Get:                   inference_get.NewGetFunc(tp),
 			Inference:             inference_inference.NewInferenceFunc(tp),
 			Put:                   inference_put.NewPutFunc(tp),
@@ -4445,7 +4448,7 @@ func (p *MethodCat) Allocation() *cat_allocation.Allocation {
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-circuit-breaker
 func (p *MethodCat) CircuitBreaker() *cat_circuit_breaker.CircuitBreaker {
 	_circuitbreaker := cat_circuit_breaker.NewCircuitBreakerFunc(p.tp)
 	return _circuitbreaker()
@@ -9766,6 +9769,13 @@ func (p *MethodInference) Delete(inferenceid string) *inference_delete.Delete {
 	return _delete(inferenceid)
 }
 
+// Perform dense embedding inference on the service.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+func (p *MethodInference) Embedding(inferenceid string) *inference_embedding.Embedding {
+	_embedding := inference_embedding.NewEmbeddingFunc(p.tp)
+	return _embedding(inferenceid)
+}
+
 // Get an inference endpoint.
 //
 // This API requires the `monitor_inference` cluster privilege (the built-in
@@ -9819,7 +9829,7 @@ func (p *MethodInference) Inference(inferenceid string) *inference_inference.Inf
 // * AI21 (`chat_completion`, `completion`)
 // * AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
 // `text_embedding`)
-// * Amazon Bedrock (`completion`, `text_embedding`)
+// * Amazon Bedrock (`chat_completion`, `completion`, `text_embedding`)
 // * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
 // `sparse_embedding`, `text_embedding`)
 // * Anthropic (`completion`)
@@ -9835,7 +9845,7 @@ func (p *MethodInference) Inference(inferenceid string) *inference_inference.Inf
 // `text_embedding`)
 // * Groq (`chat_completion`)
 // * Hugging Face (`chat_completion`, `completion`, `rerank`, `text_embedding`)
-// * JinaAI (`rerank`, `text_embedding`)
+// * JinaAI (`embedding`, `rerank`, `text_embedding`)
 // * Llama (`chat_completion`, `completion`, `text_embedding`)
 // * Mistral (`chat_completion`, `completion`, `text_embedding`)
 // * Nvidia (`chat_completion`, `completion`, `text_embedding`, `rerank`)
@@ -10194,7 +10204,7 @@ func (p *MethodInference) PutHuggingFace(tasktype, huggingfaceinferenceid string
 // service.
 //
 // To review the available `rerank` models, refer to <https://jina.ai/reranker>.
-// To review the available `text_embedding` models, refer to the
+// To review the available `embedding` and `text_embedding` models, refer to
 // <https://jina.ai/embeddings/>.
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-jinaai
 func (p *MethodInference) PutJinaai(tasktype, jinaaiinferenceid string) *inference_put_jinaai.PutJinaai {
@@ -11616,36 +11626,31 @@ func (p *MethodProfiling) TopnFunctions() *profiling_topn_functions.TopnFunction
 	return _topnfunctions()
 }
 
-// Create of update named project routing expressions.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Create or update project routing expressions.
 func (p *MethodProject) CreateManyRouting() *project_create_many_routing.CreateManyRouting {
 	_createmanyrouting := project_create_many_routing.NewCreateManyRoutingFunc(p.tp)
 	return _createmanyrouting()
 }
 
-// Create of update a single named project routing expression.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Create or update a project routing expression.
 func (p *MethodProject) CreateRouting(name string) *project_create_routing.CreateRouting {
 	_createrouting := project_create_routing.NewCreateRoutingFunc(p.tp)
 	return _createrouting(name)
 }
 
-// Delete named project routing expressions.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Delete a project routing expression.
 func (p *MethodProject) DeleteRouting(name string) *project_delete_routing.DeleteRouting {
 	_deleterouting := project_delete_routing.NewDeleteRoutingFunc(p.tp)
 	return _deleterouting(name)
 }
 
-// Get named project routing expressions.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Get project routing expressions.
 func (p *MethodProject) GetManyRouting() *project_get_many_routing.GetManyRouting {
 	_getmanyrouting := project_get_many_routing.NewGetManyRoutingFunc(p.tp)
 	return _getmanyrouting()
 }
 
-// Get named project routing expressions.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Get a project routing expression.
 func (p *MethodProject) GetRouting(name string) *project_get_routing.GetRouting {
 	_getrouting := project_get_routing.NewGetRoutingFunc(p.tp)
 	return _getrouting(name)

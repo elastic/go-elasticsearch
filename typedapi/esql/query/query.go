@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 // Run an ES|QL query.
 //
@@ -446,6 +446,8 @@ func (r *Query) IncludeExecutionMetadata(includeexecutionmetadata bool) *Query {
 	return r
 }
 
+// Returns results (especially dates) formatted per the conventions of the
+// locale.
 // API name: locale
 func (r *Query) Locale(locale string) *Query {
 	// Initialize the request if it is not already initialized
@@ -462,16 +464,14 @@ func (r *Query) Locale(locale string) *Query {
 // separate list of parameters. Use question mark placeholders (?) in the query
 // string for each of the parameters.
 // API name: params
-func (r *Query) Params(params ...types.FieldValueVariant) *Query {
+func (r *Query) Params(esqlparams types.ESQLParamsVariant) *Query {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range params {
 
-		r.req.Params = append(r.req.Params, *v.FieldValueCaster())
+	r.req.Params = *esqlparams.ESQLParamsCaster()
 
-	}
 	return r
 }
 
@@ -516,5 +516,18 @@ func (r *Query) Tables(tables map[string]map[string]types.TableValuesContainer) 
 		r.req = NewRequest()
 	}
 	r.req.Tables = tables
+	return r
+}
+
+// Sets the default timezone of the query.
+// API name: time_zone
+func (r *Query) TimeZone(timezone string) *Query {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.TimeZone = &timezone
+
 	return r
 }

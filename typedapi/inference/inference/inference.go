@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 // Perform inference on the service.
 //
@@ -448,9 +448,9 @@ func (r *Inference) Input(inputs ...string) *Inference {
 	return r
 }
 
-// Specifies the input data type for the text embedding model. The `input_type`
-// parameter only applies to Inference Endpoints with the `text_embedding` task
-// type. Possible values include:
+// Specifies the input data type for the embedding model. The `input_type`
+// parameter only applies to Inference Endpoints with the `embedding` or
+// `text_embedding` task type. Possible values include:
 // * `SEARCH`
 // * `INGEST`
 // * `CLASSIFICATION`

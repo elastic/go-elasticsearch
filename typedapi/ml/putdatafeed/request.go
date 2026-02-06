@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package putdatafeed
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L38-L188
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L38-L188
 type Request struct {
 	// Aggregations If set, the datafeed performs aggregation searches.
 	// Support for aggregations is limited and should be used only with low

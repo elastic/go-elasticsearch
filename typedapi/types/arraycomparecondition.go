@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // ArrayCompareCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/watcher/_types/Conditions.ts#L33-L40
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/watcher/_types/Conditions.ts#L33-L40
 type ArrayCompareCondition struct {
 	ArrayCompareCondition map[conditionop.ConditionOp]ArrayCompareOpParams `json:"-"`
 	Path                  string                                           `json:"path"`
@@ -76,12 +76,14 @@ func (s *ArrayCompareCondition) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "ArrayCompareCondition", err)
 				}
-				enum := conditionop.ConditionOp{}
-				err := enum.UnmarshalText([]byte(key))
-				if err != nil {
-					return fmt.Errorf("cannot unmarshal enum conditionop.ConditionOp: %w", err)
+				if raw != nil {
+					enum := conditionop.ConditionOp{}
+					err := enum.UnmarshalText([]byte(key))
+					if err != nil {
+						return fmt.Errorf("cannot unmarshal enum conditionop.ConditionOp: %w", err)
+					}
+					s.ArrayCompareCondition[enum] = *raw
 				}
-				s.ArrayCompareCondition[enum] = *raw
 			}
 
 		}
@@ -93,7 +95,7 @@ func (s *ArrayCompareCondition) UnmarshalJSON(data []byte) error {
 func (s ArrayCompareCondition) MarshalJSON() ([]byte, error) {
 	type opt ArrayCompareCondition
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {
@@ -106,7 +108,11 @@ func (s ArrayCompareCondition) MarshalJSON() ([]byte, error) {
 
 	// We inline the additional fields from the underlying map
 	for key, value := range s.ArrayCompareCondition {
-		tmp[fmt.Sprintf("%s", key)] = value
+		marshaled, err := json.Marshal(value)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal additional property %q: %w", key, err)
+		}
+		tmp[fmt.Sprintf("%s", key)] = marshaled
 	}
 	delete(tmp, "ArrayCompareCondition")
 

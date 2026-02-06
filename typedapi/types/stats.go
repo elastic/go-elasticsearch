@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // Stats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/nodes/_types/Stats.ts#L30-L114
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/nodes/_types/Stats.ts#L30-L114
 type Stats struct {
 	// AdaptiveSelection Statistics about adaptive replica selection.
 	AdaptiveSelection map[string]AdaptiveSelection `json:"adaptive_selection,omitempty"`

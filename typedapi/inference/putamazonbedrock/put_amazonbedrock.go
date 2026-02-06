@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 // Create an Amazon Bedrock inference endpoint.
 //
@@ -409,7 +409,7 @@ func (r *PutAmazonbedrock) Pretty(pretty bool) *PutAmazonbedrock {
 
 // The chunking configuration object.
 // Applies only to the `text_embedding` task type.
-// Not applicable to the `completion` task type.
+// Not applicable to the `chat_completion` and `completion` task types.
 // API name: chunking_settings
 func (r *PutAmazonbedrock) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAmazonbedrock {
 	// Initialize the request if it is not already initialized

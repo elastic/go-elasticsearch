@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package reindex
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package reindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_global/reindex/ReindexResponse.ts#L27-L97
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_global/reindex/ReindexResponse.ts#L27-L97
 type Response struct {
 	// Batches The number of scroll responses that were pulled back by the reindex.
 	Batches *int64 `json:"batches,omitempty"`

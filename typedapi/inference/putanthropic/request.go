@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package putanthropic
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putanthropic
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/put_anthropic/PutAnthropicRequest.ts#L30-L82
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/put_anthropic/PutAnthropicRequest.ts#L30-L82
 type Request struct {
 	// Service The type of service supported for the specified task type. In this case,
 	// `anthropic`.

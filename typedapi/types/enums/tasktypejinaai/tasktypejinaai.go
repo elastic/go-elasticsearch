@@ -16,19 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 // Package tasktypejinaai
 package tasktypejinaai
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/TaskType.ts#L31-L34
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/_types/TaskType.ts#L32-L36
 type TaskTypeJinaAi struct {
 	Name string
 }
 
 var (
+	Embedding = TaskTypeJinaAi{"embedding"}
+
 	Textembedding = TaskTypeJinaAi{"text_embedding"}
 
 	Rerank = TaskTypeJinaAi{"rerank"}
@@ -41,6 +43,8 @@ func (t TaskTypeJinaAi) MarshalText() (text []byte, err error) {
 func (t *TaskTypeJinaAi) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
+	case "embedding":
+		*t = Embedding
 	case "text_embedding":
 		*t = Textembedding
 	case "rerank":

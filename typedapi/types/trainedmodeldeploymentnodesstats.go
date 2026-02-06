@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TrainedModelDeploymentNodesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/ml/_types/TrainedModel.ts#L157-L202
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/ml/_types/TrainedModel.ts#L157-L202
 type TrainedModelDeploymentNodesStats struct {
 	// AverageInferenceTimeMs The average time for each inference call to complete on this node.
 	AverageInferenceTimeMs Float64 `json:"average_inference_time_ms,omitempty"`

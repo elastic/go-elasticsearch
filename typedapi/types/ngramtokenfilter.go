@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/analysis/token_filters.ts#L399-L407
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/analysis/token_filters.ts#L399-L407
 type NGramTokenFilter struct {
 	// MaxGram Maximum length of characters in a gram. Defaults to `2`.
 	MaxGram *int `json:"max_gram,omitempty"`
@@ -142,6 +142,9 @@ func (s *NGramTokenFilter) NGramTokenFilterCaster() *NGramTokenFilter {
 }
 
 func (s *NGramTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

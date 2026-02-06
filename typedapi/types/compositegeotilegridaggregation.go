@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // CompositeGeoTileGridAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/aggregations/bucket.ts#L200-L203
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/aggregations/bucket.ts#L200-L203
 type CompositeGeoTileGridAggregation struct {
 	Bounds GeoBounds `json:"bounds,omitempty"`
 	// Field Either `field` or `script` must be present

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,13 +31,14 @@ import (
 
 // RateLimitSetting type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/Services.ts#L428-L457
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/_types/Services.ts#L428-L458
 type RateLimitSetting struct {
 	// RequestsPerMinute The number of requests allowed per minute.
 	// By default, the number of requests allowed per minute is set by each service
 	// as follows:
 	//
 	// * `alibabacloud-ai-search` service: `1000`
+	// * `amazonbedrock` service: `240`
 	// * `anthropic` service: `50`
 	// * `azureaistudio` service: `240`
 	// * `azureopenai` service and task type `text_embedding`: `1440`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RRFRetrieverComponent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/Retriever.ts#L145-L156
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/Retriever.ts#L145-L156
 type RRFRetrieverComponent struct {
 	// Retriever The nested retriever configuration.
 	Retriever RetrieverContainer `json:"retriever"`
@@ -98,6 +98,9 @@ func (s *RRFRetrieverComponent) RRFRetrieverComponentCaster() *RRFRetrieverCompo
 }
 
 func (s *RRFRetrieverComponent) RRFRetrieverEntryCaster() *RRFRetrieverEntry {
+	if s == nil {
+		return nil
+	}
 	o := RRFRetrieverEntry(s)
 	return &o
 }

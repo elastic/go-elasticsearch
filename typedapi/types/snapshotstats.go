@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SnapshotStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/snapshot/_types/SnapshotStats.ts#L23-L42
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/snapshot/_types/SnapshotStats.ts#L23-L42
 type SnapshotStats struct {
 	// Incremental The number and size of files that still need to be copied as part of the
 	// incremental snapshot.

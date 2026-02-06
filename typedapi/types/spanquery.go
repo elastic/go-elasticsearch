@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SpanQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/query_dsl/span.ts#L159-L201
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/query_dsl/span.ts#L159-L201
 type SpanQuery struct {
 	AdditionalSpanQueryProperty map[string]json.RawMessage `json:"-"`
 	// SpanContaining Accepts a list of span queries, but only returns those spans which also match
@@ -137,7 +137,9 @@ func (s *SpanQuery) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "AdditionalSpanQueryProperty", err)
 				}
-				s.AdditionalSpanQueryProperty[key] = *raw
+				if raw != nil {
+					s.AdditionalSpanQueryProperty[key] = *raw
+				}
 			}
 
 		}
@@ -149,7 +151,7 @@ func (s *SpanQuery) UnmarshalJSON(data []byte) error {
 func (s SpanQuery) MarshalJSON() ([]byte, error) {
 	type opt SpanQuery
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {

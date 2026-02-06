@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,25 +31,25 @@ import (
 
 // AmazonBedrockTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/CommonTypes.ts#L446-L470
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/_types/CommonTypes.ts#L565-L589
 type AmazonBedrockTaskSettings struct {
-	// MaxNewTokens For a `completion` task, it sets the maximum number for the output tokens to
-	// be generated.
+	// MaxNewTokens For `chat_completion` and `completion` tasks, it sets the maximum number for
+	// the output tokens to be generated.
 	MaxNewTokens *int `json:"max_new_tokens,omitempty"`
-	// Temperature For a `completion` task, it is a number between 0.0 and 1.0 that controls the
-	// apparent creativity of the results.
+	// Temperature For `chat_completion` and `completion` tasks, it is a number between 0.0 and
+	// 1.0 that controls the apparent creativity of the results.
 	// At temperature 0.0 the model is most deterministic, at temperature 1.0 most
 	// random.
 	// It should not be used if `top_p` or `top_k` is specified.
 	Temperature *float32 `json:"temperature,omitempty"`
-	// TopK For a `completion` task, it limits samples to the top-K most likely words,
-	// balancing coherence and variability.
+	// TopK For `chat_completion` and `completion` tasks, it limits samples to the top-K
+	// most likely words, balancing coherence and variability.
 	// It is only available for anthropic, cohere, and mistral providers.
 	// It is an alternative to `temperature`; it should not be used if `temperature`
 	// is specified.
 	TopK *float32 `json:"top_k,omitempty"`
-	// TopP For a `completion` task, it is a number in the range of 0.0 to 1.0, to
-	// eliminate low-probability tokens.
+	// TopP For `chat_completion` and `completion` tasks, it is a number in the range of
+	// 0.0 to 1.0, to eliminate low-probability tokens.
 	// Top-p uses nucleus sampling to select top tokens whose sum of likelihoods
 	// does not exceed a certain value, ensuring both variety and coherence.
 	// It is an alternative to `temperature`; it should not be used if `temperature`

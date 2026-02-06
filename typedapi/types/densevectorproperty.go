@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // DenseVectorProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/mapping/DenseVectorProperty.ts#L23-L62
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/mapping/DenseVectorProperty.ts#L23-L62
 type DenseVectorProperty struct {
 	// Dims Number of vector dimensions. Can't exceed `4096`. If `dims` is not specified,
 	// it will be set to the length of
@@ -913,6 +913,9 @@ func (s *DenseVectorProperty) DenseVectorPropertyCaster() *DenseVectorProperty {
 }
 
 func (s *DenseVectorProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

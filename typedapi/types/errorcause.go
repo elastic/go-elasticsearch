@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ErrorCause type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/Errors.ts#L25-L50
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/Errors.ts#L25-L50
 type ErrorCause struct {
 	CausedBy *ErrorCause                `json:"caused_by,omitempty"`
 	Metadata map[string]json.RawMessage `json:"-"`
@@ -128,7 +128,9 @@ func (s *ErrorCause) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "Metadata", err)
 				}
-				s.Metadata[key] = *raw
+				if raw != nil {
+					s.Metadata[key] = *raw
+				}
 			}
 
 		}
@@ -140,7 +142,7 @@ func (s *ErrorCause) UnmarshalJSON(data []byte) error {
 func (s ErrorCause) MarshalJSON() ([]byte, error) {
 	type opt ErrorCause
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {

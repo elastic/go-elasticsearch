@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -26,13 +26,16 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // SparseEmbeddingResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/inference/_types/Results.ts#L36-L38
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/_types/Results.ts#L36-L42
 type SparseEmbeddingResult struct {
 	Embedding SparseVector `json:"embedding"`
+	// IsTruncated Indicates if the text input was truncated in the request sent to the service
+	IsTruncated bool `json:"is_truncated"`
 }
 
 func (s *SparseEmbeddingResult) UnmarshalJSON(data []byte) error {
@@ -53,6 +56,20 @@ func (s *SparseEmbeddingResult) UnmarshalJSON(data []byte) error {
 		case "embedding":
 			if err := dec.Decode(&s.Embedding); err != nil {
 				return fmt.Errorf("%s | %w", "Embedding", err)
+			}
+
+		case "is_truncated":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IsTruncated", err)
+				}
+				s.IsTruncated = value
+			case bool:
+				s.IsTruncated = v
 			}
 
 		}

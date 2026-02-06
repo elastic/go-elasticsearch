@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 // Update an inference endpoint.
 //
@@ -417,7 +417,8 @@ func (r *Update) Pretty(pretty bool) *Update {
 }
 
 // The chunking configuration object.
-// Applies only to the `sparse_embedding` and `text_embedding` task types.
+// Applies only to the `embedding`, `sparse_embedding` and `text_embedding` task
+// types.
 // Not applicable to the `rerank`, `completion`, or `chat_completion` task
 // types.
 // API name: chunking_settings

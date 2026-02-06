@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package info
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package info
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/nodes/info/NodesInfoResponse.ts#L30-L33
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/nodes/info/NodesInfoResponse.ts#L30-L33
 type Response struct {
 	ClusterName string `json:"cluster_name"`
 	// NodeStats Contains statistics about the number of nodes selected by the request’s node

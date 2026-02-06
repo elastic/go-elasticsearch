@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package esdsl
 
 import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/jinaaielementtype"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/jinaaisimilaritytype"
 )
 
@@ -29,11 +30,13 @@ type _jinaAIServiceSettings struct {
 	v *types.JinaAIServiceSettings
 }
 
-func NewJinaAIServiceSettings(apikey string) *_jinaAIServiceSettings {
+func NewJinaAIServiceSettings(apikey string, modelid string) *_jinaAIServiceSettings {
 
 	tmp := &_jinaAIServiceSettings{v: types.NewJinaAIServiceSettings()}
 
 	tmp.ApiKey(apikey)
+
+	tmp.ModelId(modelid)
 
 	return tmp
 
@@ -46,9 +49,29 @@ func (s *_jinaAIServiceSettings) ApiKey(apikey string) *_jinaAIServiceSettings {
 	return s
 }
 
+func (s *_jinaAIServiceSettings) Dimensions(dimensions int) *_jinaAIServiceSettings {
+
+	s.v.Dimensions = &dimensions
+
+	return s
+}
+
+func (s *_jinaAIServiceSettings) ElementType(elementtype jinaaielementtype.JinaAIElementType) *_jinaAIServiceSettings {
+
+	s.v.ElementType = &elementtype
+	return s
+}
+
 func (s *_jinaAIServiceSettings) ModelId(modelid string) *_jinaAIServiceSettings {
 
-	s.v.ModelId = &modelid
+	s.v.ModelId = modelid
+
+	return s
+}
+
+func (s *_jinaAIServiceSettings) MultimodalModel(multimodalmodel bool) *_jinaAIServiceSettings {
+
+	s.v.MultimodalModel = &multimodalmodel
 
 	return s
 }

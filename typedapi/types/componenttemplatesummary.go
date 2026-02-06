@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ComponentTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/cluster/_types/ComponentTemplate.ts#L69-L86
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/cluster/_types/ComponentTemplate.ts#L69-L86
 type ComponentTemplateSummary struct {
 	Aliases           map[string]AliasDefinition       `json:"aliases,omitempty"`
 	DataStreamOptions *DataStreamOptions               `json:"data_stream_options,omitempty"`

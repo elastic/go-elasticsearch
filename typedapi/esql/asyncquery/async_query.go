@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 // Run an async ES|QL query.
 //
@@ -497,6 +497,8 @@ func (r *AsyncQuery) KeepOnCompletion(keeponcompletion bool) *AsyncQuery {
 	return r
 }
 
+// Returns results (especially dates) formatted per the conventions of the
+// locale.
 // API name: locale
 func (r *AsyncQuery) Locale(locale string) *AsyncQuery {
 	// Initialize the request if it is not already initialized
@@ -567,6 +569,19 @@ func (r *AsyncQuery) Tables(tables map[string]map[string]types.TableValuesContai
 		r.req = NewRequest()
 	}
 	r.req.Tables = tables
+	return r
+}
+
+// Sets the default timezone of the query.
+// API name: time_zone
+func (r *AsyncQuery) TimeZone(timezone string) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.TimeZone = &timezone
+
 	return r
 }
 

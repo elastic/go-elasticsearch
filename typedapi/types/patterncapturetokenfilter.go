@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // PatternCaptureTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/analysis/token_filters.ts#L409-L415
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/analysis/token_filters.ts#L409-L415
 type PatternCaptureTokenFilter struct {
 	// Patterns A list of regular expressions to match.
 	Patterns []string `json:"patterns"`
@@ -111,6 +111,9 @@ func (s *PatternCaptureTokenFilter) PatternCaptureTokenFilterCaster() *PatternCa
 }
 
 func (s *PatternCaptureTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

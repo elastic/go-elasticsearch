@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package updatesettings
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package updatesettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/watcher/update_settings/WatcherUpdateSettingsRequest.ts#L25-L66
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/watcher/update_settings/WatcherUpdateSettingsRequest.ts#L25-L66
 type Request struct {
 	IndexAutoExpandReplicas *string `json:"index.auto_expand_replicas,omitempty"`
 	IndexNumberOfReplicas   *int    `json:"index.number_of_replicas,omitempty"`

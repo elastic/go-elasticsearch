@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // UpdatedDataStreamMappings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/indices/put_data_stream_mappings/IndicesPutDataStreamMappingsResponse.ts#L30-L51
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/indices/put_data_stream_mappings/IndicesPutDataStreamMappingsResponse.ts#L30-L51
 type UpdatedDataStreamMappings struct {
 	// AppliedToDataStream If the mappings were successfully applied to the data stream (or would have
 	// been, if running in `dry_run`

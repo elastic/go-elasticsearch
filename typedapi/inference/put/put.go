@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 // Create an inference endpoint.
 //
@@ -35,7 +35,7 @@
 // * AI21 (`chat_completion`, `completion`)
 // * AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
 // `text_embedding`)
-// * Amazon Bedrock (`completion`, `text_embedding`)
+// * Amazon Bedrock (`chat_completion`, `completion`, `text_embedding`)
 // * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
 // `sparse_embedding`, `text_embedding`)
 // * Anthropic (`completion`)
@@ -51,7 +51,7 @@
 // `text_embedding`)
 // * Groq (`chat_completion`)
 // * Hugging Face (`chat_completion`, `completion`, `rerank`, `text_embedding`)
-// * JinaAI (`rerank`, `text_embedding`)
+// * JinaAI (`embedding`, `rerank`, `text_embedding`)
 // * Llama (`chat_completion`, `completion`, `text_embedding`)
 // * Mistral (`chat_completion`, `completion`, `text_embedding`)
 // * Nvidia (`chat_completion`, `completion`, `text_embedding`, `rerank`)
@@ -141,7 +141,7 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 // * AI21 (`chat_completion`, `completion`)
 // * AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
 // `text_embedding`)
-// * Amazon Bedrock (`completion`, `text_embedding`)
+// * Amazon Bedrock (`chat_completion`, `completion`, `text_embedding`)
 // * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
 // `sparse_embedding`, `text_embedding`)
 // * Anthropic (`completion`)
@@ -157,7 +157,7 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 // `text_embedding`)
 // * Groq (`chat_completion`)
 // * Hugging Face (`chat_completion`, `completion`, `rerank`, `text_embedding`)
-// * JinaAI (`rerank`, `text_embedding`)
+// * JinaAI (`embedding`, `rerank`, `text_embedding`)
 // * Llama (`chat_completion`, `completion`, `text_embedding`)
 // * Mistral (`chat_completion`, `completion`, `text_embedding`)
 // * Nvidia (`chat_completion`, `completion`, `text_embedding`, `rerank`)
@@ -475,7 +475,8 @@ func (r *Put) Pretty(pretty bool) *Put {
 }
 
 // The chunking configuration object.
-// Applies only to the `sparse_embedding` and `text_embedding` task types.
+// Applies only to the `embedding`, `sparse_embedding` and `text_embedding` task
+// types.
 // Not applicable to the `rerank`, `completion`, or `chat_completion` task
 // types.
 // API name: chunking_settings

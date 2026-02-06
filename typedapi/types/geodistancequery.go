@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6785a6caa1fa3ca5ab3308963d79dce923a3469f
+// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoDistanceQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6785a6caa1fa3ca5ab3308963d79dce923a3469f/specification/_types/query_dsl/geo.ts#L64-L96
+// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/query_dsl/geo.ts#L64-L96
 type GeoDistanceQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -143,7 +143,9 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "GeoDistanceQuery", err)
 				}
-				s.GeoDistanceQuery[key] = *raw
+				if raw != nil {
+					s.GeoDistanceQuery[key] = *raw
+				}
 			}
 
 		}
@@ -155,7 +157,7 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 func (s GeoDistanceQuery) MarshalJSON() ([]byte, error) {
 	type opt GeoDistanceQuery
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]any, 0)
+	tmp := make(map[string]json.RawMessage, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {
@@ -168,7 +170,11 @@ func (s GeoDistanceQuery) MarshalJSON() ([]byte, error) {
 
 	// We inline the additional fields from the underlying map
 	for key, value := range s.GeoDistanceQuery {
-		tmp[fmt.Sprintf("%s", key)] = value
+		marshaled, err := json.Marshal(value)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal additional property %q: %w", key, err)
+		}
+		tmp[fmt.Sprintf("%s", key)] = marshaled
 	}
 	delete(tmp, "GeoDistanceQuery")
 
