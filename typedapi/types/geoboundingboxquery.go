@@ -132,7 +132,9 @@ func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "GeoBoundingBoxQuery", err)
 				}
-				s.GeoBoundingBoxQuery[key] = *raw
+				if raw != nil {
+					s.GeoBoundingBoxQuery[key] = *raw
+				}
 			}
 
 		}

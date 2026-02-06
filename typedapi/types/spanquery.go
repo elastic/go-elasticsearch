@@ -137,7 +137,9 @@ func (s *SpanQuery) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "AdditionalSpanQueryProperty", err)
 				}
-				s.AdditionalSpanQueryProperty[key] = *raw
+				if raw != nil {
+					s.AdditionalSpanQueryProperty[key] = *raw
+				}
 			}
 
 		}

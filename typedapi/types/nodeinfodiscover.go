@@ -97,7 +97,9 @@ func (s *NodeInfoDiscover) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "NodeInfoDiscover", err)
 				}
-				s.NodeInfoDiscover[key] = *raw
+				if raw != nil {
+					s.NodeInfoDiscover[key] = *raw
+				}
 			}
 
 		}

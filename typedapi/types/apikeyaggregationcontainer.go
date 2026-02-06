@@ -150,7 +150,9 @@ func (s *ApiKeyAggregationContainer) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "AdditionalApiKeyAggregationContainerProperty", err)
 				}
-				s.AdditionalApiKeyAggregationContainerProperty[key] = *raw
+				if raw != nil {
+					s.AdditionalApiKeyAggregationContainerProperty[key] = *raw
+				}
 			}
 
 		}

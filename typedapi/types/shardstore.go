@@ -80,7 +80,9 @@ func (s *ShardStore) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "ShardStore", err)
 				}
-				s.ShardStore[key] = *raw
+				if raw != nil {
+					s.ShardStore[key] = *raw
+				}
 			}
 
 		}
