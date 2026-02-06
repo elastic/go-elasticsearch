@@ -2,7 +2,7 @@ module github.com/elastic/go-elasticsearch/v9/internal/build
 
 go 1.24.0
 
-toolchain go1.24.2
+toolchain go1.24.13
 
 replace github.com/elastic/go-elasticsearch/v9 => ../../
 
