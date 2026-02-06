@@ -2,7 +2,7 @@ module _examples
 
 go 1.24
 
-toolchain go1.24.12
+toolchain go1.24.13
 
 replace github.com/elastic/go-elasticsearch/v9 => ../
 
