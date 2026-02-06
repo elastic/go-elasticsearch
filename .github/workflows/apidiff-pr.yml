@@ -3,7 +3,11 @@ name: Apidiff PR
 
 on:
   pull_request:
-    types: [opened, synchronize, labeled, unlabeled]
+    types: [opened, synchronize, labeled]
+
+concurrency:
+  group: apidiff-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
