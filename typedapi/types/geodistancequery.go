@@ -143,7 +143,9 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "GeoDistanceQuery", err)
 				}
-				s.GeoDistanceQuery[key] = *raw
+				if raw != nil {
+					s.GeoDistanceQuery[key] = *raw
+				}
 			}
 
 		}

@@ -113,7 +113,9 @@ func (s *Tags) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "Tags", err)
 				}
-				s.Tags[key] = *raw
+				if raw != nil {
+					s.Tags[key] = *raw
+				}
 			}
 
 		}

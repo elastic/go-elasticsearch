@@ -98,7 +98,9 @@ func (s *InferenceAggregate) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "Data", err)
 				}
-				s.Data[key] = *raw
+				if raw != nil {
+					s.Data[key] = *raw
+				}
 			}
 
 		}

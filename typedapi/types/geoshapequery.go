@@ -114,7 +114,9 @@ func (s *GeoShapeQuery) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "GeoShapeQuery", err)
 				}
-				s.GeoShapeQuery[key] = *raw
+				if raw != nil {
+					s.GeoShapeQuery[key] = *raw
+				}
 			}
 
 		}

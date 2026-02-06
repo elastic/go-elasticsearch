@@ -21,8 +21,11 @@
 package types
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/multivaluemode"
 )
@@ -35,6 +38,46 @@ type DateDecayFunction struct {
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the
 	// decay contains multiple values.
 	MultiValueMode *multivaluemode.MultiValueMode `json:"multi_value_mode,omitempty"`
+}
+
+func (s *DateDecayFunction) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "multi_value_mode":
+			if err := dec.Decode(&s.MultiValueMode); err != nil {
+				return fmt.Errorf("%s | %w", "MultiValueMode", err)
+			}
+
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.DecayFunctionBaseDateMathDuration == nil {
+					s.DecayFunctionBaseDateMathDuration = make(map[string]DecayPlacementDateMathDuration, 0)
+				}
+				raw := NewDecayPlacementDateMathDuration()
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "DecayFunctionBaseDateMathDuration", err)
+				}
+				if raw != nil {
+					s.DecayFunctionBaseDateMathDuration[key] = *raw
+				}
+			}
+
+		}
+	}
+	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties

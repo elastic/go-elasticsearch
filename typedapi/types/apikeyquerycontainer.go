@@ -170,7 +170,9 @@ func (s *ApiKeyQueryContainer) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "AdditionalApiKeyQueryContainerProperty", err)
 				}
-				s.AdditionalApiKeyQueryContainerProperty[key] = *raw
+				if raw != nil {
+					s.AdditionalApiKeyQueryContainerProperty[key] = *raw
+				}
 			}
 
 		}

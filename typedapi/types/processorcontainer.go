@@ -21,8 +21,11 @@
 package types
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 )
 
 // ProcessorContainer type.
@@ -215,6 +218,266 @@ type ProcessorContainer struct {
 	// browser sends with its web requests.
 	// This processor adds this information by default under the `user_agent` field.
 	UserAgent *UserAgentProcessor `json:"user_agent,omitempty"`
+}
+
+func (s *ProcessorContainer) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "append":
+			if err := dec.Decode(&s.Append); err != nil {
+				return fmt.Errorf("%s | %w", "Append", err)
+			}
+
+		case "attachment":
+			if err := dec.Decode(&s.Attachment); err != nil {
+				return fmt.Errorf("%s | %w", "Attachment", err)
+			}
+
+		case "bytes":
+			if err := dec.Decode(&s.Bytes); err != nil {
+				return fmt.Errorf("%s | %w", "Bytes", err)
+			}
+
+		case "circle":
+			if err := dec.Decode(&s.Circle); err != nil {
+				return fmt.Errorf("%s | %w", "Circle", err)
+			}
+
+		case "community_id":
+			if err := dec.Decode(&s.CommunityId); err != nil {
+				return fmt.Errorf("%s | %w", "CommunityId", err)
+			}
+
+		case "convert":
+			if err := dec.Decode(&s.Convert); err != nil {
+				return fmt.Errorf("%s | %w", "Convert", err)
+			}
+
+		case "csv":
+			if err := dec.Decode(&s.Csv); err != nil {
+				return fmt.Errorf("%s | %w", "Csv", err)
+			}
+
+		case "date":
+			if err := dec.Decode(&s.Date); err != nil {
+				return fmt.Errorf("%s | %w", "Date", err)
+			}
+
+		case "date_index_name":
+			if err := dec.Decode(&s.DateIndexName); err != nil {
+				return fmt.Errorf("%s | %w", "DateIndexName", err)
+			}
+
+		case "dissect":
+			if err := dec.Decode(&s.Dissect); err != nil {
+				return fmt.Errorf("%s | %w", "Dissect", err)
+			}
+
+		case "dot_expander":
+			if err := dec.Decode(&s.DotExpander); err != nil {
+				return fmt.Errorf("%s | %w", "DotExpander", err)
+			}
+
+		case "drop":
+			if err := dec.Decode(&s.Drop); err != nil {
+				return fmt.Errorf("%s | %w", "Drop", err)
+			}
+
+		case "enrich":
+			if err := dec.Decode(&s.Enrich); err != nil {
+				return fmt.Errorf("%s | %w", "Enrich", err)
+			}
+
+		case "fail":
+			if err := dec.Decode(&s.Fail); err != nil {
+				return fmt.Errorf("%s | %w", "Fail", err)
+			}
+
+		case "fingerprint":
+			if err := dec.Decode(&s.Fingerprint); err != nil {
+				return fmt.Errorf("%s | %w", "Fingerprint", err)
+			}
+
+		case "foreach":
+			if err := dec.Decode(&s.Foreach); err != nil {
+				return fmt.Errorf("%s | %w", "Foreach", err)
+			}
+
+		case "geo_grid":
+			if err := dec.Decode(&s.GeoGrid); err != nil {
+				return fmt.Errorf("%s | %w", "GeoGrid", err)
+			}
+
+		case "geoip":
+			if err := dec.Decode(&s.Geoip); err != nil {
+				return fmt.Errorf("%s | %w", "Geoip", err)
+			}
+
+		case "grok":
+			if err := dec.Decode(&s.Grok); err != nil {
+				return fmt.Errorf("%s | %w", "Grok", err)
+			}
+
+		case "gsub":
+			if err := dec.Decode(&s.Gsub); err != nil {
+				return fmt.Errorf("%s | %w", "Gsub", err)
+			}
+
+		case "html_strip":
+			if err := dec.Decode(&s.HtmlStrip); err != nil {
+				return fmt.Errorf("%s | %w", "HtmlStrip", err)
+			}
+
+		case "inference":
+			if err := dec.Decode(&s.Inference); err != nil {
+				return fmt.Errorf("%s | %w", "Inference", err)
+			}
+
+		case "ip_location":
+			if err := dec.Decode(&s.IpLocation); err != nil {
+				return fmt.Errorf("%s | %w", "IpLocation", err)
+			}
+
+		case "join":
+			if err := dec.Decode(&s.Join); err != nil {
+				return fmt.Errorf("%s | %w", "Join", err)
+			}
+
+		case "json":
+			if err := dec.Decode(&s.Json); err != nil {
+				return fmt.Errorf("%s | %w", "Json", err)
+			}
+
+		case "kv":
+			if err := dec.Decode(&s.Kv); err != nil {
+				return fmt.Errorf("%s | %w", "Kv", err)
+			}
+
+		case "lowercase":
+			if err := dec.Decode(&s.Lowercase); err != nil {
+				return fmt.Errorf("%s | %w", "Lowercase", err)
+			}
+
+		case "network_direction":
+			if err := dec.Decode(&s.NetworkDirection); err != nil {
+				return fmt.Errorf("%s | %w", "NetworkDirection", err)
+			}
+
+		case "pipeline":
+			if err := dec.Decode(&s.Pipeline); err != nil {
+				return fmt.Errorf("%s | %w", "Pipeline", err)
+			}
+
+		case "redact":
+			if err := dec.Decode(&s.Redact); err != nil {
+				return fmt.Errorf("%s | %w", "Redact", err)
+			}
+
+		case "registered_domain":
+			if err := dec.Decode(&s.RegisteredDomain); err != nil {
+				return fmt.Errorf("%s | %w", "RegisteredDomain", err)
+			}
+
+		case "remove":
+			if err := dec.Decode(&s.Remove); err != nil {
+				return fmt.Errorf("%s | %w", "Remove", err)
+			}
+
+		case "rename":
+			if err := dec.Decode(&s.Rename); err != nil {
+				return fmt.Errorf("%s | %w", "Rename", err)
+			}
+
+		case "reroute":
+			if err := dec.Decode(&s.Reroute); err != nil {
+				return fmt.Errorf("%s | %w", "Reroute", err)
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return fmt.Errorf("%s | %w", "Script", err)
+			}
+
+		case "set":
+			if err := dec.Decode(&s.Set); err != nil {
+				return fmt.Errorf("%s | %w", "Set", err)
+			}
+
+		case "set_security_user":
+			if err := dec.Decode(&s.SetSecurityUser); err != nil {
+				return fmt.Errorf("%s | %w", "SetSecurityUser", err)
+			}
+
+		case "sort":
+			if err := dec.Decode(&s.Sort); err != nil {
+				return fmt.Errorf("%s | %w", "Sort", err)
+			}
+
+		case "split":
+			if err := dec.Decode(&s.Split); err != nil {
+				return fmt.Errorf("%s | %w", "Split", err)
+			}
+
+		case "terminate":
+			if err := dec.Decode(&s.Terminate); err != nil {
+				return fmt.Errorf("%s | %w", "Terminate", err)
+			}
+
+		case "trim":
+			if err := dec.Decode(&s.Trim); err != nil {
+				return fmt.Errorf("%s | %w", "Trim", err)
+			}
+
+		case "uppercase":
+			if err := dec.Decode(&s.Uppercase); err != nil {
+				return fmt.Errorf("%s | %w", "Uppercase", err)
+			}
+
+		case "uri_parts":
+			if err := dec.Decode(&s.UriParts); err != nil {
+				return fmt.Errorf("%s | %w", "UriParts", err)
+			}
+
+		case "urldecode":
+			if err := dec.Decode(&s.Urldecode); err != nil {
+				return fmt.Errorf("%s | %w", "Urldecode", err)
+			}
+
+		case "user_agent":
+			if err := dec.Decode(&s.UserAgent); err != nil {
+				return fmt.Errorf("%s | %w", "UserAgent", err)
+			}
+
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.AdditionalProcessorContainerProperty == nil {
+					s.AdditionalProcessorContainerProperty = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "AdditionalProcessorContainerProperty", err)
+				}
+				if raw != nil {
+					s.AdditionalProcessorContainerProperty[key] = *raw
+				}
+			}
+
+		}
+	}
+	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties

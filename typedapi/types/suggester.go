@@ -76,7 +76,9 @@ func (s *Suggester) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "Suggesters", err)
 				}
-				s.Suggesters[key] = *raw
+				if raw != nil {
+					s.Suggesters[key] = *raw
+				}
 			}
 
 		}

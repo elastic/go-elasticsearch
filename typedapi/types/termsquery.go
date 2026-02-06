@@ -96,7 +96,9 @@ func (s *TermsQuery) UnmarshalJSON(data []byte) error {
 				if err := dec.Decode(&raw); err != nil {
 					return fmt.Errorf("%s | %w", "TermsQuery", err)
 				}
-				s.TermsQuery[key] = *raw
+				if raw != nil {
+					s.TermsQuery[key] = *raw
+				}
 			}
 
 		}
