@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.2.3](https://github.com/elastic/go-elasticsearch/compare/v9.2.2...v9.2.3) (2026-02-06)
+
+
+### Bug Fixes
+
+* **Typed API:** Add field-level nil checks during deserialisation ([#1224](https://github.com/elastic/go-elasticsearch/issues/1224)) ([59f268f](https://github.com/elastic/go-elasticsearch/commit/59f268fed33119c033c630f0b8d9959e4fd93e01))
+* **Typed API:** Add missing custom UnmarshalJSON methods for types with additional properties ([59f268f](https://github.com/elastic/go-elasticsearch/commit/59f268fed33119c033c630f0b8d9959e4fd93e01))
+
 ## [9.2.2](https://github.com/elastic/go-elasticsearch/compare/v9.2.1...v9.2.2) (2026-02-04)
 
 
