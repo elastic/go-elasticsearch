@@ -6,7 +6,7 @@ on:
     types: [opened, synchronize, labeled]
 
 concurrency:
-  group: apidiff-${{ github.event.pull_request.number }}
+  group: apidiff-${{ github.workflow }}-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 permissions:
