@@ -3,7 +3,7 @@ name: Bump Go Version
 
 on:
   schedule:
-    - cron: "0 2 * * 1"
+    - cron: "0 8 * * *"
   workflow_dispatch:
 
 permissions:
@@ -30,50 +30,89 @@ jobs:
         run: |
           set -euo pipefail
 
-          latest_two=$(curl -s https://go.dev/dl/?mode=json | jq -r '
-            reduce (
-              .[] |
-              select(.stable == true) |
-              .version |
-              sub("^go";"")
-            ) as $v
-            ([]; 
-              ($v | split(".") | .[0:2] | join(".")) as $minor |
-              if (map(.minor) | index($minor)) then . else . + [{minor: $minor, patch: $v}] end
-            )
-            | .[0:2]
-            | map("\(.minor)\t\(.patch)")
-            | .[]
-          ')
+          # Determine the latest stable Go minor, and the penultimate stable Go minor.
+          # For the penultimate minor, we also need its latest patch (for toolchain).
+          latest_two=$(
+            curl -fsSL https://go.dev/dl/?mode=json \
+              | jq -r '.[] | select(.stable == true) | .version | sub("^go";"")' \
+              | sort -Vr \
+              | awk -F. '
+                  {
+                    minor = $1 "." $2
+                    if (!(minor in seen)) {
+                      seen[minor] = $0
+                      print minor "\t" $0
+                    }
+                  }
+                ' \
+              | head -n 2
+          )
 
           latest1_minor=$(echo "$latest_two" | awk 'NR==1{print $1}')
           latest2_minor=$(echo "$latest_two" | awk 'NR==2{print $1}')
           latest2_patch=$(echo "$latest_two" | awk 'NR==2{print $2}')
           target_minor=$latest2_minor
           target_patch=$latest2_patch
+          desired_toolchain="go${target_patch}"
 
-          mapfile -t go_mod_files < <(find . -name go.mod -print \
-            | grep -v '^./internal/build/')
+          if [[ -z "${latest1_minor}" || -z "${latest2_minor}" || -z "${latest2_patch}" ]]; then
+            echo "Failed to determine Go versions from go.dev" >&2
+            exit 1
+          fi
+
+          # List all go.mod files, ignoring any transient permission errors from find.
+          mapfile -t go_mod_files < <(find . -name go.mod -print 2>/dev/null | sort)
 
           needs_update=false
           updates=()
           updated_files=()
+          root_go_changed=false
 
           for mod_file in "${go_mod_files[@]}"; do
-            current_go=$(awk '/^go / {print $2}' "$mod_file")
+            current_go=$(awk '/^go / {print $2; exit}' "$mod_file")
+            current_minor=$(echo "${current_go}" | awk -F. '{print $1 "." $2}')
+            current_toolchain=$(awk '/^toolchain / {print $2; exit}' "$mod_file" || true)
 
-            if [[ "$current_go" == "$latest1_minor" || "$current_go" == "$latest2_minor" ]]; then
-              continue
+            module_changed=false
+            go_from="${current_go}"
+            go_to="${current_go}"
+            toolchain_from="${current_toolchain}"
+            if [[ -z "${toolchain_from}" ]]; then
+              toolchain_from="(missing)"
             fi
 
-            sed -i -e "s/^go .*/go ${target_minor}/" "$mod_file"
-            if grep -q '^toolchain ' "$mod_file"; then
-              sed -i -e "s/^toolchain .*/toolchain go${target_patch}/" "$mod_file"
+            # Update the go directive only when the minor differs. Preserve formatting (go 1.x vs go 1.x.y).
+            if [[ "${current_minor}" != "${target_minor}" ]]; then
+              if [[ "${current_go}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                go_to="${target_minor}.0"
+              else
+                go_to="${target_minor}"
+              fi
+              sed -i -e "s/^go .*/go ${go_to}/" "$mod_file"
+              module_changed=true
+
+              # Only treat this as a breaking change when the root module's go directive changes
+              # (ie. a Go minor bump), not when only toolchain patch changes.
+              if [[ "${mod_file#./}" == "go.mod" ]]; then
+                root_go_changed=true
+              fi
             fi
 
-            updates+=("${mod_file#./}: ${current_go} -> ${target_minor}")
-            updated_files+=("${mod_file#./}")
-            needs_update=true
+            # Always enforce toolchain for the target patch (update or insert).
+            if [[ "${current_toolchain}" != "${desired_toolchain}" ]]; then
+              if grep -q '^toolchain ' "$mod_file"; then
+                sed -i -e "s/^toolchain .*/toolchain ${desired_toolchain}/" "$mod_file"
+              else
+                sed -i -e "/^go /a toolchain ${desired_toolchain}" "$mod_file"
+              fi
+              module_changed=true
+            fi
+
+            if [[ "${module_changed}" == "true" ]]; then
+              updates+=("| \`${mod_file#./}\` | \`${go_from}\` -> \`${go_to}\` | \`${toolchain_from}\` -> \`${desired_toolchain}\` |")
+              updated_files+=("${mod_file#./}")
+              needs_update=true
+            fi
           done
 
           if [[ "$needs_update" == "false" ]]; then
@@ -88,14 +127,13 @@ jobs:
             echo "target_minor=$target_minor"
             echo "target_patch=$target_patch"
             echo "target=$target_patch"
+            if [[ "${root_go_changed}" == "true" ]]; then
+              echo "commit_type=feat!"
+            else
+              echo "commit_type=chore"
+            fi
             echo "updated_modules<<EOF"
-            for entry in "${updates[@]}"; do
-              file="${entry%%:*}"
-              change="${entry#*: }"
-              from="${change%% -> *}"
-              to="${change##* -> }"
-              echo "| \`${file}\` | ${from} | ${to} |"
-            done
+            for entry in "${updates[@]}"; do echo "$entry"; done
             echo "EOF"
             echo "updated_files<<EOF"
             for entry in "${updated_files[@]}"; do
@@ -121,9 +159,7 @@ jobs:
           while IFS= read -r mod_file; do
             [[ -z "$mod_file" ]] && continue
             mod_dir=$(dirname "$mod_file")
-            if [[ -f "${mod_dir}/go.sum" ]]; then
-              (cd "$mod_dir" && go mod tidy)
-            fi
+            (cd "$mod_dir" && go mod tidy)
           done <<'EOF'
           ${{ steps.go-versions.outputs.updated_files }}
           EOF
@@ -133,18 +169,18 @@ jobs:
         uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8.0.0
         with:
           token: ${{ steps.fetch-token.outputs.token }}
-          commit-message: "feat!: bump go version to ${{ steps.go-versions.outputs.target }}"
+          commit-message: "${{ steps.go-versions.outputs.commit_type }}: bump go version to ${{ steps.go-versions.outputs.target }}"
           committer: "Elastic Machine <elasticmachine@users.noreply.github.com>"
           author: "Elastic Machine <elasticmachine@users.noreply.github.com>"
           branch: "go-version-bump--branches--main"
           delete-branch: true
           base: main
-          title: "feat!: bump go version to ${{ steps.go-versions.outputs.target }}"
+          title: "${{ steps.go-versions.outputs.commit_type }}: bump go version to ${{ steps.go-versions.outputs.target }}"
           body: |
             Bumps Go version to ${{ steps.go-versions.outputs.target }}.
 
             Updated go.mod files:
 
-            | Module | From | To |
+            | Module | go | toolchain |
             | --- | --- | --- |
             ${{ steps.go-versions.outputs.updated_modules }}
