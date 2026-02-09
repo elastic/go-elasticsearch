@@ -55,6 +55,16 @@ indexer.Add(
 indexer.Close(context.Background())
 ```
 
+## `typed.go`
+
+The [`typed.go`](typed.go) example demonstrates how to use the typed Bulk API to build a bulk request by appending operations (for example `IndexOp`) and then executing it with `Do()`.
+
+```bash
+go run typed.go -count=100000 -batch=1000
+
+# Typed Bulk: documents [100,000] batch size [1,000]
+```
+
 ## `base64.go`
 
 The [`base64.go`](base64.go) example demonstrates indexing dense vectors using base64 encoding
