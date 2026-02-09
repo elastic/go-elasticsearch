@@ -440,9 +440,7 @@ func (w *worker) run() {
 
 				oversizePayload := w.bi.config.FlushBytes <= item.payloadLength
 				if !oversizePayload && w.buf.Len() > 0 && w.buf.Len()+item.payloadLength >= w.bi.config.FlushBytes {
-					if !w.flush(ctx) {
-						continue
-					}
+					w.flush(ctx)
 				}
 
 				if err := w.writeMeta(&item); err != nil {
