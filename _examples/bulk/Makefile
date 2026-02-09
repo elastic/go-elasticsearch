@@ -10,7 +10,7 @@ test-indexer:
 	go run indexer.go
 
 test-typed:
-	go run typed.go
+	go run -tags bulk_typed typed.go
 
 test-base64:
 	go run base64.go

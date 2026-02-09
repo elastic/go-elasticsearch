@@ -22,7 +22,7 @@
 //
 // You can configure the number of documents and the batch size with command line flags:
 //
-//	go run typed.go -count=10000 -batch=1000
+//	go run -tags bulk_typed typed.go -count=10000 -batch=1000
 package main
 
 import (
@@ -62,6 +62,9 @@ func init() {
 	flag.IntVar(&batch, "batch", 1000, "Number of documents to send in one batch")
 	flag.Parse()
 
+	if batch <= 0 {
+		log.Fatalf("invalid value for -batch: %d (must be > 0)", batch)
+	}
 	rand.Seed(time.Now().UnixNano())
 }
 

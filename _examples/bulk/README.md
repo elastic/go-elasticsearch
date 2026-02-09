@@ -60,7 +60,7 @@ indexer.Close(context.Background())
 The [`typed.go`](typed.go) example demonstrates how to use the typed Bulk API to build a bulk request by appending operations (for example `IndexOp`) and then executing it with `Do()`.
 
 ```bash
-go run typed.go -count=100000 -batch=1000
+go run -tags bulk_typed typed.go -count=100000 -batch=1000
 
 # Typed Bulk: documents [100,000] batch size [1,000]
 ```
