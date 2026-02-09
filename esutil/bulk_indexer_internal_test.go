@@ -1269,6 +1269,72 @@ func TestBulkIndexer(t *testing.T) {
 			t.Errorf("Expected FlushedMs == 0 on error, got=%d", stats.FlushedMs)
 		}
 	})
+
+	t.Run("Item not lost after full buffer flush failure", func(t *testing.T) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{
+			Transport: &mockTransport{
+				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+					return &http.Response{
+						StatusCode: http.StatusInternalServerError,
+						Status:     "500 Internal Server Error",
+						Body:       io.NopCloser(strings.NewReader(`{}`)),
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+					}, nil
+				},
+			},
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		cfg := BulkIndexerConfig{
+			NumWorkers: 1,
+			Client:     es,
+			FlushBytes: 100,
+			OnError:    func(_ context.Context, _ error) {},
+		}
+		if os.Getenv("DEBUG") != "" {
+			cfg.DebugLogger = log.New(os.Stdout, "", 0)
+		}
+
+		bi, err := NewBulkIndexer(cfg)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		var failedItems sync.Map
+		numItems := 4
+		for i := 1; i <= numItems; i++ {
+			err := bi.Add(context.Background(), BulkIndexerItem{
+				Action:     "index",
+				DocumentID: strconv.Itoa(i),
+				Body:       strings.NewReader(fmt.Sprintf(`{"title":"foo%d"}`, i)),
+				OnFailure: func(_ context.Context, item BulkIndexerItem, _ BulkIndexerResponseItem, _ error) {
+					failedItems.Store(item.DocumentID, true)
+				},
+			})
+			if err != nil {
+				t.Fatalf("Unexpected error adding item %d: %s", i, err)
+			}
+		}
+
+		if err := bi.Close(context.Background()); err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		// Every item must receive a failure callback -- none should be silently dropped.
+		for i := 1; i <= numItems; i++ {
+			id := strconv.Itoa(i)
+			if _, ok := failedItems.Load(id); !ok {
+				t.Errorf("Item %s was silently dropped (OnFailure callback was never called)", id)
+			}
+		}
+
+		stats := bi.Stats()
+		if stats.NumFailed != uint64(numItems) {
+			t.Errorf("Unexpected NumFailed: want=%d, got=%d", numItems, stats.NumFailed)
+		}
+	})
 }
 
 func TestBulkIndexerItem(t *testing.T) {
