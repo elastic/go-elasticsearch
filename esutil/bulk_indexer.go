@@ -352,17 +352,21 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 func (bi *bulkIndexer) Close(ctx context.Context) error {
 	close(bi.queue)
 
+	done := make(chan struct{})
+	go func() {
+		bi.wg.Wait()
+		close(done)
+	}()
+
 	select {
+	case <-done:
+		return nil
 	case <-ctx.Done():
 		if bi.config.OnError != nil {
 			bi.config.OnError(ctx, ctx.Err())
 		}
 		return ctx.Err()
-	default:
-		bi.wg.Wait()
 	}
-
-	return nil
 }
 
 // Stats returns indexer statistics.
