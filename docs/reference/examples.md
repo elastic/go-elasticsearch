@@ -8,6 +8,7 @@ mapped_pages:
 This sections lists a series of frequent use cases that will help you start with this new API.
 
 <!-- markdownlint-disable MD051 -->
+
 - [Creating an index](#indices)
 - [Indexing a document](#indexing)
 - [Bulk indexing](#bulk)
@@ -76,12 +77,20 @@ With the typed client, you can build a bulk request by appending operations and 
 
 ```go
 index := "my-index"
-id := "1"
+id1 := "1"
+id2 := "2"
 
 bulk := es.Bulk()
 if err := bulk.IndexOp(
-    types.IndexOperation{Index_: &index, Id_: &id},
-    map[string]any{"title": "Test"},
+    types.IndexOperation{Index_: &index, Id_: &id1},
+    map[string]any{"title": "Test 1"},
+); err != nil {
+    // Handle error.
+}
+
+if err := bulk.IndexOp(
+    types.IndexOperation{Index_: &index, Id_: &id2},
+    map[string]any{"title": "Test 2"},
 ); err != nil {
     // Handle error.
 }
