@@ -31,6 +31,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esapi"
 )
@@ -574,6 +575,9 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 	}
 	if w.bi.config.RequireAlias {
 		req.RequireAlias = &w.bi.config.RequireAlias
+	}
+	if transport, ok := w.bi.config.Client.(elastictransport.Instrumented); ok {
+		req.Instrument = transport.InstrumentationEnabled()
 	}
 
 	// Add Header and MetaHeader to config if not already set
