@@ -1374,3 +1374,120 @@ func (d customJSONDecoder) UnmarshalFromReader(r io.Reader, blk *BulkIndexerResp
 	}
 	return json.NewDecoder(r).Decode(blk)
 }
+
+type bulkIndexerInstrumentation struct {
+	startCalled         atomic.Uint32
+	beforeRequestCalled atomic.Uint32
+	afterRequestCalled  atomic.Uint32
+	afterResponseCalled atomic.Uint32
+	recordErrorCalled   atomic.Uint32
+	recordPathPartMu    sync.Mutex
+	recordPathParts     []string
+}
+
+type bulkIndexerInstrumentationCtxKey struct{}
+
+var bulkIndexerInstrCtxKey bulkIndexerInstrumentationCtxKey
+
+func (i *bulkIndexerInstrumentation) Start(ctx context.Context, name string) context.Context {
+	i.startCalled.Add(1)
+	return context.WithValue(ctx, bulkIndexerInstrCtxKey, name)
+}
+
+func (i *bulkIndexerInstrumentation) Close(context.Context) {}
+
+func (i *bulkIndexerInstrumentation) RecordError(context.Context, error) {
+	i.recordErrorCalled.Add(1)
+}
+
+func (i *bulkIndexerInstrumentation) RecordPathPart(_ context.Context, pathPart, value string) {
+	i.recordPathPartMu.Lock()
+	defer i.recordPathPartMu.Unlock()
+	i.recordPathParts = append(i.recordPathParts, pathPart+"="+value)
+}
+
+func (i *bulkIndexerInstrumentation) RecordRequestBody(context.Context, string, io.Reader) io.ReadCloser {
+	return nil
+}
+
+func (i *bulkIndexerInstrumentation) BeforeRequest(*http.Request, string) {
+	i.beforeRequestCalled.Add(1)
+}
+
+func (i *bulkIndexerInstrumentation) AfterRequest(*http.Request, string, string) {
+	i.afterRequestCalled.Add(1)
+}
+
+func (i *bulkIndexerInstrumentation) AfterResponse(context.Context, *http.Response) {
+	i.afterResponseCalled.Add(1)
+}
+
+func TestBulkIndexerUsesClientInstrumentation(t *testing.T) {
+	instr := &bulkIndexerInstrumentation{}
+
+	es, err := elasticsearch.NewClient(elasticsearch.Config{
+		Instrumentation: elastictransport.Instrumentation(instr),
+		Transport: &mockTransport{
+			RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+				// If BulkIndexer correctly propagates instrumentation into esapi.BulkRequest,
+				// the request context will carry the value set by Instrumentation.Start().
+				if got := req.Context().Value(bulkIndexerInstrCtxKey); got != "bulk" {
+					t.Fatalf("expected instrumented request context value %q, got %#v", "bulk", got)
+				}
+
+				body := `{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201,"_seq_no":1,"_primary_term":1,"_shards":{"total":1,"successful":1,"failed":0}}}]}`
+				return &http.Response{
+					StatusCode: http.StatusOK,
+					Status:     "200 OK",
+					Body:       io.NopCloser(strings.NewReader(body)),
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				}, nil
+			},
+		},
+	})
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+
+	bi, err := NewBulkIndexer(BulkIndexerConfig{
+		NumWorkers:    1,
+		FlushInterval: time.Hour, // Disable auto flush for determinism.
+		Client:        es,
+		Index:         "test",
+	})
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+
+	if err := bi.Add(context.Background(), BulkIndexerItem{
+		Action:     "index",
+		DocumentID: "1",
+		Body:       strings.NewReader(`{"title":"foo"}`),
+	}); err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+
+	if err := bi.Close(context.Background()); err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+
+	if instr.startCalled.Load() == 0 {
+		t.Fatalf("expected Instrumentation.Start() to be called")
+	}
+	if instr.beforeRequestCalled.Load() == 0 {
+		t.Fatalf("expected Instrumentation.BeforeRequest() to be called")
+	}
+	if instr.afterRequestCalled.Load() == 0 {
+		t.Fatalf("expected Instrumentation.AfterRequest() to be called")
+	}
+	if instr.afterResponseCalled.Load() == 0 {
+		t.Fatalf("expected Instrumentation.AfterResponse() to be called")
+	}
+
+	instr.recordPathPartMu.Lock()
+	gotPathParts := append([]string(nil), instr.recordPathParts...)
+	instr.recordPathPartMu.Unlock()
+	if len(gotPathParts) == 0 {
+		t.Fatalf("expected Instrumentation.RecordPathPart() to be called at least once")
+	}
+}
