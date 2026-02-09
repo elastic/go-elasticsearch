@@ -150,7 +150,7 @@ indexer, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
     Client:     client, // The Elasticsearch client
     Index:      "test", // The default index name
     NumWorkers: 4,
-    FlushBytes: 5e+6,
+    FlushBytes: 5_000_000,
 })
 if err != nil {
     // Handle error.
