@@ -1406,8 +1406,8 @@ func (i *bulkIndexerInstrumentation) RecordPathPart(_ context.Context, pathPart,
 	i.recordPathParts = append(i.recordPathParts, pathPart+"="+value)
 }
 
-func (i *bulkIndexerInstrumentation) RecordRequestBody(context.Context, string, io.Reader) io.ReadCloser {
-	return nil
+func (i *bulkIndexerInstrumentation) RecordRequestBody(_ context.Context, _ string, r io.Reader) io.ReadCloser {
+	return io.NopCloser(r)
 }
 
 func (i *bulkIndexerInstrumentation) BeforeRequest(*http.Request, string) {
