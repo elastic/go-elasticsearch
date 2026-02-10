@@ -18,4 +18,3 @@ go run default.go
 - The request body must be NDJSON with alternating lines: header, template, header, template.
 - Always end the body with a trailing newline (`\n`).
 - For the low-level `esapi` call, set `Content-Type: application/x-ndjson`.
-
