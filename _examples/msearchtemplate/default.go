@@ -79,9 +79,12 @@ func closeTypedClient(es *elasticsearch.TypedClient) {
 }
 
 func setupDemoData(ctx context.Context, es *elasticsearch.Client) {
-	_, _ = es.Indices.Delete([]string{demoIndex})
+	deleteRes, err := es.Indices.Delete([]string{demoIndex}, es.Indices.Delete.WithContext(ctx))
+	if err == nil && deleteRes != nil {
+		deleteRes.Body.Close()
+	}
 
-	createRes, err := es.Indices.Create(demoIndex)
+	createRes, err := es.Indices.Create(demoIndex, es.Indices.Create.WithContext(ctx))
 	if err != nil {
 		log.Fatalf("Error creating index: %s", err)
 	}
@@ -98,14 +101,26 @@ func setupDemoData(ctx context.Context, es *elasticsearch.Client) {
 
 	for i, doc := range docs {
 		id := fmt.Sprintf("%d", i+1)
-		res, err := es.Index(demoIndex, strings.NewReader(doc), es.Index.WithDocumentID(id))
+		res, err := es.Index(
+			demoIndex,
+			strings.NewReader(doc),
+			es.Index.WithContext(ctx),
+			es.Index.WithDocumentID(id),
+		)
 		if err != nil {
 			log.Fatalf("Error indexing document %s: %s", id, err)
+		}
+		if res.IsError() {
+			res.Body.Close()
+			log.Fatalf("Error indexing document %s: %s", id, res.String())
 		}
 		res.Body.Close()
 	}
 
-	refreshRes, err := es.Indices.Refresh(es.Indices.Refresh.WithIndex(demoIndex))
+	refreshRes, err := es.Indices.Refresh(
+		es.Indices.Refresh.WithContext(ctx),
+		es.Indices.Refresh.WithIndex(demoIndex),
+	)
 	if err != nil {
 		log.Fatalf("Error refreshing index: %s", err)
 	}
@@ -115,8 +130,6 @@ func setupDemoData(ctx context.Context, es *elasticsearch.Client) {
 	}
 
 	log.Printf("Prepared demo index [%s] with %d documents", demoIndex, len(docs))
-
-	_ = ctx
 }
 
 func runEsapiExample(ctx context.Context, es *elasticsearch.Client) {

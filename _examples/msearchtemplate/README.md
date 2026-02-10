@@ -10,7 +10,7 @@ API with the Go client:
 ```bash
 make test
 # or
-go run default.go
+go run -tags msearchtemplate_default default.go
 ```
 
 ## Notes
