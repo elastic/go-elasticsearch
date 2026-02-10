@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -325,6 +326,73 @@ func TestBulkIndexer(t *testing.T) {
 		cancel()
 		if err := bi.Close(ctx); err == nil {
 			t.Errorf("Expected context cancelled error, but got: %v", err)
+		}
+	})
+
+	t.Run("Close() Timeout While Waiting", func(t *testing.T) {
+		var indexerError error
+		started := make(chan struct{})
+		release := make(chan struct{})
+		defer close(release)
+
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+				close(started)
+				<-release
+				return &http.Response{
+					StatusCode: 200,
+					Status:     "200 OK",
+					Body:       io.NopCloser(strings.NewReader(`{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`)),
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				}, nil
+			},
+		}})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		bi, err := NewBulkIndexer(BulkIndexerConfig{
+			NumWorkers:    1,
+			FlushBytes:    5e+6,
+			FlushInterval: time.Hour,
+			Client:        es,
+			OnError:       func(_ context.Context, err error) { indexerError = err },
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if err = bi.Add(context.Background(), BulkIndexerItem{
+			Action:     "index",
+			DocumentID: "1",
+			Body:       strings.NewReader(`{"title":"Test"}`),
+		}); err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		ctx, cancel := context.WithTimeout(context.Background(), 250*time.Millisecond)
+		defer cancel()
+
+		errCh := make(chan error, 1)
+		go func() {
+			errCh <- bi.Close(ctx)
+		}()
+
+		select {
+		case <-started:
+		case err = <-errCh:
+			t.Fatalf("Close returned before request started: %v", err)
+		case <-time.After(time.Second):
+			t.Fatal("Timed out waiting for request to start")
+		}
+
+		err = <-errCh
+		if !errors.Is(err, context.DeadlineExceeded) {
+			t.Errorf("Expected context deadline exceeded error, but got: %v", err)
+		}
+
+		if !errors.Is(indexerError, context.DeadlineExceeded) {
+			t.Errorf("Expected OnError to receive context deadline exceeded, but got: %v", indexerError)
 		}
 	})
 
