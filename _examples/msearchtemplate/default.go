@@ -15,9 +15,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-//go:build msearchtemplate_default
-// +build msearchtemplate_default
-
 // This example demonstrates the MSearchTemplate API with:
 //   - the functional options API (`esapi`) using raw NDJSON, and
 //   - the typed API (`typedapi`) using `msearchtemplate.Request`.
@@ -132,6 +129,10 @@ func setupDemoData(ctx context.Context, es *elasticsearch.Client) {
 	log.Printf("Prepared demo index [%s] with %d documents", demoIndex, len(docs))
 }
 
+func pString(s string) *string {
+	return &s
+}
+
 func runEsapiExample(ctx context.Context, es *elasticsearch.Client) {
 	var ndjson strings.Builder
 	ndjson.WriteString(fmt.Sprintf(`{"index":"%s"}`+"\n", demoIndex))
@@ -178,12 +179,12 @@ func runTypedAPIExample(ctx context.Context, typed *elasticsearch.TypedClient) {
 	req := msearchtemplate.Request{
 		types.MultisearchHeader{Index: []string{demoIndex}},
 		types.TemplateConfig{
-			Source: `{"query":{"match":{"category":"{{cat}}"}}}`,
+			Source: pString(`{"query":{"match":{"category":"{{cat}}"}}}`),
 			Params: map[string]json.RawMessage{"cat": paramsTech},
 		},
 		types.MultisearchHeader{Index: []string{demoIndex}},
 		types.TemplateConfig{
-			Source: `{"query":{"match":{"title":"{{q}}"}}}`,
+			Source: pString(`{"query":{"match":{"title":"{{q}}"}}}`),
 			Params: map[string]json.RawMessage{"q": paramsElastic},
 		},
 	}
