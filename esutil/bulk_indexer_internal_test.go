@@ -399,6 +399,61 @@ func TestBulkIndexer(t *testing.T) {
 		}
 	})
 
+	t.Run("Indexer Callback invoked once on flush response error", func(t *testing.T) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{
+			Transport: &mockTransport{
+				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+					return &http.Response{
+						StatusCode: http.StatusInternalServerError,
+						Status:     "500 Internal Server Error",
+						Body:       io.NopCloser(strings.NewReader(`{}`)),
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+					}, nil
+				},
+			},
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		onErrorCalls := atomic.Uint32{}
+		itemFailureCalls := atomic.Uint32{}
+
+		bi, err := NewBulkIndexer(BulkIndexerConfig{
+			NumWorkers: 1,
+			Client:     es,
+			OnError: func(_ context.Context, _ error) {
+				_ = onErrorCalls.Add(1)
+			},
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		err = bi.Add(context.Background(), BulkIndexerItem{
+			Action: "index",
+			Body:   strings.NewReader(`{"title":"foo"}`),
+			OnFailure: func(_ context.Context, _ BulkIndexerItem, _ BulkIndexerResponseItem, _ error) {
+				_ = itemFailureCalls.Add(1)
+			},
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if err := bi.Close(context.Background()); err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if onErrorCalls.Load() != 1 {
+			t.Errorf("Unexpected OnError callbacks: want=%d, got=%d", 1, onErrorCalls.Load())
+		}
+
+		if itemFailureCalls.Load() != 1 {
+			t.Errorf("Unexpected item OnFailure callbacks: want=%d, got=%d", 1, itemFailureCalls.Load())
+		}
+	})
+
 	t.Run("Item Callbacks", func(t *testing.T) {
 		var (
 			countSuccessful      uint64
@@ -871,9 +926,9 @@ func TestBulkIndexer(t *testing.T) {
 			t.Errorf("Unexpected NumFailedCallbacks: want=%d, got=%d", 1, biiFailureCallbacksCalled.Load())
 		}
 
-		// BulkIndexer.OnError() callbacks are called for all errors.
-		if biFailureCallbacksCalled.Load() != 2 {
-			t.Errorf("Unexpected NumFailedCallbacks: want=%d, got=%d", 2, biFailureCallbacksCalled.Load())
+		// BulkIndexer.OnError() callback is called once for the flush error.
+		if biFailureCallbacksCalled.Load() != 1 {
+			t.Errorf("Unexpected NumFailedCallbacks: want=%d, got=%d", 1, biFailureCallbacksCalled.Load())
 		}
 	})
 
