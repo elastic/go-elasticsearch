@@ -15,6 +15,9 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//go:build msearchtemplate_default
+// +build msearchtemplate_default
+
 // This example demonstrates the MSearchTemplate API with:
 //   - the functional options API (`esapi`) using raw NDJSON, and
 //   - the typed API (`typedapi`) using `msearchtemplate.Request`.
