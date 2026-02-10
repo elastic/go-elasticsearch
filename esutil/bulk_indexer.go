@@ -507,9 +507,6 @@ func (w *worker) writeBody(item *BulkIndexerItem) error {
 func (w *worker) flush(ctx context.Context) bool {
 	ok := true
 	if err := w.flushBuffer(ctx); err != nil {
-		if w.bi.config.OnError != nil {
-			w.bi.config.OnError(ctx, err)
-		}
 		ok = false
 	}
 	w.ticker.Reset(w.bi.config.FlushInterval)
