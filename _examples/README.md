@@ -14,6 +14,11 @@ The [**`logging`**](./logging) directory contains examples for using the default
 
 The [**`bulk`**](./bulk) directory contains a comprehensive example of using the _Bulk_ API.
 
+## Multi Search Template
+
+The [**`msearchtemplate`**](./msearchtemplate) directory contains examples for using the _MSearchTemplate_ API
+with both `esapi` and `typedapi`.
+
 ## Encoding
 
 The [**`encoding`**](./encoding) directory contains examples of using third-party packages
