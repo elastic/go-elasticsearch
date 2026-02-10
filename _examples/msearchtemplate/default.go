@@ -31,9 +31,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/elastic/go-elasticsearch/v9"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/core/msearchtemplate"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/core/msearchtemplate"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const demoIndex = "msearch-template-demo"
