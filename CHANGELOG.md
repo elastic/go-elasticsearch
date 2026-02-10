@@ -1,5 +1,17 @@
 # Changelog
 
+## [8.19.3](https://github.com/elastic/go-elasticsearch/compare/v8.19.2...v8.19.3) (2026-02-10)
+
+
+### Bug Fixes
+
+* **bulk_indexer:** Enable instrumentation support in bulk index requests ([#1244](https://github.com/elastic/go-elasticsearch/issues/1244)) ([55c605e](https://github.com/elastic/go-elasticsearch/commit/55c605efa7251f745d68f63ef3631bc26a34ae90))
+* **esutil:** Avoid duplicate bulk indexer OnError callbacks ([#1249](https://github.com/elastic/go-elasticsearch/issues/1249)) ([3f5bf89](https://github.com/elastic/go-elasticsearch/commit/3f5bf89c001fe1b6e66abfb288b22817aeab3214))
+* **esutil:** Propagate context timeout while closing bulk indexer ([#1252](https://github.com/elastic/go-elasticsearch/issues/1252)) ([9fe5ea8](https://github.com/elastic/go-elasticsearch/commit/9fe5ea8d2c1d9920ea276c80e447470b6ce65396))
+* Prevent BulkIndexer from silently dropping items on flush failure  ([#1239](https://github.com/elastic/go-elasticsearch/issues/1239)) ([b80ae39](https://github.com/elastic/go-elasticsearch/commit/b80ae3928f560e51ec2b24e758fc99bcebf34804))
+* **Typed API:** Add field-level nil checks during deserialisation ([#1223](https://github.com/elastic/go-elasticsearch/issues/1223)) ([7f27889](https://github.com/elastic/go-elasticsearch/commit/7f278896f3beb8f8aaa7c8350f7e6ac56894d9c2))
+* **Typed API:** Add missing custom UnmarshalJSON methods for types with additional properties ([7f27889](https://github.com/elastic/go-elasticsearch/commit/7f278896f3beb8f8aaa7c8350f7e6ac56894d9c2))
+
 ## [8.19.2](https://github.com/elastic/go-elasticsearch/compare/v8.19.1...v8.19.2) (2026-02-04)
 
 
