@@ -353,13 +353,19 @@ func TestBulkIndexer(t *testing.T) {
 
 	t.Run("Close() Timeout While Waiting", func(t *testing.T) {
 		var indexerError error
+		started := make(chan struct{})
+		release := make(chan struct{})
+		defer close(release)
 
 		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
 			RoundTripFunc: func(*http.Request) (*http.Response, error) {
-				time.Sleep(200 * time.Millisecond)
+				close(started)
+				<-release
 				return &http.Response{
-					Body:   io.NopCloser(strings.NewReader(`{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`)),
-					Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+					StatusCode: 200,
+					Status:     "200 OK",
+					Body:       io.NopCloser(strings.NewReader(`{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`)),
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 				}, nil
 			},
 		}})
@@ -386,10 +392,23 @@ func TestBulkIndexer(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		ctx, cancel := context.WithTimeout(context.Background(), 50*time.Millisecond)
+		ctx, cancel := context.WithTimeout(context.Background(), 250*time.Millisecond)
 		defer cancel()
 
-		err = bi.Close(ctx)
+		errCh := make(chan error, 1)
+		go func() {
+			errCh <- bi.Close(ctx)
+		}()
+
+		select {
+		case <-started:
+		case err = <-errCh:
+			t.Fatalf("Close returned before request started: %v", err)
+		case <-time.After(time.Second):
+			t.Fatal("Timed out waiting for request to start")
+		}
+
+		err = <-errCh
 		if !errors.Is(err, context.DeadlineExceeded) {
 			t.Errorf("Expected context deadline exceeded error, but got: %v", err)
 		}
