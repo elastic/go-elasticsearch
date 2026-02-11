@@ -27,8 +27,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 1 }
-      - uses: actions/setup-go@v2.1.3
-        with: { go-version: "1.x" }
+      - uses: actions/setup-go@v6
+        with: { go-version-file: go.mod }
       - run: go version
       - run: make test-integ race=true
         env:
@@ -44,8 +44,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 1 }
-      - uses: actions/setup-go@v2.1.3
-        with: { go-version: "1.x" }
+      - uses: actions/setup-go@v6
+        with: { go-version-file: go.mod }
       - run: go version
       - name: Increase system limits
         run: |
