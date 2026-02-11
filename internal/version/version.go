@@ -21,4 +21,4 @@ package version
 const Client = Version
 
 // Version is the version of the client.
-const Version = "8.19.3"
+const Version = "8.19.4-SNAPSHOT"
