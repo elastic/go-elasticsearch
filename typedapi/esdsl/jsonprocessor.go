@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package esdsl
 
@@ -29,7 +29,8 @@ type _jsonProcessor struct {
 	v *types.JsonProcessor
 }
 
-// Converts a JSON string into a structured JSON object.
+// Parses a string containing JSON data into a structured object, string, or
+// other value.
 func NewJsonProcessor() *_jsonProcessor {
 
 	return &_jsonProcessor{v: types.NewJsonProcessor()}

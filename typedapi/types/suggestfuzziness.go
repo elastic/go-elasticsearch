@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SuggestFuzziness type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_global/search/_types/suggester.ts#L198-L226
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/search/_types/suggester.ts#L198-L226
 type SuggestFuzziness struct {
 	// Fuzziness The fuzziness factor.
 	Fuzziness Fuzziness `json:"fuzziness,omitempty"`

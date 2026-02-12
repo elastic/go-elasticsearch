@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 // Get a document count.
 //
@@ -29,6 +29,10 @@
 // line or Kibana console.
 // They are not intended for use by applications. For application consumption,
 // use the count API.
+//
+// NOTE: Starting in Elasticsearch 9.3.0, this endpoint also supports the `POST`
+// method. This is primarily intended for project routing in serverless
+// environments.
 package count
 
 import (
@@ -103,6 +107,10 @@ func NewCountFunc(tp elastictransport.Interface) NewCount {
 // line or Kibana console.
 // They are not intended for use by applications. For application consumption,
 // use the count API.
+//
+// NOTE: Starting in Elasticsearch 9.3.0, this endpoint also supports the `POST`
+// method. This is primarily intended for project routing in serverless
+// environments.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-count
 func New(tp elastictransport.Interface) *Count {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package getsamplestats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getsamplestats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/indices/get_sample_stats/GetRandomSampleStatsResponse.ts#L23-L44
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/get_sample_stats/GetRandomSampleStatsResponse.ts#L23-L44
 type Response struct {
 	LastException                        *string        `json:"last_exception,omitempty"`
 	PotentialSamples                     int64          `json:"potential_samples"`

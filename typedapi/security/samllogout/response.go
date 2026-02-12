@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package samllogout
 
 // Response holds the response body struct for the package samllogout
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/security/saml_logout/Response.ts#L20-L28
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/saml_logout/Response.ts#L20-L28
 type Response struct {
 	// Redirect A URL that contains a SAML logout request as a parameter.
 	// You can use this URL to be redirected back to the SAML IdP and to initiate

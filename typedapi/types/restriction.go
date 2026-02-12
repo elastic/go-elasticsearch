@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // Restriction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/security/_types/RoleDescriptor.ts#L135-L141
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/_types/RoleDescriptor.ts#L135-L141
 type Restriction struct {
 	// Workflows A list of workflows to which the API key is restricted.
 	// NOTE: In order to use a role restriction, an API key must be created with a

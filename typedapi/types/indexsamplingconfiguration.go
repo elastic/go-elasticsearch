@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IndexSamplingConfiguration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/indices/get_all_sample_configuration/_types/IndexSamplingConfiguration.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/get_all_sample_configuration/_types/IndexSamplingConfiguration.ts#L23-L26
 type IndexSamplingConfiguration struct {
 	Configuration SamplingConfiguration `json:"configuration"`
 	Index         string                `json:"index"`

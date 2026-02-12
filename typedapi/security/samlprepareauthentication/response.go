@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package samlprepareauthentication
 
 // Response holds the response body struct for the package samlprepareauthentication
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/security/saml_prepare_authentication/Response.ts#L22-L37
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/saml_prepare_authentication/Response.ts#L22-L37
 type Response struct {
 	// Id A unique identifier for the SAML Request to be stored by the caller of the
 	// API.

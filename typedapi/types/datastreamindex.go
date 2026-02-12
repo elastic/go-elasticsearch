@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // DataStreamIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/indices/_types/DataStream.ts#L160-L185
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/_types/DataStream.ts#L160-L185
 type DataStreamIndex struct {
 	// IlmPolicy Name of the current ILM lifecycle policy configured for this backing index.
 	IlmPolicy *string `json:"ilm_policy,omitempty"`

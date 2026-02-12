@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package esdsl
 
@@ -27,14 +27,12 @@ type _multiTermLookup struct {
 }
 
 func NewMultiTermLookup() *_multiTermLookup {
-
 	return &_multiTermLookup{v: types.NewMultiTermLookup()}
-
 }
 
 func (s *_multiTermLookup) Field(field string) *_multiTermLookup {
 
-	s.v.Field = field
+	s.v.Field = &field
 
 	return s
 }
@@ -42,6 +40,13 @@ func (s *_multiTermLookup) Field(field string) *_multiTermLookup {
 func (s *_multiTermLookup) Missing(missing types.MissingVariant) *_multiTermLookup {
 
 	s.v.Missing = *missing.MissingCaster()
+
+	return s
+}
+
+func (s *_multiTermLookup) Script(script types.ScriptVariant) *_multiTermLookup {
+
+	s.v.Script = script.ScriptCaster()
 
 	return s
 }

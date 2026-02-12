@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // TrainedModelAssignmentRoutingStateAndReason type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/ml/_types/TrainedModel.ts#L432-L442
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/_types/TrainedModel.ts#L432-L442
 type TrainedModelAssignmentRoutingStateAndReason struct {
 	// Reason The reason for the current state. It is usually populated only when the
 	// `routing_state` is `failed`.

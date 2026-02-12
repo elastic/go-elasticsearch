@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package putazureopenai
 
@@ -29,7 +29,7 @@ import (
 
 // Response holds the response body struct for the package putazureopenai
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/inference/put_azureopenai/PutAzureOpenAiResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/put_azureopenai/PutAzureOpenAiResponse.ts#L22-L25
 type Response struct {
 	// ChunkingSettings The chunking configuration object.
 	// Applies only to the `embedding`, `sparse_embedding` and `text_embedding` task

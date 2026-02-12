@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package syncjobupdatestats
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package syncjobupdatestats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/connector/sync_job_update_stats/SyncJobUpdateStatsRequest.ts#L24-L81
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/connector/sync_job_update_stats/SyncJobUpdateStatsRequest.ts#L24-L81
 type Request struct {
 	// DeletedDocumentCount The number of documents the sync job deleted.
 	DeletedDocumentCount int64 `json:"deleted_document_count"`

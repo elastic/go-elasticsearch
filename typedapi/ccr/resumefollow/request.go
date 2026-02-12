@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package resumefollow
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package resumefollow
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/ccr/resume_follow/ResumeFollowIndexRequest.ts#L25-L69
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ccr/resume_follow/ResumeFollowIndexRequest.ts#L25-L69
 type Request struct {
 	MaxOutstandingReadRequests    *int64         `json:"max_outstanding_read_requests,omitempty"`
 	MaxOutstandingWriteRequests   *int64         `json:"max_outstanding_write_requests,omitempty"`

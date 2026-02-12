@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Shared type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/searchable_snapshots/cache_stats/Response.ts#L34-L43
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/searchable_snapshots/cache_stats/Response.ts#L34-L43
 type Shared struct {
 	BytesReadInBytes    ByteSize `json:"bytes_read_in_bytes"`
 	BytesWrittenInBytes ByteSize `json:"bytes_written_in_bytes"`

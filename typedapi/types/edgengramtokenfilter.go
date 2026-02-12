@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // EdgeNGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/analysis/token_filters.ts#L103-L113
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/analysis/token_filters.ts#L103-L113
 type EdgeNGramTokenFilter struct {
 	// MaxGram Maximum character length of a gram. For custom token filters, defaults to
 	// `2`. For the built-in edge_ngram filter, defaults to `1`.

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package types
 
 // CompositeAggregationSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/aggregations/bucket.ts#L151-L171
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/bucket.ts#L151-L171
 type CompositeAggregationSource struct {
 	// DateHistogram A date histogram aggregation.
 	DateHistogram *CompositeDateHistogramAggregation `json:"date_histogram,omitempty"`

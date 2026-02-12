@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MlDataFrameAnalyticsJobsAnalysis type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/xpack/usage/types.ts#L194-L198
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/xpack/usage/types.ts#L194-L198
 type MlDataFrameAnalyticsJobsAnalysis struct {
 	Classification   *int `json:"classification,omitempty"`
 	OutlierDetection *int `json:"outlier_detection,omitempty"`
