@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StopTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/analysis/token_filters.ts#L131-L144
+// https://github.com/elastic/elasticsearch-specification/blob/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6/specification/_types/analysis/token_filters.ts#L131-L144
 type StopTokenFilter struct {
 	// IgnoreCase If `true`, stop word matching is case insensitive. For example, if `true`, a
 	// stop word of the matches and removes `The`, `THE`, or `the`. Defaults to
@@ -159,6 +159,9 @@ func (s *StopTokenFilter) StopTokenFilterCaster() *StopTokenFilter {
 }
 
 func (s *StopTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

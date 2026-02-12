@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Query watches.
 //
@@ -85,7 +85,7 @@ func NewQueryWatchesFunc(tp elastictransport.Interface) NewQueryWatches {
 //
 // Note that only the `_id` and `metadata.*` fields are queryable or sortable.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-query-watches
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-query-watches
 func New(tp elastictransport.Interface) *QueryWatches {
 	r := &QueryWatches{
 		transport: tp,
@@ -382,9 +382,11 @@ func (r *QueryWatches) SearchAfter(sortresults ...types.FieldValueVariant) *Quer
 		r.req = NewRequest()
 	}
 
+	convertedItems := make([]types.FieldValue, 0, len(sortresults))
 	for _, v := range sortresults {
-		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
+		convertedItems = append(convertedItems, *v.FieldValueCaster())
 	}
+	r.req.SearchAfter = convertedItems
 
 	return r
 }
@@ -411,9 +413,11 @@ func (r *QueryWatches) Sort(sorts ...types.SortCombinationsVariant) *QueryWatche
 		r.req = NewRequest()
 	}
 
+	convertedItems := make([]types.SortCombinations, 0, len(sorts))
 	for _, v := range sorts {
-		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
+		convertedItems = append(convertedItems, *v.SortCombinationsCaster())
 	}
+	r.req.Sort = convertedItems
 
 	return r
 }

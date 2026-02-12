@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Find the structure of text messages.
 //
@@ -135,7 +135,7 @@ func NewFindMessageStructureFunc(tp elastictransport.Interface) NewFindMessageSt
 // query parameter and an explanation will appear in the response.
 // It helps determine why the returned structure was chosen.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-text-structure-find-message-structure
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-text-structure-find-message-structure
 func New(tp elastictransport.Interface) *FindMessageStructure {
 	r := &FindMessageStructure{
 		transport: tp,

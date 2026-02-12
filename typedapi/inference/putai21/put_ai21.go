@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Create a AI21 inference endpoint.
 //
@@ -95,7 +95,7 @@ func NewPutAi21Func(tp elastictransport.Interface) NewPutAi21 {
 // Create an inference endpoint to perform an inference task with the `ai21`
 // service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-ai21
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-ai21
 func New(tp elastictransport.Interface) *PutAi21 {
 	r := &PutAi21{
 		transport: tp,

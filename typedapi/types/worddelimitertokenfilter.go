@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // WordDelimiterTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/analysis/token_filters.ts#L212-L214
+// https://github.com/elastic/elasticsearch-specification/blob/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6/specification/_types/analysis/token_filters.ts#L212-L214
 type WordDelimiterTokenFilter struct {
 	// CatenateAll If `true`, the filter produces catenated tokens for chains of alphanumeric
 	// characters separated by non-alphabetic delimiters. Defaults to `false`.
@@ -305,6 +305,9 @@ func (s *WordDelimiterTokenFilter) WordDelimiterTokenFilterCaster() *WordDelimit
 }
 
 func (s *WordDelimiterTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

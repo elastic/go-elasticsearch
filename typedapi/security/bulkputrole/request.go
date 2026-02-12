@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package bulkputrole
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package bulkputrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/security/bulk_put_role/SecurityBulkPutRoleRequest.ts#L25-L57
+// https://github.com/elastic/elasticsearch-specification/blob/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6/specification/security/bulk_put_role/SecurityBulkPutRoleRequest.ts#L25-L57
 type Request struct {
 	// Roles A dictionary of role name to RoleDescriptor objects to add or update
 	Roles map[string]types.RoleDescriptor `json:"roles"`

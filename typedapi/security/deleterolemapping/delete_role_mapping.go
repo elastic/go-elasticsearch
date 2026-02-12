@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Delete role mappings.
 //
@@ -91,7 +91,7 @@ func NewDeleteRoleMappingFunc(tp elastictransport.Interface) NewDeleteRoleMappin
 // The delete role mappings API cannot remove role mappings that are defined in
 // role mapping files.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role-mapping
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delete-role-mapping
 func New(tp elastictransport.Interface) *DeleteRoleMapping {
 	r := &DeleteRoleMapping{
 		transport: tp,

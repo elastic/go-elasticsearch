@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Throttle an update by query operation.
 //
@@ -90,7 +90,7 @@ func NewUpdateByQueryRethrottleFunc(tp elastictransport.Interface) NewUpdateByQu
 // rethrotting that slows down the query takes effect after completing the
 // current batch to prevent scroll timeouts.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query-rethrottle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update-by-query-rethrottle
 func New(tp elastictransport.Interface) *UpdateByQueryRethrottle {
 	r := &UpdateByQueryRethrottle{
 		transport: tp,

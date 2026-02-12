@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Logout of SAML completely.
 //
@@ -108,7 +108,7 @@ func NewSamlCompleteLogoutFunc(tp elastictransport.Interface) NewSamlCompleteLog
 // The caller of this API must prepare the request accordingly so that this API
 // can handle either of them.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-complete-logout
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-complete-logout
 func New(tp elastictransport.Interface) *SamlCompleteLogout {
 	r := &SamlCompleteLogout{
 		transport: tp,

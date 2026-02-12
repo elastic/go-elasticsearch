@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Update the connector index name.
 //
@@ -89,7 +89,7 @@ func NewUpdateIndexNameFunc(tp elastictransport.Interface) NewUpdateIndexName {
 // Update the `index_name` field of a connector, specifying the index where the
 // data ingested by the connector is stored.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-index-name
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-index-name
 func New(tp elastictransport.Interface) *UpdateIndexName {
 	r := &UpdateIndexName{
 		transport: tp,

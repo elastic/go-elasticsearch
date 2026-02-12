@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ConditionTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/analysis/token_filters.ts#L254-L260
+// https://github.com/elastic/elasticsearch-specification/blob/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6/specification/_types/analysis/token_filters.ts#L254-L260
 type ConditionTokenFilter struct {
 	// Filter Array of token filters. If a token matches the predicate script in the
 	// `script` parameter, these filters are applied to the token in the order
@@ -114,6 +114,9 @@ func (s *ConditionTokenFilter) ConditionTokenFilterCaster() *ConditionTokenFilte
 }
 
 func (s *ConditionTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

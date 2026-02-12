@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package esdsl
 
@@ -73,6 +73,13 @@ func (s *_knnSearch) K(k int) *_knnSearch {
 func (s *_knnSearch) NumCandidates(numcandidates int) *_knnSearch {
 
 	s.v.NumCandidates = &numcandidates
+
+	return s
+}
+
+func (s *_knnSearch) QueryName_(queryname_ string) *_knnSearch {
+
+	s.v.QueryName_ = &queryname_
 
 	return s
 }

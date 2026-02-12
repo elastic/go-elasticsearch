@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Get SSL certificates.
 //
@@ -128,7 +128,7 @@ func NewCertificatesFunc(tp elastictransport.Interface) NewCertificates {
 // output includes all certificates in that store, even though some of the
 // certificates might not be in active use within the cluster.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ssl-certificates
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ssl-certificates
 func New(tp elastictransport.Interface) *Certificates {
 	r := &Certificates{
 		transport: tp,
