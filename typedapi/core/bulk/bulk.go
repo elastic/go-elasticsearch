@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Bulk index or delete documents.
 // Perform multiple `index`, `create`, `delete`, and `update` actions in a
@@ -114,8 +114,11 @@
 // `Search::Elasticsearch::Client::5_0::Scroll`
 // * Python: Check out `elasticsearch.helpers.*`
 // * JavaScript: Check out `client.helpers.*`
+// * Java: Check out
+// `co.elastic.clients.elasticsearch._helpers.bulk.BulkIngester`
 // * .NET: Check out `BulkAllObservable`
 // * PHP: Check out bulk indexing.
+// * Ruby: Check out `Elasticsearch::Helpers::BulkHelper`
 //
 // **Submitting bulk requests with cURL**
 //
@@ -332,8 +335,11 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 // `Search::Elasticsearch::Client::5_0::Scroll`
 // * Python: Check out `elasticsearch.helpers.*`
 // * JavaScript: Check out `client.helpers.*`
+// * Java: Check out
+// `co.elastic.clients.elasticsearch._helpers.bulk.BulkIngester`
 // * .NET: Check out `BulkAllObservable`
 // * PHP: Check out bulk indexing.
+// * Ruby: Check out `Elasticsearch::Helpers::BulkHelper`
 //
 // **Submitting bulk requests with cURL**
 //

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Get async search results.
 //
@@ -34,6 +34,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -223,7 +224,8 @@ func (r Get) Do(providedCtx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 {
+	if res.StatusCode < 299 || slices.Contains([]int{404, 400, 500, 429}, res.StatusCode) {
+
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {

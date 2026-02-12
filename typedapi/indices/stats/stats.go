@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Get index statistics.
 // For data streams, the API retrieves statistics for the stream's backing
@@ -352,7 +352,7 @@ func (r *Stats) Header(key, value string) *Stats {
 	return r
 }
 
-// Metric Limit the information returned the specific metrics.
+// Metric Limit the information returned the specific metrics
 // API Name: metric
 func (r *Stats) Metric(metric string) *Stats {
 	r.paramSet |= metricMask
@@ -452,8 +452,8 @@ func (r *Stats) IncludeUnloadedSegments(includeunloadedsegments bool) *Stats {
 	return r
 }
 
-// Level Indicates whether statistics are aggregated at the cluster, index, or shard
-// level.
+// Level Indicates whether statistics are aggregated at the cluster, indices, or
+// shards level.
 // API name: level
 func (r *Stats) Level(level level.Level) *Stats {
 	r.values.Set("level", level.String())

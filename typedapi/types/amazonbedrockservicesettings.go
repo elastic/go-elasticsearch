@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AmazonBedrockServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/CommonTypes.ts#L366-L408
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/inference/_types/CommonTypes.ts#L366-L408
 type AmazonBedrockServiceSettings struct {
 	// AccessKey A valid AWS access key that has permissions to use Amazon Bedrock and access
 	// to models for inference requests.
@@ -53,9 +53,9 @@ type AmazonBedrockServiceSettings struct {
 	// * `mistral` - available for `completion` task type only
 	Provider *string `json:"provider,omitempty"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// Watsonx.
-	// By default, the `watsonxai` service sets the number of requests allowed per
-	// minute to 120.
+	// Amazon Bedrock.
+	// By default, the `amazonbedrock` service sets the number of requests allowed
+	// per minute to 240.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 	// Region The region that your model or ARN is deployed in.
 	// The list of available regions per model can be found in the Amazon Bedrock

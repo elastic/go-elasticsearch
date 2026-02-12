@@ -16,22 +16,37 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
-package types
+package secretput
 
-// DataStreamLifecycleDownsampling type.
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// Request holds the request body struct for the package secretput
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/_types/DataStreamLifecycleDownsampling.ts#L22-L27
-type DataStreamLifecycleDownsampling struct {
-	// Rounds The list of downsampling rounds to execute as part of this downsampling
-	// configuration
-	Rounds []DownsamplingRound `json:"rounds"`
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/connector/secret_put/ConnectorSecretPutRequest.ts#L23-L44
+type Request struct {
+	Value string `json:"value"`
 }
 
-// NewDataStreamLifecycleDownsampling returns a DataStreamLifecycleDownsampling.
-func NewDataStreamLifecycleDownsampling() *DataStreamLifecycleDownsampling {
-	r := &DataStreamLifecycleDownsampling{}
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
 
 	return r
+}
+
+// FromJSON allows to load an arbitrary json into the request structure
+func (r *Request) FromJSON(data string) (*Request, error) {
+	var req Request
+	err := json.Unmarshal([]byte(data), &req)
+
+	if err != nil {
+		return nil, fmt.Errorf("could not deserialise json into Secretput request: %w", err)
+	}
+
+	return &req, nil
 }

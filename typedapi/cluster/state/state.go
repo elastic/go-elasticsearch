@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Get the cluster state.
 // Get comprehensive information about the state of the cluster.
@@ -380,7 +380,7 @@ func (r *State) Header(key, value string) *State {
 	return r
 }
 
-// Metric Limit the information returned to the specified metrics
+// Metric Limit the information returned to the specified metrics.
 // API Name: metric
 func (r *State) Metric(metric string) *State {
 	r.paramSet |= metricMask
@@ -400,7 +400,8 @@ func (r *State) Index(index string) *State {
 }
 
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// indices.
+// (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
 func (r *State) AllowNoIndices(allownoindices bool) *State {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -409,7 +410,7 @@ func (r *State) AllowNoIndices(allownoindices bool) *State {
 }
 
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// closed or both
 // API name: expand_wildcards
 func (r *State) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *State {
 	tmp := []string{}
@@ -421,7 +422,7 @@ func (r *State) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard
 	return r
 }
 
-// FlatSettings Return settings in flat format (default: false)
+// FlatSettings Return settings in flat format
 // API name: flat_settings
 func (r *State) FlatSettings(flatsettings bool) *State {
 	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
@@ -439,7 +440,6 @@ func (r *State) IgnoreUnavailable(ignoreunavailable bool) *State {
 }
 
 // Local Return local information, do not retrieve the state from master node
-// (default: false)
 // API name: local
 func (r *State) Local(local bool) *State {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -447,7 +447,7 @@ func (r *State) Local(local bool) *State {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Timeout for waiting for new cluster state in case it is blocked
 // API name: master_timeout
 func (r *State) MasterTimeout(duration string) *State {
 	r.values.Set("master_timeout", duration)

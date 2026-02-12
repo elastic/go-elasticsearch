@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Forget a follower.
 // Remove the cross-cluster replication follower retention leases from the
@@ -352,8 +352,8 @@ func (r *ForgetFollower) Header(key, value string) *ForgetFollower {
 	return r
 }
 
-// Index the name of the leader index for which specified follower retention leases
-// should be removed
+// Index Name of the leader index for which specified follower retention leases should
+// be removed
 // API Name: index
 func (r *ForgetFollower) _index(index string) *ForgetFollower {
 	r.paramSet |= indexMask

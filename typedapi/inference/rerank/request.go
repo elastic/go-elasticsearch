@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package rerank
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package rerank
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/rerank/RerankRequest.ts#L25-L72
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/inference/rerank/RerankRequest.ts#L25-L74
 type Request struct {
 	// Input The text on which you want to perform the inference task.
 	// It can be a single string or an array.

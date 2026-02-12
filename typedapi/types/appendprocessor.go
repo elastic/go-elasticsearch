@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AppendProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ingest/_types/Processors.ts#L328-L343
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/ingest/_types/Processors.ts#L328-L350
 type AppendProcessor struct {
 	// AllowDuplicates If `false`, the processor does not append values already present in the
 	// field.
@@ -46,13 +46,18 @@ type AppendProcessor struct {
 	If *string `json:"if,omitempty"`
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// MediaType The media type for encoding `value`.
+	// Applies only when value is a template snippet.
+	// Must be one of `application/json`, `text/plain`, or
+	// `application/x-www-form-urlencoded`.
+	MediaType *string `json:"media_type,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// Tag Identifier for the processor.
 	// Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// Value The value to be appended. Supports template snippets.
-	Value []json.RawMessage `json:"value"`
+	Value []json.RawMessage `json:"value,omitempty"`
 }
 
 func (s *AppendProcessor) UnmarshalJSON(data []byte) error {
@@ -126,6 +131,18 @@ func (s *AppendProcessor) UnmarshalJSON(data []byte) error {
 			case bool:
 				s.IgnoreFailure = &v
 			}
+
+		case "media_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "MediaType", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.MediaType = &o
 
 		case "on_failure":
 			if err := dec.Decode(&s.OnFailure); err != nil {

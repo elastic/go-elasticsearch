@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package typedapi
 
@@ -30,7 +30,6 @@ import (
 	autoscaling_get_autoscaling_capacity "github.com/elastic/go-elasticsearch/v8/typedapi/autoscaling/getautoscalingcapacity"
 	autoscaling_get_autoscaling_policy "github.com/elastic/go-elasticsearch/v8/typedapi/autoscaling/getautoscalingpolicy"
 	autoscaling_put_autoscaling_policy "github.com/elastic/go-elasticsearch/v8/typedapi/autoscaling/putautoscalingpolicy"
-	capabilities "github.com/elastic/go-elasticsearch/v8/typedapi/capabilities"
 	cat_aliases "github.com/elastic/go-elasticsearch/v8/typedapi/cat/aliases"
 	cat_allocation "github.com/elastic/go-elasticsearch/v8/typedapi/cat/allocation"
 	cat_component_templates "github.com/elastic/go-elasticsearch/v8/typedapi/cat/componenttemplates"
@@ -93,7 +92,10 @@ import (
 	connector_list "github.com/elastic/go-elasticsearch/v8/typedapi/connector/list"
 	connector_post "github.com/elastic/go-elasticsearch/v8/typedapi/connector/post"
 	connector_put "github.com/elastic/go-elasticsearch/v8/typedapi/connector/put"
+	connector_secret_delete "github.com/elastic/go-elasticsearch/v8/typedapi/connector/secretdelete"
+	connector_secret_get "github.com/elastic/go-elasticsearch/v8/typedapi/connector/secretget"
 	connector_secret_post "github.com/elastic/go-elasticsearch/v8/typedapi/connector/secretpost"
+	connector_secret_put "github.com/elastic/go-elasticsearch/v8/typedapi/connector/secretput"
 	connector_sync_job_cancel "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobcancel"
 	connector_sync_job_check_in "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobcheckin"
 	connector_sync_job_claim "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobclaim"
@@ -118,6 +120,7 @@ import (
 	connector_update_service_type "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateservicetype"
 	connector_update_status "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatestatus"
 	core_bulk "github.com/elastic/go-elasticsearch/v8/typedapi/core/bulk"
+	core_capabilities "github.com/elastic/go-elasticsearch/v8/typedapi/core/capabilities"
 	core_clear_scroll "github.com/elastic/go-elasticsearch/v8/typedapi/core/clearscroll"
 	core_close_point_in_time "github.com/elastic/go-elasticsearch/v8/typedapi/core/closepointintime"
 	core_count "github.com/elastic/go-elasticsearch/v8/typedapi/core/count"
@@ -180,6 +183,8 @@ import (
 	esql_query "github.com/elastic/go-elasticsearch/v8/typedapi/esql/query"
 	features_get_features "github.com/elastic/go-elasticsearch/v8/typedapi/features/getfeatures"
 	features_reset_features "github.com/elastic/go-elasticsearch/v8/typedapi/features/resetfeatures"
+	fleet_delete_secret "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/deletesecret"
+	fleet_get_secret "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/getsecret"
 	fleet_global_checkpoints "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/globalcheckpoints"
 	fleet_msearch "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/msearch"
 	fleet_post_secret "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/postsecret"
@@ -210,6 +215,7 @@ import (
 	indices_delete_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletealias"
 	indices_delete_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletedatalifecycle"
 	indices_delete_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletedatastream"
+	indices_delete_data_stream_options "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletedatastreamoptions"
 	indices_delete_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deleteindextemplate"
 	indices_delete_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletetemplate"
 	indices_disk_usage "github.com/elastic/go-elasticsearch/v8/typedapi/indices/diskusage"
@@ -227,6 +233,8 @@ import (
 	indices_get_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatalifecycle"
 	indices_get_data_lifecycle_stats "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatalifecyclestats"
 	indices_get_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatastream"
+	indices_get_data_stream_options "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatastreamoptions"
+	indices_get_data_stream_settings "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatastreamsettings"
 	indices_get_field_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getfieldmapping"
 	indices_get_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getindextemplate"
 	indices_get_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getmapping"
@@ -240,6 +248,8 @@ import (
 	indices_promote_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/promotedatastream"
 	indices_put_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putalias"
 	indices_put_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putdatalifecycle"
+	indices_put_data_stream_options "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putdatastreamoptions"
+	indices_put_data_stream_settings "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putdatastreamsettings"
 	indices_put_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putindextemplate"
 	indices_put_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putmapping"
 	indices_put_settings "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putsettings"
@@ -552,6 +562,7 @@ import (
 	transform_put_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/puttransform"
 	transform_reset_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/resettransform"
 	transform_schedule_now_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/schedulenowtransform"
+	transform_set_upgrade_mode "github.com/elastic/go-elasticsearch/v8/typedapi/transform/setupgrademode"
 	transform_start_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/starttransform"
 	transform_stop_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/stoptransform"
 	transform_update_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/updatetransform"
@@ -585,10 +596,6 @@ type Autoscaling struct {
 	GetAutoscalingCapacity  autoscaling_get_autoscaling_capacity.NewGetAutoscalingCapacity
 	GetAutoscalingPolicy    autoscaling_get_autoscaling_policy.NewGetAutoscalingPolicy
 	PutAutoscalingPolicy    autoscaling_put_autoscaling_policy.NewPutAutoscalingPolicy
-}
-
-type Capabilities struct {
-	Capabilities capabilities.NewCapabilities
 }
 
 type Cat struct {
@@ -663,7 +670,10 @@ type Connector struct {
 	List                      connector_list.NewList
 	Post                      connector_post.NewPost
 	Put                       connector_put.NewPut
+	SecretDelete              connector_secret_delete.NewSecretDelete
+	SecretGet                 connector_secret_get.NewSecretGet
 	SecretPost                connector_secret_post.NewSecretPost
+	SecretPut                 connector_secret_put.NewSecretPut
 	SyncJobCancel             connector_sync_job_cancel.NewSyncJobCancel
 	SyncJobCheckIn            connector_sync_job_check_in.NewSyncJobCheckIn
 	SyncJobClaim              connector_sync_job_claim.NewSyncJobClaim
@@ -691,6 +701,7 @@ type Connector struct {
 
 type Core struct {
 	Bulk                    core_bulk.NewBulk
+	Capabilities            core_capabilities.NewCapabilities
 	ClearScroll             core_clear_scroll.NewClearScroll
 	ClosePointInTime        core_close_point_in_time.NewClosePointInTime
 	Count                   core_count.NewCount
@@ -771,6 +782,8 @@ type Features struct {
 }
 
 type Fleet struct {
+	DeleteSecret      fleet_delete_secret.NewDeleteSecret
+	GetSecret         fleet_get_secret.NewGetSecret
 	GlobalCheckpoints fleet_global_checkpoints.NewGlobalCheckpoints
 	Msearch           fleet_msearch.NewMsearch
 	PostSecret        fleet_post_secret.NewPostSecret
@@ -810,6 +823,7 @@ type Indices struct {
 	DeleteAlias             indices_delete_alias.NewDeleteAlias
 	DeleteDataLifecycle     indices_delete_data_lifecycle.NewDeleteDataLifecycle
 	DeleteDataStream        indices_delete_data_stream.NewDeleteDataStream
+	DeleteDataStreamOptions indices_delete_data_stream_options.NewDeleteDataStreamOptions
 	DeleteIndexTemplate     indices_delete_index_template.NewDeleteIndexTemplate
 	DeleteTemplate          indices_delete_template.NewDeleteTemplate
 	DiskUsage               indices_disk_usage.NewDiskUsage
@@ -827,6 +841,8 @@ type Indices struct {
 	GetDataLifecycle        indices_get_data_lifecycle.NewGetDataLifecycle
 	GetDataLifecycleStats   indices_get_data_lifecycle_stats.NewGetDataLifecycleStats
 	GetDataStream           indices_get_data_stream.NewGetDataStream
+	GetDataStreamOptions    indices_get_data_stream_options.NewGetDataStreamOptions
+	GetDataStreamSettings   indices_get_data_stream_settings.NewGetDataStreamSettings
 	GetFieldMapping         indices_get_field_mapping.NewGetFieldMapping
 	GetIndexTemplate        indices_get_index_template.NewGetIndexTemplate
 	GetMapping              indices_get_mapping.NewGetMapping
@@ -840,6 +856,8 @@ type Indices struct {
 	PromoteDataStream       indices_promote_data_stream.NewPromoteDataStream
 	PutAlias                indices_put_alias.NewPutAlias
 	PutDataLifecycle        indices_put_data_lifecycle.NewPutDataLifecycle
+	PutDataStreamOptions    indices_put_data_stream_options.NewPutDataStreamOptions
+	PutDataStreamSettings   indices_put_data_stream_settings.NewPutDataStreamSettings
 	PutIndexTemplate        indices_put_index_template.NewPutIndexTemplate
 	PutMapping              indices_put_mapping.NewPutMapping
 	PutSettings             indices_put_settings.NewPutSettings
@@ -1227,6 +1245,7 @@ type Transform struct {
 	PutTransform         transform_put_transform.NewPutTransform
 	ResetTransform       transform_reset_transform.NewResetTransform
 	ScheduleNowTransform transform_schedule_now_transform.NewScheduleNowTransform
+	SetUpgradeMode       transform_set_upgrade_mode.NewSetUpgradeMode
 	StartTransform       transform_start_transform.NewStartTransform
 	StopTransform        transform_stop_transform.NewStopTransform
 	UpdateTransform      transform_update_transform.NewUpdateTransform
@@ -1257,7 +1276,6 @@ type Xpack struct {
 type API struct {
 	AsyncSearch         AsyncSearch
 	Autoscaling         Autoscaling
-	Capabilities        Capabilities
 	Cat                 Cat
 	Ccr                 Ccr
 	Cluster             Cluster
@@ -1301,6 +1319,7 @@ type API struct {
 	Xpack               Xpack
 
 	Bulk                    core_bulk.NewBulk
+	Capabilities            core_capabilities.NewCapabilities
 	ClearScroll             core_clear_scroll.NewClearScroll
 	ClosePointInTime        core_close_point_in_time.NewClosePointInTime
 	Count                   core_count.NewCount
@@ -1360,10 +1379,6 @@ func New(tp elastictransport.Interface) *API {
 			GetAutoscalingCapacity:  autoscaling_get_autoscaling_capacity.NewGetAutoscalingCapacityFunc(tp),
 			GetAutoscalingPolicy:    autoscaling_get_autoscaling_policy.NewGetAutoscalingPolicyFunc(tp),
 			PutAutoscalingPolicy:    autoscaling_put_autoscaling_policy.NewPutAutoscalingPolicyFunc(tp),
-		},
-
-		Capabilities: Capabilities{
-			Capabilities: capabilities.NewCapabilitiesFunc(tp),
 		},
 
 		Cat: Cat{
@@ -1438,7 +1453,10 @@ func New(tp elastictransport.Interface) *API {
 			List:                      connector_list.NewListFunc(tp),
 			Post:                      connector_post.NewPostFunc(tp),
 			Put:                       connector_put.NewPutFunc(tp),
+			SecretDelete:              connector_secret_delete.NewSecretDeleteFunc(tp),
+			SecretGet:                 connector_secret_get.NewSecretGetFunc(tp),
 			SecretPost:                connector_secret_post.NewSecretPostFunc(tp),
+			SecretPut:                 connector_secret_put.NewSecretPutFunc(tp),
 			SyncJobCancel:             connector_sync_job_cancel.NewSyncJobCancelFunc(tp),
 			SyncJobCheckIn:            connector_sync_job_check_in.NewSyncJobCheckInFunc(tp),
 			SyncJobClaim:              connector_sync_job_claim.NewSyncJobClaimFunc(tp),
@@ -1466,6 +1484,7 @@ func New(tp elastictransport.Interface) *API {
 
 		Core: Core{
 			Bulk:                    core_bulk.NewBulkFunc(tp),
+			Capabilities:            core_capabilities.NewCapabilitiesFunc(tp),
 			ClearScroll:             core_clear_scroll.NewClearScrollFunc(tp),
 			ClosePointInTime:        core_close_point_in_time.NewClosePointInTimeFunc(tp),
 			Count:                   core_count.NewCountFunc(tp),
@@ -1546,6 +1565,8 @@ func New(tp elastictransport.Interface) *API {
 		},
 
 		Fleet: Fleet{
+			DeleteSecret:      fleet_delete_secret.NewDeleteSecretFunc(tp),
+			GetSecret:         fleet_get_secret.NewGetSecretFunc(tp),
 			GlobalCheckpoints: fleet_global_checkpoints.NewGlobalCheckpointsFunc(tp),
 			Msearch:           fleet_msearch.NewMsearchFunc(tp),
 			PostSecret:        fleet_post_secret.NewPostSecretFunc(tp),
@@ -1585,6 +1606,7 @@ func New(tp elastictransport.Interface) *API {
 			DeleteAlias:             indices_delete_alias.NewDeleteAliasFunc(tp),
 			DeleteDataLifecycle:     indices_delete_data_lifecycle.NewDeleteDataLifecycleFunc(tp),
 			DeleteDataStream:        indices_delete_data_stream.NewDeleteDataStreamFunc(tp),
+			DeleteDataStreamOptions: indices_delete_data_stream_options.NewDeleteDataStreamOptionsFunc(tp),
 			DeleteIndexTemplate:     indices_delete_index_template.NewDeleteIndexTemplateFunc(tp),
 			DeleteTemplate:          indices_delete_template.NewDeleteTemplateFunc(tp),
 			DiskUsage:               indices_disk_usage.NewDiskUsageFunc(tp),
@@ -1602,6 +1624,8 @@ func New(tp elastictransport.Interface) *API {
 			GetDataLifecycle:        indices_get_data_lifecycle.NewGetDataLifecycleFunc(tp),
 			GetDataLifecycleStats:   indices_get_data_lifecycle_stats.NewGetDataLifecycleStatsFunc(tp),
 			GetDataStream:           indices_get_data_stream.NewGetDataStreamFunc(tp),
+			GetDataStreamOptions:    indices_get_data_stream_options.NewGetDataStreamOptionsFunc(tp),
+			GetDataStreamSettings:   indices_get_data_stream_settings.NewGetDataStreamSettingsFunc(tp),
 			GetFieldMapping:         indices_get_field_mapping.NewGetFieldMappingFunc(tp),
 			GetIndexTemplate:        indices_get_index_template.NewGetIndexTemplateFunc(tp),
 			GetMapping:              indices_get_mapping.NewGetMappingFunc(tp),
@@ -1615,6 +1639,8 @@ func New(tp elastictransport.Interface) *API {
 			PromoteDataStream:       indices_promote_data_stream.NewPromoteDataStreamFunc(tp),
 			PutAlias:                indices_put_alias.NewPutAliasFunc(tp),
 			PutDataLifecycle:        indices_put_data_lifecycle.NewPutDataLifecycleFunc(tp),
+			PutDataStreamOptions:    indices_put_data_stream_options.NewPutDataStreamOptionsFunc(tp),
+			PutDataStreamSettings:   indices_put_data_stream_settings.NewPutDataStreamSettingsFunc(tp),
 			PutIndexTemplate:        indices_put_index_template.NewPutIndexTemplateFunc(tp),
 			PutMapping:              indices_put_mapping.NewPutMappingFunc(tp),
 			PutSettings:             indices_put_settings.NewPutSettingsFunc(tp),
@@ -2002,6 +2028,7 @@ func New(tp elastictransport.Interface) *API {
 			PutTransform:         transform_put_transform.NewPutTransformFunc(tp),
 			ResetTransform:       transform_reset_transform.NewResetTransformFunc(tp),
 			ScheduleNowTransform: transform_schedule_now_transform.NewScheduleNowTransformFunc(tp),
+			SetUpgradeMode:       transform_set_upgrade_mode.NewSetUpgradeModeFunc(tp),
 			StartTransform:       transform_start_transform.NewStartTransformFunc(tp),
 			StopTransform:        transform_stop_transform.NewStopTransformFunc(tp),
 			UpdateTransform:      transform_update_transform.NewUpdateTransformFunc(tp),
@@ -2030,6 +2057,7 @@ func New(tp elastictransport.Interface) *API {
 		},
 
 		Bulk:                    core_bulk.NewBulkFunc(tp),
+		Capabilities:            core_capabilities.NewCapabilitiesFunc(tp),
 		ClearScroll:             core_clear_scroll.NewClearScrollFunc(tp),
 		ClosePointInTime:        core_close_point_in_time.NewClosePointInTimeFunc(tp),
 		Count:                   core_count.NewCountFunc(tp),

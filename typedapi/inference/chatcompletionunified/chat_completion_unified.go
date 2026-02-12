@@ -16,15 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Perform chat completion inference
 //
 // The chat completion inference API enables real-time responses for chat
 // completion tasks by delivering answers incrementally, reducing response times
 // during computation.
-// It only works with the `chat_completion` task type for `openai` and `elastic`
-// inference services.
+// It only works with the `chat_completion` task type.
 //
 // NOTE: The `chat_completion` task type is only available within the _stream
 // API and only supports streaming.
@@ -32,8 +31,8 @@
 // their response structure and capabilities.
 // The Chat completion inference API provides more comprehensive customization
 // options through more fields and function calling support.
-// If you use the `openai`, `hugging_face` or the `elastic` service, use the
-// Chat completion inference API.
+// To determine whether a given inference service supports this task type,
+// please see the page for that service.
 package chatcompletionunified
 
 import (
@@ -101,8 +100,7 @@ func NewChatCompletionUnifiedFunc(tp elastictransport.Interface) NewChatCompleti
 // The chat completion inference API enables real-time responses for chat
 // completion tasks by delivering answers incrementally, reducing response times
 // during computation.
-// It only works with the `chat_completion` task type for `openai` and `elastic`
-// inference services.
+// It only works with the `chat_completion` task type.
 //
 // NOTE: The `chat_completion` task type is only available within the _stream
 // API and only supports streaming.
@@ -110,8 +108,8 @@ func NewChatCompletionUnifiedFunc(tp elastictransport.Interface) NewChatCompleti
 // their response structure and capabilities.
 // The Chat completion inference API provides more comprehensive customization
 // options through more fields and function calling support.
-// If you use the `openai`, `hugging_face` or the `elastic` service, use the
-// Chat completion inference API.
+// To determine whether a given inference service supports this task type,
+// please see the page for that service.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/chat-completion-inference-api.html
 func New(tp elastictransport.Interface) *ChatCompletionUnified {

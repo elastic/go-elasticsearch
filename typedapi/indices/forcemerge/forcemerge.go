@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Force a merge.
 // Perform the force merge operation on the shards of one or more indices.
@@ -463,7 +463,8 @@ func (r *Forcemerge) Index(index string) *Forcemerge {
 }
 
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// indices.
+// (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
 func (r *Forcemerge) AllowNoIndices(allownoindices bool) *Forcemerge {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -485,7 +486,6 @@ func (r *Forcemerge) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWil
 }
 
 // Flush Specify whether the index should be flushed after performing the operation
-// (default: true)
 // API name: flush
 func (r *Forcemerge) Flush(flush bool) *Forcemerge {
 	r.values.Set("flush", strconv.FormatBool(flush))
@@ -518,7 +518,7 @@ func (r *Forcemerge) OnlyExpungeDeletes(onlyexpungedeletes bool) *Forcemerge {
 	return r
 }
 
-// WaitForCompletion Should the request wait until the force merge is completed.
+// WaitForCompletion Should the request wait until the force merge is completed
 // API name: wait_for_completion
 func (r *Forcemerge) WaitForCompletion(waitforcompletion bool) *Forcemerge {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))

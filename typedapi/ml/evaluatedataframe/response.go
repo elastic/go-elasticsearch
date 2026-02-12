@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package evaluatedataframe
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package evaluatedataframe
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/evaluate_data_frame/MlEvaluateDataFrameResponse.ts#L26-L44
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/ml/evaluate_data_frame/MlEvaluateDataFrameResponse.ts#L26-L44
 type Response struct {
 	// Classification Evaluation results for a classification analysis.
 	// It outputs a prediction that identifies to which of the classes each document

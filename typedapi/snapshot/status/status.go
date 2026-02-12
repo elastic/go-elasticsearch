@@ -16,15 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Get the snapshot status.
 // Get a detailed description of the current state for each shard participating
 // in the snapshot.
+//
 // Note that this API should be used only to obtain detailed shard-level
 // information for ongoing snapshots.
 // If this detail is not needed or you want to obtain information about one or
 // more existing snapshots, use the get snapshot API.
+//
+// If you omit the `<snapshot>` request path parameter, the request retrieves
+// information only for currently running snapshots.
+// This usage is preferred.
+// If needed, you can specify `<repository>` and `<snapshot>` to retrieve
+// information for specific snapshots, even if they're not currently running.
 //
 // WARNING: Using the API to return the status of any snapshots other than
 // currently running snapshots can be expensive.
@@ -98,10 +105,17 @@ func NewStatusFunc(tp elastictransport.Interface) NewStatus {
 // Get the snapshot status.
 // Get a detailed description of the current state for each shard participating
 // in the snapshot.
+//
 // Note that this API should be used only to obtain detailed shard-level
 // information for ongoing snapshots.
 // If this detail is not needed or you want to obtain information about one or
 // more existing snapshots, use the get snapshot API.
+//
+// If you omit the `<snapshot>` request path parameter, the request retrieves
+// information only for currently running snapshots.
+// This usage is preferred.
+// If needed, you can specify `<repository>` and `<snapshot>` to retrieve
+// information for specific snapshots, even if they're not currently running.
 //
 // WARNING: Using the API to return the status of any snapshots other than
 // currently running snapshots can be expensive.
@@ -353,7 +367,8 @@ func (r *Status) Header(key, value string) *Status {
 	return r
 }
 
-// Repository A repository name
+// Repository The snapshot repository name used to limit the request.
+// It supports wildcards (`*`) if `<snapshot>` isn't specified.
 // API Name: repository
 func (r *Status) Repository(repository string) *Status {
 	r.paramSet |= repositoryMask
@@ -362,7 +377,9 @@ func (r *Status) Repository(repository string) *Status {
 	return r
 }
 
-// Snapshot A comma-separated list of snapshot names
+// Snapshot A comma-separated list of snapshots to retrieve status for.
+// The default is currently running snapshots.
+// Wildcards (`*`) are not supported.
 // API Name: snapshot
 func (r *Status) Snapshot(snapshot string) *Status {
 	r.paramSet |= snapshotMask
@@ -371,8 +388,10 @@ func (r *Status) Snapshot(snapshot string) *Status {
 	return r
 }
 
-// IgnoreUnavailable Whether to ignore unavailable snapshots, defaults to false which means a
-// SnapshotMissingException is thrown
+// IgnoreUnavailable If `false`, the request returns an error for any snapshots that are
+// unavailable.
+// If `true`, the request ignores snapshots that are unavailable, such as those
+// that are corrupted or temporarily cannot be returned.
 // API name: ignore_unavailable
 func (r *Status) IgnoreUnavailable(ignoreunavailable bool) *Status {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -380,7 +399,10 @@ func (r *Status) IgnoreUnavailable(ignoreunavailable bool) *Status {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout The period to wait for the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Status) MasterTimeout(duration string) *Status {
 	r.values.Set("master_timeout", duration)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Delete snapshot repositories.
 // When a repository is unregistered, Elasticsearch removes only the reference
@@ -294,8 +294,8 @@ func (r *DeleteRepository) Header(key, value string) *DeleteRepository {
 	return r
 }
 
-// Repository Name of the snapshot repository to unregister. Wildcard (`*`) patterns are
-// supported.
+// Repository The ame of the snapshot repositories to unregister.
+// Wildcard (`*`) patterns are supported.
 // API Name: repository
 func (r *DeleteRepository) _repository(repository string) *DeleteRepository {
 	r.paramSet |= repositoryMask
@@ -304,7 +304,10 @@ func (r *DeleteRepository) _repository(repository string) *DeleteRepository {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout The period to wait for the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *DeleteRepository) MasterTimeout(duration string) *DeleteRepository {
 	r.values.Set("master_timeout", duration)
@@ -312,7 +315,12 @@ func (r *DeleteRepository) MasterTimeout(duration string) *DeleteRepository {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout The period to wait for a response from all relevant nodes in the cluster
+// after updating the cluster metadata.
+// If no response is received before the timeout expires, the cluster metadata
+// update still applies but the response will indicate that it was not
+// completely acknowledged.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: timeout
 func (r *DeleteRepository) Timeout(duration string) *DeleteRepository {
 	r.values.Set("timeout", duration)

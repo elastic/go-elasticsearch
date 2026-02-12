@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Create a snapshot.
 // Take a snapshot of a cluster or of data streams and indices.
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -315,7 +316,7 @@ func (r *Create) Header(key, value string) *Create {
 	return r
 }
 
-// Repository Repository for the snapshot.
+// Repository The name of the repository for the snapshot.
 // API Name: repository
 func (r *Create) _repository(repository string) *Create {
 	r.paramSet |= repositoryMask
@@ -324,7 +325,9 @@ func (r *Create) _repository(repository string) *Create {
 	return r
 }
 
-// Snapshot Name of the snapshot. Must be unique in the repository.
+// Snapshot The name of the snapshot.
+// It supportes date math.
+// It must be unique in the repository.
 // API Name: snapshot
 func (r *Create) _snapshot(snapshot string) *Create {
 	r.paramSet |= snapshotMask
@@ -333,8 +336,9 @@ func (r *Create) _snapshot(snapshot string) *Create {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an error.
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *Create) MasterTimeout(duration string) *Create {
 	r.values.Set("master_timeout", duration)
@@ -342,8 +346,8 @@ func (r *Create) MasterTimeout(duration string) *Create {
 	return r
 }
 
-// WaitForCompletion If `true`, the request returns a response when the snapshot is complete. If
-// `false`, the request returns a response when the snapshot initializes.
+// WaitForCompletion If `true`, the request returns a response when the snapshot is complete.
+// If `false`, the request returns a response when the snapshot initializes.
 // API name: wait_for_completion
 func (r *Create) WaitForCompletion(waitforcompletion bool) *Create {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
@@ -395,11 +399,32 @@ func (r *Create) Pretty(pretty bool) *Create {
 	return r
 }
 
-// FeatureStates Feature states to include in the snapshot. Each feature state includes one or
-// more system indices containing related data. You can view a list of eligible
-// features using the get features API. If `include_global_state` is `true`, all
-// current feature states are included by default. If `include_global_state` is
-// `false`, no feature states are included by default.
+// ExpandWildcards Determines how wildcard patterns in the `indices` parameter match data
+// streams and indices.
+// It supports comma-separated values such as `open,hidden`.
+// API name: expand_wildcards
+func (r *Create) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Create {
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.ExpandWildcards = expandwildcards
+
+	return r
+}
+
+// FeatureStates The feature states to include in the snapshot.
+// Each feature state includes one or more system indices containing related
+// data.
+// You can view a list of eligible features using the get features API.
+//
+// If `include_global_state` is `true`, all current feature states are included
+// by default.
+// If `include_global_state` is `false`, no feature states are included by
+// default.
+//
+// Note that specifying an empty array will result in the default behavior.
+// To exclude all feature states, regardless of the `include_global_state`
+// value, specify an array with only the value `none` (`["none"]`).
 // API name: feature_states
 func (r *Create) FeatureStates(featurestates ...string) *Create {
 	if r.req == nil {
@@ -411,8 +436,9 @@ func (r *Create) FeatureStates(featurestates ...string) *Create {
 }
 
 // IgnoreUnavailable If `true`, the request ignores data streams and indices in `indices` that are
-// missing or closed. If `false`, the request returns an error for any data
-// stream or index that is missing or closed.
+// missing or closed.
+// If `false`, the request returns an error for any data stream or index that is
+// missing or closed.
 // API name: ignore_unavailable
 func (r *Create) IgnoreUnavailable(ignoreunavailable bool) *Create {
 	if r.req == nil {
@@ -423,11 +449,11 @@ func (r *Create) IgnoreUnavailable(ignoreunavailable bool) *Create {
 	return r
 }
 
-// IncludeGlobalState If `true`, the current cluster state is included in the snapshot. The cluster
-// state includes persistent cluster settings, composable index templates,
-// legacy index templates, ingest pipelines, and ILM policies. It also includes
-// data stored in system indices, such as Watches and task records (configurable
-// via `feature_states`).
+// IncludeGlobalState If `true`, the current cluster state is included in the snapshot.
+// The cluster state includes persistent cluster settings, composable index
+// templates, legacy index templates, ingest pipelines, and ILM policies.
+// It also includes data stored in system indices, such as Watches and task
+// records (configurable via `feature_states`).
 // API name: include_global_state
 func (r *Create) IncludeGlobalState(includeglobalstate bool) *Create {
 	if r.req == nil {
@@ -438,8 +464,16 @@ func (r *Create) IncludeGlobalState(includeglobalstate bool) *Create {
 	return r
 }
 
-// Indices Data streams and indices to include in the snapshot. Supports multi-target
-// syntax. Includes all data streams and indices by default.
+// Indices A comma-separated list of data streams and indices to include in the
+// snapshot.
+// It supports a multi-target syntax.
+// The default is an empty array (`[]`), which includes all regular data streams
+// and regular indices.
+// To exclude all data streams and indices, use `-*`.
+//
+// You can't use this parameter to include or exclude system indices or system
+// data streams from a snapshot.
+// Use `feature_states` instead.
 // API name: indices
 func (r *Create) Indices(indices ...string) *Create {
 	if r.req == nil {
@@ -450,8 +484,10 @@ func (r *Create) Indices(indices ...string) *Create {
 	return r
 }
 
-// Metadata Optional metadata for the snapshot. May have any contents. Must be less than
-// 1024 bytes. This map is not automatically generated by Elasticsearch.
+// Metadata Arbitrary metadata to the snapshot, such as a record of who took the
+// snapshot, why it was taken, or any other useful data.
+// It can have any contents but it must be less than 1024 bytes.
+// This information is not automatically generated by Elasticsearch.
 // API name: metadata
 func (r *Create) Metadata(metadata types.Metadata) *Create {
 	if r.req == nil {
@@ -462,11 +498,13 @@ func (r *Create) Metadata(metadata types.Metadata) *Create {
 	return r
 }
 
-// Partial If `true`, allows restoring a partial snapshot of indices with unavailable
-// shards. Only shards that were successfully included in the snapshot will be
-// restored. All missing shards will be recreated as empty. If `false`, the
-// entire restore operation will fail if one or more indices included in the
-// snapshot do not have all primary shards available.
+// Partial If `true`, it enables you to restore a partial snapshot of indices with
+// unavailable shards.
+// Only shards that were successfully included in the snapshot will be restored.
+// All missing shards will be recreated as empty.
+//
+// If `false`, the entire restore operation will fail if one or more indices
+// included in the snapshot do not have all primary shards available.
 // API name: partial
 func (r *Create) Partial(partial bool) *Create {
 	if r.req == nil {

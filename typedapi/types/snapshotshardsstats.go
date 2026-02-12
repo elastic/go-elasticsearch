@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -31,14 +31,20 @@ import (
 
 // SnapshotShardsStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/snapshot/_types/SnapshotShardsStats.ts#L22-L29
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/snapshot/_types/SnapshotShardsStats.ts#L22-L47
 type SnapshotShardsStats struct {
-	Done         int64 `json:"done"`
-	Failed       int64 `json:"failed"`
-	Finalizing   int64 `json:"finalizing"`
+	// Done The number of shards that initialized, started, and finalized successfully.
+	Done int64 `json:"done"`
+	// Failed The number of shards that failed to be included in the snapshot.
+	Failed int64 `json:"failed"`
+	// Finalizing The number of shards that are finalizing but are not done.
+	Finalizing int64 `json:"finalizing"`
+	// Initializing The number of shards that are still initializing.
 	Initializing int64 `json:"initializing"`
-	Started      int64 `json:"started"`
-	Total        int64 `json:"total"`
+	// Started The number of shards that have started but are not finalized.
+	Started int64 `json:"started"`
+	// Total The total number of shards included in the snapshot.
+	Total int64 `json:"total"`
 }
 
 func (s *SnapshotShardsStats) UnmarshalJSON(data []byte) error {

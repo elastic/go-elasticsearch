@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Verify the repository integrity.
 // Verify the integrity of the contents of a snapshot repository.
@@ -68,6 +68,21 @@
 // the request parameters and the response format to vary in future versions.
 //
 // NOTE: This API may not work correctly in a mixed-version cluster.
+//
+// The default values for the parameters of this API are designed to limit the
+// impact of the integrity verification on other activities in your cluster.
+// For instance, by default it will only use at most half of the `snapshot_meta`
+// threads to verify the integrity of each snapshot, allowing other snapshot
+// operations to use the other half of this thread pool.
+// If you modify these parameters to speed up the verification process, you risk
+// disrupting other snapshot-related operations in your cluster.
+// For large repositories, consider setting up a separate single-node
+// Elasticsearch cluster just for running the integrity verification API.
+//
+// The response exposes implementation details of the analysis which may change
+// from version to version.
+// The response body format is therefore not considered stable and may be
+// different in newer versions.
 package repositoryverifyintegrity
 
 import (
@@ -175,6 +190,21 @@ func NewRepositoryVerifyIntegrityFunc(tp elastictransport.Interface) NewReposito
 // the request parameters and the response format to vary in future versions.
 //
 // NOTE: This API may not work correctly in a mixed-version cluster.
+//
+// The default values for the parameters of this API are designed to limit the
+// impact of the integrity verification on other activities in your cluster.
+// For instance, by default it will only use at most half of the `snapshot_meta`
+// threads to verify the integrity of each snapshot, allowing other snapshot
+// operations to use the other half of this thread pool.
+// If you modify these parameters to speed up the verification process, you risk
+// disrupting other snapshot-related operations in your cluster.
+// For large repositories, consider setting up a separate single-node
+// Elasticsearch cluster just for running the integrity verification API.
+//
+// The response exposes implementation details of the analysis which may change
+// from version to version.
+// The response body format is therefore not considered stable and may be
+// different in newer versions.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/verify-repo-integrity-api.html
 func New(tp elastictransport.Interface) *RepositoryVerifyIntegrity {
@@ -388,7 +418,7 @@ func (r *RepositoryVerifyIntegrity) Header(key, value string) *RepositoryVerifyI
 	return r
 }
 
-// Repository A repository name
+// Repository The name of the snapshot repository.
 // API Name: repository
 func (r *RepositoryVerifyIntegrity) _repository(repository string) *RepositoryVerifyIntegrity {
 	r.paramSet |= repositoryMask
@@ -397,15 +427,8 @@ func (r *RepositoryVerifyIntegrity) _repository(repository string) *RepositoryVe
 	return r
 }
 
-// MetaThreadPoolConcurrency Number of threads to use for reading metadata
-// API name: meta_thread_pool_concurrency
-func (r *RepositoryVerifyIntegrity) MetaThreadPoolConcurrency(metathreadpoolconcurrency int) *RepositoryVerifyIntegrity {
-	r.values.Set("meta_thread_pool_concurrency", strconv.Itoa(metathreadpoolconcurrency))
-
-	return r
-}
-
-// BlobThreadPoolConcurrency Number of threads to use for reading blob contents
+// BlobThreadPoolConcurrency If `verify_blob_contents` is `true`, this parameter specifies how many blobs
+// to verify at once.
 // API name: blob_thread_pool_concurrency
 func (r *RepositoryVerifyIntegrity) BlobThreadPoolConcurrency(blobthreadpoolconcurrency int) *RepositoryVerifyIntegrity {
 	r.values.Set("blob_thread_pool_concurrency", strconv.Itoa(blobthreadpoolconcurrency))
@@ -413,23 +436,8 @@ func (r *RepositoryVerifyIntegrity) BlobThreadPoolConcurrency(blobthreadpoolconc
 	return r
 }
 
-// SnapshotVerificationConcurrency Number of snapshots to verify concurrently
-// API name: snapshot_verification_concurrency
-func (r *RepositoryVerifyIntegrity) SnapshotVerificationConcurrency(snapshotverificationconcurrency int) *RepositoryVerifyIntegrity {
-	r.values.Set("snapshot_verification_concurrency", strconv.Itoa(snapshotverificationconcurrency))
-
-	return r
-}
-
-// IndexVerificationConcurrency Number of indices to verify concurrently
-// API name: index_verification_concurrency
-func (r *RepositoryVerifyIntegrity) IndexVerificationConcurrency(indexverificationconcurrency int) *RepositoryVerifyIntegrity {
-	r.values.Set("index_verification_concurrency", strconv.Itoa(indexverificationconcurrency))
-
-	return r
-}
-
-// IndexSnapshotVerificationConcurrency Number of snapshots to verify concurrently within each index
+// IndexSnapshotVerificationConcurrency The maximum number of index snapshots to verify concurrently within each
+// index verification.
 // API name: index_snapshot_verification_concurrency
 func (r *RepositoryVerifyIntegrity) IndexSnapshotVerificationConcurrency(indexsnapshotverificationconcurrency int) *RepositoryVerifyIntegrity {
 	r.values.Set("index_snapshot_verification_concurrency", strconv.Itoa(indexsnapshotverificationconcurrency))
@@ -437,7 +445,28 @@ func (r *RepositoryVerifyIntegrity) IndexSnapshotVerificationConcurrency(indexsn
 	return r
 }
 
-// MaxFailedShardSnapshots Maximum permitted number of failed shard snapshots
+// IndexVerificationConcurrency The number of indices to verify concurrently.
+// The default behavior is to use the entire `snapshot_meta` thread pool.
+// API name: index_verification_concurrency
+func (r *RepositoryVerifyIntegrity) IndexVerificationConcurrency(indexverificationconcurrency int) *RepositoryVerifyIntegrity {
+	r.values.Set("index_verification_concurrency", strconv.Itoa(indexverificationconcurrency))
+
+	return r
+}
+
+// MaxBytesPerSec If `verify_blob_contents` is `true`, this parameter specifies the maximum
+// amount of data that Elasticsearch will read from the repository every second.
+// API name: max_bytes_per_sec
+func (r *RepositoryVerifyIntegrity) MaxBytesPerSec(maxbytespersec string) *RepositoryVerifyIntegrity {
+	r.values.Set("max_bytes_per_sec", maxbytespersec)
+
+	return r
+}
+
+// MaxFailedShardSnapshots The number of shard snapshot failures to track during integrity verification,
+// in order to avoid excessive resource usage.
+// If your repository contains more than this number of shard snapshot failures,
+// the verification will fail.
 // API name: max_failed_shard_snapshots
 func (r *RepositoryVerifyIntegrity) MaxFailedShardSnapshots(maxfailedshardsnapshots int) *RepositoryVerifyIntegrity {
 	r.values.Set("max_failed_shard_snapshots", strconv.Itoa(maxfailedshardsnapshots))
@@ -445,18 +474,33 @@ func (r *RepositoryVerifyIntegrity) MaxFailedShardSnapshots(maxfailedshardsnapsh
 	return r
 }
 
-// VerifyBlobContents Whether to verify the contents of individual blobs
-// API name: verify_blob_contents
-func (r *RepositoryVerifyIntegrity) VerifyBlobContents(verifyblobcontents bool) *RepositoryVerifyIntegrity {
-	r.values.Set("verify_blob_contents", strconv.FormatBool(verifyblobcontents))
+// MetaThreadPoolConcurrency The maximum number of snapshot metadata operations to run concurrently.
+// The default behavior is to use at most half of the `snapshot_meta` thread
+// pool at once.
+// API name: meta_thread_pool_concurrency
+func (r *RepositoryVerifyIntegrity) MetaThreadPoolConcurrency(metathreadpoolconcurrency int) *RepositoryVerifyIntegrity {
+	r.values.Set("meta_thread_pool_concurrency", strconv.Itoa(metathreadpoolconcurrency))
 
 	return r
 }
 
-// MaxBytesPerSec Rate limit for individual blob verification
-// API name: max_bytes_per_sec
-func (r *RepositoryVerifyIntegrity) MaxBytesPerSec(maxbytespersec string) *RepositoryVerifyIntegrity {
-	r.values.Set("max_bytes_per_sec", maxbytespersec)
+// SnapshotVerificationConcurrency The number of snapshots to verify concurrently.
+// The default behavior is to use at most half of the `snapshot_meta` thread
+// pool at once.
+// API name: snapshot_verification_concurrency
+func (r *RepositoryVerifyIntegrity) SnapshotVerificationConcurrency(snapshotverificationconcurrency int) *RepositoryVerifyIntegrity {
+	r.values.Set("snapshot_verification_concurrency", strconv.Itoa(snapshotverificationconcurrency))
+
+	return r
+}
+
+// VerifyBlobContents Indicates whether to verify the checksum of every data blob in the
+// repository.
+// If this feature is enabled, Elasticsearch will read the entire repository
+// contents, which may be extremely slow and expensive.
+// API name: verify_blob_contents
+func (r *RepositoryVerifyIntegrity) VerifyBlobContents(verifyblobcontents bool) *RepositoryVerifyIntegrity {
+	r.values.Set("verify_blob_contents", strconv.FormatBool(verifyblobcontents))
 
 	return r
 }
