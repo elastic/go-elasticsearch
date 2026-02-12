@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Get data frame analytics job configuration info.
+//
 // You can get information for multiple data frame analytics jobs in a single
 // API request by using a comma-separated list of data frame analytics jobs or a
 // wildcard expression.
@@ -78,6 +79,7 @@ func NewGetDataFrameAnalyticsFunc(tp elastictransport.Interface) NewGetDataFrame
 }
 
 // Get data frame analytics job configuration info.
+//
 // You can get information for multiple data frame analytics jobs in a single
 // API request by using a comma-separated list of data frame analytics jobs or a
 // wildcard expression.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // KeepTypesTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/token_filters.ts#L287-L293
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_types/analysis/token_filters.ts#L312-L318
 type KeepTypesTokenFilter struct {
 	// Mode Indicates whether to keep or remove the specified token types.
 	Mode *keeptypesmode.KeepTypesMode `json:"mode,omitempty"`
@@ -113,6 +113,9 @@ func (s *KeepTypesTokenFilter) KeepTypesTokenFilterCaster() *KeepTypesTokenFilte
 }
 
 func (s *KeepTypesTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

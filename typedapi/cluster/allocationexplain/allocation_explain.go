@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Explain the shard allocations.
+//
 // Get explanations for shard allocations in the cluster.
 // This API accepts the current_node, index, primary and shard parameters in the
 // request body or in query parameters, but not in both at the same time.
@@ -87,6 +88,7 @@ func NewAllocationExplainFunc(tp elastictransport.Interface) NewAllocationExplai
 }
 
 // Explain the shard allocations.
+//
 // Get explanations for shard allocations in the cluster.
 // This API accepts the current_node, index, primary and shard parameters in the
 // request body or in query parameters, but not in both at the same time.

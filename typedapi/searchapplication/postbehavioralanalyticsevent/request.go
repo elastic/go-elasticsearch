@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package postbehavioralanalyticsevent
 
@@ -26,7 +26,7 @@ import (
 
 // Request holds the request body struct for the package postbehavioralanalyticsevent
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/search_application/post_behavioral_analytics_event/BehavioralAnalyticsEventPostRequest.ts#L24-L58
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/search_application/post_behavioral_analytics_event/BehavioralAnalyticsEventPostRequest.ts#L24-L61
 type Request = json.RawMessage
 
 // NewRequest returns a Request

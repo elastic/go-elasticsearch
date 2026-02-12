@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Run an async search.
 //
@@ -42,6 +42,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -297,7 +298,8 @@ func (r Submit) Do(providedCtx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 {
+	if res.StatusCode < 299 || slices.Contains([]int{404, 400, 500, 429}, res.StatusCode) {
+
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -375,7 +377,8 @@ func (r *Submit) KeepOnCompletion(keeponcompletion bool) *Submit {
 }
 
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// indices.
+// (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
 func (r *Submit) AllowNoIndices(allownoindices bool) *Submit {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -400,8 +403,7 @@ func (r *Submit) Analyzer(analyzer string) *Submit {
 	return r
 }
 
-// AnalyzeWildcard Specify whether wildcard and prefix queries should be analyzed (default:
-// false)
+// AnalyzeWildcard Specify whether wildcard and prefix queries should be analyzed
 // API name: analyze_wildcard
 func (r *Submit) AnalyzeWildcard(analyzewildcard bool) *Submit {
 	r.values.Set("analyze_wildcard", strconv.FormatBool(analyzewildcard))
@@ -446,7 +448,7 @@ func (r *Submit) Df(df string) *Submit {
 }
 
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// closed or both
 // API name: expand_wildcards
 func (r *Submit) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Submit {
 	tmp := []string{}
@@ -486,8 +488,9 @@ func (r *Submit) Lenient(lenient bool) *Submit {
 }
 
 // MaxConcurrentShardRequests The number of concurrent shard requests per node this search executes
-// concurrently. This value should be used to limit the impact of the search on
-// the cluster in order to limit the number of concurrent shard requests
+// concurrently.
+// This value should be used to limit the impact of the search on the cluster in
+// order to limit the number of concurrent shard requests
 // API name: max_concurrent_shard_requests
 func (r *Submit) MaxConcurrentShardRequests(maxconcurrentshardrequests int) *Submit {
 	r.values.Set("max_concurrent_shard_requests", strconv.Itoa(maxconcurrentshardrequests))
@@ -495,8 +498,7 @@ func (r *Submit) MaxConcurrentShardRequests(maxconcurrentshardrequests int) *Sub
 	return r
 }
 
-// Preference Specify the node or shard the operation should be performed on (default:
-// random)
+// Preference Specify the node or shard the operation should be performed on
 // API name: preference
 func (r *Submit) Preference(preference string) *Submit {
 	r.values.Set("preference", preference)
@@ -968,9 +970,11 @@ func (r *Submit) SearchAfter(sortresults ...types.FieldValueVariant) *Submit {
 		r.req = NewRequest()
 	}
 
+	convertedItems := make([]types.FieldValue, 0, len(sortresults))
 	for _, v := range sortresults {
-		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
+		convertedItems = append(convertedItems, *v.FieldValueCaster())
 	}
+	r.req.SearchAfter = convertedItems
 
 	return r
 }
@@ -1023,9 +1027,11 @@ func (r *Submit) Sort(sorts ...types.SortCombinationsVariant) *Submit {
 		r.req = NewRequest()
 	}
 
+	convertedItems := make([]types.SortCombinations, 0, len(sorts))
 	for _, v := range sorts {
-		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
+		convertedItems = append(convertedItems, *v.SortCombinationsCaster())
 	}
+	r.req.Sort = convertedItems
 
 	return r
 }

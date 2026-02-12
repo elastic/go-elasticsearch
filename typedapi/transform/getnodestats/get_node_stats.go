@@ -16,21 +16,26 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
-// Retrieves transform usage information for transform nodes
+// Get node stats.
+//
+// Get per-node information about transform usage.
 package getnodestats
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -65,9 +70,11 @@ func NewGetNodeStatsFunc(tp elastictransport.Interface) NewGetNodeStats {
 	}
 }
 
-// Retrieves transform usage information for transform nodes
+// Get node stats.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-transform-node-stats.html
+// Get per-node information about transform usage.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-node-stats
 func New(tp elastictransport.Interface) *GetNodeStats {
 	r := &GetNodeStats{
 		transport: tp,
@@ -174,8 +181,57 @@ func (r GetNodeStats) Perform(providedCtx context.Context) (*http.Response, erro
 }
 
 // Do runs the request through the transport, handle the response and returns a getnodestats.Response
-func (r GetNodeStats) Do(ctx context.Context) (bool, error) {
-	return r.IsSuccess(ctx)
+func (r GetNodeStats) Do(providedCtx context.Context) (*Response, error) {
+	var ctx context.Context
+	r.spanStarted = true
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "transform.get_node_stats")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+				instrument.RecordError(ctx, err)
+			}
+			return nil, err
+		}
+
+		return response, nil
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.RecordError(ctx, errorResponse)
+	}
+	return nil, errorResponse
 }
 
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
@@ -220,6 +276,50 @@ func (r GetNodeStats) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the GetNodeStats headers map.
 func (r *GetNodeStats) Header(key, value string) *GetNodeStats {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *GetNodeStats) ErrorTrace(errortrace bool) *GetNodeStats {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *GetNodeStats) FilterPath(filterpaths ...string) *GetNodeStats {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"exists_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *GetNodeStats) Human(human bool) *GetNodeStats {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *GetNodeStats) Pretty(pretty bool) *GetNodeStats {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

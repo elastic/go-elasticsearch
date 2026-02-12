@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IpLocationDatabaseConfigurationMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ingest/get_ip_location_database/GetIpLocationDatabaseResponse.ts#L28-L34
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/ingest/get_ip_location_database/GetIpLocationDatabaseResponse.ts#L28-L34
 type IpLocationDatabaseConfigurationMetadata struct {
 	Database           DatabaseConfigurationFull `json:"database"`
 	Id                 string                    `json:"id"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -31,16 +31,16 @@ import (
 
 // DataStreamLifecycleWithRollover type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/_types/DataStreamLifecycle.ts#L47-L58
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/indices/_types/DataStreamLifecycle.ts#L47-L58
 type DataStreamLifecycleWithRollover struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame.
 	// Any time after this duration the document could be deleted.
 	// When empty, every document in this data stream will be stored indefinitely.
 	DataRetention Duration `json:"data_retention,omitempty"`
-	// Downsampling The downsampling configuration to execute for the managed backing index after
-	// rollover.
-	Downsampling *DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
+	// Downsampling The list of downsampling rounds to execute as part of this downsampling
+	// configuration
+	Downsampling []DownsamplingRound `json:"downsampling,omitempty"`
 	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
 	// data stream. A data stream lifecycle
 	// that's disabled (enabled: `false`) will have no effect on the data stream.

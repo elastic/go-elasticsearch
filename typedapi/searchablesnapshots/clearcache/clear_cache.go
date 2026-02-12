@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Clear the cache.
+//
 // Clear indices and data streams from the shared cache for partially mounted
 // indices.
 package clearcache
@@ -78,6 +79,7 @@ func NewClearCacheFunc(tp elastictransport.Interface) NewClearCache {
 }
 
 // Clear the cache.
+//
 // Clear indices and data streams from the shared cache for partially mounted
 // indices.
 //
@@ -316,7 +318,7 @@ func (r *ClearCache) Index(index string) *ClearCache {
 }
 
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// closed or both
 // API name: expand_wildcards
 func (r *ClearCache) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ClearCache {
 	tmp := []string{}
@@ -329,7 +331,8 @@ func (r *ClearCache) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWil
 }
 
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// indices.
+// (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
 func (r *ClearCache) AllowNoIndices(allownoindices bool) *ClearCache {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))

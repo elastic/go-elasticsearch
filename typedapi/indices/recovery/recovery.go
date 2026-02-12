@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Get index recovery information.
+//
 // Get information about ongoing and completed shard recoveries for one or more
 // indices.
 // For data streams, the API returns information for the stream's backing
@@ -111,6 +112,7 @@ func NewRecoveryFunc(tp elastictransport.Interface) NewRecovery {
 }
 
 // Get index recovery information.
+//
 // Get information about ongoing and completed shard recoveries for one or more
 // indices.
 // For data streams, the API returns information for the stream's backing

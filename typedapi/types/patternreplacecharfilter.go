@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PatternReplaceCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/char_filters.ts#L57-L62
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_types/analysis/char_filters.ts#L57-L62
 type PatternReplaceCharFilter struct {
 	Flags       *string `json:"flags,omitempty"`
 	Pattern     string  `json:"pattern"`
@@ -138,6 +138,9 @@ func (s *PatternReplaceCharFilter) PatternReplaceCharFilterCaster() *PatternRepl
 }
 
 func (s *PatternReplaceCharFilter) CharFilterDefinitionCaster() *CharFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := CharFilterDefinition(s)
 	return &o
 }

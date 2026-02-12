@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Explore graph analytics.
+//
 // Extract and summarize information about the documents and terms in an
 // Elasticsearch data stream or index.
 // The easiest way to understand the behavior of this API is to use the Graph UI
@@ -92,6 +93,7 @@ func NewExploreFunc(tp elastictransport.Interface) NewExplore {
 }
 
 // Explore graph analytics.
+//
 // Extract and summarize information about the documents and terms in an
 // Elasticsearch data stream or index.
 // The easiest way to understand the behavior of this API is to use the Graph UI

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package esdsl
 
@@ -59,6 +59,20 @@ func (s *_appendProcessor) CopyFrom(field string) *_appendProcessor {
 func (s *_appendProcessor) Field(field string) *_appendProcessor {
 
 	s.v.Field = field
+
+	return s
+}
+
+func (s *_appendProcessor) IgnoreEmptyValues(ignoreemptyvalues bool) *_appendProcessor {
+
+	s.v.IgnoreEmptyValues = &ignoreemptyvalues
+
+	return s
+}
+
+func (s *_appendProcessor) MediaType(mediatype string) *_appendProcessor {
+
+	s.v.MediaType = &mediatype
 
 	return s
 }

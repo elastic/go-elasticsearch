@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SettingsSimilarityIb type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/_types/IndexSettings.ts#L217-L222
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/indices/_types/IndexSettings.ts#L223-L228
 type SettingsSimilarityIb struct {
 	Distribution  ibdistribution.IBDistribution `json:"distribution"`
 	Lambda        iblambda.IBLambda             `json:"lambda"`
@@ -69,6 +69,9 @@ func (s *SettingsSimilarityIb) SettingsSimilarityIbCaster() *SettingsSimilarityI
 }
 
 func (s *SettingsSimilarityIb) SettingsSimilarityCaster() *SettingsSimilarity {
+	if s == nil {
+		return nil
+	}
 	o := SettingsSimilarity(s)
 	return &o
 }

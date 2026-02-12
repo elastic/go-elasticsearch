@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Get EQL search results.
+//
 // Returns search results for an Event Query Language (EQL) query.
 // EQL assumes each document in a data stream or index corresponds to an event.
 package search
@@ -86,6 +87,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 }
 
 // Get EQL search results.
+//
 // Returns search results for an Event Query Language (EQL) query.
 // EQL assumes each document in a data stream or index corresponds to an event.
 //
@@ -310,7 +312,7 @@ func (r *Search) Header(key, value string) *Search {
 	return r
 }
 
-// Index The name of the index to scope the operation
+// Index Comma-separated list of index names to scope the operation
 // API Name: index
 func (r *Search) _index(index string) *Search {
 	r.paramSet |= indexMask
@@ -320,7 +322,8 @@ func (r *Search) _index(index string) *Search {
 }
 
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// indices.
+// (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
 func (r *Search) AllowNoIndices(allownoindices bool) *Search {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -628,7 +631,7 @@ func (r *Search) TiebreakerField(field string) *Search {
 	return r
 }
 
-// Field containing event timestamp. Default "@timestamp"
+// Field containing event timestamp.
 // API name: timestamp_field
 func (r *Search) TimestampField(field string) *Search {
 	// Initialize the request if it is not already initialized
