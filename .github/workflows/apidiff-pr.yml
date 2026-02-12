@@ -79,53 +79,33 @@ jobs:
 
           git worktree add "${old_dir}" "${target}"
 
-          make_comment() {
-            local pkg="$1"
-            local label="$2"
-            local output="$3"
-            local status="$4"
-            local marker="<!-- apidiff:${pkg} -->"
-            local outfile="${comments_dir}/${pkg}.md"
+          export_file="${work_dir}/tmp/apidiff-old-module.export"
+          marker="<!-- apidiff:module -->"
+          outfile="${comments_dir}/module.md"
 
-            {
-              echo "${marker}"
-              echo "## apidiff: ${label} (vs ${compare_label})"
-              echo
-              if [ -z "${output}" ]; then
-                if [ "${status}" -ne 0 ]; then
-                  echo "apidiff failed (exit ${status}). Check workflow logs."
-                else
-                  echo "No incompatible changes found."
-                fi
+          (cd "${old_dir}" && apidiff -m -w "${export_file}" "${module_path}")
+
+          set +e
+          output=$(apidiff -m "${export_file}" "${module_path}" 2>&1)
+          status=$?
+          set -e
+
+          {
+            echo "${marker}"
+            echo "## apidiff: module (vs ${compare_label})"
+            echo
+            if [ -z "${output}" ]; then
+              if [ "${status}" -ne 0 ]; then
+                echo "apidiff failed (exit ${status}). Check workflow logs."
               else
-                echo '```'
-                echo "${output}"
-                echo '```'
+                echo "No incompatible changes found."
               fi
-            } > "${outfile}"
-          }
-
-          run_apidiff() {
-            local pkg="$1"
-            local label="$2"
-            local pkg_path="$3"
-            local pkg_dir="$4"
-            local export_file="${work_dir}/tmp/apidiff-old-${pkg}.export"
-
-            (cd "${old_dir}" && apidiff -w "${export_file}" "${pkg_path}")
-
-            set +e
-            output=$(apidiff "${export_file}" "${work_dir}/${pkg_dir}" 2>&1)
-            status=$?
-            set -e
-
-            make_comment "${pkg}" "${label}" "${output}" "${status}"
-          }
-
-          run_apidiff root "root" "${module_path}" "."
-          run_apidiff esapi "esapi" "${module_path}/esapi" "esapi"
-          run_apidiff esutil "esutil" "${module_path}/esutil" "esutil"
-          run_apidiff typedapi "typedapi" "${module_path}/typedapi" "typedapi"
+            else
+              echo '```'
+              echo "${output}"
+              echo '```'
+            fi
+          } > "${outfile}"
 
           git worktree remove "${old_dir}" --force
 
@@ -139,32 +119,28 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const issue_number = context.payload.pull_request.number;
-            const packages = ['root', 'esapi', 'esutil', 'typedapi'];
-
             const comments = await github.paginate(
               github.rest.issues.listComments,
               { owner, repo, issue_number, per_page: 100 }
             );
 
-            for (const pkg of packages) {
-              const marker = `<!-- apidiff:${pkg} -->`;
-              const body = fs.readFileSync(`tmp/apidiff-comments/${pkg}.md`, 'utf8');
-              const existing = comments.find((comment) => comment.body?.includes(marker));
+            const marker = '<!-- apidiff:module -->';
+            const body = fs.readFileSync('tmp/apidiff-comments/module.md', 'utf8');
+            const existing = comments.find((comment) => comment.body?.includes(marker));
 
-              if (existing) {
-                await github.rest.issues.updateComment({
-                  owner,
-                  repo,
-                  comment_id: existing.id,
-                  body,
-                });
-              } else {
-                await github.rest.issues.createComment({
-                  owner,
-                  repo,
-                  issue_number,
-                  body,
-                });
-              }
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body,
+              });
             }
 
