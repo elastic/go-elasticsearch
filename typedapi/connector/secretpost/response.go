@@ -16,32 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
-package esdsl
+package secretpost
 
-import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
-
-type _dataStreamLifecycleDownsampling struct {
-	v *types.DataStreamLifecycleDownsampling
+// Response holds the response body struct for the package secretpost
+//
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/connector/secret_post/ConnectorSecretPostResponse.ts#L20-L24
+type Response struct {
+	Id string `json:"id"`
 }
 
-func NewDataStreamLifecycleDownsampling() *_dataStreamLifecycleDownsampling {
-
-	return &_dataStreamLifecycleDownsampling{v: types.NewDataStreamLifecycleDownsampling()}
-
-}
-
-func (s *_dataStreamLifecycleDownsampling) Rounds(rounds ...types.DownsamplingRoundVariant) *_dataStreamLifecycleDownsampling {
-
-	for _, v := range rounds {
-
-		s.v.Rounds = append(s.v.Rounds, *v.DownsamplingRoundCaster())
-
-	}
-	return s
-}
-
-func (s *_dataStreamLifecycleDownsampling) DataStreamLifecycleDownsamplingCaster() *types.DataStreamLifecycleDownsampling {
-	return s.v
+// NewResponse returns a Response
+func NewResponse() *Response {
+	r := &Response{}
+	return r
 }

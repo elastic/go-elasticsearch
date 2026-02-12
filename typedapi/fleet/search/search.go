@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Run a Fleet search.
+//
 // The purpose of the Fleet search API is to provide an API where the search
 // will be run only
 // after the provided checkpoint has been processed and is visible for searches
@@ -90,6 +91,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 }
 
 // Run a Fleet search.
+//
 // The purpose of the Fleet search API is to provide an API where the search
 // will be run only
 // after the provided checkpoint has been processed and is visible for searches
@@ -883,9 +885,11 @@ func (r *Search) SearchAfter(sortresults ...types.FieldValueVariant) *Search {
 		r.req = NewRequest()
 	}
 
+	convertedItems := make([]types.FieldValue, 0, len(sortresults))
 	for _, v := range sortresults {
-		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
+		convertedItems = append(convertedItems, *v.FieldValueCaster())
 	}
+	r.req.SearchAfter = convertedItems
 
 	return r
 }
@@ -938,9 +942,11 @@ func (r *Search) Sort(sorts ...types.SortCombinationsVariant) *Search {
 		r.req = NewRequest()
 	}
 
+	convertedItems := make([]types.SortCombinations, 0, len(sorts))
 	for _, v := range sorts {
-		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
+		convertedItems = append(convertedItems, *v.SortCombinationsCaster())
 	}
+	r.req.Sort = convertedItems
 
 	return r
 }

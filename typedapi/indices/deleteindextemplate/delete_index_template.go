@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Delete an index template.
+//
 // The provided <index-template> may contain multiple template names separated
 // by a comma. If multiple template
 // names are specified then there is no wildcard support and the provided names
@@ -82,6 +83,7 @@ func NewDeleteIndexTemplateFunc(tp elastictransport.Interface) NewDeleteIndexTem
 }
 
 // Delete an index template.
+//
 // The provided <index-template> may contain multiple template names separated
 // by a comma. If multiple template
 // names are specified then there is no wildcard support and the provided names

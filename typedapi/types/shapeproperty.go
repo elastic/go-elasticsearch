@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // ShapeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/mapping/geo.ts#L81-L93
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_types/mapping/geo.ts#L81-L93
 type ShapeProperty struct {
 	Coerce          *bool                          `json:"coerce,omitempty"`
 	CopyTo          []string                       `json:"copy_to,omitempty"`
@@ -923,6 +923,9 @@ func (s *ShapeProperty) ShapePropertyCaster() *ShapeProperty {
 }
 
 func (s *ShapeProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

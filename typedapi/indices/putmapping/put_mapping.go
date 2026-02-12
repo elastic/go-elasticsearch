@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Update field mappings.
+//
 // Add new fields to an existing data stream or index.
 // You can use the update mapping API to:
 //
@@ -99,6 +100,7 @@ func NewPutMappingFunc(tp elastictransport.Interface) NewPutMapping {
 }
 
 // Update field mappings.
+//
 // Add new fields to an existing data stream or index.
 // You can use the update mapping API to:
 //
@@ -335,7 +337,8 @@ func (r *PutMapping) Header(key, value string) *PutMapping {
 }
 
 // Index A comma-separated list of index names the mapping should be added to
-// (supports wildcards); use `_all` or omit to add the mapping on all indices.
+// (supports wildcards).
+// Use `_all` or omit to add the mapping on all indices.
 // API Name: index
 func (r *PutMapping) _index(index string) *PutMapping {
 	r.paramSet |= indexMask

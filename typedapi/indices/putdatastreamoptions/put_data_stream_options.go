@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Update data stream options.
+//
 // Update the data stream options of the specified data streams.
 package putdatastreamoptions
 
@@ -84,6 +85,7 @@ func NewPutDataStreamOptionsFunc(tp elastictransport.Interface) NewPutDataStream
 }
 
 // Update data stream options.
+//
 // Update the data stream options of the specified data streams.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-options

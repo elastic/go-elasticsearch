@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package deletebyquery
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package deletebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/delete_by_query/DeleteByQueryResponse.ts#L26-L88
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_global/delete_by_query/DeleteByQueryResponse.ts#L26-L88
 type Response struct {
 	// Batches The number of scroll responses pulled back by the delete by query.
 	Batches *int64 `json:"batches,omitempty"`

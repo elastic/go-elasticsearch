@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Get the cluster health status.
 //
@@ -331,10 +331,11 @@ func (r *Health) Header(key, value string) *Health {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and index aliases used to
-// limit the request. Wildcard expressions (`*`) are supported. To target all
-// data streams and indices in a cluster, omit this parameter or use _all or
-// `*`.
+// Index A comma-separated list of data streams, indices, and index aliases that limit
+// the request.
+// Wildcard expressions (`*`) are supported.
+// To target all data streams and indices in a cluster, omit this parameter or
+// use _all or `*`.
 // API Name: index
 func (r *Health) Index(index string) *Health {
 	r.paramSet |= indexMask
@@ -343,8 +344,7 @@ func (r *Health) Index(index string) *Health {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards Expand wildcard expression to concrete indices that are open, closed or both.
 // API name: expand_wildcards
 func (r *Health) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Health {
 	tmp := []string{}
@@ -356,8 +356,7 @@ func (r *Health) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcar
 	return r
 }
 
-// Level Can be one of cluster, indices or shards. Controls the details level of the
-// health information returned.
+// Level Return health information at a specific level of detail.
 // API name: level
 func (r *Health) Level(level level.Level) *Health {
 	r.values.Set("level", level.String())
@@ -365,8 +364,8 @@ func (r *Health) Level(level level.Level) *Health {
 	return r
 }
 
-// Local If true, the request retrieves information from the local node only. Defaults
-// to false, which means information is retrieved from the master node.
+// Local If true, retrieve information from the local node only.
+// If false, retrieve information from the master node.
 // API name: local
 func (r *Health) Local(local bool) *Health {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -374,8 +373,9 @@ func (r *Health) Local(local bool) *Health {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an error.
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *Health) MasterTimeout(duration string) *Health {
 	r.values.Set("master_timeout", duration)
@@ -383,8 +383,9 @@ func (r *Health) MasterTimeout(duration string) *Health {
 	return r
 }
 
-// Timeout Period to wait for a response. If no response is received before the timeout
-// expires, the request fails and returns an error.
+// Timeout The period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *Health) Timeout(duration string) *Health {
 	r.values.Set("timeout", duration)
@@ -392,8 +393,9 @@ func (r *Health) Timeout(duration string) *Health {
 	return r
 }
 
-// WaitForActiveShards A number controlling to how many active shards to wait for, all to wait for
-// all shards in the cluster to be active, or 0 to not wait.
+// WaitForActiveShards Wait for the specified number of active shards.
+// Use `all` to wait for all shards in the cluster to be active.
+// Use `0` to not wait.
 // API name: wait_for_active_shards
 func (r *Health) WaitForActiveShards(waitforactiveshards string) *Health {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -401,8 +403,7 @@ func (r *Health) WaitForActiveShards(waitforactiveshards string) *Health {
 	return r
 }
 
-// WaitForEvents Can be one of immediate, urgent, high, normal, low, languid. Wait until all
-// currently queued events with the given priority are processed.
+// WaitForEvents Wait until all currently queued events with the given priority are processed.
 // API name: wait_for_events
 func (r *Health) WaitForEvents(waitforevents waitforevents.WaitForEvents) *Health {
 	r.values.Set("wait_for_events", waitforevents.String())
@@ -410,9 +411,9 @@ func (r *Health) WaitForEvents(waitforevents waitforevents.WaitForEvents) *Healt
 	return r
 }
 
-// WaitForNodes The request waits until the specified number N of nodes is available. It also
-// accepts >=N, <=N, >N and <N. Alternatively, it is possible to use ge(N),
-// le(N), gt(N) and lt(N) notation.
+// WaitForNodes Wait until the specified number (N) of nodes is available.
+// It also accepts `>=N`, `<=N`, `>N` and `<N`.
+// Alternatively, use the notations `ge(N)`, `le(N)`, `gt(N)`, and `lt(N)`.
 // API name: wait_for_nodes
 func (r *Health) WaitForNodes(waitfornodes string) *Health {
 	r.values.Set("wait_for_nodes", waitfornodes)
@@ -420,9 +421,9 @@ func (r *Health) WaitForNodes(waitfornodes string) *Health {
 	return r
 }
 
-// WaitForNoInitializingShards A boolean value which controls whether to wait (until the timeout provided)
-// for the cluster to have no shard initializations. Defaults to false, which
-// means it will not wait for initializing shards.
+// WaitForNoInitializingShards Wait (until the timeout expires) for the cluster to have no shard
+// initializations.
+// If false, the request does not wait for initializing shards.
 // API name: wait_for_no_initializing_shards
 func (r *Health) WaitForNoInitializingShards(waitfornoinitializingshards bool) *Health {
 	r.values.Set("wait_for_no_initializing_shards", strconv.FormatBool(waitfornoinitializingshards))
@@ -430,9 +431,9 @@ func (r *Health) WaitForNoInitializingShards(waitfornoinitializingshards bool) *
 	return r
 }
 
-// WaitForNoRelocatingShards A boolean value which controls whether to wait (until the timeout provided)
-// for the cluster to have no shard relocations. Defaults to false, which means
-// it will not wait for relocating shards.
+// WaitForNoRelocatingShards Wait (until the timeout expires) for the cluster to have no shard
+// relocations.
+// If false, the request not wait for relocating shards.
 // API name: wait_for_no_relocating_shards
 func (r *Health) WaitForNoRelocatingShards(waitfornorelocatingshards bool) *Health {
 	r.values.Set("wait_for_no_relocating_shards", strconv.FormatBool(waitfornorelocatingshards))
@@ -440,9 +441,10 @@ func (r *Health) WaitForNoRelocatingShards(waitfornorelocatingshards bool) *Heal
 	return r
 }
 
-// WaitForStatus One of green, yellow or red. Will wait (until the timeout provided) until the
-// status of the cluster changes to the one provided or better, i.e. green >
-// yellow > red. By default, will not wait for any status.
+// WaitForStatus Wait (until the timeout expires) for the cluster to reach a specific health
+// status (or a better status).
+// A green status is better than yellow and yellow is better than red.
+// By default, the request does not wait for a particular status.
 // API name: wait_for_status
 func (r *Health) WaitForStatus(waitforstatus healthstatus.HealthStatus) *Health {
 	r.values.Set("wait_for_status", waitforstatus.String())

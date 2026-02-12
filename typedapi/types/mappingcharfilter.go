@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MappingCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/char_filters.ts#L51-L55
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_types/analysis/char_filters.ts#L51-L55
 type MappingCharFilter struct {
 	Mappings     []string `json:"mappings,omitempty"`
 	MappingsPath *string  `json:"mappings_path,omitempty"`
@@ -117,6 +117,9 @@ func (s *MappingCharFilter) MappingCharFilterCaster() *MappingCharFilter {
 }
 
 func (s *MappingCharFilter) CharFilterDefinitionCaster() *CharFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := CharFilterDefinition(s)
 	return &o
 }

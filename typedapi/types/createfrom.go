@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CreateFrom type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/create_from/MigrateCreateFromRequest.ts#L46-L60
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/indices/create_from/MigrateCreateFromRequest.ts#L54-L68
 type CreateFrom struct {
 	// MappingsOverride Mappings overrides to be applied to the destination index (optional)
 	MappingsOverride *TypeMapping `json:"mappings_override,omitempty"`

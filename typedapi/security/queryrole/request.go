@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package queryrole
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package queryrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/query_role/QueryRolesRequest.ts#L25-L85
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/security/query_role/QueryRolesRequest.ts#L26-L89
 type Request struct {
 	// From The starting document offset.
 	// It must not be negative.
@@ -60,7 +60,9 @@ type Request struct {
 	// To page through more hits, use the `search_after` parameter.
 	Size *int `json:"size,omitempty"`
 	// Sort The sort definition.
-	// You can sort on `username`, `roles`, or `enabled`.
+	// You can sort on `name`, `description`, `metadata`,
+	// `applications.application`, `applications.privileges`,
+	// and `applications.resources`.
 	// In addition, sort can also be applied to the `_doc` field to sort by index
 	// order.
 	Sort []types.SortCombinations `json:"sort,omitempty"`

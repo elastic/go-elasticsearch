@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package puttrainedmodel
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package puttrainedmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/put_trained_model/MlPutTrainedModelRequest.ts#L31-L137
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/ml/put_trained_model/MlPutTrainedModelRequest.ts#L31-L140
 type Request struct {
 	// CompressedDefinition The compressed (GZipped and Base64 encoded) inference definition of the
 	// model. If compressed_definition is specified, then definition cannot be

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package put
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package put
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/connector/put/ConnectorPutRequest.ts#L22-L58
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/connector/put/ConnectorPutRequest.ts#L22-L61
 type Request struct {
 	Description *string `json:"description,omitempty"`
 	IndexName   *string `json:"index_name,omitempty"`

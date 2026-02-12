@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ElasticsearchServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/_types/CommonTypes.ts#L1291-L1325
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/inference/_types/CommonTypes.ts#L1286-L1342
 type ElasticsearchServiceSettings struct {
 	// AdaptiveAllocations Adaptive allocations configuration details.
 	// If `enabled` is true, the number of allocations of the model is set based on
@@ -45,6 +45,23 @@ type ElasticsearchServiceSettings struct {
 	// DeploymentId The deployment identifier for a trained model deployment.
 	// When `deployment_id` is used the `model_id` is optional.
 	DeploymentId *string `json:"deployment_id,omitempty"`
+	// LongDocumentStrategy Available only for the `rerank` task type using the Elastic reranker model.
+	// Controls the strategy used for processing long documents during inference.
+	//
+	// Possible values:
+	// - `truncate` (default): Processes only the beginning of each document.
+	// - `chunk`: Splits long documents into smaller parts (chunks) before
+	// inference.
+	//
+	// When `long_document_strategy` is set to `chunk`, Elasticsearch splits each
+	// document into smaller parts but still returns a single score per document.
+	// That score reflects the highest relevance score among all chunks.
+	LongDocumentStrategy *string `json:"long_document_strategy,omitempty"`
+	// MaxChunksPerDoc Only for the `rerank` task type.
+	// Limits the number of chunks per document that are sent for inference when
+	// chunking is enabled.
+	// If not set, all chunks generated for the document are processed.
+	MaxChunksPerDoc *int `json:"max_chunks_per_doc,omitempty"`
 	// ModelId The name of the model to use for the inference task.
 	// It can be the ID of a built-in model (for example, `.multilingual-e5-small`
 	// for E5) or a text embedding model that was uploaded by using the Eland
@@ -96,6 +113,34 @@ func (s *ElasticsearchServiceSettings) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.DeploymentId = &o
+
+		case "long_document_strategy":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "LongDocumentStrategy", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.LongDocumentStrategy = &o
+
+		case "max_chunks_per_doc":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxChunksPerDoc", err)
+				}
+				s.MaxChunksPerDoc = &value
+			case float64:
+				f := int(v)
+				s.MaxChunksPerDoc = &f
+			}
 
 		case "model_id":
 			var tmp json.RawMessage

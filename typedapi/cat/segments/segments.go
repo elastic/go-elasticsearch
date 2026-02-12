@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Get segment information.
 //
@@ -42,6 +42,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/bytes"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/catsegmentscolumn"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeunit"
 )
 
@@ -362,6 +363,61 @@ func (r *Segments) Local(local bool) *Segments {
 // API name: master_timeout
 func (r *Segments) MasterTimeout(duration string) *Segments {
 	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// ExpandWildcards Type of index that wildcard expressions can match. If the request can target
+// data streams, this argument
+// determines whether wildcard expressions match hidden data streams. Supports
+// comma-separated values,
+// such as open,hidden.
+// API name: expand_wildcards
+func (r *Segments) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Segments {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+
+	return r
+}
+
+// AllowNoIndices If false, the request returns an error if any wildcard expression, index
+// alias, or _all value targets only
+// missing or closed indices. This behavior applies even if the request targets
+// other open indices. For example,
+// a request targeting foo*,bar* returns an error if an index starts with foo
+// but no index starts with bar.
+// API name: allow_no_indices
+func (r *Segments) AllowNoIndices(allownoindices bool) *Segments {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
+
+	return r
+}
+
+// IgnoreThrottled If true, concrete, expanded or aliased indices are ignored when frozen.
+// API name: ignore_throttled
+func (r *Segments) IgnoreThrottled(ignorethrottled bool) *Segments {
+	r.values.Set("ignore_throttled", strconv.FormatBool(ignorethrottled))
+
+	return r
+}
+
+// IgnoreUnavailable If true, missing or closed indices are not included in the response.
+// API name: ignore_unavailable
+func (r *Segments) IgnoreUnavailable(ignoreunavailable bool) *Segments {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
+// AllowClosed If true, allow closed indices to be returned in the response otherwise if
+// false, keep the legacy behaviour
+// of throwing an exception if index pattern matches closed indices
+// API name: allow_closed
+func (r *Segments) AllowClosed(allowclosed bool) *Segments {
+	r.values.Set("allow_closed", strconv.FormatBool(allowclosed))
 
 	return r
 }

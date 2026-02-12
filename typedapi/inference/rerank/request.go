@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package rerank
 
@@ -31,21 +31,20 @@ import (
 
 // Request holds the request body struct for the package rerank
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/rerank/RerankRequest.ts#L25-L72
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/inference/rerank/RerankRequest.ts#L26-L81
 type Request struct {
-	// Input The text on which you want to perform the inference task.
-	// It can be a single string or an array.
-	//
-	// > info
-	// > Inference endpoints for the `completion` task type currently only support a
-	// single string as input.
+	// Input The documents to rank.
 	Input []string `json:"input"`
 	// Query Query input.
 	Query string `json:"query"`
+	// ReturnDocuments Include the document text in the response.
+	ReturnDocuments *bool `json:"return_documents,omitempty"`
 	// TaskSettings Task settings for the individual inference request.
 	// These settings are specific to the task type you specified and override the
 	// task settings specified when initializing the service.
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
+	// TopN Limit the response to the top N documents.
+	TopN *int `json:"top_n,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -109,9 +108,39 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 			s.Query = o
 
+		case "return_documents":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ReturnDocuments", err)
+				}
+				s.ReturnDocuments = &value
+			case bool:
+				s.ReturnDocuments = &v
+			}
+
 		case "task_settings":
 			if err := dec.Decode(&s.TaskSettings); err != nil {
 				return fmt.Errorf("%s | %w", "TaskSettings", err)
+			}
+
+		case "top_n":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "TopN", err)
+				}
+				s.TopN = &value
+			case float64:
+				f := int(v)
+				s.TopN = &f
 			}
 
 		}

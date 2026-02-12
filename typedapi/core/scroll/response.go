@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package scroll
 
@@ -34,7 +34,7 @@ import (
 
 // Response holds the response body struct for the package scroll
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/scroll/ScrollResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_global/scroll/ScrollResponse.ts#L22-L25
 type Response struct {
 	Aggregations map[string]types.Aggregate `json:"aggregations,omitempty"`
 	Clusters_    *types.ClusterStatistics   `json:"_clusters,omitempty"`

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Run multiple Fleet searches.
+//
 // Run several Fleet searches with a single API request.
 // The API follows the same structure as the multi search API.
 // However, similar to the Fleet search API, it supports the
@@ -86,6 +87,7 @@ func NewMsearchFunc(tp elastictransport.Interface) NewMsearch {
 }
 
 // Run multiple Fleet searches.
+//
 // Run several Fleet searches with a single API request.
 // The API follows the same structure as the multi search API.
 // However, similar to the Fleet search API, it supports the

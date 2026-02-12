@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Resolve indices.
+//
 // Resolve the names and/or index patterns for indices, aliases, and data
 // streams.
 // Multiple patterns and remote clusters are supported.
@@ -82,6 +83,7 @@ func NewResolveIndexFunc(tp elastictransport.Interface) NewResolveIndex {
 }
 
 // Resolve indices.
+//
 // Resolve the names and/or index patterns for indices, aliases, and data
 // streams.
 // Multiple patterns and remote clusters are supported.

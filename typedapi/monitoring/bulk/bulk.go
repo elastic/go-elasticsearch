@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Send monitoring data.
+//
 // This API is used by the monitoring features to send monitoring data.
 package bulk
 
@@ -36,10 +37,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
-
-const (
-	type_Mask = iota + 1
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -60,8 +57,6 @@ type Bulk struct {
 
 	paramSet int
 
-	type_ string
-
 	spanStarted bool
 
 	instrument elastictransport.Instrumentation
@@ -81,6 +76,7 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 }
 
 // Send monitoring data.
+//
 // This API is used by the monitoring features to send monitoring data.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch
@@ -162,19 +158,6 @@ func (r *Bulk) HttpRequest(ctx context.Context) (*http.Request, error) {
 	case r.paramSet == 0:
 		path.WriteString("/")
 		path.WriteString("_monitoring")
-		path.WriteString("/")
-		path.WriteString("bulk")
-
-		method = http.MethodPost
-	case r.paramSet == type_Mask:
-		path.WriteString("/")
-		path.WriteString("_monitoring")
-		path.WriteString("/")
-
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "type_", r.type_)
-		}
-		path.WriteString(r.type_)
 		path.WriteString("/")
 		path.WriteString("bulk")
 
@@ -312,15 +295,6 @@ func (r Bulk) Do(providedCtx context.Context) (*Response, error) {
 // Header set a key, value pair in the Bulk headers map.
 func (r *Bulk) Header(key, value string) *Bulk {
 	r.headers.Set(key, value)
-
-	return r
-}
-
-// Type Default document type for items which don't provide one
-// API Name: type_
-func (r *Bulk) Type(type_ string) *Bulk {
-	r.paramSet |= type_Mask
-	r.type_ = type_
 
 	return r
 }
