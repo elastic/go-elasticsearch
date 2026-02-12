@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ElasticsearchServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/CommonTypes.ts#L1287-L1343
+// https://github.com/elastic/elasticsearch-specification/blob/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6/specification/inference/_types/CommonTypes.ts#L1287-L1343
 type ElasticsearchServiceSettings struct {
 	// AdaptiveAllocations Adaptive allocations configuration details.
 	// If `enabled` is true, the number of allocations of the model is set based on

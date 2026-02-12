@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Delete an unreferenced trained model.
 //
@@ -84,7 +84,7 @@ func NewDeleteTrainedModelFunc(tp elastictransport.Interface) NewDeleteTrainedMo
 // The request deletes a trained inference model that is not referenced by an
 // ingest pipeline.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-trained-model
 func New(tp elastictransport.Interface) *DeleteTrainedModel {
 	r := &DeleteTrainedModel{
 		transport: tp,

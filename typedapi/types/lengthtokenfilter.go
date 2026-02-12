@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LengthTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/analysis/token_filters.ts#L363-L369
+// https://github.com/elastic/elasticsearch-specification/blob/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6/specification/_types/analysis/token_filters.ts#L363-L369
 type LengthTokenFilter struct {
 	// Max Maximum character length of a token. Longer tokens are excluded from the
 	// output. Defaults to `Integer.MAX_VALUE`, which is `2^31-1` or `2147483647`.
@@ -136,6 +136,9 @@ func (s *LengthTokenFilter) LengthTokenFilterCaster() *LengthTokenFilter {
 }
 
 func (s *LengthTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

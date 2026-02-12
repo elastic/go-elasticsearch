@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Open a point in time.
 //
@@ -208,7 +208,7 @@ func NewOpenPointInTimeFunc(tp elastictransport.Interface) NewOpenPointInTime {
 // You can check how many point-in-times (that is, search contexts) are open
 // with the nodes stats API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-open-point-in-time
 func New(tp elastictransport.Interface) *OpenPointInTime {
 	r := &OpenPointInTime{
 		transport: tp,

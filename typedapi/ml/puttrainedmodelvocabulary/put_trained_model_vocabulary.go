@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Create a trained model vocabulary.
 //
@@ -91,7 +91,7 @@ func NewPutTrainedModelVocabularyFunc(tp elastictransport.Interface) NewPutTrain
 // The vocabulary is stored in the index as described in
 // `inference_config.*.vocabulary` of the trained model definition.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-vocabulary
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-trained-model-vocabulary
 func New(tp elastictransport.Interface) *PutTrainedModelVocabulary {
 	r := &PutTrainedModelVocabulary{
 		transport: tp,

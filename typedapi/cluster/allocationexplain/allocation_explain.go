@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Explain the shard allocations.
 //
@@ -103,7 +103,7 @@ func NewAllocationExplainFunc(tp elastictransport.Interface) NewAllocationExplai
 // Refer to the linked documentation for examples of how to troubleshoot
 // allocation issues using this API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-allocation-explain
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-allocation-explain
 func New(tp elastictransport.Interface) *AllocationExplain {
 	r := &AllocationExplain{
 		transport: tp,

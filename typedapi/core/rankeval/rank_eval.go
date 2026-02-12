@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Evaluate ranked search results.
 //
@@ -89,7 +89,7 @@ func NewRankEvalFunc(tp elastictransport.Interface) NewRankEval {
 // Evaluate the quality of ranked search results over a set of typical search
 // queries.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rank-eval
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rank-eval
 func New(tp elastictransport.Interface) *RankEval {
 	r := &RankEval{
 		transport: tp,

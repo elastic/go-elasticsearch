@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SearchTemplateRequestBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/watcher/_types/Input.ts#L125-L142
+// https://github.com/elastic/elasticsearch-specification/blob/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6/specification/watcher/_types/Input.ts#L125-L142
 type SearchTemplateRequestBody struct {
 	Explain *bool `json:"explain,omitempty"`
 	// Id ID of the search template to use. If no source is specified,

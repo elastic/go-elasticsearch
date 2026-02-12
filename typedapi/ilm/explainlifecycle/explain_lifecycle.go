@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Explain the lifecycle state.
 //
@@ -92,7 +92,7 @@ func NewExplainLifecycleFunc(tp elastictransport.Interface) NewExplainLifecycle 
 // The response indicates when the index entered each lifecycle state, provides
 // the definition of the running phase, and information about any failures.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-explain-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-explain-lifecycle
 func New(tp elastictransport.Interface) *ExplainLifecycle {
 	r := &ExplainLifecycle{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package types
 
@@ -30,12 +30,20 @@ import (
 
 // NodeUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/nodes/usage/types.ts#L25-L30
+// https://github.com/elastic/elasticsearch-specification/blob/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6/specification/nodes/usage/types.ts#L25-L43
 type NodeUsage struct {
+	// Aggregations The total number of times search aggregations have been called on this node
+	// since the last restart.
 	Aggregations map[string]json.RawMessage `json:"aggregations"`
-	RestActions  map[string]int             `json:"rest_actions"`
-	Since        int64                      `json:"since"`
-	Timestamp    int64                      `json:"timestamp"`
+	// RestActions The total number of times each REST endpoint has been called on this node
+	// since the last restart.
+	//
+	//	Note that the REST endpoint names are not considered stable.
+	RestActions map[string]int `json:"rest_actions"`
+	// Since The timestamp for when the collection of these statistics started.
+	Since int64 `json:"since"`
+	// Timestamp The timestamp for when these statistics were collected.
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (s *NodeUsage) UnmarshalJSON(data []byte) error {
