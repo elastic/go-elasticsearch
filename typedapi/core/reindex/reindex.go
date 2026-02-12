@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Reindex documents.
 //
@@ -1032,17 +1032,6 @@ func (r *Reindex) Script(script *types.Script) *Reindex {
 	}
 
 	r.req.Script = script
-
-	return r
-}
-
-// API name: size
-func (r *Reindex) Size(size int64) *Reindex {
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.Size = &size
 
 	return r
 }

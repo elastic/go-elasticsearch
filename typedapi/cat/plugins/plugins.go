@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Get plugin information.
 //
@@ -39,6 +39,8 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -331,6 +333,22 @@ func (r *Plugins) MasterTimeout(duration string) *Plugins {
 	return r
 }
 
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *Plugins) Bytes(bytes bytes.Bytes) *Plugins {
+	r.values.Set("bytes", bytes.String())
+
+	return r
+}
+
 // Format Specifies the format to return the columnar data in, can be set to
 // `text`, `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
@@ -345,6 +363,19 @@ func (r *Plugins) Format(format string) *Plugins {
 // API name: help
 func (r *Plugins) Help(help bool) *Plugins {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *Plugins) Time(time timeunit.TimeUnit) *Plugins {
+	r.values.Set("time", time.String())
 
 	return r
 }

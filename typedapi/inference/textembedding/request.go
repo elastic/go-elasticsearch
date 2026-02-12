@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package textembedding
 
@@ -26,15 +26,31 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // Request holds the request body struct for the package textembedding
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/text_embedding/TextEmbeddingRequest.ts#L25-L63
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/inference/text_embedding/TextEmbeddingRequest.ts#L25-L78
 type Request struct {
 	// Input Inference input.
 	// Either a string or an array of strings.
 	Input []string `json:"input"`
+	// InputType The input data type for the text embedding model. Possible values include:
+	// * `SEARCH`
+	// * `INGEST`
+	// * `CLASSIFICATION`
+	// * `CLUSTERING`
+	// Not all services support all values. Unsupported values will trigger a
+	// validation exception.
+	// Accepted values depend on the configured inference service, refer to the
+	// relevant service-specific documentation for more info.
+	//
+	// > info
+	// > The `input_type` parameter specified on the root level of the request body
+	// will take precedence over the `input_type` parameter specified in
+	// `task_settings`.
+	InputType *string `json:"input_type,omitempty"`
 	// TaskSettings Optional task settings
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 }
@@ -87,6 +103,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					return fmt.Errorf("%s | %w", "Input", err)
 				}
 			}
+
+		case "input_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "InputType", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.InputType = &o
 
 		case "task_settings":
 			if err := dec.Decode(&s.TaskSettings); err != nil {

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Package versiontype
 package versiontype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/common.ts#L107-L126
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/_types/common.ts#L107-L122
 type VersionType struct {
 	Name string
 }
@@ -34,8 +34,6 @@ var (
 	External = VersionType{"external"}
 
 	Externalgte = VersionType{"external_gte"}
-
-	Force = VersionType{"force"}
 )
 
 func (v VersionType) MarshalText() (text []byte, err error) {
@@ -51,8 +49,6 @@ func (v *VersionType) UnmarshalText(text []byte) error {
 		*v = External
 	case "external_gte":
 		*v = Externalgte
-	case "force":
-		*v = Force
 	default:
 		*v = VersionType{string(text)}
 	}

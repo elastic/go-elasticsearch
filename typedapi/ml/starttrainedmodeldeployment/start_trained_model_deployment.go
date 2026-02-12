@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Start a trained model deployment.
 // It allocates the model to every machine learning node.
@@ -358,7 +358,7 @@ func (r *StartTrainedModelDeployment) NumberOfAllocations(numberofallocations in
 	return r
 }
 
-// Priority The deployment priority.
+// Priority The deployment priority
 // API name: priority
 func (r *StartTrainedModelDeployment) Priority(priority trainingpriority.TrainingPriority) *StartTrainedModelDeployment {
 	r.values.Set("priority", priority.String())

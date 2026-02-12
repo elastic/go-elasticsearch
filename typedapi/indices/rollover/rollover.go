@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Roll over to a new index.
-// TIP: It is recommended to use the index lifecycle rollover action to automate
-// rollovers.
+// TIP: We recommend using the index lifecycle rollover action to automate
+// rollovers. However, Serverless does not support Index Lifecycle Management
+// (ILM), so don't use this approach in the Serverless context.
 //
 // The rollover API creates a new index for a data stream or index alias.
 // The API behavior depends on the rollover target.
@@ -139,8 +140,9 @@ func NewRolloverFunc(tp elastictransport.Interface) NewRollover {
 }
 
 // Roll over to a new index.
-// TIP: It is recommended to use the index lifecycle rollover action to automate
-// rollovers.
+// TIP: We recommend using the index lifecycle rollover action to automate
+// rollovers. However, Serverless does not support Index Lifecycle Management
+// (ILM), so don't use this approach in the Serverless context.
 //
 // The rollover API creates a new index for a data stream or index alias.
 // The API behavior depends on the rollover target.

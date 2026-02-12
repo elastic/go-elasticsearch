@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Get all connector sync jobs.
 //
@@ -284,7 +284,7 @@ func (r *SyncJobList) Header(key, value string) *SyncJobList {
 	return r
 }
 
-// From Starting offset (default: 0)
+// From Starting offset
 // API name: from
 func (r *SyncJobList) From(from int) *SyncJobList {
 	r.values.Set("from", strconv.Itoa(from))

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Create or update a watch.
 // When a watch is registered, a new document that represents the watch is added
@@ -360,7 +360,7 @@ func (r *PutWatch) Active(active bool) *PutWatch {
 	return r
 }
 
-// IfPrimaryTerm only update the watch if the last operation that has changed the watch has
+// IfPrimaryTerm Only update the watch if the last operation that has changed the watch has
 // the specified primary term
 // API name: if_primary_term
 func (r *PutWatch) IfPrimaryTerm(ifprimaryterm string) *PutWatch {
@@ -369,7 +369,7 @@ func (r *PutWatch) IfPrimaryTerm(ifprimaryterm string) *PutWatch {
 	return r
 }
 
-// IfSeqNo only update the watch if the last operation that has changed the watch has
+// IfSeqNo Only update the watch if the last operation that has changed the watch has
 // the specified sequence number
 // API name: if_seq_no
 func (r *PutWatch) IfSeqNo(sequencenumber string) *PutWatch {

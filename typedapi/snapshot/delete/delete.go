@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Delete snapshots.
 package delete
@@ -299,7 +299,7 @@ func (r *Delete) Header(key, value string) *Delete {
 	return r
 }
 
-// Repository A repository name
+// Repository The name of the repository to delete a snapshot from.
 // API Name: repository
 func (r *Delete) _repository(repository string) *Delete {
 	r.paramSet |= repositoryMask
@@ -308,7 +308,8 @@ func (r *Delete) _repository(repository string) *Delete {
 	return r
 }
 
-// Snapshot A comma-separated list of snapshot names
+// Snapshot A comma-separated list of snapshot names to delete.
+// It also accepts wildcards (`*`).
 // API Name: snapshot
 func (r *Delete) _snapshot(snapshot string) *Delete {
 	r.paramSet |= snapshotMask
@@ -317,7 +318,10 @@ func (r *Delete) _snapshot(snapshot string) *Delete {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout The period to wait for the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Delete) MasterTimeout(duration string) *Delete {
 	r.values.Set("master_timeout", duration)
