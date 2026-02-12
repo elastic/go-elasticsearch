@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package esdsl
 
@@ -31,8 +31,8 @@ type _script struct {
 	v *types.Script
 }
 
-// Script used to return matching documents.
-// This script must return a boolean value: `true` or `false`.
+// A script to calculate terms to aggregate on.
+// It is required if `field` is not provided.
 func NewScript() *_script {
 
 	return &_script{v: types.NewScript()}
@@ -99,6 +99,14 @@ func (s *_script) Source(scriptsource types.ScriptSourceVariant) *_script {
 	s.v.Source = *scriptsource.ScriptSourceCaster()
 
 	return s
+}
+
+func (s *_script) MultiTermLookupCaster() *types.MultiTermLookup {
+	container := types.NewMultiTermLookup()
+
+	container.Script = s.v
+
+	return container
 }
 
 func (s *_script) IntervalsFilterCaster() *types.IntervalsFilter {

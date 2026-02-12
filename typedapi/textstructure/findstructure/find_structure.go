@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 // Find the structure of a text file.
 //
@@ -524,6 +524,19 @@ func (r *FindStructure) Quote(quote string) *FindStructure {
 // API name: should_trim_fields
 func (r *FindStructure) ShouldTrimFields(shouldtrimfields bool) *FindStructure {
 	r.values.Set("should_trim_fields", strconv.FormatBool(shouldtrimfields))
+
+	return r
+}
+
+// ShouldParseRecursively If the format is `ndjson`, you can specify whether to parse nested JSON
+// objects recursively.
+// The nested objects are parsed to a maximum depth equal to the default value
+// of the `index.mapping.depth.limit` setting.
+// Anything beyond that depth is parsed as an `object` type field.
+// For formats other than `ndjson`, this parameter is ignored.
+// API name: should_parse_recursively
+func (r *FindStructure) ShouldParseRecursively(shouldparserecursively bool) *FindStructure {
+	r.values.Set("should_parse_recursively", strconv.FormatBool(shouldparserecursively))
 
 	return r
 }
