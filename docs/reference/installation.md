@@ -5,16 +5,16 @@ mapped_pages:
 
 # Installation [installation]
 
-To install the 8.x version of the client, add the package to your `go.mod` file:
+To install the 9.x version of the client, add the package to your `go.mod` file:
 
 ```text
-require github.com/elastic/go-elasticsearch/v9 9.0
+require github.com/elastic/go-elasticsearch/v9 9.3
 ```
 
 Or, clone the repository:
 
 ```text
-git clone --branch 9.0 https://github.com/elastic/go-elasticsearch.git $GOPATH/src/github
+git clone --branch 9.3 https://github.com/elastic/go-elasticsearch.git $GOPATH/src/github
 ```
 
 To install another version, modify the path or the branch name accordingly. The client major versions correspond to the {{es}} major versions.
