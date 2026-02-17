@@ -1,7 +1,7 @@
 ---
 navigation_title: Interceptors
 applies_to:
-  stack: ga 9.1.1
+  stack: ga 8.19.1
 ---
 
 # Interceptors [interceptors]
