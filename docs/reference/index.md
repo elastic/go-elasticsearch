@@ -70,7 +70,7 @@ func main() {
 :::::::
 
 ::::{note}
-Please have a look at the collection of comprehensive examples in the repository at [https://github.com/elastic/go-elasticsearch/tree/main/_examples](https://github.com/elastic/go-elasticsearch/tree/main/_examples).
+Please have a look at the collection of comprehensive examples in the repository at <https://github.com/elastic/go-elasticsearch/tree/main/_examples>.
 ::::
 
 ## Resources [_resources]
