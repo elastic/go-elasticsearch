@@ -20,7 +20,7 @@ require github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go 
 Or, clone the repository:
 
 ```text subs=true
-git clone --branch {{ version.elasticsearch-client-go | M.M }} https://github.com/elastic/go-elasticsearch.git $GOPATH/src/github
+git clone --branch {{ version.elasticsearch-client-go | M.M }} https://github.com/elastic/go-elasticsearch.git $GOPATH/src/github.com/elastic/go-elasticsearch
 ```
 
 To install another version, modify the path or the branch name accordingly. The client major versions correspond to the {{es}} major versions.

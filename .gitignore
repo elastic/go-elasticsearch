@@ -6,3 +6,5 @@ tmp/
 
 #jetBrains editors
 .idea
+
+elastic-start-local

@@ -86,7 +86,8 @@ types.Query{
 
 ## Responses [responses]
 
-While not part of the initial release responses will be added at a later date.
+Responses are returned as typed structs from the `Do` method of each endpoint.
+Each response struct provides access to the full set of fields returned by {{es}}.
 
 ## Types [types]
 
