@@ -6,23 +6,113 @@ mapped_pages:
 
 # Typed API [typedapi]
 
-The goal for this API is to provide a strongly typed Go API for {{es}}.
+The typed API provides a strongly typed Go API for {{es}}, designed with Go structs and the runtime in mind. Requests and responses are modeled as Go types, giving you compile-time safety, IDE autocompletion, and no need to manually parse JSON.
 
-This was designed with structures and the Go runtime in mind, following as closely as possible the API and its objects.
+The code is generated from the [elasticsearch-specification](https://github.com/elastic/elasticsearch-specification).
 
 ## Getting started [_getting_started_with_the_api]
 
-The new typed client can be obtained from the `elasticsearch` package using the `NewTypedClient` function. This new API takes the same arguments as the previous one and uses the same transport underneath.
-
-Connection to an {{es}} cluster is identical to the existing client, only the API changes:
+Create a typed client using the `NewTypedClient` function. It accepts the same `elasticsearch.Config` as the low-level client:
 
 ```go
 client, err := elasticsearch.NewTypedClient(elasticsearch.Config{
-    // Proper configuration for your Elasticsearch cluster.
+    Addresses: []string{"https://localhost:9200"},
+    APIKey:    "your-api-key",
 })
+if err != nil {
+    log.Fatal(err)
+}
+defer client.Close(context.Background())
 ```
 
-The code is generated from the [elasticsearch-specification](https://github.com/elastic/elasticsearch-specification).
+For full configuration options, see the [Configuration reference](../configuration.md).
+
+## Relationship to the low-level client [_typed_api_relationship]
+
+The typed client and the low-level client share the same underlying transport, configuration, and connection pool. The typed API is a higher-level abstraction built on top of the same infrastructure:
+
+```mermaid
+graph TB
+    subgraph clients [Client Layer]
+        LC["NewClient - Low-level API"]
+        TC["NewTypedClient - Typed API"]
+    end
+
+    subgraph shared [Shared Infrastructure]
+        CFG["elasticsearch.Config"]
+        TP["Transport - retry, compression, node selection"]
+    end
+
+    LC --> CFG
+    TC --> CFG
+    CFG --> TP
+```
+
+You can use both clients in the same application since they share the same transport. Choose the typed API for compile-time safety, or fall back to the low-level API for maximum flexibility.
+
+## API namespaces [_typed_api_namespaces]
+
+The typed client organizes {{es}} APIs into namespaces that mirror the REST API structure. Each namespace groups related operations:
+
+```mermaid
+graph LR
+    TC["TypedClient"]
+
+    subgraph common [Common Operations]
+        Core
+        Indices
+        Cluster
+        Cat
+    end
+
+    subgraph search_ns [Search and Analytics]
+        Search["Core.Search"]
+        Esql
+        Eql
+        Sql
+        AsyncSearch
+    end
+
+    subgraph ingest_ns [Data Ingestion]
+        Bulk["Core.Bulk"]
+        Ingest
+        Transform
+    end
+
+    subgraph management [Management]
+        Security
+        Ml
+        Snapshot
+        Slm
+        Ilm
+    end
+
+    TC --> common
+    TC --> search_ns
+    TC --> ingest_ns
+    TC --> management
+```
+
+Access API methods through the namespace fields on the client:
+
+```go
+// Indices namespace
+client.Indices.Create("my-index").Do(context.Background())
+
+// Cluster namespace
+client.Cluster.Health().Do(context.Background())
+
+// Core namespace (also available directly on the client)
+client.Search().Index("my-index").Do(context.Background())
+
+// Security namespace
+client.Security.GetUser("admin").Do(context.Background())
+
+// ML namespace
+client.Ml.GetJobs().Do(context.Background())
+```
+
+The full list of namespaces includes: `AsyncSearch`, `Autoscaling`, `Cat`, `Ccr`, `Cluster`, `Connector`, `Core`, `DanglingIndices`, `Enrich`, `Eql`, `Esql`, `Features`, `Fleet`, `Graph`, `Ilm`, `Indices`, `Inference`, `Ingest`, `License`, `Logstash`, `Migration`, `Ml`, `Monitoring`, `Nodes`, `Profiling`, `QueryRules`, `Rollup`, `SearchApplication`, `SearchableSnapshots`, `Security`, `Shutdown`, `Simulate`, `Slm`, `Snapshot`, `Sql`, `Ssl`, `Streams`, `Synonyms`, `Tasks`, `TextStructure`, `Transform`, `Watcher`, and `Xpack`.
 
 ## NDJSON endpoints [_ndjson_endpoints]
 
@@ -57,3 +147,8 @@ if res.Errors {
 ## Raw payloads [_raw_payloads]
 
 If you already have a newline-delimited JSON payload, you can submit it directly with `Raw(io.Reader)` on the request builder.
+
+## Learn more [_typed_api_learn_more]
+
+- [Conventions](conventions.md) — Naming, structure, enums, and unions in the typed API
+- [Using the API](../using-the-api/index.md) — Practical examples comparing both API styles

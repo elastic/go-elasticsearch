@@ -3,6 +3,7 @@ toc:
   - file: getting-started.md
   - file: installation.md
   - file: connecting.md
+  - file: configuration.md
   - title: Using the API
     children:
       - file: using-the-api/index.md
@@ -16,3 +17,7 @@ toc:
     children:
       - file: typed-api/index.md
       - file: typed-api/conventions.md
+  - title: Advanced
+    children:
+      - file: advanced/interceptors.md
+      - file: advanced/observability.md
