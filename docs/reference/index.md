@@ -77,7 +77,7 @@ Please have a look at the collection of comprehensive examples in the repository
 
 - [Source Code](https://github.com/elastic/go-elasticsearch)
 - [API Documentation](https://pkg.go.dev/github.com/elastic/go-elasticsearch)
-- [Examples and Recipes](https://github.com/elastic/go-elasticsearch/tree/master/_examples)
+- [Examples and Recipes](https://github.com/elastic/go-elasticsearch/tree/main/_examples)
 
 ## License [_license]
 

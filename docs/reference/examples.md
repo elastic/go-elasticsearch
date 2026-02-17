@@ -5,7 +5,7 @@ mapped_pages:
 
 # Examples [examples]
 
-This sections lists a series of frequent use cases that will help you start with this new API.
+This section lists a series of frequent use cases that will help you start with this new API.
 
 <!-- markdownlint-disable MD051 -->
 
@@ -104,7 +104,7 @@ if res.Errors {
 }
 ```
 
-The client repository also contains complete, runnable examples for bulk ingestion (manual NDJSON, `esutil.BulkIndexer`, typed bulk, benchmarks, Kafka ingestion): [`_examples/bulk`](https://github.com/elastic/go-elasticsearch/tree/master/_examples/bulk).
+The client repository also contains complete, runnable examples for bulk ingestion (manual NDJSON, `esutil.BulkIndexer`, typed bulk, benchmarks, Kafka ingestion): [`_examples/bulk`](https://github.com/elastic/go-elasticsearch/tree/main/_examples/bulk).
 
 If you prefer the classic client (NDJSON + `Bulk()`), you can build the NDJSON payload yourself and submit it with `Bulk()`:
 
@@ -230,7 +230,13 @@ It produces the following JSON:
 
 ## Aggregations [aggregations]
 
-Given documents with a `price` field, we run a sum aggregation on `index_name`:
+Given documents with a `price` field, we run a sum aggregation on `index_name`.
+
+The `some` package provides helpers for inline pointers on primitive types:
+
+```go
+import "github.com/elastic/go-elasticsearch/v9/typedapi/some"
+```
 
 ```go
 totalPricesAgg, err := es.Search().
@@ -289,7 +295,13 @@ res, err := es.Index("my-vectors").
 
 ### Creating an index with dense vector mapping [_creating_dense_vector_index]
 
-Before indexing documents with vectors, create an index with the appropriate dense vector mapping:
+Before indexing documents with vectors, create an index with the appropriate dense vector mapping.
+
+The `esdsl` package provides builder helpers for mappings, queries, and aggregations:
+
+```go
+import "github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
+```
 
 ```go
 mappings := esdsl.NewTypeMapping().

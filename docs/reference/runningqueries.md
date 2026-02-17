@@ -33,7 +33,7 @@ es.Search().Raw([]byte(`{
       }
     }
   }
-}`))
+}`)).Do(context.Background())
 ```
 
 No further validation or serialization is done on what is sent through this method, setting a payload with this takes precedence over any request structure you may submit before running the query.

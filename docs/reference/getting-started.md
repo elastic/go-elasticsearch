@@ -202,7 +202,7 @@ typedClient.Search().
 This is how you can update a document, for example to add a new field, by using the low-level API:
 
 ```go
-client.Update("my_index", "id", strings.NewReader(`{doc: { language: "Go" }}`))
+client.Update("my_index", "id", strings.NewReader(`{"doc": {"language": "Go"}}`))
 ```
 
 ::::::
@@ -214,7 +214,7 @@ This is how you can update a document with the fully-typed API:
 ```go
 typedClient.Update("my_index", "id").
     Request(&update.Request{
-        Doc: json.RawMessage(`{ language: "Go" }`),
+        Doc: json.RawMessage(`{"language": "Go"}`),
     }).Do(context.TODO())
 ```
 

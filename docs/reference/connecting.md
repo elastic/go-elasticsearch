@@ -69,7 +69,7 @@ es, err := elasticsearch.NewClient(cfg)
 
 ## Verifying HTTPS with certificate fingerprint [verifying-with-fingerprint]
 
-This method of verifying the HTTPS connection takes advantage of the certificate fingerprint value noted down earlier. Take this SHA256 fingerprint value and pass it to the Go {{es}} client via `ca_fingerprint`:
+This method of verifying the HTTPS connection takes advantage of the certificate fingerprint value noted down earlier. Take this SHA256 fingerprint value and pass it to the Go {{es}} client via `CertificateFingerprint`:
 
 ```go
 cfg := elasticsearch.Config{

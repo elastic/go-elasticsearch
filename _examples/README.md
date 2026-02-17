@@ -32,6 +32,10 @@ The [**`fasthttp`**](./fasthttp) directory contains a demonstration of replacing
 
 The [**`instrumentation`**](./instrumentation) directory contains recipes for instrumenting the client with the OpenCensus and Elastic APM packages.
 
+## Interceptors
+
+The [**`interceptor`**](./interceptor) directory contains examples of using Interceptors to modify HTTP requests before they are sent to Elasticsearch, including dynamic auth, per-request auth override, custom auth (Kerberos/SPNEGO), and custom observability.
+
 ## Extension
 
 The [**`extension`**](./extension) directory contains an example of extending the client APIs, for example
