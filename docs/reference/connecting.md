@@ -20,7 +20,7 @@ es, err := elasticsearch.NewClient(cfg)
 ```
 
 ::::{important}
-you need to copy and store the `API key` in a secure place since you will not be able to view it again in Elastic Cloud.
+You need to copy and store the `API key` in a secure place since you will not be able to view it again in Elastic Cloud.
 ::::
 
 ## Connecting to a self-managed cluster [connecting-to-self-managed]
