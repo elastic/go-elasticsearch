@@ -48,7 +48,7 @@ To simplify things, try working with these two main representations of ES|QL res
 
 - **Objects**, where each row in the results is mapped to an object from your application domain. This is similar to what ORMs (object relational mappers) commonly do.
 
-```go
+```go subs=true
 package main
 
 import (
@@ -57,8 +57,8 @@ import (
     "log"
     "time"
 
-    "github.com/elastic/go-elasticsearch/v9"
-    "github.com/elastic/go-elasticsearch/v9/typedapi/esql/query"
+    "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}"
+    "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}/typedapi/esql/query"
 )
 
 type Book struct {

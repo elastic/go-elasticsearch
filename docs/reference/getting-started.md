@@ -9,14 +9,14 @@ This page guides you through the installation process of the Go client, shows yo
 
 ## Requirements [_requirements]
 
-Go version 1.21+
+Go version 1.24+
 
 ## Installation [_installation]
 
 To install the latest version of the client, run the following command:
 
-```shell
-go get github.com/elastic/go-elasticsearch/v9@latest
+```shell subs=true
+go get github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}@latest
 ```
 
 Refer to the [_Installation_](/reference/installation.md) page to learn more.
