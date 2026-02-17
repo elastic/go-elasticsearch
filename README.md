@@ -53,30 +53,42 @@ The `main` branch of the client is compatible with the current `master` branch o
 
 ## Installation
 
-Refer to the [Installation section](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_installation)
-of the getting started documentation.
+Refer to the [Installation](https://www.elastic.co/docs/reference/elasticsearch/clients/go/installation)
+page of the documentation.
 
 <!-- ----------------------------------------------------------------------------------------------- -->
 
 ## Connecting
 
-Refer to the [Connecting section](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_connecting)
-of the getting started documentation.
+Refer to the [Connecting](https://www.elastic.co/docs/reference/elasticsearch/clients/go/connecting)
+page of the documentation.
 
 ## Operations
 
-- [Creating an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_creating_an_index)
-- [Indexing documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_indexing_documents)
-- [Getting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_getting_documents)
-- [Searching documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_searching_documents)
-- [Updating documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_updating_documents)
-- [Deleting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_documents)
-- [Deleting an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_an_index)
+- [Creating an index](https://www.elastic.co/docs/reference/elasticsearch/clients/go/using-the-api/crud-operations)
+- [Indexing documents](https://www.elastic.co/docs/reference/elasticsearch/clients/go/using-the-api/crud-operations)
+- [Getting documents](https://www.elastic.co/docs/reference/elasticsearch/clients/go/using-the-api/crud-operations)
+- [Searching documents](https://www.elastic.co/docs/reference/elasticsearch/clients/go/using-the-api/searching)
+- [Updating documents](https://www.elastic.co/docs/reference/elasticsearch/clients/go/using-the-api/crud-operations)
+- [Deleting documents](https://www.elastic.co/docs/reference/elasticsearch/clients/go/using-the-api/crud-operations)
+- [Deleting an index](https://www.elastic.co/docs/reference/elasticsearch/clients/go/using-the-api/crud-operations)
 <!-- ----------------------------------------------------------------------------------------------- -->
 
 ## Helpers
 
-The `esutil` package provides convenience helpers for working with the client. At the moment, it provides the `esutil.JSONReader()` and the `esutil.BulkIndexer` helpers.
+The `esutil` package provides convenience helpers for working with the client. At the moment, it provides the `esutil.JSONReader()` and the [`esutil.BulkIndexer`](https://www.elastic.co/docs/reference/elasticsearch/clients/go/using-the-api/bulk-indexing) helpers.
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+## Documentation
+
+Find the full reference documentation at [elastic.co](https://www.elastic.co/docs/reference/elasticsearch/clients/go):
+
+- [Getting started](https://www.elastic.co/docs/reference/elasticsearch/clients/go/getting-started)
+- [Configuration](https://www.elastic.co/docs/reference/elasticsearch/clients/go/configuration)
+- [Using the API](https://www.elastic.co/docs/reference/elasticsearch/clients/go/using-the-api) (low-level and typed)
+- [Typed API](https://www.elastic.co/docs/reference/elasticsearch/clients/go/typed-api) and [esdsl builders](https://www.elastic.co/docs/reference/elasticsearch/clients/go/typed-api/esdsl)
+- [Advanced topics](https://www.elastic.co/docs/reference/elasticsearch/clients/go/advanced) (interceptors, observability)
 
 <!-- ----------------------------------------------------------------------------------------------- -->
 
