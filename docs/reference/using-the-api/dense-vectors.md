@@ -40,6 +40,10 @@ res, err := client.Indices.Create(
     "my-vectors", // <1>
     client.Indices.Create.WithBody(strings.NewReader(mapping)), // <2>
 )
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 ```
 
 1. The name of the index to create.
@@ -98,6 +102,10 @@ res, err := client.Index(
     "my-vectors", // <1>
     strings.NewReader(doc), // <2>
 )
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 ```
 
 1. The target index.
@@ -160,6 +168,10 @@ res, err := client.Search(
     client.Search.WithIndex("my-vectors"), // <1>
     client.Search.WithBody(strings.NewReader(query)), // <2>
 )
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 ```
 
 1. The index containing your vectors.

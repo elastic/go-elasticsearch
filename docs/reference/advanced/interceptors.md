@@ -159,11 +159,19 @@ es, err := elasticsearch.NewClient(elasticsearch.Config{
 })
 
 // Uses default credentials
-es.Info()
+res, err := es.Info()
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 
 // Uses per-request credentials
 ctx := WithBasicAuth(context.Background(), "tenant_a", "tenant_a_secret")
-es.Info(es.Info.WithContext(ctx))
+res, err = es.Info(es.Info.WithContext(ctx))
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 ```
 
 :::{dropdown} Challenge-response authentication (Kerberos/SPNEGO)

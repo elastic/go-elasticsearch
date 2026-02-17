@@ -119,6 +119,10 @@ res, err := client.Search(
       }
     }`)),
 )
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 ```
 
 ::::::

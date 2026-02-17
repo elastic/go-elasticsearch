@@ -22,6 +22,23 @@ Both API styles share the same underlying transport and [configuration](../confi
 | **Flexibility**        | Full control over request/response bytes        | Constrained to the specification model           |
 | **Code verbosity**     | Lower for simple requests                       | Lower for complex queries with nested structures |
 
+::::{important}
+When using the low-level API, you **must** always read and close the response body, even if your code does not use it. Failing to do so prevents Go's HTTP client from reusing the underlying TCP connection, which degrades performance and can cause resource leaks.
+
+```go
+res, err := client.Search(
+    client.Search.WithIndex("my-index"),
+    client.Search.WithBody(strings.NewReader(query)),
+)
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
+```
+
+The fully-typed API handles this automatically. Each endpoint's `Do()` method reads and closes the response body internally, so you only work with typed response structs.
+::::
+
 ## When to use which [_when_to_use_which]
 
 **Choose the low-level API when:**

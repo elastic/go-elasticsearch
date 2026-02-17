@@ -83,7 +83,11 @@ Time to use Elasticsearch! This section walks you through the basic, and most im
 This is how you create the `my_index` index with the low level API:
 
 ```go
-client.Indices.Create("my_index")
+res, err := client.Indices.Create("my_index")
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 ```
 
 ::::::
@@ -117,7 +121,11 @@ document := struct {
     "go-elasticsearch",
 }
 data, _ := json.Marshal(document)
-client.Index("my_index", bytes.NewReader(data))
+res, err := client.Index("my_index", bytes.NewReader(data))
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 ```
 
 ::::::
@@ -153,7 +161,11 @@ typedClient.Index("my_index").
 You can get documents by using the following code with the low-level API:
 
 ```go
-client.Get("my_index", "id")
+res, err := client.Get("my_index", "id")
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 ```
 
 ::::::
@@ -182,10 +194,14 @@ This is how you can create a single match query with the low-level API:
 
 ```go
 query := `{ "query": { "match_all": {} } }`
-client.Search(
+res, err := client.Search(
     client.Search.WithIndex("my_index"),
     client.Search.WithBody(strings.NewReader(query)),
 )
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 ```
 
 ::::::
@@ -218,7 +234,11 @@ typedClient.Search().
 This is how you can update a document, for example to add a new field, by using the low-level API:
 
 ```go
-client.Update("my_index", "id", strings.NewReader(`{"doc": {"language": "Go"}}`))
+res, err := client.Update("my_index", "id", strings.NewReader(`{"doc": {"language": "Go"}}`))
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 ```
 
 ::::::
@@ -248,7 +268,11 @@ typedClient.Update("my_index", "id").
 :sync: lowLevel
 
 ```go
-client.Delete("my_index", "id")
+res, err := client.Delete("my_index", "id")
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 ```
 
 ::::::
@@ -274,7 +298,11 @@ typedClient.Delete("my_index", "id").Do(context.TODO())
 :sync: lowLevel
 
 ```go
-client.Indices.Delete([]string{"my_index"})
+res, err := client.Indices.Delete([]string{"my_index"})
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
 ```
 
 ::::::

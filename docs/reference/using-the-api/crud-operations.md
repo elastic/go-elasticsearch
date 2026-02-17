@@ -29,10 +29,15 @@ res, err := client.Indices.Create(
     "test-index", // <1>
     client.Indices.Create.WithBody(strings.NewReader(mapping)), // <2>
 )
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close() // <3>
 ```
 
 1. The name of the index to create.
 2. Pass the JSON mapping as the request body.
+3. Always close the response body to ensure HTTP connection reuse.
 
 ::::::
 
@@ -86,11 +91,16 @@ res, err := client.Index(
     bytes.NewReader(data),     // <2>
     client.Index.WithDocumentID("1"), // <3>
 )
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close() // <4>
 ```
 
 1. The target index name.
 2. The document body as an `io.Reader`.
 3. Optionally set the document ID.
+4. Always close the response body to ensure HTTP connection reuse.
 
 ::::::
 
@@ -147,10 +157,15 @@ res, err := client.Get(
     "index_name", // <1>
     "doc_id",     // <2>
 )
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close() // <3>
 ```
 
 1. The index to retrieve the document from.
 2. The document ID.
+3. Always close the response body to ensure HTTP connection reuse.
 
 ::::::
 

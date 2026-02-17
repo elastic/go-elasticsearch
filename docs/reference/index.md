@@ -61,7 +61,14 @@ import (
 func main() {
     es, _ := elasticsearch.NewDefaultClient()
     defer es.Close(context.Background())
-    log.Println(es.Info())
+
+    res, err := es.Info()
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer res.Body.Close()
+
+    log.Println(res)
 }
 ```
 
