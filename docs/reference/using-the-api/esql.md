@@ -19,15 +19,50 @@ The [ES|QL query API](https://www.elastic.co/docs/api/doc/elasticsearch/group/en
 
 The following example gets ES|QL results as CSV and parses them:
 
+:::::::{tab-set}
+:group: APIs
+::::::{tab-item} Low-level API
+:sync: lowLevel
+
+```go
+queryBody := `{
+    "query": "from library | where author == \"Isaac Asimov\" | sort release_date desc | limit 10",
+    "format": "csv"
+}`
+
+res, err := client.Esql.Query( // <1>
+    strings.NewReader(queryBody), // <2>
+)
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
+
+reader := csv.NewReader(res.Body) // <3>
+rows, err := reader.ReadAll()
+for _, row := range rows {
+    fmt.Println(row)
+}
+```
+
+1. Call the ES|QL query endpoint.
+2. Pass the query and format as a JSON body.
+3. Parse the CSV response directly from the response body.
+
+::::::
+
+::::::{tab-item} Fully-typed API
+:sync: typed
+
 ```go
 queryAuthor := `from library
     | where author == "Isaac Asimov"
     | sort release_date desc
     | limit 10`
 
-response, err := client.Esql.Query().
-    Query(queryAuthor).
-    Format("csv").
+response, err := client.Esql.Query(). // <1>
+    Query(queryAuthor). // <2>
+    Format("csv"). // <3>
     Do(context.Background())
 if err != nil {
     log.Fatal(err)
@@ -39,6 +74,14 @@ for _, row := range rows {
     fmt.Println(row)
 }
 ```
+
+1. Create an ES|QL query request.
+2. Set the ES|QL query string.
+3. Request CSV format for the response.
+
+::::::
+
+:::::::
 
 ## Consume ES|QL results [esql-consume-results]
 
@@ -87,7 +130,7 @@ func main() {
         | limit 10`
 
     qry := client.Esql.Query().Query(queryAuthor)
-    books, err := query.Helper[Book](context.Background(), qry)
+    books, err := query.Helper[Book](context.Background(), qry) // <1>
     if err != nil {
         log.Fatal(err)
     }
@@ -98,6 +141,8 @@ func main() {
 }
 ```
 
+1. The `query.Helper` generic function maps each row to a `Book` struct automatically.
+
 - **Iterative Objects**, where each row in the results is mapped to an object from your application domain, one at a time.
 
 ```go
@@ -107,16 +152,19 @@ queryAuthor := `from library
     | limit 10`
 
 qry := client.Esql.Query().Query(queryAuthor)
-books, err := query.NewIteratorHelper[Book](context.Background(), qry)
+books, err := query.NewIteratorHelper[Book](context.Background(), qry) // <1>
 if err != nil {
     log.Fatal(err)
 }
 
 for books.More() {
-    book, err := books.Next()
+    book, err := books.Next() // <2>
     if err != nil {
         log.Fatal(err)
     }
     fmt.Println(book)
 }
 ```
+
+1. The `NewIteratorHelper` returns an iterator that maps rows one at a time.
+2. Call `Next()` to retrieve each row as a typed struct.

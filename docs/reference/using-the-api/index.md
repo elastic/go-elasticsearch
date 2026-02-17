@@ -13,14 +13,14 @@ Both API styles share the same underlying transport and [configuration](../confi
 
 ## Comparing API styles [_comparing_api_styles]
 
-| | Low-level API | Fully-typed API |
-|---|---|---|
-| **Type safety** | Runtime (raw JSON) | Compile-time (Go structs) |
-| **IDE autocompletion** | Limited | Full support for fields, enums, and methods |
-| **Serialization** | Manual (`io.Reader`, `json.Marshal`) | Automatic (structs marshaled by the client) |
-| **Response handling** | Raw `*esapi.Response` with `io.ReadCloser` body | Typed response structs |
-| **Flexibility** | Full control over request/response bytes | Constrained to the specification model |
-| **Code verbosity** | Lower for simple requests | Lower for complex queries with nested structures |
+|                        | Low-level API                                   | Fully-typed API                                  |
+| ---------------------- | ----------------------------------------------- | ------------------------------------------------ |
+| **Type safety**        | Runtime (raw JSON)                              | Compile-time (Go structs)                        |
+| **IDE autocompletion** | Limited                                         | Full support for fields, enums, and methods      |
+| **Serialization**      | Manual (`io.Reader`, `json.Marshal`)            | Automatic (structs marshaled by the client)      |
+| **Response handling**  | Raw `*esapi.Response` with `io.ReadCloser` body | Typed response structs                           |
+| **Flexibility**        | Full control over request/response bytes        | Constrained to the specification model           |
+| **Code verbosity**     | Lower for simple requests                       | Lower for complex queries with nested structures |
 
 ## When to use which [_when_to_use_which]
 

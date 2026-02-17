@@ -70,6 +70,7 @@ func DynamicAuthInterceptor(provider *CredentialProvider) elastictransport.Inter
     }
 }
 ```
+
 1. Wrap the next function in the chain.
 2. Retrieve the latest credentials at call time.
 3. Set the `Authorization` header on the outgoing request.
@@ -142,6 +143,7 @@ func ContextAuthInterceptor() elastictransport.InterceptorFunc {
     }
 }
 ```
+
 1. Override credentials only if the context contains them.
 2. Requests without context credentials proceed with the client's default auth.
 
@@ -199,6 +201,7 @@ func KerberosInterceptor(tokenProvider func() (string, error)) elastictransport.
     }
 }
 ```
+
 1. Send the initial request without authentication.
 2. Close the 401 response body before retrying.
 3. Obtain a Kerberos token (in production, use a library like `gokrb5`).

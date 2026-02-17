@@ -11,13 +11,35 @@ This page contains the information you need to connect and use the Client with {
 
 If you are using [Elastic Cloud](https://www.elastic.co/cloud), the client offers an easy way to connect to it. You must pass the Cloud ID that you can find in the cloud console and the corresponding API key.
 
+:::::::{tab-set}
+:group: APIs
+::::::{tab-item} Low-level API
+:sync: lowLevel
+
 ```go
 cfg := elasticsearch.Config{
         CloudID: "CLOUD_ID",
-        APIKey: "API_KEY"
+        APIKey: "API_KEY",
 }
 es, err := elasticsearch.NewClient(cfg)
 ```
+
+::::::
+
+::::::{tab-item} Fully-typed API
+:sync: typed
+
+```go
+cfg := elasticsearch.Config{
+        CloudID: "CLOUD_ID",
+        APIKey: "API_KEY",
+}
+es, err := elasticsearch.NewTypedClient(cfg)
+```
+
+::::::
+
+:::::::
 
 ::::{important}
 You need to copy and store the `API key` in a secure place since you will not be able to view it again in Elastic Cloud.
@@ -53,8 +75,13 @@ The generated root CA certificate can be found in the `certs` directory in your 
 
 Once you have the `http_ca.crt` file somewhere accessible pass the content of the file to the client via `CACert`:
 
+:::::::{tab-set}
+:group: APIs
+::::::{tab-item} Low-level API
+:sync: lowLevel
+
 ```go
-cert, _ := os.ReadFile("/path/to/http_ca.crt")
+cert, _ := os.ReadFile("/path/to/http_ca.crt") // <1>
 
 cfg := elasticsearch.Config{
         Addresses: []string{
@@ -62,15 +89,49 @@ cfg := elasticsearch.Config{
         },
         Username: "elastic",
         Password: ELASTIC_PASSWORD,
-        CACert:   cert,
+        CACert:   cert, // <2>
 }
 es, err := elasticsearch.NewClient(cfg)
 ```
+
+1. Read the PEM-encoded CA certificate from disk.
+2. Pass the certificate bytes to `CACert` to verify the server's TLS certificate.
+
+::::::
+
+::::::{tab-item} Fully-typed API
+:sync: typed
+
+```go
+cert, _ := os.ReadFile("/path/to/http_ca.crt") // <1>
+
+cfg := elasticsearch.Config{
+        Addresses: []string{
+            "https://localhost:9200",
+        },
+        Username: "elastic",
+        Password: ELASTIC_PASSWORD,
+        CACert:   cert, // <2>
+}
+es, err := elasticsearch.NewTypedClient(cfg)
+```
+
+1. Read the PEM-encoded CA certificate from disk.
+2. Pass the certificate bytes to `CACert` to verify the server's TLS certificate.
+
+::::::
+
+:::::::
 
 ## Verifying HTTPS with certificate fingerprint [verifying-with-fingerprint]
 
 This method of verifying the HTTPS connection takes advantage of the certificate fingerprint value noted down earlier. Take this SHA256 fingerprint value and pass it to the Go {{es}} client via `CertificateFingerprint`:
 
+:::::::{tab-set}
+:group: APIs
+::::::{tab-item} Low-level API
+:sync: lowLevel
+
 ```go
 cfg := elasticsearch.Config{
         Addresses: []string{
@@ -78,10 +139,35 @@ cfg := elasticsearch.Config{
         },
         Username: "elastic",
         Password: ELASTIC_PASSWORD,
-        CertificateFingerprint: CERT_FINGERPRINT,
+        CertificateFingerprint: CERT_FINGERPRINT, // <1>
 }
 es, err := elasticsearch.NewClient(cfg)
 ```
+
+1. The SHA-256 hex fingerprint of the CA certificate, useful when you don't have access to the CA file directly.
+
+::::::
+
+::::::{tab-item} Fully-typed API
+:sync: typed
+
+```go
+cfg := elasticsearch.Config{
+        Addresses: []string{
+            "https://localhost:9200",
+        },
+        Username: "elastic",
+        Password: ELASTIC_PASSWORD,
+        CertificateFingerprint: CERT_FINGERPRINT, // <1>
+}
+es, err := elasticsearch.NewTypedClient(cfg)
+```
+
+1. The SHA-256 hex fingerprint of the CA certificate, useful when you don't have access to the CA file directly.
+
+::::::
+
+:::::::
 
 The certificate fingerprint can be calculated using OpenSSL x509 with the certificate file:
 
@@ -112,6 +198,11 @@ Running {{es}} without security enabled is not recommended.
 
 If your cluster is configured with [security explicitly disabled](elasticsearch://reference/elasticsearch/configuration-reference/security-settings.md) then you can connect via HTTP:
 
+:::::::{tab-set}
+:group: APIs
+::::::{tab-item} Low-level API
+:sync: lowLevel
+
 ```go
 cfg := elasticsearch.Config{
         Addresses: []string{
@@ -121,13 +212,36 @@ cfg := elasticsearch.Config{
 es, err := elasticsearch.NewClient(cfg)
 ```
 
+::::::
+
+::::::{tab-item} Fully-typed API
+:sync: typed
+
+```go
+cfg := elasticsearch.Config{
+        Addresses: []string{
+            "http://localhost:9200",
+        },
+}
+es, err := elasticsearch.NewTypedClient(cfg)
+```
+
+::::::
+
+:::::::
+
 ## Connecting to multiple nodes [connecting-multiple-nodes]
 
 The Go {{es}} client supports sending API requests to multiple nodes in the cluster. This means that work will be more evenly spread across the cluster instead of hammering the same node over and over with requests. To configure the client with multiple nodes you can pass a list of URLs, each URL will be used as a separate node in the pool.
 
+:::::::{tab-set}
+:group: APIs
+::::::{tab-item} Low-level API
+:sync: lowLevel
+
 ```go
 cfg := elasticsearch.Config{
-  Addresses: []string{
+  Addresses: []string{  // <1>
     "https://localhost:9200",
     "https://localhost:9201",
   },
@@ -137,6 +251,32 @@ cfg := elasticsearch.Config{
 }
 es, err := elasticsearch.NewClient(cfg)
 ```
+
+1. Each URL is used as a separate node in the connection pool.
+
+::::::
+
+::::::{tab-item} Fully-typed API
+:sync: typed
+
+```go
+cfg := elasticsearch.Config{
+  Addresses: []string{  // <1>
+    "https://localhost:9200",
+    "https://localhost:9201",
+  },
+  CACert:   caCert,
+  Username: "elastic",
+  Password: ELASTIC_PASSWORD,
+}
+es, err := elasticsearch.NewTypedClient(cfg)
+```
+
+1. Each URL is used as a separate node in the connection pool.
+
+::::::
+
+:::::::
 
 By default nodes are selected using round-robin, but alternate node selection strategies can be implemented via the `elastictransport.Selector` interface and provided to the client configuration.
 
@@ -150,7 +290,12 @@ This section contains code snippets to show you how to authenticate with {{es}}.
 
 ### Basic authentication [auth-basic]
 
-To set the cluster endpoints, the username, and the password programmatically, pass a configuration object to the `elasticsearch.NewClient()` function.
+To set the cluster endpoints, the username, and the password programmatically, pass a configuration object to the `elasticsearch.NewClient()` or `elasticsearch.NewTypedClient()` function.
+
+:::::::{tab-set}
+:group: APIs
+::::::{tab-item} Low-level API
+:sync: lowLevel
 
 ```go
 cfg := elasticsearch.Config{
@@ -164,6 +309,27 @@ cfg := elasticsearch.Config{
 es, err := elasticsearch.NewClient(cfg)
 ```
 
+::::::
+
+::::::{tab-item} Fully-typed API
+:sync: typed
+
+```go
+cfg := elasticsearch.Config{
+  Addresses: []string{
+    "https://localhost:9200",
+    "https://localhost:9201",
+  },
+  Username: "foo",
+  Password: "bar",
+}
+es, err := elasticsearch.NewTypedClient(cfg)
+```
+
+::::::
+
+:::::::
+
 You can also include the username and password in the endpoint URL:
 
 ```text
@@ -173,6 +339,11 @@ You can also include the username and password in the endpoint URL:
 ### HTTP Bearer authentication [auth-token]
 
 HTTP Bearer authentication uses the `ServiceToken` parameter by passing the token as a string. This authentication method is used by [Service Account Tokens](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-service-token) and [Bearer Tokens](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-token).
+
+:::::::{tab-set}
+:group: APIs
+::::::{tab-item} Low-level API
+:sync: lowLevel
 
 ```go
 cfg := elasticsearch.Config{
@@ -184,18 +355,44 @@ cfg := elasticsearch.Config{
 es, err := elasticsearch.NewClient(cfg)
 ```
 
+::::::
+
+::::::{tab-item} Fully-typed API
+:sync: typed
+
+```go
+cfg := elasticsearch.Config{
+    Addresses: []string{
+        "https://localhost:9200",
+    },
+    ServiceToken: "token-value",
+}
+es, err := elasticsearch.NewTypedClient(cfg)
+```
+
+::::::
+
+:::::::
+
 ## Compatibility mode [compatibility-mode]
 
+:::{dropdown} Compatibility mode (7.x to 8.x migration)
 The {{es}} server version 8.0 is introducing a new compatibility mode that allows you a smoother upgrade experience from 7 to 8. In a nutshell, you can use the latest 7.x `go-elasticsearch` Elasticsearch client with an 8.x Elasticsearch server, giving more room to coordinate the upgrade of your codebase to the next major version.
 
 If you want to leverage this functionality, please make sure that you are using the latest 7.x `go-elasticsearch` client and set the environment variable `ELASTIC_CLIENT_APIVERSIONING` to `true` or the configuration option `config.EnableCompatibilityMode` in the client `Config`. The client is handling the rest internally.
 For every 8.0 and beyond `go-elasticsearch` client, you're all set! The compatibility mode is enabled by default.
+:::
 
 ## Using the client [client-usage]
 
 The {{es}} package ties together two separate packages for calling the Elasticsearch APIs and transferring data over HTTP: `esapi` and `estransport`, respectively.
 
-Use the `elasticsearch.NewDefaultClient()` function to create the client with the default settings.
+Use the `elasticsearch.NewDefaultClient()` or `elasticsearch.NewTypedClient()` function to create the client with the default settings.
+
+:::::::{tab-set}
+:group: APIs
+::::::{tab-item} Low-level API
+:sync: lowLevel
 
 ```go
 es, err := elasticsearch.NewDefaultClient()
@@ -219,14 +416,45 @@ defer res.Body.Close()
 log.Println(res)
 ```
 
+::::::
+
+::::::{tab-item} Fully-typed API
+:sync: typed
+
+```go
+es, err := elasticsearch.NewTypedClient(elasticsearch.Config{})
+if err != nil {
+  log.Fatalf("Error creating the client: %s", err)
+}
+defer func() {
+    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+    defer cancel()
+    if err := es.Close(ctx); err != nil {
+        log.Fatalf("Error closing the client: %s", err)
+    }
+} ()
+
+res, err := es.Info().Do(context.Background())
+if err != nil {
+  log.Fatalf("Error getting response: %s", err)
+}
+
+log.Println(res)
+```
+
+::::::
+
+:::::::
+
 ## Using the client in a function-as-a-service environment [connecting-faas]
 
+:::{dropdown} Function-as-a-Service (FaaS) patterns
 This section illustrates the best practices for leveraging the {{es}} client in a Function-as-a-Service (FaaS) environment.
 The most influential optimization is to initialize the client outside of the function, the global scope.
-This practice does not only improve performance but also enables background functionality as – for example – [sniffing](https://www.elastic.co/blog/elasticsearch-sniffing-best-practices-what-when-why-how).
+This practice does not only improve performance but also enables background functionality as — for example — [sniffing](https://www.elastic.co/blog/elasticsearch-sniffing-best-practices-what-when-why-how).
 The following examples provide a skeleton for the best practices.
 
-### GCP Cloud Functions [connecting-faas-gcp]
+### GCP Cloud Functions
 
 ```go
 package httpexample
@@ -245,7 +473,7 @@ var client *elasticsearch.Client
 func init() {
     var err error
 
-    ... # Client configuration
+    ... // Client configuration
     client, err = elasticsearch.NewClient(cfg)
     if err != nil {
         log.Fatalf("elasticsearch.NewClient: %v", err)
@@ -253,11 +481,11 @@ func init() {
 }
 
 func HttpExample(w http.ResponseWriter, r *http.Request) {
-    ... # Client usage
+    ... // Client usage
 }
 ```
 
-### AWS Lambda [connecting-faas-aws]
+### AWS Lambda
 
 ```go
 package httpexample
@@ -274,7 +502,7 @@ var client *elasticsearch.Client
 func init() {
     var err error
 
-    ... # Client configuration
+    ... // Client configuration
     client, err = elasticsearch.NewClient(cfg)
     if err != nil {
         log.Fatalf("elasticsearch.NewClient: %v", err)
@@ -282,7 +510,7 @@ func init() {
 }
 
 func HttpExample() {
-    ... # Client usage
+    ... // Client usage
 }
 
 func main() {
@@ -295,3 +523,4 @@ Resources used to assess these recommendations:
 - [GCP Cloud Functions: Tips & Tricks](https://cloud.google.com/functions/docs/bestpractices/tips#use_global_variables_to_reuse_objects_in_future_invocations)
 - [Best practices for working with AWS Lambda functions](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
 - [AWS Lambda: Comparing the effect of global scope](https://docs.aws.amazon.com/lambda/latest/operatorguide/global-scope.html)
+  :::

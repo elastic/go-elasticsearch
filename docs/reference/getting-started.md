@@ -31,10 +31,13 @@ You can connect to the Elastic Cloud using an API key and the Elasticsearch endp
 
 ```go
 client, err := elasticsearch.NewClient(elasticsearch.Config{
-    CloudID: "<CloudID>",
-    APIKey: "<ApiKey>",
+    CloudID: "<CloudID>", // <1>
+    APIKey: "<ApiKey>",   // <2>
 })
 ```
+
+1. Your deployment's Cloud ID, found on the **My deployment** page.
+2. Your API key for authentication.
 
 ::::::
 
@@ -44,10 +47,13 @@ You can connect to the Elastic Cloud using an API key and the Elasticsearch endp
 
 ```go
 typedClient, err := elasticsearch.NewTypedClient(elasticsearch.Config{
-    CloudID: "<CloudID>",
-    APIKey:  "<ApiKey>",
+    CloudID: "<CloudID>", // <1>
+    APIKey:  "<ApiKey>",  // <2>
 })
 ```
+
+1. Your deployment's Cloud ID, found on the **My deployment** page.
+2. Your API key for authentication.
 
 ::::::
 
@@ -66,7 +72,9 @@ For other connection options, refer to the [_Connecting_](/reference/connecting.
 
 Time to use Elasticsearch! This section walks you through the basic, and most important, operations of Elasticsearch. For more operations and more advanced examples, refer to the [Using the API](/reference/using-the-api/index.md) section.
 
-### Creating an index [_creating_an_index]
+:::::::::{stepper}
+
+::::::::{step} Create an index
 
 :::::::{tab-set}
 :group: APIs
@@ -92,7 +100,9 @@ typedClient.Indices.Create("my_index").Do(context.TODO())
 
 :::::::
 
-### Indexing documents [_indexing_documents]
+::::::::
+
+::::::::{step} Index a document
 
 :::::::{tab-set}
 :group: APIs
@@ -132,7 +142,9 @@ typedClient.Index("my_index").
 
 :::::::
 
-### Getting documents [_getting_documents]
+::::::::
+
+::::::::{step} Get a document
 
 :::::::{tab-set}
 :group: APIs
@@ -158,7 +170,9 @@ typedClient.Get("my_index", "id").Do(context.TODO())
 
 :::::::
 
-### Searching documents [_searching_documents]
+::::::::
+
+::::::::{step} Search documents
 
 :::::::{tab-set}
 :group: APIs
@@ -193,7 +207,9 @@ typedClient.Search().
 
 :::::::
 
-### Updating documents [_updating_documents]
+::::::::
+
+::::::::{step} Update a document
 
 :::::::{tab-set}
 :group: APIs
@@ -222,7 +238,9 @@ typedClient.Update("my_index", "id").
 
 :::::::
 
-### Deleting documents [_deleting_documents]
+::::::::
+
+::::::::{step} Delete a document
 
 :::::::{tab-set}
 :group: APIs
@@ -246,7 +264,9 @@ typedClient.Delete("my_index", "id").Do(context.TODO())
 
 :::::::
 
-### Deleting an index [_deleting_an_index]
+::::::::
+
+::::::::{step} Delete an index
 
 :::::::{tab-set}
 :group: APIs
@@ -269,6 +289,10 @@ typedClient.Indices.Delete("my_index").Do(context.TODO())
 ::::::
 
 :::::::
+
+::::::::
+
+:::::::::
 
 ## Further reading [_further_reading]
 

@@ -16,14 +16,18 @@ Create a typed client using the `NewTypedClient` function. It accepts the same `
 
 ```go
 client, err := elasticsearch.NewTypedClient(elasticsearch.Config{
-    Addresses: []string{"https://localhost:9200"},
-    APIKey:    "your-api-key",
+    Addresses: []string{"https://localhost:9200"}, // <1>
+    APIKey:    "your-api-key", // <2>
 })
 if err != nil {
     log.Fatal(err)
 }
-defer client.Close(context.Background())
+defer client.Close(context.Background()) // <3>
 ```
+
+1. The Elasticsearch node URL(s).
+2. Authentication credentials (API key, username/password, or service token).
+3. Always close the client when done to release resources.
 
 For full configuration options, see the [Configuration reference](../configuration.md).
 
@@ -112,7 +116,14 @@ client.Security.GetUser("admin").Do(context.Background())
 client.Ml.GetJobs().Do(context.Background())
 ```
 
-The full list of namespaces includes: `AsyncSearch`, `Autoscaling`, `Cat`, `Ccr`, `Cluster`, `Connector`, `Core`, `DanglingIndices`, `Enrich`, `Eql`, `Esql`, `Features`, `Fleet`, `Graph`, `Ilm`, `Indices`, `Inference`, `Ingest`, `License`, `Logstash`, `Migration`, `Ml`, `Monitoring`, `Nodes`, `Profiling`, `QueryRules`, `Rollup`, `SearchApplication`, `SearchableSnapshots`, `Security`, `Shutdown`, `Simulate`, `Slm`, `Snapshot`, `Sql`, `Ssl`, `Streams`, `Synonyms`, `Tasks`, `TextStructure`, `Transform`, `Watcher`, and `Xpack`.
+The full list of namespaces includes:
+`AsyncSearch`, `Autoscaling`, `Cat`, `Ccr`, `Cluster`, `Connector`, `Core`,
+`DanglingIndices`, `Enrich`, `Eql`, `Esql`, `Features`, `Fleet`, `Graph`,
+`Ilm`, `Indices`, `Inference`, `Ingest`, `License`, `Logstash`, `Migration`,
+`Ml`, `Monitoring`, `Nodes`, `Profiling`, `QueryRules`, `Rollup`,
+`SearchApplication`, `SearchableSnapshots`, `Security`, `Shutdown`, `Simulate`,
+`Slm`, `Snapshot`, `Sql`, `Ssl`, `Streams`, `Synonyms`, `Tasks`,
+`TextStructure`, `Transform`, `Watcher`, and `Xpack`.
 
 ## NDJSON endpoints [_ndjson_endpoints]
 
@@ -130,12 +141,12 @@ if err != nil {
 
 index := "my-index"
 id := "1"
-bulk := client.Bulk()
-if err := bulk.IndexOp(types.IndexOperation{Index_: &index, Id_: &id}, map[string]any{"title": "Test"}); err != nil {
+bulk := client.Bulk() // <1>
+if err := bulk.IndexOp(types.IndexOperation{Index_: &index, Id_: &id}, map[string]any{"title": "Test"}); err != nil { // <2>
     // Handle error.
 }
 
-res, err := bulk.Do(context.Background())
+res, err := bulk.Do(context.Background()) // <3>
 if err != nil {
     // Handle error.
 }
@@ -143,6 +154,10 @@ if res.Errors {
     // One or more operations failed.
 }
 ```
+
+1. Create a bulk request builder.
+2. Append an index operation with metadata and document body.
+3. Execute the bulk request and check for errors.
 
 ## Raw payloads [_raw_payloads]
 

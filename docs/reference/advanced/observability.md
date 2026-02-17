@@ -1,5 +1,7 @@
 ---
 navigation_title: Observability
+applies_to:
+  stack: ga 8.14.0
 ---
 
 # Observability [observability]
@@ -25,16 +27,17 @@ es, err := elasticsearch.NewClient(elasticsearch.Config{
     Instrumentation: elasticsearch.NewOpenTelemetryInstrumentation(nil, false),  // <1>
 })
 ```
+
 1. `nil` uses the global `TracerProvider` from `otel.GetTracerProvider()`. Pass an explicit provider to use a specific one.
 
 ### Parameters [_otel_params]
 
 `NewOpenTelemetryInstrumentation` accepts two parameters:
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `provider` | `trace.TracerProvider` | The OpenTelemetry tracer provider. Pass `nil` to use the globally registered provider. |
-| `captureSearchBody` | `bool` | When `true`, the search query body is captured as the `db.statement` span attribute for search endpoints. |
+| Parameter           | Type                   | Description                                                                                               |
+| ------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------- |
+| `provider`          | `trace.TracerProvider` | The OpenTelemetry tracer provider. Pass `nil` to use the globally registered provider.                    |
+| `captureSearchBody` | `bool`                 | When `true`, the search query body is captured as the `db.statement` span attribute for search endpoints. |
 
 The search endpoints that support body capture are:
 
@@ -53,20 +56,20 @@ Enabling `captureSearchBody` may expose sensitive data in your traces. Only enab
 
 ### Span attributes [_otel_span_attributes]
 
-The built-in instrumentation follows the [OpenTelemetry Semantic Conventions for Elasticsearch](https://opentelemetry.io/docs/specs/semconv/database/elasticsearch/). Each API call creates a client span with the following attributes:
+The built-in instrumentation follows the [OpenTelemetry Semantic Conventions for Elasticsearch](https://opentelemetry.io/docs/specs/semconv/database/elasticsearch/). For details on how {{es}} integrates with OpenTelemetry, see [OpenTelemetry integration](docs-content://explore-analyze/observability/apm/otel-metrics-overview.md) in the {{es}} documentation. Each API call creates a client span with the following attributes:
 
-| Attribute | Description | Example |
-|-----------|-------------|---------|
-| `db.system` | Always `"elasticsearch"` | `elasticsearch` |
-| `db.operation` | The API endpoint name | `search` |
-| `db.statement` | The request body (search endpoints only, when `captureSearchBody` is `true`) | `{"query":{"match_all":{}}}` |
-| `db.elasticsearch.path_parts.*` | Path parameters for the endpoint | `db.elasticsearch.path_parts.index = "my-index"` |
-| `http.request.method` | The HTTP method | `GET` |
-| `url.full` | The full request URL | `https://localhost:9200/my-index/_search` |
-| `server.address` | The {{es}} node hostname | `localhost` |
-| `server.port` | The {{es}} node port | `9200` |
-| `db.elasticsearch.cluster.name` | The cluster name (from response header `X-Found-Handling-Cluster`) | `my-cluster` |
-| `db.elasticsearch.node.name` | The node name (from response header `X-Found-Handling-Instance`) | `instance-001` |
+| Attribute                       | Description                                                                  | Example                                          |
+| ------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------ |
+| `db.system`                     | Always `"elasticsearch"`                                                     | `elasticsearch`                                  |
+| `db.operation`                  | The API endpoint name                                                        | `search`                                         |
+| `db.statement`                  | The request body (search endpoints only, when `captureSearchBody` is `true`) | `{"query":{"match_all":{}}}`                     |
+| `db.elasticsearch.path_parts.*` | Path parameters for the endpoint                                             | `db.elasticsearch.path_parts.index = "my-index"` |
+| `http.request.method`           | The HTTP method                                                              | `GET`                                            |
+| `url.full`                      | The full request URL                                                         | `https://localhost:9200/my-index/_search`        |
+| `server.address`                | The {{es}} node hostname                                                     | `localhost`                                      |
+| `server.port`                   | The {{es}} node port                                                         | `9200`                                           |
+| `db.elasticsearch.cluster.name` | The cluster name (from response header `X-Found-Handling-Cluster`)           | `my-cluster`                                     |
+| `db.elasticsearch.node.name`    | The node name (from response header `X-Found-Handling-Instance`)             | `instance-001`                                   |
 
 ### Full example [_otel_full_example]
 
@@ -159,12 +162,12 @@ es, err := elasticsearch.NewClient(elasticsearch.Config{
 
 For more control over log output, use the `Logger` field with one of the built-in loggers from the `elastictransport` package:
 
-| Logger | Description |
-|--------|-------------|
-| `TextLogger` | Plain text output |
-| `ColorLogger` | Color-coded output for terminals |
-| `CurlLogger` | Outputs requests as `curl` commands (useful for debugging) |
-| `JSONLogger` | Structured JSON output |
+| Logger        | Description                                                |
+| ------------- | ---------------------------------------------------------- |
+| `TextLogger`  | Plain text output                                          |
+| `ColorLogger` | Color-coded output for terminals                           |
+| `CurlLogger`  | Outputs requests as `curl` commands (useful for debugging) |
+| `JSONLogger`  | Structured JSON output                                     |
 
 ```go
 import "github.com/elastic/elastic-transport-go/v8/elastictransport"
