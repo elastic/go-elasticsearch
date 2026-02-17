@@ -14,14 +14,14 @@ All three approaches share the same underlying transport and [configuration](../
 
 ## Comparing API styles [_comparing_api_styles]
 
-|                        | Low-level API                                   | Fully-typed API                                  | esdsl API                                                      |
-| ---------------------- | ----------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------------- |
-| **Type safety**        | Runtime (raw JSON)                              | Compile-time (Go structs)                        | Compile-time (fluent builders)                                 |
-| **IDE autocompletion** | Limited                                         | Full support for fields, enums, and methods      | Full support with guided method chains                         |
-| **Serialization**      | Manual (`io.Reader`, `json.Marshal`)            | Automatic (structs marshaled by the client)      | Automatic (builders produce typed structs)                     |
-| **Response handling**  | Raw `*esapi.Response` with `io.ReadCloser` body | Typed response structs                           | Typed response structs (same as fully-typed)                   |
-| **Flexibility**        | Full control over request/response bytes        | Constrained to the specification model           | Constrained to the specification model                         |
-| **Code verbosity**     | Lower for simple requests                       | Lower for complex queries with nested structures | Lowest for complex queries - minimal nesting, fluent chaining  |
+|                        | Low-level API                                   | Fully-typed API                                  | esdsl API                                                     |
+| ---------------------- | ----------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------- |
+| **Type safety**        | Runtime (raw JSON)                              | Compile-time (Go structs)                        | Compile-time (fluent builders)                                |
+| **IDE autocompletion** | Limited                                         | Full support for fields, enums, and methods      | Full support with guided method chains                        |
+| **Serialization**      | Manual (`io.Reader`, `json.Marshal`)            | Automatic (structs marshaled by the client)      | Automatic (builders produce typed structs)                    |
+| **Response handling**  | Raw `*esapi.Response` with `io.ReadCloser` body | Typed response structs                           | Typed response structs (same as fully-typed)                  |
+| **Flexibility**        | Full control over request/response bytes        | Constrained to the specification model           | Constrained to the specification model                        |
+| **Code verbosity**     | Lower for simple requests                       | Lower for complex queries with nested structures | Lowest for complex queries - minimal nesting, fluent chaining |
 
 ::::{important}
 When using the low-level API, you **must** always read and close the response body, even if your code does not use it. Failing to do so prevents Go's HTTP client from reusing the underlying TCP connection, which degrades performance and can cause resource leaks.
