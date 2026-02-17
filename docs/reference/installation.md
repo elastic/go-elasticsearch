@@ -5,30 +5,32 @@ mapped_pages:
 
 # Installation [installation]
 
-To install the 9.x version of the client, add the package to your `go.mod` file:
+To install the {{ version.elasticsearch-client-go | M.x }} version of the client for Go, you can use the `go get` command:
 
-```text
-require github.com/elastic/go-elasticsearch/v9 9.3
+```shell subs=true
+go get github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}@v{{ version.elasticsearch-client-go }}
+```
+
+Or, add the package to your `go.mod` file:
+
+```text subs=true
+require github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }} {{ version.elasticsearch-client-go | M.M }}
 ```
 
 Or, clone the repository:
 
-```text
-git clone --branch 9.3 https://github.com/elastic/go-elasticsearch.git $GOPATH/src/github
+```text subs=true
+git clone --branch {{ version.elasticsearch-client-go | M.M }} https://github.com/elastic/go-elasticsearch.git $GOPATH/src/github
 ```
 
 To install another version, modify the path or the branch name accordingly. The client major versions correspond to the {{es}} major versions.
 
 You can find a complete example of installation below:
 
-```text
-mkdir my-elasticsearch-app && cd my-elasticsearch-app
+```shell subs=true
+mkdir my-elasticsearch-app && cd my-elasticsearch-app && go mod init my-elasticsearch-app
 
-cat > go.mod <<-END
-  module my-elasticsearch-app
-
-  require github.com/elastic/go-elasticsearch/v9 main
-END
+go get github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}@v{{ version.elasticsearch-client-go }}
 
 cat > main.go <<-END
   package main
@@ -37,7 +39,7 @@ cat > main.go <<-END
     "context"
     "log"
 
-    "github.com/elastic/go-elasticsearch/v9"
+    "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}"
   )
 
   func main() {
