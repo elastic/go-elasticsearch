@@ -64,7 +64,7 @@ For other connection options, refer to the [_Connecting_](/reference/connecting.
 
 ## Operations [_operations]
 
-Time to use Elasticsearch! This section walks you through the basic, and most important, operations of Elasticsearch. For more operations and more advanced examples, refer to the [Examples](/reference/examples.md) page.
+Time to use Elasticsearch! This section walks you through the basic, and most important, operations of Elasticsearch. For more operations and more advanced examples, refer to the [Using the API](/reference/using-the-api/index.md) section.
 
 ### Creating an index [_creating_an_index]
 
@@ -272,4 +272,4 @@ typedClient.Indices.Delete("my_index").Do(context.TODO())
 
 ## Further reading [_further_reading]
 
-- Learn more about the [_Typed API_](/reference/typed-api.md), a strongly typed Go API for {{es}}.
+- Learn more about the [_Typed API_](/reference/typed-api/index.md), a strongly typed Go API for {{es}}.

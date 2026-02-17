@@ -3,10 +3,16 @@ toc:
   - file: getting-started.md
   - file: installation.md
   - file: connecting.md
-  - file: typed-api.md
+  - title: Using the API
     children:
-      - file: _getting_started_with_the_api.md
-      - file: conventions.md
-      - file: runningqueries.md
-      - file: esql.md
-      - file: examples.md
+      - file: using-the-api/index.md
+      - file: using-the-api/crud-operations.md
+      - file: using-the-api/searching.md
+      - file: using-the-api/aggregations.md
+      - file: using-the-api/bulk-indexing.md
+      - file: using-the-api/esql.md
+      - file: using-the-api/dense-vectors.md
+  - title: Typed API
+    children:
+      - file: typed-api/index.md
+      - file: typed-api/conventions.md
