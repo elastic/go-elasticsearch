@@ -15,6 +15,7 @@ Full documentation is hosted at [GitHub](https://github.com/elastic/go-elasticse
 - One-to-one mapping with REST API.
 - Generalized, pluggable architecture.
 - Two API styles: [low-level](using-the-api/index.md) and [fully typed](typed-api/index.md).
+- [Fluent DSL builders](typed-api/esdsl.md) for constructing queries, aggregations, mappings, and sort options.
 - Built-in [OpenTelemetry instrumentation](advanced/observability.md) for distributed tracing.
 - [Interceptors](advanced/interceptors.md) for custom middleware (auth rotation, observability, etc.).
 - Automatic retries, request compression, and node discovery.

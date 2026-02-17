@@ -21,7 +21,7 @@ All three approaches share the same underlying transport and [configuration](../
 | **Serialization**      | Manual (`io.Reader`, `json.Marshal`)            | Automatic (structs marshaled by the client)      | Automatic (builders produce typed structs)                     |
 | **Response handling**  | Raw `*esapi.Response` with `io.ReadCloser` body | Typed response structs                           | Typed response structs (same as fully-typed)                   |
 | **Flexibility**        | Full control over request/response bytes        | Constrained to the specification model           | Constrained to the specification model                         |
-| **Code verbosity**     | Lower for simple requests                       | Lower for complex queries with nested structures | Lowest for complex queries -- minimal nesting, fluent chaining |
+| **Code verbosity**     | Lower for simple requests                       | Lower for complex queries with nested structures | Lowest for complex queries - minimal nesting, fluent chaining  |
 
 ::::{important}
 When using the low-level API, you **must** always read and close the response body, even if your code does not use it. Failing to do so prevents Go's HTTP client from reusing the underlying TCP connection, which degrades performance and can cause resource leaks.
@@ -62,7 +62,7 @@ The fully-typed API handles this automatically. Each endpoint's `Do()` method re
 - You are constructing queries dynamically at runtime
 
 ::::{tip}
-You don't have to choose one exclusively. All three approaches share the same transport, so you can use `esdsl` builders for queries, typed structs for simple operations, and fall back to the low-level API for edge cases -- all in the same application.
+You don't have to choose one exclusively. All three approaches share the same transport, so you can use `esdsl` builders for queries, typed structs for simple operations, and fall back to the low-level API for edge cases - all in the same application.
 ::::
 
 ## Side-by-side example [_side_by_side_example]

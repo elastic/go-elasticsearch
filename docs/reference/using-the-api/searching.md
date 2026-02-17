@@ -97,7 +97,7 @@ res, err := es.Search().
 ```
 
 1. The targeted index for this search.
-2. `NewMatchQuery` takes the field name and query text directly -- no struct nesting required.
+2. `NewMatchQuery` takes the field name and query text directly - no struct nesting required.
 
 ::::::
 

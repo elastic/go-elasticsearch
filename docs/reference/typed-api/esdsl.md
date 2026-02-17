@@ -2,7 +2,7 @@
 mapped_pages: []
 ---
 
-# esdsl -- Elasticsearch DSL builders [esdsl]
+# esdsl - Elasticsearch DSL builders [esdsl]
 
 The `esdsl` package provides fluent, type-safe builders for constructing Elasticsearch queries, aggregations, mappings, and sort options. It is designed to work alongside the [typed API](index.md), giving you a concise, chainable syntax for building complex request bodies.
 
@@ -17,7 +17,7 @@ The package is generated from the [elasticsearch-specification](https://github.c
 The typed API models requests as Go structs. This works well for simple operations, but deeply nested structures like bool queries with multiple clauses, aggregations with sub-aggregations, or complex mappings can become verbose:
 
 ```go
-// Typed API with structs -- works, but verbose for complex queries
+// Typed API with structs - works, but verbose for complex queries
 res, err := es.Search().
     Index("products").
     Request(&search.Request{
@@ -42,7 +42,7 @@ res, err := es.Search().
 The `esdsl` builders express the same intent in fewer lines, with each builder method guiding you through the available options:
 
 ```go
-// esdsl -- same query, less nesting
+// esdsl - same query, less nesting
 res, err := es.Search().
     Index("products").
     Query(
@@ -81,7 +81,7 @@ And every `esdsl` query builder implements `QueryVariant` through its `QueryCast
 func (s *_matchQuery) QueryCaster() *types.Query
 ```
 
-This means you never need to call the caster yourself -- just pass the builder directly.
+This means you never need to call the caster yourself - just pass the builder directly.
 
 ## Builder categories [_builder_categories]
 
@@ -185,7 +185,7 @@ res, err := es.Search().
 | Complex, nested queries (bool, nested, function_score) | `esdsl` builders                     |
 | Aggregations with sub-aggregations                     | `esdsl` builders                     |
 | Index mappings with many fields                        | `esdsl` builders                     |
-| Simple, flat requests (match_all, single term)         | Either -- both are concise           |
+| Simple, flat requests (match_all, single term)         | Either - both are concise            |
 | Dynamic query construction at runtime                  | `esdsl` builders (easier to compose) |
 | Pre-built JSON templates                               | `Raw()` method on the typed API      |
 

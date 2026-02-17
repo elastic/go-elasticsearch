@@ -110,7 +110,7 @@ res, err := es.Indices.
 2. Specify the dimensionality of your vectors (e.g., 1536 for OpenAI embeddings).
 3. Enable indexing to support kNN search capabilities.
 4. Set the similarity metric: `Cosine`, `DotProduct`, or `L2Norm`.
-5. Pass the mapping builder directly -- no `Request` wrapper needed.
+5. Pass the mapping builder directly - no `Request` wrapper needed.
 
 ::::::
 

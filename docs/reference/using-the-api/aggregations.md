@@ -96,7 +96,7 @@ totalPricesAgg, err := es.Search().
 1. Specifies the index name.
 2. Sets the size to 0 to retrieve only the result of the aggregation.
 3. Names the aggregation `total_prices`.
-4. `NewSumAggregation()` creates a sum aggregation builder -- chain `.Field()` to set the target field.
+4. `NewSumAggregation()` creates a sum aggregation builder - chain `.Field()` to set the target field.
 
 ::::::
 
