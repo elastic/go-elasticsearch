@@ -5,7 +5,7 @@ mapped_pages:
 
 # Bulk indexing [bulk]
 
-When ingesting many documents, use the Bulk API to send multiple operations in a single request. For the full bulk API reference, see [Bulk API](docs-content://manage-data/ingest/ingesting-data-into-elasticsearch/bulk.md) in the {{es}} documentation.
+When ingesting many documents, use the Bulk API to send multiple operations in a single request. For the full bulk API reference, see the [Bulk API documentation](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk).
 
 ## Direct bulk requests [_direct_bulk]
 

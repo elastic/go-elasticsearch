@@ -56,7 +56,7 @@ Enabling `captureSearchBody` may expose sensitive data in your traces. Only enab
 
 ### Span attributes [_otel_span_attributes]
 
-The built-in instrumentation follows the [OpenTelemetry Semantic Conventions for Elasticsearch](https://opentelemetry.io/docs/specs/semconv/database/elasticsearch/). For details on how {{es}} integrates with OpenTelemetry, see [OpenTelemetry integration](docs-content://explore-analyze/observability/apm/otel-metrics-overview.md) in the {{es}} documentation. Each API call creates a client span with the following attributes:
+The built-in instrumentation follows the [OpenTelemetry Semantic Conventions for Elasticsearch](https://opentelemetry.io/docs/specs/semconv/database/elasticsearch/). For details on how {{es}} integrates with OpenTelemetry, see [OpenTelemetry integration](docs-content://solutions/observability/apm/opentelemetry/index.md) in the {{es}} documentation. Each API call creates a client span with the following attributes:
 
 | Attribute                       | Description                                                                  | Example                                          |
 | ------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------ |

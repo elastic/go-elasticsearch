@@ -9,7 +9,7 @@ mapped_pages:
 stack: ga 9.3
 ```
 
-When working with vector embeddings for semantic search or machine learning applications, the Go client provides support for dense vector indexing and k-nearest neighbors (kNN) search. For the full kNN search reference, see [kNN search](docs-content://solutions/search/vector/knn-search.md) in the {{es}} documentation.
+When working with vector embeddings for semantic search or machine learning applications, the Go client provides support for dense vector indexing and k-nearest neighbors (kNN) search. For the full kNN search reference, see [kNN search](docs-content://solutions/search/vector/knn.md) in the {{es}} documentation.
 
 ## Creating an index with dense vector mapping [_creating_dense_vector_index]
 
