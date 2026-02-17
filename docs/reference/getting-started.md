@@ -221,6 +221,19 @@ typedClient.Search().
 
 ::::::
 
+::::::{tab-item} esdsl API
+:sync: esdsl
+The [`esdsl`](/reference/typed-api/esdsl.md) package provides fluent builders for queries, aggregations, and mappings:
+
+```go
+typedClient.Search().
+    Index("my_index").
+    Query(esdsl.NewMatchAllQuery()).
+    Do(context.TODO())
+```
+
+::::::
+
 :::::::
 
 ::::::::
@@ -325,3 +338,4 @@ typedClient.Indices.Delete("my_index").Do(context.TODO())
 ## Further reading [_further_reading]
 
 - Learn more about the [_Typed API_](/reference/typed-api/index.md), a strongly typed Go API for {{es}}.
+- Explore the [_esdsl builders_](/reference/typed-api/esdsl.md) for a fluent syntax to construct queries, aggregations, and mappings.

@@ -54,10 +54,41 @@ defer res.Body.Close()
 ::::::{tab-item} Fully-typed API
 :sync: typed
 
-The `esdsl` package provides builder helpers for mappings, queries, and aggregations:
-
 ```go
-import "github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
+similarity := densevectorsimilarity.Cosine
+
+res, err := es.Indices.
+    Create("my-vectors").
+    Request(&create.Request{
+        Mappings: &types.TypeMapping{
+            Properties: map[string]types.Property{
+                "docid": types.NewKeywordProperty(),
+                "title": types.NewTextProperty(),
+                "emb": types.DenseVectorProperty{ // <1>
+                    Dims:       some.Int(1536), // <2>
+                    Index:      some.Bool(true), // <3>
+                    Similarity: &similarity, // <4>
+                },
+            },
+        },
+    }).
+    Do(context.Background())
+```
+
+1. Define the vector field as a `DenseVectorProperty`.
+2. Specify the dimensionality of your vectors (e.g., 1536 for OpenAI embeddings).
+3. Enable indexing to support kNN search capabilities.
+4. Set the similarity metric: `Cosine`, `DotProduct`, or `L2Norm`.
+
+::::::
+
+::::::{tab-item} esdsl API
+:sync: esdsl
+
+The [`esdsl`](/reference/typed-api/esdsl.md) mapping builders provide a concise, fluent syntax:
+
+```go subs=true
+import "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}/typedapi/esdsl"
 ```
 
 ```go
@@ -71,7 +102,7 @@ mappings := esdsl.NewTypeMapping().
 
 res, err := es.Indices.
     Create("my-vectors").
-    Mappings(mappings).
+    Mappings(mappings). // <5>
     Do(context.Background())
 ```
 
@@ -79,6 +110,7 @@ res, err := es.Indices.
 2. Specify the dimensionality of your vectors (e.g., 1536 for OpenAI embeddings).
 3. Enable indexing to support kNN search capabilities.
 4. Set the similarity metric: `Cosine`, `DotProduct`, or `L2Norm`.
+5. Pass the mapping builder directly -- no `Request` wrapper needed.
 
 ::::::
 
@@ -184,22 +216,55 @@ defer res.Body.Close()
 
 ```go
 queryVector := []float32{0.1, 0.2, 0.3, 0.4, 0.5} // <1>
+k := 10
+numCandidates := 100
 
 res, err := es.Search().
     Index("my-vectors").
     Request(&search.Request{
-        Query: esdsl.NewKnnQuery(). // <2>
-            Field("emb"). // <3>
-            QueryVector(queryVector...). // <4>
-            K(10). // <5>
-            NumCandidates(100). // <6>
-            QueryCaster(),
+        Query: &types.Query{
+            Knn: &types.KnnQuery{ // <2>
+                Field:         "emb", // <3>
+                QueryVector:   queryVector, // <4>
+                K:             &k, // <5>
+                NumCandidates: &numCandidates, // <6>
+            },
+        },
     }).
     Do(context.Background())
 ```
 
 1. Define your query vector (typically from the same embedding model).
-2. Use `esdsl.NewKnnQuery()` to build a kNN query.
+2. Build the kNN query using the `KnnQuery` struct.
+3. Specify which vector field to search.
+4. Provide the query vector to find similar vectors.
+5. Return the top 10 nearest neighbors.
+6. Consider 100 candidates during the search for better accuracy.
+
+::::::
+
+::::::{tab-item} esdsl API
+:sync: esdsl
+
+The [`esdsl`](/reference/typed-api/esdsl.md) query builders provide a fluent syntax for kNN search:
+
+```go
+queryVector := []float32{0.1, 0.2, 0.3, 0.4, 0.5} // <1>
+
+res, err := es.Search().
+    Index("my-vectors").
+    Query(
+        esdsl.NewKnnQuery(). // <2>
+            Field("emb"). // <3>
+            QueryVector(queryVector...). // <4>
+            K(10). // <5>
+            NumCandidates(100), // <6>
+    ).
+    Do(context.Background())
+```
+
+1. Define your query vector (typically from the same embedding model).
+2. Use `esdsl.NewKnnQuery()` to build a kNN query with a fluent chain.
 3. Specify which vector field to search.
 4. Provide the query vector to find similar vectors.
 5. Return the top 10 nearest neighbors.

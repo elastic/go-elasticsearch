@@ -80,6 +80,27 @@ It produces the following JSON:
 
 ::::::
 
+::::::{tab-item} esdsl API
+:sync: esdsl
+
+The [`esdsl`](/reference/typed-api/esdsl.md) query builders provide a concise, fluent syntax:
+
+```go subs=true
+import "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}/typedapi/esdsl"
+```
+
+```go
+res, err := es.Search().
+    Index("index_name"). // <1>
+    Query(esdsl.NewMatchQuery("name", "Foo")). // <2>
+    Do(context.Background())
+```
+
+1. The targeted index for this search.
+2. `NewMatchQuery` takes the field name and query text directly -- no struct nesting required.
+
+::::::
+
 :::::::
 
 ## Request structures [_request_structures]

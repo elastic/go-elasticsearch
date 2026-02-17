@@ -74,4 +74,30 @@ totalPricesAgg, err := es.Search().
 
 ::::::
 
+::::::{tab-item} esdsl API
+:sync: esdsl
+
+The [`esdsl`](/reference/typed-api/esdsl.md) aggregation builders let you define aggregations with a fluent syntax:
+
+```go subs=true
+import "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}/typedapi/esdsl"
+```
+
+```go
+totalPricesAgg, err := es.Search().
+    Index("index_name"). // <1>
+    Size(0). // <2>
+    AddAggregation("total_prices", // <3>
+        esdsl.NewSumAggregation().Field("price"), // <4>
+    ).
+    Do(context.Background())
+```
+
+1. Specifies the index name.
+2. Sets the size to 0 to retrieve only the result of the aggregation.
+3. Names the aggregation `total_prices`.
+4. `NewSumAggregation()` creates a sum aggregation builder -- chain `.Field()` to set the target field.
+
+::::::
+
 :::::::

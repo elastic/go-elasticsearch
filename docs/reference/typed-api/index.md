@@ -166,4 +166,5 @@ If you already have a newline-delimited JSON payload, you can submit it directly
 ## Learn more [_typed_api_learn_more]
 
 - [Conventions](conventions.md) — Naming, structure, enums, and unions in the typed API
+- [esdsl builders](esdsl.md) — Fluent DSL builders for queries, aggregations, mappings, and sort options
 - [Using the API](../using-the-api/index.md) — Practical examples comparing both API styles

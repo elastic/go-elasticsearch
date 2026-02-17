@@ -63,6 +63,30 @@ res, err := es.Indices.Create("test-index"). // <1>
 
 ::::::
 
+::::::{tab-item} esdsl API
+:sync: esdsl
+
+The [`esdsl`](/reference/typed-api/esdsl.md) mapping builders provide a fluent syntax for defining index mappings:
+
+```go subs=true
+import "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}/typedapi/esdsl"
+```
+
+```go
+res, err := es.Indices.Create("test-index"). // <1>
+    Mappings(
+        esdsl.NewTypeMapping(). // <2>
+            AddProperty("price", esdsl.NewIntegerNumberProperty()), // <3>
+    ).
+    Do(context.Background())
+```
+
+1. The name of the index to create.
+2. Start a mapping builder with `NewTypeMapping()`.
+3. Chain `AddProperty()` calls to define each field. The correct `type` is set automatically.
+
+::::::
+
 :::::::
 
 ## Indexing a document [indexing]
