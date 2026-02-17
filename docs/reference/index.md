@@ -24,14 +24,14 @@ Full documentation is hosted at [GitHub](https://github.com/elastic/go-elasticse
 ::::::{tab-item} Low-level API
 :sync: lowLevel
 
-```go
+```go subs=true
 package main
 
 import (
   "context"
   "log"
 
-  "github.com/elastic/go-elasticsearch/v9"
+  "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}"
 )
 
 func main() {
@@ -46,14 +46,14 @@ func main() {
 ::::::{tab-item} Fully-typed API
 :sync: typed
 
-```go
+```go subs=true
 package main
 
 import (
     "context"
     "log"
 
-    "github.com/elastic/go-elasticsearch/v9"
+    "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}"
 )
 
 func main() {
