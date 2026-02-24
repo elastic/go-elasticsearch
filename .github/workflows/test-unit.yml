@@ -36,11 +36,18 @@ jobs:
           go-version-file: go.mod
       - run: go version
       - run: make test-unit race=true
-      - uses: codecov/codecov-action@v1
-        with:
-          file: tmp/unit.cov
-          flags: unit
+      # TODO: Add PR-level coverage threshold enforcement (elastic/elastic-client-generator-go#111)
+      - name: Coverage summary
         if: matrix.os == 'ubuntu-latest'
+        run: |
+          head -1 tmp/unit.cov > tmp/unit-filtered.cov
+          grep -v -E '^mode:|esapi/api\.|typedapi/|internal/|_examples/|_benchmarks/' tmp/unit.cov >> tmp/unit-filtered.cov
+          {
+            echo '## Unit Test Coverage'
+            echo '```'
+            go tool cover -func=tmp/unit-filtered.cov | sed 's|github.com/elastic/go-elasticsearch/v9/||g' | tail -1
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
   bench:
     name: Benchmarks
