@@ -41,7 +41,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           head -1 tmp/unit.cov > tmp/unit-filtered.cov
-          grep -v -E 'esapi/api\.|typedapi/|internal/|_examples/|_benchmarks/' tmp/unit.cov >> tmp/unit-filtered.cov
+          grep -v -E '^mode:|esapi/api\.|typedapi/|internal/|_examples/|_benchmarks/' tmp/unit.cov >> tmp/unit-filtered.cov
           {
             echo '## Unit Test Coverage'
             echo '```'

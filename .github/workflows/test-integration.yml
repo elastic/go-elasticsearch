@@ -37,7 +37,7 @@ jobs:
       - name: Coverage summary
         run: |
           head -1 tmp/integration-client.cov > tmp/integration-filtered.cov
-          grep -v -E 'esapi/api\.|typedapi/|internal/|_examples/|_benchmarks/' tmp/integration-client.cov >> tmp/integration-filtered.cov
+          grep -v -E '^mode:|esapi/api\.|typedapi/|internal/|_examples/|_benchmarks/' tmp/integration-client.cov >> tmp/integration-filtered.cov
           {
             echo '## Integration Test Coverage'
             echo '```'
