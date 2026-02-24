@@ -33,10 +33,13 @@ jobs:
       - run: make test-integ race=true
         env:
           GOFLAGS: "-short"
-      - uses: codecov/codecov-action@v1
-        with:
-          file: tmp/integration-client.cov
-          flags: integration
+      # TODO: Add PR-level coverage threshold enforcement (elastic/elastic-client-generator-go#111)
+      - name: Coverage summary
+        run: |
+          echo '## Integration Test Coverage' >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          go tool cover -func=tmp/integration-client.cov | grep -v -E 'esapi/api\.|typedapi/|internal/' | sed 's|github.com/elastic/go-elasticsearch/v9/||g' | tail -1 >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
 
   examples:
     name: Examples
