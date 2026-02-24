@@ -33,7 +33,7 @@ import (
 )
 
 func TestNew_DefaultClient(t *testing.T) {
-	t.Parallel()
+	t.Setenv("ELASTICSEARCH_URL", "")
 	c, err := New()
 	if err != nil {
 		t.Fatalf("Unexpected error: %s", err)
@@ -191,10 +191,15 @@ func TestNew_WithBasicAuth(t *testing.T) {
 		t.Fatalf("Unexpected error: %s", err)
 	}
 
-	user, pass, ok := capturedReq.Header.Get("Authorization"), "", true
-	_ = pass
-	if !ok || user == "" {
-		t.Error("Expected Authorization header to be set")
+	user, pass, ok := capturedReq.BasicAuth()
+	if !ok {
+		t.Fatal("Expected Basic Auth to be set")
+	}
+	if user != "testuser" {
+		t.Errorf("Unexpected username, want=testuser, got=%s", user)
+	}
+	if pass != "testpass" {
+		t.Errorf("Unexpected password, want=testpass, got=%s", pass)
 	}
 }
 
@@ -390,7 +395,7 @@ func TestNew_MetaHeader(t *testing.T) {
 }
 
 func TestNewTyped_Default(t *testing.T) {
-	t.Parallel()
+	t.Setenv("ELASTICSEARCH_URL", "")
 	c, err := NewTyped()
 	if err != nil {
 		t.Fatalf("Unexpected error: %s", err)
