@@ -71,7 +71,7 @@ Depending on the circumstances there are two options for verifying the HTTPS con
 
 The generated root CA certificate can be found in the `certs` directory in your {{es}} config location (`$ES_CONF_PATH/certs/http_ca.crt`). If you're running {{es}} in Docker there is [additional documentation for retrieving the CA certificate](docs-content://deploy-manage/deploy/self-managed/install-elasticsearch-with-docker.md).
 
-Once you have the `http_ca.crt` file somewhere accessible pass the content of the file to the client via `WithCACert`:
+Once you have the `http_ca.crt` file somewhere accessible pass the content of the file to the client using `WithCACert`:
 
 :::::::{tab-set}
 :group: APIs

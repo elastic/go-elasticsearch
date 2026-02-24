@@ -119,7 +119,7 @@ func main() {
 
 ## Transport metrics [_transport_metrics]
 
-The client can collect transport-level metrics including request counts, failures, and response status code distributions. Enable metrics via `WithTransportOptions`:
+The client can collect transport-level metrics including request counts, failures, and response status code distributions. Enable metrics using `WithTransportOptions`:
 
 ```go
 es, err := elasticsearch.New(
