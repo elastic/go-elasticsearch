@@ -39,7 +39,7 @@ jobs:
           {
             echo '## Integration Test Coverage'
             echo '```'
-            go tool cover -func=tmp/integration-client.cov | grep -v -E 'esapi/api\.|typedapi/|internal/' | sed 's|github.com/elastic/go-elasticsearch/v9/||g' | tail -1
+            go tool cover -func=tmp/integration-client.cov | grep -v -E 'esapi/api\.|typedapi/|internal/|_examples/|_benchmarks/' | sed 's|github.com/elastic/go-elasticsearch/v9/||g' | tail -1
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
