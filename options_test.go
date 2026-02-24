@@ -467,6 +467,49 @@ func TestNew_Close(t *testing.T) {
 	}
 }
 
+func TestNewBase_Default(t *testing.T) {
+	t.Setenv("ELASTICSEARCH_URL", "")
+	c, err := NewBase()
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+	u := c.Transport.(*elastictransport.Client).URLs()[0].String()
+	if u != defaultURL {
+		t.Errorf("Unexpected URL, want=%s, got=%s", defaultURL, u)
+	}
+}
+
+func TestNewBase_WithAddresses(t *testing.T) {
+	t.Parallel()
+	c, err := NewBase(WithAddresses("http://localhost:8080"))
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+	u := c.Transport.(*elastictransport.Client).URLs()[0].String()
+	if u != "http://localhost:8080" {
+		t.Errorf("Unexpected URL, want=http://localhost:8080, got=%s", u)
+	}
+}
+
+func TestNewBase_Close(t *testing.T) {
+	t.Parallel()
+	c, err := NewBase(
+		WithTransportOptions(
+			elastictransport.WithTransport(&mockTransp{}),
+		),
+	)
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+	if closeErr := c.Close(context.Background()); closeErr != nil {
+		t.Errorf("Unexpected error: %s", closeErr)
+	}
+	_, err = c.Perform(&http.Request{URL: &url.URL{}, Header: make(http.Header)})
+	if err == nil {
+		t.Fatal("Expected error after close")
+	}
+}
+
 func TestNewTyped_Close(t *testing.T) {
 	t.Parallel()
 	c, err := NewTyped(

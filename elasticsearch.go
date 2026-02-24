@@ -179,7 +179,7 @@ type TypedClient struct {
 
 // NewBaseClient creates a new client free of any API.
 //
-// Deprecated: Use [New] or [NewTyped] with [Option] values instead.
+// Deprecated: Use [NewBase] with [Option] values instead.
 func NewBaseClient(cfg Config) (*BaseClient, error) {
 	tp, err := newTransport(cfg)
 	if err != nil {
@@ -312,6 +312,34 @@ func New(opts ...Option) (*Client, error) {
 		},
 	}
 	client.API = esapi.New(client)
+	if ro.discoverNodesOnStart {
+		go func() { _ = client.DiscoverNodes() }()
+	}
+	return client, nil
+}
+
+// NewBase creates a new [BaseClient] configured with the given options.
+// It does not attach the esapi or typed API surface, which keeps the
+// binary smaller for programs that only need [BaseClient.Perform].
+//
+// With no options the client connects to http://localhost:9200, or to the
+// address(es) in the ELASTICSEARCH_URL environment variable when set.
+//
+//	client, err := elasticsearch.NewBase(
+//	    elasticsearch.WithAddresses("https://localhost:9200"),
+//	    elasticsearch.WithAPIKey("base64-encoded-key"),
+//	)
+func NewBase(opts ...Option) (*BaseClient, error) {
+	ro, err := resolveOptions(opts, "")
+	if err != nil {
+		return nil, err
+	}
+	client := &BaseClient{
+		Transport:           ro.transport,
+		disableMetaHeader:   ro.disableMetaHeader,
+		metaHeader:          ro.metaHeader,
+		compatibilityHeader: ro.compatibilityHeader,
+	}
 	if ro.discoverNodesOnStart {
 		go func() { _ = client.DiscoverNodes() }()
 	}
