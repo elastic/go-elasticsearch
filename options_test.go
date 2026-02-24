@@ -298,10 +298,10 @@ func TestNew_WithCompatibilityModeEnv(t *testing.T) {
 	c, err := New(
 		WithTransportOptions(
 			elastictransport.WithTransport(&mockTransp{
-			RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
-				return &http.Response{
-					StatusCode: http.StatusOK,
-					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 						Body:       io.NopCloser(strings.NewReader("{}")),
 					}, nil
 				},
