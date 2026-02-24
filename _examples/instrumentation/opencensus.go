@@ -134,7 +134,7 @@ func main() {
 		// ... using the "ochttp" wrapper for instrumentation
 		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&ochttp.Transport{})),
 		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		})
+	)
 	if err != nil {
 		log.Fatalf("ERROR: %s", err)
 	}
