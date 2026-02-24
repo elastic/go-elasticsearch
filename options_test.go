@@ -298,10 +298,10 @@ func TestNew_WithCompatibilityModeEnv(t *testing.T) {
 	c, err := New(
 		WithTransportOptions(
 			elastictransport.WithTransport(&mockTransp{
-				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
-					return &http.Response{
-						StatusCode: http.StatusOK,
-						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+			RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+				return &http.Response{
+					StatusCode: http.StatusOK,
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 						Body:       io.NopCloser(strings.NewReader("{}")),
 					}, nil
 				},
@@ -453,8 +453,8 @@ func TestNew_Close(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Unexpected error: %s", err)
 	}
-	if err := c.Close(context.Background()); err != nil {
-		t.Errorf("Unexpected error: %s", err)
+	if closeErr := c.Close(context.Background()); closeErr != nil {
+		t.Errorf("Unexpected error: %s", closeErr)
 	}
 	_, err = c.Perform(&http.Request{URL: &url.URL{}, Header: make(http.Header)})
 	if err == nil {
@@ -472,8 +472,8 @@ func TestNewTyped_Close(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Unexpected error: %s", err)
 	}
-	if err := c.Close(context.Background()); err != nil {
-		t.Errorf("Unexpected error: %s", err)
+	if closeErr := c.Close(context.Background()); closeErr != nil {
+		t.Errorf("Unexpected error: %s", closeErr)
 	}
 	_, err = c.Perform(&http.Request{URL: &url.URL{}, Header: make(http.Header)})
 	if err == nil {

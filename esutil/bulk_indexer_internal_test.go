@@ -471,13 +471,13 @@ func TestBulkIndexer(t *testing.T) {
 		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mockTransport{
 			RoundTripFunc: func(*http.Request) (*http.Response, error) {
 				return &http.Response{
-						StatusCode: http.StatusInternalServerError,
-						Status:     "500 Internal Server Error",
-						Body:       io.NopCloser(strings.NewReader(`{}`)),
-						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
-					}, nil
-				},
-			})))
+					StatusCode: http.StatusInternalServerError,
+					Status:     "500 Internal Server Error",
+					Body:       io.NopCloser(strings.NewReader(`{}`)),
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				}, nil
+			},
+		})))
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}

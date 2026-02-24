@@ -177,10 +177,10 @@ func withTransportOption(to elastictransport.Option) Option {
 // options. It is used by the public constructors to build the final client
 // without copying a sync.RWMutex.
 type resolvedOptions struct {
-	transport           *elastictransport.Client
-	metaHeader          string
-	disableMetaHeader   bool
-	compatibilityHeader bool
+	transport            *elastictransport.Client
+	metaHeader           string
+	disableMetaHeader    bool
+	compatibilityHeader  bool
 	discoverNodesOnStart bool
 }
 
