@@ -20,15 +20,17 @@ type RoundTripFunc func(*http.Request) (*http.Response, error)
 type InterceptorFunc func(next RoundTripFunc) RoundTripFunc
 ```
 
-Interceptors are configured in `elasticsearch.Config` and applied at client creation. They cannot be changed after the transport is created.
+Interceptors are configured at client creation and cannot be changed after the transport is created.
 
 ```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Interceptors: []elastictransport.InterceptorFunc{
-        myFirstInterceptor(),
-        mySecondInterceptor(),
-    },
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithTransportOptions(
+        elastictransport.WithInterceptors(
+            myFirstInterceptor(),
+            mySecondInterceptor(),
+        ),
+    ),
+)
 ```
 
 ### Execution order [_interceptor_execution_order]
@@ -104,12 +106,12 @@ Usage:
 ```go
 authProvider := NewCredentialProvider("user1", "password1")
 
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Addresses: []string{"https://localhost:9200"},
-    Interceptors: []elastictransport.InterceptorFunc{
-        DynamicAuthInterceptor(authProvider),
-    },
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithAddresses("https://localhost:9200"),
+    elasticsearch.WithTransportOptions(
+        elastictransport.WithInterceptors(DynamicAuthInterceptor(authProvider)),
+    ),
+)
 
 // Later, rotate credentials — all future requests use the new credentials
 authProvider.Update("user2", "password2")
@@ -150,13 +152,12 @@ func ContextAuthInterceptor() elastictransport.InterceptorFunc {
 Usage:
 
 ```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Username: "default_user",
-    Password: "default_password",
-    Interceptors: []elastictransport.InterceptorFunc{
-        ContextAuthInterceptor(),
-    },
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithBasicAuth("default_user", "default_password"),
+    elasticsearch.WithTransportOptions(
+        elastictransport.WithInterceptors(ContextAuthInterceptor()),
+    ),
+)
 
 // Uses default credentials
 res, err := es.Info()
@@ -260,13 +261,15 @@ func LoggingInterceptor() elastictransport.InterceptorFunc {
 You can compose multiple interceptors for logging, metrics, and tracing:
 
 ```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Interceptors: []elastictransport.InterceptorFunc{
-        LoggingInterceptor(),
-        MetricsInterceptor(requestCounter, requestDuration),
-        TracingInterceptor(tracer),
-    },
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithTransportOptions(
+        elastictransport.WithInterceptors(
+            LoggingInterceptor(),
+            MetricsInterceptor(requestCounter, requestDuration),
+            TracingInterceptor(tracer),
+        ),
+    ),
+)
 ```
 
 ::::{note}

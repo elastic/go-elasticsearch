@@ -36,8 +36,8 @@ func init() {
 	log.SetFlags(0)
 }
 
-func ExampleNewDefaultClient() {
-	es, err := elasticsearch.NewDefaultClient()
+func ExampleNew() {
+	es, err := elasticsearch.New()
 	if err != nil {
 		log.Fatalf("Error creating the client: %s\n", err)
 	}
@@ -51,30 +51,29 @@ func ExampleNewDefaultClient() {
 	log.Print(es.Transport.(*elastictransport.Client).URLs())
 }
 
-func ExampleNewClient() {
-	cfg := elasticsearch.Config{
-		Addresses: []string{
-			"http://localhost:9200",
-		},
-		Username: "foo",
-		Password: "bar",
-		Transport: &http.Transport{
-			MaxIdleConnsPerHost:   10,
-			ResponseHeaderTimeout: time.Second,
-			DialContext:           (&net.Dialer{Timeout: time.Second}).DialContext,
-			TLSClientConfig: &tls.Config{
-				MinVersion: tls.VersionTLS12,
-			},
-		},
+func ExampleNew_config() {
+	es, err := elasticsearch.New(
+		elasticsearch.WithAddresses("http://localhost:9200"),
+		elasticsearch.WithBasicAuth("foo", "bar"),
+		elasticsearch.WithTransportOptions(
+			elastictransport.WithTransport(&http.Transport{
+				MaxIdleConnsPerHost:   10,
+				ResponseHeaderTimeout: time.Second,
+				DialContext:           (&net.Dialer{Timeout: time.Second}).DialContext,
+				TLSClientConfig: &tls.Config{
+					MinVersion: tls.VersionTLS12,
+				},
+			}),
+		),
+	)
+	if err != nil {
+		log.Fatalf("Error creating the client: %s\n", err)
 	}
 
-	es, _ := elasticsearch.NewClient(cfg)
 	log.Print(es.Transport.(*elastictransport.Client).URLs())
 }
 
-func ExampleNewClient_logger() {
-	// import "github.com/elastic/go-elasticsearch/v9/elastictransport"
-
+func ExampleNew_logger() {
 	// Use one of the bundled loggers:
 	//
 	// * elastictransport.TextLogger
@@ -82,9 +81,7 @@ func ExampleNewClient_logger() {
 	// * elastictransport.CurlLogger
 	// * elastictransport.JSONLogger
 
-	cfg := elasticsearch.Config{
-		Logger: &elastictransport.ColorLogger{Output: os.Stdout},
-	}
-
-	_, _ = elasticsearch.NewClient(cfg)
+	_, _ = elasticsearch.New(
+		elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout}),
+	)
 }

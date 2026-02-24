@@ -101,17 +101,17 @@ func main() {
 		flushBytes = humanBytes(3e+6)
 	}
 
-	clientCfg := elasticsearch.Config{}
+	var opts []elasticsearch.Option
 
 	if useFasthttp {
-		clientCfg.Transport = &fasthttpTransport{}
+		opts = append(opts, elasticsearch.WithTransportOptions(elastictransport.WithTransport(&fasthttpTransport{})))
 	}
 
 	if debug {
-		clientCfg.Logger = &elastictransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}
+		opts = append(opts, elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}))
 	}
 
-	es, _ := elasticsearch.NewClient(clientCfg)
+	es, _ := elasticsearch.New(opts...)
 
 	runnerCfg := runner.Config{
 		Client: es,

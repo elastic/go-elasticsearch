@@ -79,7 +79,7 @@ import (
 var (
 	_ = fmt.Printf
 	_ = os.Stdout
-	_ = elasticsearch.NewDefaultClient
+	_ = elasticsearch.New
 )
 
 `)
@@ -96,7 +96,7 @@ var (
 	if !g.Example.IsTranslated() {
 		out.WriteString("// ")
 	}
-	out.WriteString(`es, _ := elasticsearch.NewDefaultClient()` + "\n")
+	out.WriteString(`es, _ := elasticsearch.New()` + "\n")
 
 	if !g.Example.IsTranslated() {
 		out.WriteString("\n\tt.Error(`Missing implementation for: ")

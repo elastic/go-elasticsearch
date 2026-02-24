@@ -41,15 +41,13 @@ const demoIndex = "msearch-template-demo"
 func main() {
 	log.SetFlags(0)
 
-	cfg := elasticsearch.Config{}
-
-	es, err := elasticsearch.NewClient(cfg)
+	es, err := elasticsearch.New()
 	if err != nil {
 		log.Fatalf("Error creating client: %s", err)
 	}
 	defer closeClient(es)
 
-	typed, err := elasticsearch.NewTypedClient(cfg)
+	typed, err := elasticsearch.NewTyped()
 	if err != nil {
 		log.Fatalf("Error creating typed client: %s", err)
 	}

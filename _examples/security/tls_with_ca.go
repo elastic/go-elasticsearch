@@ -50,16 +50,13 @@ func main() {
 		log.Fatalf("ERROR: Unable to read CA from %q: %s", *cacert, err)
 	}
 
-	es, err := elasticsearch.NewClient(
-		elasticsearch.Config{
-			Addresses: []string{"https://localhost:9200"},
-			Username:  "elastic",
-			Password:  *password,
-
-			// --> Pass the certificate to the client
-			//
-			CACert: cert,
-		})
+	es, err := elasticsearch.New(
+		elasticsearch.WithAddresses("https://localhost:9200"),
+		elasticsearch.WithBasicAuth("elastic", *password),
+		// --> Pass the certificate to the client
+		//
+		elasticsearch.WithCACert(cert),
+	)
 	if err != nil {
 		log.Fatalf("ERROR: Unable to create client: %s", err)
 	}

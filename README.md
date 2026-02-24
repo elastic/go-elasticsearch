@@ -44,8 +44,8 @@ It's possible to use multiple versions of the client in a single project:
       elasticsearch9 "github.com/elastic/go-elasticsearch/v9"
     )
     // ...
-    es8, _ := elasticsearch8.NewDefaultClient()
-    es9, _ := elasticsearch9.NewDefaultClient()
+    es8, _ := elasticsearch8.New()
+    es9, _ := elasticsearch9.New()
 
 The `main` branch of the client is compatible with the current `master` branch of Elasticsearch.
 

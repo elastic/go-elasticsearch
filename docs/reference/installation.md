@@ -43,7 +43,7 @@ cat > main.go <<-END
   )
 
   func main() {
-    es, _ := elasticsearch.NewDefaultClient()
+    es, _ := elasticsearch.New()
     defer es.Close(context.Background())
     log.Println(elasticsearch.Version)
     log.Println(es.Info())

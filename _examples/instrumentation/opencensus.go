@@ -31,6 +31,7 @@ import (
 	"github.com/fatih/color"
 	"golang.org/x/crypto/ssh/terminal"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 
 	"go.opencensus.io/plugin/ochttp"
@@ -128,12 +129,11 @@ func main() {
 
 	// Create new elasticsearch client ...
 	//
-	es, err := elasticsearch.NewClient(
-		elasticsearch.Config{
-			// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-			// ... using the "ochttp" wrapper for instrumentation
-			Transport: &ochttp.Transport{},
-			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	es, err := elasticsearch.New(
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		// ... using the "ochttp" wrapper for instrumentation
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&ochttp.Transport{})),
+		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		})
 	if err != nil {
 		log.Fatalf("ERROR: %s", err)

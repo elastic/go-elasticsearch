@@ -27,6 +27,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esutil"
 )
@@ -36,19 +37,17 @@ func ExampleNewBulkIndexer() {
 
 	// Create the Elasticsearch client
 	//
-	es, err := elasticsearch.NewClient(elasticsearch.Config{
-		// Retry on 429 TooManyRequests statuses
+	es, err := elasticsearch.New(
+		// Retry on 429 TooManyRequests statuses, up to 5 attempts
 		//
-		RetryOnStatus: []int{502, 503, 504, 429},
+		elasticsearch.WithRetry(5, 502, 503, 504, 429),
 
 		// A simple incremental backoff function
 		//
-		RetryBackoff: func(i int) time.Duration { return time.Duration(i) * 100 * time.Millisecond },
-
-		// Retry up to 5 attempts
-		//
-		MaxRetries: 5,
-	})
+		elasticsearch.WithTransportOptions(
+			elastictransport.WithRetryBackoff(func(i int) time.Duration { return time.Duration(i) * 100 * time.Millisecond }),
+		),
+	)
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}

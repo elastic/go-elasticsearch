@@ -80,11 +80,10 @@ func init() {
 					addresses = append(addresses, u.String())
 				}
 
-				es, err := elasticsearch.NewClient(elasticsearch.Config{
-					Addresses:     addresses,
-					RetryOnStatus: []int{502, 503, 504, 429}, // Retry on 429 TooManyRequests statuses
-					MaxRetries:    5,
-				})
+				es, err := elasticsearch.New(
+					elasticsearch.WithAddresses(addresses...),
+					elasticsearch.WithRetry(5, 502, 503, 504, 429),
+				)
 				if err != nil {
 					return nil, err
 				}

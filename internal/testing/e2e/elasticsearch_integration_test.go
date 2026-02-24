@@ -64,10 +64,11 @@ func TestElasticsearchIntegration(t *testing.T) {
 	}()
 
 	tcCfg := elasticsearchSrv.ESConfig()
+	tcOpts := elasticsearchSrv.ESOptions()
 
 	t.Run("TestClientTransport", func(t *testing.T) {
 		t.Run("Persistent", func(t *testing.T) {
-			es, err := elasticsearch.NewClient(tcCfg)
+			es, err := elasticsearch.New(tcOpts...)
 			if err != nil {
 				t.Fatalf("Error creating the client: %s", err)
 			}
@@ -124,7 +125,7 @@ func TestElasticsearchIntegration(t *testing.T) {
 		t.Run("Concurrent", func(t *testing.T) {
 			var wg sync.WaitGroup
 
-			es, err := elasticsearch.NewClient(tcCfg)
+			es, err := elasticsearch.New(tcOpts...)
 			if err != nil {
 				t.Fatalf("Error creating the client: %s", err)
 			}
@@ -152,7 +153,7 @@ func TestElasticsearchIntegration(t *testing.T) {
 		})
 
 		t.Run("WithContext", func(t *testing.T) {
-			es, err := elasticsearch.NewClient(tcCfg)
+			es, err := elasticsearch.New(tcOpts...)
 			if err != nil {
 				t.Fatalf("Error creating the client: %s", err)
 			}
@@ -175,25 +176,22 @@ func TestElasticsearchIntegration(t *testing.T) {
 		})
 
 		t.Run("Configured", func(t *testing.T) {
-			cfg := elasticsearch.Config{
-				Transport: &http.Transport{
-					MaxIdleConnsPerHost:   10,
-					ResponseHeaderTimeout: time.Second,
-					DialContext:           (&net.Dialer{Timeout: time.Nanosecond}).DialContext,
-					TLSClientConfig: &tls.Config{
-						MinVersion:         tls.VersionTLS12,
-						InsecureSkipVerify: true,
-					},
-				},
-				Addresses: []string{
-					tcCfg.Addresses[0],
-				},
-				Username: tcCfg.Username,
-				Password: tcCfg.Password,
-				CACert:   tcCfg.CACert,
-			}
-
-			es, err := elasticsearch.NewClient(cfg)
+			es, err := elasticsearch.New(
+				elasticsearch.WithAddresses(tcCfg.Addresses[0]),
+				elasticsearch.WithBasicAuth(tcCfg.Username, tcCfg.Password),
+				elasticsearch.WithCACert(tcCfg.CACert),
+				elasticsearch.WithTransportOptions(
+					elastictransport.WithTransport(&http.Transport{
+						MaxIdleConnsPerHost:   10,
+						ResponseHeaderTimeout: time.Second,
+						DialContext:           (&net.Dialer{Timeout: time.Nanosecond}).DialContext,
+						TLSClientConfig: &tls.Config{
+							MinVersion:         tls.VersionTLS12,
+							InsecureSkipVerify: true,
+						},
+					}),
+				),
+			)
 			if err != nil {
 				t.Fatalf("Error creating the client: %s", err)
 			}
@@ -219,7 +217,7 @@ func TestElasticsearchIntegration(t *testing.T) {
 
 	t.Run("TestTypedClient", func(t *testing.T) {
 		t.Run("Info", func(t *testing.T) {
-			es, err := elasticsearch.NewTypedClient(tcCfg)
+			es, err := elasticsearch.NewTyped(tcOpts...)
 			if err != nil {
 				t.Fatalf("error creating the client: %s", err)
 			}
@@ -240,13 +238,9 @@ func TestElasticsearchIntegration(t *testing.T) {
 		})
 
 		t.Run("Index & Search", func(t *testing.T) {
-			es, err := elasticsearch.NewTypedClient(elasticsearch.Config{
-				Addresses: tcCfg.Addresses,
-				Username:  tcCfg.Username,
-				Password:  tcCfg.Password,
-				CACert:    tcCfg.CACert,
-				Logger:    &elastictransport.ColorLogger{os.Stdout, true, true},
-			})
+			es, err := elasticsearch.NewTyped(append(tcOpts,
+				elasticsearch.WithLogger(&elastictransport.ColorLogger{os.Stdout, true, true}),
+			)...)
 			if err != nil {
 				t.Fatalf("error creating the client: %s", err)
 			}
@@ -576,13 +570,11 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 	t.Run("CustomTransport", func(t *testing.T) {
 		t.Run("TestClientCustomTransport", func(t *testing.T) {
 			t.Run("Customized", func(t *testing.T) {
-				cfg := elasticsearch.Config{
-					Transport: &CustomTransport{
+				es, err := elasticsearch.New(
+					elasticsearch.WithTransportOptions(elastictransport.WithTransport(&CustomTransport{
 						client: http.DefaultClient,
-					},
-				}
-
-				es, err := elasticsearch.NewClient(cfg)
+					})),
+				)
 				if err != nil {
 					t.Fatalf("Error creating the client: %s", err)
 				}
@@ -675,7 +667,7 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 
 	t.Run("TestClientAPI", func(t *testing.T) {
 		t.Run("Info", func(t *testing.T) {
-			es, err := elasticsearch.NewDefaultClient()
+			es, err := elasticsearch.New()
 			if err != nil {
 				t.Fatalf("Error creating the client: %s\n", err)
 			}

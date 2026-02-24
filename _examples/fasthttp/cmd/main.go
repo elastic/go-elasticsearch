@@ -27,6 +27,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/_examples/fasthttp"
 )
@@ -51,8 +52,8 @@ func init() {
 func main() {
 	log.SetFlags(0)
 
-	es, err := elasticsearch.NewClient(
-		elasticsearch.Config{Transport: &fasthttp.Transport{}},
+	es, err := elasticsearch.New(
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&fasthttp.Transport{})),
 	)
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)

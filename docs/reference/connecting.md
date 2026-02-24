@@ -17,11 +17,10 @@ If you are using [Elastic Cloud](https://www.elastic.co/cloud), the client offer
 :sync: lowLevel
 
 ```go
-cfg := elasticsearch.Config{
-        CloudID: "CLOUD_ID",
-        APIKey: "API_KEY",
-}
-es, err := elasticsearch.NewClient(cfg)
+es, err := elasticsearch.New(
+    elasticsearch.WithCloudID("CLOUD_ID"),
+    elasticsearch.WithAPIKey("API_KEY"),
+)
 ```
 
 ::::::
@@ -30,11 +29,10 @@ es, err := elasticsearch.NewClient(cfg)
 :sync: typed
 
 ```go
-cfg := elasticsearch.Config{
-        CloudID: "CLOUD_ID",
-        APIKey: "API_KEY",
-}
-es, err := elasticsearch.NewTypedClient(cfg)
+es, err := elasticsearch.NewTyped(
+    elasticsearch.WithCloudID("CLOUD_ID"),
+    elasticsearch.WithAPIKey("API_KEY"),
+)
 ```
 
 ::::::
@@ -73,7 +71,7 @@ Depending on the circumstances there are two options for verifying the HTTPS con
 
 The generated root CA certificate can be found in the `certs` directory in your {{es}} config location (`$ES_CONF_PATH/certs/http_ca.crt`). If you're running {{es}} in Docker there is [additional documentation for retrieving the CA certificate](docs-content://deploy-manage/deploy/self-managed/install-elasticsearch-with-docker.md).
 
-Once you have the `http_ca.crt` file somewhere accessible pass the content of the file to the client via `CACert`:
+Once you have the `http_ca.crt` file somewhere accessible pass the content of the file to the client via `WithCACert`:
 
 :::::::{tab-set}
 :group: APIs
@@ -83,19 +81,15 @@ Once you have the `http_ca.crt` file somewhere accessible pass the content of th
 ```go
 cert, _ := os.ReadFile("/path/to/http_ca.crt") // <1>
 
-cfg := elasticsearch.Config{
-        Addresses: []string{
-            "https://localhost:9200",
-        },
-        Username: "elastic",
-        Password: ELASTIC_PASSWORD,
-        CACert:   cert, // <2>
-}
-es, err := elasticsearch.NewClient(cfg)
+es, err := elasticsearch.New(
+    elasticsearch.WithAddresses("https://localhost:9200"),
+    elasticsearch.WithBasicAuth("elastic", ELASTIC_PASSWORD),
+    elasticsearch.WithCACert(cert), // <2>
+)
 ```
 
 1. Read the PEM-encoded CA certificate from disk.
-2. Pass the certificate bytes to `CACert` to verify the server's TLS certificate.
+2. Pass the certificate bytes to `WithCACert` to verify the server's TLS certificate.
 
 ::::::
 
@@ -105,19 +99,15 @@ es, err := elasticsearch.NewClient(cfg)
 ```go
 cert, _ := os.ReadFile("/path/to/http_ca.crt") // <1>
 
-cfg := elasticsearch.Config{
-        Addresses: []string{
-            "https://localhost:9200",
-        },
-        Username: "elastic",
-        Password: ELASTIC_PASSWORD,
-        CACert:   cert, // <2>
-}
-es, err := elasticsearch.NewTypedClient(cfg)
+es, err := elasticsearch.NewTyped(
+    elasticsearch.WithAddresses("https://localhost:9200"),
+    elasticsearch.WithBasicAuth("elastic", ELASTIC_PASSWORD),
+    elasticsearch.WithCACert(cert), // <2>
+)
 ```
 
 1. Read the PEM-encoded CA certificate from disk.
-2. Pass the certificate bytes to `CACert` to verify the server's TLS certificate.
+2. Pass the certificate bytes to `WithCACert` to verify the server's TLS certificate.
 
 ::::::
 
@@ -133,15 +123,11 @@ This method of verifying the HTTPS connection takes advantage of the certificate
 :sync: lowLevel
 
 ```go
-cfg := elasticsearch.Config{
-        Addresses: []string{
-            "https://localhost:9200",
-        },
-        Username: "elastic",
-        Password: ELASTIC_PASSWORD,
-        CertificateFingerprint: CERT_FINGERPRINT, // <1>
-}
-es, err := elasticsearch.NewClient(cfg)
+es, err := elasticsearch.New(
+    elasticsearch.WithAddresses("https://localhost:9200"),
+    elasticsearch.WithBasicAuth("elastic", ELASTIC_PASSWORD),
+    elasticsearch.WithCertificateFingerprint(CERT_FINGERPRINT), // <1>
+)
 ```
 
 1. The SHA-256 hex fingerprint of the CA certificate, useful when you don't have access to the CA file directly.
@@ -152,15 +138,11 @@ es, err := elasticsearch.NewClient(cfg)
 :sync: typed
 
 ```go
-cfg := elasticsearch.Config{
-        Addresses: []string{
-            "https://localhost:9200",
-        },
-        Username: "elastic",
-        Password: ELASTIC_PASSWORD,
-        CertificateFingerprint: CERT_FINGERPRINT, // <1>
-}
-es, err := elasticsearch.NewTypedClient(cfg)
+es, err := elasticsearch.NewTyped(
+    elasticsearch.WithAddresses("https://localhost:9200"),
+    elasticsearch.WithBasicAuth("elastic", ELASTIC_PASSWORD),
+    elasticsearch.WithCertificateFingerprint(CERT_FINGERPRINT), // <1>
+)
 ```
 
 1. The SHA-256 hex fingerprint of the CA certificate, useful when you don't have access to the CA file directly.
@@ -204,12 +186,9 @@ If your cluster is configured with [security explicitly disabled](elasticsearch:
 :sync: lowLevel
 
 ```go
-cfg := elasticsearch.Config{
-        Addresses: []string{
-            "http://localhost:9200",
-        },
-}
-es, err := elasticsearch.NewClient(cfg)
+es, err := elasticsearch.New(
+    elasticsearch.WithAddresses("http://localhost:9200"),
+)
 ```
 
 ::::::
@@ -218,12 +197,9 @@ es, err := elasticsearch.NewClient(cfg)
 :sync: typed
 
 ```go
-cfg := elasticsearch.Config{
-        Addresses: []string{
-            "http://localhost:9200",
-        },
-}
-es, err := elasticsearch.NewTypedClient(cfg)
+es, err := elasticsearch.NewTyped(
+    elasticsearch.WithAddresses("http://localhost:9200"),
+)
 ```
 
 ::::::
@@ -240,16 +216,14 @@ The Go {{es}} client supports sending API requests to multiple nodes in the clus
 :sync: lowLevel
 
 ```go
-cfg := elasticsearch.Config{
-  Addresses: []string{  // <1>
-    "https://localhost:9200",
-    "https://localhost:9201",
-  },
-  CACert:   caCert,
-  Username: "elastic",
-  Password: ELASTIC_PASSWORD,
-}
-es, err := elasticsearch.NewClient(cfg)
+es, err := elasticsearch.New(
+    elasticsearch.WithAddresses( // <1>
+        "https://localhost:9200",
+        "https://localhost:9201",
+    ),
+    elasticsearch.WithCACert(caCert),
+    elasticsearch.WithBasicAuth("elastic", ELASTIC_PASSWORD),
+)
 ```
 
 1. Each URL is used as a separate node in the connection pool.
@@ -260,16 +234,14 @@ es, err := elasticsearch.NewClient(cfg)
 :sync: typed
 
 ```go
-cfg := elasticsearch.Config{
-  Addresses: []string{  // <1>
-    "https://localhost:9200",
-    "https://localhost:9201",
-  },
-  CACert:   caCert,
-  Username: "elastic",
-  Password: ELASTIC_PASSWORD,
-}
-es, err := elasticsearch.NewTypedClient(cfg)
+es, err := elasticsearch.NewTyped(
+    elasticsearch.WithAddresses( // <1>
+        "https://localhost:9200",
+        "https://localhost:9201",
+    ),
+    elasticsearch.WithCACert(caCert),
+    elasticsearch.WithBasicAuth("elastic", ELASTIC_PASSWORD),
+)
 ```
 
 1. Each URL is used as a separate node in the connection pool.
@@ -290,7 +262,7 @@ This section contains code snippets to show you how to authenticate with {{es}}.
 
 ### Basic authentication [auth-basic]
 
-To set the cluster endpoints, the username, and the password programmatically, pass a configuration object to the `elasticsearch.NewClient()` or `elasticsearch.NewTypedClient()` function.
+To set the cluster endpoints, the username, and the password programmatically, pass options to the `elasticsearch.New()` or `elasticsearch.NewTyped()` function.
 
 :::::::{tab-set}
 :group: APIs
@@ -298,15 +270,13 @@ To set the cluster endpoints, the username, and the password programmatically, p
 :sync: lowLevel
 
 ```go
-cfg := elasticsearch.Config{
-  Addresses: []string{
-    "https://localhost:9200",
-    "https://localhost:9201",
-  },
-  Username: "foo",
-  Password: "bar",
-}
-es, err := elasticsearch.NewClient(cfg)
+es, err := elasticsearch.New(
+    elasticsearch.WithAddresses(
+        "https://localhost:9200",
+        "https://localhost:9201",
+    ),
+    elasticsearch.WithBasicAuth("foo", "bar"),
+)
 ```
 
 ::::::
@@ -315,15 +285,13 @@ es, err := elasticsearch.NewClient(cfg)
 :sync: typed
 
 ```go
-cfg := elasticsearch.Config{
-  Addresses: []string{
-    "https://localhost:9200",
-    "https://localhost:9201",
-  },
-  Username: "foo",
-  Password: "bar",
-}
-es, err := elasticsearch.NewTypedClient(cfg)
+es, err := elasticsearch.NewTyped(
+    elasticsearch.WithAddresses(
+        "https://localhost:9200",
+        "https://localhost:9201",
+    ),
+    elasticsearch.WithBasicAuth("foo", "bar"),
+)
 ```
 
 ::::::
@@ -346,13 +314,10 @@ HTTP Bearer authentication uses the `ServiceToken` parameter by passing the toke
 :sync: lowLevel
 
 ```go
-cfg := elasticsearch.Config{
-    Addresses: []string{
-        "https://localhost:9200",
-    },
-    ServiceToken: "token-value",
-}
-es, err := elasticsearch.NewClient(cfg)
+es, err := elasticsearch.New(
+    elasticsearch.WithAddresses("https://localhost:9200"),
+    elasticsearch.WithServiceToken("token-value"),
+)
 ```
 
 ::::::
@@ -361,13 +326,10 @@ es, err := elasticsearch.NewClient(cfg)
 :sync: typed
 
 ```go
-cfg := elasticsearch.Config{
-    Addresses: []string{
-        "https://localhost:9200",
-    },
-    ServiceToken: "token-value",
-}
-es, err := elasticsearch.NewTypedClient(cfg)
+es, err := elasticsearch.NewTyped(
+    elasticsearch.WithAddresses("https://localhost:9200"),
+    elasticsearch.WithServiceToken("token-value"),
+)
 ```
 
 ::::::
@@ -387,7 +349,7 @@ For every 8.0 and beyond `go-elasticsearch` client, you're all set! The compatib
 
 The {{es}} package ties together two separate packages for calling the Elasticsearch APIs and transferring data over HTTP: `esapi` and `estransport`, respectively.
 
-Use the `elasticsearch.NewDefaultClient()` or `elasticsearch.NewTypedClient()` function to create the client with the default settings.
+Use the `elasticsearch.New()` or `elasticsearch.NewTyped()` function to create the client with the default settings.
 
 :::::::{tab-set}
 :group: APIs
@@ -395,7 +357,7 @@ Use the `elasticsearch.NewDefaultClient()` or `elasticsearch.NewTypedClient()` f
 :sync: lowLevel
 
 ```go
-es, err := elasticsearch.NewDefaultClient()
+es, err := elasticsearch.New()
 if err != nil {
   log.Fatalf("Error creating the client: %s", err)
 }
@@ -422,7 +384,7 @@ log.Println(res)
 :sync: typed
 
 ```go
-es, err := elasticsearch.NewTypedClient(elasticsearch.Config{})
+es, err := elasticsearch.NewTyped()
 if err != nil {
   log.Fatalf("Error creating the client: %s", err)
 }
@@ -474,9 +436,9 @@ func init() {
     var err error
 
     ... // Client configuration
-    client, err = elasticsearch.NewClient(cfg)
+    client, err = elasticsearch.New(opts...)
     if err != nil {
-        log.Fatalf("elasticsearch.NewClient: %v", err)
+        log.Fatalf("elasticsearch.New: %v", err)
     }
 }
 
@@ -503,9 +465,9 @@ func init() {
     var err error
 
     ... // Client configuration
-    client, err = elasticsearch.NewClient(cfg)
+    client, err = elasticsearch.New(opts...)
     if err != nil {
-        log.Fatalf("elasticsearch.NewClient: %v", err)
+        log.Fatalf("elasticsearch.New: %v", err)
     }
 }
 

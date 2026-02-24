@@ -114,9 +114,7 @@ func main() {
 	//
 	// Pass the logger to the client
 	//
-	es, _ := elasticsearch.NewClient(elasticsearch.Config{
-		Logger: &CustomLogger{log},
-	})
+	es, _ := elasticsearch.New(elasticsearch.WithLogger(&CustomLogger{log}))
 	defer func() {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()

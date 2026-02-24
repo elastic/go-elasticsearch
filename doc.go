@@ -18,33 +18,27 @@
 /*
 Package elasticsearch provides a Go client for Elasticsearch.
 
-Create the client with the NewDefaultClient function:
+Create the client with the New function:
 
-	elasticsearch.NewDefaultClient()
+	elasticsearch.New()
 
 The ELASTICSEARCH_URL environment variable is used instead of the default URL, when set.
 Use a comma to separate multiple URLs.
 
-To configure the client, pass a Config object to the NewClient function:
+To configure the client, pass Option values to the New function:
 
-	cfg := elasticsearch.Config{
-	  Addresses: []string{
-	    "http://localhost:9200",
-	    "http://localhost:9201",
-	  },
-	  Username: "foo",
-	  Password: "bar",
-	  Transport: &http.Transport{
+	elasticsearch.New(
+	  elasticsearch.WithAddresses("http://localhost:9200", "http://localhost:9201"),
+	  elasticsearch.WithBasicAuth("foo", "bar"),
+	  elasticsearch.WithTransportOptions(elastictransport.WithTransport(&http.Transport{
 	    MaxIdleConnsPerHost:   10,
 	    ResponseHeaderTimeout: time.Second,
 	    DialContext:           (&net.Dialer{Timeout: time.Second}).DialContext,
 	    TLSClientConfig: &tls.Config{
-	      MinVersion:         tls.VersionTLS12,
+	      MinVersion: tls.VersionTLS12,
 	    },
-	  },
-	}
-
-	elasticsearch.NewClient(cfg)
+	  })),
+	)
 
 When using the Elastic Service (https://elastic.co/cloud), you can use CloudID instead of Addresses.
 When either Addresses or CloudID is set, the ELASTICSEARCH_URL environment variable is ignored.

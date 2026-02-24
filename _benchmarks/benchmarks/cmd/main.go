@@ -114,22 +114,22 @@ func main() {
 
 	filterActions = os.Getenv("FILTER")
 
-	runnerClientConfig := elasticsearch.Config{
-		Addresses:    []string{benchmarks.Config["ELASTICSEARCH_TARGET_URL"]},
-		DisableRetry: true,
+	runnerOpts := []elasticsearch.Option{
+		elasticsearch.WithAddresses(benchmarks.Config["ELASTICSEARCH_TARGET_URL"]),
+		elasticsearch.WithTransportOptions(elastictransport.WithDisableRetry(true)),
 	}
 
-	reportClientConfig := elasticsearch.Config{
-		Addresses:  []string{benchmarks.Config["ELASTICSEARCH_REPORT_URL"]},
-		MaxRetries: 10,
+	reportOpts := []elasticsearch.Option{
+		elasticsearch.WithAddresses(benchmarks.Config["ELASTICSEARCH_REPORT_URL"]),
+		elasticsearch.WithRetry(10),
 	}
 	if os.Getenv("DEBUG") != "" {
-		runnerClientConfig.Logger = &elastictransport.ColorLogger{Output: os.Stdout}
-		reportClientConfig.Logger = &elastictransport.ColorLogger{Output: os.Stdout}
+		runnerOpts = append(runnerOpts, elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout}))
+		reportOpts = append(reportOpts, elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout}))
 	}
 
-	runnerClient, _ := elasticsearch.NewClient(runnerClientConfig)
-	reportClient, _ := elasticsearch.NewClient(reportClientConfig)
+	runnerClient, _ := elasticsearch.New(runnerOpts...)
+	reportClient, _ := elasticsearch.New(reportOpts...)
 
 	runnerConfig := runner.Config{
 		RunnerClient: runnerClient,

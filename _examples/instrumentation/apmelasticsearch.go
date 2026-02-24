@@ -35,6 +35,7 @@ import (
 	"github.com/fatih/color"
 	"golang.org/x/crypto/ssh/terminal"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 
 	"go.elastic.co/apm"
@@ -72,13 +73,12 @@ func main() {
 
 	// Create new elasticsearch client ...
 	//
-	es, err := elasticsearch.NewClient(
-		elasticsearch.Config{
-			// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-			// ... using the "apmelasticsearch" wrapper for instrumentation
-			Transport: apmelasticsearch.WrapRoundTripper(http.DefaultTransport),
-			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		})
+	es, err := elasticsearch.New(
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		// ... using the "apmelasticsearch" wrapper for instrumentation
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(apmelasticsearch.WrapRoundTripper(http.DefaultTransport))),
+		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	)
 	if err != nil {
 		log.Fatalf("ERROR: %s", err)
 	}

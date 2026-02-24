@@ -50,7 +50,7 @@ func init() {
 	log.SetFlags(0)
 
 	var err error
-	ES, err = elasticsearch.NewDefaultClient()
+	ES, err = elasticsearch.New()
 	if err != nil {
 		log.Fatalf("Error: %s", err)
 	}

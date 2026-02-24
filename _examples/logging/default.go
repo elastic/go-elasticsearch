@@ -46,9 +46,7 @@ func main() {
 	//
 	// "TextLogger" writes basic information about the request and response as plain text to the output.
 	//
-	es, _ = elasticsearch.NewClient(elasticsearch.Config{
-		Logger: &elastictransport.TextLogger{Output: os.Stdout},
-	})
+	es, _ = elasticsearch.New(elasticsearch.WithLogger(&elastictransport.TextLogger{Output: os.Stdout}))
 	run(es, "Text")
 	_ = es.Close(context.Background())
 
@@ -56,9 +54,7 @@ func main() {
 	//
 	// "ColorLogger" is optimized for displaying information in the terminal during development.
 	//
-	es, _ = elasticsearch.NewClient(elasticsearch.Config{
-		Logger: &elastictransport.ColorLogger{Output: os.Stdout},
-	})
+	es, _ = elasticsearch.New(elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout}))
 	run(es, "Color")
 	_ = es.Close(context.Background())
 
@@ -66,13 +62,11 @@ func main() {
 	//
 	// To log the request and response bodies, use the respective configuration options.
 	//
-	es, _ = elasticsearch.NewClient(elasticsearch.Config{
-		Logger: &elastictransport.ColorLogger{
-			Output:             os.Stdout,
-			EnableRequestBody:  true,
-			EnableResponseBody: true,
-		},
-	})
+	es, _ = elasticsearch.New(elasticsearch.WithLogger(&elastictransport.ColorLogger{
+		Output:             os.Stdout,
+		EnableRequestBody:  true,
+		EnableResponseBody: true,
+	}))
 	run(es, "Request/Response Body")
 	_ = es.Close(context.Background())
 
@@ -81,9 +75,7 @@ func main() {
 	// "CurlLogger" writes the information formatted as runnable curl commands,
 	// pretty-printing the response body (when enabled), useful eg. for sharing.
 	//
-	es, _ = elasticsearch.NewClient(elasticsearch.Config{
-		Logger: &elastictransport.CurlLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
-	})
+	es, _ = elasticsearch.New(elasticsearch.WithLogger(&elastictransport.CurlLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}))
 	run(es, "Curl")
 	_ = es.Close(context.Background())
 
@@ -91,9 +83,7 @@ func main() {
 	//
 	// "JSONLogger" writes the information as JSON and is suitable for production logging.
 	//
-	es, _ = elasticsearch.NewClient(elasticsearch.Config{
-		Logger: &elastictransport.JSONLogger{Output: os.Stdout},
-	})
+	es, _ = elasticsearch.New(elasticsearch.WithLogger(&elastictransport.JSONLogger{Output: os.Stdout}))
 	run(es, "JSON")
 	_ = es.Close(context.Background())
 }

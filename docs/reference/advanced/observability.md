@@ -23,9 +23,9 @@ import (
 )
 
 // Use the global TracerProvider (set up elsewhere in your application)
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Instrumentation: elasticsearch.NewOpenTelemetryInstrumentation(nil, false),  // <1>
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithInstrumentation(elasticsearch.NewOpenTelemetryInstrumentation(nil, false)),  // <1>
+)
 ```
 
 1. `nil` uses the global `TracerProvider` from `otel.GetTracerProvider()`. Pass an explicit provider to use a specific one.
@@ -99,10 +99,10 @@ func main() {
     otel.SetTracerProvider(tp)
 
     // Create the Elasticsearch client with instrumentation
-    es, err := elasticsearch.NewClient(elasticsearch.Config{
-        Addresses:       []string{"https://localhost:9200"},
-        Instrumentation: elasticsearch.NewOpenTelemetryInstrumentation(tp, true),
-    })
+    es, err := elasticsearch.New(
+        elasticsearch.WithAddresses("https://localhost:9200"),
+        elasticsearch.WithInstrumentation(elasticsearch.NewOpenTelemetryInstrumentation(tp, true)),
+    )
     if err != nil {
         log.Fatal(err)
     }
@@ -119,12 +119,12 @@ func main() {
 
 ## Transport metrics [_transport_metrics]
 
-The client can collect transport-level metrics including request counts, failures, and response status code distributions. Enable metrics via the `EnableMetrics` configuration option.
+The client can collect transport-level metrics including request counts, failures, and response status code distributions. Enable metrics via `WithTransportOptions`:
 
 ```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    EnableMetrics: true,
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithTransportOptions(elastictransport.WithMetrics()),
+)
 ```
 
 Once enabled, metrics are available through the transport's `Metrics()` method. You can publish them using Go's `expvar` package for built-in HTTP monitoring:
@@ -132,9 +132,9 @@ Once enabled, metrics are available through the transport's `Metrics()` method. 
 ```go
 import "expvar"
 
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    EnableMetrics: true,
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithTransportOptions(elastictransport.WithMetrics()),
+)
 
 // Publish metrics at /debug/vars
 expvar.Publish("go-elasticsearch", expvar.Func(func() any {
@@ -155,12 +155,12 @@ The metrics include:
 Enable debug logging to see detailed request and response information:
 
 ```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    EnableDebugLogger: true,
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithTransportOptions(elastictransport.WithDebugLogger()),
+)
 ```
 
-For more control over log output, use the `Logger` field with one of the built-in loggers from the `elastictransport` package:
+For more control over log output, use `WithLogger` with one of the built-in loggers from the `elastictransport` package:
 
 | Logger        | Description                                                |
 | ------------- | ---------------------------------------------------------- |
@@ -172,13 +172,13 @@ For more control over log output, use the `Logger` field with one of the built-i
 ```go
 import "github.com/elastic/elastic-transport-go/v8/elastictransport"
 
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Logger: &elastictransport.ColorLogger{
+es, err := elasticsearch.New(
+    elasticsearch.WithLogger(&elastictransport.ColorLogger{
         Output:             os.Stdout,
         EnableRequestBody:  true,
         EnableResponseBody: true,
-    },
-})
+    }),
+)
 ```
 
 :::{dropdown} Alternative integrations
@@ -196,9 +196,11 @@ import (
     "go.elastic.co/apm/module/apmelasticsearch/v2"
 )
 
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Transport: apmelasticsearch.WrapRoundTripper(http.DefaultTransport),
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithTransportOptions(
+        elastictransport.WithTransport(apmelasticsearch.WrapRoundTripper(http.DefaultTransport)),
+    ),
+)
 ```
 
 This automatically creates APM transactions and spans for each {{es}} request.
@@ -213,9 +215,11 @@ import (
     "go.opencensus.io/plugin/ochttp"
 )
 
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Transport: &ochttp.Transport{},
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithTransportOptions(
+        elastictransport.WithTransport(&ochttp.Transport{}),
+    ),
+)
 ```
 
 ### Custom observability via interceptors

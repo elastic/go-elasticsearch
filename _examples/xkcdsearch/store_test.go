@@ -28,6 +28,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 
 	"github.com/elastic/go-elasticsearch/v9/_examples/xkcdsearch"
@@ -86,9 +87,9 @@ func TestStore(t *testing.T) {
 	}
 	mocktrans.RoundTripFn = func(req *http.Request) (*http.Response, error) { return mocktrans.Response, nil }
 
-	client, err := elasticsearch.NewClient(elasticsearch.Config{
-		Transport: &mocktrans,
-	})
+	client, err := elasticsearch.New(
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mocktrans)),
+	)
 	if err != nil {
 		t.Fatalf("Error creating Elasticsearch client: %s", err)
 	}

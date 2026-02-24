@@ -56,14 +56,13 @@ func main() {
 	defer srv.Close()
 
 	// Create an Elasticsearch client with default credentials and context auth interceptor
-	es, err := elasticsearch.NewClient(elasticsearch.Config{
-		Addresses: []string{srv.URL()},
-		Username:  "default_user",
-		Password:  "default_password",
-		Interceptors: []elastictransport.InterceptorFunc{
+	es, err := elasticsearch.New(
+		elasticsearch.WithAddresses(srv.URL()),
+		elasticsearch.WithBasicAuth("default_user", "default_password"),
+		elasticsearch.WithTransportOptions(elastictransport.WithInterceptors(
 			ContextAuthInterceptor(),
-		},
-	})
+		)),
+	)
 	if err != nil {
 		panic(err)
 	}

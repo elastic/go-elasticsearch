@@ -17,7 +17,7 @@ When ingesting many documents, use the Bulk API to send multiple operations in a
 With the low-level client, build the NDJSON payload yourself and submit it with `Bulk()`:
 
 ```go
-client, err := elasticsearch.NewDefaultClient()
+client, err := elasticsearch.New()
 if err != nil {
     // Handle error.
 }
@@ -95,7 +95,7 @@ For a higher-level API that takes care of batching, flushing, and concurrency, u
 The BulkIndexer is designed to be **long-lived**: create it once, keep adding items over time (potentially from multiple goroutines), and call `Close()` once when you are done (for example with `defer`).
 
 ```go
-client, err := elasticsearch.NewDefaultClient()
+client, err := elasticsearch.New()
 if err != nil {
     // Handle error.
 }

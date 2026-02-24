@@ -29,6 +29,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 )
 
@@ -66,16 +67,12 @@ func main() {
 		log.Fatalf("ERROR: Problem adding CA from file %q", *cacert)
 	}
 
-	es, err := elasticsearch.NewClient(
-		elasticsearch.Config{
-			Addresses: []string{"https://localhost:9200"},
-			Username:  "elastic",
-			Password:  *password,
-
-			// --> Pass the transport to the client
-			//
-			Transport: tp,
-		},
+	es, err := elasticsearch.New(
+		elasticsearch.WithAddresses("https://localhost:9200"),
+		elasticsearch.WithBasicAuth("elastic", *password),
+		// --> Pass the transport to the client
+		//
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(tp)),
 	)
 	if err != nil {
 		log.Fatalf("ERROR: Unable to create client: %s", err)

@@ -77,7 +77,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 		}
 	}()
 
-	tcCfg := elasticsearchSrv.ESConfig()
+	tcOpts := elasticsearchSrv.ESOptions()
 
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {
@@ -85,16 +85,12 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				var countSuccessful uint64
 				indexName := "test-bulk-integration"
 
-				es, err := elasticsearch.NewClient(elasticsearch.Config{
-					Addresses:                tcCfg.Addresses,
-					Username:                 tcCfg.Username,
-					Password:                 tcCfg.Password,
-					CACert:                   tcCfg.CACert,
-					CompressRequestBody:      tt.CompressRequestBodyEnabled,
-					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
-					PoolCompressor:           tt.PoolCompressor,
-					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
-				})
+				esOpts := append([]elasticsearch.Option{}, tcOpts...)
+				esOpts = append(esOpts, elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout}))
+				if tt.CompressRequestBodyEnabled {
+					esOpts = append(esOpts, elasticsearch.WithCompression(tt.CompressRequestBodyLevel))
+				}
+				es, err := elasticsearch.New(esOpts...)
 				if err != nil {
 					t.Fatalf("Unexpected error: %s", err)
 				}
@@ -163,16 +159,12 @@ func TestBulkIndexerIntegration(t *testing.T) {
 			})
 
 			t.Run("Multiple indices", func(t *testing.T) {
-				es, err := elasticsearch.NewClient(elasticsearch.Config{
-					Addresses:                tcCfg.Addresses,
-					Username:                 tcCfg.Username,
-					Password:                 tcCfg.Password,
-					CACert:                   tcCfg.CACert,
-					CompressRequestBody:      tt.CompressRequestBodyEnabled,
-					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
-					PoolCompressor:           tt.PoolCompressor,
-					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
-				})
+				multiOpts := append([]elasticsearch.Option{}, tcOpts...)
+				multiOpts = append(multiOpts, elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout}))
+				if tt.CompressRequestBodyEnabled {
+					multiOpts = append(multiOpts, elasticsearch.WithCompression(tt.CompressRequestBodyLevel))
+				}
+				es, err := elasticsearch.New(multiOpts...)
 				if err != nil {
 					t.Fatalf("Unexpected error: %s", err)
 				}
@@ -244,16 +236,12 @@ func TestBulkIndexerIntegration(t *testing.T) {
 			t.Run("External version", func(t *testing.T) {
 				var index string = "test-index-a"
 
-				es, err := elasticsearch.NewClient(elasticsearch.Config{
-					Addresses:                tcCfg.Addresses,
-					Username:                 tcCfg.Username,
-					Password:                 tcCfg.Password,
-					CACert:                   tcCfg.CACert,
-					CompressRequestBody:      tt.CompressRequestBodyEnabled,
-					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
-					PoolCompressor:           tt.PoolCompressor,
-					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
-				})
+				extOpts := append([]elasticsearch.Option{}, tcOpts...)
+				extOpts = append(extOpts, elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout}))
+				if tt.CompressRequestBodyEnabled {
+					extOpts = append(extOpts, elasticsearch.WithCompression(tt.CompressRequestBodyLevel))
+				}
+				es, err := elasticsearch.New(extOpts...)
 				if err != nil {
 					t.Fatalf("Unexpected error: %s", err)
 				}
@@ -321,16 +309,12 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				var index string = "test-index-a"
 				var alias string = "test-alias-a"
 
-				es, err := elasticsearch.NewClient(elasticsearch.Config{
-					Addresses:                tcCfg.Addresses,
-					Username:                 tcCfg.Username,
-					Password:                 tcCfg.Password,
-					CACert:                   tcCfg.CACert,
-					CompressRequestBody:      tt.CompressRequestBodyEnabled,
-					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
-					PoolCompressor:           tt.PoolCompressor,
-					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
-				})
+				aliasOpts := append([]elasticsearch.Option{}, tcOpts...)
+				aliasOpts = append(aliasOpts, elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}))
+				if tt.CompressRequestBodyEnabled {
+					aliasOpts = append(aliasOpts, elasticsearch.WithCompression(tt.CompressRequestBodyLevel))
+				}
+				es, err := elasticsearch.New(aliasOpts...)
 				if err != nil {
 					t.Fatalf("Unexpected error: %s", err)
 				}

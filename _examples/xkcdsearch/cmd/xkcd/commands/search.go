@@ -46,7 +46,7 @@ var searchCmd = &cobra.Command{
 		fmt.Fprintf(os.Stdout, "\x1b[2m?q=\x1b[0m\x1b[1m%s\x1b[0m\n", strings.Join(args, " "))
 		fmt.Fprintf(os.Stdout, "\x1b[2m%s\x1b[0m\n", strings.Repeat("━", tWidth))
 
-		es, err := elasticsearch.NewDefaultClient()
+		es, err := elasticsearch.New()
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "\x1b[1;107;41mERROR: %s\x1b[0m\n", err)
 		}

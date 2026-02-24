@@ -81,6 +81,15 @@ func (es *ElasticsearchService) ESConfig() elasticsearch.Config {
 	}
 }
 
+// ESOptions returns the Elasticsearch client options.
+func (es *ElasticsearchService) ESOptions() []elasticsearch.Option {
+	return []elasticsearch.Option{
+		elasticsearch.WithAddresses(es.configOptions.Address),
+		elasticsearch.WithBasicAuth("elastic", es.configOptions.Password),
+		elasticsearch.WithCACert(es.configOptions.CACert),
+	}
+}
+
 // Terminate terminates the Elasticsearch container.
 func (es *ElasticsearchService) Terminate(ctx context.Context) error {
 	return es.container.Terminate(ctx)

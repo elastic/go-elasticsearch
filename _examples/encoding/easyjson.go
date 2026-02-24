@@ -52,7 +52,7 @@ func init() {
 }
 
 func main() {
-	es, err := elasticsearch.NewDefaultClient()
+	es, err := elasticsearch.New()
 	if err != nil {
 		fmt.Printf("Error creating the client: %s\n", err)
 		os.Exit(2)
