@@ -340,7 +340,7 @@ func (r *Close) Header(key, value string) *Close {
 }
 
 // Index Comma-separated list or wildcard expression of index names used to limit the
-// // request.
+// request.
 // API Name: index
 func (r *Close) _index(index string) *Close {
 	r.paramSet |= indexMask

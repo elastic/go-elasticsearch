@@ -313,7 +313,7 @@ func (r *DeleteCalendarEvent) _calendarid(calendarid string) *DeleteCalendarEven
 }
 
 // EventId Identifier for the scheduled event. You can obtain this identifier by using
-// // the get calendar events API.
+// the get calendar events API.
 // API Name: eventid
 func (r *DeleteCalendarEvent) _eventid(eventid string) *DeleteCalendarEvent {
 	r.paramSet |= eventidMask

@@ -316,7 +316,7 @@ func (r *DeletePrivileges) Header(key, value string) *DeletePrivileges {
 	return r
 }
 
-// Application The name of the application. Application privileges are always associated //
+// Application The name of the application. Application privileges are always associated
 // with exactly one application.
 // API Name: application
 func (r *DeletePrivileges) _application(application string) *DeletePrivileges {

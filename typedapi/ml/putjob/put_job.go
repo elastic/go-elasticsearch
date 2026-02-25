@@ -313,9 +313,9 @@ func (r *PutJob) Header(key, value string) *PutJob {
 	return r
 }
 
-// JobId The identifier for the anomaly detection job. This identifier can contain //
+// JobId The identifier for the anomaly detection job. This identifier can contain
 // lowercase alphanumeric characters (a-z and 0-9), hyphens, and underscores. It
-// // must start and end with alphanumeric characters.
+// must start and end with alphanumeric characters.
 // API Name: jobid
 func (r *PutJob) _jobid(jobid string) *PutJob {
 	r.paramSet |= jobidMask

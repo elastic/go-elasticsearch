@@ -302,9 +302,9 @@ func (r *AsyncQueryGet) Header(key, value string) *AsyncQueryGet {
 }
 
 // Id The unique identifier of the query. A query ID is provided in the ES|QL async
-// // query API response for a query that does not complete in the designated
-// time. // A query ID is also provided when the request was submitted with the
-// // `keep_on_completion` parameter set to `true`.
+// query API response for a query that does not complete in the designated time.
+// A query ID is also provided when the request was submitted with the
+// `keep_on_completion` parameter set to `true`.
 // API Name: id
 func (r *AsyncQueryGet) _id(id string) *AsyncQueryGet {
 	r.paramSet |= idMask

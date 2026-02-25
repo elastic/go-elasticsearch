@@ -304,9 +304,9 @@ func (r *ExplainLifecycle) Header(key, value string) *ExplainLifecycle {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases to target. //
+// Index Comma-separated list of data streams, indices, and aliases to target.
 // Supports wildcards (`*`). To target all data streams and indices, use `*` or
-// // `_all`.
+// `_all`.
 // API Name: index
 func (r *ExplainLifecycle) _index(index string) *ExplainLifecycle {
 	r.paramSet |= indexMask

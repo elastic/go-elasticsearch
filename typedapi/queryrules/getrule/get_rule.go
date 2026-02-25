@@ -314,7 +314,7 @@ func (r *GetRule) _rulesetid(rulesetid string) *GetRule {
 	return r
 }
 
-// RuleId The unique identifier of the query rule within the specified ruleset to //
+// RuleId The unique identifier of the query rule within the specified ruleset to
 // retrieve
 // API Name: ruleid
 func (r *GetRule) _ruleid(ruleid string) *GetRule {

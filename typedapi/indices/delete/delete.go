@@ -304,9 +304,9 @@ func (r *Delete) Header(key, value string) *Delete {
 }
 
 // Index Comma-separated list of indices to delete. You cannot specify index aliases.
-// // By default, this parameter does not support wildcards (`*`) or `_all`. To
-// use // wildcards or `_all`, set the `action.destructive_requires_name`
-// cluster // setting to `false`.
+// By default, this parameter does not support wildcards (`*`) or `_all`. To use
+// wildcards or `_all`, set the `action.destructive_requires_name` cluster
+// setting to `false`.
 // API Name: index
 func (r *Delete) _index(index string) *Delete {
 	r.paramSet |= indexMask

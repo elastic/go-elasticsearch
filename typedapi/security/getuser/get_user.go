@@ -299,8 +299,8 @@ func (r *GetUser) Header(key, value string) *GetUser {
 	return r
 }
 
-// Username An identifier for the user. You can specify multiple usernames as a //
-// comma-separated list. If you omit this parameter, the API retrieves //
+// Username An identifier for the user. You can specify multiple usernames as a
+// comma-separated list. If you omit this parameter, the API retrieves
 // information about all users.
 // API Name: username
 func (r *GetUser) Username(usernames ...string) *GetUser {

@@ -299,7 +299,7 @@ func (r *ImportDanglingIndex) Header(key, value string) *ImportDanglingIndex {
 }
 
 // IndexUuid The UUID of the index to import. Use the get dangling indices API to locate
-// // the UUID.
+// the UUID.
 // API Name: indexuuid
 func (r *ImportDanglingIndex) _indexuuid(indexuuid string) *ImportDanglingIndex {
 	r.paramSet |= indexuuidMask

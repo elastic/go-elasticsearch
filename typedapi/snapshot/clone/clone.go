@@ -330,7 +330,7 @@ func (r *Clone) Header(key, value string) *Clone {
 	return r
 }
 
-// Repository The name of the snapshot repository that both source and target snapshot //
+// Repository The name of the snapshot repository that both source and target snapshot
 // belong to.
 // API Name: repository
 func (r *Clone) _repository(repository string) *Clone {

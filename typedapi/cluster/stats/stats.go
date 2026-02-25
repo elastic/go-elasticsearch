@@ -305,7 +305,7 @@ func (r *Stats) Header(key, value string) *Stats {
 	return r
 }
 
-// NodeId Comma-separated list of node filters used to limit returned information. //
+// NodeId Comma-separated list of node filters used to limit returned information.
 // Defaults to all nodes in the cluster.
 // API Name: nodeid
 func (r *Stats) NodeId(nodeid string) *Stats {

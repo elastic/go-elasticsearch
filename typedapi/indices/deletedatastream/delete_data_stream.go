@@ -293,7 +293,7 @@ func (r *DeleteDataStream) Header(key, value string) *DeleteDataStream {
 	return r
 }
 
-// Name Comma-separated list of data streams to delete. Wildcard (`*`) expressions //
+// Name Comma-separated list of data streams to delete. Wildcard (`*`) expressions
 // are supported.
 // API Name: name
 func (r *DeleteDataStream) _name(name string) *DeleteDataStream {

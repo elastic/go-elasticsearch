@@ -384,7 +384,7 @@ func (r *Status) Header(key, value string) *Status {
 }
 
 // Repository The snapshot repository name used to limit the request. It supports wildcards
-// // (`*`) if `<snapshot>` isn't specified.
+// (`*`) if `<snapshot>` isn't specified.
 // API Name: repository
 func (r *Status) Repository(repository string) *Status {
 	r.paramSet |= repositoryMask
@@ -393,7 +393,7 @@ func (r *Status) Repository(repository string) *Status {
 	return r
 }
 
-// Snapshot A comma-separated list of snapshots to retrieve status for. The default is //
+// Snapshot A comma-separated list of snapshots to retrieve status for. The default is
 // currently running snapshots. Wildcards (`*`) are not supported.
 // API Name: snapshot
 func (r *Status) Snapshot(snapshot string) *Status {

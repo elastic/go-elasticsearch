@@ -313,10 +313,10 @@ func (r *RankEval) Header(key, value string) *RankEval {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and index aliases used to //
-// limit the request. Wildcard (`*`) expressions are supported. To target all //
+// Index A comma-separated list of data streams, indices, and index aliases used to
+// limit the request. Wildcard (`*`) expressions are supported. To target all
 // data streams and indices in a cluster, omit this parameter or use `_all` or
-// // `*`.
+// `*`.
 // API Name: index
 func (r *RankEval) Index(index string) *RankEval {
 	r.paramSet |= indexMask

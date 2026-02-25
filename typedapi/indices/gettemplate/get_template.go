@@ -307,9 +307,9 @@ func (r *GetTemplate) Header(key, value string) *GetTemplate {
 	return r
 }
 
-// Name Comma-separated list of index template names used to limit the request. //
+// Name Comma-separated list of index template names used to limit the request.
 // Wildcard (`*`) expressions are supported. To return all index templates, omit
-// // this parameter or use a value of `_all` or `*`.
+// this parameter or use a value of `_all` or `*`.
 // API Name: name
 func (r *GetTemplate) Name(name string) *GetTemplate {
 	r.paramSet |= nameMask

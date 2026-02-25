@@ -326,7 +326,7 @@ func (r *PostData) Header(key, value string) *PostData {
 }
 
 // JobId Identifier for the anomaly detection job. The job must have a state of open
-// // to receive and process the data.
+// to receive and process the data.
 // API Name: jobid
 func (r *PostData) _jobid(jobid string) *PostData {
 	r.paramSet |= jobidMask

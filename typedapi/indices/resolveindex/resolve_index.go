@@ -307,8 +307,8 @@ func (r *ResolveIndex) Header(key, value string) *ResolveIndex {
 }
 
 // Name Comma-separated name(s) or index pattern(s) of the indices, aliases, and data
-// // streams to resolve. Resources on remote clusters can be specified using
-// the // `<cluster>`:`<name>` syntax.
+// streams to resolve. Resources on remote clusters can be specified using the
+// `<cluster>`:`<name>` syntax.
 // API Name: name
 func (r *ResolveIndex) _name(name string) *ResolveIndex {
 	r.paramSet |= nameMask

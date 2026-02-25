@@ -312,7 +312,7 @@ func (r *Fielddata) Header(key, value string) *Fielddata {
 	return r
 }
 
-// Fields Comma-separated list of fields used to limit returned information. To //
+// Fields Comma-separated list of fields used to limit returned information. To
 // retrieve all fields, omit this parameter.
 // API Name: fields
 func (r *Fielddata) Fields(fields string) *Fielddata {

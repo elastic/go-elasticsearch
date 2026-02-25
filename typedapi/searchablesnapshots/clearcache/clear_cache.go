@@ -306,7 +306,7 @@ func (r *ClearCache) Header(key, value string) *ClearCache {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases to clear from //
+// Index A comma-separated list of data streams, indices, and aliases to clear from
 // the cache. It supports wildcards (`*`).
 // API Name: index
 func (r *ClearCache) Index(index string) *ClearCache {

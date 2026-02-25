@@ -310,7 +310,7 @@ func (r *Allocation) Header(key, value string) *Allocation {
 	return r
 }
 
-// NodeId A comma-separated list of node identifiers or names used to limit the //
+// NodeId A comma-separated list of node identifiers or names used to limit the
 // returned information.
 // API Name: nodeid
 func (r *Allocation) NodeId(nodeid string) *Allocation {

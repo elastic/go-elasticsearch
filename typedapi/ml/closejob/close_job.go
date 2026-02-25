@@ -337,10 +337,10 @@ func (r *CloseJob) Header(key, value string) *CloseJob {
 }
 
 // JobId Identifier for the anomaly detection job. It can be a job identifier, a group
-// // name, or a wildcard expression. You can close multiple anomaly detection
-// jobs // in a single API request by using a group name, a comma-separated list
-// of // jobs, or a wildcard expression. You can close all jobs by using `_all`
-// or by // specifying `*` as the job identifier.
+// name, or a wildcard expression. You can close multiple anomaly detection jobs
+// in a single API request by using a group name, a comma-separated list of
+// jobs, or a wildcard expression. You can close all jobs by using `_all` or by
+// specifying `*` as the job identifier.
 // API Name: jobid
 func (r *CloseJob) _jobid(jobid string) *CloseJob {
 	r.paramSet |= jobidMask

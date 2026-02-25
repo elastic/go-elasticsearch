@@ -349,9 +349,9 @@ func (r *PutNode) Header(key, value string) *PutNode {
 	return r
 }
 
-// NodeId The node identifier. This parameter is not validated against the cluster's //
+// NodeId The node identifier. This parameter is not validated against the cluster's
 // active nodes. This enables you to register a node for shut down while it is
-// // offline. No error is thrown if you specify an invalid node ID.
+// offline. No error is thrown if you specify an invalid node ID.
 // API Name: nodeid
 func (r *PutNode) _nodeid(nodeid string) *PutNode {
 	r.paramSet |= nodeidMask

@@ -316,10 +316,10 @@ func (r *PutRole) Header(key, value string) *PutRole {
 	return r
 }
 
-// Name The name of the role that is being created or updated. On Elasticsearch //
-// Serverless, the role name must begin with a letter or digit and can only //
+// Name The name of the role that is being created or updated. On Elasticsearch
+// Serverless, the role name must begin with a letter or digit and can only
 // contain letters, digits and the characters '_', '-', and '.'. Each role must
-// // have a unique name, as this will serve as the identifier for that role.
+// have a unique name, as this will serve as the identifier for that role.
 // API Name: name
 func (r *PutRole) _name(name string) *PutRole {
 	r.paramSet |= nameMask

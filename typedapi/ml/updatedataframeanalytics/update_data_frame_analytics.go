@@ -308,9 +308,9 @@ func (r *UpdateDataFrameAnalytics) Header(key, value string) *UpdateDataFrameAna
 	return r
 }
 
-// Id Identifier for the data frame analytics job. This identifier can contain //
+// Id Identifier for the data frame analytics job. This identifier can contain
 // lowercase alphanumeric characters (a-z and 0-9), hyphens, and underscores. It
-// // must start and end with alphanumeric characters.
+// must start and end with alphanumeric characters.
 // API Name: id
 func (r *UpdateDataFrameAnalytics) _id(id string) *UpdateDataFrameAnalytics {
 	r.paramSet |= idMask

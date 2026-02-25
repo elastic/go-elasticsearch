@@ -316,7 +316,7 @@ func (r *Get) Header(key, value string) *Get {
 	return r
 }
 
-// Repository A comma-separated list of snapshot repository names used to limit the //
+// Repository A comma-separated list of snapshot repository names used to limit the
 // request. Wildcard (`*`) expressions are supported.
 // API Name: repository
 func (r *Get) _repository(repository string) *Get {
@@ -326,10 +326,14 @@ func (r *Get) _repository(repository string) *Get {
 	return r
 }
 
-// Snapshot A comma-separated list of snapshot names to retrieve Wildcards (`*`) are //
-// supported. // // - To get information about all snapshots in a registered
-// repository, use a // wildcard (`*`) or `_all`. // - To get information about
-// any snapshots that are currently running, use // `_current`.
+// Snapshot A comma-separated list of snapshot names to retrieve Wildcards (`*`) are
+// supported.
+//
+//   - To get information about all snapshots in a registered repository, use a
+//     wildcard (`*`) or `_all`.
+//   - To get information about any snapshots that are currently running, use
+//     `_current`.
+//
 // API Name: snapshot
 func (r *Get) _snapshot(snapshot string) *Get {
 	r.paramSet |= snapshotMask

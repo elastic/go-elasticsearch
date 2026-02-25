@@ -335,8 +335,8 @@ func (r *Flush) Header(key, value string) *Flush {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases to flush. Supports
-// // wildcards (`*`). To flush all data streams and indices, omit this
-// parameter // or use `*` or `_all`.
+// wildcards (`*`). To flush all data streams and indices, omit this parameter
+// or use `*` or `_all`.
 // API Name: index
 func (r *Flush) Index(index string) *Flush {
 	r.paramSet |= indexMask

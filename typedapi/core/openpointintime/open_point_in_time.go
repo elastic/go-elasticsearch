@@ -411,7 +411,7 @@ func (r *OpenPointInTime) Header(key, value string) *OpenPointInTime {
 	return r
 }
 
-// Index A comma-separated list of index names to open point in time; use `_all` or //
+// Index A comma-separated list of index names to open point in time; use `_all` or
 // empty string to perform the operation on all indices
 // API Name: index
 func (r *OpenPointInTime) _index(index string) *OpenPointInTime {

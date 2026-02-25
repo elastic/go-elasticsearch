@@ -316,7 +316,7 @@ func (r *Forecast) Header(key, value string) *Forecast {
 	return r
 }
 
-// JobId Identifier for the anomaly detection job. The job must be open when you //
+// JobId Identifier for the anomaly detection job. The job must be open when you
 // create a forecast; otherwise, an error occurs.
 // API Name: jobid
 func (r *Forecast) _jobid(jobid string) *Forecast {

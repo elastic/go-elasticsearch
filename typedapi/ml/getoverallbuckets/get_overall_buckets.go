@@ -343,9 +343,10 @@ func (r *GetOverallBuckets) Header(key, value string) *GetOverallBuckets {
 }
 
 // JobId Identifier for the anomaly detection job. It can be a job identifier, a group
-// // name, a comma-separated list of jobs or groups, or a wildcard expression.
-// // // You can summarize the bucket results for all anomaly detection jobs by
-// using // `_all` or by specifying `*` as the `<job_id>`.
+// name, a comma-separated list of jobs or groups, or a wildcard expression.
+//
+// You can summarize the bucket results for all anomaly detection jobs by using
+// `_all` or by specifying `*` as the `<job_id>`.
 // API Name: jobid
 func (r *GetOverallBuckets) _jobid(jobid string) *GetOverallBuckets {
 	r.paramSet |= jobidMask

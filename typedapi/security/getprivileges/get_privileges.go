@@ -331,9 +331,9 @@ func (r *GetPrivileges) Header(key, value string) *GetPrivileges {
 	return r
 }
 
-// Application The name of the application. Application privileges are always associated //
+// Application The name of the application. Application privileges are always associated
 // with exactly one application. If you do not specify this parameter, the API
-// // returns information about all privileges for all applications.
+// returns information about all privileges for all applications.
 // API Name: application
 func (r *GetPrivileges) Application(application string) *GetPrivileges {
 	r.paramSet |= applicationMask
@@ -342,7 +342,7 @@ func (r *GetPrivileges) Application(application string) *GetPrivileges {
 	return r
 }
 
-// Name The name of the privilege. If you do not specify this parameter, the API //
+// Name The name of the privilege. If you do not specify this parameter, the API
 // returns information about all privileges for the requested application.
 // API Name: name
 func (r *GetPrivileges) Name(name string) *GetPrivileges {

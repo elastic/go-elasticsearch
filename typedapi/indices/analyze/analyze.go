@@ -323,8 +323,8 @@ func (r *Analyze) Header(key, value string) *Analyze {
 	return r
 }
 
-// Index Index used to derive the analyzer. If specified, the `analyzer` or field //
-// parameter overrides this value. If no index is specified or the index does //
+// Index Index used to derive the analyzer. If specified, the `analyzer` or field
+// parameter overrides this value. If no index is specified or the index does
 // not have a default analyzer, the analyze API uses the standard analyzer.
 // API Name: index
 func (r *Analyze) Index(index string) *Analyze {

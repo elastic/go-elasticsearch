@@ -327,8 +327,8 @@ func (r *PutTrainedModelDefinitionPart) _modelid(modelid string) *PutTrainedMode
 }
 
 // Part The definition part number. When the definition is loaded for inference the
-// // definition parts are streamed in the order of their part number. The first
-// // part must be `0` and the final part must be `total_parts - 1`.
+// definition parts are streamed in the order of their part number. The first
+// part must be `0` and the final part must be `total_parts - 1`.
 // API Name: part
 func (r *PutTrainedModelDefinitionPart) _part(part string) *PutTrainedModelDefinitionPart {
 	r.paramSet |= partMask

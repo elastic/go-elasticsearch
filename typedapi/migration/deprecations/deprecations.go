@@ -309,7 +309,7 @@ func (r *Deprecations) Header(key, value string) *Deprecations {
 	return r
 }
 
-// Index Comma-separate list of data streams or indices to check. Wildcard (*) //
+// Index Comma-separate list of data streams or indices to check. Wildcard (*)
 // expressions are supported.
 // API Name: index
 func (r *Deprecations) Index(index string) *Deprecations {

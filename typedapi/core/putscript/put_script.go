@@ -326,7 +326,7 @@ func (r *PutScript) Header(key, value string) *PutScript {
 	return r
 }
 
-// Id The identifier for the stored script or search template. It must be unique //
+// Id The identifier for the stored script or search template. It must be unique
 // within the cluster.
 // API Name: id
 func (r *PutScript) _id(id string) *PutScript {
@@ -336,7 +336,7 @@ func (r *PutScript) _id(id string) *PutScript {
 	return r
 }
 
-// Context The context in which the script or search template should run. To prevent //
+// Context The context in which the script or search template should run. To prevent
 // errors, the API immediately compiles the script or template in this context.
 // API Name: context
 func (r *PutScript) Context(context string) *PutScript {

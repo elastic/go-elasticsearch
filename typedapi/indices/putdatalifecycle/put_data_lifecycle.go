@@ -310,7 +310,7 @@ func (r *PutDataLifecycle) Header(key, value string) *PutDataLifecycle {
 	return r
 }
 
-// Name Comma-separated list of data streams used to limit the request. Supports //
+// Name Comma-separated list of data streams used to limit the request. Supports
 // wildcards (`*`). To target all data streams use `*` or `_all`.
 // API Name: name
 func (r *PutDataLifecycle) _name(name string) *PutDataLifecycle {

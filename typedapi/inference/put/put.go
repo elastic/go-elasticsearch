@@ -407,7 +407,7 @@ func (r *Put) Header(key, value string) *Put {
 }
 
 // TaskType The task type. Refer to the integration list in the API description for the
-// // available task types.
+// available task types.
 // API Name: tasktype
 func (r *Put) TaskType(tasktype string) *Put {
 	r.paramSet |= tasktypeMask

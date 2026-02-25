@@ -309,7 +309,7 @@ func (r *PutDataStreamOptions) Header(key, value string) *PutDataStreamOptions {
 	return r
 }
 
-// Name Comma-separated list of data streams used to limit the request. Supports //
+// Name Comma-separated list of data streams used to limit the request. Supports
 // wildcards (`*`). To target all data streams use `*` or `_all`.
 // API Name: name
 func (r *PutDataStreamOptions) _name(name string) *PutDataStreamOptions {

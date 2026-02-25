@@ -357,8 +357,8 @@ func (r *ClearCachedServiceTokens) _service(service string) *ClearCachedServiceT
 }
 
 // Name A comma-separated list of token names to evict from the service account token
-// // caches. Use a wildcard (`*`) to evict all tokens that belong to a service
-// // account. It does not support other wildcard patterns.
+// caches. Use a wildcard (`*`) to evict all tokens that belong to a service
+// account. It does not support other wildcard patterns.
 // API Name: name
 func (r *ClearCachedServiceTokens) _name(name string) *ClearCachedServiceTokens {
 	r.paramSet |= nameMask

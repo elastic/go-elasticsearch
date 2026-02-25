@@ -291,11 +291,12 @@ func (r *GetRepository) Header(key, value string) *GetRepository {
 	return r
 }
 
-// Repository A comma-separated list of snapshot repository names used to limit the //
-// request. Wildcard (`*`) expressions are supported including combining //
-// wildcards with exclude patterns starting with `-`. // // To get information
-// about all snapshot repositories registered in the cluster, // omit this
-// parameter or use `*` or `_all`.
+// Repository A comma-separated list of snapshot repository names used to limit the
+// request. Wildcard (`*`) expressions are supported including combining
+// wildcards with exclude patterns starting with `-`.
+//
+// To get information about all snapshot repositories registered in the cluster,
+// omit this parameter or use `*` or `_all`.
 // API Name: repository
 func (r *GetRepository) Repository(repository string) *GetRepository {
 	r.paramSet |= repositoryMask

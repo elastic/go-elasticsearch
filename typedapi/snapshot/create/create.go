@@ -327,7 +327,7 @@ func (r *Create) _repository(repository string) *Create {
 	return r
 }
 
-// Snapshot The name of the snapshot. It supportes date math. It must be unique in the //
+// Snapshot The name of the snapshot. It supportes date math. It must be unique in the
 // repository.
 // API Name: snapshot
 func (r *Create) _snapshot(snapshot string) *Create {

@@ -311,8 +311,8 @@ func (r *Segments) Header(key, value string) *Segments {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases used to limit //
-// the request. Supports wildcards (`*`). To target all data streams and //
+// Index A comma-separated list of data streams, indices, and aliases used to limit
+// the request. Supports wildcards (`*`). To target all data streams and
 // indices, omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *Segments) Index(index string) *Segments {

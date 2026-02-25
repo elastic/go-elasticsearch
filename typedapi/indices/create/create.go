@@ -362,15 +362,21 @@ func (r *Create) Header(key, value string) *Create {
 	return r
 }
 
-// Index Name of the index you wish to create. Index names must meet the following //
-// criteria: // // - Lowercase only // - Cannot include `\`, `/`, `*`, `?`, `"`,
-// `<`, `>`, `|`, ` ` (space // character), `,`, or `#` // - Indices prior to
-// 7.0 could contain a colon (`:`), but that has been // deprecated and will not
-// be supported in later versions // - Cannot start with `-`, `_`, or `+` // -
-// Cannot be `.` or `..` // - Cannot be longer than 255 bytes (note thtat it is
-// bytes, so multi-byte // characters will reach the limit faster) // - Names
-// starting with `.` are deprecated, except for hidden indices and // internal
-// indices managed by plugins
+// Index Name of the index you wish to create. Index names must meet the following
+// criteria:
+//
+//   - Lowercase only
+//   - Cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` ` (space
+//     character), `,`, or `#`
+//   - Indices prior to 7.0 could contain a colon (`:`), but that has been
+//     deprecated and will not be supported in later versions
+//   - Cannot start with `-`, `_`, or `+`
+//   - Cannot be `.` or `..`
+//   - Cannot be longer than 255 bytes (note thtat it is bytes, so multi-byte
+//     characters will reach the limit faster)
+//   - Names starting with `.` are deprecated, except for hidden indices and
+//     internal indices managed by plugins
+//
 // API Name: index
 func (r *Create) _index(index string) *Create {
 	r.paramSet |= indexMask

@@ -318,7 +318,7 @@ func (r *DeleteRule) _rulesetid(rulesetid string) *DeleteRule {
 	return r
 }
 
-// RuleId The unique identifier of the query rule within the specified ruleset to //
+// RuleId The unique identifier of the query rule within the specified ruleset to
 // delete
 // API Name: ruleid
 func (r *DeleteRule) _ruleid(ruleid string) *DeleteRule {

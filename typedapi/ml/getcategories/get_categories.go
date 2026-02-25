@@ -343,10 +343,10 @@ func (r *GetCategories) _jobid(jobid string) *GetCategories {
 	return r
 }
 
-// CategoryId Identifier for the category, which is unique in the job. If you specify //
-// neither the category ID nor the partition_field_value, the API returns //
-// information about all categories. If you specify only the //
-// partition_field_value, it returns information about all categories for the //
+// CategoryId Identifier for the category, which is unique in the job. If you specify
+// neither the category ID nor the partition_field_value, the API returns
+// information about all categories. If you specify only the
+// partition_field_value, it returns information about all categories for the
 // specified partition.
 // API Name: categoryid
 func (r *GetCategories) CategoryId(categoryid string) *GetCategories {

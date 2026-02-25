@@ -296,9 +296,10 @@ func (r *GetTrainedModels) Header(key, value string) *GetTrainedModels {
 	return r
 }
 
-// ModelId The unique identifier of the trained model or a model alias. // // You can
-// get information for multiple trained models in a single API request // by
-// using a comma-separated list of model IDs or a wildcard expression.
+// ModelId The unique identifier of the trained model or a model alias.
+//
+// You can get information for multiple trained models in a single API request
+// by using a comma-separated list of model IDs or a wildcard expression.
 // API Name: modelid
 func (r *GetTrainedModels) ModelId(modelid string) *GetTrainedModels {
 	r.paramSet |= modelidMask

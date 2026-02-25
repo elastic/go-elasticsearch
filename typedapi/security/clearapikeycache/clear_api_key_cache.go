@@ -299,7 +299,7 @@ func (r *ClearApiKeyCache) Header(key, value string) *ClearApiKeyCache {
 }
 
 // Ids Comma-separated list of API key IDs to evict from the API key cache. To evict
-// // all API keys, use `*`. Does not support other wildcard patterns.
+// all API keys, use `*`. Does not support other wildcard patterns.
 // API Name: ids
 func (r *ClearApiKeyCache) _ids(ids string) *ClearApiKeyCache {
 	r.paramSet |= idsMask

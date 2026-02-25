@@ -242,7 +242,7 @@ func (r *ExistsComponentTemplate) Header(key, value string) *ExistsComponentTemp
 }
 
 // Name Comma-separated list of component template names used to limit the request.
-// // Wildcard (*) expressions are supported.
+// Wildcard (*) expressions are supported.
 // API Name: name
 func (r *ExistsComponentTemplate) _name(name string) *ExistsComponentTemplate {
 	r.paramSet |= nameMask

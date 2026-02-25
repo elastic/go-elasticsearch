@@ -536,8 +536,8 @@ func (r *DeleteByQuery) Header(key, value string) *DeleteByQuery {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases to search. It //
-// supports wildcards (`*`). To search all data streams or indices, omit this //
+// Index A comma-separated list of data streams, indices, and aliases to search. It
+// supports wildcards (`*`). To search all data streams or indices, omit this
 // parameter or use `*` or `_all`.
 // API Name: index
 func (r *DeleteByQuery) _index(index string) *DeleteByQuery {

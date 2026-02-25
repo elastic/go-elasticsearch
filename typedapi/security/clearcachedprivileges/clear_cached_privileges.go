@@ -300,7 +300,7 @@ func (r *ClearCachedPrivileges) Header(key, value string) *ClearCachedPrivileges
 	return r
 }
 
-// Application A comma-separated list of applications. To clear all applications, use an //
+// Application A comma-separated list of applications. To clear all applications, use an
 // asterism (`*`). It does not support other wildcard patterns.
 // API Name: application
 func (r *ClearCachedPrivileges) _application(application string) *ClearCachedPrivileges {

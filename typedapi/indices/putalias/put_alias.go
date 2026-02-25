@@ -334,9 +334,9 @@ func (r *PutAlias) Header(key, value string) *PutAlias {
 	return r
 }
 
-// Index Comma-separated list of data streams or indices to add. Supports wildcards //
+// Index Comma-separated list of data streams or indices to add. Supports wildcards
 // (`*`). Wildcard patterns that match both data streams and indices return an
-// // error.
+// error.
 // API Name: index
 func (r *PutAlias) _index(index string) *PutAlias {
 	r.paramSet |= indexMask
@@ -346,7 +346,7 @@ func (r *PutAlias) _index(index string) *PutAlias {
 }
 
 // Name Alias to update. If the alias doesn’t exist, the request creates it. Index
-// // alias names support date math.
+// alias names support date math.
 // API Name: name
 func (r *PutAlias) _name(name string) *PutAlias {
 	r.paramSet |= nameMask

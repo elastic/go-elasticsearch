@@ -306,12 +306,12 @@ func (r *RemoveBlock) Header(key, value string) *RemoveBlock {
 	return r
 }
 
-// Index A comma-separated list or wildcard expression of index names used to limit //
-// the request. By default, you must explicitly name the indices you are //
-// removing blocks from. To allow the removal of blocks from indices with //
-// `_all`, `*`, or other wildcard expressions, change the //
-// `action.destructive_requires_name` setting to `false`. You can update this //
-// setting in the `elasticsearch.yml` file or by using the cluster update //
+// Index A comma-separated list or wildcard expression of index names used to limit
+// the request. By default, you must explicitly name the indices you are
+// removing blocks from. To allow the removal of blocks from indices with
+// `_all`, `*`, or other wildcard expressions, change the
+// `action.destructive_requires_name` setting to `false`. You can update this
+// setting in the `elasticsearch.yml` file or by using the cluster update
 // settings API.
 // API Name: index
 func (r *RemoveBlock) _index(index string) *RemoveBlock {

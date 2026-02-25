@@ -299,7 +299,7 @@ func (r *DeleteDanglingIndex) Header(key, value string) *DeleteDanglingIndex {
 }
 
 // IndexUuid The UUID of the index to delete. Use the get dangling indices API to find the
-// // UUID.
+// UUID.
 // API Name: indexuuid
 func (r *DeleteDanglingIndex) _indexuuid(indexuuid string) *DeleteDanglingIndex {
 	r.paramSet |= indexuuidMask

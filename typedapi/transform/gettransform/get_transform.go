@@ -296,9 +296,8 @@ func (r *GetTransform) Header(key, value string) *GetTransform {
 }
 
 // TransformId Identifier for the transform. It can be a transform identifier or a wildcard
-// // expression. You can get information for all transforms by using `_all`, by
-// // specifying `*` as the `<transform_id>`, or by omitting the
-// `<transform_id>`.
+// expression. You can get information for all transforms by using `_all`, by
+// specifying `*` as the `<transform_id>`, or by omitting the `<transform_id>`.
 // API Name: transformid
 func (r *GetTransform) TransformId(transformid string) *GetTransform {
 	r.paramSet |= transformidMask

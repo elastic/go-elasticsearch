@@ -296,7 +296,7 @@ func (r *ClearCachedRoles) Header(key, value string) *ClearCachedRoles {
 	return r
 }
 
-// Name A comma-separated list of roles to evict from the role cache. To evict all //
+// Name A comma-separated list of roles to evict from the role cache. To evict all
 // roles, use an asterisk (`*`). It does not support other wildcard patterns.
 // API Name: name
 func (r *ClearCachedRoles) _name(name string) *ClearCachedRoles {

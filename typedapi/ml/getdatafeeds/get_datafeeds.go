@@ -307,8 +307,8 @@ func (r *GetDatafeeds) Header(key, value string) *GetDatafeeds {
 	return r
 }
 
-// DatafeedId Identifier for the datafeed. It can be a datafeed identifier or a wildcard //
-// expression. If you do not specify one of these options, the API returns //
+// DatafeedId Identifier for the datafeed. It can be a datafeed identifier or a wildcard
+// expression. If you do not specify one of these options, the API returns
 // information about all datafeeds.
 // API Name: datafeedid
 func (r *GetDatafeeds) DatafeedId(datafeedid string) *GetDatafeeds {

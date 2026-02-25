@@ -299,8 +299,8 @@ func (r *GetMapping) Header(key, value string) *GetMapping {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases used to limit the
-// // request. Supports wildcards (`*`). To target all data streams and indices,
-// // omit this parameter or use `*` or `_all`.
+// request. Supports wildcards (`*`). To target all data streams and indices,
+// omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *GetMapping) Index(index string) *GetMapping {
 	r.paramSet |= indexMask

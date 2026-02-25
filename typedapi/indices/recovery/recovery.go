@@ -361,8 +361,8 @@ func (r *Recovery) Header(key, value string) *Recovery {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases used to limit the
-// // request. Supports wildcards (`*`). To target all data streams and indices,
-// // omit this parameter or use `*` or `_all`.
+// request. Supports wildcards (`*`). To target all data streams and indices,
+// omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *Recovery) Index(index string) *Recovery {
 	r.paramSet |= indexMask

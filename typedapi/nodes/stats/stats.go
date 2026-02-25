@@ -402,7 +402,7 @@ func (r *Stats) Metric(metric string) *Stats {
 	return r
 }
 
-// IndexMetric Limit the information returned for indices metric to the specific index //
+// IndexMetric Limit the information returned for indices metric to the specific index
 // metrics. It can be used only if indices (or all) metric is specified.
 // API Name: indexmetric
 func (r *Stats) IndexMetric(indexmetric string) *Stats {

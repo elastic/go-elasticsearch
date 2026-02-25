@@ -696,7 +696,7 @@ func (r *Index) Header(key, value string) *Index {
 	return r
 }
 
-// Id A unique identifier for the document. To automatically generate a document //
+// Id A unique identifier for the document. To automatically generate a document
 // ID, use the `POST /<target>/_doc/` request format and omit this parameter.
 // API Name: id
 func (r *Index) Id(id string) *Index {
@@ -707,11 +707,10 @@ func (r *Index) Id(id string) *Index {
 }
 
 // Index The name of the data stream or index to target. If the target doesn't exist
-// // and matches the name or wildcard (`*`) pattern of an index template with a
-// // `data_stream` definition, this request creates the data stream. If the
-// target // doesn't exist and doesn't match a data stream template, this
-// request creates // the index. You can check for existing targets with the
-// resolve index API.
+// and matches the name or wildcard (`*`) pattern of an index template with a
+// `data_stream` definition, this request creates the data stream. If the target
+// doesn't exist and doesn't match a data stream template, this request creates
+// the index. You can check for existing targets with the resolve index API.
 // API Name: index
 func (r *Index) _index(index string) *Index {
 	r.paramSet |= indexMask

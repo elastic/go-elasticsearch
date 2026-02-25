@@ -307,7 +307,7 @@ func (r *GetMemoryStats) Header(key, value string) *GetMemoryStats {
 	return r
 }
 
-// NodeId The names of particular nodes in the cluster to target. For example, //
+// NodeId The names of particular nodes in the cluster to target. For example,
 // `nodeId1,nodeId2` or `ml:true`
 // API Name: nodeid
 func (r *GetMemoryStats) NodeId(nodeid string) *GetMemoryStats {

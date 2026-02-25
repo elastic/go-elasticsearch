@@ -297,7 +297,7 @@ func (r *DeleteRepository) Header(key, value string) *DeleteRepository {
 }
 
 // Repository The ame of the snapshot repositories to unregister. Wildcard (`*`) patterns
-// // are supported.
+// are supported.
 // API Name: repository
 func (r *DeleteRepository) _repository(repository string) *DeleteRepository {
 	r.paramSet |= repositoryMask

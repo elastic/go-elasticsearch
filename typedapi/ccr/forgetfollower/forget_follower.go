@@ -349,7 +349,7 @@ func (r *ForgetFollower) Header(key, value string) *ForgetFollower {
 }
 
 // Index Name of the leader index for which specified follower retention leases should
-// // be removed
+// be removed
 // API Name: index
 func (r *ForgetFollower) _index(index string) *ForgetFollower {
 	r.paramSet |= indexMask

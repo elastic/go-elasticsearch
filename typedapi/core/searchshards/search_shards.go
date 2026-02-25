@@ -310,9 +310,9 @@ func (r *SearchShards) Header(key, value string) *SearchShards {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases to search. It //
+// Index A comma-separated list of data streams, indices, and aliases to search. It
 // supports wildcards (`*`). To search all data streams and indices, omit this
-// // parameter or use `*` or `_all`.
+// parameter or use `*` or `_all`.
 // API Name: index
 func (r *SearchShards) Index(index string) *SearchShards {
 	r.paramSet |= indexMask

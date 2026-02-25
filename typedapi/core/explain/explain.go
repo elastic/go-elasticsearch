@@ -330,7 +330,7 @@ func (r *Explain) _id(id string) *Explain {
 }
 
 // Index Index names that are used to limit the request. Only a single index name can
-// // be provided to this parameter.
+// be provided to this parameter.
 // API Name: index
 func (r *Explain) _index(index string) *Explain {
 	r.paramSet |= indexMask

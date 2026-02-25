@@ -311,7 +311,7 @@ func (r *Transforms) Header(key, value string) *Transforms {
 }
 
 // TransformId A transform identifier or a wildcard expression. If you do not specify one of
-// // these options, the API returns information for all transforms.
+// these options, the API returns information for all transforms.
 // API Name: transformid
 func (r *Transforms) TransformId(transformid string) *Transforms {
 	r.paramSet |= transformidMask

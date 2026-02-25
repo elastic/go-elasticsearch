@@ -326,7 +326,7 @@ func (r *PreviewTransform) Header(key, value string) *PreviewTransform {
 }
 
 // TransformId Identifier for the transform to preview. If you specify this path parameter,
-// // you cannot provide transform configuration details in the request body.
+// you cannot provide transform configuration details in the request body.
 // API Name: transformid
 func (r *PreviewTransform) TransformId(transformid string) *PreviewTransform {
 	r.paramSet |= transformidMask

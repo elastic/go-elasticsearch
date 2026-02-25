@@ -294,8 +294,8 @@ func (r *StopTransform) Header(key, value string) *StopTransform {
 	return r
 }
 
-// TransformId Identifier for the transform. To stop multiple transforms, use a //
-// comma-separated list or a wildcard expression. To stop all transforms, use //
+// TransformId Identifier for the transform. To stop multiple transforms, use a
+// comma-separated list or a wildcard expression. To stop all transforms, use
 // `_all` or `*` as the identifier.
 // API Name: transformid
 func (r *StopTransform) _transformid(transformid string) *StopTransform {

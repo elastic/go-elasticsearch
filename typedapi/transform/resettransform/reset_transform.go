@@ -298,9 +298,9 @@ func (r *ResetTransform) Header(key, value string) *ResetTransform {
 	return r
 }
 
-// TransformId Identifier for the transform. This identifier can contain lowercase //
+// TransformId Identifier for the transform. This identifier can contain lowercase
 // alphanumeric characters (a-z and 0-9), hyphens, and underscores. It has a 64
-// // character limit and must start and end with alphanumeric characters.
+// character limit and must start and end with alphanumeric characters.
 // API Name: transformid
 func (r *ResetTransform) _transformid(transformid string) *ResetTransform {
 	r.paramSet |= transformidMask

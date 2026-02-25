@@ -240,7 +240,7 @@ func (r *Exists) Header(key, value string) *Exists {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases. Supports //
+// Index Comma-separated list of data streams, indices, and aliases. Supports
 // wildcards (`*`).
 // API Name: index
 func (r *Exists) _index(index string) *Exists {

@@ -315,8 +315,8 @@ func (r *SimulateTemplate) Header(key, value string) *SimulateTemplate {
 	return r
 }
 
-// Name Name of the index template to simulate. To test a template configuration //
-// before you add it to the cluster, omit this parameter and specify the //
+// Name Name of the index template to simulate. To test a template configuration
+// before you add it to the cluster, omit this parameter and specify the
 // template configuration in the request body.
 // API Name: name
 func (r *SimulateTemplate) Name(name string) *SimulateTemplate {

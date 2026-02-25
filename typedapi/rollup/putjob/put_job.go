@@ -340,13 +340,12 @@ func (r *PutJob) Header(key, value string) *PutJob {
 	return r
 }
 
-// Id Identifier for the rollup job. This can be any alphanumeric string and //
+// Id Identifier for the rollup job. This can be any alphanumeric string and
 // uniquely identifies the data that is associated with the rollup job. The ID
-// // is persistent; it is stored with the rolled up data. If you create a job,
-// let // it run for a while, then delete the job, the data that the job rolled
-// up is // still be associated with this job ID. You cannot create a new job
-// with the // same ID since that could lead to problems with mismatched job
-// configurations.
+// is persistent; it is stored with the rolled up data. If you create a job, let
+// it run for a while, then delete the job, the data that the job rolled up is
+// still be associated with this job ID. You cannot create a new job with the
+// same ID since that could lead to problems with mismatched job configurations.
 // API Name: id
 func (r *PutJob) _id(id string) *PutJob {
 	r.paramSet |= idMask

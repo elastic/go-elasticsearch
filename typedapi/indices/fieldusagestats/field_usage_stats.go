@@ -310,7 +310,7 @@ func (r *FieldUsageStats) Header(key, value string) *FieldUsageStats {
 }
 
 // Index Comma-separated list or wildcard expression of index names used to limit the
-// // request.
+// request.
 // API Name: index
 func (r *FieldUsageStats) _index(index string) *FieldUsageStats {
 	r.paramSet |= indexMask

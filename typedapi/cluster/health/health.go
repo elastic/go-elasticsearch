@@ -330,8 +330,8 @@ func (r *Health) Header(key, value string) *Health {
 }
 
 // Index A comma-separated list of data streams, indices, and index aliases that limit
-// // the request. Wildcard expressions (`*`) are supported. To target all data
-// // streams and indices in a cluster, omit this parameter or use _all or `*`.
+// the request. Wildcard expressions (`*`) are supported. To target all data
+// streams and indices in a cluster, omit this parameter or use _all or `*`.
 // API Name: index
 func (r *Health) Index(index string) *Health {
 	r.paramSet |= indexMask

@@ -302,8 +302,7 @@ func (r *GetPipeline) Header(key, value string) *GetPipeline {
 }
 
 // Id Comma-separated list of pipeline IDs to retrieve. Wildcard (`*`) expressions
-// // are supported. To get all ingest pipelines, omit this parameter or use
-// `*`.
+// are supported. To get all ingest pipelines, omit this parameter or use `*`.
 // API Name: id
 func (r *GetPipeline) Id(id string) *GetPipeline {
 	r.paramSet |= idMask

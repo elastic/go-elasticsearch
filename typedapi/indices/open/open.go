@@ -352,12 +352,11 @@ func (r *Open) Header(key, value string) *Open {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases used to limit the
-// // request. Supports wildcards (`*`). By default, you must explicitly name
-// the // indices you using to limit the request. To limit a request using
-// `_all`, `*`, // or other wildcard expressions, change the
-// `action.destructive_requires_name` // setting to false. You can update this
-// setting in the `elasticsearch.yml` file // or using the cluster update
-// settings API.
+// request. Supports wildcards (`*`). By default, you must explicitly name the
+// indices you using to limit the request. To limit a request using `_all`, `*`,
+// or other wildcard expressions, change the `action.destructive_requires_name`
+// setting to false. You can update this setting in the `elasticsearch.yml` file
+// or using the cluster update settings API.
 // API Name: index
 func (r *Open) _index(index string) *Open {
 	r.paramSet |= indexMask

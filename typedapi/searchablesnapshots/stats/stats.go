@@ -296,7 +296,7 @@ func (r *Stats) Header(key, value string) *Stats {
 	return r
 }
 
-// Index A comma-separated list of data streams and indices to retrieve statistics //
+// Index A comma-separated list of data streams and indices to retrieve statistics
 // for.
 // API Name: index
 func (r *Stats) Index(index string) *Stats {

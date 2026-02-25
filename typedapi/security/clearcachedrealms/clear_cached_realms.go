@@ -311,7 +311,7 @@ func (r *ClearCachedRealms) Header(key, value string) *ClearCachedRealms {
 }
 
 // Realms A comma-separated list of realms. To clear all realms, use an asterisk (`*`).
-// // It does not support other wildcard patterns.
+// It does not support other wildcard patterns.
 // API Name: realms
 func (r *ClearCachedRealms) _realms(realms string) *ClearCachedRealms {
 	r.paramSet |= realmsMask

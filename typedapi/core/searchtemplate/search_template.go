@@ -313,7 +313,7 @@ func (r *SearchTemplate) Header(key, value string) *SearchTemplate {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases to search. It //
+// Index A comma-separated list of data streams, indices, and aliases to search. It
 // supports wildcards (`*`).
 // API Name: index
 func (r *SearchTemplate) Index(index string) *SearchTemplate {

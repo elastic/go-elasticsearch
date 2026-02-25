@@ -300,9 +300,9 @@ func (r *GetJobStats) Header(key, value string) *GetJobStats {
 }
 
 // JobId Identifier for the anomaly detection job. It can be a job identifier, a group
-// // name, a comma-separated list of jobs, or a wildcard expression. If you do
-// not // specify one of these options, the API returns information for all
-// anomaly // detection jobs.
+// name, a comma-separated list of jobs, or a wildcard expression. If you do not
+// specify one of these options, the API returns information for all anomaly
+// detection jobs.
 // API Name: jobid
 func (r *GetJobStats) JobId(jobid string) *GetJobStats {
 	r.paramSet |= jobidMask

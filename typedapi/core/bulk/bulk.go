@@ -615,7 +615,7 @@ func (r *Bulk) Header(key, value string) *Bulk {
 	return r
 }
 
-// Index The name of the data stream, index, or index alias to perform bulk actions //
+// Index The name of the data stream, index, or index alias to perform bulk actions
 // on.
 // API Name: index
 func (r *Bulk) Index(index string) *Bulk {

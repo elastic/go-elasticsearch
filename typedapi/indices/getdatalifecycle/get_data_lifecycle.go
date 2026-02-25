@@ -296,8 +296,7 @@ func (r *GetDataLifecycle) Header(key, value string) *GetDataLifecycle {
 }
 
 // Name Comma-separated list of data streams to limit the request. Supports wildcards
-// // (`*`). To target all data streams, omit this parameter or use `*` or
-// `_all`.
+// (`*`). To target all data streams, omit this parameter or use `*` or `_all`.
 // API Name: name
 func (r *GetDataLifecycle) _name(name string) *GetDataLifecycle {
 	r.paramSet |= nameMask

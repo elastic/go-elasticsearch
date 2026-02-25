@@ -297,8 +297,7 @@ func (r *GetDataStream) Header(key, value string) *GetDataStream {
 }
 
 // Name Comma-separated list of data stream names used to limit the request. Wildcard
-// // (`*`) expressions are supported. If omitted, all data streams are
-// returned.
+// (`*`) expressions are supported. If omitted, all data streams are returned.
 // API Name: name
 func (r *GetDataStream) Name(name string) *GetDataStream {
 	r.paramSet |= nameMask

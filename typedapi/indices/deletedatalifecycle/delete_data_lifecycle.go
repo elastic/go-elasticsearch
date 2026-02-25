@@ -297,7 +297,7 @@ func (r *DeleteDataLifecycle) Header(key, value string) *DeleteDataLifecycle {
 	return r
 }
 
-// Name A comma-separated list of data streams of which the data stream lifecycle //
+// Name A comma-separated list of data streams of which the data stream lifecycle
 // will be deleted. Use `*` to get all data streams
 // API Name: name
 func (r *DeleteDataLifecycle) _name(name string) *DeleteDataLifecycle {

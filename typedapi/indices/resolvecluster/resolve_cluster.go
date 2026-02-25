@@ -447,10 +447,10 @@ func (r *ResolveCluster) Header(key, value string) *ResolveCluster {
 }
 
 // Name A comma-separated list of names or index patterns for the indices, aliases,
-// // and data streams to resolve. Resources on remote clusters can be specified
-// // using the `<cluster>`:`<name>` syntax. Index and cluster exclusions (e.g.,
-// // `-cluster1:*`) are also supported. If no index expression is specified, //
-// information about all remote clusters configured on the local cluster is //
+// and data streams to resolve. Resources on remote clusters can be specified
+// using the `<cluster>`:`<name>` syntax. Index and cluster exclusions (e.g.,
+// `-cluster1:*`) are also supported. If no index expression is specified,
+// information about all remote clusters configured on the local cluster is
 // returned without doing any index matching
 // API Name: name
 func (r *ResolveCluster) Name(name string) *ResolveCluster {

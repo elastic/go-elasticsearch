@@ -335,7 +335,7 @@ func (r *PutRule) Header(key, value string) *PutRule {
 }
 
 // RulesetId The unique identifier of the query ruleset containing the rule to be created
-// // or updated.
+// or updated.
 // API Name: rulesetid
 func (r *PutRule) _rulesetid(rulesetid string) *PutRule {
 	r.paramSet |= rulesetidMask
@@ -344,7 +344,7 @@ func (r *PutRule) _rulesetid(rulesetid string) *PutRule {
 	return r
 }
 
-// RuleId The unique identifier of the query rule within the specified ruleset to be //
+// RuleId The unique identifier of the query rule within the specified ruleset to be
 // created or updated.
 // API Name: ruleid
 func (r *PutRule) _ruleid(ruleid string) *PutRule {

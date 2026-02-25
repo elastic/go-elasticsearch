@@ -345,8 +345,8 @@ func (r *RevertModelSnapshot) _jobid(jobid string) *RevertModelSnapshot {
 }
 
 // SnapshotId You can specify `empty` as the <snapshot_id>. Reverting to the empty snapshot
-// // means the anomaly detection job starts learning a new model from scratch
-// when // it is started.
+// means the anomaly detection job starts learning a new model from scratch when
+// it is started.
 // API Name: snapshotid
 func (r *RevertModelSnapshot) _snapshotid(snapshotid string) *RevertModelSnapshot {
 	r.paramSet |= snapshotidMask
