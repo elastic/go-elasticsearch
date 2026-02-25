@@ -31,7 +31,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indicatorhealthstatus"
 )
 
-// FileSettingsIndicator type.
+// FILE_SETTINGS
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/health_report/types.ts#L208-L212
 type FileSettingsIndicator struct {

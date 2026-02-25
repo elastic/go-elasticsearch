@@ -34,13 +34,12 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/abstractions.ts#L508-L517
 type WrapperQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
-	// Query A base64 encoded query.
-	// The binary data format can be any of JSON, YAML, CBOR or SMILE encodings
+	// Query A base64 encoded query. The binary data format can be any of JSON, YAML, CBOR
+	// or SMILE encodings
 	Query      string  `json:"query"`
 	QueryName_ *string `json:"_name,omitempty"`
 }

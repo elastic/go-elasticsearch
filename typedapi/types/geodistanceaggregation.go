@@ -39,7 +39,7 @@ type GeoDistanceAggregation struct {
 	DistanceType *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
 	// Field A field of type `geo_point` used to evaluate the distance.
 	Field *string `json:"field,omitempty"`
-	// Origin The origin  used to evaluate the distance.
+	// Origin The origin used to evaluate the distance.
 	Origin GeoLocation `json:"origin,omitempty"`
 	// Ranges An array of ranges used to bucket documents.
 	Ranges []AggregationRange `json:"ranges,omitempty"`

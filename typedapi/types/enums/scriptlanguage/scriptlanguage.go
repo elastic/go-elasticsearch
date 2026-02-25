@@ -29,12 +29,18 @@ type ScriptLanguage struct {
 }
 
 var (
+
+	// Painless Painless scripting language, purpose-built for Elasticsearch.
 	Painless = ScriptLanguage{"painless"}
 
+	// Expression Lucene’s expressions language, compiles a JavaScript expression to
+	// bytecode.
 	Expression = ScriptLanguage{"expression"}
 
+	// Mustache Mustache templated, used for templates.
 	Mustache = ScriptLanguage{"mustache"}
 
+	// Java Expert Java API
 	Java = ScriptLanguage{"java"}
 )
 

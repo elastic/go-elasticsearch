@@ -20,12 +20,11 @@
 
 // Update the connector API key ID.
 //
-// Update the `api_key_id` and `api_key_secret_id` fields of a connector.
-// You can specify the ID of the API key used for authorization and the ID of
-// the connector secret where the API key is stored.
-// The connector secret ID is required only for Elastic managed (native)
-// connectors.
-// Self-managed connectors (connector clients) do not use this field.
+// Update the `api_key_id` and `api_key_secret_id` fields of a connector. You
+// can specify the ID of the API key used for authorization and the ID of the
+// connector secret where the API key is stored. The connector secret ID is
+// required only for Elastic managed (native) connectors. Self-managed
+// connectors (connector clients) do not use this field.
 package updateapikeyid
 
 import (
@@ -90,12 +89,11 @@ func NewUpdateApiKeyIdFunc(tp elastictransport.Interface) NewUpdateApiKeyId {
 
 // Update the connector API key ID.
 //
-// Update the `api_key_id` and `api_key_secret_id` fields of a connector.
-// You can specify the ID of the API key used for authorization and the ID of
-// the connector secret where the API key is stored.
-// The connector secret ID is required only for Elastic managed (native)
-// connectors.
-// Self-managed connectors (connector clients) do not use this field.
+// Update the `api_key_id` and `api_key_secret_id` fields of a connector. You
+// can specify the ID of the API key used for authorization and the ID of the
+// connector secret where the API key is stored. The connector secret ID is
+// required only for Elastic managed (native) connectors. Self-managed
+// connectors (connector clients) do not use this field.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-api-key-id
 func New(tp elastictransport.Interface) *UpdateApiKeyId {
@@ -350,11 +348,9 @@ func (r *UpdateApiKeyId) FilterPath(filterpaths ...string) *UpdateApiKeyId {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateApiKeyId) Human(human bool) *UpdateApiKeyId {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -362,8 +358,8 @@ func (r *UpdateApiKeyId) Human(human bool) *UpdateApiKeyId {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateApiKeyId) Pretty(pretty bool) *UpdateApiKeyId {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -41,10 +41,9 @@ type Request struct {
 	// also be specified as an HTTP parameter.
 	IgnoreCondition *bool `json:"ignore_condition,omitempty"`
 	// RecordExecution When set to `true`, the watch record representing the watch execution result
-	// is persisted to the `.watcher-history` index for the current time.
-	// In addition, the status of the watch is updated, possibly throttling
-	// subsequent runs.
-	// This can also be specified as an HTTP parameter.
+	// is persisted to the `.watcher-history` index for the current time. In
+	// addition, the status of the watch is updated, possibly throttling subsequent
+	// runs. This can also be specified as an HTTP parameter.
 	RecordExecution  *bool                   `json:"record_execution,omitempty"`
 	SimulatedActions *types.SimulatedActions `json:"simulated_actions,omitempty"`
 	// TriggerData This structure is parsed as the data of the trigger event that will be used

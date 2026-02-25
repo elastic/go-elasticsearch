@@ -21,11 +21,10 @@
 // Update data stream mappings.
 //
 // This API can be used to override mappings on specific data streams. These
-// overrides will take precedence over what
-// is specified in the template that the data stream matches. The mapping change
-// is only applied to new write indices
-// that are created during rollover after this API is called. No indices are
-// changed by this API.
+// overrides will take precedence over what is specified in the template that
+// the data stream matches. The mapping change is only applied to new write
+// indices that are created during rollover after this API is called. No indices
+// are changed by this API.
 package putdatastreammappings
 
 import (
@@ -93,11 +92,10 @@ func NewPutDataStreamMappingsFunc(tp elastictransport.Interface) NewPutDataStrea
 // Update data stream mappings.
 //
 // This API can be used to override mappings on specific data streams. These
-// overrides will take precedence over what
-// is specified in the template that the data stream matches. The mapping change
-// is only applied to new write indices
-// that are created during rollover after this API is called. No indices are
-// changed by this API.
+// overrides will take precedence over what is specified in the template that
+// the data stream matches. The mapping change is only applied to new write
+// indices that are created during rollover after this API is called. No indices
+// are changed by this API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-mappings
 func New(tp elastictransport.Interface) *PutDataStreamMappings {
@@ -324,10 +322,8 @@ func (r *PutDataStreamMappings) _name(name string) *PutDataStreamMappings {
 }
 
 // DryRun If `true`, the request does not actually change the mappings on any data
-// streams. Instead, it
-// simulates changing the settings and reports back to the user what would have
-// happened had these settings
-// actually been applied.
+// streams. Instead, it simulates changing the settings and reports back to the
+// user what would have happened had these settings actually been applied.
 // API name: dry_run
 func (r *PutDataStreamMappings) DryRun(dryrun bool) *PutDataStreamMappings {
 	r.values.Set("dry_run", strconv.FormatBool(dryrun))
@@ -336,8 +332,7 @@ func (r *PutDataStreamMappings) DryRun(dryrun bool) *PutDataStreamMappings {
 }
 
 // MasterTimeout The period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an
-// error.
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *PutDataStreamMappings) MasterTimeout(duration string) *PutDataStreamMappings {
 	r.values.Set("master_timeout", duration)
@@ -346,9 +341,7 @@ func (r *PutDataStreamMappings) MasterTimeout(duration string) *PutDataStreamMap
 }
 
 // Timeout The period to wait for a response. If no response is received before the
-//
-//	timeout expires, the request fails and returns an error.
-//
+// timeout expires, the request fails and returns an error.
 // API name: timeout
 func (r *PutDataStreamMappings) Timeout(duration string) *PutDataStreamMappings {
 	r.values.Set("timeout", duration)
@@ -379,11 +372,9 @@ func (r *PutDataStreamMappings) FilterPath(filterpaths ...string) *PutDataStream
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutDataStreamMappings) Human(human bool) *PutDataStreamMappings {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -391,8 +382,8 @@ func (r *PutDataStreamMappings) Human(human bool) *PutDataStreamMappings {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutDataStreamMappings) Pretty(pretty bool) *PutDataStreamMappings {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

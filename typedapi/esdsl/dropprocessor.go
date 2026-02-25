@@ -26,9 +26,8 @@ type _dropProcessor struct {
 	v *types.DropProcessor
 }
 
-// Drops the document without raising any errors.
-// This is useful to prevent the document from getting indexed based on some
-// condition.
+// Drops the document without raising any errors. This is useful to prevent the
+// document from getting indexed based on some condition.
 func NewDropProcessor() *_dropProcessor {
 
 	return &_dropProcessor{v: types.NewDropProcessor()}

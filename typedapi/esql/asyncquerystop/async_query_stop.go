@@ -20,8 +20,8 @@
 
 // Stop async ES|QL query.
 //
-// This API interrupts the query execution and returns the results so far.
-// If the Elasticsearch security features are enabled, only the user who first
+// This API interrupts the query execution and returns the results so far. If
+// the Elasticsearch security features are enabled, only the user who first
 // submitted the ES|QL query can stop it.
 package asyncquerystop
 
@@ -82,8 +82,8 @@ func NewAsyncQueryStopFunc(tp elastictransport.Interface) NewAsyncQueryStop {
 
 // Stop async ES|QL query.
 //
-// This API interrupts the query execution and returns the results so far.
-// If the Elasticsearch security features are enabled, only the user who first
+// This API interrupts the query execution and returns the results so far. If
+// the Elasticsearch security features are enabled, only the user who first
 // submitted the ES|QL query can stop it.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-stop
@@ -300,11 +300,10 @@ func (r *AsyncQueryStop) Header(key, value string) *AsyncQueryStop {
 	return r
 }
 
-// Id The unique identifier of the query.
-// A query ID is provided in the ES|QL async query API response for a query that
-// does not complete in the designated time.
-// A query ID is also provided when the request was submitted with the
-// `keep_on_completion` parameter set to `true`.
+// Id The unique identifier of the query. A query ID is provided in the ES|QL async
+// // query API response for a query that does not complete in the designated
+// time. // A query ID is also provided when the request was submitted with the
+// // `keep_on_completion` parameter set to `true`.
 // API Name: id
 func (r *AsyncQueryStop) _id(id string) *AsyncQueryStop {
 	r.paramSet |= idMask
@@ -314,9 +313,9 @@ func (r *AsyncQueryStop) _id(id string) *AsyncQueryStop {
 }
 
 // DropNullColumns Indicates whether columns that are entirely `null` will be removed from the
-// `columns` and `values` portion of the results.
-// If `true`, the response will include an extra section under the name
-// `all_columns` which has the name of all the columns.
+// `columns` and `values` portion of the results. If `true`, the response will
+// include an extra section under the name `all_columns` which has the name of
+// all the columns.
 // API name: drop_null_columns
 func (r *AsyncQueryStop) DropNullColumns(dropnullcolumns bool) *AsyncQueryStop {
 	r.values.Set("drop_null_columns", strconv.FormatBool(dropnullcolumns))
@@ -347,11 +346,9 @@ func (r *AsyncQueryStop) FilterPath(filterpaths ...string) *AsyncQueryStop {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *AsyncQueryStop) Human(human bool) *AsyncQueryStop {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -359,8 +356,8 @@ func (r *AsyncQueryStop) Human(human bool) *AsyncQueryStop {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *AsyncQueryStop) Pretty(pretty bool) *AsyncQueryStop {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

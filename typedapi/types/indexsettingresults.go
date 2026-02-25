@@ -25,13 +25,12 @@ package types
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/put_data_stream_settings/IndicesPutDataStreamSettingsResponse.ts#L57-L69
 type IndexSettingResults struct {
 	// AppliedToDataStreamAndBackingIndices The list of settings that were applied to the data stream and to all of its
-	// backing indices. These settings will
-	// also be applied to the write index the next time the data stream is rolled
-	// over.
+	// backing indices. These settings will also be applied to the write index the
+	// next time the data stream is rolled over.
 	AppliedToDataStreamAndBackingIndices []string `json:"applied_to_data_stream_and_backing_indices"`
 	// AppliedToDataStreamOnly The list of settings that were applied to the data stream but not to backing
-	// indices. These will be applied to
-	// the write index the next time the data stream is rolled over.
+	// indices. These will be applied to the write index the next time the data
+	// stream is rolled over.
 	AppliedToDataStreamOnly []string                  `json:"applied_to_data_stream_only"`
 	Errors                  []DataStreamSettingsError `json:"errors,omitempty"`
 }

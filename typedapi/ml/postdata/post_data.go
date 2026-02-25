@@ -21,9 +21,11 @@
 // Send data to an anomaly detection job for analysis.
 //
 // IMPORTANT: For each job, data can be accepted from only a single connection
-// at a time.
-// It is not currently possible to post data to multiple jobs using wildcards or
-// a comma-separated list.
+// at a time. It is not currently possible to post data to multiple jobs using
+// wildcards or a comma-separated list.
+//
+// Deprecated: Since 7.11.0. Posting data directly to anomaly detection jobs is
+// deprecated, in a future major version a datafeed will be required.
 package postdata
 
 import (
@@ -89,11 +91,13 @@ func NewPostDataFunc(tp elastictransport.Interface) NewPostData {
 // Send data to an anomaly detection job for analysis.
 //
 // IMPORTANT: For each job, data can be accepted from only a single connection
-// at a time.
-// It is not currently possible to post data to multiple jobs using wildcards or
-// a comma-separated list.
+// at a time. It is not currently possible to post data to multiple jobs using
+// wildcards or a comma-separated list.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-data
+//
+// Deprecated: Since 7.11.0. Posting data directly to anomaly detection jobs is
+// deprecated, in a future major version a datafeed will be required.
 func New(tp elastictransport.Interface) *PostData {
 	r := &PostData{
 		transport: tp,
@@ -322,7 +326,7 @@ func (r *PostData) Header(key, value string) *PostData {
 }
 
 // JobId Identifier for the anomaly detection job. The job must have a state of open
-// to receive and process the data.
+// // to receive and process the data.
 // API Name: jobid
 func (r *PostData) _jobid(jobid string) *PostData {
 	r.paramSet |= jobidMask
@@ -370,11 +374,9 @@ func (r *PostData) FilterPath(filterpaths ...string) *PostData {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PostData) Human(human bool) *PostData {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +384,8 @@ func (r *PostData) Human(human bool) *PostData {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PostData) Pretty(pretty bool) *PostData {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

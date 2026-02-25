@@ -21,23 +21,20 @@
 // Start datafeeds.
 //
 // A datafeed must be started in order to retrieve data from Elasticsearch. A
-// datafeed can be started and stopped
-// multiple times throughout its lifecycle.
+// datafeed can be started and stopped multiple times throughout its lifecycle.
 //
 // Before you can start a datafeed, the anomaly detection job must be open.
 // Otherwise, an error occurs.
 //
 // If you restart a stopped datafeed, it continues processing input data from
-// the next millisecond after it was stopped.
-// If new data was indexed for that exact millisecond between stopping and
-// starting, it will be ignored.
+// the next millisecond after it was stopped. If new data was indexed for that
+// exact millisecond between stopping and starting, it will be ignored.
 //
 // When Elasticsearch security features are enabled, your datafeed remembers
-// which roles the last user to create or
-// update it had at the time of creation or update and runs the query using
-// those same roles. If you provided secondary
-// authorization headers when you created or updated the datafeed, those
-// credentials are used instead.
+// which roles the last user to create or update it had at the time of creation
+// or update and runs the query using those same roles. If you provided
+// secondary authorization headers when you created or updated the datafeed,
+// those credentials are used instead.
 package startdatafeed
 
 import (
@@ -103,23 +100,20 @@ func NewStartDatafeedFunc(tp elastictransport.Interface) NewStartDatafeed {
 // Start datafeeds.
 //
 // A datafeed must be started in order to retrieve data from Elasticsearch. A
-// datafeed can be started and stopped
-// multiple times throughout its lifecycle.
+// datafeed can be started and stopped multiple times throughout its lifecycle.
 //
 // Before you can start a datafeed, the anomaly detection job must be open.
 // Otherwise, an error occurs.
 //
 // If you restart a stopped datafeed, it continues processing input data from
-// the next millisecond after it was stopped.
-// If new data was indexed for that exact millisecond between stopping and
-// starting, it will be ignored.
+// the next millisecond after it was stopped. If new data was indexed for that
+// exact millisecond between stopping and starting, it will be ignored.
 //
 // When Elasticsearch security features are enabled, your datafeed remembers
-// which roles the last user to create or
-// update it had at the time of creation or update and runs the query using
-// those same roles. If you provided secondary
-// authorization headers when you created or updated the datafeed, those
-// credentials are used instead.
+// which roles the last user to create or update it had at the time of creation
+// or update and runs the query using those same roles. If you provided
+// secondary authorization headers when you created or updated the datafeed,
+// those credentials are used instead.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-datafeed
 func New(tp elastictransport.Interface) *StartDatafeed {
@@ -344,11 +338,9 @@ func (r *StartDatafeed) Header(key, value string) *StartDatafeed {
 	return r
 }
 
-// DatafeedId A numerical character string that uniquely identifies the datafeed. This
-// identifier can contain lowercase
-// alphanumeric characters (a-z and 0-9), hyphens, and underscores. It must
-// start and end with alphanumeric
-// characters.
+// DatafeedId A numerical character string that uniquely identifies the datafeed. This //
+// identifier can contain lowercase alphanumeric characters (a-z and 0-9), //
+// hyphens, and underscores. It must start and end with alphanumeric characters.
 // API Name: datafeedid
 func (r *StartDatafeed) _datafeedid(datafeedid string) *StartDatafeed {
 	r.paramSet |= datafeedidMask
@@ -380,11 +372,9 @@ func (r *StartDatafeed) FilterPath(filterpaths ...string) *StartDatafeed {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *StartDatafeed) Human(human bool) *StartDatafeed {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -392,8 +382,8 @@ func (r *StartDatafeed) Human(human bool) *StartDatafeed {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *StartDatafeed) Pretty(pretty bool) *StartDatafeed {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

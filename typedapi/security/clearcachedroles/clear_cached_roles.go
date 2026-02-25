@@ -296,9 +296,8 @@ func (r *ClearCachedRoles) Header(key, value string) *ClearCachedRoles {
 	return r
 }
 
-// Name A comma-separated list of roles to evict from the role cache.
-// To evict all roles, use an asterisk (`*`).
-// It does not support other wildcard patterns.
+// Name A comma-separated list of roles to evict from the role cache. To evict all //
+// roles, use an asterisk (`*`). It does not support other wildcard patterns.
 // API Name: name
 func (r *ClearCachedRoles) _name(name string) *ClearCachedRoles {
 	r.paramSet |= nameMask
@@ -330,11 +329,9 @@ func (r *ClearCachedRoles) FilterPath(filterpaths ...string) *ClearCachedRoles {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ClearCachedRoles) Human(human bool) *ClearCachedRoles {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -342,8 +339,8 @@ func (r *ClearCachedRoles) Human(human bool) *ClearCachedRoles {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ClearCachedRoles) Pretty(pretty bool) *ClearCachedRoles {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

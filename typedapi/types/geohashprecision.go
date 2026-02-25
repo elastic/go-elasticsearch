@@ -25,6 +25,9 @@ package types
 //	int
 //	string
 //
+// A precision that can be expressed as a geohash length between 1 and 12, or a
+// distance measure like "1km", "10m".
+//
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/Geo.ts#L86-L90
 type GeoHashPrecision any
 

@@ -33,15 +33,14 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/cat/allocation/types.ts#L25-L99
 type AllocationRecord struct {
-	// DiskAvail Free disk space available to Elasticsearch.
-	// Elasticsearch retrieves this metric from the node’s operating system.
-	// Disk-based shard allocation uses this metric to assign shards to nodes based
-	// on available disk space.
+	// DiskAvail Free disk space available to Elasticsearch. Elasticsearch retrieves this
+	// metric from the node’s operating system. Disk-based shard allocation uses
+	// this metric to assign shards to nodes based on available disk space.
 	DiskAvail ByteSize `json:"disk.avail,omitempty"`
 	// DiskIndices Disk space used by the node’s shards. Does not include disk space for the
-	// translog or unassigned shards.
-	// IMPORTANT: This metric double-counts disk space for hard-linked files, such
-	// as those created when shrinking, splitting, or cloning an index.
+	// translog or unassigned shards. IMPORTANT: This metric double-counts disk
+	// space for hard-linked files, such as those created when shrinking, splitting,
+	// or cloning an index.
 	DiskIndices ByteSize `json:"disk.indices,omitempty"`
 	// DiskIndicesForecast Sum of shard size forecasts
 	DiskIndicesForecast ByteSize `json:"disk.indices.forecast,omitempty"`
@@ -50,13 +49,12 @@ type AllocationRecord struct {
 	DiskPercent Percentage `json:"disk.percent,omitempty"`
 	// DiskTotal Total disk space for the node, including in-use and available space.
 	DiskTotal ByteSize `json:"disk.total,omitempty"`
-	// DiskUsed Total disk space in use.
-	// Elasticsearch retrieves this metric from the node’s operating system (OS).
-	// The metric includes disk space for: Elasticsearch, including the translog and
-	// unassigned shards; the node’s operating system; any other applications or
-	// files on the node.
-	// Unlike `disk.indices`, this metric does not double-count disk space for
-	// hard-linked files.
+	// DiskUsed Total disk space in use. Elasticsearch retrieves this metric from the
+	// node’s operating system (OS). The metric includes disk space for:
+	// Elasticsearch, including the translog and unassigned shards; the node’s
+	// operating system; any other applications or files on the node. Unlike
+	// `disk.indices`, this metric does not double-count disk space for hard-linked
+	// files.
 	DiskUsed ByteSize `json:"disk.used,omitempty"`
 	// Host Network host for the node. Set using the `network.host` setting.
 	Host *string `json:"host,omitempty"`

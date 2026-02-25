@@ -303,9 +303,9 @@ func (r *GetGeoipDatabase) Header(key, value string) *GetGeoipDatabase {
 	return r
 }
 
-// Id A comma-separated list of database configuration IDs to retrieve.
-// Wildcard (`*`) expressions are supported.
-// To get all database configurations, omit this parameter or use `*`.
+// Id A comma-separated list of database configuration IDs to retrieve. Wildcard //
+// (`*`) expressions are supported. To get all database configurations, omit //
+// this parameter or use `*`.
 // API Name: id
 func (r *GetGeoipDatabase) Id(id string) *GetGeoipDatabase {
 	r.paramSet |= idMask
@@ -337,11 +337,9 @@ func (r *GetGeoipDatabase) FilterPath(filterpaths ...string) *GetGeoipDatabase {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetGeoipDatabase) Human(human bool) *GetGeoipDatabase {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -349,8 +347,8 @@ func (r *GetGeoipDatabase) Human(human bool) *GetGeoipDatabase {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetGeoipDatabase) Pretty(pretty bool) *GetGeoipDatabase {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -24,27 +24,24 @@
 // triggering logic or to simulate the watch execution for debugging purposes.
 //
 // For testing and debugging purposes, you also have fine-grained control on how
-// the watch runs.
-// You can run the watch without running all of its actions or alternatively by
-// simulating them.
-// You can also force execution by ignoring the watch condition and control
-// whether a watch record would be written to the watch history after it runs.
+// the watch runs. You can run the watch without running all of its actions or
+// alternatively by simulating them. You can also force execution by ignoring
+// the watch condition and control whether a watch record would be written to
+// the watch history after it runs.
 //
 // You can use the run watch API to run watches that are not yet registered by
-// specifying the watch definition inline.
-// This serves as great tool for testing and debugging your watches prior to
-// adding them to Watcher.
+// specifying the watch definition inline. This serves as great tool for testing
+// and debugging your watches prior to adding them to Watcher.
 //
 // When Elasticsearch security features are enabled on your cluster, watches are
-// run with the privileges of the user that stored the watches.
-// If your user is allowed to read index `a`, but not index `b`, then the exact
-// same set of rules will apply during execution of a watch.
+// run with the privileges of the user that stored the watches. If your user is
+// allowed to read index `a`, but not index `b`, then the exact same set of
+// rules will apply during execution of a watch.
 //
 // When using the run watch API, the authorization data of the user that called
 // the API will be used as a base, instead of the information who stored the
-// watch.
-// Refer to the external documentation for examples of watch execution requests,
-// including existing, customized, and inline watches.
+// watch. Refer to the external documentation for examples of watch execution
+// requests, including existing, customized, and inline watches.
 package executewatch
 
 import (
@@ -112,27 +109,24 @@ func NewExecuteWatchFunc(tp elastictransport.Interface) NewExecuteWatch {
 // triggering logic or to simulate the watch execution for debugging purposes.
 //
 // For testing and debugging purposes, you also have fine-grained control on how
-// the watch runs.
-// You can run the watch without running all of its actions or alternatively by
-// simulating them.
-// You can also force execution by ignoring the watch condition and control
-// whether a watch record would be written to the watch history after it runs.
+// the watch runs. You can run the watch without running all of its actions or
+// alternatively by simulating them. You can also force execution by ignoring
+// the watch condition and control whether a watch record would be written to
+// the watch history after it runs.
 //
 // You can use the run watch API to run watches that are not yet registered by
-// specifying the watch definition inline.
-// This serves as great tool for testing and debugging your watches prior to
-// adding them to Watcher.
+// specifying the watch definition inline. This serves as great tool for testing
+// and debugging your watches prior to adding them to Watcher.
 //
 // When Elasticsearch security features are enabled on your cluster, watches are
-// run with the privileges of the user that stored the watches.
-// If your user is allowed to read index `a`, but not index `b`, then the exact
-// same set of rules will apply during execution of a watch.
+// run with the privileges of the user that stored the watches. If your user is
+// allowed to read index `a`, but not index `b`, then the exact same set of
+// rules will apply during execution of a watch.
 //
 // When using the run watch API, the authorization data of the user that called
 // the API will be used as a base, instead of the information who stored the
-// watch.
-// Refer to the external documentation for examples of watch execution requests,
-// including existing, customized, and inline watches.
+// watch. Refer to the external documentation for examples of watch execution
+// requests, including existing, customized, and inline watches.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-execute-watch
 func New(tp elastictransport.Interface) *ExecuteWatch {
@@ -406,11 +400,9 @@ func (r *ExecuteWatch) FilterPath(filterpaths ...string) *ExecuteWatch {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ExecuteWatch) Human(human bool) *ExecuteWatch {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -418,8 +410,8 @@ func (r *ExecuteWatch) Human(human bool) *ExecuteWatch {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ExecuteWatch) Pretty(pretty bool) *ExecuteWatch {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -503,10 +495,9 @@ func (r *ExecuteWatch) IgnoreCondition(ignorecondition bool) *ExecuteWatch {
 }
 
 // When set to `true`, the watch record representing the watch execution result
-// is persisted to the `.watcher-history` index for the current time.
-// In addition, the status of the watch is updated, possibly throttling
-// subsequent runs.
-// This can also be specified as an HTTP parameter.
+// is persisted to the `.watcher-history` index for the current time. In
+// addition, the status of the watch is updated, possibly throttling subsequent
+// runs. This can also be specified as an HTTP parameter.
 // API name: record_execution
 func (r *ExecuteWatch) RecordExecution(recordexecution bool) *ExecuteWatch {
 	// Initialize the request if it is not already initialized

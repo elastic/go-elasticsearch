@@ -299,10 +299,8 @@ func (r *GetMapping) Header(key, value string) *GetMapping {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases used to limit the
-// request.
-// Supports wildcards (`*`).
-// To target all data streams and indices, omit this parameter or use `*` or
-// `_all`.
+// // request. Supports wildcards (`*`). To target all data streams and indices,
+// // omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *GetMapping) Index(index string) *GetMapping {
 	r.paramSet |= indexMask
@@ -312,8 +310,8 @@ func (r *GetMapping) Index(index string) *GetMapping {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *GetMapping) AllowNoIndices(allownoindices bool) *GetMapping {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -321,10 +319,9 @@ func (r *GetMapping) AllowNoIndices(allownoindices bool) *GetMapping {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *GetMapping) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetMapping {
 	tmp := []string{}
@@ -353,9 +350,8 @@ func (r *GetMapping) Local(local bool) *GetMapping {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *GetMapping) MasterTimeout(duration string) *GetMapping {
 	r.values.Set("master_timeout", duration)
@@ -386,11 +382,9 @@ func (r *GetMapping) FilterPath(filterpaths ...string) *GetMapping {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetMapping) Human(human bool) *GetMapping {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -398,8 +392,8 @@ func (r *GetMapping) Human(human bool) *GetMapping {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetMapping) Pretty(pretty bool) *GetMapping {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

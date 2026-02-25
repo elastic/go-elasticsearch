@@ -20,10 +20,10 @@
 
 // Delete forecasts from a job.
 //
-// By default, forecasts are retained for 14 days. You can specify a
-// different retention period with the `expires_in` parameter in the forecast
-// jobs API. The delete forecast API enables you to delete one or more
-// forecasts before they expire.
+// By default, forecasts are retained for 14 days. You can specify a different
+// retention period with the `expires_in` parameter in the forecast jobs API.
+// The delete forecast API enables you to delete one or more forecasts before
+// they expire.
 package deleteforecast
 
 import (
@@ -86,10 +86,10 @@ func NewDeleteForecastFunc(tp elastictransport.Interface) NewDeleteForecast {
 
 // Delete forecasts from a job.
 //
-// By default, forecasts are retained for 14 days. You can specify a
-// different retention period with the `expires_in` parameter in the forecast
-// jobs API. The delete forecast API enables you to delete one or more
-// forecasts before they expire.
+// By default, forecasts are retained for 14 days. You can specify a different
+// retention period with the `expires_in` parameter in the forecast jobs API.
+// The delete forecast API enables you to delete one or more forecasts before
+// they expire.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-forecast
 func New(tp elastictransport.Interface) *DeleteForecast {
@@ -335,9 +335,9 @@ func (r *DeleteForecast) _jobid(jobid string) *DeleteForecast {
 	return r
 }
 
-// ForecastId A comma-separated list of forecast identifiers. If you do not specify
-// this optional parameter or if you specify `_all` or `*` the API deletes
-// all forecasts from the job.
+// ForecastId A comma-separated list of forecast identifiers. If you do not specify this //
+// optional parameter or if you specify `_all` or `*` the API deletes all //
+// forecasts from the job.
 // API Name: forecastid
 func (r *DeleteForecast) ForecastId(forecastid string) *DeleteForecast {
 	r.paramSet |= forecastidMask
@@ -346,10 +346,9 @@ func (r *DeleteForecast) ForecastId(forecastid string) *DeleteForecast {
 	return r
 }
 
-// AllowNoForecasts Specifies whether an error occurs when there are no forecasts. In
-// particular, if this parameter is set to `false` and there are no
-// forecasts associated with the job, attempts to delete all forecasts
-// return an error.
+// AllowNoForecasts Specifies whether an error occurs when there are no forecasts. In particular,
+// if this parameter is set to `false` and there are no forecasts associated
+// with the job, attempts to delete all forecasts return an error.
 // API name: allow_no_forecasts
 func (r *DeleteForecast) AllowNoForecasts(allownoforecasts bool) *DeleteForecast {
 	r.values.Set("allow_no_forecasts", strconv.FormatBool(allownoforecasts))
@@ -390,11 +389,9 @@ func (r *DeleteForecast) FilterPath(filterpaths ...string) *DeleteForecast {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteForecast) Human(human bool) *DeleteForecast {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -402,8 +399,8 @@ func (r *DeleteForecast) Human(human bool) *DeleteForecast {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteForecast) Pretty(pretty bool) *DeleteForecast {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -293,10 +293,9 @@ func (r *Query) Header(key, value string) *Query {
 	return r
 }
 
-// Format The format for the response.
-// You can also specify a format using the `Accept` HTTP header.
-// If you specify both this parameter and the `Accept` HTTP header, this
-// parameter takes precedence.
+// Format The format for the response. You can also specify a format using the `Accept`
+// HTTP header. If you specify both this parameter and the `Accept` HTTP header,
+// this parameter takes precedence.
 // API name: format
 func (r *Query) Format(format sqlformat.SqlFormat) *Query {
 	r.values.Set("format", format.String())
@@ -327,11 +326,9 @@ func (r *Query) FilterPath(filterpaths ...string) *Query {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Query) Human(human bool) *Query {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -339,8 +336,8 @@ func (r *Query) Human(human bool) *Query {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Query) Pretty(pretty bool) *Query {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -349,8 +346,8 @@ func (r *Query) Pretty(pretty bool) *Query {
 }
 
 // If `true`, the response has partial results when there are shard request
-// timeouts or shard failures.
-// If `false`, the API returns an error with no partial results.
+// timeouts or shard failures. If `false`, the API returns an error with no
+// partial results.
 // API name: allow_partial_search_results
 func (r *Query) AllowPartialSearchResults(allowpartialsearchresults bool) *Query {
 	// Initialize the request if it is not already initialized
@@ -363,8 +360,8 @@ func (r *Query) AllowPartialSearchResults(allowpartialsearchresults bool) *Query
 	return r
 }
 
-// The default catalog (cluster) for queries.
-// If unspecified, the queries execute on the data in the local cluster only.
+// The default catalog (cluster) for queries. If unspecified, the queries
+// execute on the data in the local cluster only.
 // API name: catalog
 func (r *Query) Catalog(catalog string) *Query {
 	// Initialize the request if it is not already initialized
@@ -378,9 +375,8 @@ func (r *Query) Catalog(catalog string) *Query {
 }
 
 // If `true`, the results are in a columnar fashion: one row represents all the
-// values of a certain column from the current page of results.
-// The API supports this parameter only for CBOR, JSON, SMILE, and YAML
-// responses.
+// values of a certain column from the current page of results. The API supports
+// this parameter only for CBOR, JSON, SMILE, and YAML responses.
 // API name: columnar
 func (r *Query) Columnar(columnar bool) *Query {
 	// Initialize the request if it is not already initialized
@@ -393,10 +389,9 @@ func (r *Query) Columnar(columnar bool) *Query {
 	return r
 }
 
-// The cursor used to retrieve a set of paginated results.
-// If you specify a cursor, the API only uses the `columnar` and `time_zone`
-// request body parameters.
-// It ignores other request body parameters.
+// The cursor used to retrieve a set of paginated results. If you specify a
+// cursor, the API only uses the `columnar` and `time_zone` request body
+// parameters. It ignores other request body parameters.
 // API name: cursor
 func (r *Query) Cursor(cursor string) *Query {
 	// Initialize the request if it is not already initialized
@@ -423,9 +418,8 @@ func (r *Query) FetchSize(fetchsize int) *Query {
 }
 
 // If `false`, the API returns an exception when encountering multiple values
-// for a field.
-// If `true`, the API is lenient and returns the first value from the array with
-// no guarantee of consistent results.
+// for a field. If `true`, the API is lenient and returns the first value from
+// the array with no guarantee of consistent results.
 // API name: field_multi_value_leniency
 func (r *Query) FieldMultiValueLeniency(fieldmultivalueleniency bool) *Query {
 	// Initialize the request if it is not already initialized
@@ -478,9 +472,9 @@ func (r *Query) KeepAlive(duration types.DurationVariant) *Query {
 }
 
 // If `true`, Elasticsearch stores synchronous searches if you also specify the
-// `wait_for_completion_timeout` parameter.
-// If `false`, Elasticsearch only stores async searches that don't finish before
-// the `wait_for_completion_timeout`.
+// `wait_for_completion_timeout` parameter. If `false`, Elasticsearch only
+// stores async searches that don't finish before the
+// `wait_for_completion_timeout`.
 // API name: keep_on_completion
 func (r *Query) KeepOnCompletion(keeponcompletion bool) *Query {
 	// Initialize the request if it is not already initialized
@@ -493,11 +487,10 @@ func (r *Query) KeepOnCompletion(keeponcompletion bool) *Query {
 	return r
 }
 
-// The minimum retention period for the scroll cursor.
-// After this time period, a pagination request might fail because the scroll
-// cursor is no longer available.
-// Subsequent scroll requests prolong the lifetime of the scroll cursor by the
-// duration of `page_timeout` in the scroll request.
+// The minimum retention period for the scroll cursor. After this time period, a
+// pagination request might fail because the scroll cursor is no longer
+// available. Subsequent scroll requests prolong the lifetime of the scroll
+// cursor by the duration of `page_timeout` in the scroll request.
 // API name: page_timeout
 func (r *Query) PageTimeout(duration types.DurationVariant) *Query {
 	// Initialize the request if it is not already initialized
@@ -525,17 +518,10 @@ func (r *Query) Params(params ...json.RawMessage) *Query {
 	return r
 }
 
-// Specifies a subset of projects to target using project
-// metadata tags in a subset of Lucene query syntax.
-// Allowed Lucene queries: the _alias tag and a single value (possibly
-// wildcarded).
-// Examples:
-//
-//	_alias:my-project
-//	_alias:_origin
-//	_alias:*pr*
-//
-// Supported in serverless only.
+// Specifies a subset of projects to target using project metadata tags in a
+// subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a
+// single value (possibly wildcarded). Examples: _alias:my-project
+// _alias:_origin _alias:*pr* Supported in serverless only.
 // API name: project_routing
 func (r *Query) ProjectRouting(projectrouting string) *Query {
 	// Initialize the request if it is not already initialized
@@ -574,8 +560,8 @@ func (r *Query) RequestTimeout(duration types.DurationVariant) *Query {
 	return r
 }
 
-// One or more runtime fields for the search request.
-// These fields take precedence over mapped fields with the same name.
+// One or more runtime fields for the search request. These fields take
+// precedence over mapped fields with the same name.
 // API name: runtime_mappings
 func (r *Query) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *Query {
 	// Initialize the request if it is not already initialized
@@ -601,10 +587,9 @@ func (r *Query) TimeZone(timezone string) *Query {
 	return r
 }
 
-// The period to wait for complete results.
-// It defaults to no timeout, meaning the request waits for complete search
-// results.
-// If the search doesn't finish within this period, the search becomes async.
+// The period to wait for complete results. It defaults to no timeout, meaning
+// the request waits for complete search results. If the search doesn't finish
+// within this period, the search becomes async.
 //
 // To save a synchronous search, you must specify this parameter and the
 // `keep_on_completion` parameter.

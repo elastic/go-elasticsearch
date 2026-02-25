@@ -20,8 +20,8 @@
 
 // Delete an async EQL search.
 //
-// Delete an async EQL search or a stored synchronous EQL search.
-// The API also deletes results for the search.
+// Delete an async EQL search or a stored synchronous EQL search. The API also
+// deletes results for the search.
 package delete
 
 import (
@@ -81,8 +81,8 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 
 // Delete an async EQL search.
 //
-// Delete an async EQL search or a stored synchronous EQL search.
-// The API also deletes results for the search.
+// Delete an async EQL search or a stored synchronous EQL search. The API also
+// deletes results for the search.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-delete
 func New(tp elastictransport.Interface) *Delete {
@@ -296,10 +296,9 @@ func (r *Delete) Header(key, value string) *Delete {
 	return r
 }
 
-// Id Identifier for the search to delete.
-// A search ID is provided in the EQL search API's response for an async search.
-// A search ID is also provided if the request’s `keep_on_completion` parameter
-// is `true`.
+// Id Identifier for the search to delete. A search ID is provided in the EQL //
+// search API's response for an async search. A search ID is also provided if //
+// the request’s `keep_on_completion` parameter is `true`.
 // API Name: id
 func (r *Delete) _id(id string) *Delete {
 	r.paramSet |= idMask
@@ -331,11 +330,9 @@ func (r *Delete) FilterPath(filterpaths ...string) *Delete {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Delete) Human(human bool) *Delete {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -343,8 +340,8 @@ func (r *Delete) Human(human bool) *Delete {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Delete) Pretty(pretty bool) *Delete {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

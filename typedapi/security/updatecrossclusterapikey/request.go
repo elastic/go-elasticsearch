@@ -35,33 +35,26 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/update_cross_cluster_api_key/UpdateCrossClusterApiKeyRequest.ts#L25-L96
 type Request struct {
-	// Access The access to be granted to this API key.
-	// The access is composed of permissions for cross cluster search and cross
-	// cluster replication.
-	// At least one of them must be specified.
-	// When specified, the new access assignment fully replaces the previously
-	// assigned access.
+	// Access The access to be granted to this API key. The access is composed of
+	// permissions for cross cluster search and cross cluster replication. At least
+	// one of them must be specified. When specified, the new access assignment
+	// fully replaces the previously assigned access.
 	Access types.Access `json:"access"`
-	// CertificateIdentity The certificate identity to associate with this API key.
-	// This field is used to restrict the API key to connections authenticated by a
-	// specific TLS certificate.
-	// The value should match the certificate's distinguished name (DN) pattern.
-	// When specified, this fully replaces any previously assigned certificate
-	// identity.
-	// To clear an existing certificate identity, explicitly set this field to
-	// `null`.
-	// When omitted, the existing certificate identity remains unchanged.
+	// CertificateIdentity The certificate identity to associate with this API key. This field is used
+	// to restrict the API key to connections authenticated by a specific TLS
+	// certificate. The value should match the certificate's distinguished name (DN)
+	// pattern. When specified, this fully replaces any previously assigned
+	// certificate identity. To clear an existing certificate identity, explicitly
+	// set this field to `null`. When omitted, the existing certificate identity
+	// remains unchanged.
 	CertificateIdentity *string `json:"certificate_identity,omitempty"`
-	// Expiration The expiration time for the API key.
-	// By default, API keys never expire. This property can be omitted to leave the
-	// value unchanged.
+	// Expiration The expiration time for the API key. By default, API keys never expire. This
+	// property can be omitted to leave the value unchanged.
 	Expiration types.Duration `json:"expiration,omitempty"`
-	// Metadata Arbitrary metadata that you want to associate with the API key.
-	// It supports nested data structure.
-	// Within the metadata object, keys beginning with `_` are reserved for system
-	// usage.
-	// When specified, this information fully replaces metadata previously
-	// associated with the API key.
+	// Metadata Arbitrary metadata that you want to associate with the API key. It supports
+	// nested data structure. Within the metadata object, keys beginning with `_`
+	// are reserved for system usage. When specified, this information fully
+	// replaces metadata previously associated with the API key.
 	Metadata types.Metadata `json:"metadata,omitempty"`
 }
 

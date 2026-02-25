@@ -31,7 +31,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indicatorhealthstatus"
 )
 
-// RepositoryIntegrityIndicator type.
+// REPOSITORY_INTEGRITY
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/health_report/types.ts#L138-L142
 type RepositoryIntegrityIndicator struct {

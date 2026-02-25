@@ -34,16 +34,14 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/_types/Detector.ts#L127-L143
 type DetectorUpdate struct {
 	// CustomRules An array of custom rule objects, which enable you to customize the way
-	// detectors operate.
-	// For example, a rule may dictate to the detector conditions under which
-	// results should be skipped.
-	// Kibana refers to custom rules as job rules.
+	// detectors operate. For example, a rule may dictate to the detector conditions
+	// under which results should be skipped. Kibana refers to custom rules as job
+	// rules.
 	CustomRules []DetectionRule `json:"custom_rules,omitempty"`
 	// Description A description of the detector.
 	Description *string `json:"description,omitempty"`
-	// DetectorIndex A unique identifier for the detector.
-	// This identifier is based on the order of the detectors in the
-	// `analysis_config`, starting at zero.
+	// DetectorIndex A unique identifier for the detector. This identifier is based on the order
+	// of the detectors in the `analysis_config`, starting at zero.
 	DetectorIndex int `json:"detector_index"`
 }
 

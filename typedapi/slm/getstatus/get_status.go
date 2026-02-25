@@ -276,9 +276,8 @@ func (r *GetStatus) Header(key, value string) *GetStatus {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *GetStatus) MasterTimeout(duration string) *GetStatus {
@@ -287,10 +286,9 @@ func (r *GetStatus) MasterTimeout(duration string) *GetStatus {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
-// To indicate that the request should never timeout, set it to `-1`.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error. To indicate that the
+// request should never timeout, set it to `-1`.
 // API name: timeout
 func (r *GetStatus) Timeout(duration string) *GetStatus {
 	r.values.Set("timeout", duration)
@@ -321,11 +319,9 @@ func (r *GetStatus) FilterPath(filterpaths ...string) *GetStatus {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetStatus) Human(human bool) *GetStatus {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -333,8 +329,8 @@ func (r *GetStatus) Human(human bool) *GetStatus {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetStatus) Pretty(pretty bool) *GetStatus {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

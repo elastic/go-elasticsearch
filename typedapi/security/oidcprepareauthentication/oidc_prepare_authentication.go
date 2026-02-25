@@ -28,10 +28,9 @@
 // browser of the user in order to continue the authentication process.
 //
 // Elasticsearch exposes all the necessary OpenID Connect related functionality
-// with the OpenID Connect APIs.
-// These APIs are used internally by Kibana in order to provide OpenID Connect
-// based authentication, but can also be used by other, custom web applications
-// or other clients.
+// with the OpenID Connect APIs. These APIs are used internally by Kibana in
+// order to provide OpenID Connect based authentication, but can also be used by
+// other, custom web applications or other clients.
 package oidcprepareauthentication
 
 import (
@@ -96,10 +95,9 @@ func NewOidcPrepareAuthenticationFunc(tp elastictransport.Interface) NewOidcPrep
 // browser of the user in order to continue the authentication process.
 //
 // Elasticsearch exposes all the necessary OpenID Connect related functionality
-// with the OpenID Connect APIs.
-// These APIs are used internally by Kibana in order to provide OpenID Connect
-// based authentication, but can also be used by other, custom web applications
-// or other clients.
+// with the OpenID Connect APIs. These APIs are used internally by Kibana in
+// order to provide OpenID Connect based authentication, but can also be used by
+// other, custom web applications or other clients.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-prepare-authentication
 func New(tp elastictransport.Interface) *OidcPrepareAuthentication {
@@ -341,11 +339,9 @@ func (r *OidcPrepareAuthentication) FilterPath(filterpaths ...string) *OidcPrepa
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *OidcPrepareAuthentication) Human(human bool) *OidcPrepareAuthentication {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -353,8 +349,8 @@ func (r *OidcPrepareAuthentication) Human(human bool) *OidcPrepareAuthentication
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *OidcPrepareAuthentication) Pretty(pretty bool) *OidcPrepareAuthentication {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -364,8 +360,8 @@ func (r *OidcPrepareAuthentication) Pretty(pretty bool) *OidcPrepareAuthenticati
 
 // In the case of a third party initiated single sign on, this is the issuer
 // identifier for the OP that the RP is to send the authentication request to.
-// It cannot be specified when *realm* is specified.
-// One of *realm* or *iss* is required.
+// It cannot be specified when *realm* is specified. One of *realm* or *iss* is
+// required.
 // API name: iss
 func (r *OidcPrepareAuthentication) Iss(iss string) *OidcPrepareAuthentication {
 	// Initialize the request if it is not already initialized
@@ -394,9 +390,9 @@ func (r *OidcPrepareAuthentication) LoginHint(loginhint string) *OidcPrepareAuth
 }
 
 // The value used to associate a client session with an ID token and to mitigate
-// replay attacks.
-// If the caller of the API does not provide a value, Elasticsearch will
-// generate one with sufficient entropy and return it in the response.
+// replay attacks. If the caller of the API does not provide a value,
+// Elasticsearch will generate one with sufficient entropy and return it in the
+// response.
 // API name: nonce
 func (r *OidcPrepareAuthentication) Nonce(nonce string) *OidcPrepareAuthentication {
 	// Initialize the request if it is not already initialized
@@ -410,9 +406,9 @@ func (r *OidcPrepareAuthentication) Nonce(nonce string) *OidcPrepareAuthenticati
 }
 
 // The name of the OpenID Connect realm in Elasticsearch the configuration of
-// which should be used in order to generate the authentication request.
-// It cannot be specified when *iss* is specified.
-// One of *realm* or *iss* is required.
+// which should be used in order to generate the authentication request. It
+// cannot be specified when *iss* is specified. One of *realm* or *iss* is
+// required.
 // API name: realm
 func (r *OidcPrepareAuthentication) Realm(realm string) *OidcPrepareAuthentication {
 	// Initialize the request if it is not already initialized
@@ -426,9 +422,9 @@ func (r *OidcPrepareAuthentication) Realm(realm string) *OidcPrepareAuthenticati
 }
 
 // The value used to maintain state between the authentication request and the
-// response, typically used as a Cross-Site Request Forgery mitigation.
-// If the caller of the API does not provide a value, Elasticsearch will
-// generate one with sufficient entropy and return it in the response.
+// response, typically used as a Cross-Site Request Forgery mitigation. If the
+// caller of the API does not provide a value, Elasticsearch will generate one
+// with sufficient entropy and return it in the response.
 // API name: state
 func (r *OidcPrepareAuthentication) State(state string) *OidcPrepareAuthentication {
 	// Initialize the request if it is not already initialized

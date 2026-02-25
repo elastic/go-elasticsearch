@@ -27,9 +27,8 @@ type _randomScoreFunction struct {
 }
 
 // Generates scores that are uniformly distributed from 0 up to but not
-// including 1.
-// In case you want scores to be reproducible, it is possible to provide a
-// `seed` and `field`.
+// including 1. In case you want scores to be reproducible, it is possible to
+// provide a `seed` and `field`.
 func NewRandomScoreFunction() *_randomScoreFunction {
 
 	return &_randomScoreFunction{v: types.NewRandomScoreFunction()}

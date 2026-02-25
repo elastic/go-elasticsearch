@@ -315,9 +315,8 @@ func (r *PutIpLocationDatabase) _id(id string) *PutIpLocationDatabase {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // A value of `-1` indicates that the request should never time out.
 // API name: master_timeout
 func (r *PutIpLocationDatabase) MasterTimeout(duration string) *PutIpLocationDatabase {
@@ -327,11 +326,10 @@ func (r *PutIpLocationDatabase) MasterTimeout(duration string) *PutIpLocationDat
 }
 
 // Timeout The period to wait for a response from all relevant nodes in the cluster
-// after updating the cluster metadata.
-// If no response is received before the timeout expires, the cluster metadata
-// update still applies but the response indicates that it was not completely
-// acknowledged.
-// A value of `-1` indicates that the request should never time out.
+// after updating the cluster metadata. If no response is received before the
+// timeout expires, the cluster metadata update still applies but the response
+// indicates that it was not completely acknowledged. A value of `-1` indicates
+// that the request should never time out.
 // API name: timeout
 func (r *PutIpLocationDatabase) Timeout(duration string) *PutIpLocationDatabase {
 	r.values.Set("timeout", duration)
@@ -362,11 +360,9 @@ func (r *PutIpLocationDatabase) FilterPath(filterpaths ...string) *PutIpLocation
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutIpLocationDatabase) Human(human bool) *PutIpLocationDatabase {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -374,8 +370,8 @@ func (r *PutIpLocationDatabase) Human(human bool) *PutIpLocationDatabase {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutIpLocationDatabase) Pretty(pretty bool) *PutIpLocationDatabase {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

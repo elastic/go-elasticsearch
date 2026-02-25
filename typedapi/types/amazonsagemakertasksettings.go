@@ -34,20 +34,18 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L691-L720
 type AmazonSageMakerTaskSettings struct {
 	// CustomAttributes The AWS custom attributes passed verbatim through to the model running in the
-	// SageMaker Endpoint.
-	// Values will be returned in the `X-elastic-sagemaker-custom-attributes`
-	// header.
+	// SageMaker Endpoint. Values will be returned in the
+	// `X-elastic-sagemaker-custom-attributes` header.
 	CustomAttributes *string `json:"custom_attributes,omitempty"`
 	// EnableExplanations The optional JMESPath expression used to override the EnableExplanations
 	// provided during endpoint creation.
 	EnableExplanations *string `json:"enable_explanations,omitempty"`
 	// InferenceId The capture data ID when enabled in the endpoint.
 	InferenceId *string `json:"inference_id,omitempty"`
-	// SessionId The stateful session identifier for a new or existing session.
-	// New sessions will be returned in the `X-elastic-sagemaker-new-session-id`
+	// SessionId The stateful session identifier for a new or existing session. New sessions
+	// will be returned in the `X-elastic-sagemaker-new-session-id` header. Closed
+	// sessions will be returned in the `X-elastic-sagemaker-closed-session-id`
 	// header.
-	// Closed sessions will be returned in the
-	// `X-elastic-sagemaker-closed-session-id` header.
 	SessionId *string `json:"session_id,omitempty"`
 	// TargetVariant Specifies the variant when running with multi-variant Endpoints.
 	TargetVariant *string `json:"target_variant,omitempty"`

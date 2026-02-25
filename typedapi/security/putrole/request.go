@@ -57,9 +57,8 @@ type Request struct {
 	// RemoteIndices A list of remote indices permissions entries.
 	//
 	// NOTE: Remote indices are effective for remote clusters configured with the
-	// API key based model.
-	// They have no effect for remote clusters configured with the certificate based
-	// model.
+	// API key based model. They have no effect for remote clusters configured with
+	// the certificate based model.
 	RemoteIndices []types.RemoteIndicesPrivileges `json:"remote_indices,omitempty"`
 	// RunAs A list of users that the owners of this role can impersonate. *Note*: in
 	// Serverless, the run-as feature is disabled. For API compatibility, you can

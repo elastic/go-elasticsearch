@@ -34,10 +34,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/cluster/stats/types.ts#L557-L584
 type ClusterOperatingSystem struct {
 	// AllocatedProcessors Number of processors used to calculate thread pool size across all selected
-	// nodes.
-	// This number can be set with the processors setting of a node and defaults to
-	// the number of processors reported by the operating system.
-	// In both cases, this number will never be larger than 32.
+	// nodes. This number can be set with the processors setting of a node and
+	// defaults to the number of processors reported by the operating system. In
+	// both cases, this number will never be larger than 32.
 	AllocatedProcessors int `json:"allocated_processors"`
 	// Architectures Contains statistics about processor architectures (for example, x86_64 or
 	// aarch64) used by selected nodes.

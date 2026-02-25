@@ -37,18 +37,16 @@ import (
 type MovingFunctionAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
-	// Format `DecimalFormat` pattern for the output value.
-	// If specified, the formatted value is returned in the aggregation’s
-	// `value_as_string` property.
+	// Format `DecimalFormat` pattern for the output value. If specified, the formatted
+	// value is returned in the aggregation’s `value_as_string` property.
 	Format *string `json:"format,omitempty"`
 	// GapPolicy Policy to apply when gaps are found in the data.
 	GapPolicy *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
 	// Script The script that should be executed on each window of data.
 	Script *string `json:"script,omitempty"`
 	// Shift By default, the window consists of the last n values excluding the current
-	// bucket.
-	// Increasing `shift` by 1, moves the starting window position by 1 to the
-	// right.
+	// bucket. Increasing `shift` by 1, moves the starting window position by 1 to
+	// the right.
 	Shift *int `json:"shift,omitempty"`
 	// Window The size of window to "slide" across the histogram.
 	Window *int `json:"window,omitempty"`

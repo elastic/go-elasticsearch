@@ -48,7 +48,7 @@ type ClusterStateUpdate struct {
 	// publication until all the other nodes have notified the elected master that
 	// they have applied the cluster state.
 	CompletionTime Duration `json:"completion_time,omitempty"`
-	// CompletionTimeMillis The cumulative amount of time, in milliseconds,  spent waiting for a
+	// CompletionTimeMillis The cumulative amount of time, in milliseconds, spent waiting for a
 	// successful cluster state update to complete, which measures the time from the
 	// start of each publication until all the other nodes have notified the elected
 	// master that they have applied the cluster state.
@@ -60,17 +60,15 @@ type ClusterStateUpdate struct {
 	// state updates since the node started.
 	ComputationTimeMillis *int64 `json:"computation_time_millis,omitempty"`
 	// ContextConstructionTime The cumulative amount of time spent constructing a publication context since
-	// the node started for publications that ultimately succeeded.
-	// This statistic includes the time spent computing the difference between the
-	// current and new cluster state preparing a serialized representation of this
-	// difference.
+	// the node started for publications that ultimately succeeded. This statistic
+	// includes the time spent computing the difference between the current and new
+	// cluster state preparing a serialized representation of this difference.
 	ContextConstructionTime Duration `json:"context_construction_time,omitempty"`
 	// ContextConstructionTimeMillis The cumulative amount of time, in milliseconds, spent constructing a
 	// publication context since the node started for publications that ultimately
-	// succeeded.
-	// This statistic includes the time spent computing the difference between the
-	// current and new cluster state preparing a serialized representation of this
-	// difference.
+	// succeeded. This statistic includes the time spent computing the difference
+	// between the current and new cluster state preparing a serialized
+	// representation of this difference.
 	ContextConstructionTimeMillis *int64 `json:"context_construction_time_millis,omitempty"`
 	// Count The number of cluster state update attempts that did not change the cluster
 	// state since the node started.
@@ -91,17 +89,17 @@ type ClusterStateUpdate struct {
 	// ultimately succeeded, which includes everything from the start of the
 	// publication (just after the computation of the new cluster state) until the
 	// publication has finished and the master node is ready to start processing the
-	// next state update.
-	// This includes the time measured by `context_construction_time`,
-	// `commit_time`, `completion_time` and `master_apply_time`.
+	// next state update. This includes the time measured by
+	// `context_construction_time`, `commit_time`, `completion_time` and
+	// `master_apply_time`.
 	PublicationTime Duration `json:"publication_time,omitempty"`
 	// PublicationTimeMillis The cumulative amount of time, in milliseconds, spent publishing cluster
 	// state updates which ultimately succeeded, which includes everything from the
 	// start of the publication (just after the computation of the new cluster
 	// state) until the publication has finished and the master node is ready to
-	// start processing the next state update.
-	// This includes the time measured by `context_construction_time`,
-	// `commit_time`, `completion_time` and `master_apply_time`.
+	// start processing the next state update. This includes the time measured by
+	// `context_construction_time`, `commit_time`, `completion_time` and
+	// `master_apply_time`.
 	PublicationTimeMillis *int64 `json:"publication_time_millis,omitempty"`
 }
 

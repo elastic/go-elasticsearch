@@ -37,8 +37,7 @@ type Response struct {
 	// LastRunDurationInMillis The duration of the last data stream lifecycle execution.
 	LastRunDurationInMillis *int64 `json:"last_run_duration_in_millis,omitempty"`
 	// TimeBetweenStartsInMillis The time that passed between the start of the last two data stream lifecycle
-	// executions.
-	// This value should amount approximately to
+	// executions. This value should amount approximately to
 	// `data_streams.lifecycle.poll_interval`.
 	TimeBetweenStartsInMillis *int64 `json:"time_between_starts_in_millis,omitempty"`
 }

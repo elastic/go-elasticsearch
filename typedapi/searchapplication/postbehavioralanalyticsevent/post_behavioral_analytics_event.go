@@ -19,6 +19,8 @@
 // https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 // Create a behavioral analytics collection event.
+//
+// Deprecated: Since 9.0.0.
 package postbehavioralanalyticsevent
 
 import (
@@ -90,6 +92,8 @@ func NewPostBehavioralAnalyticsEventFunc(tp elastictransport.Interface) NewPostB
 // Create a behavioral analytics collection event.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-post-behavioral-analytics-event
+//
+// Deprecated: Since 9.0.0.
 func New(tp elastictransport.Interface) *PostBehavioralAnalyticsEvent {
 	r := &PostBehavioralAnalyticsEvent{
 		transport: tp,
@@ -375,11 +379,9 @@ func (r *PostBehavioralAnalyticsEvent) FilterPath(filterpaths ...string) *PostBe
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PostBehavioralAnalyticsEvent) Human(human bool) *PostBehavioralAnalyticsEvent {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -387,8 +389,8 @@ func (r *PostBehavioralAnalyticsEvent) Human(human bool) *PostBehavioralAnalytic
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PostBehavioralAnalyticsEvent) Pretty(pretty bool) *PostBehavioralAnalyticsEvent {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

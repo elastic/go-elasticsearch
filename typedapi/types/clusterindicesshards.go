@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// ClusterIndicesShards type.
+// Contains statistics about shards assigned to selected nodes.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/cluster/stats/types.ts#L86-L98
 type ClusterIndicesShards struct {

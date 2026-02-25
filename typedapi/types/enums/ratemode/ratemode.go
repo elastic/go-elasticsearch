@@ -29,8 +29,11 @@ type RateMode struct {
 }
 
 var (
+
+	// Sum Calculates the sum of all values of the field.
 	Sum = RateMode{"sum"}
 
+	// Valuecount Uses the number of values of the field.
 	Valuecount = RateMode{"value_count"}
 )
 

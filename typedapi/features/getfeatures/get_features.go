@@ -21,22 +21,19 @@
 // Get the features.
 //
 // Get a list of features that can be included in snapshots using the
-// `feature_states` field when creating a snapshot.
-// You can use this API to determine which feature states to include when taking
-// a snapshot.
-// By default, all feature states are included in a snapshot if that snapshot
-// includes the global state, or none if it does not.
+// `feature_states` field when creating a snapshot. You can use this API to
+// determine which feature states to include when taking a snapshot. By default,
+// all feature states are included in a snapshot if that snapshot includes the
+// global state, or none if it does not.
 //
 // A feature state includes one or more system indices necessary for a given
-// feature to function.
-// In order to ensure data integrity, all system indices that comprise a feature
-// state are snapshotted and restored together.
+// feature to function. In order to ensure data integrity, all system indices
+// that comprise a feature state are snapshotted and restored together.
 //
 // The features listed by this API are a combination of built-in features and
-// features defined by plugins.
-// In order for a feature state to be listed in this API and recognized as a
-// valid feature state by the create snapshot API, the plugin that defines that
-// feature must be installed on the master node.
+// features defined by plugins. In order for a feature state to be listed in
+// this API and recognized as a valid feature state by the create snapshot API,
+// the plugin that defines that feature must be installed on the master node.
 package getfeatures
 
 import (
@@ -89,22 +86,19 @@ func NewGetFeaturesFunc(tp elastictransport.Interface) NewGetFeatures {
 // Get the features.
 //
 // Get a list of features that can be included in snapshots using the
-// `feature_states` field when creating a snapshot.
-// You can use this API to determine which feature states to include when taking
-// a snapshot.
-// By default, all feature states are included in a snapshot if that snapshot
-// includes the global state, or none if it does not.
+// `feature_states` field when creating a snapshot. You can use this API to
+// determine which feature states to include when taking a snapshot. By default,
+// all feature states are included in a snapshot if that snapshot includes the
+// global state, or none if it does not.
 //
 // A feature state includes one or more system indices necessary for a given
-// feature to function.
-// In order to ensure data integrity, all system indices that comprise a feature
-// state are snapshotted and restored together.
+// feature to function. In order to ensure data integrity, all system indices
+// that comprise a feature state are snapshotted and restored together.
 //
 // The features listed by this API are a combination of built-in features and
-// features defined by plugins.
-// In order for a feature state to be listed in this API and recognized as a
-// valid feature state by the create snapshot API, the plugin that defines that
-// feature must be installed on the master node.
+// features defined by plugins. In order for a feature state to be listed in
+// this API and recognized as a valid feature state by the create snapshot API,
+// the plugin that defines that feature must be installed on the master node.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-features-get-features
 func New(tp elastictransport.Interface) *GetFeatures {
@@ -341,11 +335,9 @@ func (r *GetFeatures) FilterPath(filterpaths ...string) *GetFeatures {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetFeatures) Human(human bool) *GetFeatures {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -353,8 +345,8 @@ func (r *GetFeatures) Human(human bool) *GetFeatures {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetFeatures) Pretty(pretty bool) *GetFeatures {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

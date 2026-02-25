@@ -26,8 +26,8 @@ package clearscroll
 type Response struct {
 	// NumFreed The number of scrolling search requests cleared.
 	NumFreed int `json:"num_freed"`
-	// Succeeded If `true`, the request succeeded.
-	// This does not indicate whether any scrolling search requests were cleared.
+	// Succeeded If `true`, the request succeeded. This does not indicate whether any
+	// scrolling search requests were cleared.
 	Succeeded bool `json:"succeeded"`
 }
 

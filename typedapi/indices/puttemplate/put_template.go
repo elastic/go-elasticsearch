@@ -21,36 +21,36 @@
 // Create or update a legacy index template.
 //
 // Index templates define settings, mappings, and aliases that can be applied
-// automatically to new indices.
-// Elasticsearch applies templates to new indices based on an index pattern that
-// matches the index name.
+// automatically to new indices. Elasticsearch applies templates to new indices
+// based on an index pattern that matches the index name.
 //
 // IMPORTANT: This documentation is about legacy index templates, which are
 // deprecated and will be replaced by the composable templates introduced in
 // Elasticsearch 7.8.
 //
-// Composable templates always take precedence over legacy templates.
-// If no composable template matches a new index, matching legacy templates are
+// Composable templates always take precedence over legacy templates. If no
+// composable template matches a new index, matching legacy templates are
 // applied according to their order.
 //
-// Index templates are only applied during index creation.
-// Changes to index templates do not affect existing indices.
-// Settings and mappings specified in create index API requests override any
-// settings or mappings specified in an index template.
+// Index templates are only applied during index creation. Changes to index
+// templates do not affect existing indices. Settings and mappings specified in
+// create index API requests override any settings or mappings specified in an
+// index template.
 //
-// You can use C-style `/* *\/` block comments in index templates.
-// You can include comments anywhere in the request body, except before the
-// opening curly bracket.
+// You can use C-style `/* *\/` block comments in index templates. You can
+// include comments anywhere in the request body, except before the opening
+// curly bracket.
 //
-// **Indices matching multiple templates**
+// # Indices matching multiple templates
 //
 // Multiple index templates can potentially match an index, in this case, both
 // the settings and mappings are merged into the final configuration of the
-// index.
-// The order of the merging can be controlled using the order parameter, with
-// lower order being applied first, and higher orders overriding them.
+// index. The order of the merging can be controlled using the order parameter,
+// with lower order being applied first, and higher orders overriding them.
 // NOTE: Multiple matching templates with the same order value will result in a
 // non-deterministic merging order.
+//
+// Deprecated: Since 7.8.0.
 package puttemplate
 
 import (
@@ -116,38 +116,38 @@ func NewPutTemplateFunc(tp elastictransport.Interface) NewPutTemplate {
 // Create or update a legacy index template.
 //
 // Index templates define settings, mappings, and aliases that can be applied
-// automatically to new indices.
-// Elasticsearch applies templates to new indices based on an index pattern that
-// matches the index name.
+// automatically to new indices. Elasticsearch applies templates to new indices
+// based on an index pattern that matches the index name.
 //
 // IMPORTANT: This documentation is about legacy index templates, which are
 // deprecated and will be replaced by the composable templates introduced in
 // Elasticsearch 7.8.
 //
-// Composable templates always take precedence over legacy templates.
-// If no composable template matches a new index, matching legacy templates are
+// Composable templates always take precedence over legacy templates. If no
+// composable template matches a new index, matching legacy templates are
 // applied according to their order.
 //
-// Index templates are only applied during index creation.
-// Changes to index templates do not affect existing indices.
-// Settings and mappings specified in create index API requests override any
-// settings or mappings specified in an index template.
+// Index templates are only applied during index creation. Changes to index
+// templates do not affect existing indices. Settings and mappings specified in
+// create index API requests override any settings or mappings specified in an
+// index template.
 //
-// You can use C-style `/* *\/` block comments in index templates.
-// You can include comments anywhere in the request body, except before the
-// opening curly bracket.
+// You can use C-style `/* *\/` block comments in index templates. You can
+// include comments anywhere in the request body, except before the opening
+// curly bracket.
 //
-// **Indices matching multiple templates**
+// # Indices matching multiple templates
 //
 // Multiple index templates can potentially match an index, in this case, both
 // the settings and mappings are merged into the final configuration of the
-// index.
-// The order of the merging can be controlled using the order parameter, with
-// lower order being applied first, and higher orders overriding them.
+// index. The order of the merging can be controlled using the order parameter,
+// with lower order being applied first, and higher orders overriding them.
 // NOTE: Multiple matching templates with the same order value will result in a
 // non-deterministic merging order.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-template
+//
+// Deprecated: Since 7.8.0.
 func New(tp elastictransport.Interface) *PutTemplate {
 	r := &PutTemplate{
 		transport: tp,
@@ -423,11 +423,9 @@ func (r *PutTemplate) FilterPath(filterpaths ...string) *PutTemplate {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutTemplate) Human(human bool) *PutTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -435,8 +433,8 @@ func (r *PutTemplate) Human(human bool) *PutTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutTemplate) Pretty(pretty bool) *PutTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -474,8 +472,8 @@ func (r *PutTemplate) AddAlias(key string, value types.AliasVariant) *PutTemplat
 	return r
 }
 
-// Array of wildcard expressions used to match the names
-// of indices during creation.
+// Array of wildcard expressions used to match the names of indices during
+// creation.
 // API name: index_patterns
 func (r *PutTemplate) IndexPatterns(indexpatterns ...string) *PutTemplate {
 	// Initialize the request if it is not already initialized
@@ -501,8 +499,8 @@ func (r *PutTemplate) Mappings(mappings types.TypeMappingVariant) *PutTemplate {
 	return r
 }
 
-// Order in which Elasticsearch applies this template if index
-// matches multiple templates.
+// Order in which Elasticsearch applies this template if index matches multiple
+// templates.
 //
 // Templates with lower 'order' values are merged first. Templates with higher
 // 'order' values are merged later, overriding templates with lower values.
@@ -531,9 +529,9 @@ func (r *PutTemplate) Settings(settings types.IndexSettingsVariant) *PutTemplate
 	return r
 }
 
-// Version number used to manage index templates externally. This number
-// is not automatically generated by Elasticsearch.
-// To unset a version, replace the template without specifying one.
+// Version number used to manage index templates externally. This number is not
+// automatically generated by Elasticsearch. To unset a version, replace the
+// template without specifying one.
 // API name: version
 func (r *PutTemplate) Version(versionnumber int64) *PutTemplate {
 	// Initialize the request if it is not already initialized

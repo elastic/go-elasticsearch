@@ -35,8 +35,8 @@ import (
 type DissectProcessor struct {
 	// AppendSeparator The character(s) that separate the appended fields.
 	AppendSeparator *string `json:"append_separator,omitempty"`
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field The field to dissect.
 	Field string `json:"field"`
@@ -51,8 +51,7 @@ type DissectProcessor struct {
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// Pattern The pattern to apply to the field.
 	Pattern string `json:"pattern"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 }
 

@@ -20,10 +20,10 @@
 
 // Get segment information.
 //
-// Get low-level information about the Lucene segments in index shards.
-// For data streams, the API returns information about the backing indices.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
+// Get low-level information about the Lucene segments in index shards. For data
+// streams, the API returns information about the backing indices. IMPORTANT:
+// cat APIs are only intended for human consumption using the command line or
+// Kibana console. They are not intended for use by applications. For
 // application consumption, use the index segments API.
 package segments
 
@@ -86,10 +86,10 @@ func NewSegmentsFunc(tp elastictransport.Interface) NewSegments {
 
 // Get segment information.
 //
-// Get low-level information about the Lucene segments in index shards.
-// For data streams, the API returns information about the backing indices.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
+// Get low-level information about the Lucene segments in index shards. For data
+// streams, the API returns information about the backing indices. IMPORTANT:
+// cat APIs are only intended for human consumption using the command line or
+// Kibana console. They are not intended for use by applications. For
 // application consumption, use the index segments API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-segments
@@ -311,11 +311,9 @@ func (r *Segments) Header(key, value string) *Segments {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases used to limit
-// the request.
-// Supports wildcards (`*`).
-// To target all data streams and indices, omit this parameter or use `*` or
-// `_all`.
+// Index A comma-separated list of data streams, indices, and aliases used to limit //
+// the request. Supports wildcards (`*`). To target all data streams and //
+// indices, omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *Segments) Index(index string) *Segments {
 	r.paramSet |= indexMask
@@ -324,8 +322,8 @@ func (r *Segments) Index(index string) *Segments {
 	return r
 }
 
-// H A comma-separated list of columns names to display.
-// It supports simple wildcards.
+// H A comma-separated list of columns names to display. It supports simple
+// wildcards.
 // API name: h
 func (r *Segments) H(catsegmentscolumns ...catsegmentscolumn.CatSegmentsColumn) *Segments {
 	tmp := []string{}
@@ -338,9 +336,8 @@ func (r *Segments) H(catsegmentscolumns ...catsegmentscolumn.CatSegmentsColumn) 
 }
 
 // S A comma-separated list of column names or aliases that determines the sort
-// order.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
+// order. Sorting defaults to ascending and can be changed by setting `:asc` or
+// `:desc` as a suffix to the column name.
 // API name: s
 func (r *Segments) S(names ...string) *Segments {
 	r.values.Set("s", strings.Join(names, ","))
@@ -348,10 +345,10 @@ func (r *Segments) S(names ...string) *Segments {
 	return r
 }
 
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
+// Local If `true`, the request computes the list of selected nodes from the local
+// cluster state. If `false` the list of selected nodes are computed from the
+// cluster state of the master node. In both cases the coordinating node will
+// send requests for further information to each selected node.
 // API name: local
 func (r *Segments) Local(local bool) *Segments {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -368,10 +365,8 @@ func (r *Segments) MasterTimeout(duration string) *Segments {
 }
 
 // ExpandWildcards Type of index that wildcard expressions can match. If the request can target
-// data streams, this argument
-// determines whether wildcard expressions match hidden data streams. Supports
-// comma-separated values,
-// such as open,hidden.
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as open,hidden.
 // API name: expand_wildcards
 func (r *Segments) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Segments {
 	tmp := []string{}
@@ -384,11 +379,10 @@ func (r *Segments) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildc
 }
 
 // AllowNoIndices If false, the request returns an error if any wildcard expression, index
-// alias, or _all value targets only
-// missing or closed indices. This behavior applies even if the request targets
-// other open indices. For example,
-// a request targeting foo*,bar* returns an error if an index starts with foo
-// but no index starts with bar.
+// alias, or _all value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices. For example, a
+// request targeting foo*,bar* returns an error if an index starts with foo but
+// no index starts with bar.
 // API name: allow_no_indices
 func (r *Segments) AllowNoIndices(allownoindices bool) *Segments {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -413,8 +407,8 @@ func (r *Segments) IgnoreUnavailable(ignoreunavailable bool) *Segments {
 }
 
 // AllowClosed If true, allow closed indices to be returned in the response otherwise if
-// false, keep the legacy behaviour
-// of throwing an exception if index pattern matches closed indices
+// false, keep the legacy behaviour of throwing an exception if index pattern
+// matches closed indices
 // API name: allow_closed
 func (r *Segments) AllowClosed(allowclosed bool) *Segments {
 	r.values.Set("allow_closed", strconv.FormatBool(allowclosed))
@@ -422,15 +416,14 @@ func (r *Segments) AllowClosed(allowclosed bool) *Segments {
 	return r
 }
 
-// Bytes Sets the units for columns that contain a byte-size value.
-// Note that byte-size value units work in terms of powers of 1024. For instance
-// `1kb` means 1024 bytes, not 1000 bytes.
-// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
-// or `gb`, chosen such that the numeric value of the column is as small as
-// possible whilst still being at least `1.0`.
-// If given, byte-size values are rendered as an integer with no suffix,
-// representing the value of the column in the chosen unit.
-// Values that are not an exact multiple of the chosen unit are rounded down.
+// Bytes Sets the units for columns that contain a byte-size value. Note that
+// byte-size value units work in terms of powers of 1024. For instance `1kb`
+// means 1024 bytes, not 1000 bytes. If omitted, byte-size values are rendered
+// with a suffix such as `kb`, `mb`, or `gb`, chosen such that the numeric value
+// of the column is as small as possible whilst still being at least `1.0`. If
+// given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit. Values that are not
+// an exact multiple of the chosen unit are rounded down.
 // API name: bytes
 func (r *Segments) Bytes(bytes bytes.Bytes) *Segments {
 	r.values.Set("bytes", bytes.String())
@@ -438,8 +431,8 @@ func (r *Segments) Bytes(bytes bytes.Bytes) *Segments {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *Segments) Format(format string) *Segments {
 	r.values.Set("format", format)
@@ -447,8 +440,8 @@ func (r *Segments) Format(format string) *Segments {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *Segments) Help(help bool) *Segments {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -456,12 +449,12 @@ func (r *Segments) Help(help bool) *Segments {
 	return r
 }
 
-// Time Sets the units for columns that contain a time duration.
-// If omitted, time duration values are rendered with a suffix such as `ms`,
-// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
-// as possible whilst still being at least `1.0`.
-// If given, time duration values are rendered as an integer with no suffix.
-// Values that are not an exact multiple of the chosen unit are rounded down.
+// Time Sets the units for columns that contain a time duration. If omitted, time
+// duration values are rendered with a suffix such as `ms`, `s`, `m` or `h`,
+// chosen such that the numeric value of the column is as small as possible
+// whilst still being at least `1.0`. If given, time duration values are
+// rendered as an integer with no suffix. Values that are not an exact multiple
+// of the chosen unit are rounded down.
 // API name: time
 func (r *Segments) Time(time timeunit.TimeUnit) *Segments {
 	r.values.Set("time", time.String())
@@ -500,11 +493,9 @@ func (r *Segments) FilterPath(filterpaths ...string) *Segments {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Segments) Human(human bool) *Segments {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -512,8 +503,8 @@ func (r *Segments) Human(human bool) *Segments {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Segments) Pretty(pretty bool) *Segments {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -26,8 +26,8 @@ type _pinnedRetriever struct {
 	v *types.PinnedRetriever
 }
 
-// A pinned retriever applies pinned documents to the underlying retriever.
-// This retriever will rewrite to a PinnedQueryBuilder.
+// A pinned retriever applies pinned documents to the underlying retriever. This
+// retriever will rewrite to a PinnedQueryBuilder.
 func NewPinnedRetriever(retriever types.RetrieverContainerVariant) *_pinnedRetriever {
 
 	tmp := &_pinnedRetriever{v: types.NewPinnedRetriever()}

@@ -28,17 +28,23 @@ import (
 	"io"
 )
 
-// MatchOnlyTextProperty type.
+// A variant of text that trades scoring and efficiency of positional queries
+// for space efficiency. This field effectively stores data the same way as a
+// text field that only indexes documents (index_options: docs) and disables
+// norms (norms: false). Term queries perform as fast if not faster as on text
+// fields, however queries that need positions such as the match_phrase query
+// perform slower as they need to look at the _source document to verify whether
+// a phrase matches. All queries return constant scores that are equal to 1.0.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/mapping/core.ts#L295-L320
 type MatchOnlyTextProperty struct {
-	// CopyTo Allows you to copy the values of multiple fields into a group
-	// field, which can then be queried as a single field.
+	// CopyTo Allows you to copy the values of multiple fields into a group field, which
+	// can then be queried as a single field.
 	CopyTo []string `json:"copy_to,omitempty"`
 	// Fields Multi-fields allow the same string value to be indexed in multiple ways for
-	// different purposes, such as one
-	// field for search and a multi-field for sorting and aggregations, or the same
-	// string value analyzed by different analyzers.
+	// different purposes, such as one field for search and a multi-field for
+	// sorting and aggregations, or the same string value analyzed by different
+	// analyzers.
 	Fields map[string]Property `json:"fields,omitempty"`
 	// Meta Metadata about the field.
 	Meta map[string]string `json:"meta,omitempty"`

@@ -41,11 +41,11 @@ type RareTermsAggregation struct {
 	Include TermsInclude `json:"include,omitempty"`
 	// MaxDocCount The maximum number of documents a term should appear in.
 	MaxDocCount *int64 `json:"max_doc_count,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
-	// Precision The precision of the internal CuckooFilters.
-	// Smaller precision leads to better approximation, but higher memory usage.
+	// Precision The precision of the internal CuckooFilters. Smaller precision leads to
+	// better approximation, but higher memory usage.
 	Precision *Float64 `json:"precision,omitempty"`
 	ValueType *string  `json:"value_type,omitempty"`
 }

@@ -22,20 +22,18 @@
 //
 // A job can be opened and closed multiple times throughout its lifecycle. A
 // closed job cannot receive data or perform analysis operations, but you can
-// still explore and navigate results.
-// When you close a job, it runs housekeeping tasks such as pruning the model
-// history, flushing buffers, calculating final results and persisting the model
-// snapshots. Depending upon the size of the job, it could take several minutes
-// to close and the equivalent time to re-open. After it is closed, the job has
-// a minimal overhead on the cluster except for maintaining its meta data.
-// Therefore it is a best practice to close jobs that are no longer required to
-// process data.
-// If you close an anomaly detection job whose datafeed is running, the request
+// still explore and navigate results. When you close a job, it runs
+// housekeeping tasks such as pruning the model history, flushing buffers,
+// calculating final results and persisting the model snapshots. Depending upon
+// the size of the job, it could take several minutes to close and the
+// equivalent time to re-open. After it is closed, the job has a minimal
+// overhead on the cluster except for maintaining its meta data. Therefore it is
+// a best practice to close jobs that are no longer required to process data. If
+// you close an anomaly detection job whose datafeed is running, the request
 // first tries to stop the datafeed. This behavior is equivalent to calling stop
 // datafeed API with the same timeout and force parameters as the close job
-// request.
-// When a datafeed that has a specified end date stops, it automatically closes
-// its associated job.
+// request. When a datafeed that has a specified end date stops, it
+// automatically closes its associated job.
 package closejob
 
 import (
@@ -102,20 +100,18 @@ func NewCloseJobFunc(tp elastictransport.Interface) NewCloseJob {
 //
 // A job can be opened and closed multiple times throughout its lifecycle. A
 // closed job cannot receive data or perform analysis operations, but you can
-// still explore and navigate results.
-// When you close a job, it runs housekeeping tasks such as pruning the model
-// history, flushing buffers, calculating final results and persisting the model
-// snapshots. Depending upon the size of the job, it could take several minutes
-// to close and the equivalent time to re-open. After it is closed, the job has
-// a minimal overhead on the cluster except for maintaining its meta data.
-// Therefore it is a best practice to close jobs that are no longer required to
-// process data.
-// If you close an anomaly detection job whose datafeed is running, the request
+// still explore and navigate results. When you close a job, it runs
+// housekeeping tasks such as pruning the model history, flushing buffers,
+// calculating final results and persisting the model snapshots. Depending upon
+// the size of the job, it could take several minutes to close and the
+// equivalent time to re-open. After it is closed, the job has a minimal
+// overhead on the cluster except for maintaining its meta data. Therefore it is
+// a best practice to close jobs that are no longer required to process data. If
+// you close an anomaly detection job whose datafeed is running, the request
 // first tries to stop the datafeed. This behavior is equivalent to calling stop
 // datafeed API with the same timeout and force parameters as the close job
-// request.
-// When a datafeed that has a specified end date stops, it automatically closes
-// its associated job.
+// request. When a datafeed that has a specified end date stops, it
+// automatically closes its associated job.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-close-job
 func New(tp elastictransport.Interface) *CloseJob {
@@ -341,10 +337,10 @@ func (r *CloseJob) Header(key, value string) *CloseJob {
 }
 
 // JobId Identifier for the anomaly detection job. It can be a job identifier, a group
-// name, or a wildcard expression. You can close multiple anomaly detection jobs
-// in a single API request by using a group name, a comma-separated list of
-// jobs, or a wildcard expression. You can close all jobs by using `_all` or by
-// specifying `*` as the job identifier.
+// // name, or a wildcard expression. You can close multiple anomaly detection
+// jobs // in a single API request by using a group name, a comma-separated list
+// of // jobs, or a wildcard expression. You can close all jobs by using `_all`
+// or by // specifying `*` as the job identifier.
 // API Name: jobid
 func (r *CloseJob) _jobid(jobid string) *CloseJob {
 	r.paramSet |= jobidMask
@@ -376,11 +372,9 @@ func (r *CloseJob) FilterPath(filterpaths ...string) *CloseJob {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *CloseJob) Human(human bool) *CloseJob {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -388,8 +382,8 @@ func (r *CloseJob) Human(human bool) *CloseJob {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *CloseJob) Pretty(pretty bool) *CloseJob {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -20,11 +20,10 @@
 
 // Run a grok processor.
 //
-// Extract structured fields out of a single text field within a document.
-// You must choose which field to extract matched fields from, as well as the
-// grok pattern you expect will match.
-// A grok pattern is like a regular expression that supports aliased expressions
-// that can be reused.
+// Extract structured fields out of a single text field within a document. You
+// must choose which field to extract matched fields from, as well as the grok
+// pattern you expect will match. A grok pattern is like a regular expression
+// that supports aliased expressions that can be reused.
 package processorgrok
 
 import (
@@ -76,11 +75,10 @@ func NewProcessorGrokFunc(tp elastictransport.Interface) NewProcessorGrok {
 
 // Run a grok processor.
 //
-// Extract structured fields out of a single text field within a document.
-// You must choose which field to extract matched fields from, as well as the
-// grok pattern you expect will match.
-// A grok pattern is like a regular expression that supports aliased expressions
-// that can be reused.
+// Extract structured fields out of a single text field within a document. You
+// must choose which field to extract matched fields from, as well as the grok
+// pattern you expect will match. A grok pattern is like a regular expression
+// that supports aliased expressions that can be reused.
 //
 // https://www.elastic.co/docs/reference/enrich-processor/grok-processor
 func New(tp elastictransport.Interface) *ProcessorGrok {
@@ -313,11 +311,9 @@ func (r *ProcessorGrok) FilterPath(filterpaths ...string) *ProcessorGrok {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ProcessorGrok) Human(human bool) *ProcessorGrok {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -325,8 +321,8 @@ func (r *ProcessorGrok) Human(human bool) *ProcessorGrok {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ProcessorGrok) Pretty(pretty bool) *ProcessorGrok {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

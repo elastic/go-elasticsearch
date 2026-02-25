@@ -36,11 +36,11 @@ type RequestChatCompletion struct {
 	// MaxCompletionTokens The upper bound limit for the number of tokens that can be generated for a
 	// completion request.
 	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitempty"`
-	// Messages A list of objects representing the conversation.
-	// Requests should generally only add new messages from the user (role `user`).
-	// The other message roles (`assistant`, `system`, or `tool`) should generally
-	// only be copied from the response to a previous completion request, such that
-	// the messages array is built up throughout a conversation.
+	// Messages A list of objects representing the conversation. Requests should generally
+	// only add new messages from the user (role `user`). The other message roles
+	// (`assistant`, `system`, or `tool`) should generally only be copied from the
+	// response to a previous completion request, such that the messages array is
+	// built up throughout a conversation.
 	Messages []Message `json:"messages"`
 	// Model The ID of the model to use. By default, the model ID is set to the value
 	// included when creating the inference endpoint.
@@ -50,13 +50,11 @@ type RequestChatCompletion struct {
 	Stop []string `json:"stop,omitempty"`
 	// Temperature The sampling temperature to use.
 	Temperature *float32 `json:"temperature,omitempty"`
-	// ToolChoice Controls which tool is called by the model.
-	// String representation: One of `auto`, `none`, or `requrired`. `auto` allows
-	// the model to choose between calling tools and generating a message. `none`
-	// causes the model to not call any tools. `required` forces the model to call
-	// one or more tools.
-	// Example (object representation):
-	// ```
+	// ToolChoice Controls which tool is called by the model. String representation: One of
+	// `auto`, `none`, or `requrired`. `auto` allows the model to choose between
+	// calling tools and generating a message. `none` causes the model to not call
+	// any tools. `required` forces the model to call one or more tools. Example
+	// (object representation):
 	//
 	//	{
 	//	  "tool_choice": {
@@ -66,12 +64,8 @@ type RequestChatCompletion struct {
 	//	      }
 	//	  }
 	//	}
-	//
-	// ```
 	ToolChoice CompletionToolType `json:"tool_choice,omitempty"`
-	// Tools A list of tools that the model can call.
-	// Example:
-	// ```
+	// Tools A list of tools that the model can call. Example:
 	//
 	//	{
 	//	  "tools": [
@@ -95,8 +89,6 @@ type RequestChatCompletion struct {
 	//	      }
 	//	  ]
 	//	}
-	//
-	// ```
 	Tools []CompletionTool `json:"tools,omitempty"`
 	// TopP Nucleus sampling, an alternative to sampling with temperature.
 	TopP *float32 `json:"top_p,omitempty"`

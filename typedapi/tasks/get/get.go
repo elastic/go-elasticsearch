@@ -23,8 +23,7 @@
 // Get information about a task currently running in the cluster.
 //
 // WARNING: The task management API is new and should still be considered a beta
-// feature.
-// The API may change in ways that are not backwards compatible.
+// feature. The API may change in ways that are not backwards compatible.
 //
 // If the task identifier is not found, a 404 response code indicates that there
 // are no resources that match the request.
@@ -90,8 +89,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // Get information about a task currently running in the cluster.
 //
 // WARNING: The task management API is new and should still be considered a beta
-// feature.
-// The API may change in ways that are not backwards compatible.
+// feature. The API may change in ways that are not backwards compatible.
 //
 // If the task identifier is not found, a 404 response code indicates that there
 // are no resources that match the request.
@@ -315,9 +313,8 @@ func (r *Get) _taskid(taskid string) *Get {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error.
 // API name: timeout
 func (r *Get) Timeout(duration string) *Get {
 	r.values.Set("timeout", duration)
@@ -356,11 +353,9 @@ func (r *Get) FilterPath(filterpaths ...string) *Get {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Get) Human(human bool) *Get {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -368,8 +363,8 @@ func (r *Get) Human(human bool) *Get {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Get) Pretty(pretty bool) *Get {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

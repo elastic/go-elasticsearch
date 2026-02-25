@@ -289,15 +289,11 @@ func (r *GetSettings) FlatSettings(flatsettings bool) *GetSettings {
 }
 
 // IncludeDefaults If `true`, also returns default values for all other cluster settings,
-// reflecting the values
-// in the `elasticsearch.yml` file of one of the nodes in the cluster. If the
-// nodes in your
-// cluster do not all have the same values in their `elasticsearch.yml` config
-// files then the
-// values returned by this API may vary from invocation to invocation and may
-// not reflect the
-// values that Elasticsearch uses in all situations. Use the `GET
-// _nodes/settings` API to
+// reflecting the values in the `elasticsearch.yml` file of one of the nodes in
+// the cluster. If the nodes in your cluster do not all have the same values in
+// their `elasticsearch.yml` config files then the values returned by this API
+// may vary from invocation to invocation and may not reflect the values that
+// Elasticsearch uses in all situations. Use the `GET _nodes/settings` API to
 // fetch the settings for each individual node in your cluster.
 // API name: include_defaults
 func (r *GetSettings) IncludeDefaults(includedefaults bool) *GetSettings {
@@ -306,9 +302,8 @@ func (r *GetSettings) IncludeDefaults(includedefaults bool) *GetSettings {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *GetSettings) MasterTimeout(duration string) *GetSettings {
 	r.values.Set("master_timeout", duration)
@@ -316,9 +311,8 @@ func (r *GetSettings) MasterTimeout(duration string) *GetSettings {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *GetSettings) Timeout(duration string) *GetSettings {
 	r.values.Set("timeout", duration)
@@ -349,11 +343,9 @@ func (r *GetSettings) FilterPath(filterpaths ...string) *GetSettings {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetSettings) Human(human bool) *GetSettings {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -361,8 +353,8 @@ func (r *GetSettings) Human(human bool) *GetSettings {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetSettings) Pretty(pretty bool) *GetSettings {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

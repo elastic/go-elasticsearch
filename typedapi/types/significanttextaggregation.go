@@ -68,13 +68,13 @@ type SignificantTextAggregation struct {
 	// ScriptHeuristic Customized score, implemented via a script.
 	ScriptHeuristic *ScriptedHeuristic `json:"script_heuristic,omitempty"`
 	// ShardMinDocCount Regulates the certainty a shard has if the values should actually be added to
-	// the candidate list or not with respect to the min_doc_count.
-	// Values will only be considered if their local shard frequency within the set
-	// is higher than the `shard_min_doc_count`.
+	// the candidate list or not with respect to the min_doc_count. Values will only
+	// be considered if their local shard frequency within the set is higher than
+	// the `shard_min_doc_count`.
 	ShardMinDocCount *int64 `json:"shard_min_doc_count,omitempty"`
-	// ShardSize The number of candidate terms produced by each shard.
-	// By default, `shard_size` will be automatically estimated based on the number
-	// of shards and the `size` parameter.
+	// ShardSize The number of candidate terms produced by each shard. By default,
+	// `shard_size` will be automatically estimated based on the number of shards
+	// and the `size` parameter.
 	ShardSize *int `json:"shard_size,omitempty"`
 	// Size The number of buckets returned out of the overall terms list.
 	Size *int `json:"size,omitempty"`

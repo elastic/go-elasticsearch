@@ -33,23 +33,19 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/update_aliases/types.ts#L41-L95
 type AddAction struct {
-	// Alias Alias for the action.
-	// Index alias names support date math.
+	// Alias Alias for the action. Index alias names support date math.
 	Alias *string `json:"alias,omitempty"`
-	// Aliases Aliases for the action.
-	// Index alias names support date math.
+	// Aliases Aliases for the action. Index alias names support date math.
 	Aliases []string `json:"aliases,omitempty"`
 	// Filter Query used to limit documents the alias can access.
 	Filter *Query `json:"filter,omitempty"`
-	// Index Data stream or index for the action.
-	// Supports wildcards (`*`).
+	// Index Data stream or index for the action. Supports wildcards (`*`).
 	Index *string `json:"index,omitempty"`
-	// IndexRouting Value used to route indexing operations to a specific shard.
-	// If specified, this overwrites the `routing` value for indexing operations.
-	// Data stream aliases don’t support this parameter.
+	// IndexRouting Value used to route indexing operations to a specific shard. If specified,
+	// this overwrites the `routing` value for indexing operations. Data stream
+	// aliases don’t support this parameter.
 	IndexRouting []string `json:"index_routing,omitempty"`
-	// Indices Data streams or indices for the action.
-	// Supports wildcards (`*`).
+	// Indices Data streams or indices for the action. Supports wildcards (`*`).
 	Indices []string `json:"indices,omitempty"`
 	// IsHidden If `true`, the alias is hidden.
 	IsHidden *bool `json:"is_hidden,omitempty"`
@@ -57,12 +53,12 @@ type AddAction struct {
 	IsWriteIndex *bool `json:"is_write_index,omitempty"`
 	// MustExist If `true`, the alias must exist to perform the action.
 	MustExist *bool `json:"must_exist,omitempty"`
-	// Routing Value used to route indexing and search operations to a specific shard.
-	// Data stream aliases don’t support this parameter.
+	// Routing Value used to route indexing and search operations to a specific shard. Data
+	// stream aliases don’t support this parameter.
 	Routing []string `json:"routing,omitempty"`
-	// SearchRouting Value used to route search operations to a specific shard.
-	// If specified, this overwrites the `routing` value for search operations.
-	// Data stream aliases don’t support this parameter.
+	// SearchRouting Value used to route search operations to a specific shard. If specified, this
+	// overwrites the `routing` value for search operations. Data stream aliases
+	// don’t support this parameter.
 	SearchRouting []string `json:"search_routing,omitempty"`
 }
 

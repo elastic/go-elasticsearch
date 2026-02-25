@@ -29,12 +29,31 @@ type StorageType struct {
 }
 
 var (
+
+	// Fs Default file system implementation. This will pick the best implementation
+	// depending on the operating environment, which is currently hybridfs on all
+	// supported systems but is subject to change.
 	Fs = StorageType{"fs"}
 
+	// Niofs The NIO FS type stores the shard index on the file system (maps to Lucene
+	// NIOFSDirectory) using NIO. It allows multiple threads to read from the same
+	// file concurrently. It is not recommended on Windows because of a bug in the
+	// SUN Java implementation and disables some optimizations for heap memory
+	// usage.
 	Niofs = StorageType{"niofs"}
 
+	// Mmapfs The MMap FS type stores the shard index on the file system (maps to Lucene
+	// MMapDirectory) by mapping a file into memory (mmap). Memory mapping uses up a
+	// portion of the virtual memory address space in your process equal to the size
+	// of the file being mapped. Before using this class, be sure you have allowed
+	// plenty of virtual address space.
 	Mmapfs = StorageType{"mmapfs"}
 
+	// Hybridfs The hybridfs type is a hybrid of niofs and mmapfs, which chooses the best
+	// file system type for each type of file based on the read access pattern.
+	// Currently only the Lucene term dictionary, norms and doc values files are
+	// memory mapped. All other files are opened using Lucene NIOFSDirectory.
+	// Similarly to mmapfs be sure you have allowed plenty of virtual address space.
 	Hybridfs = StorageType{"hybridfs"}
 )
 

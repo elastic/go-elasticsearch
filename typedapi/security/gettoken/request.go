@@ -35,30 +35,27 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/get_token/GetUserAccessTokenRequest.ts#L25-L92
 type Request struct {
-	// GrantType The type of grant.
-	// Supported grant types are: `password`, `_kerberos`, `client_credentials`, and
-	// `refresh_token`.
+	// GrantType The type of grant. Supported grant types are: `password`, `_kerberos`,
+	// `client_credentials`, and `refresh_token`.
 	GrantType *accesstokengranttype.AccessTokenGrantType `json:"grant_type,omitempty"`
-	// KerberosTicket The base64 encoded kerberos ticket.
-	// If you specify the `_kerberos` grant type, this parameter is required.
-	// This parameter is not valid with any other supported grant type.
+	// KerberosTicket The base64 encoded kerberos ticket. If you specify the `_kerberos` grant
+	// type, this parameter is required. This parameter is not valid with any other
+	// supported grant type.
 	KerberosTicket *string `json:"kerberos_ticket,omitempty"`
-	// Password The user's password.
-	// If you specify the `password` grant type, this parameter is required.
-	// This parameter is not valid with any other supported grant type.
+	// Password The user's password. If you specify the `password` grant type, this parameter
+	// is required. This parameter is not valid with any other supported grant type.
 	Password *string `json:"password,omitempty"`
 	// RefreshToken The string that was returned when you created the token, which enables you to
-	// extend its life.
-	// If you specify the `refresh_token` grant type, this parameter is required.
-	// This parameter is not valid with any other supported grant type.
+	// extend its life. If you specify the `refresh_token` grant type, this
+	// parameter is required. This parameter is not valid with any other supported
+	// grant type.
 	RefreshToken *string `json:"refresh_token,omitempty"`
-	// Scope The scope of the token.
-	// Currently tokens are only issued for a scope of FULL regardless of the value
-	// sent with the request.
+	// Scope The scope of the token. Currently tokens are only issued for a scope of FULL
+	// regardless of the value sent with the request.
 	Scope *string `json:"scope,omitempty"`
-	// Username The username that identifies the user.
-	// If you specify the `password` grant type, this parameter is required.
-	// This parameter is not valid with any other supported grant type.
+	// Username The username that identifies the user. If you specify the `password` grant
+	// type, this parameter is required. This parameter is not valid with any other
+	// supported grant type.
 	Username *string `json:"username,omitempty"`
 }
 

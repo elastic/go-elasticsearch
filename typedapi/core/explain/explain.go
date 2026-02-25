@@ -21,8 +21,7 @@
 // Explain a document match result.
 //
 // Get information about why a specific document matches, or doesn't match, a
-// query.
-// It computes a score explanation for a query and a specific document.
+// query. It computes a score explanation for a query and a specific document.
 package explain
 
 import (
@@ -94,8 +93,7 @@ func NewExplainFunc(tp elastictransport.Interface) NewExplain {
 // Explain a document match result.
 //
 // Get information about why a specific document matches, or doesn't match, a
-// query.
-// It computes a score explanation for a query and a specific document.
+// query. It computes a score explanation for a query and a specific document.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain
 func New(tp elastictransport.Interface) *Explain {
@@ -331,8 +329,8 @@ func (r *Explain) _id(id string) *Explain {
 	return r
 }
 
-// Index Index names that are used to limit the request.
-// Only a single index name can be provided to this parameter.
+// Index Index names that are used to limit the request. Only a single index name can
+// // be provided to this parameter.
 // API Name: index
 func (r *Explain) _index(index string) *Explain {
 	r.paramSet |= indexMask
@@ -341,9 +339,8 @@ func (r *Explain) _index(index string) *Explain {
 	return r
 }
 
-// Analyzer The analyzer to use for the query string.
-// This parameter can be used only when the `q` query string parameter is
-// specified.
+// Analyzer The analyzer to use for the query string. This parameter can be used only
+// when the `q` query string parameter is specified.
 // API name: analyzer
 func (r *Explain) Analyzer(analyzer string) *Explain {
 	r.values.Set("analyzer", analyzer)
@@ -351,9 +348,8 @@ func (r *Explain) Analyzer(analyzer string) *Explain {
 	return r
 }
 
-// AnalyzeWildcard If `true`, wildcard and prefix queries are analyzed.
-// This parameter can be used only when the `q` query string parameter is
-// specified.
+// AnalyzeWildcard If `true`, wildcard and prefix queries are analyzed. This parameter can be
+// used only when the `q` query string parameter is specified.
 // API name: analyze_wildcard
 func (r *Explain) AnalyzeWildcard(analyzewildcard bool) *Explain {
 	r.values.Set("analyze_wildcard", strconv.FormatBool(analyzewildcard))
@@ -361,9 +357,8 @@ func (r *Explain) AnalyzeWildcard(analyzewildcard bool) *Explain {
 	return r
 }
 
-// DefaultOperator The default operator for query string query: `and` or `or`.
-// This parameter can be used only when the `q` query string parameter is
-// specified.
+// DefaultOperator The default operator for query string query: `and` or `or`. This parameter
+// can be used only when the `q` query string parameter is specified.
 // API name: default_operator
 func (r *Explain) DefaultOperator(defaultoperator operator.Operator) *Explain {
 	r.values.Set("default_operator", defaultoperator.String())
@@ -372,9 +367,8 @@ func (r *Explain) DefaultOperator(defaultoperator operator.Operator) *Explain {
 }
 
 // Df The field to use as default where no field prefix is given in the query
-// string.
-// This parameter can be used only when the `q` query string parameter is
-// specified.
+// string. This parameter can be used only when the `q` query string parameter
+// is specified.
 // API name: df
 func (r *Explain) Df(df string) *Explain {
 	r.values.Set("df", df)
@@ -383,9 +377,8 @@ func (r *Explain) Df(df string) *Explain {
 }
 
 // Lenient If `true`, format-based query failures (such as providing text to a numeric
-// field) in the query string will be ignored.
-// This parameter can be used only when the `q` query string parameter is
-// specified.
+// field) in the query string will be ignored. This parameter can be used only
+// when the `q` query string parameter is specified.
 // API name: lenient
 func (r *Explain) Lenient(lenient bool) *Explain {
 	r.values.Set("lenient", strconv.FormatBool(lenient))
@@ -393,8 +386,8 @@ func (r *Explain) Lenient(lenient bool) *Explain {
 	return r
 }
 
-// Preference The node or shard the operation should be performed on.
-// It is random by default.
+// Preference The node or shard the operation should be performed on. It is random by
+// default.
 // API name: preference
 func (r *Explain) Preference(preference string) *Explain {
 	r.values.Set("preference", preference)
@@ -419,10 +412,10 @@ func (r *Explain) Source_(sourceconfigparam string) *Explain {
 	return r
 }
 
-// SourceExcludes_ A comma-separated list of source fields to exclude from the response.
-// You can also use this parameter to exclude fields from the subset specified
-// in `_source_includes` query parameter.
-// If the `_source` parameter is `false`, this parameter is ignored.
+// SourceExcludes_ A comma-separated list of source fields to exclude from the response. You can
+// also use this parameter to exclude fields from the subset specified in
+// `_source_includes` query parameter. If the `_source` parameter is `false`,
+// this parameter is ignored.
 // API name: _source_excludes
 func (r *Explain) SourceExcludes_(fields ...string) *Explain {
 	r.values.Set("_source_excludes", strings.Join(fields, ","))
@@ -430,10 +423,9 @@ func (r *Explain) SourceExcludes_(fields ...string) *Explain {
 	return r
 }
 
-// SourceIncludes_ A comma-separated list of source fields to include in the response.
-// If this parameter is specified, only these source fields are returned.
-// You can exclude fields from this subset using the `_source_excludes` query
-// parameter.
+// SourceIncludes_ A comma-separated list of source fields to include in the response. If this
+// parameter is specified, only these source fields are returned. You can
+// exclude fields from this subset using the `_source_excludes` query parameter.
 // If the `_source` parameter is `false`, this parameter is ignored.
 // API name: _source_includes
 func (r *Explain) SourceIncludes_(fields ...string) *Explain {
@@ -481,11 +473,9 @@ func (r *Explain) FilterPath(filterpaths ...string) *Explain {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Explain) Human(human bool) *Explain {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -493,8 +483,8 @@ func (r *Explain) Human(human bool) *Explain {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Explain) Pretty(pretty bool) *Explain {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

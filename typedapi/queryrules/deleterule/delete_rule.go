@@ -20,9 +20,9 @@
 
 // Delete a query rule.
 //
-// Delete a query rule within a query ruleset.
-// This is a destructive action that is only recoverable by re-adding the same
-// rule with the create or update query rule API.
+// Delete a query rule within a query ruleset. This is a destructive action that
+// is only recoverable by re-adding the same rule with the create or update
+// query rule API.
 package deleterule
 
 import (
@@ -87,9 +87,9 @@ func NewDeleteRuleFunc(tp elastictransport.Interface) NewDeleteRule {
 
 // Delete a query rule.
 //
-// Delete a query rule within a query ruleset.
-// This is a destructive action that is only recoverable by re-adding the same
-// rule with the create or update query rule API.
+// Delete a query rule within a query ruleset. This is a destructive action that
+// is only recoverable by re-adding the same rule with the create or update
+// query rule API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-rule
 func New(tp elastictransport.Interface) *DeleteRule {
@@ -318,7 +318,7 @@ func (r *DeleteRule) _rulesetid(rulesetid string) *DeleteRule {
 	return r
 }
 
-// RuleId The unique identifier of the query rule within the specified ruleset to
+// RuleId The unique identifier of the query rule within the specified ruleset to //
 // delete
 // API Name: ruleid
 func (r *DeleteRule) _ruleid(ruleid string) *DeleteRule {
@@ -351,11 +351,9 @@ func (r *DeleteRule) FilterPath(filterpaths ...string) *DeleteRule {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteRule) Human(human bool) *DeleteRule {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -363,8 +361,8 @@ func (r *DeleteRule) Human(human bool) *DeleteRule {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteRule) Pretty(pretty bool) *DeleteRule {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

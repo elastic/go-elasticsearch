@@ -44,13 +44,11 @@ type UpdateAction struct {
 	Script *Script `json:"script,omitempty"`
 	// ScriptedUpsert Set to `true` to run the script whether or not the document exists.
 	ScriptedUpsert *bool `json:"scripted_upsert,omitempty"`
-	// Source_ If `false`, source retrieval is turned off.
-	// You can also specify a comma-separated list of the fields you want to
-	// retrieve.
+	// Source_ If `false`, source retrieval is turned off. You can also specify a
+	// comma-separated list of the fields you want to retrieve.
 	Source_ SourceConfig `json:"_source,omitempty"`
 	// Upsert If the document does not already exist, the contents of `upsert` are inserted
-	// as a new document.
-	// If the document exists, the `script` is run.
+	// as a new document. If the document exists, the `script` is run.
 	Upsert json.RawMessage `json:"upsert,omitempty"`
 }
 

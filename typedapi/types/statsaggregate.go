@@ -29,7 +29,8 @@ import (
 	"strconv"
 )
 
-// StatsAggregate type.
+// Statistics aggregation result. `min`, `max` and `avg` are missing if there
+// were no values to process (`count` is zero).
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/Aggregate.ts#L262-L278
 type StatsAggregate struct {

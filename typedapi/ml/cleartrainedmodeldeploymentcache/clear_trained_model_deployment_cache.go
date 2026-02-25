@@ -20,11 +20,11 @@
 
 // Clear trained model deployment cache.
 //
-// Cache will be cleared on all nodes where the trained model is assigned.
-// A trained model deployment may have an inference cache enabled.
-// As requests are handled by each allocated node, their responses may be cached
-// on that individual node.
-// Calling this API clears the caches without restarting the deployment.
+// Cache will be cleared on all nodes where the trained model is assigned. A
+// trained model deployment may have an inference cache enabled. As requests are
+// handled by each allocated node, their responses may be cached on that
+// individual node. Calling this API clears the caches without restarting the
+// deployment.
 package cleartrainedmodeldeploymentcache
 
 import (
@@ -84,11 +84,11 @@ func NewClearTrainedModelDeploymentCacheFunc(tp elastictransport.Interface) NewC
 
 // Clear trained model deployment cache.
 //
-// Cache will be cleared on all nodes where the trained model is assigned.
-// A trained model deployment may have an inference cache enabled.
-// As requests are handled by each allocated node, their responses may be cached
-// on that individual node.
-// Calling this API clears the caches without restarting the deployment.
+// Cache will be cleared on all nodes where the trained model is assigned. A
+// trained model deployment may have an inference cache enabled. As requests are
+// handled by each allocated node, their responses may be cached on that
+// individual node. Calling this API clears the caches without restarting the
+// deployment.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-clear-trained-model-deployment-cache
 func New(tp elastictransport.Interface) *ClearTrainedModelDeploymentCache {
@@ -346,11 +346,9 @@ func (r *ClearTrainedModelDeploymentCache) FilterPath(filterpaths ...string) *Cl
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ClearTrainedModelDeploymentCache) Human(human bool) *ClearTrainedModelDeploymentCache {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -358,8 +356,8 @@ func (r *ClearTrainedModelDeploymentCache) Human(human bool) *ClearTrainedModelD
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ClearTrainedModelDeploymentCache) Pretty(pretty bool) *ClearTrainedModelDeploymentCache {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

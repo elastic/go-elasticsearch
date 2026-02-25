@@ -31,37 +31,34 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/shutdown/put_node/ShutdownPutNodeRequest.ts#L25-L110
 type Request struct {
-	// AllocationDelay Only valid if type is restart.
-	// Controls how long Elasticsearch will wait for the node to restart and join
-	// the cluster before reassigning its shards to other nodes.
-	// This works the same as delaying allocation with the
-	// index.unassigned.node_left.delayed_timeout setting.
-	// If you specify both a restart allocation delay and an index-level allocation
-	// delay, the longer of the two is used.
+	// AllocationDelay Only valid if type is restart. Controls how long Elasticsearch will wait for
+	// the node to restart and join the cluster before reassigning its shards to
+	// other nodes. This works the same as delaying allocation with the
+	// index.unassigned.node_left.delayed_timeout setting. If you specify both a
+	// restart allocation delay and an index-level allocation delay, the longer of
+	// the two is used.
 	AllocationDelay *string `json:"allocation_delay,omitempty"`
-	// Reason A human-readable reason that the node is being shut down.
-	// This field provides information for other cluster operators; it does not
-	// affect the shut down process.
+	// Reason A human-readable reason that the node is being shut down. This field provides
+	// information for other cluster operators; it does not affect the shut down
+	// process.
 	Reason string `json:"reason"`
-	// TargetNodeName Only valid if type is replace.
-	// Specifies the name of the node that is replacing the node being shut down.
-	// Shards from the shut down node are only allowed to be allocated to the target
-	// node, and no other data will be allocated to the target node.
-	// During relocation of data certain allocation rules are ignored, such as disk
-	// watermarks or user attribute filtering rules.
+	// TargetNodeName Only valid if type is replace. Specifies the name of the node that is
+	// replacing the node being shut down. Shards from the shut down node are only
+	// allowed to be allocated to the target node, and no other data will be
+	// allocated to the target node. During relocation of data certain allocation
+	// rules are ignored, such as disk watermarks or user attribute filtering rules.
 	TargetNodeName *string `json:"target_node_name,omitempty"`
-	// Type Valid values are restart, remove, or replace.
-	// Use restart when you need to temporarily shut down a node to perform an
-	// upgrade, make configuration changes, or perform other maintenance.
-	// Because the node is expected to rejoin the cluster, data is not migrated off
-	// of the node.
-	// Use remove when you need to permanently remove a node from the cluster.
-	// The node is not marked ready for shutdown until data is migrated off of the
-	// node Use replace to do a 1:1 replacement of a node with another node.
-	// Certain allocation decisions will be ignored (such as disk watermarks) in the
-	// interest of true replacement of the source node with the target node.
-	// During a replace-type shutdown, rollover and index creation may result in
-	// unassigned shards, and shrink may fail until the replacement is complete.
+	// Type Valid values are restart, remove, or replace. Use restart when you need to
+	// temporarily shut down a node to perform an upgrade, make configuration
+	// changes, or perform other maintenance. Because the node is expected to rejoin
+	// the cluster, data is not migrated off of the node. Use remove when you need
+	// to permanently remove a node from the cluster. The node is not marked ready
+	// for shutdown until data is migrated off of the node Use replace to do a 1:1
+	// replacement of a node with another node. Certain allocation decisions will be
+	// ignored (such as disk watermarks) in the interest of true replacement of the
+	// source node with the target node. During a replace-type shutdown, rollover
+	// and index creation may result in unassigned shards, and shrink may fail until
+	// the replacement is complete.
 	Type type_.Type `json:"type"`
 }
 

@@ -47,8 +47,8 @@ type Response struct {
 	// MigratedLegacyTemplates The legacy index templates that were updated to not contain custom routing
 	// settings for the provided data attribute.
 	MigratedLegacyTemplates []string `json:"migrated_legacy_templates"`
-	// RemovedLegacyTemplate The name of the legacy index template that was deleted.
-	// This information is missing if no legacy index templates were deleted.
+	// RemovedLegacyTemplate The name of the legacy index template that was deleted. This information is
+	// missing if no legacy index templates were deleted.
 	RemovedLegacyTemplate string `json:"removed_legacy_template"`
 }
 

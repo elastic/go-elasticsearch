@@ -35,8 +35,8 @@ type Request struct {
 	// Service The type of service supported for the specified task type. In this case,
 	// `deepseek`.
 	Service deepseekservicetype.DeepSeekServiceType `json:"service"`
-	// ServiceSettings Settings used to install the inference model.
-	// These settings are specific to the `deepseek` service.
+	// ServiceSettings Settings used to install the inference model. These settings are specific to
+	// the `deepseek` service.
 	ServiceSettings types.DeepSeekServiceSettings `json:"service_settings"`
 }
 

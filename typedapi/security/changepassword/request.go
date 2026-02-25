@@ -37,9 +37,8 @@ type Request struct {
 	Password *string `json:"password,omitempty"`
 	// PasswordHash A hash of the new password value. This must be produced using the same
 	// hashing algorithm as has been configured for password storage. For more
-	// details,
-	// see the explanation of the `xpack.security.authc.password_hashing.algorithm`
-	// setting.
+	// details, see the explanation of the
+	// `xpack.security.authc.password_hashing.algorithm` setting.
 	PasswordHash *string `json:"password_hash,omitempty"`
 }
 

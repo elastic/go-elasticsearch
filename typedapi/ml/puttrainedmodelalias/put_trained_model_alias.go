@@ -21,21 +21,18 @@
 // Create or update a trained model alias.
 //
 // A trained model alias is a logical name used to reference a single trained
-// model.
-// You can use aliases instead of trained model identifiers to make it easier to
-// reference your models. For example, you can use aliases in inference
-// aggregations and processors.
-// An alias must be unique and refer to only a single trained model. However,
-// you can have multiple aliases for each trained model.
-// If you use this API to update an alias such that it references a different
-// trained model ID and the model uses a different type of data frame analytics,
-// an error occurs. For example, this situation occurs if you have a trained
-// model for regression analysis and a trained model for classification
-// analysis; you cannot reassign an alias from one type of trained model to
-// another.
-// If you use this API to update an alias and there are very few input fields in
-// common between the old and new trained models for the model alias, the API
-// returns a warning.
+// model. You can use aliases instead of trained model identifiers to make it
+// easier to reference your models. For example, you can use aliases in
+// inference aggregations and processors. An alias must be unique and refer to
+// only a single trained model. However, you can have multiple aliases for each
+// trained model. If you use this API to update an alias such that it references
+// a different trained model ID and the model uses a different type of data
+// frame analytics, an error occurs. For example, this situation occurs if you
+// have a trained model for regression analysis and a trained model for
+// classification analysis; you cannot reassign an alias from one type of
+// trained model to another. If you use this API to update an alias and there
+// are very few input fields in common between the old and new trained models
+// for the model alias, the API returns a warning.
 package puttrainedmodelalias
 
 import (
@@ -101,21 +98,18 @@ func NewPutTrainedModelAliasFunc(tp elastictransport.Interface) NewPutTrainedMod
 // Create or update a trained model alias.
 //
 // A trained model alias is a logical name used to reference a single trained
-// model.
-// You can use aliases instead of trained model identifiers to make it easier to
-// reference your models. For example, you can use aliases in inference
-// aggregations and processors.
-// An alias must be unique and refer to only a single trained model. However,
-// you can have multiple aliases for each trained model.
-// If you use this API to update an alias such that it references a different
-// trained model ID and the model uses a different type of data frame analytics,
-// an error occurs. For example, this situation occurs if you have a trained
-// model for regression analysis and a trained model for classification
-// analysis; you cannot reassign an alias from one type of trained model to
-// another.
-// If you use this API to update an alias and there are very few input fields in
-// common between the old and new trained models for the model alias, the API
-// returns a warning.
+// model. You can use aliases instead of trained model identifiers to make it
+// easier to reference your models. For example, you can use aliases in
+// inference aggregations and processors. An alias must be unique and refer to
+// only a single trained model. However, you can have multiple aliases for each
+// trained model. If you use this API to update an alias such that it references
+// a different trained model ID and the model uses a different type of data
+// frame analytics, an error occurs. For example, this situation occurs if you
+// have a trained model for regression analysis and a trained model for
+// classification analysis; you cannot reassign an alias from one type of
+// trained model to another. If you use this API to update an alias and there
+// are very few input fields in common between the old and new trained models
+// for the model alias, the API returns a warning.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-alias
 func New(tp elastictransport.Interface) *PutTrainedModelAlias {
@@ -361,9 +355,9 @@ func (r *PutTrainedModelAlias) _modelid(modelid string) *PutTrainedModelAlias {
 	return r
 }
 
-// Reassign Specifies whether the alias gets reassigned to the specified trained
-// model if it is already assigned to a different model. If the alias is
-// already assigned and this parameter is false, the API returns an error.
+// Reassign Specifies whether the alias gets reassigned to the specified trained model if
+// it is already assigned to a different model. If the alias is already assigned
+// and this parameter is false, the API returns an error.
 // API name: reassign
 func (r *PutTrainedModelAlias) Reassign(reassign bool) *PutTrainedModelAlias {
 	r.values.Set("reassign", strconv.FormatBool(reassign))
@@ -394,11 +388,9 @@ func (r *PutTrainedModelAlias) FilterPath(filterpaths ...string) *PutTrainedMode
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutTrainedModelAlias) Human(human bool) *PutTrainedModelAlias {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -406,8 +398,8 @@ func (r *PutTrainedModelAlias) Human(human bool) *PutTrainedModelAlias {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutTrainedModelAlias) Pretty(pretty bool) *PutTrainedModelAlias {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

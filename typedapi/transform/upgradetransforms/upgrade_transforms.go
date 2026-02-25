@@ -21,27 +21,23 @@
 // Upgrade all transforms.
 //
 // Transforms are compatible across minor versions and between supported major
-// versions.
-// However, over time, the format of transform configuration information may
-// change.
-// This API identifies transforms that have a legacy configuration format and
-// upgrades them to the latest version.
-// It also cleans up the internal data structures that store the transform state
-// and checkpoints.
-// The upgrade does not affect the source and destination indices.
+// versions. However, over time, the format of transform configuration
+// information may change. This API identifies transforms that have a legacy
+// configuration format and upgrades them to the latest version. It also cleans
+// up the internal data structures that store the transform state and
+// checkpoints. The upgrade does not affect the source and destination indices.
 // The upgrade also does not affect the roles that transforms use when
 // Elasticsearch security features are enabled; the role used to read source
 // data and write to the destination index remains unchanged.
 //
 // If a transform upgrade step fails, the upgrade stops and an error is returned
-// about the underlying issue.
-// Resolve the issue then re-run the process again.
+// about the underlying issue. Resolve the issue then re-run the process again.
 // A summary is returned when the upgrade is finished.
 //
 // To ensure continuous transforms remain running during a major version upgrade
-// of the cluster – for example, from 7.16 to 8.0 – it is recommended to upgrade
-// transforms before upgrading the cluster.
-// You may want to perform a recent cluster backup prior to the upgrade.
+// of the cluster – for example, from 7.16 to 8.0 – it is recommended to
+// upgrade transforms before upgrading the cluster. You may want to perform a
+// recent cluster backup prior to the upgrade.
 package upgradetransforms
 
 import (
@@ -94,27 +90,23 @@ func NewUpgradeTransformsFunc(tp elastictransport.Interface) NewUpgradeTransform
 // Upgrade all transforms.
 //
 // Transforms are compatible across minor versions and between supported major
-// versions.
-// However, over time, the format of transform configuration information may
-// change.
-// This API identifies transforms that have a legacy configuration format and
-// upgrades them to the latest version.
-// It also cleans up the internal data structures that store the transform state
-// and checkpoints.
-// The upgrade does not affect the source and destination indices.
+// versions. However, over time, the format of transform configuration
+// information may change. This API identifies transforms that have a legacy
+// configuration format and upgrades them to the latest version. It also cleans
+// up the internal data structures that store the transform state and
+// checkpoints. The upgrade does not affect the source and destination indices.
 // The upgrade also does not affect the roles that transforms use when
 // Elasticsearch security features are enabled; the role used to read source
 // data and write to the destination index remains unchanged.
 //
 // If a transform upgrade step fails, the upgrade stops and an error is returned
-// about the underlying issue.
-// Resolve the issue then re-run the process again.
+// about the underlying issue. Resolve the issue then re-run the process again.
 // A summary is returned when the upgrade is finished.
 //
 // To ensure continuous transforms remain running during a major version upgrade
-// of the cluster – for example, from 7.16 to 8.0 – it is recommended to upgrade
-// transforms before upgrading the cluster.
-// You may want to perform a recent cluster backup prior to the upgrade.
+// of the cluster – for example, from 7.16 to 8.0 – it is recommended to
+// upgrade transforms before upgrading the cluster. You may want to perform a
+// recent cluster backup prior to the upgrade.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-upgrade-transforms
 func New(tp elastictransport.Interface) *UpgradeTransforms {
@@ -337,8 +329,7 @@ func (r *UpgradeTransforms) DryRun(dryrun bool) *UpgradeTransforms {
 }
 
 // Timeout Period to wait for a response. If no response is received before the timeout
-// expires, the request fails and
-// returns an error.
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *UpgradeTransforms) Timeout(duration string) *UpgradeTransforms {
 	r.values.Set("timeout", duration)
@@ -369,11 +360,9 @@ func (r *UpgradeTransforms) FilterPath(filterpaths ...string) *UpgradeTransforms
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpgradeTransforms) Human(human bool) *UpgradeTransforms {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -381,8 +370,8 @@ func (r *UpgradeTransforms) Human(human bool) *UpgradeTransforms {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpgradeTransforms) Pretty(pretty bool) *UpgradeTransforms {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

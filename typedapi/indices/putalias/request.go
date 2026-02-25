@@ -37,24 +37,23 @@ import (
 type Request struct {
 	// Filter Query used to limit documents the alias can access.
 	Filter *types.Query `json:"filter,omitempty"`
-	// IndexRouting Value used to route indexing operations to a specific shard.
-	// If specified, this overwrites the `routing` value for indexing operations.
-	// Data stream aliases don’t support this parameter.
+	// IndexRouting Value used to route indexing operations to a specific shard. If specified,
+	// this overwrites the `routing` value for indexing operations. Data stream
+	// aliases don’t support this parameter.
 	IndexRouting []string `json:"index_routing,omitempty"`
-	// IsWriteIndex If `true`, sets the write index or data stream for the alias.
-	// If an alias points to multiple indices or data streams and `is_write_index`
-	// isn’t set, the alias rejects write requests.
-	// If an index alias points to one index and `is_write_index` isn’t set, the
-	// index automatically acts as the write index.
-	// Data stream aliases don’t automatically set a write data stream, even if the
-	// alias points to one data stream.
+	// IsWriteIndex If `true`, sets the write index or data stream for the alias. If an alias
+	// points to multiple indices or data streams and `is_write_index` isn’t set,
+	// the alias rejects write requests. If an index alias points to one index and
+	// `is_write_index` isn’t set, the index automatically acts as the write
+	// index. Data stream aliases don’t automatically set a write data stream,
+	// even if the alias points to one data stream.
 	IsWriteIndex *bool `json:"is_write_index,omitempty"`
-	// Routing Value used to route indexing and search operations to a specific shard.
-	// Data stream aliases don’t support this parameter.
+	// Routing Value used to route indexing and search operations to a specific shard. Data
+	// stream aliases don’t support this parameter.
 	Routing []string `json:"routing,omitempty"`
-	// SearchRouting Value used to route search operations to a specific shard.
-	// If specified, this overwrites the `routing` value for search operations.
-	// Data stream aliases don’t support this parameter.
+	// SearchRouting Value used to route search operations to a specific shard. If specified, this
+	// overwrites the `routing` value for search operations. Data stream aliases
+	// don’t support this parameter.
 	SearchRouting []string `json:"search_routing,omitempty"`
 }
 

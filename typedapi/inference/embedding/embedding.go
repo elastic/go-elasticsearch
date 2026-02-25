@@ -344,11 +344,9 @@ func (r *Embedding) FilterPath(filterpaths ...string) *Embedding {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Embedding) Human(human bool) *Embedding {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -356,8 +354,8 @@ func (r *Embedding) Human(human bool) *Embedding {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Embedding) Pretty(pretty bool) *Embedding {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -365,20 +363,18 @@ func (r *Embedding) Pretty(pretty bool) *Embedding {
 	return r
 }
 
-// Inference input.
-// Either a string, an array of strings, a `content` object, or an array of
-// `content` objects.
+// Inference input. Either a string, an array of strings, a `content` object, or
+// an array of `content` objects.
 //
 // string example:
-// ```
-// "input": "Some text"
-// ```
+//
+//	"input": "Some text"
+//
 // string array example:
-// ```
-// "input": ["Some text", "Some more text"]
-// ```
+//
+//	"input": ["Some text", "Some more text"]
+//
 // `content` object example:
-// ```
 //
 //	"input": {
 //	    "content": {
@@ -388,28 +384,25 @@ func (r *Embedding) Pretty(pretty bool) *Embedding {
 //	    }
 //	  }
 //
-// ```
 // `content` object array example:
-// ```
-// "input": [
 //
-//	{
-//	  "content": {
-//	    "type": "text",
-//	    "format": "text",
-//	    "value": "Some text to generate an embedding"
+//	"input": [
+//	  {
+//	    "content": {
+//	      "type": "text",
+//	      "format": "text",
+//	      "value": "Some text to generate an embedding"
+//	    }
+//	  },
+//	  {
+//	    "content": {
+//	      "type": "image",
+//	      "format": "base64",
+//	      "value": "data:image/jpg;base64,..."
+//	    }
 //	  }
-//	},
-//	{
-//	  "content": {
-//	    "type": "image",
-//	    "format": "base64",
-//	    "value": "data:image/jpg;base64,..."
-//	  }
-//	}
+//	]
 //
-// ]
-// ```
 // API name: input
 func (r *Embedding) Input(embeddinginput types.EmbeddingInputVariant) *Embedding {
 	// Initialize the request if it is not already initialized
@@ -423,20 +416,19 @@ func (r *Embedding) Input(embeddinginput types.EmbeddingInputVariant) *Embedding
 }
 
 // The input data type for the embedding model. Possible values include:
-// * `SEARCH`
-// * `INGEST`
-// * `CLASSIFICATION`
-// * `CLUSTERING`
+//
+//   - `SEARCH`
+//   - `INGEST`
+//   - `CLASSIFICATION`
+//   - `CLUSTERING`
 //
 // Not all models support all values. Unsupported values will trigger a
-// validation exception.
-// Accepted values depend on the configured inference service, refer to the
-// relevant service-specific documentation for more info.
+// validation exception. Accepted values depend on the configured inference
+// service, refer to the relevant service-specific documentation for more info.
 //
-// > info
-// > The `input_type` parameter specified on the root level of the request body
-// will take precedence over the `input_type` parameter specified in
-// `task_settings`.
+// > info > The `input_type` parameter specified on the root level of the
+// request body will take precedence over the `input_type` parameter specified
+// in `task_settings`.
 // API name: input_type
 func (r *Embedding) InputType(inputtype string) *Embedding {
 	// Initialize the request if it is not already initialized

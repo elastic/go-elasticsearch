@@ -30,8 +30,8 @@ import (
 type Response struct {
 	// ErrorCount The number of errors that were encountered when invalidating the tokens.
 	ErrorCount int64 `json:"error_count"`
-	// ErrorDetails Details about the errors.
-	// This field is not present in the response when `error_count` is `0`.
+	// ErrorDetails Details about the errors. This field is not present in the response when
+	// `error_count` is `0`.
 	ErrorDetails []types.ErrorCause `json:"error_details,omitempty"`
 	// InvalidatedTokens The number of the tokens that were invalidated as part of this request.
 	InvalidatedTokens int64 `json:"invalidated_tokens"`

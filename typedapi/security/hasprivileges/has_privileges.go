@@ -20,9 +20,9 @@
 
 // Check user privileges.
 //
-// Determine whether the specified user has a specified list of privileges.
-// All users can use this API, but only to determine their own privileges.
-// To check the privileges of other users, you must use the run as feature.
+// Determine whether the specified user has a specified list of privileges. All
+// users can use this API, but only to determine their own privileges. To check
+// the privileges of other users, you must use the run as feature.
 package hasprivileges
 
 import (
@@ -86,9 +86,9 @@ func NewHasPrivilegesFunc(tp elastictransport.Interface) NewHasPrivileges {
 
 // Check user privileges.
 //
-// Determine whether the specified user has a specified list of privileges.
-// All users can use this API, but only to determine their own privileges.
-// To check the privileges of other users, you must use the run as feature.
+// Determine whether the specified user has a specified list of privileges. All
+// users can use this API, but only to determine their own privileges. To check
+// the privileges of other users, you must use the run as feature.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-has-privileges
 func New(tp elastictransport.Interface) *HasPrivileges {
@@ -354,11 +354,9 @@ func (r *HasPrivileges) FilterPath(filterpaths ...string) *HasPrivileges {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *HasPrivileges) Human(human bool) *HasPrivileges {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -366,8 +364,8 @@ func (r *HasPrivileges) Human(human bool) *HasPrivileges {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *HasPrivileges) Pretty(pretty bool) *HasPrivileges {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

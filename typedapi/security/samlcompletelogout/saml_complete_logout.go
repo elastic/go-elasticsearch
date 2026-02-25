@@ -23,19 +23,16 @@
 // Verifies the logout response sent from the SAML IdP.
 //
 // NOTE: This API is intended for use by custom web applications other than
-// Kibana.
-// If you are using Kibana, refer to the documentation for configuring SAML
-// single-sign-on on the Elastic Stack.
+// Kibana. If you are using Kibana, refer to the documentation for configuring
+// SAML single-sign-on on the Elastic Stack.
 //
 // The SAML IdP may send a logout response back to the SP after handling the
-// SP-initiated SAML Single Logout.
-// This API verifies the response by ensuring the content is relevant and
-// validating its signature.
-// An empty response is returned if the verification process is successful.
-// The response can be sent by the IdP with either the HTTP-Redirect or the
-// HTTP-Post binding.
-// The caller of this API must prepare the request accordingly so that this API
-// can handle either of them.
+// SP-initiated SAML Single Logout. This API verifies the response by ensuring
+// the content is relevant and validating its signature. An empty response is
+// returned if the verification process is successful. The response can be sent
+// by the IdP with either the HTTP-Redirect or the HTTP-Post binding. The caller
+// of this API must prepare the request accordingly so that this API can handle
+// either of them.
 package samlcompletelogout
 
 import (
@@ -94,19 +91,16 @@ func NewSamlCompleteLogoutFunc(tp elastictransport.Interface) NewSamlCompleteLog
 // Verifies the logout response sent from the SAML IdP.
 //
 // NOTE: This API is intended for use by custom web applications other than
-// Kibana.
-// If you are using Kibana, refer to the documentation for configuring SAML
-// single-sign-on on the Elastic Stack.
+// Kibana. If you are using Kibana, refer to the documentation for configuring
+// SAML single-sign-on on the Elastic Stack.
 //
 // The SAML IdP may send a logout response back to the SP after handling the
-// SP-initiated SAML Single Logout.
-// This API verifies the response by ensuring the content is relevant and
-// validating its signature.
-// An empty response is returned if the verification process is successful.
-// The response can be sent by the IdP with either the HTTP-Redirect or the
-// HTTP-Post binding.
-// The caller of this API must prepare the request accordingly so that this API
-// can handle either of them.
+// SP-initiated SAML Single Logout. This API verifies the response by ensuring
+// the content is relevant and validating its signature. An empty response is
+// returned if the verification process is successful. The response can be sent
+// by the IdP with either the HTTP-Redirect or the HTTP-Post binding. The caller
+// of this API must prepare the request accordingly so that this API can handle
+// either of them.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-complete-logout
 func New(tp elastictransport.Interface) *SamlCompleteLogout {
@@ -294,11 +288,9 @@ func (r *SamlCompleteLogout) FilterPath(filterpaths ...string) *SamlCompleteLogo
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SamlCompleteLogout) Human(human bool) *SamlCompleteLogout {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -306,8 +298,8 @@ func (r *SamlCompleteLogout) Human(human bool) *SamlCompleteLogout {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SamlCompleteLogout) Pretty(pretty bool) *SamlCompleteLogout {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

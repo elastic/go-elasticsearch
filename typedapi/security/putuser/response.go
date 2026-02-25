@@ -25,8 +25,8 @@ package putuser
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/put_user/SecurityPutUserResponse.ts#L20-L28
 type Response struct {
 	// Created A successful call returns a JSON structure that shows whether the user has
-	// been created or updated.
-	// When an existing user is updated, `created` is set to `false`.
+	// been created or updated. When an existing user is updated, `created` is set
+	// to `false`.
 	Created bool `json:"created"`
 }
 

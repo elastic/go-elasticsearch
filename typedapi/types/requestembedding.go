@@ -33,20 +33,18 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L292-L354
 type RequestEmbedding struct {
-	// Input Inference input.
-	// Either a string, an array of strings, a `content` object, or an array of
-	// `content` objects.
+	// Input Inference input. Either a string, an array of strings, a `content` object, or
+	// an array of `content` objects.
 	//
 	// string example:
-	// ```
-	// "input": "Some text"
-	// ```
+	//
+	//	"input": "Some text"
+	//
 	// string array example:
-	// ```
-	// "input": ["Some text", "Some more text"]
-	// ```
+	//
+	//	"input": ["Some text", "Some more text"]
+	//
 	// `content` object example:
-	// ```
 	//
 	//	"input": {
 	//	    "content": {
@@ -56,44 +54,39 @@ type RequestEmbedding struct {
 	//	    }
 	//	  }
 	//
-	// ```
 	// `content` object array example:
-	// ```
-	// "input": [
 	//
-	//	{
-	//	  "content": {
-	//	    "type": "text",
-	//	    "format": "text",
-	//	    "value": "Some text to generate an embedding"
+	//	"input": [
+	//	  {
+	//	    "content": {
+	//	      "type": "text",
+	//	      "format": "text",
+	//	      "value": "Some text to generate an embedding"
+	//	    }
+	//	  },
+	//	  {
+	//	    "content": {
+	//	      "type": "image",
+	//	      "format": "base64",
+	//	      "value": "data:image/jpg;base64,..."
+	//	    }
 	//	  }
-	//	},
-	//	{
-	//	  "content": {
-	//	    "type": "image",
-	//	    "format": "base64",
-	//	    "value": "data:image/jpg;base64,..."
-	//	  }
-	//	}
-	//
-	// ]
-	// ```
+	//	]
 	Input EmbeddingInput `json:"input"`
 	// InputType The input data type for the embedding model. Possible values include:
-	// * `SEARCH`
-	// * `INGEST`
-	// * `CLASSIFICATION`
-	// * `CLUSTERING`
+	//
+	//   - `SEARCH`
+	//   - `INGEST`
+	//   - `CLASSIFICATION`
+	//   - `CLUSTERING`
 	//
 	// Not all models support all values. Unsupported values will trigger a
-	// validation exception.
-	// Accepted values depend on the configured inference service, refer to the
-	// relevant service-specific documentation for more info.
+	// validation exception. Accepted values depend on the configured inference
+	// service, refer to the relevant service-specific documentation for more info.
 	//
-	// > info
-	// > The `input_type` parameter specified on the root level of the request body
-	// will take precedence over the `input_type` parameter specified in
-	// `task_settings`.
+	// > info > The `input_type` parameter specified on the root level of the
+	// request body will take precedence over the `input_type` parameter specified
+	// in `task_settings`.
 	InputType *string `json:"input_type,omitempty"`
 	// TaskSettings Task settings for the individual inference request. These settings are
 	// specific to the <task_type> you specified and override the task settings

@@ -39,29 +39,25 @@ type AppendProcessor struct {
 	// CopyFrom The origin field which will be appended to `field`, cannot set `value`
 	// simultaneously.
 	CopyFrom *string `json:"copy_from,omitempty"`
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
-	// Field The field to be appended to.
-	// Supports template snippets.
+	// Field The field to be appended to. Supports template snippets.
 	Field string `json:"field"`
 	// If Conditionally execute the processor.
 	If *Script `json:"if,omitempty"`
 	// IgnoreEmptyValues If `true`, the processor will skip empty values from the source (e.g. empty
-	// strings, and null values),
-	// rather than appending them to the field.
+	// strings, and null values), rather than appending them to the field.
 	IgnoreEmptyValues *bool `json:"ignore_empty_values,omitempty"`
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
-	// MediaType The media type for encoding `value`.
-	// Applies only when value is a template snippet.
-	// Must be one of `application/json`, `text/plain`, or
+	// MediaType The media type for encoding `value`. Applies only when value is a template
+	// snippet. Must be one of `application/json`, `text/plain`, or
 	// `application/x-www-form-urlencoded`.
 	MediaType *string `json:"media_type,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// Value The value to be appended. Supports template snippets. May specify only one of
 	// `value` or `copy_from`.

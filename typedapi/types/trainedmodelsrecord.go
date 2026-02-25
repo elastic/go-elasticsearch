@@ -41,8 +41,8 @@ type TrainedModelsRecord struct {
 	DataFrameAnalysis *string `json:"data_frame.analysis,omitempty"`
 	// DataFrameCreateTime The time the data frame analytics job was created.
 	DataFrameCreateTime *string `json:"data_frame.create_time,omitempty"`
-	// DataFrameId The identifier for the data frame analytics job that created the model.
-	// Only displayed if the job is still available.
+	// DataFrameId The identifier for the data frame analytics job that created the model. Only
+	// displayed if the job is still available.
 	DataFrameId *string `json:"data_frame.id,omitempty"`
 	// DataFrameSourceIndex The source index used to train in the data frame analysis.
 	DataFrameSourceIndex *string `json:"data_frame.source_index,omitempty"`
@@ -64,8 +64,8 @@ type TrainedModelsRecord struct {
 	IngestTime *string `json:"ingest.time,omitempty"`
 	// License The license level of the model.
 	License *string `json:"license,omitempty"`
-	// Operations The estimated number of operations to use the model.
-	// This number helps to measure the computational complexity of the model.
+	// Operations The estimated number of operations to use the model. This number helps to
+	// measure the computational complexity of the model.
 	Operations *string `json:"operations,omitempty"`
 	Type       *string `json:"type,omitempty"`
 	// Version The version of Elasticsearch when the model was created.

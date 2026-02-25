@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L1649-L1675
 type UriPartsProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field Field containing the URI string.
 	Field string `json:"field"`
@@ -50,11 +50,10 @@ type UriPartsProcessor struct {
 	KeepOriginal *bool `json:"keep_original,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// RemoveIfSuccessful If `true`, the processor removes the `field` after parsing the URI string.
-	// If parsing fails, the processor does not remove the `field`.
+	// RemoveIfSuccessful If `true`, the processor removes the `field` after parsing the URI string. If
+	// parsing fails, the processor does not remove the `field`.
 	RemoveIfSuccessful *bool `json:"remove_if_successful,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// TargetField Output field for the URI object.
 	TargetField *string `json:"target_field,omitempty"`

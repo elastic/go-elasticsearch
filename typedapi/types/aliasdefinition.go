@@ -35,18 +35,18 @@ import (
 type AliasDefinition struct {
 	// Filter Query used to limit documents the alias can access.
 	Filter *Query `json:"filter,omitempty"`
-	// IndexRouting Value used to route indexing operations to a specific shard.
-	// If specified, this overwrites the `routing` value for indexing operations.
+	// IndexRouting Value used to route indexing operations to a specific shard. If specified,
+	// this overwrites the `routing` value for indexing operations.
 	IndexRouting *string `json:"index_routing,omitempty"`
-	// IsHidden If `true`, the alias is hidden.
-	// All indices for the alias must have the same `is_hidden` value.
+	// IsHidden If `true`, the alias is hidden. All indices for the alias must have the same
+	// `is_hidden` value.
 	IsHidden *bool `json:"is_hidden,omitempty"`
 	// IsWriteIndex If `true`, the index is the write index for the alias.
 	IsWriteIndex *bool `json:"is_write_index,omitempty"`
 	// Routing Value used to route indexing and search operations to a specific shard.
 	Routing *string `json:"routing,omitempty"`
-	// SearchRouting Value used to route search operations to a specific shard.
-	// If specified, this overwrites the `routing` value for search operations.
+	// SearchRouting Value used to route search operations to a specific shard. If specified, this
+	// overwrites the `routing` value for search operations.
 	SearchRouting *string `json:"search_routing,omitempty"`
 }
 

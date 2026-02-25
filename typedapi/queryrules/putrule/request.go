@@ -36,12 +36,12 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/query_rules/put_rule/QueryRulePutRequest.ts#L28-L83
 type Request struct {
-	// Actions The actions to take when the rule is matched.
-	// The format of this action depends on the rule type.
+	// Actions The actions to take when the rule is matched. The format of this action
+	// depends on the rule type.
 	Actions types.QueryRuleActions `json:"actions"`
-	// Criteria The criteria that must be met for the rule to be applied.
-	// If multiple criteria are specified for a rule, all criteria must be met for
-	// the rule to be applied.
+	// Criteria The criteria that must be met for the rule to be applied. If multiple
+	// criteria are specified for a rule, all criteria must be met for the rule to
+	// be applied.
 	Criteria []types.QueryRuleCriteria `json:"criteria"`
 	Priority *int                      `json:"priority,omitempty"`
 	// Type The type of rule.

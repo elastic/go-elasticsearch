@@ -22,10 +22,10 @@
 //
 // To use this API, you must have one of the following privileges:
 //
-// * The `manage_security` cluster privilege (or a greater privilege such as
-// `all`).
-// * The "Manage Application Privileges" global privilege for the application
-// being referenced in the request.
+//   - The `manage_security` cluster privilege (or a greater privilege such as
+//     `all`).
+//   - The "Manage Application Privileges" global privilege for the application
+//     being referenced in the request.
 package deleteprivileges
 
 import (
@@ -93,10 +93,10 @@ func NewDeletePrivilegesFunc(tp elastictransport.Interface) NewDeletePrivileges 
 //
 // To use this API, you must have one of the following privileges:
 //
-// * The `manage_security` cluster privilege (or a greater privilege such as
-// `all`).
-// * The "Manage Application Privileges" global privilege for the application
-// being referenced in the request.
+//   - The `manage_security` cluster privilege (or a greater privilege such as
+//     `all`).
+//   - The "Manage Application Privileges" global privilege for the application
+//     being referenced in the request.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-privileges
 func New(tp elastictransport.Interface) *DeletePrivileges {
@@ -316,8 +316,8 @@ func (r *DeletePrivileges) Header(key, value string) *DeletePrivileges {
 	return r
 }
 
-// Application The name of the application.
-// Application privileges are always associated with exactly one application.
+// Application The name of the application. Application privileges are always associated //
+// with exactly one application.
 // API Name: application
 func (r *DeletePrivileges) _application(application string) *DeletePrivileges {
 	r.paramSet |= applicationMask
@@ -368,11 +368,9 @@ func (r *DeletePrivileges) FilterPath(filterpaths ...string) *DeletePrivileges {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeletePrivileges) Human(human bool) *DeletePrivileges {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -380,8 +378,8 @@ func (r *DeletePrivileges) Human(human bool) *DeletePrivileges {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeletePrivileges) Pretty(pretty bool) *DeletePrivileges {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

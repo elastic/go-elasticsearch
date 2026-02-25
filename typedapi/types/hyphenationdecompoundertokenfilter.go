@@ -34,9 +34,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/analysis/token_filters.ts#L71-L82
 type HyphenationDecompounderTokenFilter struct {
 	// HyphenationPatternsPath Path to an Apache FOP (Formatting Objects Processor) XML hyphenation pattern
-	// file.
-	// This path must be absolute or relative to the `config` location. Only FOP
-	// v1.2 compatible files are supported.
+	// file. This path must be absolute or relative to the `config` location. Only
+	// FOP v1.2 compatible files are supported.
 	HyphenationPatternsPath string `json:"hyphenation_patterns_path"`
 	// MaxSubwordSize Maximum subword character length. Longer subword tokens are excluded from the
 	// output. Defaults to `15`.
@@ -57,15 +56,14 @@ type HyphenationDecompounderTokenFilter struct {
 	Type             string  `json:"type,omitempty"`
 	Version          *string `json:"version,omitempty"`
 	// WordList A list of subwords to look for in the token stream. If found, the subword is
-	// included in the token output.
-	// Either this parameter or `word_list_path` must be specified.
+	// included in the token output. Either this parameter or `word_list_path` must
+	// be specified.
 	WordList []string `json:"word_list,omitempty"`
 	// WordListPath Path to a file that contains a list of subwords to find in the token stream.
-	// If found, the subword is included in the token output.
-	// This path must be absolute or relative to the config location, and the file
-	// must be UTF-8 encoded. Each token in the file must be separated by a line
-	// break.
-	// Either this parameter or `word_list` must be specified.
+	// If found, the subword is included in the token output. This path must be
+	// absolute or relative to the config location, and the file must be UTF-8
+	// encoded. Each token in the file must be separated by a line break. Either
+	// this parameter or `word_list` must be specified.
 	WordListPath *string `json:"word_list_path,omitempty"`
 }
 

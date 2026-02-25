@@ -24,16 +24,14 @@
 // indices.
 //
 // By default, the returned statistics are index-level with `primaries` and
-// `total` aggregations.
-// `primaries` are the values for only the primary shards.
+// `total` aggregations. `primaries` are the values for only the primary shards.
 // `total` are the accumulated values for both primary and replica shards.
 //
 // To get shard-level statistics, set the `level` parameter to `shards`.
 //
 // NOTE: When moving to another node, the shard-level statistics for a shard are
-// cleared.
-// Although the shard is no longer part of the node, that node retains any
-// node-level statistics to which the shard contributed.
+// cleared. Although the shard is no longer part of the node, that node retains
+// any node-level statistics to which the shard contributed.
 package stats
 
 import (
@@ -100,16 +98,14 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 // indices.
 //
 // By default, the returned statistics are index-level with `primaries` and
-// `total` aggregations.
-// `primaries` are the values for only the primary shards.
+// `total` aggregations. `primaries` are the values for only the primary shards.
 // `total` are the accumulated values for both primary and replica shards.
 //
 // To get shard-level statistics, set the `level` parameter to `shards`.
 //
 // NOTE: When moving to another node, the shard-level statistics for a shard are
-// cleared.
-// Although the shard is no longer part of the node, that node retains any
-// node-level statistics to which the shard contributed.
+// cleared. Although the shard is no longer part of the node, that node retains
+// any node-level statistics to which the shard contributed.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-stats
 func New(tp elastictransport.Interface) *Stats {
@@ -364,7 +360,7 @@ func (r *Stats) Metric(metric string) *Stats {
 }
 
 // Index A comma-separated list of index names; use `_all` or empty string to perform
-// the operation on all indices
+// // the operation on all indices
 // API Name: index
 func (r *Stats) Index(index string) *Stats {
 	r.paramSet |= indexMask
@@ -383,10 +379,8 @@ func (r *Stats) CompletionFields(fields ...string) *Stats {
 }
 
 // ExpandWildcards Type of index that wildcard patterns can match. If the request can target
-// data streams, this argument
-// determines whether wildcard expressions match hidden data streams. Supports
-// comma-separated values,
-// such as `open,hidden`.
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *Stats) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Stats {
 	tmp := []string{}
@@ -486,11 +480,9 @@ func (r *Stats) FilterPath(filterpaths ...string) *Stats {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Stats) Human(human bool) *Stats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -498,8 +490,8 @@ func (r *Stats) Human(human bool) *Stats {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Stats) Pretty(pretty bool) *Stats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

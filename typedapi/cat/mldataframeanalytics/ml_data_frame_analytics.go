@@ -329,8 +329,8 @@ func (r *MlDataFrameAnalytics) Id(id string) *MlDataFrameAnalytics {
 	return r
 }
 
-// AllowNoMatch Whether to ignore if a wildcard expression matches no configs.
-// (This includes `_all` string or when no configs have been specified.)
+// AllowNoMatch Whether to ignore if a wildcard expression matches no configs. (This includes
+// `_all` string or when no configs have been specified.)
 // API name: allow_no_match
 func (r *MlDataFrameAnalytics) AllowNoMatch(allownomatch bool) *MlDataFrameAnalytics {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -363,15 +363,14 @@ func (r *MlDataFrameAnalytics) S(catdfacolumns ...catdfacolumn.CatDfaColumn) *Ml
 	return r
 }
 
-// Bytes Sets the units for columns that contain a byte-size value.
-// Note that byte-size value units work in terms of powers of 1024. For instance
-// `1kb` means 1024 bytes, not 1000 bytes.
-// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
-// or `gb`, chosen such that the numeric value of the column is as small as
-// possible whilst still being at least `1.0`.
-// If given, byte-size values are rendered as an integer with no suffix,
-// representing the value of the column in the chosen unit.
-// Values that are not an exact multiple of the chosen unit are rounded down.
+// Bytes Sets the units for columns that contain a byte-size value. Note that
+// byte-size value units work in terms of powers of 1024. For instance `1kb`
+// means 1024 bytes, not 1000 bytes. If omitted, byte-size values are rendered
+// with a suffix such as `kb`, `mb`, or `gb`, chosen such that the numeric value
+// of the column is as small as possible whilst still being at least `1.0`. If
+// given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit. Values that are not
+// an exact multiple of the chosen unit are rounded down.
 // API name: bytes
 func (r *MlDataFrameAnalytics) Bytes(bytes bytes.Bytes) *MlDataFrameAnalytics {
 	r.values.Set("bytes", bytes.String())
@@ -379,8 +378,8 @@ func (r *MlDataFrameAnalytics) Bytes(bytes bytes.Bytes) *MlDataFrameAnalytics {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *MlDataFrameAnalytics) Format(format string) *MlDataFrameAnalytics {
 	r.values.Set("format", format)
@@ -388,8 +387,8 @@ func (r *MlDataFrameAnalytics) Format(format string) *MlDataFrameAnalytics {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *MlDataFrameAnalytics) Help(help bool) *MlDataFrameAnalytics {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -397,12 +396,12 @@ func (r *MlDataFrameAnalytics) Help(help bool) *MlDataFrameAnalytics {
 	return r
 }
 
-// Time Sets the units for columns that contain a time duration.
-// If omitted, time duration values are rendered with a suffix such as `ms`,
-// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
-// as possible whilst still being at least `1.0`.
-// If given, time duration values are rendered as an integer with no suffix.
-// Values that are not an exact multiple of the chosen unit are rounded down.
+// Time Sets the units for columns that contain a time duration. If omitted, time
+// duration values are rendered with a suffix such as `ms`, `s`, `m` or `h`,
+// chosen such that the numeric value of the column is as small as possible
+// whilst still being at least `1.0`. If given, time duration values are
+// rendered as an integer with no suffix. Values that are not an exact multiple
+// of the chosen unit are rounded down.
 // API name: time
 func (r *MlDataFrameAnalytics) Time(time timeunit.TimeUnit) *MlDataFrameAnalytics {
 	r.values.Set("time", time.String())
@@ -441,11 +440,9 @@ func (r *MlDataFrameAnalytics) FilterPath(filterpaths ...string) *MlDataFrameAna
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *MlDataFrameAnalytics) Human(human bool) *MlDataFrameAnalytics {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -453,8 +450,8 @@ func (r *MlDataFrameAnalytics) Human(human bool) *MlDataFrameAnalytics {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *MlDataFrameAnalytics) Pretty(pretty bool) *MlDataFrameAnalytics {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

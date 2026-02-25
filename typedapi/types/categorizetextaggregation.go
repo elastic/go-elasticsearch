@@ -29,43 +29,41 @@ import (
 	"strconv"
 )
 
-// CategorizeTextAggregation type.
+// A multi-bucket aggregation that groups semi-structured text into buckets.
+// Each text field is re-analyzed using a custom analyzer. The resulting tokens
+// are then categorized creating buckets of similarly formatted text values.
+// This aggregation works best with machine generated text like system logs.
+// Only the first 100 analyzed tokens are used to categorize the text.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/bucket.ts#L1156-L1222
 type CategorizeTextAggregation struct {
 	// CategorizationAnalyzer The categorization analyzer specifies how the text is analyzed and tokenized
-	// before being categorized.
-	// The syntax is very similar to that used to define the analyzer in the analyze
-	// API. This property
-	// cannot be used at the same time as `categorization_filters`.
+	// before being categorized. The syntax is very similar to that used to define
+	// the analyzer in the analyze API. This property cannot be used at the same
+	// time as `categorization_filters`.
 	CategorizationAnalyzer CategorizeTextAnalyzer `json:"categorization_analyzer,omitempty"`
 	// CategorizationFilters This property expects an array of regular expressions. The expressions are
-	// used to filter out matching
-	// sequences from the categorization field values. You can use this
-	// functionality to fine tune the categorization
-	// by excluding sequences from consideration when categories are defined. For
-	// example, you can exclude SQL
-	// statements that appear in your log files. This property cannot be used at the
-	// same time as categorization_analyzer.
-	// If you only want to define simple regular expression filters that are applied
-	// prior to tokenization, setting
-	// this property is the easiest method. If you also want to customize the
-	// tokenizer or post-tokenization filtering,
-	// use the categorization_analyzer property instead and include the filters as
+	// used to filter out matching sequences from the categorization field values.
+	// You can use this functionality to fine tune the categorization by excluding
+	// sequences from consideration when categories are defined. For example, you
+	// can exclude SQL statements that appear in your log files. This property
+	// cannot be used at the same time as categorization_analyzer. If you only want
+	// to define simple regular expression filters that are applied prior to
+	// tokenization, setting this property is the easiest method. If you also want
+	// to customize the tokenizer or post-tokenization filtering, use the
+	// categorization_analyzer property instead and include the filters as
 	// pattern_replace character filters.
 	CategorizationFilters []string `json:"categorization_filters,omitempty"`
 	// Field The semi-structured text field to categorize.
 	Field string `json:"field"`
 	// MaxMatchedTokens The maximum number of token positions to match on before attempting to merge
-	// categories. Larger
-	// values will use more memory and create narrower categories. Max allowed value
-	// is 100.
+	// categories. Larger values will use more memory and create narrower
+	// categories. Max allowed value is 100.
 	MaxMatchedTokens *int `json:"max_matched_tokens,omitempty"`
 	// MaxUniqueTokens The maximum number of unique tokens at any position up to max_matched_tokens.
-	// Must be larger than 1.
-	// Smaller values use less memory and create fewer categories. Larger values
-	// will use more memory and
-	// create narrower categories. Max allowed value is 100.
+	// Must be larger than 1. Smaller values use less memory and create fewer
+	// categories. Larger values will use more memory and create narrower
+	// categories. Max allowed value is 100.
 	MaxUniqueTokens *int `json:"max_unique_tokens,omitempty"`
 	// MinDocCount The minimum number of documents in a bucket to be returned to the results.
 	MinDocCount *int `json:"min_doc_count,omitempty"`
@@ -76,10 +74,9 @@ type CategorizeTextAggregation struct {
 	// all the results.
 	ShardSize *int `json:"shard_size,omitempty"`
 	// SimilarityThreshold The minimum percentage of tokens that must match for text to be added to the
-	// category bucket. Must
-	// be between 1 and 100. The larger the value the narrower the categories.
-	// Larger values will increase memory
-	// usage and create narrower categories.
+	// category bucket. Must be between 1 and 100. The larger the value the narrower
+	// the categories. Larger values will increase memory usage and create narrower
+	// categories.
 	SimilarityThreshold *int `json:"similarity_threshold,omitempty"`
 	// Size The number of buckets to return.
 	Size *int `json:"size,omitempty"`

@@ -316,11 +316,9 @@ func (r *GetUserProfile) _uid(uids ...string) *GetUserProfile {
 }
 
 // Data A comma-separated list of filters for the `data` field of the profile
-// document.
-// To return all content use `data=*`.
-// To return a subset of content use `data=<key>` to retrieve content nested
-// under the specified `<key>`.
-// By default returns no `data` content.
+// document. To return all content use `data=*`. To return a subset of content
+// use `data=<key>` to retrieve content nested under the specified `<key>`. By
+// default returns no `data` content.
 // API name: data
 func (r *GetUserProfile) Data(data ...string) *GetUserProfile {
 	tmp := []string{}
@@ -355,11 +353,9 @@ func (r *GetUserProfile) FilterPath(filterpaths ...string) *GetUserProfile {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetUserProfile) Human(human bool) *GetUserProfile {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -367,8 +363,8 @@ func (r *GetUserProfile) Human(human bool) *GetUserProfile {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetUserProfile) Pretty(pretty bool) *GetUserProfile {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

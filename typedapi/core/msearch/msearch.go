@@ -21,23 +21,20 @@
 // Run multiple searches.
 //
 // The format of the request is similar to the bulk API format and makes use of
-// the newline delimited JSON (NDJSON) format.
-// The structure is as follows:
+// the newline delimited JSON (NDJSON) format. The structure is as follows:
 //
-// ```
-// header\n
-// body\n
-// header\n
-// body\n
-// ```
+//	header\n
+//	body\n
+//	header\n
+//	body\n
 //
 // This structure is specifically optimized to reduce parsing if a specific
 // search ends up redirected to another node.
 //
 // IMPORTANT: The final line of data must end with a newline character `\n`.
-// Each newline character may be preceded by a carriage return `\r`.
-// When sending requests to this endpoint the `Content-Type` header should be
-// set to `application/x-ndjson`.
+// Each newline character may be preceded by a carriage return `\r`. When
+// sending requests to this endpoint the `Content-Type` header should be set to
+// `application/x-ndjson`.
 package msearch
 
 import (
@@ -103,23 +100,20 @@ func NewMsearchFunc(tp elastictransport.Interface) NewMsearch {
 // Run multiple searches.
 //
 // The format of the request is similar to the bulk API format and makes use of
-// the newline delimited JSON (NDJSON) format.
-// The structure is as follows:
+// the newline delimited JSON (NDJSON) format. The structure is as follows:
 //
-// ```
-// header\n
-// body\n
-// header\n
-// body\n
-// ```
+//	header\n
+//	body\n
+//	header\n
+//	body\n
 //
 // This structure is specifically optimized to reduce parsing if a specific
 // search ends up redirected to another node.
 //
 // IMPORTANT: The final line of data must end with a newline character `\n`.
-// Each newline character may be preceded by a carriage return `\r`.
-// When sending requests to this endpoint the `Content-Type` header should be
-// set to `application/x-ndjson`.
+// Each newline character may be preceded by a carriage return `\r`. When
+// sending requests to this endpoint the `Content-Type` header should be set to
+// `application/x-ndjson`.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch
 func New(tp elastictransport.Interface) *Msearch {
@@ -413,13 +407,12 @@ func (r *Msearch) IgnoreUnavailable(ignoreunavailable bool) *Msearch {
 }
 
 // IncludeNamedQueriesScore Indicates whether hit.matched_queries should be rendered as a map that
-// includes
-// the name of the matched query associated with its score (true)
-// or as an array containing the name of the matched queries (false)
-// This functionality reruns each named query on every hit in a search response.
-// Typically, this adds a small overhead to a request.
-// However, using computationally expensive named queries on a large number of
-// hits may add significant overhead.
+// includes the name of the matched query associated with its score (true) or as
+// an array containing the name of the matched queries (false) This
+// functionality reruns each named query on every hit in a search response.
+// Typically, this adds a small overhead to a request. However, using
+// computationally expensive named queries on a large number of hits may add
+// significant overhead.
 // API name: include_named_queries_score
 func (r *Msearch) IncludeNamedQueriesScore(includenamedqueriesscore bool) *Msearch {
 	r.values.Set("include_named_queries_score", strconv.FormatBool(includenamedqueriesscore))
@@ -459,14 +452,9 @@ func (r *Msearch) PreFilterShardSize(prefiltershardsize string) *Msearch {
 }
 
 // ProjectRouting Specifies a subset of projects to target for a search using project metadata
-// tags in a subset Lucene syntax. Allowed Lucene queries: the _alias tag
-// and a single value (possible wildcarded). Examples:
-//
-//	_alias:my-project
-//	_alias:_origin
-//	_alias:*pr*
-//
-// Supported in serverless only.
+// tags in a subset Lucene syntax. Allowed Lucene queries: the _alias tag and a
+// single value (possible wildcarded). Examples: _alias:my-project
+// _alias:_origin _alias:*pr* Supported in serverless only.
 // API name: project_routing
 func (r *Msearch) ProjectRouting(projectrouting string) *Msearch {
 	r.values.Set("project_routing", projectrouting)
@@ -532,11 +520,9 @@ func (r *Msearch) FilterPath(filterpaths ...string) *Msearch {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Msearch) Human(human bool) *Msearch {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -544,8 +530,8 @@ func (r *Msearch) Human(human bool) *Msearch {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Msearch) Pretty(pretty bool) *Msearch {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -22,9 +22,8 @@
 //
 // Retry running the lifecycle policy for an index that is in the ERROR step.
 // The API sets the policy back to the step where the error occurred and runs
-// the step.
-// Use the explain lifecycle state API to determine whether an index is in the
-// ERROR step.
+// the step. Use the explain lifecycle state API to determine whether an index
+// is in the ERROR step.
 package retry
 
 import (
@@ -86,9 +85,8 @@ func NewRetryFunc(tp elastictransport.Interface) NewRetry {
 //
 // Retry running the lifecycle policy for an index that is in the ERROR step.
 // The API sets the policy back to the step where the error occurred and runs
-// the step.
-// Use the explain lifecycle state API to determine whether an index is in the
-// ERROR step.
+// the step. Use the explain lifecycle state API to determine whether an index
+// is in the ERROR step.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-retry
 func New(tp elastictransport.Interface) *Retry {
@@ -303,7 +301,7 @@ func (r *Retry) Header(key, value string) *Retry {
 }
 
 // Index The name of the indices (comma-separated) whose failed lifecycle step is to
-// be retry
+// // be retry
 // API Name: index
 func (r *Retry) _index(index string) *Retry {
 	r.paramSet |= indexMask
@@ -335,11 +333,9 @@ func (r *Retry) FilterPath(filterpaths ...string) *Retry {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Retry) Human(human bool) *Retry {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -347,8 +343,8 @@ func (r *Retry) Human(human bool) *Retry {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Retry) Pretty(pretty bool) *Retry {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -26,10 +26,9 @@ type _trimProcessor struct {
 	v *types.TrimProcessor
 }
 
-// Trims whitespace from a field.
-// If the field is an array of strings, all members of the array will be
-// trimmed.
-// This only works on leading and trailing whitespace.
+// Trims whitespace from a field. If the field is an array of strings, all
+// members of the array will be trimmed. This only works on leading and trailing
+// whitespace.
 func NewTrimProcessor() *_trimProcessor {
 
 	return &_trimProcessor{v: types.NewTrimProcessor()}

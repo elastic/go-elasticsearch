@@ -35,32 +35,26 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/query_user/SecurityQueryUserRequest.ts#L26-L94
 type Request struct {
-	// From The starting document offset.
-	// It must not be negative.
-	// By default, you cannot page through more than 10,000 hits using the `from`
-	// and `size` parameters.
-	// To page through more hits, use the `search_after` parameter.
+	// From The starting document offset. It must not be negative. By default, you cannot
+	// page through more than 10,000 hits using the `from` and `size` parameters. To
+	// page through more hits, use the `search_after` parameter.
 	From *int `json:"from,omitempty"`
-	// Query A query to filter which users to return.
-	// If the query parameter is missing, it is equivalent to a `match_all` query.
-	// The query supports a subset of query types, including `match_all`, `bool`,
-	// `term`, `terms`, `match`,
-	// `ids`, `prefix`, `wildcard`, `exists`, `range`, and `simple_query_string`.
-	// You can query the following information associated with user: `username`,
-	// `roles`, `enabled`, `full_name`, and `email`.
+	// Query A query to filter which users to return. If the query parameter is missing,
+	// it is equivalent to a `match_all` query. The query supports a subset of query
+	// types, including `match_all`, `bool`, `term`, `terms`, `match`, `ids`,
+	// `prefix`, `wildcard`, `exists`, `range`, and `simple_query_string`. You can
+	// query the following information associated with user: `username`, `roles`,
+	// `enabled`, `full_name`, and `email`.
 	Query *types.UserQueryContainer `json:"query,omitempty"`
 	// SearchAfter The search after definition
 	SearchAfter []types.FieldValue `json:"search_after,omitempty"`
-	// Size The number of hits to return.
-	// It must not be negative.
-	// By default, you cannot page through more than 10,000 hits using the `from`
-	// and `size` parameters.
-	// To page through more hits, use the `search_after` parameter.
+	// Size The number of hits to return. It must not be negative. By default, you cannot
+	// page through more than 10,000 hits using the `from` and `size` parameters. To
+	// page through more hits, use the `search_after` parameter.
 	Size *int `json:"size,omitempty"`
-	// Sort The sort definition.
-	// Fields eligible for sorting are: `username`, `roles`, `enabled`.
-	// In addition, sort can also be applied to the `_doc` field to sort by index
-	// order.
+	// Sort The sort definition. Fields eligible for sorting are: `username`, `roles`,
+	// `enabled`. In addition, sort can also be applied to the `_doc` field to sort
+	// by index order.
 	Sort []types.SortCombinations `json:"sort,omitempty"`
 }
 

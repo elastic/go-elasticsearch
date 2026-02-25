@@ -32,12 +32,12 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/scripts_painless_execute/ExecutePainlessScriptRequest.ts#L25-L67
 type Request struct {
-	// Context The context that the script should run in.
-	// NOTE: Result ordering in the field contexts is not guaranteed.
+	// Context The context that the script should run in. NOTE: Result ordering in the field
+	// contexts is not guaranteed.
 	Context *painlesscontext.PainlessContext `json:"context,omitempty"`
-	// ContextSetup Additional parameters for the `context`.
-	// NOTE: This parameter is required for all contexts except `painless_test`,
-	// which is the default if no value is provided for `context`.
+	// ContextSetup Additional parameters for the `context`. NOTE: This parameter is required for
+	// all contexts except `painless_test`, which is the default if no value is
+	// provided for `context`.
 	ContextSetup *types.PainlessContextSetup `json:"context_setup,omitempty"`
 	// Script The Painless script to run.
 	Script *types.Script `json:"script,omitempty"`

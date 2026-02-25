@@ -320,9 +320,9 @@ func (r *PutOpenshiftAi) Header(key, value string) *PutOpenshiftAi {
 	return r
 }
 
-// TaskType The type of the inference task that the model will perform.
-// NOTE: The `chat_completion` task type only supports streaming and only
-// through the _stream API.
+// TaskType The type of the inference task that the model will perform. NOTE: The //
+// `chat_completion` task type only supports streaming and only through the //
+// _stream API.
 // API Name: tasktype
 func (r *PutOpenshiftAi) _tasktype(tasktype string) *PutOpenshiftAi {
 	r.paramSet |= tasktypeMask
@@ -372,11 +372,9 @@ func (r *PutOpenshiftAi) FilterPath(filterpaths ...string) *PutOpenshiftAi {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutOpenshiftAi) Human(human bool) *PutOpenshiftAi {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -384,8 +382,8 @@ func (r *PutOpenshiftAi) Human(human bool) *PutOpenshiftAi {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutOpenshiftAi) Pretty(pretty bool) *PutOpenshiftAi {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -393,9 +391,8 @@ func (r *PutOpenshiftAi) Pretty(pretty bool) *PutOpenshiftAi {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `text_embedding` task type.
-// Not applicable to the `rerank`, `completion`, or `chat_completion` task
+// The chunking configuration object. Applies only to the `text_embedding` task
+// type. Not applicable to the `rerank`, `completion`, or `chat_completion` task
 // types.
 // API name: chunking_settings
 func (r *PutOpenshiftAi) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutOpenshiftAi {
@@ -435,11 +432,10 @@ func (r *PutOpenshiftAi) ServiceSettings(servicesettings types.OpenShiftAiServic
 	return r
 }
 
-// Settings to configure the inference task.
-// Applies only to the `rerank` task type.
-// Not applicable to the `text_embedding`, `completion`, or `chat_completion`
-// task types.
-// These settings are specific to the task type you specified.
+// Settings to configure the inference task. Applies only to the `rerank` task
+// type. Not applicable to the `text_embedding`, `completion`, or
+// `chat_completion` task types. These settings are specific to the task type
+// you specified.
 // API name: task_settings
 func (r *PutOpenshiftAi) TaskSettings(tasksettings types.OpenShiftAiTaskSettingsVariant) *PutOpenshiftAi {
 	// Initialize the request if it is not already initialized

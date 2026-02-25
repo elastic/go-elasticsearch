@@ -20,13 +20,12 @@
 
 // Clear the cache.
 //
-// Clear the cache of one or more indices.
-// For data streams, the API clears the caches of the stream's backing indices.
+// Clear the cache of one or more indices. For data streams, the API clears the
+// caches of the stream's backing indices.
 //
-// By default, the clear cache API clears all caches.
-// To clear only specific caches, use the `fielddata`, `query`, or `request`
-// parameters.
-// To clear the cache only of specific fields, use the `fields` parameter.
+// By default, the clear cache API clears all caches. To clear only specific
+// caches, use the `fielddata`, `query`, or `request` parameters. To clear the
+// cache only of specific fields, use the `fields` parameter.
 package clearcache
 
 import (
@@ -85,13 +84,12 @@ func NewClearCacheFunc(tp elastictransport.Interface) NewClearCache {
 
 // Clear the cache.
 //
-// Clear the cache of one or more indices.
-// For data streams, the API clears the caches of the stream's backing indices.
+// Clear the cache of one or more indices. For data streams, the API clears the
+// caches of the stream's backing indices.
 //
-// By default, the clear cache API clears all caches.
-// To clear only specific caches, use the `fielddata`, `query`, or `request`
-// parameters.
-// To clear the cache only of specific fields, use the `fields` parameter.
+// By default, the clear cache API clears all caches. To clear only specific
+// caches, use the `fielddata`, `query`, or `request` parameters. To clear the
+// cache only of specific fields, use the `fields` parameter.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-clear-cache
 func New(tp elastictransport.Interface) *ClearCache {
@@ -313,10 +311,8 @@ func (r *ClearCache) Header(key, value string) *ClearCache {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases used to limit the
-// request.
-// Supports wildcards (`*`).
-// To target all data streams and indices, omit this parameter or use `*` or
-// `_all`.
+// // request. Supports wildcards (`*`). To target all data streams and indices,
+// // omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *ClearCache) Index(index string) *ClearCache {
 	r.paramSet |= indexMask
@@ -326,8 +322,8 @@ func (r *ClearCache) Index(index string) *ClearCache {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *ClearCache) AllowNoIndices(allownoindices bool) *ClearCache {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -335,10 +331,9 @@ func (r *ClearCache) AllowNoIndices(allownoindices bool) *ClearCache {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *ClearCache) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ClearCache {
 	tmp := []string{}
@@ -350,8 +345,8 @@ func (r *ClearCache) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWil
 	return r
 }
 
-// Fielddata If `true`, clears the fields cache.
-// Use the `fields` parameter to clear the cache of specific fields only.
+// Fielddata If `true`, clears the fields cache. Use the `fields` parameter to clear the
+// cache of specific fields only.
 // API name: fielddata
 func (r *ClearCache) Fielddata(fielddata bool) *ClearCache {
 	r.values.Set("fielddata", strconv.FormatBool(fielddata))
@@ -415,11 +410,9 @@ func (r *ClearCache) FilterPath(filterpaths ...string) *ClearCache {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ClearCache) Human(human bool) *ClearCache {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -427,8 +420,8 @@ func (r *ClearCache) Human(human bool) *ClearCache {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ClearCache) Pretty(pretty bool) *ClearCache {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

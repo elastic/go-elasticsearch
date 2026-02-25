@@ -20,8 +20,8 @@
 
 // Get Watcher statistics.
 //
-// This API always returns basic metrics.
-// You retrieve more metrics by using the metric parameter.
+// This API always returns basic metrics. You retrieve more metrics by using the
+// metric parameter.
 package stats
 
 import (
@@ -79,8 +79,8 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 
 // Get Watcher statistics.
 //
-// This API always returns basic metrics.
-// You retrieve more metrics by using the metric parameter.
+// This API always returns basic metrics. You retrieve more metrics by using the
+// metric parameter.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-stats
 func New(tp elastictransport.Interface) *Stats {
@@ -341,11 +341,9 @@ func (r *Stats) FilterPath(filterpaths ...string) *Stats {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Stats) Human(human bool) *Stats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -353,8 +351,8 @@ func (r *Stats) Human(human bool) *Stats {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Stats) Pretty(pretty bool) *Stats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

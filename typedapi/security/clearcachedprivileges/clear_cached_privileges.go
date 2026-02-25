@@ -20,9 +20,9 @@
 
 // Clear the privileges cache.
 //
-// Evict privileges from the native application privilege cache.
-// The cache is also automatically cleared for applications that have their
-// privileges updated.
+// Evict privileges from the native application privilege cache. The cache is
+// also automatically cleared for applications that have their privileges
+// updated.
 package clearcachedprivileges
 
 import (
@@ -82,9 +82,9 @@ func NewClearCachedPrivilegesFunc(tp elastictransport.Interface) NewClearCachedP
 
 // Clear the privileges cache.
 //
-// Evict privileges from the native application privilege cache.
-// The cache is also automatically cleared for applications that have their
-// privileges updated.
+// Evict privileges from the native application privilege cache. The cache is
+// also automatically cleared for applications that have their privileges
+// updated.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-privileges
 func New(tp elastictransport.Interface) *ClearCachedPrivileges {
@@ -300,9 +300,8 @@ func (r *ClearCachedPrivileges) Header(key, value string) *ClearCachedPrivileges
 	return r
 }
 
-// Application A comma-separated list of applications.
-// To clear all applications, use an asterism (`*`).
-// It does not support other wildcard patterns.
+// Application A comma-separated list of applications. To clear all applications, use an //
+// asterism (`*`). It does not support other wildcard patterns.
 // API Name: application
 func (r *ClearCachedPrivileges) _application(application string) *ClearCachedPrivileges {
 	r.paramSet |= applicationMask
@@ -334,11 +333,9 @@ func (r *ClearCachedPrivileges) FilterPath(filterpaths ...string) *ClearCachedPr
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ClearCachedPrivileges) Human(human bool) *ClearCachedPrivileges {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -346,8 +343,8 @@ func (r *ClearCachedPrivileges) Human(human bool) *ClearCachedPrivileges {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ClearCachedPrivileges) Pretty(pretty bool) *ClearCachedPrivileges {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

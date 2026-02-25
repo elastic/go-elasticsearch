@@ -292,7 +292,7 @@ func (r *Info) Header(key, value string) *Info {
 	return r
 }
 
-// Target Limits the information returned to the specific target. Supports a
+// Target Limits the information returned to the specific target. Supports a //
 // comma-separated list, such as http,ingest.
 // API Name: target
 func (r *Info) _target(target string) *Info {
@@ -325,11 +325,9 @@ func (r *Info) FilterPath(filterpaths ...string) *Info {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Info) Human(human bool) *Info {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -337,8 +335,8 @@ func (r *Info) Human(human bool) *Info {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Info) Pretty(pretty bool) *Info {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

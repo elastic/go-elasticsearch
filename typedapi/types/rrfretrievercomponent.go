@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// RRFRetrieverComponent type.
+// Wraps a retriever with an optional weight for RRF scoring.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/Retriever.ts#L145-L156
 type RRFRetrieverComponent struct {

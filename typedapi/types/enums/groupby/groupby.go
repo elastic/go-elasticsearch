@@ -29,10 +29,14 @@ type GroupBy struct {
 }
 
 var (
+
+	// Nodes Group tasks by node ID.
 	Nodes = GroupBy{"nodes"}
 
+	// Parents Group tasks by parent task ID.
 	Parents = GroupBy{"parents"}
 
+	// None Do not group tasks.
 	None = GroupBy{"none"}
 )
 

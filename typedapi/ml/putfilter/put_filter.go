@@ -21,9 +21,8 @@
 // Create a filter.
 //
 // A filter contains a list of strings. It can be used by one or more anomaly
-// detection jobs.
-// Specifically, filters are referenced in the `custom_rules` property of
-// detector configuration objects.
+// detection jobs. Specifically, filters are referenced in the `custom_rules`
+// property of detector configuration objects.
 package putfilter
 
 import (
@@ -89,9 +88,8 @@ func NewPutFilterFunc(tp elastictransport.Interface) NewPutFilter {
 // Create a filter.
 //
 // A filter contains a list of strings. It can be used by one or more anomaly
-// detection jobs.
-// Specifically, filters are referenced in the `custom_rules` property of
-// detector configuration objects.
+// detection jobs. Specifically, filters are referenced in the `custom_rules`
+// property of detector configuration objects.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-filter
 func New(tp elastictransport.Interface) *PutFilter {
@@ -346,11 +344,9 @@ func (r *PutFilter) FilterPath(filterpaths ...string) *PutFilter {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutFilter) Human(human bool) *PutFilter {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -358,8 +354,8 @@ func (r *PutFilter) Human(human bool) *PutFilter {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutFilter) Pretty(pretty bool) *PutFilter {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -381,8 +377,7 @@ func (r *PutFilter) Description(description string) *PutFilter {
 }
 
 // The items of the filter. A wildcard `*` can be used at the beginning or the
-// end of an item.
-// Up to 10000 items are allowed in each filter.
+// end of an item. Up to 10000 items are allowed in each filter.
 // API name: items
 func (r *PutFilter) Items(items ...string) *PutFilter {
 	// Initialize the request if it is not already initialized

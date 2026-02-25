@@ -20,12 +20,12 @@
 
 // Delete an anomaly detection job.
 //
-// All job configuration, model state and results are deleted.
-// It is not currently possible to delete multiple jobs using wildcards or a
-// comma separated list. If you delete a job that has a datafeed, the request
-// first tries to delete the datafeed. This behavior is equivalent to calling
-// the delete datafeed API with the same timeout and force parameters as the
-// delete job request.
+// All job configuration, model state and results are deleted. It is not
+// currently possible to delete multiple jobs using wildcards or a comma
+// separated list. If you delete a job that has a datafeed, the request first
+// tries to delete the datafeed. This behavior is equivalent to calling the
+// delete datafeed API with the same timeout and force parameters as the delete
+// job request.
 package deletejob
 
 import (
@@ -85,12 +85,12 @@ func NewDeleteJobFunc(tp elastictransport.Interface) NewDeleteJob {
 
 // Delete an anomaly detection job.
 //
-// All job configuration, model state and results are deleted.
-// It is not currently possible to delete multiple jobs using wildcards or a
-// comma separated list. If you delete a job that has a datafeed, the request
-// first tries to delete the datafeed. This behavior is equivalent to calling
-// the delete datafeed API with the same timeout and force parameters as the
-// delete job request.
+// All job configuration, model state and results are deleted. It is not
+// currently possible to delete multiple jobs using wildcards or a comma
+// separated list. If you delete a job that has a datafeed, the request first
+// tries to delete the datafeed. This behavior is equivalent to calling the
+// delete datafeed API with the same timeout and force parameters as the delete
+// job request.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-job
 func New(tp elastictransport.Interface) *DeleteJob {
@@ -313,8 +313,8 @@ func (r *DeleteJob) _jobid(jobid string) *DeleteJob {
 	return r
 }
 
-// Force Use to forcefully delete an opened job; this method is quicker than
-// closing and deleting the job.
+// Force Use to forcefully delete an opened job; this method is quicker than closing
+// and deleting the job.
 // API name: force
 func (r *DeleteJob) Force(force bool) *DeleteJob {
 	r.values.Set("force", strconv.FormatBool(force))
@@ -322,10 +322,8 @@ func (r *DeleteJob) Force(force bool) *DeleteJob {
 	return r
 }
 
-// DeleteUserAnnotations Specifies whether annotations that have been added by the
-// user should be deleted along with any auto-generated annotations when the job
-// is
-// reset.
+// DeleteUserAnnotations Specifies whether annotations that have been added by the user should be
+// deleted along with any auto-generated annotations when the job is reset.
 // API name: delete_user_annotations
 func (r *DeleteJob) DeleteUserAnnotations(deleteuserannotations bool) *DeleteJob {
 	r.values.Set("delete_user_annotations", strconv.FormatBool(deleteuserannotations))
@@ -333,8 +331,8 @@ func (r *DeleteJob) DeleteUserAnnotations(deleteuserannotations bool) *DeleteJob
 	return r
 }
 
-// WaitForCompletion Specifies whether the request should return immediately or wait until the
-// job deletion completes.
+// WaitForCompletion Specifies whether the request should return immediately or wait until the job
+// deletion completes.
 // API name: wait_for_completion
 func (r *DeleteJob) WaitForCompletion(waitforcompletion bool) *DeleteJob {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
@@ -365,11 +363,9 @@ func (r *DeleteJob) FilterPath(filterpaths ...string) *DeleteJob {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteJob) Human(human bool) *DeleteJob {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -377,8 +373,8 @@ func (r *DeleteJob) Human(human bool) *DeleteJob {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteJob) Pretty(pretty bool) *DeleteJob {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

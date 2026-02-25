@@ -305,7 +305,7 @@ func (r *CircuitBreaker) Header(key, value string) *CircuitBreaker {
 }
 
 // CircuitBreakerPatterns A comma-separated list of regular-expressions to filter the circuit breakers
-// in the output
+// // in the output
 // API Name: circuitbreakerpatterns
 func (r *CircuitBreaker) CircuitBreakerPatterns(circuitbreakerpatterns ...string) *CircuitBreaker {
 	r.paramSet |= circuitbreakerpatternsMask
@@ -327,9 +327,9 @@ func (r *CircuitBreaker) H(catcircuitbreakercolumns ...catcircuitbreakercolumn.C
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
+// S List of columns that determine how the table should be sorted. Sorting
+// defaults to ascending and can be changed by setting `:asc` or `:desc` as a
+// suffix to the column name.
 // API name: s
 func (r *CircuitBreaker) S(names ...string) *CircuitBreaker {
 	r.values.Set("s", strings.Join(names, ","))
@@ -337,10 +337,10 @@ func (r *CircuitBreaker) S(names ...string) *CircuitBreaker {
 	return r
 }
 
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
+// Local If `true`, the request computes the list of selected nodes from the local
+// cluster state. If `false` the list of selected nodes are computed from the
+// cluster state of the master node. In both cases the coordinating node will
+// send requests for further information to each selected node.
 // API name: local
 func (r *CircuitBreaker) Local(local bool) *CircuitBreaker {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -356,15 +356,14 @@ func (r *CircuitBreaker) MasterTimeout(duration string) *CircuitBreaker {
 	return r
 }
 
-// Bytes Sets the units for columns that contain a byte-size value.
-// Note that byte-size value units work in terms of powers of 1024. For instance
-// `1kb` means 1024 bytes, not 1000 bytes.
-// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
-// or `gb`, chosen such that the numeric value of the column is as small as
-// possible whilst still being at least `1.0`.
-// If given, byte-size values are rendered as an integer with no suffix,
-// representing the value of the column in the chosen unit.
-// Values that are not an exact multiple of the chosen unit are rounded down.
+// Bytes Sets the units for columns that contain a byte-size value. Note that
+// byte-size value units work in terms of powers of 1024. For instance `1kb`
+// means 1024 bytes, not 1000 bytes. If omitted, byte-size values are rendered
+// with a suffix such as `kb`, `mb`, or `gb`, chosen such that the numeric value
+// of the column is as small as possible whilst still being at least `1.0`. If
+// given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit. Values that are not
+// an exact multiple of the chosen unit are rounded down.
 // API name: bytes
 func (r *CircuitBreaker) Bytes(bytes bytes.Bytes) *CircuitBreaker {
 	r.values.Set("bytes", bytes.String())
@@ -372,8 +371,8 @@ func (r *CircuitBreaker) Bytes(bytes bytes.Bytes) *CircuitBreaker {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *CircuitBreaker) Format(format string) *CircuitBreaker {
 	r.values.Set("format", format)
@@ -381,8 +380,8 @@ func (r *CircuitBreaker) Format(format string) *CircuitBreaker {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *CircuitBreaker) Help(help bool) *CircuitBreaker {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -390,12 +389,12 @@ func (r *CircuitBreaker) Help(help bool) *CircuitBreaker {
 	return r
 }
 
-// Time Sets the units for columns that contain a time duration.
-// If omitted, time duration values are rendered with a suffix such as `ms`,
-// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
-// as possible whilst still being at least `1.0`.
-// If given, time duration values are rendered as an integer with no suffix.
-// Values that are not an exact multiple of the chosen unit are rounded down.
+// Time Sets the units for columns that contain a time duration. If omitted, time
+// duration values are rendered with a suffix such as `ms`, `s`, `m` or `h`,
+// chosen such that the numeric value of the column is as small as possible
+// whilst still being at least `1.0`. If given, time duration values are
+// rendered as an integer with no suffix. Values that are not an exact multiple
+// of the chosen unit are rounded down.
 // API name: time
 func (r *CircuitBreaker) Time(time timeunit.TimeUnit) *CircuitBreaker {
 	r.values.Set("time", time.String())
@@ -434,11 +433,9 @@ func (r *CircuitBreaker) FilterPath(filterpaths ...string) *CircuitBreaker {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *CircuitBreaker) Human(human bool) *CircuitBreaker {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -446,8 +443,8 @@ func (r *CircuitBreaker) Human(human bool) *CircuitBreaker {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *CircuitBreaker) Pretty(pretty bool) *CircuitBreaker {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

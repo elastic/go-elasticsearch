@@ -39,59 +39,50 @@ type Request struct {
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	// Collapse Collapses search results the values of the specified field.
 	Collapse *types.FieldCollapse `json:"collapse,omitempty"`
-	// DocvalueFields An array of wildcard (`*`) field patterns.
-	// The request returns doc values for field names matching these patterns in the
-	// `hits.fields` property of the response.
+	// DocvalueFields An array of wildcard (`*`) field patterns. The request returns doc values for
+	// field names matching these patterns in the `hits.fields` property of the
+	// response.
 	DocvalueFields []types.FieldAndFormat `json:"docvalue_fields,omitempty"`
 	// Explain If `true`, the request returns detailed information about score computation
 	// as part of a hit.
 	Explain *bool `json:"explain,omitempty"`
 	// Ext Configuration of search extensions defined by Elasticsearch plugins.
 	Ext map[string]json.RawMessage `json:"ext,omitempty"`
-	// Fields An array of wildcard (`*`) field patterns.
-	// The request returns values for field names matching these patterns in the
-	// `hits.fields` property of the response.
+	// Fields An array of wildcard (`*`) field patterns. The request returns values for
+	// field names matching these patterns in the `hits.fields` property of the
+	// response.
 	Fields []types.FieldAndFormat `json:"fields,omitempty"`
-	// From The starting document offset, which must be non-negative.
-	// By default, you cannot page through more than 10,000 hits using the `from`
-	// and `size` parameters.
-	// To page through more hits, use the `search_after` parameter.
+	// From The starting document offset, which must be non-negative. By default, you
+	// cannot page through more than 10,000 hits using the `from` and `size`
+	// parameters. To page through more hits, use the `search_after` parameter.
 	From *int `json:"from,omitempty"`
 	// Highlight Specifies the highlighter to use for retrieving highlighted snippets from one
 	// or more fields in your search results.
 	Highlight *types.Highlight `json:"highlight,omitempty"`
-	// IndicesBoost Boost the `_score` of documents from specified indices.
-	// The boost value is the factor by which scores are multiplied.
-	// A boost value greater than `1.0` increases the score.
-	// A boost value between `0` and `1.0` decreases the score.
+	// IndicesBoost Boost the `_score` of documents from specified indices. The boost value is
+	// the factor by which scores are multiplied. A boost value greater than `1.0`
+	// increases the score. A boost value between `0` and `1.0` decreases the score.
 	IndicesBoost []map[string]types.Float64 `json:"indices_boost,omitempty"`
 	// Knn The approximate kNN search to run.
 	Knn []types.KnnSearch `json:"knn,omitempty"`
-	// MinScore The minimum `_score` for matching documents.
-	// Documents with a lower `_score` are not included in search results and
-	// results collected by aggregations.
+	// MinScore The minimum `_score` for matching documents. Documents with a lower `_score`
+	// are not included in search results and results collected by aggregations.
 	MinScore *types.Float64 `json:"min_score,omitempty"`
-	// Pit Limit the search to a point in time (PIT).
-	// If you provide a PIT, you cannot specify an `<index>` in the request path.
+	// Pit Limit the search to a point in time (PIT). If you provide a PIT, you cannot
+	// specify an `<index>` in the request path.
 	Pit *types.PointInTimeReference `json:"pit,omitempty"`
-	// PostFilter Use the `post_filter` parameter to filter search results.
-	// The search hits are filtered after the aggregations are calculated.
-	// A post filter has no impact on the aggregation results.
+	// PostFilter Use the `post_filter` parameter to filter search results. The search hits are
+	// filtered after the aggregations are calculated. A post filter has no impact
+	// on the aggregation results.
 	PostFilter *types.Query `json:"post_filter,omitempty"`
 	// Profile Set to `true` to return detailed timing information about the execution of
-	// individual components in a search request.
-	// NOTE: This is a debugging tool and adds significant overhead to search
-	// execution.
+	// individual components in a search request. NOTE: This is a debugging tool and
+	// adds significant overhead to search execution.
 	Profile *bool `json:"profile,omitempty"`
 	// ProjectRouting Specifies a subset of projects to target for the search using project
-	// metadata tags in a subset of Lucene query syntax.
-	// Allowed Lucene queries: the _alias tag and a single value (possibly
-	// wildcarded).
-	// Examples:
-	//  _alias:my-project
-	//  _alias:_origin
-	//  _alias:*pr*
-	// Supported in serverless only.
+	// metadata tags in a subset of Lucene query syntax. Allowed Lucene queries: the
+	// _alias tag and a single value (possibly wildcarded). Examples:
+	// _alias:my-project _alias:_origin _alias:*pr* Supported in serverless only.
 	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query The search definition using the Query DSL.
 	Query *types.Query `json:"query,omitempty"`
@@ -101,12 +92,11 @@ type Request struct {
 	// - 500) documents returned by the `query` and `post_filter` phases.
 	Rescore []types.Rescore `json:"rescore,omitempty"`
 	// Retriever A retriever is a specification to describe top documents returned from a
-	// search.
-	// A retriever replaces other elements of the search API that also return top
-	// documents such as `query` and `knn`.
+	// search. A retriever replaces other elements of the search API that also
+	// return top documents such as `query` and `knn`.
 	Retriever *types.RetrieverContainer `json:"retriever,omitempty"`
-	// RuntimeMappings One or more runtime fields in the search request.
-	// These fields take precedence over mapped fields with the same name.
+	// RuntimeMappings One or more runtime fields in the search request. These fields take
+	// precedence over mapped fields with the same name.
 	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
 	// ScriptFields Retrieve a script evaluation (based on different fields) for each hit.
 	ScriptFields map[string]types.ScriptField `json:"script_fields,omitempty"`
@@ -116,61 +106,54 @@ type Request struct {
 	// SeqNoPrimaryTerm If `true`, the request returns sequence number and primary term of the last
 	// modification of each hit.
 	SeqNoPrimaryTerm *bool `json:"seq_no_primary_term,omitempty"`
-	// Size The number of hits to return, which must not be negative.
-	// By default, you cannot page through more than 10,000 hits using the `from`
-	// and `size` parameters.
-	// To page through more hits, use the `search_after` property.
+	// Size The number of hits to return, which must not be negative. By default, you
+	// cannot page through more than 10,000 hits using the `from` and `size`
+	// parameters. To page through more hits, use the `search_after` property.
 	Size *int `json:"size,omitempty"`
 	// Slice Split a scrolled search into multiple slices that can be consumed
 	// independently.
 	Slice *types.SlicedScroll `json:"slice,omitempty"`
 	// Sort A comma-separated list of <field>:<direction> pairs.
 	Sort []types.SortCombinations `json:"sort,omitempty"`
-	// Source_ The source fields that are returned for matching documents.
-	// These fields are returned in the `hits._source` property of the search
-	// response.
-	// If the `stored_fields` property is specified, the `_source` property defaults
-	// to `false`.
-	// Otherwise, it defaults to `true`.
+	// Source_ The source fields that are returned for matching documents. These fields are
+	// returned in the `hits._source` property of the search response. If the
+	// `stored_fields` property is specified, the `_source` property defaults to
+	// `false`. Otherwise, it defaults to `true`.
 	Source_ types.SourceConfig `json:"_source,omitempty"`
-	// Stats The stats groups to associate with the search.
-	// Each group maintains a statistics aggregation for its associated searches.
-	// You can retrieve these stats using the indices stats API.
+	// Stats The stats groups to associate with the search. Each group maintains a
+	// statistics aggregation for its associated searches. You can retrieve these
+	// stats using the indices stats API.
 	Stats []string `json:"stats,omitempty"`
-	// StoredFields A comma-separated list of stored fields to return as part of a hit.
-	// If no fields are specified, no stored fields are included in the response.
-	// If this field is specified, the `_source` property defaults to `false`.
-	// You can pass `_source: true` to return both source fields and stored fields
-	// in the search response.
+	// StoredFields A comma-separated list of stored fields to return as part of a hit. If no
+	// fields are specified, no stored fields are included in the response. If this
+	// field is specified, the `_source` property defaults to `false`. You can pass
+	// `_source: true` to return both source fields and stored fields in the search
+	// response.
 	StoredFields []string `json:"stored_fields,omitempty"`
 	// Suggest Defines a suggester that provides similar looking terms based on a provided
 	// text.
 	Suggest *types.Suggester `json:"suggest,omitempty"`
-	// TerminateAfter The maximum number of documents to collect for each shard.
-	// If a query reaches this limit, Elasticsearch terminates the query early.
-	// Elasticsearch collects documents before sorting.
+	// TerminateAfter The maximum number of documents to collect for each shard. If a query reaches
+	// this limit, Elasticsearch terminates the query early. Elasticsearch collects
+	// documents before sorting.
 	//
-	// IMPORTANT: Use with caution.
-	// Elasticsearch applies this property to each shard handling the request.
-	// When possible, let Elasticsearch perform early termination automatically.
-	// Avoid specifying this property for requests that target data streams with
-	// backing indices across multiple data tiers.
+	// IMPORTANT: Use with caution. Elasticsearch applies this property to each
+	// shard handling the request. When possible, let Elasticsearch perform early
+	// termination automatically. Avoid specifying this property for requests that
+	// target data streams with backing indices across multiple data tiers.
 	//
 	// If set to `0` (default), the query does not terminate early.
 	TerminateAfter *int64 `json:"terminate_after,omitempty"`
-	// Timeout The period of time to wait for a response from each shard.
-	// If no response is received before the timeout expires, the request fails and
-	// returns an error.
+	// Timeout The period of time to wait for a response from each shard. If no response is
+	// received before the timeout expires, the request fails and returns an error.
 	// Defaults to no timeout.
 	Timeout *string `json:"timeout,omitempty"`
 	// TrackScores If `true`, calculate and return document scores, even if the scores are not
 	// used for sorting.
 	TrackScores *bool `json:"track_scores,omitempty"`
-	// TrackTotalHits Number of hits matching the query to count accurately.
-	// If `true`, the exact number of hits is returned at the cost of some
-	// performance.
-	// If `false`, the  response does not include the total number of hits matching
-	// the query.
+	// TrackTotalHits Number of hits matching the query to count accurately. If `true`, the exact
+	// number of hits is returned at the cost of some performance. If `false`, the
+	// response does not include the total number of hits matching the query.
 	TrackTotalHits types.TrackHits `json:"track_total_hits,omitempty"`
 	// Version If `true`, the request returns the document version as part of a hit.
 	Version *bool `json:"version,omitempty"`

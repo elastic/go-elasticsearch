@@ -298,8 +298,7 @@ func (r *DeleteTransform) _transformid(transformid string) *DeleteTransform {
 }
 
 // Force If this value is false, the transform must be stopped before it can be
-// deleted. If true, the transform is
-// deleted regardless of its current state.
+// deleted. If true, the transform is deleted regardless of its current state.
 // API name: force
 func (r *DeleteTransform) Force(force bool) *DeleteTransform {
 	r.values.Set("force", strconv.FormatBool(force))
@@ -308,8 +307,7 @@ func (r *DeleteTransform) Force(force bool) *DeleteTransform {
 }
 
 // DeleteDestIndex If this value is true, the destination index is deleted together with the
-// transform. If false, the destination
-// index will not be deleted
+// transform. If false, the destination index will not be deleted
 // API name: delete_dest_index
 func (r *DeleteTransform) DeleteDestIndex(deletedestindex bool) *DeleteTransform {
 	r.values.Set("delete_dest_index", strconv.FormatBool(deletedestindex))
@@ -349,11 +347,9 @@ func (r *DeleteTransform) FilterPath(filterpaths ...string) *DeleteTransform {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteTransform) Human(human bool) *DeleteTransform {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -361,8 +357,8 @@ func (r *DeleteTransform) Human(human bool) *DeleteTransform {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteTransform) Pretty(pretty bool) *DeleteTransform {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

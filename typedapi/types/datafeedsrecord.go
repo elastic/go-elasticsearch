@@ -42,21 +42,17 @@ type DatafeedsRecord struct {
 	BucketsCount *string `json:"buckets.count,omitempty"`
 	// Id The datafeed identifier.
 	Id *string `json:"id,omitempty"`
-	// NodeAddress The network address of the assigned node.
-	// For started datafeeds only, this information pertains to the node upon which
-	// the datafeed is started.
+	// NodeAddress The network address of the assigned node. For started datafeeds only, this
+	// information pertains to the node upon which the datafeed is started.
 	NodeAddress *string `json:"node.address,omitempty"`
-	// NodeEphemeralId The ephemeral identifier of the assigned node.
-	// For started datafeeds only, this information pertains to the node upon which
-	// the datafeed is started.
+	// NodeEphemeralId The ephemeral identifier of the assigned node. For started datafeeds only,
+	// this information pertains to the node upon which the datafeed is started.
 	NodeEphemeralId *string `json:"node.ephemeral_id,omitempty"`
-	// NodeId The unique identifier of the assigned node.
-	// For started datafeeds only, this information pertains to the node upon which
-	// the datafeed is started.
+	// NodeId The unique identifier of the assigned node. For started datafeeds only, this
+	// information pertains to the node upon which the datafeed is started.
 	NodeId *string `json:"node.id,omitempty"`
-	// NodeName The name of the assigned node.
-	// For started datafeeds only, this information pertains to the node upon which
-	// the datafeed is started.
+	// NodeName The name of the assigned node. For started datafeeds only, this information
+	// pertains to the node upon which the datafeed is started.
 	NodeName *string `json:"node.name,omitempty"`
 	// SearchBucketAvg The average search time per bucket, in milliseconds.
 	SearchBucketAvg *string `json:"search.bucket_avg,omitempty"`

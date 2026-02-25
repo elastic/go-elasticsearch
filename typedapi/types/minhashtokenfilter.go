@@ -37,9 +37,8 @@ type MinHashTokenFilter struct {
 	BucketCount *int `json:"bucket_count,omitempty"`
 	// HashCount Number of ways to hash each token in the stream. Defaults to `1`.
 	HashCount *int `json:"hash_count,omitempty"`
-	// HashSetSize Number of hashes to keep from each bucket. Defaults to `1`.
-	// Hashes are retained by ascending size, starting with the bucket’s smallest
-	// hash first.
+	// HashSetSize Number of hashes to keep from each bucket. Defaults to `1`. Hashes are
+	// retained by ascending size, starting with the bucket’s smallest hash first.
 	HashSetSize *int    `json:"hash_set_size,omitempty"`
 	Type        string  `json:"type,omitempty"`
 	Version     *string `json:"version,omitempty"`

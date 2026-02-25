@@ -20,12 +20,9 @@
 
 // Check for a document source.
 //
-// Check whether a document source exists in an index.
-// For example:
+// Check whether a document source exists in an index. For example:
 //
-// ```
-// HEAD my-index-000001/_source/1
-// ```
+//	HEAD my-index-000001/_source/1
 //
 // A document's source is not available if it is disabled in the mapping.
 package existssource
@@ -91,12 +88,9 @@ func NewExistsSourceFunc(tp elastictransport.Interface) NewExistsSource {
 
 // Check for a document source.
 //
-// Check whether a document source exists in an index.
-// For example:
+// Check whether a document source exists in an index. For example:
 //
-// ```
-// HEAD my-index-000001/_source/1
-// ```
+//	HEAD my-index-000001/_source/1
 //
 // A document's source is not available if it is disabled in the mapping.
 //
@@ -276,8 +270,8 @@ func (r *ExistsSource) _id(id string) *ExistsSource {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases.
-// It supports wildcards (`*`).
+// Index A comma-separated list of data streams, indices, and aliases. It supports //
+// wildcards (`*`).
 // API Name: index
 func (r *ExistsSource) _index(index string) *ExistsSource {
 	r.paramSet |= indexMask
@@ -286,8 +280,8 @@ func (r *ExistsSource) _index(index string) *ExistsSource {
 	return r
 }
 
-// Preference The node or shard the operation should be performed on.
-// By default, the operation is randomized between the shard replicas.
+// Preference The node or shard the operation should be performed on. By default, the
+// operation is randomized between the shard replicas.
 // API name: preference
 func (r *ExistsSource) Preference(preference string) *ExistsSource {
 	r.values.Set("preference", preference)
@@ -304,9 +298,9 @@ func (r *ExistsSource) Realtime(realtime bool) *ExistsSource {
 }
 
 // Refresh If `true`, the request refreshes the relevant shards before retrieving the
-// document.
-// Setting it to `true` should be done after careful thought and verification
-// that this does not cause a heavy load on the system (and slow down indexing).
+// document. Setting it to `true` should be done after careful thought and
+// verification that this does not cause a heavy load on the system (and slow
+// down indexing).
 // API name: refresh
 func (r *ExistsSource) Refresh(refresh bool) *ExistsSource {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
@@ -347,8 +341,8 @@ func (r *ExistsSource) SourceIncludes_(fields ...string) *ExistsSource {
 	return r
 }
 
-// Version The version number for concurrency control.
-// It must match the current version of the document for the request to succeed.
+// Version The version number for concurrency control. It must match the current version
+// of the document for the request to succeed.
 // API name: version
 func (r *ExistsSource) Version(versionnumber string) *ExistsSource {
 	r.values.Set("version", versionnumber)
@@ -387,11 +381,9 @@ func (r *ExistsSource) FilterPath(filterpaths ...string) *ExistsSource {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ExistsSource) Human(human bool) *ExistsSource {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -399,8 +391,8 @@ func (r *ExistsSource) Human(human bool) *ExistsSource {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ExistsSource) Pretty(pretty bool) *ExistsSource {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

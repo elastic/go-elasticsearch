@@ -42,10 +42,9 @@ type StopTokenFilter struct {
 	RemoveTrailing *bool `json:"remove_trailing,omitempty"`
 	// Stopwords Language value, such as `_arabic_` or `_thai_`. Defaults to `_english_`.
 	Stopwords StopWords `json:"stopwords,omitempty"`
-	// StopwordsPath Path to a file that contains a list of stop words to remove.
-	// This path must be absolute or relative to the `config` location, and the file
-	// must be UTF-8 encoded. Each stop word in the file must be separated by a line
-	// break.
+	// StopwordsPath Path to a file that contains a list of stop words to remove. This path must
+	// be absolute or relative to the `config` location, and the file must be UTF-8
+	// encoded. Each stop word in the file must be separated by a line break.
 	StopwordsPath *string `json:"stopwords_path,omitempty"`
 	Type          string  `json:"type,omitempty"`
 	Version       *string `json:"version,omitempty"`

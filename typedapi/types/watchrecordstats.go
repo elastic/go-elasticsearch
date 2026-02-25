@@ -37,8 +37,7 @@ type WatchRecordStats struct {
 	ExecutedActions []string `json:"executed_actions,omitempty"`
 	// ExecutionPhase The current watch execution phase.
 	ExecutionPhase executionphase.ExecutionPhase `json:"execution_phase"`
-	// ExecutionTime The time the watch was run.
-	// This is just before the input is being run.
+	// ExecutionTime The time the watch was run. This is just before the input is being run.
 	ExecutionTime DateTime `json:"execution_time"`
 	// TriggeredTime The time the watch was triggered by the trigger engine.
 	TriggeredTime DateTime `json:"triggered_time"`

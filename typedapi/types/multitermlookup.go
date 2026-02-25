@@ -32,14 +32,14 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/bucket.ts#L646-L666
 type MultiTermLookup struct {
-	// Field A field from which to retrieve terms.
-	// It is required if `script` is not provided.
+	// Field A field from which to retrieve terms. It is required if `script` is not
+	// provided.
 	Field *string `json:"field,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
-	// Script A script to calculate terms to aggregate on.
-	// It is required if `field` is not provided.
+	// Script A script to calculate terms to aggregate on. It is required if `field` is not
+	// provided.
 	Script *Script `json:"script,omitempty"`
 }
 

@@ -21,23 +21,21 @@
 // Cancel a task.
 //
 // WARNING: The task management API is new and should still be considered a beta
-// feature.
-// The API may change in ways that are not backwards compatible.
+// feature. The API may change in ways that are not backwards compatible.
 //
 // A task may continue to run for some time after it has been cancelled because
-// it may not be able to safely stop its current activity straight away.
-// It is also possible that Elasticsearch must complete its work on other tasks
-// before it can process the cancellation.
-// The get task information API will continue to list these cancelled tasks
-// until they complete.
-// The cancelled flag in the response indicates that the cancellation command
-// has been processed and the task will stop as soon as possible.
+// it may not be able to safely stop its current activity straight away. It is
+// also possible that Elasticsearch must complete its work on other tasks before
+// it can process the cancellation. The get task information API will continue
+// to list these cancelled tasks until they complete. The cancelled flag in the
+// response indicates that the cancellation command has been processed and the
+// task will stop as soon as possible.
 //
 // To troubleshoot why a cancelled task does not complete promptly, use the get
 // task information API with the `?detailed` parameter to identify the other
-// tasks the system is running.
-// You can also use the node hot threads API to obtain detailed information
-// about the work the system is doing instead of completing the cancelled task.
+// tasks the system is running. You can also use the node hot threads API to
+// obtain detailed information about the work the system is doing instead of
+// completing the cancelled task.
 package cancel
 
 import (
@@ -96,23 +94,21 @@ func NewCancelFunc(tp elastictransport.Interface) NewCancel {
 // Cancel a task.
 //
 // WARNING: The task management API is new and should still be considered a beta
-// feature.
-// The API may change in ways that are not backwards compatible.
+// feature. The API may change in ways that are not backwards compatible.
 //
 // A task may continue to run for some time after it has been cancelled because
-// it may not be able to safely stop its current activity straight away.
-// It is also possible that Elasticsearch must complete its work on other tasks
-// before it can process the cancellation.
-// The get task information API will continue to list these cancelled tasks
-// until they complete.
-// The cancelled flag in the response indicates that the cancellation command
-// has been processed and the task will stop as soon as possible.
+// it may not be able to safely stop its current activity straight away. It is
+// also possible that Elasticsearch must complete its work on other tasks before
+// it can process the cancellation. The get task information API will continue
+// to list these cancelled tasks until they complete. The cancelled flag in the
+// response indicates that the cancellation command has been processed and the
+// task will stop as soon as possible.
 //
 // To troubleshoot why a cancelled task does not complete promptly, use the get
 // task information API with the `?detailed` parameter to identify the other
-// tasks the system is running.
-// You can also use the node hot threads API to obtain detailed information
-// about the work the system is doing instead of completing the cancelled task.
+// tasks the system is running. You can also use the node hot threads API to
+// obtain detailed information about the work the system is doing instead of
+// completing the cancelled task.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
 func New(tp elastictransport.Interface) *Cancel {
@@ -407,11 +403,9 @@ func (r *Cancel) FilterPath(filterpaths ...string) *Cancel {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Cancel) Human(human bool) *Cancel {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -419,8 +413,8 @@ func (r *Cancel) Human(human bool) *Cancel {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Cancel) Pretty(pretty bool) *Cancel {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

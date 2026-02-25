@@ -20,11 +20,10 @@
 
 // Get role mappings.
 //
-// Role mappings define which roles are assigned to each user.
-// The role mapping APIs are generally the preferred way to manage role mappings
-// rather than using role mapping files.
-// The get role mappings API cannot retrieve role mappings that are defined in
-// role mapping files.
+// Role mappings define which roles are assigned to each user. The role mapping
+// APIs are generally the preferred way to manage role mappings rather than
+// using role mapping files. The get role mappings API cannot retrieve role
+// mappings that are defined in role mapping files.
 package getrolemapping
 
 import (
@@ -82,11 +81,10 @@ func NewGetRoleMappingFunc(tp elastictransport.Interface) NewGetRoleMapping {
 
 // Get role mappings.
 //
-// Role mappings define which roles are assigned to each user.
-// The role mapping APIs are generally the preferred way to manage role mappings
-// rather than using role mapping files.
-// The get role mappings API cannot retrieve role mappings that are defined in
-// role mapping files.
+// Role mappings define which roles are assigned to each user. The role mapping
+// APIs are generally the preferred way to manage role mappings rather than
+// using role mapping files. The get role mappings API cannot retrieve role
+// mappings that are defined in role mapping files.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-role-mapping
 func New(tp elastictransport.Interface) *GetRoleMapping {
@@ -308,10 +306,10 @@ func (r *GetRoleMapping) Header(key, value string) *GetRoleMapping {
 }
 
 // Name The distinct name that identifies the role mapping. The name is used solely
-// as an identifier to facilitate interaction via the API; it does not affect
-// the behavior of the mapping in any way. You can specify multiple mapping
-// names as a comma-separated list. If you do not specify this parameter, the
-// API returns information about all role mappings.
+// // as an identifier to facilitate interaction via the API; it does not affect
+// // the behavior of the mapping in any way. You can specify multiple mapping
+// // names as a comma-separated list. If you do not specify this parameter, the
+// // API returns information about all role mappings.
 // API Name: name
 func (r *GetRoleMapping) Name(name string) *GetRoleMapping {
 	r.paramSet |= nameMask
@@ -343,11 +341,9 @@ func (r *GetRoleMapping) FilterPath(filterpaths ...string) *GetRoleMapping {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetRoleMapping) Human(human bool) *GetRoleMapping {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -355,8 +351,8 @@ func (r *GetRoleMapping) Human(human bool) *GetRoleMapping {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetRoleMapping) Pretty(pretty bool) *GetRoleMapping {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

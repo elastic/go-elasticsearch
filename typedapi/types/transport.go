@@ -52,11 +52,10 @@ type Transport struct {
 	// between nodes.
 	ServerOpen *int `json:"server_open,omitempty"`
 	// TotalOutboundConnections The cumulative number of outbound transport connections that this node has
-	// opened since it started.
-	// Each transport connection may comprise multiple TCP connections but is only
-	// counted once in this statistic.
-	// Transport connections are typically long-lived so this statistic should
-	// remain constant in a stable cluster.
+	// opened since it started. Each transport connection may comprise multiple TCP
+	// connections but is only counted once in this statistic. Transport connections
+	// are typically long-lived so this statistic should remain constant in a stable
+	// cluster.
 	TotalOutboundConnections *int64 `json:"total_outbound_connections,omitempty"`
 	// TxCount Total number of TX (transmit) packets sent by the node during internal
 	// cluster communication.

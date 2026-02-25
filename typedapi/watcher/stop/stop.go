@@ -280,10 +280,9 @@ func (r *Stop) Header(key, value string) *Stop {
 	return r
 }
 
-// MasterTimeout The period to wait for the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// To indicate that the request should never timeout, set it to `-1`.
+// MasterTimeout The period to wait for the master node. If the master node is not available
+// before the timeout expires, the request fails and returns an error. To
+// indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Stop) MasterTimeout(duration string) *Stop {
 	r.values.Set("master_timeout", duration)
@@ -314,11 +313,9 @@ func (r *Stop) FilterPath(filterpaths ...string) *Stop {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Stop) Human(human bool) *Stop {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -326,8 +323,8 @@ func (r *Stop) Human(human bool) *Stop {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Stop) Pretty(pretty bool) *Stop {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

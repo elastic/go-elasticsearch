@@ -36,8 +36,8 @@ import (
 type MatrixStatsAggregation struct {
 	// Fields An array of fields for computing the statistics.
 	Fields []string `json:"fields,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing map[string]Float64 `json:"missing,omitempty"`
 	// Mode Array value the aggregation will use for array or multi-valued fields.
 	Mode *sortmode.SortMode `json:"mode,omitempty"`

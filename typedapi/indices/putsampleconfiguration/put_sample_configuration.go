@@ -318,8 +318,7 @@ func (r *PutSampleConfiguration) _index(index string) *PutSampleConfiguration {
 }
 
 // MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an
-// error.
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *PutSampleConfiguration) MasterTimeout(duration string) *PutSampleConfiguration {
 	r.values.Set("master_timeout", duration)
@@ -327,9 +326,8 @@ func (r *PutSampleConfiguration) MasterTimeout(duration string) *PutSampleConfig
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *PutSampleConfiguration) Timeout(duration string) *PutSampleConfiguration {
 	r.values.Set("timeout", duration)
@@ -360,11 +358,9 @@ func (r *PutSampleConfiguration) FilterPath(filterpaths ...string) *PutSampleCon
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutSampleConfiguration) Human(human bool) *PutSampleConfiguration {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -372,8 +368,8 @@ func (r *PutSampleConfiguration) Human(human bool) *PutSampleConfiguration {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutSampleConfiguration) Pretty(pretty bool) *PutSampleConfiguration {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -423,8 +419,7 @@ func (r *PutSampleConfiguration) MaxSize(bytesize types.ByteSizeVariant) *PutSam
 }
 
 // The fraction of documents to sample. Must be greater than 0 and less than or
-// equal to 1.
-// Can be specified as a number or a string.
+// equal to 1. Can be specified as a number or a string.
 // API name: rate
 func (r *PutSampleConfiguration) Rate(stringifieddouble types.StringifieddoubleVariant) *PutSampleConfiguration {
 	// Initialize the request if it is not already initialized
@@ -437,8 +432,8 @@ func (r *PutSampleConfiguration) Rate(stringifieddouble types.StringifieddoubleV
 	return r
 }
 
-// The duration for which the sampled documents should be retained.
-// Must be greater than 0 and less than or equal to 30 days.
+// The duration for which the sampled documents should be retained. Must be
+// greater than 0 and less than or equal to 30 days.
 // API name: time_to_live
 func (r *PutSampleConfiguration) TimeToLive(duration types.DurationVariant) *PutSampleConfiguration {
 	// Initialize the request if it is not already initialized

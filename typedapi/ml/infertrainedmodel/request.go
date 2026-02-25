@@ -32,10 +32,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/infer_trained_model/MlInferTrainedModelRequest.ts#L27-L70
 type Request struct {
 	// Docs An array of objects to pass to the model for inference. The objects should
-	// contain a fields matching your
-	// configured trained model input. Typically, for NLP models, the field name is
-	// `text_field`.
-	// Currently, for NLP models, only a single value is allowed.
+	// contain a fields matching your configured trained model input. Typically, for
+	// NLP models, the field name is `text_field`. Currently, for NLP models, only a
+	// single value is allowed.
 	Docs []map[string]json.RawMessage `json:"docs"`
 	// InferenceConfig The inference configuration updates to apply on the API call
 	InferenceConfig *types.InferenceConfigUpdateContainer `json:"inference_config,omitempty"`

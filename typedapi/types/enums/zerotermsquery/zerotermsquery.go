@@ -29,8 +29,11 @@ type ZeroTermsQuery struct {
 }
 
 var (
+
+	// All Returns all documents, similar to a `match_all` query.
 	All = ZeroTermsQuery{"all"}
 
+	// None No documents are returned if the `analyzer` removes all tokens.
 	None = ZeroTermsQuery{"none"}
 )
 

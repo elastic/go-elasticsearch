@@ -20,8 +20,10 @@
 
 // Start rollup jobs.
 //
-// If you try to start a job that does not exist, an exception occurs.
-// If you try to start a job that is already started, nothing happens.
+// If you try to start a job that does not exist, an exception occurs. If you
+// try to start a job that is already started, nothing happens.
+//
+// Deprecated: Since 8.11.0.
 package startjob
 
 import (
@@ -81,10 +83,12 @@ func NewStartJobFunc(tp elastictransport.Interface) NewStartJob {
 
 // Start rollup jobs.
 //
-// If you try to start a job that does not exist, an exception occurs.
-// If you try to start a job that is already started, nothing happens.
+// If you try to start a job that does not exist, an exception occurs. If you
+// try to start a job that is already started, nothing happens.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-start-job
+//
+// Deprecated: Since 8.11.0.
 func New(tp elastictransport.Interface) *StartJob {
 	r := &StartJob{
 		transport: tp,
@@ -330,11 +334,9 @@ func (r *StartJob) FilterPath(filterpaths ...string) *StartJob {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *StartJob) Human(human bool) *StartJob {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -342,8 +344,8 @@ func (r *StartJob) Human(human bool) *StartJob {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *StartJob) Pretty(pretty bool) *StartJob {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -20,17 +20,17 @@
 
 // Get index shard stores.
 //
-// Get store information about replica shards in one or more indices.
-// For data streams, the API retrieves store information for the stream's
-// backing indices.
+// Get store information about replica shards in one or more indices. For data
+// streams, the API retrieves store information for the stream's backing
+// indices.
 //
 // The index shard stores API returns the following information:
 //
-// * The node on which each replica shard exists.
-// * The allocation ID for each replica shard.
-// * A unique ID for each replica shard.
-// * Any errors encountered while opening the shard index or from an earlier
-// failure.
+//   - The node on which each replica shard exists.
+//   - The allocation ID for each replica shard.
+//   - A unique ID for each replica shard.
+//   - Any errors encountered while opening the shard index or from an earlier
+//     failure.
 //
 // By default, the API returns store information only for primary shards that
 // are unassigned or have one or more unassigned replica shards.
@@ -93,17 +93,17 @@ func NewShardStoresFunc(tp elastictransport.Interface) NewShardStores {
 
 // Get index shard stores.
 //
-// Get store information about replica shards in one or more indices.
-// For data streams, the API retrieves store information for the stream's
-// backing indices.
+// Get store information about replica shards in one or more indices. For data
+// streams, the API retrieves store information for the stream's backing
+// indices.
 //
 // The index shard stores API returns the following information:
 //
-// * The node on which each replica shard exists.
-// * The allocation ID for each replica shard.
-// * A unique ID for each replica shard.
-// * Any errors encountered while opening the shard index or from an earlier
-// failure.
+//   - The node on which each replica shard exists.
+//   - The allocation ID for each replica shard.
+//   - A unique ID for each replica shard.
+//   - Any errors encountered while opening the shard index or from an earlier
+//     failure.
 //
 // By default, the API returns store information only for primary shards that
 // are unassigned or have one or more unassigned replica shards.
@@ -333,10 +333,8 @@ func (r *ShardStores) Index(index string) *ShardStores {
 }
 
 // AllowNoIndices If false, the request returns an error if any wildcard expression, index
-// alias, or _all
-// value targets only missing or closed indices. This behavior applies even if
-// the request
-// targets other open indices.
+// alias, or _all value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *ShardStores) AllowNoIndices(allownoindices bool) *ShardStores {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -345,9 +343,8 @@ func (r *ShardStores) AllowNoIndices(allownoindices bool) *ShardStores {
 }
 
 // ExpandWildcards Type of index that wildcard patterns can match. If the request can target
-// data streams,
-// this argument determines whether wildcard expressions match hidden data
-// streams.
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams.
 // API name: expand_wildcards
 func (r *ShardStores) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ShardStores {
 	tmp := []string{}
@@ -402,11 +399,9 @@ func (r *ShardStores) FilterPath(filterpaths ...string) *ShardStores {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ShardStores) Human(human bool) *ShardStores {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -414,8 +409,8 @@ func (r *ShardStores) Human(human bool) *ShardStores {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ShardStores) Pretty(pretty bool) *ShardStores {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

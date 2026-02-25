@@ -44,28 +44,24 @@ type Request struct {
 	// documents that an ES|QL query runs on.
 	Filter *types.Query `json:"filter,omitempty"`
 	// IncludeCcsMetadata When set to `true` and performing a cross-cluster/cross-project query, the
-	// response will include an extra `_clusters`
-	// object with information about the clusters that participated in the search
-	// along with info such as shards
+	// response will include an extra `_clusters` object with information about the
+	// clusters that participated in the search along with info such as shards
 	// count.
 	IncludeCcsMetadata *bool `json:"include_ccs_metadata,omitempty"`
-	// IncludeExecutionMetadata When set to `true`, the response will include an extra `_clusters`
-	// object with information about the clusters that participated in the search
-	// along with info such as shards
-	// count.
-	// This is similar to `include_ccs_metadata`, but it also returns metadata when
-	// the query is not CCS/CPS
+	// IncludeExecutionMetadata When set to `true`, the response will include an extra `_clusters` object
+	// with information about the clusters that participated in the search along
+	// with info such as shards count. This is similar to `include_ccs_metadata`,
+	// but it also returns metadata when the query is not CCS/CPS
 	IncludeExecutionMetadata *bool `json:"include_execution_metadata,omitempty"`
-	// KeepAlive The period for which the query and its results are stored in the cluster.
-	// The default period is five days.
-	// When this period expires, the query and its results are deleted, even if the
-	// query is still ongoing.
-	// If the `keep_on_completion` parameter is false, Elasticsearch only stores
-	// async queries that do not complete within the period set by the
+	// KeepAlive The period for which the query and its results are stored in the cluster. The
+	// default period is five days. When this period expires, the query and its
+	// results are deleted, even if the query is still ongoing. If the
+	// `keep_on_completion` parameter is false, Elasticsearch only stores async
+	// queries that do not complete within the period set by the
 	// `wait_for_completion_timeout` parameter, regardless of this value.
 	KeepAlive types.Duration `json:"keep_alive,omitempty"`
-	// KeepOnCompletion Indicates whether the query and its results are stored in the cluster.
-	// If false, the query and its results are stored in the cluster only if the
+	// KeepOnCompletion Indicates whether the query and its results are stored in the cluster. If
+	// false, the query and its results are stored in the cluster only if the
 	// request does not complete during the period set by the
 	// `wait_for_completion_timeout` parameter.
 	KeepOnCompletion *bool `json:"keep_on_completion,omitempty"`
@@ -78,24 +74,21 @@ type Request struct {
 	Params []types.FieldValue `json:"params,omitempty"`
 	// Profile If provided and `true` the response will include an extra `profile` object
 	// with information on how the query was executed. This information is for human
-	// debugging
-	// and its format can change at any time but it can give some insight into the
-	// performance
-	// of each part of the query.
+	// debugging and its format can change at any time but it can give some insight
+	// into the performance of each part of the query.
 	Profile *bool `json:"profile,omitempty"`
 	// Query The ES|QL query API accepts an ES|QL query string in the query parameter,
 	// runs it, and returns the results.
 	Query string `json:"query"`
-	// Tables Tables to use with the LOOKUP operation. The top level key is the table
-	// name and the next level key is the column name.
+	// Tables Tables to use with the LOOKUP operation. The top level key is the table name
+	// and the next level key is the column name.
 	Tables map[string]map[string]types.TableValuesContainer `json:"tables,omitempty"`
 	// TimeZone Sets the default timezone of the query.
 	TimeZone *string `json:"time_zone,omitempty"`
-	// WaitForCompletionTimeout The period to wait for the request to finish.
-	// By default, the request waits for 1 second for the query results.
-	// If the query completes during this period, results are returned
-	// Otherwise, a query ID is returned that can later be used to retrieve the
-	// results.
+	// WaitForCompletionTimeout The period to wait for the request to finish. By default, the request waits
+	// for 1 second for the query results. If the query completes during this
+	// period, results are returned Otherwise, a query ID is returned that can later
+	// be used to retrieve the results.
 	WaitForCompletionTimeout types.Duration `json:"wait_for_completion_timeout,omitempty"`
 }
 

@@ -56,10 +56,9 @@ type WordDelimiterTokenFilter struct {
 	PreserveOriginal Stringifiedboolean `json:"preserve_original,omitempty"`
 	// ProtectedWords Array of tokens the filter won’t split.
 	ProtectedWords []string `json:"protected_words,omitempty"`
-	// ProtectedWordsPath Path to a file that contains a list of tokens the filter won’t split.
-	// This path must be absolute or relative to the `config` location, and the file
-	// must be UTF-8 encoded. Each token in the file must be separated by a line
-	// break.
+	// ProtectedWordsPath Path to a file that contains a list of tokens the filter won’t split. This
+	// path must be absolute or relative to the `config` location, and the file must
+	// be UTF-8 encoded. Each token in the file must be separated by a line break.
 	ProtectedWordsPath *string `json:"protected_words_path,omitempty"`
 	// SplitOnCaseChange If `true`, the filter splits tokens at letter case transitions. For example:
 	// camelCase -> [ camel, Case ]. Defaults to `true`.

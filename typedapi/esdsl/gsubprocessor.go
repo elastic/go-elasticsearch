@@ -28,9 +28,8 @@ type _gsubProcessor struct {
 
 // Converts a string field by applying a regular expression and a replacement.
 // If the field is an array of string, all members of the array will be
-// converted.
-// If any non-string values are encountered, the processor will throw an
-// exception.
+// converted. If any non-string values are encountered, the processor will throw
+// an exception.
 func NewGsubProcessor(pattern string, replacement string) *_gsubProcessor {
 
 	tmp := &_gsubProcessor{v: types.NewGsubProcessor()}

@@ -20,26 +20,23 @@
 
 // Delete a rollup job.
 //
-// A job must be stopped before it can be deleted.
-// If you attempt to delete a started job, an error occurs.
-// Similarly, if you attempt to delete a nonexistent job, an exception occurs.
+// A job must be stopped before it can be deleted. If you attempt to delete a
+// started job, an error occurs. Similarly, if you attempt to delete a
+// nonexistent job, an exception occurs.
 //
 // IMPORTANT: When you delete a job, you remove only the process that is
-// actively monitoring and rolling up data.
-// The API does not delete any previously rolled up data.
-// This is by design; a user may wish to roll up a static data set.
-// Because the data set is static, after it has been fully rolled up there is no
-// need to keep the indexing rollup job around (as there will be no new data).
-// Thus the job can be deleted, leaving behind the rolled up data for analysis.
-// If you wish to also remove the rollup data and the rollup index contains the
-// data for only a single job, you can delete the whole rollup index.
-// If the rollup index stores data from several jobs, you must issue a
-// delete-by-query that targets the rollup job's identifier in the rollup index.
-// For example:
+// actively monitoring and rolling up data. The API does not delete any
+// previously rolled up data. This is by design; a user may wish to roll up a
+// static data set. Because the data set is static, after it has been fully
+// rolled up there is no need to keep the indexing rollup job around (as there
+// will be no new data). Thus the job can be deleted, leaving behind the rolled
+// up data for analysis. If you wish to also remove the rollup data and the
+// rollup index contains the data for only a single job, you can delete the
+// whole rollup index. If the rollup index stores data from several jobs, you
+// must issue a delete-by-query that targets the rollup job's identifier in the
+// rollup index. For example:
 //
-// ```
-// POST my_rollup_index/_delete_by_query
-//
+//	POST my_rollup_index/_delete_by_query
 //	{
 //	  "query": {
 //	    "term": {
@@ -48,7 +45,7 @@
 //	  }
 //	}
 //
-// ```
+// Deprecated: Since 8.11.0.
 package deletejob
 
 import (
@@ -108,26 +105,23 @@ func NewDeleteJobFunc(tp elastictransport.Interface) NewDeleteJob {
 
 // Delete a rollup job.
 //
-// A job must be stopped before it can be deleted.
-// If you attempt to delete a started job, an error occurs.
-// Similarly, if you attempt to delete a nonexistent job, an exception occurs.
+// A job must be stopped before it can be deleted. If you attempt to delete a
+// started job, an error occurs. Similarly, if you attempt to delete a
+// nonexistent job, an exception occurs.
 //
 // IMPORTANT: When you delete a job, you remove only the process that is
-// actively monitoring and rolling up data.
-// The API does not delete any previously rolled up data.
-// This is by design; a user may wish to roll up a static data set.
-// Because the data set is static, after it has been fully rolled up there is no
-// need to keep the indexing rollup job around (as there will be no new data).
-// Thus the job can be deleted, leaving behind the rolled up data for analysis.
-// If you wish to also remove the rollup data and the rollup index contains the
-// data for only a single job, you can delete the whole rollup index.
-// If the rollup index stores data from several jobs, you must issue a
-// delete-by-query that targets the rollup job's identifier in the rollup index.
-// For example:
+// actively monitoring and rolling up data. The API does not delete any
+// previously rolled up data. This is by design; a user may wish to roll up a
+// static data set. Because the data set is static, after it has been fully
+// rolled up there is no need to keep the indexing rollup job around (as there
+// will be no new data). Thus the job can be deleted, leaving behind the rolled
+// up data for analysis. If you wish to also remove the rollup data and the
+// rollup index contains the data for only a single job, you can delete the
+// whole rollup index. If the rollup index stores data from several jobs, you
+// must issue a delete-by-query that targets the rollup job's identifier in the
+// rollup index. For example:
 //
-// ```
-// POST my_rollup_index/_delete_by_query
-//
+//	POST my_rollup_index/_delete_by_query
 //	{
 //	  "query": {
 //	    "term": {
@@ -136,9 +130,9 @@ func NewDeleteJobFunc(tp elastictransport.Interface) NewDeleteJob {
 //	  }
 //	}
 //
-// ```
-//
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-delete-job
+//
+// Deprecated: Since 8.11.0.
 func New(tp elastictransport.Interface) *DeleteJob {
 	r := &DeleteJob{
 		transport: tp,
@@ -382,11 +376,9 @@ func (r *DeleteJob) FilterPath(filterpaths ...string) *DeleteJob {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteJob) Human(human bool) *DeleteJob {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -394,8 +386,8 @@ func (r *DeleteJob) Human(human bool) *DeleteJob {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteJob) Pretty(pretty bool) *DeleteJob {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

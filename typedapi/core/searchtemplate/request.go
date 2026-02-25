@@ -36,33 +36,25 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/search_template/SearchTemplateRequest.ts#L35-L172
 type Request struct {
 	// Explain If `true`, returns detailed information about score calculation as part of
-	// each hit.
-	// If you specify both this and the `explain` query parameter, the API uses only
-	// the query parameter.
+	// each hit. If you specify both this and the `explain` query parameter, the API
+	// uses only the query parameter.
 	Explain *bool `json:"explain,omitempty"`
-	// Id The ID of the search template to use. If no `source` is specified,
-	// this parameter is required.
+	// Id The ID of the search template to use. If no `source` is specified, this
+	// parameter is required.
 	Id *string `json:"id,omitempty"`
-	// Params Key-value pairs used to replace Mustache variables in the template.
-	// The key is the variable name.
-	// The value is the variable value.
+	// Params Key-value pairs used to replace Mustache variables in the template. The key
+	// is the variable name. The value is the variable value.
 	Params map[string]json.RawMessage `json:"params,omitempty"`
 	// Profile If `true`, the query execution is profiled.
 	Profile *bool `json:"profile,omitempty"`
 	// ProjectRouting Specifies a subset of projects to target for the search using project
-	// metadata tags in a subset of Lucene query syntax.
-	// Allowed Lucene queries: the _alias tag and a single value (possibly
-	// wildcarded).
-	// Examples:
-	//  _alias:my-project
-	//  _alias:_origin
-	//  _alias:*pr*
-	// Supported in serverless only.
+	// metadata tags in a subset of Lucene query syntax. Allowed Lucene queries: the
+	// _alias tag and a single value (possibly wildcarded). Examples:
+	// _alias:my-project _alias:_origin _alias:*pr* Supported in serverless only.
 	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Source An inline search template. Supports the same parameters as the search API's
 	// request body. It also supports Mustache variables. If no `id` is specified,
-	// this
-	// parameter is required.
+	// this parameter is required.
 	Source types.ScriptSource `json:"source,omitempty"`
 }
 

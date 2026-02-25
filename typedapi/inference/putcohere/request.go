@@ -32,18 +32,17 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/put_cohere/PutCohereRequest.ts#L31-L90
 type Request struct {
-	// ChunkingSettings The chunking configuration object.
-	// Applies only to the `text_embedding` task type.
-	// Not applicable to the `rerank` or `completion` task type.
+	// ChunkingSettings The chunking configuration object. Applies only to the `text_embedding` task
+	// type. Not applicable to the `rerank` or `completion` task type.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
 	// `cohere`.
 	Service cohereservicetype.CohereServiceType `json:"service"`
-	// ServiceSettings Settings used to install the inference model.
-	// These settings are specific to the `cohere` service.
+	// ServiceSettings Settings used to install the inference model. These settings are specific to
+	// the `cohere` service.
 	ServiceSettings types.CohereServiceSettings `json:"service_settings"`
-	// TaskSettings Settings to configure the inference task.
-	// These settings are specific to the task type you specified.
+	// TaskSettings Settings to configure the inference task. These settings are specific to the
+	// task type you specified.
 	TaskSettings *types.CohereTaskSettings `json:"task_settings,omitempty"`
 }
 

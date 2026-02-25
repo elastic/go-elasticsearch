@@ -34,18 +34,15 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/stop_trained_model_deployment/MlStopTrainedModelDeploymentRequest.ts#L23-L84
 type Request struct {
 	// AllowNoMatch Specifies what to do when the request: contains wildcard expressions and
-	// there are no deployments that match;
-	// contains the  `_all` string or no identifiers and there are no matches; or
-	// contains wildcard expressions and
+	// there are no deployments that match; contains the `_all` string or no
+	// identifiers and there are no matches; or contains wildcard expressions and
 	// there are only partial matches. By default, it returns an empty array when
 	// there are no matches and the subset of results when there are partial
-	// matches.
-	// If `false`, the request returns a 404 status code when there are no matches
-	// or only partial matches.
+	// matches. If `false`, the request returns a 404 status code when there are no
+	// matches or only partial matches.
 	AllowNoMatch *bool `json:"allow_no_match,omitempty"`
 	// Force Forcefully stops the deployment, even if it is used by ingest pipelines. You
-	// can't use these pipelines until you
-	// restart the model deployment.
+	// can't use these pipelines until you restart the model deployment.
 	Force *bool `json:"force,omitempty"`
 	// Id If provided, must be the same identifier as in the path.
 	Id *string `json:"id,omitempty"`

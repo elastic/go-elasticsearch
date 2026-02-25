@@ -292,14 +292,11 @@ func (r *CreateDataStream) Header(key, value string) *CreateDataStream {
 	return r
 }
 
-// Name Name of the data stream, which must meet the following criteria:
-// Lowercase only;
-// Cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, `,`, `#`, `:`, or a
-// space character;
-// Cannot start with `-`, `_`, `+`, or `.ds-`;
-// Cannot be `.` or `..`;
-// Cannot be longer than 255 bytes. Multi-byte characters count towards this
-// limit faster.
+// Name Name of the data stream, which must meet the following criteria: Lowercase //
+// only; Cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, `,`, `#`, `:`,
+// // or a space character; Cannot start with `-`, `_`, `+`, or `.ds-`; Cannot
+// be // `.` or `..`; Cannot be longer than 255 bytes. Multi-byte characters
+// count // towards this limit faster.
 // API Name: name
 func (r *CreateDataStream) _name(name string) *CreateDataStream {
 	r.paramSet |= nameMask
@@ -349,11 +346,9 @@ func (r *CreateDataStream) FilterPath(filterpaths ...string) *CreateDataStream {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *CreateDataStream) Human(human bool) *CreateDataStream {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -361,8 +356,8 @@ func (r *CreateDataStream) Human(human bool) *CreateDataStream {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *CreateDataStream) Pretty(pretty bool) *CreateDataStream {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

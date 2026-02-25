@@ -34,13 +34,12 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/compound.ts#L29-L56
 type BoolQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
-	// Filter The clause (query) must appear in matching documents.
-	// However, unlike `must`, the score of the query will be ignored.
+	// Filter The clause (query) must appear in matching documents. However, unlike `must`,
+	// the score of the query will be ignored.
 	Filter []Query `json:"filter,omitempty"`
 	// MinimumShouldMatch Specifies the number or percentage of `should` clauses returned documents
 	// must match.
@@ -48,8 +47,8 @@ type BoolQuery struct {
 	// Must The clause (query) must appear in matching documents and will contribute to
 	// the score.
 	Must []Query `json:"must,omitempty"`
-	// MustNot The clause (query) must not appear in the matching documents.
-	// Because scoring is ignored, a score of `0` is returned for all documents.
+	// MustNot The clause (query) must not appear in the matching documents. Because scoring
+	// is ignored, a score of `0` is returned for all documents.
 	MustNot    []Query `json:"must_not,omitempty"`
 	QueryName_ *string `json:"_name,omitempty"`
 	// Should The clause (query) should appear in the matching document.

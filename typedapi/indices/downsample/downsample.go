@@ -23,21 +23,20 @@
 // Downsamples a time series (TSDS) index and reduces its size by keeping the
 // last value or by pre-aggregating metrics:
 //
-// - When running in `aggregate` mode, it pre-calculates and stores statistical
-// summaries (`min`, `max`, `sum`, `value_count` and `avg`)
-// for each metric field grouped by a configured time interval and their
-// dimensions.
-// - When running in `last_value` mode, it keeps the last value for each metric
-// in the configured interval and their dimensions.
+//   - When running in `aggregate` mode, it pre-calculates and stores
+//     statistical summaries (`min`, `max`, `sum`, `value_count` and `avg`) for
+//     each metric field grouped by a configured time interval and their
+//     dimensions.
+//   - When running in `last_value` mode, it keeps the last value for each
+//     metric in the configured interval and their dimensions.
 //
 // For example, a TSDS index that contains metrics sampled every 10 seconds can
-// be downsampled to an hourly index.
-// All documents within an hour interval are summarized and stored as a single
-// document in the downsample index.
+// be downsampled to an hourly index. All documents within an hour interval are
+// summarized and stored as a single document in the downsample index.
 //
-// NOTE: Only indices in a time series data stream are supported.
-// Neither field nor document level security can be defined on the source index.
-// The source index must be read-only (`index.blocks.write: true`).
+// NOTE: Only indices in a time series data stream are supported. Neither field
+// nor document level security can be defined on the source index. The source
+// index must be read-only (`index.blocks.write: true`).
 package downsample
 
 import (
@@ -111,21 +110,20 @@ func NewDownsampleFunc(tp elastictransport.Interface) NewDownsample {
 // Downsamples a time series (TSDS) index and reduces its size by keeping the
 // last value or by pre-aggregating metrics:
 //
-// - When running in `aggregate` mode, it pre-calculates and stores statistical
-// summaries (`min`, `max`, `sum`, `value_count` and `avg`)
-// for each metric field grouped by a configured time interval and their
-// dimensions.
-// - When running in `last_value` mode, it keeps the last value for each metric
-// in the configured interval and their dimensions.
+//   - When running in `aggregate` mode, it pre-calculates and stores
+//     statistical summaries (`min`, `max`, `sum`, `value_count` and `avg`) for
+//     each metric field grouped by a configured time interval and their
+//     dimensions.
+//   - When running in `last_value` mode, it keeps the last value for each
+//     metric in the configured interval and their dimensions.
 //
 // For example, a TSDS index that contains metrics sampled every 10 seconds can
-// be downsampled to an hourly index.
-// All documents within an hour interval are summarized and stored as a single
-// document in the downsample index.
+// be downsampled to an hourly index. All documents within an hour interval are
+// summarized and stored as a single document in the downsample index.
 //
-// NOTE: Only indices in a time series data stream are supported.
-// Neither field nor document level security can be defined on the source index.
-// The source index must be read-only (`index.blocks.write: true`).
+// NOTE: Only indices in a time series data stream are supported. Neither field
+// nor document level security can be defined on the source index. The source
+// index must be read-only (`index.blocks.write: true`).
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-downsample
 func New(tp elastictransport.Interface) *Downsample {
@@ -393,11 +391,9 @@ func (r *Downsample) FilterPath(filterpaths ...string) *Downsample {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Downsample) Human(human bool) *Downsample {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -405,8 +401,8 @@ func (r *Downsample) Human(human bool) *Downsample {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Downsample) Pretty(pretty bool) *Downsample {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

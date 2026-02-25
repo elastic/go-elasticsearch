@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ccr/_types/FollowIndexStats.ts#L37-L110
 type CcrShardStats struct {
-	// BytesRead The total of transferred bytes read from the leader.
-	// This is only an estimate and does not account for compression if enabled.
+	// BytesRead The total of transferred bytes read from the leader. This is only an estimate
+	// and does not account for compression if enabled.
 	BytesRead int64 `json:"bytes_read"`
 	// FailedReadRequests The number of failed reads.
 	FailedReadRequests int64 `json:"failed_read_requests"`
@@ -43,10 +43,9 @@ type CcrShardStats struct {
 	FatalException      *ErrorCause `json:"fatal_exception,omitempty"`
 	// FollowerAliasesVersion The index aliases version the follower is synced up to.
 	FollowerAliasesVersion int64 `json:"follower_aliases_version"`
-	// FollowerGlobalCheckpoint The current global checkpoint on the follower.
-	// The difference between the `leader_global_checkpoint` and the
-	// `follower_global_checkpoint` is an indication of how much the follower is
-	// lagging the leader.
+	// FollowerGlobalCheckpoint The current global checkpoint on the follower. The difference between the
+	// `leader_global_checkpoint` and the `follower_global_checkpoint` is an
+	// indication of how much the follower is lagging the leader.
 	FollowerGlobalCheckpoint int64 `json:"follower_global_checkpoint"`
 	// FollowerIndex The name of the follower index.
 	FollowerIndex string `json:"follower_index"`
@@ -85,10 +84,10 @@ type CcrShardStats struct {
 	// SuccessfulWriteRequests The number of bulk write requests run on the follower.
 	SuccessfulWriteRequests int64    `json:"successful_write_requests"`
 	TimeSinceLastRead       Duration `json:"time_since_last_read,omitempty"`
-	// TimeSinceLastReadMillis The number of milliseconds since a read request was sent to the leader.
-	// When the follower is caught up to the leader, this number will increase up to
-	// the configured `read_poll_timeout` at which point another read request will
-	// be sent to the leader.
+	// TimeSinceLastReadMillis The number of milliseconds since a read request was sent to the leader. When
+	// the follower is caught up to the leader, this number will increase up to the
+	// configured `read_poll_timeout` at which point another read request will be
+	// sent to the leader.
 	TimeSinceLastReadMillis int64    `json:"time_since_last_read_millis"`
 	TotalReadRemoteExecTime Duration `json:"total_read_remote_exec_time,omitempty"`
 	// TotalReadRemoteExecTimeMillis The total time reads spent running on the remote cluster.

@@ -21,15 +21,13 @@
 // Set the connector sync job stats.
 //
 // Stats include: `deleted_document_count`, `indexed_document_count`,
-// `indexed_document_volume`, and `total_document_count`.
-// You can also update `last_seen`.
-// This API is mainly used by the connector service for updating sync job
-// information.
+// `indexed_document_volume`, and `total_document_count`. You can also update
+// `last_seen`. This API is mainly used by the connector service for updating
+// sync job information.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
-// connector service on your own infrastructure.
-// This service runs automatically on Elastic Cloud for Elastic managed
-// connectors.
+// connector service on your own infrastructure. This service runs automatically
+// on Elastic Cloud for Elastic managed connectors.
 package syncjobupdatestats
 
 import (
@@ -95,15 +93,13 @@ func NewSyncJobUpdateStatsFunc(tp elastictransport.Interface) NewSyncJobUpdateSt
 // Set the connector sync job stats.
 //
 // Stats include: `deleted_document_count`, `indexed_document_count`,
-// `indexed_document_volume`, and `total_document_count`.
-// You can also update `last_seen`.
-// This API is mainly used by the connector service for updating sync job
-// information.
+// `indexed_document_volume`, and `total_document_count`. You can also update
+// `last_seen`. This API is mainly used by the connector service for updating
+// sync job information.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
-// connector service on your own infrastructure.
-// This service runs automatically on Elastic Cloud for Elastic managed
-// connectors.
+// connector service on your own infrastructure. This service runs automatically
+// on Elastic Cloud for Elastic managed connectors.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-update-stats
 func New(tp elastictransport.Interface) *SyncJobUpdateStats {
@@ -360,11 +356,9 @@ func (r *SyncJobUpdateStats) FilterPath(filterpaths ...string) *SyncJobUpdateSta
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SyncJobUpdateStats) Human(human bool) *SyncJobUpdateStats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -372,8 +366,8 @@ func (r *SyncJobUpdateStats) Human(human bool) *SyncJobUpdateStats {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SyncJobUpdateStats) Pretty(pretty bool) *SyncJobUpdateStats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

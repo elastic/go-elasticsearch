@@ -33,8 +33,11 @@ var (
 
 	Info = DeprecationLevel{"info"}
 
+	// Warning You can upgrade directly, but you are using deprecated functionality which
+	// will not be available or behave differently in the next major version.
 	Warning = DeprecationLevel{"warning"}
 
+	// Critical You cannot upgrade without fixing this problem.
 	Critical = DeprecationLevel{"critical"}
 )
 

@@ -20,9 +20,8 @@
 
 // Get index segments.
 //
-// Get low-level information about the Lucene segments in index shards.
-// For data streams, the API returns information about the stream's backing
-// indices.
+// Get low-level information about the Lucene segments in index shards. For data
+// streams, the API returns information about the stream's backing indices.
 package segments
 
 import (
@@ -81,9 +80,8 @@ func NewSegmentsFunc(tp elastictransport.Interface) NewSegments {
 
 // Get index segments.
 //
-// Get low-level information about the Lucene segments in index shards.
-// For data streams, the API returns information about the stream's backing
-// indices.
+// Get low-level information about the Lucene segments in index shards. For data
+// streams, the API returns information about the stream's backing indices.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-segments
 func New(tp elastictransport.Interface) *Segments {
@@ -301,10 +299,8 @@ func (r *Segments) Header(key, value string) *Segments {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases used to limit the
-// request.
-// Supports wildcards (`*`).
-// To target all data streams and indices, omit this parameter or use `*` or
-// `_all`.
+// // request. Supports wildcards (`*`). To target all data streams and indices,
+// // omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *Segments) Index(index string) *Segments {
 	r.paramSet |= indexMask
@@ -314,8 +310,8 @@ func (r *Segments) Index(index string) *Segments {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *Segments) AllowNoIndices(allownoindices bool) *Segments {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -323,10 +319,9 @@ func (r *Segments) AllowNoIndices(allownoindices bool) *Segments {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *Segments) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Segments {
 	tmp := []string{}
@@ -370,11 +365,9 @@ func (r *Segments) FilterPath(filterpaths ...string) *Segments {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Segments) Human(human bool) *Segments {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +375,8 @@ func (r *Segments) Human(human bool) *Segments {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Segments) Pretty(pretty bool) *Segments {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

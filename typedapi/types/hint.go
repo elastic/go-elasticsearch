@@ -32,9 +32,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/suggest_user_profiles/types.ts#L23-L34
 type Hint struct {
-	// Labels A single key-value pair to match against the labels section
-	// of a profile. A profile is considered matching if it matches
-	// at least one of the strings.
+	// Labels A single key-value pair to match against the labels section of a profile. A
+	// profile is considered matching if it matches at least one of the strings.
 	Labels map[string][]string `json:"labels,omitempty"`
 	// Uids A list of profile UIDs to match against.
 	Uids []string `json:"uids,omitempty"`

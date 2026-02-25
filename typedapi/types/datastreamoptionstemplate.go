@@ -28,7 +28,8 @@ import (
 	"io"
 )
 
-// DataStreamOptionsTemplate type.
+// Data stream options template contains the same information as
+// DataStreamOptions but allows them to be set explicitly to null.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/_types/DataStreamOptions.ts#L36-L41
 type DataStreamOptionsTemplate struct {

@@ -313,7 +313,7 @@ func (r *PutCalendarJob) _calendarid(calendarid string) *PutCalendarJob {
 }
 
 // JobId An identifier for the anomaly detection jobs. It can be a job identifier, a
-// group name, or a comma-separated list of jobs or groups.
+// // group name, or a comma-separated list of jobs or groups.
 // API Name: jobid
 func (r *PutCalendarJob) _jobid(jobid string) *PutCalendarJob {
 	r.paramSet |= jobidMask
@@ -345,11 +345,9 @@ func (r *PutCalendarJob) FilterPath(filterpaths ...string) *PutCalendarJob {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutCalendarJob) Human(human bool) *PutCalendarJob {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -357,8 +355,8 @@ func (r *PutCalendarJob) Human(human bool) *PutCalendarJob {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutCalendarJob) Pretty(pretty bool) *PutCalendarJob {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

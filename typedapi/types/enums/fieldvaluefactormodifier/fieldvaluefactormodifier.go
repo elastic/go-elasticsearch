@@ -29,24 +29,39 @@ type FieldValueFactorModifier struct {
 }
 
 var (
+
+	// None Do not apply any multiplier to the field value.
 	None = FieldValueFactorModifier{"none"}
 
+	// Log Take the common logarithm of the field value. Because this function will
+	// return a negative value and cause an error if used on values between 0 and 1,
+	// it is recommended to use `log1p` instead.
 	Log = FieldValueFactorModifier{"log"}
 
+	// Log1p Add 1 to the field value and take the common logarithm.
 	Log1p = FieldValueFactorModifier{"log1p"}
 
+	// Log2p Add 2 to the field value and take the common logarithm.
 	Log2p = FieldValueFactorModifier{"log2p"}
 
+	// Ln Take the natural logarithm of the field value. Because this function will
+	// return a negative value and cause an error if used on values between 0 and 1,
+	// it is recommended to use `ln1p` instead.
 	Ln = FieldValueFactorModifier{"ln"}
 
+	// Ln1p Add 1 to the field value and take the natural logarithm.
 	Ln1p = FieldValueFactorModifier{"ln1p"}
 
+	// Ln2p Add 2 to the field value and take the natural logarithm.
 	Ln2p = FieldValueFactorModifier{"ln2p"}
 
+	// Square Square the field value (multiply it by itself).
 	Square = FieldValueFactorModifier{"square"}
 
+	// Sqrt Take the square root of the field value.
 	Sqrt = FieldValueFactorModifier{"sqrt"}
 
+	// Reciprocal Reciprocate the field value, same as `1/x` where `x` is the field’s value.
 	Reciprocal = FieldValueFactorModifier{"reciprocal"}
 )
 

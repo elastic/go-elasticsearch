@@ -29,8 +29,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/nodes/stats/NodesStatsResponse.ts#L30-L33
 type Response struct {
 	ClusterName *string `json:"cluster_name,omitempty"`
-	// NodeStats Contains statistics about the number of nodes selected by the request’s node
-	// filters.
+	// NodeStats Contains statistics about the number of nodes selected by the request’s
+	// node filters.
 	NodeStats *types.NodeStatistics  `json:"_nodes,omitempty"`
 	Nodes     map[string]types.Stats `json:"nodes"`
 }

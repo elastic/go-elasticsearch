@@ -31,9 +31,8 @@ type _matchPhrasePrefixQuery struct {
 }
 
 // Returns documents that contain the words of a provided text, in the same
-// order as provided.
-// The last term of the provided text is treated as a prefix, matching any words
-// that begin with that term.
+// order as provided. The last term of the provided text is treated as a prefix,
+// matching any words that begin with that term.
 func NewMatchPhrasePrefixQuery(field string, query string) *_matchPhrasePrefixQuery {
 	tmp := &_matchPhrasePrefixQuery{
 		k: field,

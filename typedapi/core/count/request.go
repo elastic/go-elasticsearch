@@ -34,15 +34,10 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/count/CountRequest.ts#L32-L175
 type Request struct {
-	// ProjectRouting Specifies a subset of projects to target using project
-	// metadata tags in a subset of Lucene query syntax.
-	// Allowed Lucene queries: the _alias tag and a single value (possibly
-	// wildcarded).
-	// Examples:
-	//  _alias:my-project
-	//  _alias:_origin
-	//  _alias:*pr*
-	// Supported in serverless only.
+	// ProjectRouting Specifies a subset of projects to target using project metadata tags in a
+	// subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a
+	// single value (possibly wildcarded). Examples: _alias:my-project
+	// _alias:_origin _alias:*pr* Supported in serverless only.
 	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query Defines the search query using Query DSL. A request body query cannot be used
 	// with the `q` query string parameter.

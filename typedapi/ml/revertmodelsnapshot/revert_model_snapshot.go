@@ -344,9 +344,9 @@ func (r *RevertModelSnapshot) _jobid(jobid string) *RevertModelSnapshot {
 	return r
 }
 
-// SnapshotId You can specify `empty` as the <snapshot_id>. Reverting to the empty
-// snapshot means the anomaly detection job starts learning a new model from
-// scratch when it is started.
+// SnapshotId You can specify `empty` as the <snapshot_id>. Reverting to the empty snapshot
+// // means the anomaly detection job starts learning a new model from scratch
+// when // it is started.
 // API Name: snapshotid
 func (r *RevertModelSnapshot) _snapshotid(snapshotid string) *RevertModelSnapshot {
 	r.paramSet |= snapshotidMask
@@ -378,11 +378,9 @@ func (r *RevertModelSnapshot) FilterPath(filterpaths ...string) *RevertModelSnap
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *RevertModelSnapshot) Human(human bool) *RevertModelSnapshot {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -390,8 +388,8 @@ func (r *RevertModelSnapshot) Human(human bool) *RevertModelSnapshot {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *RevertModelSnapshot) Pretty(pretty bool) *RevertModelSnapshot {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -27,10 +27,9 @@ type _compositeAggregation struct {
 }
 
 // A multi-bucket aggregation that creates composite buckets from different
-// sources.
-// Unlike the other multi-bucket aggregations, you can use the `composite`
-// aggregation to paginate *all* buckets from a multi-level aggregation
-// efficiently.
+// sources. Unlike the other multi-bucket aggregations, you can use the
+// `composite` aggregation to paginate *all* buckets from a multi-level
+// aggregation efficiently.
 func NewCompositeAggregation() *_compositeAggregation {
 
 	return &_compositeAggregation{v: types.NewCompositeAggregation()}

@@ -43,8 +43,8 @@ type Process struct {
 	// OpenFileDescriptors Number of opened file descriptors associated with the current or `-1` if not
 	// supported.
 	OpenFileDescriptors *int `json:"open_file_descriptors,omitempty"`
-	// Timestamp Last time the statistics were refreshed.
-	// Recorded in milliseconds since the Unix Epoch.
+	// Timestamp Last time the statistics were refreshed. Recorded in milliseconds since the
+	// Unix Epoch.
 	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 

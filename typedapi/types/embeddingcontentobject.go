@@ -20,7 +20,8 @@
 
 package types
 
-// EmbeddingContentObject type.
+// A wrapper object which contains the fields required to specify multimodal
+// inputs
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L375-L383
 type EmbeddingContentObject struct {

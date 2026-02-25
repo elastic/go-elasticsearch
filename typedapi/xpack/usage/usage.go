@@ -21,8 +21,7 @@
 // Get usage information.
 //
 // Get information about the features that are currently enabled and available
-// under the current license.
-// The API also provides some usage statistics.
+// under the current license. The API also provides some usage statistics.
 package usage
 
 import (
@@ -75,8 +74,7 @@ func NewUsageFunc(tp elastictransport.Interface) NewUsage {
 // Get usage information.
 //
 // Get information about the features that are currently enabled and available
-// under the current license.
-// The API also provides some usage statistics.
+// under the current license. The API also provides some usage statistics.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-xpack
 func New(tp elastictransport.Interface) *Usage {
@@ -284,9 +282,8 @@ func (r *Usage) Header(key, value string) *Usage {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Usage) MasterTimeout(duration string) *Usage {
@@ -318,11 +315,9 @@ func (r *Usage) FilterPath(filterpaths ...string) *Usage {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Usage) Human(human bool) *Usage {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -330,8 +325,8 @@ func (r *Usage) Human(human bool) *Usage {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Usage) Pretty(pretty bool) *Usage {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

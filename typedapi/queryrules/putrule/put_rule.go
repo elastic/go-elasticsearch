@@ -23,10 +23,10 @@
 // Create or update a query rule within a query ruleset.
 //
 // IMPORTANT: Due to limitations within pinned queries, you can only pin
-// documents using ids or docs, but cannot use both in single rule.
-// It is advised to use one or the other in query rulesets, to avoid errors.
-// Additionally, pinned queries have a maximum limit of 100 pinned hits.
-// If multiple matching rules pin more than 100 documents, only the first 100
+// documents using ids or docs, but cannot use both in single rule. It is
+// advised to use one or the other in query rulesets, to avoid errors.
+// Additionally, pinned queries have a maximum limit of 100 pinned hits. If
+// multiple matching rules pin more than 100 documents, only the first 100
 // documents are pinned in the order they are specified in the ruleset.
 package putrule
 
@@ -101,10 +101,10 @@ func NewPutRuleFunc(tp elastictransport.Interface) NewPutRule {
 // Create or update a query rule within a query ruleset.
 //
 // IMPORTANT: Due to limitations within pinned queries, you can only pin
-// documents using ids or docs, but cannot use both in single rule.
-// It is advised to use one or the other in query rulesets, to avoid errors.
-// Additionally, pinned queries have a maximum limit of 100 pinned hits.
-// If multiple matching rules pin more than 100 documents, only the first 100
+// documents using ids or docs, but cannot use both in single rule. It is
+// advised to use one or the other in query rulesets, to avoid errors.
+// Additionally, pinned queries have a maximum limit of 100 pinned hits. If
+// multiple matching rules pin more than 100 documents, only the first 100
 // documents are pinned in the order they are specified in the ruleset.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-rule
@@ -335,7 +335,7 @@ func (r *PutRule) Header(key, value string) *PutRule {
 }
 
 // RulesetId The unique identifier of the query ruleset containing the rule to be created
-// or updated.
+// // or updated.
 // API Name: rulesetid
 func (r *PutRule) _rulesetid(rulesetid string) *PutRule {
 	r.paramSet |= rulesetidMask
@@ -344,7 +344,7 @@ func (r *PutRule) _rulesetid(rulesetid string) *PutRule {
 	return r
 }
 
-// RuleId The unique identifier of the query rule within the specified ruleset to be
+// RuleId The unique identifier of the query rule within the specified ruleset to be //
 // created or updated.
 // API Name: ruleid
 func (r *PutRule) _ruleid(ruleid string) *PutRule {
@@ -377,11 +377,9 @@ func (r *PutRule) FilterPath(filterpaths ...string) *PutRule {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutRule) Human(human bool) *PutRule {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -389,8 +387,8 @@ func (r *PutRule) Human(human bool) *PutRule {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutRule) Pretty(pretty bool) *PutRule {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -398,8 +396,8 @@ func (r *PutRule) Pretty(pretty bool) *PutRule {
 	return r
 }
 
-// The actions to take when the rule is matched.
-// The format of this action depends on the rule type.
+// The actions to take when the rule is matched. The format of this action
+// depends on the rule type.
 // API name: actions
 func (r *PutRule) Actions(actions types.QueryRuleActionsVariant) *PutRule {
 	// Initialize the request if it is not already initialized
@@ -412,9 +410,9 @@ func (r *PutRule) Actions(actions types.QueryRuleActionsVariant) *PutRule {
 	return r
 }
 
-// The criteria that must be met for the rule to be applied.
-// If multiple criteria are specified for a rule, all criteria must be met for
-// the rule to be applied.
+// The criteria that must be met for the rule to be applied. If multiple
+// criteria are specified for a rule, all criteria must be met for the rule to
+// be applied.
 // API name: criteria
 func (r *PutRule) Criteria(criteria ...types.QueryRuleCriteriaVariant) *PutRule {
 	// Initialize the request if it is not already initialized

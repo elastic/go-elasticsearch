@@ -315,10 +315,9 @@ func (r *ValidateQuery) Header(key, value string) *ValidateQuery {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases to search.
-// Supports wildcards (`*`).
-// To search all data streams or indices, omit this parameter or use `*` or
-// `_all`.
+// Index Comma-separated list of data streams, indices, and aliases to search. //
+// Supports wildcards (`*`). To search all data streams or indices, omit this //
+// parameter or use `*` or `_all`.
 // API Name: index
 func (r *ValidateQuery) Index(index string) *ValidateQuery {
 	r.paramSet |= indexMask
@@ -328,8 +327,8 @@ func (r *ValidateQuery) Index(index string) *ValidateQuery {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *ValidateQuery) AllowNoIndices(allownoindices bool) *ValidateQuery {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -346,9 +345,8 @@ func (r *ValidateQuery) AllShards(allshards bool) *ValidateQuery {
 	return r
 }
 
-// Analyzer Analyzer to use for the query string.
-// This parameter can only be used when the `q` query string parameter is
-// specified.
+// Analyzer Analyzer to use for the query string. This parameter can only be used when
+// the `q` query string parameter is specified.
 // API name: analyzer
 func (r *ValidateQuery) Analyzer(analyzer string) *ValidateQuery {
 	r.values.Set("analyzer", analyzer)
@@ -382,10 +380,9 @@ func (r *ValidateQuery) Df(df string) *ValidateQuery {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *ValidateQuery) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ValidateQuery {
 	tmp := []string{}
@@ -464,11 +461,9 @@ func (r *ValidateQuery) FilterPath(filterpaths ...string) *ValidateQuery {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ValidateQuery) Human(human bool) *ValidateQuery {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -476,8 +471,8 @@ func (r *ValidateQuery) Human(human bool) *ValidateQuery {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ValidateQuery) Pretty(pretty bool) *ValidateQuery {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

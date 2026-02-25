@@ -41,28 +41,20 @@ type Request struct {
 	//
 	// IMPORTANT: The filtering is done on a best-effort basis, it uses index
 	// statistics and mappings to rewrite queries to `match_none` instead of fully
-	// running the request.
-	// For instance a range query over a date field can rewrite to `match_none` if
-	// all documents within a shard (including deleted documents) are outside of the
-	// provided range.
-	// However, not all queries can rewrite to `match_none` so this API may return
-	// an index even if the provided filter matches no document.
+	// running the request. For instance a range query over a date field can rewrite
+	// to `match_none` if all documents within a shard (including deleted documents)
+	// are outside of the provided range. However, not all queries can rewrite to
+	// `match_none` so this API may return an index even if the provided filter
+	// matches no document.
 	IndexFilter *types.Query `json:"index_filter,omitempty"`
 	// ProjectRouting Specifies a subset of projects to target for the field-caps query using
-	// project
-	// metadata tags in a subset of Lucene query syntax.
-	// Allowed Lucene queries: the _alias tag and a single value (possibly
-	// wildcarded).
-	// Examples:
-	//  _alias:my-project
-	//  _alias:_origin
-	//  _alias:*pr*
-	// Supported in serverless only.
+	// project metadata tags in a subset of Lucene query syntax. Allowed Lucene
+	// queries: the _alias tag and a single value (possibly wildcarded). Examples:
+	// _alias:my-project _alias:_origin _alias:*pr* Supported in serverless only.
 	ProjectRouting *string `json:"project_routing,omitempty"`
 	// RuntimeMappings Define ad-hoc runtime fields in the request similar to the way it is done in
-	// search requests.
-	// These fields exist only as part of the query and take precedence over fields
-	// defined with the same name in the index mappings.
+	// search requests. These fields exist only as part of the query and take
+	// precedence over fields defined with the same name in the index mappings.
 	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
 }
 

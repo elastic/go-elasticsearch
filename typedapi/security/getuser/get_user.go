@@ -299,8 +299,8 @@ func (r *GetUser) Header(key, value string) *GetUser {
 	return r
 }
 
-// Username An identifier for the user. You can specify multiple usernames as a
-// comma-separated list. If you omit this parameter, the API retrieves
+// Username An identifier for the user. You can specify multiple usernames as a //
+// comma-separated list. If you omit this parameter, the API retrieves //
 // information about all users.
 // API Name: username
 func (r *GetUser) Username(usernames ...string) *GetUser {
@@ -342,11 +342,9 @@ func (r *GetUser) FilterPath(filterpaths ...string) *GetUser {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetUser) Human(human bool) *GetUser {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -354,8 +352,8 @@ func (r *GetUser) Human(human bool) *GetUser {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetUser) Pretty(pretty bool) *GetUser {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -41,13 +41,12 @@ type SegmentsStats struct {
 	// DocValuesMemoryInBytes Total amount, in bytes, of memory used for doc values across all shards
 	// assigned to selected nodes.
 	DocValuesMemoryInBytes int64 `json:"doc_values_memory_in_bytes"`
-	// FileSizes This object is not populated by the cluster stats API.
-	// To get information on segment files, use the node stats API.
+	// FileSizes This object is not populated by the cluster stats API. To get information on
+	// segment files, use the node stats API.
 	FileSizes map[string]ShardFileSizeInfo `json:"file_sizes"`
 	// FixedBitSet Total amount of memory used by fixed bit sets across all shards assigned to
-	// selected nodes.
-	// Fixed bit sets are used for nested object field types and type filters for
-	// join fields.
+	// selected nodes. Fixed bit sets are used for nested object field types and
+	// type filters for join fields.
 	FixedBitSet ByteSize `json:"fixed_bit_set,omitempty"`
 	// FixedBitSetMemoryInBytes Total amount of memory, in bytes, used by fixed bit sets across all shards
 	// assigned to selected nodes.

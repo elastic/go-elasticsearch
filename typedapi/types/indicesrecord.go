@@ -51,11 +51,11 @@ type IndicesRecord struct {
 	CreationDateString *string `json:"creation.date.string,omitempty"`
 	// DatasetSize total size of dataset (including the cache for partially mounted indices)
 	DatasetSize *string `json:"dataset.size,omitempty"`
-	// DocsCount The number of documents in the index, including hidden nested documents.
-	// For indices with `semantic_text` fields or other nested field types,
-	// this count includes the internal nested documents.
-	// To get the logical document count (excluding nested documents), use
-	// the `_count` API or `_cat/count` API instead.
+	// DocsCount The number of documents in the index, including hidden nested documents. For
+	// indices with `semantic_text` fields or other nested field types, this count
+	// includes the internal nested documents. To get the logical document count
+	// (excluding nested documents), use the `_count` API or `_cat/count` API
+	// instead.
 	DocsCount *string `json:"docs.count,omitempty"`
 	// DocsDeleted deleted docs
 	DocsDeleted *string `json:"docs.deleted,omitempty"`

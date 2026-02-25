@@ -33,9 +33,9 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/analysis/token_filters.ts#L417-L426
 type PatternReplaceTokenFilter struct {
-	// All If `true`, all substrings matching the pattern parameter’s regular expression
-	// are replaced. If `false`, the filter replaces only the first matching
-	// substring in each token. Defaults to `true`.
+	// All If `true`, all substrings matching the pattern parameter’s regular
+	// expression are replaced. If `false`, the filter replaces only the first
+	// matching substring in each token. Defaults to `true`.
 	All   *bool   `json:"all,omitempty"`
 	Flags *string `json:"flags,omitempty"`
 	// Pattern Regular expression, written in Java’s regular expression syntax. The filter

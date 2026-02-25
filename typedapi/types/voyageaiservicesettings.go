@@ -33,26 +33,23 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L2198-L2229
 type VoyageAIServiceSettings struct {
-	// Dimensions The number of dimensions for resulting output embeddings.
-	// This setting maps to `output_dimension` in the VoyageAI documentation.
-	// Only for the `text_embedding` task type.
+	// Dimensions The number of dimensions for resulting output embeddings. This setting maps
+	// to `output_dimension` in the VoyageAI documentation. Only for the
+	// `text_embedding` task type.
 	Dimensions *int `json:"dimensions,omitempty"`
-	// EmbeddingType The data type for the embeddings to be returned.
-	// This setting maps to `output_dtype` in the VoyageAI documentation.
-	// Permitted values: float, int8, bit.
-	// `int8` is a synonym of `byte` in the VoyageAI documentation.
-	// `bit` is a synonym of `binary` in the VoyageAI documentation.
-	// Only for the `text_embedding` task type.
+	// EmbeddingType The data type for the embeddings to be returned. This setting maps to
+	// `output_dtype` in the VoyageAI documentation. Permitted values: float, int8,
+	// bit. `int8` is a synonym of `byte` in the VoyageAI documentation. `bit` is a
+	// synonym of `binary` in the VoyageAI documentation. Only for the
+	// `text_embedding` task type.
 	EmbeddingType *float32 `json:"embedding_type,omitempty"`
-	// ModelId The name of the model to use for the inference task.
-	// Refer to the VoyageAI documentation for the list of available text embedding
-	// and rerank models.
+	// ModelId The name of the model to use for the inference task. Refer to the VoyageAI
+	// documentation for the list of available text embedding and rerank models.
 	ModelId string `json:"model_id"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// VoyageAI.
-	// The `voyageai` service sets a default number of requests allowed per minute
-	// depending on the task type.
-	// For both `text_embedding` and `rerank`, it is set to `2000`.
+	// VoyageAI. The `voyageai` service sets a default number of requests allowed
+	// per minute depending on the task type. For both `text_embedding` and
+	// `rerank`, it is set to `2000`.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 }
 

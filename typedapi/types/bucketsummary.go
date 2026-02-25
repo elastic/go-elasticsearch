@@ -34,10 +34,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/_types/Bucket.ts#L30-L77
 type BucketSummary struct {
 	// AnomalyScore The maximum anomaly score, between 0-100, for any of the bucket influencers.
-	// This is an overall, rate-limited
-	// score for the job. All the anomaly records in the bucket contribute to this
-	// score. This value might be updated as
-	// new data is analyzed.
+	// This is an overall, rate-limited score for the job. All the anomaly records
+	// in the bucket contribute to this score. This value might be updated as new
+	// data is analyzed.
 	AnomalyScore      Float64            `json:"anomaly_score"`
 	BucketInfluencers []BucketInfluencer `json:"bucket_influencers"`
 	// BucketSpan The length of the bucket in seconds. This value matches the bucket span that
@@ -46,8 +45,7 @@ type BucketSummary struct {
 	// EventCount The number of input data records processed in this bucket.
 	EventCount int64 `json:"event_count"`
 	// InitialAnomalyScore The maximum anomaly score for any of the bucket influencers. This is the
-	// initial value that was calculated at the
-	// time the bucket was processed.
+	// initial value that was calculated at the time the bucket was processed.
 	InitialAnomalyScore Float64 `json:"initial_anomaly_score"`
 	// IsInterim If true, this is an interim result. In other words, the results are
 	// calculated based on partial input data.
@@ -60,12 +58,12 @@ type BucketSummary struct {
 	// ResultType Internal. This value is always set to bucket.
 	ResultType string `json:"result_type"`
 	// Timestamp The start time of the bucket. This timestamp uniquely identifies the bucket.
-	// Events that occur exactly at the
-	// timestamp of the bucket are included in the results for the bucket.
+	// Events that occur exactly at the timestamp of the bucket are included in the
+	// results for the bucket.
 	Timestamp int64 `json:"timestamp"`
 	// TimestampString The start time of the bucket. This timestamp uniquely identifies the bucket.
-	// Events that occur exactly at the
-	// timestamp of the bucket are included in the results for the bucket.
+	// Events that occur exactly at the timestamp of the bucket are included in the
+	// results for the bucket.
 	TimestampString DateTime `json:"timestamp_string,omitempty"`
 }
 

@@ -35,8 +35,7 @@ import (
 type SimpleValueAggregate struct {
 	Meta Metadata `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to
-	// aggregate,
-	// unless specified otherwise.
+	// aggregate, unless specified otherwise.
 	Value         *Float64 `json:"value,omitempty"`
 	ValueAsString *string  `json:"value_as_string,omitempty"`
 }

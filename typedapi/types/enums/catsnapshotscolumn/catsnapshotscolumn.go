@@ -29,30 +29,51 @@ type CatSnapshotsColumn struct {
 }
 
 var (
+
+	// Id The ID of the snapshot, such as 'snap1'.
 	Id = CatSnapshotsColumn{"id"}
 
+	// Repository The name of the repository, such as 'repo1'.
 	Repository = CatSnapshotsColumn{"repository"}
 
+	// Status State of the snapshot process. Returned values are: 'FAILED': The snapshot
+	// process failed. 'INCOMPATIBLE': The snapshot process is incompatible with the
+	// current cluster version. 'IN_PROGRESS': The snapshot process started but has
+	// not completed. 'PARTIAL': The snapshot process completed with a partial
+	// success. 'SUCCESS': The snapshot process completed with a full success.
 	Status = CatSnapshotsColumn{"status"}
 
+	// Startepoch The [unix epoch time](https://en.wikipedia.org/wiki/Unix_time) at which the
+	// snapshot process started.
 	Startepoch = CatSnapshotsColumn{"start_epoch"}
 
+	// Starttime 'HH:MM:SS' time at which the snapshot process started.
 	Starttime = CatSnapshotsColumn{"start_time"}
 
+	// Endepoch The [unix epoch time](https://en.wikipedia.org/wiki/Unix_time) at which the
+	// snapshot process ended.
 	Endepoch = CatSnapshotsColumn{"end_epoch"}
 
+	// Endtime 'HH:MM:SS' time at which the snapshot process ended.
 	Endtime = CatSnapshotsColumn{"end_time"}
 
+	// Duration The time it took the snapshot process to complete in [time
+	// units](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/api-conventions#time-units).
 	Duration = CatSnapshotsColumn{"duration"}
 
+	// Indices The number of indices in the snapshot.
 	Indices = CatSnapshotsColumn{"indices"}
 
+	// Successfulshards The number of successful shards in the snapshot.
 	Successfulshards = CatSnapshotsColumn{"successful_shards"}
 
+	// Failedshards The number of failed shards in the snapshot.
 	Failedshards = CatSnapshotsColumn{"failed_shards"}
 
+	// Totalshards The total number of shards in the snapshot.
 	Totalshards = CatSnapshotsColumn{"total_shards"}
 
+	// Reason The reason for any snapshot failures.
 	Reason = CatSnapshotsColumn{"reason"}
 )
 

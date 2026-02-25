@@ -20,30 +20,28 @@
 
 // Reroute the cluster.
 //
-// Manually change the allocation of individual shards in the cluster.
-// For example, a shard can be moved from one node to another explicitly, an
+// Manually change the allocation of individual shards in the cluster. For
+// example, a shard can be moved from one node to another explicitly, an
 // allocation can be canceled, and an unassigned shard can be explicitly
 // allocated to a specific node.
 //
 // It is important to note that after processing any reroute commands
 // Elasticsearch will perform rebalancing as normal (respecting the values of
 // settings such as `cluster.routing.rebalance.enable`) in order to remain in a
-// balanced state.
-// For example, if the requested allocation includes moving a shard from node1
-// to node2 then this may cause a shard to be moved from node2 back to node1 to
-// even things out.
+// balanced state. For example, if the requested allocation includes moving a
+// shard from node1 to node2 then this may cause a shard to be moved from node2
+// back to node1 to even things out.
 //
 // The cluster can be set to disable allocations using the
-// `cluster.routing.allocation.enable` setting.
-// If allocations are disabled then the only allocations that will be performed
-// are explicit ones given using the reroute command, and consequent allocations
-// due to rebalancing.
+// `cluster.routing.allocation.enable` setting. If allocations are disabled then
+// the only allocations that will be performed are explicit ones given using the
+// reroute command, and consequent allocations due to rebalancing.
 //
 // The cluster will attempt to allocate a shard a maximum of
 // `index.allocation.max_retries` times in a row (defaults to `5`), before
-// giving up and leaving the shard unallocated.
-// This scenario can be caused by structural problems such as having an analyzer
-// which refers to a stopwords file which doesn’t exist on all nodes.
+// giving up and leaving the shard unallocated. This scenario can be caused by
+// structural problems such as having an analyzer which refers to a stopwords
+// file which doesn’t exist on all nodes.
 //
 // Once the problem has been corrected, allocation can be manually retried by
 // calling the reroute API with the `?retry_failed` URI query parameter, which
@@ -104,30 +102,28 @@ func NewRerouteFunc(tp elastictransport.Interface) NewReroute {
 
 // Reroute the cluster.
 //
-// Manually change the allocation of individual shards in the cluster.
-// For example, a shard can be moved from one node to another explicitly, an
+// Manually change the allocation of individual shards in the cluster. For
+// example, a shard can be moved from one node to another explicitly, an
 // allocation can be canceled, and an unassigned shard can be explicitly
 // allocated to a specific node.
 //
 // It is important to note that after processing any reroute commands
 // Elasticsearch will perform rebalancing as normal (respecting the values of
 // settings such as `cluster.routing.rebalance.enable`) in order to remain in a
-// balanced state.
-// For example, if the requested allocation includes moving a shard from node1
-// to node2 then this may cause a shard to be moved from node2 back to node1 to
-// even things out.
+// balanced state. For example, if the requested allocation includes moving a
+// shard from node1 to node2 then this may cause a shard to be moved from node2
+// back to node1 to even things out.
 //
 // The cluster can be set to disable allocations using the
-// `cluster.routing.allocation.enable` setting.
-// If allocations are disabled then the only allocations that will be performed
-// are explicit ones given using the reroute command, and consequent allocations
-// due to rebalancing.
+// `cluster.routing.allocation.enable` setting. If allocations are disabled then
+// the only allocations that will be performed are explicit ones given using the
+// reroute command, and consequent allocations due to rebalancing.
 //
 // The cluster will attempt to allocate a shard a maximum of
 // `index.allocation.max_retries` times in a row (defaults to `5`), before
-// giving up and leaving the shard unallocated.
-// This scenario can be caused by structural problems such as having an analyzer
-// which refers to a stopwords file which doesn’t exist on all nodes.
+// giving up and leaving the shard unallocated. This scenario can be caused by
+// structural problems such as having an analyzer which refers to a stopwords
+// file which doesn’t exist on all nodes.
 //
 // Once the problem has been corrected, allocation can be manually retried by
 // calling the reroute API with the `?retry_failed` URI query parameter, which
@@ -348,11 +344,10 @@ func (r *Reroute) Header(key, value string) *Reroute {
 	return r
 }
 
-// DryRun If true, then the request simulates the operation.
-// It will calculate the result of applying the commands to the current cluster
-// state and return the resulting cluster state after the commands (and
-// rebalancing) have been applied; it will not actually perform the requested
-// changes.
+// DryRun If true, then the request simulates the operation. It will calculate the
+// result of applying the commands to the current cluster state and return the
+// resulting cluster state after the commands (and rebalancing) have been
+// applied; it will not actually perform the requested changes.
 // API name: dry_run
 func (r *Reroute) DryRun(dryrun bool) *Reroute {
 	r.values.Set("dry_run", strconv.FormatBool(dryrun))
@@ -431,11 +426,9 @@ func (r *Reroute) FilterPath(filterpaths ...string) *Reroute {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Reroute) Human(human bool) *Reroute {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -443,8 +436,8 @@ func (r *Reroute) Human(human bool) *Reroute {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Reroute) Pretty(pretty bool) *Reroute {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

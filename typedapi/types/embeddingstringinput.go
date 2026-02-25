@@ -20,7 +20,7 @@
 
 package types
 
-// EmbeddingStringInput type alias.
+// Allows specifying text-only inputs for the `embedding` task.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L363-L366
 type EmbeddingStringInput []string

@@ -25,16 +25,14 @@ package types
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/transform/_types/Transform.ts#L54-L68
 type Pivot struct {
 	// Aggregations Defines how to aggregate the grouped data. The following aggregations are
-	// currently supported: average, bucket
-	// script, bucket selector, cardinality, filter, geo bounds, geo centroid, geo
-	// line, max, median absolute deviation,
+	// currently supported: average, bucket script, bucket selector, cardinality,
+	// filter, geo bounds, geo centroid, geo line, max, median absolute deviation,
 	// min, missing, percentiles, rare terms, scripted metric, stats, sum, terms,
-	// top metrics, value count, weighted
-	// average.
+	// top metrics, value count, weighted average.
 	Aggregations map[string]Aggregations `json:"aggregations,omitempty"`
 	// GroupBy Defines how to group the data. More than one grouping can be defined per
-	// pivot. The following groupings are
-	// currently supported: date histogram, geotile grid, histogram, terms.
+	// pivot. The following groupings are currently supported: date histogram,
+	// geotile grid, histogram, terms.
 	GroupBy map[string]PivotGroupByContainer `json:"group_by,omitempty"`
 }
 

@@ -45,9 +45,8 @@ type Highlight struct {
 	// BoundaryMaxScan How far to scan for boundary characters.
 	BoundaryMaxScan *int `json:"boundary_max_scan,omitempty"`
 	// BoundaryScanner Specifies how to break the highlighted fragments: chars, sentence, or word.
-	// Only valid for the unified and fvh highlighters.
-	// Defaults to `sentence` for the `unified` highlighter. Defaults to `chars` for
-	// the `fvh` highlighter.
+	// Only valid for the unified and fvh highlighters. Defaults to `sentence` for
+	// the `unified` highlighter. Defaults to `chars` for the `fvh` highlighter.
 	BoundaryScanner *boundaryscanner.BoundaryScanner `json:"boundary_scanner,omitempty"`
 	// BoundaryScannerLocale Controls which locale is used to search for sentence and word boundaries.
 	// This parameter takes a form of a language tag, for example: `"en-US"`,
@@ -59,57 +58,52 @@ type Highlight struct {
 	// FragmentSize The size of the highlighted fragment in characters.
 	FragmentSize *int `json:"fragment_size,omitempty"`
 	// Fragmenter Specifies how text should be broken up in highlight snippets: `simple` or
-	// `span`.
-	// Only valid for the `plain` highlighter.
+	// `span`. Only valid for the `plain` highlighter.
 	Fragmenter      *highlighterfragmenter.HighlighterFragmenter `json:"fragmenter,omitempty"`
 	HighlightFilter *bool                                        `json:"highlight_filter,omitempty"`
-	// HighlightQuery Highlight matches for a query other than the search query.
-	// This is especially useful if you use a rescore query because those are not
-	// taken into account by highlighting by default.
+	// HighlightQuery Highlight matches for a query other than the search query. This is especially
+	// useful if you use a rescore query because those are not taken into account by
+	// highlighting by default.
 	HighlightQuery *Query `json:"highlight_query,omitempty"`
 	// MaxAnalyzedOffset If set to a non-negative value, highlighting stops at this defined maximum
-	// limit.
-	// The rest of the text is not processed, thus not highlighted and no error is
-	// returned
-	// The `max_analyzed_offset` query setting does not override the
-	// `index.highlight.max_analyzed_offset` setting, which prevails when it’s set
-	// to lower value than the query setting.
+	// limit. The rest of the text is not processed, thus not highlighted and no
+	// error is returned The `max_analyzed_offset` query setting does not override
+	// the `index.highlight.max_analyzed_offset` setting, which prevails when it’s
+	// set to lower value than the query setting.
 	MaxAnalyzedOffset *int `json:"max_analyzed_offset,omitempty"`
 	MaxFragmentLength *int `json:"max_fragment_length,omitempty"`
 	// NoMatchSize The amount of text you want to return from the beginning of the field if
 	// there are no matching fragments to highlight.
 	NoMatchSize *int `json:"no_match_size,omitempty"`
-	// NumberOfFragments The maximum number of fragments to return.
-	// If the number of fragments is set to `0`, no fragments are returned.
-	// Instead, the entire field contents are highlighted and returned.
-	// This can be handy when you need to highlight short texts such as a title or
-	// address, but fragmentation is not required.
-	// If `number_of_fragments` is `0`, `fragment_size` is ignored.
+	// NumberOfFragments The maximum number of fragments to return. If the number of fragments is set
+	// to `0`, no fragments are returned. Instead, the entire field contents are
+	// highlighted and returned. This can be handy when you need to highlight short
+	// texts such as a title or address, but fragmentation is not required. If
+	// `number_of_fragments` is `0`, `fragment_size` is ignored.
 	NumberOfFragments *int                       `json:"number_of_fragments,omitempty"`
 	Options           map[string]json.RawMessage `json:"options,omitempty"`
-	// Order Sorts highlighted fragments by score when set to `score`.
-	// By default, fragments will be output in the order they appear in the field
-	// (order: `none`).
-	// Setting this option to `score` will output the most relevant fragments first.
-	// Each highlighter applies its own logic to compute relevancy scores.
+	// Order Sorts highlighted fragments by score when set to `score`. By default,
+	// fragments will be output in the order they appear in the field (order:
+	// `none`). Setting this option to `score` will output the most relevant
+	// fragments first. Each highlighter applies its own logic to compute relevancy
+	// scores.
 	Order *highlighterorder.HighlighterOrder `json:"order,omitempty"`
 	// PhraseLimit Controls the number of matching phrases in a document that are considered.
 	// Prevents the `fvh` highlighter from analyzing too many phrases and consuming
-	// too much memory.
-	// When using `matched_fields`, `phrase_limit` phrases per matched field are
-	// considered. Raising the limit increases query time and consumes more memory.
-	// Only supported by the `fvh` highlighter.
+	// too much memory. When using `matched_fields`, `phrase_limit` phrases per
+	// matched field are considered. Raising the limit increases query time and
+	// consumes more memory. Only supported by the `fvh` highlighter.
 	PhraseLimit *int `json:"phrase_limit,omitempty"`
 	// PostTags Use in conjunction with `pre_tags` to define the HTML tags to use for the
-	// highlighted text.
-	// By default, highlighted text is wrapped in `<em>` and `</em>` tags.
+	// highlighted text. By default, highlighted text is wrapped in `<em>` and
+	// `</em>` tags.
 	PostTags []string `json:"post_tags,omitempty"`
 	// PreTags Use in conjunction with `post_tags` to define the HTML tags to use for the
-	// highlighted text.
-	// By default, highlighted text is wrapped in `<em>` and `</em>` tags.
+	// highlighted text. By default, highlighted text is wrapped in `<em>` and
+	// `</em>` tags.
 	PreTags []string `json:"pre_tags,omitempty"`
-	// RequireFieldMatch By default, only fields that contains a query match are highlighted.
-	// Set to `false` to highlight all fields.
+	// RequireFieldMatch By default, only fields that contains a query match are highlighted. Set to
+	// `false` to highlight all fields.
 	RequireFieldMatch *bool `json:"require_field_match,omitempty"`
 	// TagsSchema Set to `styled` to use the built-in tag schema.
 	TagsSchema *highlightertagsschema.HighlighterTagsSchema `json:"tags_schema,omitempty"`

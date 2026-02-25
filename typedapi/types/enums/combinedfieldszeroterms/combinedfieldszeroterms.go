@@ -29,8 +29,11 @@ type CombinedFieldsZeroTerms struct {
 }
 
 var (
+
+	// None No documents are returned if the analyzer removes all tokens.
 	None = CombinedFieldsZeroTerms{"none"}
 
+	// All Returns all documents, similar to a `match_all` query.
 	All = CombinedFieldsZeroTerms{"all"}
 )
 

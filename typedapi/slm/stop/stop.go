@@ -23,15 +23,14 @@
 // Stop all snapshot lifecycle management (SLM) operations and the SLM plugin.
 // This API is useful when you are performing maintenance on a cluster and need
 // to prevent SLM from performing any actions on your data streams or indices.
-// Stopping SLM does not stop any snapshots that are in progress.
-// You can manually trigger snapshots with the run snapshot lifecycle policy API
-// even if SLM is stopped.
+// Stopping SLM does not stop any snapshots that are in progress. You can
+// manually trigger snapshots with the run snapshot lifecycle policy API even if
+// SLM is stopped.
 //
 // The API returns a response as soon as the request is acknowledged, but the
 // plugin might continue to run until in-progress operations complete and it can
-// be safely stopped.
-// Use the get snapshot lifecycle management status API to see if SLM is
-// running.
+// be safely stopped. Use the get snapshot lifecycle management status API to
+// see if SLM is running.
 package stop
 
 import (
@@ -86,15 +85,14 @@ func NewStopFunc(tp elastictransport.Interface) NewStop {
 // Stop all snapshot lifecycle management (SLM) operations and the SLM plugin.
 // This API is useful when you are performing maintenance on a cluster and need
 // to prevent SLM from performing any actions on your data streams or indices.
-// Stopping SLM does not stop any snapshots that are in progress.
-// You can manually trigger snapshots with the run snapshot lifecycle policy API
-// even if SLM is stopped.
+// Stopping SLM does not stop any snapshots that are in progress. You can
+// manually trigger snapshots with the run snapshot lifecycle policy API even if
+// SLM is stopped.
 //
 // The API returns a response as soon as the request is acknowledged, but the
 // plugin might continue to run until in-progress operations complete and it can
-// be safely stopped.
-// Use the get snapshot lifecycle management status API to see if SLM is
-// running.
+// be safely stopped. Use the get snapshot lifecycle management status API to
+// see if SLM is running.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-stop
 func New(tp elastictransport.Interface) *Stop {
@@ -302,9 +300,8 @@ func (r *Stop) Header(key, value string) *Stop {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Stop) MasterTimeout(duration string) *Stop {
@@ -313,10 +310,9 @@ func (r *Stop) MasterTimeout(duration string) *Stop {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
-// To indicate that the request should never timeout, set it to `-1`.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error. To indicate that the
+// request should never timeout, set it to `-1`.
 // API name: timeout
 func (r *Stop) Timeout(duration string) *Stop {
 	r.values.Set("timeout", duration)
@@ -347,11 +343,9 @@ func (r *Stop) FilterPath(filterpaths ...string) *Stop {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Stop) Human(human bool) *Stop {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -359,8 +353,8 @@ func (r *Stop) Human(human bool) *Stop {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Stop) Pretty(pretty bool) *Stop {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

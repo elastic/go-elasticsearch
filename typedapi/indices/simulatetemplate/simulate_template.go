@@ -315,9 +315,9 @@ func (r *SimulateTemplate) Header(key, value string) *SimulateTemplate {
 	return r
 }
 
-// Name Name of the index template to simulate. To test a template configuration
-// before you add it to the cluster, omit
-// this parameter and specify the template configuration in the request body.
+// Name Name of the index template to simulate. To test a template configuration //
+// before you add it to the cluster, omit this parameter and specify the //
+// template configuration in the request body.
 // API Name: name
 func (r *SimulateTemplate) Name(name string) *SimulateTemplate {
 	r.paramSet |= nameMask
@@ -386,11 +386,9 @@ func (r *SimulateTemplate) FilterPath(filterpaths ...string) *SimulateTemplate {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SimulateTemplate) Human(human bool) *SimulateTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -398,8 +396,8 @@ func (r *SimulateTemplate) Human(human bool) *SimulateTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SimulateTemplate) Pretty(pretty bool) *SimulateTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -408,12 +406,11 @@ func (r *SimulateTemplate) Pretty(pretty bool) *SimulateTemplate {
 }
 
 // This setting overrides the value of the `action.auto_create_index` cluster
-// setting.
-// If set to `true` in a template, then indices can be automatically created
-// using that template even if auto-creation of indices is disabled via
-// `actions.auto_create_index`.
-// If set to `false`, then indices or data streams matching the template must
-// always be explicitly created, and may never be automatically created.
+// setting. If set to `true` in a template, then indices can be automatically
+// created using that template even if auto-creation of indices is disabled via
+// `actions.auto_create_index`. If set to `false`, then indices or data streams
+// matching the template must always be explicitly created, and may never be
+// automatically created.
 // API name: allow_auto_create
 func (r *SimulateTemplate) AllowAutoCreate(allowautocreate bool) *SimulateTemplate {
 	// Initialize the request if it is not already initialized
@@ -426,9 +423,9 @@ func (r *SimulateTemplate) AllowAutoCreate(allowautocreate bool) *SimulateTempla
 	return r
 }
 
-// An ordered list of component template names.
-// Component templates are merged in the order specified, meaning that the last
-// component template specified has the highest precedence.
+// An ordered list of component template names. Component templates are merged
+// in the order specified, meaning that the last component template specified
+// has the highest precedence.
 // API name: composed_of
 func (r *SimulateTemplate) ComposedOf(composedofs ...string) *SimulateTemplate {
 	// Initialize the request if it is not already initialized
@@ -444,9 +441,8 @@ func (r *SimulateTemplate) ComposedOf(composedofs ...string) *SimulateTemplate {
 }
 
 // If this object is included, the template is used to create data streams and
-// their backing indices.
-// Supports an empty object.
-// Data streams require a matching index template with a `data_stream` object.
+// their backing indices. Supports an empty object. Data streams require a
+// matching index template with a `data_stream` object.
 // API name: data_stream
 func (r *SimulateTemplate) DataStream(datastream types.DataStreamVisibilityVariant) *SimulateTemplate {
 	// Initialize the request if it is not already initialized
@@ -460,9 +456,8 @@ func (r *SimulateTemplate) DataStream(datastream types.DataStreamVisibilityVaria
 }
 
 // Marks this index template as deprecated. When creating or updating a
-// non-deprecated index template
-// that uses deprecated components, Elasticsearch will emit a deprecation
-// warning.
+// non-deprecated index template that uses deprecated components, Elasticsearch
+// will emit a deprecation warning.
 // API name: deprecated
 func (r *SimulateTemplate) Deprecated(deprecated bool) *SimulateTemplate {
 	// Initialize the request if it is not already initialized
@@ -476,8 +471,7 @@ func (r *SimulateTemplate) Deprecated(deprecated bool) *SimulateTemplate {
 }
 
 // The configuration option ignore_missing_component_templates can be used when
-// an index template
-// references a component template that might not exist
+// an index template references a component template that might not exist
 // API name: ignore_missing_component_templates
 func (r *SimulateTemplate) IgnoreMissingComponentTemplates(ignoremissingcomponenttemplates ...string) *SimulateTemplate {
 	// Initialize the request if it is not already initialized
@@ -506,9 +500,8 @@ func (r *SimulateTemplate) IndexPatterns(indices ...string) *SimulateTemplate {
 	return r
 }
 
-// Optional user metadata about the index template.
-// May have any contents.
-// This map is not automatically generated by Elasticsearch.
+// Optional user metadata about the index template. May have any contents. This
+// map is not automatically generated by Elasticsearch.
 // API name: _meta
 func (r *SimulateTemplate) Meta_(metadata types.MetadataVariant) *SimulateTemplate {
 	// Initialize the request if it is not already initialized
@@ -522,11 +515,10 @@ func (r *SimulateTemplate) Meta_(metadata types.MetadataVariant) *SimulateTempla
 }
 
 // Priority to determine index template precedence when a new data stream or
-// index is created.
-// The index template with the highest priority is chosen.
-// If no priority is specified the template is treated as though it is of
-// priority 0 (lowest priority).
-// This number is not automatically generated by Elasticsearch.
+// index is created. The index template with the highest priority is chosen. If
+// no priority is specified the template is treated as though it is of priority
+// 0 (lowest priority). This number is not automatically generated by
+// Elasticsearch.
 // API name: priority
 func (r *SimulateTemplate) Priority(priority int64) *SimulateTemplate {
 	// Initialize the request if it is not already initialized
@@ -539,9 +531,8 @@ func (r *SimulateTemplate) Priority(priority int64) *SimulateTemplate {
 	return r
 }
 
-// Template to be applied.
-// It may optionally include an `aliases`, `mappings`, or `settings`
-// configuration.
+// Template to be applied. It may optionally include an `aliases`, `mappings`,
+// or `settings` configuration.
 // API name: template
 func (r *SimulateTemplate) Template(template types.IndexTemplateMappingVariant) *SimulateTemplate {
 	// Initialize the request if it is not already initialized
@@ -554,8 +545,8 @@ func (r *SimulateTemplate) Template(template types.IndexTemplateMappingVariant) 
 	return r
 }
 
-// Version number used to manage index templates externally.
-// This number is not automatically generated by Elasticsearch.
+// Version number used to manage index templates externally. This number is not
+// automatically generated by Elasticsearch.
 // API name: version
 func (r *SimulateTemplate) Version(versionnumber int64) *SimulateTemplate {
 	// Initialize the request if it is not already initialized

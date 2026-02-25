@@ -314,7 +314,7 @@ func (r *GetRule) _rulesetid(rulesetid string) *GetRule {
 	return r
 }
 
-// RuleId The unique identifier of the query rule within the specified ruleset to
+// RuleId The unique identifier of the query rule within the specified ruleset to //
 // retrieve
 // API Name: ruleid
 func (r *GetRule) _ruleid(ruleid string) *GetRule {
@@ -347,11 +347,9 @@ func (r *GetRule) FilterPath(filterpaths ...string) *GetRule {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetRule) Human(human bool) *GetRule {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -359,8 +357,8 @@ func (r *GetRule) Human(human bool) *GetRule {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetRule) Pretty(pretty bool) *GetRule {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -27,9 +27,8 @@ type _geoDistanceFeatureQuery struct {
 }
 
 // Boosts the relevance score of documents closer to a provided origin date or
-// point.
-// For example, you can use this query to give more weight to documents closer
-// to a certain date or location.
+// point. For example, you can use this query to give more weight to documents
+// closer to a certain date or location.
 func NewGeoDistanceFeatureQuery() *_geoDistanceFeatureQuery {
 
 	return &_geoDistanceFeatureQuery{v: types.NewGeoDistanceFeatureQuery()}

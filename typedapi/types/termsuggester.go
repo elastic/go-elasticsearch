@@ -37,38 +37,36 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/search/_types/suggester.ts#L508-L570
 type TermSuggester struct {
-	// Analyzer The analyzer to analyze the suggest text with.
-	// Defaults to the search analyzer of the suggest field.
+	// Analyzer The analyzer to analyze the suggest text with. Defaults to the search
+	// analyzer of the suggest field.
 	Analyzer *string `json:"analyzer,omitempty"`
-	// Field The field to fetch the candidate suggestions from.
-	// Needs to be set globally or per suggestion.
+	// Field The field to fetch the candidate suggestions from. Needs to be set globally
+	// or per suggestion.
 	Field          string `json:"field"`
 	LowercaseTerms *bool  `json:"lowercase_terms,omitempty"`
 	// MaxEdits The maximum edit distance candidate suggestions can have in order to be
-	// considered as a suggestion.
-	// Can only be `1` or `2`.
+	// considered as a suggestion. Can only be `1` or `2`.
 	MaxEdits *int `json:"max_edits,omitempty"`
 	// MaxInspections A factor that is used to multiply with the shard_size in order to inspect
-	// more candidate spelling corrections on the shard level.
-	// Can improve accuracy at the cost of performance.
+	// more candidate spelling corrections on the shard level. Can improve accuracy
+	// at the cost of performance.
 	MaxInspections *int `json:"max_inspections,omitempty"`
 	// MaxTermFreq The maximum threshold in number of documents in which a suggest text token
-	// can exist in order to be included.
-	// Can be a relative percentage number (for example `0.4`) or an absolute number
-	// to represent document frequencies.
-	// If a value higher than 1 is specified, then fractional can not be specified.
+	// can exist in order to be included. Can be a relative percentage number (for
+	// example `0.4`) or an absolute number to represent document frequencies. If a
+	// value higher than 1 is specified, then fractional can not be specified.
 	MaxTermFreq *float32 `json:"max_term_freq,omitempty"`
 	// MinDocFreq The minimal threshold in number of documents a suggestion should appear in.
-	// This can improve quality by only suggesting high frequency terms.
-	// Can be specified as an absolute number or as a relative percentage of number
-	// of documents.
-	// If a value higher than 1 is specified, then the number cannot be fractional.
+	// This can improve quality by only suggesting high frequency terms. Can be
+	// specified as an absolute number or as a relative percentage of number of
+	// documents. If a value higher than 1 is specified, then the number cannot be
+	// fractional.
 	MinDocFreq *float32 `json:"min_doc_freq,omitempty"`
 	// MinWordLength The minimum length a suggest text term must have in order to be included.
 	MinWordLength *int `json:"min_word_length,omitempty"`
 	// PrefixLength The number of minimal prefix characters that must match in order be a
-	// candidate for suggestions.
-	// Increasing this number improves spellcheck performance.
+	// candidate for suggestions. Increasing this number improves spellcheck
+	// performance.
 	PrefixLength *int `json:"prefix_length,omitempty"`
 	// ShardSize Sets the maximum number of suggestions to be retrieved from each individual
 	// shard.
@@ -83,8 +81,7 @@ type TermSuggester struct {
 	// SuggestMode Controls what suggestions are included or controls for what suggest text
 	// terms, suggestions should be suggested.
 	SuggestMode *suggestmode.SuggestMode `json:"suggest_mode,omitempty"`
-	// Text The suggest text.
-	// Needs to be set globally or per suggestion.
+	// Text The suggest text. Needs to be set globally or per suggestion.
 	Text *string `json:"text,omitempty"`
 }
 

@@ -27,21 +27,19 @@
 // Individual users and external applications should not call this API directly.
 // The calling application must have either an `access_token` or a combination
 // of `username` and `password` for the user that the profile document is
-// intended for.
-// Elastic reserves the right to change or remove this feature in future
-// releases without prior notice.
+// intended for. Elastic reserves the right to change or remove this feature in
+// future releases without prior notice.
 //
 // This API creates or updates a profile document for end users with information
 // that is extracted from the user's authentication object including `username`,
-// `full_name,` `roles`, and the authentication realm.
-// For example, in the JWT `access_token` case, the profile user's `username` is
-// extracted from the JWT token claim pointed to by the `claims.principal`
-// setting of the JWT realm that authenticated the token.
+// `full_name,` `roles`, and the authentication realm. For example, in the JWT
+// `access_token` case, the profile user's `username` is extracted from the JWT
+// token claim pointed to by the `claims.principal` setting of the JWT realm
+// that authenticated the token.
 //
 // When updating a profile document, the API enables the document if it was
-// disabled.
-// Any updates do not change existing content for either the `labels` or `data`
-// fields.
+// disabled. Any updates do not change existing content for either the `labels`
+// or `data` fields.
 package activateuserprofile
 
 import (
@@ -106,21 +104,19 @@ func NewActivateUserProfileFunc(tp elastictransport.Interface) NewActivateUserPr
 // Individual users and external applications should not call this API directly.
 // The calling application must have either an `access_token` or a combination
 // of `username` and `password` for the user that the profile document is
-// intended for.
-// Elastic reserves the right to change or remove this feature in future
-// releases without prior notice.
+// intended for. Elastic reserves the right to change or remove this feature in
+// future releases without prior notice.
 //
 // This API creates or updates a profile document for end users with information
 // that is extracted from the user's authentication object including `username`,
-// `full_name,` `roles`, and the authentication realm.
-// For example, in the JWT `access_token` case, the profile user's `username` is
-// extracted from the JWT token claim pointed to by the `claims.principal`
-// setting of the JWT realm that authenticated the token.
+// `full_name,` `roles`, and the authentication realm. For example, in the JWT
+// `access_token` case, the profile user's `username` is extracted from the JWT
+// token claim pointed to by the `claims.principal` setting of the JWT realm
+// that authenticated the token.
 //
 // When updating a profile document, the API enables the document if it was
-// disabled.
-// Any updates do not change existing content for either the `labels` or `data`
-// fields.
+// disabled. Any updates do not change existing content for either the `labels`
+// or `data` fields.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-activate-user-profile
 func New(tp elastictransport.Interface) *ActivateUserProfile {
@@ -362,11 +358,9 @@ func (r *ActivateUserProfile) FilterPath(filterpaths ...string) *ActivateUserPro
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ActivateUserProfile) Human(human bool) *ActivateUserProfile {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -374,8 +368,8 @@ func (r *ActivateUserProfile) Human(human bool) *ActivateUserProfile {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ActivateUserProfile) Pretty(pretty bool) *ActivateUserProfile {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -383,11 +377,10 @@ func (r *ActivateUserProfile) Pretty(pretty bool) *ActivateUserProfile {
 	return r
 }
 
-// The user's Elasticsearch access token or JWT.
-// Both `access` and `id` JWT token types are supported and they depend on the
-// underlying JWT realm configuration.
-// If you specify the `access_token` grant type, this parameter is required.
-// It is not valid with other grant types.
+// The user's Elasticsearch access token or JWT. Both `access` and `id` JWT
+// token types are supported and they depend on the underlying JWT realm
+// configuration. If you specify the `access_token` grant type, this parameter
+// is required. It is not valid with other grant types.
 // API name: access_token
 func (r *ActivateUserProfile) AccessToken(accesstoken string) *ActivateUserProfile {
 	// Initialize the request if it is not already initialized
@@ -411,9 +404,8 @@ func (r *ActivateUserProfile) GrantType(granttype granttype.GrantType) *Activate
 	return r
 }
 
-// The user's password.
-// If you specify the `password` grant type, this parameter is required.
-// It is not valid with other grant types.
+// The user's password. If you specify the `password` grant type, this parameter
+// is required. It is not valid with other grant types.
 // API name: password
 func (r *ActivateUserProfile) Password(password string) *ActivateUserProfile {
 	// Initialize the request if it is not already initialized
@@ -426,9 +418,8 @@ func (r *ActivateUserProfile) Password(password string) *ActivateUserProfile {
 	return r
 }
 
-// The username that identifies the user.
-// If you specify the `password` grant type, this parameter is required.
-// It is not valid with other grant types.
+// The username that identifies the user. If you specify the `password` grant
+// type, this parameter is required. It is not valid with other grant types.
 // API name: username
 func (r *ActivateUserProfile) Username(username string) *ActivateUserProfile {
 	// Initialize the request if it is not already initialized

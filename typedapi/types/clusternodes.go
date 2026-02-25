@@ -43,8 +43,8 @@ type ClusterNodes struct {
 	// PackagingTypes Contains statistics about Elasticsearch distributions installed on selected
 	// nodes.
 	PackagingTypes []NodePackagingType `json:"packaging_types"`
-	// Plugins Contains statistics about installed plugins and modules by selected nodes.
-	// If no plugins or modules are installed, this array is empty.
+	// Plugins Contains statistics about installed plugins and modules by selected nodes. If
+	// no plugins or modules are installed, this array is empty.
 	Plugins []PluginStats `json:"plugins"`
 	// Process Contains statistics about processes used by selected nodes.
 	Process ClusterProcess `json:"process"`

@@ -29,12 +29,17 @@ type CatPendingTasksColumn struct {
 }
 
 var (
+
+	// InsertOrder The task insertion order.
 	InsertOrder = CatPendingTasksColumn{"insertOrder"}
 
+	// TimeInQueue How long the task has been in the queue.
 	TimeInQueue = CatPendingTasksColumn{"timeInQueue"}
 
+	// Priority The task priority.
 	Priority = CatPendingTasksColumn{"priority"}
 
+	// Source The task source.
 	Source = CatPendingTasksColumn{"source"}
 )
 

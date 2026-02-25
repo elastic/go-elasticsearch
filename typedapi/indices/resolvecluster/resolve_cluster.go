@@ -21,85 +21,79 @@
 // Resolve the cluster.
 //
 // Resolve the specified index expressions to return information about each
-// cluster, including the local "querying" cluster, if included.
-// If no index expression is provided, the API will return information about all
-// the remote clusters that are configured on the querying cluster.
+// cluster, including the local "querying" cluster, if included. If no index
+// expression is provided, the API will return information about all the remote
+// clusters that are configured on the querying cluster.
 //
 // This endpoint is useful before doing a cross-cluster search in order to
 // determine which remote clusters should be included in a search.
 //
 // You use the same index expression with this endpoint as you would for
-// cross-cluster search.
-// Index and cluster exclusions are also supported with this endpoint.
+// cross-cluster search. Index and cluster exclusions are also supported with
+// this endpoint.
 //
 // For each cluster in the index expression, information is returned about:
 //
-// * Whether the querying ("local") cluster is currently connected to each
-// remote cluster specified in the index expression. Note that this endpoint
-// actively attempts to contact the remote clusters, unlike the `remote/info`
-// endpoint.
-// * Whether each remote cluster is configured with `skip_unavailable` as `true`
-// or `false`.
-// * Whether there are any indices, aliases, or data streams on that cluster
-// that match the index expression.
-// * Whether the search is likely to have errors returned when you do the
-// cross-cluster search (including any authorization errors if you do not have
-// permission to query the index).
-// * Cluster version information, including the Elasticsearch server version.
+//   - Whether the querying ("local") cluster is currently connected to each
+//     remote cluster specified in the index expression. Note that this endpoint
+//     actively attempts to contact the remote clusters, unlike the
+//     `remote/info` endpoint.
+//   - Whether each remote cluster is configured with `skip_unavailable` as
+//     `true` or `false`.
+//   - Whether there are any indices, aliases, or data streams on that cluster
+//     that match the index expression.
+//   - Whether the search is likely to have errors returned when you do the
+//     cross-cluster search (including any authorization errors if you do not
+//     have permission to query the index).
+//   - Cluster version information, including the Elasticsearch server version.
 //
 // For example, `GET /_resolve/cluster/my-index-*,cluster*:my-index-*` returns
 // information about the local cluster and all remotely configured clusters that
-// start with the alias `cluster*`.
-// Each cluster returns information about whether it has any indices, aliases or
-// data streams that match `my-index-*`.
+// start with the alias `cluster*`. Each cluster returns information about
+// whether it has any indices, aliases or data streams that match `my-index-*`.
 //
-// ## Note on backwards compatibility
+// # Note on backwards compatibility
+//
 // The ability to query without an index expression was added in version 8.18,
-// so when
-// querying remote clusters older than that, the local cluster will send the
-// index
-// expression `dummy*` to those remote clusters. Thus, if an errors occur, you
-// may see a reference
-// to that index expression even though you didn't request it. If it causes a
-// problem, you can
-// instead include an index expression like `*:*` to bypass the issue.
+// so when querying remote clusters older than that, the local cluster will send
+// the index expression `dummy*` to those remote clusters. Thus, if an errors
+// occur, you may see a reference to that index expression even though you
+// didn't request it. If it causes a problem, you can instead include an index
+// expression like `*:*` to bypass the issue.
 //
-// ## Advantages of using this endpoint before a cross-cluster search
+// # Advantages of using this endpoint before a cross-cluster search
 //
 // You may want to exclude a cluster or index from a search when:
 //
-// * A remote cluster is not currently connected and is configured with
-// `skip_unavailable=false`. Running a cross-cluster search under those
-// conditions will cause the entire search to fail.
-// * A cluster has no matching indices, aliases or data streams for the index
-// expression (or your user does not have permissions to search them). For
-// example, suppose your index expression is `logs*,remote1:logs*` and the
-// remote1 cluster has no indices, aliases or data streams that match `logs*`.
-// In that case, that cluster will return no results from that cluster if you
-// include it in a cross-cluster search.
-// * The index expression (combined with any query parameters you specify) will
-// likely cause an exception to be thrown when you do the search. In these
-// cases, the "error" field in the `_resolve/cluster` response will be present.
-// (This is also where security/permission errors will be shown.)
-// * A remote cluster is an older version that does not support the feature you
-// want to use in your search.
+//   - A remote cluster is not currently connected and is configured with
+//     `skip_unavailable=false`. Running a cross-cluster search under those
+//     conditions will cause the entire search to fail.
+//   - A cluster has no matching indices, aliases or data streams for the index
+//     expression (or your user does not have permissions to search them). For
+//     example, suppose your index expression is `logs*,remote1:logs*` and the
+//     remote1 cluster has no indices, aliases or data streams that match
+//     `logs*`. In that case, that cluster will return no results from that
+//     cluster if you include it in a cross-cluster search.
+//   - The index expression (combined with any query parameters you specify)
+//     will likely cause an exception to be thrown when you do the search. In
+//     these cases, the "error" field in the `_resolve/cluster` response will be
+//     present. (This is also where security/permission errors will be shown.)
+//   - A remote cluster is an older version that does not support the feature
+//     you want to use in your search.
 //
-// ## Test availability of remote clusters
+// # Test availability of remote clusters
 //
 // The `remote/info` endpoint is commonly used to test whether the "local"
 // cluster (the cluster being queried) is connected to its remote clusters, but
 // it does not necessarily reflect whether the remote cluster is available or
-// not.
-// The remote cluster may be available, while the local cluster is not currently
-// connected to it.
+// not. The remote cluster may be available, while the local cluster is not
+// currently connected to it.
 //
 // You can use the `_resolve/cluster` API to attempt to reconnect to remote
-// clusters.
-// For example with `GET _resolve/cluster` or `GET _resolve/cluster/*:*`.
-// The `connected` field in the response will indicate whether it was
-// successful.
-// If a connection was (re-)established, this will also cause the `remote/info`
-// endpoint to now indicate a connected status.
+// clusters. For example with `GET _resolve/cluster` or `GET
+// _resolve/cluster/*:*`. The `connected` field in the response will indicate
+// whether it was successful. If a connection was (re-)established, this will
+// also cause the `remote/info` endpoint to now indicate a connected status.
 package resolvecluster
 
 import (
@@ -159,85 +153,79 @@ func NewResolveClusterFunc(tp elastictransport.Interface) NewResolveCluster {
 // Resolve the cluster.
 //
 // Resolve the specified index expressions to return information about each
-// cluster, including the local "querying" cluster, if included.
-// If no index expression is provided, the API will return information about all
-// the remote clusters that are configured on the querying cluster.
+// cluster, including the local "querying" cluster, if included. If no index
+// expression is provided, the API will return information about all the remote
+// clusters that are configured on the querying cluster.
 //
 // This endpoint is useful before doing a cross-cluster search in order to
 // determine which remote clusters should be included in a search.
 //
 // You use the same index expression with this endpoint as you would for
-// cross-cluster search.
-// Index and cluster exclusions are also supported with this endpoint.
+// cross-cluster search. Index and cluster exclusions are also supported with
+// this endpoint.
 //
 // For each cluster in the index expression, information is returned about:
 //
-// * Whether the querying ("local") cluster is currently connected to each
-// remote cluster specified in the index expression. Note that this endpoint
-// actively attempts to contact the remote clusters, unlike the `remote/info`
-// endpoint.
-// * Whether each remote cluster is configured with `skip_unavailable` as `true`
-// or `false`.
-// * Whether there are any indices, aliases, or data streams on that cluster
-// that match the index expression.
-// * Whether the search is likely to have errors returned when you do the
-// cross-cluster search (including any authorization errors if you do not have
-// permission to query the index).
-// * Cluster version information, including the Elasticsearch server version.
+//   - Whether the querying ("local") cluster is currently connected to each
+//     remote cluster specified in the index expression. Note that this endpoint
+//     actively attempts to contact the remote clusters, unlike the
+//     `remote/info` endpoint.
+//   - Whether each remote cluster is configured with `skip_unavailable` as
+//     `true` or `false`.
+//   - Whether there are any indices, aliases, or data streams on that cluster
+//     that match the index expression.
+//   - Whether the search is likely to have errors returned when you do the
+//     cross-cluster search (including any authorization errors if you do not
+//     have permission to query the index).
+//   - Cluster version information, including the Elasticsearch server version.
 //
 // For example, `GET /_resolve/cluster/my-index-*,cluster*:my-index-*` returns
 // information about the local cluster and all remotely configured clusters that
-// start with the alias `cluster*`.
-// Each cluster returns information about whether it has any indices, aliases or
-// data streams that match `my-index-*`.
+// start with the alias `cluster*`. Each cluster returns information about
+// whether it has any indices, aliases or data streams that match `my-index-*`.
 //
-// ## Note on backwards compatibility
+// # Note on backwards compatibility
+//
 // The ability to query without an index expression was added in version 8.18,
-// so when
-// querying remote clusters older than that, the local cluster will send the
-// index
-// expression `dummy*` to those remote clusters. Thus, if an errors occur, you
-// may see a reference
-// to that index expression even though you didn't request it. If it causes a
-// problem, you can
-// instead include an index expression like `*:*` to bypass the issue.
+// so when querying remote clusters older than that, the local cluster will send
+// the index expression `dummy*` to those remote clusters. Thus, if an errors
+// occur, you may see a reference to that index expression even though you
+// didn't request it. If it causes a problem, you can instead include an index
+// expression like `*:*` to bypass the issue.
 //
-// ## Advantages of using this endpoint before a cross-cluster search
+// # Advantages of using this endpoint before a cross-cluster search
 //
 // You may want to exclude a cluster or index from a search when:
 //
-// * A remote cluster is not currently connected and is configured with
-// `skip_unavailable=false`. Running a cross-cluster search under those
-// conditions will cause the entire search to fail.
-// * A cluster has no matching indices, aliases or data streams for the index
-// expression (or your user does not have permissions to search them). For
-// example, suppose your index expression is `logs*,remote1:logs*` and the
-// remote1 cluster has no indices, aliases or data streams that match `logs*`.
-// In that case, that cluster will return no results from that cluster if you
-// include it in a cross-cluster search.
-// * The index expression (combined with any query parameters you specify) will
-// likely cause an exception to be thrown when you do the search. In these
-// cases, the "error" field in the `_resolve/cluster` response will be present.
-// (This is also where security/permission errors will be shown.)
-// * A remote cluster is an older version that does not support the feature you
-// want to use in your search.
+//   - A remote cluster is not currently connected and is configured with
+//     `skip_unavailable=false`. Running a cross-cluster search under those
+//     conditions will cause the entire search to fail.
+//   - A cluster has no matching indices, aliases or data streams for the index
+//     expression (or your user does not have permissions to search them). For
+//     example, suppose your index expression is `logs*,remote1:logs*` and the
+//     remote1 cluster has no indices, aliases or data streams that match
+//     `logs*`. In that case, that cluster will return no results from that
+//     cluster if you include it in a cross-cluster search.
+//   - The index expression (combined with any query parameters you specify)
+//     will likely cause an exception to be thrown when you do the search. In
+//     these cases, the "error" field in the `_resolve/cluster` response will be
+//     present. (This is also where security/permission errors will be shown.)
+//   - A remote cluster is an older version that does not support the feature
+//     you want to use in your search.
 //
-// ## Test availability of remote clusters
+// # Test availability of remote clusters
 //
 // The `remote/info` endpoint is commonly used to test whether the "local"
 // cluster (the cluster being queried) is connected to its remote clusters, but
 // it does not necessarily reflect whether the remote cluster is available or
-// not.
-// The remote cluster may be available, while the local cluster is not currently
-// connected to it.
+// not. The remote cluster may be available, while the local cluster is not
+// currently connected to it.
 //
 // You can use the `_resolve/cluster` API to attempt to reconnect to remote
-// clusters.
-// For example with `GET _resolve/cluster` or `GET _resolve/cluster/*:*`.
-// The `connected` field in the response will indicate whether it was
-// successful.
-// If a connection was (re-)established, this will also cause the `remote/info`
-// endpoint to now indicate a connected status.
+// clusters. For example with `GET _resolve/cluster` or `GET
+// _resolve/cluster/*:*`. The `connected` field in the response will indicate
+// whether it was successful. If a connection was (re-)established, this will
+// also cause the `remote/info` endpoint to now indicate a connected status.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-cluster
 func New(tp elastictransport.Interface) *ResolveCluster {
@@ -459,13 +447,11 @@ func (r *ResolveCluster) Header(key, value string) *ResolveCluster {
 }
 
 // Name A comma-separated list of names or index patterns for the indices, aliases,
-// and data streams to resolve.
-// Resources on remote clusters can be specified using the `<cluster>`:`<name>`
-// syntax.
-// Index and cluster exclusions (e.g., `-cluster1:*`) are also supported.
-// If no index expression is specified, information about all remote clusters
-// configured on the local cluster
-// is returned without doing any index matching
+// // and data streams to resolve. Resources on remote clusters can be specified
+// // using the `<cluster>`:`<name>` syntax. Index and cluster exclusions (e.g.,
+// // `-cluster1:*`) are also supported. If no index expression is specified, //
+// information about all remote clusters configured on the local cluster is //
+// returned without doing any index matching
 // API Name: name
 func (r *ResolveCluster) Name(name string) *ResolveCluster {
 	r.paramSet |= nameMask
@@ -475,13 +461,11 @@ func (r *ResolveCluster) Name(name string) *ResolveCluster {
 }
 
 // AllowNoIndices If false, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing
-// or closed indices. This behavior applies even if the request targets other
-// open indices. For example, a request
-// targeting `foo*,bar*` returns an error if an index starts with `foo` but no
-// index starts with `bar`.
-// NOTE: This option is only supported when specifying an index expression. You
-// will get an error if you specify index
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices. For example, a
+// request targeting `foo*,bar*` returns an error if an index starts with `foo`
+// but no index starts with `bar`. NOTE: This option is only supported when
+// specifying an index expression. You will get an error if you specify index
 // options to the `_resolve/cluster` API endpoint that takes no index
 // expression.
 // API name: allow_no_indices
@@ -491,14 +475,12 @@ func (r *ResolveCluster) AllowNoIndices(allownoindices bool) *ResolveCluster {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // NOTE: This option is only supported when specifying an index expression. You
-// will get an error if you specify index
-// options to the `_resolve/cluster` API endpoint that takes no index
-// expression.
+// will get an error if you specify index options to the `_resolve/cluster` API
+// endpoint that takes no index expression.
 // API name: expand_wildcards
 func (r *ResolveCluster) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ResolveCluster {
 	tmp := []string{}
@@ -512,9 +494,8 @@ func (r *ResolveCluster) ExpandWildcards(expandwildcards ...expandwildcard.Expan
 
 // IgnoreThrottled If true, concrete, expanded, or aliased indices are ignored when frozen.
 // NOTE: This option is only supported when specifying an index expression. You
-// will get an error if you specify index
-// options to the `_resolve/cluster` API endpoint that takes no index
-// expression.
+// will get an error if you specify index options to the `_resolve/cluster` API
+// endpoint that takes no index expression.
 // API name: ignore_throttled
 func (r *ResolveCluster) IgnoreThrottled(ignorethrottled bool) *ResolveCluster {
 	r.values.Set("ignore_throttled", strconv.FormatBool(ignorethrottled))
@@ -523,11 +504,9 @@ func (r *ResolveCluster) IgnoreThrottled(ignorethrottled bool) *ResolveCluster {
 }
 
 // IgnoreUnavailable If false, the request returns an error if it targets a missing or closed
-// index.
-// NOTE: This option is only supported when specifying an index expression. You
-// will get an error if you specify index
-// options to the `_resolve/cluster` API endpoint that takes no index
-// expression.
+// index. NOTE: This option is only supported when specifying an index
+// expression. You will get an error if you specify index options to the
+// `_resolve/cluster` API endpoint that takes no index expression.
 // API name: ignore_unavailable
 func (r *ResolveCluster) IgnoreUnavailable(ignoreunavailable bool) *ResolveCluster {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -535,16 +514,14 @@ func (r *ResolveCluster) IgnoreUnavailable(ignoreunavailable bool) *ResolveClust
 	return r
 }
 
-// Timeout The maximum time to wait for remote clusters to respond.
-// If a remote cluster does not respond within this timeout period, the API
-// response
-// will show the cluster as not connected and include an error message that the
-// request timed out.
+// Timeout The maximum time to wait for remote clusters to respond. If a remote cluster
+// does not respond within this timeout period, the API response will show the
+// cluster as not connected and include an error message that the request timed
+// out.
 //
-// The default timeout is unset and the query can take
-// as long as the networking layer is configured to wait for remote clusters
-// that are
-// not responding (typically 30 seconds).
+// The default timeout is unset and the query can take as long as the networking
+// layer is configured to wait for remote clusters that are not responding
+// (typically 30 seconds).
 // API name: timeout
 func (r *ResolveCluster) Timeout(duration string) *ResolveCluster {
 	r.values.Set("timeout", duration)
@@ -575,11 +552,9 @@ func (r *ResolveCluster) FilterPath(filterpaths ...string) *ResolveCluster {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ResolveCluster) Human(human bool) *ResolveCluster {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -587,8 +562,8 @@ func (r *ResolveCluster) Human(human bool) *ResolveCluster {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ResolveCluster) Pretty(pretty bool) *ResolveCluster {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

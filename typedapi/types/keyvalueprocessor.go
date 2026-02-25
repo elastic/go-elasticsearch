@@ -33,13 +33,12 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L1227-L1279
 type KeyValueProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// ExcludeKeys List of keys to exclude from document.
 	ExcludeKeys []string `json:"exclude_keys,omitempty"`
-	// Field The field to be parsed.
-	// Supports template snippets.
+	// Field The field to be parsed. Supports template snippets.
 	Field string `json:"field"`
 	// FieldSplit Regex pattern to use for splitting key-value pairs.
 	FieldSplit string `json:"field_split"`
@@ -50,8 +49,8 @@ type KeyValueProcessor struct {
 	// IgnoreMissing If `true` and `field` does not exist or is `null`, the processor quietly
 	// exits without modifying the document.
 	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
-	// IncludeKeys List of keys to filter and insert into document.
-	// Defaults to including all keys.
+	// IncludeKeys List of keys to filter and insert into document. Defaults to including all
+	// keys.
 	IncludeKeys []string `json:"include_keys,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
@@ -60,12 +59,10 @@ type KeyValueProcessor struct {
 	// StripBrackets If `true`. strip brackets `()`, `<>`, `[]` as well as quotes `'` and `"` from
 	// extracted values.
 	StripBrackets *bool `json:"strip_brackets,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
-	// TargetField The field to insert the extracted keys into.
-	// Defaults to the root of the document.
-	// Supports template snippets.
+	// TargetField The field to insert the extracted keys into. Defaults to the root of the
+	// document. Supports template snippets.
 	TargetField *string `json:"target_field,omitempty"`
 	// TrimKey String of characters to trim from extracted keys.
 	TrimKey *string `json:"trim_key,omitempty"`

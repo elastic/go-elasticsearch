@@ -20,21 +20,20 @@
 
 // Update the connector features.
 //
-// Update the connector features in the connector document.
-// This API can be used to control the following aspects of a connector:
+// Update the connector features in the connector document. This API can be used
+// to control the following aspects of a connector:
 //
-// * document-level security
-// * incremental syncs
-// * advanced sync rules
-// * basic sync rules
+//   - document-level security
+//   - incremental syncs
+//   - advanced sync rules
+//   - basic sync rules
 //
 // Normally, the running connector service automatically manages these features.
 // However, you can use this API to override the default behavior.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
-// connector service on your own infrastructure.
-// This service runs automatically on Elastic Cloud for Elastic managed
-// connectors.
+// connector service on your own infrastructure. This service runs automatically
+// on Elastic Cloud for Elastic managed connectors.
 package updatefeatures
 
 import (
@@ -99,21 +98,20 @@ func NewUpdateFeaturesFunc(tp elastictransport.Interface) NewUpdateFeatures {
 
 // Update the connector features.
 //
-// Update the connector features in the connector document.
-// This API can be used to control the following aspects of a connector:
+// Update the connector features in the connector document. This API can be used
+// to control the following aspects of a connector:
 //
-// * document-level security
-// * incremental syncs
-// * advanced sync rules
-// * basic sync rules
+//   - document-level security
+//   - incremental syncs
+//   - advanced sync rules
+//   - basic sync rules
 //
 // Normally, the running connector service automatically manages these features.
 // However, you can use this API to override the default behavior.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
-// connector service on your own infrastructure.
-// This service runs automatically on Elastic Cloud for Elastic managed
-// connectors.
+// connector service on your own infrastructure. This service runs automatically
+// on Elastic Cloud for Elastic managed connectors.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-features
 func New(tp elastictransport.Interface) *UpdateFeatures {
@@ -368,11 +366,9 @@ func (r *UpdateFeatures) FilterPath(filterpaths ...string) *UpdateFeatures {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateFeatures) Human(human bool) *UpdateFeatures {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -380,8 +376,8 @@ func (r *UpdateFeatures) Human(human bool) *UpdateFeatures {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateFeatures) Pretty(pretty bool) *UpdateFeatures {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

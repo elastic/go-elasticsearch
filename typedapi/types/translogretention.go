@@ -33,24 +33,20 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/_types/IndexSettings.ts#L416-L435
 type TranslogRetention struct {
 	// Age This controls the maximum duration for which translog files are kept by each
-	// shard. Keeping more
-	// translog files increases the chance of performing an operation based sync
-	// when recovering replicas. If
-	// the translog files are not sufficient, replica recovery will fall back to a
-	// file based sync. This setting
-	// is ignored, and should not be set, if soft deletes are enabled. Soft deletes
-	// are enabled by default in
-	// indices created in Elasticsearch versions 7.0.0 and later.
+	// shard. Keeping more translog files increases the chance of performing an
+	// operation based sync when recovering replicas. If the translog files are not
+	// sufficient, replica recovery will fall back to a file based sync. This
+	// setting is ignored, and should not be set, if soft deletes are enabled. Soft
+	// deletes are enabled by default in indices created in Elasticsearch versions
+	// 7.0.0 and later.
 	Age Duration `json:"age,omitempty"`
 	// Size This controls the total size of translog files to keep for each shard.
-	// Keeping more translog files increases
-	// the chance of performing an operation based sync when recovering a replica.
-	// If the translog files are not
+	// Keeping more translog files increases the chance of performing an operation
+	// based sync when recovering a replica. If the translog files are not
 	// sufficient, replica recovery will fall back to a file based sync. This
-	// setting is ignored, and should not be
-	// set, if soft deletes are enabled. Soft deletes are enabled by default in
-	// indices created in Elasticsearch
-	// versions 7.0.0 and later.
+	// setting is ignored, and should not be set, if soft deletes are enabled. Soft
+	// deletes are enabled by default in indices created in Elasticsearch versions
+	// 7.0.0 and later.
 	Size ByteSize `json:"size,omitempty"`
 }
 

@@ -20,9 +20,8 @@
 
 // Delete roles.
 //
-// Delete roles in the native realm.
-// The role management APIs are generally the preferred way to manage roles,
-// rather than using file-based role management.
+// Delete roles in the native realm. The role management APIs are generally the
+// preferred way to manage roles, rather than using file-based role management.
 // The delete roles API cannot remove roles that are defined in roles files.
 package deleterole
 
@@ -84,9 +83,8 @@ func NewDeleteRoleFunc(tp elastictransport.Interface) NewDeleteRole {
 
 // Delete roles.
 //
-// Delete roles in the native realm.
-// The role management APIs are generally the preferred way to manage roles,
-// rather than using file-based role management.
+// Delete roles in the native realm. The role management APIs are generally the
+// preferred way to manage roles, rather than using file-based role management.
 // The delete roles API cannot remove roles that are defined in roles files.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role
@@ -343,11 +341,9 @@ func (r *DeleteRole) FilterPath(filterpaths ...string) *DeleteRole {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteRole) Human(human bool) *DeleteRole {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -355,8 +351,8 @@ func (r *DeleteRole) Human(human bool) *DeleteRole {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteRole) Pretty(pretty bool) *DeleteRole {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

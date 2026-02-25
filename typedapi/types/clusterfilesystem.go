@@ -34,18 +34,14 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/cluster/stats/types.ts#L35-L75
 type ClusterFileSystem struct {
 	// Available Total number of bytes available to JVM in file stores across all selected
-	// nodes.
-	// Depending on operating system or process-level restrictions, this number may
-	// be less than `nodes.fs.free_in_byes`.
-	// This is the actual amount of free disk space the selected Elasticsearch nodes
-	// can use.
+	// nodes. Depending on operating system or process-level restrictions, this
+	// number may be less than `nodes.fs.free_in_byes`. This is the actual amount of
+	// free disk space the selected Elasticsearch nodes can use.
 	Available ByteSize `json:"available,omitempty"`
 	// AvailableInBytes Total number of bytes available to JVM in file stores across all selected
-	// nodes.
-	// Depending on operating system or process-level restrictions, this number may
-	// be less than `nodes.fs.free_in_byes`.
-	// This is the actual amount of free disk space the selected Elasticsearch nodes
-	// can use.
+	// nodes. Depending on operating system or process-level restrictions, this
+	// number may be less than `nodes.fs.free_in_byes`. This is the actual amount of
+	// free disk space the selected Elasticsearch nodes can use.
 	AvailableInBytes           *int64   `json:"available_in_bytes,omitempty"`
 	FloodStageFreeSpace        ByteSize `json:"flood_stage_free_space,omitempty"`
 	FloodStageFreeSpaceInBytes *int64   `json:"flood_stage_free_space_in_bytes,omitempty"`

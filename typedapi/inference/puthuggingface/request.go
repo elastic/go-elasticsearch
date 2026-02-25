@@ -32,9 +32,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/put_hugging_face/PutHuggingFaceRequest.ts#L31-L125
 type Request struct {
-	// ChunkingSettings The chunking configuration object.
-	// Applies only to the `text_embedding` task type.
-	// Not applicable to the `rerank`, `completion`, or `chat_completion` task
+	// ChunkingSettings The chunking configuration object. Applies only to the `text_embedding` task
+	// type. Not applicable to the `rerank`, `completion`, or `chat_completion` task
 	// types.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
@@ -43,8 +42,8 @@ type Request struct {
 	// ServiceSettings Settings used to install the inference model. These settings are specific to
 	// the `hugging_face` service.
 	ServiceSettings types.HuggingFaceServiceSettings `json:"service_settings"`
-	// TaskSettings Settings to configure the inference task.
-	// These settings are specific to the task type you specified.
+	// TaskSettings Settings to configure the inference task. These settings are specific to the
+	// task type you specified.
 	TaskSettings *types.HuggingFaceTaskSettings `json:"task_settings,omitempty"`
 }
 

@@ -28,7 +28,7 @@ import (
 	"io"
 )
 
-// DenseEmbeddingResult type.
+// The dense embedding result object for float representation
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/Results.ts#L64-L69
 type DenseEmbeddingResult struct {

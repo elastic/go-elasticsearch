@@ -20,11 +20,11 @@
 
 // Resume an auto-follow pattern.
 //
-// Resume a cross-cluster replication auto-follow pattern that was paused.
-// The auto-follow pattern will resume configuring following indices for newly
-// created indices that match its patterns on the remote cluster.
-// Remote indices created while the pattern was paused will also be followed
-// unless they have been deleted or closed in the interim.
+// Resume a cross-cluster replication auto-follow pattern that was paused. The
+// auto-follow pattern will resume configuring following indices for newly
+// created indices that match its patterns on the remote cluster. Remote indices
+// created while the pattern was paused will also be followed unless they have
+// been deleted or closed in the interim.
 package resumeautofollowpattern
 
 import (
@@ -84,11 +84,11 @@ func NewResumeAutoFollowPatternFunc(tp elastictransport.Interface) NewResumeAuto
 
 // Resume an auto-follow pattern.
 //
-// Resume a cross-cluster replication auto-follow pattern that was paused.
-// The auto-follow pattern will resume configuring following indices for newly
-// created indices that match its patterns on the remote cluster.
-// Remote indices created while the pattern was paused will also be followed
-// unless they have been deleted or closed in the interim.
+// Resume a cross-cluster replication auto-follow pattern that was paused. The
+// auto-follow pattern will resume configuring following indices for newly
+// created indices that match its patterns on the remote cluster. Remote indices
+// created while the pattern was paused will also be followed unless they have
+// been deleted or closed in the interim.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-resume-auto-follow-pattern
 func New(tp elastictransport.Interface) *ResumeAutoFollowPattern {
@@ -313,10 +313,10 @@ func (r *ResumeAutoFollowPattern) _name(name string) *ResumeAutoFollowPattern {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// It can also be set to `-1` to indicate that the request should never timeout.
+// MasterTimeout The period to wait for a connection to the master node. If the master node is
+// not available before the timeout expires, the request fails and returns an
+// error. It can also be set to `-1` to indicate that the request should never
+// timeout.
 // API name: master_timeout
 func (r *ResumeAutoFollowPattern) MasterTimeout(duration string) *ResumeAutoFollowPattern {
 	r.values.Set("master_timeout", duration)
@@ -347,11 +347,9 @@ func (r *ResumeAutoFollowPattern) FilterPath(filterpaths ...string) *ResumeAutoF
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ResumeAutoFollowPattern) Human(human bool) *ResumeAutoFollowPattern {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -359,8 +357,8 @@ func (r *ResumeAutoFollowPattern) Human(human bool) *ResumeAutoFollowPattern {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ResumeAutoFollowPattern) Pretty(pretty bool) *ResumeAutoFollowPattern {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

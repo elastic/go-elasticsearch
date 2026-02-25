@@ -33,37 +33,32 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L888-L931
 type AzureOpenAIServiceSettings struct {
-	// ApiKey A valid API key for your Azure OpenAI account.
-	// You must specify either `api_key` or `entra_id`.
-	// If you do not provide either or you provide both, you will receive an error
-	// when you try to create your model.
+	// ApiKey A valid API key for your Azure OpenAI account. You must specify either
+	// `api_key` or `entra_id`. If you do not provide either or you provide both,
+	// you will receive an error when you try to create your model.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation.
-	// The get inference endpoint API does not retrieve your API key.
+	// model creation. The get inference endpoint API does not retrieve your API
+	// key.
 	ApiKey *string `json:"api_key,omitempty"`
-	// ApiVersion The Azure API version ID to use.
-	// It is recommended to use the latest supported non-preview version.
+	// ApiVersion The Azure API version ID to use. It is recommended to use the latest
+	// supported non-preview version.
 	ApiVersion string `json:"api_version"`
-	// DeploymentId The deployment name of your deployed models.
-	// Your Azure OpenAI deployments can be found though the Azure OpenAI Studio
-	// portal that is linked to your subscription.
+	// DeploymentId The deployment name of your deployed models. Your Azure OpenAI deployments
+	// can be found though the Azure OpenAI Studio portal that is linked to your
+	// subscription.
 	DeploymentId string `json:"deployment_id"`
-	// EntraId A valid Microsoft Entra token.
-	// You must specify either `api_key` or `entra_id`.
-	// If you do not provide either or you provide both, you will receive an error
-	// when you try to create your model.
+	// EntraId A valid Microsoft Entra token. You must specify either `api_key` or
+	// `entra_id`. If you do not provide either or you provide both, you will
+	// receive an error when you try to create your model.
 	EntraId *string `json:"entra_id,omitempty"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// Azure.
-	// The `azureopenai` service sets a default number of requests allowed per
-	// minute depending on the task type.
-	// For `text_embedding`, it is set to `1440`.
-	// For `completion` and `chat_completion`, it is set to `120`.
+	// Azure. The `azureopenai` service sets a default number of requests allowed
+	// per minute depending on the task type. For `text_embedding`, it is set to
+	// `1440`. For `completion` and `chat_completion`, it is set to `120`.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
-	// ResourceName The name of your Azure OpenAI resource.
-	// You can find this from the list of resources in the Azure Portal for your
-	// subscription.
+	// ResourceName The name of your Azure OpenAI resource. You can find this from the list of
+	// resources in the Azure Portal for your subscription.
 	ResourceName string `json:"resource_name"`
 }
 

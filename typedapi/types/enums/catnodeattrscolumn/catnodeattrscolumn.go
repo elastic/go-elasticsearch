@@ -29,20 +29,29 @@ type CatNodeattrsColumn struct {
 }
 
 var (
+
+	// Node The node name.
 	Node = CatNodeattrsColumn{"node"}
 
+	// Id The unique node ID.
 	Id = CatNodeattrsColumn{"id"}
 
+	// Pid The process ID.
 	Pid = CatNodeattrsColumn{"pid"}
 
+	// Host The host name.
 	Host = CatNodeattrsColumn{"host"}
 
+	// Ip The IP address.
 	Ip = CatNodeattrsColumn{"ip"}
 
+	// Port The bound transport port.
 	Port = CatNodeattrsColumn{"port"}
 
+	// Attr The attribute description.
 	Attr = CatNodeattrsColumn{"attr"}
 
+	// Value The attribute value.
 	Value = CatNodeattrsColumn{"value"}
 )
 

@@ -21,10 +21,9 @@
 // Import a dangling index.
 //
 // If Elasticsearch encounters index data that is absent from the current
-// cluster state, those indices are considered to be dangling.
-// For example, this can happen if you delete more than
-// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
-// offline.
+// cluster state, those indices are considered to be dangling. For example, this
+// can happen if you delete more than `cluster.indices.tombstones.size` indices
+// while an Elasticsearch node is offline.
 package importdanglingindex
 
 import (
@@ -85,10 +84,9 @@ func NewImportDanglingIndexFunc(tp elastictransport.Interface) NewImportDangling
 // Import a dangling index.
 //
 // If Elasticsearch encounters index data that is absent from the current
-// cluster state, those indices are considered to be dangling.
-// For example, this can happen if you delete more than
-// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
-// offline.
+// cluster state, those indices are considered to be dangling. For example, this
+// can happen if you delete more than `cluster.indices.tombstones.size` indices
+// while an Elasticsearch node is offline.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-dangling-indices-import-dangling-index
 func New(tp elastictransport.Interface) *ImportDanglingIndex {
@@ -301,7 +299,7 @@ func (r *ImportDanglingIndex) Header(key, value string) *ImportDanglingIndex {
 }
 
 // IndexUuid The UUID of the index to import. Use the get dangling indices API to locate
-// the UUID.
+// // the UUID.
 // API Name: indexuuid
 func (r *ImportDanglingIndex) _indexuuid(indexuuid string) *ImportDanglingIndex {
 	r.paramSet |= indexuuidMask
@@ -310,8 +308,8 @@ func (r *ImportDanglingIndex) _indexuuid(indexuuid string) *ImportDanglingIndex 
 	return r
 }
 
-// AcceptDataLoss This parameter must be set to true to import a dangling index.
-// Because Elasticsearch cannot know where the dangling index data came from or
+// AcceptDataLoss This parameter must be set to true to import a dangling index. Because
+// Elasticsearch cannot know where the dangling index data came from or
 // determine which shard copies are fresh and which are stale, it cannot
 // guarantee that the imported data represents the latest state of the index
 // when it was last in the cluster.
@@ -361,11 +359,9 @@ func (r *ImportDanglingIndex) FilterPath(filterpaths ...string) *ImportDanglingI
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ImportDanglingIndex) Human(human bool) *ImportDanglingIndex {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -373,8 +369,8 @@ func (r *ImportDanglingIndex) Human(human bool) *ImportDanglingIndex {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ImportDanglingIndex) Pretty(pretty bool) *ImportDanglingIndex {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

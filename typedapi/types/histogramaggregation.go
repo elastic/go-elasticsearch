@@ -40,28 +40,27 @@ type HistogramAggregation struct {
 	// Field The name of the field to aggregate on.
 	Field  *string `json:"field,omitempty"`
 	Format *string `json:"format,omitempty"`
-	// HardBounds Limits the range of buckets in the histogram.
-	// It is particularly useful in the case of open data ranges that can result in
-	// a very large number of buckets.
+	// HardBounds Limits the range of buckets in the histogram. It is particularly useful in
+	// the case of open data ranges that can result in a very large number of
+	// buckets.
 	HardBounds *ExtendedBoundsdouble `json:"hard_bounds,omitempty"`
-	// Interval The interval for the buckets.
-	// Must be a positive decimal.
+	// Interval The interval for the buckets. Must be a positive decimal.
 	Interval *Float64 `json:"interval,omitempty"`
 	// Keyed If `true`, returns buckets as a hash instead of an array, keyed by the bucket
 	// keys.
 	Keyed *bool `json:"keyed,omitempty"`
-	// MinDocCount Only returns buckets that have `min_doc_count` number of documents.
-	// By default, the response will fill gaps in the histogram with empty buckets.
+	// MinDocCount Only returns buckets that have `min_doc_count` number of documents. By
+	// default, the response will fill gaps in the histogram with empty buckets.
 	MinDocCount *int `json:"min_doc_count,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing *Float64 `json:"missing,omitempty"`
 	// Offset By default, the bucket keys start with 0 and then continue in even spaced
-	// steps of `interval`.
-	// The bucket boundaries can be shifted by using the `offset` option.
+	// steps of `interval`. The bucket boundaries can be shifted by using the
+	// `offset` option.
 	Offset *Float64 `json:"offset,omitempty"`
-	// Order The sort order of the returned buckets.
-	// By default, the returned buckets are sorted by their key ascending.
+	// Order The sort order of the returned buckets. By default, the returned buckets are
+	// sorted by their key ascending.
 	Order  AggregateOrder `json:"order,omitempty"`
 	Script *Script        `json:"script,omitempty"`
 }

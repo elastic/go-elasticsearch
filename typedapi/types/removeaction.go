@@ -33,17 +33,13 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/update_aliases/types.ts#L97-L122
 type RemoveAction struct {
-	// Alias Alias for the action.
-	// Index alias names support date math.
+	// Alias Alias for the action. Index alias names support date math.
 	Alias *string `json:"alias,omitempty"`
-	// Aliases Aliases for the action.
-	// Index alias names support date math.
+	// Aliases Aliases for the action. Index alias names support date math.
 	Aliases []string `json:"aliases,omitempty"`
-	// Index Data stream or index for the action.
-	// Supports wildcards (`*`).
+	// Index Data stream or index for the action. Supports wildcards (`*`).
 	Index *string `json:"index,omitempty"`
-	// Indices Data streams or indices for the action.
-	// Supports wildcards (`*`).
+	// Indices Data streams or indices for the action. Supports wildcards (`*`).
 	Indices []string `json:"indices,omitempty"`
 	// MustExist If `true`, the alias must exist to perform the action.
 	MustExist *bool `json:"must_exist,omitempty"`

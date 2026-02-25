@@ -292,10 +292,10 @@ func (r *GetCalendarEvents) Header(key, value string) *GetCalendarEvents {
 	return r
 }
 
-// CalendarId A string that uniquely identifies a calendar. You can get information for
-// multiple calendars by using a comma-separated list of ids or a wildcard
+// CalendarId A string that uniquely identifies a calendar. You can get information for //
+// multiple calendars by using a comma-separated list of ids or a wildcard //
 // expression. You can get information for all calendars by using `_all` or `*`
-// or by omitting the calendar identifier.
+// // or by omitting the calendar identifier.
 // API Name: calendarid
 func (r *GetCalendarEvents) _calendarid(calendarid string) *GetCalendarEvents {
 	r.paramSet |= calendaridMask
@@ -368,11 +368,9 @@ func (r *GetCalendarEvents) FilterPath(filterpaths ...string) *GetCalendarEvents
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetCalendarEvents) Human(human bool) *GetCalendarEvents {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -380,8 +378,8 @@ func (r *GetCalendarEvents) Human(human bool) *GetCalendarEvents {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetCalendarEvents) Pretty(pretty bool) *GetCalendarEvents {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

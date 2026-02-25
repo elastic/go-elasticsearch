@@ -34,9 +34,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/get_data_stream_settings/IndicesGetDataStreamSettingsResponse.ts#L29-L39
 type DataStreamSettings struct {
 	// EffectiveSettings The settings specific to this data stream merged with the settings from its
-	// template. These `effective_settings`
-	// are the settings that will be used when a new index is created for this data
-	// stream.
+	// template. These `effective_settings` are the settings that will be used when
+	// a new index is created for this data stream.
 	EffectiveSettings IndexSettings `json:"effective_settings"`
 	// Name The name of the data stream.
 	Name string `json:"name"`

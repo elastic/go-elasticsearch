@@ -20,20 +20,14 @@
 
 // Get a document's source.
 //
-// Get the source of a document.
-// For example:
+// Get the source of a document. For example:
 //
-// ```
-// GET my-index-000001/_source/1
-// ```
+//	GET my-index-000001/_source/1
 //
 // You can use the source filtering parameters to control which parts of the
 // `_source` are returned:
 //
-// ```
-// GET
-// my-index-000001/_source/1/?_source_includes=*.id&_source_excludes=entities
-// ```
+//	GET my-index-000001/_source/1/?_source_includes=*.id&_source_excludes=entities
 package getsource
 
 import (
@@ -99,20 +93,14 @@ func NewGetSourceFunc(tp elastictransport.Interface) NewGetSource {
 
 // Get a document's source.
 //
-// Get the source of a document.
-// For example:
+// Get the source of a document. For example:
 //
-// ```
-// GET my-index-000001/_source/1
-// ```
+//	GET my-index-000001/_source/1
 //
 // You can use the source filtering parameters to control which parts of the
 // `_source` are returned:
 //
-// ```
-// GET
-// my-index-000001/_source/1/?_source_includes=*.id&_source_excludes=entities
-// ```
+//	GET my-index-000001/_source/1/?_source_includes=*.id&_source_excludes=entities
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
 func New(tp elastictransport.Interface) *GetSource {
@@ -348,8 +336,8 @@ func (r *GetSource) _index(index string) *GetSource {
 	return r
 }
 
-// Preference The node or shard the operation should be performed on.
-// By default, the operation is randomized between the shard replicas.
+// Preference The node or shard the operation should be performed on. By default, the
+// operation is randomized between the shard replicas.
 // API name: preference
 func (r *GetSource) Preference(preference string) *GetSource {
 	r.values.Set("preference", preference)
@@ -366,9 +354,9 @@ func (r *GetSource) Realtime(realtime bool) *GetSource {
 }
 
 // Refresh If `true`, the request refreshes the relevant shards before retrieving the
-// document.
-// Setting it to `true` should be done after careful thought and verification
-// that this does not cause a heavy load on the system (and slow down indexing).
+// document. Setting it to `true` should be done after careful thought and
+// verification that this does not cause a heavy load on the system (and slow
+// down indexing).
 // API name: refresh
 func (r *GetSource) Refresh(refresh bool) *GetSource {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
@@ -409,8 +397,8 @@ func (r *GetSource) SourceIncludes_(fields ...string) *GetSource {
 	return r
 }
 
-// Version The version number for concurrency control.
-// It must match the current version of the document for the request to succeed.
+// Version The version number for concurrency control. It must match the current version
+// of the document for the request to succeed.
 // API name: version
 func (r *GetSource) Version(versionnumber string) *GetSource {
 	r.values.Set("version", versionnumber)
@@ -449,11 +437,9 @@ func (r *GetSource) FilterPath(filterpaths ...string) *GetSource {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetSource) Human(human bool) *GetSource {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -461,8 +447,8 @@ func (r *GetSource) Human(human bool) *GetSource {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetSource) Pretty(pretty bool) *GetSource {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

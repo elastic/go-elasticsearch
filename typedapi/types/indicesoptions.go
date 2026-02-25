@@ -31,22 +31,22 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
 )
 
-// IndicesOptions type.
+// Controls how to deal with unavailable concrete indices (closed or missing),
+// how wildcard expressions are expanded to actual indices (all, closed or open
+// indices) and how to deal with wildcard expressions that resolve to no
+// indices.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/common.ts#L349-L376
 type IndicesOptions struct {
 	// AllowNoIndices If false, the request returns an error if any wildcard expression, index
-	// alias, or `_all` value targets only
-	// missing or closed indices. This behavior applies even if the request targets
-	// other open indices. For example,
-	// a request targeting `foo*,bar*` returns an error if an index starts with
-	// `foo` but no index starts with `bar`.
+	// alias, or `_all` value targets only missing or closed indices. This behavior
+	// applies even if the request targets other open indices. For example, a
+	// request targeting `foo*,bar*` returns an error if an index starts with `foo`
+	// but no index starts with `bar`.
 	AllowNoIndices *bool `json:"allow_no_indices,omitempty"`
 	// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
-	// data streams, this argument
-	// determines whether wildcard expressions match hidden data streams. Supports
-	// comma-separated values,
-	// such as `open,hidden`.
+	// data streams, this argument determines whether wildcard expressions match
+	// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 	ExpandWildcards []expandwildcard.ExpandWildcard `json:"expand_wildcards,omitempty"`
 	// IgnoreThrottled If true, concrete, expanded or aliased indices are ignored when frozen.
 	IgnoreThrottled *bool `json:"ignore_throttled,omitempty"`

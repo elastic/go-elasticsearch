@@ -319,9 +319,8 @@ func (r *PutGeoipDatabase) _id(id string) *PutGeoipDatabase {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *PutGeoipDatabase) MasterTimeout(duration string) *PutGeoipDatabase {
 	r.values.Set("master_timeout", duration)
@@ -361,11 +360,9 @@ func (r *PutGeoipDatabase) FilterPath(filterpaths ...string) *PutGeoipDatabase {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutGeoipDatabase) Human(human bool) *PutGeoipDatabase {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -373,8 +370,8 @@ func (r *PutGeoipDatabase) Human(human bool) *PutGeoipDatabase {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutGeoipDatabase) Pretty(pretty bool) *PutGeoipDatabase {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -384,9 +381,9 @@ func (r *PutGeoipDatabase) Pretty(pretty bool) *PutGeoipDatabase {
 
 // The configuration necessary to identify which IP geolocation provider to use
 // to download the database, as well as any provider-specific configuration
-// necessary for such downloading.
-// At present, the only supported provider is maxmind, and the maxmind provider
-// requires that an account_id (string) is configured.
+// necessary for such downloading. At present, the only supported provider is
+// maxmind, and the maxmind provider requires that an account_id (string) is
+// configured.
 // API name: maxmind
 func (r *PutGeoipDatabase) Maxmind(maxmind types.MaxmindVariant) *PutGeoipDatabase {
 	// Initialize the request if it is not already initialized

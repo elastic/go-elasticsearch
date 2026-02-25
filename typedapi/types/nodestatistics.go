@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// NodeStatistics type.
+// Contains statistics about the number of nodes selected by the request.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/Node.ts#L28-L39
 type NodeStatistics struct {

@@ -26,9 +26,9 @@ type _spanNearQuery struct {
 	v *types.SpanNearQuery
 }
 
-// Matches spans which are near one another.
-// You can specify `slop`, the maximum number of intervening unmatched
-// positions, as well as whether matches are required to be in-order.
+// Matches spans which are near one another. You can specify `slop`, the maximum
+// number of intervening unmatched positions, as well as whether matches are
+// required to be in-order.
 func NewSpanNearQuery() *_spanNearQuery {
 
 	return &_spanNearQuery{v: types.NewSpanNearQuery()}

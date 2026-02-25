@@ -26,9 +26,8 @@ type _lowercaseProcessor struct {
 	v *types.LowercaseProcessor
 }
 
-// Converts a string to its lowercase equivalent.
-// If the field is an array of strings, all members of the array will be
-// converted.
+// Converts a string to its lowercase equivalent. If the field is an array of
+// strings, all members of the array will be converted.
 func NewLowercaseProcessor() *_lowercaseProcessor {
 
 	return &_lowercaseProcessor{v: types.NewLowercaseProcessor()}

@@ -317,10 +317,9 @@ func (r *GetModelSnapshotUpgradeStats) _jobid(jobid string) *GetModelSnapshotUpg
 }
 
 // SnapshotId A numerical character string that uniquely identifies the model snapshot. You
-// can get information for multiple
-// snapshots by using a comma-separated list or a wildcard expression. You can
-// get all snapshots by using `_all`,
-// by specifying `*` as the snapshot ID, or by omitting the snapshot ID.
+// // can get information for multiple snapshots by using a comma-separated list
+// or // a wildcard expression. You can get all snapshots by using `_all`, by //
+// specifying `*` as the snapshot ID, or by omitting the snapshot ID.
 // API Name: snapshotid
 func (r *GetModelSnapshotUpgradeStats) _snapshotid(snapshotid string) *GetModelSnapshotUpgradeStats {
 	r.paramSet |= snapshotidMask
@@ -336,10 +335,9 @@ func (r *GetModelSnapshotUpgradeStats) _snapshotid(snapshotid string) *GetModelS
 //   - Contains wildcard expressions and there are only partial matches.
 //
 // The default value is true, which returns an empty jobs array when there are
-// no matches and the subset of results
-// when there are partial matches. If this parameter is false, the request
-// returns a 404 status code when there are
-// no matches or only partial matches.
+// no matches and the subset of results when there are partial matches. If this
+// parameter is false, the request returns a 404 status code when there are no
+// matches or only partial matches.
 // API name: allow_no_match
 func (r *GetModelSnapshotUpgradeStats) AllowNoMatch(allownomatch bool) *GetModelSnapshotUpgradeStats {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -370,11 +368,9 @@ func (r *GetModelSnapshotUpgradeStats) FilterPath(filterpaths ...string) *GetMod
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetModelSnapshotUpgradeStats) Human(human bool) *GetModelSnapshotUpgradeStats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +378,8 @@ func (r *GetModelSnapshotUpgradeStats) Human(human bool) *GetModelSnapshotUpgrad
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetModelSnapshotUpgradeStats) Pretty(pretty bool) *GetModelSnapshotUpgradeStats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

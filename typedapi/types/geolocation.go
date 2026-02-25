@@ -27,6 +27,14 @@ package types
 //	[]Float64
 //	string
 //
+// A latitude/longitude as a 2 dimensional point. It can be represented in
+// various ways:
+//
+//   - as a `{lat, long}` object
+//   - as a geo hash value
+//   - as a `[lon, lat]` array
+//   - as a string in `"<lat>, <lon>"` or WKT point formats
+//
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/Geo.ts#L98-L112
 type GeoLocation any
 

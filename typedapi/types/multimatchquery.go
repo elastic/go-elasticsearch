@@ -43,24 +43,21 @@ type MultiMatchQuery struct {
 	// synonyms.
 	AutoGenerateSynonymsPhraseQuery *bool `json:"auto_generate_synonyms_phrase_query,omitempty"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost           *float32 `json:"boost,omitempty"`
 	CutoffFrequency *Float64 `json:"cutoff_frequency,omitempty"`
-	// Fields The fields to be queried.
-	// Defaults to the `index.query.default_field` index settings, which in turn
-	// defaults to `*`.
+	// Fields The fields to be queried. Defaults to the `index.query.default_field` index
+	// settings, which in turn defaults to `*`.
 	Fields []string `json:"fields,omitempty"`
 	// Fuzziness Maximum edit distance allowed for matching.
 	Fuzziness Fuzziness `json:"fuzziness,omitempty"`
 	// FuzzyRewrite Method used to rewrite the query.
 	FuzzyRewrite *string `json:"fuzzy_rewrite,omitempty"`
 	// FuzzyTranspositions If `true`, edits for fuzzy matching include transpositions of two adjacent
-	// characters (for example, `ab` to `ba`).
-	// Can be applied to the term subqueries constructed for all terms but the final
-	// term.
+	// characters (for example, `ab` to `ba`). Can be applied to the term subqueries
+	// constructed for all terms but the final term.
 	FuzzyTranspositions *bool `json:"fuzzy_transpositions,omitempty"`
 	// Lenient If `true`, format-based errors, such as providing a text query value for a
 	// numeric field, are ignored.

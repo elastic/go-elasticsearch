@@ -22,12 +22,11 @@
 //
 // Delete all job results, model snapshots and forecast data that have exceeded
 // their retention days period. Machine learning state documents that are not
-// associated with any job are also deleted.
-// You can limit the request to a single or set of anomaly detection jobs by
-// using a job identifier, a group name, a comma-separated list of jobs, or a
-// wildcard expression. You can delete expired data for all anomaly detection
-// jobs by using `_all`, by specifying `*` as the `<job_id>`, or by omitting the
-// `<job_id>`.
+// associated with any job are also deleted. You can limit the request to a
+// single or set of anomaly detection jobs by using a job identifier, a group
+// name, a comma-separated list of jobs, or a wildcard expression. You can
+// delete expired data for all anomaly detection jobs by using `_all`, by
+// specifying `*` as the `<job_id>`, or by omitting the `<job_id>`.
 package deleteexpireddata
 
 import (
@@ -92,12 +91,11 @@ func NewDeleteExpiredDataFunc(tp elastictransport.Interface) NewDeleteExpiredDat
 //
 // Delete all job results, model snapshots and forecast data that have exceeded
 // their retention days period. Machine learning state documents that are not
-// associated with any job are also deleted.
-// You can limit the request to a single or set of anomaly detection jobs by
-// using a job identifier, a group name, a comma-separated list of jobs, or a
-// wildcard expression. You can delete expired data for all anomaly detection
-// jobs by using `_all`, by specifying `*` as the `<job_id>`, or by omitting the
-// `<job_id>`.
+// associated with any job are also deleted. You can limit the request to a
+// single or set of anomaly detection jobs by using a job identifier, a group
+// name, a comma-separated list of jobs, or a wildcard expression. You can
+// delete expired data for all anomaly detection jobs by using `_all`, by
+// specifying `*` as the `<job_id>`, or by omitting the `<job_id>`.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-expired-data
 func New(tp elastictransport.Interface) *DeleteExpiredData {
@@ -327,8 +325,8 @@ func (r *DeleteExpiredData) Header(key, value string) *DeleteExpiredData {
 	return r
 }
 
-// JobId Identifier for an anomaly detection job. It can be a job identifier, a
-// group name, or a wildcard expression.
+// JobId Identifier for an anomaly detection job. It can be a job identifier, a group
+// // name, or a wildcard expression.
 // API Name: jobid
 func (r *DeleteExpiredData) JobId(jobid string) *DeleteExpiredData {
 	r.paramSet |= jobidMask
@@ -360,11 +358,9 @@ func (r *DeleteExpiredData) FilterPath(filterpaths ...string) *DeleteExpiredData
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteExpiredData) Human(human bool) *DeleteExpiredData {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -372,8 +368,8 @@ func (r *DeleteExpiredData) Human(human bool) *DeleteExpiredData {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteExpiredData) Pretty(pretty bool) *DeleteExpiredData {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

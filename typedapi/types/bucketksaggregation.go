@@ -29,36 +29,40 @@ import (
 	"strconv"
 )
 
-// BucketKsAggregation type.
+// A sibling pipeline aggregation which executes a two sample
+// Kolmogorov–Smirnov test (referred to as a "K-S test" from now on) against a
+// provided distribution, and the distribution implied by the documents counts
+// in the configured sibling aggregation. Specifically, for some metric,
+// assuming that the percentile intervals of the metric are known beforehand or
+// have been computed by an aggregation, then one would use range aggregation
+// for the sibling to compute the p-value of the distribution difference between
+// the metric and the restriction of that metric to a subset of the documents. A
+// natural use case is if the sibling aggregation range aggregation nested in a
+// terms aggregation, in which case one compares the overall distribution of
+// metric to its restriction to each term.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/pipeline.ts#L103-L137
 type BucketKsAggregation struct {
 	// Alternative A list of string values indicating which K-S test alternative to calculate.
-	// The valid values
-	// are: "greater", "less", "two_sided". This parameter is key for determining
-	// the K-S statistic used
-	// when calculating the K-S test. Default value is all possible alternative
-	// hypotheses.
+	// The valid values are: "greater", "less", "two_sided". This parameter is key
+	// for determining the K-S statistic used when calculating the K-S test. Default
+	// value is all possible alternative hypotheses.
 	Alternative []string `json:"alternative,omitempty"`
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
 	// Fractions A list of doubles indicating the distribution of the samples with which to
-	// compare to the `buckets_path` results.
-	// In typical usage this is the overall proportion of documents in each bucket,
-	// which is compared with the actual
+	// compare to the `buckets_path` results. In typical usage this is the overall
+	// proportion of documents in each bucket, which is compared with the actual
 	// document proportions in each bucket from the sibling aggregation counts. The
-	// default is to assume that overall
-	// documents are uniformly distributed on these buckets, which they would be if
-	// one used equal percentiles of a
-	// metric to define the bucket end points.
+	// default is to assume that overall documents are uniformly distributed on
+	// these buckets, which they would be if one used equal percentiles of a metric
+	// to define the bucket end points.
 	Fractions []Float64 `json:"fractions,omitempty"`
 	// SamplingMethod Indicates the sampling methodology when calculating the K-S test. Note, this
-	// is sampling of the returned values.
-	// This determines the cumulative distribution function (CDF) points used
-	// comparing the two samples. Default is
+	// is sampling of the returned values. This determines the cumulative
+	// distribution function (CDF) points used comparing the two samples. Default is
 	// `upper_tail`, which emphasizes the upper end of the CDF points. Valid options
-	// are: `upper_tail`, `uniform`,
-	// and `lower_tail`.
+	// are: `upper_tail`, `uniform`, and `lower_tail`.
 	SamplingMethod *string `json:"sampling_method,omitempty"`
 }
 

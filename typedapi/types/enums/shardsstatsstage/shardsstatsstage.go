@@ -29,14 +29,25 @@ type ShardsStatsStage struct {
 }
 
 var (
+
+	// DONE The number of shards in the snapshot that were successfully stored in the
+	// repository.
 	DONE = ShardsStatsStage{"DONE"}
 
+	// FAILURE The number of shards in the snapshot that were not successfully stored in the
+	// repository.
 	FAILURE = ShardsStatsStage{"FAILURE"}
 
+	// FINALIZE The number of shards in the snapshot that are in the finalizing stage of
+	// being stored in the repository.
 	FINALIZE = ShardsStatsStage{"FINALIZE"}
 
+	// INIT The number of shards in the snapshot that are in the initializing stage of
+	// being stored in the repository.
 	INIT = ShardsStatsStage{"INIT"}
 
+	// STARTED The number of shards in the snapshot that are in the started stage of being
+	// stored in the repository.
 	STARTED = ShardsStatsStage{"STARTED"}
 )
 

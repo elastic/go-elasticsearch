@@ -20,43 +20,41 @@
 
 // Create or update role mappings.
 //
-// Role mappings define which roles are assigned to each user.
-// Each mapping has rules that identify users and a list of roles that are
-// granted to those users.
-// The role mapping APIs are generally the preferred way to manage role mappings
-// rather than using role mapping files. The create or update role mappings API
-// cannot update role mappings that are defined in role mapping files.
+// Role mappings define which roles are assigned to each user. Each mapping has
+// rules that identify users and a list of roles that are granted to those
+// users. The role mapping APIs are generally the preferred way to manage role
+// mappings rather than using role mapping files. The create or update role
+// mappings API cannot update role mappings that are defined in role mapping
+// files.
 //
 // NOTE: This API does not create roles. Rather, it maps users to existing
-// roles.
-// Roles can be created by using the create or update roles API or roles files.
+// roles. Roles can be created by using the create or update roles API or roles
+// files.
 //
-// **Role templates**
+// # Role templates
 //
 // The most common use for role mappings is to create a mapping from a known
-// value on the user to a fixed role name.
-// For example, all users in the `cn=admin,dc=example,dc=com` LDAP group should
-// be given the superuser role in Elasticsearch.
-// The `roles` field is used for this purpose.
+// value on the user to a fixed role name. For example, all users in the
+// `cn=admin,dc=example,dc=com` LDAP group should be given the superuser role in
+// Elasticsearch. The `roles` field is used for this purpose.
 //
 // For more complex needs, it is possible to use Mustache templates to
 // dynamically determine the names of the roles that should be granted to the
-// user.
-// The `role_templates` field is used for this purpose.
+// user. The `role_templates` field is used for this purpose.
 //
 // NOTE: To use role templates successfully, the relevant scripting feature must
-// be enabled.
-// Otherwise, all attempts to create a role mapping with role templates fail.
+// be enabled. Otherwise, all attempts to create a role mapping with role
+// templates fail.
 //
 // All of the user fields that are available in the role mapping rules are also
-// available in the role templates.
-// Thus it is possible to assign a user to a role that reflects their username,
-// their groups, or the name of the realm to which they authenticated.
+// available in the role templates. Thus it is possible to assign a user to a
+// role that reflects their username, their groups, or the name of the realm to
+// which they authenticated.
 //
 // By default a template is evaluated to produce a single string that is the
-// name of the role which should be assigned to the user.
-// If the format of the template is set to "json" then the template is expected
-// to produce a JSON string or an array of JSON strings for the role names.
+// name of the role which should be assigned to the user. If the format of the
+// template is set to "json" then the template is expected to produce a JSON
+// string or an array of JSON strings for the role names.
 package putrolemapping
 
 import (
@@ -122,43 +120,41 @@ func NewPutRoleMappingFunc(tp elastictransport.Interface) NewPutRoleMapping {
 
 // Create or update role mappings.
 //
-// Role mappings define which roles are assigned to each user.
-// Each mapping has rules that identify users and a list of roles that are
-// granted to those users.
-// The role mapping APIs are generally the preferred way to manage role mappings
-// rather than using role mapping files. The create or update role mappings API
-// cannot update role mappings that are defined in role mapping files.
+// Role mappings define which roles are assigned to each user. Each mapping has
+// rules that identify users and a list of roles that are granted to those
+// users. The role mapping APIs are generally the preferred way to manage role
+// mappings rather than using role mapping files. The create or update role
+// mappings API cannot update role mappings that are defined in role mapping
+// files.
 //
 // NOTE: This API does not create roles. Rather, it maps users to existing
-// roles.
-// Roles can be created by using the create or update roles API or roles files.
+// roles. Roles can be created by using the create or update roles API or roles
+// files.
 //
-// **Role templates**
+// # Role templates
 //
 // The most common use for role mappings is to create a mapping from a known
-// value on the user to a fixed role name.
-// For example, all users in the `cn=admin,dc=example,dc=com` LDAP group should
-// be given the superuser role in Elasticsearch.
-// The `roles` field is used for this purpose.
+// value on the user to a fixed role name. For example, all users in the
+// `cn=admin,dc=example,dc=com` LDAP group should be given the superuser role in
+// Elasticsearch. The `roles` field is used for this purpose.
 //
 // For more complex needs, it is possible to use Mustache templates to
 // dynamically determine the names of the roles that should be granted to the
-// user.
-// The `role_templates` field is used for this purpose.
+// user. The `role_templates` field is used for this purpose.
 //
 // NOTE: To use role templates successfully, the relevant scripting feature must
-// be enabled.
-// Otherwise, all attempts to create a role mapping with role templates fail.
+// be enabled. Otherwise, all attempts to create a role mapping with role
+// templates fail.
 //
 // All of the user fields that are available in the role mapping rules are also
-// available in the role templates.
-// Thus it is possible to assign a user to a role that reflects their username,
-// their groups, or the name of the realm to which they authenticated.
+// available in the role templates. Thus it is possible to assign a user to a
+// role that reflects their username, their groups, or the name of the realm to
+// which they authenticated.
 //
 // By default a template is evaluated to produce a single string that is the
-// name of the role which should be assigned to the user.
-// If the format of the template is set to "json" then the template is expected
-// to produce a JSON string or an array of JSON strings for the role names.
+// name of the role which should be assigned to the user. If the format of the
+// template is set to "json" then the template is expected to produce a JSON
+// string or an array of JSON strings for the role names.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-role-mapping
 func New(tp elastictransport.Interface) *PutRoleMapping {
@@ -381,9 +377,9 @@ func (r *PutRoleMapping) Header(key, value string) *PutRoleMapping {
 	return r
 }
 
-// Name The distinct name that identifies the role mapping.
-// The name is used solely as an identifier to facilitate interaction via the
-// API; it does not affect the behavior of the mapping in any way.
+// Name The distinct name that identifies the role mapping. The name is used solely
+// // as an identifier to facilitate interaction via the API; it does not affect
+// // the behavior of the mapping in any way.
 // API Name: name
 func (r *PutRoleMapping) _name(name string) *PutRoleMapping {
 	r.paramSet |= nameMask
@@ -425,11 +421,9 @@ func (r *PutRoleMapping) FilterPath(filterpaths ...string) *PutRoleMapping {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutRoleMapping) Human(human bool) *PutRoleMapping {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -437,8 +431,8 @@ func (r *PutRoleMapping) Human(human bool) *PutRoleMapping {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutRoleMapping) Pretty(pretty bool) *PutRoleMapping {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -493,8 +487,7 @@ func (r *PutRoleMapping) RoleTemplates(roletemplates ...types.RoleTemplateVarian
 }
 
 // A list of role names that are granted to the users that match the role
-// mapping rules.
-// Exactly one of `roles` or `role_templates` must be specified.
+// mapping rules. Exactly one of `roles` or `role_templates` must be specified.
 // API name: roles
 func (r *PutRoleMapping) Roles(roles ...string) *PutRoleMapping {
 	// Initialize the request if it is not already initialized
@@ -509,8 +502,8 @@ func (r *PutRoleMapping) Roles(roles ...string) *PutRoleMapping {
 	return r
 }
 
-// The rules that determine which users should be matched by the mapping.
-// A rule is a logical condition that is expressed by using a JSON DSL.
+// The rules that determine which users should be matched by the mapping. A rule
+// is a logical condition that is expressed by using a JSON DSL.
 // API name: rules
 func (r *PutRoleMapping) Rules(rules types.RoleMappingRuleVariant) *PutRoleMapping {
 	// Initialize the request if it is not already initialized

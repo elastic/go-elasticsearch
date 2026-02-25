@@ -27,9 +27,8 @@ type _uriPartsProcessor struct {
 }
 
 // Parses a Uniform Resource Identifier (URI) string and extracts its components
-// as an object.
-// This URI object includes properties for the URI’s domain, path, fragment,
-// port, query, scheme, user info, username, and password.
+// as an object. This URI object includes properties for the URI’s domain,
+// path, fragment, port, query, scheme, user info, username, and password.
 func NewUriPartsProcessor() *_uriPartsProcessor {
 
 	return &_uriPartsProcessor{v: types.NewUriPartsProcessor()}

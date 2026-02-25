@@ -28,8 +28,8 @@
 // include only the suggest section.
 //
 // By default, Elasticsearch does not allow you to store an async search
-// response larger than 10Mb and an attempt to do this results in an error.
-// The maximum allowed size for a stored async search response can be set by
+// response larger than 10Mb and an attempt to do this results in an error. The
+// maximum allowed size for a stored async search response can be set by
 // changing the `search.max_async_search_response_size` cluster level setting.
 package submit
 
@@ -106,8 +106,8 @@ func NewSubmitFunc(tp elastictransport.Interface) NewSubmit {
 // include only the suggest section.
 //
 // By default, Elasticsearch does not allow you to store an async search
-// response larger than 10Mb and an attempt to do this results in an error.
-// The maximum allowed size for a stored async search response can be set by
+// response larger than 10Mb and an attempt to do this results in an error. The
+// maximum allowed size for a stored async search response can be set by
 // changing the `search.max_async_search_response_size` cluster level setting.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
@@ -338,7 +338,7 @@ func (r *Submit) Header(key, value string) *Submit {
 }
 
 // Index A comma-separated list of index names to search; use `_all` or empty string
-// to perform the operation on all indices
+// // to perform the operation on all indices
 // API Name: index
 func (r *Submit) Index(index string) *Submit {
 	r.paramSet |= indexMask
@@ -347,9 +347,9 @@ func (r *Submit) Index(index string) *Submit {
 	return r
 }
 
-// WaitForCompletionTimeout Blocks and waits until the search is completed up to a certain timeout.
-// When the async search completes within the timeout, the response won’t
-// include the ID as the results are not stored in the cluster.
+// WaitForCompletionTimeout Blocks and waits until the search is completed up to a certain timeout. When
+// the async search completes within the timeout, the response won’t include
+// the ID as the results are not stored in the cluster.
 // API name: wait_for_completion_timeout
 func (r *Submit) WaitForCompletionTimeout(duration string) *Submit {
 	r.values.Set("wait_for_completion_timeout", duration)
@@ -357,9 +357,8 @@ func (r *Submit) WaitForCompletionTimeout(duration string) *Submit {
 	return r
 }
 
-// KeepAlive Specifies how long the async search needs to be available.
-// Ongoing async searches and any saved search results are deleted after this
-// period.
+// KeepAlive Specifies how long the async search needs to be available. Ongoing async
+// searches and any saved search results are deleted after this period.
 // API name: keep_alive
 func (r *Submit) KeepAlive(duration string) *Submit {
 	r.values.Set("keep_alive", duration)
@@ -377,8 +376,7 @@ func (r *Submit) KeepOnCompletion(keeponcompletion bool) *Submit {
 }
 
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices.
-// (This includes `_all` string or when no indices have been specified)
+// indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
 func (r *Submit) AllowNoIndices(allownoindices bool) *Submit {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -412,9 +410,9 @@ func (r *Submit) AnalyzeWildcard(analyzewildcard bool) *Submit {
 }
 
 // BatchedReduceSize Affects how often partial results become available, which happens whenever
-// shard results are reduced.
-// A partial reduction is performed every time the coordinating node has
-// received a certain number of new shard responses (5 by default).
+// shard results are reduced. A partial reduction is performed every time the
+// coordinating node has received a certain number of new shard responses (5 by
+// default).
 // API name: batched_reduce_size
 func (r *Submit) BatchedReduceSize(batchedreducesize string) *Submit {
 	r.values.Set("batched_reduce_size", batchedreducesize)
@@ -488,9 +486,8 @@ func (r *Submit) Lenient(lenient bool) *Submit {
 }
 
 // MaxConcurrentShardRequests The number of concurrent shard requests per node this search executes
-// concurrently.
-// This value should be used to limit the impact of the search on the cluster in
-// order to limit the number of concurrent shard requests
+// concurrently. This value should be used to limit the impact of the search on
+// the cluster in order to limit the number of concurrent shard requests
 // API name: max_concurrent_shard_requests
 func (r *Submit) MaxConcurrentShardRequests(maxconcurrentshardrequests int) *Submit {
 	r.values.Set("max_concurrent_shard_requests", strconv.Itoa(maxconcurrentshardrequests))
@@ -628,11 +625,9 @@ func (r *Submit) FilterPath(filterpaths ...string) *Submit {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Submit) Human(human bool) *Submit {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -640,8 +635,8 @@ func (r *Submit) Human(human bool) *Submit {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Submit) Pretty(pretty bool) *Submit {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -767,9 +762,8 @@ func (r *Submit) Fields(fields ...types.FieldAndFormatVariant) *Submit {
 }
 
 // Starting document offset. By default, you cannot page through more than
-// 10,000
-// hits using the from and size parameters. To page through more hits, use the
-// search_after parameter.
+// 10,000 hits using the from and size parameters. To page through more hits,
+// use the search_after parameter.
 // API name: from
 func (r *Submit) From(from int) *Submit {
 	// Initialize the request if it is not already initialized
@@ -822,8 +816,8 @@ func (r *Submit) Knn(knns ...types.KnnSearchVariant) *Submit {
 	return r
 }
 
-// Minimum _score for matching documents. Documents with a lower _score are
-// not included in search results and results collected by aggregations.
+// Minimum _score for matching documents. Documents with a lower _score are not
+// included in search results and results collected by aggregations.
 // API name: min_score
 func (r *Submit) MinScore(minscore types.Float64) *Submit {
 	// Initialize the request if it is not already initialized
@@ -836,8 +830,8 @@ func (r *Submit) MinScore(minscore types.Float64) *Submit {
 	return r
 }
 
-// Limits the search to a point in time (PIT). If you provide a PIT, you
-// cannot specify an <index> in the request path.
+// Limits the search to a point in time (PIT). If you provide a PIT, you cannot
+// specify an <index> in the request path.
 // API name: pit
 func (r *Submit) Pit(pit types.PointInTimeReferenceVariant) *Submit {
 	// Initialize the request if it is not already initialized
@@ -875,16 +869,9 @@ func (r *Submit) Profile(profile bool) *Submit {
 }
 
 // Specifies a subset of projects to target for the search using project
-// metadata tags in a subset of Lucene query syntax.
-// Allowed Lucene queries: the _alias tag and a single value (possibly
-// wildcarded).
-// Examples:
-//
-//	_alias:my-project
-//	_alias:_origin
-//	_alias:*pr*
-//
-// Supported in serverless only.
+// metadata tags in a subset of Lucene query syntax. Allowed Lucene queries: the
+// _alias tag and a single value (possibly wildcarded). Examples:
+// _alias:my-project _alias:_origin _alias:*pr* Supported in serverless only.
 // API name: project_routing
 func (r *Submit) ProjectRouting(projectrouting string) *Submit {
 	// Initialize the request if it is not already initialized
@@ -984,8 +971,8 @@ func (r *Submit) SearchAfter(sortresults ...types.FieldValueVariant) *Submit {
 	return r
 }
 
-// If true, returns sequence number and primary term of the last modification
-// of each hit. See Optimistic concurrency control.
+// If true, returns sequence number and primary term of the last modification of
+// each hit. See Optimistic concurrency control.
 // API name: seq_no_primary_term
 func (r *Submit) SeqNoPrimaryTerm(seqnoprimaryterm bool) *Submit {
 	// Initialize the request if it is not already initialized
@@ -998,9 +985,9 @@ func (r *Submit) SeqNoPrimaryTerm(seqnoprimaryterm bool) *Submit {
 	return r
 }
 
-// The number of hits to return. By default, you cannot page through more
-// than 10,000 hits using the from and size parameters. To page through more
-// hits, use the search_after parameter.
+// The number of hits to return. By default, you cannot page through more than
+// 10,000 hits using the from and size parameters. To page through more hits,
+// use the search_after parameter.
 // API name: size
 func (r *Submit) Size(size int) *Submit {
 	// Initialize the request if it is not already initialized
@@ -1074,10 +1061,8 @@ func (r *Submit) Stats(stats ...string) *Submit {
 
 // List of stored fields to return as part of a hit. If no fields are specified,
 // no stored fields are included in the response. If this field is specified,
-// the _source
-// parameter defaults to false. You can pass _source: true to return both source
-// fields
-// and stored fields in the search response.
+// the _source parameter defaults to false. You can pass _source: true to return
+// both source fields and stored fields in the search response.
 // API name: stored_fields
 func (r *Submit) StoredFields(fields ...string) *Submit {
 	// Initialize the request if it is not already initialized
@@ -1103,11 +1088,9 @@ func (r *Submit) Suggest(suggest types.SuggesterVariant) *Submit {
 }
 
 // Maximum number of documents to collect for each shard. If a query reaches
-// this
-// limit, Elasticsearch terminates the query early. Elasticsearch collects
-// documents
-// before sorting. Defaults to 0, which does not terminate query execution
-// early.
+// this limit, Elasticsearch terminates the query early. Elasticsearch collects
+// documents before sorting. Defaults to 0, which does not terminate query
+// execution early.
 // API name: terminate_after
 func (r *Submit) TerminateAfter(terminateafter int64) *Submit {
 	// Initialize the request if it is not already initialized
@@ -1121,10 +1104,8 @@ func (r *Submit) TerminateAfter(terminateafter int64) *Submit {
 }
 
 // Specifies the period of time to wait for a response from each shard. If no
-// response
-// is received before the timeout expires, the request fails and returns an
-// error.
-// Defaults to no timeout.
+// response is received before the timeout expires, the request fails and
+// returns an error. Defaults to no timeout.
 // API name: timeout
 func (r *Submit) Timeout(timeout string) *Submit {
 	// Initialize the request if it is not already initialized

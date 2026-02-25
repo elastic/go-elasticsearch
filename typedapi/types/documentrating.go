@@ -35,8 +35,8 @@ import (
 type DocumentRating struct {
 	// Id_ The document ID.
 	Id_ string `json:"_id"`
-	// Index_ The document’s index. For data streams, this should be the document’s backing
-	// index.
+	// Index_ The document’s index. For data streams, this should be the document’s
+	// backing index.
 	Index_ string `json:"_index"`
 	// Rating The document’s relevance with regard to this search request.
 	Rating int `json:"rating"`

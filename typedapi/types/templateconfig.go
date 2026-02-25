@@ -36,19 +36,17 @@ type TemplateConfig struct {
 	// Explain If `true`, returns detailed information about score calculation as part of
 	// each hit.
 	Explain *bool `json:"explain,omitempty"`
-	// Id The ID of the search template to use. If no `source` is specified,
-	// this parameter is required.
+	// Id The ID of the search template to use. If no `source` is specified, this
+	// parameter is required.
 	Id *string `json:"id,omitempty"`
-	// Params Key-value pairs used to replace Mustache variables in the template.
-	// The key is the variable name.
-	// The value is the variable value.
+	// Params Key-value pairs used to replace Mustache variables in the template. The key
+	// is the variable name. The value is the variable value.
 	Params map[string]json.RawMessage `json:"params,omitempty"`
 	// Profile If `true`, the query execution is profiled.
 	Profile *bool `json:"profile,omitempty"`
 	// Source An inline search template. Supports the same parameters as the search API's
 	// request body. It also supports Mustache variables. If no `id` is specified,
-	// this
-	// parameter is required.
+	// this parameter is required.
 	Source ScriptSource `json:"source,omitempty"`
 }
 

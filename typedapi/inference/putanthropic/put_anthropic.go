@@ -320,8 +320,8 @@ func (r *PutAnthropic) Header(key, value string) *PutAnthropic {
 	return r
 }
 
-// TaskType The task type.
-// The only valid task type for the model to perform is `completion`.
+// TaskType The task type. The only valid task type for the model to perform is //
+// `completion`.
 // API Name: tasktype
 func (r *PutAnthropic) _tasktype(tasktype string) *PutAnthropic {
 	r.paramSet |= tasktypeMask
@@ -371,11 +371,9 @@ func (r *PutAnthropic) FilterPath(filterpaths ...string) *PutAnthropic {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutAnthropic) Human(human bool) *PutAnthropic {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -383,8 +381,8 @@ func (r *PutAnthropic) Human(human bool) *PutAnthropic {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutAnthropic) Pretty(pretty bool) *PutAnthropic {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -418,8 +416,8 @@ func (r *PutAnthropic) ServiceSettings(servicesettings types.AnthropicServiceSet
 	return r
 }
 
-// Settings to configure the inference task.
-// These settings are specific to the task type you specified.
+// Settings to configure the inference task. These settings are specific to the
+// task type you specified.
 // API name: task_settings
 func (r *PutAnthropic) TaskSettings(tasksettings types.AnthropicTaskSettingsVariant) *PutAnthropic {
 	// Initialize the request if it is not already initialized

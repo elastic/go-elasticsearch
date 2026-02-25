@@ -21,10 +21,9 @@
 // Delete a dangling index.
 //
 // If Elasticsearch encounters index data that is absent from the current
-// cluster state, those indices are considered to be dangling.
-// For example, this can happen if you delete more than
-// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
-// offline.
+// cluster state, those indices are considered to be dangling. For example, this
+// can happen if you delete more than `cluster.indices.tombstones.size` indices
+// while an Elasticsearch node is offline.
 package deletedanglingindex
 
 import (
@@ -85,10 +84,9 @@ func NewDeleteDanglingIndexFunc(tp elastictransport.Interface) NewDeleteDangling
 // Delete a dangling index.
 //
 // If Elasticsearch encounters index data that is absent from the current
-// cluster state, those indices are considered to be dangling.
-// For example, this can happen if you delete more than
-// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
-// offline.
+// cluster state, those indices are considered to be dangling. For example, this
+// can happen if you delete more than `cluster.indices.tombstones.size` indices
+// while an Elasticsearch node is offline.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-dangling-indices-delete-dangling-index
 func New(tp elastictransport.Interface) *DeleteDanglingIndex {
@@ -301,7 +299,7 @@ func (r *DeleteDanglingIndex) Header(key, value string) *DeleteDanglingIndex {
 }
 
 // IndexUuid The UUID of the index to delete. Use the get dangling indices API to find the
-// UUID.
+// // UUID.
 // API Name: indexuuid
 func (r *DeleteDanglingIndex) _indexuuid(indexuuid string) *DeleteDanglingIndex {
 	r.paramSet |= indexuuidMask
@@ -358,11 +356,9 @@ func (r *DeleteDanglingIndex) FilterPath(filterpaths ...string) *DeleteDanglingI
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteDanglingIndex) Human(human bool) *DeleteDanglingIndex {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -370,8 +366,8 @@ func (r *DeleteDanglingIndex) Human(human bool) *DeleteDanglingIndex {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteDanglingIndex) Pretty(pretty bool) *DeleteDanglingIndex {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

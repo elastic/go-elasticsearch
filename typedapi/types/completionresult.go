@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// CompletionResult type.
+// The completion result object
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/Results.ts#L91-L96
 type CompletionResult struct {

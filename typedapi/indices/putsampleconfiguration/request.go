@@ -44,11 +44,10 @@ type Request struct {
 	// than or equal to 5GB.
 	MaxSize types.ByteSize `json:"max_size,omitempty"`
 	// Rate The fraction of documents to sample. Must be greater than 0 and less than or
-	// equal to 1.
-	// Can be specified as a number or a string.
+	// equal to 1. Can be specified as a number or a string.
 	Rate types.Stringifieddouble `json:"rate"`
-	// TimeToLive The duration for which the sampled documents should be retained.
-	// Must be greater than 0 and less than or equal to 30 days.
+	// TimeToLive The duration for which the sampled documents should be retained. Must be
+	// greater than 0 and less than or equal to 30 days.
 	TimeToLive types.Duration `json:"time_to_live,omitempty"`
 }
 

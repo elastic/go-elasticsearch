@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L1001-L1032
 type GrokProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// EcsCompatibility Must be disabled or v1. If v1, the processor uses patterns with Elastic
 	// Common Schema (ECS) field names.
@@ -51,18 +51,17 @@ type GrokProcessor struct {
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// PatternDefinitions A map of pattern-name and pattern tuples defining custom patterns to be used
-	// by the current processor.
-	// Patterns matching existing names will override the pre-existing definition.
+	// by the current processor. Patterns matching existing names will override the
+	// pre-existing definition.
 	PatternDefinitions map[string]string `json:"pattern_definitions,omitempty"`
 	// Patterns An ordered list of grok expression to match and extract named captures with.
 	// Returns on the first expression in the list that matches.
 	Patterns []string `json:"patterns"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// TraceMatch When `true`, `_ingest._grok_match_index` will be inserted into your matched
-	// document’s metadata with the index into the pattern found in `patterns` that
-	// matched.
+	// document’s metadata with the index into the pattern found in `patterns`
+	// that matched.
 	TraceMatch *bool `json:"trace_match,omitempty"`
 }
 

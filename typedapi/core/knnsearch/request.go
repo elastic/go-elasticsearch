@@ -34,20 +34,16 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/knn_search/KnnSearchRequest.ts#L26-L101
 type Request struct {
-	// DocvalueFields The request returns doc values for field names matching these patterns
-	// in the `hits.fields` property of the response.
-	// It accepts wildcard (`*`) patterns.
+	// DocvalueFields The request returns doc values for field names matching these patterns in the
+	// `hits.fields` property of the response. It accepts wildcard (`*`) patterns.
 	DocvalueFields []types.FieldAndFormat `json:"docvalue_fields,omitempty"`
-	// Fields The request returns values for field names matching these patterns
-	// in the `hits.fields` property of the response.
-	// It accepts wildcard (`*`) patterns.
+	// Fields The request returns values for field names matching these patterns in the
+	// `hits.fields` property of the response. It accepts wildcard (`*`) patterns.
 	Fields []string `json:"fields,omitempty"`
 	// Filter A query to filter the documents that can match. The kNN search will return
-	// the top
-	// `k` documents that also match this filter. The value can be a single query or
-	// a
-	// list of queries. If `filter` isn't provided, all documents are allowed to
-	// match.
+	// the top `k` documents that also match this filter. The value can be a single
+	// query or a list of queries. If `filter` isn't provided, all documents are
+	// allowed to match.
 	Filter []types.Query `json:"filter,omitempty"`
 	// Knn The kNN query to run.
 	Knn types.KnnSearchQuery `json:"knn"`
@@ -55,12 +51,10 @@ type Request struct {
 	// fields are returned in the `hits._source` property of the search response.
 	Source_ types.SourceConfig `json:"_source,omitempty"`
 	// StoredFields A list of stored fields to return as part of a hit. If no fields are
-	// specified,
-	// no stored fields are included in the response. If this field is specified,
-	// the `_source`
-	// parameter defaults to `false`. You can pass `_source: true` to return both
-	// source fields
-	// and stored fields in the search response.
+	// specified, no stored fields are included in the response. If this field is
+	// specified, the `_source` parameter defaults to `false`. You can pass
+	// `_source: true` to return both source fields and stored fields in the search
+	// response.
 	StoredFields []string `json:"stored_fields,omitempty"`
 }
 

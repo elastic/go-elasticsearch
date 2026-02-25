@@ -35,8 +35,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/async_search/submit/AsyncSearchSubmitResponse.ts#L25-L34
 type Response struct {
-	// CompletionTime Indicates when the async search completed.
-	// It is present only when the search has completed.
+	// CompletionTime Indicates when the async search completed. It is present only when the search
+	// has completed.
 	CompletionTime         types.DateTime    `json:"completion_time,omitempty"`
 	CompletionTimeInMillis *int64            `json:"completion_time_in_millis,omitempty"`
 	Error                  *types.ErrorCause `json:"error,omitempty"`
@@ -45,14 +45,13 @@ type Response struct {
 	ExpirationTimeInMillis int64          `json:"expiration_time_in_millis"`
 	Id                     *string        `json:"id,omitempty"`
 	// IsPartial When the query is no longer running, this property indicates whether the
-	// search failed or was successfully completed on all shards.
-	// While the query is running, `is_partial` is always set to `true`.
+	// search failed or was successfully completed on all shards. While the query is
+	// running, `is_partial` is always set to `true`.
 	IsPartial bool `json:"is_partial"`
 	// IsRunning Indicates whether the search is still running or has completed.
 	//
-	// > info
-	// > If the search failed after some shards returned their results or the node
-	// that is coordinating the async search dies, results may be partial even
+	// > info > If the search failed after some shards returned their results or the
+	// node that is coordinating the async search dies, results may be partial even
 	// though `is_running` is `false`.
 	IsRunning         bool              `json:"is_running"`
 	Response          types.AsyncSearch `json:"response"`

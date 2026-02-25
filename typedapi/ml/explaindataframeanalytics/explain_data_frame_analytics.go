@@ -23,11 +23,12 @@
 // This API provides explanations for a data frame analytics config that either
 // exists already or one that has not been created yet. The following
 // explanations are provided:
-// * which fields are included or not in the analysis and why,
-// * how much memory is estimated to be required. The estimate can be used when
-// deciding the appropriate value for model_memory_limit setting later on.
-// If you have object fields or fields that are excluded via source filtering,
-// they are not included in the explanation.
+//
+//   - which fields are included or not in the analysis and why,
+//   - how much memory is estimated to be required. The estimate can be used
+//     when deciding the appropriate value for model_memory_limit setting later
+//     on. If you have object fields or fields that are excluded via source
+//     filtering, they are not included in the explanation.
 package explaindataframeanalytics
 
 import (
@@ -93,11 +94,12 @@ func NewExplainDataFrameAnalyticsFunc(tp elastictransport.Interface) NewExplainD
 // This API provides explanations for a data frame analytics config that either
 // exists already or one that has not been created yet. The following
 // explanations are provided:
-// * which fields are included or not in the analysis and why,
-// * how much memory is estimated to be required. The estimate can be used when
-// deciding the appropriate value for model_memory_limit setting later on.
-// If you have object fields or fields that are excluded via source filtering,
-// they are not included in the explanation.
+//
+//   - which fields are included or not in the analysis and why,
+//   - how much memory is estimated to be required. The estimate can be used
+//     when deciding the appropriate value for model_memory_limit setting later
+//     on. If you have object fields or fields that are excluded via source
+//     filtering, they are not included in the explanation.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-explain-data-frame-analytics
 func New(tp elastictransport.Interface) *ExplainDataFrameAnalytics {
@@ -335,9 +337,9 @@ func (r *ExplainDataFrameAnalytics) Header(key, value string) *ExplainDataFrameA
 	return r
 }
 
-// Id Identifier for the data frame analytics job. This identifier can contain
-// lowercase alphanumeric characters (a-z and 0-9), hyphens, and
-// underscores. It must start and end with alphanumeric characters.
+// Id Identifier for the data frame analytics job. This identifier can contain //
+// lowercase alphanumeric characters (a-z and 0-9), hyphens, and underscores. It
+// // must start and end with alphanumeric characters.
 // API Name: id
 func (r *ExplainDataFrameAnalytics) Id(id string) *ExplainDataFrameAnalytics {
 	r.paramSet |= idMask
@@ -369,11 +371,9 @@ func (r *ExplainDataFrameAnalytics) FilterPath(filterpaths ...string) *ExplainDa
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ExplainDataFrameAnalytics) Human(human bool) *ExplainDataFrameAnalytics {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -381,8 +381,8 @@ func (r *ExplainDataFrameAnalytics) Human(human bool) *ExplainDataFrameAnalytics
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ExplainDataFrameAnalytics) Pretty(pretty bool) *ExplainDataFrameAnalytics {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -421,9 +421,9 @@ func (r *ExplainDataFrameAnalytics) Analysis(analysis types.DataframeAnalysisCon
 
 // Specify includes and/or excludes patterns to select which fields will be
 // included in the analysis. The patterns specified in excludes are applied
-// last, therefore excludes takes precedence. In other words, if the same
-// field is specified in both includes and excludes, then the field will not
-// be included in the analysis.
+// last, therefore excludes takes precedence. In other words, if the same field
+// is specified in both includes and excludes, then the field will not be
+// included in the analysis.
 // API name: analyzed_fields
 func (r *ExplainDataFrameAnalytics) AnalyzedFields(analyzedfields types.DataframeAnalysisAnalyzedFieldsVariant) *ExplainDataFrameAnalytics {
 	// Initialize the request if it is not already initialized
@@ -463,10 +463,10 @@ func (r *ExplainDataFrameAnalytics) Dest(dest types.DataframeAnalyticsDestinatio
 	return r
 }
 
-// The maximum number of threads to be used by the analysis. Using more
-// threads may decrease the time necessary to complete the analysis at the
-// cost of using more CPU. Note that the process may use additional threads
-// for operational functionality other than the analysis itself.
+// The maximum number of threads to be used by the analysis. Using more threads
+// may decrease the time necessary to complete the analysis at the cost of using
+// more CPU. Note that the process may use additional threads for operational
+// functionality other than the analysis itself.
 // API name: max_num_threads
 func (r *ExplainDataFrameAnalytics) MaxNumThreads(maxnumthreads int) *ExplainDataFrameAnalytics {
 	// Initialize the request if it is not already initialized
@@ -496,8 +496,8 @@ func (r *ExplainDataFrameAnalytics) ModelMemoryLimit(modelmemorylimit string) *E
 	return r
 }
 
-// The configuration of how to source the analysis data. It requires an
-// index. Optionally, query and _source may be specified.
+// The configuration of how to source the analysis data. It requires an index.
+// Optionally, query and _source may be specified.
 // API name: source
 func (r *ExplainDataFrameAnalytics) Source(source types.DataframeAnalyticsSourceVariant) *ExplainDataFrameAnalytics {
 	// Initialize the request if it is not already initialized

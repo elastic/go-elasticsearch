@@ -35,37 +35,36 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/query_rules/_types/QueryRuleset.ts#L65-L93
 type QueryRuleCriteria struct {
-	// Metadata The metadata field to match against.
-	// This metadata will be used to match against `match_criteria` sent in the
-	// rule.
-	// It is required for all criteria types except `always`.
+	// Metadata The metadata field to match against. This metadata will be used to match
+	// against `match_criteria` sent in the rule. It is required for all criteria
+	// types except `always`.
 	Metadata *string `json:"metadata,omitempty"`
 	// Type The type of criteria. The following criteria types are supported:
 	//
-	// * `always`: Matches all queries, regardless of input.
-	// * `contains`: Matches that contain this value anywhere in the field meet the
-	// criteria defined by the rule. Only applicable for string values.
-	// * `exact`: Only exact matches meet the criteria defined by the rule.
-	// Applicable for string or numerical values.
-	// * `fuzzy`: Exact matches or matches within the allowed Levenshtein Edit
-	// Distance meet the criteria defined by the rule. Only applicable for string
-	// values.
-	// * `gt`: Matches with a value greater than this value meet the criteria
-	// defined by the rule. Only applicable for numerical values.
-	// * `gte`: Matches with a value greater than or equal to this value meet the
-	// criteria defined by the rule. Only applicable for numerical values.
-	// * `lt`: Matches with a value less than this value meet the criteria defined
-	// by the rule. Only applicable for numerical values.
-	// * `lte`: Matches with a value less than or equal to this value meet the
-	// criteria defined by the rule. Only applicable for numerical values.
-	// * `prefix`: Matches that start with this value meet the criteria defined by
-	// the rule. Only applicable for string values.
-	// * `suffix`: Matches that end with this value meet the criteria defined by the
-	// rule. Only applicable for string values.
+	//   - `always`: Matches all queries, regardless of input.
+	//   - `contains`: Matches that contain this value anywhere in the field meet
+	//     the criteria defined by the rule. Only applicable for string values.
+	//   - `exact`: Only exact matches meet the criteria defined by the rule.
+	//     Applicable for string or numerical values.
+	//   - `fuzzy`: Exact matches or matches within the allowed Levenshtein Edit
+	//     Distance meet the criteria defined by the rule. Only applicable for
+	//     string values.
+	//   - `gt`: Matches with a value greater than this value meet the criteria
+	//     defined by the rule. Only applicable for numerical values.
+	//   - `gte`: Matches with a value greater than or equal to this value meet the
+	//     criteria defined by the rule. Only applicable for numerical values.
+	//   - `lt`: Matches with a value less than this value meet the criteria defined
+	//     by the rule. Only applicable for numerical values.
+	//   - `lte`: Matches with a value less than or equal to this value meet the
+	//     criteria defined by the rule. Only applicable for numerical values.
+	//   - `prefix`: Matches that start with this value meet the criteria defined by
+	//     the rule. Only applicable for string values.
+	//   - `suffix`: Matches that end with this value meet the criteria defined by
+	//     the rule. Only applicable for string values.
 	Type queryrulecriteriatype.QueryRuleCriteriaType `json:"type"`
-	// Values The values to match against the `metadata` field.
-	// Only one value must match for the criteria to be met.
-	// It is required for all criteria types except `always`.
+	// Values The values to match against the `metadata` field. Only one value must match
+	// for the criteria to be met. It is required for all criteria types except
+	// `always`.
 	Values []json.RawMessage `json:"values,omitempty"`
 }
 

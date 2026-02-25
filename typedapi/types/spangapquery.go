@@ -20,7 +20,7 @@
 
 package types
 
-// SpanGapQuery type alias.
+// Can only be used as a clause in a span_near query.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/span.ts#L63-L65
 type SpanGapQuery map[string]int

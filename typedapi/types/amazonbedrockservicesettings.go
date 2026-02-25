@@ -37,34 +37,32 @@ type AmazonBedrockServiceSettings struct {
 	// to models for inference requests.
 	AccessKey string `json:"access_key"`
 	// Model The base model ID or an ARN to a custom model based on a foundational model.
-	// The base model IDs can be found in the Amazon Bedrock documentation.
-	// Note that the model ID must be available for the provider chosen and your IAM
-	// user must have access to the model.
+	// The base model IDs can be found in the Amazon Bedrock documentation. Note
+	// that the model ID must be available for the provider chosen and your IAM user
+	// must have access to the model.
 	Model string `json:"model"`
-	// Provider The model provider for your deployment.
-	// Note that some providers may support only certain task types.
-	// Supported providers include:
+	// Provider The model provider for your deployment. Note that some providers may support
+	// only certain task types. Supported providers include:
 	//
-	// * `amazontitan` - available for `text_embedding` and `completion` task types
-	// * `anthropic` - available for `chat_completion` and `completion` task types
-	// * `ai21labs` - available for `chat_completion` and `completion` task types
-	// * `cohere` - available for `chat_completion`, `completion` and
-	// `text_embedding` task types
-	// * `meta` - available for `chat_completion` and `completion` task types
-	// * `mistral` - available for `chat_completion` and `completion` task types
+	//   - `amazontitan` - available for `text_embedding` and `completion` task
+	//     types
+	//   - `anthropic` - available for `chat_completion` and `completion` task types
+	//   - `ai21labs` - available for `chat_completion` and `completion` task types
+	//   - `cohere` - available for `chat_completion`, `completion` and
+	//     `text_embedding` task types
+	//   - `meta` - available for `chat_completion` and `completion` task types
+	//   - `mistral` - available for `chat_completion` and `completion` task types
 	Provider *string `json:"provider,omitempty"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// Amazon Bedrock.
-	// By default, the `amazonbedrock` service sets the number of requests allowed
-	// per minute to 240.
+	// Amazon Bedrock. By default, the `amazonbedrock` service sets the number of
+	// requests allowed per minute to 240.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
-	// Region The region that your model or ARN is deployed in.
-	// The list of available regions per model can be found in the Amazon Bedrock
-	// documentation.
+	// Region The region that your model or ARN is deployed in. The list of available
+	// regions per model can be found in the Amazon Bedrock documentation.
 	Region string `json:"region"`
-	// SecretKey A valid AWS secret key that is paired with the `access_key`.
-	// For informationg about creating and managing access and secret keys, refer to
-	// the AWS documentation.
+	// SecretKey A valid AWS secret key that is paired with the `access_key`. For informationg
+	// about creating and managing access and secret keys, refer to the AWS
+	// documentation.
 	SecretKey string `json:"secret_key"`
 }
 

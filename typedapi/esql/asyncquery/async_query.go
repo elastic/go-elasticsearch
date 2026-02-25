@@ -304,8 +304,8 @@ func (r *AsyncQuery) Header(key, value string) *AsyncQuery {
 }
 
 // AllowPartialResults If `true`, partial results will be returned if there are shard failures, but
-// the query can continue to execute on other clusters and shards.
-// If `false`, the query will fail if there are any failures.
+// the query can continue to execute on other clusters and shards. If `false`,
+// the query will fail if there are any failures.
 //
 // To override the default behavior, you can set the
 // `esql.query.allow_partial_results` cluster setting to `false`.
@@ -316,8 +316,8 @@ func (r *AsyncQuery) AllowPartialResults(allowpartialresults bool) *AsyncQuery {
 	return r
 }
 
-// Delimiter The character to use between values within a CSV row.
-// It is valid only for the CSV format.
+// Delimiter The character to use between values within a CSV row. It is valid only for
+// the CSV format.
 // API name: delimiter
 func (r *AsyncQuery) Delimiter(delimiter string) *AsyncQuery {
 	r.values.Set("delimiter", delimiter)
@@ -326,9 +326,9 @@ func (r *AsyncQuery) Delimiter(delimiter string) *AsyncQuery {
 }
 
 // DropNullColumns Indicates whether columns that are entirely `null` will be removed from the
-// `columns` and `values` portion of the results.
-// If `true`, the response will include an extra section under the name
-// `all_columns` which has the name of all the columns.
+// `columns` and `values` portion of the results. If `true`, the response will
+// include an extra section under the name `all_columns` which has the name of
+// all the columns.
 // API name: drop_null_columns
 func (r *AsyncQuery) DropNullColumns(dropnullcolumns bool) *AsyncQuery {
 	r.values.Set("drop_null_columns", strconv.FormatBool(dropnullcolumns))
@@ -342,9 +342,8 @@ func (r *AsyncQuery) DropNullColumns(dropnullcolumns bool) *AsyncQuery {
 // excluding other metadata fields from the response.
 //
 // For async requests, nothing will be returned if the async query doesn't
-// finish within the timeout.
-// The query ID and running status are available in the
-// `X-Elasticsearch-Async-Id` and `X-Elasticsearch-Async-Is-Running` HTTP
+// finish within the timeout. The query ID and running status are available in
+// the `X-Elasticsearch-Async-Id` and `X-Elasticsearch-Async-Is-Running` HTTP
 // headers of the response, respectively.
 // API name: format
 func (r *AsyncQuery) Format(format esqlformat.EsqlFormat) *AsyncQuery {
@@ -376,11 +375,9 @@ func (r *AsyncQuery) FilterPath(filterpaths ...string) *AsyncQuery {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *AsyncQuery) Human(human bool) *AsyncQuery {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -388,8 +385,8 @@ func (r *AsyncQuery) Human(human bool) *AsyncQuery {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *AsyncQuery) Pretty(pretty bool) *AsyncQuery {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -428,9 +425,8 @@ func (r *AsyncQuery) Filter(filter types.QueryVariant) *AsyncQuery {
 }
 
 // When set to `true` and performing a cross-cluster/cross-project query, the
-// response will include an extra `_clusters`
-// object with information about the clusters that participated in the search
-// along with info such as shards
+// response will include an extra `_clusters` object with information about the
+// clusters that participated in the search along with info such as shards
 // count.
 // API name: include_ccs_metadata
 func (r *AsyncQuery) IncludeCcsMetadata(includeccsmetadata bool) *AsyncQuery {
@@ -444,12 +440,10 @@ func (r *AsyncQuery) IncludeCcsMetadata(includeccsmetadata bool) *AsyncQuery {
 	return r
 }
 
-// When set to `true`, the response will include an extra `_clusters`
-// object with information about the clusters that participated in the search
-// along with info such as shards
-// count.
-// This is similar to `include_ccs_metadata`, but it also returns metadata when
-// the query is not CCS/CPS
+// When set to `true`, the response will include an extra `_clusters` object
+// with information about the clusters that participated in the search along
+// with info such as shards count. This is similar to `include_ccs_metadata`,
+// but it also returns metadata when the query is not CCS/CPS
 // API name: include_execution_metadata
 func (r *AsyncQuery) IncludeExecutionMetadata(includeexecutionmetadata bool) *AsyncQuery {
 	// Initialize the request if it is not already initialized
@@ -462,12 +456,11 @@ func (r *AsyncQuery) IncludeExecutionMetadata(includeexecutionmetadata bool) *As
 	return r
 }
 
-// The period for which the query and its results are stored in the cluster.
-// The default period is five days.
-// When this period expires, the query and its results are deleted, even if the
-// query is still ongoing.
-// If the `keep_on_completion` parameter is false, Elasticsearch only stores
-// async queries that do not complete within the period set by the
+// The period for which the query and its results are stored in the cluster. The
+// default period is five days. When this period expires, the query and its
+// results are deleted, even if the query is still ongoing. If the
+// `keep_on_completion` parameter is false, Elasticsearch only stores async
+// queries that do not complete within the period set by the
 // `wait_for_completion_timeout` parameter, regardless of this value.
 // API name: keep_alive
 func (r *AsyncQuery) KeepAlive(duration types.DurationVariant) *AsyncQuery {
@@ -481,8 +474,8 @@ func (r *AsyncQuery) KeepAlive(duration types.DurationVariant) *AsyncQuery {
 	return r
 }
 
-// Indicates whether the query and its results are stored in the cluster.
-// If false, the query and its results are stored in the cluster only if the
+// Indicates whether the query and its results are stored in the cluster. If
+// false, the query and its results are stored in the cluster only if the
 // request does not complete during the period set by the
 // `wait_for_completion_timeout` parameter.
 // API name: keep_on_completion
@@ -530,10 +523,8 @@ func (r *AsyncQuery) Params(params ...types.FieldValueVariant) *AsyncQuery {
 
 // If provided and `true` the response will include an extra `profile` object
 // with information on how the query was executed. This information is for human
-// debugging
-// and its format can change at any time but it can give some insight into the
-// performance
-// of each part of the query.
+// debugging and its format can change at any time but it can give some insight
+// into the performance of each part of the query.
 // API name: profile
 func (r *AsyncQuery) Profile(profile bool) *AsyncQuery {
 	// Initialize the request if it is not already initialized
@@ -560,8 +551,8 @@ func (r *AsyncQuery) Query(query string) *AsyncQuery {
 	return r
 }
 
-// Tables to use with the LOOKUP operation. The top level key is the table
-// name and the next level key is the column name.
+// Tables to use with the LOOKUP operation. The top level key is the table name
+// and the next level key is the column name.
 // API name: tables
 func (r *AsyncQuery) Tables(tables map[string]map[string]types.TableValuesContainer) *AsyncQuery {
 	// Initialize the request if it is not already initialized
@@ -585,11 +576,10 @@ func (r *AsyncQuery) TimeZone(timezone string) *AsyncQuery {
 	return r
 }
 
-// The period to wait for the request to finish.
-// By default, the request waits for 1 second for the query results.
-// If the query completes during this period, results are returned
-// Otherwise, a query ID is returned that can later be used to retrieve the
-// results.
+// The period to wait for the request to finish. By default, the request waits
+// for 1 second for the query results. If the query completes during this
+// period, results are returned Otherwise, a query ID is returned that can later
+// be used to retrieve the results.
 // API name: wait_for_completion_timeout
 func (r *AsyncQuery) WaitForCompletionTimeout(duration types.DurationVariant) *AsyncQuery {
 	// Initialize the request if it is not already initialized

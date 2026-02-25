@@ -27,16 +27,14 @@
 // on a production cluster.
 //
 // Return a cluster to the same state as a new installation by resetting the
-// feature state for all Elasticsearch features.
-// This deletes all state information stored in system indices.
+// feature state for all Elasticsearch features. This deletes all state
+// information stored in system indices.
 //
 // The response code is HTTP 200 if the state is successfully reset for all
-// features.
-// It is HTTP 500 if the reset operation failed for any feature.
+// features. It is HTTP 500 if the reset operation failed for any feature.
 //
 // Note that select features might provide a way to reset particular system
-// indices.
-// Using this API resets all features, both those that are built-in and
+// indices. Using this API resets all features, both those that are built-in and
 // implemented as plugins.
 //
 // To list the features that will be affected, use the get features API.
@@ -102,16 +100,14 @@ func NewResetFeaturesFunc(tp elastictransport.Interface) NewResetFeatures {
 // on a production cluster.
 //
 // Return a cluster to the same state as a new installation by resetting the
-// feature state for all Elasticsearch features.
-// This deletes all state information stored in system indices.
+// feature state for all Elasticsearch features. This deletes all state
+// information stored in system indices.
 //
 // The response code is HTTP 200 if the state is successfully reset for all
-// features.
-// It is HTTP 500 if the reset operation failed for any feature.
+// features. It is HTTP 500 if the reset operation failed for any feature.
 //
 // Note that select features might provide a way to reset particular system
-// indices.
-// Using this API resets all features, both those that are built-in and
+// indices. Using this API resets all features, both those that are built-in and
 // implemented as plugins.
 //
 // To list the features that will be affected, use the get features API.
@@ -357,11 +353,9 @@ func (r *ResetFeatures) FilterPath(filterpaths ...string) *ResetFeatures {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ResetFeatures) Human(human bool) *ResetFeatures {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -369,8 +363,8 @@ func (r *ResetFeatures) Human(human bool) *ResetFeatures {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ResetFeatures) Pretty(pretty bool) *ResetFeatures {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

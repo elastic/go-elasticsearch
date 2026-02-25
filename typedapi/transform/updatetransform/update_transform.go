@@ -23,14 +23,12 @@
 // Updates certain properties of a transform.
 //
 // All updated properties except `description` do not take effect until after
-// the transform starts the next checkpoint,
-// thus there is data consistency in each checkpoint. To use this API, you must
-// have `read` and `view_index_metadata`
-// privileges for the source indices. You must also have `index` and `read`
-// privileges for the destination index. When
-// Elasticsearch security features are enabled, the transform remembers which
-// roles the user who updated it had at the
-// time of update and runs with those privileges.
+// the transform starts the next checkpoint, thus there is data consistency in
+// each checkpoint. To use this API, you must have `read` and
+// `view_index_metadata` privileges for the source indices. You must also have
+// `index` and `read` privileges for the destination index. When Elasticsearch
+// security features are enabled, the transform remembers which roles the user
+// who updated it had at the time of update and runs with those privileges.
 package updatetransform
 
 import (
@@ -98,14 +96,12 @@ func NewUpdateTransformFunc(tp elastictransport.Interface) NewUpdateTransform {
 // Updates certain properties of a transform.
 //
 // All updated properties except `description` do not take effect until after
-// the transform starts the next checkpoint,
-// thus there is data consistency in each checkpoint. To use this API, you must
-// have `read` and `view_index_metadata`
-// privileges for the source indices. You must also have `index` and `read`
-// privileges for the destination index. When
-// Elasticsearch security features are enabled, the transform remembers which
-// roles the user who updated it had at the
-// time of update and runs with those privileges.
+// the transform starts the next checkpoint, thus there is data consistency in
+// each checkpoint. To use this API, you must have `read` and
+// `view_index_metadata` privileges for the source indices. You must also have
+// `index` and `read` privileges for the destination index. When Elasticsearch
+// security features are enabled, the transform remembers which roles the user
+// who updated it had at the time of update and runs with those privileges.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-update-transform
 func New(tp elastictransport.Interface) *UpdateTransform {
@@ -337,9 +333,8 @@ func (r *UpdateTransform) _transformid(transformid string) *UpdateTransform {
 	return r
 }
 
-// DeferValidation When true, deferrable validations are not run. This behavior may be
-// desired if the source index does not exist until after the transform is
-// created.
+// DeferValidation When true, deferrable validations are not run. This behavior may be desired
+// if the source index does not exist until after the transform is created.
 // API name: defer_validation
 func (r *UpdateTransform) DeferValidation(defervalidation bool) *UpdateTransform {
 	r.values.Set("defer_validation", strconv.FormatBool(defervalidation))
@@ -347,8 +342,8 @@ func (r *UpdateTransform) DeferValidation(defervalidation bool) *UpdateTransform
 	return r
 }
 
-// Timeout Period to wait for a response. If no response is received before the
-// timeout expires, the request fails and returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *UpdateTransform) Timeout(duration string) *UpdateTransform {
 	r.values.Set("timeout", duration)
@@ -379,11 +374,9 @@ func (r *UpdateTransform) FilterPath(filterpaths ...string) *UpdateTransform {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateTransform) Human(human bool) *UpdateTransform {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -391,8 +384,8 @@ func (r *UpdateTransform) Human(human bool) *UpdateTransform {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateTransform) Pretty(pretty bool) *UpdateTransform {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -427,9 +420,9 @@ func (r *UpdateTransform) Dest(dest types.TransformDestinationVariant) *UpdateTr
 }
 
 // The interval between checks for changes in the source indices when the
-// transform is running continuously. Also determines the retry interval in
-// the event of transient failures while the transform is searching or
-// indexing. The minimum value is 1s and the maximum is 1h.
+// transform is running continuously. Also determines the retry interval in the
+// event of transient failures while the transform is searching or indexing. The
+// minimum value is 1s and the maximum is 1h.
 // API name: frequency
 func (r *UpdateTransform) Frequency(duration types.DurationVariant) *UpdateTransform {
 	// Initialize the request if it is not already initialized

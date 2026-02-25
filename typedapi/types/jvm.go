@@ -45,8 +45,8 @@ type Jvm struct {
 	Threads *JvmThreads `json:"threads,omitempty"`
 	// Timestamp Last time JVM statistics were refreshed.
 	Timestamp *int64 `json:"timestamp,omitempty"`
-	// Uptime Human-readable JVM uptime.
-	// Only returned if the `human` query parameter is `true`.
+	// Uptime Human-readable JVM uptime. Only returned if the `human` query parameter is
+	// `true`.
 	Uptime *string `json:"uptime,omitempty"`
 	// UptimeInMillis JVM uptime in milliseconds.
 	UptimeInMillis *int64 `json:"uptime_in_millis,omitempty"`

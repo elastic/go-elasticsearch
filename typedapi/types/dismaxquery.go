@@ -34,15 +34,13 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/compound.ts#L88-L103
 type DisMaxQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
-	// Queries One or more query clauses.
-	// Returned documents must match one or more of these queries.
-	// If a document matches multiple queries, Elasticsearch uses the highest
-	// relevance score.
+	// Queries One or more query clauses. Returned documents must match one or more of these
+	// queries. If a document matches multiple queries, Elasticsearch uses the
+	// highest relevance score.
 	Queries    []Query `json:"queries"`
 	QueryName_ *string `json:"_name,omitempty"`
 	// TieBreaker Floating point number between 0 and 1.0 used to increase the relevance scores

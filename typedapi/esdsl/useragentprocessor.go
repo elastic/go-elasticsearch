@@ -30,8 +30,8 @@ type _userAgentProcessor struct {
 }
 
 // The `user_agent` processor extracts details from the user agent string a
-// browser sends with its web requests.
-// This processor adds this information by default under the `user_agent` field.
+// browser sends with its web requests. This processor adds this information by
+// default under the `user_agent` field.
 func NewUserAgentProcessor() *_userAgentProcessor {
 
 	return &_userAgentProcessor{v: types.NewUserAgentProcessor()}

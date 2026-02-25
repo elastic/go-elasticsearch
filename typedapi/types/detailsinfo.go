@@ -34,11 +34,11 @@ import (
 type DetailsInfo struct {
 	// Blob A description of the blob that was written and read.
 	Blob BlobDetails `json:"blob"`
-	// OverwriteElapsed The elapsed time spent overwriting the blob.
-	// If the blob was not overwritten, this information is omitted.
+	// OverwriteElapsed The elapsed time spent overwriting the blob. If the blob was not overwritten,
+	// this information is omitted.
 	OverwriteElapsed Duration `json:"overwrite_elapsed,omitempty"`
-	// OverwriteElapsedNanos The elapsed time spent overwriting the blob, in nanoseconds.
-	// If the blob was not overwritten, this information is omitted.
+	// OverwriteElapsedNanos The elapsed time spent overwriting the blob, in nanoseconds. If the blob was
+	// not overwritten, this information is omitted.
 	OverwriteElapsedNanos *int64 `json:"overwrite_elapsed_nanos,omitempty"`
 	// WriteElapsed The elapsed time spent writing the blob.
 	WriteElapsed Duration `json:"write_elapsed"`

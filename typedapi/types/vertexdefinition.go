@@ -41,8 +41,8 @@ type VertexDefinition struct {
 	// want to spider out.
 	Include []VertexInclude `json:"include,omitempty"`
 	// MinDocCount Specifies how many documents must contain a pair of terms before it is
-	// considered to be a useful connection.
-	// This setting acts as a certainty threshold.
+	// considered to be a useful connection. This setting acts as a certainty
+	// threshold.
 	MinDocCount *int64 `json:"min_doc_count,omitempty"`
 	// ShardMinDocCount Controls how many documents on a particular shard have to contain a pair of
 	// terms before the connection is returned for global consideration.

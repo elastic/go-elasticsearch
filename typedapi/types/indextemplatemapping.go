@@ -32,18 +32,14 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L167-L194
 type IndexTemplateMapping struct {
-	// Aliases Aliases to add.
-	// If the index template includes a `data_stream` object, these are data stream
-	// aliases.
-	// Otherwise, these are index aliases.
-	// Data stream aliases ignore the `index_routing`, `routing`, and
-	// `search_routing` options.
+	// Aliases Aliases to add. If the index template includes a `data_stream` object, these
+	// are data stream aliases. Otherwise, these are index aliases. Data stream
+	// aliases ignore the `index_routing`, `routing`, and `search_routing` options.
 	Aliases           map[string]Alias           `json:"aliases,omitempty"`
 	DataStreamOptions *DataStreamOptionsTemplate `json:"data_stream_options,omitempty"`
 	Lifecycle         *DataStreamLifecycle       `json:"lifecycle,omitempty"`
-	// Mappings Mapping for fields in the index.
-	// If specified, this mapping can include field names, field data types, and
-	// mapping parameters.
+	// Mappings Mapping for fields in the index. If specified, this mapping can include field
+	// names, field data types, and mapping parameters.
 	Mappings *TypeMapping `json:"mappings,omitempty"`
 	// Settings Configuration options for the index.
 	Settings *IndexSettings `json:"settings,omitempty"`

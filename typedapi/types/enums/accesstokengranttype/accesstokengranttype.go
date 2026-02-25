@@ -29,12 +29,31 @@ type AccessTokenGrantType struct {
 }
 
 var (
+
+	// Password This grant type implements the Resource Owner Password Credentials Grant of
+	// OAuth2. In this grant, a trusted client exchanges the end user's credentials
+	// for an access token and (possibly) a refresh token. The request needs to be
+	// made by an authenticated user but happens on behalf of another authenticated
+	// user (the one whose credentials are passed as request parameters). This grant
+	// type is not suitable or designed for the self-service user creation of
+	// tokens.
 	Password = AccessTokenGrantType{"password"}
 
+	// Clientcredentials This grant type implements the Client Credentials Grant of OAuth2. It is
+	// geared for machine to machine communication and is not suitable or designed
+	// for the self-service user creation of tokens. It generates only access tokens
+	// that cannot be refreshed. The premise is that the entity that uses
+	// `client_credentials` has constant access to a set of (client, not end-user)
+	// credentials and can authenticate itself at will.
 	Clientcredentials = AccessTokenGrantType{"client_credentials"}
 
+	// Kerberos This grant type is supported internally and implements SPNEGO based Kerberos
+	// support. The `_kerberos` grant type may change from version to version.
 	Kerberos = AccessTokenGrantType{"_kerberos"}
 
+	// Refreshtoken This grant type implements the Refresh Token Grant of OAuth2. In this grant a
+	// user exchanges a previously issued refresh token for a new access token and a
+	// new refresh token.
 	Refreshtoken = AccessTokenGrantType{"refresh_token"}
 )
 

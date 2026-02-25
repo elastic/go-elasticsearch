@@ -34,28 +34,24 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/invalidate_api_key/SecurityInvalidateApiKeyRequest.ts#L23-L84
 type Request struct {
 	Id *string `json:"id,omitempty"`
-	// Ids A list of API key ids.
-	// This parameter cannot be used with any of `name`, `realm_name`, or
-	// `username`.
+	// Ids A list of API key ids. This parameter cannot be used with any of `name`,
+	// `realm_name`, or `username`.
 	Ids []string `json:"ids,omitempty"`
-	// Name An API key name.
-	// This parameter cannot be used with any of `ids`, `realm_name` or `username`.
+	// Name An API key name. This parameter cannot be used with any of `ids`,
+	// `realm_name` or `username`.
 	Name *string `json:"name,omitempty"`
-	// Owner Query API keys owned by the currently authenticated user.
-	// The `realm_name` or `username` parameters cannot be specified when this
-	// parameter is set to `true` as they are assumed to be the currently
-	// authenticated ones.
+	// Owner Query API keys owned by the currently authenticated user. The `realm_name` or
+	// `username` parameters cannot be specified when this parameter is set to
+	// `true` as they are assumed to be the currently authenticated ones.
 	//
 	// NOTE: At least one of `ids`, `name`, `username`, and `realm_name` must be
 	// specified if `owner` is `false`.
 	Owner *bool `json:"owner,omitempty"`
-	// RealmName The name of an authentication realm.
-	// This parameter cannot be used with either `ids` or `name`, or when `owner`
-	// flag is set to `true`.
+	// RealmName The name of an authentication realm. This parameter cannot be used with
+	// either `ids` or `name`, or when `owner` flag is set to `true`.
 	RealmName *string `json:"realm_name,omitempty"`
-	// Username The username of a user.
-	// This parameter cannot be used with either `ids` or `name` or when `owner`
-	// flag is set to `true`.
+	// Username The username of a user. This parameter cannot be used with either `ids` or
+	// `name` or when `owner` flag is set to `true`.
 	Username *string `json:"username,omitempty"`
 }
 

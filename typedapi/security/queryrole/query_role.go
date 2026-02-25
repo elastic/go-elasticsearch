@@ -20,13 +20,11 @@
 
 // Find roles with a query.
 //
-// Get roles in a paginated manner.
-// The role management APIs are generally the preferred way to manage roles,
-// rather than using file-based role management.
+// Get roles in a paginated manner. The role management APIs are generally the
+// preferred way to manage roles, rather than using file-based role management.
 // The query roles API does not retrieve roles that are defined in roles files,
-// nor built-in ones.
-// You can optionally filter the results with a query.
-// Also, the results can be paginated and sorted.
+// nor built-in ones. You can optionally filter the results with a query. Also,
+// the results can be paginated and sorted.
 package queryrole
 
 import (
@@ -83,13 +81,11 @@ func NewQueryRoleFunc(tp elastictransport.Interface) NewQueryRole {
 
 // Find roles with a query.
 //
-// Get roles in a paginated manner.
-// The role management APIs are generally the preferred way to manage roles,
-// rather than using file-based role management.
+// Get roles in a paginated manner. The role management APIs are generally the
+// preferred way to manage roles, rather than using file-based role management.
 // The query roles API does not retrieve roles that are defined in roles files,
-// nor built-in ones.
-// You can optionally filter the results with a query.
-// Also, the results can be paginated and sorted.
+// nor built-in ones. You can optionally filter the results with a query. Also,
+// the results can be paginated and sorted.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-role
 func New(tp elastictransport.Interface) *QueryRole {
@@ -331,11 +327,9 @@ func (r *QueryRole) FilterPath(filterpaths ...string) *QueryRole {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *QueryRole) Human(human bool) *QueryRole {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -343,8 +337,8 @@ func (r *QueryRole) Human(human bool) *QueryRole {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *QueryRole) Pretty(pretty bool) *QueryRole {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -352,11 +346,9 @@ func (r *QueryRole) Pretty(pretty bool) *QueryRole {
 	return r
 }
 
-// The starting document offset.
-// It must not be negative.
-// By default, you cannot page through more than 10,000 hits using the `from`
-// and `size` parameters.
-// To page through more hits, use the `search_after` parameter.
+// The starting document offset. It must not be negative. By default, you cannot
+// page through more than 10,000 hits using the `from` and `size` parameters. To
+// page through more hits, use the `search_after` parameter.
 // API name: from
 func (r *QueryRole) From(from int) *QueryRole {
 	// Initialize the request if it is not already initialized
@@ -369,14 +361,12 @@ func (r *QueryRole) From(from int) *QueryRole {
 	return r
 }
 
-// A query to filter which roles to return.
-// If the query parameter is missing, it is equivalent to a `match_all` query.
-// The query supports a subset of query types, including `match_all`, `bool`,
-// `term`, `terms`, `match`,
-// `ids`, `prefix`, `wildcard`, `exists`, `range`, and `simple_query_string`.
-// You can query the following information associated with roles: `name`,
-// `description`, `metadata`,
-// `applications.application`, `applications.privileges`, and
+// A query to filter which roles to return. If the query parameter is missing,
+// it is equivalent to a `match_all` query. The query supports a subset of query
+// types, including `match_all`, `bool`, `term`, `terms`, `match`, `ids`,
+// `prefix`, `wildcard`, `exists`, `range`, and `simple_query_string`. You can
+// query the following information associated with roles: `name`, `description`,
+// `metadata`, `applications.application`, `applications.privileges`, and
 // `applications.resources`.
 // API name: query
 func (r *QueryRole) Query(query types.RoleQueryContainerVariant) *QueryRole {
@@ -407,11 +397,9 @@ func (r *QueryRole) SearchAfter(sortresults ...types.FieldValueVariant) *QueryRo
 	return r
 }
 
-// The number of hits to return.
-// It must not be negative.
-// By default, you cannot page through more than 10,000 hits using the `from`
-// and `size` parameters.
-// To page through more hits, use the `search_after` parameter.
+// The number of hits to return. It must not be negative. By default, you cannot
+// page through more than 10,000 hits using the `from` and `size` parameters. To
+// page through more hits, use the `search_after` parameter.
 // API name: size
 func (r *QueryRole) Size(size int) *QueryRole {
 	// Initialize the request if it is not already initialized
@@ -424,12 +412,10 @@ func (r *QueryRole) Size(size int) *QueryRole {
 	return r
 }
 
-// The sort definition.
-// You can sort on `name`, `description`, `metadata`,
-// `applications.application`, `applications.privileges`,
-// and `applications.resources`.
-// In addition, sort can also be applied to the `_doc` field to sort by index
-// order.
+// The sort definition. You can sort on `name`, `description`, `metadata`,
+// `applications.application`, `applications.privileges`, and
+// `applications.resources`. In addition, sort can also be applied to the `_doc`
+// field to sort by index order.
 // API name: sort
 func (r *QueryRole) Sort(sorts ...types.SortCombinationsVariant) *QueryRole {
 	// Initialize the request if it is not already initialized

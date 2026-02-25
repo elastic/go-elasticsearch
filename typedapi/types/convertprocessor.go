@@ -35,8 +35,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L723-L743
 type ConvertProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field The field whose value is to be converted.
 	Field string `json:"field"`
@@ -49,11 +49,10 @@ type ConvertProcessor struct {
 	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
-	// TargetField The field to assign the converted value to.
-	// By default, the `field` is updated in-place.
+	// TargetField The field to assign the converted value to. By default, the `field` is
+	// updated in-place.
 	TargetField *string `json:"target_field,omitempty"`
 	// Type The type to convert the existing value to.
 	Type converttype.ConvertType `json:"type"`

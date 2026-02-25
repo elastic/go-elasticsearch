@@ -21,23 +21,22 @@
 // Perform inference on the service.
 //
 // This API enables you to use machine learning models to perform specific tasks
-// on data that you provide as an input.
-// It returns a response with the results of the tasks.
-// The inference endpoint you use can perform one specific task that has been
-// defined when the endpoint was created with the create inference API.
+// on data that you provide as an input. It returns a response with the results
+// of the tasks. The inference endpoint you use can perform one specific task
+// that has been defined when the endpoint was created with the create inference
+// API.
 //
 // For details about using this API with a service, such as Amazon Bedrock,
 // Anthropic, or HuggingFace, refer to the service-specific documentation.
 //
-// > info
-// > The inference APIs enable you to use certain services, such as built-in
-// machine learning models (ELSER, E5), models uploaded through Eland, Cohere,
-// OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic, Watsonx.ai, or
-// Hugging Face. For built-in models and models uploaded through Eland, the
-// inference APIs offer an alternative way to use and manage trained models.
-// However, if you do not plan to use the inference APIs to use these models or
-// if you want to use non-NLP models, use the machine learning trained model
-// APIs.
+// > info > The inference APIs enable you to use certain services, such as
+// built-in machine learning models (ELSER, E5), models uploaded through Eland,
+// Cohere, OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic,
+// Watsonx.ai, or Hugging Face. For built-in models and models uploaded through
+// Eland, the inference APIs offer an alternative way to use and manage trained
+// models. However, if you do not plan to use the inference APIs to use these
+// models or if you want to use non-NLP models, use the machine learning trained
+// model APIs.
 package inference
 
 import (
@@ -106,23 +105,22 @@ func NewInferenceFunc(tp elastictransport.Interface) NewInference {
 // Perform inference on the service.
 //
 // This API enables you to use machine learning models to perform specific tasks
-// on data that you provide as an input.
-// It returns a response with the results of the tasks.
-// The inference endpoint you use can perform one specific task that has been
-// defined when the endpoint was created with the create inference API.
+// on data that you provide as an input. It returns a response with the results
+// of the tasks. The inference endpoint you use can perform one specific task
+// that has been defined when the endpoint was created with the create inference
+// API.
 //
 // For details about using this API with a service, such as Amazon Bedrock,
 // Anthropic, or HuggingFace, refer to the service-specific documentation.
 //
-// > info
-// > The inference APIs enable you to use certain services, such as built-in
-// machine learning models (ELSER, E5), models uploaded through Eland, Cohere,
-// OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic, Watsonx.ai, or
-// Hugging Face. For built-in models and models uploaded through Eland, the
-// inference APIs offer an alternative way to use and manage trained models.
-// However, if you do not plan to use the inference APIs to use these models or
-// if you want to use non-NLP models, use the machine learning trained model
-// APIs.
+// > info > The inference APIs enable you to use certain services, such as
+// built-in machine learning models (ELSER, E5), models uploaded through Eland,
+// Cohere, OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic,
+// Watsonx.ai, or Hugging Face. For built-in models and models uploaded through
+// Eland, the inference APIs offer an alternative way to use and manage trained
+// models. However, if you do not plan to use the inference APIs to use these
+// models or if you want to use non-NLP models, use the machine learning trained
+// model APIs.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *Inference {
@@ -409,11 +407,9 @@ func (r *Inference) FilterPath(filterpaths ...string) *Inference {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Inference) Human(human bool) *Inference {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -421,8 +417,8 @@ func (r *Inference) Human(human bool) *Inference {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Inference) Pretty(pretty bool) *Inference {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -430,12 +426,11 @@ func (r *Inference) Pretty(pretty bool) *Inference {
 	return r
 }
 
-// The text on which you want to perform the inference task.
-// It can be a single string or an array.
+// The text on which you want to perform the inference task. It can be a single
+// string or an array.
 //
-// > info
-// > Inference endpoints for the `completion` task type currently only support a
-// single string as input.
+// > info > Inference endpoints for the `completion` task type currently only
+// support a single string as input.
 // API name: input
 func (r *Inference) Input(inputs ...string) *Inference {
 	// Initialize the request if it is not already initialized
@@ -451,19 +446,18 @@ func (r *Inference) Input(inputs ...string) *Inference {
 // Specifies the input data type for the embedding model. The `input_type`
 // parameter only applies to Inference Endpoints with the `embedding` or
 // `text_embedding` task type. Possible values include:
-// * `SEARCH`
-// * `INGEST`
-// * `CLASSIFICATION`
-// * `CLUSTERING`
-// Not all services support all values. Unsupported values will trigger a
-// validation exception.
-// Accepted values depend on the configured inference service, refer to the
-// relevant service-specific documentation for more info.
 //
-// > info
-// > The `input_type` parameter specified on the root level of the request body
-// will take precedence over the `input_type` parameter specified in
-// `task_settings`.
+//   - `SEARCH`
+//   - `INGEST`
+//   - `CLASSIFICATION`
+//   - `CLUSTERING` Not all services support all values. Unsupported values will
+//     trigger a validation exception. Accepted values depend on the configured
+//     inference service, refer to the relevant service-specific documentation
+//     for more info.
+//
+// > info > The `input_type` parameter specified on the root level of the
+// request body will take precedence over the `input_type` parameter specified
+// in `task_settings`.
 // API name: input_type
 func (r *Inference) InputType(inputtype string) *Inference {
 	// Initialize the request if it is not already initialized
@@ -476,8 +470,8 @@ func (r *Inference) InputType(inputtype string) *Inference {
 	return r
 }
 
-// The query input, which is required only for the `rerank` task.
-// It is not required for other tasks.
+// The query input, which is required only for the `rerank` task. It is not
+// required for other tasks.
 // API name: query
 func (r *Inference) Query(query string) *Inference {
 	// Initialize the request if it is not already initialized
@@ -490,9 +484,9 @@ func (r *Inference) Query(query string) *Inference {
 	return r
 }
 
-// Task settings for the individual inference request.
-// These settings are specific to the task type you specified and override the
-// task settings specified when initializing the service.
+// Task settings for the individual inference request. These settings are
+// specific to the task type you specified and override the task settings
+// specified when initializing the service.
 // API name: task_settings
 func (r *Inference) TaskSettings(tasksettings json.RawMessage) *Inference {
 	// Initialize the request if it is not already initialized

@@ -29,14 +29,21 @@ type RoutingState struct {
 }
 
 var (
+
+	// Failed The allocation attempt failed.
 	Failed = RoutingState{"failed"}
 
+	// Started The trained model is allocated and ready to accept inference requests.
 	Started = RoutingState{"started"}
 
+	// Starting The trained model is attempting to allocate on this node; inference requests
+	// are not yet accepted.
 	Starting = RoutingState{"starting"}
 
+	// Stopped The trained model is fully deallocated from this node.
 	Stopped = RoutingState{"stopped"}
 
+	// Stopping The trained model is being deallocated from this node.
 	Stopping = RoutingState{"stopping"}
 )
 

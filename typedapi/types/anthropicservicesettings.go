@@ -35,13 +35,12 @@ import (
 type AnthropicServiceSettings struct {
 	// ApiKey A valid API key for the Anthropic API.
 	ApiKey string `json:"api_key"`
-	// ModelId The name of the model to use for the inference task.
-	// Refer to the Anthropic documentation for the list of supported models.
+	// ModelId The name of the model to use for the inference task. Refer to the Anthropic
+	// documentation for the list of supported models.
 	ModelId string `json:"model_id"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// Anthropic.
-	// By default, the `anthropic` service sets the number of requests allowed per
-	// minute to 50.
+	// Anthropic. By default, the `anthropic` service sets the number of requests
+	// allowed per minute to 50.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 }
 

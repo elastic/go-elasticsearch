@@ -34,30 +34,25 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/specialized.ts#L71-L74
 type DateDistanceFeatureQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
 	// Field Name of the field used to calculate distances. This field must meet the
-	// following criteria:
-	// be a `date`, `date_nanos` or `geo_point` field;
-	// have an `index` mapping parameter value of `true`, which is the default;
-	// have an `doc_values` mapping parameter value of `true`, which is the default.
+	// following criteria: be a `date`, `date_nanos` or `geo_point` field; have an
+	// `index` mapping parameter value of `true`, which is the default; have an
+	// `doc_values` mapping parameter value of `true`, which is the default.
 	Field string `json:"field"`
-	// Origin Date or point of origin used to calculate distances.
-	// If the `field` value is a `date` or `date_nanos` field, the `origin` value
-	// must be a date.
-	// Date Math, such as `now-1h`, is supported.
-	// If the field value is a `geo_point` field, the `origin` value must be a
-	// geopoint.
+	// Origin Date or point of origin used to calculate distances. If the `field` value is
+	// a `date` or `date_nanos` field, the `origin` value must be a date. Date Math,
+	// such as `now-1h`, is supported. If the field value is a `geo_point` field,
+	// the `origin` value must be a geopoint.
 	Origin string `json:"origin"`
 	// Pivot Distance from the `origin` at which relevance scores receive half of the
-	// `boost` value.
-	// If the `field` value is a `date` or `date_nanos` field, the `pivot` value
-	// must be a time unit, such as `1h` or `10d`. If the `field` value is a
-	// `geo_point` field, the `pivot` value must be a distance unit, such as `1km`
-	// or `12m`.
+	// `boost` value. If the `field` value is a `date` or `date_nanos` field, the
+	// `pivot` value must be a time unit, such as `1h` or `10d`. If the `field`
+	// value is a `geo_point` field, the `pivot` value must be a distance unit, such
+	// as `1km` or `12m`.
 	Pivot      Duration `json:"pivot"`
 	QueryName_ *string  `json:"_name,omitempty"`
 }

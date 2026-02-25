@@ -21,10 +21,9 @@
 // Run a policy.
 //
 // Immediately create a snapshot according to the snapshot lifecycle policy
-// without waiting for the scheduled time.
-// The snapshot policy is normally applied according to its schedule, but you
-// might want to manually run a policy before performing an upgrade or other
-// maintenance.
+// without waiting for the scheduled time. The snapshot policy is normally
+// applied according to its schedule, but you might want to manually run a
+// policy before performing an upgrade or other maintenance.
 package executelifecycle
 
 import (
@@ -85,10 +84,9 @@ func NewExecuteLifecycleFunc(tp elastictransport.Interface) NewExecuteLifecycle 
 // Run a policy.
 //
 // Immediately create a snapshot according to the snapshot lifecycle policy
-// without waiting for the scheduled time.
-// The snapshot policy is normally applied according to its schedule, but you
-// might want to manually run a policy before performing an upgrade or other
-// maintenance.
+// without waiting for the scheduled time. The snapshot policy is normally
+// applied according to its schedule, but you might want to manually run a
+// policy before performing an upgrade or other maintenance.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-lifecycle
 func New(tp elastictransport.Interface) *ExecuteLifecycle {
@@ -313,9 +311,8 @@ func (r *ExecuteLifecycle) _policyid(policyid string) *ExecuteLifecycle {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *ExecuteLifecycle) MasterTimeout(duration string) *ExecuteLifecycle {
 	r.values.Set("master_timeout", duration)
@@ -323,9 +320,8 @@ func (r *ExecuteLifecycle) MasterTimeout(duration string) *ExecuteLifecycle {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error.
 // API name: timeout
 func (r *ExecuteLifecycle) Timeout(duration string) *ExecuteLifecycle {
 	r.values.Set("timeout", duration)
@@ -356,11 +352,9 @@ func (r *ExecuteLifecycle) FilterPath(filterpaths ...string) *ExecuteLifecycle {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ExecuteLifecycle) Human(human bool) *ExecuteLifecycle {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -368,8 +362,8 @@ func (r *ExecuteLifecycle) Human(human bool) *ExecuteLifecycle {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ExecuteLifecycle) Pretty(pretty bool) *ExecuteLifecycle {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

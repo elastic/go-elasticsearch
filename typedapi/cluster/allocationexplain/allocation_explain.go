@@ -20,17 +20,14 @@
 
 // Explain the shard allocations.
 //
-// Get explanations for shard allocations in the cluster.
-// This API accepts the current_node, index, primary and shard parameters in the
-// request body or in query parameters, but not in both at the same time.
-// For unassigned shards, it provides an explanation for why the shard is
-// unassigned.
-// For assigned shards, it provides an explanation for why the shard is
-// remaining on its current node and has not moved or rebalanced to another
-// node.
-// This API can be very useful when attempting to diagnose why a shard is
-// unassigned or why a shard continues to remain on its current node when you
-// might expect otherwise.
+// Get explanations for shard allocations in the cluster. This API accepts the
+// current_node, index, primary and shard parameters in the request body or in
+// query parameters, but not in both at the same time. For unassigned shards, it
+// provides an explanation for why the shard is unassigned. For assigned shards,
+// it provides an explanation for why the shard is remaining on its current node
+// and has not moved or rebalanced to another node. This API can be very useful
+// when attempting to diagnose why a shard is unassigned or why a shard
+// continues to remain on its current node when you might expect otherwise.
 // Refer to the linked documentation for examples of how to troubleshoot
 // allocation issues using this API.
 package allocationexplain
@@ -89,17 +86,14 @@ func NewAllocationExplainFunc(tp elastictransport.Interface) NewAllocationExplai
 
 // Explain the shard allocations.
 //
-// Get explanations for shard allocations in the cluster.
-// This API accepts the current_node, index, primary and shard parameters in the
-// request body or in query parameters, but not in both at the same time.
-// For unassigned shards, it provides an explanation for why the shard is
-// unassigned.
-// For assigned shards, it provides an explanation for why the shard is
-// remaining on its current node and has not moved or rebalanced to another
-// node.
-// This API can be very useful when attempting to diagnose why a shard is
-// unassigned or why a shard continues to remain on its current node when you
-// might expect otherwise.
+// Get explanations for shard allocations in the cluster. This API accepts the
+// current_node, index, primary and shard parameters in the request body or in
+// query parameters, but not in both at the same time. For unassigned shards, it
+// provides an explanation for why the shard is unassigned. For assigned shards,
+// it provides an explanation for why the shard is remaining on its current node
+// and has not moved or rebalanced to another node. This API can be very useful
+// when attempting to diagnose why a shard is unassigned or why a shard
+// continues to remain on its current node when you might expect otherwise.
 // Refer to the linked documentation for examples of how to troubleshoot
 // allocation issues using this API.
 //
@@ -367,11 +361,9 @@ func (r *AllocationExplain) FilterPath(filterpaths ...string) *AllocationExplain
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *AllocationExplain) Human(human bool) *AllocationExplain {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -379,8 +371,8 @@ func (r *AllocationExplain) Human(human bool) *AllocationExplain {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *AllocationExplain) Pretty(pretty bool) *AllocationExplain {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

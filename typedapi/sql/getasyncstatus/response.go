@@ -24,22 +24,20 @@ package getasyncstatus
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/sql/get_async_status/SqlGetAsyncStatusResponse.ts#L23-L55
 type Response struct {
-	// CompletionStatus The HTTP status code for the search.
-	// The API returns this property only for completed searches.
+	// CompletionStatus The HTTP status code for the search. The API returns this property only for
+	// completed searches.
 	CompletionStatus *uint `json:"completion_status,omitempty"`
 	// ExpirationTimeInMillis The timestamp, in milliseconds since the Unix epoch, when Elasticsearch will
 	// delete the search and its results, even if the search is still running.
 	ExpirationTimeInMillis int64 `json:"expiration_time_in_millis"`
 	// Id The identifier for the search.
 	Id string `json:"id"`
-	// IsPartial If `true`, the response does not contain complete search results.
-	// If `is_partial` is `true` and `is_running` is `true`, the search is still
-	// running.
-	// If `is_partial` is `true` but `is_running` is `false`, the results are
-	// partial due to a failure or timeout.
+	// IsPartial If `true`, the response does not contain complete search results. If
+	// `is_partial` is `true` and `is_running` is `true`, the search is still
+	// running. If `is_partial` is `true` but `is_running` is `false`, the results
+	// are partial due to a failure or timeout.
 	IsPartial bool `json:"is_partial"`
-	// IsRunning If `true`, the search is still running.
-	// If `false`, the search has finished.
+	// IsRunning If `true`, the search is still running. If `false`, the search has finished.
 	IsRunning bool `json:"is_running"`
 	// StartTimeInMillis The timestamp, in milliseconds since the Unix epoch, when the search started.
 	// The API returns this property only for running searches.

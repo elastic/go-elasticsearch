@@ -37,8 +37,8 @@ type GeoCentroidAggregation struct {
 	// Field The field on which to run the aggregation.
 	Field    *string     `json:"field,omitempty"`
 	Location GeoLocation `json:"location,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
 	Script  *Script `json:"script,omitempty"`
 }

@@ -29,9 +29,8 @@
 // releases without prior notice.
 //
 // When you activate a user profile, it's automatically enabled and visible in
-// user profile searches.
-// If you later disable the user profile, you can use the enable user profile
-// API to make the profile visible in these searches again.
+// user profile searches. If you later disable the user profile, you can use the
+// enable user profile API to make the profile visible in these searches again.
 package enableuserprofile
 
 import (
@@ -101,9 +100,8 @@ func NewEnableUserProfileFunc(tp elastictransport.Interface) NewEnableUserProfil
 // releases without prior notice.
 //
 // When you activate a user profile, it's automatically enabled and visible in
-// user profile searches.
-// If you later disable the user profile, you can use the enable user profile
-// API to make the profile visible in these searches again.
+// user profile searches. If you later disable the user profile, you can use the
+// enable user profile API to make the profile visible in these searches again.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enable-user-profile
 func New(tp elastictransport.Interface) *EnableUserProfile {
@@ -329,10 +327,8 @@ func (r *EnableUserProfile) _uid(uid string) *EnableUserProfile {
 }
 
 // Refresh If 'true', Elasticsearch refreshes the affected shards to make this operation
-// visible to search.
-// If 'wait_for', it waits for a refresh to make this operation visible to
-// search.
-// If 'false', nothing is done with refreshes.
+// visible to search. If 'wait_for', it waits for a refresh to make this
+// operation visible to search. If 'false', nothing is done with refreshes.
 // API name: refresh
 func (r *EnableUserProfile) Refresh(refresh refresh.Refresh) *EnableUserProfile {
 	r.values.Set("refresh", refresh.String())
@@ -363,11 +359,9 @@ func (r *EnableUserProfile) FilterPath(filterpaths ...string) *EnableUserProfile
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *EnableUserProfile) Human(human bool) *EnableUserProfile {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -375,8 +369,8 @@ func (r *EnableUserProfile) Human(human bool) *EnableUserProfile {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *EnableUserProfile) Pretty(pretty bool) *EnableUserProfile {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

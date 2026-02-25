@@ -23,10 +23,9 @@
 // Get information about the capabilities of fields among multiple indices.
 //
 // For data streams, the API returns field capabilities among the stream’s
-// backing indices.
-// It returns runtime fields like any other field.
-// For example, a runtime field with a type of keyword is returned the same as
-// any other field that belongs to the `keyword` family.
+// backing indices. It returns runtime fields like any other field. For example,
+// a runtime field with a type of keyword is returned the same as any other
+// field that belongs to the `keyword` family.
 package fieldcaps
 
 import (
@@ -93,10 +92,9 @@ func NewFieldCapsFunc(tp elastictransport.Interface) NewFieldCaps {
 // Get information about the capabilities of fields among multiple indices.
 //
 // For data streams, the API returns field capabilities among the stream’s
-// backing indices.
-// It returns runtime fields like any other field.
-// For example, a runtime field with a type of keyword is returned the same as
-// any other field that belongs to the `keyword` family.
+// backing indices. It returns runtime fields like any other field. For example,
+// a runtime field with a type of keyword is returned the same as any other
+// field that belongs to the `keyword` family.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-field-caps
 func New(tp elastictransport.Interface) *FieldCaps {
@@ -322,9 +320,9 @@ func (r *FieldCaps) Header(key, value string) *FieldCaps {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases used to limit
+// Index A comma-separated list of data streams, indices, and aliases used to limit //
 // the request. Supports wildcards (*). To target all data streams and indices,
-// omit this parameter or use * or _all.
+// // omit this parameter or use * or _all.
 // API Name: index
 func (r *FieldCaps) Index(index string) *FieldCaps {
 	r.paramSet |= indexMask
@@ -334,11 +332,10 @@ func (r *FieldCaps) Index(index string) *FieldCaps {
 }
 
 // AllowNoIndices If false, the request returns an error if any wildcard expression, index
-// alias,
-// or `_all` value targets only missing or closed indices. This behavior applies
-// even if the request targets other open indices. For example, a request
-// targeting `foo*,bar*` returns an error if an index starts with foo but no
-// index starts with bar.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices. For example, a
+// request targeting `foo*,bar*` returns an error if an index starts with foo
+// but no index starts with bar.
 // API name: allow_no_indices
 func (r *FieldCaps) AllowNoIndices(allownoindices bool) *FieldCaps {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -388,10 +385,9 @@ func (r *FieldCaps) Filters(filters ...string) *FieldCaps {
 	return r
 }
 
-// Types A comma-separated list of field types to include.
-// Any fields that do not match one of these types will be excluded from the
-// results.
-// It defaults to empty, meaning that all field types are returned.
+// Types A comma-separated list of field types to include. Any fields that do not
+// match one of these types will be excluded from the results. It defaults to
+// empty, meaning that all field types are returned.
 // API name: types
 func (r *FieldCaps) Types(types ...string) *FieldCaps {
 	tmp := []string{}
@@ -434,11 +430,9 @@ func (r *FieldCaps) FilterPath(filterpaths ...string) *FieldCaps {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *FieldCaps) Human(human bool) *FieldCaps {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -446,8 +440,8 @@ func (r *FieldCaps) Human(human bool) *FieldCaps {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *FieldCaps) Pretty(pretty bool) *FieldCaps {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -473,12 +467,11 @@ func (r *FieldCaps) Fields(fields ...string) *FieldCaps {
 //
 // IMPORTANT: The filtering is done on a best-effort basis, it uses index
 // statistics and mappings to rewrite queries to `match_none` instead of fully
-// running the request.
-// For instance a range query over a date field can rewrite to `match_none` if
-// all documents within a shard (including deleted documents) are outside of the
-// provided range.
-// However, not all queries can rewrite to `match_none` so this API may return
-// an index even if the provided filter matches no document.
+// running the request. For instance a range query over a date field can rewrite
+// to `match_none` if all documents within a shard (including deleted documents)
+// are outside of the provided range. However, not all queries can rewrite to
+// `match_none` so this API may return an index even if the provided filter
+// matches no document.
 // API name: index_filter
 func (r *FieldCaps) IndexFilter(indexfilter types.QueryVariant) *FieldCaps {
 	// Initialize the request if it is not already initialized
@@ -492,17 +485,9 @@ func (r *FieldCaps) IndexFilter(indexfilter types.QueryVariant) *FieldCaps {
 }
 
 // Specifies a subset of projects to target for the field-caps query using
-// project
-// metadata tags in a subset of Lucene query syntax.
-// Allowed Lucene queries: the _alias tag and a single value (possibly
-// wildcarded).
-// Examples:
-//
-//	_alias:my-project
-//	_alias:_origin
-//	_alias:*pr*
-//
-// Supported in serverless only.
+// project metadata tags in a subset of Lucene query syntax. Allowed Lucene
+// queries: the _alias tag and a single value (possibly wildcarded). Examples:
+// _alias:my-project _alias:_origin _alias:*pr* Supported in serverless only.
 // API name: project_routing
 func (r *FieldCaps) ProjectRouting(projectrouting string) *FieldCaps {
 	// Initialize the request if it is not already initialized
@@ -516,9 +501,8 @@ func (r *FieldCaps) ProjectRouting(projectrouting string) *FieldCaps {
 }
 
 // Define ad-hoc runtime fields in the request similar to the way it is done in
-// search requests.
-// These fields exist only as part of the query and take precedence over fields
-// defined with the same name in the index mappings.
+// search requests. These fields exist only as part of the query and take
+// precedence over fields defined with the same name in the index mappings.
 // API name: runtime_mappings
 func (r *FieldCaps) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *FieldCaps {
 	// Initialize the request if it is not already initialized

@@ -29,8 +29,11 @@ type TotalHitsRelation struct {
 }
 
 var (
+
+	// Eq Accurate
 	Eq = TotalHitsRelation{"eq"}
 
+	// Gte Lower bound, including returned events or sequences
 	Gte = TotalHitsRelation{"gte"}
 )
 

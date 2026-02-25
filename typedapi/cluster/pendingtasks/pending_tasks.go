@@ -26,10 +26,9 @@
 // NOTE: This API returns a list of any pending updates to the cluster state.
 // These are distinct from the tasks reported by the task management API which
 // include periodic tasks and tasks initiated by the user, such as node stats,
-// search queries, or create index requests.
-// However, if a user-initiated task such as a create index command causes a
-// cluster state update, the activity of this task might be reported by both
-// task api and pending cluster tasks API.
+// search queries, or create index requests. However, if a user-initiated task
+// such as a create index command causes a cluster state update, the activity of
+// this task might be reported by both task api and pending cluster tasks API.
 package pendingtasks
 
 import (
@@ -87,10 +86,9 @@ func NewPendingTasksFunc(tp elastictransport.Interface) NewPendingTasks {
 // NOTE: This API returns a list of any pending updates to the cluster state.
 // These are distinct from the tasks reported by the task management API which
 // include periodic tasks and tasks initiated by the user, such as node stats,
-// search queries, or create index requests.
-// However, if a user-initiated task such as a create index command causes a
-// cluster state update, the activity of this task might be reported by both
-// task api and pending cluster tasks API.
+// search queries, or create index requests. However, if a user-initiated task
+// such as a create index command causes a cluster state update, the activity of
+// this task might be reported by both task api and pending cluster tasks API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-pending-tasks
 func New(tp elastictransport.Interface) *PendingTasks {
@@ -298,8 +296,8 @@ func (r *PendingTasks) Header(key, value string) *PendingTasks {
 	return r
 }
 
-// Local If `true`, the request retrieves information from the local node only.
-// If `false`, information is retrieved from the master node.
+// Local If `true`, the request retrieves information from the local node only. If
+// `false`, information is retrieved from the master node.
 // API name: local
 func (r *PendingTasks) Local(local bool) *PendingTasks {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -307,9 +305,8 @@ func (r *PendingTasks) Local(local bool) *PendingTasks {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *PendingTasks) MasterTimeout(duration string) *PendingTasks {
 	r.values.Set("master_timeout", duration)
@@ -340,11 +337,9 @@ func (r *PendingTasks) FilterPath(filterpaths ...string) *PendingTasks {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PendingTasks) Human(human bool) *PendingTasks {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -352,8 +347,8 @@ func (r *PendingTasks) Human(human bool) *PendingTasks {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PendingTasks) Pretty(pretty bool) *PendingTasks {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

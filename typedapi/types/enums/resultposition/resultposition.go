@@ -29,8 +29,11 @@ type ResultPosition struct {
 }
 
 var (
+
+	// Tail Return the most recent matches, similar to the Unix tail command.
 	Tail = ResultPosition{"tail"}
 
+	// Head Return the earliest matches, similar to the Unix head command.
 	Head = ResultPosition{"head"}
 )
 

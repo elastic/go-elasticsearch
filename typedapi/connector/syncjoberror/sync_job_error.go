@@ -24,9 +24,8 @@
 // `error`.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
-// connector service on your own infrastructure.
-// This service runs automatically on Elastic Cloud for Elastic managed
-// connectors.
+// connector service on your own infrastructure. This service runs automatically
+// on Elastic Cloud for Elastic managed connectors.
 package syncjoberror
 
 import (
@@ -95,9 +94,8 @@ func NewSyncJobErrorFunc(tp elastictransport.Interface) NewSyncJobError {
 // `error`.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
-// connector service on your own infrastructure.
-// This service runs automatically on Elastic Cloud for Elastic managed
-// connectors.
+// connector service on your own infrastructure. This service runs automatically
+// on Elastic Cloud for Elastic managed connectors.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-error
 func New(tp elastictransport.Interface) *SyncJobError {
@@ -354,11 +352,9 @@ func (r *SyncJobError) FilterPath(filterpaths ...string) *SyncJobError {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SyncJobError) Human(human bool) *SyncJobError {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -366,8 +362,8 @@ func (r *SyncJobError) Human(human bool) *SyncJobError {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SyncJobError) Pretty(pretty bool) *SyncJobError {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

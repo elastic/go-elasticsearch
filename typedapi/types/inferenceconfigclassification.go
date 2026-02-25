@@ -37,8 +37,8 @@ type InferenceConfigClassification struct {
 	NumTopClasses *int `json:"num_top_classes,omitempty"`
 	// NumTopFeatureImportanceValues Specifies the maximum number of feature importance values per document.
 	NumTopFeatureImportanceValues *int `json:"num_top_feature_importance_values,omitempty"`
-	// PredictionFieldType Specifies the type of the predicted field to write.
-	// Valid values are: `string`, `number`, `boolean`.
+	// PredictionFieldType Specifies the type of the predicted field to write. Valid values are:
+	// `string`, `number`, `boolean`.
 	PredictionFieldType *string `json:"prediction_field_type,omitempty"`
 	// ResultsField The field that is added to incoming documents to contain the inference
 	// prediction.

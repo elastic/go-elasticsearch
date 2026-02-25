@@ -20,13 +20,13 @@
 
 // Clear the user cache.
 //
-// Evict users from the user cache.
-// You can completely clear the cache or evict specific users.
+// Evict users from the user cache. You can completely clear the cache or evict
+// specific users.
 //
 // User credentials are cached in memory on each node to avoid connecting to a
 // remote authentication service or hitting the disk for every incoming request.
-// There are realm settings that you can use to configure the user cache.
-// For more information, refer to the documentation about controlling the user
+// There are realm settings that you can use to configure the user cache. For
+// more information, refer to the documentation about controlling the user
 // cache.
 package clearcachedrealms
 
@@ -87,13 +87,13 @@ func NewClearCachedRealmsFunc(tp elastictransport.Interface) NewClearCachedRealm
 
 // Clear the user cache.
 //
-// Evict users from the user cache.
-// You can completely clear the cache or evict specific users.
+// Evict users from the user cache. You can completely clear the cache or evict
+// specific users.
 //
 // User credentials are cached in memory on each node to avoid connecting to a
 // remote authentication service or hitting the disk for every incoming request.
-// There are realm settings that you can use to configure the user cache.
-// For more information, refer to the documentation about controlling the user
+// There are realm settings that you can use to configure the user cache. For
+// more information, refer to the documentation about controlling the user
 // cache.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-realms
@@ -310,9 +310,8 @@ func (r *ClearCachedRealms) Header(key, value string) *ClearCachedRealms {
 	return r
 }
 
-// Realms A comma-separated list of realms.
-// To clear all realms, use an asterisk (`*`).
-// It does not support other wildcard patterns.
+// Realms A comma-separated list of realms. To clear all realms, use an asterisk (`*`).
+// // It does not support other wildcard patterns.
 // API Name: realms
 func (r *ClearCachedRealms) _realms(realms string) *ClearCachedRealms {
 	r.paramSet |= realmsMask
@@ -321,9 +320,8 @@ func (r *ClearCachedRealms) _realms(realms string) *ClearCachedRealms {
 	return r
 }
 
-// Usernames A comma-separated list of the users to clear from the cache.
-// If you do not specify this parameter, the API evicts all users from the user
-// cache.
+// Usernames A comma-separated list of the users to clear from the cache. If you do not
+// specify this parameter, the API evicts all users from the user cache.
 // API name: usernames
 func (r *ClearCachedRealms) Usernames(usernames ...string) *ClearCachedRealms {
 	tmp := []string{}
@@ -358,11 +356,9 @@ func (r *ClearCachedRealms) FilterPath(filterpaths ...string) *ClearCachedRealms
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ClearCachedRealms) Human(human bool) *ClearCachedRealms {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -370,8 +366,8 @@ func (r *ClearCachedRealms) Human(human bool) *ClearCachedRealms {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ClearCachedRealms) Pretty(pretty bool) *ClearCachedRealms {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

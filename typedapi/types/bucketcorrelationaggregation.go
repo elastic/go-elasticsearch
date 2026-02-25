@@ -28,7 +28,8 @@ import (
 	"io"
 )
 
-// BucketCorrelationAggregation type.
+// A sibling pipeline aggregation which executes a correlation function on the
+// configured sibling multi-bucket aggregation.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/pipeline.ts#L139-L146
 type BucketCorrelationAggregation struct {

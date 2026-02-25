@@ -29,10 +29,17 @@ type GapPolicy struct {
 }
 
 var (
+
+	// Skip Treats missing data as if the bucket does not exist. It will skip the bucket
+	// and continue calculating using the next available value.
 	Skip = GapPolicy{"skip"}
 
+	// Insertzeros Replace missing values with a zero (0) and pipeline aggregation computation
+	// will proceed as normal.
 	Insertzeros = GapPolicy{"insert_zeros"}
 
+	// Keepvalues Similar to skip, except if the metric provides a non-null, non-NaN value this
+	// value is used, otherwise the empty bucket is skipped.
 	Keepvalues = GapPolicy{"keep_values"}
 )
 

@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L1299-L1333
 type NetworkDirectionProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// DestinationIp Field containing the destination IP address.
 	DestinationIp *string `json:"destination_ip,omitempty"`
@@ -57,8 +57,7 @@ type NetworkDirectionProcessor struct {
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// SourceIp Field containing the source IP address.
 	SourceIp *string `json:"source_ip,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// TargetField Output field for the network direction.
 	TargetField *string `json:"target_field,omitempty"`

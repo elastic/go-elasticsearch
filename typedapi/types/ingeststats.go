@@ -39,23 +39,20 @@ type IngestStats struct {
 	Current int64 `json:"current"`
 	// Failed Total number of failed ingest operations during the lifetime of this node.
 	Failed int64 `json:"failed"`
-	// IngestedAsFirstPipelineInBytes Total number of bytes of all documents ingested by the pipeline.
-	// This field is only present on pipelines which are the first to process a
-	// document.
-	// Thus, it is not present on pipelines which only serve as a final pipeline
-	// after a default pipeline, a pipeline run after a reroute processor, or
-	// pipelines in pipeline processors.
+	// IngestedAsFirstPipelineInBytes Total number of bytes of all documents ingested by the pipeline. This field
+	// is only present on pipelines which are the first to process a document. Thus,
+	// it is not present on pipelines which only serve as a final pipeline after a
+	// default pipeline, a pipeline run after a reroute processor, or pipelines in
+	// pipeline processors.
 	IngestedAsFirstPipelineInBytes int64 `json:"ingested_as_first_pipeline_in_bytes"`
 	// Processors Total number of ingest processors.
 	Processors []map[string]KeyedProcessor `json:"processors"`
-	// ProducedAsFirstPipelineInBytes Total number of bytes of all documents produced by the pipeline.
-	// This field is only present on pipelines which are the first to process a
-	// document.
-	// Thus, it is not present on pipelines which only serve as a final pipeline
-	// after a default pipeline, a pipeline run after a reroute processor, or
-	// pipelines in pipeline processors.
-	// In situations where there are subsequent pipelines, the value represents the
-	// size of the document after all pipelines have run.
+	// ProducedAsFirstPipelineInBytes Total number of bytes of all documents produced by the pipeline. This field
+	// is only present on pipelines which are the first to process a document. Thus,
+	// it is not present on pipelines which only serve as a final pipeline after a
+	// default pipeline, a pipeline run after a reroute processor, or pipelines in
+	// pipeline processors. In situations where there are subsequent pipelines, the
+	// value represents the size of the document after all pipelines have run.
 	ProducedAsFirstPipelineInBytes int64 `json:"produced_as_first_pipeline_in_bytes"`
 	// TimeInMillis Total time, in milliseconds, spent preprocessing ingest documents during the
 	// lifetime of this node.

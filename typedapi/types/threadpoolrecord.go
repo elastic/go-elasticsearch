@@ -71,9 +71,8 @@ type ThreadPoolRecord struct {
 	Rejected *string `json:"rejected,omitempty"`
 	// Size The number of active threads allowed in a fixed thread pool.
 	Size *string `json:"size,omitempty"`
-	// Type The thread pool type.
-	// Returned values include `fixed`, `fixed_auto_queue_size`, `direct`, and
-	// `scaling`.
+	// Type The thread pool type. Returned values include `fixed`,
+	// `fixed_auto_queue_size`, `direct`, and `scaling`.
 	Type *string `json:"type,omitempty"`
 }
 

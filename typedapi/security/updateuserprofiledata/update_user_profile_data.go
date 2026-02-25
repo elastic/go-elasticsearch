@@ -31,18 +31,18 @@
 //
 // To use this API, you must have one of the following privileges:
 //
-// * The `manage_user_profile` cluster privilege.
-// * The `update_profile_data` global privilege for the namespaces that are
-// referenced in the request.
+//   - The `manage_user_profile` cluster privilege.
+//   - The `update_profile_data` global privilege for the namespaces that are
+//     referenced in the request.
 //
 // This API updates the `labels` and `data` fields of an existing user profile
-// document with JSON objects.
-// New keys and their values are added to the profile document and conflicting
-// keys are replaced by data that's included in the request.
+// document with JSON objects. New keys and their values are added to the
+// profile document and conflicting keys are replaced by data that's included in
+// the request.
 //
-// For both labels and data, content is namespaced by the top-level fields.
-// The `update_profile_data` global privilege grants privileges for updating
-// only the allowed namespaces.
+// For both labels and data, content is namespaced by the top-level fields. The
+// `update_profile_data` global privilege grants privileges for updating only
+// the allowed namespaces.
 package updateuserprofiledata
 
 import (
@@ -119,18 +119,18 @@ func NewUpdateUserProfileDataFunc(tp elastictransport.Interface) NewUpdateUserPr
 //
 // To use this API, you must have one of the following privileges:
 //
-// * The `manage_user_profile` cluster privilege.
-// * The `update_profile_data` global privilege for the namespaces that are
-// referenced in the request.
+//   - The `manage_user_profile` cluster privilege.
+//   - The `update_profile_data` global privilege for the namespaces that are
+//     referenced in the request.
 //
 // This API updates the `labels` and `data` fields of an existing user profile
-// document with JSON objects.
-// New keys and their values are added to the profile document and conflicting
-// keys are replaced by data that's included in the request.
+// document with JSON objects. New keys and their values are added to the
+// profile document and conflicting keys are replaced by data that's included in
+// the request.
 //
-// For both labels and data, content is namespaced by the top-level fields.
-// The `update_profile_data` global privilege grants privileges for updating
-// only the allowed namespaces.
+// For both labels and data, content is namespaced by the top-level fields. The
+// `update_profile_data` global privilege grants privileges for updating only
+// the allowed namespaces.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-user-profile-data
 func New(tp elastictransport.Interface) *UpdateUserProfileData {
@@ -381,10 +381,8 @@ func (r *UpdateUserProfileData) IfPrimaryTerm(ifprimaryterm string) *UpdateUserP
 }
 
 // Refresh If 'true', Elasticsearch refreshes the affected shards to make this operation
-// visible to search.
-// If 'wait_for', it waits for a refresh to make this operation visible to
-// search.
-// If 'false', nothing is done with refreshes.
+// visible to search. If 'wait_for', it waits for a refresh to make this
+// operation visible to search. If 'false', nothing is done with refreshes.
 // API name: refresh
 func (r *UpdateUserProfileData) Refresh(refresh refresh.Refresh) *UpdateUserProfileData {
 	r.values.Set("refresh", refresh.String())
@@ -415,11 +413,9 @@ func (r *UpdateUserProfileData) FilterPath(filterpaths ...string) *UpdateUserPro
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateUserProfileData) Human(human bool) *UpdateUserProfileData {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -427,8 +423,8 @@ func (r *UpdateUserProfileData) Human(human bool) *UpdateUserProfileData {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateUserProfileData) Pretty(pretty bool) *UpdateUserProfileData {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -436,12 +432,11 @@ func (r *UpdateUserProfileData) Pretty(pretty bool) *UpdateUserProfileData {
 	return r
 }
 
-// Non-searchable data that you want to associate with the user profile.
-// This field supports a nested data structure.
-// Within the `data` object, top-level keys cannot begin with an underscore
-// (`_`) or contain a period (`.`).
-// The data object is not searchable, but can be retrieved with the get user
-// profile API.
+// Non-searchable data that you want to associate with the user profile. This
+// field supports a nested data structure. Within the `data` object, top-level
+// keys cannot begin with an underscore (`_`) or contain a period (`.`). The
+// data object is not searchable, but can be retrieved with the get user profile
+// API.
 // API name: data
 func (r *UpdateUserProfileData) Data(data map[string]json.RawMessage) *UpdateUserProfileData {
 	// Initialize the request if it is not already initialized
@@ -471,10 +466,9 @@ func (r *UpdateUserProfileData) AddDatum(key string, value json.RawMessage) *Upd
 	return r
 }
 
-// Searchable data that you want to associate with the user profile.
-// This field supports a nested data structure.
-// Within the labels object, top-level keys cannot begin with an underscore
-// (`_`) or contain a period (`.`).
+// Searchable data that you want to associate with the user profile. This field
+// supports a nested data structure. Within the labels object, top-level keys
+// cannot begin with an underscore (`_`) or contain a period (`.`).
 // API name: labels
 func (r *UpdateUserProfileData) Labels(labels map[string]json.RawMessage) *UpdateUserProfileData {
 	// Initialize the request if it is not already initialized

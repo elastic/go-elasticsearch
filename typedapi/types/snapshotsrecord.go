@@ -55,14 +55,12 @@ type SnapshotsRecord struct {
 	StartEpoch StringifiedEpochTimeUnitSeconds `json:"start_epoch,omitempty"`
 	// StartTime The time (HH:MM:SS) at which the snapshot process started.
 	StartTime ScheduleTimeOfDay `json:"start_time,omitempty"`
-	// Status The state of the snapshot process.
-	// Returned values include:
-	// `FAILED`: The snapshot process failed.
-	// `INCOMPATIBLE`: The snapshot process is incompatible with the current cluster
-	// version.
-	// `IN_PROGRESS`: The snapshot process started but has not completed.
-	// `PARTIAL`: The snapshot process completed with a partial success.
-	// `SUCCESS`: The snapshot process completed with a full success.
+	// Status The state of the snapshot process. Returned values include: `FAILED`: The
+	// snapshot process failed. `INCOMPATIBLE`: The snapshot process is incompatible
+	// with the current cluster version. `IN_PROGRESS`: The snapshot process started
+	// but has not completed. `PARTIAL`: The snapshot process completed with a
+	// partial success. `SUCCESS`: The snapshot process completed with a full
+	// success.
 	Status *string `json:"status,omitempty"`
 	// SuccessfulShards The number of successful shards in the snapshot.
 	SuccessfulShards *string `json:"successful_shards,omitempty"`

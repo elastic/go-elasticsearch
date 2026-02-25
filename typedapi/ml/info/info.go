@@ -20,13 +20,12 @@
 
 // Get machine learning information.
 //
-// Get defaults and limits used by machine learning.
-// This endpoint is designed to be used by a user interface that needs to fully
-// understand machine learning configurations where some options are not
-// specified, meaning that the defaults should be used. This endpoint may be
-// used to find out what those defaults are. It also provides information about
-// the maximum size of machine learning jobs that could run in the current
-// cluster configuration.
+// Get defaults and limits used by machine learning. This endpoint is designed
+// to be used by a user interface that needs to fully understand machine
+// learning configurations where some options are not specified, meaning that
+// the defaults should be used. This endpoint may be used to find out what those
+// defaults are. It also provides information about the maximum size of machine
+// learning jobs that could run in the current cluster configuration.
 package info
 
 import (
@@ -78,13 +77,12 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 
 // Get machine learning information.
 //
-// Get defaults and limits used by machine learning.
-// This endpoint is designed to be used by a user interface that needs to fully
-// understand machine learning configurations where some options are not
-// specified, meaning that the defaults should be used. This endpoint may be
-// used to find out what those defaults are. It also provides information about
-// the maximum size of machine learning jobs that could run in the current
-// cluster configuration.
+// Get defaults and limits used by machine learning. This endpoint is designed
+// to be used by a user interface that needs to fully understand machine
+// learning configurations where some options are not specified, meaning that
+// the defaults should be used. This endpoint may be used to find out what those
+// defaults are. It also provides information about the maximum size of machine
+// learning jobs that could run in the current cluster configuration.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-info
 func New(tp elastictransport.Interface) *Info {
@@ -315,11 +313,9 @@ func (r *Info) FilterPath(filterpaths ...string) *Info {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Info) Human(human bool) *Info {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -327,8 +323,8 @@ func (r *Info) Human(human bool) *Info {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Info) Pretty(pretty bool) *Info {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

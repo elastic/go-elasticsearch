@@ -28,7 +28,8 @@ import (
 	"io"
 )
 
-// Query type.
+// An Elasticsearch Query DSL (Domain Specific Language) object that defines a
+// query.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/abstractions.ts#L103-L434
 type Query struct {
@@ -46,15 +47,14 @@ type Query struct {
 	// score equal to the `boost` parameter value.
 	ConstantScore *ConstantScoreQuery `json:"constant_score,omitempty"`
 	// DisMax Returns documents matching one or more wrapped queries, called query clauses
-	// or clauses.
-	// If a returned document matches multiple query clauses, the `dis_max` query
-	// assigns the document the highest relevance score from any matching clause,
-	// plus a tie breaking increment for any additional matching subqueries.
+	// or clauses. If a returned document matches multiple query clauses, the
+	// `dis_max` query assigns the document the highest relevance score from any
+	// matching clause, plus a tie breaking increment for any additional matching
+	// subqueries.
 	DisMax *DisMaxQuery `json:"dis_max,omitempty"`
 	// DistanceFeature Boosts the relevance score of documents closer to a provided origin date or
-	// point.
-	// For example, you can use this query to give more weight to documents closer
-	// to a certain date or location.
+	// point. For example, you can use this query to give more weight to documents
+	// closer to a certain date or location.
 	DistanceFeature DistanceFeatureQuery `json:"distance_feature,omitempty"`
 	// Exists Returns documents that contain an indexed value for a field.
 	Exists *ExistsQuery `json:"exists,omitempty"`
@@ -81,8 +81,8 @@ type Query struct {
 	// HasParent Returns child documents whose joined parent document matches a provided
 	// query.
 	HasParent *HasParentQuery `json:"has_parent,omitempty"`
-	// Ids Returns documents based on their IDs.
-	// This query uses document IDs stored in the `_id` field.
+	// Ids Returns documents based on their IDs. This query uses document IDs stored in
+	// the `_id` field.
 	Ids *IdsQuery `json:"ids,omitempty"`
 	// Intervals Returns documents based on the order and proximity of matching terms.
 	Intervals map[string]IntervalsQuery `json:"intervals,omitempty"`
@@ -95,28 +95,25 @@ type Query struct {
 	Match map[string]MatchQuery `json:"match,omitempty"`
 	// MatchAll Matches all documents, giving them all a `_score` of 1.0.
 	MatchAll *MatchAllQuery `json:"match_all,omitempty"`
-	// MatchBoolPrefix Analyzes its input and constructs a `bool` query from the terms.
-	// Each term except the last is used in a `term` query.
-	// The last term is used in a prefix query.
+	// MatchBoolPrefix Analyzes its input and constructs a `bool` query from the terms. Each term
+	// except the last is used in a `term` query. The last term is used in a prefix
+	// query.
 	MatchBoolPrefix map[string]MatchBoolPrefixQuery `json:"match_bool_prefix,omitempty"`
 	// MatchNone Matches no documents.
 	MatchNone *MatchNoneQuery `json:"match_none,omitempty"`
 	// MatchPhrase Analyzes the text and creates a phrase query out of the analyzed text.
 	MatchPhrase map[string]MatchPhraseQuery `json:"match_phrase,omitempty"`
 	// MatchPhrasePrefix Returns documents that contain the words of a provided text, in the same
-	// order as provided.
-	// The last term of the provided text is treated as a prefix, matching any words
-	// that begin with that term.
+	// order as provided. The last term of the provided text is treated as a prefix,
+	// matching any words that begin with that term.
 	MatchPhrasePrefix map[string]MatchPhrasePrefixQuery `json:"match_phrase_prefix,omitempty"`
 	// MoreLikeThis Returns documents that are "like" a given set of documents.
 	MoreLikeThis *MoreLikeThisQuery `json:"more_like_this,omitempty"`
 	// MultiMatch Enables you to search for a provided text, number, date or boolean value
-	// across multiple fields.
-	// The provided text is analyzed before matching.
+	// across multiple fields. The provided text is analyzed before matching.
 	MultiMatch *MultiMatchQuery `json:"multi_match,omitempty"`
-	// Nested Wraps another query to search nested fields.
-	// If an object matches the search, the nested query returns the root parent
-	// document.
+	// Nested Wraps another query to search nested fields. If an object matches the search,
+	// the nested query returns the root parent document.
 	Nested *NestedQuery `json:"nested,omitempty"`
 	// ParentId Returns child documents joined to a specific parent document.
 	ParentId *ParentIdQuery `json:"parent_id,omitempty"`
@@ -137,8 +134,8 @@ type Query struct {
 	// Regexp Returns documents that contain terms matching a regular expression.
 	Regexp map[string]RegexpQuery `json:"regexp,omitempty"`
 	Rule   *RuleQuery             `json:"rule,omitempty"`
-	// Script Filters documents based on a provided script.
-	// The script query is typically used in a filter context.
+	// Script Filters documents based on a provided script. The script query is typically
+	// used in a filter context.
 	Script *ScriptQuery `json:"script,omitempty"`
 	// ScriptScore Uses a script to provide a custom score for returned documents.
 	ScriptScore *ScriptScoreQuery `json:"script_score,omitempty"`
@@ -159,9 +156,9 @@ type Query struct {
 	// SpanMulti Allows you to wrap a multi term query (one of `wildcard`, `fuzzy`, `prefix`,
 	// `range`, or `regexp` query) as a `span` query, so it can be nested.
 	SpanMulti *SpanMultiTermQuery `json:"span_multi,omitempty"`
-	// SpanNear Matches spans which are near one another.
-	// You can specify `slop`, the maximum number of intervening unmatched
-	// positions, as well as whether matches are required to be in-order.
+	// SpanNear Matches spans which are near one another. You can specify `slop`, the maximum
+	// number of intervening unmatched positions, as well as whether matches are
+	// required to be in-order.
 	SpanNear *SpanNearQuery `json:"span_near,omitempty"`
 	// SpanNot Removes matches which overlap with another span query or which are within x
 	// tokens before (controlled by the parameter `pre`) or y tokens after
@@ -177,18 +174,17 @@ type Query struct {
 	// query into a list of token-weight pairs, queries against a sparse vector
 	// field.
 	SparseVector *SparseVectorQuery `json:"sparse_vector,omitempty"`
-	// Term Returns documents that contain an exact term in a provided field.
-	// To return a document, the query term must exactly match the queried field's
-	// value, including whitespace and capitalization.
+	// Term Returns documents that contain an exact term in a provided field. To return a
+	// document, the query term must exactly match the queried field's value,
+	// including whitespace and capitalization.
 	Term map[string]TermQuery `json:"term,omitempty"`
 	// Terms Returns documents that contain one or more exact terms in a provided field.
 	// To return a document, one or more terms must exactly match a field value,
 	// including whitespace and capitalization.
 	Terms *TermsQuery `json:"terms,omitempty"`
 	// TermsSet Returns documents that contain a minimum number of exact terms in a provided
-	// field.
-	// To return a document, a required number of terms must exactly match the field
-	// values, including whitespace and capitalization.
+	// field. To return a document, a required number of terms must exactly match
+	// the field values, including whitespace and capitalization.
 	TermsSet map[string]TermsSetQuery `json:"terms_set,omitempty"`
 	// TextExpansion Uses a natural language processing model to convert the query text into a
 	// list of token-weight pairs which are then used in a query against a sparse

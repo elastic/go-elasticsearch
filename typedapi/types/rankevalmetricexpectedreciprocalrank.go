@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// RankEvalMetricExpectedReciprocalRank type.
+// Expected Reciprocal Rank (ERR)
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/rank_eval/types.ts#L79-L88
 type RankEvalMetricExpectedReciprocalRank struct {

@@ -29,34 +29,50 @@ type CatTasksColumn struct {
 }
 
 var (
+
+	// Id The ID of the task with the node.
 	Id = CatTasksColumn{"id"}
 
+	// Action The task action.
 	Action = CatTasksColumn{"action"}
 
+	// Taskid The unique task ID.
 	Taskid = CatTasksColumn{"task_id"}
 
+	// Parenttaskid The parent task ID.
 	Parenttaskid = CatTasksColumn{"parent_task_id"}
 
+	// Type The task type.
 	Type = CatTasksColumn{"type"}
 
+	// Starttime The start time in milliseconds.
 	Starttime = CatTasksColumn{"start_time"}
 
+	// Timestamp The start time in HH:MM:SS.
 	Timestamp = CatTasksColumn{"timestamp"}
 
+	// Runningtimens The running time in nanoseconds.
 	Runningtimens = CatTasksColumn{"running_time_ns"}
 
+	// Runningtime The running time.
 	Runningtime = CatTasksColumn{"running_time"}
 
+	// Nodeid The unique node ID.
 	Nodeid = CatTasksColumn{"node_id"}
 
+	// Ip The IP address.
 	Ip = CatTasksColumn{"ip"}
 
+	// Port The bound transport port.
 	Port = CatTasksColumn{"port"}
 
+	// Node The node name.
 	Node = CatTasksColumn{"node"}
 
+	// Version The Elasticsearch version.
 	Version = CatTasksColumn{"version"}
 
+	// Xopaqueid The X-Opaque-ID header.
 	Xopaqueid = CatTasksColumn{"x_opaque_id"}
 )
 

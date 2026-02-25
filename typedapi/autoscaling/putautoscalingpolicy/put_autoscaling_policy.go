@@ -321,9 +321,8 @@ func (r *PutAutoscalingPolicy) _name(name string) *PutAutoscalingPolicy {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *PutAutoscalingPolicy) MasterTimeout(duration string) *PutAutoscalingPolicy {
 	r.values.Set("master_timeout", duration)
@@ -363,11 +362,9 @@ func (r *PutAutoscalingPolicy) FilterPath(filterpaths ...string) *PutAutoscaling
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutAutoscalingPolicy) Human(human bool) *PutAutoscalingPolicy {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -375,8 +372,8 @@ func (r *PutAutoscalingPolicy) Human(human bool) *PutAutoscalingPolicy {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutAutoscalingPolicy) Pretty(pretty bool) *PutAutoscalingPolicy {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

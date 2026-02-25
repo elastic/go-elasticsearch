@@ -20,16 +20,16 @@
 
 // Update field mappings.
 //
-// Add new fields to an existing data stream or index.
-// You can use the update mapping API to:
+// Add new fields to an existing data stream or index. You can use the update
+// mapping API to:
 //
-// - Add a new field to an existing index
-// - Update mappings for multiple indices in a single request
-// - Add new properties to an object field
-// - Enable multi-fields for an existing field
-// - Update supported mapping parameters
-// - Change a field's mapping using reindexing
-// - Rename a field using a field alias
+//   - Add a new field to an existing index
+//   - Update mappings for multiple indices in a single request
+//   - Add new properties to an object field
+//   - Enable multi-fields for an existing field
+//   - Update supported mapping parameters
+//   - Change a field's mapping using reindexing
+//   - Rename a field using a field alias
 //
 // Learn how to use the update mapping API with practical examples in the
 // [Update mapping API
@@ -101,16 +101,16 @@ func NewPutMappingFunc(tp elastictransport.Interface) NewPutMapping {
 
 // Update field mappings.
 //
-// Add new fields to an existing data stream or index.
-// You can use the update mapping API to:
+// Add new fields to an existing data stream or index. You can use the update
+// mapping API to:
 //
-// - Add a new field to an existing index
-// - Update mappings for multiple indices in a single request
-// - Add new properties to an object field
-// - Enable multi-fields for an existing field
-// - Update supported mapping parameters
-// - Change a field's mapping using reindexing
-// - Rename a field using a field alias
+//   - Add a new field to an existing index
+//   - Update mappings for multiple indices in a single request
+//   - Add new properties to an object field
+//   - Enable multi-fields for an existing field
+//   - Update supported mapping parameters
+//   - Change a field's mapping using reindexing
+//   - Rename a field using a field alias
 //
 // Learn how to use the update mapping API with practical examples in the
 // [Update mapping API
@@ -336,9 +336,8 @@ func (r *PutMapping) Header(key, value string) *PutMapping {
 	return r
 }
 
-// Index A comma-separated list of index names the mapping should be added to
-// (supports wildcards).
-// Use `_all` or omit to add the mapping on all indices.
+// Index A comma-separated list of index names the mapping should be added to //
+// (supports wildcards). Use `_all` or omit to add the mapping on all indices.
 // API Name: index
 func (r *PutMapping) _index(index string) *PutMapping {
 	r.paramSet |= indexMask
@@ -348,8 +347,8 @@ func (r *PutMapping) _index(index string) *PutMapping {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *PutMapping) AllowNoIndices(allownoindices bool) *PutMapping {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -357,10 +356,9 @@ func (r *PutMapping) AllowNoIndices(allownoindices bool) *PutMapping {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *PutMapping) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *PutMapping {
 	tmp := []string{}
@@ -381,9 +379,8 @@ func (r *PutMapping) IgnoreUnavailable(ignoreunavailable bool) *PutMapping {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *PutMapping) MasterTimeout(duration string) *PutMapping {
 	r.values.Set("master_timeout", duration)
@@ -391,9 +388,8 @@ func (r *PutMapping) MasterTimeout(duration string) *PutMapping {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *PutMapping) Timeout(duration string) *PutMapping {
 	r.values.Set("timeout", duration)
@@ -433,11 +429,9 @@ func (r *PutMapping) FilterPath(filterpaths ...string) *PutMapping {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutMapping) Human(human bool) *PutMapping {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -445,8 +439,8 @@ func (r *PutMapping) Human(human bool) *PutMapping {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutMapping) Pretty(pretty bool) *PutMapping {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -478,9 +472,9 @@ func (r *PutMapping) Dynamic(dynamic dynamicmapping.DynamicMapping) *PutMapping 
 	return r
 }
 
-// If date detection is enabled then new string fields are checked
-// against 'dynamic_date_formats' and if the value matches then
-// a new date field is added instead of string.
+// If date detection is enabled then new string fields are checked against
+// 'dynamic_date_formats' and if the value matches then a new date field is
+// added instead of string.
 // API name: dynamic_date_formats
 func (r *PutMapping) DynamicDateFormats(dynamicdateformats ...string) *PutMapping {
 	// Initialize the request if it is not already initialized
@@ -521,9 +515,9 @@ func (r *PutMapping) FieldNames_(fieldnames_ types.FieldNamesFieldVariant) *PutM
 	return r
 }
 
-// A mapping type can have custom meta data associated with it. These are
-// not used at all by Elasticsearch, but can be used to store
-// application-specific metadata.
+// A mapping type can have custom meta data associated with it. These are not
+// used at all by Elasticsearch, but can be used to store application-specific
+// metadata.
 // API name: _meta
 func (r *PutMapping) Meta_(metadata types.MetadataVariant) *PutMapping {
 	// Initialize the request if it is not already initialized
@@ -551,9 +545,10 @@ func (r *PutMapping) NumericDetection(numericdetection bool) *PutMapping {
 
 // Mapping for a field. For new fields, this mapping can include:
 //
-// - Field name
-// - Field data type
-// - Mapping parameters
+//   - Field name
+//   - Field data type
+//   - Mapping parameters
+//
 // API name: properties
 func (r *PutMapping) Properties(properties map[string]types.Property) *PutMapping {
 	// Initialize the request if it is not already initialized

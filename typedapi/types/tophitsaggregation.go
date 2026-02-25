@@ -48,8 +48,8 @@ type TopHitsAggregation struct {
 	// Highlight Specifies the highlighter to use for retrieving highlighted snippets from one
 	// or more fields in the search results.
 	Highlight *Highlight `json:"highlight,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
 	Script  *Script `json:"script,omitempty"`
 	// ScriptFields Returns the result of one or more script evaluations for each hit.
@@ -59,8 +59,8 @@ type TopHitsAggregation struct {
 	SeqNoPrimaryTerm *bool `json:"seq_no_primary_term,omitempty"`
 	// Size The maximum number of top matching hits to return per bucket.
 	Size *int `json:"size,omitempty"`
-	// Sort Sort order of the top matching hits.
-	// By default, the hits are sorted by the score of the main query.
+	// Sort Sort order of the top matching hits. By default, the hits are sorted by the
+	// score of the main query.
 	Sort []SortCombinations `json:"sort,omitempty"`
 	// Source_ Selects the fields of the source that are returned.
 	Source_ SourceConfig `json:"_source,omitempty"`

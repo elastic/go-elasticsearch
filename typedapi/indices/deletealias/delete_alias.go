@@ -320,7 +320,7 @@ func (r *DeleteAlias) Header(key, value string) *DeleteAlias {
 	return r
 }
 
-// Index Comma-separated list of data streams or indices used to limit the request.
+// Index Comma-separated list of data streams or indices used to limit the request. //
 // Supports wildcards (`*`).
 // API Name: index
 func (r *DeleteAlias) _index(index string) *DeleteAlias {
@@ -330,8 +330,8 @@ func (r *DeleteAlias) _index(index string) *DeleteAlias {
 	return r
 }
 
-// Name Comma-separated list of aliases to remove.
-// Supports wildcards (`*`). To remove all aliases, use `*` or `_all`.
+// Name Comma-separated list of aliases to remove. Supports wildcards (`*`). To //
+// remove all aliases, use `*` or `_all`.
 // API Name: name
 func (r *DeleteAlias) _name(name string) *DeleteAlias {
 	r.paramSet |= nameMask
@@ -340,9 +340,8 @@ func (r *DeleteAlias) _name(name string) *DeleteAlias {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *DeleteAlias) MasterTimeout(duration string) *DeleteAlias {
 	r.values.Set("master_timeout", duration)
@@ -350,9 +349,8 @@ func (r *DeleteAlias) MasterTimeout(duration string) *DeleteAlias {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *DeleteAlias) Timeout(duration string) *DeleteAlias {
 	r.values.Set("timeout", duration)
@@ -383,11 +381,9 @@ func (r *DeleteAlias) FilterPath(filterpaths ...string) *DeleteAlias {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteAlias) Human(human bool) *DeleteAlias {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -395,8 +391,8 @@ func (r *DeleteAlias) Human(human bool) *DeleteAlias {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteAlias) Pretty(pretty bool) *DeleteAlias {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

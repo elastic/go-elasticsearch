@@ -25,6 +25,10 @@ package types
 //	map[string]Query
 //	[]Query
 //
+// Aggregation buckets. By default they are returned as an array, but if the
+// aggregation has keys configured for the different buckets, the result is a
+// dictionary.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/Aggregate.ts#L362-L371
 type BucketsQuery any
 

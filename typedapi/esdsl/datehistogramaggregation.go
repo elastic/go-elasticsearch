@@ -32,8 +32,8 @@ type _dateHistogramAggregation struct {
 }
 
 // A multi-bucket values source based aggregation that can be applied on date
-// values or date range values extracted from the documents.
-// It dynamically builds fixed size (interval) buckets over the values.
+// values or date range values extracted from the documents. It dynamically
+// builds fixed size (interval) buckets over the values.
 func NewDateHistogramAggregation() *_dateHistogramAggregation {
 
 	return &_dateHistogramAggregation{v: types.NewDateHistogramAggregation()}

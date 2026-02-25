@@ -32,29 +32,26 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/metric.ts#L290-L316
 type ScriptedMetricAggregation struct {
-	// CombineScript Runs once on each shard after document collection is complete.
-	// Allows the aggregation to consolidate the state returned from each shard.
+	// CombineScript Runs once on each shard after document collection is complete. Allows the
+	// aggregation to consolidate the state returned from each shard.
 	CombineScript *Script `json:"combine_script,omitempty"`
 	// Field The field on which to run the aggregation.
 	Field *string `json:"field,omitempty"`
-	// InitScript Runs prior to any collection of documents.
-	// Allows the aggregation to set up any initial state.
+	// InitScript Runs prior to any collection of documents. Allows the aggregation to set up
+	// any initial state.
 	InitScript *Script `json:"init_script,omitempty"`
-	// MapScript Run once per document collected.
-	// If no `combine_script` is specified, the resulting state needs to be stored
-	// in the `state` object.
+	// MapScript Run once per document collected. If no `combine_script` is specified, the
+	// resulting state needs to be stored in the `state` object.
 	MapScript *Script `json:"map_script,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
 	// Params A global object with script parameters for `init`, `map` and `combine`
-	// scripts.
-	// It is shared between the scripts.
+	// scripts. It is shared between the scripts.
 	Params map[string]json.RawMessage `json:"params,omitempty"`
 	// ReduceScript Runs once on the coordinating node after all shards have returned their
-	// results.
-	// The script is provided with access to a variable `states`, which is an array
-	// of the result of the `combine_script` on each shard.
+	// results. The script is provided with access to a variable `states`, which is
+	// an array of the result of the `combine_script` on each shard.
 	ReduceScript *Script `json:"reduce_script,omitempty"`
 	Script       *Script `json:"script,omitempty"`
 }

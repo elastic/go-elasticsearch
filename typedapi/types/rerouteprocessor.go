@@ -34,22 +34,20 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L1443-L1471
 type RerouteProcessor struct {
 	// Dataset Field references or a static value for the dataset part of the data stream
-	// name.
-	// In addition to the criteria for index names, cannot contain - and must be no
-	// longer than 100 characters.
-	// Example values are nginx.access and nginx.error.
+	// name. In addition to the criteria for index names, cannot contain - and must
+	// be no longer than 100 characters. Example values are nginx.access and
+	// nginx.error.
 	//
 	// Supports field references with a mustache-like syntax (denoted as {{double}}
-	// or {{{triple}}} curly braces).
-	// When resolving field references, the processor replaces invalid characters
-	// with _. Uses the <dataset> part
-	// of the index name as a fallback if all field references resolve to a null,
-	// missing, or non-string value.
+	// or {{{triple}}} curly braces). When resolving field references, the processor
+	// replaces invalid characters with _. Uses the <dataset> part of the index name
+	// as a fallback if all field references resolve to a null, missing, or
+	// non-string value.
 	//
 	// default {{data_stream.dataset}}
 	Dataset []string `json:"dataset,omitempty"`
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Destination A static value for the target. Can’t be set when the dataset or namespace
 	// option is set.
@@ -59,22 +57,20 @@ type RerouteProcessor struct {
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
 	// Namespace Field references or a static value for the namespace part of the data stream
-	// name. See the criteria for
-	// index names for allowed characters. Must be no longer than 100 characters.
+	// name. See the criteria for index names for allowed characters. Must be no
+	// longer than 100 characters.
 	//
 	// Supports field references with a mustache-like syntax (denoted as {{double}}
-	// or {{{triple}}} curly braces).
-	// When resolving field references, the processor replaces invalid characters
-	// with _. Uses the <namespace> part
-	// of the index name as a fallback if all field references resolve to a null,
-	// missing, or non-string value.
+	// or {{{triple}}} curly braces). When resolving field references, the processor
+	// replaces invalid characters with _. Uses the <namespace> part of the index
+	// name as a fallback if all field references resolve to a null, missing, or
+	// non-string value.
 	//
 	// default {{data_stream.namespace}}
 	Namespace []string `json:"namespace,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 }
 

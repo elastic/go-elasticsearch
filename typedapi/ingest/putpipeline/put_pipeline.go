@@ -367,11 +367,9 @@ func (r *PutPipeline) FilterPath(filterpaths ...string) *PutPipeline {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutPipeline) Human(human bool) *PutPipeline {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -379,8 +377,8 @@ func (r *PutPipeline) Human(human bool) *PutPipeline {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutPipeline) Pretty(pretty bool) *PutPipeline {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -388,10 +386,9 @@ func (r *PutPipeline) Pretty(pretty bool) *PutPipeline {
 	return r
 }
 
-// Marks this ingest pipeline as deprecated.
-// When a deprecated ingest pipeline is referenced as the default or final
-// pipeline when creating or updating a non-deprecated index template,
-// Elasticsearch will emit a deprecation warning.
+// Marks this ingest pipeline as deprecated. When a deprecated ingest pipeline
+// is referenced as the default or final pipeline when creating or updating a
+// non-deprecated index template, Elasticsearch will emit a deprecation warning.
 // API name: deprecated
 func (r *PutPipeline) Deprecated(deprecated bool) *PutPipeline {
 	// Initialize the request if it is not already initialized

@@ -330,10 +330,9 @@ func (r *Usage) Header(key, value string) *Usage {
 	return r
 }
 
-// NodeId A comma-separated list of node IDs or names to limit the returned
-// information.
-// Use `_local` to return information from the node you're connecting to, leave
-// empty to get information from all nodes.
+// NodeId A comma-separated list of node IDs or names to limit the returned //
+// information. Use `_local` to return information from the node you're //
+// connecting to, leave empty to get information from all nodes.
 // API Name: nodeid
 func (r *Usage) NodeId(nodeid string) *Usage {
 	r.paramSet |= nodeidMask
@@ -342,9 +341,8 @@ func (r *Usage) NodeId(nodeid string) *Usage {
 	return r
 }
 
-// Metric Limits the information returned to the specific metrics.
-// A comma-separated list of the following options: `_all`, `rest_actions`,
-// `aggregations`.
+// Metric Limits the information returned to the specific metrics. A comma-separated //
+// list of the following options: `_all`, `rest_actions`, `aggregations`.
 // API Name: metric
 func (r *Usage) Metric(metric string) *Usage {
 	r.paramSet |= metricMask
@@ -353,9 +351,8 @@ func (r *Usage) Metric(metric string) *Usage {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *Usage) Timeout(duration string) *Usage {
 	r.values.Set("timeout", duration)
@@ -386,11 +383,9 @@ func (r *Usage) FilterPath(filterpaths ...string) *Usage {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Usage) Human(human bool) *Usage {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -398,8 +393,8 @@ func (r *Usage) Human(human bool) *Usage {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Usage) Pretty(pretty bool) *Usage {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

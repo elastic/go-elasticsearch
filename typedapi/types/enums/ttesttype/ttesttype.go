@@ -29,10 +29,14 @@ type TTestType struct {
 }
 
 var (
+
+	// Paired Performs paired t-test.
 	Paired = TTestType{"paired"}
 
+	// Homoscedastic Performs two-sample equal variance test.
 	Homoscedastic = TTestType{"homoscedastic"}
 
+	// Heteroscedastic Performs two-sample unequal variance test.
 	Heteroscedastic = TTestType{"heteroscedastic"}
 )
 

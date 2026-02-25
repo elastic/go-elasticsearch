@@ -25,10 +25,9 @@
 //
 // Generating excessive amount of tokens may cause a node to run out of memory.
 // The `index.analyze.max_token_count` setting enables you to limit the number
-// of tokens that can be produced.
-// If more than this limit of tokens gets generated, an error occurs.
-// The `_analyze` endpoint without a specified index will always use `10000` as
-// its limit.
+// of tokens that can be produced. If more than this limit of tokens gets
+// generated, an error occurs. The `_analyze` endpoint without a specified index
+// will always use `10000` as its limit.
 package analyze
 
 import (
@@ -96,10 +95,9 @@ func NewAnalyzeFunc(tp elastictransport.Interface) NewAnalyze {
 //
 // Generating excessive amount of tokens may cause a node to run out of memory.
 // The `index.analyze.max_token_count` setting enables you to limit the number
-// of tokens that can be produced.
-// If more than this limit of tokens gets generated, an error occurs.
-// The `_analyze` endpoint without a specified index will always use `10000` as
-// its limit.
+// of tokens that can be produced. If more than this limit of tokens gets
+// generated, an error occurs. The `_analyze` endpoint without a specified index
+// will always use `10000` as its limit.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-analyze
 func New(tp elastictransport.Interface) *Analyze {
@@ -325,10 +323,9 @@ func (r *Analyze) Header(key, value string) *Analyze {
 	return r
 }
 
-// Index Index used to derive the analyzer.
-// If specified, the `analyzer` or field parameter overrides this value.
-// If no index is specified or the index does not have a default analyzer, the
-// analyze API uses the standard analyzer.
+// Index Index used to derive the analyzer. If specified, the `analyzer` or field //
+// parameter overrides this value. If no index is specified or the index does //
+// not have a default analyzer, the analyze API uses the standard analyzer.
 // API Name: index
 func (r *Analyze) Index(index string) *Analyze {
 	r.paramSet |= indexMask
@@ -360,11 +357,9 @@ func (r *Analyze) FilterPath(filterpaths ...string) *Analyze {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Analyze) Human(human bool) *Analyze {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -372,8 +367,8 @@ func (r *Analyze) Human(human bool) *Analyze {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Analyze) Pretty(pretty bool) *Analyze {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -381,9 +376,9 @@ func (r *Analyze) Pretty(pretty bool) *Analyze {
 	return r
 }
 
-// The name of the analyzer that should be applied to the provided `text`.
-// This could be a built-in analyzer, or an analyzer that’s been configured in
-// the index.
+// The name of the analyzer that should be applied to the provided `text`. This
+// could be a built-in analyzer, or an analyzer that’s been configured in the
+// index.
 // API name: analyzer
 func (r *Analyze) Analyzer(analyzer string) *Analyze {
 	// Initialize the request if it is not already initialized
@@ -441,9 +436,8 @@ func (r *Analyze) Explain(explain bool) *Analyze {
 	return r
 }
 
-// Field used to derive the analyzer.
-// To use this parameter, you must specify an index.
-// If specified, the `analyzer` parameter overrides this value.
+// Field used to derive the analyzer. To use this parameter, you must specify an
+// index. If specified, the `analyzer` parameter overrides this value.
 // API name: field
 func (r *Analyze) Field(field string) *Analyze {
 	// Initialize the request if it is not already initialized
@@ -484,8 +478,8 @@ func (r *Analyze) Normalizer(normalizer string) *Analyze {
 	return r
 }
 
-// Text to analyze.
-// If an array of strings is provided, it is analyzed as a multi-value field.
+// Text to analyze. If an array of strings is provided, it is analyzed as a
+// multi-value field.
 // API name: text
 func (r *Analyze) Text(texttoanalyzes ...string) *Analyze {
 	// Initialize the request if it is not already initialized

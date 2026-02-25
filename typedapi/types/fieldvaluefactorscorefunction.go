@@ -39,9 +39,8 @@ type FieldValueFactorScoreFunction struct {
 	Factor *Float64 `json:"factor,omitempty"`
 	// Field Field to be extracted from the document.
 	Field string `json:"field"`
-	// Missing Value used if the document doesn’t have that field.
-	// The modifier and factor are still applied to it as though it were read from
-	// the document.
+	// Missing Value used if the document doesn’t have that field. The modifier and factor
+	// are still applied to it as though it were read from the document.
 	Missing *Float64 `json:"missing,omitempty"`
 	// Modifier Modifier to apply to the field value.
 	Modifier *fieldvaluefactormodifier.FieldValueFactorModifier `json:"modifier,omitempty"`

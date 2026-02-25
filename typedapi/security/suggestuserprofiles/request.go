@@ -36,18 +36,15 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/suggest_user_profiles/Request.ts#L25-L84
 type Request struct {
 	// Data A comma-separated list of filters for the `data` field of the profile
-	// document.
-	// To return all content use `data=*`.
-	// To return a subset of content, use `data=<key>` to retrieve content nested
-	// under the specified `<key>`.
-	// By default, the API returns no `data` content.
-	// It is an error to specify `data` as both the query parameter and the request
-	// body field.
+	// document. To return all content use `data=*`. To return a subset of content,
+	// use `data=<key>` to retrieve content nested under the specified `<key>`. By
+	// default, the API returns no `data` content. It is an error to specify `data`
+	// as both the query parameter and the request body field.
 	Data []string `json:"data,omitempty"`
-	// Hint Extra search criteria to improve relevance of the suggestion result.
-	// Profiles matching the spcified hint are ranked higher in the response.
-	// Profiles not matching the hint aren't excluded from the response as long as
-	// the profile matches the `name` field query.
+	// Hint Extra search criteria to improve relevance of the suggestion result. Profiles
+	// matching the spcified hint are ranked higher in the response. Profiles not
+	// matching the hint aren't excluded from the response as long as the profile
+	// matches the `name` field query.
 	Hint *types.Hint `json:"hint,omitempty"`
 	// Name A query string used to match name-related fields in user profile documents.
 	// Name-related fields are the user's `username`, `full_name`, and `email`.

@@ -343,11 +343,11 @@ func (r *GetCategories) _jobid(jobid string) *GetCategories {
 	return r
 }
 
-// CategoryId Identifier for the category, which is unique in the job. If you specify
-// neither the category ID nor the partition_field_value, the API returns
-// information about all categories. If you specify only the
-// partition_field_value, it returns information about all categories for
-// the specified partition.
+// CategoryId Identifier for the category, which is unique in the job. If you specify //
+// neither the category ID nor the partition_field_value, the API returns //
+// information about all categories. If you specify only the //
+// partition_field_value, it returns information about all categories for the //
+// specified partition.
 // API Name: categoryid
 func (r *GetCategories) CategoryId(categoryid string) *GetCategories {
 	r.paramSet |= categoryidMask
@@ -403,11 +403,9 @@ func (r *GetCategories) FilterPath(filterpaths ...string) *GetCategories {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetCategories) Human(human bool) *GetCategories {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -415,8 +413,8 @@ func (r *GetCategories) Human(human bool) *GetCategories {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetCategories) Pretty(pretty bool) *GetCategories {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -424,8 +422,7 @@ func (r *GetCategories) Pretty(pretty bool) *GetCategories {
 	return r
 }
 
-// Configures pagination.
-// This parameter has the `from` and `size` properties.
+// Configures pagination. This parameter has the `from` and `size` properties.
 // API name: page
 func (r *GetCategories) Page(page types.PageVariant) *GetCategories {
 	// Initialize the request if it is not already initialized

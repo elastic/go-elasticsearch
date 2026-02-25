@@ -29,14 +29,22 @@ type CardinalityExecutionMode struct {
 }
 
 var (
+
+	// Globalordinals Run the aggregation by using global ordinals of the field and resolving those
+	// values after finishing a shard.
 	Globalordinals = CardinalityExecutionMode{"global_ordinals"}
 
+	// Segmentordinals Run the aggregation by using segment ordinal values and resolving those
+	// values after each segment.
 	Segmentordinals = CardinalityExecutionMode{"segment_ordinals"}
 
+	// Direct Run the aggregation by using field values directly.
 	Direct = CardinalityExecutionMode{"direct"}
 
+	// Savememoryheuristic Heuristic-based mode, default in Elasticsearch 8.3 and earlier.
 	Savememoryheuristic = CardinalityExecutionMode{"save_memory_heuristic"}
 
+	// Savetimeheuristic Heuristic-based mode, default in Elasticsearch 8.4 and later.
 	Savetimeheuristic = CardinalityExecutionMode{"save_time_heuristic"}
 )
 

@@ -20,37 +20,32 @@
 
 // Update an API key.
 //
-// Update attributes of an existing API key.
-// This API supports updates to an API key's access scope, expiration, and
-// metadata.
+// Update attributes of an existing API key. This API supports updates to an API
+// key's access scope, expiration, and metadata.
 //
 // To use this API, you must have at least the `manage_own_api_key` cluster
-// privilege.
-// Users can only update API keys that they created or that were granted to
-// them.
-// To update another user’s API key, use the `run_as` feature to submit a
-// request on behalf of another user.
+// privilege. Users can only update API keys that they created or that were
+// granted to them. To update another user’s API key, use the `run_as` feature
+// to submit a request on behalf of another user.
 //
 // IMPORTANT: It's not possible to use an API key as the authentication
 // credential for this API. The owner user’s credentials are required.
 //
 // Use this API to update API keys created by the create API key or grant API
-// Key APIs.
-// If you need to apply the same update to many API keys, you can use the bulk
-// update API keys API to reduce overhead.
-// It's not possible to update expired API keys or API keys that have been
-// invalidated by the invalidate API key API.
+// Key APIs. If you need to apply the same update to many API keys, you can use
+// the bulk update API keys API to reduce overhead. It's not possible to update
+// expired API keys or API keys that have been invalidated by the invalidate API
+// key API.
 //
 // The access scope of an API key is derived from the `role_descriptors` you
 // specify in the request and a snapshot of the owner user's permissions at the
-// time of the request.
-// The snapshot of the owner's permissions is updated automatically on every
-// call.
+// time of the request. The snapshot of the owner's permissions is updated
+// automatically on every call.
 //
 // IMPORTANT: If you don't specify `role_descriptors` in the request, a call to
-// this API might still change the API key's access scope.
-// This change can occur if the owner user's permissions have changed since the
-// API key was created or last modified.
+// this API might still change the API key's access scope. This change can occur
+// if the owner user's permissions have changed since the API key was created or
+// last modified.
 package updateapikey
 
 import (
@@ -115,37 +110,32 @@ func NewUpdateApiKeyFunc(tp elastictransport.Interface) NewUpdateApiKey {
 
 // Update an API key.
 //
-// Update attributes of an existing API key.
-// This API supports updates to an API key's access scope, expiration, and
-// metadata.
+// Update attributes of an existing API key. This API supports updates to an API
+// key's access scope, expiration, and metadata.
 //
 // To use this API, you must have at least the `manage_own_api_key` cluster
-// privilege.
-// Users can only update API keys that they created or that were granted to
-// them.
-// To update another user’s API key, use the `run_as` feature to submit a
-// request on behalf of another user.
+// privilege. Users can only update API keys that they created or that were
+// granted to them. To update another user’s API key, use the `run_as` feature
+// to submit a request on behalf of another user.
 //
 // IMPORTANT: It's not possible to use an API key as the authentication
 // credential for this API. The owner user’s credentials are required.
 //
 // Use this API to update API keys created by the create API key or grant API
-// Key APIs.
-// If you need to apply the same update to many API keys, you can use the bulk
-// update API keys API to reduce overhead.
-// It's not possible to update expired API keys or API keys that have been
-// invalidated by the invalidate API key API.
+// Key APIs. If you need to apply the same update to many API keys, you can use
+// the bulk update API keys API to reduce overhead. It's not possible to update
+// expired API keys or API keys that have been invalidated by the invalidate API
+// key API.
 //
 // The access scope of an API key is derived from the `role_descriptors` you
 // specify in the request and a snapshot of the owner user's permissions at the
-// time of the request.
-// The snapshot of the owner's permissions is updated automatically on every
-// call.
+// time of the request. The snapshot of the owner's permissions is updated
+// automatically on every call.
 //
 // IMPORTANT: If you don't specify `role_descriptors` in the request, a call to
-// this API might still change the API key's access scope.
-// This change can occur if the owner user's permissions have changed since the
-// API key was created or last modified.
+// this API might still change the API key's access scope. This change can occur
+// if the owner user's permissions have changed since the API key was created or
+// last modified.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-api-key
 func New(tp elastictransport.Interface) *UpdateApiKey {
@@ -400,11 +390,9 @@ func (r *UpdateApiKey) FilterPath(filterpaths ...string) *UpdateApiKey {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateApiKey) Human(human bool) *UpdateApiKey {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -412,8 +400,8 @@ func (r *UpdateApiKey) Human(human bool) *UpdateApiKey {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateApiKey) Pretty(pretty bool) *UpdateApiKey {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -421,9 +409,8 @@ func (r *UpdateApiKey) Pretty(pretty bool) *UpdateApiKey {
 	return r
 }
 
-// The expiration time for the API key.
-// By default, API keys never expire.
-// This property can be omitted to leave the expiration unchanged.
+// The expiration time for the API key. By default, API keys never expire. This
+// property can be omitted to leave the expiration unchanged.
 // API name: expiration
 func (r *UpdateApiKey) Expiration(duration types.DurationVariant) *UpdateApiKey {
 	// Initialize the request if it is not already initialized
@@ -436,12 +423,10 @@ func (r *UpdateApiKey) Expiration(duration types.DurationVariant) *UpdateApiKey 
 	return r
 }
 
-// Arbitrary metadata that you want to associate with the API key.
-// It supports a nested data structure.
-// Within the metadata object, keys beginning with `_` are reserved for system
-// usage.
-// When specified, this value fully replaces the metadata previously associated
-// with the API key.
+// Arbitrary metadata that you want to associate with the API key. It supports a
+// nested data structure. Within the metadata object, keys beginning with `_`
+// are reserved for system usage. When specified, this value fully replaces the
+// metadata previously associated with the API key.
 // API name: metadata
 func (r *UpdateApiKey) Metadata(metadata types.MetadataVariant) *UpdateApiKey {
 	// Initialize the request if it is not already initialized
@@ -454,18 +439,15 @@ func (r *UpdateApiKey) Metadata(metadata types.MetadataVariant) *UpdateApiKey {
 	return r
 }
 
-// The role descriptors to assign to this API key.
-// The API key's effective permissions are an intersection of its assigned
-// privileges and the point in time snapshot of permissions of the owner user.
-// You can assign new privileges by specifying them in this parameter.
-// To remove assigned privileges, you can supply an empty `role_descriptors`
-// parameter, that is to say, an empty object `{}`.
-// If an API key has no assigned privileges, it inherits the owner user's full
-// permissions.
-// The snapshot of the owner's permissions is always updated, whether you supply
-// the `role_descriptors` parameter or not.
-// The structure of a role descriptor is the same as the request for the create
-// API keys API.
+// The role descriptors to assign to this API key. The API key's effective
+// permissions are an intersection of its assigned privileges and the point in
+// time snapshot of permissions of the owner user. You can assign new privileges
+// by specifying them in this parameter. To remove assigned privileges, you can
+// supply an empty `role_descriptors` parameter, that is to say, an empty object
+// `{}`. If an API key has no assigned privileges, it inherits the owner user's
+// full permissions. The snapshot of the owner's permissions is always updated,
+// whether you supply the `role_descriptors` parameter or not. The structure of
+// a role descriptor is the same as the request for the create API keys API.
 // API name: role_descriptors
 func (r *UpdateApiKey) RoleDescriptors(roledescriptors map[string]types.RoleDescriptor) *UpdateApiKey {
 	// Initialize the request if it is not already initialized

@@ -29,9 +29,9 @@
 // nodes of the cluster.
 //
 // NOTE: For tokens backed by the `service_tokens` file, the API collects them
-// from all nodes of the cluster.
-// Tokens with the same name from different nodes are assumed to be the same
-// token and are only counted once towards the total number of service tokens.
+// from all nodes of the cluster. Tokens with the same name from different nodes
+// are assumed to be the same token and are only counted once towards the total
+// number of service tokens.
 package getservicecredentials
 
 import (
@@ -105,9 +105,9 @@ func NewGetServiceCredentialsFunc(tp elastictransport.Interface) NewGetServiceCr
 // nodes of the cluster.
 //
 // NOTE: For tokens backed by the `service_tokens` file, the API collects them
-// from all nodes of the cluster.
-// Tokens with the same name from different nodes are assumed to be the same
-// token and are only counted once towards the total number of service tokens.
+// from all nodes of the cluster. Tokens with the same name from different nodes
+// are assumed to be the same token and are only counted once towards the total
+// number of service tokens.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-service-credentials
 func New(tp elastictransport.Interface) *GetServiceCredentials {
@@ -370,11 +370,9 @@ func (r *GetServiceCredentials) FilterPath(filterpaths ...string) *GetServiceCre
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetServiceCredentials) Human(human bool) *GetServiceCredentials {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +380,8 @@ func (r *GetServiceCredentials) Human(human bool) *GetServiceCredentials {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetServiceCredentials) Pretty(pretty bool) *GetServiceCredentials {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

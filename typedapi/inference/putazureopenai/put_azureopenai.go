@@ -26,10 +26,9 @@
 // The list of chat completion models that you can choose from in your Azure
 // OpenAI deployment include:
 //
-// * [GPT-4 and GPT-4 Turbo
-// models](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-4-and-gpt-4-turbo-models)
-// *
-// [GPT-3.5](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-35)
+//   - [GPT-4 and GPT-4 Turbo
+//     models](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-4-and-gpt-4-turbo-models)
+//   - [GPT-3.5](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-35)
 //
 // The list of embeddings models that you can choose from in your deployment can
 // be found in the [Azure models
@@ -110,10 +109,9 @@ func NewPutAzureopenaiFunc(tp elastictransport.Interface) NewPutAzureopenai {
 // The list of chat completion models that you can choose from in your Azure
 // OpenAI deployment include:
 //
-// * [GPT-4 and GPT-4 Turbo
-// models](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-4-and-gpt-4-turbo-models)
-// *
-// [GPT-3.5](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-35)
+//   - [GPT-4 and GPT-4 Turbo
+//     models](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-4-and-gpt-4-turbo-models)
+//   - [GPT-3.5](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#gpt-35)
 //
 // The list of embeddings models that you can choose from in your deployment can
 // be found in the [Azure models
@@ -344,9 +342,9 @@ func (r *PutAzureopenai) Header(key, value string) *PutAzureopenai {
 	return r
 }
 
-// TaskType The type of the inference task that the model will perform.
-// NOTE: The `chat_completion` task type only supports streaming and only
-// through the _stream API.
+// TaskType The type of the inference task that the model will perform. NOTE: The //
+// `chat_completion` task type only supports streaming and only through the //
+// _stream API.
 // API Name: tasktype
 func (r *PutAzureopenai) _tasktype(tasktype string) *PutAzureopenai {
 	r.paramSet |= tasktypeMask
@@ -396,11 +394,9 @@ func (r *PutAzureopenai) FilterPath(filterpaths ...string) *PutAzureopenai {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutAzureopenai) Human(human bool) *PutAzureopenai {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -408,8 +404,8 @@ func (r *PutAzureopenai) Human(human bool) *PutAzureopenai {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutAzureopenai) Pretty(pretty bool) *PutAzureopenai {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -417,9 +413,8 @@ func (r *PutAzureopenai) Pretty(pretty bool) *PutAzureopenai {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `text_embedding` task type.
-// Not applicable to the `completion` and `chat_completion` task types.
+// The chunking configuration object. Applies only to the `text_embedding` task
+// type. Not applicable to the `completion` and `chat_completion` task types.
 // API name: chunking_settings
 func (r *PutAzureopenai) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAzureopenai {
 	// Initialize the request if it is not already initialized
@@ -458,8 +453,8 @@ func (r *PutAzureopenai) ServiceSettings(servicesettings types.AzureOpenAIServic
 	return r
 }
 
-// Settings to configure the inference task.
-// These settings are specific to the task type you specified.
+// Settings to configure the inference task. These settings are specific to the
+// task type you specified.
 // API name: task_settings
 func (r *PutAzureopenai) TaskSettings(tasksettings types.AzureOpenAITaskSettingsVariant) *PutAzureopenai {
 	// Initialize the request if it is not already initialized

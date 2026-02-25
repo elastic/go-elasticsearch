@@ -23,9 +23,9 @@
 // Generate SAML metadata for a SAML 2.0 Service Provider.
 //
 // The SAML 2.0 specification provides a mechanism for Service Providers to
-// describe their capabilities and configuration using a metadata file.
-// This API generates Service Provider metadata based on the configuration of a
-// SAML realm in Elasticsearch.
+// describe their capabilities and configuration using a metadata file. This API
+// generates Service Provider metadata based on the configuration of a SAML
+// realm in Elasticsearch.
 package samlserviceprovidermetadata
 
 import (
@@ -88,9 +88,9 @@ func NewSamlServiceProviderMetadataFunc(tp elastictransport.Interface) NewSamlSe
 // Generate SAML metadata for a SAML 2.0 Service Provider.
 //
 // The SAML 2.0 specification provides a mechanism for Service Providers to
-// describe their capabilities and configuration using a metadata file.
-// This API generates Service Provider metadata based on the configuration of a
-// SAML realm in Elasticsearch.
+// describe their capabilities and configuration using a metadata file. This API
+// generates Service Provider metadata based on the configuration of a SAML
+// realm in Elasticsearch.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-service-provider-metadata
 func New(tp elastictransport.Interface) *SamlServiceProviderMetadata {
@@ -344,11 +344,9 @@ func (r *SamlServiceProviderMetadata) FilterPath(filterpaths ...string) *SamlSer
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SamlServiceProviderMetadata) Human(human bool) *SamlServiceProviderMetadata {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -356,8 +354,8 @@ func (r *SamlServiceProviderMetadata) Human(human bool) *SamlServiceProviderMeta
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SamlServiceProviderMetadata) Pretty(pretty bool) *SamlServiceProviderMetadata {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

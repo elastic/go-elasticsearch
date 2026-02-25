@@ -32,9 +32,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/put_voyageai/PutVoyageAIRequest.ts#L31-L91
 type Request struct {
-	// ChunkingSettings The chunking configuration object.
-	// Applies only to the `text_embedding` task type.
-	// Not applicable to the `rerank` task type.
+	// ChunkingSettings The chunking configuration object. Applies only to the `text_embedding` task
+	// type. Not applicable to the `rerank` task type.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
 	// `voyageai`.
@@ -42,8 +41,8 @@ type Request struct {
 	// ServiceSettings Settings used to install the inference model. These settings are specific to
 	// the `voyageai` service.
 	ServiceSettings types.VoyageAIServiceSettings `json:"service_settings"`
-	// TaskSettings Settings to configure the inference task.
-	// These settings are specific to the task type you specified.
+	// TaskSettings Settings to configure the inference task. These settings are specific to the
+	// task type you specified.
 	TaskSettings *types.VoyageAITaskSettings `json:"task_settings,omitempty"`
 }
 

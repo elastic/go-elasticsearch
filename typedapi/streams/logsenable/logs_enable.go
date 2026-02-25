@@ -24,9 +24,8 @@
 //
 // NOTE: To protect existing data, this feature can be turned on only if the
 // cluster does not have existing indices or data streams that match the pattern
-// `logs|logs.*`.
-// If those indices or data streams exist, a `409 - Conflict` response and error
-// is returned.
+// `logs|logs.*`. If those indices or data streams exist, a `409 - Conflict`
+// response and error is returned.
 package logsenable
 
 import (
@@ -82,9 +81,8 @@ func NewLogsEnableFunc(tp elastictransport.Interface) NewLogsEnable {
 //
 // NOTE: To protect existing data, this feature can be turned on only if the
 // cluster does not have existing indices or data streams that match the pattern
-// `logs|logs.*`.
-// If those indices or data streams exist, a `409 - Conflict` response and error
-// is returned.
+// `logs|logs.*`. If those indices or data streams exist, a `409 - Conflict`
+// response and error is returned.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func New(tp elastictransport.Interface) *LogsEnable {
@@ -294,9 +292,8 @@ func (r *LogsEnable) Header(key, value string) *LogsEnable {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *LogsEnable) MasterTimeout(duration string) *LogsEnable {
 	r.values.Set("master_timeout", duration)
@@ -304,9 +301,8 @@ func (r *LogsEnable) MasterTimeout(duration string) *LogsEnable {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error.
 // API name: timeout
 func (r *LogsEnable) Timeout(duration string) *LogsEnable {
 	r.values.Set("timeout", duration)
@@ -337,11 +333,9 @@ func (r *LogsEnable) FilterPath(filterpaths ...string) *LogsEnable {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *LogsEnable) Human(human bool) *LogsEnable {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -349,8 +343,8 @@ func (r *LogsEnable) Human(human bool) *LogsEnable {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *LogsEnable) Pretty(pretty bool) *LogsEnable {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

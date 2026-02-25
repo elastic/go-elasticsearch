@@ -21,9 +21,9 @@
 // Create a follower.
 //
 // Create a cross-cluster replication follower index that follows a specific
-// leader index.
-// When the API returns, the follower index exists and cross-cluster replication
-// starts replicating operations from the leader index to the follower index.
+// leader index. When the API returns, the follower index exists and
+// cross-cluster replication starts replicating operations from the leader index
+// to the follower index.
 package follow
 
 import (
@@ -89,9 +89,9 @@ func NewFollowFunc(tp elastictransport.Interface) NewFollow {
 // Create a follower.
 //
 // Create a cross-cluster replication follower index that follows a specific
-// leader index.
-// When the API returns, the follower index exists and cross-cluster replication
-// starts replicating operations from the leader index to the follower index.
+// leader index. When the API returns, the follower index exists and
+// cross-cluster replication starts replicating operations from the leader index
+// to the follower index.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-follow
 func New(tp elastictransport.Interface) *Follow {
@@ -332,11 +332,10 @@ func (r *Follow) MasterTimeout(duration string) *Follow {
 }
 
 // WaitForActiveShards Specifies the number of shards to wait on being active before responding.
-// This defaults to waiting on none of the shards to be
-// active.
-// A shard must be restored from the leader index before being active. Restoring
-// a follower shard requires transferring all the
-// remote Lucene segment files to the follower index.
+// This defaults to waiting on none of the shards to be active. A shard must be
+// restored from the leader index before being active. Restoring a follower
+// shard requires transferring all the remote Lucene segment files to the
+// follower index.
 // API name: wait_for_active_shards
 func (r *Follow) WaitForActiveShards(waitforactiveshards string) *Follow {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -367,11 +366,9 @@ func (r *Follow) FilterPath(filterpaths ...string) *Follow {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Follow) Human(human bool) *Follow {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -379,8 +376,8 @@ func (r *Follow) Human(human bool) *Follow {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Follow) Pretty(pretty bool) *Follow {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -469,8 +466,7 @@ func (r *Follow) MaxReadRequestSize(bytesize types.ByteSizeVariant) *Follow {
 }
 
 // The maximum time to wait before retrying an operation that failed
-// exceptionally. An exponential backoff strategy is employed when
-// retrying.
+// exceptionally. An exponential backoff strategy is employed when retrying.
 // API name: max_retry_delay
 func (r *Follow) MaxRetryDelay(duration types.DurationVariant) *Follow {
 	// Initialize the request if it is not already initialized
@@ -484,8 +480,8 @@ func (r *Follow) MaxRetryDelay(duration types.DurationVariant) *Follow {
 }
 
 // The maximum number of operations that can be queued for writing. When this
-// limit is reached, reads from the remote cluster will be
-// deferred until the number of queued operations goes below the limit.
+// limit is reached, reads from the remote cluster will be deferred until the
+// number of queued operations goes below the limit.
 // API name: max_write_buffer_count
 func (r *Follow) MaxWriteBufferCount(maxwritebuffercount int) *Follow {
 	// Initialize the request if it is not already initialized
@@ -499,8 +495,8 @@ func (r *Follow) MaxWriteBufferCount(maxwritebuffercount int) *Follow {
 }
 
 // The maximum total bytes of operations that can be queued for writing. When
-// this limit is reached, reads from the remote cluster will
-// be deferred until the total bytes of queued operations goes below the limit.
+// this limit is reached, reads from the remote cluster will be deferred until
+// the total bytes of queued operations goes below the limit.
 // API name: max_write_buffer_size
 func (r *Follow) MaxWriteBufferSize(bytesize types.ByteSizeVariant) *Follow {
 	// Initialize the request if it is not already initialized
@@ -542,10 +538,10 @@ func (r *Follow) MaxWriteRequestSize(bytesize types.ByteSizeVariant) *Follow {
 }
 
 // The maximum time to wait for new operations on the remote cluster when the
-// follower index is synchronized with the leader index.
-// When the timeout has elapsed, the poll for operations will return to the
-// follower so that it can update some statistics.
-// Then the follower will immediately attempt to read from the leader again.
+// follower index is synchronized with the leader index. When the timeout has
+// elapsed, the poll for operations will return to the follower so that it can
+// update some statistics. Then the follower will immediately attempt to read
+// from the leader again.
 // API name: read_poll_timeout
 func (r *Follow) ReadPollTimeout(duration types.DurationVariant) *Follow {
 	// Initialize the request if it is not already initialized

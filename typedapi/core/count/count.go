@@ -23,17 +23,16 @@
 // Get the number of documents matching a query.
 //
 // The query can be provided either by using a simple query string as a
-// parameter, or by defining Query DSL within the request body.
-// The query is optional. When no query is provided, the API uses `match_all` to
-// count all the documents.
+// parameter, or by defining Query DSL within the request body. The query is
+// optional. When no query is provided, the API uses `match_all` to count all
+// the documents.
 //
 // The count API supports multi-target syntax. You can run a single count API
 // search across multiple data streams and indices.
 //
-// The operation is broadcast across all shards.
-// For each shard ID group, a replica is chosen and the search is run against
-// it.
-// This means that replicas increase the scalability of the count.
+// The operation is broadcast across all shards. For each shard ID group, a
+// replica is chosen and the search is run against it. This means that replicas
+// increase the scalability of the count.
 package count
 
 import (
@@ -101,17 +100,16 @@ func NewCountFunc(tp elastictransport.Interface) NewCount {
 // Get the number of documents matching a query.
 //
 // The query can be provided either by using a simple query string as a
-// parameter, or by defining Query DSL within the request body.
-// The query is optional. When no query is provided, the API uses `match_all` to
-// count all the documents.
+// parameter, or by defining Query DSL within the request body. The query is
+// optional. When no query is provided, the API uses `match_all` to count all
+// the documents.
 //
 // The count API supports multi-target syntax. You can run a single count API
 // search across multiple data streams and indices.
 //
-// The operation is broadcast across all shards.
-// For each shard ID group, a replica is chosen and the search is run against
-// it.
-// This means that replicas increase the scalability of the count.
+// The operation is broadcast across all shards. For each shard ID group, a
+// replica is chosen and the search is run against it. This means that replicas
+// increase the scalability of the count.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-count
 func New(tp elastictransport.Interface) *Count {
@@ -337,10 +335,9 @@ func (r *Count) Header(key, value string) *Count {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases to search.
-// It supports wildcards (`*`).
-// To search all data streams and indices, omit this parameter or use `*` or
-// `_all`.
+// Index A comma-separated list of data streams, indices, and aliases to search. It //
+// supports wildcards (`*`). To search all data streams and indices, omit this
+// // parameter or use `*` or `_all`.
 // API Name: index
 func (r *Count) Index(index string) *Count {
 	r.paramSet |= indexMask
@@ -350,10 +347,10 @@ func (r *Count) Index(index string) *Count {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
-// For example, a request targeting `foo*,bar*` returns an error if an index
-// starts with `foo` but no index starts with `bar`.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices. For example, a
+// request targeting `foo*,bar*` returns an error if an index starts with `foo`
+// but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *Count) AllowNoIndices(allownoindices bool) *Count {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -361,9 +358,8 @@ func (r *Count) AllowNoIndices(allownoindices bool) *Count {
 	return r
 }
 
-// Analyzer The analyzer to use for the query string.
-// This parameter can be used only when the `q` query string parameter is
-// specified.
+// Analyzer The analyzer to use for the query string. This parameter can be used only
+// when the `q` query string parameter is specified.
 // API name: analyzer
 func (r *Count) Analyzer(analyzer string) *Count {
 	r.values.Set("analyzer", analyzer)
@@ -371,9 +367,8 @@ func (r *Count) Analyzer(analyzer string) *Count {
 	return r
 }
 
-// AnalyzeWildcard If `true`, wildcard and prefix queries are analyzed.
-// This parameter can be used only when the `q` query string parameter is
-// specified.
+// AnalyzeWildcard If `true`, wildcard and prefix queries are analyzed. This parameter can be
+// used only when the `q` query string parameter is specified.
 // API name: analyze_wildcard
 func (r *Count) AnalyzeWildcard(analyzewildcard bool) *Count {
 	r.values.Set("analyze_wildcard", strconv.FormatBool(analyzewildcard))
@@ -381,9 +376,8 @@ func (r *Count) AnalyzeWildcard(analyzewildcard bool) *Count {
 	return r
 }
 
-// DefaultOperator The default operator for query string query: `and` or `or`.
-// This parameter can be used only when the `q` query string parameter is
-// specified.
+// DefaultOperator The default operator for query string query: `and` or `or`. This parameter
+// can be used only when the `q` query string parameter is specified.
 // API name: default_operator
 func (r *Count) DefaultOperator(defaultoperator operator.Operator) *Count {
 	r.values.Set("default_operator", defaultoperator.String())
@@ -392,9 +386,8 @@ func (r *Count) DefaultOperator(defaultoperator operator.Operator) *Count {
 }
 
 // Df The field to use as a default when no field prefix is given in the query
-// string.
-// This parameter can be used only when the `q` query string parameter is
-// specified.
+// string. This parameter can be used only when the `q` query string parameter
+// is specified.
 // API name: df
 func (r *Count) Df(df string) *Count {
 	r.values.Set("df", df)
@@ -402,10 +395,10 @@ func (r *Count) Df(df string) *Count {
 	return r
 }
 
-// ExpandWildcards The type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// It supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards The type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. It supports comma-separated values, such as
+// `open,hidden`.
 // API name: expand_wildcards
 func (r *Count) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Count {
 	tmp := []string{}
@@ -435,9 +428,8 @@ func (r *Count) IgnoreUnavailable(ignoreunavailable bool) *Count {
 }
 
 // Lenient If `true`, format-based query failures (such as providing text to a numeric
-// field) in the query string will be ignored.
-// This parameter can be used only when the `q` query string parameter is
-// specified.
+// field) in the query string will be ignored. This parameter can be used only
+// when the `q` query string parameter is specified.
 // API name: lenient
 func (r *Count) Lenient(lenient bool) *Count {
 	r.values.Set("lenient", strconv.FormatBool(lenient))
@@ -454,8 +446,8 @@ func (r *Count) MinScore(minscore string) *Count {
 	return r
 }
 
-// Preference The node or shard the operation should be performed on.
-// By default, it is random.
+// Preference The node or shard the operation should be performed on. By default, it is
+// random.
 // API name: preference
 func (r *Count) Preference(preference string) *Count {
 	r.values.Set("preference", preference)
@@ -471,15 +463,14 @@ func (r *Count) Routing(routings ...string) *Count {
 	return r
 }
 
-// TerminateAfter The maximum number of documents to collect for each shard.
-// If a query reaches this limit, Elasticsearch terminates the query early.
-// Elasticsearch collects documents before sorting.
+// TerminateAfter The maximum number of documents to collect for each shard. If a query reaches
+// this limit, Elasticsearch terminates the query early. Elasticsearch collects
+// documents before sorting.
 //
-// IMPORTANT: Use with caution.
-// Elasticsearch applies this parameter to each shard handling the request.
-// When possible, let Elasticsearch perform early termination automatically.
-// Avoid specifying this parameter for requests that target data streams with
-// backing indices across multiple data tiers.
+// IMPORTANT: Use with caution. Elasticsearch applies this parameter to each
+// shard handling the request. When possible, let Elasticsearch perform early
+// termination automatically. Avoid specifying this parameter for requests that
+// target data streams with backing indices across multiple data tiers.
 // API name: terminate_after
 func (r *Count) TerminateAfter(terminateafter string) *Count {
 	r.values.Set("terminate_after", terminateafter)
@@ -519,11 +510,9 @@ func (r *Count) FilterPath(filterpaths ...string) *Count {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Count) Human(human bool) *Count {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -531,8 +520,8 @@ func (r *Count) Human(human bool) *Count {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Count) Pretty(pretty bool) *Count {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -540,17 +529,10 @@ func (r *Count) Pretty(pretty bool) *Count {
 	return r
 }
 
-// Specifies a subset of projects to target using project
-// metadata tags in a subset of Lucene query syntax.
-// Allowed Lucene queries: the _alias tag and a single value (possibly
-// wildcarded).
-// Examples:
-//
-//	_alias:my-project
-//	_alias:_origin
-//	_alias:*pr*
-//
-// Supported in serverless only.
+// Specifies a subset of projects to target using project metadata tags in a
+// subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a
+// single value (possibly wildcarded). Examples: _alias:my-project
+// _alias:_origin _alias:*pr* Supported in serverless only.
 // API name: project_routing
 func (r *Count) ProjectRouting(projectrouting string) *Count {
 	// Initialize the request if it is not already initialized

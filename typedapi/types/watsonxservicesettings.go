@@ -33,28 +33,26 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L2266-L2302
 type WatsonxServiceSettings struct {
-	// ApiKey A valid API key of your Watsonx account.
-	// You can find your Watsonx API keys or you can create a new one on the API
-	// keys page.
+	// ApiKey A valid API key of your Watsonx account. You can find your Watsonx API keys
+	// or you can create a new one on the API keys page.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation.
-	// The get inference endpoint API does not retrieve your API key.
+	// model creation. The get inference endpoint API does not retrieve your API
+	// key.
 	ApiKey string `json:"api_key"`
 	// ApiVersion A version parameter that takes a version date in the format of `YYYY-MM-DD`.
 	// For the active version data parameters, refer to the Wastonx documentation.
 	ApiVersion string `json:"api_version"`
-	// ModelId The name of the model to use for the inference task.
-	// Refer to the IBM Embedding Models section in the Watsonx documentation for
-	// the list of available text embedding models.
-	// Refer to the IBM library - Foundation models in Watsonx.ai.
+	// ModelId The name of the model to use for the inference task. Refer to the IBM
+	// Embedding Models section in the Watsonx documentation for the list of
+	// available text embedding models. Refer to the IBM library - Foundation models
+	// in Watsonx.ai.
 	ModelId string `json:"model_id"`
 	// ProjectId The identifier of the IBM Cloud project to use for the inference task.
 	ProjectId string `json:"project_id"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// Watsonx.
-	// By default, the `watsonxai` service sets the number of requests allowed per
-	// minute to 120.
+	// Watsonx. By default, the `watsonxai` service sets the number of requests
+	// allowed per minute to 120.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 	// Url The URL of the inference endpoint that you created on Watsonx.
 	Url string `json:"url"`

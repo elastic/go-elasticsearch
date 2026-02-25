@@ -22,6 +22,9 @@
 //
 // NOTE: The kNN search API has been replaced by the `knn` option in the search
 // API.
+//
+// Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
+// option in the search API.
 package knnsearch
 
 import (
@@ -90,6 +93,9 @@ func NewKnnSearchFunc(tp elastictransport.Interface) NewKnnSearch {
 // API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-knn-search
+//
+// Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
+// option in the search API.
 func New(tp elastictransport.Interface) *KnnSearch {
 	r := &KnnSearch{
 		transport: tp,
@@ -308,8 +314,8 @@ func (r *KnnSearch) Header(key, value string) *KnnSearch {
 	return r
 }
 
-// Index A comma-separated list of index names to search;
-// use `_all` or to perform the operation on all indices.
+// Index A comma-separated list of index names to search; use `_all` or to perform the
+// // operation on all indices.
 // API Name: index
 func (r *KnnSearch) _index(index string) *KnnSearch {
 	r.paramSet |= indexMask
@@ -349,11 +355,9 @@ func (r *KnnSearch) FilterPath(filterpaths ...string) *KnnSearch {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *KnnSearch) Human(human bool) *KnnSearch {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -361,8 +365,8 @@ func (r *KnnSearch) Human(human bool) *KnnSearch {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *KnnSearch) Pretty(pretty bool) *KnnSearch {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -370,9 +374,8 @@ func (r *KnnSearch) Pretty(pretty bool) *KnnSearch {
 	return r
 }
 
-// The request returns doc values for field names matching these patterns
-// in the `hits.fields` property of the response.
-// It accepts wildcard (`*`) patterns.
+// The request returns doc values for field names matching these patterns in the
+// `hits.fields` property of the response. It accepts wildcard (`*`) patterns.
 // API name: docvalue_fields
 func (r *KnnSearch) DocvalueFields(docvaluefields ...types.FieldAndFormatVariant) *KnnSearch {
 	// Initialize the request if it is not already initialized
@@ -387,9 +390,8 @@ func (r *KnnSearch) DocvalueFields(docvaluefields ...types.FieldAndFormatVariant
 	return r
 }
 
-// The request returns values for field names matching these patterns
-// in the `hits.fields` property of the response.
-// It accepts wildcard (`*`) patterns.
+// The request returns values for field names matching these patterns in the
+// `hits.fields` property of the response. It accepts wildcard (`*`) patterns.
 // API name: fields
 func (r *KnnSearch) Fields(fields ...string) *KnnSearch {
 	// Initialize the request if it is not already initialized
@@ -403,11 +405,9 @@ func (r *KnnSearch) Fields(fields ...string) *KnnSearch {
 }
 
 // A query to filter the documents that can match. The kNN search will return
-// the top
-// `k` documents that also match this filter. The value can be a single query or
-// a
-// list of queries. If `filter` isn't provided, all documents are allowed to
-// match.
+// the top `k` documents that also match this filter. The value can be a single
+// query or a list of queries. If `filter` isn't provided, all documents are
+// allowed to match.
 // API name: filter
 func (r *KnnSearch) Filter(filters ...types.QueryVariant) *KnnSearch {
 	// Initialize the request if it is not already initialized
@@ -450,12 +450,10 @@ func (r *KnnSearch) Source_(sourceconfig types.SourceConfigVariant) *KnnSearch {
 }
 
 // A list of stored fields to return as part of a hit. If no fields are
-// specified,
-// no stored fields are included in the response. If this field is specified,
-// the `_source`
-// parameter defaults to `false`. You can pass `_source: true` to return both
-// source fields
-// and stored fields in the search response.
+// specified, no stored fields are included in the response. If this field is
+// specified, the `_source` parameter defaults to `false`. You can pass
+// `_source: true` to return both source fields and stored fields in the search
+// response.
 // API name: stored_fields
 func (r *KnnSearch) StoredFields(fields ...string) *KnnSearch {
 	// Initialize the request if it is not already initialized

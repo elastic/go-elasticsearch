@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// RankEvalMetricRecall type.
+// Recall at K (R@k)
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/rank_eval/types.ts#L54-L58
 type RankEvalMetricRecall struct {

@@ -30,18 +30,16 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/saml_prepare_authentication/Request.ts#L23-L70
 type Request struct {
 	// Acs The Assertion Consumer Service URL that matches the one of the SAML realms in
-	// Elasticsearch.
-	// The realm is used to generate the authentication request. You must specify
-	// either this parameter or the `realm` parameter.
+	// Elasticsearch. The realm is used to generate the authentication request. You
+	// must specify either this parameter or the `realm` parameter.
 	Acs *string `json:"acs,omitempty"`
 	// Realm The name of the SAML realm in Elasticsearch for which the configuration is
-	// used to generate the authentication request.
-	// You must specify either this parameter or the `acs` parameter.
+	// used to generate the authentication request. You must specify either this
+	// parameter or the `acs` parameter.
 	Realm *string `json:"realm,omitempty"`
 	// RelayState A string that will be included in the redirect URL that this API returns as
-	// the `RelayState` query parameter.
-	// If the Authentication Request is signed, this value is used as part of the
-	// signature computation.
+	// the `RelayState` query parameter. If the Authentication Request is signed,
+	// this value is used as part of the signature computation.
 	RelayState *string `json:"relay_state,omitempty"`
 }
 

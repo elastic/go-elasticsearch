@@ -32,9 +32,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/bucket.ts#L754-L760
 type ReverseNestedAggregation struct {
-	// Path Defines the nested object field that should be joined back to.
-	// The default is empty, which means that it joins back to the root/main
-	// document level.
+	// Path Defines the nested object field that should be joined back to. The default is
+	// empty, which means that it joins back to the root/main document level.
 	Path *string `json:"path,omitempty"`
 }
 

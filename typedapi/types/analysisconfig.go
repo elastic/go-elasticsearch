@@ -35,10 +35,9 @@ import (
 type AnalysisConfig struct {
 	// BucketSpan The size of the interval that the analysis is aggregated into, typically
 	// between `5m` and `1h`. This value should be either a whole number of days or
-	// equate to a
-	// whole number of buckets in one day. If the anomaly detection job uses a
-	// datafeed with aggregations, this value must also be divisible by the interval
-	// of the date histogram aggregation.
+	// equate to a whole number of buckets in one day. If the anomaly detection job
+	// uses a datafeed with aggregations, this value must also be divisible by the
+	// interval of the date histogram aggregation.
 	BucketSpan Duration `json:"bucket_span,omitempty"`
 	// CategorizationAnalyzer If `categorization_field_name` is specified, you can also define the analyzer
 	// that is used to interpret the categorization field. This property cannot be
@@ -98,8 +97,8 @@ type AnalysisConfig struct {
 	// correlation occurs because they are running a load-balanced application. If
 	// you enable this property, anomalies will be reported when, for example, CPU
 	// usage on host A is high and the value of CPU usage on host B is low. That is
-	// to say, you’ll see an anomaly when the CPU of host A is unusual given the CPU
-	// of host B. To use the `multivariate_by_fields` property, you must also
+	// to say, you’ll see an anomaly when the CPU of host A is unusual given the
+	// CPU of host B. To use the `multivariate_by_fields` property, you must also
 	// specify `by_field_name` in your detector.
 	MultivariateByFields *bool `json:"multivariate_by_fields,omitempty"`
 	// PerPartitionCategorization Settings related to how categorization interacts with partition fields.

@@ -37,9 +37,8 @@ type DatafeedRunningState struct {
 	// configured `end` time.
 	RealTimeConfigured bool `json:"real_time_configured"`
 	// RealTimeRunning Indicates whether the datafeed has finished running on the available past
-	// data.
-	// For datafeeds without a configured `end` time, this means that the datafeed
-	// is now running on "real-time" data.
+	// data. For datafeeds without a configured `end` time, this means that the
+	// datafeed is now running on "real-time" data.
 	RealTimeRunning bool `json:"real_time_running"`
 	// SearchInterval Provides the latest time interval the datafeed has searched.
 	SearchInterval *RunningStateSearchInterval `json:"search_interval,omitempty"`

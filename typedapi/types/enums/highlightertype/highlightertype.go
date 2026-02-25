@@ -29,10 +29,14 @@ type HighlighterType struct {
 }
 
 var (
+
+	// Plain The `plain` highlighter uses the standard Lucene highlighter
 	Plain = HighlighterType{"plain"}
 
+	// Fastvector The fvh highlighter uses the Lucene Fast Vector highlighter.
 	Fastvector = HighlighterType{"fvh"}
 
+	// Unified The unified highlighter uses the Lucene Unified Highlighter.
 	Unified = HighlighterType{"unified"}
 )
 

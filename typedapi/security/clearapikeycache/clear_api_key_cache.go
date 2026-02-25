@@ -20,9 +20,8 @@
 
 // Clear the API key cache.
 //
-// Evict a subset of all entries from the API key cache.
-// The cache is also automatically cleared on state changes of the security
-// index.
+// Evict a subset of all entries from the API key cache. The cache is also
+// automatically cleared on state changes of the security index.
 package clearapikeycache
 
 import (
@@ -82,9 +81,8 @@ func NewClearApiKeyCacheFunc(tp elastictransport.Interface) NewClearApiKeyCache 
 
 // Clear the API key cache.
 //
-// Evict a subset of all entries from the API key cache.
-// The cache is also automatically cleared on state changes of the security
-// index.
+// Evict a subset of all entries from the API key cache. The cache is also
+// automatically cleared on state changes of the security index.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-api-key-cache
 func New(tp elastictransport.Interface) *ClearApiKeyCache {
@@ -300,9 +298,8 @@ func (r *ClearApiKeyCache) Header(key, value string) *ClearApiKeyCache {
 	return r
 }
 
-// Ids Comma-separated list of API key IDs to evict from the API key cache.
-// To evict all API keys, use `*`.
-// Does not support other wildcard patterns.
+// Ids Comma-separated list of API key IDs to evict from the API key cache. To evict
+// // all API keys, use `*`. Does not support other wildcard patterns.
 // API Name: ids
 func (r *ClearApiKeyCache) _ids(ids string) *ClearApiKeyCache {
 	r.paramSet |= idsMask
@@ -334,11 +331,9 @@ func (r *ClearApiKeyCache) FilterPath(filterpaths ...string) *ClearApiKeyCache {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ClearApiKeyCache) Human(human bool) *ClearApiKeyCache {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -346,8 +341,8 @@ func (r *ClearApiKeyCache) Human(human bool) *ClearApiKeyCache {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ClearApiKeyCache) Pretty(pretty bool) *ClearApiKeyCache {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

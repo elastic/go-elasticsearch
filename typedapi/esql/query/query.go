@@ -314,9 +314,9 @@ func (r *Query) Delimiter(delimiter string) *Query {
 }
 
 // DropNullColumns Should columns that are entirely `null` be removed from the `columns` and
-// `values` portion of the results?
-// Defaults to `false`. If `true` then the response will include an extra
-// section under the name `all_columns` which has the name of all columns.
+// `values` portion of the results? Defaults to `false`. If `true` then the
+// response will include an extra section under the name `all_columns` which has
+// the name of all columns.
 // API name: drop_null_columns
 func (r *Query) DropNullColumns(dropnullcolumns bool) *Query {
 	r.values.Set("drop_null_columns", strconv.FormatBool(dropnullcolumns))
@@ -325,8 +325,8 @@ func (r *Query) DropNullColumns(dropnullcolumns bool) *Query {
 }
 
 // AllowPartialResults If `true`, partial results will be returned if there are shard failures, but
-// the query can continue to execute on other clusters and shards.
-// If `false`, the query will fail if there are any failures.
+// the query can continue to execute on other clusters and shards. If `false`,
+// the query will fail if there are any failures.
 //
 // To override the default behavior, you can set the
 // `esql.query.allow_partial_results` cluster setting to `false`.
@@ -360,11 +360,9 @@ func (r *Query) FilterPath(filterpaths ...string) *Query {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Query) Human(human bool) *Query {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -372,8 +370,8 @@ func (r *Query) Human(human bool) *Query {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Query) Pretty(pretty bool) *Query {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -412,9 +410,8 @@ func (r *Query) Filter(filter types.QueryVariant) *Query {
 }
 
 // When set to `true` and performing a cross-cluster/cross-project query, the
-// response will include an extra `_clusters`
-// object with information about the clusters that participated in the search
-// along with info such as shards
+// response will include an extra `_clusters` object with information about the
+// clusters that participated in the search along with info such as shards
 // count.
 // API name: include_ccs_metadata
 func (r *Query) IncludeCcsMetadata(includeccsmetadata bool) *Query {
@@ -428,12 +425,10 @@ func (r *Query) IncludeCcsMetadata(includeccsmetadata bool) *Query {
 	return r
 }
 
-// When set to `true`, the response will include an extra `_clusters`
-// object with information about the clusters that participated in the search
-// along with info such as shards
-// count.
-// This is similar to `include_ccs_metadata`, but it also returns metadata when
-// the query is not CCS/CPS
+// When set to `true`, the response will include an extra `_clusters` object
+// with information about the clusters that participated in the search along
+// with info such as shards count. This is similar to `include_ccs_metadata`,
+// but it also returns metadata when the query is not CCS/CPS
 // API name: include_execution_metadata
 func (r *Query) IncludeExecutionMetadata(includeexecutionmetadata bool) *Query {
 	// Initialize the request if it is not already initialized
@@ -477,10 +472,8 @@ func (r *Query) Params(esqlparams types.ESQLParamsVariant) *Query {
 
 // If provided and `true` the response will include an extra `profile` object
 // with information on how the query was executed. This information is for human
-// debugging
-// and its format can change at any time but it can give some insight into the
-// performance
-// of each part of the query.
+// debugging and its format can change at any time but it can give some insight
+// into the performance of each part of the query.
 // API name: profile
 func (r *Query) Profile(profile bool) *Query {
 	// Initialize the request if it is not already initialized
@@ -507,8 +500,8 @@ func (r *Query) Query(query string) *Query {
 	return r
 }
 
-// Tables to use with the LOOKUP operation. The top level key is the table
-// name and the next level key is the column name.
+// Tables to use with the LOOKUP operation. The top level key is the table name
+// and the next level key is the column name.
 // API name: tables
 func (r *Query) Tables(tables map[string]map[string]types.TableValuesContainer) *Query {
 	// Initialize the request if it is not already initialized

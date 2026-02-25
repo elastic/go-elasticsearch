@@ -39,8 +39,7 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/mapping/DenseVectorProperty.ts#L23-L62
 type DenseVectorProperty struct {
 	// Dims Number of vector dimensions. Can't exceed `4096`. If `dims` is not specified,
-	// it will be set to the length of
-	// the first vector added to the field.
+	// it will be set to the length of the first vector added to the field.
 	Dims    *int                           `json:"dims,omitempty"`
 	Dynamic *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	// ElementType The data type used to encode vectors. The supported data types are `float`
@@ -51,9 +50,8 @@ type DenseVectorProperty struct {
 	// Index If `true`, you can search this field using the kNN search API.
 	Index *bool `json:"index,omitempty"`
 	// IndexOptions An optional section that configures the kNN indexing algorithm. The HNSW
-	// algorithm has two internal parameters
-	// that influence how the data structure is built. These can be adjusted to
-	// improve the accuracy of results, at the
+	// algorithm has two internal parameters that influence how the data structure
+	// is built. These can be adjusted to improve the accuracy of results, at the
 	// expense of slower indexing speed.
 	//
 	// This parameter can only be specified when `index` is `true`.
@@ -64,10 +62,9 @@ type DenseVectorProperty struct {
 	// Similarity The vector similarity metric to use in kNN search.
 	//
 	// Documents are ranked by their vector field's similarity to the query vector.
-	// The `_score` of each document will
-	// be derived from the similarity, in a way that ensures scores are positive and
-	// that a larger score corresponds
-	// to a higher ranking.
+	// The `_score` of each document will be derived from the similarity, in a way
+	// that ensures scores are positive and that a larger score corresponds to a
+	// higher ranking.
 	//
 	// Defaults to `l2_norm` when `element_type` is `bit` otherwise defaults to
 	// `cosine`.

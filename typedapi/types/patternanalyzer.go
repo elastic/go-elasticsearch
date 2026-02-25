@@ -36,15 +36,12 @@ type PatternAnalyzer struct {
 	// Flags Java regular expression flags. Flags should be pipe-separated, eg
 	// "CASE_INSENSITIVE|COMMENTS".
 	Flags *string `json:"flags,omitempty"`
-	// Lowercase Should terms be lowercased or not.
-	// Defaults to `true`.
+	// Lowercase Should terms be lowercased or not. Defaults to `true`.
 	Lowercase *bool `json:"lowercase,omitempty"`
-	// Pattern A Java regular expression.
-	// Defaults to `\W+`.
+	// Pattern A Java regular expression. Defaults to `\W+`.
 	Pattern *string `json:"pattern,omitempty"`
 	// Stopwords A pre-defined stop words list like `_english_` or an array containing a list
-	// of stop words.
-	// Defaults to `_none_`.
+	// of stop words. Defaults to `_none_`.
 	Stopwords StopWords `json:"stopwords,omitempty"`
 	// StopwordsPath The path to a file containing stop words.
 	StopwordsPath *string `json:"stopwords_path,omitempty"`

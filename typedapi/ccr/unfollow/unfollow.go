@@ -20,16 +20,14 @@
 
 // Unfollow an index.
 //
-// Convert a cross-cluster replication follower index to a regular index.
-// The API stops the following task associated with a follower index and removes
-// index metadata and settings associated with cross-cluster replication.
-// The follower index must be paused and closed before you call the unfollow
-// API.
+// Convert a cross-cluster replication follower index to a regular index. The
+// API stops the following task associated with a follower index and removes
+// index metadata and settings associated with cross-cluster replication. The
+// follower index must be paused and closed before you call the unfollow API.
 //
-// > info
-// > Currently cross-cluster replication does not support converting an existing
-// regular index to a follower index. Converting a follower index to a regular
-// index is an irreversible operation.
+// > info > Currently cross-cluster replication does not support converting an
+// existing regular index to a follower index. Converting a follower index to a
+// regular index is an irreversible operation.
 package unfollow
 
 import (
@@ -89,16 +87,14 @@ func NewUnfollowFunc(tp elastictransport.Interface) NewUnfollow {
 
 // Unfollow an index.
 //
-// Convert a cross-cluster replication follower index to a regular index.
-// The API stops the following task associated with a follower index and removes
-// index metadata and settings associated with cross-cluster replication.
-// The follower index must be paused and closed before you call the unfollow
-// API.
+// Convert a cross-cluster replication follower index to a regular index. The
+// API stops the following task associated with a follower index and removes
+// index metadata and settings associated with cross-cluster replication. The
+// follower index must be paused and closed before you call the unfollow API.
 //
-// > info
-// > Currently cross-cluster replication does not support converting an existing
-// regular index to a follower index. Converting a follower index to a regular
-// index is an irreversible operation.
+// > info > Currently cross-cluster replication does not support converting an
+// existing regular index to a follower index. Converting a follower index to a
+// regular index is an irreversible operation.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-unfollow
 func New(tp elastictransport.Interface) *Unfollow {
@@ -321,10 +317,10 @@ func (r *Unfollow) _index(index string) *Unfollow {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// It can also be set to `-1` to indicate that the request should never timeout.
+// MasterTimeout The period to wait for a connection to the master node. If the master node is
+// not available before the timeout expires, the request fails and returns an
+// error. It can also be set to `-1` to indicate that the request should never
+// timeout.
 // API name: master_timeout
 func (r *Unfollow) MasterTimeout(duration string) *Unfollow {
 	r.values.Set("master_timeout", duration)
@@ -355,11 +351,9 @@ func (r *Unfollow) FilterPath(filterpaths ...string) *Unfollow {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Unfollow) Human(human bool) *Unfollow {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -367,8 +361,8 @@ func (r *Unfollow) Human(human bool) *Unfollow {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Unfollow) Pretty(pretty bool) *Unfollow {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

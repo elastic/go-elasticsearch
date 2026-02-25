@@ -36,41 +36,37 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L951-L990
 type CohereServiceSettings struct {
-	// ApiKey A valid API key for your Cohere account.
-	// You can find or create your Cohere API keys on the Cohere API key settings
-	// page.
+	// ApiKey A valid API key for your Cohere account. You can find or create your Cohere
+	// API keys on the Cohere API key settings page.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation.
-	// The get inference endpoint API does not retrieve your API key.
+	// model creation. The get inference endpoint API does not retrieve your API
+	// key.
 	ApiKey string `json:"api_key"`
 	// EmbeddingType For a `text_embedding` task, the types of embeddings you want to get back.
 	// Use `binary` for binary embeddings, which are encoded as bytes with signed
-	// int8 precision.
-	// Use `bit` for binary embeddings, which are encoded as bytes with signed int8
-	// precision (this is a synonym of `binary`).
-	// Use `byte` for signed int8 embeddings (this is a synonym of `int8`).
-	// Use `float` for the default float embeddings.
-	// Use `int8` for signed int8 embeddings.
+	// int8 precision. Use `bit` for binary embeddings, which are encoded as bytes
+	// with signed int8 precision (this is a synonym of `binary`). Use `byte` for
+	// signed int8 embeddings (this is a synonym of `int8`). Use `float` for the
+	// default float embeddings. Use `int8` for signed int8 embeddings.
 	EmbeddingType *cohereembeddingtype.CohereEmbeddingType `json:"embedding_type,omitempty"`
 	// ModelId For a `completion`, `rerank`, or `text_embedding` task, the name of the model
 	// to use for the inference task.
 	//
-	// * For the available `completion` models, refer to the [Cohere command
-	// docs](https://docs.cohere.com/docs/models#command).
-	// * For the available `rerank` models, refer to the [Cohere rerank
-	// docs](https://docs.cohere.com/reference/rerank-1).
-	// * For the available `text_embedding` models, refer to [Cohere embed
-	// docs](https://docs.cohere.com/reference/embed).
+	//   - For the available `completion` models, refer to the [Cohere command
+	//     docs](https://docs.cohere.com/docs/models#command).
+	//   - For the available `rerank` models, refer to the [Cohere rerank
+	//     docs](https://docs.cohere.com/reference/rerank-1).
+	//   - For the available `text_embedding` models, refer to [Cohere embed
+	//     docs](https://docs.cohere.com/reference/embed).
 	ModelId string `json:"model_id"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// Cohere.
-	// By default, the `cohere` service sets the number of requests allowed per
-	// minute to 10000.
+	// Cohere. By default, the `cohere` service sets the number of requests allowed
+	// per minute to 10000.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
-	// Similarity The similarity measure.
-	// If the `embedding_type` is `float`, the default value is `dot_product`.
-	// If the `embedding_type` is `int8` or `byte`, the default value is `cosine`.
+	// Similarity The similarity measure. If the `embedding_type` is `float`, the default value
+	// is `dot_product`. If the `embedding_type` is `int8` or `byte`, the default
+	// value is `cosine`.
 	Similarity *coheresimilaritytype.CohereSimilarityType `json:"similarity,omitempty"`
 }
 

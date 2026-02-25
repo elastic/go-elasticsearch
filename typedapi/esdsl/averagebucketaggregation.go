@@ -30,9 +30,8 @@ type _averageBucketAggregation struct {
 }
 
 // A sibling pipeline aggregation which calculates the mean value of a specified
-// metric in a sibling aggregation.
-// The specified metric must be numeric and the sibling aggregation must be a
-// multi-bucket aggregation.
+// metric in a sibling aggregation. The specified metric must be numeric and the
+// sibling aggregation must be a multi-bucket aggregation.
 func NewAverageBucketAggregation() *_averageBucketAggregation {
 
 	return &_averageBucketAggregation{v: types.NewAverageBucketAggregation()}

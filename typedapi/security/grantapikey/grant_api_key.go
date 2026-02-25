@@ -20,33 +20,29 @@
 
 // Grant an API key.
 //
-// Create an API key on behalf of another user.
-// This API is similar to the create API keys API, however it creates the API
-// key for a user that is different than the user that runs the API.
-// The caller must have authentication credentials for the user on whose behalf
-// the API key will be created.
-// It is not possible to use this API to create an API key without that user's
-// credentials.
-// The supported user authentication credential types are:
+// Create an API key on behalf of another user. This API is similar to the
+// create API keys API, however it creates the API key for a user that is
+// different than the user that runs the API. The caller must have
+// authentication credentials for the user on whose behalf the API key will be
+// created. It is not possible to use this API to create an API key without that
+// user's credentials. The supported user authentication credential types are:
 //
-// * username and password
-// * Elasticsearch access tokens
-// * JWTs
+//   - username and password
+//   - Elasticsearch access tokens
+//   - JWTs
 //
 // The user, for whom the authentication credentials is provided, can optionally
-// "run as" (impersonate) another user.
-// In this case, the API key will be created on behalf of the impersonated user.
+// "run as" (impersonate) another user. In this case, the API key will be
+// created on behalf of the impersonated user.
 //
 // This API is intended be used by applications that need to create and manage
 // API keys for end users, but cannot guarantee that those users have permission
-// to create API keys on their own behalf.
-// The API keys are created by the Elasticsearch API key service, which is
-// automatically enabled.
+// to create API keys on their own behalf. The API keys are created by the
+// Elasticsearch API key service, which is automatically enabled.
 //
 // A successful grant API key API call returns a JSON structure that contains
-// the API key, its unique id, and its name.
-// If applicable, it also returns expiration information for the API key in
-// milliseconds.
+// the API key, its unique id, and its name. If applicable, it also returns
+// expiration information for the API key in milliseconds.
 //
 // By default, API keys never expire. You can specify expiration information
 // when you create the API keys.
@@ -108,33 +104,29 @@ func NewGrantApiKeyFunc(tp elastictransport.Interface) NewGrantApiKey {
 
 // Grant an API key.
 //
-// Create an API key on behalf of another user.
-// This API is similar to the create API keys API, however it creates the API
-// key for a user that is different than the user that runs the API.
-// The caller must have authentication credentials for the user on whose behalf
-// the API key will be created.
-// It is not possible to use this API to create an API key without that user's
-// credentials.
-// The supported user authentication credential types are:
+// Create an API key on behalf of another user. This API is similar to the
+// create API keys API, however it creates the API key for a user that is
+// different than the user that runs the API. The caller must have
+// authentication credentials for the user on whose behalf the API key will be
+// created. It is not possible to use this API to create an API key without that
+// user's credentials. The supported user authentication credential types are:
 //
-// * username and password
-// * Elasticsearch access tokens
-// * JWTs
+//   - username and password
+//   - Elasticsearch access tokens
+//   - JWTs
 //
 // The user, for whom the authentication credentials is provided, can optionally
-// "run as" (impersonate) another user.
-// In this case, the API key will be created on behalf of the impersonated user.
+// "run as" (impersonate) another user. In this case, the API key will be
+// created on behalf of the impersonated user.
 //
 // This API is intended be used by applications that need to create and manage
 // API keys for end users, but cannot guarantee that those users have permission
-// to create API keys on their own behalf.
-// The API keys are created by the Elasticsearch API key service, which is
-// automatically enabled.
+// to create API keys on their own behalf. The API keys are created by the
+// Elasticsearch API key service, which is automatically enabled.
 //
 // A successful grant API key API call returns a JSON structure that contains
-// the API key, its unique id, and its name.
-// If applicable, it also returns expiration information for the API key in
-// milliseconds.
+// the API key, its unique id, and its name. If applicable, it also returns
+// expiration information for the API key in milliseconds.
 //
 // By default, API keys never expire. You can specify expiration information
 // when you create the API keys.
@@ -357,10 +349,8 @@ func (r *GrantApiKey) Header(key, value string) *GrantApiKey {
 }
 
 // Refresh If 'true', Elasticsearch refreshes the affected shards to make this operation
-// visible to search.
-// If 'wait_for', it waits for a refresh to make this operation visible to
-// search.
-// If 'false', nothing is done with refreshes.
+// visible to search. If 'wait_for', it waits for a refresh to make this
+// operation visible to search. If 'false', nothing is done with refreshes.
 // API name: refresh
 func (r *GrantApiKey) Refresh(refresh refresh.Refresh) *GrantApiKey {
 	r.values.Set("refresh", refresh.String())
@@ -391,11 +381,9 @@ func (r *GrantApiKey) FilterPath(filterpaths ...string) *GrantApiKey {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GrantApiKey) Human(human bool) *GrantApiKey {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -403,8 +391,8 @@ func (r *GrantApiKey) Human(human bool) *GrantApiKey {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GrantApiKey) Pretty(pretty bool) *GrantApiKey {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -412,9 +400,8 @@ func (r *GrantApiKey) Pretty(pretty bool) *GrantApiKey {
 	return r
 }
 
-// The user's access token.
-// If you specify the `access_token` grant type, this parameter is required.
-// It is not valid with other grant types.
+// The user's access token. If you specify the `access_token` grant type, this
+// parameter is required. It is not valid with other grant types.
 // API name: access_token
 func (r *GrantApiKey) AccessToken(accesstoken string) *GrantApiKey {
 	// Initialize the request if it is not already initialized
@@ -451,9 +438,8 @@ func (r *GrantApiKey) GrantType(granttype apikeygranttype.ApiKeyGrantType) *Gran
 	return r
 }
 
-// The user's password.
-// If you specify the `password` grant type, this parameter is required.
-// It is not valid with other grant types.
+// The user's password. If you specify the `password` grant type, this parameter
+// is required. It is not valid with other grant types.
 // API name: password
 func (r *GrantApiKey) Password(password string) *GrantApiKey {
 	// Initialize the request if it is not already initialized
@@ -479,9 +465,8 @@ func (r *GrantApiKey) RunAs(username string) *GrantApiKey {
 	return r
 }
 
-// The user name that identifies the user.
-// If you specify the `password` grant type, this parameter is required.
-// It is not valid with other grant types.
+// The user name that identifies the user. If you specify the `password` grant
+// type, this parameter is required. It is not valid with other grant types.
 // API name: username
 func (r *GrantApiKey) Username(username string) *GrantApiKey {
 	// Initialize the request if it is not already initialized
