@@ -335,11 +335,11 @@ func (r *PreviewDatafeed) Header(key, value string) *PreviewDatafeed {
 	return r
 }
 
-// DatafeedId A numerical character string that uniquely identifies the datafeed. This //
-// identifier can contain lowercase alphanumeric characters (a-z and 0-9), //
+// DatafeedId A numerical character string that uniquely identifies the datafeed. This
+// identifier can contain lowercase alphanumeric characters (a-z and 0-9),
 // hyphens, and underscores. It must start and end with alphanumeric characters.
-// // NOTE: If you use this path parameter, you cannot provide datafeed or
-// anomaly // detection job configuration details in the request body.
+// NOTE: If you use this path parameter, you cannot provide datafeed or anomaly
+// detection job configuration details in the request body.
 // API Name: datafeedid
 func (r *PreviewDatafeed) DatafeedId(datafeedid string) *PreviewDatafeed {
 	r.paramSet |= datafeedidMask

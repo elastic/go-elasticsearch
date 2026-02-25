@@ -322,7 +322,7 @@ func (r *Simulate) Header(key, value string) *Simulate {
 }
 
 // Id The pipeline to test. If you don't specify a `pipeline` in the request body,
-// // this parameter is required.
+// this parameter is required.
 // API Name: id
 func (r *Simulate) Id(id string) *Simulate {
 	r.paramSet |= idMask

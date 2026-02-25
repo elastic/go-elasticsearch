@@ -298,7 +298,7 @@ func (r *DeleteIndexTemplate) Header(key, value string) *DeleteIndexTemplate {
 	return r
 }
 
-// Name Comma-separated list of index template names used to limit the request. //
+// Name Comma-separated list of index template names used to limit the request.
 // Wildcard (*) expressions are supported.
 // API Name: name
 func (r *DeleteIndexTemplate) _name(name string) *DeleteIndexTemplate {

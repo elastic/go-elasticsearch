@@ -326,9 +326,9 @@ func (r *DiskUsage) Header(key, value string) *DiskUsage {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases used to limit the
-// // request. It’s recommended to execute this API with a single index (or
-// the // latest backing index of a data stream) as the API consumes resources
-// // significantly.
+// request. It’s recommended to execute this API with a single index (or the
+// latest backing index of a data stream) as the API consumes resources
+// significantly.
 // API Name: index
 func (r *DiskUsage) _index(index string) *DiskUsage {
 	r.paramSet |= indexMask

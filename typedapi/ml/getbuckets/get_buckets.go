@@ -347,7 +347,7 @@ func (r *GetBuckets) _jobid(jobid string) *GetBuckets {
 	return r
 }
 
-// Timestamp The timestamp of a single bucket result. If you do not specify this //
+// Timestamp The timestamp of a single bucket result. If you do not specify this
 // parameter, the API returns information about all buckets.
 // API Name: timestamp
 func (r *GetBuckets) Timestamp(timestamp string) *GetBuckets {

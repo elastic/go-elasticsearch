@@ -305,7 +305,7 @@ func (r *CircuitBreaker) Header(key, value string) *CircuitBreaker {
 }
 
 // CircuitBreakerPatterns A comma-separated list of regular-expressions to filter the circuit breakers
-// // in the output
+// in the output
 // API Name: circuitbreakerpatterns
 func (r *CircuitBreaker) CircuitBreakerPatterns(circuitbreakerpatterns ...string) *CircuitBreaker {
 	r.paramSet |= circuitbreakerpatternsMask

@@ -320,7 +320,7 @@ func (r *DeleteAlias) Header(key, value string) *DeleteAlias {
 	return r
 }
 
-// Index Comma-separated list of data streams or indices used to limit the request. //
+// Index Comma-separated list of data streams or indices used to limit the request.
 // Supports wildcards (`*`).
 // API Name: index
 func (r *DeleteAlias) _index(index string) *DeleteAlias {
@@ -330,7 +330,7 @@ func (r *DeleteAlias) _index(index string) *DeleteAlias {
 	return r
 }
 
-// Name Comma-separated list of aliases to remove. Supports wildcards (`*`). To //
+// Name Comma-separated list of aliases to remove. Supports wildcards (`*`). To
 // remove all aliases, use `*` or `_all`.
 // API Name: name
 func (r *DeleteAlias) _name(name string) *DeleteAlias {

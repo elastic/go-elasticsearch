@@ -299,8 +299,8 @@ func (r *GetIpLocationDatabase) Header(key, value string) *GetIpLocationDatabase
 	return r
 }
 
-// Id Comma-separated list of database configuration IDs to retrieve. Wildcard //
-// (`*`) expressions are supported. To get all database configurations, omit //
+// Id Comma-separated list of database configuration IDs to retrieve. Wildcard
+// (`*`) expressions are supported. To get all database configurations, omit
 // this parameter or use `*`.
 // API Name: id
 func (r *GetIpLocationDatabase) Id(id string) *GetIpLocationDatabase {

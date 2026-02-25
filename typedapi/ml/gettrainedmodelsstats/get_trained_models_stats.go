@@ -307,7 +307,7 @@ func (r *GetTrainedModelsStats) Header(key, value string) *GetTrainedModelsStats
 	return r
 }
 
-// ModelId The unique identifier of the trained model or a model alias. It can be a //
+// ModelId The unique identifier of the trained model or a model alias. It can be a
 // comma-separated list or a wildcard expression.
 // API Name: modelid
 func (r *GetTrainedModelsStats) ModelId(modelid string) *GetTrainedModelsStats {

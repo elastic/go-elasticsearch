@@ -300,7 +300,7 @@ func (r *GetAutoFollowPattern) Header(key, value string) *GetAutoFollowPattern {
 }
 
 // Name The auto-follow pattern collection that you want to retrieve. If you do not
-// // specify a name, the API returns information for all collections.
+// specify a name, the API returns information for all collections.
 // API Name: name
 func (r *GetAutoFollowPattern) Name(name string) *GetAutoFollowPattern {
 	r.paramSet |= nameMask

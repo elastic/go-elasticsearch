@@ -319,7 +319,7 @@ func (r *TermsEnum) Header(key, value string) *TermsEnum {
 }
 
 // Index A comma-separated list of data streams, indices, and index aliases to search.
-// // Wildcard (`*`) expressions are supported. To search all data streams or //
+// Wildcard (`*`) expressions are supported. To search all data streams or
 // indices, omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *TermsEnum) _index(index string) *TermsEnum {

@@ -294,7 +294,7 @@ func (r *Exists) _id(id string) *Exists {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases. It supports //
+// Index A comma-separated list of data streams, indices, and aliases. It supports
 // wildcards (`*`).
 // API Name: index
 func (r *Exists) _index(index string) *Exists {

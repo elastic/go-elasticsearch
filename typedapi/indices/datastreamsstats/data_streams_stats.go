@@ -300,8 +300,8 @@ func (r *DataStreamsStats) Header(key, value string) *DataStreamsStats {
 	return r
 }
 
-// Name Comma-separated list of data streams used to limit the request. Wildcard //
-// expressions (`*`) are supported. To target all data streams in a cluster, //
+// Name Comma-separated list of data streams used to limit the request. Wildcard
+// expressions (`*`) are supported. To target all data streams in a cluster,
 // omit this parameter or use `*`.
 // API Name: name
 func (r *DataStreamsStats) Name(name string) *DataStreamsStats {

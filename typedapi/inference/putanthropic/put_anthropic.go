@@ -320,7 +320,7 @@ func (r *PutAnthropic) Header(key, value string) *PutAnthropic {
 	return r
 }
 
-// TaskType The task type. The only valid task type for the model to perform is //
+// TaskType The task type. The only valid task type for the model to perform is
 // `completion`.
 // API Name: tasktype
 func (r *PutAnthropic) _tasktype(tasktype string) *PutAnthropic {

@@ -290,8 +290,8 @@ func (r *DeleteDatafeed) Header(key, value string) *DeleteDatafeed {
 	return r
 }
 
-// DatafeedId A numerical character string that uniquely identifies the datafeed. This //
-// identifier can contain lowercase alphanumeric characters (a-z and 0-9), //
+// DatafeedId A numerical character string that uniquely identifies the datafeed. This
+// identifier can contain lowercase alphanumeric characters (a-z and 0-9),
 // hyphens, and underscores. It must start and end with alphanumeric characters.
 // API Name: datafeedid
 func (r *DeleteDatafeed) _datafeedid(datafeedid string) *DeleteDatafeed {

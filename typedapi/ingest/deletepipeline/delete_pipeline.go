@@ -295,7 +295,7 @@ func (r *DeletePipeline) Header(key, value string) *DeletePipeline {
 }
 
 // Id Pipeline ID or wildcard expression of pipeline IDs used to limit the request.
-// // To delete all ingest pipelines in a cluster, use a value of `*`.
+// To delete all ingest pipelines in a cluster, use a value of `*`.
 // API Name: id
 func (r *DeletePipeline) _id(id string) *DeletePipeline {
 	r.paramSet |= idMask

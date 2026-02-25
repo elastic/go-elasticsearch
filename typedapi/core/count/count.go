@@ -335,9 +335,9 @@ func (r *Count) Header(key, value string) *Count {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases to search. It //
+// Index A comma-separated list of data streams, indices, and aliases to search. It
 // supports wildcards (`*`). To search all data streams and indices, omit this
-// // parameter or use `*` or `_all`.
+// parameter or use `*` or `_all`.
 // API Name: index
 func (r *Count) Index(index string) *Count {
 	r.paramSet |= indexMask

@@ -294,7 +294,7 @@ func (r *GetDataStreamSettings) Header(key, value string) *GetDataStreamSettings
 	return r
 }
 
-// Name A comma-separated list of data streams or data stream patterns. Supports //
+// Name A comma-separated list of data streams or data stream patterns. Supports
 // wildcards (`*`).
 // API Name: name
 func (r *GetDataStreamSettings) _name(name string) *GetDataStreamSettings {

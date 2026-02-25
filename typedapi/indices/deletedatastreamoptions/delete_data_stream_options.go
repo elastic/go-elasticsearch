@@ -296,7 +296,7 @@ func (r *DeleteDataStreamOptions) Header(key, value string) *DeleteDataStreamOpt
 }
 
 // Name A comma-separated list of data streams of which the data stream options will
-// // be deleted. Use `*` to get all data streams
+// be deleted. Use `*` to get all data streams
 // API Name: name
 func (r *DeleteDataStreamOptions) _name(name string) *DeleteDataStreamOptions {
 	r.paramSet |= nameMask

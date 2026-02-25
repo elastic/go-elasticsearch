@@ -319,7 +319,7 @@ func (r *Search) Header(key, value string) *Search {
 }
 
 // Index A single target to search. If the target is an index alias, it must resolve
-// // to a single index.
+// to a single index.
 // API Name: index
 func (r *Search) _index(index string) *Search {
 	r.paramSet |= indexMask

@@ -301,7 +301,7 @@ func (r *Retry) Header(key, value string) *Retry {
 }
 
 // Index The name of the indices (comma-separated) whose failed lifecycle step is to
-// // be retry
+// be retry
 // API Name: index
 func (r *Retry) _index(index string) *Retry {
 	r.paramSet |= indexMask

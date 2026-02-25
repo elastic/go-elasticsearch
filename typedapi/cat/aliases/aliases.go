@@ -314,7 +314,7 @@ func (r *Aliases) Header(key, value string) *Aliases {
 }
 
 // Name A comma-separated list of aliases to retrieve. Supports wildcards (`*`). To
-// // retrieve all aliases, omit this parameter or use `*` or `_all`.
+// retrieve all aliases, omit this parameter or use `*` or `_all`.
 // API Name: name
 func (r *Aliases) Name(name string) *Aliases {
 	r.paramSet |= nameMask

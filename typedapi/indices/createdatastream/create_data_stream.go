@@ -292,11 +292,11 @@ func (r *CreateDataStream) Header(key, value string) *CreateDataStream {
 	return r
 }
 
-// Name Name of the data stream, which must meet the following criteria: Lowercase //
+// Name Name of the data stream, which must meet the following criteria: Lowercase
 // only; Cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, `,`, `#`, `:`,
-// // or a space character; Cannot start with `-`, `_`, `+`, or `.ds-`; Cannot
-// be // `.` or `..`; Cannot be longer than 255 bytes. Multi-byte characters
-// count // towards this limit faster.
+// or a space character; Cannot start with `-`, `_`, `+`, or `.ds-`; Cannot be
+// `.` or `..`; Cannot be longer than 255 bytes. Multi-byte characters count
+// towards this limit faster.
 // API Name: name
 func (r *CreateDataStream) _name(name string) *CreateDataStream {
 	r.paramSet |= nameMask

@@ -335,8 +335,8 @@ func (r *DeleteForecast) _jobid(jobid string) *DeleteForecast {
 	return r
 }
 
-// ForecastId A comma-separated list of forecast identifiers. If you do not specify this //
-// optional parameter or if you specify `_all` or `*` the API deletes all //
+// ForecastId A comma-separated list of forecast identifiers. If you do not specify this
+// optional parameter or if you specify `_all` or `*` the API deletes all
 // forecasts from the job.
 // API Name: forecastid
 func (r *DeleteForecast) ForecastId(forecastid string) *DeleteForecast {

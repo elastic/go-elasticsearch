@@ -312,7 +312,7 @@ func (r *PutLifecycle) Header(key, value string) *PutLifecycle {
 	return r
 }
 
-// PolicyId The identifier for the snapshot lifecycle policy you want to create or //
+// PolicyId The identifier for the snapshot lifecycle policy you want to create or
 // update.
 // API Name: policyid
 func (r *PutLifecycle) _policyid(policyid string) *PutLifecycle {

@@ -315,7 +315,7 @@ func (r *ComponentTemplates) Header(key, value string) *ComponentTemplates {
 }
 
 // Name The name of the component template. It accepts wildcard expressions. If it is
-// // omitted, all component templates are returned.
+// omitted, all component templates are returned.
 // API Name: name
 func (r *ComponentTemplates) Name(name string) *ComponentTemplates {
 	r.paramSet |= nameMask

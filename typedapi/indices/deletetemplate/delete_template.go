@@ -301,7 +301,7 @@ func (r *DeleteTemplate) Header(key, value string) *DeleteTemplate {
 }
 
 // Name The name of the legacy index template to delete. Wildcard (`*`) expressions
-// // are supported.
+// are supported.
 // API Name: name
 func (r *DeleteTemplate) _name(name string) *DeleteTemplate {
 	r.paramSet |= nameMask

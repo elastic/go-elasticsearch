@@ -309,7 +309,7 @@ func (r *Delete) _repository(repository string) *Delete {
 }
 
 // Snapshot A comma-separated list of snapshot names to delete. It also accepts wildcards
-// // (`*`).
+// (`*`).
 // API Name: snapshot
 func (r *Delete) _snapshot(snapshot string) *Delete {
 	r.paramSet |= snapshotMask

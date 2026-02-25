@@ -360,7 +360,7 @@ func (r *Stats) Metric(metric string) *Stats {
 }
 
 // Index A comma-separated list of index names; use `_all` or empty string to perform
-// // the operation on all indices
+// the operation on all indices
 // API Name: index
 func (r *Stats) Index(index string) *Stats {
 	r.paramSet |= indexMask

@@ -328,8 +328,8 @@ func (r *GetServiceAccounts) Header(key, value string) *GetServiceAccounts {
 }
 
 // Namespace The name of the namespace. Omit this parameter to retrieve information about
-// // all service accounts. If you omit this parameter, you must also omit the
-// // `service` parameter.
+// all service accounts. If you omit this parameter, you must also omit the
+// `service` parameter.
 // API Name: namespace
 func (r *GetServiceAccounts) Namespace(namespace string) *GetServiceAccounts {
 	r.paramSet |= namespaceMask
@@ -338,7 +338,7 @@ func (r *GetServiceAccounts) Namespace(namespace string) *GetServiceAccounts {
 	return r
 }
 
-// Service The service name. Omit this parameter to retrieve information about all //
+// Service The service name. Omit this parameter to retrieve information about all
 // service accounts that belong to the specified `namespace`.
 // API Name: service
 func (r *GetServiceAccounts) Service(service string) *GetServiceAccounts {

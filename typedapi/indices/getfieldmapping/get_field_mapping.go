@@ -326,7 +326,7 @@ func (r *GetFieldMapping) Header(key, value string) *GetFieldMapping {
 }
 
 // Fields Comma-separated list or wildcard expression of fields used to limit returned
-// // information. Supports wildcards (`*`).
+// information. Supports wildcards (`*`).
 // API Name: fields
 func (r *GetFieldMapping) _fields(fields string) *GetFieldMapping {
 	r.paramSet |= fieldsMask
@@ -336,8 +336,8 @@ func (r *GetFieldMapping) _fields(fields string) *GetFieldMapping {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases used to limit the
-// // request. Supports wildcards (`*`). To target all data streams and indices,
-// // omit this parameter or use `*` or `_all`.
+// request. Supports wildcards (`*`). To target all data streams and indices,
+// omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *GetFieldMapping) Index(index string) *GetFieldMapping {
 	r.paramSet |= indexMask

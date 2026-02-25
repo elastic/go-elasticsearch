@@ -311,7 +311,7 @@ func (r *Templates) Header(key, value string) *Templates {
 }
 
 // Name The name of the template to return. Accepts wildcard expressions. If omitted,
-// // all templates are returned.
+// all templates are returned.
 // API Name: name
 func (r *Templates) Name(name string) *Templates {
 	r.paramSet |= nameMask

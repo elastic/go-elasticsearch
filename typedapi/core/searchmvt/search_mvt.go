@@ -559,9 +559,8 @@ func (r *SearchMvt) Header(key, value string) *SearchMvt {
 }
 
 // Index A list of indices, data streams, or aliases to search. It supports wildcards
-// // (`*`). To search all data streams and indices, omit this parameter or use
-// `*` // or `_all`. To search a remote cluster, use the `<cluster>:<target>`
-// syntax.
+// (`*`). To search all data streams and indices, omit this parameter or use `*`
+// or `_all`. To search a remote cluster, use the `<cluster>:<target>` syntax.
 // API Name: index
 func (r *SearchMvt) _index(index string) *SearchMvt {
 	r.paramSet |= indexMask
@@ -571,11 +570,13 @@ func (r *SearchMvt) _index(index string) *SearchMvt {
 }
 
 // Field A field that contains the geospatial data to return. It must be a `geo_point`
-// // or `geo_shape` field. The field must have doc values enabled. It cannot be
-// a // nested field. // // NOTE: Vector tiles do not natively support geometry
-// collections. For // `geometrycollection` values in a `geo_shape` field, the
-// API returns a hits // layer feature for each element of the collection. This
-// behavior may change in // a future release.
+// or `geo_shape` field. The field must have doc values enabled. It cannot be a
+// nested field.
+//
+// NOTE: Vector tiles do not natively support geometry collections. For
+// `geometrycollection` values in a `geo_shape` field, the API returns a hits
+// layer feature for each element of the collection. This behavior may change in
+// a future release.
 // API Name: field
 func (r *SearchMvt) _field(field string) *SearchMvt {
 	r.paramSet |= fieldMask

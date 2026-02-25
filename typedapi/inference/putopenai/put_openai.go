@@ -320,8 +320,8 @@ func (r *PutOpenai) Header(key, value string) *PutOpenai {
 	return r
 }
 
-// TaskType The type of the inference task that the model will perform. NOTE: The //
-// `chat_completion` task type only supports streaming and only through the //
+// TaskType The type of the inference task that the model will perform. NOTE: The
+// `chat_completion` task type only supports streaming and only through the
 // _stream API.
 // API Name: tasktype
 func (r *PutOpenai) _tasktype(tasktype string) *PutOpenai {

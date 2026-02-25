@@ -294,7 +294,7 @@ func (r *Get) Header(key, value string) *Get {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and index aliases used to //
+// Index Comma-separated list of data streams, indices, and index aliases used to
 // limit the request. Wildcard expressions (*) are supported.
 // API Name: index
 func (r *Get) _index(index string) *Get {

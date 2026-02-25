@@ -326,7 +326,7 @@ func (r *DeleteExpiredData) Header(key, value string) *DeleteExpiredData {
 }
 
 // JobId Identifier for an anomaly detection job. It can be a job identifier, a group
-// // name, or a wildcard expression.
+// name, or a wildcard expression.
 // API Name: jobid
 func (r *DeleteExpiredData) JobId(jobid string) *DeleteExpiredData {
 	r.paramSet |= jobidMask

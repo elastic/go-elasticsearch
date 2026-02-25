@@ -326,7 +326,7 @@ func (r *GetRollupCaps) Header(key, value string) *GetRollupCaps {
 }
 
 // Id Index, indices or index-pattern to return rollup capabilities for. `_all` may
-// // be used to fetch rollup capabilities from all jobs.
+// be used to fetch rollup capabilities from all jobs.
 // API Name: id
 func (r *GetRollupCaps) Id(id string) *GetRollupCaps {
 	r.paramSet |= idMask

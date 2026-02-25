@@ -370,10 +370,10 @@ func (r *Ingest) Header(key, value string) *Ingest {
 	return r
 }
 
-// Index The index to simulate ingesting into. This value can be overridden by //
-// specifying an index on each document. If you specify this parameter in the //
+// Index The index to simulate ingesting into. This value can be overridden by
+// specifying an index on each document. If you specify this parameter in the
 // request path, it is used for any documents that do not explicitly specify an
-// // index argument.
+// index argument.
 // API Name: index
 func (r *Ingest) Index(index string) *Ingest {
 	r.paramSet |= indexMask

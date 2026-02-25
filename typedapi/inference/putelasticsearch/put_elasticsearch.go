@@ -371,7 +371,7 @@ func (r *PutElasticsearch) _tasktype(tasktype string) *PutElasticsearch {
 	return r
 }
 
-// ElasticsearchInferenceId The unique identifier of the inference endpoint. The must not match the //
+// ElasticsearchInferenceId The unique identifier of the inference endpoint. The must not match the
 // `model_id`.
 // API Name: elasticsearchinferenceid
 func (r *PutElasticsearch) _elasticsearchinferenceid(elasticsearchinferenceid string) *PutElasticsearch {

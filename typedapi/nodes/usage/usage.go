@@ -330,8 +330,8 @@ func (r *Usage) Header(key, value string) *Usage {
 	return r
 }
 
-// NodeId A comma-separated list of node IDs or names to limit the returned //
-// information. Use `_local` to return information from the node you're //
+// NodeId A comma-separated list of node IDs or names to limit the returned
+// information. Use `_local` to return information from the node you're
 // connecting to, leave empty to get information from all nodes.
 // API Name: nodeid
 func (r *Usage) NodeId(nodeid string) *Usage {
@@ -341,7 +341,7 @@ func (r *Usage) NodeId(nodeid string) *Usage {
 	return r
 }
 
-// Metric Limits the information returned to the specific metrics. A comma-separated //
+// Metric Limits the information returned to the specific metrics. A comma-separated
 // list of the following options: `_all`, `rest_actions`, `aggregations`.
 // API Name: metric
 func (r *Usage) Metric(metric string) *Usage {

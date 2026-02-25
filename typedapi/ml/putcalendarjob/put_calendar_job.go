@@ -313,7 +313,7 @@ func (r *PutCalendarJob) _calendarid(calendarid string) *PutCalendarJob {
 }
 
 // JobId An identifier for the anomaly detection jobs. It can be a job identifier, a
-// // group name, or a comma-separated list of jobs or groups.
+// group name, or a comma-separated list of jobs or groups.
 // API Name: jobid
 func (r *PutCalendarJob) _jobid(jobid string) *PutCalendarJob {
 	r.paramSet |= jobidMask

@@ -315,7 +315,7 @@ func (r *KnnSearch) Header(key, value string) *KnnSearch {
 }
 
 // Index A comma-separated list of index names to search; use `_all` or to perform the
-// // operation on all indices.
+// operation on all indices.
 // API Name: index
 func (r *KnnSearch) _index(index string) *KnnSearch {
 	r.paramSet |= indexMask

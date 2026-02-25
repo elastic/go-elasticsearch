@@ -296,8 +296,8 @@ func (r *Delete) Header(key, value string) *Delete {
 	return r
 }
 
-// Id Identifier for the search to delete. A search ID is provided in the EQL //
-// search API's response for an async search. A search ID is also provided if //
+// Id Identifier for the search to delete. A search ID is provided in the EQL
+// search API's response for an async search. A search ID is also provided if
 // the request’s `keep_on_completion` parameter is `true`.
 // API Name: id
 func (r *Delete) _id(id string) *Delete {

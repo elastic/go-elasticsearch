@@ -358,7 +358,7 @@ func (r *AckWatch) _watchid(watchid string) *AckWatch {
 }
 
 // ActionId A comma-separated list of the action identifiers to acknowledge. If you omit
-// // this parameter, all of the actions of the watch are acknowledged.
+// this parameter, all of the actions of the watch are acknowledged.
 // API Name: actionid
 func (r *AckWatch) ActionId(actionid string) *AckWatch {
 	r.paramSet |= actionidMask

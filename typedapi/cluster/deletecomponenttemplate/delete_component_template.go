@@ -295,7 +295,7 @@ func (r *DeleteComponentTemplate) Header(key, value string) *DeleteComponentTemp
 }
 
 // Name Comma-separated list or wildcard expression of component template names used
-// // to limit the request.
+// to limit the request.
 // API Name: name
 func (r *DeleteComponentTemplate) _name(name string) *DeleteComponentTemplate {
 	r.paramSet |= nameMask

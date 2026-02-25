@@ -313,9 +313,9 @@ func (r *StopDatafeed) Header(key, value string) *StopDatafeed {
 }
 
 // DatafeedId Identifier for the datafeed. You can stop multiple datafeeds in a single API
-// // request by using a comma-separated list of datafeeds or a wildcard //
+// request by using a comma-separated list of datafeeds or a wildcard
 // expression. You can close all datafeeds by using `_all` or by specifying `*`
-// // as the identifier.
+// as the identifier.
 // API Name: datafeedid
 func (r *StopDatafeed) _datafeedid(datafeedid string) *StopDatafeed {
 	r.paramSet |= datafeedidMask

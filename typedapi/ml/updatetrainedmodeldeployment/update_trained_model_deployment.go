@@ -308,7 +308,7 @@ func (r *UpdateTrainedModelDeployment) Header(key, value string) *UpdateTrainedM
 	return r
 }
 
-// ModelId The unique identifier of the trained model. Currently, only PyTorch models //
+// ModelId The unique identifier of the trained model. Currently, only PyTorch models
 // are supported.
 // API Name: modelid
 func (r *UpdateTrainedModelDeployment) _modelid(modelid string) *UpdateTrainedModelDeployment {

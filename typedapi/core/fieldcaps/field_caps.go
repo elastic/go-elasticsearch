@@ -320,9 +320,9 @@ func (r *FieldCaps) Header(key, value string) *FieldCaps {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases used to limit //
+// Index A comma-separated list of data streams, indices, and aliases used to limit
 // the request. Supports wildcards (*). To target all data streams and indices,
-// // omit this parameter or use * or _all.
+// omit this parameter or use * or _all.
 // API Name: index
 func (r *FieldCaps) Index(index string) *FieldCaps {
 	r.paramSet |= indexMask

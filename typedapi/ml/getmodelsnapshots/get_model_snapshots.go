@@ -340,8 +340,8 @@ func (r *GetModelSnapshots) _jobid(jobid string) *GetModelSnapshots {
 }
 
 // SnapshotId A numerical character string that uniquely identifies the model snapshot. You
-// // can get information for multiple snapshots by using a comma-separated list
-// or // a wildcard expression. You can get all snapshots by using `_all`, by //
+// can get information for multiple snapshots by using a comma-separated list or
+// a wildcard expression. You can get all snapshots by using `_all`, by
 // specifying `*` as the snapshot ID, or by omitting the snapshot ID.
 // API Name: snapshotid
 func (r *GetModelSnapshots) SnapshotId(snapshotid string) *GetModelSnapshots {

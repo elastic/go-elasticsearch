@@ -312,7 +312,7 @@ func (r *GetRollupIndexCaps) Header(key, value string) *GetRollupIndexCaps {
 	return r
 }
 
-// Index Data stream or index to check for rollup capabilities. Wildcard (`*`) //
+// Index Data stream or index to check for rollup capabilities. Wildcard (`*`)
 // expressions are supported.
 // API Name: index
 func (r *GetRollupIndexCaps) _index(index string) *GetRollupIndexCaps {

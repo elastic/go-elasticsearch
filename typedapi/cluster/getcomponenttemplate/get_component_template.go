@@ -295,7 +295,7 @@ func (r *GetComponentTemplate) Header(key, value string) *GetComponentTemplate {
 	return r
 }
 
-// Name Name of component template to retrieve. Wildcard (`*`) expressions are //
+// Name Name of component template to retrieve. Wildcard (`*`) expressions are
 // supported.
 // API Name: name
 func (r *GetComponentTemplate) Name(name string) *GetComponentTemplate {

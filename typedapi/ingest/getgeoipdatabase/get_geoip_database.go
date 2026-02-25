@@ -303,8 +303,8 @@ func (r *GetGeoipDatabase) Header(key, value string) *GetGeoipDatabase {
 	return r
 }
 
-// Id A comma-separated list of database configuration IDs to retrieve. Wildcard //
-// (`*`) expressions are supported. To get all database configurations, omit //
+// Id A comma-separated list of database configuration IDs to retrieve. Wildcard
+// (`*`) expressions are supported. To get all database configurations, omit
 // this parameter or use `*`.
 // API Name: id
 func (r *GetGeoipDatabase) Id(id string) *GetGeoipDatabase {

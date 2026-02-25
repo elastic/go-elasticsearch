@@ -337,7 +337,7 @@ func (r *Info) NodeId(nodeid string) *Info {
 	return r
 }
 
-// Metric Limits the information returned to the specific metrics. Supports a //
+// Metric Limits the information returned to the specific metrics. Supports a
 // comma-separated list, such as http,ingest.
 // API Name: metric
 func (r *Info) Metric(metric string) *Info {

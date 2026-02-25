@@ -299,7 +299,7 @@ func (r *GetPolicy) Header(key, value string) *GetPolicy {
 	return r
 }
 
-// Name Comma-separated list of enrich policy names used to limit the request. To //
+// Name Comma-separated list of enrich policy names used to limit the request. To
 // return information for all enrich policies, omit this parameter.
 // API Name: name
 func (r *GetPolicy) Name(name string) *GetPolicy {

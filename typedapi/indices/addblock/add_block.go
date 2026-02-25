@@ -306,12 +306,12 @@ func (r *AddBlock) Header(key, value string) *AddBlock {
 	return r
 }
 
-// Index A comma-separated list or wildcard expression of index names used to limit //
+// Index A comma-separated list or wildcard expression of index names used to limit
 // the request. By default, you must explicitly name the indices you are adding
-// // blocks to. To allow the adding of blocks to indices with `_all`, `*`, or
-// // other wildcard expressions, change the `action.destructive_requires_name`
-// // setting to `false`. You can update this setting in the `elasticsearch.yml`
-// // file or by using the cluster update settings API.
+// blocks to. To allow the adding of blocks to indices with `_all`, `*`, or
+// other wildcard expressions, change the `action.destructive_requires_name`
+// setting to `false`. You can update this setting in the `elasticsearch.yml`
+// file or by using the cluster update settings API.
 // API Name: index
 func (r *AddBlock) _index(index string) *AddBlock {
 	r.paramSet |= indexMask

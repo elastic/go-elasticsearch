@@ -310,7 +310,7 @@ func (r *ThreadPool) Header(key, value string) *ThreadPool {
 	return r
 }
 
-// ThreadPoolPatterns A comma-separated list of thread pool names used to limit the request. //
+// ThreadPoolPatterns A comma-separated list of thread pool names used to limit the request.
 // Accepts wildcard expressions.
 // API Name: threadpoolpatterns
 func (r *ThreadPool) ThreadPoolPatterns(threadpoolpatterns string) *ThreadPool {

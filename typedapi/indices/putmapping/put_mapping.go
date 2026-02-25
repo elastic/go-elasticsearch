@@ -336,7 +336,7 @@ func (r *PutMapping) Header(key, value string) *PutMapping {
 	return r
 }
 
-// Index A comma-separated list of index names the mapping should be added to //
+// Index A comma-separated list of index names the mapping should be added to
 // (supports wildcards). Use `_all` or omit to add the mapping on all indices.
 // API Name: index
 func (r *PutMapping) _index(index string) *PutMapping {

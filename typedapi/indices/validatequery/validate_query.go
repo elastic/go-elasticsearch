@@ -315,8 +315,8 @@ func (r *ValidateQuery) Header(key, value string) *ValidateQuery {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases to search. //
-// Supports wildcards (`*`). To search all data streams or indices, omit this //
+// Index Comma-separated list of data streams, indices, and aliases to search.
+// Supports wildcards (`*`). To search all data streams or indices, omit this
 // parameter or use `*` or `_all`.
 // API Name: index
 func (r *ValidateQuery) Index(index string) *ValidateQuery {

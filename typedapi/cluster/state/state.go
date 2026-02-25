@@ -388,7 +388,7 @@ func (r *State) Metric(metric string) *State {
 }
 
 // Index A comma-separated list of index names; use `_all` or empty string to perform
-// // the operation on all indices
+// the operation on all indices
 // API Name: index
 func (r *State) Index(index string) *State {
 	r.paramSet |= indexMask

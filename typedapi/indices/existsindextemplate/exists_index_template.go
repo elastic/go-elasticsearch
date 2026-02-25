@@ -241,7 +241,7 @@ func (r *ExistsIndexTemplate) Header(key, value string) *ExistsIndexTemplate {
 	return r
 }
 
-// Name Comma-separated list of index template names used to limit the request. //
+// Name Comma-separated list of index template names used to limit the request.
 // Wildcard (*) expressions are supported.
 // API Name: name
 func (r *ExistsIndexTemplate) _name(name string) *ExistsIndexTemplate {

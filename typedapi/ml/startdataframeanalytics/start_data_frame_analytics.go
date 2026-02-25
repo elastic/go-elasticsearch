@@ -330,9 +330,9 @@ func (r *StartDataFrameAnalytics) Header(key, value string) *StartDataFrameAnaly
 	return r
 }
 
-// Id Identifier for the data frame analytics job. This identifier can contain //
+// Id Identifier for the data frame analytics job. This identifier can contain
 // lowercase alphanumeric characters (a-z and 0-9), hyphens, and underscores. It
-// // must start and end with alphanumeric characters.
+// must start and end with alphanumeric characters.
 // API Name: id
 func (r *StartDataFrameAnalytics) _id(id string) *StartDataFrameAnalytics {
 	r.paramSet |= idMask

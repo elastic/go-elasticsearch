@@ -345,15 +345,19 @@ func (r *RollupSearch) Header(key, value string) *RollupSearch {
 }
 
 // Index A comma-separated list of data streams and indices used to limit the request.
-// // This parameter has the following rules: // // - At least one data stream,
-// index, or wildcard expression must be // specified. This target can include a
-// rollup or non-rollup index. For data // streams, the stream's backing indices
-// can only serve as non-rollup // indices. Omitting the parameter or using
-// `_all` are not permitted. // - Multiple non-rollup indices may be specified.
-// // - Only one rollup index may be specified. If more than one are supplied,
-// an // exception occurs. // - Wildcard expressions (`*`) may be used. If they
-// match more than one // rollup index, an exception occurs. However, you can
-// use an expression to // match multiple non-rollup indices or data streams.
+// This parameter has the following rules:
+//
+//   - At least one data stream, index, or wildcard expression must be
+//     specified. This target can include a rollup or non-rollup index. For data
+//     streams, the stream's backing indices can only serve as non-rollup
+//     indices. Omitting the parameter or using `_all` are not permitted.
+//   - Multiple non-rollup indices may be specified.
+//   - Only one rollup index may be specified. If more than one are supplied, an
+//     exception occurs.
+//   - Wildcard expressions (`*`) may be used. If they match more than one
+//     rollup index, an exception occurs. However, you can use an expression to
+//     match multiple non-rollup indices or data streams.
+//
 // API Name: index
 func (r *RollupSearch) _index(index string) *RollupSearch {
 	r.paramSet |= indexMask

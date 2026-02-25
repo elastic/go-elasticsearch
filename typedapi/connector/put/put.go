@@ -305,7 +305,7 @@ func (r *Put) Header(key, value string) *Put {
 	return r
 }
 
-// ConnectorId The unique identifier of the connector to be created or updated. ID is //
+// ConnectorId The unique identifier of the connector to be created or updated. ID is
 // auto-generated if not provided.
 // API Name: connectorid
 func (r *Put) ConnectorId(connectorid string) *Put {

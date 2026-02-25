@@ -372,7 +372,7 @@ func (r *Update) _id(id string) *Update {
 }
 
 // Index The name of the target index. By default, the index is created automatically
-// // if it doesn't exist.
+// if it doesn't exist.
 // API Name: index
 func (r *Update) _index(index string) *Update {
 	r.paramSet |= indexMask

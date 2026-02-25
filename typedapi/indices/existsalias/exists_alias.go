@@ -271,9 +271,9 @@ func (r *ExistsAlias) _name(name string) *ExistsAlias {
 	return r
 }
 
-// Index Comma-separated list of data streams or indices used to limit the request. //
+// Index Comma-separated list of data streams or indices used to limit the request.
 // Supports wildcards (`*`). To target all data streams and indices, omit this
-// // parameter or use `*` or `_all`.
+// parameter or use `*` or `_all`.
 // API Name: index
 func (r *ExistsAlias) Index(index string) *ExistsAlias {
 	r.paramSet |= indexMask

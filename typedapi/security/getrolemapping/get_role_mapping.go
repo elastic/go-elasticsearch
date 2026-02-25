@@ -306,10 +306,10 @@ func (r *GetRoleMapping) Header(key, value string) *GetRoleMapping {
 }
 
 // Name The distinct name that identifies the role mapping. The name is used solely
-// // as an identifier to facilitate interaction via the API; it does not affect
-// // the behavior of the mapping in any way. You can specify multiple mapping
-// // names as a comma-separated list. If you do not specify this parameter, the
-// // API returns information about all role mappings.
+// as an identifier to facilitate interaction via the API; it does not affect
+// the behavior of the mapping in any way. You can specify multiple mapping
+// names as a comma-separated list. If you do not specify this parameter, the
+// API returns information about all role mappings.
 // API Name: name
 func (r *GetRoleMapping) Name(name string) *GetRoleMapping {
 	r.paramSet |= nameMask

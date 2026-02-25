@@ -368,14 +368,17 @@ func (r *CreateServiceToken) _service(service string) *CreateServiceToken {
 	return r
 }
 
-// Name The name for the service account token. If omitted, a random name will be //
-// generated. // // Token names must be at least one and no more than 256
-// characters. They can // contain alphanumeric characters (a-z, A-Z, 0-9),
-// dashes (`-`), and // underscores (`_`), but cannot begin with an underscore.
-// // // NOTE: Token names must be unique in the context of the associated
-// service // account. They must also be globally unique with their fully
-// qualified names, // which are comprised of the service account principal and
-// token name, such as // `<namespace>/<service>/<token-name>`.
+// Name The name for the service account token. If omitted, a random name will be
+// generated.
+//
+// Token names must be at least one and no more than 256 characters. They can
+// contain alphanumeric characters (a-z, A-Z, 0-9), dashes (`-`), and
+// underscores (`_`), but cannot begin with an underscore.
+//
+// NOTE: Token names must be unique in the context of the associated service
+// account. They must also be globally unique with their fully qualified names,
+// which are comprised of the service account principal and token name, such as
+// `<namespace>/<service>/<token-name>`.
 // API Name: name
 func (r *CreateServiceToken) Name(name string) *CreateServiceToken {
 	r.paramSet |= nameMask

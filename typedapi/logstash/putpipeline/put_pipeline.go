@@ -256,8 +256,8 @@ func (r *PutPipeline) Header(key, value string) *PutPipeline {
 	return r
 }
 
-// Id An identifier for the pipeline. Pipeline IDs must begin with a letter or //
-// underscore and contain only letters, underscores, dashes, hyphens and //
+// Id An identifier for the pipeline. Pipeline IDs must begin with a letter or
+// underscore and contain only letters, underscores, dashes, hyphens and
 // numbers.
 // API Name: id
 func (r *PutPipeline) _id(id string) *PutPipeline {

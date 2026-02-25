@@ -347,7 +347,7 @@ func (r *Mget) Header(key, value string) *Mget {
 	return r
 }
 
-// Index Name of the index to retrieve documents from when `ids` are specified, or //
+// Index Name of the index to retrieve documents from when `ids` are specified, or
 // when a document in the `docs` array does not specify an index.
 // API Name: index
 func (r *Mget) Index(index string) *Mget {

@@ -338,7 +338,7 @@ func (r *Submit) Header(key, value string) *Submit {
 }
 
 // Index A comma-separated list of index names to search; use `_all` or empty string
-// // to perform the operation on all indices
+// to perform the operation on all indices
 // API Name: index
 func (r *Submit) Index(index string) *Submit {
 	r.paramSet |= indexMask

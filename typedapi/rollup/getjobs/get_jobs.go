@@ -313,7 +313,7 @@ func (r *GetJobs) Header(key, value string) *GetJobs {
 	return r
 }
 
-// Id Identifier for the rollup job. If it is `_all` or omitted, the API returns //
+// Id Identifier for the rollup job. If it is `_all` or omitted, the API returns
 // all rollup jobs.
 // API Name: id
 func (r *GetJobs) Id(id string) *GetJobs {

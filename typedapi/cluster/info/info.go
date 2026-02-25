@@ -292,7 +292,7 @@ func (r *Info) Header(key, value string) *Info {
 	return r
 }
 
-// Target Limits the information returned to the specific target. Supports a //
+// Target Limits the information returned to the specific target. Supports a
 // comma-separated list, such as http,ingest.
 // API Name: target
 func (r *Info) _target(target string) *Info {

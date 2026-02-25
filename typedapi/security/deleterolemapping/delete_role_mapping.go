@@ -302,8 +302,8 @@ func (r *DeleteRoleMapping) Header(key, value string) *DeleteRoleMapping {
 }
 
 // Name The distinct name that identifies the role mapping. The name is used solely
-// // as an identifier to facilitate interaction via the API; it does not affect
-// // the behavior of the mapping in any way.
+// as an identifier to facilitate interaction via the API; it does not affect
+// the behavior of the mapping in any way.
 // API Name: name
 func (r *DeleteRoleMapping) _name(name string) *DeleteRoleMapping {
 	r.paramSet |= nameMask

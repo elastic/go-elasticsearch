@@ -310,8 +310,8 @@ func (r *Snapshots) Header(key, value string) *Snapshots {
 	return r
 }
 
-// Repository A comma-separated list of snapshot repositories used to limit the request. //
-// Accepts wildcard expressions. `_all` returns all repositories. If any //
+// Repository A comma-separated list of snapshot repositories used to limit the request.
+// Accepts wildcard expressions. `_all` returns all repositories. If any
 // repository fails during the request, Elasticsearch returns an error.
 // API Name: repository
 func (r *Snapshots) Repository(repository string) *Snapshots {

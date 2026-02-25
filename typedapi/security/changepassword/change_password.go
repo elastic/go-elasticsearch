@@ -318,7 +318,7 @@ func (r *ChangePassword) Header(key, value string) *ChangePassword {
 	return r
 }
 
-// Username The user whose password you want to change. If you do not specify this //
+// Username The user whose password you want to change. If you do not specify this
 // parameter, the password is changed for the current user.
 // API Name: username
 func (r *ChangePassword) Username(username string) *ChangePassword {

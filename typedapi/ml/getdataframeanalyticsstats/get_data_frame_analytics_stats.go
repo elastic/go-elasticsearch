@@ -303,8 +303,8 @@ func (r *GetDataFrameAnalyticsStats) Header(key, value string) *GetDataFrameAnal
 	return r
 }
 
-// Id Identifier for the data frame analytics job. If you do not specify this //
-// option, the API returns information for the first hundred data frame //
+// Id Identifier for the data frame analytics job. If you do not specify this
+// option, the API returns information for the first hundred data frame
 // analytics jobs.
 // API Name: id
 func (r *GetDataFrameAnalyticsStats) Id(id string) *GetDataFrameAnalyticsStats {

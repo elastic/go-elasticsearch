@@ -327,7 +327,7 @@ func (r *Msearch) Header(key, value string) *Msearch {
 }
 
 // Index A single target to search. If the target is an index alias, it must resolve
-// // to a single index.
+// to a single index.
 // API Name: index
 func (r *Msearch) Index(index string) *Msearch {
 	r.paramSet |= indexMask

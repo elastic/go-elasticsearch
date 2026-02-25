@@ -434,7 +434,7 @@ func (r *Rollover) _alias(alias string) *Rollover {
 }
 
 // NewIndex Name of the index to create. Supports date math. Data streams do not support
-// // this parameter.
+// this parameter.
 // API Name: newindex
 func (r *Rollover) NewIndex(newindex string) *Rollover {
 	r.paramSet |= newindexMask

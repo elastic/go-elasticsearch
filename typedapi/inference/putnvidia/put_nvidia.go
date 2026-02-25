@@ -310,8 +310,8 @@ func (r *PutNvidia) Header(key, value string) *PutNvidia {
 	return r
 }
 
-// TaskType The type of the inference task that the model will perform. NOTE: The //
-// `chat_completion` task type only supports streaming and only through the //
+// TaskType The type of the inference task that the model will perform. NOTE: The
+// `chat_completion` task type only supports streaming and only through the
 // _stream API.
 // API Name: tasktype
 func (r *PutNvidia) _tasktype(tasktype string) *PutNvidia {

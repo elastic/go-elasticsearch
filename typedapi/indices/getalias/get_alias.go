@@ -327,7 +327,7 @@ func (r *GetAlias) Header(key, value string) *GetAlias {
 	return r
 }
 
-// Name Comma-separated list of aliases to retrieve. Supports wildcards (`*`). To //
+// Name Comma-separated list of aliases to retrieve. Supports wildcards (`*`). To
 // retrieve all aliases, omit this parameter or use `*` or `_all`.
 // API Name: name
 func (r *GetAlias) Name(name string) *GetAlias {
@@ -337,9 +337,9 @@ func (r *GetAlias) Name(name string) *GetAlias {
 	return r
 }
 
-// Index Comma-separated list of data streams or indices used to limit the request. //
+// Index Comma-separated list of data streams or indices used to limit the request.
 // Supports wildcards (`*`). To target all data streams and indices, omit this
-// // parameter or use `*` or `_all`.
+// parameter or use `*` or `_all`.
 // API Name: index
 func (r *GetAlias) Index(index string) *GetAlias {
 	r.paramSet |= indexMask

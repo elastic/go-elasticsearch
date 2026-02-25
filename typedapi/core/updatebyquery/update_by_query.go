@@ -580,8 +580,8 @@ func (r *UpdateByQuery) Header(key, value string) *UpdateByQuery {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases to search. It //
-// supports wildcards (`*`). To search all data streams or indices, omit this //
+// Index A comma-separated list of data streams, indices, and aliases to search. It
+// supports wildcards (`*`). To search all data streams or indices, omit this
 // parameter or use `*` or `_all`.
 // API Name: index
 func (r *UpdateByQuery) _index(index string) *UpdateByQuery {
