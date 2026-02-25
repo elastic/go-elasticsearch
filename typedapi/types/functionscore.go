@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FunctionScore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/query_dsl/compound.ts#L228-L268
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/compound.ts#L228-L274
 type FunctionScore struct {
 	// Exp Function that scores a document with a exponential decay, depending on the
 	// distance of a numeric field value of the document from an origin.
@@ -47,6 +47,8 @@ type FunctionScore struct {
 	// Linear Function that scores a document with a linear decay, depending on the
 	// distance of a numeric field value of the document from an origin.
 	Linear DecayFunction `json:"linear,omitempty"`
+	// Name_ A name to identify which function matched and influenced the score.
+	Name_ *string `json:"_name,omitempty"`
 	// RandomScore Generates scores that are uniformly distributed from 0 up to but not
 	// including 1.
 	// In case you want scores to be reproducible, it is possible to provide a
@@ -125,6 +127,18 @@ func (s *FunctionScore) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Linear", err)
 			}
 			s.Linear = untyped
+
+		case "_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Name_", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Name_ = &o
 
 		case "random_score":
 			if err := dec.Decode(&s.RandomScore); err != nil {

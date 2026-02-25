@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package types
 
@@ -30,13 +30,17 @@ import (
 
 // MultiTermLookup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/_types/aggregations/bucket.ts#L646-L656
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/bucket.ts#L646-L666
 type MultiTermLookup struct {
-	// Field A fields from which to retrieve terms.
-	Field string `json:"field"`
+	// Field A field from which to retrieve terms.
+	// It is required if `script` is not provided.
+	Field *string `json:"field,omitempty"`
 	// Missing The value to apply to documents that do not have a value.
 	// By default, documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
+	// Script A script to calculate terms to aggregate on.
+	// It is required if `field` is not provided.
+	Script *Script `json:"script,omitempty"`
 }
 
 func (s *MultiTermLookup) UnmarshalJSON(data []byte) error {
@@ -62,6 +66,11 @@ func (s *MultiTermLookup) UnmarshalJSON(data []byte) error {
 		case "missing":
 			if err := dec.Decode(&s.Missing); err != nil {
 				return fmt.Errorf("%s | %w", "Missing", err)
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return fmt.Errorf("%s | %w", "Script", err)
 			}
 
 		}

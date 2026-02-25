@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package deletewatch
 
 // Response holds the response body struct for the package deletewatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/watcher/delete_watch/DeleteWatchResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/watcher/delete_watch/DeleteWatchResponse.ts#L22-L24
 type Response struct {
 	Found    bool   `json:"found"`
 	Id_      string `json:"_id"`

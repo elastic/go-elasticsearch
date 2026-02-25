@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/2514615770f18dbb4e3887cc1a279995dbfd0724
+// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
 
 package mount
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package mount
 //
-// https://github.com/elastic/elasticsearch-specification/blob/2514615770f18dbb4e3887cc1a279995dbfd0724/specification/searchable_snapshots/mount/SearchableSnapshotsMountRequest.ts#L26-L95
+// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/searchable_snapshots/mount/SearchableSnapshotsMountRequest.ts#L26-L95
 type Request struct {
 	// IgnoreIndexSettings The names of settings that should be removed from the index when it is
 	// mounted.
