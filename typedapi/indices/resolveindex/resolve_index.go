@@ -21,8 +21,7 @@
 // Resolve indices.
 //
 // Resolve the names and/or index patterns for indices, aliases, and data
-// streams.
-// Multiple patterns and remote clusters are supported.
+// streams. Multiple patterns and remote clusters are supported.
 package resolveindex
 
 import (
@@ -90,8 +89,7 @@ func NewResolveIndexFunc(tp elastictransport.Interface) NewResolveIndex {
 // Resolve indices.
 //
 // Resolve the names and/or index patterns for indices, aliases, and data
-// streams.
-// Multiple patterns and remote clusters are supported.
+// streams. Multiple patterns and remote clusters are supported.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-index
 func New(tp elastictransport.Interface) *ResolveIndex {
@@ -309,9 +307,8 @@ func (r *ResolveIndex) Header(key, value string) *ResolveIndex {
 }
 
 // Name Comma-separated name(s) or index pattern(s) of the indices, aliases, and data
-// streams to resolve.
-// Resources on remote clusters can be specified using the `<cluster>`:`<name>`
-// syntax.
+// // streams to resolve. Resources on remote clusters can be specified using
+// the // `<cluster>`:`<name>` syntax.
 // API Name: name
 func (r *ResolveIndex) _name(name string) *ResolveIndex {
 	r.paramSet |= nameMask
@@ -320,10 +317,9 @@ func (r *ResolveIndex) _name(name string) *ResolveIndex {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *ResolveIndex) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ResolveIndex {
 	tmp := []string{}
@@ -345,10 +341,10 @@ func (r *ResolveIndex) IgnoreUnavailable(ignoreunavailable bool) *ResolveIndex {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
-// For example, a request targeting `foo*,bar*` returns an error if an index
-// starts with `foo` but no index starts with `bar`.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices. For example, a
+// request targeting `foo*,bar*` returns an error if an index starts with `foo`
+// but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *ResolveIndex) AllowNoIndices(allownoindices bool) *ResolveIndex {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -392,11 +388,9 @@ func (r *ResolveIndex) FilterPath(filterpaths ...string) *ResolveIndex {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ResolveIndex) Human(human bool) *ResolveIndex {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -404,8 +398,8 @@ func (r *ResolveIndex) Human(human bool) *ResolveIndex {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ResolveIndex) Pretty(pretty bool) *ResolveIndex {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -413,17 +407,10 @@ func (r *ResolveIndex) Pretty(pretty bool) *ResolveIndex {
 	return r
 }
 
-// Specifies a subset of projects to target using project
-// metadata tags in a subset of Lucene query syntax.
-// Allowed Lucene queries: the _alias tag and a single value (possibly
-// wildcarded).
-// Examples:
-//
-//	_alias:my-project
-//	_alias:_origin
-//	_alias:*pr*
-//
-// Supported in serverless only.
+// Specifies a subset of projects to target using project metadata tags in a
+// subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a
+// single value (possibly wildcarded). Examples: _alias:my-project
+// _alias:_origin _alias:*pr* Supported in serverless only.
 // API name: project_routing
 func (r *ResolveIndex) ProjectRouting(projectrouting string) *ResolveIndex {
 	// Initialize the request if it is not already initialized

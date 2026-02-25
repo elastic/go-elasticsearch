@@ -28,12 +28,11 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/evaluate_data_frame/MlEvaluateDataFrameResponse.ts#L26-L43
 type Response struct {
-	// Classification Evaluation results for a classification analysis.
-	// It outputs a prediction that identifies to which of the classes each document
-	// belongs.
+	// Classification Evaluation results for a classification analysis. It outputs a prediction
+	// that identifies to which of the classes each document belongs.
 	Classification *types.DataframeClassificationSummary `json:"classification,omitempty"`
-	// OutlierDetection Evaluation results for an outlier detection analysis.
-	// It outputs the probability that each document is an outlier.
+	// OutlierDetection Evaluation results for an outlier detection analysis. It outputs the
+	// probability that each document is an outlier.
 	OutlierDetection *types.DataframeOutlierDetectionSummary `json:"outlier_detection,omitempty"`
 	// Regression Evaluation results for a regression analysis which outputs a prediction of
 	// values.

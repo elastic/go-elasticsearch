@@ -21,18 +21,16 @@
 // Reload the keystore on nodes in the cluster.
 //
 // Secure settings are stored in an on-disk keystore. Certain of these settings
-// are reloadable.
-// That is, you can change them on disk and reload them without restarting any
-// nodes in the cluster.
-// When you have updated reloadable secure settings in your keystore, you can
-// use this API to reload those settings on each node.
+// are reloadable. That is, you can change them on disk and reload them without
+// restarting any nodes in the cluster. When you have updated reloadable secure
+// settings in your keystore, you can use this API to reload those settings on
+// each node.
 //
 // When the Elasticsearch keystore is password protected and not simply
 // obfuscated, you must provide the password for the keystore when you reload
-// the secure settings.
-// Reloading the settings for the whole cluster assumes that the keystores for
-// all nodes are protected with the same password; this method is allowed only
-// when inter-node communications are encrypted.
+// the secure settings. Reloading the settings for the whole cluster assumes
+// that the keystores for all nodes are protected with the same password; this
+// method is allowed only when inter-node communications are encrypted.
 // Alternatively, you can reload the secure settings on each node by locally
 // accessing the API and passing the node-specific Elasticsearch keystore
 // password.
@@ -99,18 +97,16 @@ func NewReloadSecureSettingsFunc(tp elastictransport.Interface) NewReloadSecureS
 // Reload the keystore on nodes in the cluster.
 //
 // Secure settings are stored in an on-disk keystore. Certain of these settings
-// are reloadable.
-// That is, you can change them on disk and reload them without restarting any
-// nodes in the cluster.
-// When you have updated reloadable secure settings in your keystore, you can
-// use this API to reload those settings on each node.
+// are reloadable. That is, you can change them on disk and reload them without
+// restarting any nodes in the cluster. When you have updated reloadable secure
+// settings in your keystore, you can use this API to reload those settings on
+// each node.
 //
 // When the Elasticsearch keystore is password protected and not simply
 // obfuscated, you must provide the password for the keystore when you reload
-// the secure settings.
-// Reloading the settings for the whole cluster assumes that the keystores for
-// all nodes are protected with the same password; this method is allowed only
-// when inter-node communications are encrypted.
+// the secure settings. Reloading the settings for the whole cluster assumes
+// that the keystores for all nodes are protected with the same password; this
+// method is allowed only when inter-node communications are encrypted.
 // Alternatively, you can reload the secure settings on each node by locally
 // accessing the API and passing the node-specific Elasticsearch keystore
 // password.
@@ -352,9 +348,8 @@ func (r *ReloadSecureSettings) NodeId(nodeid string) *ReloadSecureSettings {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *ReloadSecureSettings) Timeout(duration string) *ReloadSecureSettings {
 	r.values.Set("timeout", duration)
@@ -385,11 +380,9 @@ func (r *ReloadSecureSettings) FilterPath(filterpaths ...string) *ReloadSecureSe
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ReloadSecureSettings) Human(human bool) *ReloadSecureSettings {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -397,8 +390,8 @@ func (r *ReloadSecureSettings) Human(human bool) *ReloadSecureSettings {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ReloadSecureSettings) Pretty(pretty bool) *ReloadSecureSettings {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

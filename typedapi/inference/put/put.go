@@ -23,42 +23,44 @@
 // IMPORTANT: The inference APIs enable you to use certain services, such as
 // built-in machine learning models (ELSER, E5), models uploaded through Eland,
 // Cohere, OpenAI, Mistral, Azure OpenAI, Google AI Studio, Google Vertex AI,
-// Anthropic, Watsonx.ai, or Hugging Face.
-// For built-in models and models uploaded through Eland, the inference APIs
-// offer an alternative way to use and manage trained models.
-// However, if you do not plan to use the inference APIs to use these models or
-// if you want to use non-NLP models, use the machine learning trained model
-// APIs.
+// Anthropic, Watsonx.ai, or Hugging Face. For built-in models and models
+// uploaded through Eland, the inference APIs offer an alternative way to use
+// and manage trained models. However, if you do not plan to use the inference
+// APIs to use these models or if you want to use non-NLP models, use the
+// machine learning trained model APIs.
 //
 // The following integrations are available through the inference API. You can
 // find the available task types next to the integration name:
-// * AI21 (`chat_completion`, `completion`)
-// * AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
-// `text_embedding`)
-// * Amazon Bedrock (`chat_completion`, `completion`, `text_embedding`)
-// * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
-// `sparse_embedding`, `text_embedding`)
-// * Anthropic (`completion`)
-// * Azure AI Studio (`completion`, `rerank`, `text_embedding`)
-// * Azure OpenAI (`chat_completion`, `completion`, `text_embedding`)
-// * Cohere (`completion`, `rerank`, `text_embedding`)
-// * DeepSeek (`chat_completion`, `completion`)
-// * Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
-// service is for built-in models and models uploaded through Eland)
-// * ELSER (`sparse_embedding`)
-// * Google AI Studio (`completion`, `text_embedding`)
-// * Google Vertex AI (`chat_completion`, `completion`, `rerank`,
-// `text_embedding`)
-// * Groq (`chat_completion`)
-// * Hugging Face (`chat_completion`, `completion`, `rerank`, `text_embedding`)
-// * JinaAI (`embedding`, `rerank`, `text_embedding`)
-// * Llama (`chat_completion`, `completion`, `text_embedding`)
-// * Mistral (`chat_completion`, `completion`, `text_embedding`)
-// * Nvidia (`chat_completion`, `completion`, `text_embedding`, `rerank`)
-// * OpenAI (`chat_completion`, `completion`, `text_embedding`)
-// * OpenShift AI (`chat_completion`, `completion`, `rerank`, `text_embedding`)
-// * VoyageAI (`rerank`, `text_embedding`)
-// * Watsonx (`chat_completion`, `completion`, `rerank`, `text_embedding`)
+//
+//   - AI21 (`chat_completion`, `completion`)
+//   - AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
+//     `text_embedding`)
+//   - Amazon Bedrock (`chat_completion`, `completion`, `text_embedding`)
+//   - Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
+//     `sparse_embedding`, `text_embedding`)
+//   - Anthropic (`completion`)
+//   - Azure AI Studio (`completion`, `rerank`, `text_embedding`)
+//   - Azure OpenAI (`chat_completion`, `completion`, `text_embedding`)
+//   - Cohere (`completion`, `rerank`, `text_embedding`)
+//   - DeepSeek (`chat_completion`, `completion`)
+//   - Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
+//     service is for built-in models and models uploaded through Eland)
+//   - ELSER (`sparse_embedding`)
+//   - Google AI Studio (`completion`, `text_embedding`)
+//   - Google Vertex AI (`chat_completion`, `completion`, `rerank`,
+//     `text_embedding`)
+//   - Groq (`chat_completion`)
+//   - Hugging Face (`chat_completion`, `completion`, `rerank`,
+//     `text_embedding`)
+//   - JinaAI (`embedding`, `rerank`, `text_embedding`)
+//   - Llama (`chat_completion`, `completion`, `text_embedding`)
+//   - Mistral (`chat_completion`, `completion`, `text_embedding`)
+//   - Nvidia (`chat_completion`, `completion`, `text_embedding`, `rerank`)
+//   - OpenAI (`chat_completion`, `completion`, `text_embedding`)
+//   - OpenShift AI (`chat_completion`, `completion`, `rerank`,
+//     `text_embedding`)
+//   - VoyageAI (`rerank`, `text_embedding`)
+//   - Watsonx (`chat_completion`, `completion`, `rerank`, `text_embedding`)
 package put
 
 import (
@@ -129,42 +131,44 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 // IMPORTANT: The inference APIs enable you to use certain services, such as
 // built-in machine learning models (ELSER, E5), models uploaded through Eland,
 // Cohere, OpenAI, Mistral, Azure OpenAI, Google AI Studio, Google Vertex AI,
-// Anthropic, Watsonx.ai, or Hugging Face.
-// For built-in models and models uploaded through Eland, the inference APIs
-// offer an alternative way to use and manage trained models.
-// However, if you do not plan to use the inference APIs to use these models or
-// if you want to use non-NLP models, use the machine learning trained model
-// APIs.
+// Anthropic, Watsonx.ai, or Hugging Face. For built-in models and models
+// uploaded through Eland, the inference APIs offer an alternative way to use
+// and manage trained models. However, if you do not plan to use the inference
+// APIs to use these models or if you want to use non-NLP models, use the
+// machine learning trained model APIs.
 //
 // The following integrations are available through the inference API. You can
 // find the available task types next to the integration name:
-// * AI21 (`chat_completion`, `completion`)
-// * AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
-// `text_embedding`)
-// * Amazon Bedrock (`chat_completion`, `completion`, `text_embedding`)
-// * Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
-// `sparse_embedding`, `text_embedding`)
-// * Anthropic (`completion`)
-// * Azure AI Studio (`completion`, `rerank`, `text_embedding`)
-// * Azure OpenAI (`chat_completion`, `completion`, `text_embedding`)
-// * Cohere (`completion`, `rerank`, `text_embedding`)
-// * DeepSeek (`chat_completion`, `completion`)
-// * Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
-// service is for built-in models and models uploaded through Eland)
-// * ELSER (`sparse_embedding`)
-// * Google AI Studio (`completion`, `text_embedding`)
-// * Google Vertex AI (`chat_completion`, `completion`, `rerank`,
-// `text_embedding`)
-// * Groq (`chat_completion`)
-// * Hugging Face (`chat_completion`, `completion`, `rerank`, `text_embedding`)
-// * JinaAI (`embedding`, `rerank`, `text_embedding`)
-// * Llama (`chat_completion`, `completion`, `text_embedding`)
-// * Mistral (`chat_completion`, `completion`, `text_embedding`)
-// * Nvidia (`chat_completion`, `completion`, `text_embedding`, `rerank`)
-// * OpenAI (`chat_completion`, `completion`, `text_embedding`)
-// * OpenShift AI (`chat_completion`, `completion`, `rerank`, `text_embedding`)
-// * VoyageAI (`rerank`, `text_embedding`)
-// * Watsonx (`chat_completion`, `completion`, `rerank`, `text_embedding`)
+//
+//   - AI21 (`chat_completion`, `completion`)
+//   - AlibabaCloud AI Search (`completion`, `rerank`, `sparse_embedding`,
+//     `text_embedding`)
+//   - Amazon Bedrock (`chat_completion`, `completion`, `text_embedding`)
+//   - Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
+//     `sparse_embedding`, `text_embedding`)
+//   - Anthropic (`completion`)
+//   - Azure AI Studio (`completion`, `rerank`, `text_embedding`)
+//   - Azure OpenAI (`chat_completion`, `completion`, `text_embedding`)
+//   - Cohere (`completion`, `rerank`, `text_embedding`)
+//   - DeepSeek (`chat_completion`, `completion`)
+//   - Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
+//     service is for built-in models and models uploaded through Eland)
+//   - ELSER (`sparse_embedding`)
+//   - Google AI Studio (`completion`, `text_embedding`)
+//   - Google Vertex AI (`chat_completion`, `completion`, `rerank`,
+//     `text_embedding`)
+//   - Groq (`chat_completion`)
+//   - Hugging Face (`chat_completion`, `completion`, `rerank`,
+//     `text_embedding`)
+//   - JinaAI (`embedding`, `rerank`, `text_embedding`)
+//   - Llama (`chat_completion`, `completion`, `text_embedding`)
+//   - Mistral (`chat_completion`, `completion`, `text_embedding`)
+//   - Nvidia (`chat_completion`, `completion`, `text_embedding`, `rerank`)
+//   - OpenAI (`chat_completion`, `completion`, `text_embedding`)
+//   - OpenShift AI (`chat_completion`, `completion`, `rerank`,
+//     `text_embedding`)
+//   - VoyageAI (`rerank`, `text_embedding`)
+//   - Watsonx (`chat_completion`, `completion`, `rerank`, `text_embedding`)
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put
 func New(tp elastictransport.Interface) *Put {
@@ -403,7 +407,7 @@ func (r *Put) Header(key, value string) *Put {
 }
 
 // TaskType The task type. Refer to the integration list in the API description for the
-// available task types.
+// // available task types.
 // API Name: tasktype
 func (r *Put) TaskType(tasktype string) *Put {
 	r.paramSet |= tasktypeMask
@@ -453,11 +457,9 @@ func (r *Put) FilterPath(filterpaths ...string) *Put {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Put) Human(human bool) *Put {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -465,8 +467,8 @@ func (r *Put) Human(human bool) *Put {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Put) Pretty(pretty bool) *Put {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -474,11 +476,9 @@ func (r *Put) Pretty(pretty bool) *Put {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `embedding`, `sparse_embedding` and `text_embedding` task
-// types.
-// Not applicable to the `rerank`, `completion`, or `chat_completion` task
-// types.
+// The chunking configuration object. Applies only to the `embedding`,
+// `sparse_embedding` and `text_embedding` task types. Not applicable to the
+// `rerank`, `completion`, or `chat_completion` task types.
 // API name: chunking_settings
 func (r *Put) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *Put {
 	// Initialize the request if it is not already initialized

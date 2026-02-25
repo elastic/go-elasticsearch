@@ -29,56 +29,83 @@ type CatRecoveryColumn struct {
 }
 
 var (
+
+	// Index The index name.
 	Index = CatRecoveryColumn{"index"}
 
+	// Shard The shard name.
 	Shard = CatRecoveryColumn{"shard"}
 
+	// Starttime The recovery start time.
 	Starttime = CatRecoveryColumn{"start_time"}
 
+	// Starttimemillis The recovery start time in epoch milliseconds.
 	Starttimemillis = CatRecoveryColumn{"start_time_millis"}
 
+	// Stoptime The recovery stop time.
 	Stoptime = CatRecoveryColumn{"stop_time"}
 
+	// Stoptimemillis The recovery stop time in epoch milliseconds.
 	Stoptimemillis = CatRecoveryColumn{"stop_time_millis"}
 
+	// Time The recovery time.
 	Time = CatRecoveryColumn{"time"}
 
+	// Type The recovery type.
 	Type = CatRecoveryColumn{"type"}
 
+	// Stage The recovery stage.
 	Stage = CatRecoveryColumn{"stage"}
 
+	// Sourcehost The source host.
 	Sourcehost = CatRecoveryColumn{"source_host"}
 
+	// Sourcenode The source node name.
 	Sourcenode = CatRecoveryColumn{"source_node"}
 
+	// Targethost The target host.
 	Targethost = CatRecoveryColumn{"target_host"}
 
+	// Targetnode The target node name.
 	Targetnode = CatRecoveryColumn{"target_node"}
 
+	// Repository The repository.
 	Repository = CatRecoveryColumn{"repository"}
 
+	// Snapshot The snapshot.
 	Snapshot = CatRecoveryColumn{"snapshot"}
 
+	// Files The number of files to recover.
 	Files = CatRecoveryColumn{"files"}
 
+	// Filesrecovered The files recovered.
 	Filesrecovered = CatRecoveryColumn{"files_recovered"}
 
+	// Filespercent The percent of files recovered.
 	Filespercent = CatRecoveryColumn{"files_percent"}
 
+	// Filestotal The total number of files.
 	Filestotal = CatRecoveryColumn{"files_total"}
 
+	// Bytes The number of bytes to recover.
 	Bytes = CatRecoveryColumn{"bytes"}
 
+	// Bytesrecovered The bytes recovered.
 	Bytesrecovered = CatRecoveryColumn{"bytes_recovered"}
 
+	// Bytespercent The percent of bytes recovered.
 	Bytespercent = CatRecoveryColumn{"bytes_percent"}
 
+	// Bytestotal The total number of bytes.
 	Bytestotal = CatRecoveryColumn{"bytes_total"}
 
+	// Translogops The number of translog ops to recover.
 	Translogops = CatRecoveryColumn{"translog_ops"}
 
+	// Translogopsrecovered The translog ops recovered.
 	Translogopsrecovered = CatRecoveryColumn{"translog_ops_recovered"}
 
+	// Translogopspercent The percent of translog ops recovered.
 	Translogopspercent = CatRecoveryColumn{"translog_ops_percent"}
 )
 

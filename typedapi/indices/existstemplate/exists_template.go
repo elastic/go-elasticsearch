@@ -20,9 +20,9 @@
 
 // Check existence of index templates.
 //
-// Get information about whether index templates exist.
-// Index templates define settings, mappings, and aliases that can be applied
-// automatically to new indices.
+// Get information about whether index templates exist. Index templates define
+// settings, mappings, and aliases that can be applied automatically to new
+// indices.
 //
 // IMPORTANT: This documentation is about legacy index templates, which are
 // deprecated and will be replaced by the composable templates introduced in
@@ -84,9 +84,9 @@ func NewExistsTemplateFunc(tp elastictransport.Interface) NewExistsTemplate {
 
 // Check existence of index templates.
 //
-// Get information about whether index templates exist.
-// Index templates define settings, mappings, and aliases that can be applied
-// automatically to new indices.
+// Get information about whether index templates exist. Index templates define
+// settings, mappings, and aliases that can be applied automatically to new
+// indices.
 //
 // IMPORTANT: This documentation is about legacy index templates, which are
 // deprecated and will be replaced by the composable templates introduced in
@@ -253,7 +253,7 @@ func (r *ExistsTemplate) Header(key, value string) *ExistsTemplate {
 	return r
 }
 
-// Name A comma-separated list of index template names used to limit the request.
+// Name A comma-separated list of index template names used to limit the request. //
 // Wildcard (`*`) expressions are supported.
 // API Name: name
 func (r *ExistsTemplate) _name(name string) *ExistsTemplate {
@@ -279,10 +279,9 @@ func (r *ExistsTemplate) Local(local bool) *ExistsTemplate {
 	return r
 }
 
-// MasterTimeout The period to wait for the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// To indicate that the request should never timeout, set it to `-1`.
+// MasterTimeout The period to wait for the master node. If the master node is not available
+// before the timeout expires, the request fails and returns an error. To
+// indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *ExistsTemplate) MasterTimeout(duration string) *ExistsTemplate {
 	r.values.Set("master_timeout", duration)
@@ -313,11 +312,9 @@ func (r *ExistsTemplate) FilterPath(filterpaths ...string) *ExistsTemplate {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ExistsTemplate) Human(human bool) *ExistsTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -325,8 +322,8 @@ func (r *ExistsTemplate) Human(human bool) *ExistsTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ExistsTemplate) Pretty(pretty bool) *ExistsTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

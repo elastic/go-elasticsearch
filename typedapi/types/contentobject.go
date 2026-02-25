@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// ContentObject type.
+// An object style representation of a single portion of a conversation.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L123-L135
 type ContentObject struct {

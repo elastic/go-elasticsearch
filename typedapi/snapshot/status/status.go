@@ -24,39 +24,34 @@
 // in the snapshot.
 //
 // Note that this API should be used only to obtain detailed shard-level
-// information for ongoing snapshots.
-// If this detail is not needed or you want to obtain information about one or
-// more existing snapshots, use the get snapshot API.
+// information for ongoing snapshots. If this detail is not needed or you want
+// to obtain information about one or more existing snapshots, use the get
+// snapshot API.
 //
 // If you omit the `<snapshot>` request path parameter, the request retrieves
-// information only for currently running snapshots.
-// This usage is preferred.
-// If needed, you can specify `<repository>` and `<snapshot>` to retrieve
+// information only for currently running snapshots. This usage is preferred. If
+// needed, you can specify `<repository>` and `<snapshot>` to retrieve
 // information for specific snapshots, even if they're not currently running.
 //
 // Note that the stats will not be available for any shard snapshots in an
 // ongoing snapshot completed by a node that (even momentarily) left the
-// cluster.
-// Loading the stats from the repository is an expensive operation (see the
-// WARNING below).
-// Therefore the stats values for such shards will be -1 even though the "stage"
-// value will be "DONE", in order to minimize latency.
-// A "description" field will be present for a shard snapshot completed by a
+// cluster. Loading the stats from the repository is an expensive operation (see
+// the WARNING below). Therefore the stats values for such shards will be -1
+// even though the "stage" value will be "DONE", in order to minimize latency. A
+// "description" field will be present for a shard snapshot completed by a
 // departed node explaining why the shard snapshot's stats results are invalid.
 // Consequently, the total stats for the index will be less than expected due to
 // the missing values from these shards.
 //
 // WARNING: Using the API to return the status of any snapshots other than
-// currently running snapshots can be expensive.
-// The API requires a read from the repository for each shard in each snapshot.
-// For example, if you have 100 snapshots with 1,000 shards each, an API request
-// that includes all snapshots will require 100,000 reads (100 snapshots x 1,000
-// shards).
+// currently running snapshots can be expensive. The API requires a read from
+// the repository for each shard in each snapshot. For example, if you have 100
+// snapshots with 1,000 shards each, an API request that includes all snapshots
+// will require 100,000 reads (100 snapshots x 1,000 shards).
 //
 // Depending on the latency of your storage, such requests can take an extremely
-// long time to return results.
-// These requests can also tax machine resources and, when using cloud storage,
-// incur high processing costs.
+// long time to return results. These requests can also tax machine resources
+// and, when using cloud storage, incur high processing costs.
 package status
 
 import (
@@ -121,39 +116,34 @@ func NewStatusFunc(tp elastictransport.Interface) NewStatus {
 // in the snapshot.
 //
 // Note that this API should be used only to obtain detailed shard-level
-// information for ongoing snapshots.
-// If this detail is not needed or you want to obtain information about one or
-// more existing snapshots, use the get snapshot API.
+// information for ongoing snapshots. If this detail is not needed or you want
+// to obtain information about one or more existing snapshots, use the get
+// snapshot API.
 //
 // If you omit the `<snapshot>` request path parameter, the request retrieves
-// information only for currently running snapshots.
-// This usage is preferred.
-// If needed, you can specify `<repository>` and `<snapshot>` to retrieve
+// information only for currently running snapshots. This usage is preferred. If
+// needed, you can specify `<repository>` and `<snapshot>` to retrieve
 // information for specific snapshots, even if they're not currently running.
 //
 // Note that the stats will not be available for any shard snapshots in an
 // ongoing snapshot completed by a node that (even momentarily) left the
-// cluster.
-// Loading the stats from the repository is an expensive operation (see the
-// WARNING below).
-// Therefore the stats values for such shards will be -1 even though the "stage"
-// value will be "DONE", in order to minimize latency.
-// A "description" field will be present for a shard snapshot completed by a
+// cluster. Loading the stats from the repository is an expensive operation (see
+// the WARNING below). Therefore the stats values for such shards will be -1
+// even though the "stage" value will be "DONE", in order to minimize latency. A
+// "description" field will be present for a shard snapshot completed by a
 // departed node explaining why the shard snapshot's stats results are invalid.
 // Consequently, the total stats for the index will be less than expected due to
 // the missing values from these shards.
 //
 // WARNING: Using the API to return the status of any snapshots other than
-// currently running snapshots can be expensive.
-// The API requires a read from the repository for each shard in each snapshot.
-// For example, if you have 100 snapshots with 1,000 shards each, an API request
-// that includes all snapshots will require 100,000 reads (100 snapshots x 1,000
-// shards).
+// currently running snapshots can be expensive. The API requires a read from
+// the repository for each shard in each snapshot. For example, if you have 100
+// snapshots with 1,000 shards each, an API request that includes all snapshots
+// will require 100,000 reads (100 snapshots x 1,000 shards).
 //
 // Depending on the latency of your storage, such requests can take an extremely
-// long time to return results.
-// These requests can also tax machine resources and, when using cloud storage,
-// incur high processing costs.
+// long time to return results. These requests can also tax machine resources
+// and, when using cloud storage, incur high processing costs.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-status
 func New(tp elastictransport.Interface) *Status {
@@ -393,8 +383,8 @@ func (r *Status) Header(key, value string) *Status {
 	return r
 }
 
-// Repository The snapshot repository name used to limit the request.
-// It supports wildcards (`*`) if `<snapshot>` isn't specified.
+// Repository The snapshot repository name used to limit the request. It supports wildcards
+// // (`*`) if `<snapshot>` isn't specified.
 // API Name: repository
 func (r *Status) Repository(repository string) *Status {
 	r.paramSet |= repositoryMask
@@ -403,9 +393,8 @@ func (r *Status) Repository(repository string) *Status {
 	return r
 }
 
-// Snapshot A comma-separated list of snapshots to retrieve status for.
-// The default is currently running snapshots.
-// Wildcards (`*`) are not supported.
+// Snapshot A comma-separated list of snapshots to retrieve status for. The default is //
+// currently running snapshots. Wildcards (`*`) are not supported.
 // API Name: snapshot
 func (r *Status) Snapshot(snapshot string) *Status {
 	r.paramSet |= snapshotMask
@@ -415,9 +404,8 @@ func (r *Status) Snapshot(snapshot string) *Status {
 }
 
 // IgnoreUnavailable If `false`, the request returns an error for any snapshots that are
-// unavailable.
-// If `true`, the request ignores snapshots that are unavailable, such as those
-// that are corrupted or temporarily cannot be returned.
+// unavailable. If `true`, the request ignores snapshots that are unavailable,
+// such as those that are corrupted or temporarily cannot be returned.
 // API name: ignore_unavailable
 func (r *Status) IgnoreUnavailable(ignoreunavailable bool) *Status {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -425,10 +413,9 @@ func (r *Status) IgnoreUnavailable(ignoreunavailable bool) *Status {
 	return r
 }
 
-// MasterTimeout The period to wait for the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// To indicate that the request should never timeout, set it to `-1`.
+// MasterTimeout The period to wait for the master node. If the master node is not available
+// before the timeout expires, the request fails and returns an error. To
+// indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Status) MasterTimeout(duration string) *Status {
 	r.values.Set("master_timeout", duration)
@@ -459,11 +446,9 @@ func (r *Status) FilterPath(filterpaths ...string) *Status {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Status) Human(human bool) *Status {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -471,8 +456,8 @@ func (r *Status) Human(human bool) *Status {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Status) Pretty(pretty bool) *Status {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

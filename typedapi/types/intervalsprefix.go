@@ -38,9 +38,8 @@ type IntervalsPrefix struct {
 	// Prefix Beginning characters of terms you wish to find in the top-level field.
 	Prefix string `json:"prefix"`
 	// UseField If specified, match intervals from this field rather than the top-level
-	// field.
-	// The `prefix` is normalized using the search analyzer from this field, unless
-	// `analyzer` is specified separately.
+	// field. The `prefix` is normalized using the search analyzer from this field,
+	// unless `analyzer` is specified separately.
 	UseField *string `json:"use_field,omitempty"`
 }
 

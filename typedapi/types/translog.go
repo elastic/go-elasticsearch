@@ -38,20 +38,16 @@ type Translog struct {
 	// update, or bulk request.
 	Durability *translogdurability.TranslogDurability `json:"durability,omitempty"`
 	// FlushThresholdSize The translog stores all operations that are not yet safely persisted in
-	// Lucene (i.e., are not
-	// part of a Lucene commit point). Although these operations are available for
-	// reads, they will need
-	// to be replayed if the shard was stopped and had to be recovered. This setting
-	// controls the
-	// maximum total size of these operations, to prevent recoveries from taking too
-	// long. Once the
-	// maximum size has been reached a flush will happen, generating a new Lucene
-	// commit point.
+	// Lucene (i.e., are not part of a Lucene commit point). Although these
+	// operations are available for reads, they will need to be replayed if the
+	// shard was stopped and had to be recovered. This setting controls the maximum
+	// total size of these operations, to prevent recoveries from taking too long.
+	// Once the maximum size has been reached a flush will happen, generating a new
+	// Lucene commit point.
 	FlushThresholdSize ByteSize           `json:"flush_threshold_size,omitempty"`
 	Retention          *TranslogRetention `json:"retention,omitempty"`
 	// SyncInterval How often the translog is fsynced to disk and committed, regardless of write
-	// operations.
-	// Values less than 100ms are not allowed.
+	// operations. Values less than 100ms are not allowed.
 	SyncInterval Duration `json:"sync_interval,omitempty"`
 }
 

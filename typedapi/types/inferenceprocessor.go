@@ -33,35 +33,33 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L1078-L1110
 type InferenceProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
-	// FieldMap Maps the document field names to the known field names of the model.
-	// This mapping takes precedence over any default mappings provided in the model
+	// FieldMap Maps the document field names to the known field names of the model. This
+	// mapping takes precedence over any default mappings provided in the model
 	// configuration.
 	FieldMap map[string]json.RawMessage `json:"field_map,omitempty"`
 	// If Conditionally execute the processor.
 	If *Script `json:"if,omitempty"`
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
-	// IgnoreMissing If true and any of the input fields defined in input_ouput are missing
-	// then those missing fields are quietly ignored, otherwise a missing field
-	// causes a failure.
-	// Only applies when using input_output configurations to explicitly list the
-	// input fields.
+	// IgnoreMissing If true and any of the input fields defined in input_ouput are missing then
+	// those missing fields are quietly ignored, otherwise a missing field causes a
+	// failure. Only applies when using input_output configurations to explicitly
+	// list the input fields.
 	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
 	// InferenceConfig Contains the inference type and its options.
 	InferenceConfig *InferenceConfig `json:"inference_config,omitempty"`
 	// InputOutput Input fields for inference and output (destination) fields for the inference
-	// results.
-	// This option is incompatible with the target_field and field_map options.
+	// results. This option is incompatible with the target_field and field_map
+	// options.
 	InputOutput []InputConfig `json:"input_output,omitempty"`
 	// ModelId The ID or alias for the trained model, or the ID of the deployment.
 	ModelId string `json:"model_id"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// TargetField Field added to incoming documents to contain results objects.
 	TargetField *string `json:"target_field,omitempty"`

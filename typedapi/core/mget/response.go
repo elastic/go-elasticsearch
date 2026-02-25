@@ -35,11 +35,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/mget/MultiGetResponse.ts#L22-L31
 type Response struct {
 	// Docs The response includes a docs array that contains the documents in the order
-	// specified in the request.
-	// The structure of the returned documents is similar to that returned by the
-	// get API.
-	// If there is a failure getting a particular document, the error is included in
-	// place of the document.
+	// specified in the request. The structure of the returned documents is similar
+	// to that returned by the get API. If there is a failure getting a particular
+	// document, the error is included in place of the document.
 	Docs []types.MgetResponseItem `json:"docs"`
 }
 

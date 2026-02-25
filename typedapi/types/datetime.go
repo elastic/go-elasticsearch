@@ -25,6 +25,11 @@ package types
 //	string
 //	int64
 //
+// A date and time, either as a string whose format can depend on the context
+// (defaulting to ISO 8601), or a number of milliseconds since the Epoch.
+// Elasticsearch accepts both as input, but will generally output a string
+// representation.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/Time.ts#L22-L27
 type DateTime any
 

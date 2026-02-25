@@ -34,14 +34,12 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L1140-L1151
 type CustomRequestParams struct {
 	// Content The body structure of the request. It requires passing in the string-escaped
-	// result of the JSON format HTTP request body.
-	// For example:
-	// ```
-	// "request": "{\"input\":${input}}"
-	// ```
-	// > info
-	// > The content string needs to be a single line except when using the Kibana
-	// console.
+	// result of the JSON format HTTP request body. For example:
+	//
+	//	"request": "{\"input\":${input}}"
+	//
+	// > info > The content string needs to be a single line except when using the
+	// Kibana console.
 	Content string `json:"content"`
 }
 

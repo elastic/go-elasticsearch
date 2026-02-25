@@ -29,10 +29,17 @@ type RangeRelation struct {
 }
 
 var (
+
+	// Within Matches documents with a range field value entirely within the query’s
+	// range.
 	Within = RangeRelation{"within"}
 
+	// Contains Matches documents with a range field value that entirely contains the
+	// query’s range.
 	Contains = RangeRelation{"contains"}
 
+	// Intersects Matches documents with a range field value that intersects the query’s
+	// range.
 	Intersects = RangeRelation{"intersects"}
 )
 

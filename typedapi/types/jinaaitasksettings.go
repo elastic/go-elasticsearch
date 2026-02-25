@@ -38,16 +38,16 @@ type JinaAITaskSettings struct {
 	// InputType For an `embedding` or `text_embedding` task, the task passed to the model.
 	// Valid values are:
 	//
-	// * `classification`: Use it for embeddings passed through a classifier.
-	// * `clustering`: Use it for the embeddings run through a clustering algorithm.
-	// * `ingest`: Use it for storing document embeddings in a vector database.
-	// * `search`: Use it for storing embeddings of search queries run against a
-	// vector database to find relevant documents.
+	//   - `classification`: Use it for embeddings passed through a classifier.
+	//   - `clustering`: Use it for the embeddings run through a clustering
+	//     algorithm.
+	//   - `ingest`: Use it for storing document embeddings in a vector database.
+	//   - `search`: Use it for storing embeddings of search queries run against a
+	//     vector database to find relevant documents.
 	InputType *jinaaitextembeddingtask.JinaAITextEmbeddingTask `json:"input_type,omitempty"`
 	// LateChunking For an `embedding` or `text_embedding` task, controls when text is split into
-	// chunks.
-	// When set to `true`, a request from Elasticsearch contains only chunks related
-	// to a single document. Instead of batching chunks across documents,
+	// chunks. When set to `true`, a request from Elasticsearch contains only chunks
+	// related to a single document. Instead of batching chunks across documents,
 	// Elasticsearch sends them in separate requests. This ensures that chunk
 	// embeddings retain context from the entire document, improving semantic
 	// quality.
@@ -61,11 +61,10 @@ type JinaAITaskSettings struct {
 	LateChunking *bool `json:"late_chunking,omitempty"`
 	// ReturnDocuments For a `rerank` task, return the doc text within the results.
 	ReturnDocuments *bool `json:"return_documents,omitempty"`
-	// TopN For a `rerank` task, the number of most relevant documents to return.
-	// It defaults to the number of the documents.
-	// If this inference endpoint is used in a `text_similarity_reranker` retriever
-	// query and `top_n` is set, it must be greater than or equal to
-	// `rank_window_size` in the query.
+	// TopN For a `rerank` task, the number of most relevant documents to return. It
+	// defaults to the number of the documents. If this inference endpoint is used
+	// in a `text_similarity_reranker` retriever query and `top_n` is set, it must
+	// be greater than or equal to `rank_window_size` in the query.
 	TopN *int `json:"top_n,omitempty"`
 }
 

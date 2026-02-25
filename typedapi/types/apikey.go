@@ -35,17 +35,14 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/_types/ApiKey.ts#L27-L120
 type ApiKey struct {
-	// Access The access granted to cross-cluster API keys.
-	// The access is composed of permissions for cross cluster search and cross
-	// cluster replication.
-	// At least one of them must be specified.
-	// When specified, the new access assignment fully replaces the previously
-	// assigned access.
+	// Access The access granted to cross-cluster API keys. The access is composed of
+	// permissions for cross cluster search and cross cluster replication. At least
+	// one of them must be specified. When specified, the new access assignment
+	// fully replaces the previously assigned access.
 	Access *Access `json:"access,omitempty"`
-	// CertificateIdentity The certificate identity associated with a cross-cluster API key.
-	// Restricts the API key to connections authenticated by a specific TLS
-	// certificate.
-	// Only applicable to cross-cluster API keys.
+	// CertificateIdentity The certificate identity associated with a cross-cluster API key. Restricts
+	// the API key to connections authenticated by a specific TLS certificate. Only
+	// applicable to cross-cluster API keys.
 	CertificateIdentity *string `json:"certificate_identity,omitempty"`
 	// Creation Creation time for the API key in milliseconds.
 	Creation int64 `json:"creation"`
@@ -53,16 +50,15 @@ type ApiKey struct {
 	Expiration *int64 `json:"expiration,omitempty"`
 	// Id Id for the API key
 	Id string `json:"id"`
-	// Invalidated Invalidation status for the API key.
-	// If the key has been invalidated, it has a value of `true`. Otherwise, it is
-	// `false`.
+	// Invalidated Invalidation status for the API key. If the key has been invalidated, it has
+	// a value of `true`. Otherwise, it is `false`.
 	Invalidated bool `json:"invalidated"`
 	// Invalidation If the key has been invalidated, invalidation time in milliseconds.
 	Invalidation *int64 `json:"invalidation,omitempty"`
-	// LimitedBy The owner user’s permissions associated with the API key.
-	// It is a point-in-time snapshot captured at creation and subsequent updates.
-	// An API key’s effective permissions are an intersection of its assigned
-	// privileges and the owner user’s permissions.
+	// LimitedBy The owner user’s permissions associated with the API key. It is a
+	// point-in-time snapshot captured at creation and subsequent updates. An API
+	// key’s effective permissions are an intersection of its assigned privileges
+	// and the owner user’s permissions.
 	LimitedBy []map[string]RoleDescriptor `json:"limited_by,omitempty"`
 	// Metadata Metadata of the API key
 	Metadata Metadata `json:"metadata"`
@@ -76,9 +72,8 @@ type ApiKey struct {
 	// RealmType Realm type of the principal for which this API key was created
 	RealmType *string `json:"realm_type,omitempty"`
 	// RoleDescriptors The role descriptors assigned to this API key when it was created or last
-	// updated.
-	// An empty role descriptor means the API key inherits the owner user’s
-	// permissions.
+	// updated. An empty role descriptor means the API key inherits the owner
+	// user’s permissions.
 	RoleDescriptors map[string]RoleDescriptor `json:"role_descriptors,omitempty"`
 	// Sort_ Sorting values when using the `sort` parameter with the
 	// `security.query_api_keys` API.

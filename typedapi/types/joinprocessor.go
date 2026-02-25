@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L1172-L1187
 type JoinProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field Field containing array values to join.
 	Field string `json:"field"`
@@ -46,11 +46,10 @@ type JoinProcessor struct {
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// Separator The separator character.
 	Separator string `json:"separator"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
-	// TargetField The field to assign the joined value to.
-	// By default, the field is updated in-place.
+	// TargetField The field to assign the joined value to. By default, the field is updated
+	// in-place.
 	TargetField *string `json:"target_field,omitempty"`
 }
 

@@ -240,7 +240,7 @@ func (r *Exists) Header(key, value string) *Exists {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases. Supports
+// Index Comma-separated list of data streams, indices, and aliases. Supports //
 // wildcards (`*`).
 // API Name: index
 func (r *Exists) _index(index string) *Exists {
@@ -251,8 +251,8 @@ func (r *Exists) _index(index string) *Exists {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *Exists) AllowNoIndices(allownoindices bool) *Exists {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -260,10 +260,9 @@ func (r *Exists) AllowNoIndices(allownoindices bool) *Exists {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *Exists) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Exists {
 	tmp := []string{}
@@ -331,11 +330,9 @@ func (r *Exists) FilterPath(filterpaths ...string) *Exists {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Exists) Human(human bool) *Exists {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -343,8 +340,8 @@ func (r *Exists) Human(human bool) *Exists {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Exists) Pretty(pretty bool) *Exists {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

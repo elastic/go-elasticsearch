@@ -22,27 +22,24 @@
 //
 // Flushing a data stream or index is the process of making sure that any data
 // that is currently only stored in the transaction log is also permanently
-// stored in the Lucene index.
-// When restarting, Elasticsearch replays any unflushed operations from the
-// transaction log into the Lucene index to bring it back into the state that it
-// was in before the restart.
-// Elasticsearch automatically triggers flushes as needed, using heuristics that
-// trade off the size of the unflushed transaction log against the cost of
-// performing each flush.
+// stored in the Lucene index. When restarting, Elasticsearch replays any
+// unflushed operations from the transaction log into the Lucene index to bring
+// it back into the state that it was in before the restart. Elasticsearch
+// automatically triggers flushes as needed, using heuristics that trade off the
+// size of the unflushed transaction log against the cost of performing each
+// flush.
 //
 // After each operation has been flushed it is permanently stored in the Lucene
-// index.
-// This may mean that there is no need to maintain an additional copy of it in
-// the transaction log.
-// The transaction log is made up of multiple files, called generations, and
-// Elasticsearch will delete any generation files when they are no longer
-// needed, freeing up disk space.
+// index. This may mean that there is no need to maintain an additional copy of
+// it in the transaction log. The transaction log is made up of multiple files,
+// called generations, and Elasticsearch will delete any generation files when
+// they are no longer needed, freeing up disk space.
 //
 // It is also possible to trigger a flush on one or more indices using the flush
-// API, although it is rare for users to need to call this API directly.
-// If you call the flush API after indexing some documents then a successful
-// response indicates that Elasticsearch has flushed all the documents that were
-// indexed before the flush API was called.
+// API, although it is rare for users to need to call this API directly. If you
+// call the flush API after indexing some documents then a successful response
+// indicates that Elasticsearch has flushed all the documents that were indexed
+// before the flush API was called.
 package flush
 
 import (
@@ -103,27 +100,24 @@ func NewFlushFunc(tp elastictransport.Interface) NewFlush {
 //
 // Flushing a data stream or index is the process of making sure that any data
 // that is currently only stored in the transaction log is also permanently
-// stored in the Lucene index.
-// When restarting, Elasticsearch replays any unflushed operations from the
-// transaction log into the Lucene index to bring it back into the state that it
-// was in before the restart.
-// Elasticsearch automatically triggers flushes as needed, using heuristics that
-// trade off the size of the unflushed transaction log against the cost of
-// performing each flush.
+// stored in the Lucene index. When restarting, Elasticsearch replays any
+// unflushed operations from the transaction log into the Lucene index to bring
+// it back into the state that it was in before the restart. Elasticsearch
+// automatically triggers flushes as needed, using heuristics that trade off the
+// size of the unflushed transaction log against the cost of performing each
+// flush.
 //
 // After each operation has been flushed it is permanently stored in the Lucene
-// index.
-// This may mean that there is no need to maintain an additional copy of it in
-// the transaction log.
-// The transaction log is made up of multiple files, called generations, and
-// Elasticsearch will delete any generation files when they are no longer
-// needed, freeing up disk space.
+// index. This may mean that there is no need to maintain an additional copy of
+// it in the transaction log. The transaction log is made up of multiple files,
+// called generations, and Elasticsearch will delete any generation files when
+// they are no longer needed, freeing up disk space.
 //
 // It is also possible to trigger a flush on one or more indices using the flush
-// API, although it is rare for users to need to call this API directly.
-// If you call the flush API after indexing some documents then a successful
-// response indicates that Elasticsearch has flushed all the documents that were
-// indexed before the flush API was called.
+// API, although it is rare for users to need to call this API directly. If you
+// call the flush API after indexing some documents then a successful response
+// indicates that Elasticsearch has flushed all the documents that were indexed
+// before the flush API was called.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-flush
 func New(tp elastictransport.Interface) *Flush {
@@ -340,10 +334,9 @@ func (r *Flush) Header(key, value string) *Flush {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases to flush.
-// Supports wildcards (`*`).
-// To flush all data streams and indices, omit this parameter or use `*` or
-// `_all`.
+// Index Comma-separated list of data streams, indices, and aliases to flush. Supports
+// // wildcards (`*`). To flush all data streams and indices, omit this
+// parameter // or use `*` or `_all`.
 // API Name: index
 func (r *Flush) Index(index string) *Flush {
 	r.paramSet |= indexMask
@@ -353,8 +346,8 @@ func (r *Flush) Index(index string) *Flush {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *Flush) AllowNoIndices(allownoindices bool) *Flush {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -362,10 +355,9 @@ func (r *Flush) AllowNoIndices(allownoindices bool) *Flush {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *Flush) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Flush {
 	tmp := []string{}
@@ -396,9 +388,8 @@ func (r *Flush) IgnoreUnavailable(ignoreunavailable bool) *Flush {
 }
 
 // WaitIfOngoing If `true`, the flush operation blocks until execution when another flush
-// operation is running.
-// If `false`, Elasticsearch returns an error if you request a flush when
-// another flush operation is running.
+// operation is running. If `false`, Elasticsearch returns an error if you
+// request a flush when another flush operation is running.
 // API name: wait_if_ongoing
 func (r *Flush) WaitIfOngoing(waitifongoing bool) *Flush {
 	r.values.Set("wait_if_ongoing", strconv.FormatBool(waitifongoing))
@@ -429,11 +420,9 @@ func (r *Flush) FilterPath(filterpaths ...string) *Flush {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Flush) Human(human bool) *Flush {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -441,8 +430,8 @@ func (r *Flush) Human(human bool) *Flush {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Flush) Pretty(pretty bool) *Flush {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

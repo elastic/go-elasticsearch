@@ -26,9 +26,8 @@ type _uppercaseProcessor struct {
 	v *types.UppercaseProcessor
 }
 
-// Converts a string to its uppercase equivalent.
-// If the field is an array of strings, all members of the array will be
-// converted.
+// Converts a string to its uppercase equivalent. If the field is an array of
+// strings, all members of the array will be converted.
 func NewUppercaseProcessor() *_uppercaseProcessor {
 
 	return &_uppercaseProcessor{v: types.NewUppercaseProcessor()}

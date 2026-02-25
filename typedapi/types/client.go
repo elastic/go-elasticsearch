@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/nodes/_types/Stats.ts#L722-L769
 type Client struct {
-	// Agent Reported agent for the HTTP client.
-	// If unavailable, this property is not included in the response.
+	// Agent Reported agent for the HTTP client. If unavailable, this property is not
+	// included in the response.
 	Agent *string `json:"agent,omitempty"`
 	// ClosedTimeMillis Time at which the client closed the connection if the connection is closed.
 	ClosedTimeMillis *int64 `json:"closed_time_millis,omitempty"`
@@ -54,8 +54,8 @@ type Client struct {
 	RequestCount *int64 `json:"request_count,omitempty"`
 	// RequestSizeBytes Cumulative size in bytes of all requests from this client.
 	RequestSizeBytes *int64 `json:"request_size_bytes,omitempty"`
-	// XOpaqueId Value from the client’s `x-opaque-id` HTTP header.
-	// If unavailable, this property is not included in the response.
+	// XOpaqueId Value from the client’s `x-opaque-id` HTTP header. If unavailable, this
+	// property is not included in the response.
 	XOpaqueId *string `json:"x_opaque_id,omitempty"`
 }
 

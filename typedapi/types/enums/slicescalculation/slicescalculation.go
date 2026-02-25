@@ -29,6 +29,9 @@ type SlicesCalculation struct {
 }
 
 var (
+
+	// Auto Let Elasticsearch choose a reasonable number for most data streams and
+	// indices.
 	Auto = SlicesCalculation{"auto"}
 )
 

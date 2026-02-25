@@ -281,8 +281,7 @@ func (r *GetAllSampleConfiguration) Header(key, value string) *GetAllSampleConfi
 }
 
 // MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an
-// error.
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *GetAllSampleConfiguration) MasterTimeout(duration string) *GetAllSampleConfiguration {
 	r.values.Set("master_timeout", duration)
@@ -313,11 +312,9 @@ func (r *GetAllSampleConfiguration) FilterPath(filterpaths ...string) *GetAllSam
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetAllSampleConfiguration) Human(human bool) *GetAllSampleConfiguration {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -325,8 +322,8 @@ func (r *GetAllSampleConfiguration) Human(human bool) *GetAllSampleConfiguration
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetAllSampleConfiguration) Pretty(pretty bool) *GetAllSampleConfiguration {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

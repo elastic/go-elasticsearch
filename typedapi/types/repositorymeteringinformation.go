@@ -34,19 +34,16 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/nodes/_types/RepositoryMeteringInformation.ts#L24-L66
 type RepositoryMeteringInformation struct {
 	// Archived A flag that tells whether or not this object has been archived. When a
-	// repository is closed or updated the
-	// repository metering information is archived and kept for a certain period of
-	// time. This allows retrieving the
+	// repository is closed or updated the repository metering information is
+	// archived and kept for a certain period of time. This allows retrieving the
 	// repository metering information of previous repository instantiations.
 	Archived bool `json:"archived"`
 	// ClusterVersion The cluster state version when this object was archived, this field can be
-	// used as a logical timestamp to delete
-	// all the archived metrics up to an observed version. This field is only
-	// present for archived repository metering
+	// used as a logical timestamp to delete all the archived metrics up to an
+	// observed version. This field is only present for archived repository metering
 	// information objects. The main purpose of this field is to avoid possible race
-	// conditions during repository metering
-	// information deletions, i.e. deleting archived repositories metering
-	// information that we haven’t observed yet.
+	// conditions during repository metering information deletions, i.e. deleting
+	// archived repositories metering information that we haven’t observed yet.
 	ClusterVersion *int64 `json:"cluster_version,omitempty"`
 	// RepositoryEphemeralId An identifier that changes every time the repository is updated.
 	RepositoryEphemeralId string `json:"repository_ephemeral_id"`

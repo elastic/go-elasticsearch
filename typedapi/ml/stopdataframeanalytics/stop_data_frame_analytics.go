@@ -314,9 +314,9 @@ func (r *StopDataFrameAnalytics) Header(key, value string) *StopDataFrameAnalyti
 	return r
 }
 
-// Id Identifier for the data frame analytics job. This identifier can contain
-// lowercase alphanumeric characters (a-z and 0-9), hyphens, and
-// underscores. It must start and end with alphanumeric characters.
+// Id Identifier for the data frame analytics job. This identifier can contain //
+// lowercase alphanumeric characters (a-z and 0-9), hyphens, and underscores. It
+// // must start and end with alphanumeric characters.
 // API Name: id
 func (r *StopDataFrameAnalytics) _id(id string) *StopDataFrameAnalytics {
 	r.paramSet |= idMask
@@ -348,11 +348,9 @@ func (r *StopDataFrameAnalytics) FilterPath(filterpaths ...string) *StopDataFram
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *StopDataFrameAnalytics) Human(human bool) *StopDataFrameAnalytics {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -360,8 +358,8 @@ func (r *StopDataFrameAnalytics) Human(human bool) *StopDataFrameAnalytics {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *StopDataFrameAnalytics) Pretty(pretty bool) *StopDataFrameAnalytics {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -371,15 +369,14 @@ func (r *StopDataFrameAnalytics) Pretty(pretty bool) *StopDataFrameAnalytics {
 
 // Specifies what to do when the request:
 //
-// 1. Contains wildcard expressions and there are no data frame analytics
-// jobs that match.
-// 2. Contains the _all string or no identifiers and there are no matches.
-// 3. Contains wildcard expressions and there are only partial matches.
+// 1. Contains wildcard expressions and there are no data frame analytics jobs
+// that match. 2. Contains the _all string or no identifiers and there are no
+// matches. 3. Contains wildcard expressions and there are only partial matches.
 //
-// The default value is true, which returns an empty data_frame_analytics
-// array when there are no matches and the subset of results when there are
-// partial matches. If this parameter is false, the request returns a 404
-// status code when there are no matches or only partial matches.
+// The default value is true, which returns an empty data_frame_analytics array
+// when there are no matches and the subset of results when there are partial
+// matches. If this parameter is false, the request returns a 404 status code
+// when there are no matches or only partial matches.
 // API name: allow_no_match
 func (r *StopDataFrameAnalytics) AllowNoMatch(allownomatch bool) *StopDataFrameAnalytics {
 	// Initialize the request if it is not already initialized
@@ -405,8 +402,8 @@ func (r *StopDataFrameAnalytics) Force(force bool) *StopDataFrameAnalytics {
 	return r
 }
 
-// Controls the amount of time to wait until the data frame analytics job
-// stops. Defaults to 20 seconds.
+// Controls the amount of time to wait until the data frame analytics job stops.
+// Defaults to 20 seconds.
 // API name: timeout
 func (r *StopDataFrameAnalytics) Timeout(duration types.DurationVariant) *StopDataFrameAnalytics {
 	// Initialize the request if it is not already initialized

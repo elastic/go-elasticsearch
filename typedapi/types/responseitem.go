@@ -35,35 +35,35 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/bulk/types.ts#L37-L84
 type ResponseItem struct {
-	// Error Additional information about the failed operation.
-	// The property is returned only for failed operations.
+	// Error Additional information about the failed operation. The property is returned
+	// only for failed operations.
 	Error         *ErrorCause                            `json:"error,omitempty"`
 	FailureStore  *failurestorestatus.FailureStoreStatus `json:"failure_store,omitempty"`
 	ForcedRefresh *bool                                  `json:"forced_refresh,omitempty"`
 	Get           *InlineGetDictUserDefined              `json:"get,omitempty"`
 	// Id_ The document ID associated with the operation.
 	Id_ *string `json:"_id,omitempty"`
-	// Index_ The name of the index associated with the operation.
-	// If the operation targeted a data stream, this is the backing index into which
-	// the document was written.
+	// Index_ The name of the index associated with the operation. If the operation
+	// targeted a data stream, this is the backing index into which the document was
+	// written.
 	Index_ string `json:"_index"`
-	// PrimaryTerm_ The primary term assigned to the document for the operation.
-	// This property is returned only for successful operations.
+	// PrimaryTerm_ The primary term assigned to the document for the operation. This property is
+	// returned only for successful operations.
 	PrimaryTerm_ *int64 `json:"_primary_term,omitempty"`
-	// Result The result of the operation.
-	// Successful values are `created`, `deleted`, and `updated`.
+	// Result The result of the operation. Successful values are `created`, `deleted`, and
+	// `updated`.
 	Result *string `json:"result,omitempty"`
-	// SeqNo_ The sequence number assigned to the document for the operation.
-	// Sequence numbers are used to ensure an older version of a document doesn't
-	// overwrite a newer version.
+	// SeqNo_ The sequence number assigned to the document for the operation. Sequence
+	// numbers are used to ensure an older version of a document doesn't overwrite a
+	// newer version.
 	SeqNo_ *int64 `json:"_seq_no,omitempty"`
 	// Shards_ Shard information for the operation.
 	Shards_ *ShardStatistics `json:"_shards,omitempty"`
 	// Status The HTTP status code returned for the operation.
 	Status int `json:"status"`
-	// Version_ The document version associated with the operation.
-	// The document version is incremented each time the document is updated.
-	// This property is returned only for successful actions.
+	// Version_ The document version associated with the operation. The document version is
+	// incremented each time the document is updated. This property is returned only
+	// for successful actions.
 	Version_ *int64 `json:"_version,omitempty"`
 }
 

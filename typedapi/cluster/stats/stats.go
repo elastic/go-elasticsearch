@@ -305,7 +305,7 @@ func (r *Stats) Header(key, value string) *Stats {
 	return r
 }
 
-// NodeId Comma-separated list of node filters used to limit returned information.
+// NodeId Comma-separated list of node filters used to limit returned information. //
 // Defaults to all nodes in the cluster.
 // API Name: nodeid
 func (r *Stats) NodeId(nodeid string) *Stats {
@@ -323,11 +323,10 @@ func (r *Stats) IncludeRemotes(includeremotes bool) *Stats {
 	return r
 }
 
-// Timeout Period to wait for each node to respond.
-// If a node does not respond before its timeout expires, the response does not
-// include its stats.
-// However, timed out nodes are included in the response’s `_nodes.failed`
-// property. Defaults to no timeout.
+// Timeout Period to wait for each node to respond. If a node does not respond before
+// its timeout expires, the response does not include its stats. However, timed
+// out nodes are included in the response’s `_nodes.failed` property. Defaults
+// to no timeout.
 // API name: timeout
 func (r *Stats) Timeout(duration string) *Stats {
 	r.values.Set("timeout", duration)
@@ -358,11 +357,9 @@ func (r *Stats) FilterPath(filterpaths ...string) *Stats {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Stats) Human(human bool) *Stats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -370,8 +367,8 @@ func (r *Stats) Human(human bool) *Stats {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Stats) Pretty(pretty bool) *Stats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -21,31 +21,32 @@
 // Create an ELSER inference endpoint.
 //
 // Create an inference endpoint to perform an inference task with the `elser`
-// service.
-// You can also deploy ELSER by using the Elasticsearch inference integration.
+// service. You can also deploy ELSER by using the Elasticsearch inference
+// integration.
 //
-// > info
-// > Your Elasticsearch deployment contains a preconfigured ELSER inference
-// endpoint, you only need to create the enpoint using the API if you want to
-// customize the settings.
+// > info > Your Elasticsearch deployment contains a preconfigured ELSER
+// inference endpoint, you only need to create the enpoint using the API if you
+// want to customize the settings.
 //
 // The API request will automatically download and deploy the ELSER model if it
 // isn't already downloaded.
 //
-// > info
-// > You might see a 502 bad gateway error in the response when using the Kibana
-// Console. This error usually just reflects a timeout, while the model
+// > info > You might see a 502 bad gateway error in the response when using the
+// Kibana Console. This error usually just reflects a timeout, while the model
 // downloads in the background. You can check the download progress in the
 // Machine Learning UI. If using the Python client, you can set the timeout
 // parameter to a higher value.
 //
 // After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
+// using it. To verify the deployment status, use the get trained model
+// statistics API. Look for `"state": "fully_allocated"` in the response and
+// ensure that the `"allocation_count"` matches the `"target_allocation_count"`.
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
+//
+// Deprecated: Since 8.16.0. The elser service is deprecated and will be removed
+// in a future release. Use the Elasticsearch inference integration instead,
+// with model_id included in the service_settings.
 package putelser
 
 import (
@@ -117,33 +118,34 @@ func NewPutElserFunc(tp elastictransport.Interface) NewPutElser {
 // Create an ELSER inference endpoint.
 //
 // Create an inference endpoint to perform an inference task with the `elser`
-// service.
-// You can also deploy ELSER by using the Elasticsearch inference integration.
+// service. You can also deploy ELSER by using the Elasticsearch inference
+// integration.
 //
-// > info
-// > Your Elasticsearch deployment contains a preconfigured ELSER inference
-// endpoint, you only need to create the enpoint using the API if you want to
-// customize the settings.
+// > info > Your Elasticsearch deployment contains a preconfigured ELSER
+// inference endpoint, you only need to create the enpoint using the API if you
+// want to customize the settings.
 //
 // The API request will automatically download and deploy the ELSER model if it
 // isn't already downloaded.
 //
-// > info
-// > You might see a 502 bad gateway error in the response when using the Kibana
-// Console. This error usually just reflects a timeout, while the model
+// > info > You might see a 502 bad gateway error in the response when using the
+// Kibana Console. This error usually just reflects a timeout, while the model
 // downloads in the background. You can check the download progress in the
 // Machine Learning UI. If using the Python client, you can set the timeout
 // parameter to a higher value.
 //
 // After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
+// using it. To verify the deployment status, use the get trained model
+// statistics API. Look for `"state": "fully_allocated"` in the response and
+// ensure that the `"allocation_count"` matches the `"target_allocation_count"`.
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elser
+//
+// Deprecated: Since 8.16.0. The elser service is deprecated and will be removed
+// in a future release. Use the Elasticsearch inference integration instead,
+// with model_id included in the service_settings.
 func New(tp elastictransport.Interface) *PutElser {
 	r := &PutElser{
 		transport: tp,
@@ -418,11 +420,9 @@ func (r *PutElser) FilterPath(filterpaths ...string) *PutElser {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutElser) Human(human bool) *PutElser {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -430,8 +430,8 @@ func (r *PutElser) Human(human bool) *PutElser {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutElser) Pretty(pretty bool) *PutElser {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -439,8 +439,8 @@ func (r *PutElser) Pretty(pretty bool) *PutElser {
 	return r
 }
 
-// The chunking configuration object.
-// Note that for ELSER endpoints, the max_chunk_size may not exceed `300`.
+// The chunking configuration object. Note that for ELSER endpoints, the
+// max_chunk_size may not exceed `300`.
 // API name: chunking_settings
 func (r *PutElser) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutElser {
 	// Initialize the request if it is not already initialized

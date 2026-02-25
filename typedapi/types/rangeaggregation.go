@@ -39,8 +39,8 @@ type RangeAggregation struct {
 	// Keyed Set to `true` to associate a unique string key with each bucket and return
 	// the ranges as a hash rather than an array.
 	Keyed *bool `json:"keyed,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing *int `json:"missing,omitempty"`
 	// Ranges An array of ranges used to bucket documents.
 	Ranges []AggregationRange `json:"ranges,omitempty"`

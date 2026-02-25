@@ -33,24 +33,20 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/analysis/token_filters.ts#L262-L279
 type ElisionTokenFilter struct {
-	// Articles List of elisions to remove.
-	// To be removed, the elision must be at the beginning of a token and be
-	// immediately followed by an apostrophe. Both the elision and apostrophe are
-	// removed.
-	// For custom `elision` filters, either this parameter or `articles_path` must
-	// be specified.
+	// Articles List of elisions to remove. To be removed, the elision must be at the
+	// beginning of a token and be immediately followed by an apostrophe. Both the
+	// elision and apostrophe are removed. For custom `elision` filters, either this
+	// parameter or `articles_path` must be specified.
 	Articles []string `json:"articles,omitempty"`
 	// ArticlesCase If `true`, elision matching is case insensitive. If `false`, elision matching
 	// is case sensitive. Defaults to `false`.
 	ArticlesCase Stringifiedboolean `json:"articles_case,omitempty"`
-	// ArticlesPath Path to a file that contains a list of elisions to remove.
-	// This path must be absolute or relative to the `config` location, and the file
-	// must be UTF-8 encoded. Each elision in the file must be separated by a line
-	// break.
-	// To be removed, the elision must be at the beginning of a token and be
-	// immediately followed by an apostrophe. Both the elision and apostrophe are
-	// removed.
-	// For custom `elision` filters, either this parameter or `articles` must be
+	// ArticlesPath Path to a file that contains a list of elisions to remove. This path must be
+	// absolute or relative to the `config` location, and the file must be UTF-8
+	// encoded. Each elision in the file must be separated by a line break. To be
+	// removed, the elision must be at the beginning of a token and be immediately
+	// followed by an apostrophe. Both the elision and apostrophe are removed. For
+	// custom `elision` filters, either this parameter or `articles` must be
 	// specified.
 	ArticlesPath *string `json:"articles_path,omitempty"`
 	Type         string  `json:"type,omitempty"`

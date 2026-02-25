@@ -326,11 +326,10 @@ func (r *MlTrainedModels) ModelId(modelid string) *MlTrainedModels {
 // AllowNoMatch Specifies what to do when the request: contains wildcard expressions and
 // there are no models that match; contains the `_all` string or no identifiers
 // and there are no matches; contains wildcard expressions and there are only
-// partial matches.
-// If `true`, the API returns an empty array when there are no matches and the
-// subset of results when there are partial matches.
-// If `false`, the API returns a 404 status code when there are no matches or
-// only partial matches.
+// partial matches. If `true`, the API returns an empty array when there are no
+// matches and the subset of results when there are partial matches. If `false`,
+// the API returns a 404 status code when there are no matches or only partial
+// matches.
 // API name: allow_no_match
 func (r *MlTrainedModels) AllowNoMatch(allownomatch bool) *MlTrainedModels {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -378,15 +377,14 @@ func (r *MlTrainedModels) Size(size int) *MlTrainedModels {
 	return r
 }
 
-// Bytes Sets the units for columns that contain a byte-size value.
-// Note that byte-size value units work in terms of powers of 1024. For instance
-// `1kb` means 1024 bytes, not 1000 bytes.
-// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
-// or `gb`, chosen such that the numeric value of the column is as small as
-// possible whilst still being at least `1.0`.
-// If given, byte-size values are rendered as an integer with no suffix,
-// representing the value of the column in the chosen unit.
-// Values that are not an exact multiple of the chosen unit are rounded down.
+// Bytes Sets the units for columns that contain a byte-size value. Note that
+// byte-size value units work in terms of powers of 1024. For instance `1kb`
+// means 1024 bytes, not 1000 bytes. If omitted, byte-size values are rendered
+// with a suffix such as `kb`, `mb`, or `gb`, chosen such that the numeric value
+// of the column is as small as possible whilst still being at least `1.0`. If
+// given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit. Values that are not
+// an exact multiple of the chosen unit are rounded down.
 // API name: bytes
 func (r *MlTrainedModels) Bytes(bytes bytes.Bytes) *MlTrainedModels {
 	r.values.Set("bytes", bytes.String())
@@ -394,8 +392,8 @@ func (r *MlTrainedModels) Bytes(bytes bytes.Bytes) *MlTrainedModels {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *MlTrainedModels) Format(format string) *MlTrainedModels {
 	r.values.Set("format", format)
@@ -403,8 +401,8 @@ func (r *MlTrainedModels) Format(format string) *MlTrainedModels {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *MlTrainedModels) Help(help bool) *MlTrainedModels {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -412,12 +410,12 @@ func (r *MlTrainedModels) Help(help bool) *MlTrainedModels {
 	return r
 }
 
-// Time Sets the units for columns that contain a time duration.
-// If omitted, time duration values are rendered with a suffix such as `ms`,
-// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
-// as possible whilst still being at least `1.0`.
-// If given, time duration values are rendered as an integer with no suffix.
-// Values that are not an exact multiple of the chosen unit are rounded down.
+// Time Sets the units for columns that contain a time duration. If omitted, time
+// duration values are rendered with a suffix such as `ms`, `s`, `m` or `h`,
+// chosen such that the numeric value of the column is as small as possible
+// whilst still being at least `1.0`. If given, time duration values are
+// rendered as an integer with no suffix. Values that are not an exact multiple
+// of the chosen unit are rounded down.
 // API name: time
 func (r *MlTrainedModels) Time(time timeunit.TimeUnit) *MlTrainedModels {
 	r.values.Set("time", time.String())
@@ -456,11 +454,9 @@ func (r *MlTrainedModels) FilterPath(filterpaths ...string) *MlTrainedModels {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *MlTrainedModels) Human(human bool) *MlTrainedModels {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -468,8 +464,8 @@ func (r *MlTrainedModels) Human(human bool) *MlTrainedModels {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *MlTrainedModels) Pretty(pretty bool) *MlTrainedModels {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

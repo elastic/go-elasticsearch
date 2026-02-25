@@ -29,52 +29,44 @@ import (
 	"strconv"
 )
 
-// Settings type.
+// The source of the data for the transform.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/transform/_types/Transform.ts#L98-L154
 type Settings struct {
 	// AlignCheckpoints Specifies whether the transform checkpoint ranges should be optimized for
-	// performance. Such optimization can align
-	// checkpoint ranges with the date histogram interval when date histogram is
-	// specified as a group source in the
+	// performance. Such optimization can align checkpoint ranges with the date
+	// histogram interval when date histogram is specified as a group source in the
 	// transform config. As a result, less document updates in the destination index
-	// will be performed thus improving
-	// overall performance.
+	// will be performed thus improving overall performance.
 	AlignCheckpoints *bool `json:"align_checkpoints,omitempty"`
 	// DatesAsEpochMillis Defines if dates in the ouput should be written as ISO formatted string or as
-	// millis since epoch. epoch_millis was
-	// the default for transforms created before version 7.11. For compatible output
-	// set this value to `true`.
+	// millis since epoch. epoch_millis was the default for transforms created
+	// before version 7.11. For compatible output set this value to `true`.
 	DatesAsEpochMillis *bool `json:"dates_as_epoch_millis,omitempty"`
 	// DeduceMappings Specifies whether the transform should deduce the destination index mappings
 	// from the transform configuration.
 	DeduceMappings *bool `json:"deduce_mappings,omitempty"`
 	// DocsPerSecond Specifies a limit on the number of input documents per second. This setting
-	// throttles the transform by adding a
-	// wait time between search requests. The default value is null, which disables
-	// throttling.
+	// throttles the transform by adding a wait time between search requests. The
+	// default value is null, which disables throttling.
 	DocsPerSecond *float32 `json:"docs_per_second,omitempty"`
 	// MaxPageSearchSize Defines the initial page size to use for the composite aggregation for each
-	// checkpoint. If circuit breaker
-	// exceptions occur, the page size is dynamically adjusted to a lower value. The
-	// minimum value is `10` and the
-	// maximum is `65,536`.
+	// checkpoint. If circuit breaker exceptions occur, the page size is dynamically
+	// adjusted to a lower value. The minimum value is `10` and the maximum is
+	// `65,536`.
 	MaxPageSearchSize *int `json:"max_page_search_size,omitempty"`
 	// Unattended If `true`, the transform runs in unattended mode. In unattended mode, the
-	// transform retries indefinitely in case
-	// of an error which means the transform never fails. Setting the number of
-	// retries other than infinite fails in
+	// transform retries indefinitely in case of an error which means the transform
+	// never fails. Setting the number of retries other than infinite fails in
 	// validation.
 	Unattended *bool `json:"unattended,omitempty"`
 	// UsePointInTime Specifies whether the transform checkpoint will use the Point In Time API
-	// while searching over the source index.
-	// In general, Point In Time is an optimization that will reduce pressure on the
-	// source index by reducing the amount
-	// of refreshes and merges, but it can be expensive if a large number of Point
-	// In Times are opened and closed for a
-	// given index. The benefits and impact depend on the data being searched, the
-	// ingest rate into the source index, and
-	// the amount of other consumers searching the same source index.
+	// while searching over the source index. In general, Point In Time is an
+	// optimization that will reduce pressure on the source index by reducing the
+	// amount of refreshes and merges, but it can be expensive if a large number of
+	// Point In Times are opened and closed for a given index. The benefits and
+	// impact depend on the data being searched, the ingest rate into the source
+	// index, and the amount of other consumers searching the same source index.
 	UsePointInTime *bool `json:"use_point_in_time,omitempty"`
 }
 

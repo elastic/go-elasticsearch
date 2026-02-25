@@ -39,8 +39,8 @@ type TransportHistogram struct {
 	// GeMillis The inclusive lower bound of the bucket in milliseconds. May be omitted on
 	// the first bucket if this bucket has no lower bound.
 	GeMillis *int64 `json:"ge_millis,omitempty"`
-	// LtMillis The exclusive upper bound of the bucket in milliseconds.
-	// May be omitted on the last bucket if this bucket has no upper bound.
+	// LtMillis The exclusive upper bound of the bucket in milliseconds. May be omitted on
+	// the last bucket if this bucket has no upper bound.
 	LtMillis *int64 `json:"lt_millis,omitempty"`
 }
 

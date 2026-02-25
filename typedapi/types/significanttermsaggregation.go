@@ -64,13 +64,11 @@ type SignificantTermsAggregation struct {
 	// existing in foreground and background sets.
 	//
 	// The p-value is the probability of obtaining test results at least as extreme
-	// as
-	// the results actually observed, under the assumption that the null hypothesis
-	// is
-	// correct. The p-value is calculated assuming that the foreground set and the
-	// background set are independent https://en.wikipedia.org/wiki/Bernoulli_trial,
-	// with the null
-	// hypothesis that the probabilities are the same.
+	// as the results actually observed, under the assumption that the null
+	// hypothesis is correct. The p-value is calculated assuming that the foreground
+	// set and the background set are independent
+	// https://en.wikipedia.org/wiki/Bernoulli_trial, with the null hypothesis that
+	// the probabilities are the same.
 	PValue *PValueHeuristic `json:"p_value,omitempty"`
 	// Percentage A simple calculation of the number of documents in the foreground sample with
 	// a term divided by the number of documents in the background with the term.
@@ -78,9 +76,9 @@ type SignificantTermsAggregation struct {
 	// ScriptHeuristic Customized score, implemented via a script.
 	ScriptHeuristic *ScriptedHeuristic `json:"script_heuristic,omitempty"`
 	// ShardMinDocCount Regulates the certainty a shard has if the term should actually be added to
-	// the candidate list or not with respect to the `min_doc_count`.
-	// Terms will only be considered if their local shard frequency within the set
-	// is higher than the `shard_min_doc_count`.
+	// the candidate list or not with respect to the `min_doc_count`. Terms will
+	// only be considered if their local shard frequency within the set is higher
+	// than the `shard_min_doc_count`.
 	ShardMinDocCount *int64 `json:"shard_min_doc_count,omitempty"`
 	// ShardSize Can be used to control the volumes of candidate terms produced by each shard.
 	// By default, `shard_size` will be automatically estimated based on the number

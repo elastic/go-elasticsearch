@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L596-L622
 type CefProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field The field containing the CEF message.
 	Field string `json:"field"`
@@ -50,11 +50,10 @@ type CefProcessor struct {
 	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
-	// TargetField The field to assign the converted value to.
-	// By default, the `target_field` is 'cef'
+	// TargetField The field to assign the converted value to. By default, the `target_field` is
+	// 'cef'
 	TargetField *string `json:"target_field,omitempty"`
 	// Timezone The timezone to use when parsing the date and when date math index supports
 	// resolves expressions into concrete index names.

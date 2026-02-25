@@ -47,15 +47,14 @@ type DictionaryDecompounderTokenFilter struct {
 	Type             string  `json:"type,omitempty"`
 	Version          *string `json:"version,omitempty"`
 	// WordList A list of subwords to look for in the token stream. If found, the subword is
-	// included in the token output.
-	// Either this parameter or `word_list_path` must be specified.
+	// included in the token output. Either this parameter or `word_list_path` must
+	// be specified.
 	WordList []string `json:"word_list,omitempty"`
 	// WordListPath Path to a file that contains a list of subwords to find in the token stream.
-	// If found, the subword is included in the token output.
-	// This path must be absolute or relative to the config location, and the file
-	// must be UTF-8 encoded. Each token in the file must be separated by a line
-	// break.
-	// Either this parameter or `word_list` must be specified.
+	// If found, the subword is included in the token output. This path must be
+	// absolute or relative to the config location, and the file must be UTF-8
+	// encoded. Each token in the file must be separated by a line break. Either
+	// this parameter or `word_list` must be specified.
 	WordListPath *string `json:"word_list_path,omitempty"`
 }
 

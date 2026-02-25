@@ -29,10 +29,17 @@ type HealthStatus struct {
 }
 
 var (
+
+	// Green All shards are assigned.
 	Green = HealthStatus{"green"}
 
+	// Yellow All primary shards are assigned, but one or more replica shards are
+	// unassigned. If a node in the cluster fails, some data could be unavailable
+	// until that node is repaired.
 	Yellow = HealthStatus{"yellow"}
 
+	// Red One or more primary shards are unassigned, so some data is unavailable. This
+	// can occur briefly during cluster startup as primary shards are assigned.
 	Red = HealthStatus{"red"}
 
 	Unknown = HealthStatus{"unknown"}

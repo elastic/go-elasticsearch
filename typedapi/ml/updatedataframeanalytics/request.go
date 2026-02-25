@@ -34,15 +34,15 @@ type Request struct {
 	AllowLazyStart *bool `json:"allow_lazy_start,omitempty"`
 	// Description A description of the job.
 	Description *string `json:"description,omitempty"`
-	// MaxNumThreads The maximum number of threads to be used by the analysis. Using more
-	// threads may decrease the time necessary to complete the analysis at the
-	// cost of using more CPU. Note that the process may use additional threads
-	// for operational functionality other than the analysis itself.
+	// MaxNumThreads The maximum number of threads to be used by the analysis. Using more threads
+	// may decrease the time necessary to complete the analysis at the cost of using
+	// more CPU. Note that the process may use additional threads for operational
+	// functionality other than the analysis itself.
 	MaxNumThreads *int `json:"max_num_threads,omitempty"`
 	// ModelMemoryLimit The approximate maximum amount of memory resources that are permitted for
 	// analytical processing. If your `elasticsearch.yml` file contains an
-	// `xpack.ml.max_model_memory_limit` setting, an error occurs when you try
-	// to create data frame analytics jobs that have `model_memory_limit` values
+	// `xpack.ml.max_model_memory_limit` setting, an error occurs when you try to
+	// create data frame analytics jobs that have `model_memory_limit` values
 	// greater than that setting.
 	ModelMemoryLimit *string `json:"model_memory_limit,omitempty"`
 }

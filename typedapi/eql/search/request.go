@@ -36,18 +36,15 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/eql/search/EqlSearchRequest.ts#L34-L192
 type Request struct {
-	// AllowPartialSearchResults Allow query execution also in case of shard failures.
-	// If true, the query will keep running and will return results based on the
-	// available shards.
-	// For sequences, the behavior can be further refined using
+	// AllowPartialSearchResults Allow query execution also in case of shard failures. If true, the query will
+	// keep running and will return results based on the available shards. For
+	// sequences, the behavior can be further refined using
 	// allow_partial_sequence_results
 	AllowPartialSearchResults *bool `json:"allow_partial_search_results,omitempty"`
 	// AllowPartialSequenceResults This flag applies only to sequences and has effect only if
-	// allow_partial_search_results=true.
-	// If true, the sequence query will return results based on the available
-	// shards, ignoring the others.
-	// If false, the sequence query will return successfully, but will always have
-	// empty results.
+	// allow_partial_search_results=true. If true, the sequence query will return
+	// results based on the available shards, ignoring the others. If false, the
+	// sequence query will return successfully, but will always have empty results.
 	AllowPartialSequenceResults *bool `json:"allow_partial_sequence_results,omitempty"`
 	CaseSensitive               *bool `json:"case_sensitive,omitempty"`
 	// EventCategoryField Field containing the event classification, such as process, file, or network.
@@ -63,20 +60,15 @@ type Request struct {
 	KeepAlive        types.Duration `json:"keep_alive,omitempty"`
 	KeepOnCompletion *bool          `json:"keep_on_completion,omitempty"`
 	// MaxSamplesPerKey By default, the response of a sample query contains up to `10` samples, with
-	// one sample per unique set of join keys. Use the `size`
-	// parameter to get a smaller or larger set of samples. To retrieve more than
-	// one sample per set of join keys, use the
-	// `max_samples_per_key` parameter. Pipes are not supported for sample queries.
+	// one sample per unique set of join keys. Use the `size` parameter to get a
+	// smaller or larger set of samples. To retrieve more than one sample per set of
+	// join keys, use the `max_samples_per_key` parameter. Pipes are not supported
+	// for sample queries.
 	MaxSamplesPerKey *int `json:"max_samples_per_key,omitempty"`
-	// ProjectRouting Specifies a subset of projects to target using project
-	// metadata tags in a subset of Lucene query syntax.
-	// Allowed Lucene queries: the _alias tag and a single value (possibly
-	// wildcarded).
-	// Examples:
-	//  _alias:my-project
-	//  _alias:_origin
-	//  _alias:*pr*
-	// Supported in serverless only.
+	// ProjectRouting Specifies a subset of projects to target using project metadata tags in a
+	// subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a
+	// single value (possibly wildcarded). Examples: _alias:my-project
+	// _alias:_origin _alias:*pr* Supported in serverless only.
 	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query EQL query you wish to run.
 	Query           string                         `json:"query"`

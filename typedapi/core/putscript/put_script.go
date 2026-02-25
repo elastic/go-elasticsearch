@@ -326,8 +326,8 @@ func (r *PutScript) Header(key, value string) *PutScript {
 	return r
 }
 
-// Id The identifier for the stored script or search template.
-// It must be unique within the cluster.
+// Id The identifier for the stored script or search template. It must be unique //
+// within the cluster.
 // API Name: id
 func (r *PutScript) _id(id string) *PutScript {
 	r.paramSet |= idMask
@@ -336,9 +336,8 @@ func (r *PutScript) _id(id string) *PutScript {
 	return r
 }
 
-// Context The context in which the script or search template should run.
-// To prevent errors, the API immediately compiles the script or template in
-// this context.
+// Context The context in which the script or search template should run. To prevent //
+// errors, the API immediately compiles the script or template in this context.
 // API Name: context
 func (r *PutScript) Context(context string) *PutScript {
 	r.paramSet |= contextMask
@@ -347,9 +346,8 @@ func (r *PutScript) Context(context string) *PutScript {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // It can also be set to `-1` to indicate that the request should never timeout.
 // API name: master_timeout
 func (r *PutScript) MasterTimeout(duration string) *PutScript {
@@ -358,10 +356,9 @@ func (r *PutScript) MasterTimeout(duration string) *PutScript {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
-// It can also be set to `-1` to indicate that the request should never timeout.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error. It can also be set
+// to `-1` to indicate that the request should never timeout.
 // API name: timeout
 func (r *PutScript) Timeout(duration string) *PutScript {
 	r.values.Set("timeout", duration)
@@ -392,11 +389,9 @@ func (r *PutScript) FilterPath(filterpaths ...string) *PutScript {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutScript) Human(human bool) *PutScript {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -404,8 +399,8 @@ func (r *PutScript) Human(human bool) *PutScript {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutScript) Pretty(pretty bool) *PutScript {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -32,9 +32,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/rollup/_types/Groupings.ts#L75-L82
 type TermsGrouping struct {
-	// Fields The set of fields that you wish to collect terms for.
-	// This array can contain fields that are both keyword and numerics.
-	// Order does not matter.
+	// Fields The set of fields that you wish to collect terms for. This array can contain
+	// fields that are both keyword and numerics. Order does not matter.
 	Fields []string `json:"fields"`
 }
 

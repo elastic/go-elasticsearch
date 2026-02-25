@@ -24,10 +24,9 @@
 // transform with the same configuration.
 //
 // It returns a maximum of 100 results. The calculations are based on all the
-// current data in the source index. It also
-// generates a list of mappings and settings for the destination index. These
-// values are determined based on the field
-// types of the source index and the transform aggregations.
+// current data in the source index. It also generates a list of mappings and
+// settings for the destination index. These values are determined based on the
+// field types of the source index and the transform aggregations.
 package previewtransform
 
 import (
@@ -94,10 +93,9 @@ func NewPreviewTransformFunc(tp elastictransport.Interface) NewPreviewTransform 
 // transform with the same configuration.
 //
 // It returns a maximum of 100 results. The calculations are based on all the
-// current data in the source index. It also
-// generates a list of mappings and settings for the destination index. These
-// values are determined based on the field
-// types of the source index and the transform aggregations.
+// current data in the source index. It also generates a list of mappings and
+// settings for the destination index. These values are determined based on the
+// field types of the source index and the transform aggregations.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-preview-transform
 func New(tp elastictransport.Interface) *PreviewTransform {
@@ -328,8 +326,7 @@ func (r *PreviewTransform) Header(key, value string) *PreviewTransform {
 }
 
 // TransformId Identifier for the transform to preview. If you specify this path parameter,
-// you cannot provide transform
-// configuration details in the request body.
+// // you cannot provide transform configuration details in the request body.
 // API Name: transformid
 func (r *PreviewTransform) TransformId(transformid string) *PreviewTransform {
 	r.paramSet |= transformidMask
@@ -338,8 +335,8 @@ func (r *PreviewTransform) TransformId(transformid string) *PreviewTransform {
 	return r
 }
 
-// Timeout Period to wait for a response. If no response is received before the
-// timeout expires, the request fails and returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *PreviewTransform) Timeout(duration string) *PreviewTransform {
 	r.values.Set("timeout", duration)
@@ -370,11 +367,9 @@ func (r *PreviewTransform) FilterPath(filterpaths ...string) *PreviewTransform {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PreviewTransform) Human(human bool) *PreviewTransform {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +377,8 @@ func (r *PreviewTransform) Human(human bool) *PreviewTransform {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PreviewTransform) Pretty(pretty bool) *PreviewTransform {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -418,9 +413,9 @@ func (r *PreviewTransform) Dest(dest types.TransformDestinationVariant) *Preview
 }
 
 // The interval between checks for changes in the source indices when the
-// transform is running continuously. Also determines the retry interval in
-// the event of transient failures while the transform is searching or
-// indexing. The minimum value is 1s and the maximum is 1h.
+// transform is running continuously. Also determines the retry interval in the
+// event of transient failures while the transform is searching or indexing. The
+// minimum value is 1s and the maximum is 1h.
 // API name: frequency
 func (r *PreviewTransform) Frequency(duration types.DurationVariant) *PreviewTransform {
 	// Initialize the request if it is not already initialized
@@ -433,8 +428,8 @@ func (r *PreviewTransform) Frequency(duration types.DurationVariant) *PreviewTra
 	return r
 }
 
-// The latest method transforms the data by finding the latest document for
-// each unique key.
+// The latest method transforms the data by finding the latest document for each
+// unique key.
 // API name: latest
 func (r *PreviewTransform) Latest(latest types.LatestVariant) *PreviewTransform {
 	// Initialize the request if it is not already initialized
@@ -447,9 +442,8 @@ func (r *PreviewTransform) Latest(latest types.LatestVariant) *PreviewTransform 
 	return r
 }
 
-// The pivot method transforms the data by aggregating and grouping it.
-// These objects define the group by fields and the aggregation to reduce
-// the data.
+// The pivot method transforms the data by aggregating and grouping it. These
+// objects define the group by fields and the aggregation to reduce the data.
 // API name: pivot
 func (r *PreviewTransform) Pivot(pivot types.PivotVariant) *PreviewTransform {
 	// Initialize the request if it is not already initialized

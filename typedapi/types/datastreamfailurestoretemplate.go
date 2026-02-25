@@ -28,15 +28,14 @@ import (
 	"io"
 )
 
-// DataStreamFailureStoreTemplate type.
+// Template equivalent of DataStreamFailureStore that allows nullable values.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/_types/DataStreamFailureStore.ts#L39-L54
 type DataStreamFailureStoreTemplate struct {
 	// Enabled If defined, it turns the failure store on/off (`true`/`false`) for this data
-	// stream. A data stream failure store
-	// that's disabled (enabled: `false`) will redirect no new failed indices to the
-	// failure store; however, it will
-	// not remove any existing data from the failure store.
+	// stream. A data stream failure store that's disabled (enabled: `false`) will
+	// redirect no new failed indices to the failure store; however, it will not
+	// remove any existing data from the failure store.
 	Enabled *bool `json:"enabled,omitempty"`
 	// Lifecycle If defined, it specifies the lifecycle configuration for the failure store of
 	// this data stream.

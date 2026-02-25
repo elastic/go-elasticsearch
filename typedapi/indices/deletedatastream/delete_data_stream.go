@@ -293,7 +293,7 @@ func (r *DeleteDataStream) Header(key, value string) *DeleteDataStream {
 	return r
 }
 
-// Name Comma-separated list of data streams to delete. Wildcard (`*`) expressions
+// Name Comma-separated list of data streams to delete. Wildcard (`*`) expressions //
 // are supported.
 // API Name: name
 func (r *DeleteDataStream) _name(name string) *DeleteDataStream {
@@ -348,11 +348,9 @@ func (r *DeleteDataStream) FilterPath(filterpaths ...string) *DeleteDataStream {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteDataStream) Human(human bool) *DeleteDataStream {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -360,8 +358,8 @@ func (r *DeleteDataStream) Human(human bool) *DeleteDataStream {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteDataStream) Pretty(pretty bool) *DeleteDataStream {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

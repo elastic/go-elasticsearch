@@ -20,16 +20,15 @@
 
 // Get field usage stats.
 //
-// Get field usage information for each shard and field of an index.
-// Field usage statistics are automatically captured when queries are running on
-// a cluster.
+// Get field usage information for each shard and field of an index. Field usage
+// statistics are automatically captured when queries are running on a cluster.
 // A shard-level search request that accesses a given field, even if multiple
 // times during that request, is counted as a single use.
 //
 // The response body reports the per-shard usage count of the data structures
-// that back the fields in the index.
-// A given request will increment each count by a maximum value of 1, even if
-// the request accesses the same field multiple times.
+// that back the fields in the index. A given request will increment each count
+// by a maximum value of 1, even if the request accesses the same field multiple
+// times.
 package fieldusagestats
 
 import (
@@ -90,16 +89,15 @@ func NewFieldUsageStatsFunc(tp elastictransport.Interface) NewFieldUsageStats {
 
 // Get field usage stats.
 //
-// Get field usage information for each shard and field of an index.
-// Field usage statistics are automatically captured when queries are running on
-// a cluster.
+// Get field usage information for each shard and field of an index. Field usage
+// statistics are automatically captured when queries are running on a cluster.
 // A shard-level search request that accesses a given field, even if multiple
 // times during that request, is counted as a single use.
 //
 // The response body reports the per-shard usage count of the data structures
-// that back the fields in the index.
-// A given request will increment each count by a maximum value of 1, even if
-// the request accesses the same field multiple times.
+// that back the fields in the index. A given request will increment each count
+// by a maximum value of 1, even if the request accesses the same field multiple
+// times.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-field-usage-stats
 func New(tp elastictransport.Interface) *FieldUsageStats {
@@ -312,7 +310,7 @@ func (r *FieldUsageStats) Header(key, value string) *FieldUsageStats {
 }
 
 // Index Comma-separated list or wildcard expression of index names used to limit the
-// request.
+// // request.
 // API Name: index
 func (r *FieldUsageStats) _index(index string) *FieldUsageStats {
 	r.paramSet |= indexMask
@@ -322,10 +320,10 @@ func (r *FieldUsageStats) _index(index string) *FieldUsageStats {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
-// For example, a request targeting `foo*,bar*` returns an error if an index
-// starts with `foo` but no index starts with `bar`.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices. For example, a
+// request targeting `foo*,bar*` returns an error if an index starts with `foo`
+// but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *FieldUsageStats) AllowNoIndices(allownoindices bool) *FieldUsageStats {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -333,10 +331,9 @@ func (r *FieldUsageStats) AllowNoIndices(allownoindices bool) *FieldUsageStats {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *FieldUsageStats) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *FieldUsageStats {
 	tmp := []string{}
@@ -388,11 +385,9 @@ func (r *FieldUsageStats) FilterPath(filterpaths ...string) *FieldUsageStats {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *FieldUsageStats) Human(human bool) *FieldUsageStats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -400,8 +395,8 @@ func (r *FieldUsageStats) Human(human bool) *FieldUsageStats {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *FieldUsageStats) Pretty(pretty bool) *FieldUsageStats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

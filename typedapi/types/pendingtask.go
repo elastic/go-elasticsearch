@@ -38,9 +38,8 @@ type PendingTask struct {
 	// InsertOrder The number that represents when the task has been inserted into the task
 	// queue.
 	InsertOrder int `json:"insert_order"`
-	// Priority The priority of the pending task.
-	// The valid priorities in descending priority order are: `IMMEDIATE` > `URGENT`
-	// > `HIGH` > `NORMAL` > `LOW` > `LANGUID`.
+	// Priority The priority of the pending task. The valid priorities in descending priority
+	// order are: `IMMEDIATE` > `URGENT` > `HIGH` > `NORMAL` > `LOW` > `LANGUID`.
 	Priority string `json:"priority"`
 	// Source A general description of the cluster task that may include a reason and
 	// origin.

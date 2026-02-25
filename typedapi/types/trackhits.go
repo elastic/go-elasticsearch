@@ -25,6 +25,11 @@ package types
 //	bool
 //	int
 //
+// Number of hits matching the query to count accurately. If true, the exact
+// number of hits is returned at the cost of some performance. If false, the
+// response does not include the total number of hits matching the query.
+// Defaults to 10,000 hits.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/search/_types/hits.ts#L151-L159
 type TrackHits any
 

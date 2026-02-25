@@ -35,12 +35,11 @@ import (
 type AdaptiveAllocations struct {
 	// Enabled Turn on `adaptive_allocations`.
 	Enabled *bool `json:"enabled,omitempty"`
-	// MaxNumberOfAllocations The maximum number of allocations to scale to.
-	// If set, it must be greater than or equal to `min_number_of_allocations`.
+	// MaxNumberOfAllocations The maximum number of allocations to scale to. If set, it must be greater
+	// than or equal to `min_number_of_allocations`.
 	MaxNumberOfAllocations *int `json:"max_number_of_allocations,omitempty"`
-	// MinNumberOfAllocations The minimum number of allocations to scale to.
-	// If set, it must be greater than or equal to 0.
-	// If not defined, the deployment scales to 0.
+	// MinNumberOfAllocations The minimum number of allocations to scale to. If set, it must be greater
+	// than or equal to 0. If not defined, the deployment scales to 0.
 	MinNumberOfAllocations *int `json:"min_number_of_allocations,omitempty"`
 }
 

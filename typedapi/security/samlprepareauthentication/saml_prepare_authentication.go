@@ -24,23 +24,20 @@
 // on the configuration of the respective SAML realm in Elasticsearch.
 //
 // NOTE: This API is intended for use by custom web applications other than
-// Kibana.
-// If you are using Kibana, refer to the documentation for configuring SAML
-// single-sign-on on the Elastic Stack.
+// Kibana. If you are using Kibana, refer to the documentation for configuring
+// SAML single-sign-on on the Elastic Stack.
 //
-// This API returns a URL pointing to the SAML Identity Provider.
-// You can use the URL to redirect the browser of the user in order to continue
-// the authentication process.
-// The URL includes a single parameter named `SAMLRequest`, which contains a
-// SAML Authentication request that is deflated and Base64 encoded.
-// If the configuration dictates that SAML authentication requests should be
-// signed, the URL has two extra parameters named `SigAlg` and `Signature`.
-// These parameters contain the algorithm used for the signature and the
-// signature value itself.
-// It also returns a random string that uniquely identifies this SAML
-// Authentication request.
-// The caller of this API needs to store this identifier as it needs to be used
-// in a following step of the authentication process.
+// This API returns a URL pointing to the SAML Identity Provider. You can use
+// the URL to redirect the browser of the user in order to continue the
+// authentication process. The URL includes a single parameter named
+// `SAMLRequest`, which contains a SAML Authentication request that is deflated
+// and Base64 encoded. If the configuration dictates that SAML authentication
+// requests should be signed, the URL has two extra parameters named `SigAlg`
+// and `Signature`. These parameters contain the algorithm used for the
+// signature and the signature value itself. It also returns a random string
+// that uniquely identifies this SAML Authentication request. The caller of this
+// API needs to store this identifier as it needs to be used in a following step
+// of the authentication process.
 package samlprepareauthentication
 
 import (
@@ -101,23 +98,20 @@ func NewSamlPrepareAuthenticationFunc(tp elastictransport.Interface) NewSamlPrep
 // on the configuration of the respective SAML realm in Elasticsearch.
 //
 // NOTE: This API is intended for use by custom web applications other than
-// Kibana.
-// If you are using Kibana, refer to the documentation for configuring SAML
-// single-sign-on on the Elastic Stack.
+// Kibana. If you are using Kibana, refer to the documentation for configuring
+// SAML single-sign-on on the Elastic Stack.
 //
-// This API returns a URL pointing to the SAML Identity Provider.
-// You can use the URL to redirect the browser of the user in order to continue
-// the authentication process.
-// The URL includes a single parameter named `SAMLRequest`, which contains a
-// SAML Authentication request that is deflated and Base64 encoded.
-// If the configuration dictates that SAML authentication requests should be
-// signed, the URL has two extra parameters named `SigAlg` and `Signature`.
-// These parameters contain the algorithm used for the signature and the
-// signature value itself.
-// It also returns a random string that uniquely identifies this SAML
-// Authentication request.
-// The caller of this API needs to store this identifier as it needs to be used
-// in a following step of the authentication process.
+// This API returns a URL pointing to the SAML Identity Provider. You can use
+// the URL to redirect the browser of the user in order to continue the
+// authentication process. The URL includes a single parameter named
+// `SAMLRequest`, which contains a SAML Authentication request that is deflated
+// and Base64 encoded. If the configuration dictates that SAML authentication
+// requests should be signed, the URL has two extra parameters named `SigAlg`
+// and `Signature`. These parameters contain the algorithm used for the
+// signature and the signature value itself. It also returns a random string
+// that uniquely identifies this SAML Authentication request. The caller of this
+// API needs to store this identifier as it needs to be used in a following step
+// of the authentication process.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-prepare-authentication
 func New(tp elastictransport.Interface) *SamlPrepareAuthentication {
@@ -359,11 +353,9 @@ func (r *SamlPrepareAuthentication) FilterPath(filterpaths ...string) *SamlPrepa
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SamlPrepareAuthentication) Human(human bool) *SamlPrepareAuthentication {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -371,8 +363,8 @@ func (r *SamlPrepareAuthentication) Human(human bool) *SamlPrepareAuthentication
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SamlPrepareAuthentication) Pretty(pretty bool) *SamlPrepareAuthentication {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -381,9 +373,8 @@ func (r *SamlPrepareAuthentication) Pretty(pretty bool) *SamlPrepareAuthenticati
 }
 
 // The Assertion Consumer Service URL that matches the one of the SAML realms in
-// Elasticsearch.
-// The realm is used to generate the authentication request. You must specify
-// either this parameter or the `realm` parameter.
+// Elasticsearch. The realm is used to generate the authentication request. You
+// must specify either this parameter or the `realm` parameter.
 // API name: acs
 func (r *SamlPrepareAuthentication) Acs(acs string) *SamlPrepareAuthentication {
 	// Initialize the request if it is not already initialized
@@ -397,8 +388,8 @@ func (r *SamlPrepareAuthentication) Acs(acs string) *SamlPrepareAuthentication {
 }
 
 // The name of the SAML realm in Elasticsearch for which the configuration is
-// used to generate the authentication request.
-// You must specify either this parameter or the `acs` parameter.
+// used to generate the authentication request. You must specify either this
+// parameter or the `acs` parameter.
 // API name: realm
 func (r *SamlPrepareAuthentication) Realm(realm string) *SamlPrepareAuthentication {
 	// Initialize the request if it is not already initialized
@@ -412,9 +403,8 @@ func (r *SamlPrepareAuthentication) Realm(realm string) *SamlPrepareAuthenticati
 }
 
 // A string that will be included in the redirect URL that this API returns as
-// the `RelayState` query parameter.
-// If the Authentication Request is signed, this value is used as part of the
-// signature computation.
+// the `RelayState` query parameter. If the Authentication Request is signed,
+// this value is used as part of the signature computation.
 // API name: relay_state
 func (r *SamlPrepareAuthentication) RelayState(relaystate string) *SamlPrepareAuthentication {
 	// Initialize the request if it is not already initialized

@@ -34,12 +34,12 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/put_data_stream_settings/IndicesPutDataStreamSettingsResponse.ts#L30-L55
 type UpdatedDataStreamSettings struct {
 	// AppliedToDataStream If the settings were successfully applied to the data stream (or would have
-	// been, if running in `dry_run`
-	// mode), it is `true`. If an error occurred, it is `false`.
+	// been, if running in `dry_run` mode), it is `true`. If an error occurred, it
+	// is `false`.
 	AppliedToDataStream bool `json:"applied_to_data_stream"`
 	// EffectiveSettings The settings that are effective on this data stream, taking into account the
-	// settings from the matching index
-	// template and the settings specific to this data stream.
+	// settings from the matching index template and the settings specific to this
+	// data stream.
 	EffectiveSettings IndexSettings `json:"effective_settings"`
 	// Error A message explaining why the settings could not be applied to the data
 	// stream.

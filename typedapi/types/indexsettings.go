@@ -37,9 +37,8 @@ import (
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
-	// filters.
-	// Refer to the linked documentation for step-by-step examples of updating
-	// analyzers on existing indices.
+	// filters. Refer to the linked documentation for step-by-step examples of
+	// updating analyzers on existing indices.
 	Analyze            *SettingsAnalyze                         `json:"analyze,omitempty"`
 	AutoExpandReplicas any                                      `json:"auto_expand_replicas,omitempty"`
 	Blocks             *IndexSettingBlocks                      `json:"blocks,omitempty"`

@@ -38,9 +38,8 @@ type IntervalsRegexp struct {
 	// Pattern Regex pattern.
 	Pattern string `json:"pattern"`
 	// UseField If specified, match intervals from this field rather than the top-level
-	// field.
-	// The `prefix` is normalized using the search analyzer from this field, unless
-	// `analyzer` is specified separately.
+	// field. The `prefix` is normalized using the search analyzer from this field,
+	// unless `analyzer` is specified separately.
 	UseField *string `json:"use_field,omitempty"`
 }
 

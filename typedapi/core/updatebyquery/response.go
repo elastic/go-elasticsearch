@@ -33,10 +33,9 @@ type Response struct {
 	// Deleted The number of documents that were successfully deleted.
 	Deleted *int64 `json:"deleted,omitempty"`
 	// Failures Array of failures if there were any unrecoverable errors during the process.
-	// If this is non-empty then the request ended because of those failures.
-	// Update by query is implemented using batches.
-	// Any failure causes the entire process to end, but all failures in the current
-	// batch are collected into the array.
+	// If this is non-empty then the request ended because of those failures. Update
+	// by query is implemented using batches. Any failure causes the entire process
+	// to end, but all failures in the current batch are collected into the array.
 	// You can use the `conflicts` option to prevent reindex from ending when
 	// version conflicts occur.
 	Failures []types.BulkIndexByScrollFailure `json:"failures,omitempty"`
@@ -45,9 +44,8 @@ type Response struct {
 	Noops *int64 `json:"noops,omitempty"`
 	// RequestsPerSecond The number of requests per second effectively run during the update by query.
 	RequestsPerSecond *float32 `json:"requests_per_second,omitempty"`
-	// Retries The number of retries attempted by update by query.
-	// `bulk` is the number of bulk actions retried.
-	// `search` is the number of search actions retried.
+	// Retries The number of retries attempted by update by query. `bulk` is the number of
+	// bulk actions retried. `search` is the number of search actions retried.
 	Retries *types.Retries `json:"retries,omitempty"`
 	// Slices Status of each slice if the update by query was sliced
 	Slices    []types.ReindexStatus `json:"slices,omitempty"`
@@ -57,8 +55,8 @@ type Response struct {
 	// `requests_per_second`.
 	ThrottledMillis *int64         `json:"throttled_millis,omitempty"`
 	ThrottledUntil  types.Duration `json:"throttled_until,omitempty"`
-	// ThrottledUntilMillis This field should always be equal to zero in an _update_by_query response.
-	// It only has meaning when using the task API, where it indicates the next time
+	// ThrottledUntilMillis This field should always be equal to zero in an _update_by_query response. It
+	// only has meaning when using the task API, where it indicates the next time
 	// (in milliseconds since epoch) a throttled request will be run again in order
 	// to conform to `requests_per_second`.
 	ThrottledUntilMillis *int64 `json:"throttled_until_millis,omitempty"`

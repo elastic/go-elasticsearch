@@ -37,16 +37,15 @@ type DataStreamsStatsItem struct {
 	BackingIndices int `json:"backing_indices"`
 	// DataStream Name of the data stream.
 	DataStream string `json:"data_stream"`
-	// MaximumTimestamp The data stream’s highest `@timestamp` value, converted to milliseconds since
-	// the Unix epoch.
-	// NOTE: This timestamp is provided as a best effort.
-	// The data stream may contain `@timestamp` values higher than this if one or
-	// more of the following conditions are met:
-	// The stream contains closed backing indices;
-	// Backing indices with a lower generation contain higher `@timestamp` values.
+	// MaximumTimestamp The data stream’s highest `@timestamp` value, converted to milliseconds
+	// since the Unix epoch. NOTE: This timestamp is provided as a best effort. The
+	// data stream may contain `@timestamp` values higher than this if one or more
+	// of the following conditions are met: The stream contains closed backing
+	// indices; Backing indices with a lower generation contain higher `@timestamp`
+	// values.
 	MaximumTimestamp int64 `json:"maximum_timestamp"`
-	// StoreSize Total size of all shards for the data stream’s backing indices.
-	// This parameter is only returned if the `human` query parameter is `true`.
+	// StoreSize Total size of all shards for the data stream’s backing indices. This
+	// parameter is only returned if the `human` query parameter is `true`.
 	StoreSize ByteSize `json:"store_size,omitempty"`
 	// StoreSizeBytes Total size, in bytes, of all shards for the data stream’s backing indices.
 	StoreSizeBytes int64 `json:"store_size_bytes"`

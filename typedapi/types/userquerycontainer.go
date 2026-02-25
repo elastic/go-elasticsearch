@@ -37,11 +37,11 @@ type UserQueryContainer struct {
 	Bool *BoolQuery `json:"bool,omitempty"`
 	// Exists Returns users that contain an indexed value for a field.
 	Exists *ExistsQuery `json:"exists,omitempty"`
-	// Ids Returns users based on their IDs.
-	// This query uses the user document IDs stored in the `_id` field.
+	// Ids Returns users based on their IDs. This query uses the user document IDs
+	// stored in the `_id` field.
 	Ids *IdsQuery `json:"ids,omitempty"`
-	// Match Returns users that match a provided text, number, date or boolean value.
-	// The provided text is analyzed before matching.
+	// Match Returns users that match a provided text, number, date or boolean value. The
+	// provided text is analyzed before matching.
 	Match map[string]MatchQuery `json:"match,omitempty"`
 	// MatchAll Matches all users, giving them all a `_score` of 1.0.
 	MatchAll *MatchAllQuery `json:"match_all,omitempty"`
@@ -52,12 +52,12 @@ type UserQueryContainer struct {
 	// SimpleQueryString Returns users based on a provided query string, using a parser with a limited
 	// but fault-tolerant syntax.
 	SimpleQueryString *SimpleQueryStringQuery `json:"simple_query_string,omitempty"`
-	// Term Returns users that contain an exact term in a provided field.
-	// To return a document, the query term must exactly match the queried field's
-	// value, including whitespace and capitalization.
+	// Term Returns users that contain an exact term in a provided field. To return a
+	// document, the query term must exactly match the queried field's value,
+	// including whitespace and capitalization.
 	Term map[string]TermQuery `json:"term,omitempty"`
-	// Terms Returns users that contain one or more exact terms in a provided field.
-	// To return a document, one or more terms must exactly match a field value,
+	// Terms Returns users that contain one or more exact terms in a provided field. To
+	// return a document, one or more terms must exactly match a field value,
 	// including whitespace and capitalization.
 	Terms *TermsQuery `json:"terms,omitempty"`
 	// Wildcard Returns users that contain terms matching a wildcard pattern.

@@ -34,12 +34,12 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/put_data_stream_mappings/IndicesPutDataStreamMappingsResponse.ts#L30-L51
 type UpdatedDataStreamMappings struct {
 	// AppliedToDataStream If the mappings were successfully applied to the data stream (or would have
-	// been, if running in `dry_run`
-	// mode), it is `true`. If an error occurred, it is `false`.
+	// been, if running in `dry_run` mode), it is `true`. If an error occurred, it
+	// is `false`.
 	AppliedToDataStream bool `json:"applied_to_data_stream"`
 	// EffectiveMappings The mappings that are effective on this data stream, taking into account the
-	// mappings from the matching index
-	// template and the mappings specific to this data stream.
+	// mappings from the matching index template and the mappings specific to this
+	// data stream.
 	EffectiveMappings *TypeMapping `json:"effective_mappings,omitempty"`
 	// Error A message explaining why the mappings could not be applied to the data
 	// stream.

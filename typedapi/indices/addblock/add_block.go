@@ -20,9 +20,8 @@
 
 // Add an index block.
 //
-// Add an index block to an index.
-// Index blocks limit the operations allowed on an index by blocking specific
-// operation types.
+// Add an index block to an index. Index blocks limit the operations allowed on
+// an index by blocking specific operation types.
 package addblock
 
 import (
@@ -88,9 +87,8 @@ func NewAddBlockFunc(tp elastictransport.Interface) NewAddBlock {
 
 // Add an index block.
 //
-// Add an index block to an index.
-// Index blocks limit the operations allowed on an index by blocking specific
-// operation types.
+// Add an index block to an index. Index blocks limit the operations allowed on
+// an index by blocking specific operation types.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-add-block
 func New(tp elastictransport.Interface) *AddBlock {
@@ -308,14 +306,12 @@ func (r *AddBlock) Header(key, value string) *AddBlock {
 	return r
 }
 
-// Index A comma-separated list or wildcard expression of index names used to limit
-// the request.
-// By default, you must explicitly name the indices you are adding blocks to.
-// To allow the adding of blocks to indices with `_all`, `*`, or other wildcard
-// expressions, change the `action.destructive_requires_name` setting to
-// `false`.
-// You can update this setting in the `elasticsearch.yml` file or by using the
-// cluster update settings API.
+// Index A comma-separated list or wildcard expression of index names used to limit //
+// the request. By default, you must explicitly name the indices you are adding
+// // blocks to. To allow the adding of blocks to indices with `_all`, `*`, or
+// // other wildcard expressions, change the `action.destructive_requires_name`
+// // setting to `false`. You can update this setting in the `elasticsearch.yml`
+// // file or by using the cluster update settings API.
 // API Name: index
 func (r *AddBlock) _index(index string) *AddBlock {
 	r.paramSet |= indexMask
@@ -334,10 +330,10 @@ func (r *AddBlock) _block(block string) *AddBlock {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
-// For example, a request targeting `foo*,bar*` returns an error if an index
-// starts with `foo` but no index starts with `bar`.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices. For example, a
+// request targeting `foo*,bar*` returns an error if an index starts with `foo`
+// but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *AddBlock) AllowNoIndices(allownoindices bool) *AddBlock {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -345,10 +341,10 @@ func (r *AddBlock) AllowNoIndices(allownoindices bool) *AddBlock {
 	return r
 }
 
-// ExpandWildcards The type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// It supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards The type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. It supports comma-separated values, such as
+// `open,hidden`.
 // API name: expand_wildcards
 func (r *AddBlock) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *AddBlock {
 	tmp := []string{}
@@ -369,10 +365,9 @@ func (r *AddBlock) IgnoreUnavailable(ignoreunavailable bool) *AddBlock {
 	return r
 }
 
-// MasterTimeout The period to wait for the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// It can also be set to `-1` to indicate that the request should never timeout.
+// MasterTimeout The period to wait for the master node. If the master node is not available
+// before the timeout expires, the request fails and returns an error. It can
+// also be set to `-1` to indicate that the request should never timeout.
 // API name: master_timeout
 func (r *AddBlock) MasterTimeout(duration string) *AddBlock {
 	r.values.Set("master_timeout", duration)
@@ -381,11 +376,10 @@ func (r *AddBlock) MasterTimeout(duration string) *AddBlock {
 }
 
 // Timeout The period to wait for a response from all relevant nodes in the cluster
-// after updating the cluster metadata.
-// If no response is received before the timeout expires, the cluster metadata
-// update still applies but the response will indicate that it was not
-// completely acknowledged.
-// It can also be set to `-1` to indicate that the request should never timeout.
+// after updating the cluster metadata. If no response is received before the
+// timeout expires, the cluster metadata update still applies but the response
+// will indicate that it was not completely acknowledged. It can also be set to
+// `-1` to indicate that the request should never timeout.
 // API name: timeout
 func (r *AddBlock) Timeout(duration string) *AddBlock {
 	r.values.Set("timeout", duration)
@@ -416,11 +410,9 @@ func (r *AddBlock) FilterPath(filterpaths ...string) *AddBlock {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *AddBlock) Human(human bool) *AddBlock {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -428,8 +420,8 @@ func (r *AddBlock) Human(human bool) *AddBlock {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *AddBlock) Pretty(pretty bool) *AddBlock {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

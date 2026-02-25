@@ -20,11 +20,10 @@
 
 // Run a script.
 //
-// Runs a script and returns a result.
-// Use this API to build and test scripts, such as when defining a script for a
-// runtime field.
-// This API requires very few dependencies and is especially useful if you don't
-// have permissions to write documents on a cluster.
+// Runs a script and returns a result. Use this API to build and test scripts,
+// such as when defining a script for a runtime field. This API requires very
+// few dependencies and is especially useful if you don't have permissions to
+// write documents on a cluster.
 //
 // The API uses several _contexts_, which control how scripts are run, what
 // variables are available at runtime, and what the return type is.
@@ -88,11 +87,10 @@ func NewScriptsPainlessExecuteFunc(tp elastictransport.Interface) NewScriptsPain
 
 // Run a script.
 //
-// Runs a script and returns a result.
-// Use this API to build and test scripts, such as when defining a script for a
-// runtime field.
-// This API requires very few dependencies and is especially useful if you don't
-// have permissions to write documents on a cluster.
+// Runs a script and returns a result. Use this API to build and test scripts,
+// such as when defining a script for a runtime field. This API requires very
+// few dependencies and is especially useful if you don't have permissions to
+// write documents on a cluster.
 //
 // The API uses several _contexts_, which control how scripts are run, what
 // variables are available at runtime, and what the return type is.
@@ -340,11 +338,9 @@ func (r *ScriptsPainlessExecute) FilterPath(filterpaths ...string) *ScriptsPainl
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ScriptsPainlessExecute) Human(human bool) *ScriptsPainlessExecute {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -352,8 +348,8 @@ func (r *ScriptsPainlessExecute) Human(human bool) *ScriptsPainlessExecute {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ScriptsPainlessExecute) Pretty(pretty bool) *ScriptsPainlessExecute {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -361,8 +357,8 @@ func (r *ScriptsPainlessExecute) Pretty(pretty bool) *ScriptsPainlessExecute {
 	return r
 }
 
-// The context that the script should run in.
-// NOTE: Result ordering in the field contexts is not guaranteed.
+// The context that the script should run in. NOTE: Result ordering in the field
+// contexts is not guaranteed.
 // API name: context
 func (r *ScriptsPainlessExecute) Context(context painlesscontext.PainlessContext) *ScriptsPainlessExecute {
 	// Initialize the request if it is not already initialized
@@ -373,9 +369,9 @@ func (r *ScriptsPainlessExecute) Context(context painlesscontext.PainlessContext
 	return r
 }
 
-// Additional parameters for the `context`.
-// NOTE: This parameter is required for all contexts except `painless_test`,
-// which is the default if no value is provided for `context`.
+// Additional parameters for the `context`. NOTE: This parameter is required for
+// all contexts except `painless_test`, which is the default if no value is
+// provided for `context`.
 // API name: context_setup
 func (r *ScriptsPainlessExecute) ContextSetup(contextsetup types.PainlessContextSetupVariant) *ScriptsPainlessExecute {
 	// Initialize the request if it is not already initialized

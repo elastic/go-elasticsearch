@@ -26,8 +26,8 @@ type _scriptQuery struct {
 	v *types.ScriptQuery
 }
 
-// Filters documents based on a provided script.
-// The script query is typically used in a filter context.
+// Filters documents based on a provided script. The script query is typically
+// used in a filter context.
 func NewScriptQuery(script types.ScriptVariant) *_scriptQuery {
 
 	tmp := &_scriptQuery{v: types.NewScriptQuery()}

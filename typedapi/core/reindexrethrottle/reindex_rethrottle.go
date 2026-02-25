@@ -23,14 +23,11 @@
 // Change the number of requests per second for a particular reindex operation.
 // For example:
 //
-// ```
-// POST _reindex/r1A2WoRbTwKZ516z6NEs5A:36619/_rethrottle?requests_per_second=-1
-// ```
+//	POST _reindex/r1A2WoRbTwKZ516z6NEs5A:36619/_rethrottle?requests_per_second=-1
 //
-// Rethrottling that speeds up the query takes effect immediately.
-// Rethrottling that slows down the query will take effect after completing the
-// current batch.
-// This behavior prevents scroll timeouts.
+// Rethrottling that speeds up the query takes effect immediately. Rethrottling
+// that slows down the query will take effect after completing the current
+// batch. This behavior prevents scroll timeouts.
 package reindexrethrottle
 
 import (
@@ -93,14 +90,11 @@ func NewReindexRethrottleFunc(tp elastictransport.Interface) NewReindexRethrottl
 // Change the number of requests per second for a particular reindex operation.
 // For example:
 //
-// ```
-// POST _reindex/r1A2WoRbTwKZ516z6NEs5A:36619/_rethrottle?requests_per_second=-1
-// ```
+//	POST _reindex/r1A2WoRbTwKZ516z6NEs5A:36619/_rethrottle?requests_per_second=-1
 //
-// Rethrottling that speeds up the query takes effect immediately.
-// Rethrottling that slows down the query will take effect after completing the
-// current batch.
-// This behavior prevents scroll timeouts.
+// Rethrottling that speeds up the query takes effect immediately. Rethrottling
+// that slows down the query will take effect after completing the current
+// batch. This behavior prevents scroll timeouts.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
 func New(tp elastictransport.Interface) *ReindexRethrottle {
@@ -323,9 +317,9 @@ func (r *ReindexRethrottle) _taskid(taskid string) *ReindexRethrottle {
 	return r
 }
 
-// RequestsPerSecond The throttle for this request in sub-requests per second.
-// It can be either `-1` to turn off throttling or any decimal number like `1.7`
-// or `12` to throttle to that level.
+// RequestsPerSecond The throttle for this request in sub-requests per second. It can be either
+// `-1` to turn off throttling or any decimal number like `1.7` or `12` to
+// throttle to that level.
 // API name: requests_per_second
 func (r *ReindexRethrottle) RequestsPerSecond(requestspersecond string) *ReindexRethrottle {
 	r.values.Set("requests_per_second", requestspersecond)
@@ -356,11 +350,9 @@ func (r *ReindexRethrottle) FilterPath(filterpaths ...string) *ReindexRethrottle
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ReindexRethrottle) Human(human bool) *ReindexRethrottle {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -368,8 +360,8 @@ func (r *ReindexRethrottle) Human(human bool) *ReindexRethrottle {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ReindexRethrottle) Pretty(pretty bool) *ReindexRethrottle {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

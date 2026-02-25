@@ -35,8 +35,8 @@ type RetentionPolicy struct {
 	// Field The date field that is used to calculate the age of the document.
 	Field string `json:"field"`
 	// MaxAge Specifies the maximum age of a document in the destination index. Documents
-	// that are older than the configured
-	// value are removed from the destination index.
+	// that are older than the configured value are removed from the destination
+	// index.
 	MaxAge Duration `json:"max_age"`
 }
 

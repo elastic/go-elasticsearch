@@ -48,8 +48,8 @@ type TrainedModelDeploymentStats struct {
 	InferenceCount *int `json:"inference_count,omitempty"`
 	// ModelId The unique identifier for the trained model.
 	ModelId string `json:"model_id"`
-	// Nodes The deployment stats for each node that currently has the model allocated.
-	// In serverless, stats are reported for a single unnamed virtual node.
+	// Nodes The deployment stats for each node that currently has the model allocated. In
+	// serverless, stats are reported for a single unnamed virtual node.
 	Nodes []TrainedModelDeploymentNodesStats `json:"nodes"`
 	// NumberOfAllocations The number of allocations requested.
 	NumberOfAllocations     *int                              `json:"number_of_allocations,omitempty"`
@@ -58,8 +58,8 @@ type TrainedModelDeploymentStats struct {
 	// QueueCapacity The number of inference requests that can be queued before new requests are
 	// rejected.
 	QueueCapacity *int `json:"queue_capacity,omitempty"`
-	// Reason The reason for the current deployment state. Usually only populated when
-	// the model is not deployed to a node.
+	// Reason The reason for the current deployment state. Usually only populated when the
+	// model is not deployed to a node.
 	Reason *string `json:"reason,omitempty"`
 	// RejectedExecutionCount The sum of `rejected_execution_count` for all nodes in the deployment.
 	// Individual nodes reject an inference request if the inference queue is full.

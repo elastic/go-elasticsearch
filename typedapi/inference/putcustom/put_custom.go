@@ -22,22 +22,18 @@
 //
 // The custom service gives more control over how to interact with external
 // inference services that aren't explicitly supported through dedicated
-// integrations.
-// The custom service gives you the ability to define the headers, url, query
-// parameters, request body, and secrets.
-// The custom service supports the template replacement functionality, which
-// enables you to define a template that can be replaced with the value
-// associated with that key.
-// Templates are portions of a string that start with `${` and end with `}`.
-// The parameters `secret_parameters` and `task_settings` are checked for keys
-// for template replacement. Template replacement is supported in the `request`,
-// `headers`, `url`, and `query_parameters`.
-// If the definition (key) is not found for a template, an error message is
-// returned.
-// In case of an endpoint definition like the following:
-// ```
-// PUT _inference/text_embedding/test-text-embedding
+// integrations. The custom service gives you the ability to define the headers,
+// url, query parameters, request body, and secrets. The custom service supports
+// the template replacement functionality, which enables you to define a
+// template that can be replaced with the value associated with that key.
+// Templates are portions of a string that start with `${` and end with `}`. The
+// parameters `secret_parameters` and `task_settings` are checked for keys for
+// template replacement. Template replacement is supported in the `request`,
+// `headers`, `url`, and `query_parameters`. If the definition (key) is not
+// found for a template, an error message is returned. In case of an endpoint
+// definition like the following:
 //
+//	PUT _inference/text_embedding/test-text-embedding
 //	{
 //	  "service": "custom",
 //	  "service_settings": {
@@ -58,22 +54,22 @@
 //	  }
 //	}
 //
-// ```
 // To replace `${api_key}` the `secret_parameters` and `task_settings` are
 // checked for a key named `api_key`.
 //
-// > info
-// > Templates should not be surrounded by quotes.
+// > info > Templates should not be surrounded by quotes.
 //
 // Pre-defined templates:
-// * `${input}` refers to the array of input strings that comes from the `input`
-// field of the subsequent inference requests.
-// * `${input_type}` refers to the input type translation values.
-// * `${query}` refers to the query field used specifically for reranking tasks.
-// * `${top_n}` refers to the `top_n` field available when performing rerank
-// requests.
-// * `${return_documents}` refers to the `return_documents` field available when
-// performing rerank requests.
+//
+//   - `${input}` refers to the array of input strings that comes from the
+//     `input` field of the subsequent inference requests.
+//   - `${input_type}` refers to the input type translation values.
+//   - `${query}` refers to the query field used specifically for reranking
+//     tasks.
+//   - `${top_n}` refers to the `top_n` field available when performing rerank
+//     requests.
+//   - `${return_documents}` refers to the `return_documents` field available
+//     when performing rerank requests.
 package putcustom
 
 import (
@@ -146,22 +142,18 @@ func NewPutCustomFunc(tp elastictransport.Interface) NewPutCustom {
 //
 // The custom service gives more control over how to interact with external
 // inference services that aren't explicitly supported through dedicated
-// integrations.
-// The custom service gives you the ability to define the headers, url, query
-// parameters, request body, and secrets.
-// The custom service supports the template replacement functionality, which
-// enables you to define a template that can be replaced with the value
-// associated with that key.
-// Templates are portions of a string that start with `${` and end with `}`.
-// The parameters `secret_parameters` and `task_settings` are checked for keys
-// for template replacement. Template replacement is supported in the `request`,
-// `headers`, `url`, and `query_parameters`.
-// If the definition (key) is not found for a template, an error message is
-// returned.
-// In case of an endpoint definition like the following:
-// ```
-// PUT _inference/text_embedding/test-text-embedding
+// integrations. The custom service gives you the ability to define the headers,
+// url, query parameters, request body, and secrets. The custom service supports
+// the template replacement functionality, which enables you to define a
+// template that can be replaced with the value associated with that key.
+// Templates are portions of a string that start with `${` and end with `}`. The
+// parameters `secret_parameters` and `task_settings` are checked for keys for
+// template replacement. Template replacement is supported in the `request`,
+// `headers`, `url`, and `query_parameters`. If the definition (key) is not
+// found for a template, an error message is returned. In case of an endpoint
+// definition like the following:
 //
+//	PUT _inference/text_embedding/test-text-embedding
 //	{
 //	  "service": "custom",
 //	  "service_settings": {
@@ -182,22 +174,22 @@ func NewPutCustomFunc(tp elastictransport.Interface) NewPutCustom {
 //	  }
 //	}
 //
-// ```
 // To replace `${api_key}` the `secret_parameters` and `task_settings` are
 // checked for a key named `api_key`.
 //
-// > info
-// > Templates should not be surrounded by quotes.
+// > info > Templates should not be surrounded by quotes.
 //
 // Pre-defined templates:
-// * `${input}` refers to the array of input strings that comes from the `input`
-// field of the subsequent inference requests.
-// * `${input_type}` refers to the input type translation values.
-// * `${query}` refers to the query field used specifically for reranking tasks.
-// * `${top_n}` refers to the `top_n` field available when performing rerank
-// requests.
-// * `${return_documents}` refers to the `return_documents` field available when
-// performing rerank requests.
+//
+//   - `${input}` refers to the array of input strings that comes from the
+//     `input` field of the subsequent inference requests.
+//   - `${input_type}` refers to the input type translation values.
+//   - `${query}` refers to the query field used specifically for reranking
+//     tasks.
+//   - `${top_n}` refers to the `top_n` field available when performing rerank
+//     requests.
+//   - `${return_documents}` refers to the `return_documents` field available
+//     when performing rerank requests.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom
 func New(tp elastictransport.Interface) *PutCustom {
@@ -465,11 +457,9 @@ func (r *PutCustom) FilterPath(filterpaths ...string) *PutCustom {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutCustom) Human(human bool) *PutCustom {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -477,8 +467,8 @@ func (r *PutCustom) Human(human bool) *PutCustom {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutCustom) Pretty(pretty bool) *PutCustom {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -486,9 +476,9 @@ func (r *PutCustom) Pretty(pretty bool) *PutCustom {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `sparse_embedding` or `text_embedding` task types.
-// Not applicable to the `rerank` or `completion` task types.
+// The chunking configuration object. Applies only to the `sparse_embedding` or
+// `text_embedding` task types. Not applicable to the `rerank` or `completion`
+// task types.
 // API name: chunking_settings
 func (r *PutCustom) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutCustom {
 	// Initialize the request if it is not already initialized
@@ -513,8 +503,8 @@ func (r *PutCustom) Service(service customservicetype.CustomServiceType) *PutCus
 	return r
 }
 
-// Settings used to install the inference model.
-// These settings are specific to the `custom` service.
+// Settings used to install the inference model. These settings are specific to
+// the `custom` service.
 // API name: service_settings
 func (r *PutCustom) ServiceSettings(servicesettings types.CustomServiceSettingsVariant) *PutCustom {
 	// Initialize the request if it is not already initialized
@@ -527,8 +517,8 @@ func (r *PutCustom) ServiceSettings(servicesettings types.CustomServiceSettingsV
 	return r
 }
 
-// Settings to configure the inference task.
-// These settings are specific to the task type you specified.
+// Settings to configure the inference task. These settings are specific to the
+// task type you specified.
 // API name: task_settings
 func (r *PutCustom) TaskSettings(tasksettings types.CustomTaskSettingsVariant) *PutCustom {
 	// Initialize the request if it is not already initialized

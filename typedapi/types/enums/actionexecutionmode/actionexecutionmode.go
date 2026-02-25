@@ -29,14 +29,29 @@ type ActionExecutionMode struct {
 }
 
 var (
+
+	// Simulate The action execution is simulated. Each action type defines its own
+	// simulation operation mode. For example, the email action creates the email
+	// that would have been sent but does not actually send it. In this mode, the
+	// action might be throttled if the current state of the watch indicates it
+	// should be.
 	Simulate = ActionExecutionMode{"simulate"}
 
+	// Forcesimulate Similar to the `simulate` mode, except the action is not throttled even if
+	// the current state of the watch indicates it should be.
 	Forcesimulate = ActionExecutionMode{"force_simulate"}
 
+	// Execute Executes the action as it would have been executed if the watch had been
+	// triggered by its own trigger. The execution might be throttled if the current
+	// state of the watch indicates it should be.
 	Execute = ActionExecutionMode{"execute"}
 
+	// Forceexecute Similar to the `execute` mode, except the action is not throttled even if the
+	// current state of the watch indicates it should be.
 	Forceexecute = ActionExecutionMode{"force_execute"}
 
+	// Skip The action is skipped and is not executed or simulated. Effectively forces
+	// the action to be throttled.
 	Skip = ActionExecutionMode{"skip"}
 )
 

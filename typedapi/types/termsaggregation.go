@@ -41,8 +41,7 @@ type TermsAggregation struct {
 	// CollectMode Determines how child aggregations should be calculated: breadth-first or
 	// depth-first.
 	CollectMode *termsaggregationcollectmode.TermsAggregationCollectMode `json:"collect_mode,omitempty"`
-	// Exclude Values to exclude.
-	// Accepts regular expressions and partitions.
+	// Exclude Values to exclude. Accepts regular expressions and partitions.
 	Exclude []string `json:"exclude,omitempty"`
 	// ExecutionHint Determines whether the aggregation will use field values directly or global
 	// ordinals.
@@ -50,28 +49,27 @@ type TermsAggregation struct {
 	// Field The field from which to return terms.
 	Field  *string `json:"field,omitempty"`
 	Format *string `json:"format,omitempty"`
-	// Include Values to include.
-	// Accepts regular expressions and partitions.
+	// Include Values to include. Accepts regular expressions and partitions.
 	Include TermsInclude `json:"include,omitempty"`
 	// MinDocCount Only return values that are found in more than `min_doc_count` hits.
 	MinDocCount *int `json:"min_doc_count,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing       Missing                    `json:"missing,omitempty"`
 	MissingBucket *bool                      `json:"missing_bucket,omitempty"`
 	MissingOrder  *missingorder.MissingOrder `json:"missing_order,omitempty"`
-	// Order Specifies the sort order of the buckets.
-	// Defaults to sorting by descending document count.
+	// Order Specifies the sort order of the buckets. Defaults to sorting by descending
+	// document count.
 	Order  AggregateOrder `json:"order,omitempty"`
 	Script *Script        `json:"script,omitempty"`
 	// ShardMinDocCount Regulates the certainty a shard has if the term should actually be added to
-	// the candidate list or not with respect to the `min_doc_count`.
-	// Terms will only be considered if their local shard frequency within the set
-	// is higher than the `shard_min_doc_count`.
+	// the candidate list or not with respect to the `min_doc_count`. Terms will
+	// only be considered if their local shard frequency within the set is higher
+	// than the `shard_min_doc_count`.
 	ShardMinDocCount *int64 `json:"shard_min_doc_count,omitempty"`
-	// ShardSize The number of candidate terms produced by each shard.
-	// By default, `shard_size` will be automatically estimated based on the number
-	// of shards and the `size` parameter.
+	// ShardSize The number of candidate terms produced by each shard. By default,
+	// `shard_size` will be automatically estimated based on the number of shards
+	// and the `size` parameter.
 	ShardSize *int `json:"shard_size,omitempty"`
 	// ShowTermDocCountError Set to `true` to return the `doc_count_error_upper_bound`, which is an upper
 	// bound to the error on the `doc_count` returned by each shard.

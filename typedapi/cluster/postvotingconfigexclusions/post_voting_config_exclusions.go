@@ -20,26 +20,23 @@
 
 // Update voting configuration exclusions.
 //
-// Update the cluster voting config exclusions by node IDs or node names.
-// By default, if there are more than three master-eligible nodes in the cluster
+// Update the cluster voting config exclusions by node IDs or node names. By
+// default, if there are more than three master-eligible nodes in the cluster
 // and you remove fewer than half of the master-eligible nodes in the cluster at
-// once, the voting configuration automatically shrinks.
-// If you want to shrink the voting configuration to contain fewer than three
-// nodes or to remove half or more of the master-eligible nodes in the cluster
-// at once, use this API to remove departing nodes from the voting configuration
-// manually.
-// The API adds an entry for each specified node to the cluster’s voting
-// configuration exclusions list.
-// It then waits until the cluster has reconfigured its voting configuration to
-// exclude the specified nodes.
+// once, the voting configuration automatically shrinks. If you want to shrink
+// the voting configuration to contain fewer than three nodes or to remove half
+// or more of the master-eligible nodes in the cluster at once, use this API to
+// remove departing nodes from the voting configuration manually. The API adds
+// an entry for each specified node to the cluster’s voting configuration
+// exclusions list. It then waits until the cluster has reconfigured its voting
+// configuration to exclude the specified nodes.
 //
 // Clusters should have no voting configuration exclusions in normal operation.
 // Once the excluded nodes have stopped, clear the voting configuration
-// exclusions with `DELETE /_cluster/voting_config_exclusions`.
-// This API waits for the nodes to be fully removed from the cluster before it
-// returns.
-// If your cluster has voting configuration exclusions for nodes that you no
-// longer intend to remove, use `DELETE
+// exclusions with `DELETE /_cluster/voting_config_exclusions`. This API waits
+// for the nodes to be fully removed from the cluster before it returns. If your
+// cluster has voting configuration exclusions for nodes that you no longer
+// intend to remove, use `DELETE
 // /_cluster/voting_config_exclusions?wait_for_removal=false` to clear the
 // voting configuration exclusions without waiting for the nodes to leave the
 // cluster.
@@ -48,16 +45,15 @@
 // code of 200 OK guarantees that the node has been removed from the voting
 // configuration and will not be reinstated until the voting configuration
 // exclusions are cleared by calling `DELETE
-// /_cluster/voting_config_exclusions`.
-// If the call to `POST /_cluster/voting_config_exclusions` fails or returns a
-// response with an HTTP status code other than 200 OK then the node may not
-// have been removed from the voting configuration.
-// In that case, you may safely retry the call.
+// /_cluster/voting_config_exclusions`. If the call to `POST
+// /_cluster/voting_config_exclusions` fails or returns a response with an HTTP
+// status code other than 200 OK then the node may not have been removed from
+// the voting configuration. In that case, you may safely retry the call.
 //
 // NOTE: Voting exclusions are required only when you remove at least half of
-// the master-eligible nodes from a cluster in a short time period.
-// They are not required when removing master-ineligible nodes or when removing
-// fewer than half of the master-eligible nodes.
+// the master-eligible nodes from a cluster in a short time period. They are not
+// required when removing master-ineligible nodes or when removing fewer than
+// half of the master-eligible nodes.
 package postvotingconfigexclusions
 
 import (
@@ -107,26 +103,23 @@ func NewPostVotingConfigExclusionsFunc(tp elastictransport.Interface) NewPostVot
 
 // Update voting configuration exclusions.
 //
-// Update the cluster voting config exclusions by node IDs or node names.
-// By default, if there are more than three master-eligible nodes in the cluster
+// Update the cluster voting config exclusions by node IDs or node names. By
+// default, if there are more than three master-eligible nodes in the cluster
 // and you remove fewer than half of the master-eligible nodes in the cluster at
-// once, the voting configuration automatically shrinks.
-// If you want to shrink the voting configuration to contain fewer than three
-// nodes or to remove half or more of the master-eligible nodes in the cluster
-// at once, use this API to remove departing nodes from the voting configuration
-// manually.
-// The API adds an entry for each specified node to the cluster’s voting
-// configuration exclusions list.
-// It then waits until the cluster has reconfigured its voting configuration to
-// exclude the specified nodes.
+// once, the voting configuration automatically shrinks. If you want to shrink
+// the voting configuration to contain fewer than three nodes or to remove half
+// or more of the master-eligible nodes in the cluster at once, use this API to
+// remove departing nodes from the voting configuration manually. The API adds
+// an entry for each specified node to the cluster’s voting configuration
+// exclusions list. It then waits until the cluster has reconfigured its voting
+// configuration to exclude the specified nodes.
 //
 // Clusters should have no voting configuration exclusions in normal operation.
 // Once the excluded nodes have stopped, clear the voting configuration
-// exclusions with `DELETE /_cluster/voting_config_exclusions`.
-// This API waits for the nodes to be fully removed from the cluster before it
-// returns.
-// If your cluster has voting configuration exclusions for nodes that you no
-// longer intend to remove, use `DELETE
+// exclusions with `DELETE /_cluster/voting_config_exclusions`. This API waits
+// for the nodes to be fully removed from the cluster before it returns. If your
+// cluster has voting configuration exclusions for nodes that you no longer
+// intend to remove, use `DELETE
 // /_cluster/voting_config_exclusions?wait_for_removal=false` to clear the
 // voting configuration exclusions without waiting for the nodes to leave the
 // cluster.
@@ -135,16 +128,15 @@ func NewPostVotingConfigExclusionsFunc(tp elastictransport.Interface) NewPostVot
 // code of 200 OK guarantees that the node has been removed from the voting
 // configuration and will not be reinstated until the voting configuration
 // exclusions are cleared by calling `DELETE
-// /_cluster/voting_config_exclusions`.
-// If the call to `POST /_cluster/voting_config_exclusions` fails or returns a
-// response with an HTTP status code other than 200 OK then the node may not
-// have been removed from the voting configuration.
-// In that case, you may safely retry the call.
+// /_cluster/voting_config_exclusions`. If the call to `POST
+// /_cluster/voting_config_exclusions` fails or returns a response with an HTTP
+// status code other than 200 OK then the node may not have been removed from
+// the voting configuration. In that case, you may safely retry the call.
 //
 // NOTE: Voting exclusions are required only when you remove at least half of
-// the master-eligible nodes from a cluster in a short time period.
-// They are not required when removing master-ineligible nodes or when removing
-// fewer than half of the master-eligible nodes.
+// the master-eligible nodes from a cluster in a short time period. They are not
+// required when removing master-ineligible nodes or when removing fewer than
+// half of the master-eligible nodes.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-post-voting-config-exclusions
 func New(tp elastictransport.Interface) *PostVotingConfigExclusions {
@@ -303,8 +295,8 @@ func (r *PostVotingConfigExclusions) Header(key, value string) *PostVotingConfig
 	return r
 }
 
-// NodeNames A comma-separated list of the names of the nodes to exclude from the
-// voting configuration. If specified, you may not also specify node_ids.
+// NodeNames A comma-separated list of the names of the nodes to exclude from the voting
+// configuration. If specified, you may not also specify node_ids.
 // API name: node_names
 func (r *PostVotingConfigExclusions) NodeNames(names ...string) *PostVotingConfigExclusions {
 	r.values.Set("node_names", strings.Join(names, ","))
@@ -312,9 +304,8 @@ func (r *PostVotingConfigExclusions) NodeNames(names ...string) *PostVotingConfi
 	return r
 }
 
-// NodeIds A comma-separated list of the persistent ids of the nodes to exclude
-// from the voting configuration. If specified, you may not also specify
-// node_names.
+// NodeIds A comma-separated list of the persistent ids of the nodes to exclude from the
+// voting configuration. If specified, you may not also specify node_names.
 // API name: node_ids
 func (r *PostVotingConfigExclusions) NodeIds(ids ...string) *PostVotingConfigExclusions {
 	r.values.Set("node_ids", strings.Join(ids, ","))
@@ -330,10 +321,10 @@ func (r *PostVotingConfigExclusions) MasterTimeout(duration string) *PostVotingC
 	return r
 }
 
-// Timeout When adding a voting configuration exclusion, the API waits for the
-// specified nodes to be excluded from the voting configuration before
-// returning. If the timeout expires before the appropriate condition
-// is satisfied, the request fails and returns an error.
+// Timeout When adding a voting configuration exclusion, the API waits for the specified
+// nodes to be excluded from the voting configuration before returning. If the
+// timeout expires before the appropriate condition is satisfied, the request
+// fails and returns an error.
 // API name: timeout
 func (r *PostVotingConfigExclusions) Timeout(duration string) *PostVotingConfigExclusions {
 	r.values.Set("timeout", duration)
@@ -364,11 +355,9 @@ func (r *PostVotingConfigExclusions) FilterPath(filterpaths ...string) *PostVoti
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PostVotingConfigExclusions) Human(human bool) *PostVotingConfigExclusions {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -376,8 +365,8 @@ func (r *PostVotingConfigExclusions) Human(human bool) *PostVotingConfigExclusio
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PostVotingConfigExclusions) Pretty(pretty bool) *PostVotingConfigExclusions {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -32,8 +32,7 @@ type Request struct {
 	// Description A description of the filter.
 	Description *string `json:"description,omitempty"`
 	// Items The items of the filter. A wildcard `*` can be used at the beginning or the
-	// end of an item.
-	// Up to 10000 items are allowed in each filter.
+	// end of an item. Up to 10000 items are allowed in each filter.
 	Items []string `json:"items,omitempty"`
 }
 

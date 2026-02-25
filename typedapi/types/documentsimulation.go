@@ -31,7 +31,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/versiontype"
 )
 
-// DocumentSimulation type.
+// The simulated document, with optional metadata.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Simulation.ts#L85-L115
 type DocumentSimulation struct {

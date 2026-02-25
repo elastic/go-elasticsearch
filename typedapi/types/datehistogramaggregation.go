@@ -36,9 +36,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/bucket.ts#L205-L263
 type DateHistogramAggregation struct {
-	// CalendarInterval Calendar-aware interval.
-	// Can be specified using the unit name, such as `month`, or as a single unit
-	// quantity, such as `1M`.
+	// CalendarInterval Calendar-aware interval. Can be specified using the unit name, such as
+	// `month`, or as a single unit quantity, such as `1M`.
 	CalendarInterval *calendarinterval.CalendarInterval `json:"calendar_interval,omitempty"`
 	// ExtendedBounds Enables extending the bounds of the histogram beyond the data itself.
 	ExtendedBounds *ExtendedBoundsFieldDateMath `json:"extended_bounds,omitempty"`
@@ -47,9 +46,9 @@ type DateHistogramAggregation struct {
 	// FixedInterval Fixed intervals: a fixed number of SI units and never deviate, regardless of
 	// where they fall on the calendar.
 	FixedInterval Duration `json:"fixed_interval,omitempty"`
-	// Format The date format used to format `key_as_string` in the response.
-	// If no `format` is specified, the first date format specified in the field
-	// mapping is used.
+	// Format The date format used to format `key_as_string` in the response. If no
+	// `format` is specified, the first date format specified in the field mapping
+	// is used.
 	Format *string `json:"format,omitempty"`
 	// HardBounds Limits the histogram to specified bounds.
 	HardBounds *ExtendedBoundsFieldDateMath `json:"hard_bounds,omitempty"`
@@ -57,12 +56,12 @@ type DateHistogramAggregation struct {
 	// Keyed Set to `true` to associate a unique string key with each bucket and return
 	// the ranges as a hash rather than an array.
 	Keyed *bool `json:"keyed,omitempty"`
-	// MinDocCount Only returns buckets that have `min_doc_count` number of documents.
-	// By default, all buckets between the first bucket that matches documents and
-	// the last one are returned.
+	// MinDocCount Only returns buckets that have `min_doc_count` number of documents. By
+	// default, all buckets between the first bucket that matches documents and the
+	// last one are returned.
 	MinDocCount *int `json:"min_doc_count,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing DateTime `json:"missing,omitempty"`
 	// Offset Changes the start value of each bucket by the specified positive (`+`) or
 	// negative offset (`-`) duration.
@@ -71,8 +70,8 @@ type DateHistogramAggregation struct {
 	Order  AggregateOrder             `json:"order,omitempty"`
 	Params map[string]json.RawMessage `json:"params,omitempty"`
 	Script *Script                    `json:"script,omitempty"`
-	// TimeZone Time zone used for bucketing and rounding.
-	// Defaults to Coordinated Universal Time (UTC).
+	// TimeZone Time zone used for bucketing and rounding. Defaults to Coordinated Universal
+	// Time (UTC).
 	TimeZone *string `json:"time_zone,omitempty"`
 }
 

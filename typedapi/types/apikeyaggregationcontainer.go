@@ -33,17 +33,15 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/query_api_keys/types.ts#L63-L120
 type ApiKeyAggregationContainer struct {
 	AdditionalApiKeyAggregationContainerProperty map[string]json.RawMessage `json:"-"`
-	// Aggregations Sub-aggregations for this aggregation.
-	// Only applies to bucket aggregations.
+	// Aggregations Sub-aggregations for this aggregation. Only applies to bucket aggregations.
 	Aggregations map[string]ApiKeyAggregationContainer `json:"aggregations,omitempty"`
 	// Cardinality A single-value metrics aggregation that calculates an approximate count of
 	// distinct values.
 	Cardinality *CardinalityAggregation `json:"cardinality,omitempty"`
 	// Composite A multi-bucket aggregation that creates composite buckets from different
-	// sources.
-	// Unlike the other multi-bucket aggregations, you can use the `composite`
-	// aggregation to paginate *all* buckets from a multi-level aggregation
-	// efficiently.
+	// sources. Unlike the other multi-bucket aggregations, you can use the
+	// `composite` aggregation to paginate *all* buckets from a multi-level
+	// aggregation efficiently.
 	Composite *CompositeAggregation `json:"composite,omitempty"`
 	// DateRange A multi-bucket value source based aggregation that enables the user to define
 	// a set of date ranges - each representing a bucket.

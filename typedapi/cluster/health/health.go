@@ -21,19 +21,18 @@
 // Get the cluster health status.
 //
 // You can also use the API to get the health status of only specified data
-// streams and indices.
-// For data streams, the API retrieves the health status of the stream’s backing
-// indices.
+// streams and indices. For data streams, the API retrieves the health status of
+// the stream’s backing indices.
 //
-// The cluster health status is: green, yellow or red.
-// On the shard level, a red status indicates that the specific shard is not
-// allocated in the cluster. Yellow means that the primary shard is allocated
-// but replicas are not. Green means that all shards are allocated.
-// The index level status is controlled by the worst shard status.
+// The cluster health status is: green, yellow or red. On the shard level, a red
+// status indicates that the specific shard is not allocated in the cluster.
+// Yellow means that the primary shard is allocated but replicas are not. Green
+// means that all shards are allocated. The index level status is controlled by
+// the worst shard status.
 //
 // One of the main benefits of the API is the ability to wait until the cluster
-// reaches a certain high watermark health level.
-// The cluster status is controlled by the worst index status.
+// reaches a certain high watermark health level. The cluster status is
+// controlled by the worst index status.
 package health
 
 import (
@@ -97,19 +96,18 @@ func NewHealthFunc(tp elastictransport.Interface) NewHealth {
 // Get the cluster health status.
 //
 // You can also use the API to get the health status of only specified data
-// streams and indices.
-// For data streams, the API retrieves the health status of the stream’s backing
-// indices.
+// streams and indices. For data streams, the API retrieves the health status of
+// the stream’s backing indices.
 //
-// The cluster health status is: green, yellow or red.
-// On the shard level, a red status indicates that the specific shard is not
-// allocated in the cluster. Yellow means that the primary shard is allocated
-// but replicas are not. Green means that all shards are allocated.
-// The index level status is controlled by the worst shard status.
+// The cluster health status is: green, yellow or red. On the shard level, a red
+// status indicates that the specific shard is not allocated in the cluster.
+// Yellow means that the primary shard is allocated but replicas are not. Green
+// means that all shards are allocated. The index level status is controlled by
+// the worst shard status.
 //
 // One of the main benefits of the API is the ability to wait until the cluster
-// reaches a certain high watermark health level.
-// The cluster status is controlled by the worst index status.
+// reaches a certain high watermark health level. The cluster status is
+// controlled by the worst index status.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-health
 func New(tp elastictransport.Interface) *Health {
@@ -332,10 +330,8 @@ func (r *Health) Header(key, value string) *Health {
 }
 
 // Index A comma-separated list of data streams, indices, and index aliases that limit
-// the request.
-// Wildcard expressions (`*`) are supported.
-// To target all data streams and indices in a cluster, omit this parameter or
-// use _all or `*`.
+// // the request. Wildcard expressions (`*`) are supported. To target all data
+// // streams and indices in a cluster, omit this parameter or use _all or `*`.
 // API Name: index
 func (r *Health) Index(index string) *Health {
 	r.paramSet |= indexMask
@@ -364,8 +360,8 @@ func (r *Health) Level(level level.Level) *Health {
 	return r
 }
 
-// Local If true, retrieve information from the local node only.
-// If false, retrieve information from the master node.
+// Local If true, retrieve information from the local node only. If false, retrieve
+// information from the master node.
 // API name: local
 func (r *Health) Local(local bool) *Health {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -373,9 +369,8 @@ func (r *Health) Local(local bool) *Health {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *Health) MasterTimeout(duration string) *Health {
 	r.values.Set("master_timeout", duration)
@@ -383,9 +378,8 @@ func (r *Health) MasterTimeout(duration string) *Health {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error.
 // API name: timeout
 func (r *Health) Timeout(duration string) *Health {
 	r.values.Set("timeout", duration)
@@ -393,9 +387,8 @@ func (r *Health) Timeout(duration string) *Health {
 	return r
 }
 
-// WaitForActiveShards Wait for the specified number of active shards.
-// Use `all` to wait for all shards in the cluster to be active.
-// Use `0` to not wait.
+// WaitForActiveShards Wait for the specified number of active shards. Use `all` to wait for all
+// shards in the cluster to be active. Use `0` to not wait.
 // API name: wait_for_active_shards
 func (r *Health) WaitForActiveShards(waitforactiveshards string) *Health {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -411,9 +404,9 @@ func (r *Health) WaitForEvents(waitforevents waitforevents.WaitForEvents) *Healt
 	return r
 }
 
-// WaitForNodes Wait until the specified number (N) of nodes is available.
-// It also accepts `>=N`, `<=N`, `>N` and `<N`.
-// Alternatively, use the notations `ge(N)`, `le(N)`, `gt(N)`, and `lt(N)`.
+// WaitForNodes Wait until the specified number (N) of nodes is available. It also accepts
+// `>=N`, `<=N`, `>N` and `<N`. Alternatively, use the notations `ge(N)`,
+// `le(N)`, `gt(N)`, and `lt(N)`.
 // API name: wait_for_nodes
 func (r *Health) WaitForNodes(waitfornodes string) *Health {
 	r.values.Set("wait_for_nodes", waitfornodes)
@@ -422,8 +415,7 @@ func (r *Health) WaitForNodes(waitfornodes string) *Health {
 }
 
 // WaitForNoInitializingShards Wait (until the timeout expires) for the cluster to have no shard
-// initializations.
-// If false, the request does not wait for initializing shards.
+// initializations. If false, the request does not wait for initializing shards.
 // API name: wait_for_no_initializing_shards
 func (r *Health) WaitForNoInitializingShards(waitfornoinitializingshards bool) *Health {
 	r.values.Set("wait_for_no_initializing_shards", strconv.FormatBool(waitfornoinitializingshards))
@@ -432,8 +424,7 @@ func (r *Health) WaitForNoInitializingShards(waitfornoinitializingshards bool) *
 }
 
 // WaitForNoRelocatingShards Wait (until the timeout expires) for the cluster to have no shard
-// relocations.
-// If false, the request not wait for relocating shards.
+// relocations. If false, the request not wait for relocating shards.
 // API name: wait_for_no_relocating_shards
 func (r *Health) WaitForNoRelocatingShards(waitfornorelocatingshards bool) *Health {
 	r.values.Set("wait_for_no_relocating_shards", strconv.FormatBool(waitfornorelocatingshards))
@@ -442,9 +433,9 @@ func (r *Health) WaitForNoRelocatingShards(waitfornorelocatingshards bool) *Heal
 }
 
 // WaitForStatus Wait (until the timeout expires) for the cluster to reach a specific health
-// status (or a better status).
-// A green status is better than yellow and yellow is better than red.
-// By default, the request does not wait for a particular status.
+// status (or a better status). A green status is better than yellow and yellow
+// is better than red. By default, the request does not wait for a particular
+// status.
 // API name: wait_for_status
 func (r *Health) WaitForStatus(waitforstatus healthstatus.HealthStatus) *Health {
 	r.values.Set("wait_for_status", waitforstatus.String())
@@ -475,11 +466,9 @@ func (r *Health) FilterPath(filterpaths ...string) *Health {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Health) Human(human bool) *Health {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -487,8 +476,8 @@ func (r *Health) Human(human bool) *Health {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Health) Pretty(pretty bool) *Health {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

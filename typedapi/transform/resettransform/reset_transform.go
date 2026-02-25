@@ -21,8 +21,8 @@
 // Reset a transform.
 //
 // Before you can reset it, you must stop it; alternatively, use the `force`
-// query parameter.
-// If the destination index was created by the transform, it is deleted.
+// query parameter. If the destination index was created by the transform, it is
+// deleted.
 package resettransform
 
 import (
@@ -83,8 +83,8 @@ func NewResetTransformFunc(tp elastictransport.Interface) NewResetTransform {
 // Reset a transform.
 //
 // Before you can reset it, you must stop it; alternatively, use the `force`
-// query parameter.
-// If the destination index was created by the transform, it is deleted.
+// query parameter. If the destination index was created by the transform, it is
+// deleted.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-reset-transform
 func New(tp elastictransport.Interface) *ResetTransform {
@@ -298,10 +298,9 @@ func (r *ResetTransform) Header(key, value string) *ResetTransform {
 	return r
 }
 
-// TransformId Identifier for the transform. This identifier can contain lowercase
-// alphanumeric characters (a-z and 0-9),
-// hyphens, and underscores. It has a 64 character limit and must start and end
-// with alphanumeric characters.
+// TransformId Identifier for the transform. This identifier can contain lowercase //
+// alphanumeric characters (a-z and 0-9), hyphens, and underscores. It has a 64
+// // character limit and must start and end with alphanumeric characters.
 // API Name: transformid
 func (r *ResetTransform) _transformid(transformid string) *ResetTransform {
 	r.paramSet |= transformidMask
@@ -311,8 +310,7 @@ func (r *ResetTransform) _transformid(transformid string) *ResetTransform {
 }
 
 // Force If this value is `true`, the transform is reset regardless of its current
-// state. If it's `false`, the transform
-// must be stopped before it can be reset.
+// state. If it's `false`, the transform must be stopped before it can be reset.
 // API name: force
 func (r *ResetTransform) Force(force bool) *ResetTransform {
 	r.values.Set("force", strconv.FormatBool(force))
@@ -352,11 +350,9 @@ func (r *ResetTransform) FilterPath(filterpaths ...string) *ResetTransform {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ResetTransform) Human(human bool) *ResetTransform {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -364,8 +360,8 @@ func (r *ResetTransform) Human(human bool) *ResetTransform {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ResetTransform) Pretty(pretty bool) *ResetTransform {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

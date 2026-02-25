@@ -21,8 +21,7 @@
 // Throttle an update by query operation.
 //
 // Change the number of requests per second for a particular update by query
-// operation.
-// Rethrottling that speeds up the query takes effect immediately but
+// operation. Rethrottling that speeds up the query takes effect immediately but
 // rethrotting that slows down the query takes effect after completing the
 // current batch to prevent scroll timeouts.
 package updatebyqueryrethrottle
@@ -85,8 +84,7 @@ func NewUpdateByQueryRethrottleFunc(tp elastictransport.Interface) NewUpdateByQu
 // Throttle an update by query operation.
 //
 // Change the number of requests per second for a particular update by query
-// operation.
-// Rethrottling that speeds up the query takes effect immediately but
+// operation. Rethrottling that speeds up the query takes effect immediately but
 // rethrotting that slows down the query takes effect after completing the
 // current batch to prevent scroll timeouts.
 //
@@ -311,8 +309,8 @@ func (r *UpdateByQueryRethrottle) _taskid(taskid string) *UpdateByQueryRethrottl
 	return r
 }
 
-// RequestsPerSecond The throttle for this request in sub-requests per second.
-// To turn off throttling, set it to `-1`.
+// RequestsPerSecond The throttle for this request in sub-requests per second. To turn off
+// throttling, set it to `-1`.
 // API name: requests_per_second
 func (r *UpdateByQueryRethrottle) RequestsPerSecond(requestspersecond string) *UpdateByQueryRethrottle {
 	r.values.Set("requests_per_second", requestspersecond)
@@ -343,11 +341,9 @@ func (r *UpdateByQueryRethrottle) FilterPath(filterpaths ...string) *UpdateByQue
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateByQueryRethrottle) Human(human bool) *UpdateByQueryRethrottle {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -355,8 +351,8 @@ func (r *UpdateByQueryRethrottle) Human(human bool) *UpdateByQueryRethrottle {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateByQueryRethrottle) Pretty(pretty bool) *UpdateByQueryRethrottle {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -26,9 +26,9 @@ type _communityIDProcessor struct {
 	v *types.CommunityIDProcessor
 }
 
-// Computes the Community ID for network flow data as defined in the
-// Community ID Specification. You can use a community ID to correlate network
-// events related to a single flow.
+// Computes the Community ID for network flow data as defined in the Community
+// ID Specification. You can use a community ID to correlate network events
+// related to a single flow.
 func NewCommunityIDProcessor() *_communityIDProcessor {
 
 	return &_communityIDProcessor{v: types.NewCommunityIDProcessor()}

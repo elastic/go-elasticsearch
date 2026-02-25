@@ -30,9 +30,8 @@ type _setProcessor struct {
 	v *types.SetProcessor
 }
 
-// Adds a field with the specified value.
-// If the field already exists, its value will be replaced with the provided
-// one.
+// Adds a field with the specified value. If the field already exists, its value
+// will be replaced with the provided one.
 func NewSetProcessor() *_setProcessor {
 
 	return &_setProcessor{v: types.NewSetProcessor()}

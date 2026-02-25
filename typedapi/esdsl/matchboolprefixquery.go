@@ -30,9 +30,9 @@ type _matchBoolPrefixQuery struct {
 	v *types.MatchBoolPrefixQuery
 }
 
-// Analyzes its input and constructs a `bool` query from the terms.
-// Each term except the last is used in a `term` query.
-// The last term is used in a prefix query.
+// Analyzes its input and constructs a `bool` query from the terms. Each term
+// except the last is used in a `term` query. The last term is used in a prefix
+// query.
 func NewMatchBoolPrefixQuery(field string, query string) *_matchBoolPrefixQuery {
 	tmp := &_matchBoolPrefixQuery{
 		k: field,

@@ -27,8 +27,8 @@ type _randomSamplerAggregation struct {
 }
 
 // A single bucket aggregation that randomly includes documents in the
-// aggregated results.
-// Sampling provides significant speed improvement at the cost of accuracy.
+// aggregated results. Sampling provides significant speed improvement at the
+// cost of accuracy.
 func NewRandomSamplerAggregation(probability types.Float64) *_randomSamplerAggregation {
 
 	tmp := &_randomSamplerAggregation{v: types.NewRandomSamplerAggregation()}

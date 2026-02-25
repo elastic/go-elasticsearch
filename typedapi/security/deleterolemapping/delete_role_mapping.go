@@ -20,11 +20,10 @@
 
 // Delete role mappings.
 //
-// Role mappings define which roles are assigned to each user.
-// The role mapping APIs are generally the preferred way to manage role mappings
-// rather than using role mapping files.
-// The delete role mappings API cannot remove role mappings that are defined in
-// role mapping files.
+// Role mappings define which roles are assigned to each user. The role mapping
+// APIs are generally the preferred way to manage role mappings rather than
+// using role mapping files. The delete role mappings API cannot remove role
+// mappings that are defined in role mapping files.
 package deleterolemapping
 
 import (
@@ -85,11 +84,10 @@ func NewDeleteRoleMappingFunc(tp elastictransport.Interface) NewDeleteRoleMappin
 
 // Delete role mappings.
 //
-// Role mappings define which roles are assigned to each user.
-// The role mapping APIs are generally the preferred way to manage role mappings
-// rather than using role mapping files.
-// The delete role mappings API cannot remove role mappings that are defined in
-// role mapping files.
+// Role mappings define which roles are assigned to each user. The role mapping
+// APIs are generally the preferred way to manage role mappings rather than
+// using role mapping files. The delete role mappings API cannot remove role
+// mappings that are defined in role mapping files.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role-mapping
 func New(tp elastictransport.Interface) *DeleteRoleMapping {
@@ -303,9 +301,9 @@ func (r *DeleteRoleMapping) Header(key, value string) *DeleteRoleMapping {
 	return r
 }
 
-// Name The distinct name that identifies the role mapping.
-// The name is used solely as an identifier to facilitate interaction via the
-// API; it does not affect the behavior of the mapping in any way.
+// Name The distinct name that identifies the role mapping. The name is used solely
+// // as an identifier to facilitate interaction via the API; it does not affect
+// // the behavior of the mapping in any way.
 // API Name: name
 func (r *DeleteRoleMapping) _name(name string) *DeleteRoleMapping {
 	r.paramSet |= nameMask
@@ -347,11 +345,9 @@ func (r *DeleteRoleMapping) FilterPath(filterpaths ...string) *DeleteRoleMapping
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteRoleMapping) Human(human bool) *DeleteRoleMapping {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -359,8 +355,8 @@ func (r *DeleteRoleMapping) Human(human bool) *DeleteRoleMapping {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteRoleMapping) Pretty(pretty bool) *DeleteRoleMapping {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

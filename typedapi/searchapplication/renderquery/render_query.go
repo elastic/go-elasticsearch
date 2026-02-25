@@ -22,11 +22,10 @@
 //
 // Generate an Elasticsearch query using the specified query parameters and the
 // search template associated with the search application or a default template
-// if none is specified.
-// If a parameter used in the search template is not specified in `params`, the
-// parameter's default value will be used.
-// The API returns the specific Elasticsearch query that would be generated and
-// run by calling the search application search API.
+// if none is specified. If a parameter used in the search template is not
+// specified in `params`, the parameter's default value will be used. The API
+// returns the specific Elasticsearch query that would be generated and run by
+// calling the search application search API.
 //
 // You must have `read` privileges on the backing alias of the search
 // application.
@@ -96,11 +95,10 @@ func NewRenderQueryFunc(tp elastictransport.Interface) NewRenderQuery {
 //
 // Generate an Elasticsearch query using the specified query parameters and the
 // search template associated with the search application or a default template
-// if none is specified.
-// If a parameter used in the search template is not specified in `params`, the
-// parameter's default value will be used.
-// The API returns the specific Elasticsearch query that would be generated and
-// run by calling the search application search API.
+// if none is specified. If a parameter used in the search template is not
+// specified in `params`, the parameter's default value will be used. The API
+// returns the specific Elasticsearch query that would be generated and run by
+// calling the search application search API.
 //
 // You must have `read` privileges on the backing alias of the search
 // application.
@@ -360,11 +358,9 @@ func (r *RenderQuery) FilterPath(filterpaths ...string) *RenderQuery {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *RenderQuery) Human(human bool) *RenderQuery {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -372,8 +368,8 @@ func (r *RenderQuery) Human(human bool) *RenderQuery {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *RenderQuery) Pretty(pretty bool) *RenderQuery {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

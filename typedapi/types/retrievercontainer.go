@@ -26,13 +26,13 @@ package types
 type RetrieverContainer struct {
 	// Diversify A retriever that diversifies the results from its child retriever.
 	Diversify *DiversifyRetriever `json:"diversify,omitempty"`
-	// Knn A retriever that replaces the functionality  of a knn search.
+	// Knn A retriever that replaces the functionality of a knn search.
 	Knn *KnnRetriever `json:"knn,omitempty"`
 	// Linear A retriever that supports the combination of different retrievers through a
 	// weighted linear combination.
 	Linear *LinearRetriever `json:"linear,omitempty"`
-	// Pinned A pinned retriever applies pinned documents to the underlying retriever.
-	// This retriever will rewrite to a PinnedQueryBuilder.
+	// Pinned A pinned retriever applies pinned documents to the underlying retriever. This
+	// retriever will rewrite to a PinnedQueryBuilder.
 	Pinned *PinnedRetriever `json:"pinned,omitempty"`
 	// Rescorer A retriever that re-scores only the results produced by its child retriever.
 	Rescorer *RescorerRetriever `json:"rescorer,omitempty"`

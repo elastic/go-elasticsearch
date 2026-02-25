@@ -20,12 +20,11 @@
 
 // Delete an async search.
 //
-// If the asynchronous search is still running, it is cancelled.
-// Otherwise, the saved search results are deleted.
-// If the Elasticsearch security features are enabled, the deletion of a
-// specific async search is restricted to: the authenticated user that submitted
-// the original search request; users that have the `cancel_task` cluster
-// privilege.
+// If the asynchronous search is still running, it is cancelled. Otherwise, the
+// saved search results are deleted. If the Elasticsearch security features are
+// enabled, the deletion of a specific async search is restricted to: the
+// authenticated user that submitted the original search request; users that
+// have the `cancel_task` cluster privilege.
 package delete
 
 import (
@@ -85,12 +84,11 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 
 // Delete an async search.
 //
-// If the asynchronous search is still running, it is cancelled.
-// Otherwise, the saved search results are deleted.
-// If the Elasticsearch security features are enabled, the deletion of a
-// specific async search is restricted to: the authenticated user that submitted
-// the original search request; users that have the `cancel_task` cluster
-// privilege.
+// If the asynchronous search is still running, it is cancelled. Otherwise, the
+// saved search results are deleted. If the Elasticsearch security features are
+// enabled, the deletion of a specific async search is restricted to: the
+// authenticated user that submitted the original search request; users that
+// have the `cancel_task` cluster privilege.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
 func New(tp elastictransport.Interface) *Delete {
@@ -334,11 +332,9 @@ func (r *Delete) FilterPath(filterpaths ...string) *Delete {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Delete) Human(human bool) *Delete {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -346,8 +342,8 @@ func (r *Delete) Human(human bool) *Delete {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Delete) Pretty(pretty bool) *Delete {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

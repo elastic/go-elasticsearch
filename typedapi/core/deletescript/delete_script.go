@@ -301,9 +301,8 @@ func (r *DeleteScript) _id(id string) *DeleteScript {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // It can also be set to `-1` to indicate that the request should never timeout.
 // API name: master_timeout
 func (r *DeleteScript) MasterTimeout(duration string) *DeleteScript {
@@ -312,10 +311,9 @@ func (r *DeleteScript) MasterTimeout(duration string) *DeleteScript {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
-// It can also be set to `-1` to indicate that the request should never timeout.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error. It can also be set
+// to `-1` to indicate that the request should never timeout.
 // API name: timeout
 func (r *DeleteScript) Timeout(duration string) *DeleteScript {
 	r.values.Set("timeout", duration)
@@ -346,11 +344,9 @@ func (r *DeleteScript) FilterPath(filterpaths ...string) *DeleteScript {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteScript) Human(human bool) *DeleteScript {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -358,8 +354,8 @@ func (r *DeleteScript) Human(human bool) *DeleteScript {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteScript) Pretty(pretty bool) *DeleteScript {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

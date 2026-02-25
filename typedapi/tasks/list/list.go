@@ -24,30 +24,23 @@
 // cluster.
 //
 // WARNING: The task management API is new and should still be considered a beta
-// feature.
-// The API may change in ways that are not backwards compatible.
+// feature. The API may change in ways that are not backwards compatible.
 //
-// **Identifying running tasks**
+// # Identifying running tasks
 //
 // The `X-Opaque-Id header`, when provided on the HTTP request header, is going
 // to be returned as a header in the response as well as in the headers field
-// for in the task information.
-// This enables you to track certain calls or associate certain tasks with the
-// client that started them.
-// For example:
+// for in the task information. This enables you to track certain calls or
+// associate certain tasks with the client that started them. For example:
 //
-// ```
-// curl -i -H "X-Opaque-Id: 123456"
-// "http://localhost:9200/_tasks?group_by=parents"
-// ```
+//	curl -i -H "X-Opaque-Id: 123456" "http://localhost:9200/_tasks?group_by=parents"
 //
 // The API returns the following result:
 //
-// ```
-// HTTP/1.1 200 OK
-// X-Opaque-Id: 123456
-// content-type: application/json; charset=UTF-8
-// content-length: 831
+//	HTTP/1.1 200 OK
+//	X-Opaque-Id: 123456
+//	content-type: application/json; charset=UTF-8
+//	content-length: 831
 //
 //	{
 //	  "tasks" : {
@@ -81,13 +74,11 @@
 //	  }
 //	 }
 //
-// ```
 // In this example, `X-Opaque-Id: 123456` is the ID as a part of the response
-// header.
-// The `X-Opaque-Id` in the task `headers` is the ID for the task that was
-// initiated by the REST request.
-// The `X-Opaque-Id` in the children `headers` is the child task of the task
-// that was initiated by the REST request.
+// header. The `X-Opaque-Id` in the task `headers` is the ID for the task that
+// was initiated by the REST request. The `X-Opaque-Id` in the children
+// `headers` is the child task of the task that was initiated by the REST
+// request.
 package list
 
 import (
@@ -144,30 +135,23 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 // cluster.
 //
 // WARNING: The task management API is new and should still be considered a beta
-// feature.
-// The API may change in ways that are not backwards compatible.
+// feature. The API may change in ways that are not backwards compatible.
 //
-// **Identifying running tasks**
+// # Identifying running tasks
 //
 // The `X-Opaque-Id header`, when provided on the HTTP request header, is going
 // to be returned as a header in the response as well as in the headers field
-// for in the task information.
-// This enables you to track certain calls or associate certain tasks with the
-// client that started them.
-// For example:
+// for in the task information. This enables you to track certain calls or
+// associate certain tasks with the client that started them. For example:
 //
-// ```
-// curl -i -H "X-Opaque-Id: 123456"
-// "http://localhost:9200/_tasks?group_by=parents"
-// ```
+//	curl -i -H "X-Opaque-Id: 123456" "http://localhost:9200/_tasks?group_by=parents"
 //
 // The API returns the following result:
 //
-// ```
-// HTTP/1.1 200 OK
-// X-Opaque-Id: 123456
-// content-type: application/json; charset=UTF-8
-// content-length: 831
+//	HTTP/1.1 200 OK
+//	X-Opaque-Id: 123456
+//	content-type: application/json; charset=UTF-8
+//	content-length: 831
 //
 //	{
 //	  "tasks" : {
@@ -201,13 +185,11 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 //	  }
 //	 }
 //
-// ```
 // In this example, `X-Opaque-Id: 123456` is the ID as a part of the response
-// header.
-// The `X-Opaque-Id` in the task `headers` is the ID for the task that was
-// initiated by the REST request.
-// The `X-Opaque-Id` in the children `headers` is the child task of the task
-// that was initiated by the REST request.
+// header. The `X-Opaque-Id` in the task `headers` is the ID for the task that
+// was initiated by the REST request. The `X-Opaque-Id` in the children
+// `headers` is the child task of the task that was initiated by the REST
+// request.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
 func New(tp elastictransport.Interface) *List {
@@ -414,8 +396,8 @@ func (r *List) Header(key, value string) *List {
 }
 
 // Actions A comma-separated list or wildcard expression of actions used to limit the
-// request.
-// For example, you can use `cluser:*` to retrieve all cluster-related tasks.
+// request. For example, you can use `cluser:*` to retrieve all cluster-related
+// tasks.
 // API name: actions
 func (r *List) Actions(actions ...string) *List {
 	tmp := []string{}
@@ -428,9 +410,8 @@ func (r *List) Actions(actions ...string) *List {
 }
 
 // Detailed If `true`, the response includes detailed information about the running
-// tasks.
-// This information is useful to distinguish tasks from each other but is more
-// costly to run.
+// tasks. This information is useful to distinguish tasks from each other but is
+// more costly to run.
 // API name: detailed
 func (r *List) Detailed(detailed bool) *List {
 	r.values.Set("detailed", strconv.FormatBool(detailed))
@@ -438,8 +419,8 @@ func (r *List) Detailed(detailed bool) *List {
 	return r
 }
 
-// GroupBy A key that is used to group tasks in the response.
-// The task lists can be grouped either by nodes or by parent tasks.
+// GroupBy A key that is used to group tasks in the response. The task lists can be
+// grouped either by nodes or by parent tasks.
 // API name: group_by
 func (r *List) GroupBy(groupby groupby.GroupBy) *List {
 	r.values.Set("group_by", groupby.String())
@@ -456,9 +437,9 @@ func (r *List) Nodes(nodeids ...string) *List {
 	return r
 }
 
-// ParentTaskId A parent task identifier that is used to limit returned information.
-// To return all tasks, omit this parameter or use a value of `-1`.
-// If the parent task is not found, the API does not return a 404 response code.
+// ParentTaskId A parent task identifier that is used to limit returned information. To
+// return all tasks, omit this parameter or use a value of `-1`. If the parent
+// task is not found, the API does not return a 404 response code.
 // API name: parent_task_id
 func (r *List) ParentTaskId(id string) *List {
 	r.values.Set("parent_task_id", id)
@@ -466,9 +447,8 @@ func (r *List) ParentTaskId(id string) *List {
 	return r
 }
 
-// Timeout The period to wait for each node to respond.
-// If a node does not respond before its timeout expires, the response does not
-// include its information.
+// Timeout The period to wait for each node to respond. If a node does not respond
+// before its timeout expires, the response does not include its information.
 // However, timed out nodes are included in the `node_failures` property.
 // API name: timeout
 func (r *List) Timeout(duration string) *List {
@@ -508,11 +488,9 @@ func (r *List) FilterPath(filterpaths ...string) *List {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *List) Human(human bool) *List {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -520,8 +498,8 @@ func (r *List) Human(human bool) *List {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *List) Pretty(pretty bool) *List {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

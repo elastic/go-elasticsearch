@@ -314,7 +314,7 @@ func (r *StartTrainedModelDeployment) Header(key, value string) *StartTrainedMod
 	return r
 }
 
-// ModelId The unique identifier of the trained model. Currently, only PyTorch models
+// ModelId The unique identifier of the trained model. Currently, only PyTorch models //
 // are supported.
 // API Name: modelid
 func (r *StartTrainedModelDeployment) _modelid(modelid string) *StartTrainedModelDeployment {
@@ -325,10 +325,8 @@ func (r *StartTrainedModelDeployment) _modelid(modelid string) *StartTrainedMode
 }
 
 // CacheSize The inference cache size (in memory outside the JVM heap) per node for the
-// model.
-// The default value is the same size as the `model_size_bytes`. To disable the
-// cache,
-// `0b` can be provided.
+// model. The default value is the same size as the `model_size_bytes`. To
+// disable the cache, `0b` can be provided.
 // API name: cache_size
 func (r *StartTrainedModelDeployment) CacheSize(bytesize string) *StartTrainedModelDeployment {
 	r.values.Set("cache_size", bytesize)
@@ -344,15 +342,13 @@ func (r *StartTrainedModelDeployment) DeploymentId(deploymentid string) *StartTr
 	return r
 }
 
-// NumberOfAllocations The number of model allocations on each node where the model is deployed.
-// All allocations on a node share the same copy of the model in memory but use
-// a separate set of threads to evaluate the model.
-// Increasing this value generally increases the throughput.
-// If this setting is greater than the number of hardware threads
-// it will automatically be changed to a value less than the number of hardware
-// threads.
-// If adaptive_allocations is enabled, do not set this value, because it’s
-// automatically set.
+// NumberOfAllocations The number of model allocations on each node where the model is deployed. All
+// allocations on a node share the same copy of the model in memory but use a
+// separate set of threads to evaluate the model. Increasing this value
+// generally increases the throughput. If this setting is greater than the
+// number of hardware threads it will automatically be changed to a value less
+// than the number of hardware threads. If adaptive_allocations is enabled, do
+// not set this value, because it’s automatically set.
 // API name: number_of_allocations
 func (r *StartTrainedModelDeployment) NumberOfAllocations(numberofallocations int) *StartTrainedModelDeployment {
 	r.values.Set("number_of_allocations", strconv.Itoa(numberofallocations))
@@ -369,8 +365,8 @@ func (r *StartTrainedModelDeployment) Priority(priority trainingpriority.Trainin
 }
 
 // QueueCapacity Specifies the number of inference requests that are allowed in the queue.
-// After the number of requests exceeds
-// this value, new requests are rejected with a 429 error.
+// After the number of requests exceeds this value, new requests are rejected
+// with a 429 error.
 // API name: queue_capacity
 func (r *StartTrainedModelDeployment) QueueCapacity(queuecapacity int) *StartTrainedModelDeployment {
 	r.values.Set("queue_capacity", strconv.Itoa(queuecapacity))
@@ -379,15 +375,11 @@ func (r *StartTrainedModelDeployment) QueueCapacity(queuecapacity int) *StartTra
 }
 
 // ThreadsPerAllocation Sets the number of threads used by each model allocation during inference.
-// This generally increases
-// the inference speed. The inference process is a compute-bound process; any
-// number
-// greater than the number of available hardware threads on the machine does not
-// increase the
-// inference speed. If this setting is greater than the number of hardware
-// threads
-// it will automatically be changed to a value less than the number of hardware
-// threads.
+// This generally increases the inference speed. The inference process is a
+// compute-bound process; any number greater than the number of available
+// hardware threads on the machine does not increase the inference speed. If
+// this setting is greater than the number of hardware threads it will
+// automatically be changed to a value less than the number of hardware threads.
 // API name: threads_per_allocation
 func (r *StartTrainedModelDeployment) ThreadsPerAllocation(threadsperallocation int) *StartTrainedModelDeployment {
 	r.values.Set("threads_per_allocation", strconv.Itoa(threadsperallocation))
@@ -434,11 +426,9 @@ func (r *StartTrainedModelDeployment) FilterPath(filterpaths ...string) *StartTr
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *StartTrainedModelDeployment) Human(human bool) *StartTrainedModelDeployment {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -446,8 +436,8 @@ func (r *StartTrainedModelDeployment) Human(human bool) *StartTrainedModelDeploy
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *StartTrainedModelDeployment) Pretty(pretty bool) *StartTrainedModelDeployment {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -456,9 +446,8 @@ func (r *StartTrainedModelDeployment) Pretty(pretty bool) *StartTrainedModelDepl
 }
 
 // Adaptive allocations configuration. When enabled, the number of allocations
-// is set based on the current load.
-// If adaptive_allocations is enabled, do not set the number of allocations
-// manually.
+// is set based on the current load. If adaptive_allocations is enabled, do not
+// set the number of allocations manually.
 // API name: adaptive_allocations
 func (r *StartTrainedModelDeployment) AdaptiveAllocations(adaptiveallocations types.AdaptiveAllocationsSettingsVariant) *StartTrainedModelDeployment {
 	// Initialize the request if it is not already initialized

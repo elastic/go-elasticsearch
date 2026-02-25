@@ -22,12 +22,12 @@
 //
 // Authenticates a user and returns information about the authenticated user.
 // Include the user information in a [basic auth
-// header](https://en.wikipedia.org/wiki/Basic_access_authentication).
-// A successful call returns a JSON structure that shows user information such
-// as their username, the roles that are assigned to the user, any assigned
+// header](https://en.wikipedia.org/wiki/Basic_access_authentication). A
+// successful call returns a JSON structure that shows user information such as
+// their username, the roles that are assigned to the user, any assigned
 // metadata, and information about the realms that authenticated and authorized
-// the user.
-// If the user cannot be authenticated, this API returns a 401 status code.
+// the user. If the user cannot be authenticated, this API returns a 401 status
+// code.
 package authenticate
 
 import (
@@ -81,12 +81,12 @@ func NewAuthenticateFunc(tp elastictransport.Interface) NewAuthenticate {
 //
 // Authenticates a user and returns information about the authenticated user.
 // Include the user information in a [basic auth
-// header](https://en.wikipedia.org/wiki/Basic_access_authentication).
-// A successful call returns a JSON structure that shows user information such
-// as their username, the roles that are assigned to the user, any assigned
+// header](https://en.wikipedia.org/wiki/Basic_access_authentication). A
+// successful call returns a JSON structure that shows user information such as
+// their username, the roles that are assigned to the user, any assigned
 // metadata, and information about the realms that authenticated and authorized
-// the user.
-// If the user cannot be authenticated, this API returns a 401 status code.
+// the user. If the user cannot be authenticated, this API returns a 401 status
+// code.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-authenticate
 func New(tp elastictransport.Interface) *Authenticate {
@@ -317,11 +317,9 @@ func (r *Authenticate) FilterPath(filterpaths ...string) *Authenticate {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Authenticate) Human(human bool) *Authenticate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -329,8 +327,8 @@ func (r *Authenticate) Human(human bool) *Authenticate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Authenticate) Pretty(pretty bool) *Authenticate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

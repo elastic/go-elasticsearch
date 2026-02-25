@@ -31,8 +31,8 @@ type _script struct {
 	v *types.Script
 }
 
-// A script to calculate terms to aggregate on.
-// It is required if `field` is not provided.
+// A script to calculate terms to aggregate on. It is required if `field` is not
+// provided.
 func NewScript() *_script {
 
 	return &_script{v: types.NewScript()}

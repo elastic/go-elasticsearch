@@ -28,7 +28,8 @@ import (
 	"io"
 )
 
-// LongRareTermsAggregate type.
+// Result of the `rare_terms` aggregation when the field is some kind of whole
+// number like a integer, long, or a date.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/Aggregate.ts#L543-L548
 type LongRareTermsAggregate struct {

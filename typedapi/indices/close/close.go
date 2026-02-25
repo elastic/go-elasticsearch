@@ -21,23 +21,20 @@
 // Close an index.
 //
 // A closed index is blocked for read or write operations and does not allow all
-// operations that opened indices allow.
-// It is not possible to index documents or to search for documents in a closed
-// index.
-// Closed indices do not have to maintain internal data structures for indexing
-// or searching documents, which results in a smaller overhead on the cluster.
+// operations that opened indices allow. It is not possible to index documents
+// or to search for documents in a closed index. Closed indices do not have to
+// maintain internal data structures for indexing or searching documents, which
+// results in a smaller overhead on the cluster.
 //
 // When opening or closing an index, the master node is responsible for
-// restarting the index shards to reflect the new state of the index.
-// The shards will then go through the normal recovery process.
-// The data of opened and closed indices is automatically replicated by the
-// cluster to ensure that enough shard copies are safely kept around at all
-// times.
+// restarting the index shards to reflect the new state of the index. The shards
+// will then go through the normal recovery process. The data of opened and
+// closed indices is automatically replicated by the cluster to ensure that
+// enough shard copies are safely kept around at all times.
 //
-// You can open and close multiple indices.
-// An error is thrown if the request explicitly refers to a missing index.
-// This behaviour can be turned off using the `ignore_unavailable=true`
-// parameter.
+// You can open and close multiple indices. An error is thrown if the request
+// explicitly refers to a missing index. This behaviour can be turned off using
+// the `ignore_unavailable=true` parameter.
 //
 // By default, you must explicitly name the indices you are opening or closing.
 // To open or close indices with `_all`, `*`, or other wildcard expressions,
@@ -45,9 +42,8 @@
 // setting can also be changed with the cluster update settings API.
 //
 // Closed indices consume a significant amount of disk-space which can cause
-// problems in managed environments.
-// Closing indices can be turned off with the cluster settings API by setting
-// `cluster.indices.close.enable` to `false`.
+// problems in managed environments. Closing indices can be turned off with the
+// cluster settings API by setting `cluster.indices.close.enable` to `false`.
 package close
 
 import (
@@ -109,23 +105,20 @@ func NewCloseFunc(tp elastictransport.Interface) NewClose {
 // Close an index.
 //
 // A closed index is blocked for read or write operations and does not allow all
-// operations that opened indices allow.
-// It is not possible to index documents or to search for documents in a closed
-// index.
-// Closed indices do not have to maintain internal data structures for indexing
-// or searching documents, which results in a smaller overhead on the cluster.
+// operations that opened indices allow. It is not possible to index documents
+// or to search for documents in a closed index. Closed indices do not have to
+// maintain internal data structures for indexing or searching documents, which
+// results in a smaller overhead on the cluster.
 //
 // When opening or closing an index, the master node is responsible for
-// restarting the index shards to reflect the new state of the index.
-// The shards will then go through the normal recovery process.
-// The data of opened and closed indices is automatically replicated by the
-// cluster to ensure that enough shard copies are safely kept around at all
-// times.
+// restarting the index shards to reflect the new state of the index. The shards
+// will then go through the normal recovery process. The data of opened and
+// closed indices is automatically replicated by the cluster to ensure that
+// enough shard copies are safely kept around at all times.
 //
-// You can open and close multiple indices.
-// An error is thrown if the request explicitly refers to a missing index.
-// This behaviour can be turned off using the `ignore_unavailable=true`
-// parameter.
+// You can open and close multiple indices. An error is thrown if the request
+// explicitly refers to a missing index. This behaviour can be turned off using
+// the `ignore_unavailable=true` parameter.
 //
 // By default, you must explicitly name the indices you are opening or closing.
 // To open or close indices with `_all`, `*`, or other wildcard expressions,
@@ -133,9 +126,8 @@ func NewCloseFunc(tp elastictransport.Interface) NewClose {
 // setting can also be changed with the cluster update settings API.
 //
 // Closed indices consume a significant amount of disk-space which can cause
-// problems in managed environments.
-// Closing indices can be turned off with the cluster settings API by setting
-// `cluster.indices.close.enable` to `false`.
+// problems in managed environments. Closing indices can be turned off with the
+// cluster settings API by setting `cluster.indices.close.enable` to `false`.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-close
 func New(tp elastictransport.Interface) *Close {
@@ -348,7 +340,7 @@ func (r *Close) Header(key, value string) *Close {
 }
 
 // Index Comma-separated list or wildcard expression of index names used to limit the
-// request.
+// // request.
 // API Name: index
 func (r *Close) _index(index string) *Close {
 	r.paramSet |= indexMask
@@ -358,8 +350,8 @@ func (r *Close) _index(index string) *Close {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *Close) AllowNoIndices(allownoindices bool) *Close {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -367,10 +359,9 @@ func (r *Close) AllowNoIndices(allownoindices bool) *Close {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *Close) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Close {
 	tmp := []string{}
@@ -391,9 +382,8 @@ func (r *Close) IgnoreUnavailable(ignoreunavailable bool) *Close {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *Close) MasterTimeout(duration string) *Close {
 	r.values.Set("master_timeout", duration)
@@ -401,9 +391,8 @@ func (r *Close) MasterTimeout(duration string) *Close {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *Close) Timeout(duration string) *Close {
 	r.values.Set("timeout", duration)
@@ -412,9 +401,8 @@ func (r *Close) Timeout(duration string) *Close {
 }
 
 // WaitForActiveShards The number of shard copies that must be active before proceeding with the
-// operation.
-// Set to `all` or any positive integer up to the total number of shards in the
-// index (`number_of_replicas+1`).
+// operation. Set to `all` or any positive integer up to the total number of
+// shards in the index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *Close) WaitForActiveShards(waitforactiveshards string) *Close {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -445,11 +433,9 @@ func (r *Close) FilterPath(filterpaths ...string) *Close {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Close) Human(human bool) *Close {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -457,8 +443,8 @@ func (r *Close) Human(human bool) *Close {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Close) Pretty(pretty bool) *Close {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

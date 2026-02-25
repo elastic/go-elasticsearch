@@ -21,10 +21,9 @@
 // Delete an index template.
 //
 // The provided <index-template> may contain multiple template names separated
-// by a comma. If multiple template
-// names are specified then there is no wildcard support and the provided names
-// should match completely with
-// existing templates.
+// by a comma. If multiple template names are specified then there is no
+// wildcard support and the provided names should match completely with existing
+// templates.
 package deleteindextemplate
 
 import (
@@ -85,10 +84,9 @@ func NewDeleteIndexTemplateFunc(tp elastictransport.Interface) NewDeleteIndexTem
 // Delete an index template.
 //
 // The provided <index-template> may contain multiple template names separated
-// by a comma. If multiple template
-// names are specified then there is no wildcard support and the provided names
-// should match completely with
-// existing templates.
+// by a comma. If multiple template names are specified then there is no
+// wildcard support and the provided names should match completely with existing
+// templates.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-index-template
 func New(tp elastictransport.Interface) *DeleteIndexTemplate {
@@ -300,7 +298,7 @@ func (r *DeleteIndexTemplate) Header(key, value string) *DeleteIndexTemplate {
 	return r
 }
 
-// Name Comma-separated list of index template names used to limit the request.
+// Name Comma-separated list of index template names used to limit the request. //
 // Wildcard (*) expressions are supported.
 // API Name: name
 func (r *DeleteIndexTemplate) _name(name string) *DeleteIndexTemplate {
@@ -351,11 +349,9 @@ func (r *DeleteIndexTemplate) FilterPath(filterpaths ...string) *DeleteIndexTemp
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteIndexTemplate) Human(human bool) *DeleteIndexTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -363,8 +359,8 @@ func (r *DeleteIndexTemplate) Human(human bool) *DeleteIndexTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteIndexTemplate) Pretty(pretty bool) *DeleteIndexTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -35,12 +35,11 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L898-L937
 type EnrichProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field The field in the input document that matches the policies match_field used to
-	// retrieve the enrichment data.
-	// Supports template snippets.
+	// retrieve the enrichment data. Supports template snippets.
 	Field string `json:"field"`
 	// If Conditionally execute the processor.
 	If *Script `json:"if,omitempty"`
@@ -50,25 +49,23 @@ type EnrichProcessor struct {
 	// modifying the document.
 	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
 	// MaxMatches The maximum number of matched documents to include under the configured
-	// target field.
-	// The `target_field` will be turned into a json array if `max_matches` is
-	// higher than 1, otherwise `target_field` will become a json object.
-	// In order to avoid documents getting too large, the maximum allowed value is
-	// 128.
+	// target field. The `target_field` will be turned into a json array if
+	// `max_matches` is higher than 1, otherwise `target_field` will become a json
+	// object. In order to avoid documents getting too large, the maximum allowed
+	// value is 128.
 	MaxMatches *int `json:"max_matches,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Override If processor will update fields with pre-existing non-null-valued field.
-	// When set to `false`, such fields will not be touched.
+	// Override If processor will update fields with pre-existing non-null-valued field. When
+	// set to `false`, such fields will not be touched.
 	Override *bool `json:"override,omitempty"`
 	// PolicyName The name of the enrich policy to use.
 	PolicyName string `json:"policy_name"`
 	// ShapeRelation A spatial relation operator used to match the geoshape of incoming documents
-	// to documents in the enrich index.
-	// This option is only used for `geo_match` enrich policy types.
+	// to documents in the enrich index. This option is only used for `geo_match`
+	// enrich policy types.
 	ShapeRelation *geoshaperelation.GeoShapeRelation `json:"shape_relation,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// TargetField Field added to incoming documents to contain enrich data. This field contains
 	// both the `match_field` and `enrich_fields` specified in the enrich policy.

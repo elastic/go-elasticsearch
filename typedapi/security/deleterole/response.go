@@ -24,8 +24,8 @@ package deleterole
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/delete_role/SecurityDeleteRoleResponse.ts#L20-L28
 type Response struct {
-	// Found If the role is successfully deleted, `found` is `true`.
-	// Otherwise, `found` is `false`.
+	// Found If the role is successfully deleted, `found` is `true`. Otherwise, `found` is
+	// `false`.
 	Found bool `json:"found"`
 }
 

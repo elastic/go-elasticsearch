@@ -21,8 +21,8 @@
 // Perform streaming completion inference on the service.
 //
 // Get real-time responses for completion tasks by delivering answers
-// incrementally, reducing response times during computation.
-// This API works only with the completion task type.
+// incrementally, reducing response times during computation. This API works
+// only with the completion task type.
 //
 // IMPORTANT: The inference APIs enable you to use certain services, such as
 // built-in machine learning models (ELSER, E5), models uploaded through Eland,
@@ -101,8 +101,8 @@ func NewStreamCompletionFunc(tp elastictransport.Interface) NewStreamCompletion 
 // Perform streaming completion inference on the service.
 //
 // Get real-time responses for completion tasks by delivering answers
-// incrementally, reducing response times during computation.
-// This API works only with the completion task type.
+// incrementally, reducing response times during computation. This API works
+// only with the completion task type.
 //
 // IMPORTANT: The inference APIs enable you to use certain services, such as
 // built-in machine learning models (ELSER, E5), models uploaded through Eland,
@@ -380,11 +380,9 @@ func (r *StreamCompletion) FilterPath(filterpaths ...string) *StreamCompletion {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *StreamCompletion) Human(human bool) *StreamCompletion {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -392,8 +390,8 @@ func (r *StreamCompletion) Human(human bool) *StreamCompletion {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *StreamCompletion) Pretty(pretty bool) *StreamCompletion {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -401,8 +399,8 @@ func (r *StreamCompletion) Pretty(pretty bool) *StreamCompletion {
 	return r
 }
 
-// The text on which you want to perform the inference task.
-// It can be a single string or an array.
+// The text on which you want to perform the inference task. It can be a single
+// string or an array.
 //
 // NOTE: Inference endpoints for the completion task type currently only support
 // a single string as input.

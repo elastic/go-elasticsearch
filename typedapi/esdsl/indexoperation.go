@@ -29,9 +29,9 @@ type _indexOperation struct {
 	v *types.IndexOperation
 }
 
-// Index the specified document.
-// If the document exists, it replaces the document and increments the version.
-// The following line must contain the source data to be indexed.
+// Index the specified document. If the document exists, it replaces the
+// document and increments the version. The following line must contain the
+// source data to be indexed.
 func NewIndexOperation() *_indexOperation {
 
 	return &_indexOperation{v: types.NewIndexOperation()}

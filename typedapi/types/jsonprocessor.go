@@ -36,20 +36,18 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L1189-L1218
 type JsonProcessor struct {
 	// AddToRoot Flag that forces the parsed JSON to be added at the top level of the
-	// document.
-	// `target_field` must not be set when this option is chosen.
+	// document. `target_field` must not be set when this option is chosen.
 	AddToRoot *bool `json:"add_to_root,omitempty"`
 	// AddToRootConflictStrategy When set to `replace`, root fields that conflict with fields from the parsed
-	// JSON will be overridden.
-	// When set to `merge`, conflicting fields will be merged.
-	// Only applicable `if add_to_root` is set to true.
+	// JSON will be overridden. When set to `merge`, conflicting fields will be
+	// merged. Only applicable `if add_to_root` is set to true.
 	AddToRootConflictStrategy *jsonprocessorconflictstrategy.JsonProcessorConflictStrategy `json:"add_to_root_conflict_strategy,omitempty"`
 	// AllowDuplicateKeys When set to `true`, the JSON parser will not fail if the JSON contains
-	// duplicate keys.
-	// Instead, the last encountered value for any duplicate key wins.
+	// duplicate keys. Instead, the last encountered value for any duplicate key
+	// wins.
 	AllowDuplicateKeys *bool `json:"allow_duplicate_keys,omitempty"`
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field The field to be parsed.
 	Field string `json:"field"`
@@ -59,11 +57,10 @@ type JsonProcessor struct {
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
-	// TargetField The field that the converted structured object will be written into.
-	// Any existing content in this field will be overwritten.
+	// TargetField The field that the converted structured object will be written into. Any
+	// existing content in this field will be overwritten.
 	TargetField *string `json:"target_field,omitempty"`
 }
 

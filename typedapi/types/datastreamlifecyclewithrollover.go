@@ -31,31 +31,32 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/samplingmethod"
 )
 
-// DataStreamLifecycleWithRollover type.
+// Data stream lifecycle with rollover can be used to display the configuration
+// including the default rollover conditions, if asked.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/_types/DataStreamLifecycle.ts#L53-L64
 type DataStreamLifecycleWithRollover struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
-	// for this time frame.
-	// Any time after this duration the document could be deleted.
-	// When empty, every document in this data stream will be stored indefinitely.
+	// for this time frame. Any time after this duration the document could be
+	// deleted. When empty, every document in this data stream will be stored
+	// indefinitely.
 	DataRetention Duration `json:"data_retention,omitempty"`
 	// Downsampling The list of downsampling rounds to execute as part of this downsampling
 	// configuration
 	Downsampling []DownsamplingRound `json:"downsampling,omitempty"`
 	// DownsamplingMethod The method used to downsample the data. There are two options `aggregate` and
-	// `last_value`. It requires
-	// `downsampling` to be defined. Defaults to `aggregate`.
+	// `last_value`. It requires `downsampling` to be defined. Defaults to
+	// `aggregate`.
 	DownsamplingMethod *samplingmethod.SamplingMethod `json:"downsampling_method,omitempty"`
 	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
-	// data stream. A data stream lifecycle
-	// that's disabled (enabled: `false`) will have no effect on the data stream.
+	// data stream. A data stream lifecycle that's disabled (enabled: `false`) will
+	// have no effect on the data stream.
 	Enabled *bool `json:"enabled,omitempty"`
 	// Rollover The conditions which will trigger the rollover of a backing index as
-	// configured by the cluster setting `cluster.lifecycle.default.rollover`.
-	// This property is an implementation detail and it will only be retrieved when
-	// the query param `include_defaults` is set to true.
-	// The contents of this field are subject to change.
+	// configured by the cluster setting `cluster.lifecycle.default.rollover`. This
+	// property is an implementation detail and it will only be retrieved when the
+	// query param `include_defaults` is set to true. The contents of this field are
+	// subject to change.
 	Rollover *DataStreamLifecycleRolloverConditions `json:"rollover,omitempty"`
 }
 

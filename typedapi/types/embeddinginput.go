@@ -25,6 +25,9 @@ package types
 //	[]string
 //	[]EmbeddingContentObject
 //
+// Inference input. Either a string, an array of strings, a `content` object, or
+// an array of `content` objects.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L356-L361
 type EmbeddingInput any
 

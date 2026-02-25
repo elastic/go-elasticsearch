@@ -20,12 +20,10 @@
 
 // Schedule a transform to start now.
 //
-// Instantly run a transform to process data.
-// If you run this API, the transform will process the new data instantly,
-// without waiting for the configured frequency interval. After the API is
-// called,
-// the transform will be processed again at `now + frequency` unless the API
-// is called again in the meantime.
+// Instantly run a transform to process data. If you run this API, the transform
+// will process the new data instantly, without waiting for the configured
+// frequency interval. After the API is called, the transform will be processed
+// again at `now + frequency` unless the API is called again in the meantime.
 package schedulenowtransform
 
 import (
@@ -85,12 +83,10 @@ func NewScheduleNowTransformFunc(tp elastictransport.Interface) NewScheduleNowTr
 
 // Schedule a transform to start now.
 //
-// Instantly run a transform to process data.
-// If you run this API, the transform will process the new data instantly,
-// without waiting for the configured frequency interval. After the API is
-// called,
-// the transform will be processed again at `now + frequency` unless the API
-// is called again in the meantime.
+// Instantly run a transform to process data. If you run this API, the transform
+// will process the new data instantly, without waiting for the configured
+// frequency interval. After the API is called, the transform will be processed
+// again at `now + frequency` unless the API is called again in the meantime.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-schedule-now-transform
 func New(tp elastictransport.Interface) *ScheduleNowTransform {
@@ -350,11 +346,9 @@ func (r *ScheduleNowTransform) FilterPath(filterpaths ...string) *ScheduleNowTra
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ScheduleNowTransform) Human(human bool) *ScheduleNowTransform {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -362,8 +356,8 @@ func (r *ScheduleNowTransform) Human(human bool) *ScheduleNowTransform {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ScheduleNowTransform) Pretty(pretty bool) *ScheduleNowTransform {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

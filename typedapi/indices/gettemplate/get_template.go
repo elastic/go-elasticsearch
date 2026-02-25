@@ -25,6 +25,8 @@
 // IMPORTANT: This documentation is about legacy index templates, which are
 // deprecated and will be replaced by the composable templates introduced in
 // Elasticsearch 7.8.
+//
+// Deprecated: Since 7.8.0.
 package gettemplate
 
 import (
@@ -89,6 +91,8 @@ func NewGetTemplateFunc(tp elastictransport.Interface) NewGetTemplate {
 // Elasticsearch 7.8.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-template
+//
+// Deprecated: Since 7.8.0.
 func New(tp elastictransport.Interface) *GetTemplate {
 	r := &GetTemplate{
 		transport: tp,
@@ -303,10 +307,9 @@ func (r *GetTemplate) Header(key, value string) *GetTemplate {
 	return r
 }
 
-// Name Comma-separated list of index template names used to limit the request.
-// Wildcard (`*`) expressions are supported.
-// To return all index templates, omit this parameter or use a value of `_all`
-// or `*`.
+// Name Comma-separated list of index template names used to limit the request. //
+// Wildcard (`*`) expressions are supported. To return all index templates, omit
+// // this parameter or use a value of `_all` or `*`.
 // API Name: name
 func (r *GetTemplate) Name(name string) *GetTemplate {
 	r.paramSet |= nameMask
@@ -331,9 +334,8 @@ func (r *GetTemplate) Local(local bool) *GetTemplate {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *GetTemplate) MasterTimeout(duration string) *GetTemplate {
 	r.values.Set("master_timeout", duration)
@@ -364,11 +366,9 @@ func (r *GetTemplate) FilterPath(filterpaths ...string) *GetTemplate {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetTemplate) Human(human bool) *GetTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -376,8 +376,8 @@ func (r *GetTemplate) Human(human bool) *GetTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetTemplate) Pretty(pretty bool) *GetTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

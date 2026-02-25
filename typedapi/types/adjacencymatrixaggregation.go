@@ -33,8 +33,7 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/bucket.ts#L60-L70
 type AdjacencyMatrixAggregation struct {
-	// Filters Filters used to create buckets.
-	// At least one filter is required.
+	// Filters Filters used to create buckets. At least one filter is required.
 	Filters map[string]Query `json:"filters,omitempty"`
 	// Separator Separator used to concatenate filter names. Defaults to &.
 	Separator *string `json:"separator,omitempty"`

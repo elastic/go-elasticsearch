@@ -32,8 +32,7 @@ type _multiMatchQuery struct {
 }
 
 // Enables you to search for a provided text, number, date or boolean value
-// across multiple fields.
-// The provided text is analyzed before matching.
+// across multiple fields. The provided text is analyzed before matching.
 func NewMultiMatchQuery(query string) *_multiMatchQuery {
 
 	tmp := &_multiMatchQuery{v: types.NewMultiMatchQuery()}

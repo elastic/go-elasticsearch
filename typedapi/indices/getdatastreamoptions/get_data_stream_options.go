@@ -295,9 +295,9 @@ func (r *GetDataStreamOptions) Header(key, value string) *GetDataStreamOptions {
 	return r
 }
 
-// Name Comma-separated list of data streams to limit the request.
-// Supports wildcards (`*`).
-// To target all data streams, omit this parameter or use `*` or `_all`.
+// Name Comma-separated list of data streams to limit the request. Supports wildcards
+// // (`*`). To target all data streams, omit this parameter or use `*` or
+// `_all`.
 // API Name: name
 func (r *GetDataStreamOptions) _name(name string) *GetDataStreamOptions {
 	r.paramSet |= nameMask
@@ -306,8 +306,8 @@ func (r *GetDataStreamOptions) _name(name string) *GetDataStreamOptions {
 	return r
 }
 
-// ExpandWildcards Type of data stream that wildcard patterns can match.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of data stream that wildcard patterns can match. Supports
+// comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *GetDataStreamOptions) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetDataStreamOptions {
 	tmp := []string{}
@@ -351,11 +351,9 @@ func (r *GetDataStreamOptions) FilterPath(filterpaths ...string) *GetDataStreamO
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetDataStreamOptions) Human(human bool) *GetDataStreamOptions {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -363,8 +361,8 @@ func (r *GetDataStreamOptions) Human(human bool) *GetDataStreamOptions {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetDataStreamOptions) Pretty(pretty bool) *GetDataStreamOptions {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

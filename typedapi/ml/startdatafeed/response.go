@@ -34,9 +34,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/start_datafeed/MlStartDatafeedResponse.ts#L22-L34
 type Response struct {
 	// Node The ID of the node that the job was started on. In serverless this will be
-	// the "serverless".
-	// If the job is allowed to open lazily and has not yet been assigned to a node,
-	// this value is an empty string.
+	// the "serverless". If the job is allowed to open lazily and has not yet been
+	// assigned to a node, this value is an empty string.
 	Node []string `json:"node"`
 	// Started For a successful response, this value is always `true`. On failure, an
 	// exception is returned instead.

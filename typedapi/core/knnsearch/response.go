@@ -30,18 +30,18 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/knn_search/KnnSearchResponse.ts#L26-L54
 type Response struct {
-	// Fields The field values for the documents. These fields
-	// must be specified in the request using the `fields` parameter.
+	// Fields The field values for the documents. These fields must be specified in the
+	// request using the `fields` parameter.
 	Fields map[string]json.RawMessage `json:"fields,omitempty"`
 	// Hits The returned documents and metadata.
 	Hits types.HitsMetadata `json:"hits"`
-	// MaxScore The highest returned document score. This value is null for requests
-	// that do not sort by score.
+	// MaxScore The highest returned document score. This value is null for requests that do
+	// not sort by score.
 	MaxScore *types.Float64 `json:"max_score,omitempty"`
 	// Shards_ A count of shards used for the request.
 	Shards_ types.ShardStatistics `json:"_shards"`
-	// TimedOut If true, the request timed out before completion;
-	// returned results may be partial or empty.
+	// TimedOut If true, the request timed out before completion; returned results may be
+	// partial or empty.
 	TimedOut bool `json:"timed_out"`
 	// Took The milliseconds it took Elasticsearch to run the request.
 	Took int64 `json:"took"`

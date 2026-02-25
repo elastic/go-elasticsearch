@@ -26,7 +26,7 @@ type _knnRetriever struct {
 	v *types.KnnRetriever
 }
 
-// A retriever that replaces the functionality  of a knn search.
+// A retriever that replaces the functionality of a knn search.
 func NewKnnRetriever(field string, k int, numcandidates int) *_knnRetriever {
 
 	tmp := &_knnRetriever{v: types.NewKnnRetriever()}

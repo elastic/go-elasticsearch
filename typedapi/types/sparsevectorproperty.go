@@ -39,8 +39,8 @@ type SparseVectorProperty struct {
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove *int                           `json:"ignore_above,omitempty"`
-	// IndexOptions Additional index options for the sparse vector field that controls the
-	// token pruning behavior of the sparse vector field.
+	// IndexOptions Additional index options for the sparse vector field that controls the token
+	// pruning behavior of the sparse vector field.
 	IndexOptions *SparseVectorIndexOptions `json:"index_options,omitempty"`
 	// Meta Metadata about the field.
 	Meta                map[string]string                                `json:"meta,omitempty"`

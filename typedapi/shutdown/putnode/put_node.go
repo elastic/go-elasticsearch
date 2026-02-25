@@ -35,13 +35,12 @@
 // This ensures that Elasticsearch can be stopped safely with minimal disruption
 // to the cluster.
 //
-// You must specify the type of shutdown: `restart`, `remove`, or `replace`.
-// If a node is already being prepared for shutdown, you can use this API to
-// change the shutdown type.
+// You must specify the type of shutdown: `restart`, `remove`, or `replace`. If
+// a node is already being prepared for shutdown, you can use this API to change
+// the shutdown type.
 //
-// IMPORTANT: This API does NOT terminate the Elasticsearch process.
-// Monitor the node shutdown status to determine when it is safe to stop
-// Elasticsearch.
+// IMPORTANT: This API does NOT terminate the Elasticsearch process. Monitor the
+// node shutdown status to determine when it is safe to stop Elasticsearch.
 package putnode
 
 import (
@@ -122,13 +121,12 @@ func NewPutNodeFunc(tp elastictransport.Interface) NewPutNode {
 // This ensures that Elasticsearch can be stopped safely with minimal disruption
 // to the cluster.
 //
-// You must specify the type of shutdown: `restart`, `remove`, or `replace`.
-// If a node is already being prepared for shutdown, you can use this API to
-// change the shutdown type.
+// You must specify the type of shutdown: `restart`, `remove`, or `replace`. If
+// a node is already being prepared for shutdown, you can use this API to change
+// the shutdown type.
 //
-// IMPORTANT: This API does NOT terminate the Elasticsearch process.
-// Monitor the node shutdown status to determine when it is safe to stop
-// Elasticsearch.
+// IMPORTANT: This API does NOT terminate the Elasticsearch process. Monitor the
+// node shutdown status to determine when it is safe to stop Elasticsearch.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-shutdown-put-node
 func New(tp elastictransport.Interface) *PutNode {
@@ -351,10 +349,9 @@ func (r *PutNode) Header(key, value string) *PutNode {
 	return r
 }
 
-// NodeId The node identifier.
-// This parameter is not validated against the cluster's active nodes.
-// This enables you to register a node for shut down while it is offline.
-// No error is thrown if you specify an invalid node ID.
+// NodeId The node identifier. This parameter is not validated against the cluster's //
+// active nodes. This enables you to register a node for shut down while it is
+// // offline. No error is thrown if you specify an invalid node ID.
 // API Name: nodeid
 func (r *PutNode) _nodeid(nodeid string) *PutNode {
 	r.paramSet |= nodeidMask
@@ -363,9 +360,8 @@ func (r *PutNode) _nodeid(nodeid string) *PutNode {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *PutNode) MasterTimeout(duration string) *PutNode {
 	r.values.Set("master_timeout", duration)
@@ -373,9 +369,8 @@ func (r *PutNode) MasterTimeout(duration string) *PutNode {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error.
 // API name: timeout
 func (r *PutNode) Timeout(duration string) *PutNode {
 	r.values.Set("timeout", duration)
@@ -406,11 +401,9 @@ func (r *PutNode) FilterPath(filterpaths ...string) *PutNode {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutNode) Human(human bool) *PutNode {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -418,8 +411,8 @@ func (r *PutNode) Human(human bool) *PutNode {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutNode) Pretty(pretty bool) *PutNode {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -427,13 +420,12 @@ func (r *PutNode) Pretty(pretty bool) *PutNode {
 	return r
 }
 
-// Only valid if type is restart.
-// Controls how long Elasticsearch will wait for the node to restart and join
-// the cluster before reassigning its shards to other nodes.
-// This works the same as delaying allocation with the
-// index.unassigned.node_left.delayed_timeout setting.
-// If you specify both a restart allocation delay and an index-level allocation
-// delay, the longer of the two is used.
+// Only valid if type is restart. Controls how long Elasticsearch will wait for
+// the node to restart and join the cluster before reassigning its shards to
+// other nodes. This works the same as delaying allocation with the
+// index.unassigned.node_left.delayed_timeout setting. If you specify both a
+// restart allocation delay and an index-level allocation delay, the longer of
+// the two is used.
 // API name: allocation_delay
 func (r *PutNode) AllocationDelay(allocationdelay string) *PutNode {
 	// Initialize the request if it is not already initialized
@@ -446,9 +438,9 @@ func (r *PutNode) AllocationDelay(allocationdelay string) *PutNode {
 	return r
 }
 
-// A human-readable reason that the node is being shut down.
-// This field provides information for other cluster operators; it does not
-// affect the shut down process.
+// A human-readable reason that the node is being shut down. This field provides
+// information for other cluster operators; it does not affect the shut down
+// process.
 // API name: reason
 func (r *PutNode) Reason(reason string) *PutNode {
 	// Initialize the request if it is not already initialized
@@ -461,12 +453,11 @@ func (r *PutNode) Reason(reason string) *PutNode {
 	return r
 }
 
-// Only valid if type is replace.
-// Specifies the name of the node that is replacing the node being shut down.
-// Shards from the shut down node are only allowed to be allocated to the target
-// node, and no other data will be allocated to the target node.
-// During relocation of data certain allocation rules are ignored, such as disk
-// watermarks or user attribute filtering rules.
+// Only valid if type is replace. Specifies the name of the node that is
+// replacing the node being shut down. Shards from the shut down node are only
+// allowed to be allocated to the target node, and no other data will be
+// allocated to the target node. During relocation of data certain allocation
+// rules are ignored, such as disk watermarks or user attribute filtering rules.
 // API name: target_node_name
 func (r *PutNode) TargetNodeName(targetnodename string) *PutNode {
 	// Initialize the request if it is not already initialized
@@ -479,18 +470,17 @@ func (r *PutNode) TargetNodeName(targetnodename string) *PutNode {
 	return r
 }
 
-// Valid values are restart, remove, or replace.
-// Use restart when you need to temporarily shut down a node to perform an
-// upgrade, make configuration changes, or perform other maintenance.
-// Because the node is expected to rejoin the cluster, data is not migrated off
-// of the node.
-// Use remove when you need to permanently remove a node from the cluster.
-// The node is not marked ready for shutdown until data is migrated off of the
-// node Use replace to do a 1:1 replacement of a node with another node.
-// Certain allocation decisions will be ignored (such as disk watermarks) in the
-// interest of true replacement of the source node with the target node.
-// During a replace-type shutdown, rollover and index creation may result in
-// unassigned shards, and shrink may fail until the replacement is complete.
+// Valid values are restart, remove, or replace. Use restart when you need to
+// temporarily shut down a node to perform an upgrade, make configuration
+// changes, or perform other maintenance. Because the node is expected to rejoin
+// the cluster, data is not migrated off of the node. Use remove when you need
+// to permanently remove a node from the cluster. The node is not marked ready
+// for shutdown until data is migrated off of the node Use replace to do a 1:1
+// replacement of a node with another node. Certain allocation decisions will be
+// ignored (such as disk watermarks) in the interest of true replacement of the
+// source node with the target node. During a replace-type shutdown, rollover
+// and index creation may result in unassigned shards, and shrink may fail until
+// the replacement is complete.
 // API name: type
 func (r *PutNode) Type(type_ type_.Type) *PutNode {
 	// Initialize the request if it is not already initialized

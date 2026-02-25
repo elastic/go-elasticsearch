@@ -34,8 +34,7 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/analysis/analyzers.ts#L404-L419
 type StopAnalyzer struct {
 	// Stopwords A pre-defined stop words list like `_english_` or an array containing a list
-	// of stop words.
-	// Defaults to `_none_`.
+	// of stop words. Defaults to `_none_`.
 	Stopwords StopWords `json:"stopwords,omitempty"`
 	// StopwordsPath The path to a file containing stop words.
 	StopwordsPath *string `json:"stopwords_path,omitempty"`

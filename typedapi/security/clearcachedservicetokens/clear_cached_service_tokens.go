@@ -20,16 +20,15 @@
 
 // Clear service account token caches.
 //
-// Evict a subset of all entries from the service account token caches.
-// Two separate caches exist for service account tokens: one cache for tokens
-// backed by the `service_tokens` file, and another for tokens backed by the
-// `.security` index.
-// This API clears matching entries from both caches.
+// Evict a subset of all entries from the service account token caches. Two
+// separate caches exist for service account tokens: one cache for tokens backed
+// by the `service_tokens` file, and another for tokens backed by the
+// `.security` index. This API clears matching entries from both caches.
 //
 // The cache for service account tokens backed by the `.security` index is
-// cleared automatically on state changes of the security index.
-// The cache for tokens backed by the `service_tokens` file is cleared
-// automatically on file changes.
+// cleared automatically on state changes of the security index. The cache for
+// tokens backed by the `service_tokens` file is cleared automatically on file
+// changes.
 package clearcachedservicetokens
 
 import (
@@ -99,16 +98,15 @@ func NewClearCachedServiceTokensFunc(tp elastictransport.Interface) NewClearCach
 
 // Clear service account token caches.
 //
-// Evict a subset of all entries from the service account token caches.
-// Two separate caches exist for service account tokens: one cache for tokens
-// backed by the `service_tokens` file, and another for tokens backed by the
-// `.security` index.
-// This API clears matching entries from both caches.
+// Evict a subset of all entries from the service account token caches. Two
+// separate caches exist for service account tokens: one cache for tokens backed
+// by the `service_tokens` file, and another for tokens backed by the
+// `.security` index. This API clears matching entries from both caches.
 //
 // The cache for service account tokens backed by the `.security` index is
-// cleared automatically on state changes of the security index.
-// The cache for tokens backed by the `service_tokens` file is cleared
-// automatically on file changes.
+// cleared automatically on state changes of the security index. The cache for
+// tokens backed by the `service_tokens` file is cleared automatically on file
+// changes.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-service-tokens
 func New(tp elastictransport.Interface) *ClearCachedServiceTokens {
@@ -359,9 +357,8 @@ func (r *ClearCachedServiceTokens) _service(service string) *ClearCachedServiceT
 }
 
 // Name A comma-separated list of token names to evict from the service account token
-// caches.
-// Use a wildcard (`*`) to evict all tokens that belong to a service account.
-// It does not support other wildcard patterns.
+// // caches. Use a wildcard (`*`) to evict all tokens that belong to a service
+// // account. It does not support other wildcard patterns.
 // API Name: name
 func (r *ClearCachedServiceTokens) _name(name string) *ClearCachedServiceTokens {
 	r.paramSet |= nameMask
@@ -393,11 +390,9 @@ func (r *ClearCachedServiceTokens) FilterPath(filterpaths ...string) *ClearCache
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ClearCachedServiceTokens) Human(human bool) *ClearCachedServiceTokens {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -405,8 +400,8 @@ func (r *ClearCachedServiceTokens) Human(human bool) *ClearCachedServiceTokens {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ClearCachedServiceTokens) Pretty(pretty bool) *ClearCachedServiceTokens {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

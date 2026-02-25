@@ -34,10 +34,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/_types/IndexSettings.ts#L492-L500
 type MappingLimitSettingsNestedFields struct {
 	// Limit The maximum number of distinct nested mappings in an index. The nested type
-	// should only be used in special cases, when
-	// arrays of objects need to be queried independently of each other. To
-	// safeguard against poorly designed mappings, this
-	// setting limits the number of unique nested types per index.
+	// should only be used in special cases, when arrays of objects need to be
+	// queried independently of each other. To safeguard against poorly designed
+	// mappings, this setting limits the number of unique nested types per index.
 	Limit *int64 `json:"limit,omitempty"`
 }
 

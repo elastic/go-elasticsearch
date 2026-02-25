@@ -34,17 +34,15 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L494-L508
 type AlibabaCloudTaskSettings struct {
 	// InputType For a `sparse_embedding` or `text_embedding` task, specify the type of input
-	// passed to the model.
-	// Valid values are:
+	// passed to the model. Valid values are:
 	//
-	// * `ingest` for storing document embeddings in a vector database.
-	// * `search` for storing embeddings of search queries run against a vector
-	// database to find relevant documents.
+	//   - `ingest` for storing document embeddings in a vector database.
+	//   - `search` for storing embeddings of search queries run against a vector
+	//     database to find relevant documents.
 	InputType *string `json:"input_type,omitempty"`
 	// ReturnToken For a `sparse_embedding` task, it affects whether the token name will be
-	// returned in the response.
-	// It defaults to `false`, which means only the token ID will be returned in the
-	// response.
+	// returned in the response. It defaults to `false`, which means only the token
+	// ID will be returned in the response.
 	ReturnToken *bool `json:"return_token,omitempty"`
 }
 

@@ -22,12 +22,11 @@
 //
 // When a watch is registered, a new document that represents the watch is added
 // to the `.watches` index and its trigger is immediately registered with the
-// relevant trigger engine.
-// Typically for the `schedule` trigger, the scheduler is the trigger engine.
+// relevant trigger engine. Typically for the `schedule` trigger, the scheduler
+// is the trigger engine.
 //
-// IMPORTANT: You must use Kibana or this API to create a watch.
-// Do not add a watch directly to the `.watches` index by using the
-// Elasticsearch index API.
+// IMPORTANT: You must use Kibana or this API to create a watch. Do not add a
+// watch directly to the `.watches` index by using the Elasticsearch index API.
 // If Elasticsearch security features are enabled, do not give users write
 // privileges on the `.watches` index.
 //
@@ -36,9 +35,8 @@
 //
 // When Elasticsearch security features are enabled, your watch can index or
 // search only on indices for which the user that stored the watch has
-// privileges.
-// If the user is able to read index `a`, but not index `b`, the same will apply
-// when the watch runs.
+// privileges. If the user is able to read index `a`, but not index `b`, the
+// same will apply when the watch runs.
 package putwatch
 
 import (
@@ -105,12 +103,11 @@ func NewPutWatchFunc(tp elastictransport.Interface) NewPutWatch {
 //
 // When a watch is registered, a new document that represents the watch is added
 // to the `.watches` index and its trigger is immediately registered with the
-// relevant trigger engine.
-// Typically for the `schedule` trigger, the scheduler is the trigger engine.
+// relevant trigger engine. Typically for the `schedule` trigger, the scheduler
+// is the trigger engine.
 //
-// IMPORTANT: You must use Kibana or this API to create a watch.
-// Do not add a watch directly to the `.watches` index by using the
-// Elasticsearch index API.
+// IMPORTANT: You must use Kibana or this API to create a watch. Do not add a
+// watch directly to the `.watches` index by using the Elasticsearch index API.
 // If Elasticsearch security features are enabled, do not give users write
 // privileges on the `.watches` index.
 //
@@ -119,9 +116,8 @@ func NewPutWatchFunc(tp elastictransport.Interface) NewPutWatch {
 //
 // When Elasticsearch security features are enabled, your watch can index or
 // search only on indices for which the user that stored the watch has
-// privileges.
-// If the user is able to read index `a`, but not index `b`, the same will apply
-// when the watch runs.
+// privileges. If the user is able to read index `a`, but not index `b`, the
+// same will apply when the watch runs.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-put-watch
 func New(tp elastictransport.Interface) *PutWatch {
@@ -353,8 +349,8 @@ func (r *PutWatch) _id(id string) *PutWatch {
 	return r
 }
 
-// Active The initial state of the watch.
-// The default value is `true`, which means the watch is active by default.
+// Active The initial state of the watch. The default value is `true`, which means the
+// watch is active by default.
 // API name: active
 func (r *PutWatch) Active(active bool) *PutWatch {
 	r.values.Set("active", strconv.FormatBool(active))
@@ -411,11 +407,9 @@ func (r *PutWatch) FilterPath(filterpaths ...string) *PutWatch {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutWatch) Human(human bool) *PutWatch {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -423,8 +417,8 @@ func (r *PutWatch) Human(human bool) *PutWatch {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutWatch) Pretty(pretty bool) *PutWatch {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -501,12 +495,11 @@ func (r *PutWatch) Metadata(metadata types.MetadataVariant) *PutWatch {
 	return r
 }
 
-// The minimum time between actions being run.
-// The default is 5 seconds.
-// This default can be changed in the config file with the setting
-// `xpack.watcher.throttle.period.default_period`.
-// If both this value and the `throttle_period_in_millis` parameter are
-// specified, Watcher uses the last parameter included in the request.
+// The minimum time between actions being run. The default is 5 seconds. This
+// default can be changed in the config file with the setting
+// `xpack.watcher.throttle.period.default_period`. If both this value and the
+// `throttle_period_in_millis` parameter are specified, Watcher uses the last
+// parameter included in the request.
 // API name: throttle_period
 func (r *PutWatch) ThrottlePeriod(duration types.DurationVariant) *PutWatch {
 	// Initialize the request if it is not already initialized

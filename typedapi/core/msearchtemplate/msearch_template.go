@@ -20,22 +20,17 @@
 
 // Run multiple templated searches.
 //
-// Run multiple templated searches with a single request.
-// If you are providing a text file or text input to `curl`, use the
-// `--data-binary` flag instead of `-d` to preserve newlines.
-// For example:
+// Run multiple templated searches with a single request. If you are providing a
+// text file or text input to `curl`, use the `--data-binary` flag instead of
+// `-d` to preserve newlines. For example:
 //
-// ```
-// $ cat requests
-// { "index": "my-index" }
-// { "id": "my-search-template", "params": { "query_string": "hello world",
-// "from": 0, "size": 10 }}
-// { "index": "my-other-index" }
-// { "id": "my-other-search-template", "params": { "query_type": "match_all" }}
+//	$ cat requests
+//	{ "index": "my-index" }
+//	{ "id": "my-search-template", "params": { "query_string": "hello world", "from": 0, "size": 10 }}
+//	{ "index": "my-other-index" }
+//	{ "id": "my-other-search-template", "params": { "query_type": "match_all" }}
 //
-// $ curl -H "Content-Type: application/x-ndjson" -XGET
-// localhost:9200/_msearch/template --data-binary "@requests"; echo
-// ```
+//	$ curl -H "Content-Type: application/x-ndjson" -XGET localhost:9200/_msearch/template --data-binary "@requests"; echo
 package msearchtemplate
 
 import (
@@ -99,22 +94,17 @@ func NewMsearchTemplateFunc(tp elastictransport.Interface) NewMsearchTemplate {
 
 // Run multiple templated searches.
 //
-// Run multiple templated searches with a single request.
-// If you are providing a text file or text input to `curl`, use the
-// `--data-binary` flag instead of `-d` to preserve newlines.
-// For example:
+// Run multiple templated searches with a single request. If you are providing a
+// text file or text input to `curl`, use the `--data-binary` flag instead of
+// `-d` to preserve newlines. For example:
 //
-// ```
-// $ cat requests
-// { "index": "my-index" }
-// { "id": "my-search-template", "params": { "query_string": "hello world",
-// "from": 0, "size": 10 }}
-// { "index": "my-other-index" }
-// { "id": "my-other-search-template", "params": { "query_type": "match_all" }}
+//	$ cat requests
+//	{ "index": "my-index" }
+//	{ "id": "my-search-template", "params": { "query_string": "hello world", "from": 0, "size": 10 }}
+//	{ "index": "my-other-index" }
+//	{ "id": "my-other-search-template", "params": { "query_type": "match_all" }}
 //
-// $ curl -H "Content-Type: application/x-ndjson" -XGET
-// localhost:9200/_msearch/template --data-binary "@requests"; echo
-// ```
+//	$ curl -H "Content-Type: application/x-ndjson" -XGET localhost:9200/_msearch/template --data-binary "@requests"; echo
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch-template
 func New(tp elastictransport.Interface) *MsearchTemplate {
@@ -351,9 +341,9 @@ func (r *MsearchTemplate) Header(key, value string) *MsearchTemplate {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases to search.
-// It supports wildcards (`*`).
-// To search all data streams and indices, omit this parameter or use `*`.
+// Index A comma-separated list of data streams, indices, and aliases to search. It //
+// supports wildcards (`*`). To search all data streams and indices, omit this
+// // parameter or use `*`.
 // API Name: index
 func (r *MsearchTemplate) Index(index string) *MsearchTemplate {
 	r.paramSet |= indexMask
@@ -380,16 +370,9 @@ func (r *MsearchTemplate) MaxConcurrentSearches(maxconcurrentsearches string) *M
 }
 
 // ProjectRouting Specifies a subset of projects to target for the search using project
-// metadata tags in a subset of Lucene query syntax.
-// Allowed Lucene queries: the _alias tag and a single value (possibly
-// wildcarded).
-// Examples:
-//
-//	_alias:my-project
-//	_alias:_origin
-//	_alias:*pr*
-//
-// Supported in serverless only.
+// metadata tags in a subset of Lucene query syntax. Allowed Lucene queries: the
+// _alias tag and a single value (possibly wildcarded). Examples:
+// _alias:my-project _alias:_origin _alias:*pr* Supported in serverless only.
 // API name: project_routing
 func (r *MsearchTemplate) ProjectRouting(projectrouting string) *MsearchTemplate {
 	r.values.Set("project_routing", projectrouting)
@@ -405,8 +388,8 @@ func (r *MsearchTemplate) SearchType(searchtype searchtype.SearchType) *MsearchT
 	return r
 }
 
-// RestTotalHitsAsInt If `true`, the response returns `hits.total` as an integer.
-// If `false`, it returns `hits.total` as an object.
+// RestTotalHitsAsInt If `true`, the response returns `hits.total` as an integer. If `false`, it
+// returns `hits.total` as an object.
 // API name: rest_total_hits_as_int
 func (r *MsearchTemplate) RestTotalHitsAsInt(resttotalhitsasint bool) *MsearchTemplate {
 	r.values.Set("rest_total_hits_as_int", strconv.FormatBool(resttotalhitsasint))
@@ -446,11 +429,9 @@ func (r *MsearchTemplate) FilterPath(filterpaths ...string) *MsearchTemplate {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *MsearchTemplate) Human(human bool) *MsearchTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -458,8 +439,8 @@ func (r *MsearchTemplate) Human(human bool) *MsearchTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *MsearchTemplate) Pretty(pretty bool) *MsearchTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

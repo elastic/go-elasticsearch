@@ -32,8 +32,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/stream_completion/StreamInferenceRequest.ts#L25-L74
 type Request struct {
-	// Input The text on which you want to perform the inference task.
-	// It can be a single string or an array.
+	// Input The text on which you want to perform the inference task. It can be a single
+	// string or an array.
 	//
 	// NOTE: Inference endpoints for the completion task type currently only support
 	// a single string as input.

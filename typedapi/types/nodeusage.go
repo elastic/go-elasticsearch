@@ -36,9 +36,8 @@ type NodeUsage struct {
 	// since the last restart.
 	Aggregations map[string]json.RawMessage `json:"aggregations"`
 	// RestActions The total number of times each REST endpoint has been called on this node
-	// since the last restart.
-	//
-	//	Note that the REST endpoint names are not considered stable.
+	// since the last restart. Note that the REST endpoint names are not considered
+	// stable.
 	RestActions map[string]int `json:"rest_actions"`
 	// Since The timestamp for when the collection of these statistics started.
 	Since int64 `json:"since"`

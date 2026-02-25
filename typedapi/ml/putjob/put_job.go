@@ -21,9 +21,8 @@
 // Create an anomaly detection job.
 //
 // If you include a `datafeed_config`, you must have read index privileges on
-// the source index.
-// If you include a `datafeed_config` but do not provide a query, the datafeed
-// uses `{"match_all": {"boost": 1}}`.
+// the source index. If you include a `datafeed_config` but do not provide a
+// query, the datafeed uses `{"match_all": {"boost": 1}}`.
 package putjob
 
 import (
@@ -90,9 +89,8 @@ func NewPutJobFunc(tp elastictransport.Interface) NewPutJob {
 // Create an anomaly detection job.
 //
 // If you include a `datafeed_config`, you must have read index privileges on
-// the source index.
-// If you include a `datafeed_config` but do not provide a query, the datafeed
-// uses `{"match_all": {"boost": 1}}`.
+// the source index. If you include a `datafeed_config` but do not provide a
+// query, the datafeed uses `{"match_all": {"boost": 1}}`.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-job
 func New(tp elastictransport.Interface) *PutJob {
@@ -315,9 +313,9 @@ func (r *PutJob) Header(key, value string) *PutJob {
 	return r
 }
 
-// JobId The identifier for the anomaly detection job. This identifier can contain
+// JobId The identifier for the anomaly detection job. This identifier can contain //
 // lowercase alphanumeric characters (a-z and 0-9), hyphens, and underscores. It
-// must start and end with alphanumeric characters.
+// // must start and end with alphanumeric characters.
 // API Name: jobid
 func (r *PutJob) _jobid(jobid string) *PutJob {
 	r.paramSet |= jobidMask
@@ -327,8 +325,8 @@ func (r *PutJob) _jobid(jobid string) *PutJob {
 }
 
 // AllowNoIndices If `true`, wildcard indices expressions that resolve into no concrete indices
-// are ignored. This includes the
-// `_all` string or when no indices are specified.
+// are ignored. This includes the `_all` string or when no indices are
+// specified.
 // API name: allow_no_indices
 func (r *PutJob) AllowNoIndices(allownoindices bool) *PutJob {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -337,9 +335,8 @@ func (r *PutJob) AllowNoIndices(allownoindices bool) *PutJob {
 }
 
 // ExpandWildcards Type of index that wildcard patterns can match. If the request can target
-// data streams, this argument determines
-// whether wildcard expressions match hidden data streams. Supports
-// comma-separated values.
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values.
 // API name: expand_wildcards
 func (r *PutJob) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *PutJob {
 	tmp := []string{}
@@ -390,11 +387,9 @@ func (r *PutJob) FilterPath(filterpaths ...string) *PutJob {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutJob) Human(human bool) *PutJob {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -402,8 +397,8 @@ func (r *PutJob) Human(human bool) *PutJob {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutJob) Pretty(pretty bool) *PutJob {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -29,16 +29,23 @@ type CatAliasesColumn struct {
 }
 
 var (
+
+	// Alias The name of the alias.
 	Alias = CatAliasesColumn{"alias"}
 
+	// Index The name of the index the alias points to.
 	Index = CatAliasesColumn{"index"}
 
+	// Filter The filter applied to the alias.
 	Filter = CatAliasesColumn{"filter"}
 
+	// Routingindex Index routing value for the alias.
 	Routingindex = CatAliasesColumn{"routing.index"}
 
+	// Routingsearch Search routing value for the alias.
 	Routingsearch = CatAliasesColumn{"routing.search"}
 
+	// Iswriteindex Indicates if the index is the write index for the alias.
 	Iswriteindex = CatAliasesColumn{"is_write_index"}
 )
 

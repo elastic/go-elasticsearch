@@ -35,9 +35,8 @@
 // This API supports updates to API key access scope, metadata and expiration.
 // The access scope of each API key is derived from the `role_descriptors` you
 // specify in the request and a snapshot of the owner user's permissions at the
-// time of the request.
-// The snapshot of the owner's permissions is updated automatically on every
-// call.
+// time of the request. The snapshot of the owner's permissions is updated
+// automatically on every call.
 //
 // IMPORTANT: If you don't specify `role_descriptors` in the request, a call to
 // this API might still change an API key's access scope. This change can occur
@@ -118,9 +117,8 @@ func NewBulkUpdateApiKeysFunc(tp elastictransport.Interface) NewBulkUpdateApiKey
 // This API supports updates to API key access scope, metadata and expiration.
 // The access scope of each API key is derived from the `role_descriptors` you
 // specify in the request and a snapshot of the owner user's permissions at the
-// time of the request.
-// The snapshot of the owner's permissions is updated automatically on every
-// call.
+// time of the request. The snapshot of the owner's permissions is updated
+// automatically on every call.
 //
 // IMPORTANT: If you don't specify `role_descriptors` in the request, a call to
 // this API might still change an API key's access scope. This change can occur
@@ -371,11 +369,9 @@ func (r *BulkUpdateApiKeys) FilterPath(filterpaths ...string) *BulkUpdateApiKeys
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *BulkUpdateApiKeys) Human(human bool) *BulkUpdateApiKeys {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -383,8 +379,8 @@ func (r *BulkUpdateApiKeys) Human(human bool) *BulkUpdateApiKeys {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *BulkUpdateApiKeys) Pretty(pretty bool) *BulkUpdateApiKeys {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -392,9 +388,8 @@ func (r *BulkUpdateApiKeys) Pretty(pretty bool) *BulkUpdateApiKeys {
 	return r
 }
 
-// Expiration time for the API keys.
-// By default, API keys never expire.
-// This property can be omitted to leave the value unchanged.
+// Expiration time for the API keys. By default, API keys never expire. This
+// property can be omitted to leave the value unchanged.
 // API name: expiration
 func (r *BulkUpdateApiKeys) Expiration(duration types.DurationVariant) *BulkUpdateApiKeys {
 	// Initialize the request if it is not already initialized
@@ -420,11 +415,10 @@ func (r *BulkUpdateApiKeys) Ids(ids ...string) *BulkUpdateApiKeys {
 	return r
 }
 
-// Arbitrary nested metadata to associate with the API keys.
-// Within the `metadata` object, top-level keys beginning with an underscore
-// (`_`) are reserved for system usage.
-// Any information specified with this parameter fully replaces metadata
-// previously associated with the API key.
+// Arbitrary nested metadata to associate with the API keys. Within the
+// `metadata` object, top-level keys beginning with an underscore (`_`) are
+// reserved for system usage. Any information specified with this parameter
+// fully replaces metadata previously associated with the API key.
 // API name: metadata
 func (r *BulkUpdateApiKeys) Metadata(metadata types.MetadataVariant) *BulkUpdateApiKeys {
 	// Initialize the request if it is not already initialized
@@ -437,18 +431,15 @@ func (r *BulkUpdateApiKeys) Metadata(metadata types.MetadataVariant) *BulkUpdate
 	return r
 }
 
-// The role descriptors to assign to the API keys.
-// An API key's effective permissions are an intersection of its assigned
-// privileges and the point-in-time snapshot of permissions of the owner user.
-// You can assign new privileges by specifying them in this parameter.
-// To remove assigned privileges, supply the `role_descriptors` parameter as an
-// empty object `{}`.
+// The role descriptors to assign to the API keys. An API key's effective
+// permissions are an intersection of its assigned privileges and the
+// point-in-time snapshot of permissions of the owner user. You can assign new
+// privileges by specifying them in this parameter. To remove assigned
+// privileges, supply the `role_descriptors` parameter as an empty object `{}`.
 // If an API key has no assigned privileges, it inherits the owner user's full
-// permissions.
-// The snapshot of the owner's permissions is always updated, whether you supply
-// the `role_descriptors` parameter.
-// The structure of a role descriptor is the same as the request for the create
-// API keys API.
+// permissions. The snapshot of the owner's permissions is always updated,
+// whether you supply the `role_descriptors` parameter. The structure of a role
+// descriptor is the same as the request for the create API keys API.
 // API name: role_descriptors
 func (r *BulkUpdateApiKeys) RoleDescriptors(roledescriptors map[string]types.RoleDescriptor) *BulkUpdateApiKeys {
 	// Initialize the request if it is not already initialized

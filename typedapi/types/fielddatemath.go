@@ -25,6 +25,9 @@ package types
 //	string
 //	Float64
 //
+// A date range limit, represented either as a DateMath expression or a number
+// expressed according to the target field's precision.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/bucket.ts#L312-L319
 type FieldDateMath any
 

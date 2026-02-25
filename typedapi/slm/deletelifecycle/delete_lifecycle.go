@@ -20,9 +20,9 @@
 
 // Delete a policy.
 //
-// Delete a snapshot lifecycle policy definition.
-// This operation prevents any future snapshots from being taken but does not
-// cancel in-progress snapshots or remove previously-taken snapshots.
+// Delete a snapshot lifecycle policy definition. This operation prevents any
+// future snapshots from being taken but does not cancel in-progress snapshots
+// or remove previously-taken snapshots.
 package deletelifecycle
 
 import (
@@ -82,9 +82,9 @@ func NewDeleteLifecycleFunc(tp elastictransport.Interface) NewDeleteLifecycle {
 
 // Delete a policy.
 //
-// Delete a snapshot lifecycle policy definition.
-// This operation prevents any future snapshots from being taken but does not
-// cancel in-progress snapshots or remove previously-taken snapshots.
+// Delete a snapshot lifecycle policy definition. This operation prevents any
+// future snapshots from being taken but does not cancel in-progress snapshots
+// or remove previously-taken snapshots.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-delete-lifecycle
 func New(tp elastictransport.Interface) *DeleteLifecycle {
@@ -307,9 +307,8 @@ func (r *DeleteLifecycle) _policyid(policyid string) *DeleteLifecycle {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *DeleteLifecycle) MasterTimeout(duration string) *DeleteLifecycle {
 	r.values.Set("master_timeout", duration)
@@ -317,9 +316,8 @@ func (r *DeleteLifecycle) MasterTimeout(duration string) *DeleteLifecycle {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error.
 // API name: timeout
 func (r *DeleteLifecycle) Timeout(duration string) *DeleteLifecycle {
 	r.values.Set("timeout", duration)
@@ -350,11 +348,9 @@ func (r *DeleteLifecycle) FilterPath(filterpaths ...string) *DeleteLifecycle {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteLifecycle) Human(human bool) *DeleteLifecycle {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -362,8 +358,8 @@ func (r *DeleteLifecycle) Human(human bool) *DeleteLifecycle {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteLifecycle) Pretty(pretty bool) *DeleteLifecycle {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

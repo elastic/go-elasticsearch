@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// ToolCallFunction type.
+// The function that the model called.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L137-L149
 type ToolCallFunction struct {

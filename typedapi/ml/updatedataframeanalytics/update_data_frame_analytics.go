@@ -308,9 +308,9 @@ func (r *UpdateDataFrameAnalytics) Header(key, value string) *UpdateDataFrameAna
 	return r
 }
 
-// Id Identifier for the data frame analytics job. This identifier can contain
-// lowercase alphanumeric characters (a-z and 0-9), hyphens, and
-// underscores. It must start and end with alphanumeric characters.
+// Id Identifier for the data frame analytics job. This identifier can contain //
+// lowercase alphanumeric characters (a-z and 0-9), hyphens, and underscores. It
+// // must start and end with alphanumeric characters.
 // API Name: id
 func (r *UpdateDataFrameAnalytics) _id(id string) *UpdateDataFrameAnalytics {
 	r.paramSet |= idMask
@@ -342,11 +342,9 @@ func (r *UpdateDataFrameAnalytics) FilterPath(filterpaths ...string) *UpdateData
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateDataFrameAnalytics) Human(human bool) *UpdateDataFrameAnalytics {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -354,8 +352,8 @@ func (r *UpdateDataFrameAnalytics) Human(human bool) *UpdateDataFrameAnalytics {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateDataFrameAnalytics) Pretty(pretty bool) *UpdateDataFrameAnalytics {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -390,10 +388,10 @@ func (r *UpdateDataFrameAnalytics) Description(description string) *UpdateDataFr
 	return r
 }
 
-// The maximum number of threads to be used by the analysis. Using more
-// threads may decrease the time necessary to complete the analysis at the
-// cost of using more CPU. Note that the process may use additional threads
-// for operational functionality other than the analysis itself.
+// The maximum number of threads to be used by the analysis. Using more threads
+// may decrease the time necessary to complete the analysis at the cost of using
+// more CPU. Note that the process may use additional threads for operational
+// functionality other than the analysis itself.
 // API name: max_num_threads
 func (r *UpdateDataFrameAnalytics) MaxNumThreads(maxnumthreads int) *UpdateDataFrameAnalytics {
 	// Initialize the request if it is not already initialized
@@ -408,8 +406,8 @@ func (r *UpdateDataFrameAnalytics) MaxNumThreads(maxnumthreads int) *UpdateDataF
 
 // The approximate maximum amount of memory resources that are permitted for
 // analytical processing. If your `elasticsearch.yml` file contains an
-// `xpack.ml.max_model_memory_limit` setting, an error occurs when you try
-// to create data frame analytics jobs that have `model_memory_limit` values
+// `xpack.ml.max_model_memory_limit` setting, an error occurs when you try to
+// create data frame analytics jobs that have `model_memory_limit` values
 // greater than that setting.
 // API name: model_memory_limit
 func (r *UpdateDataFrameAnalytics) ModelMemoryLimit(modelmemorylimit string) *UpdateDataFrameAnalytics {

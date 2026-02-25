@@ -40,10 +40,9 @@ type IngestPipeline struct {
 	CreatedDate DateTime `json:"created_date,omitempty"`
 	// CreatedDateMillis Date and time when the pipeline was created, in milliseconds since the epoch.
 	CreatedDateMillis *int64 `json:"created_date_millis,omitempty"`
-	// Deprecated Marks this ingest pipeline as deprecated.
-	// When a deprecated ingest pipeline is referenced as the default or final
-	// pipeline when creating or updating a non-deprecated index template,
-	// Elasticsearch will emit a deprecation warning.
+	// Deprecated Marks this ingest pipeline as deprecated. When a deprecated ingest pipeline
+	// is referenced as the default or final pipeline when creating or updating a
+	// non-deprecated index template, Elasticsearch will emit a deprecation warning.
 	Deprecated *bool `json:"deprecated,omitempty"`
 	// Description Description of the ingest pipeline.
 	Description *string `json:"description,omitempty"`

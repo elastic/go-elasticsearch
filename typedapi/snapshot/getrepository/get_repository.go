@@ -291,13 +291,11 @@ func (r *GetRepository) Header(key, value string) *GetRepository {
 	return r
 }
 
-// Repository A comma-separated list of snapshot repository names used to limit the
-// request.
-// Wildcard (`*`) expressions are supported including combining wildcards with
-// exclude patterns starting with `-`.
-//
-// To get information about all snapshot repositories registered in the cluster,
-// omit this parameter or use `*` or `_all`.
+// Repository A comma-separated list of snapshot repository names used to limit the //
+// request. Wildcard (`*`) expressions are supported including combining //
+// wildcards with exclude patterns starting with `-`. // // To get information
+// about all snapshot repositories registered in the cluster, // omit this
+// parameter or use `*` or `_all`.
 // API Name: repository
 func (r *GetRepository) Repository(repository string) *GetRepository {
 	r.paramSet |= repositoryMask
@@ -306,8 +304,8 @@ func (r *GetRepository) Repository(repository string) *GetRepository {
 	return r
 }
 
-// Local If `true`, the request gets information from the local node only.
-// If `false`, the request gets information from the master node.
+// Local If `true`, the request gets information from the local node only. If `false`,
+// the request gets information from the master node.
 // API name: local
 func (r *GetRepository) Local(local bool) *GetRepository {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -315,10 +313,9 @@ func (r *GetRepository) Local(local bool) *GetRepository {
 	return r
 }
 
-// MasterTimeout The period to wait for the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// To indicate that the request should never timeout, set it to `-1`.
+// MasterTimeout The period to wait for the master node. If the master node is not available
+// before the timeout expires, the request fails and returns an error. To
+// indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *GetRepository) MasterTimeout(duration string) *GetRepository {
 	r.values.Set("master_timeout", duration)
@@ -349,11 +346,9 @@ func (r *GetRepository) FilterPath(filterpaths ...string) *GetRepository {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetRepository) Human(human bool) *GetRepository {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -361,8 +356,8 @@ func (r *GetRepository) Human(human bool) *GetRepository {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetRepository) Pretty(pretty bool) *GetRepository {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

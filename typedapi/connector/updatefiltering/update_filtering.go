@@ -21,11 +21,9 @@
 // Update the connector filtering.
 //
 // Update the draft filtering configuration of a connector and marks the draft
-// validation state as edited.
-// The filtering draft is activated once validated by the running Elastic
-// connector service.
-// The filtering property is used to configure sync rules (both basic and
-// advanced) for a connector.
+// validation state as edited. The filtering draft is activated once validated
+// by the running Elastic connector service. The filtering property is used to
+// configure sync rules (both basic and advanced) for a connector.
 package updatefiltering
 
 import (
@@ -91,11 +89,9 @@ func NewUpdateFilteringFunc(tp elastictransport.Interface) NewUpdateFiltering {
 // Update the connector filtering.
 //
 // Update the draft filtering configuration of a connector and marks the draft
-// validation state as edited.
-// The filtering draft is activated once validated by the running Elastic
-// connector service.
-// The filtering property is used to configure sync rules (both basic and
-// advanced) for a connector.
+// validation state as edited. The filtering draft is activated once validated
+// by the running Elastic connector service. The filtering property is used to
+// configure sync rules (both basic and advanced) for a connector.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering
 func New(tp elastictransport.Interface) *UpdateFiltering {
@@ -350,11 +346,9 @@ func (r *UpdateFiltering) FilterPath(filterpaths ...string) *UpdateFiltering {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateFiltering) Human(human bool) *UpdateFiltering {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -362,8 +356,8 @@ func (r *UpdateFiltering) Human(human bool) *UpdateFiltering {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateFiltering) Pretty(pretty bool) *UpdateFiltering {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

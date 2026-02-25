@@ -22,21 +22,21 @@
 //
 // To use this API, you must have one of the following privileges:
 //
-// * The `manage_security` cluster privilege (or a greater privilege such as
-// `all`).
-// * The "Manage Application Privileges" global privilege for the application
-// being referenced in the request.
+//   - The `manage_security` cluster privilege (or a greater privilege such as
+//     `all`).
+//   - The "Manage Application Privileges" global privilege for the application
+//     being referenced in the request.
 //
 // Application names are formed from a prefix, with an optional suffix that
 // conform to the following rules:
 //
-// * The prefix must begin with a lowercase ASCII letter.
-// * The prefix must contain only ASCII letters or digits.
-// * The prefix must be at least 3 characters long.
-// * If the suffix exists, it must begin with either a dash `-` or `_`.
-// * The suffix cannot contain any of the following characters: `\`, `/`, `*`,
-// `?`, `"`, `<`, `>`, `|`, `,`, `*`.
-// * No part of the name can contain whitespace.
+//   - The prefix must begin with a lowercase ASCII letter.
+//   - The prefix must contain only ASCII letters or digits.
+//   - The prefix must be at least 3 characters long.
+//   - If the suffix exists, it must begin with either a dash `-` or `_`.
+//   - The suffix cannot contain any of the following characters: `\`, `/`, `*`,
+//     `?`, `"`, `<`, `>`, `|`, `,`, `*`.
+//   - No part of the name can contain whitespace.
 //
 // Privilege names must begin with a lowercase ASCII letter and must contain
 // only ASCII letters and digits along with the characters `_`, `-`, and `.`.
@@ -102,21 +102,21 @@ func NewPutPrivilegesFunc(tp elastictransport.Interface) NewPutPrivileges {
 //
 // To use this API, you must have one of the following privileges:
 //
-// * The `manage_security` cluster privilege (or a greater privilege such as
-// `all`).
-// * The "Manage Application Privileges" global privilege for the application
-// being referenced in the request.
+//   - The `manage_security` cluster privilege (or a greater privilege such as
+//     `all`).
+//   - The "Manage Application Privileges" global privilege for the application
+//     being referenced in the request.
 //
 // Application names are formed from a prefix, with an optional suffix that
 // conform to the following rules:
 //
-// * The prefix must begin with a lowercase ASCII letter.
-// * The prefix must contain only ASCII letters or digits.
-// * The prefix must be at least 3 characters long.
-// * If the suffix exists, it must begin with either a dash `-` or `_`.
-// * The suffix cannot contain any of the following characters: `\`, `/`, `*`,
-// `?`, `"`, `<`, `>`, `|`, `,`, `*`.
-// * No part of the name can contain whitespace.
+//   - The prefix must begin with a lowercase ASCII letter.
+//   - The prefix must contain only ASCII letters or digits.
+//   - The prefix must be at least 3 characters long.
+//   - If the suffix exists, it must begin with either a dash `-` or `_`.
+//   - The suffix cannot contain any of the following characters: `\`, `/`, `*`,
+//     `?`, `"`, `<`, `>`, `|`, `,`, `*`.
+//   - No part of the name can contain whitespace.
 //
 // Privilege names must begin with a lowercase ASCII letter and must contain
 // only ASCII letters and digits along with the characters `_`, `-`, and `.`.
@@ -372,11 +372,9 @@ func (r *PutPrivileges) FilterPath(filterpaths ...string) *PutPrivileges {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutPrivileges) Human(human bool) *PutPrivileges {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -384,8 +382,8 @@ func (r *PutPrivileges) Human(human bool) *PutPrivileges {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutPrivileges) Pretty(pretty bool) *PutPrivileges {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

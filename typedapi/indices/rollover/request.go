@@ -31,25 +31,20 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/rollover/IndicesRolloverRequest.ts#L34-L161
 type Request struct {
-	// Aliases Aliases for the target index.
-	// Data streams do not support this parameter.
+	// Aliases Aliases for the target index. Data streams do not support this parameter.
 	Aliases map[string]types.Alias `json:"aliases,omitempty"`
-	// Conditions Conditions for the rollover.
-	// If specified, Elasticsearch only performs the rollover if the current index
-	// satisfies these conditions.
-	// If this parameter is not specified, Elasticsearch performs the rollover
-	// unconditionally.
-	// If conditions are specified, at least one of them must be a `max_*`
-	// condition.
+	// Conditions Conditions for the rollover. If specified, Elasticsearch only performs the
+	// rollover if the current index satisfies these conditions. If this parameter
+	// is not specified, Elasticsearch performs the rollover unconditionally. If
+	// conditions are specified, at least one of them must be a `max_*` condition.
 	// The index will rollover if any `max_*` condition is satisfied and all `min_*`
 	// conditions are satisfied.
 	Conditions *types.RolloverConditions `json:"conditions,omitempty"`
-	// Mappings Mapping for fields in the index.
-	// If specified, this mapping can include field names, field data types, and
-	// mapping paramaters.
+	// Mappings Mapping for fields in the index. If specified, this mapping can include field
+	// names, field data types, and mapping paramaters.
 	Mappings *types.TypeMapping `json:"mappings,omitempty"`
-	// Settings Configuration options for the index.
-	// Data streams do not support this parameter.
+	// Settings Configuration options for the index. Data streams do not support this
+	// parameter.
 	Settings map[string]json.RawMessage `json:"settings,omitempty"`
 }
 

@@ -30,14 +30,12 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/saml_logout/Request.ts#L23-L60
 type Request struct {
 	// RefreshToken The refresh token that was returned as a response to calling the SAML
-	// authenticate API.
-	// Alternatively, the most recent refresh token that was received after
-	// refreshing the original access token.
+	// authenticate API. Alternatively, the most recent refresh token that was
+	// received after refreshing the original access token.
 	RefreshToken *string `json:"refresh_token,omitempty"`
 	// Token The access token that was returned as a response to calling the SAML
-	// authenticate API.
-	// Alternatively, the most recent token that was received after refreshing the
-	// original one by using a `refresh_token`.
+	// authenticate API. Alternatively, the most recent token that was received
+	// after refreshing the original one by using a `refresh_token`.
 	Token string `json:"token"`
 }
 

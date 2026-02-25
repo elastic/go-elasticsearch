@@ -20,11 +20,10 @@
 
 // Update a datafeed.
 //
-// You must stop and start the datafeed for the changes to be applied.
-// When Elasticsearch security features are enabled, your datafeed remembers
-// which roles the user who updated it had at
-// the time of the update and runs the query using those same roles. If you
-// provide secondary authorization headers,
+// You must stop and start the datafeed for the changes to be applied. When
+// Elasticsearch security features are enabled, your datafeed remembers which
+// roles the user who updated it had at the time of the update and runs the
+// query using those same roles. If you provide secondary authorization headers,
 // those credentials are used instead.
 package updatedatafeed
 
@@ -91,11 +90,10 @@ func NewUpdateDatafeedFunc(tp elastictransport.Interface) NewUpdateDatafeed {
 
 // Update a datafeed.
 //
-// You must stop and start the datafeed for the changes to be applied.
-// When Elasticsearch security features are enabled, your datafeed remembers
-// which roles the user who updated it had at
-// the time of the update and runs the query using those same roles. If you
-// provide secondary authorization headers,
+// You must stop and start the datafeed for the changes to be applied. When
+// Elasticsearch security features are enabled, your datafeed remembers which
+// roles the user who updated it had at the time of the update and runs the
+// query using those same roles. If you provide secondary authorization headers,
 // those credentials are used instead.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-datafeed
@@ -321,10 +319,9 @@ func (r *UpdateDatafeed) Header(key, value string) *UpdateDatafeed {
 	return r
 }
 
-// DatafeedId A numerical character string that uniquely identifies the datafeed.
-// This identifier can contain lowercase alphanumeric characters (a-z and 0-9),
-// hyphens, and underscores.
-// It must start and end with alphanumeric characters.
+// DatafeedId A numerical character string that uniquely identifies the datafeed. This //
+// identifier can contain lowercase alphanumeric characters (a-z and 0-9), //
+// hyphens, and underscores. It must start and end with alphanumeric characters.
 // API Name: datafeedid
 func (r *UpdateDatafeed) _datafeedid(datafeedid string) *UpdateDatafeed {
 	r.paramSet |= datafeedidMask
@@ -334,8 +331,8 @@ func (r *UpdateDatafeed) _datafeedid(datafeedid string) *UpdateDatafeed {
 }
 
 // AllowNoIndices If `true`, wildcard indices expressions that resolve into no concrete indices
-// are ignored. This includes the
-// `_all` string or when no indices are specified.
+// are ignored. This includes the `_all` string or when no indices are
+// specified.
 // API name: allow_no_indices
 func (r *UpdateDatafeed) AllowNoIndices(allownoindices bool) *UpdateDatafeed {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -344,9 +341,8 @@ func (r *UpdateDatafeed) AllowNoIndices(allownoindices bool) *UpdateDatafeed {
 }
 
 // ExpandWildcards Type of index that wildcard patterns can match. If the request can target
-// data streams, this argument determines
-// whether wildcard expressions match hidden data streams. Supports
-// comma-separated values.
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values.
 // API name: expand_wildcards
 func (r *UpdateDatafeed) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *UpdateDatafeed {
 	tmp := []string{}
@@ -397,11 +393,9 @@ func (r *UpdateDatafeed) FilterPath(filterpaths ...string) *UpdateDatafeed {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateDatafeed) Human(human bool) *UpdateDatafeed {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -409,8 +403,8 @@ func (r *UpdateDatafeed) Human(human bool) *UpdateDatafeed {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateDatafeed) Pretty(pretty bool) *UpdateDatafeed {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -419,8 +413,7 @@ func (r *UpdateDatafeed) Pretty(pretty bool) *UpdateDatafeed {
 }
 
 // If set, the datafeed performs aggregation searches. Support for aggregations
-// is limited and should be used only
-// with low cardinality data.
+// is limited and should be used only with low cardinality data.
 // API name: aggregations
 func (r *UpdateDatafeed) Aggregations(aggregations map[string]types.Aggregations) *UpdateDatafeed {
 	// Initialize the request if it is not already initialized
@@ -451,9 +444,8 @@ func (r *UpdateDatafeed) AddAggregation(key string, value types.AggregationsVari
 }
 
 // Datafeeds might search over long time periods, for several months or years.
-// This search is split into time
-// chunks in order to ensure the load on Elasticsearch is managed. Chunking
-// configuration controls how the size of
+// This search is split into time chunks in order to ensure the load on
+// Elasticsearch is managed. Chunking configuration controls how the size of
 // these time chunks are calculated; it is an advanced configuration option.
 // API name: chunking_config
 func (r *UpdateDatafeed) ChunkingConfig(chunkingconfig types.ChunkingConfigVariant) *UpdateDatafeed {
@@ -468,13 +460,11 @@ func (r *UpdateDatafeed) ChunkingConfig(chunkingconfig types.ChunkingConfigVaria
 }
 
 // Specifies whether the datafeed checks for missing data and the size of the
-// window. The datafeed can optionally
-// search over indices that have already been read in an effort to determine
-// whether any data has subsequently been
+// window. The datafeed can optionally search over indices that have already
+// been read in an effort to determine whether any data has subsequently been
 // added to the index. If missing data is found, it is a good indication that
-// the `query_delay` is set too low and
-// the data is being indexed after the datafeed has passed that moment in time.
-// This check runs only on real-time
+// the `query_delay` is set too low and the data is being indexed after the
+// datafeed has passed that moment in time. This check runs only on real-time
 // datafeeds.
 // API name: delayed_data_check_config
 func (r *UpdateDatafeed) DelayedDataCheckConfig(delayeddatacheckconfig types.DelayedDataCheckConfigVariant) *UpdateDatafeed {
@@ -489,14 +479,12 @@ func (r *UpdateDatafeed) DelayedDataCheckConfig(delayeddatacheckconfig types.Del
 }
 
 // The interval at which scheduled queries are made while the datafeed runs in
-// real time. The default value is
-// either the bucket span for short bucket spans, or, for longer bucket spans, a
-// sensible fraction of the bucket
-// span. When `frequency` is shorter than the bucket span, interim results for
-// the last (partial) bucket are
-// written then eventually overwritten by the full bucket results. If the
-// datafeed uses aggregations, this value
-// must be divisible by the interval of the date histogram aggregation.
+// real time. The default value is either the bucket span for short bucket
+// spans, or, for longer bucket spans, a sensible fraction of the bucket span.
+// When `frequency` is shorter than the bucket span, interim results for the
+// last (partial) bucket are written then eventually overwritten by the full
+// bucket results. If the datafeed uses aggregations, this value must be
+// divisible by the interval of the date histogram aggregation.
 // API name: frequency
 func (r *UpdateDatafeed) Frequency(duration types.DurationVariant) *UpdateDatafeed {
 	// Initialize the request if it is not already initialized
@@ -510,8 +498,8 @@ func (r *UpdateDatafeed) Frequency(duration types.DurationVariant) *UpdateDatafe
 }
 
 // An array of index names. Wildcards are supported. If any of the indices are
-// in remote clusters, the machine
-// learning nodes must have the `remote_cluster_client` role.
+// in remote clusters, the machine learning nodes must have the
+// `remote_cluster_client` role.
 // API name: indices
 func (r *UpdateDatafeed) Indices(indices ...string) *UpdateDatafeed {
 	// Initialize the request if it is not already initialized
@@ -552,13 +540,11 @@ func (r *UpdateDatafeed) JobId(id string) *UpdateDatafeed {
 }
 
 // If a real-time datafeed has never seen any data (including during any initial
-// training period), it automatically
-// stops and closes the associated job after this many real-time searches return
-// no documents. In other words,
-// it stops after `frequency` times `max_empty_searches` of real-time operation.
-// If not set, a datafeed with no
-// end time that sees no data remains started until it is explicitly stopped. By
-// default, it is not set.
+// training period), it automatically stops and closes the associated job after
+// this many real-time searches return no documents. In other words, it stops
+// after `frequency` times `max_empty_searches` of real-time operation. If not
+// set, a datafeed with no end time that sees no data remains started until it
+// is explicitly stopped. By default, it is not set.
 // API name: max_empty_searches
 func (r *UpdateDatafeed) MaxEmptySearches(maxemptysearches int) *UpdateDatafeed {
 	// Initialize the request if it is not already initialized
@@ -572,18 +558,14 @@ func (r *UpdateDatafeed) MaxEmptySearches(maxemptysearches int) *UpdateDatafeed 
 }
 
 // The Elasticsearch query domain-specific language (DSL). This value
-// corresponds to the query object in an
-// Elasticsearch search POST body. All the options that are supported by
-// Elasticsearch can be used, as this
-// object is passed verbatim to Elasticsearch. Note that if you change the
-// query, the analyzed data is also
-// changed. Therefore, the time required to learn might be long and the
-// understandability of the results is
-// unpredictable. If you want to make significant changes to the source data, it
-// is recommended that you
+// corresponds to the query object in an Elasticsearch search POST body. All the
+// options that are supported by Elasticsearch can be used, as this object is
+// passed verbatim to Elasticsearch. Note that if you change the query, the
+// analyzed data is also changed. Therefore, the time required to learn might be
+// long and the understandability of the results is unpredictable. If you want
+// to make significant changes to the source data, it is recommended that you
 // clone the job and datafeed and make the amendments in the clone. Let both run
-// in parallel and close one
-// when you are satisfied with the results of the job.
+// in parallel and close one when you are satisfied with the results of the job.
 // API name: query
 func (r *UpdateDatafeed) Query(query types.QueryVariant) *UpdateDatafeed {
 	// Initialize the request if it is not already initialized
@@ -597,12 +579,10 @@ func (r *UpdateDatafeed) Query(query types.QueryVariant) *UpdateDatafeed {
 }
 
 // The number of seconds behind real time that data is queried. For example, if
-// data from 10:04 a.m. might
-// not be searchable in Elasticsearch until 10:06 a.m., set this property to 120
-// seconds. The default
-// value is randomly selected between `60s` and `120s`. This randomness improves
-// the query performance
-// when there are multiple jobs running on the same node.
+// data from 10:04 a.m. might not be searchable in Elasticsearch until 10:06
+// a.m., set this property to 120 seconds. The default value is randomly
+// selected between `60s` and `120s`. This randomness improves the query
+// performance when there are multiple jobs running on the same node.
 // API name: query_delay
 func (r *UpdateDatafeed) QueryDelay(duration types.DurationVariant) *UpdateDatafeed {
 	// Initialize the request if it is not already initialized
@@ -629,9 +609,8 @@ func (r *UpdateDatafeed) RuntimeMappings(runtimefields types.RuntimeFieldsVarian
 }
 
 // Specifies scripts that evaluate custom expressions and returns script fields
-// to the datafeed.
-// The detector configuration objects in a job can contain functions that use
-// these script fields.
+// to the datafeed. The detector configuration objects in a job can contain
+// functions that use these script fields.
 // API name: script_fields
 func (r *UpdateDatafeed) ScriptFields(scriptfields map[string]types.ScriptField) *UpdateDatafeed {
 	// Initialize the request if it is not already initialized
@@ -662,8 +641,8 @@ func (r *UpdateDatafeed) AddScriptField(key string, value types.ScriptFieldVaria
 }
 
 // The size parameter that is used in Elasticsearch searches when the datafeed
-// does not use aggregations.
-// The maximum value is the value of `index.max_result_window`.
+// does not use aggregations. The maximum value is the value of
+// `index.max_result_window`.
 // API name: scroll_size
 func (r *UpdateDatafeed) ScrollSize(scrollsize int) *UpdateDatafeed {
 	// Initialize the request if it is not already initialized

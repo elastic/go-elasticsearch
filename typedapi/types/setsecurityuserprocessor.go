@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L1532-L1541
 type SetSecurityUserProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field The field to store the user information into.
 	Field string `json:"field"`
@@ -46,8 +46,7 @@ type SetSecurityUserProcessor struct {
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// Properties Controls what user related properties are added to the field.
 	Properties []string `json:"properties,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 }
 

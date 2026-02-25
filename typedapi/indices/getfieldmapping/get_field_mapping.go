@@ -20,9 +20,8 @@
 
 // Get mapping definitions.
 //
-// Retrieves mapping definitions for one or more fields.
-// For data streams, the API retrieves field mappings for the stream’s backing
-// indices.
+// Retrieves mapping definitions for one or more fields. For data streams, the
+// API retrieves field mappings for the stream’s backing indices.
 //
 // This API is useful if you don't need a complete mapping or if an index
 // mapping contains a large number of fields.
@@ -89,9 +88,8 @@ func NewGetFieldMappingFunc(tp elastictransport.Interface) NewGetFieldMapping {
 
 // Get mapping definitions.
 //
-// Retrieves mapping definitions for one or more fields.
-// For data streams, the API retrieves field mappings for the stream’s backing
-// indices.
+// Retrieves mapping definitions for one or more fields. For data streams, the
+// API retrieves field mappings for the stream’s backing indices.
 //
 // This API is useful if you don't need a complete mapping or if an index
 // mapping contains a large number of fields.
@@ -328,8 +326,7 @@ func (r *GetFieldMapping) Header(key, value string) *GetFieldMapping {
 }
 
 // Fields Comma-separated list or wildcard expression of fields used to limit returned
-// information.
-// Supports wildcards (`*`).
+// // information. Supports wildcards (`*`).
 // API Name: fields
 func (r *GetFieldMapping) _fields(fields string) *GetFieldMapping {
 	r.paramSet |= fieldsMask
@@ -339,10 +336,8 @@ func (r *GetFieldMapping) _fields(fields string) *GetFieldMapping {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases used to limit the
-// request.
-// Supports wildcards (`*`).
-// To target all data streams and indices, omit this parameter or use `*` or
-// `_all`.
+// // request. Supports wildcards (`*`). To target all data streams and indices,
+// // omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *GetFieldMapping) Index(index string) *GetFieldMapping {
 	r.paramSet |= indexMask
@@ -352,8 +347,8 @@ func (r *GetFieldMapping) Index(index string) *GetFieldMapping {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *GetFieldMapping) AllowNoIndices(allownoindices bool) *GetFieldMapping {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -361,10 +356,9 @@ func (r *GetFieldMapping) AllowNoIndices(allownoindices bool) *GetFieldMapping {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *GetFieldMapping) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetFieldMapping {
 	tmp := []string{}
@@ -416,11 +410,9 @@ func (r *GetFieldMapping) FilterPath(filterpaths ...string) *GetFieldMapping {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetFieldMapping) Human(human bool) *GetFieldMapping {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -428,8 +420,8 @@ func (r *GetFieldMapping) Human(human bool) *GetFieldMapping {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetFieldMapping) Pretty(pretty bool) *GetFieldMapping {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

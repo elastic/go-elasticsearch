@@ -29,12 +29,17 @@ type ShardStoreStatus struct {
 }
 
 var (
+
+	// Green The primary shard and all replica shards are assigned.
 	Green = ShardStoreStatus{"green"}
 
+	// Yellow One or more replica shards are unassigned.
 	Yellow = ShardStoreStatus{"yellow"}
 
+	// Red The primary shard is unassigned.
 	Red = ShardStoreStatus{"red"}
 
+	// All Return all shards, regardless of health status.
 	All = ShardStoreStatus{"all"}
 )
 

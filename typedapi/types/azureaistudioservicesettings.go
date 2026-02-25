@@ -33,41 +33,37 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L797-L837
 type AzureAiStudioServiceSettings struct {
-	// ApiKey A valid API key of your Azure AI Studio model deployment.
-	// This key can be found on the overview page for your deployment in the
-	// management section of your Azure AI Studio account.
+	// ApiKey A valid API key of your Azure AI Studio model deployment. This key can be
+	// found on the overview page for your deployment in the management section of
+	// your Azure AI Studio account.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation.
-	// The get inference endpoint API does not retrieve your API key.
+	// model creation. The get inference endpoint API does not retrieve your API
+	// key.
 	ApiKey string `json:"api_key"`
 	// EndpointType The type of endpoint that is available for deployment through Azure AI
-	// Studio: `token` or `realtime`.
-	// The `token` endpoint type is for "pay as you go" endpoints that are billed
-	// per token.
-	// The `realtime` endpoint type is for "real-time" endpoints that are billed per
-	// hour of usage.
+	// Studio: `token` or `realtime`. The `token` endpoint type is for "pay as you
+	// go" endpoints that are billed per token. The `realtime` endpoint type is for
+	// "real-time" endpoints that are billed per hour of usage.
 	EndpointType string `json:"endpoint_type"`
-	// Provider The model provider for your deployment.
-	// Note that some providers may support only certain task types.
-	// Supported providers include:
+	// Provider The model provider for your deployment. Note that some providers may support
+	// only certain task types. Supported providers include:
 	//
-	// * `cohere` - available for `text_embedding`, `rerank` and `completion` task
-	// types
-	// * `databricks` - available for `completion` task type only
-	// * `meta` - available for `completion` task type only
-	// * `microsoft_phi` - available for `completion` task type only
-	// * `mistral` - available for `completion` task type only
-	// * `openai` - available for `text_embedding` and `completion` task types
+	//   - `cohere` - available for `text_embedding`, `rerank` and `completion` task
+	//     types
+	//   - `databricks` - available for `completion` task type only
+	//   - `meta` - available for `completion` task type only
+	//   - `microsoft_phi` - available for `completion` task type only
+	//   - `mistral` - available for `completion` task type only
+	//   - `openai` - available for `text_embedding` and `completion` task types
 	Provider string `json:"provider"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// Azure AI Studio.
-	// By default, the `azureaistudio` service sets the number of requests allowed
-	// per minute to 240.
+	// Azure AI Studio. By default, the `azureaistudio` service sets the number of
+	// requests allowed per minute to 240.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
-	// Target The target URL of your Azure AI Studio model deployment.
-	// This can be found on the overview page for your deployment in the management
-	// section of your Azure AI Studio account.
+	// Target The target URL of your Azure AI Studio model deployment. This can be found on
+	// the overview page for your deployment in the management section of your Azure
+	// AI Studio account.
 	Target string `json:"target"`
 }
 

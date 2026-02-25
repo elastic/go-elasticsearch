@@ -38,9 +38,9 @@ type TrainedModelStats struct {
 	DeploymentStats *TrainedModelDeploymentStats `json:"deployment_stats,omitempty"`
 	// InferenceStats A collection of inference stats fields.
 	InferenceStats *TrainedModelInferenceStats `json:"inference_stats,omitempty"`
-	// Ingest A collection of ingest stats for the model across all nodes.
-	// The values are summations of the individual node statistics.
-	// The format matches the ingest section in the nodes stats API.
+	// Ingest A collection of ingest stats for the model across all nodes. The values are
+	// summations of the individual node statistics. The format matches the ingest
+	// section in the nodes stats API.
 	Ingest map[string]json.RawMessage `json:"ingest,omitempty"`
 	// ModelId The unique identifier of the trained model.
 	ModelId string `json:"model_id"`

@@ -20,9 +20,9 @@
 
 // Create or update a policy.
 //
-// Create or update a snapshot lifecycle policy.
-// If the policy already exists, this request increments the policy version.
-// Only the latest version of a policy is stored.
+// Create or update a snapshot lifecycle policy. If the policy already exists,
+// this request increments the policy version. Only the latest version of a
+// policy is stored.
 package putlifecycle
 
 import (
@@ -87,9 +87,9 @@ func NewPutLifecycleFunc(tp elastictransport.Interface) NewPutLifecycle {
 
 // Create or update a policy.
 //
-// Create or update a snapshot lifecycle policy.
-// If the policy already exists, this request increments the policy version.
-// Only the latest version of a policy is stored.
+// Create or update a snapshot lifecycle policy. If the policy already exists,
+// this request increments the policy version. Only the latest version of a
+// policy is stored.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-put-lifecycle
 func New(tp elastictransport.Interface) *PutLifecycle {
@@ -312,7 +312,7 @@ func (r *PutLifecycle) Header(key, value string) *PutLifecycle {
 	return r
 }
 
-// PolicyId The identifier for the snapshot lifecycle policy you want to create or
+// PolicyId The identifier for the snapshot lifecycle policy you want to create or //
 // update.
 // API Name: policyid
 func (r *PutLifecycle) _policyid(policyid string) *PutLifecycle {
@@ -322,9 +322,8 @@ func (r *PutLifecycle) _policyid(policyid string) *PutLifecycle {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *PutLifecycle) MasterTimeout(duration string) *PutLifecycle {
@@ -333,10 +332,9 @@ func (r *PutLifecycle) MasterTimeout(duration string) *PutLifecycle {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
-// To indicate that the request should never timeout, set it to `-1`.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error. To indicate that the
+// request should never timeout, set it to `-1`.
 // API name: timeout
 func (r *PutLifecycle) Timeout(duration string) *PutLifecycle {
 	r.values.Set("timeout", duration)
@@ -367,11 +365,9 @@ func (r *PutLifecycle) FilterPath(filterpaths ...string) *PutLifecycle {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutLifecycle) Human(human bool) *PutLifecycle {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -379,8 +375,8 @@ func (r *PutLifecycle) Human(human bool) *PutLifecycle {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutLifecycle) Pretty(pretty bool) *PutLifecycle {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -417,8 +413,8 @@ func (r *PutLifecycle) Name(name string) *PutLifecycle {
 }
 
 // Repository used to store snapshots created by this policy. This repository
-// must exist prior to the policy’s creation. You can create a repository using
-// the snapshot repository API.
+// must exist prior to the policy’s creation. You can create a repository
+// using the snapshot repository API.
 // API name: repository
 func (r *PutLifecycle) Repository(repository string) *PutLifecycle {
 	// Initialize the request if it is not already initialized

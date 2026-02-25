@@ -31,8 +31,8 @@ type _scriptProcessor struct {
 	v *types.ScriptProcessor
 }
 
-// Runs an inline or stored script on incoming documents.
-// The script runs in the `ingest` context.
+// Runs an inline or stored script on incoming documents. The script runs in the
+// `ingest` context.
 func NewScriptProcessor() *_scriptProcessor {
 
 	return &_scriptProcessor{v: types.NewScriptProcessor()}

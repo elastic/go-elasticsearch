@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L1391-L1407
 type RegisteredDomainProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field Field containing the source FQDN.
 	Field string `json:"field"`
@@ -47,11 +47,10 @@ type RegisteredDomainProcessor struct {
 	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
-	// TargetField Object field containing extracted domain components. If an empty string,
-	// the processor adds components to the document’s root.
+	// TargetField Object field containing extracted domain components. If an empty string, the
+	// processor adds components to the document’s root.
 	TargetField *string `json:"target_field,omitempty"`
 }
 

@@ -21,11 +21,10 @@
 // Create a Watsonx inference endpoint.
 //
 // Create an inference endpoint to perform an inference task with the
-// `watsonxai` service.
-// You need an IBM Cloud Databases for Elasticsearch deployment to use the
-// `watsonxai` inference service.
-// You can provision one through the IBM catalog, the Cloud Databases CLI
-// plug-in, the Cloud Databases API, or Terraform.
+// `watsonxai` service. You need an IBM Cloud Databases for Elasticsearch
+// deployment to use the `watsonxai` inference service. You can provision one
+// through the IBM catalog, the Cloud Databases CLI plug-in, the Cloud Databases
+// API, or Terraform.
 package putwatsonx
 
 import (
@@ -97,11 +96,10 @@ func NewPutWatsonxFunc(tp elastictransport.Interface) NewPutWatsonx {
 // Create a Watsonx inference endpoint.
 //
 // Create an inference endpoint to perform an inference task with the
-// `watsonxai` service.
-// You need an IBM Cloud Databases for Elasticsearch deployment to use the
-// `watsonxai` inference service.
-// You can provision one through the IBM catalog, the Cloud Databases CLI
-// plug-in, the Cloud Databases API, or Terraform.
+// `watsonxai` service. You need an IBM Cloud Databases for Elasticsearch
+// deployment to use the `watsonxai` inference service. You can provision one
+// through the IBM catalog, the Cloud Databases CLI plug-in, the Cloud Databases
+// API, or Terraform.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-watsonx
 func New(tp elastictransport.Interface) *PutWatsonx {
@@ -378,11 +376,9 @@ func (r *PutWatsonx) FilterPath(filterpaths ...string) *PutWatsonx {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutWatsonx) Human(human bool) *PutWatsonx {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -390,8 +386,8 @@ func (r *PutWatsonx) Human(human bool) *PutWatsonx {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutWatsonx) Pretty(pretty bool) *PutWatsonx {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -399,9 +395,9 @@ func (r *PutWatsonx) Pretty(pretty bool) *PutWatsonx {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `text_embedding` task type.
-// Not applicable to the `rerank`, `completion` or `chat_completion` task types.
+// The chunking configuration object. Applies only to the `text_embedding` task
+// type. Not applicable to the `rerank`, `completion` or `chat_completion` task
+// types.
 // API name: chunking_settings
 func (r *PutWatsonx) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutWatsonx {
 	// Initialize the request if it is not already initialized

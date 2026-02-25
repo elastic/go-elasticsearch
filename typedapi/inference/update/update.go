@@ -27,12 +27,11 @@
 // IMPORTANT: The inference APIs enable you to use certain services, such as
 // built-in machine learning models (ELSER, E5), models uploaded through Eland,
 // Cohere, OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic,
-// Watsonx.ai, or Hugging Face.
-// For built-in models and models uploaded through Eland, the inference APIs
-// offer an alternative way to use and manage trained models.
-// However, if you do not plan to use the inference APIs to use these models or
-// if you want to use non-NLP models, use the machine learning trained model
-// APIs.
+// Watsonx.ai, or Hugging Face. For built-in models and models uploaded through
+// Eland, the inference APIs offer an alternative way to use and manage trained
+// models. However, if you do not plan to use the inference APIs to use these
+// models or if you want to use non-NLP models, use the machine learning trained
+// model APIs.
 package update
 
 import (
@@ -107,12 +106,11 @@ func NewUpdateFunc(tp elastictransport.Interface) NewUpdate {
 // IMPORTANT: The inference APIs enable you to use certain services, such as
 // built-in machine learning models (ELSER, E5), models uploaded through Eland,
 // Cohere, OpenAI, Azure, Google AI Studio, Google Vertex AI, Anthropic,
-// Watsonx.ai, or Hugging Face.
-// For built-in models and models uploaded through Eland, the inference APIs
-// offer an alternative way to use and manage trained models.
-// However, if you do not plan to use the inference APIs to use these models or
-// if you want to use non-NLP models, use the machine learning trained model
-// APIs.
+// Watsonx.ai, or Hugging Face. For built-in models and models uploaded through
+// Eland, the inference APIs offer an alternative way to use and manage trained
+// models. However, if you do not plan to use the inference APIs to use these
+// models or if you want to use non-NLP models, use the machine learning trained
+// model APIs.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-update
 func New(tp elastictransport.Interface) *Update {
@@ -395,11 +393,9 @@ func (r *Update) FilterPath(filterpaths ...string) *Update {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Update) Human(human bool) *Update {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -407,8 +403,8 @@ func (r *Update) Human(human bool) *Update {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Update) Pretty(pretty bool) *Update {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -416,11 +412,9 @@ func (r *Update) Pretty(pretty bool) *Update {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `embedding`, `sparse_embedding` and `text_embedding` task
-// types.
-// Not applicable to the `rerank`, `completion`, or `chat_completion` task
-// types.
+// The chunking configuration object. Applies only to the `embedding`,
+// `sparse_embedding` and `text_embedding` task types. Not applicable to the
+// `rerank`, `completion`, or `chat_completion` task types.
 // API name: chunking_settings
 func (r *Update) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *Update {
 	// Initialize the request if it is not already initialized

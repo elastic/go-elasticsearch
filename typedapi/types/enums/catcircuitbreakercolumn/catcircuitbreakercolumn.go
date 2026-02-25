@@ -29,22 +29,32 @@ type CatCircuitBreakerColumn struct {
 }
 
 var (
+
+	// Nodeid Persistent node ID
 	Nodeid = CatCircuitBreakerColumn{"node_id"}
 
+	// Nodename Node name
 	Nodename = CatCircuitBreakerColumn{"node_name"}
 
+	// Breaker Breaker name
 	Breaker = CatCircuitBreakerColumn{"breaker"}
 
+	// Limit Limit size
 	Limit = CatCircuitBreakerColumn{"limit"}
 
+	// Limitbytes Limit size in bytes
 	Limitbytes = CatCircuitBreakerColumn{"limit_bytes"}
 
+	// Estimated Estimated size
 	Estimated = CatCircuitBreakerColumn{"estimated"}
 
+	// Estimatedbytes Estimated size in bytes
 	Estimatedbytes = CatCircuitBreakerColumn{"estimated_bytes"}
 
+	// Tripped Tripped count
 	Tripped = CatCircuitBreakerColumn{"tripped"}
 
+	// Overhead Overhead
 	Overhead = CatCircuitBreakerColumn{"overhead"}
 )
 

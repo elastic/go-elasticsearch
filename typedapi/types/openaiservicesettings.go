@@ -35,38 +35,33 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L2054-L2098
 type OpenAIServiceSettings struct {
-	// ApiKey A valid API key of your OpenAI account.
-	// You can find your OpenAI API keys in your OpenAI account under the API keys
-	// section.
+	// ApiKey A valid API key of your OpenAI account. You can find your OpenAI API keys in
+	// your OpenAI account under the API keys section.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation.
-	// The get inference endpoint API does not retrieve your API key.
+	// model creation. The get inference endpoint API does not retrieve your API
+	// key.
 	ApiKey string `json:"api_key"`
-	// Dimensions The number of dimensions the resulting output embeddings should have.
-	// It is supported only in `text-embedding-3` and later models.
-	// If it is not set, the OpenAI defined default for the model is used.
+	// Dimensions The number of dimensions the resulting output embeddings should have. It is
+	// supported only in `text-embedding-3` and later models. If it is not set, the
+	// OpenAI defined default for the model is used.
 	Dimensions *int `json:"dimensions,omitempty"`
-	// ModelId The name of the model to use for the inference task.
-	// Refer to the OpenAI documentation for the list of available text embedding
-	// models.
+	// ModelId The name of the model to use for the inference task. Refer to the OpenAI
+	// documentation for the list of available text embedding models.
 	ModelId string `json:"model_id"`
-	// OrganizationId The unique identifier for your organization.
-	// You can find the Organization ID in your OpenAI account under *Settings >
-	// Organizations*.
+	// OrganizationId The unique identifier for your organization. You can find the Organization ID
+	// in your OpenAI account under *Settings > Organizations*.
 	OrganizationId *string `json:"organization_id,omitempty"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// OpenAI.
-	// The `openai` service sets a default number of requests allowed per minute
-	// depending on the task type.
-	// For `text_embedding`, it is set to `3000`.
+	// OpenAI. The `openai` service sets a default number of requests allowed per
+	// minute depending on the task type. For `text_embedding`, it is set to `3000`.
 	// For `completion`, it is set to `500`.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 	// Similarity For a `text_embedding` task, the similarity measure. One of cosine,
 	// dot_product, l2_norm. Defaults to `dot_product`.
 	Similarity *openaisimilaritytype.OpenAISimilarityType `json:"similarity,omitempty"`
-	// Url The URL endpoint to use for the requests.
-	// It can be changed for testing purposes.
+	// Url The URL endpoint to use for the requests. It can be changed for testing
+	// purposes.
 	Url *string `json:"url,omitempty"`
 }
 

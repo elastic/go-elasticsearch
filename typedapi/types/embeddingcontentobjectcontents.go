@@ -32,7 +32,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/embeddingcontenttype"
 )
 
-// EmbeddingContentObjectContents type.
+// An object containing the input data for the model to embed.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L385-L401
 type EmbeddingContentObjectContents struct {

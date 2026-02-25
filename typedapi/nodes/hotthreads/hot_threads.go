@@ -20,9 +20,8 @@
 
 // Get the hot threads for nodes.
 //
-// Get a breakdown of the hot threads on each selected node in the cluster.
-// The output is plain text with a breakdown of the top hot threads for each
-// node.
+// Get a breakdown of the hot threads on each selected node in the cluster. The
+// output is plain text with a breakdown of the top hot threads for each node.
 package hotthreads
 
 import (
@@ -81,9 +80,8 @@ func NewHotThreadsFunc(tp elastictransport.Interface) NewHotThreads {
 
 // Get the hot threads for nodes.
 //
-// Get a breakdown of the hot threads on each selected node in the cluster.
-// The output is plain text with a breakdown of the top hot threads for each
-// node.
+// Get a breakdown of the hot threads on each selected node in the cluster. The
+// output is plain text with a breakdown of the top hot threads for each node.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-hot-threads
 func New(tp elastictransport.Interface) *HotThreads {
@@ -313,8 +311,8 @@ func (r *HotThreads) NodeId(nodeid string) *HotThreads {
 	return r
 }
 
-// IgnoreIdleThreads If true, known idle threads (e.g. waiting in a socket select, or to get
-// a task from an empty queue) are filtered out.
+// IgnoreIdleThreads If true, known idle threads (e.g. waiting in a socket select, or to get a
+// task from an empty queue) are filtered out.
 // API name: ignore_idle_threads
 func (r *HotThreads) IgnoreIdleThreads(ignoreidlethreads bool) *HotThreads {
 	r.values.Set("ignore_idle_threads", strconv.FormatBool(ignoreidlethreads))
@@ -346,8 +344,8 @@ func (r *HotThreads) Threads(threads string) *HotThreads {
 	return r
 }
 
-// Timeout Period to wait for a response. If no response is received
-// before the timeout expires, the request fails and returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *HotThreads) Timeout(duration string) *HotThreads {
 	r.values.Set("timeout", duration)
@@ -394,11 +392,9 @@ func (r *HotThreads) FilterPath(filterpaths ...string) *HotThreads {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *HotThreads) Human(human bool) *HotThreads {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -406,8 +402,8 @@ func (r *HotThreads) Human(human bool) *HotThreads {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *HotThreads) Pretty(pretty bool) *HotThreads {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

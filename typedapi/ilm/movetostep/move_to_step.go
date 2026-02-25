@@ -29,20 +29,17 @@
 // considered an expert level API.
 //
 // You must specify both the current step and the step to be executed in the
-// body of the request.
-// The request will fail if the current step does not match the step currently
-// running for the index
-// This is to prevent the index from being moved from an unexpected step into
-// the next step.
+// body of the request. The request will fail if the current step does not match
+// the step currently running for the index This is to prevent the index from
+// being moved from an unexpected step into the next step.
 //
 // When specifying the target (`next_step`) to which the index will be moved,
-// either the name or both the action and name fields are optional.
-// If only the phase is specified, the index will move to the first step of the
-// first action in the target phase.
-// If the phase and action are specified, the index will move to the first step
-// of the specified action in the specified phase.
-// Only actions specified in the ILM policy are considered valid.
-// An index cannot move to a step that is not part of its policy.
+// either the name or both the action and name fields are optional. If only the
+// phase is specified, the index will move to the first step of the first action
+// in the target phase. If the phase and action are specified, the index will
+// move to the first step of the specified action in the specified phase. Only
+// actions specified in the ILM policy are considered valid. An index cannot
+// move to a step that is not part of its policy.
 package movetostep
 
 import (
@@ -116,20 +113,17 @@ func NewMoveToStepFunc(tp elastictransport.Interface) NewMoveToStep {
 // considered an expert level API.
 //
 // You must specify both the current step and the step to be executed in the
-// body of the request.
-// The request will fail if the current step does not match the step currently
-// running for the index
-// This is to prevent the index from being moved from an unexpected step into
-// the next step.
+// body of the request. The request will fail if the current step does not match
+// the step currently running for the index This is to prevent the index from
+// being moved from an unexpected step into the next step.
 //
 // When specifying the target (`next_step`) to which the index will be moved,
-// either the name or both the action and name fields are optional.
-// If only the phase is specified, the index will move to the first step of the
-// first action in the target phase.
-// If the phase and action are specified, the index will move to the first step
-// of the specified action in the specified phase.
-// Only actions specified in the ILM policy are considered valid.
-// An index cannot move to a step that is not part of its policy.
+// either the name or both the action and name fields are optional. If only the
+// phase is specified, the index will move to the first step of the first action
+// in the target phase. If the phase and action are specified, the index will
+// move to the first step of the specified action in the specified phase. Only
+// actions specified in the ILM policy are considered valid. An index cannot
+// move to a step that is not part of its policy.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-move-to-step
 func New(tp elastictransport.Interface) *MoveToStep {
@@ -384,11 +378,9 @@ func (r *MoveToStep) FilterPath(filterpaths ...string) *MoveToStep {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *MoveToStep) Human(human bool) *MoveToStep {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -396,8 +388,8 @@ func (r *MoveToStep) Human(human bool) *MoveToStep {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *MoveToStep) Pretty(pretty bool) *MoveToStep {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

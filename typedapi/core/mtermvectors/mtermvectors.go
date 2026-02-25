@@ -20,18 +20,17 @@
 
 // Get multiple term vectors.
 //
-// Get multiple term vectors with a single request.
-// You can specify existing documents by index and ID or provide artificial
-// documents in the body of the request.
-// You can specify the index in the request body or request URI.
-// The response contains a `docs` array with all the fetched termvectors.
-// Each element has the structure provided by the termvectors API.
+// Get multiple term vectors with a single request. You can specify existing
+// documents by index and ID or provide artificial documents in the body of the
+// request. You can specify the index in the request body or request URI. The
+// response contains a `docs` array with all the fetched termvectors. Each
+// element has the structure provided by the termvectors API.
 //
-// **Artificial documents**
+// # Artificial documents
 //
 // You can also use `mtermvectors` to generate term vectors for artificial
-// documents provided in the body of the request.
-// The mapping used is determined by the specified `_index`.
+// documents provided in the body of the request. The mapping used is determined
+// by the specified `_index`.
 package mtermvectors
 
 import (
@@ -95,18 +94,17 @@ func NewMtermvectorsFunc(tp elastictransport.Interface) NewMtermvectors {
 
 // Get multiple term vectors.
 //
-// Get multiple term vectors with a single request.
-// You can specify existing documents by index and ID or provide artificial
-// documents in the body of the request.
-// You can specify the index in the request body or request URI.
-// The response contains a `docs` array with all the fetched termvectors.
-// Each element has the structure provided by the termvectors API.
+// Get multiple term vectors with a single request. You can specify existing
+// documents by index and ID or provide artificial documents in the body of the
+// request. You can specify the index in the request body or request URI. The
+// response contains a `docs` array with all the fetched termvectors. Each
+// element has the structure provided by the termvectors API.
 //
-// **Artificial documents**
+// # Artificial documents
 //
 // You can also use `mtermvectors` to generate term vectors for artificial
-// documents provided in the body of the request.
-// The mapping used is determined by the specified `_index`.
+// documents provided in the body of the request. The mapping used is determined
+// by the specified `_index`.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mtermvectors
 func New(tp elastictransport.Interface) *Mtermvectors {
@@ -342,9 +340,8 @@ func (r *Mtermvectors) Index(index string) *Mtermvectors {
 }
 
 // Fields A comma-separated list or wildcard expressions of fields to include in the
-// statistics.
-// It is used as the default list unless a specific field list is provided in
-// the `completion_fields` or `fielddata_fields` parameters.
+// statistics. It is used as the default list unless a specific field list is
+// provided in the `completion_fields` or `fielddata_fields` parameters.
 // API name: fields
 func (r *Mtermvectors) Fields(fields ...string) *Mtermvectors {
 	r.values.Set("fields", strings.Join(fields, ","))
@@ -385,8 +382,8 @@ func (r *Mtermvectors) Positions(positions bool) *Mtermvectors {
 	return r
 }
 
-// Preference The node or shard the operation should be performed on.
-// It is random by default.
+// Preference The node or shard the operation should be performed on. It is random by
+// default.
 // API name: preference
 func (r *Mtermvectors) Preference(preference string) *Mtermvectors {
 	r.values.Set("preference", preference)
@@ -457,11 +454,9 @@ func (r *Mtermvectors) FilterPath(filterpaths ...string) *Mtermvectors {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Mtermvectors) Human(human bool) *Mtermvectors {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -469,8 +464,8 @@ func (r *Mtermvectors) Human(human bool) *Mtermvectors {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Mtermvectors) Pretty(pretty bool) *Mtermvectors {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

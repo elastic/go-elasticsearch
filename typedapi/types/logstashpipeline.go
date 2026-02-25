@@ -33,19 +33,18 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/logstash/_types/Pipeline.ts#L57-L88
 type LogstashPipeline struct {
-	// Description A description of the pipeline.
-	// This description is not used by Elasticsearch or Logstash.
+	// Description A description of the pipeline. This description is not used by Elasticsearch
+	// or Logstash.
 	Description string `json:"description"`
-	// LastModified The date the pipeline was last updated.
-	// It must be in the `yyyy-MM-dd'T'HH:mm:ss.SSSZZ` strict_date_time format.
+	// LastModified The date the pipeline was last updated. It must be in the
+	// `yyyy-MM-dd'T'HH:mm:ss.SSSZZ` strict_date_time format.
 	LastModified DateTime `json:"last_modified"`
 	// Pipeline The configuration for the pipeline.
 	Pipeline string `json:"pipeline"`
-	// PipelineMetadata Optional metadata about the pipeline, which can have any contents.
-	// This metadata is not generated or used by Elasticsearch or Logstash.
+	// PipelineMetadata Optional metadata about the pipeline, which can have any contents. This
+	// metadata is not generated or used by Elasticsearch or Logstash.
 	PipelineMetadata PipelineMetadata `json:"pipeline_metadata"`
-	// PipelineSettings Settings for the pipeline.
-	// It supports only flat keys in dot notation.
+	// PipelineSettings Settings for the pipeline. It supports only flat keys in dot notation.
 	PipelineSettings PipelineSettings `json:"pipeline_settings"`
 	// Username The user who last updated the pipeline.
 	Username string `json:"username"`

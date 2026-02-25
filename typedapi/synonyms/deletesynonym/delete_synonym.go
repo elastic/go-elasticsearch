@@ -23,27 +23,23 @@
 // You can only delete a synonyms set that is not in use by any index analyzer.
 //
 // Synonyms sets can be used in synonym graph token filters and synonym token
-// filters.
-// These synonym filters can be used as part of search analyzers.
+// filters. These synonym filters can be used as part of search analyzers.
 //
 // Analyzers need to be loaded when an index is restored (such as when a node
-// starts, or the index becomes open).
-// Even if the analyzer is not used on any field mapping, it still needs to be
-// loaded on the index recovery phase.
+// starts, or the index becomes open). Even if the analyzer is not used on any
+// field mapping, it still needs to be loaded on the index recovery phase.
 //
 // If any analyzers cannot be loaded, the index becomes unavailable and the
-// cluster status becomes red or yellow as index shards are not available.
-// To prevent that, synonyms sets that are used in analyzers can't be deleted.
-// A delete request in this case will return a 400 response code.
+// cluster status becomes red or yellow as index shards are not available. To
+// prevent that, synonyms sets that are used in analyzers can't be deleted. A
+// delete request in this case will return a 400 response code.
 //
 // To remove a synonyms set, you must first remove all indices that contain
-// analyzers using it.
-// You can migrate an index by creating a new index that does not contain the
-// token filter with the synonyms set, and use the reindex API in order to copy
-// over the index data.
-// Once finished, you can delete the index.
-// When the synonyms set is not used in analyzers, you will be able to delete
-// it.
+// analyzers using it. You can migrate an index by creating a new index that
+// does not contain the token filter with the synonyms set, and use the reindex
+// API in order to copy over the index data. Once finished, you can delete the
+// index. When the synonyms set is not used in analyzers, you will be able to
+// delete it.
 package deletesynonym
 
 import (
@@ -106,27 +102,23 @@ func NewDeleteSynonymFunc(tp elastictransport.Interface) NewDeleteSynonym {
 // You can only delete a synonyms set that is not in use by any index analyzer.
 //
 // Synonyms sets can be used in synonym graph token filters and synonym token
-// filters.
-// These synonym filters can be used as part of search analyzers.
+// filters. These synonym filters can be used as part of search analyzers.
 //
 // Analyzers need to be loaded when an index is restored (such as when a node
-// starts, or the index becomes open).
-// Even if the analyzer is not used on any field mapping, it still needs to be
-// loaded on the index recovery phase.
+// starts, or the index becomes open). Even if the analyzer is not used on any
+// field mapping, it still needs to be loaded on the index recovery phase.
 //
 // If any analyzers cannot be loaded, the index becomes unavailable and the
-// cluster status becomes red or yellow as index shards are not available.
-// To prevent that, synonyms sets that are used in analyzers can't be deleted.
-// A delete request in this case will return a 400 response code.
+// cluster status becomes red or yellow as index shards are not available. To
+// prevent that, synonyms sets that are used in analyzers can't be deleted. A
+// delete request in this case will return a 400 response code.
 //
 // To remove a synonyms set, you must first remove all indices that contain
-// analyzers using it.
-// You can migrate an index by creating a new index that does not contain the
-// token filter with the synonyms set, and use the reindex API in order to copy
-// over the index data.
-// Once finished, you can delete the index.
-// When the synonyms set is not used in analyzers, you will be able to delete
-// it.
+// analyzers using it. You can migrate an index by creating a new index that
+// does not contain the token filter with the synonyms set, and use the reindex
+// API in order to copy over the index data. Once finished, you can delete the
+// index. When the synonyms set is not used in analyzers, you will be able to
+// delete it.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym
 func New(tp elastictransport.Interface) *DeleteSynonym {
@@ -370,11 +362,9 @@ func (r *DeleteSynonym) FilterPath(filterpaths ...string) *DeleteSynonym {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteSynonym) Human(human bool) *DeleteSynonym {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +372,8 @@ func (r *DeleteSynonym) Human(human bool) *DeleteSynonym {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteSynonym) Pretty(pretty bool) *DeleteSynonym {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -303,8 +303,8 @@ func (r *GetDataFrameAnalyticsStats) Header(key, value string) *GetDataFrameAnal
 	return r
 }
 
-// Id Identifier for the data frame analytics job. If you do not specify this
-// option, the API returns information for the first hundred data frame
+// Id Identifier for the data frame analytics job. If you do not specify this //
+// option, the API returns information for the first hundred data frame //
 // analytics jobs.
 // API Name: id
 func (r *GetDataFrameAnalyticsStats) Id(id string) *GetDataFrameAnalyticsStats {
@@ -316,15 +316,14 @@ func (r *GetDataFrameAnalyticsStats) Id(id string) *GetDataFrameAnalyticsStats {
 
 // AllowNoMatch Specifies what to do when the request:
 //
-// 1. Contains wildcard expressions and there are no data frame analytics
-// jobs that match.
-// 2. Contains the `_all` string or no identifiers and there are no matches.
-// 3. Contains wildcard expressions and there are only partial matches.
+// 1. Contains wildcard expressions and there are no data frame analytics jobs
+// that match. 2. Contains the `_all` string or no identifiers and there are no
+// matches. 3. Contains wildcard expressions and there are only partial matches.
 //
-// The default value returns an empty data_frame_analytics array when there
-// are no matches and the subset of results when there are partial matches.
-// If this parameter is `false`, the request returns a 404 status code when
-// there are no matches or only partial matches.
+// The default value returns an empty data_frame_analytics array when there are
+// no matches and the subset of results when there are partial matches. If this
+// parameter is `false`, the request returns a 404 status code when there are no
+// matches or only partial matches.
 // API name: allow_no_match
 func (r *GetDataFrameAnalyticsStats) AllowNoMatch(allownomatch bool) *GetDataFrameAnalyticsStats {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -379,11 +378,9 @@ func (r *GetDataFrameAnalyticsStats) FilterPath(filterpaths ...string) *GetDataF
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetDataFrameAnalyticsStats) Human(human bool) *GetDataFrameAnalyticsStats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -391,8 +388,8 @@ func (r *GetDataFrameAnalyticsStats) Human(human bool) *GetDataFrameAnalyticsSta
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetDataFrameAnalyticsStats) Pretty(pretty bool) *GetDataFrameAnalyticsStats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

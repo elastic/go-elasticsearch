@@ -29,7 +29,9 @@ import (
 	"strconv"
 )
 
-// ErrorCause type.
+// Cause and details about a request failure. This class defines the properties
+// common to all error types. Additional details are also provided, that depend
+// on the error type.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/Errors.ts#L25-L50
 type ErrorCause struct {

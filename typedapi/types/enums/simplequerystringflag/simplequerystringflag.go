@@ -29,30 +29,47 @@ type SimpleQueryStringFlag struct {
 }
 
 var (
+
+	// NONE Disables all operators.
 	NONE = SimpleQueryStringFlag{"NONE"}
 
+	// AND Enables the `+` AND operator.
 	AND = SimpleQueryStringFlag{"AND"}
 
+	// NOT Enables the `-` NOT operator.
 	NOT = SimpleQueryStringFlag{"NOT"}
 
+	// OR Enables the `\|` OR operator.
 	OR = SimpleQueryStringFlag{"OR"}
 
+	// PREFIX Enables the `*` prefix operator.
 	PREFIX = SimpleQueryStringFlag{"PREFIX"}
 
+	// PHRASE Enables the `"` quotes operator used to search for phrases.
 	PHRASE = SimpleQueryStringFlag{"PHRASE"}
 
+	// PRECEDENCE Enables the `(` and `)` operators to control operator precedence.
 	PRECEDENCE = SimpleQueryStringFlag{"PRECEDENCE"}
 
+	// ESCAPE Enables `\` as an escape character.
 	ESCAPE = SimpleQueryStringFlag{"ESCAPE"}
 
+	// WHITESPACE Enables whitespace as split characters.
 	WHITESPACE = SimpleQueryStringFlag{"WHITESPACE"}
 
+	// FUZZY Enables the `~N` operator after a word, where `N` is an integer denoting the
+	// allowed edit distance for matching.
 	FUZZY = SimpleQueryStringFlag{"FUZZY"}
 
+	// NEAR Enables the `~N` operator, after a phrase where `N` is the maximum number of
+	// positions allowed between matching tokens. Synonymous to `SLOP`.
 	NEAR = SimpleQueryStringFlag{"NEAR"}
 
+	// SLOP Enables the `~N` operator, after a phrase where `N` is maximum number of
+	// positions allowed between matching tokens. Synonymous to `NEAR`.
 	SLOP = SimpleQueryStringFlag{"SLOP"}
 
+	// ALL Enables all optional operators.
 	ALL = SimpleQueryStringFlag{"ALL"}
 )
 

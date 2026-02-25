@@ -29,8 +29,14 @@ type TranslogDurability struct {
 }
 
 var (
+
+	// Request (default) fsync and commit after every request. In the event of hardware
+	// failure, all acknowledged writes will already have been committed to disk.
 	Request = TranslogDurability{"request"}
 
+	// Async fsync and commit in the background every sync_interval. In the event of a
+	// failure, all acknowledged writes since the last automatic commit will be
+	// discarded.
 	Async = TranslogDurability{"async"}
 )
 

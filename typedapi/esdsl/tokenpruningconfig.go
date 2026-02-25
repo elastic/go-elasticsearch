@@ -26,12 +26,10 @@ type _tokenPruningConfig struct {
 	v *types.TokenPruningConfig
 }
 
-// Optional pruning configuration.
-// If enabled, this will omit non-significant tokens from the query in order to
-// improve query performance.
-// This is only used if prune is set to true.
-// If prune is set to true but pruning_config is not specified, default values
-// will be used.
+// Optional pruning configuration. If enabled, this will omit non-significant
+// tokens from the query in order to improve query performance. This is only
+// used if prune is set to true. If prune is set to true but pruning_config is
+// not specified, default values will be used.
 func NewTokenPruningConfig() *_tokenPruningConfig {
 
 	return &_tokenPruningConfig{v: types.NewTokenPruningConfig()}

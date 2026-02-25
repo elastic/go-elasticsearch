@@ -21,15 +21,13 @@
 // Refresh an index.
 //
 // A refresh makes recent operations performed on one or more indices available
-// for search.
-// For data streams, the API runs the refresh operation on the stream’s backing
-// indices.
+// for search. For data streams, the API runs the refresh operation on the
+// stream’s backing indices.
 //
 // By default, Elasticsearch periodically refreshes indices every second, but
 // only on indices that have received one search request or more in the last 30
-// seconds.
-// You can change this default interval with the `index.refresh_interval`
-// setting.
+// seconds. You can change this default interval with the
+// `index.refresh_interval` setting.
 //
 // In Elastic Cloud Serverless, the default refresh interval is 5 seconds across
 // all indices.
@@ -37,16 +35,14 @@
 // Refresh requests are synchronous and do not return a response until the
 // refresh operation completes.
 //
-// Refreshes are resource-intensive.
-// To ensure good cluster performance, it's recommended to wait for
-// Elasticsearch's periodic refresh rather than performing an explicit refresh
-// when possible.
+// Refreshes are resource-intensive. To ensure good cluster performance, it's
+// recommended to wait for Elasticsearch's periodic refresh rather than
+// performing an explicit refresh when possible.
 //
 // If your application workflow indexes documents and then runs a search to
 // retrieve the indexed document, it's recommended to use the index API's
-// `refresh=wait_for` query parameter option.
-// This option ensures the indexing operation waits for a periodic refresh
-// before running the search.
+// `refresh=wait_for` query parameter option. This option ensures the indexing
+// operation waits for a periodic refresh before running the search.
 package refresh
 
 import (
@@ -106,15 +102,13 @@ func NewRefreshFunc(tp elastictransport.Interface) NewRefresh {
 // Refresh an index.
 //
 // A refresh makes recent operations performed on one or more indices available
-// for search.
-// For data streams, the API runs the refresh operation on the stream’s backing
-// indices.
+// for search. For data streams, the API runs the refresh operation on the
+// stream’s backing indices.
 //
 // By default, Elasticsearch periodically refreshes indices every second, but
 // only on indices that have received one search request or more in the last 30
-// seconds.
-// You can change this default interval with the `index.refresh_interval`
-// setting.
+// seconds. You can change this default interval with the
+// `index.refresh_interval` setting.
 //
 // In Elastic Cloud Serverless, the default refresh interval is 5 seconds across
 // all indices.
@@ -122,16 +116,14 @@ func NewRefreshFunc(tp elastictransport.Interface) NewRefresh {
 // Refresh requests are synchronous and do not return a response until the
 // refresh operation completes.
 //
-// Refreshes are resource-intensive.
-// To ensure good cluster performance, it's recommended to wait for
-// Elasticsearch's periodic refresh rather than performing an explicit refresh
-// when possible.
+// Refreshes are resource-intensive. To ensure good cluster performance, it's
+// recommended to wait for Elasticsearch's periodic refresh rather than
+// performing an explicit refresh when possible.
 //
 // If your application workflow indexes documents and then runs a search to
 // retrieve the indexed document, it's recommended to use the index API's
-// `refresh=wait_for` query parameter option.
-// This option ensures the indexing operation waits for a periodic refresh
-// before running the search.
+// `refresh=wait_for` query parameter option. This option ensures the indexing
+// operation waits for a periodic refresh before running the search.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-refresh
 func New(tp elastictransport.Interface) *Refresh {
@@ -349,10 +341,8 @@ func (r *Refresh) Header(key, value string) *Refresh {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases used to limit the
-// request.
-// Supports wildcards (`*`).
-// To target all data streams and indices, omit this parameter or use `*` or
-// `_all`.
+// // request. Supports wildcards (`*`). To target all data streams and indices,
+// // omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *Refresh) Index(index string) *Refresh {
 	r.paramSet |= indexMask
@@ -362,8 +352,8 @@ func (r *Refresh) Index(index string) *Refresh {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *Refresh) AllowNoIndices(allownoindices bool) *Refresh {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -371,10 +361,9 @@ func (r *Refresh) AllowNoIndices(allownoindices bool) *Refresh {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *Refresh) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Refresh {
 	tmp := []string{}
@@ -418,11 +407,9 @@ func (r *Refresh) FilterPath(filterpaths ...string) *Refresh {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Refresh) Human(human bool) *Refresh {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -430,8 +417,8 @@ func (r *Refresh) Human(human bool) *Refresh {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Refresh) Pretty(pretty bool) *Refresh {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

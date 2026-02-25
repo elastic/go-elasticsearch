@@ -20,15 +20,13 @@
 
 // Update Watcher index settings.
 //
-// Update settings for the Watcher internal index (`.watches`).
-// Only a subset of settings can be modified.
-// This includes `index.auto_expand_replicas`, `index.number_of_replicas`,
-// `index.routing.allocation.exclude.*`,
+// Update settings for the Watcher internal index (`.watches`). Only a subset of
+// settings can be modified. This includes `index.auto_expand_replicas`,
+// `index.number_of_replicas`, `index.routing.allocation.exclude.*`,
 // `index.routing.allocation.include.*` and
-// `index.routing.allocation.require.*`.
-// Modification of `index.routing.allocation.include._tier_preference` is an
-// exception and is not allowed as the
-// Watcher shards must always be in the `data_content` tier.
+// `index.routing.allocation.require.*`. Modification of
+// `index.routing.allocation.include._tier_preference` is an exception and is
+// not allowed as the Watcher shards must always be in the `data_content` tier.
 package updatesettings
 
 import (
@@ -85,15 +83,13 @@ func NewUpdateSettingsFunc(tp elastictransport.Interface) NewUpdateSettings {
 
 // Update Watcher index settings.
 //
-// Update settings for the Watcher internal index (`.watches`).
-// Only a subset of settings can be modified.
-// This includes `index.auto_expand_replicas`, `index.number_of_replicas`,
-// `index.routing.allocation.exclude.*`,
+// Update settings for the Watcher internal index (`.watches`). Only a subset of
+// settings can be modified. This includes `index.auto_expand_replicas`,
+// `index.number_of_replicas`, `index.routing.allocation.exclude.*`,
 // `index.routing.allocation.include.*` and
-// `index.routing.allocation.require.*`.
-// Modification of `index.routing.allocation.include._tier_preference` is an
-// exception and is not allowed as the
-// Watcher shards must always be in the `data_content` tier.
+// `index.routing.allocation.require.*`. Modification of
+// `index.routing.allocation.include._tier_preference` is an exception and is
+// not allowed as the Watcher shards must always be in the `data_content` tier.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-update-settings
 func New(tp elastictransport.Interface) *UpdateSettings {
@@ -310,9 +306,8 @@ func (r *UpdateSettings) Header(key, value string) *UpdateSettings {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *UpdateSettings) MasterTimeout(duration string) *UpdateSettings {
 	r.values.Set("master_timeout", duration)
@@ -320,9 +315,8 @@ func (r *UpdateSettings) MasterTimeout(duration string) *UpdateSettings {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error.
 // API name: timeout
 func (r *UpdateSettings) Timeout(duration string) *UpdateSettings {
 	r.values.Set("timeout", duration)
@@ -353,11 +347,9 @@ func (r *UpdateSettings) FilterPath(filterpaths ...string) *UpdateSettings {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateSettings) Human(human bool) *UpdateSettings {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -365,8 +357,8 @@ func (r *UpdateSettings) Human(human bool) *UpdateSettings {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateSettings) Pretty(pretty bool) *UpdateSettings {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

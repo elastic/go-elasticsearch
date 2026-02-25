@@ -42,8 +42,8 @@ type Request struct {
 	// appended to each snapshot name.
 	Name *string `json:"name,omitempty"`
 	// Repository Repository used to store snapshots created by this policy. This repository
-	// must exist prior to the policy’s creation. You can create a repository using
-	// the snapshot repository API.
+	// must exist prior to the policy’s creation. You can create a repository
+	// using the snapshot repository API.
 	Repository *string `json:"repository,omitempty"`
 	// Retention Retention rules used to retain and delete snapshots created by the policy.
 	Retention *types.Retention `json:"retention,omitempty"`

@@ -20,11 +20,10 @@
 
 // Get user privileges.
 //
-// Get the security privileges for the logged in user.
-// All users can use this API, but only to determine their own privileges.
-// To check the privileges of other users, you must use the run as feature.
-// To check whether a user has a specific list of privileges, use the has
-// privileges API.
+// Get the security privileges for the logged in user. All users can use this
+// API, but only to determine their own privileges. To check the privileges of
+// other users, you must use the run as feature. To check whether a user has a
+// specific list of privileges, use the has privileges API.
 package getuserprivileges
 
 import (
@@ -76,11 +75,10 @@ func NewGetUserPrivilegesFunc(tp elastictransport.Interface) NewGetUserPrivilege
 
 // Get user privileges.
 //
-// Get the security privileges for the logged in user.
-// All users can use this API, but only to determine their own privileges.
-// To check the privileges of other users, you must use the run as feature.
-// To check whether a user has a specific list of privileges, use the has
-// privileges API.
+// Get the security privileges for the logged in user. All users can use this
+// API, but only to determine their own privileges. To check the privileges of
+// other users, you must use the run as feature. To check whether a user has a
+// specific list of privileges, use the has privileges API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user-privileges
 func New(tp elastictransport.Interface) *GetUserPrivileges {
@@ -313,11 +311,9 @@ func (r *GetUserPrivileges) FilterPath(filterpaths ...string) *GetUserPrivileges
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetUserPrivileges) Human(human bool) *GetUserPrivileges {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -325,8 +321,8 @@ func (r *GetUserPrivileges) Human(human bool) *GetUserPrivileges {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetUserPrivileges) Pretty(pretty bool) *GetUserPrivileges {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

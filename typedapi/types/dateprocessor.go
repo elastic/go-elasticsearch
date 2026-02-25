@@ -33,35 +33,31 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L820-L853
 type DateProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field The field to get the date from.
 	Field string `json:"field"`
-	// Formats An array of the expected date formats.
-	// Can be a java time pattern or one of the following formats: ISO8601, UNIX,
-	// UNIX_MS, or TAI64N.
+	// Formats An array of the expected date formats. Can be a java time pattern or one of
+	// the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.
 	Formats []string `json:"formats"`
 	// If Conditionally execute the processor.
 	If *Script `json:"if,omitempty"`
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
 	// Locale The locale to use when parsing the date, relevant when parsing month names or
-	// week days.
-	// Supports template snippets.
+	// week days. Supports template snippets.
 	Locale *string `json:"locale,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// OutputFormat The format to use when writing the date to target_field. Must be a valid
-	// java time pattern.
+	// OutputFormat The format to use when writing the date to target_field. Must be a valid java
+	// time pattern.
 	OutputFormat *string `json:"output_format,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// TargetField The field that will hold the parsed date.
 	TargetField *string `json:"target_field,omitempty"`
-	// Timezone The timezone to use when parsing the date.
-	// Supports template snippets.
+	// Timezone The timezone to use when parsing the date. Supports template snippets.
 	Timezone *string `json:"timezone,omitempty"`
 }
 

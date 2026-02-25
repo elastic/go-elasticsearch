@@ -20,18 +20,14 @@
 
 // Convert an index alias to a data stream.
 //
-// Converts an index alias to a data stream.
-// You must have a matching index template that is data stream enabled.
-// The alias must meet the following criteria:
-// The alias must have a write index;
-// All indices for the alias must have a `@timestamp` field mapping of a `date`
-// or `date_nanos` field type;
-// The alias must not have any filters;
-// The alias must not use custom routing.
-// If successful, the request removes the alias and creates a data stream with
-// the same name.
-// The indices for the alias become hidden backing indices for the stream.
-// The write index for the alias becomes the write index for the stream.
+// Converts an index alias to a data stream. You must have a matching index
+// template that is data stream enabled. The alias must meet the following
+// criteria: The alias must have a write index; All indices for the alias must
+// have a `@timestamp` field mapping of a `date` or `date_nanos` field type; The
+// alias must not have any filters; The alias must not use custom routing. If
+// successful, the request removes the alias and creates a data stream with the
+// same name. The indices for the alias become hidden backing indices for the
+// stream. The write index for the alias becomes the write index for the stream.
 package migratetodatastream
 
 import (
@@ -91,18 +87,14 @@ func NewMigrateToDataStreamFunc(tp elastictransport.Interface) NewMigrateToDataS
 
 // Convert an index alias to a data stream.
 //
-// Converts an index alias to a data stream.
-// You must have a matching index template that is data stream enabled.
-// The alias must meet the following criteria:
-// The alias must have a write index;
-// All indices for the alias must have a `@timestamp` field mapping of a `date`
-// or `date_nanos` field type;
-// The alias must not have any filters;
-// The alias must not use custom routing.
-// If successful, the request removes the alias and creates a data stream with
-// the same name.
-// The indices for the alias become hidden backing indices for the stream.
-// The write index for the alias becomes the write index for the stream.
+// Converts an index alias to a data stream. You must have a matching index
+// template that is data stream enabled. The alias must meet the following
+// criteria: The alias must have a write index; All indices for the alias must
+// have a `@timestamp` field mapping of a `date` or `date_nanos` field type; The
+// alias must not have any filters; The alias must not use custom routing. If
+// successful, the request removes the alias and creates a data stream with the
+// same name. The indices for the alias become hidden backing indices for the
+// stream. The write index for the alias becomes the write index for the stream.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-migrate-to-data-stream
 func New(tp elastictransport.Interface) *MigrateToDataStream {
@@ -366,11 +358,9 @@ func (r *MigrateToDataStream) FilterPath(filterpaths ...string) *MigrateToDataSt
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *MigrateToDataStream) Human(human bool) *MigrateToDataStream {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -378,8 +368,8 @@ func (r *MigrateToDataStream) Human(human bool) *MigrateToDataStream {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *MigrateToDataStream) Pretty(pretty bool) *MigrateToDataStream {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

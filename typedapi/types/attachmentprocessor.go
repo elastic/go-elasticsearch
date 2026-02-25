@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L368-L409
 type AttachmentProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field The field to get the base64 encoded field from.
 	Field string `json:"field"`
@@ -45,26 +45,25 @@ type AttachmentProcessor struct {
 	// IgnoreMissing If `true` and field does not exist, the processor quietly exits without
 	// modifying the document.
 	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
-	// IndexedChars The number of chars being used for extraction to prevent huge fields.
-	// Use `-1` for no limit.
+	// IndexedChars The number of chars being used for extraction to prevent huge fields. Use
+	// `-1` for no limit.
 	IndexedChars *int64 `json:"indexed_chars,omitempty"`
 	// IndexedCharsField Field name from which you can overwrite the number of chars being used for
 	// extraction.
 	IndexedCharsField *string `json:"indexed_chars_field,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Properties Array of properties to select to be stored.
-	// Can be `content`, `title`, `name`, `author`, `keywords`, `date`,
-	// `content_type`, `content_length`, `language`.
+	// Properties Array of properties to select to be stored. Can be `content`, `title`,
+	// `name`, `author`, `keywords`, `date`, `content_type`, `content_length`,
+	// `language`.
 	Properties []string `json:"properties,omitempty"`
 	// RemoveBinary If true, the binary field will be removed from the document
 	RemoveBinary *bool `json:"remove_binary,omitempty"`
-	// ResourceName Field containing the name of the resource to decode.
-	// If specified, the processor passes this resource name to the underlying Tika
-	// library to enable Resource Name Based Detection.
+	// ResourceName Field containing the name of the resource to decode. If specified, the
+	// processor passes this resource name to the underlying Tika library to enable
+	// Resource Name Based Detection.
 	ResourceName *string `json:"resource_name,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// TargetField The field that will hold the attachment information.
 	TargetField *string `json:"target_field,omitempty"`

@@ -35,8 +35,8 @@ import (
 type SourceFilter struct {
 	// ExcludeVectors If `true`, vector fields are excluded from the returned source.
 	//
-	// This option takes precedence over `includes`: any vector field will
-	// remain excluded even if it matches an `includes` rule.
+	// This option takes precedence over `includes`: any vector field will remain
+	// excluded even if it matches an `includes` rule.
 	ExcludeVectors *bool `json:"exclude_vectors,omitempty"`
 	// Excludes A list of fields to exclude from the returned source.
 	Excludes []string `json:"excludes,omitempty"`

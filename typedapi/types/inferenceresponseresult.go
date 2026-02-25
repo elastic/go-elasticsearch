@@ -40,34 +40,25 @@ type InferenceResponseResult struct {
 	// classification or regression models
 	FeatureImportance []TrainedModelInferenceFeatureImportance `json:"feature_importance,omitempty"`
 	// IsTruncated Indicates whether the input text was truncated to meet the model's maximum
-	// sequence length limit. This property
-	// is present only when it is true.
+	// sequence length limit. This property is present only when it is true.
 	IsTruncated *bool `json:"is_truncated,omitempty"`
 	// PredictedValue If the model is trained for a text classification or zero shot classification
-	// task, the response is the
-	// predicted class.
-	// For named entity recognition (NER) tasks, it contains the annotated text
-	// output.
-	// For fill mask tasks, it contains the top prediction for replacing the mask
-	// token.
-	// For text embedding tasks, it contains the raw numerical text embedding
-	// values.
-	// For regression models, its a numerical value
-	// For classification models, it may be an integer, double, boolean or string
-	// depending on prediction type
+	// task, the response is the predicted class. For named entity recognition (NER)
+	// tasks, it contains the annotated text output. For fill mask tasks, it
+	// contains the top prediction for replacing the mask token. For text embedding
+	// tasks, it contains the raw numerical text embedding values. For regression
+	// models, its a numerical value For classification models, it may be an
+	// integer, double, boolean or string depending on prediction type
 	PredictedValue [][]ScalarValue `json:"predicted_value,omitempty"`
 	// PredictedValueSequence For fill mask tasks, the response contains the input text sequence with the
-	// mask token replaced by the predicted
-	// value.
-	// Additionally
+	// mask token replaced by the predicted value. Additionally
 	PredictedValueSequence *string `json:"predicted_value_sequence,omitempty"`
 	// PredictionProbability Specifies a probability for the predicted value.
 	PredictionProbability *Float64 `json:"prediction_probability,omitempty"`
 	// PredictionScore Specifies a confidence score for the predicted value.
 	PredictionScore *Float64 `json:"prediction_score,omitempty"`
 	// TopClasses For fill mask, text classification, and zero shot classification tasks, the
-	// response contains a list of top
-	// class entries.
+	// response contains a list of top class entries.
 	TopClasses []TopClassEntry `json:"top_classes,omitempty"`
 	// Warning If the request failed, the response contains the reason for the failure.
 	Warning *string `json:"warning,omitempty"`

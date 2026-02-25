@@ -21,10 +21,9 @@
 // Get the dangling indices.
 //
 // If Elasticsearch encounters index data that is absent from the current
-// cluster state, those indices are considered to be dangling.
-// For example, this can happen if you delete more than
-// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
-// offline.
+// cluster state, those indices are considered to be dangling. For example, this
+// can happen if you delete more than `cluster.indices.tombstones.size` indices
+// while an Elasticsearch node is offline.
 //
 // Use this API to list dangling indices, which you can then import or delete.
 package listdanglingindices
@@ -79,10 +78,9 @@ func NewListDanglingIndicesFunc(tp elastictransport.Interface) NewListDanglingIn
 // Get the dangling indices.
 //
 // If Elasticsearch encounters index data that is absent from the current
-// cluster state, those indices are considered to be dangling.
-// For example, this can happen if you delete more than
-// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
-// offline.
+// cluster state, those indices are considered to be dangling. For example, this
+// can happen if you delete more than `cluster.indices.tombstones.size` indices
+// while an Elasticsearch node is offline.
 //
 // Use this API to list dangling indices, which you can then import or delete.
 //
@@ -313,11 +311,9 @@ func (r *ListDanglingIndices) FilterPath(filterpaths ...string) *ListDanglingInd
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ListDanglingIndices) Human(human bool) *ListDanglingIndices {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -325,8 +321,8 @@ func (r *ListDanglingIndices) Human(human bool) *ListDanglingIndices {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ListDanglingIndices) Pretty(pretty bool) *ListDanglingIndices {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

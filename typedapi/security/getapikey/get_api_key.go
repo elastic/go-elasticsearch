@@ -20,10 +20,9 @@
 
 // Get API key information.
 //
-// Retrieves information for one or more API keys.
-// NOTE: If you have only the `manage_own_api_key` privilege, this API returns
-// only the API keys that you own.
-// If you have `read_security`, `manage_api_key` or greater privileges
+// Retrieves information for one or more API keys. NOTE: If you have only the
+// `manage_own_api_key` privilege, this API returns only the API keys that you
+// own. If you have `read_security`, `manage_api_key` or greater privileges
 // (including `manage_security`), this API returns all API keys regardless of
 // ownership.
 package getapikey
@@ -77,10 +76,9 @@ func NewGetApiKeyFunc(tp elastictransport.Interface) NewGetApiKey {
 
 // Get API key information.
 //
-// Retrieves information for one or more API keys.
-// NOTE: If you have only the `manage_own_api_key` privilege, this API returns
-// only the API keys that you own.
-// If you have `read_security`, `manage_api_key` or greater privileges
+// Retrieves information for one or more API keys. NOTE: If you have only the
+// `manage_own_api_key` privilege, this API returns only the API keys that you
+// own. If you have `read_security`, `manage_api_key` or greater privileges
 // (including `manage_security`), this API returns all API keys regardless of
 // ownership.
 //
@@ -290,8 +288,8 @@ func (r *GetApiKey) Header(key, value string) *GetApiKey {
 	return r
 }
 
-// Id An API key id.
-// This parameter cannot be used with any of `name`, `realm_name` or `username`.
+// Id An API key id. This parameter cannot be used with any of `name`, `realm_name`
+// or `username`.
 // API name: id
 func (r *GetApiKey) Id(id string) *GetApiKey {
 	r.values.Set("id", id)
@@ -299,9 +297,8 @@ func (r *GetApiKey) Id(id string) *GetApiKey {
 	return r
 }
 
-// Name An API key name.
-// This parameter cannot be used with any of `id`, `realm_name` or `username`.
-// It supports prefix search with wildcard.
+// Name An API key name. This parameter cannot be used with any of `id`, `realm_name`
+// or `username`. It supports prefix search with wildcard.
 // API name: name
 func (r *GetApiKey) Name(name string) *GetApiKey {
 	r.values.Set("name", name)
@@ -310,10 +307,9 @@ func (r *GetApiKey) Name(name string) *GetApiKey {
 }
 
 // Owner A boolean flag that can be used to query API keys owned by the currently
-// authenticated user.
-// The `realm_name` or `username` parameters cannot be specified when this
-// parameter is set to `true` as they are assumed to be the currently
-// authenticated ones.
+// authenticated user. The `realm_name` or `username` parameters cannot be
+// specified when this parameter is set to `true` as they are assumed to be the
+// currently authenticated ones.
 // API name: owner
 func (r *GetApiKey) Owner(owner bool) *GetApiKey {
 	r.values.Set("owner", strconv.FormatBool(owner))
@@ -321,9 +317,8 @@ func (r *GetApiKey) Owner(owner bool) *GetApiKey {
 	return r
 }
 
-// RealmName The name of an authentication realm.
-// This parameter cannot be used with either `id` or `name` or when `owner` flag
-// is set to `true`.
+// RealmName The name of an authentication realm. This parameter cannot be used with
+// either `id` or `name` or when `owner` flag is set to `true`.
 // API name: realm_name
 func (r *GetApiKey) RealmName(name string) *GetApiKey {
 	r.values.Set("realm_name", name)
@@ -331,9 +326,8 @@ func (r *GetApiKey) RealmName(name string) *GetApiKey {
 	return r
 }
 
-// Username The username of a user.
-// This parameter cannot be used with either `id` or `name` or when `owner` flag
-// is set to `true`.
+// Username The username of a user. This parameter cannot be used with either `id` or
+// `name` or when `owner` flag is set to `true`.
 // API name: username
 func (r *GetApiKey) Username(username string) *GetApiKey {
 	r.values.Set("username", username)
@@ -341,10 +335,9 @@ func (r *GetApiKey) Username(username string) *GetApiKey {
 	return r
 }
 
-// WithLimitedBy Return the snapshot of the owner user's role descriptors
-// associated with the API key. An API key's actual
-// permission is the intersection of its assigned role
-// descriptors and the owner user's role descriptors.
+// WithLimitedBy Return the snapshot of the owner user's role descriptors associated with the
+// API key. An API key's actual permission is the intersection of its assigned
+// role descriptors and the owner user's role descriptors.
 // API name: with_limited_by
 func (r *GetApiKey) WithLimitedBy(withlimitedby bool) *GetApiKey {
 	r.values.Set("with_limited_by", strconv.FormatBool(withlimitedby))
@@ -396,11 +389,9 @@ func (r *GetApiKey) FilterPath(filterpaths ...string) *GetApiKey {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetApiKey) Human(human bool) *GetApiKey {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -408,8 +399,8 @@ func (r *GetApiKey) Human(human bool) *GetApiKey {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetApiKey) Pretty(pretty bool) *GetApiKey {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -31,7 +31,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indexprivilege"
 )
 
-// RemoteIndicesPrivileges type.
+// The subset of index level privileges that can be defined for remote clusters.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/_types/Privileges.ts#L246-L278
 type RemoteIndicesPrivileges struct {

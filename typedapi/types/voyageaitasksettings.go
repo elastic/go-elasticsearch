@@ -33,17 +33,16 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L2231-L2255
 type VoyageAITaskSettings struct {
-	// InputType Type of the input text.
-	// Permitted values: `ingest` (maps to `document` in the VoyageAI
-	// documentation), `search` (maps to `query` in the VoyageAI documentation).
-	// Only for the `text_embedding` task type.
+	// InputType Type of the input text. Permitted values: `ingest` (maps to `document` in the
+	// VoyageAI documentation), `search` (maps to `query` in the VoyageAI
+	// documentation). Only for the `text_embedding` task type.
 	InputType *string `json:"input_type,omitempty"`
-	// ReturnDocuments Whether to return the source documents in the response.
-	// Only for the `rerank` task type.
+	// ReturnDocuments Whether to return the source documents in the response. Only for the `rerank`
+	// task type.
 	ReturnDocuments *bool `json:"return_documents,omitempty"`
-	// TopK The number of most relevant documents to return.
-	// If not specified, the reranking results of all documents will be returned.
-	// Only for the `rerank` task type.
+	// TopK The number of most relevant documents to return. If not specified, the
+	// reranking results of all documents will be returned. Only for the `rerank`
+	// task type.
 	TopK *int `json:"top_k,omitempty"`
 	// Truncation Whether to truncate the input texts to fit within the context length.
 	Truncation *bool `json:"truncation,omitempty"`

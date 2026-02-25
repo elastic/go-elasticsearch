@@ -20,13 +20,12 @@
 
 // Delete indices.
 //
-// Deleting an index deletes its documents, shards, and metadata.
-// It does not delete related Kibana components, such as data views,
-// visualizations, or dashboards.
+// Deleting an index deletes its documents, shards, and metadata. It does not
+// delete related Kibana components, such as data views, visualizations, or
+// dashboards.
 //
-// You cannot delete the current write index of a data stream.
-// To delete the index, you must roll over the data stream so a new write index
-// is created.
+// You cannot delete the current write index of a data stream. To delete the
+// index, you must roll over the data stream so a new write index is created.
 // You can then use the delete index API to delete the previous write index.
 package delete
 
@@ -88,13 +87,12 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 
 // Delete indices.
 //
-// Deleting an index deletes its documents, shards, and metadata.
-// It does not delete related Kibana components, such as data views,
-// visualizations, or dashboards.
+// Deleting an index deletes its documents, shards, and metadata. It does not
+// delete related Kibana components, such as data views, visualizations, or
+// dashboards.
 //
-// You cannot delete the current write index of a data stream.
-// To delete the index, you must roll over the data stream so a new write index
-// is created.
+// You cannot delete the current write index of a data stream. To delete the
+// index, you must roll over the data stream so a new write index is created.
 // You can then use the delete index API to delete the previous write index.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete
@@ -305,11 +303,10 @@ func (r *Delete) Header(key, value string) *Delete {
 	return r
 }
 
-// Index Comma-separated list of indices to delete.
-// You cannot specify index aliases.
-// By default, this parameter does not support wildcards (`*`) or `_all`.
-// To use wildcards or `_all`, set the `action.destructive_requires_name`
-// cluster setting to `false`.
+// Index Comma-separated list of indices to delete. You cannot specify index aliases.
+// // By default, this parameter does not support wildcards (`*`) or `_all`. To
+// use // wildcards or `_all`, set the `action.destructive_requires_name`
+// cluster // setting to `false`.
 // API Name: index
 func (r *Delete) _index(index string) *Delete {
 	r.paramSet |= indexMask
@@ -319,8 +316,8 @@ func (r *Delete) _index(index string) *Delete {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *Delete) AllowNoIndices(allownoindices bool) *Delete {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -328,10 +325,9 @@ func (r *Delete) AllowNoIndices(allownoindices bool) *Delete {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *Delete) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Delete {
 	tmp := []string{}
@@ -352,9 +348,8 @@ func (r *Delete) IgnoreUnavailable(ignoreunavailable bool) *Delete {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *Delete) MasterTimeout(duration string) *Delete {
 	r.values.Set("master_timeout", duration)
@@ -362,9 +357,8 @@ func (r *Delete) MasterTimeout(duration string) *Delete {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *Delete) Timeout(duration string) *Delete {
 	r.values.Set("timeout", duration)
@@ -395,11 +389,9 @@ func (r *Delete) FilterPath(filterpaths ...string) *Delete {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Delete) Human(human bool) *Delete {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -407,8 +399,8 @@ func (r *Delete) Human(human bool) *Delete {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Delete) Pretty(pretty bool) *Delete {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -29,12 +29,11 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L1153-L1307
 type CustomResponseParams struct {
 	// JsonParser Specifies the JSON parser that is used to parse the response from the custom
-	// service.
-	// Different task types require different json_parser parameters.
-	// For example:
-	// ```
-	// # text_embedding
-	// # For a response like this:
+	// service. Different task types require different json_parser parameters. For
+	// example:
+	//
+	//	# text_embedding
+	//	# For a response like this:
 	//
 	//	{
 	//	 "object": "list",
@@ -55,7 +54,7 @@ type CustomResponseParams struct {
 	//	 }
 	//	}
 	//
-	// # the json_parser definition should look like this:
+	//	# the json_parser definition should look like this:
 	//
 	//	"response":{
 	//	  "json_parser":{
@@ -63,14 +62,13 @@ type CustomResponseParams struct {
 	//	  }
 	//	}
 	//
-	// # Elasticsearch supports the following embedding types:
-	// * float
-	// * byte
-	// * bit (or binary)
+	//	# Elasticsearch supports the following embedding types:
+	//	* float
+	//	* byte
+	//	* bit (or binary)
 	//
-	// To specify the embedding type for the response, the `embedding_type`
-	// field should be added in the `json_parser` object. Here's an example:
-	//
+	//	To specify the embedding type for the response, the `embedding_type`
+	//	field should be added in the `json_parser` object. Here's an example:
 	//	"response":{
 	//	  "json_parser":{
 	//	    "text_embeddings":"$.data[*].embedding[*]",
@@ -78,10 +76,10 @@ type CustomResponseParams struct {
 	//	  }
 	//	}
 	//
-	// If `embedding_type` is not specified, it defaults to `float`.
+	//	If `embedding_type` is not specified, it defaults to `float`.
 	//
-	// # sparse_embedding
-	// # For a response like this:
+	//	# sparse_embedding
+	//	# For a response like this:
 	//
 	//	{
 	//	  "request_id": "75C50B5B-E79E-4930-****-F48DBB392231",
@@ -108,7 +106,7 @@ type CustomResponseParams struct {
 	//	  }
 	//	}
 	//
-	// # the json_parser definition should look like this:
+	//	# the json_parser definition should look like this:
 	//
 	//	"response":{
 	//	  "json_parser":{
@@ -117,8 +115,8 @@ type CustomResponseParams struct {
 	//	  }
 	//	}
 	//
-	// # rerank
-	// # For a response like this:
+	//	# rerank
+	//	# For a response like this:
 	//
 	//	{
 	//	  "results": [
@@ -140,7 +138,7 @@ type CustomResponseParams struct {
 	//	  ],
 	//	}
 	//
-	// # the json_parser definition should look like this:
+	//	# the json_parser definition should look like this:
 	//
 	//	"response":{
 	//	  "json_parser":{
@@ -150,8 +148,8 @@ type CustomResponseParams struct {
 	//	  }
 	//	}
 	//
-	// # completion
-	// # For a response like this:
+	//	# completion
+	//	# For a response like this:
 	//
 	//	{
 	//	 "id": "chatcmpl-B9MBs8CjcvOU2jLn4n570S5qMJKcT",
@@ -173,7 +171,7 @@ type CustomResponseParams struct {
 	//	 ]
 	//	}
 	//
-	// # the json_parser definition should look like this:
+	//	# the json_parser definition should look like this:
 	//
 	//	"response":{
 	//	  "json_parser":{

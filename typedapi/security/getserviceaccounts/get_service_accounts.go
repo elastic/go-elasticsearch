@@ -327,9 +327,9 @@ func (r *GetServiceAccounts) Header(key, value string) *GetServiceAccounts {
 	return r
 }
 
-// Namespace The name of the namespace.
-// Omit this parameter to retrieve information about all service accounts.
-// If you omit this parameter, you must also omit the `service` parameter.
+// Namespace The name of the namespace. Omit this parameter to retrieve information about
+// // all service accounts. If you omit this parameter, you must also omit the
+// // `service` parameter.
 // API Name: namespace
 func (r *GetServiceAccounts) Namespace(namespace string) *GetServiceAccounts {
 	r.paramSet |= namespaceMask
@@ -338,9 +338,8 @@ func (r *GetServiceAccounts) Namespace(namespace string) *GetServiceAccounts {
 	return r
 }
 
-// Service The service name.
-// Omit this parameter to retrieve information about all service accounts that
-// belong to the specified `namespace`.
+// Service The service name. Omit this parameter to retrieve information about all //
+// service accounts that belong to the specified `namespace`.
 // API Name: service
 func (r *GetServiceAccounts) Service(service string) *GetServiceAccounts {
 	r.paramSet |= serviceMask
@@ -372,11 +371,9 @@ func (r *GetServiceAccounts) FilterPath(filterpaths ...string) *GetServiceAccoun
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetServiceAccounts) Human(human bool) *GetServiceAccounts {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -384,8 +381,8 @@ func (r *GetServiceAccounts) Human(human bool) *GetServiceAccounts {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetServiceAccounts) Pretty(pretty bool) *GetServiceAccounts {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

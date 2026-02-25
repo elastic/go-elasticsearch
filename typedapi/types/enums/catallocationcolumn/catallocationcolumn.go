@@ -29,30 +29,44 @@ type CatAllocationColumn struct {
 }
 
 var (
+
+	// Shards The number of shards on the node.
 	Shards = CatAllocationColumn{"shards"}
 
+	// Shardsundesired The number of shards scheduled to be moved elsewhere in the cluster.
 	Shardsundesired = CatAllocationColumn{"shards.undesired"}
 
+	// Writeloadforecast The sum of index write load forecasts.
 	Writeloadforecast = CatAllocationColumn{"write_load.forecast"}
 
+	// Diskindicesforecast The sum of shard size forecasts.
 	Diskindicesforecast = CatAllocationColumn{"disk.indices.forecast"}
 
+	// Diskindices The disk space used by Elasticsearch indices.
 	Diskindices = CatAllocationColumn{"disk.indices"}
 
+	// Diskused The total disk space used on the node.
 	Diskused = CatAllocationColumn{"disk.used"}
 
+	// Diskavail The available disk space on the node.
 	Diskavail = CatAllocationColumn{"disk.avail"}
 
+	// Disktotal The total disk capacity of all volumes on the node.
 	Disktotal = CatAllocationColumn{"disk.total"}
 
+	// Diskpercent The percentage of disk space used on the node.
 	Diskpercent = CatAllocationColumn{"disk.percent"}
 
+	// Host IThe host of the node.
 	Host = CatAllocationColumn{"host"}
 
+	// Ip The IP address of the node.
 	Ip = CatAllocationColumn{"ip"}
 
+	// Node The name of the node.
 	Node = CatAllocationColumn{"node"}
 
+	// Noderole The roles assigned to the node.
 	Noderole = CatAllocationColumn{"node.role"}
 )
 

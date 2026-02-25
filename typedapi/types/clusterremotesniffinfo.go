@@ -35,9 +35,8 @@ import (
 type ClusterRemoteSniffInfo struct {
 	// Connected If it is `true`, there is at least one open connection to the remote cluster.
 	// If it is `false`, it means that the cluster no longer has an open connection
-	// to the remote cluster.
-	// It does not necessarily mean that the remote cluster is down or unavailable,
-	// just that at some point a connection was lost.
+	// to the remote cluster. It does not necessarily mean that the remote cluster
+	// is down or unavailable, just that at some point a connection was lost.
 	Connected bool `json:"connected"`
 	// InitialConnectTimeout The initial connect timeout for remote cluster connections.
 	InitialConnectTimeout Duration `json:"initial_connect_timeout"`

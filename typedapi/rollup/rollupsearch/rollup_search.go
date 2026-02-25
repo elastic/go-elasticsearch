@@ -21,22 +21,24 @@
 // Search rolled-up data.
 //
 // The rollup search endpoint is needed because, internally, rolled-up documents
-// utilize a different document structure than the original data.
-// It rewrites standard Query DSL into a format that matches the rollup
-// documents then takes the response and rewrites it back to what a client would
-// expect given the original query.
+// utilize a different document structure than the original data. It rewrites
+// standard Query DSL into a format that matches the rollup documents then takes
+// the response and rewrites it back to what a client would expect given the
+// original query.
 //
 // The request body supports a subset of features from the regular search API.
 // The following functionality is not available:
 //
 // `size`: Because rollups work on pre-aggregated data, no search hits can be
-// returned and so size must be set to zero or omitted entirely.
-// `highlighter`, `suggestors`, `post_filter`, `profile`, `explain`: These are
-// similarly disallowed.
+// returned and so size must be set to zero or omitted entirely. `highlighter`,
+// `suggestors`, `post_filter`, `profile`, `explain`: These are similarly
+// disallowed.
 //
 // For more detailed examples of using the rollup search API, including querying
 // rolled-up data only or combining rolled-up and live data, refer to the
 // External documentation.
+//
+// Deprecated: Since 8.11.0.
 package rollupsearch
 
 import (
@@ -102,24 +104,26 @@ func NewRollupSearchFunc(tp elastictransport.Interface) NewRollupSearch {
 // Search rolled-up data.
 //
 // The rollup search endpoint is needed because, internally, rolled-up documents
-// utilize a different document structure than the original data.
-// It rewrites standard Query DSL into a format that matches the rollup
-// documents then takes the response and rewrites it back to what a client would
-// expect given the original query.
+// utilize a different document structure than the original data. It rewrites
+// standard Query DSL into a format that matches the rollup documents then takes
+// the response and rewrites it back to what a client would expect given the
+// original query.
 //
 // The request body supports a subset of features from the regular search API.
 // The following functionality is not available:
 //
 // `size`: Because rollups work on pre-aggregated data, no search hits can be
-// returned and so size must be set to zero or omitted entirely.
-// `highlighter`, `suggestors`, `post_filter`, `profile`, `explain`: These are
-// similarly disallowed.
+// returned and so size must be set to zero or omitted entirely. `highlighter`,
+// `suggestors`, `post_filter`, `profile`, `explain`: These are similarly
+// disallowed.
 //
 // For more detailed examples of using the rollup search API, including querying
 // rolled-up data only or combining rolled-up and live data, refer to the
 // External documentation.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-rollup-search
+//
+// Deprecated: Since 8.11.0.
 func New(tp elastictransport.Interface) *RollupSearch {
 	r := &RollupSearch{
 		transport: tp,
@@ -341,18 +345,15 @@ func (r *RollupSearch) Header(key, value string) *RollupSearch {
 }
 
 // Index A comma-separated list of data streams and indices used to limit the request.
-// This parameter has the following rules:
-//
-// * At least one data stream, index, or wildcard expression must be specified.
-// This target can include a rollup or non-rollup index. For data streams, the
-// stream's backing indices can only serve as non-rollup indices. Omitting the
-// parameter or using `_all` are not permitted.
-// * Multiple non-rollup indices may be specified.
-// * Only one rollup index may be specified. If more than one are supplied, an
-// exception occurs.
-// * Wildcard expressions (`*`) may be used. If they match more than one rollup
-// index, an exception occurs. However, you can use an expression to match
-// multiple non-rollup indices or data streams.
+// // This parameter has the following rules: // // - At least one data stream,
+// index, or wildcard expression must be // specified. This target can include a
+// rollup or non-rollup index. For data // streams, the stream's backing indices
+// can only serve as non-rollup // indices. Omitting the parameter or using
+// `_all` are not permitted. // - Multiple non-rollup indices may be specified.
+// // - Only one rollup index may be specified. If more than one are supplied,
+// an // exception occurs. // - Wildcard expressions (`*`) may be used. If they
+// match more than one // rollup index, an exception occurs. However, you can
+// use an expression to // match multiple non-rollup indices or data streams.
 // API Name: index
 func (r *RollupSearch) _index(index string) *RollupSearch {
 	r.paramSet |= indexMask
@@ -402,11 +403,9 @@ func (r *RollupSearch) FilterPath(filterpaths ...string) *RollupSearch {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *RollupSearch) Human(human bool) *RollupSearch {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -414,8 +413,8 @@ func (r *RollupSearch) Human(human bool) *RollupSearch {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *RollupSearch) Pretty(pretty bool) *RollupSearch {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

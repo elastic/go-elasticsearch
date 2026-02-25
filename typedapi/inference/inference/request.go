@@ -33,36 +33,34 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/inference/InferenceRequest.ts#L26-L106
 type Request struct {
-	// Input The text on which you want to perform the inference task.
-	// It can be a single string or an array.
+	// Input The text on which you want to perform the inference task. It can be a single
+	// string or an array.
 	//
-	// > info
-	// > Inference endpoints for the `completion` task type currently only support a
-	// single string as input.
+	// > info > Inference endpoints for the `completion` task type currently only
+	// support a single string as input.
 	Input []string `json:"input"`
 	// InputType Specifies the input data type for the embedding model. The `input_type`
 	// parameter only applies to Inference Endpoints with the `embedding` or
 	// `text_embedding` task type. Possible values include:
-	// * `SEARCH`
-	// * `INGEST`
-	// * `CLASSIFICATION`
-	// * `CLUSTERING`
-	// Not all services support all values. Unsupported values will trigger a
-	// validation exception.
-	// Accepted values depend on the configured inference service, refer to the
-	// relevant service-specific documentation for more info.
 	//
-	// > info
-	// > The `input_type` parameter specified on the root level of the request body
-	// will take precedence over the `input_type` parameter specified in
-	// `task_settings`.
+	//   - `SEARCH`
+	//   - `INGEST`
+	//   - `CLASSIFICATION`
+	//   - `CLUSTERING` Not all services support all values. Unsupported values will
+	//     trigger a validation exception. Accepted values depend on the configured
+	//     inference service, refer to the relevant service-specific documentation
+	//     for more info.
+	//
+	// > info > The `input_type` parameter specified on the root level of the
+	// request body will take precedence over the `input_type` parameter specified
+	// in `task_settings`.
 	InputType *string `json:"input_type,omitempty"`
-	// Query The query input, which is required only for the `rerank` task.
-	// It is not required for other tasks.
+	// Query The query input, which is required only for the `rerank` task. It is not
+	// required for other tasks.
 	Query *string `json:"query,omitempty"`
-	// TaskSettings Task settings for the individual inference request.
-	// These settings are specific to the task type you specified and override the
-	// task settings specified when initializing the service.
+	// TaskSettings Task settings for the individual inference request. These settings are
+	// specific to the task type you specified and override the task settings
+	// specified when initializing the service.
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 }
 

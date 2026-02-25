@@ -32,8 +32,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/put_elser/PutElserRequest.ts#L30-L97
 type Request struct {
-	// ChunkingSettings The chunking configuration object.
-	// Note that for ELSER endpoints, the max_chunk_size may not exceed `300`.
+	// ChunkingSettings The chunking configuration object. Note that for ELSER endpoints, the
+	// max_chunk_size may not exceed `300`.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
 	// `elser`.

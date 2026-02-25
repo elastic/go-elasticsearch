@@ -325,11 +325,9 @@ func (r *QueryWatches) FilterPath(filterpaths ...string) *QueryWatches {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *QueryWatches) Human(human bool) *QueryWatches {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -337,8 +335,8 @@ func (r *QueryWatches) Human(human bool) *QueryWatches {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *QueryWatches) Pretty(pretty bool) *QueryWatches {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -346,8 +344,7 @@ func (r *QueryWatches) Pretty(pretty bool) *QueryWatches {
 	return r
 }
 
-// The offset from the first result to fetch.
-// It must be non-negative.
+// The offset from the first result to fetch. It must be non-negative.
 // API name: from
 func (r *QueryWatches) From(from int) *QueryWatches {
 	// Initialize the request if it is not already initialized
@@ -391,8 +388,7 @@ func (r *QueryWatches) SearchAfter(sortresults ...types.FieldValueVariant) *Quer
 	return r
 }
 
-// The number of hits to return.
-// It must be non-negative.
+// The number of hits to return. It must be non-negative.
 // API name: size
 func (r *QueryWatches) Size(size int) *QueryWatches {
 	// Initialize the request if it is not already initialized

@@ -333,9 +333,8 @@ func (r *GetInfluencers) Desc(desc bool) *GetInfluencers {
 	return r
 }
 
-// End Returns influencers with timestamps earlier than this time.
-// The default value means it is unset and results are not limited to
-// specific timestamps.
+// End Returns influencers with timestamps earlier than this time. The default value
+// means it is unset and results are not limited to specific timestamps.
 // API name: end
 func (r *GetInfluencers) End(datetime string) *GetInfluencers {
 	r.values.Set("end", datetime)
@@ -343,8 +342,8 @@ func (r *GetInfluencers) End(datetime string) *GetInfluencers {
 	return r
 }
 
-// ExcludeInterim If true, the output excludes interim results. By default, interim results
-// are included.
+// ExcludeInterim If true, the output excludes interim results. By default, interim results are
+// included.
 // API name: exclude_interim
 func (r *GetInfluencers) ExcludeInterim(excludeinterim bool) *GetInfluencers {
 	r.values.Set("exclude_interim", strconv.FormatBool(excludeinterim))
@@ -352,8 +351,7 @@ func (r *GetInfluencers) ExcludeInterim(excludeinterim bool) *GetInfluencers {
 	return r
 }
 
-// InfluencerScore Returns influencers with anomaly scores greater than or equal to this
-// value.
+// InfluencerScore Returns influencers with anomaly scores greater than or equal to this value.
 // API name: influencer_score
 func (r *GetInfluencers) InfluencerScore(influencerscore string) *GetInfluencers {
 	r.values.Set("influencer_score", influencerscore)
@@ -386,8 +384,8 @@ func (r *GetInfluencers) Sort(field string) *GetInfluencers {
 	return r
 }
 
-// Start Returns influencers with timestamps after this time. The default value
-// means it is unset and results are not limited to specific timestamps.
+// Start Returns influencers with timestamps after this time. The default value means
+// it is unset and results are not limited to specific timestamps.
 // API name: start
 func (r *GetInfluencers) Start(datetime string) *GetInfluencers {
 	r.values.Set("start", datetime)
@@ -418,11 +416,9 @@ func (r *GetInfluencers) FilterPath(filterpaths ...string) *GetInfluencers {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetInfluencers) Human(human bool) *GetInfluencers {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -430,8 +426,8 @@ func (r *GetInfluencers) Human(human bool) *GetInfluencers {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetInfluencers) Pretty(pretty bool) *GetInfluencers {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -439,8 +435,7 @@ func (r *GetInfluencers) Pretty(pretty bool) *GetInfluencers {
 	return r
 }
 
-// Configures pagination.
-// This parameter has the `from` and `size` properties.
+// Configures pagination. This parameter has the `from` and `size` properties.
 // API name: page
 func (r *GetInfluencers) Page(page types.PageVariant) *GetInfluencers {
 	// Initialize the request if it is not already initialized

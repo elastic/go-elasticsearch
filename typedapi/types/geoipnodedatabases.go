@@ -20,7 +20,7 @@
 
 package types
 
-// GeoIpNodeDatabases type.
+// Downloaded databases for the node. The field key is the node ID.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/geo_ip_stats/types.ts#L39-L45
 type GeoIpNodeDatabases struct {

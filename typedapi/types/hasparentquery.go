@@ -34,23 +34,20 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/joining.ts#L81-L110
 type HasParentQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
 	// IgnoreUnmapped Indicates whether to ignore an unmapped `parent_type` and not return any
-	// documents instead of an error.
-	// You can use this parameter to query multiple indices that may not contain the
-	// `parent_type`.
+	// documents instead of an error. You can use this parameter to query multiple
+	// indices that may not contain the `parent_type`.
 	IgnoreUnmapped *bool `json:"ignore_unmapped,omitempty"`
 	// InnerHits If defined, each search hit will contain inner hits.
 	InnerHits *InnerHits `json:"inner_hits,omitempty"`
 	// ParentType Name of the parent relationship mapped for the `join` field.
 	ParentType string `json:"parent_type"`
-	// Query Query you wish to run on parent documents of the `parent_type` field.
-	// If a parent document matches the search, the query returns its child
-	// documents.
+	// Query Query you wish to run on parent documents of the `parent_type` field. If a
+	// parent document matches the search, the query returns its child documents.
 	Query      Query   `json:"query"`
 	QueryName_ *string `json:"_name,omitempty"`
 	// Score Indicates whether the relevance score of a matching parent document is

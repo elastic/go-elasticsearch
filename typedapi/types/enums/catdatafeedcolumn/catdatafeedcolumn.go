@@ -29,28 +29,51 @@ type CatDatafeedColumn struct {
 }
 
 var (
+
+	// Ae For started datafeeds only, contains messages relating to the selection of a
+	// node.
 	Ae = CatDatafeedColumn{"ae"}
 
+	// Bc The number of buckets processed.
 	Bc = CatDatafeedColumn{"bc"}
 
+	// Id A numerical character string that uniquely identifies the datafeed.
 	Id = CatDatafeedColumn{"id"}
 
+	// Na For started datafeeds only, the network address of the node where the
+	// datafeed is started.
 	Na = CatDatafeedColumn{"na"}
 
+	// Ne For started datafeeds only, the ephemeral ID of the node where the datafeed
+	// is started.
 	Ne = CatDatafeedColumn{"ne"}
 
+	// Ni For started datafeeds only, the unique identifier of the node where the
+	// datafeed is started.
 	Ni = CatDatafeedColumn{"ni"}
 
+	// Nn For started datafeeds only, the name of the node where the datafeed is
+	// started.
 	Nn = CatDatafeedColumn{"nn"}
 
+	// Sba The average search time per bucket, in milliseconds.
 	Sba = CatDatafeedColumn{"sba"}
 
+	// Sc The number of searches run by the datafeed.
 	Sc = CatDatafeedColumn{"sc"}
 
+	// Seah The exponential average search time per hour, in milliseconds.
 	Seah = CatDatafeedColumn{"seah"}
 
+	// St The total time the datafeed spent searching, in milliseconds.
 	St = CatDatafeedColumn{"st"}
 
+	// S The status of the datafeed: `starting`, `started`, `stopping`, or `stopped`.
+	// If `starting`, the datafeed has been requested to start but has not yet
+	// started. If `started`, the datafeed is actively receiving data. If
+	// `stopping`, the datafeed has been requested to stop gracefully and is
+	// completing its final action. If `stopped`, the datafeed is stopped and will
+	// not receive data until it is re-started.
 	S = CatDatafeedColumn{"s"}
 )
 

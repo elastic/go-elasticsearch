@@ -241,7 +241,7 @@ func (r *ExistsIndexTemplate) Header(key, value string) *ExistsIndexTemplate {
 	return r
 }
 
-// Name Comma-separated list of index template names used to limit the request.
+// Name Comma-separated list of index template names used to limit the request. //
 // Wildcard (*) expressions are supported.
 // API Name: name
 func (r *ExistsIndexTemplate) _name(name string) *ExistsIndexTemplate {
@@ -300,11 +300,9 @@ func (r *ExistsIndexTemplate) FilterPath(filterpaths ...string) *ExistsIndexTemp
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ExistsIndexTemplate) Human(human bool) *ExistsIndexTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -312,8 +310,8 @@ func (r *ExistsIndexTemplate) Human(human bool) *ExistsIndexTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ExistsIndexTemplate) Pretty(pretty bool) *ExistsIndexTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

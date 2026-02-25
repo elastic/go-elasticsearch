@@ -35,45 +35,42 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L178
 type Request struct {
-	// FeatureStates The feature states to restore.
-	// If `include_global_state` is `true`, the request restores all feature states
-	// in the snapshot by default.
-	// If `include_global_state` is `false`, the request restores no feature states
-	// by default.
-	// Note that specifying an empty array will result in the default behavior.
-	// To restore no feature states, regardless of the `include_global_state` value,
-	// specify an array containing only the value `none` (`["none"]`).
+	// FeatureStates The feature states to restore. If `include_global_state` is `true`, the
+	// request restores all feature states in the snapshot by default. If
+	// `include_global_state` is `false`, the request restores no feature states by
+	// default. Note that specifying an empty array will result in the default
+	// behavior. To restore no feature states, regardless of the
+	// `include_global_state` value, specify an array containing only the value
+	// `none` (`["none"]`).
 	FeatureStates []string `json:"feature_states,omitempty"`
-	// IgnoreIndexSettings The index settings to not restore from the snapshot.
-	// You can't use this option to ignore `index.number_of_shards`.
+	// IgnoreIndexSettings The index settings to not restore from the snapshot. You can't use this
+	// option to ignore `index.number_of_shards`.
 	//
-	// For data streams, this option applies only to restored backing indices.
-	// New backing indices are configured using the data stream's matching index
+	// For data streams, this option applies only to restored backing indices. New
+	// backing indices are configured using the data stream's matching index
 	// template.
 	IgnoreIndexSettings []string `json:"ignore_index_settings,omitempty"`
 	// IgnoreUnavailable If `true`, the request ignores any index or data stream in indices that's
-	// missing from the snapshot.
-	// If `false`, the request returns an error for any missing index or data
-	// stream.
+	// missing from the snapshot. If `false`, the request returns an error for any
+	// missing index or data stream.
 	IgnoreUnavailable *bool `json:"ignore_unavailable,omitempty"`
 	// IncludeAliases If `true`, the request restores aliases for any restored data streams and
-	// indices.
-	// If `false`, the request doesn’t restore aliases.
+	// indices. If `false`, the request doesn’t restore aliases.
 	IncludeAliases *bool `json:"include_aliases,omitempty"`
 	// IncludeGlobalState If `true`, restore the cluster state. The cluster state includes:
 	//
-	// * Persistent cluster settings
-	// * Index templates
-	// * Legacy index templates
-	// * Ingest pipelines
-	// * Index lifecycle management (ILM) policies
-	// * Stored scripts
-	// * For snapshots taken after 7.12.0, feature states
+	//   - Persistent cluster settings
+	//   - Index templates
+	//   - Legacy index templates
+	//   - Ingest pipelines
+	//   - Index lifecycle management (ILM) policies
+	//   - Stored scripts
+	//   - For snapshots taken after 7.12.0, feature states
 	//
 	// If `include_global_state` is `true`, the restore operation merges the legacy
 	// index templates in your cluster with the templates contained in the snapshot,
-	// replacing any existing ones whose name matches one in the snapshot.
-	// It completely removes all persistent settings, non-legacy index templates,
+	// replacing any existing ones whose name matches one in the snapshot. It
+	// completely removes all persistent settings, non-legacy index templates,
 	// ingest pipelines, and ILM lifecycle policies that exist in your cluster and
 	// replaces them with the corresponding items from the snapshot.
 	//
@@ -84,33 +81,29 @@ type Request struct {
 	// global state then the restore request will fail.
 	IncludeGlobalState *bool `json:"include_global_state,omitempty"`
 	// IndexSettings Index settings to add or change in restored indices, including backing
-	// indices.
-	// You can't use this option to change `index.number_of_shards`.
+	// indices. You can't use this option to change `index.number_of_shards`.
 	//
-	// For data streams, this option applies only to restored backing indices.
-	// New backing indices are configured using the data stream's matching index
+	// For data streams, this option applies only to restored backing indices. New
+	// backing indices are configured using the data stream's matching index
 	// template.
 	IndexSettings *types.IndexSettings `json:"index_settings,omitempty"`
-	// Indices A comma-separated list of indices and data streams to restore.
-	// It supports a multi-target syntax.
-	// The default behavior is all regular indices and regular data streams in the
-	// snapshot.
+	// Indices A comma-separated list of indices and data streams to restore. It supports a
+	// multi-target syntax. The default behavior is all regular indices and regular
+	// data streams in the snapshot.
 	//
 	// You can't use this parameter to restore system indices or system data
-	// streams.
-	// Use `feature_states` instead.
+	// streams. Use `feature_states` instead.
 	Indices []string `json:"indices,omitempty"`
 	// Partial If `false`, the entire restore operation will fail if one or more indices
 	// included in the snapshot do not have all primary shards available.
 	//
 	// If true, it allows restoring a partial snapshot of indices with unavailable
-	// shards.
-	// Only shards that were successfully included in the snapshot will be restored.
-	// All missing shards will be recreated as empty.
+	// shards. Only shards that were successfully included in the snapshot will be
+	// restored. All missing shards will be recreated as empty.
 	Partial *bool `json:"partial,omitempty"`
-	// RenamePattern A rename pattern to apply to restored data streams and indices.
-	// Data streams and indices matching the rename pattern will be renamed
-	// according to `rename_replacement`.
+	// RenamePattern A rename pattern to apply to restored data streams and indices. Data streams
+	// and indices matching the rename pattern will be renamed according to
+	// `rename_replacement`.
 	//
 	// The rename pattern is applied as defined by the regular expression that
 	// supports referencing the original text, according to the `appendReplacement`

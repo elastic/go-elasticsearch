@@ -23,21 +23,19 @@
 // Create an API key for access without requiring basic authentication.
 //
 // IMPORTANT: If the credential that is used to authenticate this request is an
-// API key, the derived API key cannot have any privileges.
-// If you specify privileges, the API returns an error.
+// API key, the derived API key cannot have any privileges. If you specify
+// privileges, the API returns an error.
 //
 // A successful request returns a JSON structure that contains the API key, its
-// unique id, and its name.
-// If applicable, it also returns expiration information for the API key in
-// milliseconds.
+// unique id, and its name. If applicable, it also returns expiration
+// information for the API key in milliseconds.
 //
 // NOTE: By default, API keys never expire. You can specify expiration
 // information when you create the API keys.
 //
 // The API keys are created by the Elasticsearch API key service, which is
-// automatically enabled.
-// To configure or turn off the API key service, refer to API key service
-// setting documentation.
+// automatically enabled. To configure or turn off the API key service, refer to
+// API key service setting documentation.
 package createapikey
 
 import (
@@ -98,21 +96,19 @@ func NewCreateApiKeyFunc(tp elastictransport.Interface) NewCreateApiKey {
 // Create an API key for access without requiring basic authentication.
 //
 // IMPORTANT: If the credential that is used to authenticate this request is an
-// API key, the derived API key cannot have any privileges.
-// If you specify privileges, the API returns an error.
+// API key, the derived API key cannot have any privileges. If you specify
+// privileges, the API returns an error.
 //
 // A successful request returns a JSON structure that contains the API key, its
-// unique id, and its name.
-// If applicable, it also returns expiration information for the API key in
-// milliseconds.
+// unique id, and its name. If applicable, it also returns expiration
+// information for the API key in milliseconds.
 //
 // NOTE: By default, API keys never expire. You can specify expiration
 // information when you create the API keys.
 //
 // The API keys are created by the Elasticsearch API key service, which is
-// automatically enabled.
-// To configure or turn off the API key service, refer to API key service
-// setting documentation.
+// automatically enabled. To configure or turn off the API key service, refer to
+// API key service setting documentation.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key
 func New(tp elastictransport.Interface) *CreateApiKey {
@@ -362,11 +358,9 @@ func (r *CreateApiKey) FilterPath(filterpaths ...string) *CreateApiKey {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *CreateApiKey) Human(human bool) *CreateApiKey {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -374,8 +368,8 @@ func (r *CreateApiKey) Human(human bool) *CreateApiKey {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *CreateApiKey) Pretty(pretty bool) *CreateApiKey {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -383,8 +377,7 @@ func (r *CreateApiKey) Pretty(pretty bool) *CreateApiKey {
 	return r
 }
 
-// The expiration time for the API key.
-// By default, API keys never expire.
+// The expiration time for the API key. By default, API keys never expire.
 // API name: expiration
 func (r *CreateApiKey) Expiration(duration types.DurationVariant) *CreateApiKey {
 	// Initialize the request if it is not already initialized
@@ -425,23 +418,20 @@ func (r *CreateApiKey) Name(name string) *CreateApiKey {
 	return r
 }
 
-// An array of role descriptors for this API key.
-// When it is not specified or it is an empty array, the API key will have a
-// point in time snapshot of permissions of the authenticated user.
-// If you supply role descriptors, the resultant permissions are an intersection
-// of API keys permissions and the authenticated user's permissions thereby
-// limiting the access scope for API keys.
-// The structure of role descriptor is the same as the request for the create
-// role API.
-// For more details, refer to the create or update roles API.
+// An array of role descriptors for this API key. When it is not specified or it
+// is an empty array, the API key will have a point in time snapshot of
+// permissions of the authenticated user. If you supply role descriptors, the
+// resultant permissions are an intersection of API keys permissions and the
+// authenticated user's permissions thereby limiting the access scope for API
+// keys. The structure of role descriptor is the same as the request for the
+// create role API. For more details, refer to the create or update roles API.
 //
 // NOTE: Due to the way in which this permission intersection is calculated, it
 // is not possible to create an API key that is a child of another API key,
-// unless the derived key is created without any privileges.
-// In this case, you must explicitly specify a role descriptor with no
-// privileges.
-// The derived API key can be used for authentication; it will not have
-// authority to call Elasticsearch APIs.
+// unless the derived key is created without any privileges. In this case, you
+// must explicitly specify a role descriptor with no privileges. The derived API
+// key can be used for authentication; it will not have authority to call
+// Elasticsearch APIs.
 // API name: role_descriptors
 func (r *CreateApiKey) RoleDescriptors(roledescriptors map[string]types.RoleDescriptor) *CreateApiKey {
 	// Initialize the request if it is not already initialized

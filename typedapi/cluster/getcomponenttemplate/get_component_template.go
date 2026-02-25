@@ -295,7 +295,7 @@ func (r *GetComponentTemplate) Header(key, value string) *GetComponentTemplate {
 	return r
 }
 
-// Name Name of component template to retrieve. Wildcard (`*`) expressions are
+// Name Name of component template to retrieve. Wildcard (`*`) expressions are //
 // supported.
 // API Name: name
 func (r *GetComponentTemplate) Name(name string) *GetComponentTemplate {
@@ -334,8 +334,8 @@ func (r *GetComponentTemplate) IncludeDefaults(includedefaults bool) *GetCompone
 	return r
 }
 
-// Local If `true`, the request retrieves information from the local node only.
-// If `false`, information is retrieved from the master node.
+// Local If `true`, the request retrieves information from the local node only. If
+// `false`, information is retrieved from the master node.
 // API name: local
 func (r *GetComponentTemplate) Local(local bool) *GetComponentTemplate {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -343,9 +343,8 @@ func (r *GetComponentTemplate) Local(local bool) *GetComponentTemplate {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *GetComponentTemplate) MasterTimeout(duration string) *GetComponentTemplate {
 	r.values.Set("master_timeout", duration)
@@ -376,11 +375,9 @@ func (r *GetComponentTemplate) FilterPath(filterpaths ...string) *GetComponentTe
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetComponentTemplate) Human(human bool) *GetComponentTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -388,8 +385,8 @@ func (r *GetComponentTemplate) Human(human bool) *GetComponentTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetComponentTemplate) Pretty(pretty bool) *GetComponentTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

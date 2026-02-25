@@ -37,8 +37,8 @@ type ApiKeyQueryContainer struct {
 	Bool *BoolQuery `json:"bool,omitempty"`
 	// Exists Returns documents that contain an indexed value for a field.
 	Exists *ExistsQuery `json:"exists,omitempty"`
-	// Ids Returns documents based on their IDs.
-	// This query uses document IDs stored in the `_id` field.
+	// Ids Returns documents based on their IDs. This query uses document IDs stored in
+	// the `_id` field.
 	Ids *IdsQuery `json:"ids,omitempty"`
 	// Match Returns documents that match a provided text, number, date or boolean value.
 	// The provided text is analyzed before matching.
@@ -52,9 +52,9 @@ type ApiKeyQueryContainer struct {
 	// SimpleQueryString Returns documents based on a provided query string, using a parser with a
 	// limited but fault-tolerant syntax.
 	SimpleQueryString *SimpleQueryStringQuery `json:"simple_query_string,omitempty"`
-	// Term Returns documents that contain an exact term in a provided field.
-	// To return a document, the query term must exactly match the queried field's
-	// value, including whitespace and capitalization.
+	// Term Returns documents that contain an exact term in a provided field. To return a
+	// document, the query term must exactly match the queried field's value,
+	// including whitespace and capitalization.
 	Term map[string]TermQuery `json:"term,omitempty"`
 	// Terms Returns documents that contain one or more exact terms in a provided field.
 	// To return a document, one or more terms must exactly match a field value,

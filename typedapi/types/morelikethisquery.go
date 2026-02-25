@@ -35,25 +35,23 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/specialized.ts#L87-L172
 type MoreLikeThisQuery struct {
-	// Analyzer The analyzer that is used to analyze the free form text.
-	// Defaults to the analyzer associated with the first field in fields.
+	// Analyzer The analyzer that is used to analyze the free form text. Defaults to the
+	// analyzer associated with the first field in fields.
 	Analyzer *string `json:"analyzer,omitempty"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
 	// BoostTerms Each term in the formed query could be further boosted by their tf-idf score.
-	// This sets the boost factor to use when using this feature.
-	// Defaults to deactivated (0).
+	// This sets the boost factor to use when using this feature. Defaults to
+	// deactivated (0).
 	BoostTerms *Float64 `json:"boost_terms,omitempty"`
 	// FailOnUnsupportedField Controls whether the query should fail (throw an exception) if any of the
 	// specified fields are not of the supported types (`text` or `keyword`).
 	FailOnUnsupportedField *bool `json:"fail_on_unsupported_field,omitempty"`
-	// Fields A list of fields to fetch and analyze the text from.
-	// Defaults to the `index.query.default_field` index setting, which has a
-	// default value of `*`.
+	// Fields A list of fields to fetch and analyze the text from. Defaults to the
+	// `index.query.default_field` index setting, which has a default value of `*`.
 	Fields []string `json:"fields,omitempty"`
 	// Include Specifies whether the input documents should also be included in the search
 	// results returned.
@@ -66,8 +64,8 @@ type MoreLikeThisQuery struct {
 	MaxDocFreq *int `json:"max_doc_freq,omitempty"`
 	// MaxQueryTerms The maximum number of query terms that can be selected.
 	MaxQueryTerms *int `json:"max_query_terms,omitempty"`
-	// MaxWordLength The maximum word length above which the terms are ignored.
-	// Defaults to unbounded (`0`).
+	// MaxWordLength The maximum word length above which the terms are ignored. Defaults to
+	// unbounded (`0`).
 	MaxWordLength *int `json:"max_word_length,omitempty"`
 	// MinDocFreq The minimum document frequency below which the terms are ignored from the
 	// input document.
@@ -82,8 +80,7 @@ type MoreLikeThisQuery struct {
 	MinimumShouldMatch MinimumShouldMatch `json:"minimum_should_match,omitempty"`
 	QueryName_         *string            `json:"_name,omitempty"`
 	Routing            []string           `json:"routing,omitempty"`
-	// StopWords An array of stop words.
-	// Any word in this set is ignored.
+	// StopWords An array of stop words. Any word in this set is ignored.
 	StopWords StopWords `json:"stop_words,omitempty"`
 	// Unlike Used in combination with `like` to exclude documents that match a set of
 	// terms.

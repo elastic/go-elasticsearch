@@ -347,7 +347,7 @@ func (r *GetBuckets) _jobid(jobid string) *GetBuckets {
 	return r
 }
 
-// Timestamp The timestamp of a single bucket result. If you do not specify this
+// Timestamp The timestamp of a single bucket result. If you do not specify this //
 // parameter, the API returns information about all buckets.
 // API Name: timestamp
 func (r *GetBuckets) Timestamp(timestamp string) *GetBuckets {
@@ -396,11 +396,9 @@ func (r *GetBuckets) FilterPath(filterpaths ...string) *GetBuckets {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetBuckets) Human(human bool) *GetBuckets {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -408,8 +406,8 @@ func (r *GetBuckets) Human(human bool) *GetBuckets {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetBuckets) Pretty(pretty bool) *GetBuckets {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -29,12 +29,17 @@ type MultiValueMode struct {
 }
 
 var (
+
+	// Min Distance is the minimum distance.
 	Min = MultiValueMode{"min"}
 
+	// Max Distance is the maximum distance.
 	Max = MultiValueMode{"max"}
 
+	// Avg Distance is the average distance.
 	Avg = MultiValueMode{"avg"}
 
+	// Sum Distance is the sum of all distances.
 	Sum = MultiValueMode{"sum"}
 )
 

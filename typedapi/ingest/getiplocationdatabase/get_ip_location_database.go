@@ -299,9 +299,9 @@ func (r *GetIpLocationDatabase) Header(key, value string) *GetIpLocationDatabase
 	return r
 }
 
-// Id Comma-separated list of database configuration IDs to retrieve.
-// Wildcard (`*`) expressions are supported.
-// To get all database configurations, omit this parameter or use `*`.
+// Id Comma-separated list of database configuration IDs to retrieve. Wildcard //
+// (`*`) expressions are supported. To get all database configurations, omit //
+// this parameter or use `*`.
 // API Name: id
 func (r *GetIpLocationDatabase) Id(id string) *GetIpLocationDatabase {
 	r.paramSet |= idMask
@@ -333,11 +333,9 @@ func (r *GetIpLocationDatabase) FilterPath(filterpaths ...string) *GetIpLocation
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetIpLocationDatabase) Human(human bool) *GetIpLocationDatabase {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -345,8 +343,8 @@ func (r *GetIpLocationDatabase) Human(human bool) *GetIpLocationDatabase {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetIpLocationDatabase) Pretty(pretty bool) *GetIpLocationDatabase {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

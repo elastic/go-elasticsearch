@@ -21,18 +21,15 @@
 // Update the license.
 //
 // You can update your license at runtime without shutting down your nodes.
-// License updates take effect immediately.
-// If the license you are installing does not support all of the features that
-// were available with your previous license, however, you are notified in the
-// response.
-// You must then re-submit the API request with the acknowledge parameter set to
-// true.
+// License updates take effect immediately. If the license you are installing
+// does not support all of the features that were available with your previous
+// license, however, you are notified in the response. You must then re-submit
+// the API request with the acknowledge parameter set to true.
 //
 // NOTE: If Elasticsearch security features are enabled and you are installing a
 // gold or higher license, you must enable TLS on the transport networking layer
-// before you install the license.
-// If the operator privileges feature is enabled, only operator users can use
-// this API.
+// before you install the license. If the operator privileges feature is
+// enabled, only operator users can use this API.
 package post
 
 import (
@@ -90,18 +87,15 @@ func NewPostFunc(tp elastictransport.Interface) NewPost {
 // Update the license.
 //
 // You can update your license at runtime without shutting down your nodes.
-// License updates take effect immediately.
-// If the license you are installing does not support all of the features that
-// were available with your previous license, however, you are notified in the
-// response.
-// You must then re-submit the API request with the acknowledge parameter set to
-// true.
+// License updates take effect immediately. If the license you are installing
+// does not support all of the features that were available with your previous
+// license, however, you are notified in the response. You must then re-submit
+// the API request with the acknowledge parameter set to true.
 //
 // NOTE: If Elasticsearch security features are enabled and you are installing a
 // gold or higher license, you must enable TLS on the transport networking layer
-// before you install the license.
-// If the operator privileges feature is enabled, only operator users can use
-// this API.
+// before you install the license. If the operator privileges feature is
+// enabled, only operator users can use this API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post
 func New(tp elastictransport.Interface) *Post {
@@ -364,11 +358,9 @@ func (r *Post) FilterPath(filterpaths ...string) *Post {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Post) Human(human bool) *Post {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -376,8 +368,8 @@ func (r *Post) Human(human bool) *Post {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Post) Pretty(pretty bool) *Post {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

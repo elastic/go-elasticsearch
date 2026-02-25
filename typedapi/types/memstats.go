@@ -34,14 +34,12 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/get_memory_stats/types.ts#L65-L88
 type MemStats struct {
 	// AdjustedTotal If the amount of physical memory has been overridden using the
-	// es.total_memory_bytes system property
-	// then this reports the overridden value. Otherwise it reports the same value
-	// as total.
+	// es.total_memory_bytes system property then this reports the overridden value.
+	// Otherwise it reports the same value as total.
 	AdjustedTotal ByteSize `json:"adjusted_total,omitempty"`
 	// AdjustedTotalInBytes If the amount of physical memory has been overridden using the
-	// `es.total_memory_bytes` system property
-	// then this reports the overridden value in bytes. Otherwise it reports the
-	// same value as `total_in_bytes`.
+	// `es.total_memory_bytes` system property then this reports the overridden
+	// value in bytes. Otherwise it reports the same value as `total_in_bytes`.
 	AdjustedTotalInBytes int `json:"adjusted_total_in_bytes"`
 	// Ml Contains statistics about machine learning use of native memory on the node.
 	Ml MemMlStats `json:"ml"`

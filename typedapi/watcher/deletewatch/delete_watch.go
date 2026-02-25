@@ -26,11 +26,10 @@
 // Deleting a watch does not delete any watch execution records related to this
 // watch from the watch history.
 //
-// IMPORTANT: Deleting a watch must be done by using only this API.
-// Do not delete the watch directly from the `.watches` index using the
-// Elasticsearch delete document API
-// When Elasticsearch security features are enabled, make sure no write
-// privileges are granted to anyone for the `.watches` index.
+// IMPORTANT: Deleting a watch must be done by using only this API. Do not
+// delete the watch directly from the `.watches` index using the Elasticsearch
+// delete document API When Elasticsearch security features are enabled, make
+// sure no write privileges are granted to anyone for the `.watches` index.
 package deletewatch
 
 import (
@@ -96,11 +95,10 @@ func NewDeleteWatchFunc(tp elastictransport.Interface) NewDeleteWatch {
 // Deleting a watch does not delete any watch execution records related to this
 // watch from the watch history.
 //
-// IMPORTANT: Deleting a watch must be done by using only this API.
-// Do not delete the watch directly from the `.watches` index using the
-// Elasticsearch delete document API
-// When Elasticsearch security features are enabled, make sure no write
-// privileges are granted to anyone for the `.watches` index.
+// IMPORTANT: Deleting a watch must be done by using only this API. Do not
+// delete the watch directly from the `.watches` index using the Elasticsearch
+// delete document API When Elasticsearch security features are enabled, make
+// sure no write privileges are granted to anyone for the `.watches` index.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-delete-watch
 func New(tp elastictransport.Interface) *DeleteWatch {
@@ -346,11 +344,9 @@ func (r *DeleteWatch) FilterPath(filterpaths ...string) *DeleteWatch {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteWatch) Human(human bool) *DeleteWatch {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -358,8 +354,8 @@ func (r *DeleteWatch) Human(human bool) *DeleteWatch {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteWatch) Pretty(pretty bool) *DeleteWatch {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -22,8 +22,7 @@
 //
 // Switch the indices, ILM policies, and legacy, composable, and component
 // templates from using custom node attributes and attribute-based allocation
-// filters to using data tiers.
-// Optionally, delete one legacy index template.
+// filters to using data tiers. Optionally, delete one legacy index template.
 // Using node roles enables ILM to automatically move the indices between data
 // tiers.
 //
@@ -31,14 +30,12 @@
 // This API provides an automated way of performing three out of the four manual
 // steps listed in the migration guide:
 //
-// 1. Stop setting the custom hot attribute on new indices.
-// 1. Remove custom allocation settings from existing ILM policies.
-// 1. Replace custom allocation settings from existing indices with the
-// corresponding tier preference.
+// 1. Stop setting the custom hot attribute on new indices. 1. Remove custom
+// allocation settings from existing ILM policies. 1. Replace custom allocation
+// settings from existing indices with the corresponding tier preference.
 //
-// ILM must be stopped before performing the migration.
-// Use the stop ILM and get ILM status APIs to wait until the reported operation
-// mode is `STOPPED`.
+// ILM must be stopped before performing the migration. Use the stop ILM and get
+// ILM status APIs to wait until the reported operation mode is `STOPPED`.
 package migratetodatatiers
 
 import (
@@ -97,8 +94,7 @@ func NewMigrateToDataTiersFunc(tp elastictransport.Interface) NewMigrateToDataTi
 //
 // Switch the indices, ILM policies, and legacy, composable, and component
 // templates from using custom node attributes and attribute-based allocation
-// filters to using data tiers.
-// Optionally, delete one legacy index template.
+// filters to using data tiers. Optionally, delete one legacy index template.
 // Using node roles enables ILM to automatically move the indices between data
 // tiers.
 //
@@ -106,14 +102,12 @@ func NewMigrateToDataTiersFunc(tp elastictransport.Interface) NewMigrateToDataTi
 // This API provides an automated way of performing three out of the four manual
 // steps listed in the migration guide:
 //
-// 1. Stop setting the custom hot attribute on new indices.
-// 1. Remove custom allocation settings from existing ILM policies.
-// 1. Replace custom allocation settings from existing indices with the
-// corresponding tier preference.
+// 1. Stop setting the custom hot attribute on new indices. 1. Remove custom
+// allocation settings from existing ILM policies. 1. Replace custom allocation
+// settings from existing indices with the corresponding tier preference.
 //
-// ILM must be stopped before performing the migration.
-// Use the stop ILM and get ILM status APIs to wait until the reported operation
-// mode is `STOPPED`.
+// ILM must be stopped before performing the migration. Use the stop ILM and get
+// ILM status APIs to wait until the reported operation mode is `STOPPED`.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-migrate-to-data-tiers
 func New(tp elastictransport.Interface) *MigrateToDataTiers {
@@ -331,9 +325,8 @@ func (r *MigrateToDataTiers) Header(key, value string) *MigrateToDataTiers {
 }
 
 // DryRun If true, simulates the migration from node attributes based allocation
-// filters to data tiers, but does not perform the migration.
-// This provides a way to retrieve the indices and ILM policies that need to be
-// migrated.
+// filters to data tiers, but does not perform the migration. This provides a
+// way to retrieve the indices and ILM policies that need to be migrated.
 // API name: dry_run
 func (r *MigrateToDataTiers) DryRun(dryrun bool) *MigrateToDataTiers {
 	r.values.Set("dry_run", strconv.FormatBool(dryrun))
@@ -341,9 +334,8 @@ func (r *MigrateToDataTiers) DryRun(dryrun bool) *MigrateToDataTiers {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // It can also be set to `-1` to indicate that the request should never timeout.
 // API name: master_timeout
 func (r *MigrateToDataTiers) MasterTimeout(duration string) *MigrateToDataTiers {
@@ -375,11 +367,9 @@ func (r *MigrateToDataTiers) FilterPath(filterpaths ...string) *MigrateToDataTie
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *MigrateToDataTiers) Human(human bool) *MigrateToDataTiers {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -387,8 +377,8 @@ func (r *MigrateToDataTiers) Human(human bool) *MigrateToDataTiers {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *MigrateToDataTiers) Pretty(pretty bool) *MigrateToDataTiers {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

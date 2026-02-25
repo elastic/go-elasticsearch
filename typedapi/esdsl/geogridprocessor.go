@@ -31,9 +31,8 @@ type _geoGridProcessor struct {
 }
 
 // Converts geo-grid definitions of grid tiles or cells to regular bounding
-// boxes or polygons which describe their shape.
-// This is useful if there is a need to interact with the tile shapes as
-// spatially indexable fields.
+// boxes or polygons which describe their shape. This is useful if there is a
+// need to interact with the tile shapes as spatially indexable fields.
 func NewGeoGridProcessor(field string, tiletype geogridtiletype.GeoGridTileType) *_geoGridProcessor {
 
 	tmp := &_geoGridProcessor{v: types.NewGeoGridProcessor()}

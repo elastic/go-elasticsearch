@@ -36,28 +36,25 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/sql/query/QuerySqlRequest.ts#L28-L167
 type Request struct {
 	// AllowPartialSearchResults If `true`, the response has partial results when there are shard request
-	// timeouts or shard failures.
-	// If `false`, the API returns an error with no partial results.
+	// timeouts or shard failures. If `false`, the API returns an error with no
+	// partial results.
 	AllowPartialSearchResults *bool `json:"allow_partial_search_results,omitempty"`
-	// Catalog The default catalog (cluster) for queries.
-	// If unspecified, the queries execute on the data in the local cluster only.
+	// Catalog The default catalog (cluster) for queries. If unspecified, the queries
+	// execute on the data in the local cluster only.
 	Catalog *string `json:"catalog,omitempty"`
 	// Columnar If `true`, the results are in a columnar fashion: one row represents all the
-	// values of a certain column from the current page of results.
-	// The API supports this parameter only for CBOR, JSON, SMILE, and YAML
-	// responses.
+	// values of a certain column from the current page of results. The API supports
+	// this parameter only for CBOR, JSON, SMILE, and YAML responses.
 	Columnar *bool `json:"columnar,omitempty"`
-	// Cursor The cursor used to retrieve a set of paginated results.
-	// If you specify a cursor, the API only uses the `columnar` and `time_zone`
-	// request body parameters.
-	// It ignores other request body parameters.
+	// Cursor The cursor used to retrieve a set of paginated results. If you specify a
+	// cursor, the API only uses the `columnar` and `time_zone` request body
+	// parameters. It ignores other request body parameters.
 	Cursor *string `json:"cursor,omitempty"`
 	// FetchSize The maximum number of rows (or entries) to return in one response.
 	FetchSize *int `json:"fetch_size,omitempty"`
 	// FieldMultiValueLeniency If `false`, the API returns an exception when encountering multiple values
-	// for a field.
-	// If `true`, the API is lenient and returns the first value from the array with
-	// no guarantee of consistent results.
+	// for a field. If `true`, the API is lenient and returns the first value from
+	// the array with no guarantee of consistent results.
 	FieldMultiValueLeniency *bool `json:"field_multi_value_leniency,omitempty"`
 	// Filter The Elasticsearch query DSL for additional filtering.
 	Filter *types.Query `json:"filter,omitempty"`
@@ -66,41 +63,34 @@ type Request struct {
 	// KeepAlive The retention period for an async or saved synchronous search.
 	KeepAlive types.Duration `json:"keep_alive,omitempty"`
 	// KeepOnCompletion If `true`, Elasticsearch stores synchronous searches if you also specify the
-	// `wait_for_completion_timeout` parameter.
-	// If `false`, Elasticsearch only stores async searches that don't finish before
-	// the `wait_for_completion_timeout`.
+	// `wait_for_completion_timeout` parameter. If `false`, Elasticsearch only
+	// stores async searches that don't finish before the
+	// `wait_for_completion_timeout`.
 	KeepOnCompletion *bool `json:"keep_on_completion,omitempty"`
-	// PageTimeout The minimum retention period for the scroll cursor.
-	// After this time period, a pagination request might fail because the scroll
-	// cursor is no longer available.
-	// Subsequent scroll requests prolong the lifetime of the scroll cursor by the
-	// duration of `page_timeout` in the scroll request.
+	// PageTimeout The minimum retention period for the scroll cursor. After this time period, a
+	// pagination request might fail because the scroll cursor is no longer
+	// available. Subsequent scroll requests prolong the lifetime of the scroll
+	// cursor by the duration of `page_timeout` in the scroll request.
 	PageTimeout types.Duration `json:"page_timeout,omitempty"`
 	// Params The values for parameters in the query.
 	Params []json.RawMessage `json:"params,omitempty"`
-	// ProjectRouting Specifies a subset of projects to target using project
-	// metadata tags in a subset of Lucene query syntax.
-	// Allowed Lucene queries: the _alias tag and a single value (possibly
-	// wildcarded).
-	// Examples:
-	//  _alias:my-project
-	//  _alias:_origin
-	//  _alias:*pr*
-	// Supported in serverless only.
+	// ProjectRouting Specifies a subset of projects to target using project metadata tags in a
+	// subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a
+	// single value (possibly wildcarded). Examples: _alias:my-project
+	// _alias:_origin _alias:*pr* Supported in serverless only.
 	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query The SQL query to run.
 	Query *string `json:"query,omitempty"`
 	// RequestTimeout The timeout before the request fails.
 	RequestTimeout types.Duration `json:"request_timeout,omitempty"`
-	// RuntimeMappings One or more runtime fields for the search request.
-	// These fields take precedence over mapped fields with the same name.
+	// RuntimeMappings One or more runtime fields for the search request. These fields take
+	// precedence over mapped fields with the same name.
 	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
 	// TimeZone The ISO-8601 time zone ID for the search.
 	TimeZone *string `json:"time_zone,omitempty"`
-	// WaitForCompletionTimeout The period to wait for complete results.
-	// It defaults to no timeout, meaning the request waits for complete search
-	// results.
-	// If the search doesn't finish within this period, the search becomes async.
+	// WaitForCompletionTimeout The period to wait for complete results. It defaults to no timeout, meaning
+	// the request waits for complete search results. If the search doesn't finish
+	// within this period, the search becomes async.
 	//
 	// To save a synchronous search, you must specify this parameter and the
 	// `keep_on_completion` parameter.

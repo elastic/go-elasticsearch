@@ -29,14 +29,27 @@ type JobState struct {
 }
 
 var (
+
+	// Closing The job close action is in progress and has not yet completed. A closing job
+	// cannot accept further data.
 	Closing = JobState{"closing"}
 
+	// Closed The job finished successfully with its model state persisted. The job must be
+	// opened before it can accept further data.
 	Closed = JobState{"closed"}
 
+	// Opened The job is available to receive and process data.
 	Opened = JobState{"opened"}
 
+	// Failed The job did not finish successfully due to an error. This situation can occur
+	// due to invalid input data, a fatal error occurring during the analysis, or an
+	// external interaction such as the process being killed by the Linux out of
+	// memory (OOM) killer. If the job had irrevocably failed, it must be force
+	// closed and then deleted. If the datafeed can be corrected, the job can be
+	// closed and then re-opened.
 	Failed = JobState{"failed"}
 
+	// Opening The job open action is in progress and has not yet completed.
 	Opening = JobState{"opening"}
 )
 

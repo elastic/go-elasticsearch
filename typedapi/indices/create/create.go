@@ -21,39 +21,35 @@
 // Create an index.
 //
 // You can use the create index API to add a new index to an Elasticsearch
-// cluster.
-// When creating an index, you can specify the following:
+// cluster. When creating an index, you can specify the following:
 //
-// * Settings for the index.
-// * Mappings for fields in the index.
-// * Index aliases
+//   - Settings for the index.
+//   - Mappings for fields in the index.
+//   - Index aliases
 //
-// **Wait for active shards**
+// # Wait for active shards
 //
 // By default, index creation will only return a response to the client when the
-// primary copies of each shard have been started, or the request times out.
-// The index creation response will indicate what happened.
-// For example, `acknowledged` indicates whether the index was successfully
-// created in the cluster, `while shards_acknowledged` indicates whether the
-// requisite number of shard copies were started for each shard in the index
-// before timing out.
+// primary copies of each shard have been started, or the request times out. The
+// index creation response will indicate what happened. For example,
+// `acknowledged` indicates whether the index was successfully created in the
+// cluster, `while shards_acknowledged` indicates whether the requisite number
+// of shard copies were started for each shard in the index before timing out.
 // Note that it is still possible for either `acknowledged` or
 // `shards_acknowledged` to be `false`, but for the index creation to be
-// successful.
-// These values simply indicate whether the operation completed before the
-// timeout.
-// If `acknowledged` is false, the request timed out before the cluster state
-// was updated with the newly created index, but it probably will be created
-// sometime soon.
-// If `shards_acknowledged` is false, then the request timed out before the
-// requisite number of shards were started (by default just the primaries), even
-// if the cluster state was successfully updated to reflect the newly created
-// index (that is to say, `acknowledged` is `true`).
+// successful. These values simply indicate whether the operation completed
+// before the timeout. If `acknowledged` is false, the request timed out before
+// the cluster state was updated with the newly created index, but it probably
+// will be created sometime soon. If `shards_acknowledged` is false, then the
+// request timed out before the requisite number of shards were started (by
+// default just the primaries), even if the cluster state was successfully
+// updated to reflect the newly created index (that is to say, `acknowledged` is
+// `true`).
 //
 // You can change the default of only waiting for the primary shards to start
-// through the index setting `index.write.wait_for_active_shards`.
-// Note that changing this setting will also affect the `wait_for_active_shards`
-// value on all subsequent write operations.
+// through the index setting `index.write.wait_for_active_shards`. Note that
+// changing this setting will also affect the `wait_for_active_shards` value on
+// all subsequent write operations.
 package create
 
 import (
@@ -119,39 +115,35 @@ func NewCreateFunc(tp elastictransport.Interface) NewCreate {
 // Create an index.
 //
 // You can use the create index API to add a new index to an Elasticsearch
-// cluster.
-// When creating an index, you can specify the following:
+// cluster. When creating an index, you can specify the following:
 //
-// * Settings for the index.
-// * Mappings for fields in the index.
-// * Index aliases
+//   - Settings for the index.
+//   - Mappings for fields in the index.
+//   - Index aliases
 //
-// **Wait for active shards**
+// # Wait for active shards
 //
 // By default, index creation will only return a response to the client when the
-// primary copies of each shard have been started, or the request times out.
-// The index creation response will indicate what happened.
-// For example, `acknowledged` indicates whether the index was successfully
-// created in the cluster, `while shards_acknowledged` indicates whether the
-// requisite number of shard copies were started for each shard in the index
-// before timing out.
+// primary copies of each shard have been started, or the request times out. The
+// index creation response will indicate what happened. For example,
+// `acknowledged` indicates whether the index was successfully created in the
+// cluster, `while shards_acknowledged` indicates whether the requisite number
+// of shard copies were started for each shard in the index before timing out.
 // Note that it is still possible for either `acknowledged` or
 // `shards_acknowledged` to be `false`, but for the index creation to be
-// successful.
-// These values simply indicate whether the operation completed before the
-// timeout.
-// If `acknowledged` is false, the request timed out before the cluster state
-// was updated with the newly created index, but it probably will be created
-// sometime soon.
-// If `shards_acknowledged` is false, then the request timed out before the
-// requisite number of shards were started (by default just the primaries), even
-// if the cluster state was successfully updated to reflect the newly created
-// index (that is to say, `acknowledged` is `true`).
+// successful. These values simply indicate whether the operation completed
+// before the timeout. If `acknowledged` is false, the request timed out before
+// the cluster state was updated with the newly created index, but it probably
+// will be created sometime soon. If `shards_acknowledged` is false, then the
+// request timed out before the requisite number of shards were started (by
+// default just the primaries), even if the cluster state was successfully
+// updated to reflect the newly created index (that is to say, `acknowledged` is
+// `true`).
 //
 // You can change the default of only waiting for the primary shards to start
-// through the index setting `index.write.wait_for_active_shards`.
-// Note that changing this setting will also affect the `wait_for_active_shards`
-// value on all subsequent write operations.
+// through the index setting `index.write.wait_for_active_shards`. Note that
+// changing this setting will also affect the `wait_for_active_shards` value on
+// all subsequent write operations.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create
 func New(tp elastictransport.Interface) *Create {
@@ -370,20 +362,15 @@ func (r *Create) Header(key, value string) *Create {
 	return r
 }
 
-// Index Name of the index you wish to create.
-// Index names must meet the following criteria:
-//
-// * Lowercase only
-// * Cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` ` (space
-// character), `,`, or `#`
-// * Indices prior to 7.0 could contain a colon (`:`), but that has been
-// deprecated and will not be supported in later versions
-// * Cannot start with `-`, `_`, or `+`
-// * Cannot be `.` or `..`
-// * Cannot be longer than 255 bytes (note thtat it is bytes, so multi-byte
-// characters will reach the limit faster)
-// * Names starting with `.` are deprecated, except for hidden indices and
-// internal indices managed by plugins
+// Index Name of the index you wish to create. Index names must meet the following //
+// criteria: // // - Lowercase only // - Cannot include `\`, `/`, `*`, `?`, `"`,
+// `<`, `>`, `|`, ` ` (space // character), `,`, or `#` // - Indices prior to
+// 7.0 could contain a colon (`:`), but that has been // deprecated and will not
+// be supported in later versions // - Cannot start with `-`, `_`, or `+` // -
+// Cannot be `.` or `..` // - Cannot be longer than 255 bytes (note thtat it is
+// bytes, so multi-byte // characters will reach the limit faster) // - Names
+// starting with `.` are deprecated, except for hidden indices and // internal
+// indices managed by plugins
 // API Name: index
 func (r *Create) _index(index string) *Create {
 	r.paramSet |= indexMask
@@ -392,9 +379,8 @@ func (r *Create) _index(index string) *Create {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *Create) MasterTimeout(duration string) *Create {
 	r.values.Set("master_timeout", duration)
@@ -402,9 +388,8 @@ func (r *Create) MasterTimeout(duration string) *Create {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *Create) Timeout(duration string) *Create {
 	r.values.Set("timeout", duration)
@@ -413,9 +398,8 @@ func (r *Create) Timeout(duration string) *Create {
 }
 
 // WaitForActiveShards The number of shard copies that must be active before proceeding with the
-// operation.
-// Set to `all` or any positive integer up to the total number of shards in the
-// index (`number_of_replicas+1`).
+// operation. Set to `all` or any positive integer up to the total number of
+// shards in the index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *Create) WaitForActiveShards(waitforactiveshards string) *Create {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -446,11 +430,9 @@ func (r *Create) FilterPath(filterpaths ...string) *Create {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Create) Human(human bool) *Create {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -458,8 +440,8 @@ func (r *Create) Human(human bool) *Create {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Create) Pretty(pretty bool) *Create {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -498,9 +480,11 @@ func (r *Create) AddAlias(key string, value types.AliasVariant) *Create {
 }
 
 // Mapping for fields in the index. If specified, this mapping can include:
-// - Field names
-// - Field data types
-// - Mapping parameters
+//
+//   - Field names
+//   - Field data types
+//   - Mapping parameters
+//
 // API name: mappings
 func (r *Create) Mappings(mappings types.TypeMappingVariant) *Create {
 	// Initialize the request if it is not already initialized

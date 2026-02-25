@@ -34,8 +34,7 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L91
 type Request struct {
-	// Expiration The expiration time for the API key.
-	// By default, API keys never expire.
+	// Expiration The expiration time for the API key. By default, API keys never expire.
 	Expiration types.Duration `json:"expiration,omitempty"`
 	// Metadata Arbitrary metadata that you want to associate with the API key. It supports
 	// nested data structure. Within the metadata object, keys beginning with `_`
@@ -43,23 +42,20 @@ type Request struct {
 	Metadata types.Metadata `json:"metadata,omitempty"`
 	// Name A name for the API key.
 	Name *string `json:"name,omitempty"`
-	// RoleDescriptors An array of role descriptors for this API key.
-	// When it is not specified or it is an empty array, the API key will have a
-	// point in time snapshot of permissions of the authenticated user.
-	// If you supply role descriptors, the resultant permissions are an intersection
-	// of API keys permissions and the authenticated user's permissions thereby
-	// limiting the access scope for API keys.
-	// The structure of role descriptor is the same as the request for the create
-	// role API.
-	// For more details, refer to the create or update roles API.
+	// RoleDescriptors An array of role descriptors for this API key. When it is not specified or it
+	// is an empty array, the API key will have a point in time snapshot of
+	// permissions of the authenticated user. If you supply role descriptors, the
+	// resultant permissions are an intersection of API keys permissions and the
+	// authenticated user's permissions thereby limiting the access scope for API
+	// keys. The structure of role descriptor is the same as the request for the
+	// create role API. For more details, refer to the create or update roles API.
 	//
 	// NOTE: Due to the way in which this permission intersection is calculated, it
 	// is not possible to create an API key that is a child of another API key,
-	// unless the derived key is created without any privileges.
-	// In this case, you must explicitly specify a role descriptor with no
-	// privileges.
-	// The derived API key can be used for authentication; it will not have
-	// authority to call Elasticsearch APIs.
+	// unless the derived key is created without any privileges. In this case, you
+	// must explicitly specify a role descriptor with no privileges. The derived API
+	// key can be used for authentication; it will not have authority to call
+	// Elasticsearch APIs.
 	RoleDescriptors map[string]types.RoleDescriptor `json:"role_descriptors,omitempty"`
 }
 

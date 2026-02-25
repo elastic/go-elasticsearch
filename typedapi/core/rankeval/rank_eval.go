@@ -313,11 +313,10 @@ func (r *RankEval) Header(key, value string) *RankEval {
 	return r
 }
 
-// Index A  comma-separated list of data streams, indices, and index aliases used to
-// limit the request.
-// Wildcard (`*`) expressions are supported.
-// To target all data streams and indices in a cluster, omit this parameter or
-// use `_all` or `*`.
+// Index A comma-separated list of data streams, indices, and index aliases used to //
+// limit the request. Wildcard (`*`) expressions are supported. To target all //
+// data streams and indices in a cluster, omit this parameter or use `_all` or
+// // `*`.
 // API Name: index
 func (r *RankEval) Index(index string) *RankEval {
 	r.paramSet |= indexMask
@@ -390,11 +389,9 @@ func (r *RankEval) FilterPath(filterpaths ...string) *RankEval {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *RankEval) Human(human bool) *RankEval {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -402,8 +399,8 @@ func (r *RankEval) Human(human bool) *RankEval {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *RankEval) Pretty(pretty bool) *RankEval {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

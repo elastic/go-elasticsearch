@@ -34,13 +34,11 @@ type Request struct {
 	// DatafeedConfig The datafeed definition to preview.
 	DatafeedConfig *types.DatafeedConfig `json:"datafeed_config,omitempty"`
 	// JobConfig The configuration details for the anomaly detection job that is associated
-	// with the datafeed. If the
-	// `datafeed_config` object does not include a `job_id` that references an
-	// existing anomaly detection job, you must
-	// supply this `job_config` object. If you include both a `job_id` and a
-	// `job_config`, the latter information is
-	// used. You cannot specify a `job_config` object unless you also supply a
-	// `datafeed_config` object.
+	// with the datafeed. If the `datafeed_config` object does not include a
+	// `job_id` that references an existing anomaly detection job, you must supply
+	// this `job_config` object. If you include both a `job_id` and a `job_config`,
+	// the latter information is used. You cannot specify a `job_config` object
+	// unless you also supply a `datafeed_config` object.
 	JobConfig *types.JobConfig `json:"job_config,omitempty"`
 }
 

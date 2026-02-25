@@ -331,11 +331,9 @@ func (r *SuggestUserProfiles) FilterPath(filterpaths ...string) *SuggestUserProf
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SuggestUserProfiles) Human(human bool) *SuggestUserProfiles {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -343,8 +341,8 @@ func (r *SuggestUserProfiles) Human(human bool) *SuggestUserProfiles {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SuggestUserProfiles) Pretty(pretty bool) *SuggestUserProfiles {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -353,13 +351,10 @@ func (r *SuggestUserProfiles) Pretty(pretty bool) *SuggestUserProfiles {
 }
 
 // A comma-separated list of filters for the `data` field of the profile
-// document.
-// To return all content use `data=*`.
-// To return a subset of content, use `data=<key>` to retrieve content nested
-// under the specified `<key>`.
-// By default, the API returns no `data` content.
-// It is an error to specify `data` as both the query parameter and the request
-// body field.
+// document. To return all content use `data=*`. To return a subset of content,
+// use `data=<key>` to retrieve content nested under the specified `<key>`. By
+// default, the API returns no `data` content. It is an error to specify `data`
+// as both the query parameter and the request body field.
 // API name: data
 func (r *SuggestUserProfiles) Data(data ...string) *SuggestUserProfiles {
 	// Initialize the request if it is not already initialized
@@ -372,10 +367,10 @@ func (r *SuggestUserProfiles) Data(data ...string) *SuggestUserProfiles {
 	return r
 }
 
-// Extra search criteria to improve relevance of the suggestion result.
-// Profiles matching the spcified hint are ranked higher in the response.
-// Profiles not matching the hint aren't excluded from the response as long as
-// the profile matches the `name` field query.
+// Extra search criteria to improve relevance of the suggestion result. Profiles
+// matching the spcified hint are ranked higher in the response. Profiles not
+// matching the hint aren't excluded from the response as long as the profile
+// matches the `name` field query.
 // API name: hint
 func (r *SuggestUserProfiles) Hint(hint types.HintVariant) *SuggestUserProfiles {
 	// Initialize the request if it is not already initialized

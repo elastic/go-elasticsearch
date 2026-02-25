@@ -37,20 +37,20 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L26-L102
 type Request struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
-	// for this time frame.
-	// Any time after this duration the document could be deleted.
-	// When empty, every document in this data stream will be stored indefinitely.
+	// for this time frame. Any time after this duration the document could be
+	// deleted. When empty, every document in this data stream will be stored
+	// indefinitely.
 	DataRetention types.Duration `json:"data_retention,omitempty"`
 	// Downsampling The downsampling configuration to execute for the managed backing index after
 	// rollover.
 	Downsampling []types.DownsamplingRound `json:"downsampling,omitempty"`
 	// DownsamplingMethod The method used to downsample the data. There are two options `aggregate` and
-	// `last_value`. It requires
-	// `downsampling` to be defined. Defaults to `aggregate`.
+	// `last_value`. It requires `downsampling` to be defined. Defaults to
+	// `aggregate`.
 	DownsamplingMethod *samplingmethod.SamplingMethod `json:"downsampling_method,omitempty"`
 	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
-	// data stream. A data stream lifecycle
-	// that's disabled (enabled: `false`) will have no effect on the data stream.
+	// data stream. A data stream lifecycle that's disabled (enabled: `false`) will
+	// have no effect on the data stream.
 	Enabled *bool `json:"enabled,omitempty"`
 }
 

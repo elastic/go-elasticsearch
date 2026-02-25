@@ -33,32 +33,28 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/mapping/core.ts#L239-L274
 type SemanticTextProperty struct {
 	// ChunkingSettings Settings for chunking text into smaller passages. If specified, these will
-	// override the
-	// chunking settings sent in the inference endpoint associated with
-	// inference_id. If chunking settings are updated,
-	// they will not be applied to existing documents until they are reindexed.
+	// override the chunking settings sent in the inference endpoint associated with
+	// inference_id. If chunking settings are updated, they will not be applied to
+	// existing documents until they are reindexed.
 	ChunkingSettings *ChunkingSettings `json:"chunking_settings,omitempty"`
 	// Fields Multi-fields allow the same string value to be indexed in multiple ways for
-	// different purposes, such as one
-	// field for search and a multi-field for sorting and aggregations, or the same
-	// string value analyzed by different analyzers.
+	// different purposes, such as one field for search and a multi-field for
+	// sorting and aggregations, or the same string value analyzed by different
+	// analyzers.
 	Fields map[string]Property `json:"fields,omitempty"`
 	// IndexOptions Settings for index_options that override any defaults used by semantic_text,
-	// for example
-	// specific quantization settings.
+	// for example specific quantization settings.
 	IndexOptions *SemanticTextIndexOptions `json:"index_options,omitempty"`
 	// InferenceId Inference endpoint that will be used to generate embeddings for the field.
 	// This parameter cannot be updated. Use the Create inference API to create the
-	// endpoint.
-	// If `search_inference_id` is specified, the inference endpoint will only be
-	// used at index time.
+	// endpoint. If `search_inference_id` is specified, the inference endpoint will
+	// only be used at index time.
 	InferenceId *string           `json:"inference_id,omitempty"`
 	Meta        map[string]string `json:"meta,omitempty"`
 	// SearchInferenceId Inference endpoint that will be used to generate embeddings at query time.
 	// You can update this parameter by using the Update mapping API. Use the Create
-	// inference API to create the endpoint.
-	// If not specified, the inference endpoint defined by inference_id will be used
-	// at both index and query time.
+	// inference API to create the endpoint. If not specified, the inference
+	// endpoint defined by inference_id will be used at both index and query time.
 	SearchInferenceId *string `json:"search_inference_id,omitempty"`
 	Type              string  `json:"type,omitempty"`
 }

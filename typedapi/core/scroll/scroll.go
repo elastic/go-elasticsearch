@@ -25,18 +25,14 @@
 // use the `search_after` parameter with a point in time (PIT).
 //
 // The scroll API gets large sets of results from a single scrolling search
-// request.
-// To get the necessary scroll ID, submit a search API request that includes an
-// argument for the `scroll` query parameter.
-// The `scroll` parameter indicates how long Elasticsearch should retain the
-// search context for the request.
-// The search response returns a scroll ID in the `_scroll_id` response body
-// parameter.
-// You can then use the scroll ID with the scroll API to retrieve the next batch
-// of results for the request.
-// If the Elasticsearch security features are enabled, the access to the results
-// of a specific scroll ID is restricted to the user or API key that submitted
-// the search.
+// request. To get the necessary scroll ID, submit a search API request that
+// includes an argument for the `scroll` query parameter. The `scroll` parameter
+// indicates how long Elasticsearch should retain the search context for the
+// request. The search response returns a scroll ID in the `_scroll_id` response
+// body parameter. You can then use the scroll ID with the scroll API to
+// retrieve the next batch of results for the request. If the Elasticsearch
+// security features are enabled, the access to the results of a specific scroll
+// ID is restricted to the user or API key that submitted the search.
 //
 // You can also use the scroll API to specify a new scroll parameter that
 // extends or shortens the retention period for the search context.
@@ -107,18 +103,14 @@ func NewScrollFunc(tp elastictransport.Interface) NewScroll {
 // use the `search_after` parameter with a point in time (PIT).
 //
 // The scroll API gets large sets of results from a single scrolling search
-// request.
-// To get the necessary scroll ID, submit a search API request that includes an
-// argument for the `scroll` query parameter.
-// The `scroll` parameter indicates how long Elasticsearch should retain the
-// search context for the request.
-// The search response returns a scroll ID in the `_scroll_id` response body
-// parameter.
-// You can then use the scroll ID with the scroll API to retrieve the next batch
-// of results for the request.
-// If the Elasticsearch security features are enabled, the access to the results
-// of a specific scroll ID is restricted to the user or API key that submitted
-// the search.
+// request. To get the necessary scroll ID, submit a search API request that
+// includes an argument for the `scroll` query parameter. The `scroll` parameter
+// indicates how long Elasticsearch should retain the search context for the
+// request. The search response returns a scroll ID in the `_scroll_id` response
+// body parameter. You can then use the scroll ID with the scroll API to
+// retrieve the next batch of results for the request. If the Elasticsearch
+// security features are enabled, the access to the results of a specific scroll
+// ID is restricted to the user or API key that submitted the search.
 //
 // You can also use the scroll API to specify a new scroll parameter that
 // extends or shortens the retention period for the search context.
@@ -342,8 +334,8 @@ func (r *Scroll) Header(key, value string) *Scroll {
 	return r
 }
 
-// RestTotalHitsAsInt If true, the API response’s hit.total property is returned as an integer. If
-// false, the API response’s hit.total property is returned as an object.
+// RestTotalHitsAsInt If true, the API response’s hit.total property is returned as an integer.
+// If false, the API response’s hit.total property is returned as an object.
 // API name: rest_total_hits_as_int
 func (r *Scroll) RestTotalHitsAsInt(resttotalhitsasint bool) *Scroll {
 	r.values.Set("rest_total_hits_as_int", strconv.FormatBool(resttotalhitsasint))
@@ -374,11 +366,9 @@ func (r *Scroll) FilterPath(filterpaths ...string) *Scroll {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Scroll) Human(human bool) *Scroll {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -386,8 +376,8 @@ func (r *Scroll) Human(human bool) *Scroll {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Scroll) Pretty(pretty bool) *Scroll {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

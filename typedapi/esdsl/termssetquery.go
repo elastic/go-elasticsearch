@@ -28,9 +28,8 @@ type _termsSetQuery struct {
 }
 
 // Returns documents that contain a minimum number of exact terms in a provided
-// field.
-// To return a document, a required number of terms must exactly match the field
-// values, including whitespace and capitalization.
+// field. To return a document, a required number of terms must exactly match
+// the field values, including whitespace and capitalization.
 func NewTermsSetQuery(key string) *_termsSetQuery {
 	return &_termsSetQuery{
 		k: key,

@@ -21,16 +21,14 @@
 // Create or update a snapshot repository.
 //
 // IMPORTANT: If you are migrating searchable snapshots, the repository name
-// must be identical in the source and destination clusters.
-// To register a snapshot repository, the cluster's global metadata must be
-// writeable.
-// Ensure there are no cluster blocks (for example, `cluster.blocks.read_only`
-// and `clsuter.blocks.read_only_allow_delete` settings) that prevent write
-// access.
+// must be identical in the source and destination clusters. To register a
+// snapshot repository, the cluster's global metadata must be writeable. Ensure
+// there are no cluster blocks (for example, `cluster.blocks.read_only` and
+// `clsuter.blocks.read_only_allow_delete` settings) that prevent write access.
 //
 // Several options for this API can be specified using a query parameter or a
-// request body parameter.
-// If both parameters are specified, only the query parameter is used.
+// request body parameter. If both parameters are specified, only the query
+// parameter is used.
 package createrepository
 
 import (
@@ -96,16 +94,14 @@ func NewCreateRepositoryFunc(tp elastictransport.Interface) NewCreateRepository 
 // Create or update a snapshot repository.
 //
 // IMPORTANT: If you are migrating searchable snapshots, the repository name
-// must be identical in the source and destination clusters.
-// To register a snapshot repository, the cluster's global metadata must be
-// writeable.
-// Ensure there are no cluster blocks (for example, `cluster.blocks.read_only`
-// and `clsuter.blocks.read_only_allow_delete` settings) that prevent write
-// access.
+// must be identical in the source and destination clusters. To register a
+// snapshot repository, the cluster's global metadata must be writeable. Ensure
+// there are no cluster blocks (for example, `cluster.blocks.read_only` and
+// `clsuter.blocks.read_only_allow_delete` settings) that prevent write access.
 //
 // Several options for this API can be specified using a query parameter or a
-// request body parameter.
-// If both parameters are specified, only the query parameter is used.
+// request body parameter. If both parameters are specified, only the query
+// parameter is used.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-create-repository
 func New(tp elastictransport.Interface) *CreateRepository {
@@ -335,10 +331,9 @@ func (r *CreateRepository) _repository(repository string) *CreateRepository {
 	return r
 }
 
-// MasterTimeout The period to wait for the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// To indicate that the request should never timeout, set it to `-1`.
+// MasterTimeout The period to wait for the master node. If the master node is not available
+// before the timeout expires, the request fails and returns an error. To
+// indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *CreateRepository) MasterTimeout(duration string) *CreateRepository {
 	r.values.Set("master_timeout", duration)
@@ -347,11 +342,10 @@ func (r *CreateRepository) MasterTimeout(duration string) *CreateRepository {
 }
 
 // Timeout The period to wait for a response from all relevant nodes in the cluster
-// after updating the cluster metadata.
-// If no response is received before the timeout expires, the cluster metadata
-// update still applies but the response will indicate that it was not
-// completely acknowledged.
-// To indicate that the request should never timeout, set it to `-1`.
+// after updating the cluster metadata. If no response is received before the
+// timeout expires, the cluster metadata update still applies but the response
+// will indicate that it was not completely acknowledged. To indicate that the
+// request should never timeout, set it to `-1`.
 // API name: timeout
 func (r *CreateRepository) Timeout(duration string) *CreateRepository {
 	r.values.Set("timeout", duration)
@@ -360,10 +354,8 @@ func (r *CreateRepository) Timeout(duration string) *CreateRepository {
 }
 
 // Verify If `true`, the request verifies the repository is functional on all master
-// and data nodes in the cluster.
-// If `false`, this verification is skipped.
-// You can also perform this verification with the verify snapshot repository
-// API.
+// and data nodes in the cluster. If `false`, this verification is skipped. You
+// can also perform this verification with the verify snapshot repository API.
 // API name: verify
 func (r *CreateRepository) Verify(verify bool) *CreateRepository {
 	r.values.Set("verify", strconv.FormatBool(verify))
@@ -394,11 +386,9 @@ func (r *CreateRepository) FilterPath(filterpaths ...string) *CreateRepository {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *CreateRepository) Human(human bool) *CreateRepository {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -406,8 +396,8 @@ func (r *CreateRepository) Human(human bool) *CreateRepository {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *CreateRepository) Pretty(pretty bool) *CreateRepository {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

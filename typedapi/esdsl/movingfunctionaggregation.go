@@ -30,9 +30,8 @@ type _movingFunctionAggregation struct {
 }
 
 // Given an ordered series of data, "slides" a window across the data and runs a
-// custom script on each window of data.
-// For convenience, a number of common functions are predefined such as `min`,
-// `max`, and moving averages.
+// custom script on each window of data. For convenience, a number of common
+// functions are predefined such as `min`, `max`, and moving averages.
 func NewMovingFunctionAggregation() *_movingFunctionAggregation {
 
 	return &_movingFunctionAggregation{v: types.NewMovingFunctionAggregation()}

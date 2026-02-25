@@ -35,8 +35,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L624-L647
 type CircleProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// ErrorDistance The difference between the resulting inscribed distance from center to side
 	// and the circle’s radius (measured in meters for `geo_shape`, unit-less for
@@ -57,11 +57,10 @@ type CircleProcessor struct {
 	// ShapeType Which field mapping type is to be used when processing the circle:
 	// `geo_shape` or `shape`.
 	ShapeType shapetype.ShapeType `json:"shape_type"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
-	// TargetField The field to assign the polygon shape to
-	// By default, the field is updated in-place.
+	// TargetField The field to assign the polygon shape to By default, the field is updated
+	// in-place.
 	TargetField *string `json:"target_field,omitempty"`
 }
 

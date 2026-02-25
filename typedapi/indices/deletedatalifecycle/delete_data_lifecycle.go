@@ -297,9 +297,8 @@ func (r *DeleteDataLifecycle) Header(key, value string) *DeleteDataLifecycle {
 	return r
 }
 
-// Name A comma-separated list of data streams of which the data stream lifecycle
-// will be deleted.
-// Use `*` to get all data streams
+// Name A comma-separated list of data streams of which the data stream lifecycle //
+// will be deleted. Use `*` to get all data streams
 // API Name: name
 func (r *DeleteDataLifecycle) _name(name string) *DeleteDataLifecycle {
 	r.paramSet |= nameMask
@@ -360,11 +359,9 @@ func (r *DeleteDataLifecycle) FilterPath(filterpaths ...string) *DeleteDataLifec
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteDataLifecycle) Human(human bool) *DeleteDataLifecycle {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -372,8 +369,8 @@ func (r *DeleteDataLifecycle) Human(human bool) *DeleteDataLifecycle {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteDataLifecycle) Pretty(pretty bool) *DeleteDataLifecycle {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

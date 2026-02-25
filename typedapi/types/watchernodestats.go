@@ -36,23 +36,20 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/watcher/stats/types.ts#L33-L61
 type WatcherNodeStats struct {
 	// CurrentWatches The current executing watches metric gives insight into the watches that are
-	// currently being executed by Watcher.
-	// Additional information is shared per watch that is currently executing.
-	// This information includes the `watch_id`, the time its execution started and
-	// its current execution phase.
-	// To include this metric, the `metric` option should be set to
-	// `current_watches` or `_all`.
-	// In addition you can also specify the `emit_stacktraces=true` parameter, which
-	// adds stack traces for each watch that is being run.
-	// These stack traces can give you more insight into an execution of a watch.
+	// currently being executed by Watcher. Additional information is shared per
+	// watch that is currently executing. This information includes the `watch_id`,
+	// the time its execution started and its current execution phase. To include
+	// this metric, the `metric` option should be set to `current_watches` or
+	// `_all`. In addition you can also specify the `emit_stacktraces=true`
+	// parameter, which adds stack traces for each watch that is being run. These
+	// stack traces can give you more insight into an execution of a watch.
 	CurrentWatches      []WatchRecordStats  `json:"current_watches,omitempty"`
 	ExecutionThreadPool ExecutionThreadPool `json:"execution_thread_pool"`
 	NodeId              string              `json:"node_id"`
 	// QueuedWatches Watcher moderates the execution of watches such that their execution won't
-	// put too much pressure on the node and its resources.
-	// If too many watches trigger concurrently and there isn't enough capacity to
-	// run them all, some of the watches are queued, waiting for the current running
-	// watches to finish.s
+	// put too much pressure on the node and its resources. If too many watches
+	// trigger concurrently and there isn't enough capacity to run them all, some of
+	// the watches are queued, waiting for the current running watches to finish.s
 	// The queued watches metric gives insight on these queued watches.
 	//
 	// To include this metric, the `metric` option should include `queued_watches`

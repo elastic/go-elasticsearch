@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L1566-L1591
 type SplitProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field The field to split.
 	Field string `json:"field"`
@@ -51,11 +51,10 @@ type SplitProcessor struct {
 	PreserveTrailing *bool `json:"preserve_trailing,omitempty"`
 	// Separator A regex which matches the separator, for example, `,` or `\s+`.
 	Separator string `json:"separator"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
-	// TargetField The field to assign the split value to.
-	// By default, the field is updated in-place.
+	// TargetField The field to assign the split value to. By default, the field is updated
+	// in-place.
 	TargetField *string `json:"target_field,omitempty"`
 }
 

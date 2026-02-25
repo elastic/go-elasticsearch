@@ -308,8 +308,8 @@ func (r *Delete) _repository(repository string) *Delete {
 	return r
 }
 
-// Snapshot A comma-separated list of snapshot names to delete.
-// It also accepts wildcards (`*`).
+// Snapshot A comma-separated list of snapshot names to delete. It also accepts wildcards
+// // (`*`).
 // API Name: snapshot
 func (r *Delete) _snapshot(snapshot string) *Delete {
 	r.paramSet |= snapshotMask
@@ -318,10 +318,9 @@ func (r *Delete) _snapshot(snapshot string) *Delete {
 	return r
 }
 
-// MasterTimeout The period to wait for the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// To indicate that the request should never timeout, set it to `-1`.
+// MasterTimeout The period to wait for the master node. If the master node is not available
+// before the timeout expires, the request fails and returns an error. To
+// indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Delete) MasterTimeout(duration string) *Delete {
 	r.values.Set("master_timeout", duration)
@@ -330,9 +329,8 @@ func (r *Delete) MasterTimeout(duration string) *Delete {
 }
 
 // WaitForCompletion If `true`, the request returns a response when the matching snapshots are all
-// deleted.
-// If `false`, the request returns a response as soon as the deletes are
-// scheduled.
+// deleted. If `false`, the request returns a response as soon as the deletes
+// are scheduled.
 // API name: wait_for_completion
 func (r *Delete) WaitForCompletion(waitforcompletion bool) *Delete {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
@@ -363,11 +361,9 @@ func (r *Delete) FilterPath(filterpaths ...string) *Delete {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Delete) Human(human bool) *Delete {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -375,8 +371,8 @@ func (r *Delete) Human(human bool) *Delete {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Delete) Pretty(pretty bool) *Delete {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

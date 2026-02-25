@@ -21,17 +21,16 @@
 // Claim a connector sync job.
 //
 // This action updates the job status to `in_progress` and sets the `last_seen`
-// and `started_at` timestamps to the current time.
-// Additionally, it can set the `sync_cursor` property for the sync job.
+// and `started_at` timestamps to the current time. Additionally, it can set the
+// `sync_cursor` property for the sync job.
 //
-// This API is not intended for direct connector management by users.
-// It supports the implementation of services that utilize the connector
-// protocol to communicate with Elasticsearch.
+// This API is not intended for direct connector management by users. It
+// supports the implementation of services that utilize the connector protocol
+// to communicate with Elasticsearch.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
-// connector service on your own infrastructure.
-// This service runs automatically on Elastic Cloud for Elastic managed
-// connectors.
+// connector service on your own infrastructure. This service runs automatically
+// on Elastic Cloud for Elastic managed connectors.
 package syncjobclaim
 
 import (
@@ -97,17 +96,16 @@ func NewSyncJobClaimFunc(tp elastictransport.Interface) NewSyncJobClaim {
 // Claim a connector sync job.
 //
 // This action updates the job status to `in_progress` and sets the `last_seen`
-// and `started_at` timestamps to the current time.
-// Additionally, it can set the `sync_cursor` property for the sync job.
+// and `started_at` timestamps to the current time. Additionally, it can set the
+// `sync_cursor` property for the sync job.
 //
-// This API is not intended for direct connector management by users.
-// It supports the implementation of services that utilize the connector
-// protocol to communicate with Elasticsearch.
+// This API is not intended for direct connector management by users. It
+// supports the implementation of services that utilize the connector protocol
+// to communicate with Elasticsearch.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
-// connector service on your own infrastructure.
-// This service runs automatically on Elastic Cloud for Elastic managed
-// connectors.
+// connector service on your own infrastructure. This service runs automatically
+// on Elastic Cloud for Elastic managed connectors.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-claim
 func New(tp elastictransport.Interface) *SyncJobClaim {
@@ -364,11 +362,9 @@ func (r *SyncJobClaim) FilterPath(filterpaths ...string) *SyncJobClaim {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SyncJobClaim) Human(human bool) *SyncJobClaim {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -376,8 +372,8 @@ func (r *SyncJobClaim) Human(human bool) *SyncJobClaim {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SyncJobClaim) Pretty(pretty bool) *SyncJobClaim {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -385,9 +381,8 @@ func (r *SyncJobClaim) Pretty(pretty bool) *SyncJobClaim {
 	return r
 }
 
-// The cursor object from the last incremental sync job.
-// This should reference the `sync_cursor` field in the connector state for
-// which the job runs.
+// The cursor object from the last incremental sync job. This should reference
+// the `sync_cursor` field in the connector state for which the job runs.
 // API name: sync_cursor
 func (r *SyncJobClaim) SyncCursor(synccursor any) *SyncJobClaim {
 	// Initialize the request if it is not already initialized

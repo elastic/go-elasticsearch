@@ -35,20 +35,19 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/query_rules/_types/QueryRuleset.ts#L36-L58
 type QueryRule struct {
-	// Actions The actions to take when the rule is matched.
-	// The format of this action depends on the rule type.
+	// Actions The actions to take when the rule is matched. The format of this action
+	// depends on the rule type.
 	Actions QueryRuleActions `json:"actions"`
-	// Criteria The criteria that must be met for the rule to be applied.
-	// If multiple criteria are specified for a rule, all criteria must be met for
-	// the rule to be applied.
+	// Criteria The criteria that must be met for the rule to be applied. If multiple
+	// criteria are specified for a rule, all criteria must be met for the rule to
+	// be applied.
 	Criteria []QueryRuleCriteria `json:"criteria"`
 	Priority *int                `json:"priority,omitempty"`
 	// RuleId A unique identifier for the rule.
 	RuleId string `json:"rule_id"`
-	// Type The type of rule.
-	// `pinned` will identify and pin specific documents to the top of search
+	// Type The type of rule. `pinned` will identify and pin specific documents to the
+	// top of search results. `exclude` will exclude specific documents from search
 	// results.
-	// `exclude` will exclude specific documents from search results.
 	Type queryruletype.QueryRuleType `json:"type"`
 }
 

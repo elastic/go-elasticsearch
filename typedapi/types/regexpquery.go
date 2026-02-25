@@ -34,15 +34,13 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/term.ts#L200-L233
 type RegexpQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
 	// CaseInsensitive Allows case insensitive matching of the regular expression value with the
-	// indexed field values when set to `true`.
-	// When `false`, case sensitivity of matching depends on the underlying field’s
-	// mapping.
+	// indexed field values when set to `true`. When `false`, case sensitivity of
+	// matching depends on the underlying field’s mapping.
 	CaseInsensitive *bool `json:"case_insensitive,omitempty"`
 	// Flags Enables optional operators for the regular expression.
 	Flags *string `json:"flags,omitempty"`

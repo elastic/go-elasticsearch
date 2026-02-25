@@ -306,7 +306,8 @@ func (r *Get) _id(id string) *Get {
 }
 
 // KeepAlive Period for which the search and its results are stored on the cluster.
-// Defaults to the keep_alive value set by the search’s EQL search API request.
+// Defaults to the keep_alive value set by the search’s EQL search API
+// request.
 // API name: keep_alive
 func (r *Get) KeepAlive(duration string) *Get {
 	r.values.Set("keep_alive", duration)
@@ -314,9 +315,8 @@ func (r *Get) KeepAlive(duration string) *Get {
 	return r
 }
 
-// WaitForCompletionTimeout Timeout duration to wait for the request to finish.
-// Defaults to no timeout, meaning the request waits for complete search
-// results.
+// WaitForCompletionTimeout Timeout duration to wait for the request to finish. Defaults to no timeout,
+// meaning the request waits for complete search results.
 // API name: wait_for_completion_timeout
 func (r *Get) WaitForCompletionTimeout(duration string) *Get {
 	r.values.Set("wait_for_completion_timeout", duration)
@@ -347,11 +347,9 @@ func (r *Get) FilterPath(filterpaths ...string) *Get {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Get) Human(human bool) *Get {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -359,8 +357,8 @@ func (r *Get) Human(human bool) *Get {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Get) Pretty(pretty bool) *Get {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

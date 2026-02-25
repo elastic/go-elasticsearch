@@ -23,9 +23,8 @@
 // Restore a snapshot of a cluster or data streams and indices.
 //
 // You can restore a snapshot only to a running cluster with an elected master
-// node.
-// The snapshot repository must be registered and available to the cluster.
-// The snapshot and cluster versions must be compatible.
+// node. The snapshot repository must be registered and available to the
+// cluster. The snapshot and cluster versions must be compatible.
 //
 // To restore a snapshot, the cluster's global metadata must be writable. Ensure
 // there are't any cluster blocks that prevent writes. The restore operation
@@ -35,10 +34,7 @@
 // index template with data streams enabled. To check, use the index management
 // feature in Kibana or the get index template API:
 //
-// ```
-// GET
-// _index_template/*?filter_path=index_templates.name,index_templates.index_template.index_patterns,index_templates.index_template.data_stream
-// ```
+//	GET _index_template/*?filter_path=index_templates.name,index_templates.index_template.index_patterns,index_templates.index_template.data_stream
 //
 // If no such template exists, you can create one or restore a cluster state
 // that contains one. Without a matching index template, a data stream can't
@@ -118,9 +114,8 @@ func NewRestoreFunc(tp elastictransport.Interface) NewRestore {
 // Restore a snapshot of a cluster or data streams and indices.
 //
 // You can restore a snapshot only to a running cluster with an elected master
-// node.
-// The snapshot repository must be registered and available to the cluster.
-// The snapshot and cluster versions must be compatible.
+// node. The snapshot repository must be registered and available to the
+// cluster. The snapshot and cluster versions must be compatible.
 //
 // To restore a snapshot, the cluster's global metadata must be writable. Ensure
 // there are't any cluster blocks that prevent writes. The restore operation
@@ -130,10 +125,7 @@ func NewRestoreFunc(tp elastictransport.Interface) NewRestore {
 // index template with data streams enabled. To check, use the index management
 // feature in Kibana or the get index template API:
 //
-// ```
-// GET
-// _index_template/*?filter_path=index_templates.name,index_templates.index_template.index_patterns,index_templates.index_template.data_stream
-// ```
+//	GET _index_template/*?filter_path=index_templates.name,index_templates.index_template.index_patterns,index_templates.index_template.data_stream
 //
 // If no such template exists, you can create one or restore a cluster state
 // that contains one. Without a matching index template, a data stream can't
@@ -387,10 +379,9 @@ func (r *Restore) _snapshot(snapshot string) *Restore {
 	return r
 }
 
-// MasterTimeout The period to wait for the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// To indicate that the request should never timeout, set it to `-1`.
+// MasterTimeout The period to wait for the master node. If the master node is not available
+// before the timeout expires, the request fails and returns an error. To
+// indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Restore) MasterTimeout(duration string) *Restore {
 	r.values.Set("master_timeout", duration)
@@ -399,10 +390,9 @@ func (r *Restore) MasterTimeout(duration string) *Restore {
 }
 
 // WaitForCompletion If `true`, the request returns a response when the restore operation
-// completes.
-// The operation is complete when it finishes all attempts to recover primary
-// shards for restored indices.
-// This applies even if one or more of the recovery attempts fail.
+// completes. The operation is complete when it finishes all attempts to recover
+// primary shards for restored indices. This applies even if one or more of the
+// recovery attempts fail.
 //
 // If `false`, the request returns a response when the restore operation
 // initializes.
@@ -436,11 +426,9 @@ func (r *Restore) FilterPath(filterpaths ...string) *Restore {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Restore) Human(human bool) *Restore {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -448,8 +436,8 @@ func (r *Restore) Human(human bool) *Restore {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Restore) Pretty(pretty bool) *Restore {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -457,14 +445,13 @@ func (r *Restore) Pretty(pretty bool) *Restore {
 	return r
 }
 
-// The feature states to restore.
-// If `include_global_state` is `true`, the request restores all feature states
-// in the snapshot by default.
-// If `include_global_state` is `false`, the request restores no feature states
-// by default.
-// Note that specifying an empty array will result in the default behavior.
-// To restore no feature states, regardless of the `include_global_state` value,
-// specify an array containing only the value `none` (`["none"]`).
+// The feature states to restore. If `include_global_state` is `true`, the
+// request restores all feature states in the snapshot by default. If
+// `include_global_state` is `false`, the request restores no feature states by
+// default. Note that specifying an empty array will result in the default
+// behavior. To restore no feature states, regardless of the
+// `include_global_state` value, specify an array containing only the value
+// `none` (`["none"]`).
 // API name: feature_states
 func (r *Restore) FeatureStates(featurestates ...string) *Restore {
 	// Initialize the request if it is not already initialized
@@ -479,11 +466,11 @@ func (r *Restore) FeatureStates(featurestates ...string) *Restore {
 	return r
 }
 
-// The index settings to not restore from the snapshot.
-// You can't use this option to ignore `index.number_of_shards`.
+// The index settings to not restore from the snapshot. You can't use this
+// option to ignore `index.number_of_shards`.
 //
-// For data streams, this option applies only to restored backing indices.
-// New backing indices are configured using the data stream's matching index
+// For data streams, this option applies only to restored backing indices. New
+// backing indices are configured using the data stream's matching index
 // template.
 // API name: ignore_index_settings
 func (r *Restore) IgnoreIndexSettings(ignoreindexsettings ...string) *Restore {
@@ -500,9 +487,8 @@ func (r *Restore) IgnoreIndexSettings(ignoreindexsettings ...string) *Restore {
 }
 
 // If `true`, the request ignores any index or data stream in indices that's
-// missing from the snapshot.
-// If `false`, the request returns an error for any missing index or data
-// stream.
+// missing from the snapshot. If `false`, the request returns an error for any
+// missing index or data stream.
 // API name: ignore_unavailable
 func (r *Restore) IgnoreUnavailable(ignoreunavailable bool) *Restore {
 	// Initialize the request if it is not already initialized
@@ -516,8 +502,7 @@ func (r *Restore) IgnoreUnavailable(ignoreunavailable bool) *Restore {
 }
 
 // If `true`, the request restores aliases for any restored data streams and
-// indices.
-// If `false`, the request doesn’t restore aliases.
+// indices. If `false`, the request doesn’t restore aliases.
 // API name: include_aliases
 func (r *Restore) IncludeAliases(includealiases bool) *Restore {
 	// Initialize the request if it is not already initialized
@@ -532,18 +517,18 @@ func (r *Restore) IncludeAliases(includealiases bool) *Restore {
 
 // If `true`, restore the cluster state. The cluster state includes:
 //
-// * Persistent cluster settings
-// * Index templates
-// * Legacy index templates
-// * Ingest pipelines
-// * Index lifecycle management (ILM) policies
-// * Stored scripts
-// * For snapshots taken after 7.12.0, feature states
+//   - Persistent cluster settings
+//   - Index templates
+//   - Legacy index templates
+//   - Ingest pipelines
+//   - Index lifecycle management (ILM) policies
+//   - Stored scripts
+//   - For snapshots taken after 7.12.0, feature states
 //
 // If `include_global_state` is `true`, the restore operation merges the legacy
 // index templates in your cluster with the templates contained in the snapshot,
-// replacing any existing ones whose name matches one in the snapshot.
-// It completely removes all persistent settings, non-legacy index templates,
+// replacing any existing ones whose name matches one in the snapshot. It
+// completely removes all persistent settings, non-legacy index templates,
 // ingest pipelines, and ILM lifecycle policies that exist in your cluster and
 // replaces them with the corresponding items from the snapshot.
 //
@@ -565,11 +550,10 @@ func (r *Restore) IncludeGlobalState(includeglobalstate bool) *Restore {
 }
 
 // Index settings to add or change in restored indices, including backing
-// indices.
-// You can't use this option to change `index.number_of_shards`.
+// indices. You can't use this option to change `index.number_of_shards`.
 //
-// For data streams, this option applies only to restored backing indices.
-// New backing indices are configured using the data stream's matching index
+// For data streams, this option applies only to restored backing indices. New
+// backing indices are configured using the data stream's matching index
 // template.
 // API name: index_settings
 func (r *Restore) IndexSettings(indexsettings types.IndexSettingsVariant) *Restore {
@@ -583,14 +567,12 @@ func (r *Restore) IndexSettings(indexsettings types.IndexSettingsVariant) *Resto
 	return r
 }
 
-// A comma-separated list of indices and data streams to restore.
-// It supports a multi-target syntax.
-// The default behavior is all regular indices and regular data streams in the
-// snapshot.
+// A comma-separated list of indices and data streams to restore. It supports a
+// multi-target syntax. The default behavior is all regular indices and regular
+// data streams in the snapshot.
 //
 // You can't use this parameter to restore system indices or system data
-// streams.
-// Use `feature_states` instead.
+// streams. Use `feature_states` instead.
 // API name: indices
 func (r *Restore) Indices(indices ...string) *Restore {
 	// Initialize the request if it is not already initialized
@@ -607,9 +589,8 @@ func (r *Restore) Indices(indices ...string) *Restore {
 // included in the snapshot do not have all primary shards available.
 //
 // If true, it allows restoring a partial snapshot of indices with unavailable
-// shards.
-// Only shards that were successfully included in the snapshot will be restored.
-// All missing shards will be recreated as empty.
+// shards. Only shards that were successfully included in the snapshot will be
+// restored. All missing shards will be recreated as empty.
 // API name: partial
 func (r *Restore) Partial(partial bool) *Restore {
 	// Initialize the request if it is not already initialized
@@ -622,9 +603,9 @@ func (r *Restore) Partial(partial bool) *Restore {
 	return r
 }
 
-// A rename pattern to apply to restored data streams and indices.
-// Data streams and indices matching the rename pattern will be renamed
-// according to `rename_replacement`.
+// A rename pattern to apply to restored data streams and indices. Data streams
+// and indices matching the rename pattern will be renamed according to
+// `rename_replacement`.
 //
 // The rename pattern is applied as defined by the regular expression that
 // supports referencing the original text, according to the `appendReplacement`

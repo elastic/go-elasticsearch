@@ -20,12 +20,10 @@
 
 // Get terms in an index.
 //
-// Discover terms that match a partial string in an index.
-// This API is designed for low-latency look-ups used in auto-complete
-// scenarios.
+// Discover terms that match a partial string in an index. This API is designed
+// for low-latency look-ups used in auto-complete scenarios.
 //
-// > info
-// > The terms enum API may return terms from deleted documents. Deleted
+// > info > The terms enum API may return terms from deleted documents. Deleted
 // documents are initially only marked as deleted. It is not until their
 // segments are merged that documents are actually deleted. Until that happens,
 // the terms enum API will return terms from these documents.
@@ -93,12 +91,10 @@ func NewTermsEnumFunc(tp elastictransport.Interface) NewTermsEnum {
 
 // Get terms in an index.
 //
-// Discover terms that match a partial string in an index.
-// This API is designed for low-latency look-ups used in auto-complete
-// scenarios.
+// Discover terms that match a partial string in an index. This API is designed
+// for low-latency look-ups used in auto-complete scenarios.
 //
-// > info
-// > The terms enum API may return terms from deleted documents. Deleted
+// > info > The terms enum API may return terms from deleted documents. Deleted
 // documents are initially only marked as deleted. It is not until their
 // segments are merged that documents are actually deleted. Until that happens,
 // the terms enum API will return terms from these documents.
@@ -323,9 +319,8 @@ func (r *TermsEnum) Header(key, value string) *TermsEnum {
 }
 
 // Index A comma-separated list of data streams, indices, and index aliases to search.
-// Wildcard (`*`) expressions are supported.
-// To search all data streams or indices, omit this parameter or use `*`  or
-// `_all`.
+// // Wildcard (`*`) expressions are supported. To search all data streams or //
+// indices, omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *TermsEnum) _index(index string) *TermsEnum {
 	r.paramSet |= indexMask
@@ -357,11 +352,9 @@ func (r *TermsEnum) FilterPath(filterpaths ...string) *TermsEnum {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *TermsEnum) Human(human bool) *TermsEnum {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -369,8 +362,8 @@ func (r *TermsEnum) Human(human bool) *TermsEnum {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *TermsEnum) Pretty(pretty bool) *TermsEnum {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -419,9 +412,9 @@ func (r *TermsEnum) IndexFilter(indexfilter types.QueryVariant) *TermsEnum {
 	return r
 }
 
-// The string after which terms in the index should be returned.
-// It allows for a form of pagination if the last result from one request is
-// passed as the `search_after` parameter for a subsequent request.
+// The string after which terms in the index should be returned. It allows for a
+// form of pagination if the last result from one request is passed as the
+// `search_after` parameter for a subsequent request.
 // API name: search_after
 func (r *TermsEnum) SearchAfter(searchafter string) *TermsEnum {
 	// Initialize the request if it is not already initialized
@@ -447,12 +440,11 @@ func (r *TermsEnum) Size(size int) *TermsEnum {
 	return r
 }
 
-// The string to match at the start of indexed terms.
-// If it is not provided, all terms in the field are considered.
+// The string to match at the start of indexed terms. If it is not provided, all
+// terms in the field are considered.
 //
-// > info
-// > The prefix string cannot be larger than the largest possible keyword value,
-// which is Lucene's term byte-length limit of 32766.
+// > info > The prefix string cannot be larger than the largest possible keyword
+// value, which is Lucene's term byte-length limit of 32766.
 // API name: string
 func (r *TermsEnum) String(string string) *TermsEnum {
 	// Initialize the request if it is not already initialized
@@ -465,9 +457,9 @@ func (r *TermsEnum) String(string string) *TermsEnum {
 	return r
 }
 
-// The maximum length of time to spend collecting results.
-// If the timeout is exceeded the `complete` flag set to `false` in the response
-// and the results may be partial or empty.
+// The maximum length of time to spend collecting results. If the timeout is
+// exceeded the `complete` flag set to `false` in the response and the results
+// may be partial or empty.
 // API name: timeout
 func (r *TermsEnum) Timeout(duration types.DurationVariant) *TermsEnum {
 	// Initialize the request if it is not already initialized

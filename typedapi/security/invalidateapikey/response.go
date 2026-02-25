@@ -30,8 +30,8 @@ import (
 type Response struct {
 	// ErrorCount The number of errors that were encountered when invalidating the API keys.
 	ErrorCount int `json:"error_count"`
-	// ErrorDetails Details about the errors.
-	// This field is not present in the response when `error_count` is `0`.
+	// ErrorDetails Details about the errors. This field is not present in the response when
+	// `error_count` is `0`.
 	ErrorDetails []types.ErrorCause `json:"error_details,omitempty"`
 	// InvalidatedApiKeys The IDs of the API keys that were invalidated as part of this request.
 	InvalidatedApiKeys []string `json:"invalidated_api_keys"`

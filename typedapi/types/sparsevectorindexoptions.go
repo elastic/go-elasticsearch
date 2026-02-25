@@ -34,17 +34,14 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/mapping/SparseVectorIndexOptions.ts#L22-L42
 type SparseVectorIndexOptions struct {
 	// Prune Whether to perform pruning, omitting the non-significant tokens from the
-	// query to improve query performance.
-	// If prune is true but the pruning_config is not specified, pruning will occur
-	// but default values will be used.
+	// query to improve query performance. If prune is true but the pruning_config
+	// is not specified, pruning will occur but default values will be used.
 	// Default: false
 	Prune *bool `json:"prune,omitempty"`
-	// PruningConfig Optional pruning configuration.
-	// If enabled, this will omit non-significant tokens from the query in order to
-	// improve query performance.
-	// This is only used if prune is set to true.
-	// If prune is set to true but pruning_config is not specified, default values
-	// will be used.
+	// PruningConfig Optional pruning configuration. If enabled, this will omit non-significant
+	// tokens from the query in order to improve query performance. This is only
+	// used if prune is set to true. If prune is set to true but pruning_config is
+	// not specified, default values will be used.
 	PruningConfig *TokenPruningConfig `json:"pruning_config,omitempty"`
 }
 

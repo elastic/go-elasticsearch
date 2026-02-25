@@ -378,11 +378,9 @@ func (r *PutJinaai) FilterPath(filterpaths ...string) *PutJinaai {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutJinaai) Human(human bool) *PutJinaai {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -390,8 +388,8 @@ func (r *PutJinaai) Human(human bool) *PutJinaai {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutJinaai) Pretty(pretty bool) *PutJinaai {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -399,9 +397,8 @@ func (r *PutJinaai) Pretty(pretty bool) *PutJinaai {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `embedding` and text_embedding` task types.
-// Not applicable to the `rerank` task type.
+// The chunking configuration object. Applies only to the `embedding` and
+// text_embedding` task types. Not applicable to the `rerank` task type.
 // API name: chunking_settings
 func (r *PutJinaai) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutJinaai {
 	// Initialize the request if it is not already initialized
@@ -440,8 +437,8 @@ func (r *PutJinaai) ServiceSettings(servicesettings types.JinaAIServiceSettingsV
 	return r
 }
 
-// Settings to configure the inference task.
-// These settings are specific to the task type you specified.
+// Settings to configure the inference task. These settings are specific to the
+// task type you specified.
 // API name: task_settings
 func (r *PutJinaai) TaskSettings(tasksettings types.JinaAITaskSettingsVariant) *PutJinaai {
 	// Initialize the request if it is not already initialized

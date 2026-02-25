@@ -33,14 +33,12 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/AggregationContainer.ts#L110-L555
 type Aggregations struct {
 	AdditionalAggregationsProperty map[string]json.RawMessage `json:"-"`
-	// AdjacencyMatrix A bucket aggregation returning a form of adjacency matrix.
-	// The request provides a collection of named filter expressions, similar to the
-	// `filters` aggregation.
-	// Each bucket in the response represents a non-empty cell in the matrix of
-	// intersecting filters.
+	// AdjacencyMatrix A bucket aggregation returning a form of adjacency matrix. The request
+	// provides a collection of named filter expressions, similar to the `filters`
+	// aggregation. Each bucket in the response represents a non-empty cell in the
+	// matrix of intersecting filters.
 	AdjacencyMatrix *AdjacencyMatrixAggregation `json:"adjacency_matrix,omitempty"`
-	// Aggregations Sub-aggregations for this aggregation.
-	// Only applies to bucket aggregations.
+	// Aggregations Sub-aggregations for this aggregation. Only applies to bucket aggregations.
 	Aggregations map[string]Aggregations `json:"aggregations,omitempty"`
 	// AutoDateHistogram A multi-bucket aggregation similar to the date histogram, except instead of
 	// providing an interval to use as the width of each bucket, a target number of
@@ -50,9 +48,8 @@ type Aggregations struct {
 	// values that are extracted from the aggregated documents.
 	Avg *AverageAggregation `json:"avg,omitempty"`
 	// AvgBucket A sibling pipeline aggregation which calculates the mean value of a specified
-	// metric in a sibling aggregation.
-	// The specified metric must be numeric and the sibling aggregation must be a
-	// multi-bucket aggregation.
+	// metric in a sibling aggregation. The specified metric must be numeric and the
+	// sibling aggregation must be a multi-bucket aggregation.
 	AvgBucket *AverageBucketAggregation `json:"avg_bucket,omitempty"`
 	// Boxplot A metrics aggregation that computes a box plot of numeric values extracted
 	// from the aggregated documents.
@@ -86,21 +83,18 @@ type Aggregations struct {
 	CategorizeText *CategorizeTextAggregation `json:"categorize_text,omitempty"`
 	// ChangePoint A sibling pipeline that detects, spikes, dips, and change points in a metric.
 	// Given a distribution of values provided by the sibling multi-bucket
-	// aggregation,
-	// this aggregation indicates the bucket of any spike or dip and/or the bucket
-	// at which
-	// the largest change in the distribution of values, if they are statistically
-	// significant.
-	// There must be at least 22 bucketed values. Fewer than 1,000 is preferred.
+	// aggregation, this aggregation indicates the bucket of any spike or dip and/or
+	// the bucket at which the largest change in the distribution of values, if they
+	// are statistically significant. There must be at least 22 bucketed values.
+	// Fewer than 1,000 is preferred.
 	ChangePoint *ChangePointAggregation `json:"change_point,omitempty"`
 	// Children A single bucket aggregation that selects child documents that have the
 	// specified type, as defined in a `join` field.
 	Children *ChildrenAggregation `json:"children,omitempty"`
 	// Composite A multi-bucket aggregation that creates composite buckets from different
-	// sources.
-	// Unlike the other multi-bucket aggregations, you can use the `composite`
-	// aggregation to paginate *all* buckets from a multi-level aggregation
-	// efficiently.
+	// sources. Unlike the other multi-bucket aggregations, you can use the
+	// `composite` aggregation to paginate *all* buckets from a multi-level
+	// aggregation efficiently.
 	Composite *CompositeAggregation `json:"composite,omitempty"`
 	// CumulativeCardinality A parent pipeline aggregation which calculates the cumulative cardinality in
 	// a parent `histogram` or `date_histogram` aggregation.
@@ -109,8 +103,8 @@ type Aggregations struct {
 	// specified metric in a parent `histogram` or `date_histogram` aggregation.
 	CumulativeSum *CumulativeSumAggregation `json:"cumulative_sum,omitempty"`
 	// DateHistogram A multi-bucket values source based aggregation that can be applied on date
-	// values or date range values extracted from the documents.
-	// It dynamically builds fixed size (interval) buckets over the values.
+	// values or date range values extracted from the documents. It dynamically
+	// builds fixed size (interval) buckets over the values.
 	DateHistogram *DateHistogramAggregation `json:"date_histogram,omitempty"`
 	// DateRange A multi-bucket value source based aggregation that enables the user to define
 	// a set of date ranges - each representing a bucket.
@@ -119,9 +113,9 @@ type Aggregations struct {
 	// metric in a parent `histogram` or `date_histogram` aggregation.
 	Derivative *DerivativeAggregation `json:"derivative,omitempty"`
 	// DiversifiedSampler A filtering aggregation used to limit any sub aggregations' processing to a
-	// sample of the top-scoring documents.
-	// Similar to the `sampler` aggregation, but adds the ability to limit the
-	// number of matches that share a common value.
+	// sample of the top-scoring documents. Similar to the `sampler` aggregation,
+	// but adds the ability to limit the number of matches that share a common
+	// value.
 	DiversifiedSampler *DiversifiedSamplerAggregation `json:"diversified_sampler,omitempty"`
 	// ExtendedStats A multi-value metrics aggregation that computes stats over numeric values
 	// extracted from the aggregated documents.
@@ -144,34 +138,32 @@ type Aggregations struct {
 	// GeoCentroid A metric aggregation that computes the weighted centroid from all coordinate
 	// values for geo fields.
 	GeoCentroid *GeoCentroidAggregation `json:"geo_centroid,omitempty"`
-	// GeoDistance A multi-bucket aggregation that works on `geo_point` fields.
-	// Evaluates the distance of each document value from an origin point and
-	// determines the buckets it belongs to, based on ranges defined in the request.
+	// GeoDistance A multi-bucket aggregation that works on `geo_point` fields. Evaluates the
+	// distance of each document value from an origin point and determines the
+	// buckets it belongs to, based on ranges defined in the request.
 	GeoDistance *GeoDistanceAggregation `json:"geo_distance,omitempty"`
 	// GeoLine Aggregates all `geo_point` values within a bucket into a `LineString` ordered
 	// by the chosen sort field.
 	GeoLine *GeoLineAggregation `json:"geo_line,omitempty"`
 	// GeohashGrid A multi-bucket aggregation that groups `geo_point` and `geo_shape` values
-	// into buckets that represent a grid.
-	// Each cell is labeled using a geohash which is of user-definable precision.
+	// into buckets that represent a grid. Each cell is labeled using a geohash
+	// which is of user-definable precision.
 	GeohashGrid *GeoHashGridAggregation `json:"geohash_grid,omitempty"`
 	// GeohexGrid A multi-bucket aggregation that groups `geo_point` and `geo_shape` values
-	// into buckets that represent a grid.
-	// Each cell corresponds to a H3 cell index and is labeled using the H3Index
-	// representation.
+	// into buckets that represent a grid. Each cell corresponds to a H3 cell index
+	// and is labeled using the H3Index representation.
 	GeohexGrid *GeohexGridAggregation `json:"geohex_grid,omitempty"`
 	// GeotileGrid A multi-bucket aggregation that groups `geo_point` and `geo_shape` values
-	// into buckets that represent a grid.
-	// Each cell corresponds to a map tile as used by many online map sites.
+	// into buckets that represent a grid. Each cell corresponds to a map tile as
+	// used by many online map sites.
 	GeotileGrid *GeoTileGridAggregation `json:"geotile_grid,omitempty"`
 	// Global Defines a single bucket of all the documents within the search execution
-	// context.
-	// This context is defined by the indices and the document types you’re
-	// searching on, but is not influenced by the search query itself.
+	// context. This context is defined by the indices and the document types
+	// you’re searching on, but is not influenced by the search query itself.
 	Global *GlobalAggregation `json:"global,omitempty"`
 	// Histogram A multi-bucket values source based aggregation that can be applied on numeric
-	// values or numeric range values extracted from the documents.
-	// It dynamically builds fixed size (interval) buckets over the values.
+	// values or numeric range values extracted from the documents. It dynamically
+	// builds fixed size (interval) buckets over the values.
 	Histogram *HistogramAggregation `json:"histogram,omitempty"`
 	// Inference A parent pipeline aggregation which loads a pre-trained model and performs
 	// inference on the collated result fields from the parent bucket aggregation.
@@ -211,9 +203,8 @@ type Aggregations struct {
 	Missing   *MissingAggregation      `json:"missing,omitempty"`
 	MovingAvg MovingAverageAggregation `json:"moving_avg,omitempty"`
 	// MovingFn Given an ordered series of data, "slides" a window across the data and runs a
-	// custom script on each window of data.
-	// For convenience, a number of common functions are predefined such as `min`,
-	// `max`, and moving averages.
+	// custom script on each window of data. For convenience, a number of common
+	// functions are predefined such as `min`, `max`, and moving averages.
 	MovingFn *MovingFunctionAggregation `json:"moving_fn,omitempty"`
 	// MovingPercentiles Given an ordered series of percentiles, "slides" a window across those
 	// percentiles and computes cumulative percentiles.
@@ -240,21 +231,21 @@ type Aggregations struct {
 	// of a specified metric in a sibling aggregation.
 	PercentilesBucket *PercentilesBucketAggregation `json:"percentiles_bucket,omitempty"`
 	// RandomSampler A single bucket aggregation that randomly includes documents in the
-	// aggregated results.
-	// Sampling provides significant speed improvement at the cost of accuracy.
+	// aggregated results. Sampling provides significant speed improvement at the
+	// cost of accuracy.
 	RandomSampler *RandomSamplerAggregation `json:"random_sampler,omitempty"`
 	// Range A multi-bucket value source based aggregation that enables the user to define
 	// a set of ranges - each representing a bucket.
 	Range *RangeAggregation `json:"range,omitempty"`
-	// RareTerms A multi-bucket value source based aggregation which finds "rare" terms —
+	// RareTerms A multi-bucket value source based aggregation which finds "rare" terms —
 	// terms that are at the long-tail of the distribution and are not frequent.
 	RareTerms *RareTermsAggregation `json:"rare_terms,omitempty"`
-	// Rate Calculates a rate of documents or a field in each bucket.
-	// Can only be used inside a `date_histogram` or `composite` aggregation.
+	// Rate Calculates a rate of documents or a field in each bucket. Can only be used
+	// inside a `date_histogram` or `composite` aggregation.
 	Rate *RateAggregation `json:"rate,omitempty"`
 	// ReverseNested A special single bucket aggregation that enables aggregating on parent
-	// documents from nested documents.
-	// Should only be defined inside a `nested` aggregation.
+	// documents from nested documents. Should only be defined inside a `nested`
+	// aggregation.
 	ReverseNested *ReverseNestedAggregation `json:"reverse_nested,omitempty"`
 	// Sampler A filtering aggregation used to limit any sub aggregations' processing to a
 	// sample of the top-scoring documents.

@@ -20,8 +20,8 @@
 
 // Get global checkpoints.
 //
-// Get the current global checkpoints for an index.
-// This API is designed for internal use by the Fleet server project.
+// Get the current global checkpoints for an index. This API is designed for
+// internal use by the Fleet server project.
 package globalcheckpoints
 
 import (
@@ -81,8 +81,8 @@ func NewGlobalCheckpointsFunc(tp elastictransport.Interface) NewGlobalCheckpoint
 
 // Get global checkpoints.
 //
-// Get the current global checkpoints for an index.
-// This API is designed for internal use by the Fleet server project.
+// Get the current global checkpoints for an index. This API is designed for
+// internal use by the Fleet server project.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-fleet
 func New(tp elastictransport.Interface) *GlobalCheckpoints {
@@ -312,8 +312,7 @@ func (r *GlobalCheckpoints) _index(index string) *GlobalCheckpoints {
 }
 
 // WaitForAdvance A boolean value which controls whether to wait (until the timeout) for the
-// global checkpoints
-// to advance past the provided `checkpoints`.
+// global checkpoints to advance past the provided `checkpoints`.
 // API name: wait_for_advance
 func (r *GlobalCheckpoints) WaitForAdvance(waitforadvance bool) *GlobalCheckpoints {
 	r.values.Set("wait_for_advance", strconv.FormatBool(waitforadvance))
@@ -322,9 +321,8 @@ func (r *GlobalCheckpoints) WaitForAdvance(waitforadvance bool) *GlobalCheckpoin
 }
 
 // WaitForIndex A boolean value which controls whether to wait (until the timeout) for the
-// target index to exist
-// and all primary shards be active. Can only be true when `wait_for_advance` is
-// true.
+// target index to exist and all primary shards be active. Can only be true when
+// `wait_for_advance` is true.
 // API name: wait_for_index
 func (r *GlobalCheckpoints) WaitForIndex(waitforindex bool) *GlobalCheckpoints {
 	r.values.Set("wait_for_index", strconv.FormatBool(waitforindex))
@@ -333,11 +331,9 @@ func (r *GlobalCheckpoints) WaitForIndex(waitforindex bool) *GlobalCheckpoints {
 }
 
 // Checkpoints A comma separated list of previous global checkpoints. When used in
-// combination with `wait_for_advance`,
-// the API will only return once the global checkpoints advances past the
-// checkpoints. Providing an empty list
-// will cause Elasticsearch to immediately return the current global
-// checkpoints.
+// combination with `wait_for_advance`, the API will only return once the global
+// checkpoints advances past the checkpoints. Providing an empty list will cause
+// Elasticsearch to immediately return the current global checkpoints.
 // API name: checkpoints
 func (r *GlobalCheckpoints) Checkpoints(checkpoints ...int64) *GlobalCheckpoints {
 	tmp := []string{}
@@ -380,11 +376,9 @@ func (r *GlobalCheckpoints) FilterPath(filterpaths ...string) *GlobalCheckpoints
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GlobalCheckpoints) Human(human bool) *GlobalCheckpoints {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -392,8 +386,8 @@ func (r *GlobalCheckpoints) Human(human bool) *GlobalCheckpoints {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GlobalCheckpoints) Pretty(pretty bool) *GlobalCheckpoints {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

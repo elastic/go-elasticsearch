@@ -29,14 +29,14 @@ import (
 	"strconv"
 )
 
-// WeightedAvgAggregate type.
+// Weighted average aggregation result. `value` is missing if the weight was set
+// to zero.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/Aggregate.ts#L229-L234
 type WeightedAvgAggregate struct {
 	Meta Metadata `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to
-	// aggregate,
-	// unless specified otherwise.
+	// aggregate, unless specified otherwise.
 	Value         *Float64 `json:"value,omitempty"`
 	ValueAsString *string  `json:"value_as_string,omitempty"`
 }

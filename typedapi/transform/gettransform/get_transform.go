@@ -295,9 +295,9 @@ func (r *GetTransform) Header(key, value string) *GetTransform {
 	return r
 }
 
-// TransformId Identifier for the transform. It can be a transform identifier or a
-// wildcard expression. You can get information for all transforms by using
-// `_all`, by specifying `*` as the `<transform_id>`, or by omitting the
+// TransformId Identifier for the transform. It can be a transform identifier or a wildcard
+// // expression. You can get information for all transforms by using `_all`, by
+// // specifying `*` as the `<transform_id>`, or by omitting the
 // `<transform_id>`.
 // API Name: transformid
 func (r *GetTransform) TransformId(transformid string) *GetTransform {
@@ -309,12 +309,12 @@ func (r *GetTransform) TransformId(transformid string) *GetTransform {
 
 // AllowNoMatch Specifies what to do when the request:
 //
-// 1. Contains wildcard expressions and there are no transforms that match.
-// 2. Contains the _all string or no identifiers and there are no matches.
-// 3. Contains wildcard expressions and there are only partial matches.
+// 1. Contains wildcard expressions and there are no transforms that match. 2.
+// Contains the _all string or no identifiers and there are no matches. 3.
+// Contains wildcard expressions and there are only partial matches.
 //
-// If this parameter is false, the request returns a 404 status code when
-// there are no matches or only partial matches.
+// If this parameter is false, the request returns a 404 status code when there
+// are no matches or only partial matches.
 // API name: allow_no_match
 func (r *GetTransform) AllowNoMatch(allownomatch bool) *GetTransform {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -338,9 +338,9 @@ func (r *GetTransform) Size(size int) *GetTransform {
 	return r
 }
 
-// ExcludeGenerated Excludes fields that were automatically added when creating the
-// transform. This allows the configuration to be in an acceptable format to
-// be retrieved and then added to another cluster.
+// ExcludeGenerated Excludes fields that were automatically added when creating the transform.
+// This allows the configuration to be in an acceptable format to be retrieved
+// and then added to another cluster.
 // API name: exclude_generated
 func (r *GetTransform) ExcludeGenerated(excludegenerated bool) *GetTransform {
 	r.values.Set("exclude_generated", strconv.FormatBool(excludegenerated))
@@ -371,11 +371,9 @@ func (r *GetTransform) FilterPath(filterpaths ...string) *GetTransform {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetTransform) Human(human bool) *GetTransform {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -383,8 +381,8 @@ func (r *GetTransform) Human(human bool) *GetTransform {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetTransform) Pretty(pretty bool) *GetTransform {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

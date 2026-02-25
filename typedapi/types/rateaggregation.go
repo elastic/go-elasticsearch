@@ -39,14 +39,14 @@ type RateAggregation struct {
 	// Field The field on which to run the aggregation.
 	Field  *string `json:"field,omitempty"`
 	Format *string `json:"format,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
 	// Mode How the rate is calculated.
 	Mode   *ratemode.RateMode `json:"mode,omitempty"`
 	Script *Script            `json:"script,omitempty"`
-	// Unit The interval used to calculate the rate.
-	// By default, the interval of the `date_histogram` is used.
+	// Unit The interval used to calculate the rate. By default, the interval of the
+	// `date_histogram` is used.
 	Unit *calendarinterval.CalendarInterval `json:"unit,omitempty"`
 }
 

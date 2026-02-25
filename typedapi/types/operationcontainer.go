@@ -24,17 +24,17 @@ package types
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/bulk/types.ts#L158-L180
 type OperationContainer struct {
-	// Create Index the specified document if it does not already exist.
-	// The following line must contain the source data to be indexed.
+	// Create Index the specified document if it does not already exist. The following line
+	// must contain the source data to be indexed.
 	Create *CreateOperation `json:"create,omitempty"`
 	// Delete Remove the specified document from the index.
 	Delete *DeleteOperation `json:"delete,omitempty"`
-	// Index Index the specified document.
-	// If the document exists, it replaces the document and increments the version.
-	// The following line must contain the source data to be indexed.
+	// Index Index the specified document. If the document exists, it replaces the
+	// document and increments the version. The following line must contain the
+	// source data to be indexed.
 	Index *IndexOperation `json:"index,omitempty"`
-	// Update Perform a partial document update.
-	// The following line must contain the partial document and update options.
+	// Update Perform a partial document update. The following line must contain the
+	// partial document and update options.
 	Update *UpdateOperation `json:"update,omitempty"`
 }
 

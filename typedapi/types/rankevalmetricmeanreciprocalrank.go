@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// RankEvalMetricMeanReciprocalRank type.
+// Mean Reciprocal Rank
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/rank_eval/types.ts#L60-L64
 type RankEvalMetricMeanReciprocalRank struct {

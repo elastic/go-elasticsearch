@@ -33,11 +33,11 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L876-L894
 type DotExpanderProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
-	// Field The field to expand into an object field.
-	// If set to `*`, all top-level fields will be expanded.
+	// Field The field to expand into an object field. If set to `*`, all top-level fields
+	// will be expanded.
 	Field string `json:"field"`
 	// If Conditionally execute the processor.
 	If *Script `json:"if,omitempty"`
@@ -46,18 +46,15 @@ type DotExpanderProcessor struct {
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// Override Controls the behavior when there is already an existing nested object that
-	// conflicts with the expanded field.
-	// When `false`, the processor will merge conflicts by combining the old and the
-	// new values into an array.
-	// When `true`, the value from the expanded field will overwrite the existing
-	// value.
+	// conflicts with the expanded field. When `false`, the processor will merge
+	// conflicts by combining the old and the new values into an array. When `true`,
+	// the value from the expanded field will overwrite the existing value.
 	Override *bool `json:"override,omitempty"`
-	// Path The field that contains the field to expand.
-	// Only required if the field to expand is part another object field, because
-	// the `field` option can only understand leaf fields.
+	// Path The field that contains the field to expand. Only required if the field to
+	// expand is part another object field, because the `field` option can only
+	// understand leaf fields.
 	Path *string `json:"path,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 }
 

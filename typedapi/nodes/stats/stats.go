@@ -20,9 +20,8 @@
 
 // Get node statistics.
 //
-// Get statistics for nodes in a cluster.
-// By default, all stats are returned. You can limit the returned information by
-// using metrics.
+// Get statistics for nodes in a cluster. By default, all stats are returned.
+// You can limit the returned information by using metrics.
 package stats
 
 import (
@@ -87,9 +86,8 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 
 // Get node statistics.
 //
-// Get statistics for nodes in a cluster.
-// By default, all stats are returned. You can limit the returned information by
-// using metrics.
+// Get statistics for nodes in a cluster. By default, all stats are returned.
+// You can limit the returned information by using metrics.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-stats
 func New(tp elastictransport.Interface) *Stats {
@@ -404,7 +402,7 @@ func (r *Stats) Metric(metric string) *Stats {
 	return r
 }
 
-// IndexMetric Limit the information returned for indices metric to the specific index
+// IndexMetric Limit the information returned for indices metric to the specific index //
 // metrics. It can be used only if indices (or all) metric is specified.
 // API Name: indexmetric
 func (r *Stats) IndexMetric(indexmetric string) *Stats {
@@ -520,11 +518,9 @@ func (r *Stats) FilterPath(filterpaths ...string) *Stats {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Stats) Human(human bool) *Stats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -532,8 +528,8 @@ func (r *Stats) Human(human bool) *Stats {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Stats) Pretty(pretty bool) *Stats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

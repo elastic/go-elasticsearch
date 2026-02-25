@@ -313,8 +313,8 @@ func (r *SearchTemplate) Header(key, value string) *SearchTemplate {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases to search.
-// It supports wildcards (`*`).
+// Index A comma-separated list of data streams, indices, and aliases to search. It //
+// supports wildcards (`*`).
 // API Name: index
 func (r *SearchTemplate) Index(index string) *SearchTemplate {
 	r.paramSet |= indexMask
@@ -324,10 +324,10 @@ func (r *SearchTemplate) Index(index string) *SearchTemplate {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
-// For example, a request targeting `foo*,bar*` returns an error if an index
-// starts with `foo` but no index starts with `bar`.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices. For example, a
+// request targeting `foo*,bar*` returns an error if an index starts with `foo`
+// but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *SearchTemplate) AllowNoIndices(allownoindices bool) *SearchTemplate {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -344,10 +344,9 @@ func (r *SearchTemplate) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *Sear
 	return r
 }
 
-// ExpandWildcards The type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards The type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *SearchTemplate) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *SearchTemplate {
 	tmp := []string{}
@@ -377,8 +376,8 @@ func (r *SearchTemplate) IgnoreUnavailable(ignoreunavailable bool) *SearchTempla
 	return r
 }
 
-// Preference The node or shard the operation should be performed on.
-// It is random by default.
+// Preference The node or shard the operation should be performed on. It is random by
+// default.
 // API name: preference
 func (r *SearchTemplate) Preference(preference string) *SearchTemplate {
 	r.values.Set("preference", preference)
@@ -394,8 +393,8 @@ func (r *SearchTemplate) Routing(routings ...string) *SearchTemplate {
 	return r
 }
 
-// Scroll Specifies how long a consistent view of the index
-// should be maintained for scrolled search.
+// Scroll Specifies how long a consistent view of the index should be maintained for
+// scrolled search.
 // API name: scroll
 func (r *SearchTemplate) Scroll(duration string) *SearchTemplate {
 	r.values.Set("scroll", duration)
@@ -411,8 +410,8 @@ func (r *SearchTemplate) SearchType(searchtype searchtype.SearchType) *SearchTem
 	return r
 }
 
-// RestTotalHitsAsInt If `true`, `hits.total` is rendered as an integer in the response.
-// If `false`, it is rendered as an object.
+// RestTotalHitsAsInt If `true`, `hits.total` is rendered as an integer in the response. If
+// `false`, it is rendered as an object.
 // API name: rest_total_hits_as_int
 func (r *SearchTemplate) RestTotalHitsAsInt(resttotalhitsasint bool) *SearchTemplate {
 	r.values.Set("rest_total_hits_as_int", strconv.FormatBool(resttotalhitsasint))
@@ -452,11 +451,9 @@ func (r *SearchTemplate) FilterPath(filterpaths ...string) *SearchTemplate {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SearchTemplate) Human(human bool) *SearchTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -464,8 +461,8 @@ func (r *SearchTemplate) Human(human bool) *SearchTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SearchTemplate) Pretty(pretty bool) *SearchTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -474,9 +471,8 @@ func (r *SearchTemplate) Pretty(pretty bool) *SearchTemplate {
 }
 
 // If `true`, returns detailed information about score calculation as part of
-// each hit.
-// If you specify both this and the `explain` query parameter, the API uses only
-// the query parameter.
+// each hit. If you specify both this and the `explain` query parameter, the API
+// uses only the query parameter.
 // API name: explain
 func (r *SearchTemplate) Explain(explain bool) *SearchTemplate {
 	// Initialize the request if it is not already initialized
@@ -489,8 +485,8 @@ func (r *SearchTemplate) Explain(explain bool) *SearchTemplate {
 	return r
 }
 
-// The ID of the search template to use. If no `source` is specified,
-// this parameter is required.
+// The ID of the search template to use. If no `source` is specified, this
+// parameter is required.
 // API name: id
 func (r *SearchTemplate) Id(id string) *SearchTemplate {
 	// Initialize the request if it is not already initialized
@@ -503,9 +499,8 @@ func (r *SearchTemplate) Id(id string) *SearchTemplate {
 	return r
 }
 
-// Key-value pairs used to replace Mustache variables in the template.
-// The key is the variable name.
-// The value is the variable value.
+// Key-value pairs used to replace Mustache variables in the template. The key
+// is the variable name. The value is the variable value.
 // API name: params
 func (r *SearchTemplate) Params(params map[string]json.RawMessage) *SearchTemplate {
 	// Initialize the request if it is not already initialized
@@ -549,16 +544,9 @@ func (r *SearchTemplate) Profile(profile bool) *SearchTemplate {
 }
 
 // Specifies a subset of projects to target for the search using project
-// metadata tags in a subset of Lucene query syntax.
-// Allowed Lucene queries: the _alias tag and a single value (possibly
-// wildcarded).
-// Examples:
-//
-//	_alias:my-project
-//	_alias:_origin
-//	_alias:*pr*
-//
-// Supported in serverless only.
+// metadata tags in a subset of Lucene query syntax. Allowed Lucene queries: the
+// _alias tag and a single value (possibly wildcarded). Examples:
+// _alias:my-project _alias:_origin _alias:*pr* Supported in serverless only.
 // API name: project_routing
 func (r *SearchTemplate) ProjectRouting(projectrouting string) *SearchTemplate {
 	// Initialize the request if it is not already initialized
@@ -573,8 +561,7 @@ func (r *SearchTemplate) ProjectRouting(projectrouting string) *SearchTemplate {
 
 // An inline search template. Supports the same parameters as the search API's
 // request body. It also supports Mustache variables. If no `id` is specified,
-// this
-// parameter is required.
+// this parameter is required.
 // API name: source
 func (r *SearchTemplate) Source(scriptsource types.ScriptSourceVariant) *SearchTemplate {
 	// Initialize the request if it is not already initialized

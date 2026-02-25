@@ -22,14 +22,13 @@
 //
 // Records contain the detailed analytical results. They describe the anomalous
 // activity that has been identified in the input data based on the detector
-// configuration.
-// There can be many anomaly records depending on the characteristics and size
-// of the input data. In practice, there are often too many to be able to
-// manually process them. The machine learning features therefore perform a
-// sophisticated aggregation of the anomaly records into buckets.
-// The number of record results depends on the number of anomalies found in each
-// bucket, which relates to the number of time series being modeled and the
-// number of detectors.
+// configuration. There can be many anomaly records depending on the
+// characteristics and size of the input data. In practice, there are often too
+// many to be able to manually process them. The machine learning features
+// therefore perform a sophisticated aggregation of the anomaly records into
+// buckets. The number of record results depends on the number of anomalies
+// found in each bucket, which relates to the number of time series being
+// modeled and the number of detectors.
 package getrecords
 
 import (
@@ -96,14 +95,13 @@ func NewGetRecordsFunc(tp elastictransport.Interface) NewGetRecords {
 //
 // Records contain the detailed analytical results. They describe the anomalous
 // activity that has been identified in the input data based on the detector
-// configuration.
-// There can be many anomaly records depending on the characteristics and size
-// of the input data. In practice, there are often too many to be able to
-// manually process them. The machine learning features therefore perform a
-// sophisticated aggregation of the anomaly records into buckets.
-// The number of record results depends on the number of anomalies found in each
-// bucket, which relates to the number of time series being modeled and the
-// number of detectors.
+// configuration. There can be many anomaly records depending on the
+// characteristics and size of the input data. In practice, there are often too
+// many to be able to manually process them. The machine learning features
+// therefore perform a sophisticated aggregation of the anomaly records into
+// buckets. The number of record results depends on the number of anomalies
+// found in each bucket, which relates to the number of time series being
+// modeled and the number of detectors.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-records
 func New(tp elastictransport.Interface) *GetRecords {
@@ -378,11 +376,9 @@ func (r *GetRecords) FilterPath(filterpaths ...string) *GetRecords {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetRecords) Human(human bool) *GetRecords {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -390,8 +386,8 @@ func (r *GetRecords) Human(human bool) *GetRecords {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetRecords) Pretty(pretty bool) *GetRecords {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -50,9 +50,8 @@ type FunctionScore struct {
 	// Name_ A name to identify which function matched and influenced the score.
 	Name_ *string `json:"_name,omitempty"`
 	// RandomScore Generates scores that are uniformly distributed from 0 up to but not
-	// including 1.
-	// In case you want scores to be reproducible, it is possible to provide a
-	// `seed` and `field`.
+	// including 1. In case you want scores to be reproducible, it is possible to
+	// provide a `seed` and `field`.
 	RandomScore *RandomScoreFunction `json:"random_score,omitempty"`
 	// ScriptScore Enables you to wrap another query and customize the scoring of it optionally
 	// with a computation derived from other numeric field values in the doc using a

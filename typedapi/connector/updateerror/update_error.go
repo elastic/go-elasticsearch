@@ -20,11 +20,9 @@
 
 // Update the connector error field.
 //
-// Set the error field for the connector.
-// If the error provided in the request body is non-null, the connector’s status
-// is updated to error.
-// Otherwise, if the error is reset to null, the connector status is updated to
-// connected.
+// Set the error field for the connector. If the error provided in the request
+// body is non-null, the connector’s status is updated to error. Otherwise, if
+// the error is reset to null, the connector status is updated to connected.
 package updateerror
 
 import (
@@ -89,11 +87,9 @@ func NewUpdateErrorFunc(tp elastictransport.Interface) NewUpdateError {
 
 // Update the connector error field.
 //
-// Set the error field for the connector.
-// If the error provided in the request body is non-null, the connector’s status
-// is updated to error.
-// Otherwise, if the error is reset to null, the connector status is updated to
-// connected.
+// Set the error field for the connector. If the error provided in the request
+// body is non-null, the connector’s status is updated to error. Otherwise, if
+// the error is reset to null, the connector status is updated to connected.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-error
 func New(tp elastictransport.Interface) *UpdateError {
@@ -348,11 +344,9 @@ func (r *UpdateError) FilterPath(filterpaths ...string) *UpdateError {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateError) Human(human bool) *UpdateError {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -360,8 +354,8 @@ func (r *UpdateError) Human(human bool) *UpdateError {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateError) Pretty(pretty bool) *UpdateError {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

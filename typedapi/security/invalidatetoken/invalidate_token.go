@@ -21,21 +21,18 @@
 // Invalidate a token.
 //
 // The access tokens returned by the get token API have a finite period of time
-// for which they are valid.
-// After that time period, they can no longer be used.
+// for which they are valid. After that time period, they can no longer be used.
 // The time period is defined by the `xpack.security.authc.token.timeout`
 // setting.
 //
 // The refresh tokens returned by the get token API are only valid for 24 hours.
-// They can also be used exactly once.
-// If you want to invalidate one or more access or refresh tokens immediately,
-// use this invalidate token API.
+// They can also be used exactly once. If you want to invalidate one or more
+// access or refresh tokens immediately, use this invalidate token API.
 //
 // NOTE: While all parameters are optional, at least one of them is required.
 // More specifically, either one of `token` or `refresh_token` parameters is
-// required.
-// If none of these two are specified, then `realm_name` and/or `username` need
-// to be specified.
+// required. If none of these two are specified, then `realm_name` and/or
+// `username` need to be specified.
 package invalidatetoken
 
 import (
@@ -93,21 +90,18 @@ func NewInvalidateTokenFunc(tp elastictransport.Interface) NewInvalidateToken {
 // Invalidate a token.
 //
 // The access tokens returned by the get token API have a finite period of time
-// for which they are valid.
-// After that time period, they can no longer be used.
+// for which they are valid. After that time period, they can no longer be used.
 // The time period is defined by the `xpack.security.authc.token.timeout`
 // setting.
 //
 // The refresh tokens returned by the get token API are only valid for 24 hours.
-// They can also be used exactly once.
-// If you want to invalidate one or more access or refresh tokens immediately,
-// use this invalidate token API.
+// They can also be used exactly once. If you want to invalidate one or more
+// access or refresh tokens immediately, use this invalidate token API.
 //
 // NOTE: While all parameters are optional, at least one of them is required.
 // More specifically, either one of `token` or `refresh_token` parameters is
-// required.
-// If none of these two are specified, then `realm_name` and/or `username` need
-// to be specified.
+// required. If none of these two are specified, then `realm_name` and/or
+// `username` need to be specified.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-token
 func New(tp elastictransport.Interface) *InvalidateToken {
@@ -349,11 +343,9 @@ func (r *InvalidateToken) FilterPath(filterpaths ...string) *InvalidateToken {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *InvalidateToken) Human(human bool) *InvalidateToken {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -361,8 +353,8 @@ func (r *InvalidateToken) Human(human bool) *InvalidateToken {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *InvalidateToken) Pretty(pretty bool) *InvalidateToken {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -370,8 +362,8 @@ func (r *InvalidateToken) Pretty(pretty bool) *InvalidateToken {
 	return r
 }
 
-// The name of an authentication realm.
-// This parameter cannot be used with either `refresh_token` or `token`.
+// The name of an authentication realm. This parameter cannot be used with
+// either `refresh_token` or `token`.
 // API name: realm_name
 func (r *InvalidateToken) RealmName(name string) *InvalidateToken {
 	// Initialize the request if it is not already initialized
@@ -384,9 +376,8 @@ func (r *InvalidateToken) RealmName(name string) *InvalidateToken {
 	return r
 }
 
-// A refresh token.
-// This parameter cannot be used if any of `refresh_token`, `realm_name`, or
-// `username` are used.
+// A refresh token. This parameter cannot be used if any of `refresh_token`,
+// `realm_name`, or `username` are used.
 // API name: refresh_token
 func (r *InvalidateToken) RefreshToken(refreshtoken string) *InvalidateToken {
 	// Initialize the request if it is not already initialized
@@ -399,9 +390,8 @@ func (r *InvalidateToken) RefreshToken(refreshtoken string) *InvalidateToken {
 	return r
 }
 
-// An access token.
-// This parameter cannot be used if any of `refresh_token`, `realm_name`, or
-// `username` are used.
+// An access token. This parameter cannot be used if any of `refresh_token`,
+// `realm_name`, or `username` are used.
 // API name: token
 func (r *InvalidateToken) Token(token string) *InvalidateToken {
 	// Initialize the request if it is not already initialized
@@ -414,8 +404,8 @@ func (r *InvalidateToken) Token(token string) *InvalidateToken {
 	return r
 }
 
-// The username of a user.
-// This parameter cannot be used with either `refresh_token` or `token`.
+// The username of a user. This parameter cannot be used with either
+// `refresh_token` or `token`.
 // API name: username
 func (r *InvalidateToken) Username(username string) *InvalidateToken {
 	// Initialize the request if it is not already initialized

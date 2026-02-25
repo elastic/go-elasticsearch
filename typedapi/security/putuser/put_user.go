@@ -20,11 +20,9 @@
 
 // Create or update users.
 //
-// Add and update users in the native realm.
-// A password is required for adding a new user but is optional when updating an
-// existing user.
-// To change a user's password without updating any other fields, use the change
-// password API.
+// Add and update users in the native realm. A password is required for adding a
+// new user but is optional when updating an existing user. To change a user's
+// password without updating any other fields, use the change password API.
 package putuser
 
 import (
@@ -90,11 +88,9 @@ func NewPutUserFunc(tp elastictransport.Interface) NewPutUser {
 
 // Create or update users.
 //
-// Add and update users in the native realm.
-// A password is required for adding a new user but is optional when updating an
-// existing user.
-// To change a user's password without updating any other fields, use the change
-// password API.
+// Add and update users in the native realm. A password is required for adding a
+// new user but is optional when updating an existing user. To change a user's
+// password without updating any other fields, use the change password API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-user
 func New(tp elastictransport.Interface) *PutUser {
@@ -317,12 +313,10 @@ func (r *PutUser) Header(key, value string) *PutUser {
 	return r
 }
 
-// Username An identifier for the user.
-//
-// NOTE: Usernames must be at least 1 and no more than 507 characters.
-// They can contain alphanumeric characters (a-z, A-Z, 0-9), spaces,
-// punctuation, and printable symbols in the Basic Latin (ASCII) block.
-// Leading or trailing whitespace is not allowed.
+// Username An identifier for the user. // // NOTE: Usernames must be at least 1 and no
+// more than 507 characters. They can // contain alphanumeric characters (a-z,
+// A-Z, 0-9), spaces, punctuation, and // printable symbols in the Basic Latin
+// (ASCII) block. Leading or trailing // whitespace is not allowed.
 // API Name: username
 func (r *PutUser) _username(username string) *PutUser {
 	r.paramSet |= usernameMask
@@ -331,9 +325,8 @@ func (r *PutUser) _username(username string) *PutUser {
 	return r
 }
 
-// Refresh Valid values are `true`, `false`, and `wait_for`.
-// These values have the same meaning as in the index API, but the default value
-// for this API is true.
+// Refresh Valid values are `true`, `false`, and `wait_for`. These values have the same
+// meaning as in the index API, but the default value for this API is true.
 // API name: refresh
 func (r *PutUser) Refresh(refresh refresh.Refresh) *PutUser {
 	r.values.Set("refresh", refresh.String())
@@ -364,11 +357,9 @@ func (r *PutUser) FilterPath(filterpaths ...string) *PutUser {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutUser) Human(human bool) *PutUser {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -376,8 +367,8 @@ func (r *PutUser) Human(human bool) *PutUser {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutUser) Pretty(pretty bool) *PutUser {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -437,12 +428,11 @@ func (r *PutUser) Metadata(metadata types.MetadataVariant) *PutUser {
 	return r
 }
 
-// The user's password.
-// Passwords must be at least 6 characters long.
-// When adding a user, one of `password` or `password_hash` is required.
-// When updating an existing user, the password is optional, so that other
-// fields on the user (such as their roles) may be updated without modifying the
-// user's password
+// The user's password. Passwords must be at least 6 characters long. When
+// adding a user, one of `password` or `password_hash` is required. When
+// updating an existing user, the password is optional, so that other fields on
+// the user (such as their roles) may be updated without modifying the user's
+// password
 // API name: password
 func (r *PutUser) Password(password string) *PutUser {
 	// Initialize the request if it is not already initialized
@@ -455,16 +445,13 @@ func (r *PutUser) Password(password string) *PutUser {
 	return r
 }
 
-// A hash of the user's password.
-// This must be produced using the same hashing algorithm as has been configured
-// for password storage.
-// For more details, see the explanation of the
-// `xpack.security.authc.password_hashing.algorithm` setting in the user cache
-// and password hash algorithm documentation.
-// Using this parameter allows the client to pre-hash the password for
-// performance and/or confidentiality reasons.
-// The `password` parameter and the `password_hash` parameter cannot be used in
-// the same request.
+// A hash of the user's password. This must be produced using the same hashing
+// algorithm as has been configured for password storage. For more details, see
+// the explanation of the `xpack.security.authc.password_hashing.algorithm`
+// setting in the user cache and password hash algorithm documentation. Using
+// this parameter allows the client to pre-hash the password for performance
+// and/or confidentiality reasons. The `password` parameter and the
+// `password_hash` parameter cannot be used in the same request.
 // API name: password_hash
 func (r *PutUser) PasswordHash(passwordhash string) *PutUser {
 	// Initialize the request if it is not already initialized
@@ -477,9 +464,9 @@ func (r *PutUser) PasswordHash(passwordhash string) *PutUser {
 	return r
 }
 
-// A set of roles the user has.
-// The roles determine the user's access permissions.
-// To create a user without any roles, specify an empty list (`[]`).
+// A set of roles the user has. The roles determine the user's access
+// permissions. To create a user without any roles, specify an empty list
+// (`[]`).
 // API name: roles
 func (r *PutUser) Roles(roles ...string) *PutUser {
 	// Initialize the request if it is not already initialized

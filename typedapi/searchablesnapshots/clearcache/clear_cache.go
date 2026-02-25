@@ -306,9 +306,8 @@ func (r *ClearCache) Header(key, value string) *ClearCache {
 	return r
 }
 
-// Index A comma-separated list of data streams, indices, and aliases to clear from
-// the cache.
-// It supports wildcards (`*`).
+// Index A comma-separated list of data streams, indices, and aliases to clear from //
+// the cache. It supports wildcards (`*`).
 // API Name: index
 func (r *ClearCache) Index(index string) *ClearCache {
 	r.paramSet |= indexMask
@@ -331,8 +330,7 @@ func (r *ClearCache) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWil
 }
 
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices.
-// (This includes `_all` string or when no indices have been specified)
+// indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
 func (r *ClearCache) AllowNoIndices(allownoindices bool) *ClearCache {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -372,11 +370,9 @@ func (r *ClearCache) FilterPath(filterpaths ...string) *ClearCache {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ClearCache) Human(human bool) *ClearCache {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -384,8 +380,8 @@ func (r *ClearCache) Human(human bool) *ClearCache {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ClearCache) Pretty(pretty bool) *ClearCache {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

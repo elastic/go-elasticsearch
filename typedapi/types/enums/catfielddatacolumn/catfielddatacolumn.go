@@ -29,16 +29,23 @@ type CatFieldDataColumn struct {
 }
 
 var (
+
+	// Id The node ID.
 	Id = CatFieldDataColumn{"id"}
 
+	// Host The host name of the node.
 	Host = CatFieldDataColumn{"host"}
 
+	// Ip The IP address of the node.
 	Ip = CatFieldDataColumn{"ip"}
 
+	// Node The node name.
 	Node = CatFieldDataColumn{"node"}
 
+	// Field The field name.
 	Field = CatFieldDataColumn{"field"}
 
+	// Size The field data usage.
 	Size = CatFieldDataColumn{"size"}
 )
 

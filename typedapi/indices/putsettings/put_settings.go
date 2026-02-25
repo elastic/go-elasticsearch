@@ -20,34 +20,25 @@
 
 // Update index settings.
 //
-// Changes dynamic index settings in real time.
-// For data streams, index setting changes are applied to all backing indices by
-// default.
+// Changes dynamic index settings in real time. For data streams, index setting
+// changes are applied to all backing indices by default.
 //
-// To revert a setting to the default value, use a null value.
-// The list of per-index settings that can be updated dynamically on live
-// indices can be found in index settings documentation.
-// To preserve existing settings from being updated, set the `preserve_existing`
-// parameter to `true`.
+// To revert a setting to the default value, use a null value. The list of
+// per-index settings that can be updated dynamically on live indices can be
+// found in index settings documentation. To preserve existing settings from
+// being updated, set the `preserve_existing` parameter to `true`.
 //
 // For performance optimization during bulk indexing, you can disable the
-// refresh interval.
-// Refer to [disable refresh
+// refresh interval. Refer to [disable refresh
 // interval](https://www.elastic.co/docs/deploy-manage/production-guidance/optimize-performance/indexing-speed#disable-refresh-interval)
-// for an example.
-// There are multiple valid ways to represent index settings in the request
-// body. You can specify only the setting, for example:
-//
-// ```
+// for an example. There are multiple valid ways to represent index settings in
+// the request body. You can specify only the setting, for example:
 //
 //	{
 //	  "number_of_replicas": 1
 //	}
 //
-// ```
-//
 // Or you can use an `index` setting object:
-// ```
 //
 //	{
 //	  "index": {
@@ -55,21 +46,14 @@
 //	  }
 //	}
 //
-// ```
-//
 // Or you can use dot annotation:
-// ```
 //
 //	{
 //	  "index.number_of_replicas": 1
 //	}
 //
-// ```
-//
 // Or you can embed any of the aforementioned options in a `settings` object.
 // For example:
-//
-// ```
 //
 //	{
 //	  "settings": {
@@ -79,22 +63,16 @@
 //	  }
 //	}
 //
-// ```
-//
-// NOTE: You can only define new analyzers on closed indices.
-// To add an analyzer, you must close the index, define the analyzer, and reopen
-// the index.
-// You cannot close the write index of a data stream.
-// To update the analyzer for a data stream's write index and future backing
-// indices, update the analyzer in the index template used by the stream.
-// Then roll over the data stream to apply the new analyzer to the stream's
-// write index and future backing indices.
-// This affects searches and any new data added to the stream after the
-// rollover.
-// However, it does not affect the data stream's backing indices or their
-// existing data.
-// To change the analyzer for existing backing indices, you must create a new
-// data stream and reindex your data into it.
+// NOTE: You can only define new analyzers on closed indices. To add an
+// analyzer, you must close the index, define the analyzer, and reopen the
+// index. You cannot close the write index of a data stream. To update the
+// analyzer for a data stream's write index and future backing indices, update
+// the analyzer in the index template used by the stream. Then roll over the
+// data stream to apply the new analyzer to the stream's write index and future
+// backing indices. This affects searches and any new data added to the stream
+// after the rollover. However, it does not affect the data stream's backing
+// indices or their existing data. To change the analyzer for existing backing
+// indices, you must create a new data stream and reindex your data into it.
 // Refer to [updating analyzers on existing
 // indices](https://www.elastic.co/docs/manage-data/data-store/text-analysis/specify-an-analyzer#update-analyzers-on-existing-indices)
 // for step-by-step examples.
@@ -162,34 +140,25 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 
 // Update index settings.
 //
-// Changes dynamic index settings in real time.
-// For data streams, index setting changes are applied to all backing indices by
-// default.
+// Changes dynamic index settings in real time. For data streams, index setting
+// changes are applied to all backing indices by default.
 //
-// To revert a setting to the default value, use a null value.
-// The list of per-index settings that can be updated dynamically on live
-// indices can be found in index settings documentation.
-// To preserve existing settings from being updated, set the `preserve_existing`
-// parameter to `true`.
+// To revert a setting to the default value, use a null value. The list of
+// per-index settings that can be updated dynamically on live indices can be
+// found in index settings documentation. To preserve existing settings from
+// being updated, set the `preserve_existing` parameter to `true`.
 //
 // For performance optimization during bulk indexing, you can disable the
-// refresh interval.
-// Refer to [disable refresh
+// refresh interval. Refer to [disable refresh
 // interval](https://www.elastic.co/docs/deploy-manage/production-guidance/optimize-performance/indexing-speed#disable-refresh-interval)
-// for an example.
-// There are multiple valid ways to represent index settings in the request
-// body. You can specify only the setting, for example:
-//
-// ```
+// for an example. There are multiple valid ways to represent index settings in
+// the request body. You can specify only the setting, for example:
 //
 //	{
 //	  "number_of_replicas": 1
 //	}
 //
-// ```
-//
 // Or you can use an `index` setting object:
-// ```
 //
 //	{
 //	  "index": {
@@ -197,21 +166,14 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 //	  }
 //	}
 //
-// ```
-//
 // Or you can use dot annotation:
-// ```
 //
 //	{
 //	  "index.number_of_replicas": 1
 //	}
 //
-// ```
-//
 // Or you can embed any of the aforementioned options in a `settings` object.
 // For example:
-//
-// ```
 //
 //	{
 //	  "settings": {
@@ -221,22 +183,16 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 //	  }
 //	}
 //
-// ```
-//
-// NOTE: You can only define new analyzers on closed indices.
-// To add an analyzer, you must close the index, define the analyzer, and reopen
-// the index.
-// You cannot close the write index of a data stream.
-// To update the analyzer for a data stream's write index and future backing
-// indices, update the analyzer in the index template used by the stream.
-// Then roll over the data stream to apply the new analyzer to the stream's
-// write index and future backing indices.
-// This affects searches and any new data added to the stream after the
-// rollover.
-// However, it does not affect the data stream's backing indices or their
-// existing data.
-// To change the analyzer for existing backing indices, you must create a new
-// data stream and reindex your data into it.
+// NOTE: You can only define new analyzers on closed indices. To add an
+// analyzer, you must close the index, define the analyzer, and reopen the
+// index. You cannot close the write index of a data stream. To update the
+// analyzer for a data stream's write index and future backing indices, update
+// the analyzer in the index template used by the stream. Then roll over the
+// data stream to apply the new analyzer to the stream's write index and future
+// backing indices. This affects searches and any new data added to the stream
+// after the rollover. However, it does not affect the data stream's backing
+// indices or their existing data. To change the analyzer for existing backing
+// indices, you must create a new data stream and reindex your data into it.
 // Refer to [updating analyzers on existing
 // indices](https://www.elastic.co/docs/manage-data/data-store/text-analysis/specify-an-analyzer#update-analyzers-on-existing-indices)
 // for step-by-step examples.
@@ -465,9 +421,9 @@ func (r *PutSettings) Header(key, value string) *PutSettings {
 	return r
 }
 
-// Indices Comma-separated list of data streams, indices, and aliases used to limit
-// the request. Supports wildcards (`*`). To target all data streams and
-// indices, omit this parameter or use `*` or `_all`.
+// Indices Comma-separated list of data streams, indices, and aliases used to limit the
+// // request. Supports wildcards (`*`). To target all data streams and indices,
+// // omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *PutSettings) Indices(index string) *PutSettings {
 	r.paramSet |= indexMask
@@ -477,10 +433,10 @@ func (r *PutSettings) Indices(index string) *PutSettings {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices. This
-// behavior applies even if the request targets other open indices. For
-// example, a request targeting `foo*,bar*` returns an error if an index
-// starts with `foo` but no index starts with `bar`.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices. For example, a
+// request targeting `foo*,bar*` returns an error if an index starts with `foo`
+// but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *PutSettings) AllowNoIndices(allownoindices bool) *PutSettings {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -490,8 +446,7 @@ func (r *PutSettings) AllowNoIndices(allownoindices bool) *PutSettings {
 
 // ExpandWildcards Type of index that wildcard patterns can match. If the request can target
 // data streams, this argument determines whether wildcard expressions match
-// hidden data streams. Supports comma-separated values, such as
-// `open,hidden`.
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *PutSettings) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *PutSettings {
 	tmp := []string{}
@@ -520,8 +475,7 @@ func (r *PutSettings) IgnoreUnavailable(ignoreunavailable bool) *PutSettings {
 }
 
 // MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an
-// error.
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *PutSettings) MasterTimeout(duration string) *PutSettings {
 	r.values.Set("master_timeout", duration)
@@ -537,9 +491,9 @@ func (r *PutSettings) PreserveExisting(preserveexisting bool) *PutSettings {
 	return r
 }
 
-// Reopen Whether to close and reopen the index to apply non-dynamic settings.
-// If set to `true` the indices to which the settings are being applied
-// will be closed temporarily and then reopened in order to apply the changes.
+// Reopen Whether to close and reopen the index to apply non-dynamic settings. If set
+// to `true` the indices to which the settings are being applied will be closed
+// temporarily and then reopened in order to apply the changes.
 // API name: reopen
 func (r *PutSettings) Reopen(reopen bool) *PutSettings {
 	r.values.Set("reopen", strconv.FormatBool(reopen))
@@ -547,10 +501,8 @@ func (r *PutSettings) Reopen(reopen bool) *PutSettings {
 	return r
 }
 
-// Timeout Period to wait for a response. If no response is received before the
-//
-//	timeout expires, the request fails and returns an error.
-//
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *PutSettings) Timeout(duration string) *PutSettings {
 	r.values.Set("timeout", duration)
@@ -581,11 +533,9 @@ func (r *PutSettings) FilterPath(filterpaths ...string) *PutSettings {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutSettings) Human(human bool) *PutSettings {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -593,8 +543,8 @@ func (r *PutSettings) Human(human bool) *PutSettings {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutSettings) Pretty(pretty bool) *PutSettings {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -615,9 +565,8 @@ func (r *PutSettings) Analysis(analysis types.IndexSettingsAnalysisVariant) *Put
 }
 
 // Settings to define analyzers, tokenizers, token filters and character
-// filters.
-// Refer to the linked documentation for step-by-step examples of updating
-// analyzers on existing indices.
+// filters. Refer to the linked documentation for step-by-step examples of
+// updating analyzers on existing indices.
 // API name: analyze
 func (r *PutSettings) Analyze(analyze types.SettingsAnalyzeVariant) *PutSettings {
 	// Initialize the request if it is not already initialized

@@ -29,8 +29,12 @@ type JsonProcessorConflictStrategy struct {
 }
 
 var (
+
+	// Replace Root fields that conflict with fields from the parsed JSON will be
+	// overridden.
 	Replace = JsonProcessorConflictStrategy{"replace"}
 
+	// Merge Conflicting fields will be merged.
 	Merge = JsonProcessorConflictStrategy{"merge"}
 )
 

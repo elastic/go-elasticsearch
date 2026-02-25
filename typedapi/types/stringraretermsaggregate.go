@@ -28,7 +28,7 @@ import (
 	"io"
 )
 
-// StringRareTermsAggregate type.
+// Result of the `rare_terms` aggregation when the field is a string.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/Aggregate.ts#L555-L559
 type StringRareTermsAggregate struct {

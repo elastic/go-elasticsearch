@@ -29,12 +29,12 @@ import (
 	"strconv"
 )
 
-// CompletionToolFunction type.
+// The completion tool function definition.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L255-L276
 type CompletionToolFunction struct {
-	// Description A description of what the function does.
-	// This is used by the model to choose when and how to call the function.
+	// Description A description of what the function does. This is used by the model to choose
+	// when and how to call the function.
 	Description *string `json:"description,omitempty"`
 	// Name The name of the function.
 	Name string `json:"name"`

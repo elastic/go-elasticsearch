@@ -321,11 +321,9 @@ func (r *ClearScroll) FilterPath(filterpaths ...string) *ClearScroll {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ClearScroll) Human(human bool) *ClearScroll {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -333,8 +331,8 @@ func (r *ClearScroll) Human(human bool) *ClearScroll {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ClearScroll) Pretty(pretty bool) *ClearScroll {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -342,8 +340,7 @@ func (r *ClearScroll) Pretty(pretty bool) *ClearScroll {
 	return r
 }
 
-// The scroll IDs to clear.
-// To clear all scroll IDs, use `_all`.
+// The scroll IDs to clear. To clear all scroll IDs, use `_all`.
 // API name: scroll_id
 func (r *ClearScroll) ScrollId(scrollids ...string) *ClearScroll {
 	// Initialize the request if it is not already initialized

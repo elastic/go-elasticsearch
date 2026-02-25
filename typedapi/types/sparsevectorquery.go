@@ -34,41 +34,35 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/SparseVectorQuery.ts#L26-L80
 type SparseVectorQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
 	// Field The name of the field that contains the token-weight pairs to be searched
-	// against.
-	// This field must be a mapped sparse_vector field.
+	// against. This field must be a mapped sparse_vector field.
 	Field string `json:"field"`
-	// InferenceId The inference ID to use to convert the query text into token-weight pairs.
-	// It must be the same inference ID that was used to create the tokens from the
-	// input text.
-	// Only one of inference_id and query_vector is allowed.
-	// If inference_id is specified, query must also be specified.
-	// Only one of inference_id or query_vector may be supplied in a request.
+	// InferenceId The inference ID to use to convert the query text into token-weight pairs. It
+	// must be the same inference ID that was used to create the tokens from the
+	// input text. Only one of inference_id and query_vector is allowed. If
+	// inference_id is specified, query must also be specified. Only one of
+	// inference_id or query_vector may be supplied in a request.
 	InferenceId *string `json:"inference_id,omitempty"`
 	// Prune Whether to perform pruning, omitting the non-significant tokens from the
-	// query to improve query performance.
-	// If prune is true but the pruning_config is not specified, pruning will occur
-	// but default values will be used.
+	// query to improve query performance. If prune is true but the pruning_config
+	// is not specified, pruning will occur but default values will be used.
 	// Default: false
 	Prune *bool `json:"prune,omitempty"`
-	// PruningConfig Optional pruning configuration.
-	// If enabled, this will omit non-significant tokens from the query in order to
-	// improve query performance.
-	// This is only used if prune is set to true.
-	// If prune is set to true but pruning_config is not specified, default values
-	// will be used.
+	// PruningConfig Optional pruning configuration. If enabled, this will omit non-significant
+	// tokens from the query in order to improve query performance. This is only
+	// used if prune is set to true. If prune is set to true but pruning_config is
+	// not specified, default values will be used.
 	PruningConfig *TokenPruningConfig `json:"pruning_config,omitempty"`
-	// Query The query text you want to use for search.
-	// If inference_id is specified, query must also be specified.
+	// Query The query text you want to use for search. If inference_id is specified,
+	// query must also be specified.
 	Query      *string `json:"query,omitempty"`
 	QueryName_ *string `json:"_name,omitempty"`
-	// QueryVector Dictionary of precomputed sparse vectors and their associated weights.
-	// Only one of inference_id or query_vector may be supplied in a request.
+	// QueryVector Dictionary of precomputed sparse vectors and their associated weights. Only
+	// one of inference_id or query_vector may be supplied in a request.
 	QueryVector map[string]float32 `json:"query_vector,omitempty"`
 }
 

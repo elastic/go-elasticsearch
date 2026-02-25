@@ -29,8 +29,11 @@ type OpType struct {
 }
 
 var (
+
+	// Index Overwrite any documents that already exist.
 	Index = OpType{"index"}
 
+	// Create Only index documents that do not already exist.
 	Create = OpType{"create"}
 )
 

@@ -308,7 +308,7 @@ func (r *UpdateTrainedModelDeployment) Header(key, value string) *UpdateTrainedM
 	return r
 }
 
-// ModelId The unique identifier of the trained model. Currently, only PyTorch models
+// ModelId The unique identifier of the trained model. Currently, only PyTorch models //
 // are supported.
 // API Name: modelid
 func (r *UpdateTrainedModelDeployment) _modelid(modelid string) *UpdateTrainedModelDeployment {
@@ -341,11 +341,9 @@ func (r *UpdateTrainedModelDeployment) FilterPath(filterpaths ...string) *Update
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateTrainedModelDeployment) Human(human bool) *UpdateTrainedModelDeployment {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -353,8 +351,8 @@ func (r *UpdateTrainedModelDeployment) Human(human bool) *UpdateTrainedModelDepl
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateTrainedModelDeployment) Pretty(pretty bool) *UpdateTrainedModelDeployment {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -363,9 +361,8 @@ func (r *UpdateTrainedModelDeployment) Pretty(pretty bool) *UpdateTrainedModelDe
 }
 
 // Adaptive allocations configuration. When enabled, the number of allocations
-// is set based on the current load.
-// If adaptive_allocations is enabled, do not set the number of allocations
-// manually.
+// is set based on the current load. If adaptive_allocations is enabled, do not
+// set the number of allocations manually.
 // API name: adaptive_allocations
 func (r *UpdateTrainedModelDeployment) AdaptiveAllocations(adaptiveallocations types.AdaptiveAllocationsSettingsVariant) *UpdateTrainedModelDeployment {
 	// Initialize the request if it is not already initialized
@@ -378,15 +375,13 @@ func (r *UpdateTrainedModelDeployment) AdaptiveAllocations(adaptiveallocations t
 	return r
 }
 
-// The number of model allocations on each node where the model is deployed.
-// All allocations on a node share the same copy of the model in memory but use
-// a separate set of threads to evaluate the model.
-// Increasing this value generally increases the throughput.
-// If this setting is greater than the number of hardware threads
-// it will automatically be changed to a value less than the number of hardware
-// threads.
-// If adaptive_allocations is enabled, do not set this value, because it’s
-// automatically set.
+// The number of model allocations on each node where the model is deployed. All
+// allocations on a node share the same copy of the model in memory but use a
+// separate set of threads to evaluate the model. Increasing this value
+// generally increases the throughput. If this setting is greater than the
+// number of hardware threads it will automatically be changed to a value less
+// than the number of hardware threads. If adaptive_allocations is enabled, do
+// not set this value, because it’s automatically set.
 // API name: number_of_allocations
 func (r *UpdateTrainedModelDeployment) NumberOfAllocations(numberofallocations int) *UpdateTrainedModelDeployment {
 	// Initialize the request if it is not already initialized

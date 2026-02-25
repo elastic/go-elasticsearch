@@ -35,8 +35,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L955-L983
 type FingerprintProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Fields Array of fields to include in the fingerprint. For objects, the processor
 	// hashes both the field key and value. For other fields, the processor hashes
@@ -46,8 +46,8 @@ type FingerprintProcessor struct {
 	If *Script `json:"if,omitempty"`
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
-	// IgnoreMissing If true, the processor ignores any missing fields. If all fields are
-	// missing, the processor silently exits without modifying the document.
+	// IgnoreMissing If true, the processor ignores any missing fields. If all fields are missing,
+	// the processor silently exits without modifying the document.
 	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
 	// Method The hash method used to compute the fingerprint. Must be one of MD5, SHA-1,
 	// SHA-256, SHA-512, or MurmurHash3.
@@ -56,8 +56,7 @@ type FingerprintProcessor struct {
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// Salt Salt value for the hash function.
 	Salt *string `json:"salt,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// TargetField Output field for the fingerprint.
 	TargetField *string `json:"target_field,omitempty"`

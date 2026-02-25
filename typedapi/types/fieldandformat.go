@@ -29,7 +29,8 @@ import (
 	"strconv"
 )
 
-// FieldAndFormat type.
+// A reference to a field with formatting instructions on how to return the
+// value
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/abstractions.ts#L535-L549
 type FieldAndFormat struct {

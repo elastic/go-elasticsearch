@@ -23,11 +23,9 @@
 // Get information about your Elastic license including its type, its status,
 // when it was issued, and when it expires.
 //
-// >info
-// > If the master node is generating a new cluster state, the get license API
-// may return a `404 Not Found` response.
-// > If you receive an unexpected 404 response after cluster startup, wait a
-// short period and retry the request.
+// >info > If the master node is generating a new cluster state, the get license
+// API may return a `404 Not Found` response. > If you receive an unexpected 404
+// response after cluster startup, wait a short period and retry the request.
 package get
 
 import (
@@ -82,11 +80,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // Get information about your Elastic license including its type, its status,
 // when it was issued, and when it expires.
 //
-// >info
-// > If the master node is generating a new cluster state, the get license API
-// may return a `404 Not Found` response.
-// > If you receive an unexpected 404 response after cluster startup, wait a
-// short period and retry the request.
+// >info > If the master node is generating a new cluster state, the get license
+// API may return a `404 Not Found` response. > If you receive an unexpected 404
+// response after cluster startup, wait a short period and retry the request.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get
 func New(tp elastictransport.Interface) *Get {
@@ -294,8 +290,8 @@ func (r *Get) Header(key, value string) *Get {
 
 // AcceptEnterprise If `true`, this parameter returns enterprise for Enterprise license types. If
 // `false`, this parameter returns platinum for both platinum and enterprise
-// license types. This behavior is maintained for backwards compatibility.
-// This parameter is deprecated and will always be set to true in 8.x.
+// license types. This behavior is maintained for backwards compatibility. This
+// parameter is deprecated and will always be set to true in 8.x.
 // API name: accept_enterprise
 func (r *Get) AcceptEnterprise(acceptenterprise bool) *Get {
 	r.values.Set("accept_enterprise", strconv.FormatBool(acceptenterprise))
@@ -303,11 +299,10 @@ func (r *Get) AcceptEnterprise(acceptenterprise bool) *Get {
 	return r
 }
 
-// Local Specifies whether to retrieve local information.
-// From 9.2 onwards the default value is `true`, which means the information is
-// retrieved from the responding node.
-// In earlier versions the default is `false`, which means the information is
-// retrieved from the elected master node.
+// Local Specifies whether to retrieve local information. From 9.2 onwards the default
+// value is `true`, which means the information is retrieved from the responding
+// node. In earlier versions the default is `false`, which means the information
+// is retrieved from the elected master node.
 // API name: local
 func (r *Get) Local(local bool) *Get {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -338,11 +333,9 @@ func (r *Get) FilterPath(filterpaths ...string) *Get {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Get) Human(human bool) *Get {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -350,8 +343,8 @@ func (r *Get) Human(human bool) *Get {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Get) Pretty(pretty bool) *Get {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

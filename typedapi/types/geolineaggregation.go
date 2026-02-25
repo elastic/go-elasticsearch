@@ -40,8 +40,8 @@ type GeoLineAggregation struct {
 	IncludeSort *bool `json:"include_sort,omitempty"`
 	// Point The name of the geo_point field.
 	Point GeoLinePoint `json:"point"`
-	// Size The maximum length of the line represented in the aggregation.
-	// Valid sizes are between 1 and 10000.
+	// Size The maximum length of the line represented in the aggregation. Valid sizes
+	// are between 1 and 10000.
 	Size *int `json:"size,omitempty"`
 	// Sort The name of the numeric field to use as the sort key for ordering the points.
 	// When the `geo_line` aggregation is nested inside a `time_series` aggregation,

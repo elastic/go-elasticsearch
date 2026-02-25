@@ -29,28 +29,25 @@ import (
 	"strconv"
 )
 
-// InferenceChunkingSettings type.
+// Chunking configuration object
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/Services.ts#L363-L422
 type InferenceChunkingSettings struct {
-	// MaxChunkSize The maximum size of a chunk in words.
-	// This value cannot be lower than `20` (for `sentence` strategy) or `10` (for
-	// `word` strategy).
-	// This value should not exceed the window size for the associated model.
+	// MaxChunkSize The maximum size of a chunk in words. This value cannot be lower than `20`
+	// (for `sentence` strategy) or `10` (for `word` strategy). This value should
+	// not exceed the window size for the associated model.
 	MaxChunkSize *int `json:"max_chunk_size,omitempty"`
-	// Overlap The number of overlapping words for chunks.
-	// It is applicable only to a `word` chunking strategy.
-	// This value cannot be higher than half the `max_chunk_size` value.
+	// Overlap The number of overlapping words for chunks. It is applicable only to a `word`
+	// chunking strategy. This value cannot be higher than half the `max_chunk_size`
+	// value.
 	Overlap *int `json:"overlap,omitempty"`
-	// SentenceOverlap The number of overlapping sentences for chunks.
-	// It is applicable only for a `sentence` chunking strategy.
-	// It can be either `1` or `0`.
+	// SentenceOverlap The number of overlapping sentences for chunks. It is applicable only for a
+	// `sentence` chunking strategy. It can be either `1` or `0`.
 	SentenceOverlap *int `json:"sentence_overlap,omitempty"`
 	// SeparatorGroup Only applicable to the `recursive` strategy and required when using it.
 	//
 	// Sets a predefined list of separators in the saved chunking settings based on
-	// the selected text type.
-	// Values can be `markdown` or `plaintext`.
+	// the selected text type. Values can be `markdown` or `plaintext`.
 	//
 	// Using this parameter is an alternative to manually specifying a custom
 	// `separators` list.
@@ -64,15 +61,14 @@ type InferenceChunkingSettings struct {
 	// first item in the list.
 	//
 	// After splitting, it attempts to recombine smaller pieces into larger chunks
-	// that stay within
-	// the `max_chunk_size` limit, to reduce the total number of chunks generated.
+	// that stay within the `max_chunk_size` limit, to reduce the total number of
+	// chunks generated.
 	Separators []string `json:"separators,omitempty"`
 	// Strategy The chunking strategy: `sentence`, `word`, `none` or `recursive`.
 	//
 	//   - If `strategy` is set to `recursive`, you must also specify:
-	//
-	// - `max_chunk_size`
-	// - either `separators` or`separator_group`
+	//   - `max_chunk_size`
+	//   - either `separators` or`separator_group`
 	//
 	// Learn more about different chunking strategies in the linked documentation.
 	Strategy *string `json:"strategy,omitempty"`

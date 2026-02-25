@@ -35,16 +35,15 @@ import (
 type GeoHashGridAggregation struct {
 	// Bounds The bounding box to filter the points in each bucket.
 	Bounds GeoBounds `json:"bounds,omitempty"`
-	// Field Field containing indexed `geo_point` or `geo_shape` values.
-	// If the field contains an array, `geohash_grid` aggregates all array values.
+	// Field Field containing indexed `geo_point` or `geo_shape` values. If the field
+	// contains an array, `geohash_grid` aggregates all array values.
 	Field *string `json:"field,omitempty"`
 	// Precision The string length of the geohashes used to define cells/buckets in the
 	// results.
 	Precision GeoHashPrecision `json:"precision,omitempty"`
 	// ShardSize Allows for more accurate counting of the top cells returned in the final
-	// result the aggregation.
-	// Defaults to returning `max(10,(size x number-of-shards))` buckets from each
-	// shard.
+	// result the aggregation. Defaults to returning `max(10,(size x
+	// number-of-shards))` buckets from each shard.
 	ShardSize *int `json:"shard_size,omitempty"`
 	// Size The maximum number of geohash buckets to return.
 	Size *int `json:"size,omitempty"`

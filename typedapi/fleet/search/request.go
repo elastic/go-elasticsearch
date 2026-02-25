@@ -49,18 +49,17 @@ type Request struct {
 	// matching these patterns in the hits.fields property of the response.
 	Fields []types.FieldAndFormat `json:"fields,omitempty"`
 	// From Starting document offset. By default, you cannot page through more than
-	// 10,000
-	// hits using the from and size parameters. To page through more hits, use the
-	// search_after parameter.
+	// 10,000 hits using the from and size parameters. To page through more hits,
+	// use the search_after parameter.
 	From      *int             `json:"from,omitempty"`
 	Highlight *types.Highlight `json:"highlight,omitempty"`
 	// IndicesBoost Boosts the _score of documents from specified indices.
 	IndicesBoost []map[string]types.Float64 `json:"indices_boost,omitempty"`
-	// MinScore Minimum _score for matching documents. Documents with a lower _score are
-	// not included in search results and results collected by aggregations.
+	// MinScore Minimum _score for matching documents. Documents with a lower _score are not
+	// included in search results and results collected by aggregations.
 	MinScore *types.Float64 `json:"min_score,omitempty"`
-	// Pit Limits the search to a point in time (PIT). If you provide a PIT, you
-	// cannot specify an <index> in the request path.
+	// Pit Limits the search to a point in time (PIT). If you provide a PIT, you cannot
+	// specify an <index> in the request path.
 	Pit        *types.PointInTimeReference `json:"pit,omitempty"`
 	PostFilter *types.Query                `json:"post_filter,omitempty"`
 	Profile    *bool                       `json:"profile,omitempty"`
@@ -73,12 +72,12 @@ type Request struct {
 	// ScriptFields Retrieve a script evaluation (based on different fields) for each hit.
 	ScriptFields map[string]types.ScriptField `json:"script_fields,omitempty"`
 	SearchAfter  []types.FieldValue           `json:"search_after,omitempty"`
-	// SeqNoPrimaryTerm If true, returns sequence number and primary term of the last modification
-	// of each hit. See Optimistic concurrency control.
+	// SeqNoPrimaryTerm If true, returns sequence number and primary term of the last modification of
+	// each hit. See Optimistic concurrency control.
 	SeqNoPrimaryTerm *bool `json:"seq_no_primary_term,omitempty"`
-	// Size The number of hits to return. By default, you cannot page through more
-	// than 10,000 hits using the from and size parameters. To page through more
-	// hits, use the search_after parameter.
+	// Size The number of hits to return. By default, you cannot page through more than
+	// 10,000 hits using the from and size parameters. To page through more hits,
+	// use the search_after parameter.
 	Size  *int                     `json:"size,omitempty"`
 	Slice *types.SlicedScroll      `json:"slice,omitempty"`
 	Sort  []types.SortCombinations `json:"sort,omitempty"`
@@ -91,24 +90,18 @@ type Request struct {
 	Stats []string `json:"stats,omitempty"`
 	// StoredFields List of stored fields to return as part of a hit. If no fields are specified,
 	// no stored fields are included in the response. If this field is specified,
-	// the _source
-	// parameter defaults to false. You can pass _source: true to return both source
-	// fields
-	// and stored fields in the search response.
+	// the _source parameter defaults to false. You can pass _source: true to return
+	// both source fields and stored fields in the search response.
 	StoredFields []string         `json:"stored_fields,omitempty"`
 	Suggest      *types.Suggester `json:"suggest,omitempty"`
 	// TerminateAfter Maximum number of documents to collect for each shard. If a query reaches
-	// this
-	// limit, Elasticsearch terminates the query early. Elasticsearch collects
-	// documents
-	// before sorting. Defaults to 0, which does not terminate query execution
-	// early.
+	// this limit, Elasticsearch terminates the query early. Elasticsearch collects
+	// documents before sorting. Defaults to 0, which does not terminate query
+	// execution early.
 	TerminateAfter *int64 `json:"terminate_after,omitempty"`
 	// Timeout Specifies the period of time to wait for a response from each shard. If no
-	// response
-	// is received before the timeout expires, the request fails and returns an
-	// error.
-	// Defaults to no timeout.
+	// response is received before the timeout expires, the request fails and
+	// returns an error. Defaults to no timeout.
 	Timeout *string `json:"timeout,omitempty"`
 	// TrackScores If true, calculate and return document scores, even if the scores are not
 	// used for sorting.

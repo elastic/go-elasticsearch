@@ -20,14 +20,16 @@
 
 // Get the rollup index capabilities.
 //
-// Get the rollup capabilities of all jobs inside of a rollup index.
-// A single rollup index may store the data for multiple rollup jobs and may
-// have a variety of capabilities depending on those jobs. This API enables you
-// to determine:
+// Get the rollup capabilities of all jobs inside of a rollup index. A single
+// rollup index may store the data for multiple rollup jobs and may have a
+// variety of capabilities depending on those jobs. This API enables you to
+// determine:
 //
-// * What jobs are stored in an index (or indices specified via a pattern)?
-// * What target indices were rolled up, what fields were used in those rollups,
-// and what aggregations can be performed on each job?
+//   - What jobs are stored in an index (or indices specified via a pattern)?
+//   - What target indices were rolled up, what fields were used in those
+//     rollups, and what aggregations can be performed on each job?
+//
+// Deprecated: Since 8.11.0.
 package getrollupindexcaps
 
 import (
@@ -87,16 +89,18 @@ func NewGetRollupIndexCapsFunc(tp elastictransport.Interface) NewGetRollupIndexC
 
 // Get the rollup index capabilities.
 //
-// Get the rollup capabilities of all jobs inside of a rollup index.
-// A single rollup index may store the data for multiple rollup jobs and may
-// have a variety of capabilities depending on those jobs. This API enables you
-// to determine:
+// Get the rollup capabilities of all jobs inside of a rollup index. A single
+// rollup index may store the data for multiple rollup jobs and may have a
+// variety of capabilities depending on those jobs. This API enables you to
+// determine:
 //
-// * What jobs are stored in an index (or indices specified via a pattern)?
-// * What target indices were rolled up, what fields were used in those rollups,
-// and what aggregations can be performed on each job?
+//   - What jobs are stored in an index (or indices specified via a pattern)?
+//   - What target indices were rolled up, what fields were used in those
+//     rollups, and what aggregations can be performed on each job?
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-rollup-index-caps
+//
+// Deprecated: Since 8.11.0.
 func New(tp elastictransport.Interface) *GetRollupIndexCaps {
 	r := &GetRollupIndexCaps{
 		transport: tp,
@@ -308,8 +312,8 @@ func (r *GetRollupIndexCaps) Header(key, value string) *GetRollupIndexCaps {
 	return r
 }
 
-// Index Data stream or index to check for rollup capabilities.
-// Wildcard (`*`) expressions are supported.
+// Index Data stream or index to check for rollup capabilities. Wildcard (`*`) //
+// expressions are supported.
 // API Name: index
 func (r *GetRollupIndexCaps) _index(index string) *GetRollupIndexCaps {
 	r.paramSet |= indexMask
@@ -341,11 +345,9 @@ func (r *GetRollupIndexCaps) FilterPath(filterpaths ...string) *GetRollupIndexCa
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetRollupIndexCaps) Human(human bool) *GetRollupIndexCaps {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -353,8 +355,8 @@ func (r *GetRollupIndexCaps) Human(human bool) *GetRollupIndexCaps {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetRollupIndexCaps) Pretty(pretty bool) *GetRollupIndexCaps {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

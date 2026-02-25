@@ -29,14 +29,22 @@ type ExpandWildcard struct {
 }
 
 var (
+
+	// All Match any data stream or index, including hidden ones.
 	All = ExpandWildcard{"all"}
 
+	// Open Match open, non-hidden indices. Also matches any non-hidden data stream.
 	Open = ExpandWildcard{"open"}
 
+	// Closed Match closed, non-hidden indices. Also matches any non-hidden data stream.
+	// Data streams cannot be closed.
 	Closed = ExpandWildcard{"closed"}
 
+	// Hidden Match hidden data streams and hidden indices. Must be combined with `open`,
+	// `closed`, or `both`.
 	Hidden = ExpandWildcard{"hidden"}
 
+	// None Wildcard expressions are not accepted.
 	None = ExpandWildcard{"none"}
 )
 

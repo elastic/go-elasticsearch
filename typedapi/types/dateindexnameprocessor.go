@@ -34,18 +34,15 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L780-L818
 type DateIndexNameProcessor struct {
 	// DateFormats An array of the expected date formats for parsing dates / timestamps in the
-	// document being preprocessed.
-	// Can be a java time pattern or one of the following formats: ISO8601, UNIX,
-	// UNIX_MS, or TAI64N.
+	// document being preprocessed. Can be a java time pattern or one of the
+	// following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.
 	DateFormats []string `json:"date_formats,omitempty"`
 	// DateRounding How to round the date when formatting the date into the index name. Valid
-	// values are:
-	// `y` (year), `M` (month), `w` (week), `d` (day), `h` (hour), `m` (minute) and
-	// `s` (second).
-	// Supports template snippets.
+	// values are: `y` (year), `M` (month), `w` (week), `d` (day), `h` (hour), `m`
+	// (minute) and `s` (second). Supports template snippets.
 	DateRounding string `json:"date_rounding"`
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field The field to get the date or timestamp from.
 	Field string `json:"field"`
@@ -53,20 +50,18 @@ type DateIndexNameProcessor struct {
 	If *Script `json:"if,omitempty"`
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
-	// IndexNameFormat The format to be used when printing the parsed date into the index name.
-	// A valid java time pattern is expected here.
-	// Supports template snippets.
+	// IndexNameFormat The format to be used when printing the parsed date into the index name. A
+	// valid java time pattern is expected here. Supports template snippets.
 	IndexNameFormat *string `json:"index_name_format,omitempty"`
-	// IndexNamePrefix A prefix of the index name to be prepended before the printed date.
-	// Supports template snippets.
+	// IndexNamePrefix A prefix of the index name to be prepended before the printed date. Supports
+	// template snippets.
 	IndexNamePrefix *string `json:"index_name_prefix,omitempty"`
 	// Locale The locale to use when parsing the date from the document being preprocessed,
 	// relevant when parsing month names or week days.
 	Locale *string `json:"locale,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// Timezone The timezone to use when parsing the date and when date math index supports
 	// resolves expressions into concrete index names.

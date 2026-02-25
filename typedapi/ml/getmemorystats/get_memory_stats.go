@@ -21,8 +21,8 @@
 // Get machine learning memory usage info.
 //
 // Get information about how machine learning jobs and trained models are using
-// memory,
-// on each node, both within the JVM heap, and natively, outside of the JVM.
+// memory, on each node, both within the JVM heap, and natively, outside of the
+// JVM.
 package getmemorystats
 
 import (
@@ -81,8 +81,8 @@ func NewGetMemoryStatsFunc(tp elastictransport.Interface) NewGetMemoryStats {
 // Get machine learning memory usage info.
 //
 // Get information about how machine learning jobs and trained models are using
-// memory,
-// on each node, both within the JVM heap, and natively, outside of the JVM.
+// memory, on each node, both within the JVM heap, and natively, outside of the
+// JVM.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-memory-stats
 func New(tp elastictransport.Interface) *GetMemoryStats {
@@ -307,9 +307,8 @@ func (r *GetMemoryStats) Header(key, value string) *GetMemoryStats {
 	return r
 }
 
-// NodeId The names of particular nodes in the cluster to target. For example,
-// `nodeId1,nodeId2` or
-// `ml:true`
+// NodeId The names of particular nodes in the cluster to target. For example, //
+// `nodeId1,nodeId2` or `ml:true`
 // API Name: nodeid
 func (r *GetMemoryStats) NodeId(nodeid string) *GetMemoryStats {
 	r.paramSet |= nodeidMask
@@ -319,8 +318,7 @@ func (r *GetMemoryStats) NodeId(nodeid string) *GetMemoryStats {
 }
 
 // MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout
-// expires, the request fails and returns an error.
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *GetMemoryStats) MasterTimeout(duration string) *GetMemoryStats {
 	r.values.Set("master_timeout", duration)
@@ -329,8 +327,7 @@ func (r *GetMemoryStats) MasterTimeout(duration string) *GetMemoryStats {
 }
 
 // Timeout Period to wait for a response. If no response is received before the timeout
-// expires, the request
-// fails and returns an error.
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *GetMemoryStats) Timeout(duration string) *GetMemoryStats {
 	r.values.Set("timeout", duration)
@@ -361,11 +358,9 @@ func (r *GetMemoryStats) FilterPath(filterpaths ...string) *GetMemoryStats {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetMemoryStats) Human(human bool) *GetMemoryStats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -373,8 +368,8 @@ func (r *GetMemoryStats) Human(human bool) *GetMemoryStats {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetMemoryStats) Pretty(pretty bool) *GetMemoryStats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

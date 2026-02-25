@@ -21,17 +21,16 @@
 // Set upgrade_mode for ML indices.
 //
 // Sets a cluster wide upgrade_mode setting that prepares machine learning
-// indices for an upgrade.
-// When upgrading your cluster, in some circumstances you must restart your
-// nodes and reindex your machine learning indices. In those circumstances,
-// there must be no machine learning jobs running. You can close the machine
-// learning jobs, do the upgrade, then open all the jobs again. Alternatively,
-// you can use this API to temporarily halt tasks associated with the jobs and
-// datafeeds and prevent new jobs from opening. You can also use this API
-// during upgrades that do not require you to reindex your machine learning
-// indices, though stopping jobs is not a requirement in that case.
-// You can see the current value for the upgrade_mode setting by using the get
-// machine learning info API.
+// indices for an upgrade. When upgrading your cluster, in some circumstances
+// you must restart your nodes and reindex your machine learning indices. In
+// those circumstances, there must be no machine learning jobs running. You can
+// close the machine learning jobs, do the upgrade, then open all the jobs
+// again. Alternatively, you can use this API to temporarily halt tasks
+// associated with the jobs and datafeeds and prevent new jobs from opening. You
+// can also use this API during upgrades that do not require you to reindex your
+// machine learning indices, though stopping jobs is not a requirement in that
+// case. You can see the current value for the upgrade_mode setting by using the
+// get machine learning info API.
 package setupgrademode
 
 import (
@@ -84,17 +83,16 @@ func NewSetUpgradeModeFunc(tp elastictransport.Interface) NewSetUpgradeMode {
 // Set upgrade_mode for ML indices.
 //
 // Sets a cluster wide upgrade_mode setting that prepares machine learning
-// indices for an upgrade.
-// When upgrading your cluster, in some circumstances you must restart your
-// nodes and reindex your machine learning indices. In those circumstances,
-// there must be no machine learning jobs running. You can close the machine
-// learning jobs, do the upgrade, then open all the jobs again. Alternatively,
-// you can use this API to temporarily halt tasks associated with the jobs and
-// datafeeds and prevent new jobs from opening. You can also use this API
-// during upgrades that do not require you to reindex your machine learning
-// indices, though stopping jobs is not a requirement in that case.
-// You can see the current value for the upgrade_mode setting by using the get
-// machine learning info API.
+// indices for an upgrade. When upgrading your cluster, in some circumstances
+// you must restart your nodes and reindex your machine learning indices. In
+// those circumstances, there must be no machine learning jobs running. You can
+// close the machine learning jobs, do the upgrade, then open all the jobs
+// again. Alternatively, you can use this API to temporarily halt tasks
+// associated with the jobs and datafeeds and prevent new jobs from opening. You
+// can also use this API during upgrades that do not require you to reindex your
+// machine learning indices, though stopping jobs is not a requirement in that
+// case. You can see the current value for the upgrade_mode setting by using the
+// get machine learning info API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-set-upgrade-mode
 func New(tp elastictransport.Interface) *SetUpgradeMode {
@@ -302,9 +300,8 @@ func (r *SetUpgradeMode) Header(key, value string) *SetUpgradeMode {
 	return r
 }
 
-// Enabled When `true`, it enables `upgrade_mode` which temporarily halts all job
-// and datafeed tasks and prohibits new job and datafeed tasks from
-// starting.
+// Enabled When `true`, it enables `upgrade_mode` which temporarily halts all job and
+// datafeed tasks and prohibits new job and datafeed tasks from starting.
 // API name: enabled
 func (r *SetUpgradeMode) Enabled(enabled bool) *SetUpgradeMode {
 	r.values.Set("enabled", strconv.FormatBool(enabled))
@@ -343,11 +340,9 @@ func (r *SetUpgradeMode) FilterPath(filterpaths ...string) *SetUpgradeMode {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SetUpgradeMode) Human(human bool) *SetUpgradeMode {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -355,8 +350,8 @@ func (r *SetUpgradeMode) Human(human bool) *SetUpgradeMode {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SetUpgradeMode) Pretty(pretty bool) *SetUpgradeMode {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -26,9 +26,8 @@ type _renameProcessor struct {
 	v *types.RenameProcessor
 }
 
-// Renames an existing field.
-// If the field doesn’t exist or the new name is already used, an exception will
-// be thrown.
+// Renames an existing field. If the field doesn’t exist or the new name is
+// already used, an exception will be thrown.
 func NewRenameProcessor() *_renameProcessor {
 
 	return &_renameProcessor{v: types.NewRenameProcessor()}

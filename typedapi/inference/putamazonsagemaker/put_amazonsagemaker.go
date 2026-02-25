@@ -370,11 +370,9 @@ func (r *PutAmazonsagemaker) FilterPath(filterpaths ...string) *PutAmazonsagemak
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutAmazonsagemaker) Human(human bool) *PutAmazonsagemaker {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +380,8 @@ func (r *PutAmazonsagemaker) Human(human bool) *PutAmazonsagemaker {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutAmazonsagemaker) Pretty(pretty bool) *PutAmazonsagemaker {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -391,10 +389,9 @@ func (r *PutAmazonsagemaker) Pretty(pretty bool) *PutAmazonsagemaker {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `sparse_embedding` or `text_embedding` task types.
-// Not applicable to the `rerank`, `completion`, or `chat_completion` task
-// types.
+// The chunking configuration object. Applies only to the `sparse_embedding` or
+// `text_embedding` task types. Not applicable to the `rerank`, `completion`, or
+// `chat_completion` task types.
 // API name: chunking_settings
 func (r *PutAmazonsagemaker) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAmazonsagemaker {
 	// Initialize the request if it is not already initialized
@@ -419,9 +416,8 @@ func (r *PutAmazonsagemaker) Service(service amazonsagemakerservicetype.AmazonSa
 	return r
 }
 
-// Settings used to install the inference model.
-// These settings are specific to the `amazon_sagemaker` service and
-// `service_settings.api` you specified.
+// Settings used to install the inference model. These settings are specific to
+// the `amazon_sagemaker` service and `service_settings.api` you specified.
 // API name: service_settings
 func (r *PutAmazonsagemaker) ServiceSettings(servicesettings types.AmazonSageMakerServiceSettingsVariant) *PutAmazonsagemaker {
 	// Initialize the request if it is not already initialized
@@ -434,9 +430,8 @@ func (r *PutAmazonsagemaker) ServiceSettings(servicesettings types.AmazonSageMak
 	return r
 }
 
-// Settings to configure the inference task.
-// These settings are specific to the task type and `service_settings.api` you
-// specified.
+// Settings to configure the inference task. These settings are specific to the
+// task type and `service_settings.api` you specified.
 // API name: task_settings
 func (r *PutAmazonsagemaker) TaskSettings(tasksettings types.AmazonSageMakerTaskSettingsVariant) *PutAmazonsagemaker {
 	// Initialize the request if it is not already initialized

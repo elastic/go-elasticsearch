@@ -26,9 +26,8 @@ type _failProcessor struct {
 	v *types.FailProcessor
 }
 
-// Raises an exception.
-// This is useful for when you expect a pipeline to fail and want to relay a
-// specific message to the requester.
+// Raises an exception. This is useful for when you expect a pipeline to fail
+// and want to relay a specific message to the requester.
 func NewFailProcessor(message string) *_failProcessor {
 
 	tmp := &_failProcessor{v: types.NewFailProcessor()}

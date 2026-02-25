@@ -23,18 +23,15 @@
 // Submit a SAML LogoutRequest message to Elasticsearch for consumption.
 //
 // NOTE: This API is intended for use by custom web applications other than
-// Kibana.
-// If you are using Kibana, refer to the documentation for configuring SAML
-// single-sign-on on the Elastic Stack.
+// Kibana. If you are using Kibana, refer to the documentation for configuring
+// SAML single-sign-on on the Elastic Stack.
 //
 // The logout request comes from the SAML IdP during an IdP initiated Single
-// Logout.
-// The custom web application can use this API to have Elasticsearch process the
-// `LogoutRequest`.
-// After successful validation of the request, Elasticsearch invalidates the
-// access token and refresh token that corresponds to that specific SAML
-// principal and provides a URL that contains a SAML LogoutResponse message.
-// Thus the user can be redirected back to their IdP.
+// Logout. The custom web application can use this API to have Elasticsearch
+// process the `LogoutRequest`. After successful validation of the request,
+// Elasticsearch invalidates the access token and refresh token that corresponds
+// to that specific SAML principal and provides a URL that contains a SAML
+// LogoutResponse message. Thus the user can be redirected back to their IdP.
 package samlinvalidate
 
 import (
@@ -94,18 +91,15 @@ func NewSamlInvalidateFunc(tp elastictransport.Interface) NewSamlInvalidate {
 // Submit a SAML LogoutRequest message to Elasticsearch for consumption.
 //
 // NOTE: This API is intended for use by custom web applications other than
-// Kibana.
-// If you are using Kibana, refer to the documentation for configuring SAML
-// single-sign-on on the Elastic Stack.
+// Kibana. If you are using Kibana, refer to the documentation for configuring
+// SAML single-sign-on on the Elastic Stack.
 //
 // The logout request comes from the SAML IdP during an IdP initiated Single
-// Logout.
-// The custom web application can use this API to have Elasticsearch process the
-// `LogoutRequest`.
-// After successful validation of the request, Elasticsearch invalidates the
-// access token and refresh token that corresponds to that specific SAML
-// principal and provides a URL that contains a SAML LogoutResponse message.
-// Thus the user can be redirected back to their IdP.
+// Logout. The custom web application can use this API to have Elasticsearch
+// process the `LogoutRequest`. After successful validation of the request,
+// Elasticsearch invalidates the access token and refresh token that corresponds
+// to that specific SAML principal and provides a URL that contains a SAML
+// LogoutResponse message. Thus the user can be redirected back to their IdP.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-invalidate
 func New(tp elastictransport.Interface) *SamlInvalidate {
@@ -347,11 +341,9 @@ func (r *SamlInvalidate) FilterPath(filterpaths ...string) *SamlInvalidate {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SamlInvalidate) Human(human bool) *SamlInvalidate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -359,8 +351,8 @@ func (r *SamlInvalidate) Human(human bool) *SamlInvalidate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SamlInvalidate) Pretty(pretty bool) *SamlInvalidate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -384,17 +376,15 @@ func (r *SamlInvalidate) Acs(acs string) *SamlInvalidate {
 }
 
 // The query part of the URL that the user was redirected to by the SAML IdP to
-// initiate the Single Logout.
-// This query should include a single parameter named `SAMLRequest` that
-// contains a SAML logout request that is deflated and Base64 encoded.
-// If the SAML IdP has signed the logout request, the URL should include two
-// extra parameters named `SigAlg` and `Signature` that contain the algorithm
-// used for the signature and the signature value itself.
-// In order for Elasticsearch to be able to verify the IdP's signature, the
-// value of the `query_string` field must be an exact match to the string
-// provided by the browser.
-// The client application must not attempt to parse or process the string in any
-// way.
+// initiate the Single Logout. This query should include a single parameter
+// named `SAMLRequest` that contains a SAML logout request that is deflated and
+// Base64 encoded. If the SAML IdP has signed the logout request, the URL should
+// include two extra parameters named `SigAlg` and `Signature` that contain the
+// algorithm used for the signature and the signature value itself. In order for
+// Elasticsearch to be able to verify the IdP's signature, the value of the
+// `query_string` field must be an exact match to the string provided by the
+// browser. The client application must not attempt to parse or process the
+// string in any way.
 // API name: query_string
 func (r *SamlInvalidate) QueryString(querystring string) *SamlInvalidate {
 	// Initialize the request if it is not already initialized

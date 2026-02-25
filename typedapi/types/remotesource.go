@@ -34,9 +34,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/reindex/types.ts#L115-L151
 type RemoteSource struct {
 	// ApiKey The API key to use for authentication with the remote host (as an alternative
-	// to basic auth when the remote cluster is in Elastic Cloud).
-	// (It is not permitted to set this and also to set an `Authorization` header
-	// via `headers`.)
+	// to basic auth when the remote cluster is in Elastic Cloud). (It is not
+	// permitted to set this and also to set an `Authorization` header via
+	// `headers`.)
 	ApiKey *string `json:"api_key,omitempty"`
 	// ConnectTimeout The remote connection timeout.
 	ConnectTimeout Duration `json:"connect_timeout,omitempty"`

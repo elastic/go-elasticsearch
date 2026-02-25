@@ -21,12 +21,11 @@
 // Delegate PKI authentication.
 //
 // This API implements the exchange of an X509Certificate chain for an
-// Elasticsearch access token.
-// The certificate chain is validated, according to RFC 5280, by sequentially
-// considering the trust configuration of every installed PKI realm that has
-// `delegation.enabled` set to `true`.
-// A successfully trusted client certificate is also subject to the validation
-// of the subject distinguished name according to thw `username_pattern` of the
+// Elasticsearch access token. The certificate chain is validated, according to
+// RFC 5280, by sequentially considering the trust configuration of every
+// installed PKI realm that has `delegation.enabled` set to `true`. A
+// successfully trusted client certificate is also subject to the validation of
+// the subject distinguished name according to thw `username_pattern` of the
 // respective realm.
 //
 // This API is called by smart and trusted proxies, such as Kibana, which
@@ -34,11 +33,10 @@
 // using a PKI realm—-​as if the user connected directly to Elasticsearch.
 //
 // IMPORTANT: The association between the subject public key in the target
-// certificate and the corresponding private key is not validated.
-// This is part of the TLS authentication process and it is delegated to the
-// proxy that calls this API.
-// The proxy is trusted to have performed the TLS authentication and this API
-// translates that authentication into an Elasticsearch access token.
+// certificate and the corresponding private key is not validated. This is part
+// of the TLS authentication process and it is delegated to the proxy that calls
+// this API. The proxy is trusted to have performed the TLS authentication and
+// this API translates that authentication into an Elasticsearch access token.
 package delegatepki
 
 import (
@@ -96,12 +94,11 @@ func NewDelegatePkiFunc(tp elastictransport.Interface) NewDelegatePki {
 // Delegate PKI authentication.
 //
 // This API implements the exchange of an X509Certificate chain for an
-// Elasticsearch access token.
-// The certificate chain is validated, according to RFC 5280, by sequentially
-// considering the trust configuration of every installed PKI realm that has
-// `delegation.enabled` set to `true`.
-// A successfully trusted client certificate is also subject to the validation
-// of the subject distinguished name according to thw `username_pattern` of the
+// Elasticsearch access token. The certificate chain is validated, according to
+// RFC 5280, by sequentially considering the trust configuration of every
+// installed PKI realm that has `delegation.enabled` set to `true`. A
+// successfully trusted client certificate is also subject to the validation of
+// the subject distinguished name according to thw `username_pattern` of the
 // respective realm.
 //
 // This API is called by smart and trusted proxies, such as Kibana, which
@@ -109,11 +106,10 @@ func NewDelegatePkiFunc(tp elastictransport.Interface) NewDelegatePki {
 // using a PKI realm—-​as if the user connected directly to Elasticsearch.
 //
 // IMPORTANT: The association between the subject public key in the target
-// certificate and the corresponding private key is not validated.
-// This is part of the TLS authentication process and it is delegated to the
-// proxy that calls this API.
-// The proxy is trusted to have performed the TLS authentication and this API
-// translates that authentication into an Elasticsearch access token.
+// certificate and the corresponding private key is not validated. This is part
+// of the TLS authentication process and it is delegated to the proxy that calls
+// this API. The proxy is trusted to have performed the TLS authentication and
+// this API translates that authentication into an Elasticsearch access token.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delegate-pki
 func New(tp elastictransport.Interface) *DelegatePki {
@@ -347,11 +343,9 @@ func (r *DelegatePki) FilterPath(filterpaths ...string) *DelegatePki {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DelegatePki) Human(human bool) *DelegatePki {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -359,8 +353,8 @@ func (r *DelegatePki) Human(human bool) *DelegatePki {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DelegatePki) Pretty(pretty bool) *DelegatePki {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -373,9 +367,9 @@ func (r *DelegatePki) Pretty(pretty bool) *DelegatePki {
 // base64url-encoded) of the certificate's DER encoding.
 //
 // The first element is the target certificate that contains the subject
-// distinguished name that is requesting access.
-// This may be followed by additional certificates; each subsequent certificate
-// is used to certify the previous one.
+// distinguished name that is requesting access. This may be followed by
+// additional certificates; each subsequent certificate is used to certify the
+// previous one.
 // API name: x509_certificate_chain
 func (r *DelegatePki) X509CertificateChain(x509certificatechains ...string) *DelegatePki {
 	// Initialize the request if it is not already initialized

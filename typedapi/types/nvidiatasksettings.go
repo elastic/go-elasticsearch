@@ -29,27 +29,26 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L2027-L2047
 type NvidiaTaskSettings struct {
-	// InputType For a `text_embedding` task, type of input sent to the Nvidia endpoint.
-	// Valid values are:
+	// InputType For a `text_embedding` task, type of input sent to the Nvidia endpoint. Valid
+	// values are:
 	//
-	// * `ingest`: Mapped to Nvidia's `passage` value in request. Used when
-	// generating embeddings during indexing.
-	// * `search`: Mapped to Nvidia's `query` value in request. Used when generating
-	// embeddings during querying.
+	//   - `ingest`: Mapped to Nvidia's `passage` value in request. Used when
+	//     generating embeddings during indexing.
+	//   - `search`: Mapped to Nvidia's `query` value in request. Used when
+	//     generating embeddings during querying.
 	//
 	// IMPORTANT: For Nvidia endpoints, if the `input_type` field is not specified,
 	// it defaults to `query`.
 	InputType *nvidiainputtype.NvidiaInputType `json:"input_type,omitempty"`
 	// Truncate For a `text_embedding` task, the method used by the Nvidia model to handle
-	// inputs longer than the maximum token length.
-	// Valid values are:
+	// inputs longer than the maximum token length. Valid values are:
 	//
-	// * `END`: When the input exceeds the maximum input token length, the end of
-	// the input is discarded.
-	// * `NONE`: When the input exceeds the maximum input token length, an error is
-	// returned.
-	// * `START`: When the input exceeds the maximum input token length, the start
-	// of the input is discarded.
+	//   - `END`: When the input exceeds the maximum input token length, the end of
+	//     the input is discarded.
+	//   - `NONE`: When the input exceeds the maximum input token length, an error
+	//     is returned.
+	//   - `START`: When the input exceeds the maximum input token length, the start
+	//     of the input is discarded.
 	Truncate *coheretruncatetype.CohereTruncateType `json:"truncate,omitempty"`
 }
 

@@ -50,9 +50,8 @@ type ClusterIndices struct {
 	Mappings *FieldTypesMappings `json:"mappings,omitempty"`
 	// QueryCache Contains statistics about the query cache of selected nodes.
 	QueryCache QueryCacheStats `json:"query_cache"`
-	// Search Holds a snapshot of the search usage statistics.
-	// Used to hold the stats for a single node that's part of a
-	// ClusterStatsNodeResponse, as well as to
+	// Search Holds a snapshot of the search usage statistics. Used to hold the stats for a
+	// single node that's part of a ClusterStatsNodeResponse, as well as to
 	// accumulate stats for the entire cluster and return them as part of the
 	// ClusterStatsResponse.
 	Search SearchUsageStats `json:"search"`

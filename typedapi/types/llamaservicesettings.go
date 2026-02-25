@@ -38,27 +38,26 @@ type LlamaServiceSettings struct {
 	// MaxInputTokens For a `text_embedding` task, the maximum number of tokens per input before
 	// chunking occurs.
 	MaxInputTokens *int `json:"max_input_tokens,omitempty"`
-	// ModelId The name of the model to use for the inference task.
-	// Refer to the Llama downloading models documentation for different ways of
-	// getting a list of available models and downloading them.
-	// Service has been tested and confirmed to be working with the following
-	// models:
-	// * For `text_embedding` task - `all-MiniLM-L6-v2`.
-	// * For `completion` and `chat_completion` tasks - `llama3.2:3b`.
+	// ModelId The name of the model to use for the inference task. Refer to the Llama
+	// downloading models documentation for different ways of getting a list of
+	// available models and downloading them. Service has been tested and confirmed
+	// to be working with the following models:
+	//
+	//   - For `text_embedding` task - `all-MiniLM-L6-v2`.
+	//   - For `completion` and `chat_completion` tasks - `llama3.2:3b`.
 	ModelId string `json:"model_id"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// the Llama API.
-	// By default, the `llama` service sets the number of requests allowed per
-	// minute to 3000.
+	// the Llama API. By default, the `llama` service sets the number of requests
+	// allowed per minute to 3000.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 	// Similarity For a `text_embedding` task, the similarity measure. One of cosine,
 	// dot_product, l2_norm.
 	Similarity *llamasimilaritytype.LlamaSimilarityType `json:"similarity,omitempty"`
-	// Url The URL endpoint of the Llama stack endpoint.
-	// URL must contain:
-	// * For `text_embedding` task - `/v1/inference/embeddings`.
-	// * For `completion` and `chat_completion` tasks -
-	// `/v1/openai/v1/chat/completions`.
+	// Url The URL endpoint of the Llama stack endpoint. URL must contain:
+	//
+	//   - For `text_embedding` task - `/v1/inference/embeddings`.
+	//   - For `completion` and `chat_completion` tasks -
+	//     `/v1/openai/v1/chat/completions`.
 	Url string `json:"url"`
 }
 

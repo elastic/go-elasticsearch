@@ -22,9 +22,9 @@
 //
 // Get configuration and usage information about transforms.
 //
-// CAT APIs are only intended for human consumption using the Kibana
-// console or command line. They are not intended for use by applications. For
-// application consumption, use the get transform statistics API.
+// CAT APIs are only intended for human consumption using the Kibana console or
+// command line. They are not intended for use by applications. For application
+// consumption, use the get transform statistics API.
 package transforms
 
 import (
@@ -87,9 +87,9 @@ func NewTransformsFunc(tp elastictransport.Interface) NewTransforms {
 //
 // Get configuration and usage information about transforms.
 //
-// CAT APIs are only intended for human consumption using the Kibana
-// console or command line. They are not intended for use by applications. For
-// application consumption, use the get transform statistics API.
+// CAT APIs are only intended for human consumption using the Kibana console or
+// command line. They are not intended for use by applications. For application
+// consumption, use the get transform statistics API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-transforms
 func New(tp elastictransport.Interface) *Transforms {
@@ -310,9 +310,8 @@ func (r *Transforms) Header(key, value string) *Transforms {
 	return r
 }
 
-// TransformId A transform identifier or a wildcard expression.
-// If you do not specify one of these options, the API returns information for
-// all transforms.
+// TransformId A transform identifier or a wildcard expression. If you do not specify one of
+// // these options, the API returns information for all transforms.
 // API Name: transformid
 func (r *Transforms) TransformId(transformid string) *Transforms {
 	r.paramSet |= transformidMask
@@ -324,11 +323,10 @@ func (r *Transforms) TransformId(transformid string) *Transforms {
 // AllowNoMatch Specifies what to do when the request: contains wildcard expressions and
 // there are no transforms that match; contains the `_all` string or no
 // identifiers and there are no matches; contains wildcard expressions and there
-// are only partial matches.
-// If `true`, it returns an empty transforms array when there are no matches and
-// the subset of results when there are partial matches.
-// If `false`, the request returns a 404 status code when there are no matches
-// or only partial matches.
+// are only partial matches. If `true`, it returns an empty transforms array
+// when there are no matches and the subset of results when there are partial
+// matches. If `false`, the request returns a 404 status code when there are no
+// matches or only partial matches.
 // API name: allow_no_match
 func (r *Transforms) AllowNoMatch(allownomatch bool) *Transforms {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -377,15 +375,14 @@ func (r *Transforms) Size(size int) *Transforms {
 	return r
 }
 
-// Bytes Sets the units for columns that contain a byte-size value.
-// Note that byte-size value units work in terms of powers of 1024. For instance
-// `1kb` means 1024 bytes, not 1000 bytes.
-// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
-// or `gb`, chosen such that the numeric value of the column is as small as
-// possible whilst still being at least `1.0`.
-// If given, byte-size values are rendered as an integer with no suffix,
-// representing the value of the column in the chosen unit.
-// Values that are not an exact multiple of the chosen unit are rounded down.
+// Bytes Sets the units for columns that contain a byte-size value. Note that
+// byte-size value units work in terms of powers of 1024. For instance `1kb`
+// means 1024 bytes, not 1000 bytes. If omitted, byte-size values are rendered
+// with a suffix such as `kb`, `mb`, or `gb`, chosen such that the numeric value
+// of the column is as small as possible whilst still being at least `1.0`. If
+// given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit. Values that are not
+// an exact multiple of the chosen unit are rounded down.
 // API name: bytes
 func (r *Transforms) Bytes(bytes bytes.Bytes) *Transforms {
 	r.values.Set("bytes", bytes.String())
@@ -393,8 +390,8 @@ func (r *Transforms) Bytes(bytes bytes.Bytes) *Transforms {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *Transforms) Format(format string) *Transforms {
 	r.values.Set("format", format)
@@ -402,8 +399,8 @@ func (r *Transforms) Format(format string) *Transforms {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *Transforms) Help(help bool) *Transforms {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -411,12 +408,12 @@ func (r *Transforms) Help(help bool) *Transforms {
 	return r
 }
 
-// Time Sets the units for columns that contain a time duration.
-// If omitted, time duration values are rendered with a suffix such as `ms`,
-// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
-// as possible whilst still being at least `1.0`.
-// If given, time duration values are rendered as an integer with no suffix.
-// Values that are not an exact multiple of the chosen unit are rounded down.
+// Time Sets the units for columns that contain a time duration. If omitted, time
+// duration values are rendered with a suffix such as `ms`, `s`, `m` or `h`,
+// chosen such that the numeric value of the column is as small as possible
+// whilst still being at least `1.0`. If given, time duration values are
+// rendered as an integer with no suffix. Values that are not an exact multiple
+// of the chosen unit are rounded down.
 // API name: time
 func (r *Transforms) Time(time timeunit.TimeUnit) *Transforms {
 	r.values.Set("time", time.String())
@@ -455,11 +452,9 @@ func (r *Transforms) FilterPath(filterpaths ...string) *Transforms {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Transforms) Human(human bool) *Transforms {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -467,8 +462,8 @@ func (r *Transforms) Human(human bool) *Transforms {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Transforms) Pretty(pretty bool) *Transforms {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

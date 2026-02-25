@@ -299,10 +299,10 @@ func (r *GetJobStats) Header(key, value string) *GetJobStats {
 	return r
 }
 
-// JobId Identifier for the anomaly detection job. It can be a job identifier, a
-// group name, a comma-separated list of jobs, or a wildcard expression. If
-// you do not specify one of these options, the API returns information for
-// all anomaly detection jobs.
+// JobId Identifier for the anomaly detection job. It can be a job identifier, a group
+// // name, a comma-separated list of jobs, or a wildcard expression. If you do
+// not // specify one of these options, the API returns information for all
+// anomaly // detection jobs.
 // API Name: jobid
 func (r *GetJobStats) JobId(jobid string) *GetJobStats {
 	r.paramSet |= jobidMask
@@ -313,14 +313,14 @@ func (r *GetJobStats) JobId(jobid string) *GetJobStats {
 
 // AllowNoMatch Specifies what to do when the request:
 //
-// 1. Contains wildcard expressions and there are no jobs that match.
-// 2. Contains the _all string or no identifiers and there are no matches.
-// 3. Contains wildcard expressions and there are only partial matches.
+// 1. Contains wildcard expressions and there are no jobs that match. 2.
+// Contains the _all string or no identifiers and there are no matches. 3.
+// Contains wildcard expressions and there are only partial matches.
 //
-// If `true`, the API returns an empty `jobs` array when
-// there are no matches and the subset of results when there are partial
-// matches. If `false`, the API returns a `404` status
-// code when there are no matches or only partial matches.
+// If `true`, the API returns an empty `jobs` array when there are no matches
+// and the subset of results when there are partial matches. If `false`, the API
+// returns a `404` status code when there are no matches or only partial
+// matches.
 // API name: allow_no_match
 func (r *GetJobStats) AllowNoMatch(allownomatch bool) *GetJobStats {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -351,11 +351,9 @@ func (r *GetJobStats) FilterPath(filterpaths ...string) *GetJobStats {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetJobStats) Human(human bool) *GetJobStats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -363,8 +361,8 @@ func (r *GetJobStats) Human(human bool) *GetJobStats {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetJobStats) Pretty(pretty bool) *GetJobStats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

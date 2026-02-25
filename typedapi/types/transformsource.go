@@ -33,19 +33,18 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/transform/_types/Transform.ts#L156-L175
 type TransformSource struct {
 	// Index The source indices for the transform. It can be a single index, an index
-	// pattern (for example, `"my-index-*""`), an
-	// array of indices (for example, `["my-index-000001", "my-index-000002"]`), or
-	// an array of index patterns (for
+	// pattern (for example, `"my-index-*""`), an array of indices (for example,
+	// `["my-index-000001", "my-index-000002"]`), or an array of index patterns (for
 	// example, `["my-index-*", "my-other-index-*"]`. For remote indices use the
-	// syntax `"remote_name:index_name"`. If
-	// any indices are in remote clusters then the master node and at least one
-	// transform node must have the `remote_cluster_client` node role.
+	// syntax `"remote_name:index_name"`. If any indices are in remote clusters then
+	// the master node and at least one transform node must have the
+	// `remote_cluster_client` node role.
 	Index []string `json:"index"`
 	// Query A query clause that retrieves a subset of data from the source index.
 	Query *Query `json:"query,omitempty"`
 	// RuntimeMappings Definitions of search-time runtime fields that can be used by the transform.
-	// For search runtime fields all data
-	// nodes, including remote nodes, must be 7.12 or later.
+	// For search runtime fields all data nodes, including remote nodes, must be
+	// 7.12 or later.
 	RuntimeMappings RuntimeFields `json:"runtime_mappings,omitempty"`
 }
 

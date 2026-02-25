@@ -32,9 +32,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/put_openshift_ai/PutOpenShiftAiRequest.ts#L31-L92
 type Request struct {
-	// ChunkingSettings The chunking configuration object.
-	// Applies only to the `text_embedding` task type.
-	// Not applicable to the `rerank`, `completion`, or `chat_completion` task
+	// ChunkingSettings The chunking configuration object. Applies only to the `text_embedding` task
+	// type. Not applicable to the `rerank`, `completion`, or `chat_completion` task
 	// types.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
@@ -43,11 +42,10 @@ type Request struct {
 	// ServiceSettings Settings used to install the inference model. These settings are specific to
 	// the `openshift_ai` service.
 	ServiceSettings types.OpenShiftAiServiceSettings `json:"service_settings"`
-	// TaskSettings Settings to configure the inference task.
-	// Applies only to the `rerank` task type.
-	// Not applicable to the `text_embedding`, `completion`, or `chat_completion`
-	// task types.
-	// These settings are specific to the task type you specified.
+	// TaskSettings Settings to configure the inference task. Applies only to the `rerank` task
+	// type. Not applicable to the `text_embedding`, `completion`, or
+	// `chat_completion` task types. These settings are specific to the task type
+	// you specified.
 	TaskSettings *types.OpenShiftAiTaskSettings `json:"task_settings,omitempty"`
 }
 

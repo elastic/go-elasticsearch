@@ -22,10 +22,10 @@
 //
 // NOTE: The `after` parameter and `next` field enable you to iterate through
 // snapshots with some consistency guarantees regarding concurrent creation or
-// deletion of snapshots.
-// It is guaranteed that any snapshot that exists at the beginning of the
-// iteration and is not concurrently deleted will be seen during the iteration.
-// Snapshots concurrently created may be seen during an iteration.
+// deletion of snapshots. It is guaranteed that any snapshot that exists at the
+// beginning of the iteration and is not concurrently deleted will be seen
+// during the iteration. Snapshots concurrently created may be seen during an
+// iteration.
 package get
 
 import (
@@ -95,10 +95,10 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 //
 // NOTE: The `after` parameter and `next` field enable you to iterate through
 // snapshots with some consistency guarantees regarding concurrent creation or
-// deletion of snapshots.
-// It is guaranteed that any snapshot that exists at the beginning of the
-// iteration and is not concurrently deleted will be seen during the iteration.
-// Snapshots concurrently created may be seen during an iteration.
+// deletion of snapshots. It is guaranteed that any snapshot that exists at the
+// beginning of the iteration and is not concurrently deleted will be seen
+// during the iteration. Snapshots concurrently created may be seen during an
+// iteration.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-get
 func New(tp elastictransport.Interface) *Get {
@@ -316,9 +316,8 @@ func (r *Get) Header(key, value string) *Get {
 	return r
 }
 
-// Repository A comma-separated list of snapshot repository names used to limit the
-// request.
-// Wildcard (`*`) expressions are supported.
+// Repository A comma-separated list of snapshot repository names used to limit the //
+// request. Wildcard (`*`) expressions are supported.
 // API Name: repository
 func (r *Get) _repository(repository string) *Get {
 	r.paramSet |= repositoryMask
@@ -327,13 +326,10 @@ func (r *Get) _repository(repository string) *Get {
 	return r
 }
 
-// Snapshot A comma-separated list of snapshot names to retrieve
-// Wildcards (`*`) are supported.
-//
-// * To get information about all snapshots in a registered repository, use a
-// wildcard (`*`) or `_all`.
-// * To get information about any snapshots that are currently running, use
-// `_current`.
+// Snapshot A comma-separated list of snapshot names to retrieve Wildcards (`*`) are //
+// supported. // // - To get information about all snapshots in a registered
+// repository, use a // wildcard (`*`) or `_all`. // - To get information about
+// any snapshots that are currently running, use // `_current`.
 // API Name: snapshot
 func (r *Get) _snapshot(snapshot string) *Get {
 	r.paramSet |= snapshotMask
@@ -351,11 +347,10 @@ func (r *Get) After(after string) *Get {
 	return r
 }
 
-// FromSortValue The value of the current sort column at which to start retrieval.
-// It can be a string `snapshot-` or a repository name when sorting by snapshot
-// or repository name.
-// It can be a millisecond time value or a number when sorting by `index-` or
-// shard count.
+// FromSortValue The value of the current sort column at which to start retrieval. It can be a
+// string `snapshot-` or a repository name when sorting by snapshot or
+// repository name. It can be a millisecond time value or a number when sorting
+// by `index-` or shard count.
 // API name: from_sort_value
 func (r *Get) FromSortValue(fromsortvalue string) *Get {
 	r.values.Set("from_sort_value", fromsortvalue)
@@ -375,8 +370,7 @@ func (r *Get) IgnoreUnavailable(ignoreunavailable bool) *Get {
 // IndexDetails If `true`, the response includes additional information about each index in
 // the snapshot comprising the number of shards in the index, the total size of
 // the index in bytes, and the maximum number of segments per shard in the
-// index.
-// The default is `false`, meaning that this information is omitted.
+// index. The default is `false`, meaning that this information is omitted.
 // API name: index_details
 func (r *Get) IndexDetails(indexdetails bool) *Get {
 	r.values.Set("index_details", strconv.FormatBool(indexdetails))
@@ -400,9 +394,8 @@ func (r *Get) IncludeRepository(includerepository bool) *Get {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *Get) MasterTimeout(duration string) *Get {
 	r.values.Set("master_timeout", duration)
@@ -410,9 +403,8 @@ func (r *Get) MasterTimeout(duration string) *Get {
 	return r
 }
 
-// Order The sort order.
-// Valid values are `asc` for ascending and `desc` for descending order.
-// The default behavior is ascending order.
+// Order The sort order. Valid values are `asc` for ascending and `desc` for
+// descending order. The default behavior is ascending order.
 // API name: order
 func (r *Get) Order(order sortorder.SortOrder) *Get {
 	r.values.Set("order", order.String())
@@ -430,9 +422,8 @@ func (r *Get) Offset(offset int) *Get {
 	return r
 }
 
-// Size The maximum number of snapshots to return.
-// The default is 0, which means to return all that match the request without
-// limit.
+// Size The maximum number of snapshots to return. The default is 0, which means to
+// return all that match the request without limit.
 // API name: size
 func (r *Get) Size(size int) *Get {
 	r.values.Set("size", strconv.Itoa(size))
@@ -444,14 +435,13 @@ func (r *Get) Size(size int) *Get {
 // (SLM) policy names that snapshots belong to.
 //
 // You can use wildcards (`*`) and combinations of wildcards followed by exclude
-// patterns starting with `-`.
-// For example, the pattern `*,-policy-a-\*` will return all snapshots except
-// for those that were created by an SLM policy with a name starting with
-// `policy-a-`.
-// Note that the wildcard pattern `*` matches all snapshots created by an SLM
-// policy but not those snapshots that were not created by an SLM policy.
-// To include snapshots that were not created by an SLM policy, you can use the
-// special pattern `_none` that will match all snapshots without an SLM policy.
+// patterns starting with `-`. For example, the pattern `*,-policy-a-\*` will
+// return all snapshots except for those that were created by an SLM policy with
+// a name starting with `policy-a-`. Note that the wildcard pattern `*` matches
+// all snapshots created by an SLM policy but not those snapshots that were not
+// created by an SLM policy. To include snapshots that were not created by an
+// SLM policy, you can use the special pattern `_none` that will match all
+// snapshots without an SLM policy.
 // API name: slm_policy_filter
 func (r *Get) SlmPolicyFilter(name string) *Get {
 	r.values.Set("slm_policy_filter", name)
@@ -459,8 +449,8 @@ func (r *Get) SlmPolicyFilter(name string) *Get {
 	return r
 }
 
-// Sort The sort order for the result.
-// The default behavior is sorting by snapshot start time stamp.
+// Sort The sort order for the result. The default behavior is sorting by snapshot
+// start time stamp.
 // API name: sort
 func (r *Get) Sort(sort snapshotsort.SnapshotSort) *Get {
 	r.values.Set("sort", sort.String())
@@ -469,8 +459,7 @@ func (r *Get) Sort(sort snapshotsort.SnapshotSort) *Get {
 }
 
 // State Only return snapshots with a state found in the given comma-separated list of
-// snapshot states.
-// The default is all snapshot states.
+// snapshot states. The default is all snapshot states.
 // API name: state
 func (r *Get) State(states ...snapshotstate.SnapshotState) *Get {
 	tmp := []string{}
@@ -520,11 +509,9 @@ func (r *Get) FilterPath(filterpaths ...string) *Get {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Get) Human(human bool) *Get {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -532,8 +519,8 @@ func (r *Get) Human(human bool) *Get {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Get) Pretty(pretty bool) *Get {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

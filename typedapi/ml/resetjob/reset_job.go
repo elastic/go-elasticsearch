@@ -21,9 +21,8 @@
 // Reset an anomaly detection job.
 //
 // All model state and results are deleted. The job is ready to start over as if
-// it had just been created.
-// It is not currently possible to reset multiple jobs using wildcards or a
-// comma separated list.
+// it had just been created. It is not currently possible to reset multiple jobs
+// using wildcards or a comma separated list.
 package resetjob
 
 import (
@@ -84,9 +83,8 @@ func NewResetJobFunc(tp elastictransport.Interface) NewResetJob {
 // Reset an anomaly detection job.
 //
 // All model state and results are deleted. The job is ready to start over as if
-// it had just been created.
-// It is not currently possible to reset multiple jobs using wildcards or a
-// comma separated list.
+// it had just been created. It is not currently possible to reset multiple jobs
+// using wildcards or a comma separated list.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-reset-job
 func New(tp elastictransport.Interface) *ResetJob {
@@ -311,8 +309,7 @@ func (r *ResetJob) _jobid(jobid string) *ResetJob {
 	return r
 }
 
-// WaitForCompletion Should this request wait until the operation has completed before
-// returning.
+// WaitForCompletion Should this request wait until the operation has completed before returning.
 // API name: wait_for_completion
 func (r *ResetJob) WaitForCompletion(waitforcompletion bool) *ResetJob {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
@@ -320,10 +317,8 @@ func (r *ResetJob) WaitForCompletion(waitforcompletion bool) *ResetJob {
 	return r
 }
 
-// DeleteUserAnnotations Specifies whether annotations that have been added by the
-// user should be deleted along with any auto-generated annotations when the job
-// is
-// reset.
+// DeleteUserAnnotations Specifies whether annotations that have been added by the user should be
+// deleted along with any auto-generated annotations when the job is reset.
 // API name: delete_user_annotations
 func (r *ResetJob) DeleteUserAnnotations(deleteuserannotations bool) *ResetJob {
 	r.values.Set("delete_user_annotations", strconv.FormatBool(deleteuserannotations))
@@ -354,11 +349,9 @@ func (r *ResetJob) FilterPath(filterpaths ...string) *ResetJob {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ResetJob) Human(human bool) *ResetJob {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -366,8 +359,8 @@ func (r *ResetJob) Human(human bool) *ResetJob {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ResetJob) Pretty(pretty bool) *ResetJob {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

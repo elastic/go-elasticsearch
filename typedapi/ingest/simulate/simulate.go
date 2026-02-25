@@ -20,9 +20,9 @@
 
 // Simulate a pipeline.
 //
-// Run an ingest pipeline against a set of provided documents.
-// You can either specify an existing pipeline to use with the provided
-// documents or supply a pipeline definition in the body of the request.
+// Run an ingest pipeline against a set of provided documents. You can either
+// specify an existing pipeline to use with the provided documents or supply a
+// pipeline definition in the body of the request.
 package simulate
 
 import (
@@ -85,9 +85,9 @@ func NewSimulateFunc(tp elastictransport.Interface) NewSimulate {
 
 // Simulate a pipeline.
 //
-// Run an ingest pipeline against a set of provided documents.
-// You can either specify an existing pipeline to use with the provided
-// documents or supply a pipeline definition in the body of the request.
+// Run an ingest pipeline against a set of provided documents. You can either
+// specify an existing pipeline to use with the provided documents or supply a
+// pipeline definition in the body of the request.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-simulate
 func New(tp elastictransport.Interface) *Simulate {
@@ -321,9 +321,8 @@ func (r *Simulate) Header(key, value string) *Simulate {
 	return r
 }
 
-// Id The pipeline to test.
-// If you don't specify a `pipeline` in the request body, this parameter is
-// required.
+// Id The pipeline to test. If you don't specify a `pipeline` in the request body,
+// // this parameter is required.
 // API Name: id
 func (r *Simulate) Id(id string) *Simulate {
 	r.paramSet |= idMask
@@ -364,11 +363,9 @@ func (r *Simulate) FilterPath(filterpaths ...string) *Simulate {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Simulate) Human(human bool) *Simulate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -376,8 +373,8 @@ func (r *Simulate) Human(human bool) *Simulate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Simulate) Pretty(pretty bool) *Simulate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -400,11 +397,9 @@ func (r *Simulate) Docs(docs ...types.DocumentVariant) *Simulate {
 	return r
 }
 
-// The pipeline to test.
-// If you don't specify the `pipeline` request path parameter, this parameter is
-// required.
-// If you specify both this and the request path parameter, the API only uses
-// the request path parameter.
+// The pipeline to test. If you don't specify the `pipeline` request path
+// parameter, this parameter is required. If you specify both this and the
+// request path parameter, the API only uses the request path parameter.
 // API name: pipeline
 func (r *Simulate) Pipeline(pipeline types.IngestPipelineVariant) *Simulate {
 	// Initialize the request if it is not already initialized

@@ -28,7 +28,8 @@ import (
 	"io"
 )
 
-// GeoDistanceAggregate type.
+// Result of a `geo_distance` aggregation. The unit for `from` and `to` is
+// meters by default.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/Aggregate.ts#L689-L694
 type GeoDistanceAggregate struct {

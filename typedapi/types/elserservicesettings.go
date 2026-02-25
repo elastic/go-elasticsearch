@@ -33,32 +33,28 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L1485-L1511
 type ElserServiceSettings struct {
-	// AdaptiveAllocations Adaptive allocations configuration details.
-	// If `enabled` is true, the number of allocations of the model is set based on
-	// the current load the process gets.
-	// When the load is high, a new model allocation is automatically created,
-	// respecting the value of `max_number_of_allocations` if it's set.
-	// When the load is low, a model allocation is automatically removed, respecting
-	// the value of `min_number_of_allocations` if it's set.
-	// If `enabled` is true, do not set the number of allocations manually.
+	// AdaptiveAllocations Adaptive allocations configuration details. If `enabled` is true, the number
+	// of allocations of the model is set based on the current load the process
+	// gets. When the load is high, a new model allocation is automatically created,
+	// respecting the value of `max_number_of_allocations` if it's set. When the
+	// load is low, a model allocation is automatically removed, respecting the
+	// value of `min_number_of_allocations` if it's set. If `enabled` is true, do
+	// not set the number of allocations manually.
 	AdaptiveAllocations *AdaptiveAllocations `json:"adaptive_allocations,omitempty"`
 	// NumAllocations The total number of allocations this model is assigned across machine
-	// learning nodes.
-	// Increasing this value generally increases the throughput.
-	// If adaptive allocations is enabled, do not set this value because it's
+	// learning nodes. Increasing this value generally increases the throughput. If
+	// adaptive allocations is enabled, do not set this value because it's
 	// automatically set.
 	NumAllocations int `json:"num_allocations"`
 	// NumThreads The number of threads used by each model allocation during inference.
 	// Increasing this value generally increases the speed per inference request.
 	// The inference process is a compute-bound process; `threads_per_allocations`
-	// must not exceed the number of available allocated processors per node.
-	// The value must be a power of 2.
-	// The maximum value is 32.
+	// must not exceed the number of available allocated processors per node. The
+	// value must be a power of 2. The maximum value is 32.
 	//
-	// > info
-	// > If you want to optimize your ELSER endpoint for ingest, set the number of
-	// threads to 1. If you want to optimize your ELSER endpoint for search, set the
-	// number of threads to greater than 1.
+	// > info > If you want to optimize your ELSER endpoint for ingest, set the
+	// number of threads to 1. If you want to optimize your ELSER endpoint for
+	// search, set the number of threads to greater than 1.
 	NumThreads int `json:"num_threads"`
 }
 

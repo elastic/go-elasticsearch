@@ -30,8 +30,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/synonyms/put_synonym_rule/SynonymRulePutResponse.ts#L22-L25
 type Response struct {
 	// ReloadAnalyzersDetails Updating synonyms in a synonym set can reload the associated analyzers in
-	// case refresh is set to true.
-	// This information is the analyzers reloading result.
+	// case refresh is set to true. This information is the analyzers reloading
+	// result.
 	ReloadAnalyzersDetails *types.ReloadResult `json:"reload_analyzers_details,omitempty"`
 	// Result The update operation result.
 	Result result.Result `json:"result"`

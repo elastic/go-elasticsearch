@@ -37,22 +37,21 @@ import (
 type Request struct {
 	// AllowNoMatch Specifies what to do when the request:
 	//
-	// 1. Contains wildcard expressions and there are no data frame analytics
-	// jobs that match.
-	// 2. Contains the _all string or no identifiers and there are no matches.
-	// 3. Contains wildcard expressions and there are only partial matches.
+	// 1. Contains wildcard expressions and there are no data frame analytics jobs
+	// that match. 2. Contains the _all string or no identifiers and there are no
+	// matches. 3. Contains wildcard expressions and there are only partial matches.
 	//
-	// The default value is true, which returns an empty data_frame_analytics
-	// array when there are no matches and the subset of results when there are
-	// partial matches. If this parameter is false, the request returns a 404
-	// status code when there are no matches or only partial matches.
+	// The default value is true, which returns an empty data_frame_analytics array
+	// when there are no matches and the subset of results when there are partial
+	// matches. If this parameter is false, the request returns a 404 status code
+	// when there are no matches or only partial matches.
 	AllowNoMatch *bool `json:"allow_no_match,omitempty"`
 	// Force If true, the data frame analytics job is stopped forcefully.
 	Force *bool `json:"force,omitempty"`
 	// Id If provided, must be the same identifier as in the path.
 	Id *string `json:"id,omitempty"`
-	// Timeout Controls the amount of time to wait until the data frame analytics job
-	// stops. Defaults to 20 seconds.
+	// Timeout Controls the amount of time to wait until the data frame analytics job stops.
+	// Defaults to 20 seconds.
 	Timeout types.Duration `json:"timeout,omitempty"`
 }
 

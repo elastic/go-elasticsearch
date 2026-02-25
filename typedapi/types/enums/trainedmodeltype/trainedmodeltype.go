@@ -29,10 +29,15 @@ type TrainedModelType struct {
 }
 
 var (
+
+	// Treeensemble The model definition is an ensemble model of decision trees.
 	Treeensemble = TrainedModelType{"tree_ensemble"}
 
+	// Langident A special type reserved for language identification models.
 	Langident = TrainedModelType{"lang_ident"}
 
+	// Pytorch The stored definition is a PyTorch (specifically a TorchScript) model.
+	// Currently only NLP models are supported.
 	Pytorch = TrainedModelType{"pytorch"}
 )
 

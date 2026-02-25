@@ -39,11 +39,11 @@ type CardinalityAggregation struct {
 	ExecutionHint *cardinalityexecutionmode.CardinalityExecutionMode `json:"execution_hint,omitempty"`
 	// Field The field on which to run the aggregation.
 	Field *string `json:"field,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
-	// PrecisionThreshold A unique count below which counts are expected to be close to accurate.
-	// This allows to trade memory for accuracy.
+	// PrecisionThreshold A unique count below which counts are expected to be close to accurate. This
+	// allows to trade memory for accuracy.
 	PrecisionThreshold *int    `json:"precision_threshold,omitempty"`
 	Rehash             *bool   `json:"rehash,omitempty"`
 	Script             *Script `json:"script,omitempty"`

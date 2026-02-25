@@ -29,34 +29,50 @@ type CatHealthColumn struct {
 }
 
 var (
+
+	// Epoch The number of seconds since 1970-01-01 00:00:00.
 	Epoch = CatHealthColumn{"epoch"}
 
+	// Timestamp The time in HH:MM:SS format.
 	Timestamp = CatHealthColumn{"timestamp"}
 
+	// Cluster The cluster name.
 	Cluster = CatHealthColumn{"cluster"}
 
+	// Status The health status.
 	Status = CatHealthColumn{"status"}
 
+	// Nodetotal The total number of nodes that can store data.
 	Nodetotal = CatHealthColumn{"node.total"}
 
+	// Nodedata The number of nodes that can store data.
 	Nodedata = CatHealthColumn{"node.data"}
 
+	// Shards The total number of shards.
 	Shards = CatHealthColumn{"shards"}
 
+	// Pri The number of primary shards.
 	Pri = CatHealthColumn{"pri"}
 
+	// Relo The number of relocating nodes.
 	Relo = CatHealthColumn{"relo"}
 
+	// Init The number of initializing nodes.
 	Init = CatHealthColumn{"init"}
 
+	// Unassign The number of unassigned shards.
 	Unassign = CatHealthColumn{"unassign"}
 
+	// Unassignpri The number of unassigned primary shards.
 	Unassignpri = CatHealthColumn{"unassign.pri"}
 
+	// Pendingtasks The number of pending tasks.
 	Pendingtasks = CatHealthColumn{"pending_tasks"}
 
+	// Maxtaskwaittime The wait time of the longest pending task.
 	Maxtaskwaittime = CatHealthColumn{"max_task_wait_time"}
 
+	// Activeshardspercent The percentage of active shards.
 	Activeshardspercent = CatHealthColumn{"active_shards_percent"}
 )
 

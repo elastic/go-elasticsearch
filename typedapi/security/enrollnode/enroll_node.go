@@ -25,10 +25,9 @@
 //
 // The response contains all the necessary information for the joining node to
 // bootstrap discovery and security related settings so that it can successfully
-// join the cluster.
-// The response contains key and certificate material that allows the caller to
-// generate valid signed certificates for the HTTP layer of all nodes in the
-// cluster.
+// join the cluster. The response contains key and certificate material that
+// allows the caller to generate valid signed certificates for the HTTP layer of
+// all nodes in the cluster.
 package enrollnode
 
 import (
@@ -85,10 +84,9 @@ func NewEnrollNodeFunc(tp elastictransport.Interface) NewEnrollNode {
 //
 // The response contains all the necessary information for the joining node to
 // bootstrap discovery and security related settings so that it can successfully
-// join the cluster.
-// The response contains key and certificate material that allows the caller to
-// generate valid signed certificates for the HTTP layer of all nodes in the
-// cluster.
+// join the cluster. The response contains key and certificate material that
+// allows the caller to generate valid signed certificates for the HTTP layer of
+// all nodes in the cluster.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enroll-node
 func New(tp elastictransport.Interface) *EnrollNode {
@@ -327,11 +325,9 @@ func (r *EnrollNode) FilterPath(filterpaths ...string) *EnrollNode {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *EnrollNode) Human(human bool) *EnrollNode {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -339,8 +335,8 @@ func (r *EnrollNode) Human(human bool) *EnrollNode {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *EnrollNode) Pretty(pretty bool) *EnrollNode {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

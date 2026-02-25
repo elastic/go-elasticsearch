@@ -30,8 +30,8 @@ import (
 type Response struct {
 	// ClusterName Name of the cluster. Based on the `cluster.name` setting.
 	ClusterName string `json:"cluster_name"`
-	// NodeStats Contains statistics about the number of nodes selected by the request’s node
-	// filters.
+	// NodeStats Contains statistics about the number of nodes selected by the request’s
+	// node filters.
 	NodeStats *types.NodeStatistics `json:"_nodes,omitempty"`
 	// Nodes Contains repositories metering information for the nodes selected by the
 	// request.

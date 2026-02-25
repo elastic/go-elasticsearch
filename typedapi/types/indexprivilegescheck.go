@@ -36,12 +36,11 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/has_privileges/types.ts#L36-L47
 type IndexPrivilegesCheck struct {
 	// AllowRestrictedIndices This needs to be set to `true` (default is `false`) if using wildcards or
-	// regexps for patterns that cover restricted indices.
-	// Implicitly, restricted indices do not match index patterns because restricted
-	// indices usually have limited privileges and including them in pattern tests
-	// would render most such tests false.
-	// If restricted indices are explicitly included in the names list, privileges
-	// will be checked against them regardless of the value of
+	// regexps for patterns that cover restricted indices. Implicitly, restricted
+	// indices do not match index patterns because restricted indices usually have
+	// limited privileges and including them in pattern tests would render most such
+	// tests false. If restricted indices are explicitly included in the names list,
+	// privileges will be checked against them regardless of the value of
 	// `allow_restricted_indices`.
 	AllowRestrictedIndices *bool `json:"allow_restricted_indices,omitempty"`
 	// Names A list of indices.

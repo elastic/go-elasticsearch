@@ -37,85 +37,70 @@ type JobConfig struct {
 	// is insufficient machine learning node capacity for it to be immediately
 	// assigned to a node.
 	AllowLazyOpen *bool `json:"allow_lazy_open,omitempty"`
-	// AnalysisConfig The analysis configuration, which specifies how to analyze the data.
-	// After you create a job, you cannot change the analysis configuration; all the
+	// AnalysisConfig The analysis configuration, which specifies how to analyze the data. After
+	// you create a job, you cannot change the analysis configuration; all the
 	// properties are informational.
 	AnalysisConfig AnalysisConfig `json:"analysis_config"`
 	// AnalysisLimits Limits can be applied for the resources required to hold the mathematical
-	// models in memory.
-	// These limits are approximate and can be set per job.
-	// They do not control the memory used by other processes, for example the
+	// models in memory. These limits are approximate and can be set per job. They
+	// do not control the memory used by other processes, for example the
 	// Elasticsearch Java processes.
 	AnalysisLimits *AnalysisLimits `json:"analysis_limits,omitempty"`
-	// BackgroundPersistInterval Advanced configuration option.
-	// The time between each periodic persistence of the model.
-	// The default value is a randomized value between 3 to 4 hours, which avoids
-	// all jobs persisting at exactly the same time.
-	// The smallest allowed value is 1 hour.
+	// BackgroundPersistInterval Advanced configuration option. The time between each periodic persistence of
+	// the model. The default value is a randomized value between 3 to 4 hours,
+	// which avoids all jobs persisting at exactly the same time. The smallest
+	// allowed value is 1 hour.
 	BackgroundPersistInterval Duration `json:"background_persist_interval,omitempty"`
-	// CustomSettings Advanced configuration option.
-	// Contains custom metadata about the job.
+	// CustomSettings Advanced configuration option. Contains custom metadata about the job.
 	CustomSettings json.RawMessage `json:"custom_settings,omitempty"`
 	// DailyModelSnapshotRetentionAfterDays Advanced configuration option, which affects the automatic removal of old
-	// model snapshots for this job.
-	// It specifies a period of time (in days) after which only the first snapshot
-	// per day is retained.
-	// This period is relative to the timestamp of the most recent snapshot for this
-	// job.
+	// model snapshots for this job. It specifies a period of time (in days) after
+	// which only the first snapshot per day is retained. This period is relative to
+	// the timestamp of the most recent snapshot for this job.
 	DailyModelSnapshotRetentionAfterDays *int64 `json:"daily_model_snapshot_retention_after_days,omitempty"`
 	// DataDescription The data description defines the format of the input data when you send data
-	// to the job by using the post data API.
-	// Note that when configure a datafeed, these properties are automatically set.
+	// to the job by using the post data API. Note that when configure a datafeed,
+	// these properties are automatically set.
 	DataDescription DataDescription `json:"data_description"`
 	// DatafeedConfig The datafeed, which retrieves data from Elasticsearch for analysis by the
-	// job.
-	// You can associate only one datafeed with each anomaly detection job.
+	// job. You can associate only one datafeed with each anomaly detection job.
 	DatafeedConfig *DatafeedConfig `json:"datafeed_config,omitempty"`
 	// Description A description of the job.
 	Description *string `json:"description,omitempty"`
 	// Groups A list of job groups. A job can belong to no groups or many.
 	Groups []string `json:"groups,omitempty"`
-	// JobId Identifier for the anomaly detection job.
-	// This identifier can contain lowercase alphanumeric characters (a-z and 0-9),
-	// hyphens, and underscores.
-	// It must start and end with alphanumeric characters.
+	// JobId Identifier for the anomaly detection job. This identifier can contain
+	// lowercase alphanumeric characters (a-z and 0-9), hyphens, and underscores. It
+	// must start and end with alphanumeric characters.
 	JobId *string `json:"job_id,omitempty"`
 	// JobType Reserved for future use, currently set to `anomaly_detector`.
 	JobType *string `json:"job_type,omitempty"`
 	// ModelPlotConfig This advanced configuration option stores model information along with the
-	// results.
-	// It provides a more detailed view into anomaly detection.
-	// Model plot provides a simplified and indicative view of the model and its
-	// bounds.
+	// results. It provides a more detailed view into anomaly detection. Model plot
+	// provides a simplified and indicative view of the model and its bounds.
 	ModelPlotConfig *ModelPlotConfig `json:"model_plot_config,omitempty"`
 	// ModelSnapshotRetentionDays Advanced configuration option, which affects the automatic removal of old
-	// model snapshots for this job.
-	// It specifies the maximum period of time (in days) that snapshots are
-	// retained.
-	// This period is relative to the timestamp of the most recent snapshot for this
-	// job.
-	// The default value is `10`, which means snapshots ten days older than the
-	// newest snapshot are deleted.
+	// model snapshots for this job. It specifies the maximum period of time (in
+	// days) that snapshots are retained. This period is relative to the timestamp
+	// of the most recent snapshot for this job. The default value is `10`, which
+	// means snapshots ten days older than the newest snapshot are deleted.
 	ModelSnapshotRetentionDays *int64 `json:"model_snapshot_retention_days,omitempty"`
-	// RenormalizationWindowDays Advanced configuration option.
-	// The period over which adjustments to the score are applied, as new data is
-	// seen.
-	// The default value is the longer of 30 days or 100 `bucket_spans`.
+	// RenormalizationWindowDays Advanced configuration option. The period over which adjustments to the score
+	// are applied, as new data is seen. The default value is the longer of 30 days
+	// or 100 `bucket_spans`.
 	RenormalizationWindowDays *int64 `json:"renormalization_window_days,omitempty"`
 	// ResultsIndexName A text string that affects the name of the machine learning results index.
 	// The default value is `shared`, which generates an index named
 	// `.ml-anomalies-shared`.
 	ResultsIndexName *string `json:"results_index_name,omitempty"`
-	// ResultsRetentionDays Advanced configuration option.
-	// The period of time (in days) that results are retained.
-	// Age is calculated relative to the timestamp of the latest bucket result.
-	// If this property has a non-null value, once per day at 00:30 (server time),
-	// results that are the specified number of days older than the latest bucket
-	// result are deleted from Elasticsearch.
-	// The default value is null, which means all results are retained.
-	// Annotations generated by the system also count as results for retention
-	// purposes; they are deleted after the same number of days as results.
-	// Annotations added by users are retained forever.
+	// ResultsRetentionDays Advanced configuration option. The period of time (in days) that results are
+	// retained. Age is calculated relative to the timestamp of the latest bucket
+	// result. If this property has a non-null value, once per day at 00:30 (server
+	// time), results that are the specified number of days older than the latest
+	// bucket result are deleted from Elasticsearch. The default value is null,
+	// which means all results are retained. Annotations generated by the system
+	// also count as results for retention purposes; they are deleted after the same
+	// number of days as results. Annotations added by users are retained forever.
 	ResultsRetentionDays *int64 `json:"results_retention_days,omitempty"`
 }
 
