@@ -34,8 +34,6 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esutil"
-
-	"testing/containertest"
 )
 
 func TestBulkIndexerIntegration(t *testing.T) {
@@ -67,17 +65,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 		},
 	}
 
-	elasticsearchSrv, err := containertest.NewElasticsearchService(containertest.ElasticStackImage)
-	if err != nil {
-		t.Fatalf("Error setting up Elasticsearch container: %s", err)
-	}
-	defer func() {
-		if err := elasticsearchSrv.Terminate(context.Background()); err != nil {
-			t.Fatalf("Error terminating Elasticsearch container: %s", err)
-		}
-	}()
-
-	tcCfg := elasticsearchSrv.ESConfig()
+	tcCfg := sharedCfg
 
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {

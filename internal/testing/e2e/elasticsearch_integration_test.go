@@ -48,22 +48,10 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/refresh"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/result"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortorder"
-
-	"testing/containertest"
 )
 
 func TestElasticsearchIntegration(t *testing.T) {
-	elasticsearchSrv, err := containertest.NewElasticsearchService(containertest.ElasticStackImage)
-	if err != nil {
-		t.Fatalf("Error setting up Elasticsearch container: %s", err)
-	}
-	defer func() {
-		if err := elasticsearchSrv.Terminate(context.Background()); err != nil {
-			t.Fatalf("Error terminating Elasticsearch container: %s", err)
-		}
-	}()
-
-	tcCfg := elasticsearchSrv.ESConfig()
+	tcCfg := sharedCfg
 
 	t.Run("TestClientTransport", func(t *testing.T) {
 		t.Run("Persistent", func(t *testing.T) {
@@ -556,22 +544,7 @@ func (t *ReplacedTransport) Count() uint64 {
 }
 
 func TestElasticsearchInsecureIntegration(t *testing.T) {
-	elasticsearchSrv, err := containertest.NewElasticsearchService(
-		containertest.ElasticStackImage,
-		containertest.WithEnv(map[string]string{
-			"xpack.security.enabled": "false",
-		}),
-	)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer func() {
-		if err := elasticsearchSrv.Terminate(context.Background()); err != nil {
-			t.Fatalf("Error terminating Elasticsearch container: %s", err)
-		}
-	}()
-
-	t.Setenv("ELASTICSEARCH_URL", elasticsearchSrv.ESConfig().Addresses[0])
+	t.Setenv("ELASTICSEARCH_URL", sharedInsecureAddr)
 
 	t.Run("CustomTransport", func(t *testing.T) {
 		t.Run("TestClientCustomTransport", func(t *testing.T) {
@@ -602,7 +575,7 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 			})
 
 			t.Run("Manual", func(t *testing.T) {
-				u, err := url.Parse(elasticsearchSrv.ESConfig().Addresses[0])
+				u, err := url.Parse(sharedInsecureAddr)
 				if err != nil {
 					t.Fatalf("Unexpected error: %s", err)
 				}
@@ -642,7 +615,7 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 
 	t.Run("TestClientReplaceTransport", func(t *testing.T) {
 		t.Run("Replaced", func(t *testing.T) {
-			u, err := url.Parse(elasticsearchSrv.ESConfig().Addresses[0])
+			u, err := url.Parse(sharedInsecureAddr)
 			if err != nil {
 				t.Fatalf("cannot parse Elasticsearch docker container url: %s", err)
 			}
