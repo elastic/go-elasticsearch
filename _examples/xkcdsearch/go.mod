@@ -14,8 +14,8 @@ require (
 )
 
 require (
-	github.com/elastic/elastic-transport-go/v8 v8.8.0 // indirect
-	github.com/go-logr/logr v1.4.2 // indirect
+	github.com/elastic/elastic-transport-go/v8 v8.9.0 // indirect
+	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/spf13/pflag v1.0.3 // indirect

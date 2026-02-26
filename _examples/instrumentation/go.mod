@@ -7,7 +7,7 @@ toolchain go1.24.2
 replace github.com/elastic/go-elasticsearch/v9 => ../..
 
 require (
-	github.com/elastic/elastic-transport-go/v8 v8.8.0
+	github.com/elastic/elastic-transport-go/v8 v8.9.0
 	github.com/elastic/go-elasticsearch/v9 v9.0.0-00010101000000-000000000000
 	github.com/fatih/color v1.7.0
 	go.elastic.co/apm v1.11.0
@@ -20,7 +20,7 @@ require (
 	github.com/armon/go-radix v1.0.0 // indirect
 	github.com/elastic/go-sysinfo v1.1.1 // indirect
 	github.com/elastic/go-windows v1.0.0 // indirect
-	github.com/go-logr/logr v1.4.2 // indirect
+	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/joeshaw/multierror v0.0.0-20140124173710-69b34d4ec901 // indirect
 	github.com/mattn/go-colorable v0.1.0 // indirect

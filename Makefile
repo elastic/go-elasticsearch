@@ -151,6 +151,20 @@ test-coverage:  ## Generate test coverage report
 	@printf "\033[0m--------------------------------------------------------------------------------\nopen tmp/coverage.html\n\n\033[0m"
 
 ##@ Development
+go-mod-tidy-all: ## Run go mod tidy in all modules
+	@printf "\033[2m→ Running go mod tidy across modules...\033[0m\n"
+	@{ \
+		set -e ; \
+		while IFS= read -r modfile; do \
+			moddir=$$(dirname "$$modfile"); \
+			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\n"; \
+			printf "\033[1mRunning go mod tidy in $$moddir\033[0m\n"; \
+			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\033[0m\n"; \
+			(cd "$$moddir" && go mod tidy); \
+		done < <(find . -name go.mod -print | sort); \
+	}
+
+
 lint:  ## Run lint on the package
 	@printf "\033[2m→ Running lint...\033[0m\n"
 	go vet github.com/elastic/go-elasticsearch/...
