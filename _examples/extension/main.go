@@ -15,9 +15,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-//go:build ignore
-// +build ignore
-
 // This examples demonstrates how extend the API of the client by embedding it inside a custom type.
 
 package main
@@ -41,20 +38,17 @@ import (
 const port = "9209"
 
 // ExtendedClient allows to call regular and custom APIs.
-//
 type ExtendedClient struct {
 	*elasticsearch.Client
 	Custom *ExtendedAPI
 }
 
 // ExtendedAPI contains custom APIs.
-//
 type ExtendedAPI struct {
 	*elasticsearch.Client
 }
 
 // Example calls a custom REST API, "/_cat/example".
-//
 func (c *ExtendedAPI) Example() (*esapi.Response, error) {
 	req, _ := http.NewRequest("GET", "/_cat/example", nil) // errcheck exclude
 
