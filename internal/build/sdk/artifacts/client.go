@@ -29,7 +29,7 @@ import (
 )
 
 const (
-	defaultReleasesBaseURL = "https://artifacts.elastic.co/"
+	defaultReleasesBaseURL = "https://elastic-release-api.s3.us-west-2.amazonaws.com/"
 	defaultSnapshotBaseURL = "https://artifacts-snapshot.elastic.co/"
 )
 
