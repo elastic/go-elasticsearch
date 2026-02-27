@@ -17,7 +17,7 @@ on:
 
 env:
   GITHUB_ACTIONS: true
-  ELASTICSEARCH_VERSION: elasticsearch:8.3.0-SNAPSHOT
+  ELASTICSEARCH_VERSION: elasticsearch:8.19.0
 
 jobs:
   test-integration:
@@ -55,6 +55,20 @@ jobs:
           docker pull --quiet docker.elastic.co/elasticsearch/${{ env.ELASTICSEARCH_VERSION }}
           docker pull --quiet appropriate/curl
           make cluster-clean cluster-update cluster detach=true version="${{ env.ELASTICSEARCH_VERSION }}"
+      - name: Wait for Elasticsearch on host
+        run: |
+          echo "→ Waiting for Elasticsearch on http://localhost:9200..."
+          for i in $(seq 1 120); do
+            if curl -s -o /dev/null -w '' http://localhost:9200; then
+              echo "Elasticsearch is ready (attempt $i)"
+              break
+            fi
+            if [ "$i" -eq 120 ]; then
+              echo "Elasticsearch did not become ready in time"
+              exit 1
+            fi
+            sleep 1
+          done
       - name: Run setup
         run: |
           cd _examples/encoding && make setup
