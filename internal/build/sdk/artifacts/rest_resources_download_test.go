@@ -118,7 +118,7 @@ func TestClient_DownloadRestResources(t *testing.T) {
 			ref:  "8.15.0",
 			dest: "/output",
 			responses: map[string]string{
-				"https://artifacts.elastic.co/releases/stack.json": `{
+				"https://elastic-release-api.s3.us-west-2.amazonaws.com/public/past-releases.json": `{
 					"releases": [
 						{
 							"version": "8.15.0",
@@ -172,7 +172,7 @@ func TestClient_DownloadRestResources(t *testing.T) {
 			ref:  "99.99.99",
 			dest: "/output",
 			responses: map[string]string{
-				"https://artifacts.elastic.co/releases/stack.json": `{
+				"https://elastic-release-api.s3.us-west-2.amazonaws.com/public/past-releases.json": `{
 					"releases": [
 						{
 							"version": "8.15.0",
