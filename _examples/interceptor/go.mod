@@ -5,7 +5,7 @@ go 1.23.0
 replace github.com/elastic/go-elasticsearch/v8 => ../..
 
 require (
-	github.com/elastic/elastic-transport-go/v8 v8.8.0
+	github.com/elastic/elastic-transport-go/v8 v8.9.0
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20191002063538-b491ce54d752
 	go.opentelemetry.io/otel v1.38.0
 	go.opentelemetry.io/otel/exporters/stdout/stdoutmetric v1.38.0
