@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Simulate data ingestion.
+//
 // Run ingest pipelines against a set of provided documents, optionally with
 // substitute pipeline definitions, to simulate ingesting data into an index.
 //
@@ -114,6 +115,7 @@ func NewIngestFunc(tp elastictransport.Interface) NewIngest {
 }
 
 // Simulate data ingestion.
+//
 // Run ingest pipelines against a set of provided documents, optionally with
 // substitute pipeline definitions, to simulate ingesting data into an index.
 //

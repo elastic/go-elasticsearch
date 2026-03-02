@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Update voting configuration exclusions.
+//
 // Update the cluster voting config exclusions by node IDs or node names.
 // By default, if there are more than three master-eligible nodes in the cluster
 // and you remove fewer than half of the master-eligible nodes in the cluster at
@@ -105,6 +106,7 @@ func NewPostVotingConfigExclusionsFunc(tp elastictransport.Interface) NewPostVot
 }
 
 // Update voting configuration exclusions.
+//
 // Update the cluster voting config exclusions by node IDs or node names.
 // By default, if there are more than three master-eligible nodes in the cluster
 // and you remove fewer than half of the master-eligible nodes in the cluster at

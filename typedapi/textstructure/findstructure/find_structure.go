@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Find the structure of a text file.
+//
 // The text file must contain data that is suitable to be ingested into
 // Elasticsearch.
 //
@@ -61,6 +62,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/findstructureformat"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -100,6 +102,7 @@ func NewFindStructureFunc(tp elastictransport.Interface) NewFindStructure {
 }
 
 // Find the structure of a text file.
+//
 // The text file must contain data that is suitable to be ingested into
 // Elasticsearch.
 //
@@ -428,8 +431,8 @@ func (r *FindStructure) Explain(explain bool) *FindStructure {
 // the API tolerates up to 5% of rows that have a different number of columns
 // than the first row.
 // API name: format
-func (r *FindStructure) Format(format string) *FindStructure {
-	r.values.Set("format", format)
+func (r *FindStructure) Format(format findstructureformat.FindStructureFormat) *FindStructure {
+	r.values.Set("format", format.String())
 
 	return r
 }

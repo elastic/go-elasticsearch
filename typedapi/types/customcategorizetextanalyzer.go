@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CustomCategorizeTextAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/aggregations/bucket.ts#L1219-L1223
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_types/aggregations/bucket.ts#L1229-L1233
 type CustomCategorizeTextAnalyzer struct {
 	CharFilter []string `json:"char_filter,omitempty"`
 	Filter     []string `json:"filter,omitempty"`
@@ -96,6 +96,9 @@ func (s *CustomCategorizeTextAnalyzer) CustomCategorizeTextAnalyzerCaster() *Cus
 }
 
 func (s *CustomCategorizeTextAnalyzer) CategorizeTextAnalyzerCaster() *CategorizeTextAnalyzer {
+	if s == nil {
+		return nil
+	}
 	o := CategorizeTextAnalyzer(s)
 	return &o
 }

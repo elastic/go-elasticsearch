@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package deleteruleset
 
 // Response holds the response body struct for the package deleteruleset
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/query_rules/delete_ruleset/QueryRulesetDeleteResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/query_rules/delete_ruleset/QueryRulesetDeleteResponse.ts#L22-L25
 type Response struct {
 	// Acknowledged For a successful response, this value is always true. On failure, an
 	// exception is returned instead.

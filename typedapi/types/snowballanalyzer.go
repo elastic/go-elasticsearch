@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // SnowballAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/analyzers.ts#L374-L380
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_types/analysis/analyzers.ts#L374-L380
 type SnowballAnalyzer struct {
 	Language  snowballlanguage.SnowballLanguage `json:"language"`
 	Stopwords StopWords                         `json:"stopwords,omitempty"`
@@ -111,6 +111,9 @@ func (s *SnowballAnalyzer) SnowballAnalyzerCaster() *SnowballAnalyzer {
 }
 
 func (s *SnowballAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

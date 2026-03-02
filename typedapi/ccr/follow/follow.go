@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Create a follower.
+//
 // Create a cross-cluster replication follower index that follows a specific
 // leader index.
 // When the API returns, the follower index exists and cross-cluster replication
@@ -86,6 +87,7 @@ func NewFollowFunc(tp elastictransport.Interface) NewFollow {
 }
 
 // Create a follower.
+//
 // Create a cross-cluster replication follower index that follows a specific
 // leader index.
 // When the API returns, the follower index exists and cross-cluster replication

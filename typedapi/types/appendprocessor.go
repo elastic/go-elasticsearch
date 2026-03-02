@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AppendProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ingest/_types/Processors.ts#L329-L348
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/ingest/_types/Processors.ts#L329-L361
 type AppendProcessor struct {
 	// AllowDuplicates If `false`, the processor does not append values already present in the
 	// field.
@@ -47,8 +47,17 @@ type AppendProcessor struct {
 	Field string `json:"field"`
 	// If Conditionally execute the processor.
 	If *Script `json:"if,omitempty"`
+	// IgnoreEmptyValues If `true`, the processor will skip empty values from the source (e.g. empty
+	// strings, and null values),
+	// rather than appending them to the field.
+	IgnoreEmptyValues *bool `json:"ignore_empty_values,omitempty"`
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// MediaType The media type for encoding `value`.
+	// Applies only when value is a template snippet.
+	// Must be one of `application/json`, `text/plain`, or
+	// `application/x-www-form-urlencoded`.
+	MediaType *string `json:"media_type,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// Tag Identifier for the processor.
@@ -115,6 +124,20 @@ func (s *AppendProcessor) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "If", err)
 			}
 
+		case "ignore_empty_values":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IgnoreEmptyValues", err)
+				}
+				s.IgnoreEmptyValues = &value
+			case bool:
+				s.IgnoreEmptyValues = &v
+			}
+
 		case "ignore_failure":
 			var tmp any
 			dec.Decode(&tmp)
@@ -128,6 +151,18 @@ func (s *AppendProcessor) UnmarshalJSON(data []byte) error {
 			case bool:
 				s.IgnoreFailure = &v
 			}
+
+		case "media_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "MediaType", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.MediaType = &o
 
 		case "on_failure":
 			if err := dec.Decode(&s.OnFailure); err != nil {

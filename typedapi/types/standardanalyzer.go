@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StandardAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/analyzers.ts#L382-L402
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_types/analysis/analyzers.ts#L382-L402
 type StandardAnalyzer struct {
 	// MaxTokenLength The maximum token length. If a token is seen that exceeds this length then it
 	// is split at `max_token_length` intervals.
@@ -135,6 +135,9 @@ func (s *StandardAnalyzer) StandardAnalyzerCaster() *StandardAnalyzer {
 }
 
 func (s *StandardAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

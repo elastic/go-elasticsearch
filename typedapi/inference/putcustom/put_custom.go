@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Create a custom inference endpoint.
 //
@@ -487,6 +487,8 @@ func (r *PutCustom) Pretty(pretty bool) *PutCustom {
 }
 
 // The chunking configuration object.
+// Applies only to the `sparse_embedding` or `text_embedding` task types.
+// Not applicable to the `rerank` or `completion` task types.
 // API name: chunking_settings
 func (r *PutCustom) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutCustom {
 	// Initialize the request if it is not already initialized

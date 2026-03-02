@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Acknowledge a watch.
+//
 // Acknowledging a watch enables you to manually throttle the execution of the
 // watch's actions.
 //
@@ -97,6 +98,7 @@ func NewAckWatchFunc(tp elastictransport.Interface) NewAckWatch {
 }
 
 // Acknowledge a watch.
+//
 // Acknowledging a watch enables you to manually throttle the execution of the
 // watch's actions.
 //

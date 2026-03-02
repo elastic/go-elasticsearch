@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Create or update a query ruleset.
+//
 // There is a limit of 100 rules per ruleset.
 // This limit can be increased by using the
 // `xpack.applications.rules.max_rules_per_ruleset` cluster setting.
@@ -92,6 +93,7 @@ func NewPutRulesetFunc(tp elastictransport.Interface) NewPutRuleset {
 }
 
 // Create or update a query ruleset.
+//
 // There is a limit of 100 rules per ruleset.
 // This limit can be increased by using the
 // `xpack.applications.rules.max_rules_per_ruleset` cluster setting.

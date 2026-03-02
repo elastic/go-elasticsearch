@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Reload search analyzers.
+//
 // Reload an index's search analyzers and their resources.
 // For data streams, the API reloads search analyzers and resources for the
 // stream's backing indices.
@@ -101,6 +102,7 @@ func NewReloadSearchAnalyzersFunc(tp elastictransport.Interface) NewReloadSearch
 }
 
 // Reload search analyzers.
+//
 // Reload an index's search analyzers and their resources.
 // For data streams, the API reloads search analyzers and resources for the
 // stream's backing indices.
@@ -345,7 +347,8 @@ func (r *ReloadSearchAnalyzers) _index(index string) *ReloadSearchAnalyzers {
 }
 
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// indices.
+// (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
 func (r *ReloadSearchAnalyzers) AllowNoIndices(allownoindices bool) *ReloadSearchAnalyzers {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))

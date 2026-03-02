@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Get node statistics.
+//
 // Get statistics for nodes in a cluster.
 // By default, all stats are returned. You can limit the returned information by
 // using metrics.
@@ -85,6 +86,7 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 }
 
 // Get node statistics.
+//
 // Get statistics for nodes in a cluster.
 // By default, all stats are returned. You can limit the returned information by
 // using metrics.
@@ -393,7 +395,7 @@ func (r *Stats) NodeId(nodeid string) *Stats {
 	return r
 }
 
-// Metric Limit the information returned to the specified metrics
+// Metric Limits the information returned to the specific metrics.
 // API Name: metric
 func (r *Stats) Metric(metric string) *Stats {
 	r.paramSet |= metricMask

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Run a retention policy.
+//
 // Manually apply the retention policy to force immediate removal of snapshots
 // that are expired according to the snapshot lifecycle policy retention rules.
 // The retention policy is normally applied according to its schedule.
@@ -72,6 +73,7 @@ func NewExecuteRetentionFunc(tp elastictransport.Interface) NewExecuteRetention 
 }
 
 // Run a retention policy.
+//
 // Manually apply the retention policy to force immediate removal of snapshots
 // that are expired according to the snapshot lifecycle policy retention rules.
 // The retention policy is normally applied according to its schedule.

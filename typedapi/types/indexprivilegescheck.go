@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexPrivilegesCheck type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/has_privileges/types.ts#L34-L45
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/security/has_privileges/types.ts#L36-L47
 type IndexPrivilegesCheck struct {
 	// AllowRestrictedIndices This needs to be set to `true` (default is `false`) if using wildcards or
 	// regexps for patterns that cover restricted indices.

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Get async ES|QL query results.
+//
 // Get the current status and available results or stored results for an ES|QL
 // asynchronous query.
 // If the Elasticsearch security features are enabled, only the user who first
@@ -82,6 +83,7 @@ func NewAsyncQueryGetFunc(tp elastictransport.Interface) NewAsyncQueryGet {
 }
 
 // Get async ES|QL query results.
+//
 // Get the current status and available results or stored results for an ES|QL
 // asynchronous query.
 // If the Elasticsearch security features are enabled, only the user who first

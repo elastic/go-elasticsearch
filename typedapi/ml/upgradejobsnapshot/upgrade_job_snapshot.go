@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Upgrade a snapshot.
+//
 // Upgrade an anomaly detection model snapshot to the latest major version.
 // Over time, older snapshot formats are deprecated and removed. Anomaly
 // detection jobs support only snapshots that are from the current or previous
@@ -91,6 +92,7 @@ func NewUpgradeJobSnapshotFunc(tp elastictransport.Interface) NewUpgradeJobSnaps
 }
 
 // Upgrade a snapshot.
+//
 // Upgrade an anomaly detection model snapshot to the latest major version.
 // Over time, older snapshot formats are deprecated and removed. Anomaly
 // detection jobs support only snapshots that are from the current or previous

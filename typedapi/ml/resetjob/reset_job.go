@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Reset an anomaly detection job.
+//
 // All model state and results are deleted. The job is ready to start over as if
 // it had just been created.
 // It is not currently possible to reset multiple jobs using wildcards or a
@@ -81,6 +82,7 @@ func NewResetJobFunc(tp elastictransport.Interface) NewResetJob {
 }
 
 // Reset an anomaly detection job.
+//
 // All model state and results are deleted. The job is ready to start over as if
 // it had just been created.
 // It is not currently possible to reset multiple jobs using wildcards or a

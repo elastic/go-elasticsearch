@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Revert to a snapshot.
+//
 // The machine learning features react quickly to anomalous input, learning new
 // behaviors in data. Highly anomalous input increases the variance in the
 // models whilst the system learns whether this is a new step-change in behavior
@@ -94,6 +95,7 @@ func NewRevertModelSnapshotFunc(tp elastictransport.Interface) NewRevertModelSna
 }
 
 // Revert to a snapshot.
+//
 // The machine learning features react quickly to anomalous input, learning new
 // behaviors in data. Highly anomalous input increases the variance in the
 // models whilst the system learns whether this is a new step-change in behavior

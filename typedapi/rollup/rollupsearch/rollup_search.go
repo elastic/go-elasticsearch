@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Search rolled-up data.
+//
 // The rollup search endpoint is needed because, internally, rolled-up documents
 // utilize a different document structure than the original data.
 // It rewrites standard Query DSL into a format that matches the rollup
@@ -99,6 +100,7 @@ func NewRollupSearchFunc(tp elastictransport.Interface) NewRollupSearch {
 }
 
 // Search rolled-up data.
+//
 // The rollup search endpoint is needed because, internally, rolled-up documents
 // utilize a different document structure than the original data.
 // It rewrites standard Query DSL into a format that matches the rollup

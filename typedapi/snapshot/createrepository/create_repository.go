@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Create or update a snapshot repository.
+//
 // IMPORTANT: If you are migrating searchable snapshots, the repository name
 // must be identical in the source and destination clusters.
 // To register a snapshot repository, the cluster's global metadata must be
@@ -93,6 +94,7 @@ func NewCreateRepositoryFunc(tp elastictransport.Interface) NewCreateRepository 
 }
 
 // Create or update a snapshot repository.
+//
 // IMPORTANT: If you are migrating searchable snapshots, the repository name
 // must be identical in the source and destination clusters.
 // To register a snapshot repository, the cluster's global metadata must be

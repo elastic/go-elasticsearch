@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
-// Perform reranking inference on the service
+// Perform reranking inference on the service.
 package rerank
 
 import (
@@ -81,7 +81,7 @@ func NewRerankFunc(tp elastictransport.Interface) NewRerank {
 	}
 }
 
-// Perform reranking inference on the service
+// Perform reranking inference on the service.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *Rerank {
@@ -365,12 +365,7 @@ func (r *Rerank) Pretty(pretty bool) *Rerank {
 	return r
 }
 
-// The text on which you want to perform the inference task.
-// It can be a single string or an array.
-//
-// > info
-// > Inference endpoints for the `completion` task type currently only support a
-// single string as input.
+// The documents to rank.
 // API name: input
 func (r *Rerank) Input(inputs ...string) *Rerank {
 	// Initialize the request if it is not already initialized
@@ -396,6 +391,19 @@ func (r *Rerank) Query(query string) *Rerank {
 	return r
 }
 
+// Include the document text in the response.
+// API name: return_documents
+func (r *Rerank) ReturnDocuments(returndocuments bool) *Rerank {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ReturnDocuments = &returndocuments
+
+	return r
+}
+
 // Task settings for the individual inference request.
 // These settings are specific to the task type you specified and override the
 // task settings specified when initializing the service.
@@ -407,6 +415,19 @@ func (r *Rerank) TaskSettings(tasksettings json.RawMessage) *Rerank {
 	}
 
 	r.req.TaskSettings = tasksettings
+
+	return r
+}
+
+// Limit the response to the top N documents.
+// API name: top_n
+func (r *Rerank) TopN(topn int) *Rerank {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.TopN = &topn
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package esdsl
 
@@ -53,9 +53,9 @@ func (s *_indexTemplateSummary) AddAlias(key string, value types.AliasVariant) *
 	return s
 }
 
-func (s *_indexTemplateSummary) DataStreamOptions(datastreamoptions types.DataStreamOptionsTemplateVariant) *_indexTemplateSummary {
+func (s *_indexTemplateSummary) DataStreamOptions(datastreamoptions types.DataStreamOptionsVariant) *_indexTemplateSummary {
 
-	s.v.DataStreamOptions = datastreamoptions.DataStreamOptionsTemplateCaster()
+	s.v.DataStreamOptions = datastreamoptions.DataStreamOptionsCaster()
 
 	return s
 }

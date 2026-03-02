@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Set the connector sync job stats.
+//
 // Stats include: `deleted_document_count`, `indexed_document_count`,
 // `indexed_document_volume`, and `total_document_count`.
 // You can also update `last_seen`.
@@ -92,6 +93,7 @@ func NewSyncJobUpdateStatsFunc(tp elastictransport.Interface) NewSyncJobUpdateSt
 }
 
 // Set the connector sync job stats.
+//
 // Stats include: `deleted_document_count`, `indexed_document_count`,
 // `indexed_document_volume`, and `total_document_count`.
 // You can also update `last_seen`.

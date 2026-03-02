@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // ConnectorConfigProperties type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/connector/_types/Connector.ts#L83-L99
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/connector/_types/Connector.ts#L83-L99
 type ConnectorConfigProperties struct {
 	Category       *string                                `json:"category,omitempty"`
 	DefaultValue   ScalarValue                            `json:"default_value"`

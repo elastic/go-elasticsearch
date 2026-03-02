@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PersianAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/analyzers.ts#L255-L259
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_types/analysis/analyzers.ts#L255-L259
 type PersianAnalyzer struct {
 	Stopwords     StopWords `json:"stopwords,omitempty"`
 	StopwordsPath *string   `json:"stopwords_path,omitempty"`
@@ -110,6 +110,9 @@ func (s *PersianAnalyzer) PersianAnalyzerCaster() *PersianAnalyzer {
 }
 
 func (s *PersianAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardsCapacityIndicatorTierDetail type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/health_report/types.ts#L203-L206
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_global/health_report/types.ts#L203-L206
 type ShardsCapacityIndicatorTierDetail struct {
 	CurrentUsedShards  *int `json:"current_used_shards,omitempty"`
 	MaxShardsInCluster int  `json:"max_shards_in_cluster"`

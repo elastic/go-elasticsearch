@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndexDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/snapshot/_types/SnapshotIndexDetails.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/snapshot/_types/SnapshotIndexDetails.ts#L23-L28
 type IndexDetails struct {
 	MaxSegmentsPerShard int64    `json:"max_segments_per_shard"`
 	ShardCount          int      `json:"shard_count"`

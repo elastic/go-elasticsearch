@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package tags
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package tags
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/project/tags/TagsResponse.ts#L38-L43
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/project/tags/TagsResponse.ts#L38-L43
 type Response struct {
 	LinkedProjects map[string]types.Tags `json:"linked_projects,omitempty"`
 	Origin         map[string]types.Tags `json:"origin"`

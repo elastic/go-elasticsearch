@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TermsLookup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/query_dsl/term.ts#L266-L271
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_types/query_dsl/term.ts#L267-L272
 type TermsLookup struct {
 	Id      string  `json:"id"`
 	Index   string  `json:"index"`
@@ -94,6 +94,9 @@ func (s *TermsLookup) TermsLookupCaster() *TermsLookup {
 }
 
 func (s *TermsLookup) TermsQueryFieldCaster() *TermsQueryField {
+	if s == nil {
+		return nil
+	}
 	o := TermsQueryField(s)
 	return &o
 }

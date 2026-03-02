@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package putindextemplate
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putindextemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L37-L159
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L39-L165
 type Request struct {
 	// AllowAutoCreate This setting overrides the value of the `action.auto_create_index` cluster
 	// setting.
@@ -61,7 +61,8 @@ type Request struct {
 	// an index template
 	// references a component template that might not exist
 	IgnoreMissingComponentTemplates []string `json:"ignore_missing_component_templates,omitempty"`
-	// IndexPatterns Name of the index template to create.
+	// IndexPatterns Array of wildcard (`*`) expressions used to match the names of data streams
+	// and indices during creation.
 	IndexPatterns []string `json:"index_patterns,omitempty"`
 	// Meta_ Optional user metadata about the index template.
 	// It may have any contents.
