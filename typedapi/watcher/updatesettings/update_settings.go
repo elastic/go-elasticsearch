@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Update Watcher index settings.
 //
@@ -95,7 +95,7 @@ func NewUpdateSettingsFunc(tp elastictransport.Interface) NewUpdateSettings {
 // exception and is not allowed as the
 // Watcher shards must always be in the `data_content` tier.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-update-settings
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-update-settings
 func New(tp elastictransport.Interface) *UpdateSettings {
 	r := &UpdateSettings{
 		transport: tp,

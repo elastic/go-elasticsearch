@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Get component templates.
 //
@@ -80,7 +80,7 @@ func NewGetComponentTemplateFunc(tp elastictransport.Interface) NewGetComponentT
 //
 // Get information about component templates.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-component-template
 func New(tp elastictransport.Interface) *GetComponentTemplate {
 	r := &GetComponentTemplate{
 		transport: tp,

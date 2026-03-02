@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Stop rollup jobs.
 //
@@ -110,7 +110,7 @@ func NewStopJobFunc(tp elastictransport.Interface) NewStopJob {
 // If the specified time elapses without the job moving to STOPPED, a timeout
 // exception occurs.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-stop-job
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-stop-job
 func New(tp elastictransport.Interface) *StopJob {
 	r := &StopJob{
 		transport: tp,

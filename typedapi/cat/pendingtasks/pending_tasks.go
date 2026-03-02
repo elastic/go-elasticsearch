@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Get pending task information.
 //
@@ -83,7 +83,7 @@ func NewPendingTasksFunc(tp elastictransport.Interface) NewPendingTasks {
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the pending cluster tasks API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-pending-tasks
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-pending-tasks
 func New(tp elastictransport.Interface) *PendingTasks {
 	r := &PendingTasks{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package submit
 
@@ -33,7 +33,7 @@ import (
 
 // Response holds the response body struct for the package submit
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/async_search/submit/AsyncSearchSubmitResponse.ts#L25-L34
+// https://github.com/elastic/elasticsearch-specification/blob/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6/specification/async_search/submit/AsyncSearchSubmitResponse.ts#L25-L34
 type Response struct {
 	// CompletionTime Indicates when the async search completed.
 	// It is present only when the search has completed.
