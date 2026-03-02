@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package cleartrainedmodeldeploymentcache
 
 // Response holds the response body struct for the package cleartrainedmodeldeploymentcache
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/clear_trained_model_deployment_cache/MlClearTrainedModelDeploymentCacheResponse.ts#L20-L24
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/ml/clear_trained_model_deployment_cache/MlClearTrainedModelDeploymentCacheResponse.ts#L20-L24
 type Response struct {
 	Cleared bool `json:"cleared"`
 }

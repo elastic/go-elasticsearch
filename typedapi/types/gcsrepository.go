@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -30,11 +30,13 @@ import (
 
 // GcsRepository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/snapshot/_types/SnapshotRepository.ts#L45-L48
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/snapshot/_types/SnapshotRepository.ts#L52-L62
 type GcsRepository struct {
+	// Settings The repository settings.
 	Settings GcsRepositorySettings `json:"settings"`
-	Type     string                `json:"type,omitempty"`
-	Uuid     *string               `json:"uuid,omitempty"`
+	// Type The Google Cloud Storage repository type.
+	Type string  `json:"type,omitempty"`
+	Uuid *string `json:"uuid,omitempty"`
 }
 
 func (s *GcsRepository) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SignificantTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/bucket.ts#L817-L884
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/_types/aggregations/bucket.ts#L843-L920
 type SignificantTermsAggregation struct {
 	// BackgroundFilter A background filter that can be used to focus in on significant terms within
 	// a narrower context, instead of the entire index.
@@ -60,6 +60,18 @@ type SignificantTermsAggregation struct {
 	// MutualInformation Use mutual information as described in "Information Retrieval", Manning et
 	// al., Chapter 13.5.1, as the significance score.
 	MutualInformation *MutualInformationHeuristic `json:"mutual_information,omitempty"`
+	// PValue Significant terms heuristic that calculates the p-value between the term
+	// existing in foreground and background sets.
+	//
+	// The p-value is the probability of obtaining test results at least as extreme
+	// as
+	// the results actually observed, under the assumption that the null hypothesis
+	// is
+	// correct. The p-value is calculated assuming that the foreground set and the
+	// background set are independent https://en.wikipedia.org/wiki/Bernoulli_trial,
+	// with the null
+	// hypothesis that the probabilities are the same.
+	PValue *PValueHeuristic `json:"p_value,omitempty"`
 	// Percentage A simple calculation of the number of documents in the foreground sample with
 	// a term divided by the number of documents in the background with the term.
 	Percentage *PercentageScoreHeuristic `json:"percentage,omitempty"`
@@ -193,6 +205,11 @@ func (s *SignificantTermsAggregation) UnmarshalJSON(data []byte) error {
 		case "mutual_information":
 			if err := dec.Decode(&s.MutualInformation); err != nil {
 				return fmt.Errorf("%s | %w", "MutualInformation", err)
+			}
+
+		case "p_value":
+			if err := dec.Decode(&s.PValue); err != nil {
+				return fmt.Errorf("%s | %w", "PValue", err)
 			}
 
 		case "percentage":

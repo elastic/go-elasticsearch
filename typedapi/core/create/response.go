@@ -16,20 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package create
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/failurestorestatus"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/result"
 )
 
 // Response holds the response body struct for the package create
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/create/CreateResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/_global/create/CreateResponse.ts#L22-L24
 type Response struct {
-	ForcedRefresh *bool `json:"forced_refresh,omitempty"`
+	// FailureStore The role of the failure store in this document response
+	FailureStore  *failurestorestatus.FailureStoreStatus `json:"failure_store,omitempty"`
+	ForcedRefresh *bool                                  `json:"forced_refresh,omitempty"`
 	// Id_ The unique identifier for the added document.
 	Id_ string `json:"_id"`
 	// Index_ The name of the index the document was added to.

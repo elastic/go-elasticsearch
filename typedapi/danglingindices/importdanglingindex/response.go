@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package importdanglingindex
 
 // Response holds the response body struct for the package importdanglingindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/dangling_indices/import_dangling_index/ImportDanglingIndexResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/dangling_indices/import_dangling_index/ImportDanglingIndexResponse.ts#L22-L24
 type Response struct {
 	// Acknowledged For a successful response, this value is always true. On failure, an
 	// exception is returned instead.

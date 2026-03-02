@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package updatecrossclusterapikey
 
 // Response holds the response body struct for the package updatecrossclusterapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/update_cross_cluster_api_key/UpdateCrossClusterApiKeyResponse.ts#L20-L28
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/security/update_cross_cluster_api_key/UpdateCrossClusterApiKeyResponse.ts#L20-L28
 type Response struct {
 	// Updated If `true`, the API key was updated.
 	// If `false`, the API key didn’t change because no change was detected.

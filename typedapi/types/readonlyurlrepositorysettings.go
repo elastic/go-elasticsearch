@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -31,16 +31,60 @@ import (
 
 // ReadOnlyUrlRepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/snapshot/_types/SnapshotRepository.ts#L110-L115
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/snapshot/_types/SnapshotRepository.ts#L377-L412
 type ReadOnlyUrlRepositorySettings struct {
-	ChunkSize              ByteSize `json:"chunk_size,omitempty"`
-	Compress               *bool    `json:"compress,omitempty"`
-	HttpMaxRetries         *int     `json:"http_max_retries,omitempty"`
-	HttpSocketTimeout      Duration `json:"http_socket_timeout,omitempty"`
-	MaxNumberOfSnapshots   *int     `json:"max_number_of_snapshots,omitempty"`
-	MaxRestoreBytesPerSec  ByteSize `json:"max_restore_bytes_per_sec,omitempty"`
+	// ChunkSize Big files can be broken down into multiple smaller blobs in the blob store
+	// during snapshotting.
+	// It is not recommended to change this value from its default unless there is
+	// an explicit reason for limiting the size of blobs in the repository.
+	// Setting a value lower than the default can result in an increased number of
+	// API calls to the blob store during snapshot create and restore operations
+	// compared to using the default value and thus make both operations slower and
+	// more costly.
+	// Specify the chunk size as a byte unit, for example: `10MB`, `5KB`, 500B.
+	// The default varies by repository type.
+	ChunkSize ByteSize `json:"chunk_size,omitempty"`
+	// Compress When set to `true`, metadata files are stored in compressed format.
+	// This setting doesn't affect index files that are already compressed by
+	// default.
+	Compress *bool `json:"compress,omitempty"`
+	// HttpMaxRetries The maximum number of retries for HTTP and HTTPS URLs.
+	HttpMaxRetries *int `json:"http_max_retries,omitempty"`
+	// HttpSocketTimeout The maximum wait time for data transfers over a connection.
+	HttpSocketTimeout Duration `json:"http_socket_timeout,omitempty"`
+	// MaxNumberOfSnapshots The maximum number of snapshots the repository can contain.
+	// The default is `Integer.MAX_VALUE`, which is 2^31-1 or `2147483647`.
+	MaxNumberOfSnapshots *int `json:"max_number_of_snapshots,omitempty"`
+	// MaxRestoreBytesPerSec The maximum snapshot restore rate per node.
+	// It defaults to unlimited.
+	// Note that restores are also throttled through recovery settings.
+	MaxRestoreBytesPerSec ByteSize `json:"max_restore_bytes_per_sec,omitempty"`
+	// MaxSnapshotBytesPerSec The maximum snapshot creation rate per node.
+	// It defaults to 40mb per second.
+	// Note that if the recovery settings for managed services are set, then it
+	// defaults to unlimited, and the rate is additionally throttled through
+	// recovery settings.
 	MaxSnapshotBytesPerSec ByteSize `json:"max_snapshot_bytes_per_sec,omitempty"`
-	Url                    string   `json:"url"`
+	// Url The URL location of the root of the shared filesystem repository.
+	// The following protocols are supported:
+	//
+	// * `file`
+	// * `ftp`
+	// * `http`
+	// * `https`
+	// * `jar`
+	//
+	// URLs using the HTTP, HTTPS, or FTP protocols must be explicitly allowed with
+	// the `repositories.url.allowed_urls` cluster setting.
+	// This setting supports wildcards in the place of a host, path, query, or
+	// fragment in the URL.
+	//
+	// URLs using the file protocol must point to the location of a shared
+	// filesystem accessible to all master and data nodes in the cluster.
+	// This location must be registered in the `path.repo` setting.
+	// You don't need to register URLs using the FTP, HTTP, HTTPS, or JAR protocols
+	// in the `path.repo` setting.
+	Url string `json:"url"`
 }
 
 func (s *ReadOnlyUrlRepositorySettings) UnmarshalJSON(data []byte) error {

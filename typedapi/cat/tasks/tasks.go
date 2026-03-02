@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Get task information.
 //
@@ -39,6 +39,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
@@ -345,14 +346,6 @@ func (r *Tasks) S(names ...string) *Tasks {
 	return r
 }
 
-// Time Unit used to display time values.
-// API name: time
-func (r *Tasks) Time(time timeunit.TimeUnit) *Tasks {
-	r.values.Set("time", time.String())
-
-	return r
-}
-
 // Timeout Period to wait for a response.
 // If no response is received before the timeout expires, the request fails and
 // returns an error.
@@ -371,6 +364,22 @@ func (r *Tasks) WaitForCompletion(waitforcompletion bool) *Tasks {
 	return r
 }
 
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *Tasks) Bytes(bytes bytes.Bytes) *Tasks {
+	r.values.Set("bytes", bytes.String())
+
+	return r
+}
+
 // Format Specifies the format to return the columnar data in, can be set to
 // `text`, `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
@@ -385,6 +394,19 @@ func (r *Tasks) Format(format string) *Tasks {
 // API name: help
 func (r *Tasks) Help(help bool) *Tasks {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *Tasks) Time(time timeunit.TimeUnit) *Tasks {
+	r.values.Set("time", time.String())
 
 	return r
 }

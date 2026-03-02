@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Create or update an index template.
 // Index templates define settings, mappings, and aliases that can be applied
@@ -419,7 +419,7 @@ func (r *PutIndexTemplate) MasterTimeout(duration string) *PutIndexTemplate {
 	return r
 }
 
-// Cause User defined reason for creating/updating the index template
+// Cause User defined reason for creating or updating the index template
 // API name: cause
 func (r *PutIndexTemplate) Cause(cause string) *PutIndexTemplate {
 	r.values.Set("cause", cause)
@@ -543,7 +543,8 @@ func (r *PutIndexTemplate) IgnoreMissingComponentTemplates(ignoremissingcomponen
 	return r
 }
 
-// IndexPatterns Name of the index template to create.
+// IndexPatterns Array of wildcard (`*`) expressions used to match the names of data streams
+// and indices during creation.
 // API name: index_patterns
 func (r *PutIndexTemplate) IndexPatterns(indices ...string) *PutIndexTemplate {
 	if r.req == nil {

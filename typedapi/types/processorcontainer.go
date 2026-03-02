@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ProcessorContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ingest/_types/Processors.ts#L27-L301
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/ingest/_types/Processors.ts#L27-L301
 type ProcessorContainer struct {
 	AdditionalProcessorContainerProperty map[string]json.RawMessage `json:"-"`
 	// Append Appends one or more values to an existing array if the field already exists
@@ -131,7 +131,8 @@ type ProcessorContainer struct {
 	// character between each element.
 	// Throws an error when the field is not an array.
 	Join *JoinProcessor `json:"join,omitempty"`
-	// Json Converts a JSON string into a structured JSON object.
+	// Json Parses a string containing JSON data into a structured object, string, or
+	// other value.
 	Json *JsonProcessor `json:"json,omitempty"`
 	// Kv This processor helps automatically parse messages (or specific event fields)
 	// which are of the `foo=bar` variety.

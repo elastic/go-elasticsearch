@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Perform text embedding inference on the service
 package textembedding
@@ -373,6 +373,31 @@ func (r *TextEmbedding) Input(inputs ...string) *TextEmbedding {
 		r.req = NewRequest()
 	}
 	r.req.Input = inputs
+
+	return r
+}
+
+// InputType The input data type for the text embedding model. Possible values include:
+// * `SEARCH`
+// * `INGEST`
+// * `CLASSIFICATION`
+// * `CLUSTERING`
+// Not all services support all values. Unsupported values will trigger a
+// validation exception.
+// Accepted values depend on the configured inference service, refer to the
+// relevant service-specific documentation for more info.
+//
+// > info
+// > The `input_type` parameter specified on the root level of the request body
+// will take precedence over the `input_type` parameter specified in
+// `task_settings`.
+// API name: input_type
+func (r *TextEmbedding) InputType(inputtype string) *TextEmbedding {
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.InputType = &inputtype
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // SignificantStringTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/Aggregate.ts#L688-L690
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/_types/aggregations/Aggregate.ts#L759-L761
 type SignificantStringTermsBucket struct {
 	Aggregations map[string]Aggregate `json:"-"`
 	BgCount      int64                `json:"bg_count"`
@@ -269,6 +269,15 @@ func (s *SignificantStringTermsBucket) UnmarshalJSON(data []byte) error {
 								s.Aggregations[elems[1]] = o
 							}
 
+						case "change_point":
+							o := NewChangePointAggregate()
+							if err := dec.Decode(&o); err != nil {
+								return fmt.Errorf("%s | %w", "Aggregations", err)
+							}
+							if o != nil {
+								s.Aggregations[elems[1]] = o
+							}
+
 						case "stats":
 							o := NewStatsAggregate()
 							if err := dec.Decode(&o); err != nil {
@@ -298,6 +307,24 @@ func (s *SignificantStringTermsBucket) UnmarshalJSON(data []byte) error {
 
 						case "extended_stats_bucket":
 							o := NewExtendedStatsBucketAggregate()
+							if err := dec.Decode(&o); err != nil {
+								return fmt.Errorf("%s | %w", "Aggregations", err)
+							}
+							if o != nil {
+								s.Aggregations[elems[1]] = o
+							}
+
+						case "cartesian_bounds":
+							o := NewCartesianBoundsAggregate()
+							if err := dec.Decode(&o); err != nil {
+								return fmt.Errorf("%s | %w", "Aggregations", err)
+							}
+							if o != nil {
+								s.Aggregations[elems[1]] = o
+							}
+
+						case "cartesian_centroid":
+							o := NewCartesianCentroidAggregate()
 							if err := dec.Decode(&o); err != nil {
 								return fmt.Errorf("%s | %w", "Aggregations", err)
 							}
