@@ -118,9 +118,9 @@ type BulkIndexerItem struct {
 	// to the OnSuccess and OnFailure callbacks instead of the background context
 	// used by the worker. Populated automatically from the context passed to Add
 	// if not set explicitly.
-	Context         context.Context
-	meta            bytes.Buffer // Item metadata header
-	payloadLength   int          // Item payload total length metadata+newline+body length
+	Context       context.Context
+	meta          bytes.Buffer // Item metadata header
+	payloadLength int          // Item payload total length metadata+newline+body length
 
 	OnSuccess func(context.Context, BulkIndexerItem, BulkIndexerResponseItem)        // Per item
 	OnFailure func(context.Context, BulkIndexerItem, BulkIndexerResponseItem, error) // Per item
