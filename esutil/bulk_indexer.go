@@ -114,6 +114,11 @@ type BulkIndexerItem struct {
 	RetryOnConflict *int
 	IfSeqNo         *int64
 	IfPrimaryTerm   *int64
+	// Context is the context associated with this item. When set, it is passed
+	// to the OnSuccess and OnFailure callbacks instead of the background context
+	// used by the worker. Populated automatically from the context passed to Add
+	// if not set explicitly.
+	Context         context.Context
 	meta            bytes.Buffer // Item metadata header
 	payloadLength   int          // Item payload total length metadata+newline+body length
 
@@ -327,6 +332,10 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 	atomic.AddUint64(&bi.stats.numAdded, 1)
 
+	if item.Context == nil {
+		item.Context = ctx
+	}
+
 	// Serialize metadata to JSON
 	item.marshallMeta()
 	// Compute length for body & metadata
@@ -451,7 +460,7 @@ func (w *worker) run() {
 
 				if err := w.writeMeta(&item); err != nil {
 					if item.OnFailure != nil {
-						item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
+						item.OnFailure(item.Context, item, BulkIndexerResponseItem{}, err)
 					}
 					atomic.AddUint64(&w.bi.stats.numFailed, 1)
 					continue
@@ -459,7 +468,7 @@ func (w *worker) run() {
 
 				if err := w.writeBody(&item); err != nil {
 					if item.OnFailure != nil {
-						item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
+						item.OnFailure(item.Context, item, BulkIndexerResponseItem{}, err)
 					}
 					atomic.AddUint64(&w.bi.stats.numFailed, 1)
 					continue
@@ -633,7 +642,7 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 		if info.Error.Type != "" || info.Status > 201 {
 			atomic.AddUint64(&w.bi.stats.numFailed, 1)
 			if item.OnFailure != nil {
-				item.OnFailure(ctx, item, info, nil)
+				item.OnFailure(item.Context, item, info, nil)
 			}
 		} else {
 			atomic.AddUint64(&w.bi.stats.numFlushed, 1)
@@ -650,7 +659,7 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 			}
 
 			if item.OnSuccess != nil {
-				item.OnSuccess(ctx, item, info)
+				item.OnSuccess(item.Context, item, info)
 			}
 		}
 	}
@@ -666,7 +675,7 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 func (w *worker) notifyItemsOnError(ctx context.Context, err error) {
 	for _, item := range w.items {
 		if item.OnFailure != nil {
-			item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
+			item.OnFailure(item.Context, item, BulkIndexerResponseItem{}, err)
 		}
 	}
 }
