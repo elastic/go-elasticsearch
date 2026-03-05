@@ -1782,3 +1782,12 @@ func TestBulkIndexerContextPropagation(t *testing.T) {
 		}
 	})
 }
+
+func TestNewBulkIndexerNilClientError(t *testing.T) {
+	t.Setenv("ELASTICSEARCH_URL", "://invalid")
+
+	_, err := NewBulkIndexer(BulkIndexerConfig{})
+	if err == nil {
+		t.Fatal("expected error when default client cannot be created, got nil")
+	}
+}
