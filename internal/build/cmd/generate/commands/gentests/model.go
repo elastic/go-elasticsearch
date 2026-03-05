@@ -199,6 +199,12 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 							}
 						}
 					}
+					// Skip suites that require a feature flag — the generator cannot verify
+					// whether the flag is enabled in the target cluster at generation time.
+					if flagVal, ok := req["feature_flag"]; ok {
+						ts.Skip = true
+						ts.SkipInfo = fmt.Sprintf("Skipping suite because it requires feature flag %q", flagVal)
+					}
 					continue
 				}
 			}
