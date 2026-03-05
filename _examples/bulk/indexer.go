@@ -35,6 +35,7 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 	"sync/atomic"
 	"time"
 
@@ -96,6 +97,7 @@ func main() {
 	//
 	// Use a third-party package for implementing the backoff function
 	//
+	var retryBackoffMu sync.Mutex
 	retryBackoff := backoff.NewExponentialBackOff()
 	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -114,6 +116,8 @@ func main() {
 		// Configure the backoff function
 		//
 		RetryBackoff: func(i int) time.Duration {
+			retryBackoffMu.Lock()
+			defer retryBackoffMu.Unlock()
 			if i == 1 {
 				retryBackoff.Reset()
 			}
