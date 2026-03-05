@@ -22,17 +22,10 @@ package esutil
 
 import (
 	"bytes"
-	"errors"
 	"io"
 	"strings"
 	"testing"
 )
-
-type errReader struct{}
-
-func (errReader) Read(_ []byte) (int, error)         { return 1, errors.New("MOCK ERROR") }
-func (errReader) Write(_ []byte) (int, error)        { return 0, errors.New("MOCK ERROR") }
-func (errReader) WriteTo(_ io.Writer) (int64, error) { return 0, errors.New("MOCK ERROR") }
 
 type Foo struct {
 	Bar string
@@ -45,6 +38,18 @@ func (f Foo) EncodeJSON(w io.Writer) error {
 	}
 	return nil
 }
+
+// errEncoder is a JSONEncoder that always returns an error, used to test
+// encode-error paths.
+type errEncoder struct{}
+
+func (errEncoder) EncodeJSON(_ io.Writer) error {
+	return &encoderError{"MOCK ERROR"}
+}
+
+type encoderError struct{ msg string }
+
+func (e *encoderError) Error() string { return e.msg }
 
 func TestJSONReader(t *testing.T) {
 	t.Run("Default", func(t *testing.T) {
@@ -77,11 +82,44 @@ func TestJSONReader(t *testing.T) {
 	})
 
 	t.Run("Read error", func(t *testing.T) {
-		b := []byte{}
-		r := JSONReader{val: map[string]string{"foo": "bar"}, buf: errReader{}}
-		_, err := r.Read(b)
+		r := NewJSONReader(errEncoder{})
+		_, err := r.Read(make([]byte, 10))
 		if err == nil {
 			t.Fatalf("Expected error, got: %#v", err)
 		}
+	})
+
+	t.Run("Seek", func(t *testing.T) {
+		r, ok := NewJSONReader(map[string]string{"foo": "bar"}).(io.ReadSeeker)
+		if !ok {
+			t.Fatal("NewJSONReader did not return an io.ReadSeeker")
+		}
+
+		// Read all content.
+		first, err := io.ReadAll(r)
+		if err != nil {
+			t.Fatalf("Unexpected error reading: %s", err)
+		}
+
+		// Seek back to start.
+		if _, seekErr := r.Seek(0, io.SeekStart); seekErr != nil {
+			t.Fatalf("Unexpected error seeking: %s", seekErr)
+		}
+
+		// Read again – should get identical content.
+		second, err := io.ReadAll(r)
+		if err != nil {
+			t.Fatalf("Unexpected error reading after seek: %s", err)
+		}
+
+		if string(first) != string(second) {
+			t.Fatalf("Content after seek differs: %q vs %q", first, second)
+		}
+	})
+
+	t.Run("ImplementsReadSeeker", func(_ *testing.T) {
+		// Verify that JSONReader satisfies io.ReadSeeker, so it can be
+		// used directly as BulkIndexerItem.Body.
+		var _ = NewJSONReader(struct{}{}).(io.ReadSeeker)
 	})
 }
