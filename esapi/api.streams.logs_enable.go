@@ -27,8 +27,8 @@ import (
 )
 
 func newStreamsLogsEnableFunc(t Transport) StreamsLogsEnable {
-	return func(o ...func(*StreamsLogsEnableRequest)) (*Response, error) {
-		var r = StreamsLogsEnableRequest{}
+	return func(name string, o ...func(*StreamsLogsEnableRequest)) (*Response, error) {
+		var r = StreamsLogsEnableRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -48,10 +48,12 @@ func newStreamsLogsEnableFunc(t Transport) StreamsLogsEnable {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch#TODO.
-type StreamsLogsEnable func(o ...func(*StreamsLogsEnableRequest)) (*Response, error)
+type StreamsLogsEnable func(name string, o ...func(*StreamsLogsEnableRequest)) (*Response, error)
 
 // StreamsLogsEnableRequest configures the Streams Logs Enable API request.
 type StreamsLogsEnableRequest struct {
+	Name string
+
 	MasterTimeout time.Duration
 	Timeout       time.Duration
 
@@ -86,9 +88,11 @@ func (r StreamsLogsEnableRequest) Do(providedCtx context.Context, transport Tran
 
 	method = "POST"
 
-	path.Grow(7 + len("/_streams/logs/_enable"))
+	path.Grow(7 + len("/_streams/") + len(r.Name) + len("/_enable"))
 	path.WriteString("http://")
-	path.WriteString("/_streams/logs/_enable")
+	path.WriteString("/_streams/")
+	path.WriteString(r.Name)
+	path.WriteString("/_enable")
 
 	params = make(map[string]string)
 
