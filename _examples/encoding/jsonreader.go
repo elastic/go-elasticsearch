@@ -58,6 +58,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error getting response: %s", err)
 	}
+	defer res.Body.Close()
 
 	log.Println(res)
 
@@ -77,6 +78,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error getting response: %s", err)
 	}
+	defer res.Body.Close()
 
 	log.Println(res)
 }
