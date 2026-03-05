@@ -1002,7 +1002,9 @@ func expand(s string, format ...string) string {
 func catchnil(input string) string {
 	// With the current expand() implementation, missing keys/indices resolve to nil.
 	// Checking the final expression is sufficient and avoids brittle chained nil guards.
-	return fmt.Sprintf("(%s == nil)", input)
+	// escape() is applied so that literal-dot keys (e.g. "logs\.otel") are rendered as
+	// valid Go string literals ("logs.otel") rather than invalid escape sequences.
+	return fmt.Sprintf("(%s == nil)", escape(input))
 }
 
 // escape replaces unsafe characters in strings
