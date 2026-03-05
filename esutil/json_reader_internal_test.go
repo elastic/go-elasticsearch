@@ -102,8 +102,8 @@ func TestJSONReader(t *testing.T) {
 		}
 
 		// Seek back to start.
-		if _, err := r.Seek(0, io.SeekStart); err != nil {
-			t.Fatalf("Unexpected error seeking: %s", err)
+		if _, seekErr := r.Seek(0, io.SeekStart); seekErr != nil {
+			t.Fatalf("Unexpected error seeking: %s", seekErr)
 		}
 
 		// Read again – should get identical content.
@@ -117,9 +117,9 @@ func TestJSONReader(t *testing.T) {
 		}
 	})
 
-	t.Run("ImplementsReadSeeker", func(t *testing.T) {
+	t.Run("ImplementsReadSeeker", func(_ *testing.T) {
 		// Verify that JSONReader satisfies io.ReadSeeker, so it can be
 		// used directly as BulkIndexerItem.Body.
-		var _ io.ReadSeeker = NewJSONReader(struct{}{}).(io.ReadSeeker)
+		var _ = NewJSONReader(struct{}{}).(io.ReadSeeker)
 	})
 }
