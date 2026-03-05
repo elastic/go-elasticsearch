@@ -1687,7 +1687,7 @@ func TestBulkIndexerContextPropagation(t *testing.T) {
 	responseBody := `{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`
 
 	es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-		RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+		RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
 			return &http.Response{
 				StatusCode: 200,
 				Body:       io.NopCloser(strings.NewReader(responseBody)),
@@ -1707,7 +1707,7 @@ func TestBulkIndexerContextPropagation(t *testing.T) {
 		Action:     "index",
 		DocumentID: "1",
 		Body:       strings.NewReader(`{}`),
-		OnSuccess: func(ctx context.Context, item BulkIndexerItem, res BulkIndexerResponseItem) {
+		OnSuccess: func(ctx context.Context, _ BulkIndexerItem, _ BulkIndexerResponseItem) {
 			gotCtx = ctx
 		},
 	})
