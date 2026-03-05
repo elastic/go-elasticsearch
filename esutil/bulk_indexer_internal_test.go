@@ -1680,3 +1680,13 @@ func TestBulkIndexerUsesClientInstrumentation(t *testing.T) {
 		t.Fatalf("expected Instrumentation.RecordPathPart() to be called at least once")
 	}
 }
+
+func TestNewBulkIndexerNilClientError(t *testing.T) {
+	// Set an invalid URL so NewDefaultClient() returns an error.
+	t.Setenv("ELASTICSEARCH_URL", "://invalid")
+
+	_, err := NewBulkIndexer(BulkIndexerConfig{})
+	if err == nil {
+		t.Fatal("expected error when default client cannot be created, got nil")
+	}
+}
