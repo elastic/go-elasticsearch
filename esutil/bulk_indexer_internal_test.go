@@ -1680,3 +1680,49 @@ func TestBulkIndexerUsesClientInstrumentation(t *testing.T) {
 		t.Fatalf("expected Instrumentation.RecordPathPart() to be called at least once")
 	}
 }
+
+func TestBulkIndexerContextPropagation(t *testing.T) {
+	type ctxKey struct{}
+
+	responseBody := `{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`
+
+	es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+		RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+			return &http.Response{
+				StatusCode: 200,
+				Body:       io.NopCloser(strings.NewReader(responseBody)),
+				Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+			}, nil
+		},
+	}})
+
+	var gotCtx context.Context
+	bi, _ := NewBulkIndexer(BulkIndexerConfig{
+		Client:     es,
+		NumWorkers: 1,
+	})
+
+	ctx := context.WithValue(context.Background(), ctxKey{}, "test-value")
+	err := bi.Add(ctx, BulkIndexerItem{
+		Action:     "index",
+		DocumentID: "1",
+		Body:       strings.NewReader(`{}`),
+		OnSuccess: func(ctx context.Context, _ BulkIndexerItem, _ BulkIndexerResponseItem) {
+			gotCtx = ctx
+		},
+	})
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+
+	if err := bi.Close(context.Background()); err != nil {
+		t.Fatalf("unexpected error closing indexer: %s", err)
+	}
+
+	if gotCtx == nil {
+		t.Fatal("OnSuccess was not called")
+	}
+	if got := gotCtx.Value(ctxKey{}); got != "test-value" {
+		t.Fatalf("expected context value %q, got %q", "test-value", got)
+	}
+}
