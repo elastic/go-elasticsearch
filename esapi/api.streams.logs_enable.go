@@ -88,11 +88,17 @@ func (r StreamsLogsEnableRequest) Do(providedCtx context.Context, transport Tran
 
 	method = "POST"
 
-	path.Grow(7 + len("/_streams/") + len(r.Name) + len("/_enable"))
+	path.Grow(7 + 1 + len("_streams") + 1 + len(r.Name) + 1 + len("_enable"))
 	path.WriteString("http://")
-	path.WriteString("/_streams/")
+	path.WriteString("/")
+	path.WriteString("_streams")
+	path.WriteString("/")
 	path.WriteString(r.Name)
-	path.WriteString("/_enable")
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "name", r.Name)
+	}
+	path.WriteString("/")
+	path.WriteString("_enable")
 
 	params = make(map[string]string)
 

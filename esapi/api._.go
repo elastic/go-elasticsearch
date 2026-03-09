@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0 (5b64e57): DO NOT EDIT
+// Code generated from specification version 9.4.0 (da34c45): DO NOT EDIT
 
 package esapi
 
@@ -136,6 +136,7 @@ type API struct {
 	InferenceChatCompletionUnified                InferenceChatCompletionUnified
 	InferenceCompletion                           InferenceCompletion
 	InferenceDelete                               InferenceDelete
+	InferenceEmbedding                            InferenceEmbedding
 	InferenceGet                                  InferenceGet
 	InferenceInference                            InferenceInference
 	InferencePutAi21                              InferencePutAi21
@@ -151,6 +152,7 @@ type API struct {
 	InferencePutDeepseek                          InferencePutDeepseek
 	InferencePutElasticsearch                     InferencePutElasticsearch
 	InferencePutElser                             InferencePutElser
+	InferencePutFireworksai                       InferencePutFireworksai
 	InferencePutGoogleaistudio                    InferencePutGoogleaistudio
 	InferencePutGooglevertexai                    InferencePutGooglevertexai
 	InferencePutGroq                              InferencePutGroq
@@ -183,6 +185,11 @@ type API struct {
 	ProfilingStacktraces                          ProfilingStacktraces
 	ProfilingStatus                               ProfilingStatus
 	ProfilingTopnFunctions                        ProfilingTopnFunctions
+	ProjectCreateManyRouting                      ProjectCreateManyRouting
+	ProjectCreateRouting                          ProjectCreateRouting
+	ProjectDeleteRouting                          ProjectDeleteRouting
+	ProjectGetManyRouting                         ProjectGetManyRouting
+	ProjectGetRouting                             ProjectGetRouting
 	ProjectRoutingCreateMany                      ProjectRoutingCreateMany
 	ProjectRoutingCreate                          ProjectRoutingCreate
 	ProjectRoutingDelete                          ProjectRoutingDelete
@@ -814,6 +821,7 @@ func New(t Transport) *API {
 		InferenceChatCompletionUnified:     newInferenceChatCompletionUnifiedFunc(t),
 		InferenceCompletion:                newInferenceCompletionFunc(t),
 		InferenceDelete:                    newInferenceDeleteFunc(t),
+		InferenceEmbedding:                 newInferenceEmbeddingFunc(t),
 		InferenceGet:                       newInferenceGetFunc(t),
 		InferenceInference:                 newInferenceInferenceFunc(t),
 		InferencePutAi21:                   newInferencePutAi21Func(t),
@@ -829,6 +837,7 @@ func New(t Transport) *API {
 		InferencePutDeepseek:               newInferencePutDeepseekFunc(t),
 		InferencePutElasticsearch:          newInferencePutElasticsearchFunc(t),
 		InferencePutElser:                  newInferencePutElserFunc(t),
+		InferencePutFireworksai:            newInferencePutFireworksaiFunc(t),
 		InferencePutGoogleaistudio:         newInferencePutGoogleaistudioFunc(t),
 		InferencePutGooglevertexai:         newInferencePutGooglevertexaiFunc(t),
 		InferencePutGroq:                   newInferencePutGroqFunc(t),
@@ -861,6 +870,11 @@ func New(t Transport) *API {
 		ProfilingStacktraces:               newProfilingStacktracesFunc(t),
 		ProfilingStatus:                    newProfilingStatusFunc(t),
 		ProfilingTopnFunctions:             newProfilingTopnFunctionsFunc(t),
+		ProjectCreateManyRouting:           newProjectCreateManyRoutingFunc(t),
+		ProjectCreateRouting:               newProjectCreateRoutingFunc(t),
+		ProjectDeleteRouting:               newProjectDeleteRoutingFunc(t),
+		ProjectGetManyRouting:              newProjectGetManyRoutingFunc(t),
+		ProjectGetRouting:                  newProjectGetRoutingFunc(t),
 		ProjectRoutingCreateMany:           newProjectRoutingCreateManyFunc(t),
 		ProjectRoutingCreate:               newProjectRoutingCreateFunc(t),
 		ProjectRoutingDelete:               newProjectRoutingDeleteFunc(t),

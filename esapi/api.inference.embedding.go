@@ -23,14 +23,13 @@ import (
 	"context"
 	"io"
 	"net/http"
-	"strconv"
 	"strings"
 	"time"
 )
 
-func newClusterPutSettingsFunc(t Transport) ClusterPutSettings {
-	return func(body io.Reader, o ...func(*ClusterPutSettingsRequest)) (*Response, error) {
-		var r = ClusterPutSettingsRequest{Body: body}
+func newInferenceEmbeddingFunc(t Transport) InferenceEmbedding {
+	return func(body io.Reader, inference_id string, o ...func(*InferenceEmbeddingRequest)) (*Response, error) {
+		var r = InferenceEmbeddingRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,18 +44,20 @@ func newClusterPutSettingsFunc(t Transport) ClusterPutSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterPutSettings update the cluster settings
+// InferenceEmbedding perform embedding inference on the service
 //
-// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-settings.
-type ClusterPutSettings func(body io.Reader, o ...func(*ClusterPutSettingsRequest)) (*Response, error)
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-embedding.
+type InferenceEmbedding func(body io.Reader, inference_id string, o ...func(*InferenceEmbeddingRequest)) (*Response, error)
 
-// ClusterPutSettingsRequest configures the Cluster Put Settings API request.
-type ClusterPutSettingsRequest struct {
+// InferenceEmbeddingRequest configures the Inference Embedding API request.
+type InferenceEmbeddingRequest struct {
 	Body io.Reader
 
-	FlatSettings  *bool
-	MasterTimeout time.Duration
-	Timeout       time.Duration
+	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -71,7 +72,7 @@ type ClusterPutSettingsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ClusterPutSettingsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r InferenceEmbeddingRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -80,28 +81,28 @@ func (r ClusterPutSettingsRequest) Do(providedCtx context.Context, transport Tra
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "cluster.put_settings")
+		ctx = instrument.Start(providedCtx, "inference.embedding")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(7 + len("/_cluster/settings"))
+	path.Grow(7 + 1 + len("_inference") + 1 + len("embedding") + 1 + len(r.InferenceID))
 	path.WriteString("http://")
-	path.WriteString("/_cluster/settings")
+	path.WriteString("/")
+	path.WriteString("_inference")
+	path.WriteString("/")
+	path.WriteString("embedding")
+	path.WriteString("/")
+	path.WriteString(r.InferenceID)
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
+	}
 
 	params = make(map[string]string)
-
-	if r.FlatSettings != nil {
-		params["flat_settings"] = strconv.FormatBool(*r.FlatSettings)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
 
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
@@ -160,14 +161,14 @@ func (r ClusterPutSettingsRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "cluster.put_settings")
-		if reader := instrument.RecordRequestBody(ctx, "cluster.put_settings", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "inference.embedding")
+		if reader := instrument.RecordRequestBody(ctx, "inference.embedding", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "cluster.put_settings")
+		instrument.AfterRequest(req, "elasticsearch", "inference.embedding")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -186,64 +187,50 @@ func (r ClusterPutSettingsRequest) Do(providedCtx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-func (f ClusterPutSettings) WithContext(v context.Context) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f InferenceEmbedding) WithContext(v context.Context) func(*InferenceEmbeddingRequest) {
+	return func(r *InferenceEmbeddingRequest) {
 		r.ctx = v
 	}
 }
 
-// WithFlatSettings - return settings in flat format.
-func (f ClusterPutSettings) WithFlatSettings(v bool) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
-		r.FlatSettings = &v
-	}
-}
-
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-func (f ClusterPutSettings) WithMasterTimeout(v time.Duration) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
-		r.MasterTimeout = v
-	}
-}
-
-// WithTimeout - explicit operation timeout.
-func (f ClusterPutSettings) WithTimeout(v time.Duration) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference request to complete..
+func (f InferenceEmbedding) WithTimeout(v time.Duration) func(*InferenceEmbeddingRequest) {
+	return func(r *InferenceEmbeddingRequest) {
 		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ClusterPutSettings) WithPretty() func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f InferenceEmbedding) WithPretty() func(*InferenceEmbeddingRequest) {
+	return func(r *InferenceEmbeddingRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ClusterPutSettings) WithHuman() func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f InferenceEmbedding) WithHuman() func(*InferenceEmbeddingRequest) {
+	return func(r *InferenceEmbeddingRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ClusterPutSettings) WithErrorTrace() func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f InferenceEmbedding) WithErrorTrace() func(*InferenceEmbeddingRequest) {
+	return func(r *InferenceEmbeddingRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ClusterPutSettings) WithFilterPath(v ...string) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f InferenceEmbedding) WithFilterPath(v ...string) func(*InferenceEmbeddingRequest) {
+	return func(r *InferenceEmbeddingRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ClusterPutSettings) WithHeader(h map[string]string) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f InferenceEmbedding) WithHeader(h map[string]string) func(*InferenceEmbeddingRequest) {
+	return func(r *InferenceEmbeddingRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -254,8 +241,8 @@ func (f ClusterPutSettings) WithHeader(h map[string]string) func(*ClusterPutSett
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ClusterPutSettings) WithOpaqueID(s string) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f InferenceEmbedding) WithOpaqueID(s string) func(*InferenceEmbeddingRequest) {
+	return func(r *InferenceEmbeddingRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

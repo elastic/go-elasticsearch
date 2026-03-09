@@ -21,16 +21,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
-	"strconv"
 	"strings"
-	"time"
 )
 
-func newClusterPutSettingsFunc(t Transport) ClusterPutSettings {
-	return func(body io.Reader, o ...func(*ClusterPutSettingsRequest)) (*Response, error) {
-		var r = ClusterPutSettingsRequest{Body: body}
+func newProjectGetRoutingFunc(t Transport) ProjectGetRouting {
+	return func(name string, o ...func(*ProjectGetRoutingRequest)) (*Response, error) {
+		var r = ProjectGetRoutingRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,18 +42,16 @@ func newClusterPutSettingsFunc(t Transport) ClusterPutSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterPutSettings update the cluster settings
+// ProjectGetRouting get named project routing expression
 //
-// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-settings.
-type ClusterPutSettings func(body io.Reader, o ...func(*ClusterPutSettingsRequest)) (*Response, error)
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch#TODO.
+type ProjectGetRouting func(name string, o ...func(*ProjectGetRoutingRequest)) (*Response, error)
 
-// ClusterPutSettingsRequest configures the Cluster Put Settings API request.
-type ClusterPutSettingsRequest struct {
-	Body io.Reader
-
-	FlatSettings  *bool
-	MasterTimeout time.Duration
-	Timeout       time.Duration
+// ProjectGetRoutingRequest configures the Project Get Routing API request.
+type ProjectGetRoutingRequest struct {
+	Name string
 
 	Pretty     bool
 	Human      bool
@@ -71,7 +66,7 @@ type ClusterPutSettingsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ClusterPutSettingsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ProjectGetRoutingRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -80,32 +75,26 @@ func (r ClusterPutSettingsRequest) Do(providedCtx context.Context, transport Tra
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "cluster.put_settings")
+		ctx = instrument.Start(providedCtx, "project.get_routing")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(7 + len("/_cluster/settings"))
+	path.Grow(7 + 1 + len("_project_routing") + 1 + len(r.Name))
 	path.WriteString("http://")
-	path.WriteString("/_cluster/settings")
+	path.WriteString("/")
+	path.WriteString("_project_routing")
+	path.WriteString("/")
+	path.WriteString(r.Name)
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "name", r.Name)
+	}
 
 	params = make(map[string]string)
-
-	if r.FlatSettings != nil {
-		params["flat_settings"] = strconv.FormatBool(*r.FlatSettings)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
-
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -123,7 +112,7 @@ func (r ClusterPutSettingsRequest) Do(providedCtx context.Context, transport Tra
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -151,23 +140,16 @@ func (r ClusterPutSettingsRequest) Do(providedCtx context.Context, transport Tra
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "cluster.put_settings")
-		if reader := instrument.RecordRequestBody(ctx, "cluster.put_settings", r.Body); reader != nil {
-			req.Body = reader
-		}
+		instrument.BeforeRequest(req, "project.get_routing")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "cluster.put_settings")
+		instrument.AfterRequest(req, "elasticsearch", "project.get_routing")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -186,64 +168,43 @@ func (r ClusterPutSettingsRequest) Do(providedCtx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-func (f ClusterPutSettings) WithContext(v context.Context) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f ProjectGetRouting) WithContext(v context.Context) func(*ProjectGetRoutingRequest) {
+	return func(r *ProjectGetRoutingRequest) {
 		r.ctx = v
 	}
 }
 
-// WithFlatSettings - return settings in flat format.
-func (f ClusterPutSettings) WithFlatSettings(v bool) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
-		r.FlatSettings = &v
-	}
-}
-
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-func (f ClusterPutSettings) WithMasterTimeout(v time.Duration) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
-		r.MasterTimeout = v
-	}
-}
-
-// WithTimeout - explicit operation timeout.
-func (f ClusterPutSettings) WithTimeout(v time.Duration) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
-		r.Timeout = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f ClusterPutSettings) WithPretty() func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f ProjectGetRouting) WithPretty() func(*ProjectGetRoutingRequest) {
+	return func(r *ProjectGetRoutingRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ClusterPutSettings) WithHuman() func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f ProjectGetRouting) WithHuman() func(*ProjectGetRoutingRequest) {
+	return func(r *ProjectGetRoutingRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ClusterPutSettings) WithErrorTrace() func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f ProjectGetRouting) WithErrorTrace() func(*ProjectGetRoutingRequest) {
+	return func(r *ProjectGetRoutingRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ClusterPutSettings) WithFilterPath(v ...string) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f ProjectGetRouting) WithFilterPath(v ...string) func(*ProjectGetRoutingRequest) {
+	return func(r *ProjectGetRoutingRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ClusterPutSettings) WithHeader(h map[string]string) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f ProjectGetRouting) WithHeader(h map[string]string) func(*ProjectGetRoutingRequest) {
+	return func(r *ProjectGetRoutingRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -254,8 +215,8 @@ func (f ClusterPutSettings) WithHeader(h map[string]string) func(*ClusterPutSett
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ClusterPutSettings) WithOpaqueID(s string) func(*ClusterPutSettingsRequest) {
-	return func(r *ClusterPutSettingsRequest) {
+func (f ProjectGetRouting) WithOpaqueID(s string) func(*ProjectGetRoutingRequest) {
+	return func(r *ProjectGetRoutingRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
