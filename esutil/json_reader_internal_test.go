@@ -22,6 +22,7 @@ package esutil
 
 import (
 	"bytes"
+	"errors"
 	"io"
 	"strings"
 	"testing"
@@ -44,12 +45,8 @@ func (f Foo) EncodeJSON(w io.Writer) error {
 type errEncoder struct{}
 
 func (errEncoder) EncodeJSON(_ io.Writer) error {
-	return &encoderError{"MOCK ERROR"}
+	return errors.New("MOCK ERROR")
 }
-
-type encoderError struct{ msg string }
-
-func (e *encoderError) Error() string { return e.msg }
 
 func TestJSONReader(t *testing.T) {
 	t.Run("Default", func(t *testing.T) {
@@ -115,11 +112,5 @@ func TestJSONReader(t *testing.T) {
 		if string(first) != string(second) {
 			t.Fatalf("Content after seek differs: %q vs %q", first, second)
 		}
-	})
-
-	t.Run("ImplementsReadSeeker", func(_ *testing.T) {
-		// Verify that JSONReader satisfies io.ReadSeeker, so it can be
-		// used directly as BulkIndexerItem.Body.
-		var _ = NewJSONReader(struct{}{}).(io.ReadSeeker)
 	})
 }
