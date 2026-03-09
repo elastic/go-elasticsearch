@@ -494,7 +494,7 @@ func (f AsyncSearchSubmit) WithExplain(v bool) func(*AsyncSearchSubmitRequest) {
 	}
 }
 
-// WithFrom - starting offset (default: 0).
+// WithFrom - starting offset.
 func (f AsyncSearchSubmit) WithFrom(v int) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.From = &v
@@ -592,7 +592,7 @@ func (f AsyncSearchSubmit) WithSeqNoPrimaryTerm(v bool) func(*AsyncSearchSubmitR
 	}
 }
 
-// WithSize - number of hits to return (default: 10).
+// WithSize - number of hits to return.
 func (f AsyncSearchSubmit) WithSize(v int) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.Size = &v

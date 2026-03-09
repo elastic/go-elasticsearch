@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
@@ -49,6 +50,8 @@ type ProjectTags func(o ...func(*ProjectTagsRequest)) (*Response, error)
 
 // ProjectTagsRequest configures the Project Tags API request.
 type ProjectTagsRequest struct {
+	Body io.Reader
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -78,7 +81,7 @@ func (r ProjectTagsRequest) Do(providedCtx context.Context, transport Transport)
 		ctx = providedCtx
 	}
 
-	method = "GET"
+	method = "POST"
 
 	path.Grow(7 + len("/_project/tags"))
 	path.WriteString("http://")
@@ -102,7 +105,7 @@ func (r ProjectTagsRequest) Do(providedCtx context.Context, transport Transport)
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -130,12 +133,19 @@ func (r ProjectTagsRequest) Do(providedCtx context.Context, transport Transport)
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "project.tags")
+		if reader := instrument.RecordRequestBody(ctx, "project.tags", r.Body); reader != nil {
+			req.Body = reader
+		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -161,6 +171,13 @@ func (r ProjectTagsRequest) Do(providedCtx context.Context, transport Transport)
 func (f ProjectTags) WithContext(v context.Context) func(*ProjectTagsRequest) {
 	return func(r *ProjectTagsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - A query using project metadata tags used to filter which projects are returned in the response, such as _alias:_origin or _alias:*pr*..
+func (f ProjectTags) WithBody(v io.Reader) func(*ProjectTagsRequest) {
+	return func(r *ProjectTagsRequest) {
+		r.Body = v
 	}
 }
 

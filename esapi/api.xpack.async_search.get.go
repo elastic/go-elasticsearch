@@ -53,9 +53,10 @@ type AsyncSearchGet func(id string, o ...func(*AsyncSearchGetRequest)) (*Respons
 type AsyncSearchGetRequest struct {
 	DocumentID string
 
-	KeepAlive                time.Duration
-	TypedKeys                *bool
-	WaitForCompletionTimeout time.Duration
+	KeepAlive                 time.Duration
+	ReturnIntermediateResults *bool
+	TypedKeys                 *bool
+	WaitForCompletionTimeout  time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +103,10 @@ func (r AsyncSearchGetRequest) Do(providedCtx context.Context, transport Transpo
 
 	if r.KeepAlive != 0 {
 		params["keep_alive"] = formatDuration(r.KeepAlive)
+	}
+
+	if r.ReturnIntermediateResults != nil {
+		params["return_intermediate_results"] = strconv.FormatBool(*r.ReturnIntermediateResults)
 	}
 
 	if r.TypedKeys != nil {
@@ -194,6 +199,13 @@ func (f AsyncSearchGet) WithContext(v context.Context) func(*AsyncSearchGetReque
 func (f AsyncSearchGet) WithKeepAlive(v time.Duration) func(*AsyncSearchGetRequest) {
 	return func(r *AsyncSearchGetRequest) {
 		r.KeepAlive = v
+	}
+}
+
+// WithReturnIntermediateResults - indicates whether partial intermediate results should be returned when the wait for completion timeout occurs and the query is not yet complete..
+func (f AsyncSearchGet) WithReturnIntermediateResults(v bool) func(*AsyncSearchGetRequest) {
+	return func(r *AsyncSearchGetRequest) {
+		r.ReturnIntermediateResults = &v
 	}
 }
 

@@ -44,7 +44,7 @@ func newInferencePutNvidiaFunc(t Transport) InferencePutNvidia {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutNvidia create an Nvidia inference endpoint
+// InferencePutNvidia create an NVIDIA inference endpoint
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-nvidia.
 type InferencePutNvidia func(body io.Reader, nvidia_inference_id string, task_type string, o ...func(*InferencePutNvidiaRequest)) (*Response, error)

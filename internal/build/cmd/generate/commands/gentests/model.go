@@ -199,6 +199,12 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 							}
 						}
 					}
+					// Skip suites that require a feature flag — the generator cannot verify
+					// whether the flag is enabled in the target cluster at generation time.
+					if flagVal, ok := req["feature_flag"]; ok {
+						ts.Skip = true
+						ts.SkipInfo = fmt.Sprintf("Skipping suite because it requires feature flag %q", flagVal)
+					}
 					continue
 				}
 			}
@@ -1002,7 +1008,9 @@ func expand(s string, format ...string) string {
 func catchnil(input string) string {
 	// With the current expand() implementation, missing keys/indices resolve to nil.
 	// Checking the final expression is sufficient and avoids brittle chained nil guards.
-	return fmt.Sprintf("(%s == nil)", input)
+	// escape() is applied so that literal-dot keys (e.g. "logs\.otel") are rendered as
+	// valid Go string literals ("logs.otel") rather than invalid escape sequences.
+	return fmt.Sprintf("(%s == nil)", escape(input))
 }
 
 // escape replaces unsafe characters in strings
