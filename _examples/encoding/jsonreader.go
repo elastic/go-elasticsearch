@@ -58,9 +58,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error getting response: %s", err)
 	}
-	defer res.Body.Close()
-
 	log.Println(res)
+	res.Body.Close()
 
 	query := map[string]interface{}{
 		"query": map[string]interface{}{
