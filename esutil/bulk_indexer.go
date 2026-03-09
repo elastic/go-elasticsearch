@@ -288,7 +288,11 @@ type bulkIndexerStats struct {
 // NewBulkIndexer creates a new bulk indexer.
 func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	if cfg.Client == nil {
-		cfg.Client, _ = elasticsearch.NewDefaultClient()
+		var err error
+		cfg.Client, err = elasticsearch.NewDefaultClient()
+		if err != nil {
+			return nil, fmt.Errorf("bulk indexer: failed to create default client: %w", err)
+		}
 	}
 
 	if cfg.Decoder == nil {
