@@ -1298,7 +1298,7 @@ func TestClose(t *testing.T) {
 		c    func() closeable
 	}{
 		{name: "BaseClient", c: func() closeable {
-			c, _ := NewBaseClient(Config{Transport: &mockTransp{}})
+			c, _ := NewBase(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
 			return c
 		}},
 		{name: "Client", c: func() closeable {
