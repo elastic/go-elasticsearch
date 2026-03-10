@@ -41,8 +41,9 @@ jobs:
       - name: Super-linter
         uses: super-linter/super-linter/slim@v8.4.0
         env:
-          # To report GitHub Actions status checks
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Only pass the token when it has write access (not fork PRs)
+          # to avoid 403 errors when posting PR comments and status checks.
+          GITHUB_TOKEN: ${{ github.event.pull_request.head.repo.fork != true && secrets.GITHUB_TOKEN || '' }}
 
   golangci:
     name: Lint (golangci-lint)
