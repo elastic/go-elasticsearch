@@ -356,7 +356,7 @@ func NewTyped(opts ...Option) (*TypedClient, error) {
 			compatibilityHeader: ro.compatibilityHeader,
 		},
 	}
-	client.MethodAPI = typedapi.NewMethodAPI(client)
+	client.API = typedapi.New(client)
 	if ro.discoverNodesOnStart {
 		go func() { _ = client.DiscoverNodes() }()
 	}
