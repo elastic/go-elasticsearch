@@ -2,7 +2,7 @@ module github.com/elastic/go-elasticsearch/v9/internal/build
 
 go 1.25.0
 
-toolchain go1.25.7
+toolchain go1.25.8
 
 replace github.com/elastic/go-elasticsearch/v9 => ../../
 
@@ -26,7 +26,6 @@ require (
 	golang.org/x/mod v0.33.0 // indirect
 	golang.org/x/sync v0.19.0 // indirect
 	golang.org/x/sys v0.41.0 // indirect
-	golang.org/x/telemetry v0.0.0-20260209163413-e7419c687ee4 // indirect
 	golang.org/x/term v0.37.0 // indirect
 	golang.org/x/text v0.31.0 // indirect
 )
