@@ -191,7 +191,7 @@ func NewBaseClient(cfg Config) (*BaseClient, error) {
 	}
 
 	if cfg.DiscoverNodesOnStart {
-		go client.DiscoverNodes()
+		go func() { _ = client.DiscoverNodes() }()
 	}
 
 	return client, nil
@@ -238,7 +238,7 @@ func NewClient(cfg Config) (*Client, error) {
 	client.API = esapi.New(client)
 
 	if cfg.DiscoverNodesOnStart {
-		go client.DiscoverNodes()
+		go func() { _ = client.DiscoverNodes() }()
 	}
 
 	return client, nil
@@ -271,9 +271,95 @@ func NewTypedClient(cfg Config) (*TypedClient, error) {
 	client.MethodAPI = typedapi.NewMethodAPI(client)
 
 	if cfg.DiscoverNodesOnStart {
-		go client.DiscoverNodes()
+		go func() { _ = client.DiscoverNodes() }()
 	}
 
+	return client, nil
+}
+
+// New creates a new [Client] configured with the given options.
+//
+// With no options the client connects to http://localhost:9200, or to the
+// address(es) in the ELASTICSEARCH_URL environment variable when set.
+//
+//	client, err := elasticsearch.New(
+//	    elasticsearch.WithAddresses("https://localhost:9200"),
+//	    elasticsearch.WithAPIKey("base64-encoded-key"),
+//	)
+func New(opts ...Option) (*Client, error) {
+	ro, err := resolveOptions(opts, "")
+	if err != nil {
+		return nil, err
+	}
+	client := &Client{
+		BaseClient: BaseClient{
+			Transport:           ro.transport,
+			disableMetaHeader:   ro.disableMetaHeader,
+			metaHeader:          ro.metaHeader,
+			compatibilityHeader: ro.compatibilityHeader,
+		},
+	}
+	client.API = esapi.New(client)
+	if ro.discoverNodesOnStart {
+		go func() { _ = client.DiscoverNodes() }()
+	}
+	return client, nil
+}
+
+// NewBase creates a new [BaseClient] configured with the given options.
+// It does not attach the esapi or typed API surface, which keeps the
+// binary smaller for programs that only need [BaseClient.Perform].
+//
+// With no options the client connects to http://localhost:9200, or to the
+// address(es) in the ELASTICSEARCH_URL environment variable when set.
+//
+//	client, err := elasticsearch.NewBase(
+//	    elasticsearch.WithAddresses("https://localhost:9200"),
+//	    elasticsearch.WithAPIKey("base64-encoded-key"),
+//	)
+func NewBase(opts ...Option) (*BaseClient, error) {
+	ro, err := resolveOptions(opts, "")
+	if err != nil {
+		return nil, err
+	}
+	client := &BaseClient{
+		Transport:           ro.transport,
+		disableMetaHeader:   ro.disableMetaHeader,
+		metaHeader:          ro.metaHeader,
+		compatibilityHeader: ro.compatibilityHeader,
+	}
+	if ro.discoverNodesOnStart {
+		go func() { _ = client.DiscoverNodes() }()
+	}
+	return client, nil
+}
+
+// NewTyped creates a new [TypedClient] configured with the given options.
+//
+// With no options the client connects to http://localhost:9200, or to the
+// address(es) in the ELASTICSEARCH_URL environment variable when set.
+//
+//	client, err := elasticsearch.NewTyped(
+//	    elasticsearch.WithAddresses("https://localhost:9200"),
+//	    elasticsearch.WithAPIKey("base64-encoded-key"),
+//	)
+func NewTyped(opts ...Option) (*TypedClient, error) {
+	ro, err := resolveOptions(opts, "hl=1")
+	if err != nil {
+		return nil, err
+	}
+	client := &TypedClient{
+		BaseClient: BaseClient{
+			Transport:           ro.transport,
+			disableMetaHeader:   ro.disableMetaHeader,
+			metaHeader:          ro.metaHeader,
+			compatibilityHeader: ro.compatibilityHeader,
+		},
+	}
+	client.MethodAPI = typedapi.NewMethodAPI(client)
+	if ro.discoverNodesOnStart {
+		go func() { _ = client.DiscoverNodes() }()
+	}
 	return client, nil
 }
 
@@ -306,7 +392,10 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 	}
 
 	if len(urls) == 0 {
-		u, _ := url.Parse(defaultURL) // errcheck exclude
+		u, parseErr := parseDefaultURL()
+		if parseErr != nil {
+			return nil, parseErr
+		}
 		urls = append(urls, u)
 	}
 
@@ -499,9 +588,8 @@ func (c *BaseClient) Close(ctx context.Context) error {
 		}
 
 		return nil
-	} else {
-		return ErrAlreadyClosed
 	}
+	return ErrAlreadyClosed
 }
 
 // addrsFromEnvironment returns a list of addresses by splitting
@@ -519,13 +607,21 @@ func addrsFromEnvironment() []string {
 	return addrs
 }
 
+func parseDefaultURL() (*url.URL, error) {
+	u, err := url.Parse(defaultURL)
+	if err != nil {
+		return nil, fmt.Errorf("cannot parse default URL: %v", err)
+	}
+	return u, nil
+}
+
 // addrsToURLs creates a list of url.URL structures from url list.
 func addrsToURLs(addrs []string) ([]*url.URL, error) {
 	var urls []*url.URL
 	for _, addr := range addrs {
 		u, err := url.Parse(strings.TrimRight(addr, "/"))
 		if err != nil {
-			return nil, fmt.Errorf("cannot parse url: %v", err)
+			return nil, fmt.Errorf("cannot parse URL: %v", err)
 		}
 
 		urls = append(urls, u)
