@@ -30,9 +30,10 @@ import (
 
 func TestClient_GetManifest(t *testing.T) {
 	type fields struct {
-		snapshotBaseURL string
-		releasesBaseURL string
-		client          *retryablehttp.Client
+		snapshotBaseURL            string
+		releasesBaseURL            string
+		allowedManifestURLPrefixes []string
+		client                     *retryablehttp.Client
 	}
 	type args struct {
 		ctx context.Context
@@ -192,13 +193,98 @@ func TestClient_GetManifest(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			name: "success with additional allowed URL prefix",
+			fields: fields{
+				snapshotBaseURL:            defaultSnapshotBaseURL,
+				releasesBaseURL:            defaultReleasesBaseURL,
+				allowedManifestURLPrefixes: []string{"https://artifacts.elastic.co/"},
+				client: func() *retryablehttp.Client {
+					c := retryablehttp.NewClient()
+					c.Logger = nil
+					c.HTTPClient.Transport = &mockRoundTripper{
+						RoundTripFunc: func(r *http.Request) (*http.Response, error) {
+							return &http.Response{
+								Request:    r.Clone(context.Background()),
+								StatusCode: http.StatusOK,
+								Body: io.NopCloser(strings.NewReader(`{
+	"branch": "8.15",
+	"version": "8.15.0",
+	"build_id": "8.15.0-release",
+	"start_time": "2025-01-15T10:00:00+00:00",
+	"end_time": "2025-01-15T11:00:00+00:00",
+	"build_duration_seconds": 3600,
+	"manifest_version": "1.0",
+	"prefix": "elasticsearch",
+	"projects": {
+		"elasticsearch": {
+			"branch": "8.15",
+			"commit_hash": "release123",
+			"packages": {},
+			"dependencies": []
+		}
+	}
+}`)),
+							}, nil
+						},
+					}
+					return c
+				}(),
+			},
+			args: args{
+				ctx: context.Background(),
+				req: &GetManifestRequest{
+					URL: "https://artifacts.elastic.co/releases/8.15.0/manifest.json",
+				},
+			},
+			wantErr: false,
+			want: &GetManifestResponse{
+				Manifest: &Manifest{
+					Branch:               "8.15",
+					Version:              "8.15.0",
+					BuildID:              "8.15.0-release",
+					StartTime:            "2025-01-15T10:00:00+00:00",
+					EndTime:              "2025-01-15T11:00:00+00:00",
+					BuildDurationSeconds: 3600,
+					ManifestVersion:      "1.0",
+					Prefix:               "elasticsearch",
+					Projects: struct {
+						Elasticsearch Project `json:"elasticsearch"`
+					}{
+						Elasticsearch: Project{
+							Branch:       "8.15",
+							CommitHash:   "release123",
+							Packages:     map[string]Package{},
+							Dependencies: []Dependency{},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "invalid URL - not in additional allowed prefixes either",
+			fields: fields{
+				snapshotBaseURL:            defaultSnapshotBaseURL,
+				releasesBaseURL:            defaultReleasesBaseURL,
+				allowedManifestURLPrefixes: []string{"https://artifacts.elastic.co/"},
+				client:                     retryablehttp.NewClient(),
+			},
+			args: args{
+				ctx: context.Background(),
+				req: &GetManifestRequest{
+					URL: "https://malicious-site.com/manifest.json",
+				},
+			},
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := &Client{
-				snapshotBaseURL: tt.fields.snapshotBaseURL,
-				releasesBaseURL: tt.fields.releasesBaseURL,
-				client:          tt.fields.client,
+				snapshotBaseURL:            tt.fields.snapshotBaseURL,
+				releasesBaseURL:            tt.fields.releasesBaseURL,
+				allowedManifestURLPrefixes: tt.fields.allowedManifestURLPrefixes,
+				client:                     tt.fields.client,
 			}
 			got, err := c.GetManifest(tt.args.ctx, tt.args.req)
 			if (err != nil) != tt.wantErr {
