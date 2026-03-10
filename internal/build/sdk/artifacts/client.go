@@ -29,22 +29,25 @@ import (
 )
 
 const (
-	defaultReleasesBaseURL = "https://elastic-release-api.s3.us-west-2.amazonaws.com/"
-	defaultSnapshotBaseURL = "https://artifacts-snapshot.elastic.co/"
+	defaultReleasesBaseURL  = "https://elastic-release-api.s3.us-west-2.amazonaws.com/"
+	defaultSnapshotBaseURL  = "https://artifacts-snapshot.elastic.co/"
+	defaultArtifactsBaseURL = "https://artifacts.elastic.co/"
 )
 
 type config struct {
-	releasesBaseURL string
-	snapshotBaseURL string
-	fs              afero.Fs
+	releasesBaseURL            string
+	snapshotBaseURL            string
+	allowedManifestURLPrefixes []string
+	fs                         afero.Fs
 }
 
 // Client is a client for interacting with the Elastic Artifacts API.
 type Client struct {
-	releasesBaseURL string
-	snapshotBaseURL string
-	client          *retryablehttp.Client
-	fs              afero.Fs
+	releasesBaseURL            string
+	snapshotBaseURL            string
+	allowedManifestURLPrefixes []string
+	client                     *retryablehttp.Client
+	fs                         afero.Fs
 }
 
 // Option is a functional option for configuring a Client.
@@ -64,6 +67,15 @@ func WithSnapshotBaseURL(url string) Option {
 	}
 }
 
+// WithAllowedManifestURLPrefixes adds additional URL prefixes that are accepted
+// by GetManifest. This extends the allow-list beyond the snapshot and releases
+// base URLs, which are always permitted.
+func WithAllowedManifestURLPrefixes(urls ...string) Option {
+	return func(c *config) {
+		c.allowedManifestURLPrefixes = append(c.allowedManifestURLPrefixes, urls...)
+	}
+}
+
 // WithFS sets the filesystem to use for downloading artifacts.
 // Defaults to afero.NewOsFs().
 // This is useful for testing.
@@ -76,18 +88,20 @@ func WithFS(fs afero.Fs) Option {
 // NewClient returns a new Client.
 func NewClient(options ...Option) *Client {
 	c := &config{
-		releasesBaseURL: defaultReleasesBaseURL,
-		snapshotBaseURL: defaultSnapshotBaseURL,
-		fs:              afero.NewOsFs(),
+		releasesBaseURL:            defaultReleasesBaseURL,
+		snapshotBaseURL:            defaultSnapshotBaseURL,
+		allowedManifestURLPrefixes: []string{defaultArtifactsBaseURL},
+		fs:                         afero.NewOsFs(),
 	}
 	for _, opt := range options {
 		opt(c)
 	}
 	return &Client{
-		releasesBaseURL: c.releasesBaseURL,
-		snapshotBaseURL: c.snapshotBaseURL,
-		client:          retryablehttp.NewClient(),
-		fs:              c.fs,
+		releasesBaseURL:            c.releasesBaseURL,
+		snapshotBaseURL:            c.snapshotBaseURL,
+		allowedManifestURLPrefixes: c.allowedManifestURLPrefixes,
+		client:                     retryablehttp.NewClient(),
+		fs:                         c.fs,
 	}
 }
 
