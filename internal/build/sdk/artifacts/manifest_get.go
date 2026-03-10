@@ -127,14 +127,31 @@ func (m *Manifest) ToBuild() Build {
 	return build
 }
 
+// isAllowedManifestURL checks whether u is a child of any allowed URL prefix.
+func (c *Client) isAllowedManifestURL(u string) bool {
+	for _, prefix := range append(
+		[]string{c.snapshotBaseURL, c.releasesBaseURL},
+		c.allowedManifestURLPrefixes...,
+	) {
+		if strings.HasPrefix(u, prefix) {
+			return true
+		}
+	}
+	return false
+}
+
 // GetManifest retrieves the manifest for a build.
 func (c *Client) GetManifest(ctx context.Context, req *GetManifestRequest) (*GetManifestResponse, error) {
 	if err := req.Validate(); err != nil {
 		return nil, err
 	}
 
-	if !strings.HasPrefix(req.URL, c.snapshotBaseURL) && !strings.HasPrefix(req.URL, c.releasesBaseURL) {
-		return nil, fmt.Errorf("invalid url: %s, must be child of: %s or %s", req.URL, c.snapshotBaseURL, c.releasesBaseURL)
+	if !c.isAllowedManifestURL(req.URL) {
+		allowed := strings.Join(
+			append([]string{c.snapshotBaseURL, c.releasesBaseURL}, c.allowedManifestURLPrefixes...),
+			", ",
+		)
+		return nil, fmt.Errorf("invalid url: %s, must be child of: %s", req.URL, allowed)
 	}
 
 	manifest, err := doGet[Manifest](ctx, c, req.URL)

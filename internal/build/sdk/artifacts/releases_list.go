@@ -42,7 +42,7 @@ type ListReleasesResponse struct {
 
 // ListReleases lists all releases.
 func (c *Client) ListReleases(ctx context.Context) (*ListReleasesResponse, error) {
-	requestUrl, err := url.JoinPath(c.releasesBaseURL, "releases", "stack.json")
+	requestUrl, err := url.JoinPath(c.releasesBaseURL, "public", "past-releases.json")
 	if err != nil {
 		return nil, err
 	}
