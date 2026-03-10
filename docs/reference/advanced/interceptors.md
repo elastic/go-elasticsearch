@@ -174,69 +174,6 @@ if err != nil {
 defer res.Body.Close()
 ```
 
-## Counting request retries [_interceptor_retry_counting]
-
-Interceptors can be used to monitor internal HTTP behavior, such as counting retry attempts made for a request. An interceptor can track each round-trip attempt by storing a counter in the request context:
-
-```go
-type attemptCounterKey struct{}
-
-// AttemptCounter tracks the number of round-trip attempts for a single
-// Perform call. Attach it to the request context before calling Perform,
-// and read it back afterwards.
-type AttemptCounter struct {
-	value atomic.Int64
-}
-
-func (c *AttemptCounter) Attempts() int  { return int(c.value.Load()) }
-func (c *AttemptCounter) Retries() int   { return max(c.Attempts()-1, 0) }
-
-// NewAttemptContext returns a context carrying a fresh AttemptCounter,
-// along with the counter itself so the caller can inspect it after Perform.
-func NewAttemptContext(ctx context.Context) (context.Context, *AttemptCounter) {
-	counter := &AttemptCounter{}
-	return context.WithValue(ctx, attemptCounterKey{}, counter), counter
-}
-
-// CountRetriesInterceptor returns an interceptor that increments the
-// AttemptCounter stored in the request context on every round-trip.
-func CountRetriesInterceptor() elastictransport.InterceptorFunc {
-	return func(next elastictransport.RoundTripFunc) elastictransport.RoundTripFunc {
-		return func(req *http.Request) (*http.Response, error) {
-			if counter, ok := req.Context().Value(attemptCounterKey{}).(*AttemptCounter); ok {
-				counter.value.Add(1)
-			}
-			return next(req)
-		}
-	}
-}
-```
-
-Usage:
-
-```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Addresses: []string{"https://localhost:9200"},
-    Interceptors: []elastictransport.InterceptorFunc{
-        CountRetriesInterceptor(),
-    },
-})
-
-// Create a context with an attempt counter
-ctx, counter := NewAttemptContext(context.Background())
-
-// Perform a request that might be retried
-res, err := es.Info(es.Info.WithContext(ctx))
-if err != nil {
-    log.Fatal(err)
-}
-defer res.Body.Close()
-
-// Check how many attempts were made
-fmt.Printf("Request completed after %d attempts (%d retries)\n", 
-    counter.Attempts(), counter.Retries())
-```
-
 :::{dropdown} Challenge-response authentication (Kerberos/SPNEGO)
 :open: false
 
@@ -335,6 +272,72 @@ es, err := elasticsearch.NewClient(elasticsearch.Config{
 ::::{note}
 Prefer using the built-in [OpenTelemetry instrumentation](observability.md) over custom interceptors for observability when possible. The built-in support follows OpenTelemetry semantic conventions and provides richer span attributes.
 ::::
+
+:::
+
+:::{dropdown} Counting request retries
+:open: false
+
+Interceptors can be used to monitor internal HTTP behavior, such as counting retry attempts made for a request. An interceptor can track each round-trip attempt by storing a counter in the request context:
+
+```go
+type attemptCounterKey struct{}
+
+// AttemptCounter tracks the number of round-trip attempts for a single
+// Perform call. Attach it to the request context before calling Perform,
+// and read it back afterwards.
+type AttemptCounter struct {
+	value atomic.Int64
+}
+
+func (c *AttemptCounter) Attempts() int  { return int(c.value.Load()) }
+func (c *AttemptCounter) Retries() int   { return max(c.Attempts()-1, 0) }
+
+// NewAttemptContext returns a context carrying a fresh AttemptCounter,
+// along with the counter itself so the caller can inspect it after Perform.
+func NewAttemptContext(ctx context.Context) (context.Context, *AttemptCounter) {
+	counter := &AttemptCounter{}
+	return context.WithValue(ctx, attemptCounterKey{}, counter), counter
+}
+
+// CountRetriesInterceptor returns an interceptor that increments the
+// AttemptCounter stored in the request context on every round-trip.
+func CountRetriesInterceptor() elastictransport.InterceptorFunc {
+	return func(next elastictransport.RoundTripFunc) elastictransport.RoundTripFunc {
+		return func(req *http.Request) (*http.Response, error) {
+			if counter, ok := req.Context().Value(attemptCounterKey{}).(*AttemptCounter); ok {
+				counter.value.Add(1)
+			}
+			return next(req)
+		}
+	}
+}
+```
+
+Usage:
+
+```go
+es, err := elasticsearch.NewClient(elasticsearch.Config{
+    Addresses: []string{"https://localhost:9200"},
+    Interceptors: []elastictransport.InterceptorFunc{
+        CountRetriesInterceptor(),
+    },
+})
+
+// Create a context with an attempt counter
+ctx, counter := NewAttemptContext(context.Background())
+
+// Perform a request that might be retried
+res, err := es.Info(es.Info.WithContext(ctx))
+if err != nil {
+    log.Fatal(err)
+}
+defer res.Body.Close()
+
+// Check how many attempts were made
+fmt.Printf("Request completed after %d attempts (%d retries)\n", 
+    counter.Attempts(), counter.Retries())
+```
 
 :::
 
