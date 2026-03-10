@@ -224,10 +224,11 @@ func TestClient_DownloadRestResources(t *testing.T) {
 			}
 
 			client := &Client{
-				releasesBaseURL: defaultReleasesBaseURL,
-				snapshotBaseURL: defaultSnapshotBaseURL,
-				client:          httpClient,
-				fs:              memFs,
+				releasesBaseURL:            defaultReleasesBaseURL,
+				snapshotBaseURL:            defaultSnapshotBaseURL,
+				allowedManifestURLPrefixes: []string{defaultArtifactsBaseURL},
+				client:                     httpClient,
+				fs:                         memFs,
 			}
 
 			parsedRef, _ := ref.Parse(tt.ref)
