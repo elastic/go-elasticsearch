@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Update voting configuration exclusions.
 //
@@ -146,7 +146,7 @@ func NewPostVotingConfigExclusionsFunc(tp elastictransport.Interface) NewPostVot
 // They are not required when removing master-ineligible nodes or when removing
 // fewer than half of the master-eligible nodes.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-post-voting-config-exclusions
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-post-voting-config-exclusions
 func New(tp elastictransport.Interface) *PostVotingConfigExclusions {
 	r := &PostVotingConfigExclusions{
 		transport: tp,

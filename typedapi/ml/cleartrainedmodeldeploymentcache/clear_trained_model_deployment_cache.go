@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Clear trained model deployment cache.
 //
@@ -90,7 +90,7 @@ func NewClearTrainedModelDeploymentCacheFunc(tp elastictransport.Interface) NewC
 // on that individual node.
 // Calling this API clears the caches without restarting the deployment.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-clear-trained-model-deployment-cache
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-clear-trained-model-deployment-cache
 func New(tp elastictransport.Interface) *ClearTrainedModelDeploymentCache {
 	r := &ClearTrainedModelDeploymentCache{
 		transport: tp,

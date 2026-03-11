@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Prepare SAML authentication.
 //
@@ -119,7 +119,7 @@ func NewSamlPrepareAuthenticationFunc(tp elastictransport.Interface) NewSamlPrep
 // The caller of this API needs to store this identifier as it needs to be used
 // in a following step of the authentication process.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-prepare-authentication
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-prepare-authentication
 func New(tp elastictransport.Interface) *SamlPrepareAuthentication {
 	r := &SamlPrepareAuthentication{
 		transport: tp,

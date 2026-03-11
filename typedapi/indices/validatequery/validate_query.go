@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Validate a query.
 //
@@ -87,7 +87,7 @@ func NewValidateQueryFunc(tp elastictransport.Interface) NewValidateQuery {
 //
 // Validates a query without running it.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-validate-query
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-validate-query
 func New(tp elastictransport.Interface) *ValidateQuery {
 	r := &ValidateQuery{
 		transport: tp,

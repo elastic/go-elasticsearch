@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Update the connector error field.
 //
@@ -95,7 +95,7 @@ func NewUpdateErrorFunc(tp elastictransport.Interface) NewUpdateError {
 // Otherwise, if the error is reset to null, the connector status is updated to
 // connected.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-error
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-error
 func New(tp elastictransport.Interface) *UpdateError {
 	r := &UpdateError{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package esdsl
 
@@ -232,9 +232,11 @@ func (s *_searchRequestBody) AddScriptField(key string, value types.ScriptFieldV
 
 func (s *_searchRequestBody) SearchAfter(sortresults ...types.FieldValueVariant) *_searchRequestBody {
 
+	convertedItems := make([]types.FieldValue, 0, len(sortresults))
 	for _, v := range sortresults {
-		s.v.SearchAfter = append(s.v.SearchAfter, *v.FieldValueCaster())
+		convertedItems = append(convertedItems, *v.FieldValueCaster())
 	}
+	s.v.SearchAfter = convertedItems
 
 	return s
 }
@@ -262,9 +264,11 @@ func (s *_searchRequestBody) Slice(slice types.SlicedScrollVariant) *_searchRequ
 
 func (s *_searchRequestBody) Sort(sorts ...types.SortCombinationsVariant) *_searchRequestBody {
 
+	convertedItems := make([]types.SortCombinations, 0, len(sorts))
 	for _, v := range sorts {
-		s.v.Sort = append(s.v.Sort, *v.SortCombinationsCaster())
+		convertedItems = append(convertedItems, *v.SortCombinationsCaster())
 	}
+	s.v.Sort = convertedItems
 
 	return s
 }

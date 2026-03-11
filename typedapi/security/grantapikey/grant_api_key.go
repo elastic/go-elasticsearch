@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Grant an API key.
 //
@@ -139,7 +139,7 @@ func NewGrantApiKeyFunc(tp elastictransport.Interface) NewGrantApiKey {
 // By default, API keys never expire. You can specify expiration information
 // when you create the API keys.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-grant-api-key
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-grant-api-key
 func New(tp elastictransport.Interface) *GrantApiKey {
 	r := &GrantApiKey{
 		transport: tp,

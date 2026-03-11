@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package deleterolemapping
 
 // Response holds the response body struct for the package deleterolemapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/security/delete_role_mapping/SecurityDeleteRoleMappingResponse.ts#L20-L28
+// https://github.com/elastic/elasticsearch-specification/blob/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6/specification/security/delete_role_mapping/SecurityDeleteRoleMappingResponse.ts#L20-L28
 type Response struct {
 	// Found If the mapping is successfully deleted, `found` is `true`.
 	// Otherwise, `found` is `false`.

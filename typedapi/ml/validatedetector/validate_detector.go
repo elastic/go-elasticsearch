@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Validate an anomaly detection job.
 package validatedetector
@@ -76,7 +76,7 @@ func NewValidateDetectorFunc(tp elastictransport.Interface) NewValidateDetector 
 
 // Validate an anomaly detection job.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/
 func New(tp elastictransport.Interface) *ValidateDetector {
 	r := &ValidateDetector{
 		transport: tp,

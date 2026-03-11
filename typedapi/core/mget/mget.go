@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Get multiple documents.
 //
@@ -127,7 +127,7 @@ func NewMgetFunc(tp elastictransport.Interface) NewMget {
 // You can include the `stored_fields` query parameter in the request URI to
 // specify the defaults to use when there are no per-document instructions.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-mget
 func New(tp elastictransport.Interface) *Mget {
 	r := &Mget{
 		transport: tp,

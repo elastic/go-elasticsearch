@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 // Create an OpenShift AI inference endpoint.
 //
@@ -95,7 +95,7 @@ func NewPutOpenshiftAiFunc(tp elastictransport.Interface) NewPutOpenshiftAi {
 // Create an inference endpoint to perform an inference task with the
 // `openshift_ai` service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openshift-ai
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-openshift-ai
 func New(tp elastictransport.Interface) *PutOpenshiftAi {
 	r := &PutOpenshiftAi{
 		transport: tp,

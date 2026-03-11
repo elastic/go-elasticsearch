@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6
 
 package putgroq
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putgroq
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/put_groq/PutGroqRequest.ts#L29-L73
+// https://github.com/elastic/elasticsearch-specification/blob/55f8d05b44cea956ae5ceddfcb02770ea2a24ff6/specification/inference/put_groq/PutGroqRequest.ts#L29-L73
 type Request struct {
 	// Service The type of service supported for the specified task type. In this case,
 	// `groq`.
