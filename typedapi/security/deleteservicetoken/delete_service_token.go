@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Delete service account tokens.
 //
@@ -348,9 +348,9 @@ func (r *DeleteServiceToken) _name(name string) *DeleteServiceToken {
 	return r
 }
 
-// Refresh If `true` then refresh the affected shards to make this operation visible to
-// search, if `wait_for` (the default) then wait for a refresh to make this
-// operation visible to search, if `false` then do nothing with refreshes.
+// Refresh If `true` (the default) then refresh the affected shards to make this
+// operation visible to search, if `wait_for` then wait for a refresh to make
+// this operation visible to search, if `false` then do nothing with refreshes.
 // API name: refresh
 func (r *DeleteServiceToken) Refresh(refresh refresh.Refresh) *DeleteServiceToken {
 	r.values.Set("refresh", refresh.String())

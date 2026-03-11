@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/Knn.ts#L35-L62
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/_types/Knn.ts#L35-L64
 type KnnSearch struct {
 	// Boost Boost value to apply to kNN scores
 	Boost *float32 `json:"boost,omitempty"`
@@ -44,7 +44,8 @@ type KnnSearch struct {
 	// K The final number of nearest neighbors to return as top hits
 	K *int `json:"k,omitempty"`
 	// NumCandidates The number of nearest neighbor candidates to consider per shard
-	NumCandidates *int `json:"num_candidates,omitempty"`
+	NumCandidates *int    `json:"num_candidates,omitempty"`
+	QueryName_    *string `json:"_name,omitempty"`
 	// QueryVector The query vector
 	QueryVector []float32 `json:"query_vector,omitempty"`
 	// QueryVectorBuilder The query vector builder. You must provide a query_vector_builder or
@@ -144,6 +145,18 @@ func (s *KnnSearch) UnmarshalJSON(data []byte) error {
 				f := int(v)
 				s.NumCandidates = &f
 			}
+
+		case "_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "QueryName_", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.QueryName_ = &o
 
 		case "query_vector":
 			if err := dec.Decode(&s.QueryVector); err != nil {

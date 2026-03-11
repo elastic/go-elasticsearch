@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FingerprintTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/analysis/token_filters.ts#L260-L266
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/_types/analysis/token_filters.ts#L260-L266
 type FingerprintTokenFilter struct {
 	// MaxOutputSize Maximum character length, including whitespace, of the output token. Defaults
 	// to `255`. Concatenated tokens longer than this will result in no token

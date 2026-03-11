@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -30,14 +30,15 @@ import (
 
 // ComponentTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/cluster/_types/ComponentTemplate.ts#L43-L55
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/cluster/_types/ComponentTemplate.ts#L44-L61
 type ComponentTemplateSummary struct {
-	Aliases   map[string]AliasDefinition       `json:"aliases,omitempty"`
-	Lifecycle *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
-	Mappings  *TypeMapping                     `json:"mappings,omitempty"`
-	Meta_     Metadata                         `json:"_meta,omitempty"`
-	Settings  map[string]IndexSettings         `json:"settings,omitempty"`
-	Version   *int64                           `json:"version,omitempty"`
+	Aliases           map[string]AliasDefinition       `json:"aliases,omitempty"`
+	DataStreamOptions *DataStreamOptions               `json:"data_stream_options,omitempty"`
+	Lifecycle         *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
+	Mappings          *TypeMapping                     `json:"mappings,omitempty"`
+	Meta_             Metadata                         `json:"_meta,omitempty"`
+	Settings          map[string]IndexSettings         `json:"settings,omitempty"`
+	Version           *int64                           `json:"version,omitempty"`
 }
 
 func (s *ComponentTemplateSummary) UnmarshalJSON(data []byte) error {
@@ -61,6 +62,11 @@ func (s *ComponentTemplateSummary) UnmarshalJSON(data []byte) error {
 			}
 			if err := dec.Decode(&s.Aliases); err != nil {
 				return fmt.Errorf("%s | %w", "Aliases", err)
+			}
+
+		case "data_stream_options":
+			if err := dec.Decode(&s.DataStreamOptions); err != nil {
+				return fmt.Errorf("%s | %w", "DataStreamOptions", err)
 			}
 
 		case "lifecycle":

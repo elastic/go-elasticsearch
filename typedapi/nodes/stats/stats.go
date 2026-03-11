@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Get node statistics.
 // Get statistics for nodes in a cluster.
@@ -393,7 +393,7 @@ func (r *Stats) NodeId(nodeid string) *Stats {
 	return r
 }
 
-// Metric Limit the information returned to the specified metrics
+// Metric Limits the information returned to the specific metrics.
 // API Name: metric
 func (r *Stats) Metric(metric string) *Stats {
 	r.paramSet |= metricMask
@@ -456,7 +456,7 @@ func (r *Stats) IncludeSegmentFileSizes(includesegmentfilesizes bool) *Stats {
 	return r
 }
 
-// Level Indicates whether statistics are aggregated at the cluster, index, or shard
+// Level Indicates whether statistics are aggregated at the node, indices, or shards
 // level.
 // API name: level
 func (r *Stats) Level(level level.Level) *Stats {

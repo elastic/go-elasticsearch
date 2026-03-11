@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Clone a snapshot.
 // Clone part of all of a snapshot into another snapshot in the same repository.
@@ -328,7 +328,8 @@ func (r *Clone) Header(key, value string) *Clone {
 	return r
 }
 
-// Repository A repository name
+// Repository The name of the snapshot repository that both source and target snapshot
+// belong to.
 // API Name: repository
 func (r *Clone) _repository(repository string) *Clone {
 	r.paramSet |= repositoryMask
@@ -337,7 +338,7 @@ func (r *Clone) _repository(repository string) *Clone {
 	return r
 }
 
-// Snapshot The name of the snapshot to clone from
+// Snapshot The source snapshot name.
 // API Name: snapshot
 func (r *Clone) _snapshot(snapshot string) *Clone {
 	r.paramSet |= snapshotMask
@@ -346,7 +347,7 @@ func (r *Clone) _snapshot(snapshot string) *Clone {
 	return r
 }
 
-// TargetSnapshot The name of the cloned snapshot to create
+// TargetSnapshot The target snapshot name.
 // API Name: targetsnapshot
 func (r *Clone) _targetsnapshot(targetsnapshot string) *Clone {
 	r.paramSet |= targetsnapshotMask
@@ -355,7 +356,10 @@ func (r *Clone) _targetsnapshot(targetsnapshot string) *Clone {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout The period to wait for the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Clone) MasterTimeout(duration string) *Clone {
 	r.values.Set("master_timeout", duration)
@@ -407,6 +411,8 @@ func (r *Clone) Pretty(pretty bool) *Clone {
 	return r
 }
 
+// Indices A comma-separated list of indices to include in the snapshot.
+// Multi-target syntax is supported.
 // API name: indices
 func (r *Clone) Indices(indices string) *Clone {
 	if r.req == nil {

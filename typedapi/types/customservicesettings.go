@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -31,10 +31,17 @@ import (
 
 // CustomServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/CommonTypes.ts#L904-L972
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/inference/_types/CommonTypes.ts#L898-L973
 type CustomServiceSettings struct {
-	// Headers Specifies the HTTPS header parameters – such as `Authentication` or
-	// `Contet-Type` – that are required to access the custom service.
+	// BatchSize Specifies the batch size used for the semantic_text field. If the field is
+	// not provided, the default is 10.
+	// The batch size is the maximum number of inputs in a single request to the
+	// upstream service.
+	// The chunk within the batch are controlled by the selected chunking strategy
+	// for the semantic_text field.
+	BatchSize *int `json:"batch_size,omitempty"`
+	// Headers Specifies the HTTP header parameters – such as `Authentication` or
+	// `Content-Type` – that are required to access the custom service.
 	// For example:
 	// ```
 	//
@@ -118,6 +125,22 @@ func (s *CustomServiceSettings) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "batch_size":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "BatchSize", err)
+				}
+				s.BatchSize = &value
+			case float64:
+				f := int(v)
+				s.BatchSize = &f
+			}
 
 		case "headers":
 			if err := dec.Decode(&s.Headers); err != nil {

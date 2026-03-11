@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HitsEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/eql/_types/EqlHits.ts#L41-L54
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/eql/_types/EqlHits.ts#L41-L54
 type HitsEvent struct {
 	Fields map[string][]json.RawMessage `json:"fields,omitempty"`
 	// Id_ Unique identifier for the event. This ID is only unique within the index.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // AsyncSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/async_search/_types/AsyncSearch.ts#L30-L56
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/async_search/_types/AsyncSearch.ts#L30-L56
 type AsyncSearch struct {
 	// Aggregations Partial aggregations results, coming from the shards that have already
 	// completed running the query.
@@ -208,6 +208,13 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 								}
 								s.Aggregations[elems[1]] = o
 
+							case "change_point":
+								o := NewChangePointAggregate()
+								if err := dec.Decode(&o); err != nil {
+									return fmt.Errorf("%s | %w", "Aggregations", err)
+								}
+								s.Aggregations[elems[1]] = o
+
 							case "stats":
 								o := NewStatsAggregate()
 								if err := dec.Decode(&o); err != nil {
@@ -231,6 +238,20 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 
 							case "extended_stats_bucket":
 								o := NewExtendedStatsBucketAggregate()
+								if err := dec.Decode(&o); err != nil {
+									return fmt.Errorf("%s | %w", "Aggregations", err)
+								}
+								s.Aggregations[elems[1]] = o
+
+							case "cartesian_bounds":
+								o := NewCartesianBoundsAggregate()
+								if err := dec.Decode(&o); err != nil {
+									return fmt.Errorf("%s | %w", "Aggregations", err)
+								}
+								s.Aggregations[elems[1]] = o
+
+							case "cartesian_centroid":
+								o := NewCartesianCentroidAggregate()
 								if err := dec.Decode(&o); err != nil {
 									return fmt.Errorf("%s | %w", "Aggregations", err)
 								}

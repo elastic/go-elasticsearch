@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Delete documents.
 //
@@ -610,7 +610,7 @@ func (r *DeleteByQuery) Conflicts(conflicts conflicts.Conflicts) *DeleteByQuery 
 	return r
 }
 
-// DefaultOperator The default operator for query string query: `AND` or `OR`.
+// DefaultOperator The default operator for query string query: `and` or `or`.
 // This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: default_operator
@@ -770,18 +770,6 @@ func (r *DeleteByQuery) Slices(slices string) *DeleteByQuery {
 	return r
 }
 
-// Sort A comma-separated list of `<field>:<direction>` pairs.
-// API name: sort
-func (r *DeleteByQuery) Sort(sorts ...string) *DeleteByQuery {
-	tmp := []string{}
-	for _, item := range sorts {
-		tmp = append(tmp, fmt.Sprintf("%v", item))
-	}
-	r.values.Set("sort", strings.Join(tmp, ","))
-
-	return r
-}
-
 // Stats The specific `tag` of the request for logging and statistical purposes.
 // API name: stats
 func (r *DeleteByQuery) Stats(stats ...string) *DeleteByQuery {
@@ -929,6 +917,17 @@ func (r *DeleteByQuery) Slice(slice *types.SlicedScroll) *DeleteByQuery {
 	}
 
 	r.req.Slice = slice
+
+	return r
+}
+
+// Sort A sort object that specifies the order of deleted documents.
+// API name: sort
+func (r *DeleteByQuery) Sort(sorts ...types.SortCombinations) *DeleteByQuery {
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sorts
 
 	return r
 }

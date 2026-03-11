@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Delete a dangling index.
 // If Elasticsearch encounters index data that is absent from the current
@@ -317,7 +317,7 @@ func (r *DeleteDanglingIndex) AcceptDataLoss(acceptdataloss bool) *DeleteDanglin
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *DeleteDanglingIndex) MasterTimeout(duration string) *DeleteDanglingIndex {
 	r.values.Set("master_timeout", duration)
@@ -325,7 +325,7 @@ func (r *DeleteDanglingIndex) MasterTimeout(duration string) *DeleteDanglingInde
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout The period to wait for a response.
 // API name: timeout
 func (r *DeleteDanglingIndex) Timeout(duration string) *DeleteDanglingIndex {
 	r.values.Set("timeout", duration)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Get shard recovery information.
 //
@@ -340,14 +340,6 @@ func (r *Recovery) ActiveOnly(activeonly bool) *Recovery {
 	return r
 }
 
-// Bytes The unit used to display byte values.
-// API name: bytes
-func (r *Recovery) Bytes(bytes bytes.Bytes) *Recovery {
-	r.values.Set("bytes", bytes.String())
-
-	return r
-}
-
 // Detailed If `true`, the response includes detailed information about shard recoveries.
 // API name: detailed
 func (r *Recovery) Detailed(detailed bool) *Recovery {
@@ -380,10 +372,18 @@ func (r *Recovery) S(names ...string) *Recovery {
 	return r
 }
 
-// Time The unit used to display time values.
-// API name: time
-func (r *Recovery) Time(time timeunit.TimeUnit) *Recovery {
-	r.values.Set("time", time.String())
+// Bytes Sets the units for columns that contain a byte-size value.
+// Note that byte-size value units work in terms of powers of 1024. For instance
+// `1kb` means 1024 bytes, not 1000 bytes.
+// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
+// or `gb`, chosen such that the numeric value of the column is as small as
+// possible whilst still being at least `1.0`.
+// If given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: bytes
+func (r *Recovery) Bytes(bytes bytes.Bytes) *Recovery {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
@@ -402,6 +402,19 @@ func (r *Recovery) Format(format string) *Recovery {
 // API name: help
 func (r *Recovery) Help(help bool) *Recovery {
 	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Time Sets the units for columns that contain a time duration.
+// If omitted, time duration values are rendered with a suffix such as `ms`,
+// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
+// as possible whilst still being at least `1.0`.
+// If given, time duration values are rendered as an integer with no suffix.
+// Values that are not an exact multiple of the chosen unit are rounded down.
+// API name: time
+func (r *Recovery) Time(time timeunit.TimeUnit) *Recovery {
+	r.values.Set("time", time.String())
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 // Get index templates.
 // Get information about one or more index templates.
@@ -293,8 +293,7 @@ func (r *GetIndexTemplate) Header(key, value string) *GetIndexTemplate {
 	return r
 }
 
-// Name Comma-separated list of index template names used to limit the request.
-// Wildcard (*) expressions are supported.
+// Name Name of index template to retrieve. Wildcard (*) expressions are supported.
 // API Name: name
 func (r *GetIndexTemplate) Name(name string) *GetIndexTemplate {
 	r.paramSet |= nameMask

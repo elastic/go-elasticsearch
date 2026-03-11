@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/224e96968e3ab27c2d1d33f015783b44ed183c1f
 
 package types
 
@@ -34,9 +34,9 @@ import (
 
 // NodeAllocationExplanation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/cluster/allocation_explain/types.ts#L103-L117
+// https://github.com/elastic/elasticsearch-specification/blob/224e96968e3ab27c2d1d33f015783b44ed183c1f/specification/cluster/allocation_explain/types.ts#L103-L117
 type NodeAllocationExplanation struct {
-	Deciders         []AllocationDecision `json:"deciders"`
+	Deciders         []AllocationDecision `json:"deciders,omitempty"`
 	NodeAttributes   map[string]string    `json:"node_attributes"`
 	NodeDecision     decision.Decision    `json:"node_decision"`
 	NodeId           string               `json:"node_id"`
@@ -44,7 +44,7 @@ type NodeAllocationExplanation struct {
 	Roles            []noderole.NodeRole  `json:"roles"`
 	Store            *AllocationStore     `json:"store,omitempty"`
 	TransportAddress string               `json:"transport_address"`
-	WeightRanking    int                  `json:"weight_ranking"`
+	WeightRanking    *int                 `json:"weight_ranking,omitempty"`
 }
 
 func (s *NodeAllocationExplanation) UnmarshalJSON(data []byte) error {
@@ -115,10 +115,10 @@ func (s *NodeAllocationExplanation) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "WeightRanking", err)
 				}
-				s.WeightRanking = value
+				s.WeightRanking = &value
 			case float64:
 				f := int(v)
-				s.WeightRanking = f
+				s.WeightRanking = &f
 			}
 
 		}
