@@ -114,8 +114,9 @@ type BulkIndexerItem struct {
 	RetryOnConflict *int
 	IfSeqNo         *int64
 	IfPrimaryTerm   *int64
-	meta            bytes.Buffer // Item metadata header
-	payloadLength   int          // Item payload total length metadata+newline+body length
+	ctx             context.Context // per-item context, populated from Add(ctx, item)
+	meta            bytes.Buffer    // Item metadata header
+	payloadLength   int             // Item payload total length metadata+newline+body length
 
 	OnSuccess func(context.Context, BulkIndexerItem, BulkIndexerResponseItem)        // Per item
 	OnFailure func(context.Context, BulkIndexerItem, BulkIndexerResponseItem, error) // Per item
@@ -326,6 +327,10 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 	atomic.AddUint64(&bi.stats.numAdded, 1)
 
+	if item.ctx == nil {
+		item.ctx = ctx
+	}
+
 	// Serialize metadata to JSON
 	item.marshallMeta()
 	// Compute length for body & metadata
@@ -450,7 +455,7 @@ func (w *worker) run() {
 
 				if err := w.writeMeta(&item); err != nil {
 					if item.OnFailure != nil {
-						item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
+						item.OnFailure(item.ctx, item, BulkIndexerResponseItem{}, err)
 					}
 					atomic.AddUint64(&w.bi.stats.numFailed, 1)
 					continue
@@ -458,7 +463,7 @@ func (w *worker) run() {
 
 				if err := w.writeBody(&item); err != nil {
 					if item.OnFailure != nil {
-						item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
+						item.OnFailure(item.ctx, item, BulkIndexerResponseItem{}, err)
 					}
 					atomic.AddUint64(&w.bi.stats.numFailed, 1)
 					continue
@@ -630,7 +635,7 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 		if info.Error.Type != "" || info.Status > 201 {
 			atomic.AddUint64(&w.bi.stats.numFailed, 1)
 			if item.OnFailure != nil {
-				item.OnFailure(ctx, item, info, nil)
+				item.OnFailure(item.ctx, item, info, nil)
 			}
 		} else {
 			atomic.AddUint64(&w.bi.stats.numFlushed, 1)
@@ -647,7 +652,7 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 			}
 
 			if item.OnSuccess != nil {
-				item.OnSuccess(ctx, item, info)
+				item.OnSuccess(item.ctx, item, info)
 			}
 		}
 	}
@@ -660,10 +665,10 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 	return err
 }
 
-func (w *worker) notifyItemsOnError(ctx context.Context, err error) {
+func (w *worker) notifyItemsOnError(err error) {
 	for _, item := range w.items {
 		if item.OnFailure != nil {
-			item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
+			item.OnFailure(item.ctx, item, BulkIndexerResponseItem{}, err)
 		}
 	}
 }
@@ -672,7 +677,7 @@ func (w *worker) handleError(ctx context.Context, err error) {
 	if w.bi.config.OnError != nil {
 		w.bi.config.OnError(ctx, err)
 	}
-	w.notifyItemsOnError(ctx, err)
+	w.notifyItemsOnError(err)
 }
 
 type defaultJSONDecoder struct{}
