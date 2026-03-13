@@ -28,10 +28,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"slices"
 	"testing"
-	"testing/containertest"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v9"
@@ -72,46 +70,15 @@ type RunResult struct {
 }
 
 func TestBase64BulkIndexing(t *testing.T) {
-	// If ELASTICSEARCH_URL is set use the external cluster instead of starting a testcontainer.
-	var (
-		esClient         *elasticsearch.TypedClient
-		err              error
-		elasticsearchSrv *containertest.ElasticsearchService
-	)
-
-	if envURL, ok := os.LookupEnv("ELASTICSEARCH_URL"); ok && envURL != "" {
-		t.Logf("ELASTICSEARCH_URL is set, using external Elasticsearch at %s", envURL)
-		// Create a config that will make the client pick addresses from the environment.
-		cfg := elasticsearch.Config{}
-		cfg.CompressRequestBody = false
-		esClient, err = elasticsearch.NewTypedClient(cfg)
-		if err != nil {
-			t.Fatalf("Error creating the client from environment: %s", err)
-		}
-	} else {
-		// Start a testcontainer Elasticsearch instance as before.
-		elasticsearchSrv, err = containertest.NewElasticsearchService(containertest.ElasticStackImage)
-		if err != nil {
-			t.Fatalf("Error setting up Elasticsearch container: %s", err)
-		}
-		defer func() {
-			if err := elasticsearchSrv.Terminate(context.Background()); err != nil {
-				t.Fatalf("Error terminating Elasticsearch container: %s", err)
-			}
-		}()
-
-		cfg := elasticsearchSrv.ESConfig()
-		cfg.CompressRequestBody = false
-		esClient, err = elasticsearch.NewTypedClient(cfg)
-		if err != nil {
-			t.Fatalf("Error creating the client: %s", err)
-		}
+	cfg := sharedCfg
+	cfg.CompressRequestBody = false
+	esClient, err := elasticsearch.NewTypedClient(cfg)
+	if err != nil {
+		t.Fatalf("Error creating the client: %s", err)
 	}
 	defer func() {
-		if esClient != nil {
-			if err := esClient.Close(context.Background()); err != nil {
-				t.Fatalf("Error closing the client: %s", err)
-			}
+		if err := esClient.Close(context.Background()); err != nil {
+			t.Fatalf("Error closing the client: %s", err)
 		}
 	}()
 

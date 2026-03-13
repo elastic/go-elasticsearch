@@ -27,7 +27,6 @@ import (
 	"fmt"
 	"strings"
 	"testing"
-	"testing/containertest"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v9"
@@ -35,17 +34,7 @@ import (
 )
 
 func TestAPI(t *testing.T) {
-	elasticsearchSrv, err := containertest.NewElasticsearchService(containertest.ElasticStackImage)
-	if err != nil {
-		t.Fatalf("Error setting up Elasticsearch container: %s", err)
-	}
-	defer func() {
-		if err := elasticsearchSrv.Terminate(context.Background()); err != nil {
-			t.Fatalf("Error terminating Elasticsearch container: %s", err)
-		}
-	}()
-
-	tcCfg := elasticsearchSrv.ESConfig()
+	tcCfg := sharedCfg
 
 	t.Run("Search", func(t *testing.T) {
 		es, err := elasticsearch.NewClient(tcCfg)
