@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Delete a Logstash pipeline.
+//
 // Delete a pipeline that is used for Logstash Central Management.
 // If the request succeeds, you receive an empty response with an appropriate
 // status code.
@@ -78,6 +79,7 @@ func NewDeletePipelineFunc(tp elastictransport.Interface) NewDeletePipeline {
 }
 
 // Delete a Logstash pipeline.
+//
 // Delete a pipeline that is used for Logstash Central Management.
 // If the request succeeds, you receive an empty response with an appropriate
 // status code.

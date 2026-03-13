@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TopLeftBottomRightGeoBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/Geo.ts#L160-L163
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_types/Geo.ts#L160-L163
 type TopLeftBottomRightGeoBounds struct {
 	BottomRight GeoLocation `json:"bottom_right"`
 	TopLeft     GeoLocation `json:"top_left"`
@@ -162,6 +162,9 @@ func (s *TopLeftBottomRightGeoBounds) TopLeftBottomRightGeoBoundsCaster() *TopLe
 }
 
 func (s *TopLeftBottomRightGeoBounds) GeoBoundsCaster() *GeoBounds {
+	if s == nil {
+		return nil
+	}
 	o := GeoBounds(s)
 	return &o
 }

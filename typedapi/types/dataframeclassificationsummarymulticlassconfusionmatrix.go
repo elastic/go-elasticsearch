@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeClassificationSummaryMulticlassConfusionMatrix type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/evaluate_data_frame/types.ts#L120-L123
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/ml/evaluate_data_frame/types.ts#L120-L123
 type DataframeClassificationSummaryMulticlassConfusionMatrix struct {
 	ConfusionMatrix       []ConfusionMatrixItem `json:"confusion_matrix"`
 	OtherActualClassCount int                   `json:"other_actual_class_count"`

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Split an index.
+//
 // Split an index into a new index with more primary shards.
 // * Before you can split an index:
 //
@@ -134,6 +135,7 @@ func NewSplitFunc(tp elastictransport.Interface) NewSplit {
 }
 
 // Split an index.
+//
 // Split an index into a new index with more primary shards.
 // * Before you can split an index:
 //

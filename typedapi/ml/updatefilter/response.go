@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package updatefilter
 
 // Response holds the response body struct for the package updatefilter
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/update_filter/MlUpdateFilterResponse.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/ml/update_filter/MlUpdateFilterResponse.ts#L22-L28
 type Response struct {
 	Description string   `json:"description"`
 	FilterId    string   `json:"filter_id"`

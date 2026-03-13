@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Get usage information.
+//
 // Get information about the features that are currently enabled and available
 // under the current license.
 // The API also provides some usage statistics.
@@ -72,6 +73,7 @@ func NewUsageFunc(tp elastictransport.Interface) NewUsage {
 }
 
 // Get usage information.
+//
 // Get information about the features that are currently enabled and available
 // under the current license.
 // The API also provides some usage statistics.

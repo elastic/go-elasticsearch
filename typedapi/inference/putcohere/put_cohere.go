@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Create a Cohere inference endpoint.
 //
@@ -392,6 +392,8 @@ func (r *PutCohere) Pretty(pretty bool) *PutCohere {
 }
 
 // The chunking configuration object.
+// Applies only to the `text_embedding` task type.
+// Not applicable to the `rerank` or `completion` task type.
 // API name: chunking_settings
 func (r *PutCohere) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutCohere {
 	// Initialize the request if it is not already initialized

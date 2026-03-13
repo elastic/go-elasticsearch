@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Refresh an index.
+//
 // A refresh makes recent operations performed on one or more indices available
 // for search.
 // For data streams, the API runs the refresh operation on the stream’s backing
@@ -103,6 +104,7 @@ func NewRefreshFunc(tp elastictransport.Interface) NewRefresh {
 }
 
 // Refresh an index.
+//
 // A refresh makes recent operations performed on one or more indices available
 // for search.
 // For data streams, the API runs the refresh operation on the stream’s backing

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package testgrokpattern
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package testgrokpattern
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/text_structure/test_grok_pattern/TestGrokPatternRequest.ts#L23-L59
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/text_structure/test_grok_pattern/TestGrokPatternRequest.ts#L23-L62
 type Request struct {
 	// GrokPattern The Grok pattern to run on the text.
 	GrokPattern string `json:"grok_pattern"`

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
-// Perform text embedding inference on the service
+// Perform text embedding inference on the service.
 package textembedding
 
 import (
@@ -81,7 +81,7 @@ func NewTextEmbeddingFunc(tp elastictransport.Interface) NewTextEmbedding {
 	}
 }
 
-// Perform text embedding inference on the service
+// Perform text embedding inference on the service.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *TextEmbedding {
@@ -405,7 +405,9 @@ func (r *TextEmbedding) InputType(inputtype string) *TextEmbedding {
 	return r
 }
 
-// Optional task settings
+// Task settings for the individual inference request. These settings are
+// specific to the <task_type> you specified and override the task settings
+// specified when initializing the service.
 // API name: task_settings
 func (r *TextEmbedding) TaskSettings(tasksettings json.RawMessage) *TextEmbedding {
 	// Initialize the request if it is not already initialized

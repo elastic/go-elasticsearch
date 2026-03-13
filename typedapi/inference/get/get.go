@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
-// Get an inference endpoint
+// Get an inference endpoint.
+//
+// This API requires the `monitor_inference` cluster privilege (the built-in
+// `inference_admin` and `inference_user` roles grant this privilege).
 package get
 
 import (
@@ -77,7 +80,10 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	}
 }
 
-// Get an inference endpoint
+// Get an inference endpoint.
+//
+// This API requires the `monitor_inference` cluster privilege (the built-in
+// `inference_admin` and `inference_user` roles grant this privilege).
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-get
 func New(tp elastictransport.Interface) *Get {

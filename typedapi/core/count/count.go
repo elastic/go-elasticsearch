@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Count search results.
+//
 // Get the number of documents matching a query.
 //
 // The query can be provided either by using a simple query string as a
@@ -96,6 +97,7 @@ func NewCountFunc(tp elastictransport.Interface) NewCount {
 }
 
 // Count search results.
+//
 // Get the number of documents matching a query.
 //
 // The query can be provided either by using a simple query string as a

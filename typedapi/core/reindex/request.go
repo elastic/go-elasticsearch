@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package reindex
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package reindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/reindex/ReindexRequest.ts#L27-L184
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_global/reindex/ReindexRequest.ts#L32-L191
 type Request struct {
 	// Conflicts Indicates whether to continue reindexing even when there are conflicts.
 	Conflicts *conflicts.Conflicts `json:"conflicts,omitempty"`

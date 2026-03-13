@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Get anomaly records for an anomaly detection job.
+//
 // Records contain the detailed analytical results. They describe the anomalous
 // activity that has been identified in the input data based on the detector
 // configuration.
@@ -92,6 +93,7 @@ func NewGetRecordsFunc(tp elastictransport.Interface) NewGetRecords {
 }
 
 // Get anomaly records for an anomaly detection job.
+//
 // Records contain the detailed analytical results. They describe the anomalous
 // activity that has been identified in the input data based on the detector
 // configuration.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package gettrainedmodelsstats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package gettrainedmodelsstats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/get_trained_models_stats/MlGetTrainedModelStatsResponse.ts#L23-L33
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/ml/get_trained_models_stats/MlGetTrainedModelStatsResponse.ts#L23-L33
 type Response struct {
 	// Count The total number of trained model statistics that matched the requested ID
 	// patterns. Could be higher than the number of items in the trained_model_stats

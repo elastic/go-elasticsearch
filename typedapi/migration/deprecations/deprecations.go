@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Get deprecation information.
+//
 // Get information about different cluster, node, and index level settings that
 // use deprecated features that will be removed or changed in the next major
 // version.
@@ -81,6 +82,7 @@ func NewDeprecationsFunc(tp elastictransport.Interface) NewDeprecations {
 }
 
 // Get deprecation information.
+//
 // Get information about different cluster, node, and index level settings that
 // use deprecated features that will be removed or changed in the next major
 // version.

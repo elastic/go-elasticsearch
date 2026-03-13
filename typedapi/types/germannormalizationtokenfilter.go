@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // GermanNormalizationTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/token_filters.ts#L498-L500
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_types/analysis/token_filters.ts#L533-L535
 type GermanNormalizationTokenFilter struct {
 	Type    string  `json:"type,omitempty"`
 	Version *string `json:"version,omitempty"`
@@ -95,6 +95,9 @@ func (s *GermanNormalizationTokenFilter) GermanNormalizationTokenFilterCaster() 
 }
 
 func (s *GermanNormalizationTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

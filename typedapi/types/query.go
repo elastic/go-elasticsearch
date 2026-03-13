@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/query_dsl/abstractions.ts#L103-L434
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_types/query_dsl/abstractions.ts#L103-L434
 type Query struct {
 	AdditionalQueryProperty map[string]json.RawMessage `json:"-"`
 	// Bool matches documents matching boolean combinations of other queries.
@@ -679,11 +679,17 @@ func (s *Query) QueryCaster() *Query {
 }
 
 func (s *Query) IndicesPrivilegesQueryCaster() *IndicesPrivilegesQuery {
+	if s == nil {
+		return nil
+	}
 	o := IndicesPrivilegesQuery(s)
 	return &o
 }
 
 func (s *Query) RoleTemplateInlineQueryCaster() *RoleTemplateInlineQuery {
+	if s == nil {
+		return nil
+	}
 	o := RoleTemplateInlineQuery(s)
 	return &o
 }

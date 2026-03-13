@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Cancel node shutdown preparations.
+//
 // Remove a node from the shutdown list so it can resume normal operations.
 // You must explicitly clear the shutdown request when a node rejoins the
 // cluster or when a node has permanently left the cluster.
@@ -88,6 +89,7 @@ func NewDeleteNodeFunc(tp elastictransport.Interface) NewDeleteNode {
 }
 
 // Cancel node shutdown preparations.
+//
 // Remove a node from the shutdown list so it can resume normal operations.
 // You must explicitly clear the shutdown request when a node rejoins the
 // cluster or when a node has permanently left the cluster.

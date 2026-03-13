@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Reroute the cluster.
+//
 // Manually change the allocation of individual shards in the cluster.
 // For example, a shard can be moved from one node to another explicitly, an
 // allocation can be canceled, and an unassigned shard can be explicitly
@@ -102,6 +103,7 @@ func NewRerouteFunc(tp elastictransport.Interface) NewReroute {
 }
 
 // Reroute the cluster.
+//
 // Manually change the allocation of individual shards in the cluster.
 // For example, a shard can be moved from one node to another explicitly, an
 // allocation can be canceled, and an unassigned shard can be explicitly

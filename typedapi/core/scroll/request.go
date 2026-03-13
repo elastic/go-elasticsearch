@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package scroll
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package scroll
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/scroll/ScrollRequest.ts#L24-L88
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_global/scroll/ScrollRequest.ts#L24-L96
 type Request struct {
 	// Scroll The period to retain the search context for scrolling.
 	Scroll types.Duration `json:"scroll,omitempty"`

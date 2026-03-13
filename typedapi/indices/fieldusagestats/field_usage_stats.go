@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 // Get field usage stats.
+//
 // Get field usage information for each shard and field of an index.
 // Field usage statistics are automatically captured when queries are running on
 // a cluster.
@@ -88,6 +89,7 @@ func NewFieldUsageStatsFunc(tp elastictransport.Interface) NewFieldUsageStats {
 }
 
 // Get field usage stats.
+//
 // Get field usage information for each shard and field of an index.
 // Field usage statistics are automatically captured when queries are running on
 // a cluster.

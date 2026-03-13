@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -28,26 +28,34 @@ import (
 	"io"
 	"strconv"
 
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/jinaaielementtype"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/jinaaisimilaritytype"
 )
 
 // JinaAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/_types/CommonTypes.ts#L1578-L1607
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/inference/_types/CommonTypes.ts#L1593-L1633
 type JinaAIServiceSettings struct {
 	// ApiKey A valid API key of your JinaAI account.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
 	// model creation.
 	// The get inference endpoint API does not retrieve your API key.
-	// After creating the inference model, you cannot change the associated API key.
-	// If you want to use a different API key, delete the inference model and
-	// recreate it with the same name and the updated API key.
 	ApiKey string `json:"api_key"`
+	// Dimensions For a `text_embedding` task, the number of dimensions the resulting output
+	// embeddings should have.
+	// By default, the model's standard output dimension is used.
+	// Refer to the Jina documentation for more information.
+	Dimensions *int `json:"dimensions,omitempty"`
+	// ElementType For a `text_embedding` task, the data type returned by the model.
+	// Use `bit` for binary embeddings, which are encoded as bytes with signed int8
+	// precision.
+	// Use `binary` for binary embeddings, which are encoded as bytes with signed
+	// int8 precision (this is a synonym of `bit`).
+	// Use `float` for the default float embeddings.
+	ElementType *jinaaielementtype.JinaAIElementType `json:"element_type,omitempty"`
 	// ModelId The name of the model to use for the inference task.
-	// For a `rerank` task, it is required.
-	// For a `text_embedding` task, it is optional.
-	ModelId *string `json:"model_id,omitempty"`
+	ModelId string `json:"model_id"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
 	// JinaAI.
 	// By default, the `jinaai` service sets the number of requests allowed per
@@ -88,6 +96,27 @@ func (s *JinaAIServiceSettings) UnmarshalJSON(data []byte) error {
 			}
 			s.ApiKey = o
 
+		case "dimensions":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Dimensions", err)
+				}
+				s.Dimensions = &value
+			case float64:
+				f := int(v)
+				s.Dimensions = &f
+			}
+
+		case "element_type":
+			if err := dec.Decode(&s.ElementType); err != nil {
+				return fmt.Errorf("%s | %w", "ElementType", err)
+			}
+
 		case "model_id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -98,7 +127,7 @@ func (s *JinaAIServiceSettings) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.ModelId = &o
+			s.ModelId = o
 
 		case "rate_limit":
 			if err := dec.Decode(&s.RateLimit); err != nil {

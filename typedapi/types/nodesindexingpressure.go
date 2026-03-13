@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
 // NodesIndexingPressure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/nodes/_types/Stats.ts#L116-L121
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/nodes/_types/Stats.ts#L116-L121
 type NodesIndexingPressure struct {
 	// Memory Contains statistics for memory consumption from indexing load.
 	Memory *NodesIndexingPressureMemory `json:"memory,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/e196f9953fa743572ee46884835f1934bce9a16b
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // MultiSearchItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/msearch/types.ts#L65-L68
+// https://github.com/elastic/elasticsearch-specification/blob/e196f9953fa743572ee46884835f1934bce9a16b/specification/_global/msearch/types.ts#L65-L68
 type MultiSearchItem struct {
 	Aggregations map[string]Aggregate       `json:"aggregations,omitempty"`
 	Clusters_    *ClusterStatistics         `json:"_clusters,omitempty"`
