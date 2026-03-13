@@ -31,7 +31,14 @@ import (
 type Response struct {
 	StatusCode int
 	Header     http.Header
-	Body       io.ReadCloser
+	// Body is the response body. Callers must close Body when finished with
+	// it to release the underlying connection back to the pool. Failure to do
+	// so causes connection leaks. The idiomatic pattern is:
+	//
+	//	res, err := es.Info()
+	//	if err != nil { /* handle */ }
+	//	defer res.Body.Close()
+	Body io.ReadCloser
 }
 
 // String returns the response as a string.
