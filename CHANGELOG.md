@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.19.4](https://github.com/elastic/go-elasticsearch/compare/v8.19.3...v8.19.4) (2026-03-19)
+
+
+### Features
+
+* Add functional options pattern for client instantiation  ([#1321](https://github.com/elastic/go-elasticsearch/issues/1321)) ([7561adf](https://github.com/elastic/go-elasticsearch/commit/7561adf790844fcd452b0c8e59e71d411d6cd8c3))
+
 ## [8.19.3](https://github.com/elastic/go-elasticsearch/compare/v8.19.2...v8.19.3) (2026-02-10)
 
 
