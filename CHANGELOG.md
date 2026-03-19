@@ -1,5 +1,17 @@
 # Changelog
 
+## [9.3.2](https://github.com/elastic/go-elasticsearch/compare/v9.3.1...v9.3.2) (2026-03-19)
+
+
+### Features
+
+* Add functional options pattern for client instantiation ([#1295](https://github.com/elastic/go-elasticsearch/issues/1295)) ([#1323](https://github.com/elastic/go-elasticsearch/issues/1323)) ([c0a69b1](https://github.com/elastic/go-elasticsearch/commit/c0a69b19d4e5e2eb2a9dc51c7df8d60356594939))
+
+
+### Bug Fixes
+
+* **esapi:** Document Response.Body must be closed; fix leaks in examples ([#1313](https://github.com/elastic/go-elasticsearch/issues/1313)) ([3b3dd1e](https://github.com/elastic/go-elasticsearch/commit/3b3dd1e33bc8b91a0127c3b3abe986c6fcafb1f4))
+
 ## [9.3.1](https://github.com/elastic/go-elasticsearch/compare/v9.3.0...v9.3.1) (2026-02-11)
 
 
