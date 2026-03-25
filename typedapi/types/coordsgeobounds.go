@@ -139,6 +139,9 @@ func (s *CoordsGeoBounds) CoordsGeoBoundsCaster() *CoordsGeoBounds {
 }
 
 func (s *CoordsGeoBounds) GeoBoundsCaster() *GeoBounds {
+	if s == nil {
+		return nil
+	}
 	o := GeoBounds(s)
 	return &o
 }

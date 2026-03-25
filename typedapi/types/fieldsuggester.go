@@ -45,8 +45,8 @@ type FieldSuggester struct {
 	Regex *string `json:"regex,omitempty"`
 	// Term Suggests terms based on edit distance.
 	Term *TermSuggester `json:"term,omitempty"`
-	// Text The text to use as input for the suggester.
-	// Needs to be set globally or per suggestion.
+	// Text The text to use as input for the suggester. Needs to be set globally or per
+	// suggestion.
 	Text *string `json:"text,omitempty"`
 }
 

@@ -35,8 +35,7 @@ import (
 type MemoryStats struct {
 	// AdjustedTotalInBytes If the amount of physical memory has been overridden using the
 	// `es`.`total_memory_bytes` system property then this reports the overridden
-	// value in bytes.
-	// Otherwise it reports the same value as `total_in_bytes`.
+	// value in bytes. Otherwise it reports the same value as `total_in_bytes`.
 	AdjustedTotalInBytes *int64 `json:"adjusted_total_in_bytes,omitempty"`
 	// FreeInBytes Amount of free physical memory in bytes.
 	FreeInBytes     *int64  `json:"free_in_bytes,omitempty"`

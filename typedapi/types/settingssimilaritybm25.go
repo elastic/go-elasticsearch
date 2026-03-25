@@ -141,6 +141,9 @@ func (s *SettingsSimilarityBm25) SettingsSimilarityBm25Caster() *SettingsSimilar
 }
 
 func (s *SettingsSimilarityBm25) SettingsSimilarityCaster() *SettingsSimilarity {
+	if s == nil {
+		return nil
+	}
 	o := SettingsSimilarity(s)
 	return &o
 }

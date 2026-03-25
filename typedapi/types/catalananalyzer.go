@@ -117,6 +117,9 @@ func (s *CatalanAnalyzer) CatalanAnalyzerCaster() *CatalanAnalyzer {
 }
 
 func (s *CatalanAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

@@ -40,8 +40,7 @@ type Response struct {
 	Nodes        map[string]types.NodeTasks `json:"nodes,omitempty"`
 	TaskFailures []types.TaskFailure        `json:"task_failures,omitempty"`
 	// Tasks Either a flat list of tasks if `group_by` was set to `none`, or grouped by
-	// parents if
-	// `group_by` was set to `parents`.
+	// parents if `group_by` was set to `parents`.
 	Tasks types.TaskInfos `json:"tasks,omitempty"`
 }
 

@@ -917,6 +917,9 @@ func (s *IntegerRangeProperty) IntegerRangePropertyCaster() *IntegerRangePropert
 }
 
 func (s *IntegerRangeProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

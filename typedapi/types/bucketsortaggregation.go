@@ -39,8 +39,8 @@ type BucketSortAggregation struct {
 	From *int `json:"from,omitempty"`
 	// GapPolicy The policy to apply when gaps are found in the data.
 	GapPolicy *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
-	// Size The number of buckets to return.
-	// Defaults to all buckets of the parent aggregation.
+	// Size The number of buckets to return. Defaults to all buckets of the parent
+	// aggregation.
 	Size *int `json:"size,omitempty"`
 	// Sort The list of fields to sort on.
 	Sort []SortCombinations `json:"sort,omitempty"`

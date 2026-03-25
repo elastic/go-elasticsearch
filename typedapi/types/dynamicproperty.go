@@ -1156,6 +1156,9 @@ func (s *DynamicProperty) DynamicPropertyCaster() *DynamicProperty {
 }
 
 func (s *DynamicProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

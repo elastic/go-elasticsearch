@@ -983,6 +983,9 @@ func (s *ByteNumberProperty) ByteNumberPropertyCaster() *ByteNumberProperty {
 }
 
 func (s *ByteNumberProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

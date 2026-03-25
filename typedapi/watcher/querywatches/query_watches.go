@@ -18,9 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Query watches.
-// Get all registered watches in a paginated manner and optionally filter
-// watches by a query.
+// Query watches. Get all registered watches in a paginated manner and
+// optionally filter watches by a query.
 //
 // Note that only the `_id` and `metadata.*` fields are queryable or sortable.
 package querywatches
@@ -77,9 +76,8 @@ func NewQueryWatchesFunc(tp elastictransport.Interface) NewQueryWatches {
 	}
 }
 
-// Query watches.
-// Get all registered watches in a paginated manner and optionally filter
-// watches by a query.
+// Query watches. Get all registered watches in a paginated manner and
+// optionally filter watches by a query.
 //
 // Note that only the `_id` and `metadata.*` fields are queryable or sortable.
 //
@@ -202,7 +200,7 @@ func (r QueryWatches) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "watcher.query_watches")
+			ctx = instrument.Start(providedCtx, "watcher.query_watches")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -323,11 +321,9 @@ func (r *QueryWatches) FilterPath(filterpaths ...string) *QueryWatches {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *QueryWatches) Human(human bool) *QueryWatches {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -335,8 +331,8 @@ func (r *QueryWatches) Human(human bool) *QueryWatches {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *QueryWatches) Pretty(pretty bool) *QueryWatches {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -344,8 +340,7 @@ func (r *QueryWatches) Pretty(pretty bool) *QueryWatches {
 	return r
 }
 
-// The offset from the first result to fetch.
-// It must be non-negative.
+// The offset from the first result to fetch. It must be non-negative.
 // API name: from
 func (r *QueryWatches) From(from int) *QueryWatches {
 	// Initialize the request if it is not already initialized
@@ -380,15 +375,16 @@ func (r *QueryWatches) SearchAfter(sortresults ...types.FieldValueVariant) *Quer
 		r.req = NewRequest()
 	}
 
+	convertedItems := make([]types.FieldValue, 0, len(sortresults))
 	for _, v := range sortresults {
-		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
+		convertedItems = append(convertedItems, *v.FieldValueCaster())
 	}
+	r.req.SearchAfter = convertedItems
 
 	return r
 }
 
-// The number of hits to return.
-// It must be non-negative.
+// The number of hits to return. It must be non-negative.
 // API name: size
 func (r *QueryWatches) Size(size int) *QueryWatches {
 	// Initialize the request if it is not already initialized
@@ -409,9 +405,11 @@ func (r *QueryWatches) Sort(sorts ...types.SortCombinationsVariant) *QueryWatche
 		r.req = NewRequest()
 	}
 
+	convertedItems := make([]types.SortCombinations, 0, len(sorts))
 	for _, v := range sorts {
-		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
+		convertedItems = append(convertedItems, *v.SortCombinationsCaster())
 	}
+	r.req.Sort = convertedItems
 
 	return r
 }

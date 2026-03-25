@@ -95,6 +95,9 @@ func (s *DutchStemTokenFilter) DutchStemTokenFilterCaster() *DutchStemTokenFilte
 }
 
 func (s *DutchStemTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

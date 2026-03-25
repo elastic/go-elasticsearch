@@ -18,20 +18,16 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Preview a datafeed.
-// This API returns the first "page" of search results from a datafeed.
-// You can preview an existing datafeed or provide configuration details for a
-// datafeed
-// and anomaly detection job in the API. The preview shows the structure of the
-// data
-// that will be passed to the anomaly detection engine.
-// IMPORTANT: When Elasticsearch security features are enabled, the preview uses
-// the credentials of the user that
-// called the API. However, when the datafeed starts it uses the roles of the
-// last user that created or updated the
-// datafeed. To get a preview that accurately reflects the behavior of the
-// datafeed, use the appropriate credentials.
-// You can also use secondary authorization headers to supply the credentials.
+// Preview a datafeed. This API returns the first "page" of search results from
+// a datafeed. You can preview an existing datafeed or provide configuration
+// details for a datafeed and anomaly detection job in the API. The preview
+// shows the structure of the data that will be passed to the anomaly detection
+// engine. IMPORTANT: When Elasticsearch security features are enabled, the
+// preview uses the credentials of the user that called the API. However, when
+// the datafeed starts it uses the roles of the last user that created or
+// updated the datafeed. To get a preview that accurately reflects the behavior
+// of the datafeed, use the appropriate credentials. You can also use secondary
+// authorization headers to supply the credentials.
 package previewdatafeed
 
 import (
@@ -92,20 +88,16 @@ func NewPreviewDatafeedFunc(tp elastictransport.Interface) NewPreviewDatafeed {
 	}
 }
 
-// Preview a datafeed.
-// This API returns the first "page" of search results from a datafeed.
-// You can preview an existing datafeed or provide configuration details for a
-// datafeed
-// and anomaly detection job in the API. The preview shows the structure of the
-// data
-// that will be passed to the anomaly detection engine.
-// IMPORTANT: When Elasticsearch security features are enabled, the preview uses
-// the credentials of the user that
-// called the API. However, when the datafeed starts it uses the roles of the
-// last user that created or updated the
-// datafeed. To get a preview that accurately reflects the behavior of the
-// datafeed, use the appropriate credentials.
-// You can also use secondary authorization headers to supply the credentials.
+// Preview a datafeed. This API returns the first "page" of search results from
+// a datafeed. You can preview an existing datafeed or provide configuration
+// details for a datafeed and anomaly detection job in the API. The preview
+// shows the structure of the data that will be passed to the anomaly detection
+// engine. IMPORTANT: When Elasticsearch security features are enabled, the
+// preview uses the credentials of the user that called the API. However, when
+// the datafeed starts it uses the roles of the last user that created or
+// updated the datafeed. To get a preview that accurately reflects the behavior
+// of the datafeed, use the appropriate credentials. You can also use secondary
+// authorization headers to supply the credentials.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-datafeed
 func New(tp elastictransport.Interface) *PreviewDatafeed {
@@ -241,7 +233,7 @@ func (r PreviewDatafeed) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.preview_datafeed")
+			ctx = instrument.Start(providedCtx, "ml.preview_datafeed")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -340,12 +332,10 @@ func (r *PreviewDatafeed) Header(key, value string) *PreviewDatafeed {
 }
 
 // DatafeedId A numerical character string that uniquely identifies the datafeed. This
-// identifier can contain lowercase
-// alphanumeric characters (a-z and 0-9), hyphens, and underscores. It must
-// start and end with alphanumeric
-// characters. NOTE: If you use this path parameter, you cannot provide datafeed
-// or anomaly detection job
-// configuration details in the request body.
+// identifier can contain lowercase alphanumeric characters (a-z and 0-9),
+// hyphens, and underscores. It must start and end with alphanumeric characters.
+// NOTE: If you use this path parameter, you cannot provide datafeed or anomaly
+// detection job configuration details in the request body.
 // API Name: datafeedid
 func (r *PreviewDatafeed) DatafeedId(datafeedid string) *PreviewDatafeed {
 	r.paramSet |= datafeedidMask
@@ -393,11 +383,9 @@ func (r *PreviewDatafeed) FilterPath(filterpaths ...string) *PreviewDatafeed {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PreviewDatafeed) Human(human bool) *PreviewDatafeed {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -405,8 +393,8 @@ func (r *PreviewDatafeed) Human(human bool) *PreviewDatafeed {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PreviewDatafeed) Pretty(pretty bool) *PreviewDatafeed {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -428,13 +416,11 @@ func (r *PreviewDatafeed) DatafeedConfig(datafeedconfig types.DatafeedConfigVari
 }
 
 // The configuration details for the anomaly detection job that is associated
-// with the datafeed. If the
-// `datafeed_config` object does not include a `job_id` that references an
-// existing anomaly detection job, you must
-// supply this `job_config` object. If you include both a `job_id` and a
-// `job_config`, the latter information is
-// used. You cannot specify a `job_config` object unless you also supply a
-// `datafeed_config` object.
+// with the datafeed. If the `datafeed_config` object does not include a
+// `job_id` that references an existing anomaly detection job, you must supply
+// this `job_config` object. If you include both a `job_id` and a `job_config`,
+// the latter information is used. You cannot specify a `job_config` object
+// unless you also supply a `datafeed_config` object.
 // API name: job_config
 func (r *PreviewDatafeed) JobConfig(jobconfig types.JobConfigVariant) *PreviewDatafeed {
 	// Initialize the request if it is not already initialized

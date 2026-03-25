@@ -123,6 +123,9 @@ func (s *LimitTokenCountTokenFilter) LimitTokenCountTokenFilterCaster() *LimitTo
 }
 
 func (s *LimitTokenCountTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

@@ -95,6 +95,9 @@ func (s *ScandinavianNormalizationTokenFilter) ScandinavianNormalizationTokenFil
 }
 
 func (s *ScandinavianNormalizationTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

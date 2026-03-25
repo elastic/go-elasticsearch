@@ -95,6 +95,9 @@ func (s *PorterStemTokenFilter) PorterStemTokenFilterCaster() *PorterStemTokenFi
 }
 
 func (s *PorterStemTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

@@ -34,17 +34,15 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/token_filters.ts#L295-L306
 type KeepWordsTokenFilter struct {
 	// KeepWords List of words to keep. Only tokens that match words in this list are included
-	// in the output.
-	// Either this parameter or `keep_words_path` must be specified.
+	// in the output. Either this parameter or `keep_words_path` must be specified.
 	KeepWords []string `json:"keep_words,omitempty"`
 	// KeepWordsCase If `true`, lowercase all keep words. Defaults to `false`.
 	KeepWordsCase *bool `json:"keep_words_case,omitempty"`
 	// KeepWordsPath Path to a file that contains a list of words to keep. Only tokens that match
-	// words in this list are included in the output.
-	// This path must be absolute or relative to the `config` location, and the file
-	// must be UTF-8 encoded. Each word in the file must be separated by a line
-	// break.
-	// Either this parameter or `keep_words` must be specified.
+	// words in this list are included in the output. This path must be absolute or
+	// relative to the `config` location, and the file must be UTF-8 encoded. Each
+	// word in the file must be separated by a line break. Either this parameter or
+	// `keep_words` must be specified.
 	KeepWordsPath *string `json:"keep_words_path,omitempty"`
 	Type          string  `json:"type,omitempty"`
 	Version       *string `json:"version,omitempty"`
@@ -143,6 +141,9 @@ func (s *KeepWordsTokenFilter) KeepWordsTokenFilterCaster() *KeepWordsTokenFilte
 }
 
 func (s *KeepWordsTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

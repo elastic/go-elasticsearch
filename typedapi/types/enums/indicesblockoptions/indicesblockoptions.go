@@ -29,12 +29,17 @@ type IndicesBlockOptions struct {
 }
 
 var (
+
+	// Metadata Disable metadata changes, such as closing the index.
 	Metadata = IndicesBlockOptions{"metadata"}
 
+	// Read Disable read operations.
 	Read = IndicesBlockOptions{"read"}
 
+	// Readonly Disable write operations and metadata changes.
 	Readonly = IndicesBlockOptions{"read_only"}
 
+	// Write Disable write operations. However, metadata changes are still allowed.
 	Write = IndicesBlockOptions{"write"}
 )
 

@@ -25,8 +25,8 @@ package types
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/_types/IndexSettings.ts#L610-L617
 type IndexingSlowlogTresholds struct {
 	// Index The indexing slow log, similar in functionality to the search slow log. The
-	// log file name ends with `_index_indexing_slowlog.json`.
-	// Log and the thresholds are configured in the same way as the search slowlog.
+	// log file name ends with `_index_indexing_slowlog.json`. Log and the
+	// thresholds are configured in the same way as the search slowlog.
 	Index *SlowlogTresholdLevels `json:"index,omitempty"`
 }
 

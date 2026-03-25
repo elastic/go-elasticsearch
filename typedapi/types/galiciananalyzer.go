@@ -117,6 +117,9 @@ func (s *GalicianAnalyzer) GalicianAnalyzerCaster() *GalicianAnalyzer {
 }
 
 func (s *GalicianAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

@@ -36,24 +36,23 @@ type Ai21ServiceSettings struct {
 	// ApiKey A valid API key for accessing AI21 API.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation.
-	// The get inference endpoint API does not retrieve your API key.
-	// After creating the inference model, you cannot change the associated API key.
-	// If you want to use a different API key, delete the inference model and
+	// model creation. The get inference endpoint API does not retrieve your API
+	// key. After creating the inference model, you cannot change the associated API
+	// key. If you want to use a different API key, delete the inference model and
 	// recreate it with the same name and the updated API key.
 	ApiKey *string `json:"api_key,omitempty"`
-	// ModelId The name of the model to use for the inference task.
-	// Refer to the AI21 models documentation for the list of supported models and
-	// versions.
-	// Service has been tested and confirmed to be working for `completion` and
-	// `chat_completion` tasks with the following models:
-	// * `jamba-mini`
-	// * `jamba-large`
+	// ModelId The name of the model to use for the inference task. Refer to the AI21 models
+	// documentation for the list of supported models and versions. Service has been
+	// tested and confirmed to be working for `completion` and `chat_completion`
+	// tasks with the following models:
+	//
+	//   - `jamba-mini`
+	//   - `jamba-large`
 	ModelId string `json:"model_id"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// the AI21 API.
-	// By default, the `ai21` service sets the number of requests allowed per minute
-	// to 200. Please refer to AI21 documentation for more details.
+	// the AI21 API. By default, the `ai21` service sets the number of requests
+	// allowed per minute to 200. Please refer to AI21 documentation for more
+	// details.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 }
 

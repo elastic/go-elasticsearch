@@ -222,7 +222,7 @@ func (r PutAzureaistudio) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_azureaistudio")
+			ctx = instrument.Start(providedCtx, "inference.put_azureaistudio")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -370,11 +370,9 @@ func (r *PutAzureaistudio) FilterPath(filterpaths ...string) *PutAzureaistudio {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutAzureaistudio) Human(human bool) *PutAzureaistudio {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +380,8 @@ func (r *PutAzureaistudio) Human(human bool) *PutAzureaistudio {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutAzureaistudio) Pretty(pretty bool) *PutAzureaistudio {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -430,8 +428,8 @@ func (r *PutAzureaistudio) ServiceSettings(servicesettings types.AzureAiStudioSe
 	return r
 }
 
-// Settings to configure the inference task.
-// These settings are specific to the task type you specified.
+// Settings to configure the inference task. These settings are specific to the
+// task type you specified.
 // API name: task_settings
 func (r *PutAzureaistudio) TaskSettings(tasksettings types.AzureAiStudioTaskSettingsVariant) *PutAzureaistudio {
 	// Initialize the request if it is not already initialized

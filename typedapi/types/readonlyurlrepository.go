@@ -104,6 +104,9 @@ func (s *ReadOnlyUrlRepository) ReadOnlyUrlRepositoryCaster() *ReadOnlyUrlReposi
 }
 
 func (s *ReadOnlyUrlRepository) RepositoryCaster() *Repository {
+	if s == nil {
+		return nil
+	}
 	o := Repository(s)
 	return &o
 }

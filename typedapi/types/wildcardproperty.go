@@ -881,6 +881,9 @@ func (s *WildcardProperty) WildcardPropertyCaster() *WildcardProperty {
 }
 
 func (s *WildcardProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

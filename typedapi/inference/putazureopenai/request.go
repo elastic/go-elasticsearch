@@ -40,8 +40,8 @@ type Request struct {
 	// ServiceSettings Settings used to install the inference model. These settings are specific to
 	// the `azureopenai` service.
 	ServiceSettings types.AzureOpenAIServiceSettings `json:"service_settings"`
-	// TaskSettings Settings to configure the inference task.
-	// These settings are specific to the task type you specified.
+	// TaskSettings Settings to configure the inference task. These settings are specific to the
+	// task type you specified.
 	TaskSettings *types.AzureOpenAITaskSettings `json:"task_settings,omitempty"`
 }
 

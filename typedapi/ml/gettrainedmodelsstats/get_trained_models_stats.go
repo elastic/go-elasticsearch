@@ -18,10 +18,9 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Get trained models usage info.
-// You can get usage information for multiple trained
-// models in a single API request by using a comma-separated list of model IDs
-// or a wildcard expression.
+// Get trained models usage info. You can get usage information for multiple
+// trained models in a single API request by using a comma-separated list of
+// model IDs or a wildcard expression.
 package gettrainedmodelsstats
 
 import (
@@ -77,10 +76,9 @@ func NewGetTrainedModelsStatsFunc(tp elastictransport.Interface) NewGetTrainedMo
 	}
 }
 
-// Get trained models usage info.
-// You can get usage information for multiple trained
-// models in a single API request by using a comma-separated list of model IDs
-// or a wildcard expression.
+// Get trained models usage info. You can get usage information for multiple
+// trained models in a single API request by using a comma-separated list of
+// model IDs or a wildcard expression.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models-stats
 func New(tp elastictransport.Interface) *GetTrainedModelsStats {
@@ -168,7 +166,7 @@ func (r GetTrainedModelsStats) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_trained_models_stats")
+			ctx = instrument.Start(providedCtx, "ml.get_trained_models_stats")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -317,12 +315,12 @@ func (r *GetTrainedModelsStats) ModelId(modelid string) *GetTrainedModelsStats {
 
 // AllowNoMatch Specifies what to do when the request:
 //
-// - Contains wildcard expressions and there are no models that match.
-// - Contains the _all string or no identifiers and there are no matches.
-// - Contains wildcard expressions and there are only partial matches.
+//   - Contains wildcard expressions and there are no models that match.
+//   - Contains the _all string or no identifiers and there are no matches.
+//   - Contains wildcard expressions and there are only partial matches.
 //
-// If true, it returns an empty array when there are no matches and the
-// subset of results when there are partial matches.
+// If true, it returns an empty array when there are no matches and the subset
+// of results when there are partial matches.
 // API name: allow_no_match
 func (r *GetTrainedModelsStats) AllowNoMatch(allownomatch bool) *GetTrainedModelsStats {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -369,11 +367,9 @@ func (r *GetTrainedModelsStats) FilterPath(filterpaths ...string) *GetTrainedMod
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetTrainedModelsStats) Human(human bool) *GetTrainedModelsStats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -381,8 +377,8 @@ func (r *GetTrainedModelsStats) Human(human bool) *GetTrainedModelsStats {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetTrainedModelsStats) Pretty(pretty bool) *GetTrainedModelsStats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

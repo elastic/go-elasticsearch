@@ -95,6 +95,9 @@ func (s *UppercaseTokenFilter) UppercaseTokenFilterCaster() *UppercaseTokenFilte
 }
 
 func (s *UppercaseTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

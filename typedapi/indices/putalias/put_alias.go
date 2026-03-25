@@ -18,8 +18,7 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Create or update an alias.
-// Adds a data stream or index to an alias.
+// Create or update an alias. Adds a data stream or index to an alias.
 package putalias
 
 import (
@@ -87,8 +86,7 @@ func NewPutAliasFunc(tp elastictransport.Interface) NewPutAlias {
 	}
 }
 
-// Create or update an alias.
-// Adds a data stream or index to an alias.
+// Create or update an alias. Adds a data stream or index to an alias.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-alias
 func New(tp elastictransport.Interface) *PutAlias {
@@ -234,7 +232,7 @@ func (r PutAlias) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.put_alias")
+			ctx = instrument.Start(providedCtx, "indices.put_alias")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -332,9 +330,9 @@ func (r *PutAlias) Header(key, value string) *PutAlias {
 	return r
 }
 
-// Index Comma-separated list of data streams or indices to add.
-// Supports wildcards (`*`).
-// Wildcard patterns that match both data streams and indices return an error.
+// Index Comma-separated list of data streams or indices to add. Supports wildcards
+// (`*`). Wildcard patterns that match both data streams and indices return an
+// error.
 // API Name: index
 func (r *PutAlias) _index(index string) *PutAlias {
 	r.paramSet |= indexMask
@@ -343,9 +341,8 @@ func (r *PutAlias) _index(index string) *PutAlias {
 	return r
 }
 
-// Name Alias to update.
-// If the alias doesn’t exist, the request creates it.
-// Index alias names support date math.
+// Name Alias to update. If the alias doesn’t exist, the request creates it. Index
+// alias names support date math.
 // API Name: name
 func (r *PutAlias) _name(name string) *PutAlias {
 	r.paramSet |= nameMask
@@ -354,9 +351,8 @@ func (r *PutAlias) _name(name string) *PutAlias {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *PutAlias) MasterTimeout(duration string) *PutAlias {
 	r.values.Set("master_timeout", duration)
@@ -364,9 +360,8 @@ func (r *PutAlias) MasterTimeout(duration string) *PutAlias {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *PutAlias) Timeout(duration string) *PutAlias {
 	r.values.Set("timeout", duration)
@@ -397,11 +392,9 @@ func (r *PutAlias) FilterPath(filterpaths ...string) *PutAlias {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutAlias) Human(human bool) *PutAlias {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -409,8 +402,8 @@ func (r *PutAlias) Human(human bool) *PutAlias {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutAlias) Pretty(pretty bool) *PutAlias {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -431,9 +424,9 @@ func (r *PutAlias) Filter(filter types.QueryVariant) *PutAlias {
 	return r
 }
 
-// Value used to route indexing operations to a specific shard.
-// If specified, this overwrites the `routing` value for indexing operations.
-// Data stream aliases don’t support this parameter.
+// Value used to route indexing operations to a specific shard. If specified,
+// this overwrites the `routing` value for indexing operations. Data stream
+// aliases don’t support this parameter.
 // API name: index_routing
 func (r *PutAlias) IndexRouting(routing string) *PutAlias {
 	// Initialize the request if it is not already initialized
@@ -446,13 +439,12 @@ func (r *PutAlias) IndexRouting(routing string) *PutAlias {
 	return r
 }
 
-// If `true`, sets the write index or data stream for the alias.
-// If an alias points to multiple indices or data streams and `is_write_index`
-// isn’t set, the alias rejects write requests.
-// If an index alias points to one index and `is_write_index` isn’t set, the
-// index automatically acts as the write index.
-// Data stream aliases don’t automatically set a write data stream, even if the
-// alias points to one data stream.
+// If `true`, sets the write index or data stream for the alias. If an alias
+// points to multiple indices or data streams and `is_write_index` isn’t set,
+// the alias rejects write requests. If an index alias points to one index and
+// `is_write_index` isn’t set, the index automatically acts as the write
+// index. Data stream aliases don’t automatically set a write data stream,
+// even if the alias points to one data stream.
 // API name: is_write_index
 func (r *PutAlias) IsWriteIndex(iswriteindex bool) *PutAlias {
 	// Initialize the request if it is not already initialized
@@ -465,8 +457,8 @@ func (r *PutAlias) IsWriteIndex(iswriteindex bool) *PutAlias {
 	return r
 }
 
-// Value used to route indexing and search operations to a specific shard.
-// Data stream aliases don’t support this parameter.
+// Value used to route indexing and search operations to a specific shard. Data
+// stream aliases don’t support this parameter.
 // API name: routing
 func (r *PutAlias) Routing(routing string) *PutAlias {
 	// Initialize the request if it is not already initialized
@@ -479,9 +471,9 @@ func (r *PutAlias) Routing(routing string) *PutAlias {
 	return r
 }
 
-// Value used to route search operations to a specific shard.
-// If specified, this overwrites the `routing` value for search operations.
-// Data stream aliases don’t support this parameter.
+// Value used to route search operations to a specific shard. If specified, this
+// overwrites the `routing` value for search operations. Data stream aliases
+// don’t support this parameter.
 // API name: search_routing
 func (r *PutAlias) SearchRouting(routing string) *PutAlias {
 	// Initialize the request if it is not already initialized

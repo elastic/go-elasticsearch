@@ -31,7 +31,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/tasktype"
 )
 
-// InferenceEndpointInfo type.
+// Represents an inference endpoint as returned by the GET API
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/_types/Services.ts#L70-L82
 type InferenceEndpointInfo struct {

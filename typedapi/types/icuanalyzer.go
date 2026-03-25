@@ -66,6 +66,9 @@ func (s *IcuAnalyzer) IcuAnalyzerCaster() *IcuAnalyzer {
 }
 
 func (s *IcuAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

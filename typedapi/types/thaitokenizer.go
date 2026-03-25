@@ -95,6 +95,9 @@ func (s *ThaiTokenizer) ThaiTokenizerCaster() *ThaiTokenizer {
 }
 
 func (s *ThaiTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

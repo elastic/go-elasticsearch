@@ -190,6 +190,9 @@ func (s *KuromojiTokenizer) KuromojiTokenizerCaster() *KuromojiTokenizer {
 }
 
 func (s *KuromojiTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

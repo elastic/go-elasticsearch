@@ -26,6 +26,13 @@ package types
 //	Query
 //	RoleTemplateQuery
 //
+// While creating or updating a role you can provide either a JSON structure or
+// a string to the API. However, the response provided by Elasticsearch will
+// only be string with a json-as-text content.
+//
+// Since this is embedded in `IndicesPrivileges`, the same structure is used for
+// clarity in both contexts.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/_types/Privileges.ts#L343-L351
 type IndicesPrivilegesQuery any
 

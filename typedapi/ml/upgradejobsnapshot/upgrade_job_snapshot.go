@@ -18,16 +18,14 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Upgrade a snapshot.
-// Upgrade an anomaly detection model snapshot to the latest major version.
-// Over time, older snapshot formats are deprecated and removed. Anomaly
-// detection jobs support only snapshots that are from the current or previous
-// major version.
-// This API provides a means to upgrade a snapshot to the current major version.
-// This aids in preparing the cluster for an upgrade to the next major version.
-// Only one snapshot per anomaly detection job can be upgraded at a time and the
-// upgraded snapshot cannot be the current snapshot of the anomaly detection
-// job.
+// Upgrade a snapshot. Upgrade an anomaly detection model snapshot to the latest
+// major version. Over time, older snapshot formats are deprecated and removed.
+// Anomaly detection jobs support only snapshots that are from the current or
+// previous major version. This API provides a means to upgrade a snapshot to
+// the current major version. This aids in preparing the cluster for an upgrade
+// to the next major version. Only one snapshot per anomaly detection job can be
+// upgraded at a time and the upgraded snapshot cannot be the current snapshot
+// of the anomaly detection job.
 package upgradejobsnapshot
 
 import (
@@ -90,16 +88,14 @@ func NewUpgradeJobSnapshotFunc(tp elastictransport.Interface) NewUpgradeJobSnaps
 	}
 }
 
-// Upgrade a snapshot.
-// Upgrade an anomaly detection model snapshot to the latest major version.
-// Over time, older snapshot formats are deprecated and removed. Anomaly
-// detection jobs support only snapshots that are from the current or previous
-// major version.
-// This API provides a means to upgrade a snapshot to the current major version.
-// This aids in preparing the cluster for an upgrade to the next major version.
-// Only one snapshot per anomaly detection job can be upgraded at a time and the
-// upgraded snapshot cannot be the current snapshot of the anomaly detection
-// job.
+// Upgrade a snapshot. Upgrade an anomaly detection model snapshot to the latest
+// major version. Over time, older snapshot formats are deprecated and removed.
+// Anomaly detection jobs support only snapshots that are from the current or
+// previous major version. This API provides a means to upgrade a snapshot to
+// the current major version. This aids in preparing the cluster for an upgrade
+// to the next major version. Only one snapshot per anomaly detection job can be
+// upgraded at a time and the upgraded snapshot cannot be the current snapshot
+// of the anomaly detection job.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-upgrade-job-snapshot
 func New(tp elastictransport.Interface) *UpgradeJobSnapshot {
@@ -186,7 +182,7 @@ func (r UpgradeJobSnapshot) Perform(providedCtx context.Context) (*http.Response
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.upgrade_job_snapshot")
+			ctx = instrument.Start(providedCtx, "ml.upgrade_job_snapshot")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -341,8 +337,8 @@ func (r *UpgradeJobSnapshot) _snapshotid(snapshotid string) *UpgradeJobSnapshot 
 	return r
 }
 
-// WaitForCompletion When true, the API won’t respond until the upgrade is complete.
-// Otherwise, it responds as soon as the upgrade task is assigned to a node.
+// WaitForCompletion When true, the API won’t respond until the upgrade is complete. Otherwise,
+// it responds as soon as the upgrade task is assigned to a node.
 // API name: wait_for_completion
 func (r *UpgradeJobSnapshot) WaitForCompletion(waitforcompletion bool) *UpgradeJobSnapshot {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
@@ -381,11 +377,9 @@ func (r *UpgradeJobSnapshot) FilterPath(filterpaths ...string) *UpgradeJobSnapsh
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpgradeJobSnapshot) Human(human bool) *UpgradeJobSnapshot {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -393,8 +387,8 @@ func (r *UpgradeJobSnapshot) Human(human bool) *UpgradeJobSnapshot {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpgradeJobSnapshot) Pretty(pretty bool) *UpgradeJobSnapshot {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

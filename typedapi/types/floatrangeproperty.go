@@ -917,6 +917,9 @@ func (s *FloatRangeProperty) FloatRangePropertyCaster() *FloatRangeProperty {
 }
 
 func (s *FloatRangeProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

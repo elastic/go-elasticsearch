@@ -155,6 +155,9 @@ func (s *NGramTokenizer) NGramTokenizerCaster() *NGramTokenizer {
 }
 
 func (s *NGramTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

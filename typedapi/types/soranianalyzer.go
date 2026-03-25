@@ -117,6 +117,9 @@ func (s *SoraniAnalyzer) SoraniAnalyzerCaster() *SoraniAnalyzer {
 }
 
 func (s *SoraniAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

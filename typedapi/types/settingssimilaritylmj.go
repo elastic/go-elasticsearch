@@ -107,6 +107,9 @@ func (s *SettingsSimilarityLmj) SettingsSimilarityLmjCaster() *SettingsSimilarit
 }
 
 func (s *SettingsSimilarityLmj) SettingsSimilarityCaster() *SettingsSimilarity {
+	if s == nil {
+		return nil
+	}
 	o := SettingsSimilarity(s)
 	return &o
 }

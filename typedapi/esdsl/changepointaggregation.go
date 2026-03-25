@@ -31,12 +31,10 @@ type _changePointAggregation struct {
 
 // A sibling pipeline that detects, spikes, dips, and change points in a metric.
 // Given a distribution of values provided by the sibling multi-bucket
-// aggregation,
-// this aggregation indicates the bucket of any spike or dip and/or the bucket
-// at which
-// the largest change in the distribution of values, if they are statistically
-// significant.
-// There must be at least 22 bucketed values. Fewer than 1,000 is preferred.
+// aggregation, this aggregation indicates the bucket of any spike or dip and/or
+// the bucket at which the largest change in the distribution of values, if they
+// are statistically significant. There must be at least 22 bucketed values.
+// Fewer than 1,000 is preferred.
 func NewChangePointAggregation() *_changePointAggregation {
 
 	return &_changePointAggregation{v: types.NewChangePointAggregation()}

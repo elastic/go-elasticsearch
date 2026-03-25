@@ -33,26 +33,23 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/_types/CommonTypes.ts#L1702-L1729
 type MistralServiceSettings struct {
-	// ApiKey A valid API key of your Mistral account.
-	// You can find your Mistral API keys or you can create a new one on the API
-	// Keys page.
+	// ApiKey A valid API key of your Mistral account. You can find your Mistral API keys
+	// or you can create a new one on the API Keys page.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation.
-	// The get inference endpoint API does not retrieve your API key.
-	// After creating the inference model, you cannot change the associated API key.
-	// If you want to use a different API key, delete the inference model and
+	// model creation. The get inference endpoint API does not retrieve your API
+	// key. After creating the inference model, you cannot change the associated API
+	// key. If you want to use a different API key, delete the inference model and
 	// recreate it with the same name and the updated API key.
 	ApiKey string `json:"api_key"`
 	// MaxInputTokens The maximum number of tokens per input before chunking occurs.
 	MaxInputTokens *int `json:"max_input_tokens,omitempty"`
-	// Model The name of the model to use for the inference task.
-	// Refer to the Mistral models documentation for the list of available models.
+	// Model The name of the model to use for the inference task. Refer to the Mistral
+	// models documentation for the list of available models.
 	Model string `json:"model"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// the Mistral API.
-	// By default, the `mistral` service sets the number of requests allowed per
-	// minute to 240.
+	// the Mistral API. By default, the `mistral` service sets the number of
+	// requests allowed per minute to 240.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 }
 

@@ -27,8 +27,8 @@ type _joinProcessor struct {
 }
 
 // Joins each element of an array into a single string using a separator
-// character between each element.
-// Throws an error when the field is not an array.
+// character between each element. Throws an error when the field is not an
+// array.
 func NewJoinProcessor(separator string) *_joinProcessor {
 
 	tmp := &_joinProcessor{v: types.NewJoinProcessor()}

@@ -95,6 +95,9 @@ func (s *LowercaseTokenizer) LowercaseTokenizerCaster() *LowercaseTokenizer {
 }
 
 func (s *LowercaseTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

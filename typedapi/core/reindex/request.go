@@ -36,10 +36,9 @@ type Request struct {
 	Conflicts *conflicts.Conflicts `json:"conflicts,omitempty"`
 	// Dest The destination you are copying to.
 	Dest types.ReindexDestination `json:"dest"`
-	// MaxDocs The maximum number of documents to reindex.
-	// By default, all documents are reindexed.
-	// If it is a value less then or equal to `scroll_size`, a scroll will not be
-	// used to retrieve the results for the operation.
+	// MaxDocs The maximum number of documents to reindex. By default, all documents are
+	// reindexed. If it is a value less then or equal to `scroll_size`, a scroll
+	// will not be used to retrieve the results for the operation.
 	//
 	// If `conflicts` is set to `proceed`, the reindex operation could attempt to
 	// reindex more documents from the source than `max_docs` until it has

@@ -29,8 +29,13 @@ type TermsAggregationCollectMode struct {
 }
 
 var (
+
+	// Depthfirst Expands all branches of the aggregation tree in one depth-first pass, before
+	// any pruning occurs.
 	Depthfirst = TermsAggregationCollectMode{"depth_first"}
 
+	// Breadthfirst Caches the set of documents that fall into the uppermost buckets for
+	// subsequent replay.
 	Breadthfirst = TermsAggregationCollectMode{"breadth_first"}
 )
 

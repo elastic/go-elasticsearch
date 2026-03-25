@@ -107,6 +107,9 @@ func (s *LatLonGeoLocation) LatLonGeoLocationCaster() *LatLonGeoLocation {
 }
 
 func (s *LatLonGeoLocation) GeoLocationCaster() *GeoLocation {
+	if s == nil {
+		return nil
+	}
 	o := GeoLocation(s)
 	return &o
 }

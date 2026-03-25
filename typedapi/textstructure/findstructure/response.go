@@ -37,9 +37,9 @@ type Response struct {
 	ExcludeLinesPattern *string  `json:"exclude_lines_pattern,omitempty"`
 	Explanation         []string `json:"explanation,omitempty"`
 	// FieldStats The most common values of each field, plus basic numeric statistics for the
-	// numeric `page_count` field.
-	// This information may provide clues that the data needs to be cleaned or
-	// transformed prior to use by other Elastic Stack functionality.
+	// numeric `page_count` field. This information may provide clues that the data
+	// needs to be cleaned or transformed prior to use by other Elastic Stack
+	// functionality.
 	FieldStats map[string]types.FieldStat `json:"field_stats"`
 	// Format Valid values include `ndjson`, `xml`, `delimited`, and
 	// `semi_structured_text`.
@@ -50,8 +50,8 @@ type Response struct {
 	HasByteOrderMarker bool                 `json:"has_byte_order_marker"`
 	HasHeaderRow       *bool                `json:"has_header_row,omitempty"`
 	IngestPipeline     types.PipelineConfig `json:"ingest_pipeline"`
-	// JavaTimestampFormats The Java time formats recognized in the time fields.
-	// Elasticsearch mappings and ingest pipelines use this format.
+	// JavaTimestampFormats The Java time formats recognized in the time fields. Elasticsearch mappings
+	// and ingest pipelines use this format.
 	JavaTimestampFormats []string `json:"java_timestamp_formats,omitempty"`
 	// JodaTimestampFormats Information that is used to tell Logstash how to parse timestamps.
 	JodaTimestampFormats []string `json:"joda_timestamp_formats,omitempty"`
@@ -59,19 +59,18 @@ type Response struct {
 	Mappings              types.TypeMapping `json:"mappings"`
 	MultilineStartPattern *string           `json:"multiline_start_pattern,omitempty"`
 	// NeedClientTimezone If a timestamp format is detected that does not include a timezone,
-	// `need_client_timezone` is `true`.
-	// The server that parses the text must therefore be told the correct timezone
-	// by the client.
+	// `need_client_timezone` is `true`. The server that parses the text must
+	// therefore be told the correct timezone by the client.
 	NeedClientTimezone bool `json:"need_client_timezone"`
 	// NumLinesAnalyzed The number of lines of the text that were analyzed.
 	NumLinesAnalyzed int `json:"num_lines_analyzed"`
-	// NumMessagesAnalyzed The number of distinct messages the lines contained.
-	// For NDJSON, this value is the same as `num_lines_analyzed`.
-	// For other text formats, messages can span several lines.
+	// NumMessagesAnalyzed The number of distinct messages the lines contained. For NDJSON, this value
+	// is the same as `num_lines_analyzed`. For other text formats, messages can
+	// span several lines.
 	NumMessagesAnalyzed int     `json:"num_messages_analyzed"`
 	Quote               *string `json:"quote,omitempty"`
-	// SampleStart The first two messages in the text verbatim.
-	// This may help diagnose parse errors or accidental uploads of the wrong text.
+	// SampleStart The first two messages in the text verbatim. This may help diagnose parse
+	// errors or accidental uploads of the wrong text.
 	SampleStart      string `json:"sample_start"`
 	ShouldTrimFields *bool  `json:"should_trim_fields,omitempty"`
 	// TimestampField The field considered most likely to be the primary timestamp of each

@@ -142,6 +142,9 @@ func (s *NoriTokenizer) NoriTokenizerCaster() *NoriTokenizer {
 }
 
 func (s *NoriTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

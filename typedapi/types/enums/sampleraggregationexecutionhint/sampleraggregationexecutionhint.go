@@ -29,10 +29,14 @@ type SamplerAggregationExecutionHint struct {
 }
 
 var (
+
+	// Map Hold field values directly.
 	Map = SamplerAggregationExecutionHint{"map"}
 
+	// Globalordinals Hold ordinals of the field as determined by the Lucene index.
 	Globalordinals = SamplerAggregationExecutionHint{"global_ordinals"}
 
+	// Byteshash Hold hashes of the field values - with potential for hash collisions.
 	Byteshash = SamplerAggregationExecutionHint{"bytes_hash"}
 )
 

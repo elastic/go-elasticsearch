@@ -18,10 +18,9 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Reload search analyzers.
-// Reload an index's search analyzers and their resources.
-// For data streams, the API reloads search analyzers and resources for the
-// stream's backing indices.
+// Reload search analyzers. Reload an index's search analyzers and their
+// resources. For data streams, the API reloads search analyzers and resources
+// for the stream's backing indices.
 //
 // IMPORTANT: After reloading the search analyzers you should clear the request
 // cache to make sure it doesn't contain responses derived from the previous
@@ -29,19 +28,17 @@
 //
 // You can use the reload search analyzers API to pick up changes to synonym
 // files used in the `synonym_graph` or `synonym` token filter of a search
-// analyzer.
-// To be eligible, the token filter must have an `updateable` flag of `true` and
-// only be used in search analyzers.
+// analyzer. To be eligible, the token filter must have an `updateable` flag of
+// `true` and only be used in search analyzers.
 //
-// NOTE: This API does not perform a reload for each shard of an index.
-// Instead, it performs a reload for each node containing index shards.
-// As a result, the total shard count returned by the API can differ from the
-// number of index shards.
-// Because reloading affects every node with an index shard, it is important to
-// update the synonym file on every data node in the cluster--including nodes
-// that don't contain a shard replica--before using this API.
-// This ensures the synonym file is updated everywhere in the cluster in case
-// shards are relocated in the future.
+// NOTE: This API does not perform a reload for each shard of an index. Instead,
+// it performs a reload for each node containing index shards. As a result, the
+// total shard count returned by the API can differ from the number of index
+// shards. Because reloading affects every node with an index shard, it is
+// important to update the synonym file on every data node in the
+// cluster--including nodes that don't contain a shard replica--before using
+// this API. This ensures the synonym file is updated everywhere in the cluster
+// in case shards are relocated in the future.
 package reloadsearchanalyzers
 
 import (
@@ -100,10 +97,9 @@ func NewReloadSearchAnalyzersFunc(tp elastictransport.Interface) NewReloadSearch
 	}
 }
 
-// Reload search analyzers.
-// Reload an index's search analyzers and their resources.
-// For data streams, the API reloads search analyzers and resources for the
-// stream's backing indices.
+// Reload search analyzers. Reload an index's search analyzers and their
+// resources. For data streams, the API reloads search analyzers and resources
+// for the stream's backing indices.
 //
 // IMPORTANT: After reloading the search analyzers you should clear the request
 // cache to make sure it doesn't contain responses derived from the previous
@@ -111,19 +107,17 @@ func NewReloadSearchAnalyzersFunc(tp elastictransport.Interface) NewReloadSearch
 //
 // You can use the reload search analyzers API to pick up changes to synonym
 // files used in the `synonym_graph` or `synonym` token filter of a search
-// analyzer.
-// To be eligible, the token filter must have an `updateable` flag of `true` and
-// only be used in search analyzers.
+// analyzer. To be eligible, the token filter must have an `updateable` flag of
+// `true` and only be used in search analyzers.
 //
-// NOTE: This API does not perform a reload for each shard of an index.
-// Instead, it performs a reload for each node containing index shards.
-// As a result, the total shard count returned by the API can differ from the
-// number of index shards.
-// Because reloading affects every node with an index shard, it is important to
-// update the synonym file on every data node in the cluster--including nodes
-// that don't contain a shard replica--before using this API.
-// This ensures the synonym file is updated everywhere in the cluster in case
-// shards are relocated in the future.
+// NOTE: This API does not perform a reload for each shard of an index. Instead,
+// it performs a reload for each node containing index shards. As a result, the
+// total shard count returned by the API can differ from the number of index
+// shards. Because reloading affects every node with an index shard, it is
+// important to update the synonym file on every data node in the
+// cluster--including nodes that don't contain a shard replica--before using
+// this API. This ensures the synonym file is updated everywhere in the cluster
+// in case shards are relocated in the future.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-reload-search-analyzers
 func New(tp elastictransport.Interface) *ReloadSearchAnalyzers {
@@ -198,7 +192,7 @@ func (r ReloadSearchAnalyzers) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.reload_search_analyzers")
+			ctx = instrument.Start(providedCtx, "indices.reload_search_analyzers")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -406,11 +400,9 @@ func (r *ReloadSearchAnalyzers) FilterPath(filterpaths ...string) *ReloadSearchA
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ReloadSearchAnalyzers) Human(human bool) *ReloadSearchAnalyzers {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -418,8 +410,8 @@ func (r *ReloadSearchAnalyzers) Human(human bool) *ReloadSearchAnalyzers {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ReloadSearchAnalyzers) Pretty(pretty bool) *ReloadSearchAnalyzers {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -95,6 +95,9 @@ func (s *KStemTokenFilter) KStemTokenFilterCaster() *KStemTokenFilter {
 }
 
 func (s *KStemTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

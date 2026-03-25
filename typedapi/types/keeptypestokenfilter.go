@@ -113,6 +113,9 @@ func (s *KeepTypesTokenFilter) KeepTypesTokenFilterCaster() *KeepTypesTokenFilte
 }
 
 func (s *KeepTypesTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

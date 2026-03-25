@@ -117,6 +117,9 @@ func (s *MappingCharFilter) MappingCharFilterCaster() *MappingCharFilter {
 }
 
 func (s *MappingCharFilter) CharFilterDefinitionCaster() *CharFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := CharFilterDefinition(s)
 	return &o
 }

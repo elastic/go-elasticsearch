@@ -34,12 +34,10 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/analyzers.ts#L382-L402
 type StandardAnalyzer struct {
 	// MaxTokenLength The maximum token length. If a token is seen that exceeds this length then it
-	// is split at `max_token_length` intervals.
-	// Defaults to `255`.
+	// is split at `max_token_length` intervals. Defaults to `255`.
 	MaxTokenLength *int `json:"max_token_length,omitempty"`
 	// Stopwords A pre-defined stop words list like `_english_` or an array containing a list
-	// of stop words.
-	// Defaults to `_none_`.
+	// of stop words. Defaults to `_none_`.
 	Stopwords StopWords `json:"stopwords,omitempty"`
 	// StopwordsPath The path to a file containing stop words.
 	StopwordsPath *string `json:"stopwords_path,omitempty"`
@@ -135,6 +133,9 @@ func (s *StandardAnalyzer) StandardAnalyzerCaster() *StandardAnalyzer {
 }
 
 func (s *StandardAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

@@ -36,20 +36,20 @@ type IntervalsFilter struct {
 	// Containing Query used to return intervals that contain an interval from the `filter`
 	// rule.
 	Containing *Intervals `json:"containing,omitempty"`
-	// NotContainedBy Query used to return intervals that are **not** contained by an interval from
-	// the `filter` rule.
+	// NotContainedBy Query used to return intervals that are not contained by an interval from the
+	// `filter` rule.
 	NotContainedBy *Intervals `json:"not_contained_by,omitempty"`
-	// NotContaining Query used to return intervals that do **not** contain an interval from the
+	// NotContaining Query used to return intervals that do not contain an interval from the
 	// `filter` rule.
 	NotContaining *Intervals `json:"not_containing,omitempty"`
-	// NotOverlapping Query used to return intervals that do **not** overlap with an interval from
-	// the `filter` rule.
+	// NotOverlapping Query used to return intervals that do not overlap with an interval from the
+	// `filter` rule.
 	NotOverlapping *Intervals `json:"not_overlapping,omitempty"`
 	// Overlapping Query used to return intervals that overlap with an interval from the
 	// `filter` rule.
 	Overlapping *Intervals `json:"overlapping,omitempty"`
-	// Script Script used to return matching documents.
-	// This script must return a boolean value: `true` or `false`.
+	// Script Script used to return matching documents. This script must return a boolean
+	// value: `true` or `false`.
 	Script *Script `json:"script,omitempty"`
 }
 

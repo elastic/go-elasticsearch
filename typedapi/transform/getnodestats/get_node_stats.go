@@ -136,7 +136,7 @@ func (r GetNodeStats) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.get_node_stats")
+			ctx = instrument.Start(providedCtx, "transform.get_node_stats")
 			defer instrument.Close(ctx)
 		}
 	}

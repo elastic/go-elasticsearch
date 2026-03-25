@@ -32,8 +32,7 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/watcher/stats/types.ts#L71-L77
 type WatchRecordQueuedStats struct {
-	// ExecutionTime The time the watch was run.
-	// This is just before the input is being run.
+	// ExecutionTime The time the watch was run. This is just before the input is being run.
 	ExecutionTime DateTime `json:"execution_time"`
 }
 

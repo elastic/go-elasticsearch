@@ -95,6 +95,9 @@ func (s *CjkWidthTokenFilter) CjkWidthTokenFilterCaster() *CjkWidthTokenFilter {
 }
 
 func (s *CjkWidthTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

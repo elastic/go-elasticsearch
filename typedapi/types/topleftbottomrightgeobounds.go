@@ -162,6 +162,9 @@ func (s *TopLeftBottomRightGeoBounds) TopLeftBottomRightGeoBoundsCaster() *TopLe
 }
 
 func (s *TopLeftBottomRightGeoBounds) GeoBoundsCaster() *GeoBounds {
+	if s == nil {
+		return nil
+	}
 	o := GeoBounds(s)
 	return &o
 }

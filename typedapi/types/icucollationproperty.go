@@ -1074,6 +1074,9 @@ func (s *IcuCollationProperty) IcuCollationPropertyCaster() *IcuCollationPropert
 }
 
 func (s *IcuCollationProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

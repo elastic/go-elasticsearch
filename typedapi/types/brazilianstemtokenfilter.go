@@ -95,6 +95,9 @@ func (s *BrazilianStemTokenFilter) BrazilianStemTokenFilterCaster() *BrazilianSt
 }
 
 func (s *BrazilianStemTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

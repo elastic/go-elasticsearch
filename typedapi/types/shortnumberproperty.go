@@ -983,6 +983,9 @@ func (s *ShortNumberProperty) ShortNumberPropertyCaster() *ShortNumberProperty {
 }
 
 func (s *ShortNumberProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

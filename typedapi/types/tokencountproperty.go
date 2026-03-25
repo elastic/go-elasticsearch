@@ -949,6 +949,9 @@ func (s *TokenCountProperty) TokenCountPropertyCaster() *TokenCountProperty {
 }
 
 func (s *TokenCountProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

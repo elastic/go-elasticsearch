@@ -28,6 +28,8 @@ package types
 //	bool
 //	nil
 //
+// A field value.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/common.ts#L25-L31
 type FieldValue any
 

@@ -26,8 +26,8 @@ type _pinnedDoc struct {
 	v *types.PinnedDoc
 }
 
-// Documents listed in the order they are to appear in results.
-// Required if `ids` is not specified.
+// Documents listed in the order they are to appear in results. Required if
+// `ids` is not specified.
 func NewPinnedDoc() *_pinnedDoc {
 
 	return &_pinnedDoc{v: types.NewPinnedDoc()}

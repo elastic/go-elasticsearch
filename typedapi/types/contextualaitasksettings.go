@@ -37,12 +37,12 @@ type ContextualAITaskSettings struct {
 	// <https://docs.contextual.ai/api-reference/rerank/rerank#body-instruction>
 	// Only for the `rerank` task type.
 	Instruction *string `json:"instruction,omitempty"`
-	// ReturnDocuments Whether to return the source documents in the response.
-	// Only for the `rerank` task type.
+	// ReturnDocuments Whether to return the source documents in the response. Only for the `rerank`
+	// task type.
 	ReturnDocuments *bool `json:"return_documents,omitempty"`
-	// TopK The number of most relevant documents to return.
-	// If not specified, the reranking results of all documents will be returned.
-	// Only for the `rerank` task type.
+	// TopK The number of most relevant documents to return. If not specified, the
+	// reranking results of all documents will be returned. Only for the `rerank`
+	// task type.
 	TopK *int `json:"top_k,omitempty"`
 }
 

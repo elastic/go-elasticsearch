@@ -18,18 +18,16 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Downsample an index.
-// Aggregate a time series (TSDS) index and store pre-computed statistical
-// summaries (`min`, `max`, `sum`, `value_count` and `avg`) for each metric
-// field grouped by a configured time interval.
-// For example, a TSDS index that contains metrics sampled every 10 seconds can
-// be downsampled to an hourly index.
-// All documents within an hour interval are summarized and stored as a single
-// document in the downsample index.
+// Downsample an index. Aggregate a time series (TSDS) index and store
+// pre-computed statistical summaries (`min`, `max`, `sum`, `value_count` and
+// `avg`) for each metric field grouped by a configured time interval. For
+// example, a TSDS index that contains metrics sampled every 10 seconds can be
+// downsampled to an hourly index. All documents within an hour interval are
+// summarized and stored as a single document in the downsample index.
 //
-// NOTE: Only indices in a time series data stream are supported.
-// Neither field nor document level security can be defined on the source index.
-// The source index must be read only (`index.blocks.write: true`).
+// NOTE: Only indices in a time series data stream are supported. Neither field
+// nor document level security can be defined on the source index. The source
+// index must be read only (`index.blocks.write: true`).
 package downsample
 
 import (
@@ -97,18 +95,16 @@ func NewDownsampleFunc(tp elastictransport.Interface) NewDownsample {
 	}
 }
 
-// Downsample an index.
-// Aggregate a time series (TSDS) index and store pre-computed statistical
-// summaries (`min`, `max`, `sum`, `value_count` and `avg`) for each metric
-// field grouped by a configured time interval.
-// For example, a TSDS index that contains metrics sampled every 10 seconds can
-// be downsampled to an hourly index.
-// All documents within an hour interval are summarized and stored as a single
-// document in the downsample index.
+// Downsample an index. Aggregate a time series (TSDS) index and store
+// pre-computed statistical summaries (`min`, `max`, `sum`, `value_count` and
+// `avg`) for each metric field grouped by a configured time interval. For
+// example, a TSDS index that contains metrics sampled every 10 seconds can be
+// downsampled to an hourly index. All documents within an hour interval are
+// summarized and stored as a single document in the downsample index.
 //
-// NOTE: Only indices in a time series data stream are supported.
-// Neither field nor document level security can be defined on the source index.
-// The source index must be read only (`index.blocks.write: true`).
+// NOTE: Only indices in a time series data stream are supported. Neither field
+// nor document level security can be defined on the source index. The source
+// index must be read only (`index.blocks.write: true`).
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-downsample
 func New(tp elastictransport.Interface) *Downsample {
@@ -237,7 +233,7 @@ func (r Downsample) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.downsample")
+			ctx = instrument.Start(providedCtx, "indices.downsample")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -376,11 +372,9 @@ func (r *Downsample) FilterPath(filterpaths ...string) *Downsample {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Downsample) Human(human bool) *Downsample {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -388,8 +382,8 @@ func (r *Downsample) Human(human bool) *Downsample {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Downsample) Pretty(pretty bool) *Downsample {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

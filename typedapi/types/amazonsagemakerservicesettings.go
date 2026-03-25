@@ -38,19 +38,17 @@ type AmazonSageMakerServiceSettings struct {
 	// AccessKey A valid AWS access key that has permissions to use Amazon SageMaker and
 	// access to models for invoking requests.
 	AccessKey string `json:"access_key"`
-	// Api The API format to use when calling SageMaker.
-	// Elasticsearch will convert the POST _inference request to this data format
-	// when invoking the SageMaker endpoint.
+	// Api The API format to use when calling SageMaker. Elasticsearch will convert the
+	// POST _inference request to this data format when invoking the SageMaker
+	// endpoint.
 	Api amazonsagemakerapi.AmazonSageMakerApi `json:"api"`
 	// BatchSize The maximum number of inputs in each batch. This value is used by inference
-	// ingestion pipelines
-	// when processing semantic values. It correlates to the number of times the
-	// SageMaker endpoint is
-	// invoked (one per batch of input).
+	// ingestion pipelines when processing semantic values. It correlates to the
+	// number of times the SageMaker endpoint is invoked (one per batch of input).
 	BatchSize *int `json:"batch_size,omitempty"`
 	// Dimensions The number of dimensions returned by the text embedding models. If this value
-	// is not provided, then
-	// it is guessed by making invoking the endpoint for the `text_embedding` task.
+	// is not provided, then it is guessed by making invoking the endpoint for the
+	// `text_embedding` task.
 	Dimensions *int `json:"dimensions,omitempty"`
 	// EndpointName The name of the SageMaker endpoint.
 	EndpointName string `json:"endpoint_name"`
@@ -61,9 +59,9 @@ type AmazonSageMakerServiceSettings struct {
 	// The list of available regions per model can be found in the Amazon SageMaker
 	// documentation.
 	Region string `json:"region"`
-	// SecretKey A valid AWS secret key that is paired with the `access_key`.
-	// For information about creating and managing access and secret keys, refer to
-	// the AWS documentation.
+	// SecretKey A valid AWS secret key that is paired with the `access_key`. For information
+	// about creating and managing access and secret keys, refer to the AWS
+	// documentation.
 	SecretKey string `json:"secret_key"`
 	// TargetContainerHostname The container to directly invoke when calling a multi-container endpoint.
 	TargetContainerHostname *string `json:"target_container_hostname,omitempty"`

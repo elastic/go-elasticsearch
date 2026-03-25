@@ -29,14 +29,20 @@ type CatTemplatesColumn struct {
 }
 
 var (
+
+	// Name The template name.
 	Name = CatTemplatesColumn{"name"}
 
+	// Indexpatterns The template index patterns.
 	Indexpatterns = CatTemplatesColumn{"index_patterns"}
 
+	// Order The template application order or priority number.
 	Order = CatTemplatesColumn{"order"}
 
+	// Version The version.
 	Version = CatTemplatesColumn{"version"}
 
+	// Composedof The component templates comprising the index template.
 	Composedof = CatTemplatesColumn{"composed_of"}
 )
 

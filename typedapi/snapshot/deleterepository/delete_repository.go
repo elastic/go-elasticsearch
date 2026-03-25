@@ -18,10 +18,10 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Delete snapshot repositories.
-// When a repository is unregistered, Elasticsearch removes only the reference
-// to the location where the repository is storing the snapshots.
-// The snapshots themselves are left untouched and in place.
+// Delete snapshot repositories. When a repository is unregistered,
+// Elasticsearch removes only the reference to the location where the repository
+// is storing the snapshots. The snapshots themselves are left untouched and in
+// place.
 package deleterepository
 
 import (
@@ -79,10 +79,10 @@ func NewDeleteRepositoryFunc(tp elastictransport.Interface) NewDeleteRepository 
 	}
 }
 
-// Delete snapshot repositories.
-// When a repository is unregistered, Elasticsearch removes only the reference
-// to the location where the repository is storing the snapshots.
-// The snapshots themselves are left untouched and in place.
+// Delete snapshot repositories. When a repository is unregistered,
+// Elasticsearch removes only the reference to the location where the repository
+// is storing the snapshots. The snapshots themselves are left untouched and in
+// place.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-delete-repository
 func New(tp elastictransport.Interface) *DeleteRepository {
@@ -157,7 +157,7 @@ func (r DeleteRepository) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "snapshot.delete_repository")
+			ctx = instrument.Start(providedCtx, "snapshot.delete_repository")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -294,8 +294,8 @@ func (r *DeleteRepository) Header(key, value string) *DeleteRepository {
 	return r
 }
 
-// Repository The ame of the snapshot repositories to unregister.
-// Wildcard (`*`) patterns are supported.
+// Repository The ame of the snapshot repositories to unregister. Wildcard (`*`) patterns
+// are supported.
 // API Name: repository
 func (r *DeleteRepository) _repository(repository string) *DeleteRepository {
 	r.paramSet |= repositoryMask
@@ -304,10 +304,9 @@ func (r *DeleteRepository) _repository(repository string) *DeleteRepository {
 	return r
 }
 
-// MasterTimeout The period to wait for the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// To indicate that the request should never timeout, set it to `-1`.
+// MasterTimeout The period to wait for the master node. If the master node is not available
+// before the timeout expires, the request fails and returns an error. To
+// indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *DeleteRepository) MasterTimeout(duration string) *DeleteRepository {
 	r.values.Set("master_timeout", duration)
@@ -316,11 +315,10 @@ func (r *DeleteRepository) MasterTimeout(duration string) *DeleteRepository {
 }
 
 // Timeout The period to wait for a response from all relevant nodes in the cluster
-// after updating the cluster metadata.
-// If no response is received before the timeout expires, the cluster metadata
-// update still applies but the response will indicate that it was not
-// completely acknowledged.
-// To indicate that the request should never timeout, set it to `-1`.
+// after updating the cluster metadata. If no response is received before the
+// timeout expires, the cluster metadata update still applies but the response
+// will indicate that it was not completely acknowledged. To indicate that the
+// request should never timeout, set it to `-1`.
 // API name: timeout
 func (r *DeleteRepository) Timeout(duration string) *DeleteRepository {
 	r.values.Set("timeout", duration)
@@ -351,11 +349,9 @@ func (r *DeleteRepository) FilterPath(filterpaths ...string) *DeleteRepository {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteRepository) Human(human bool) *DeleteRepository {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -363,8 +359,8 @@ func (r *DeleteRepository) Human(human bool) *DeleteRepository {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteRepository) Pretty(pretty bool) *DeleteRepository {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

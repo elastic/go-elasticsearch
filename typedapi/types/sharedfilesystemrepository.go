@@ -104,6 +104,9 @@ func (s *SharedFileSystemRepository) SharedFileSystemRepositoryCaster() *SharedF
 }
 
 func (s *SharedFileSystemRepository) RepositoryCaster() *Repository {
+	if s == nil {
+		return nil
+	}
 	o := Repository(s)
 	return &o
 }

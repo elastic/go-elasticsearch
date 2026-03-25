@@ -25,8 +25,8 @@ package flushjob
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/flush_job/MlFlushJobResponse.ts#L22-L31
 type Response struct {
 	Flushed bool `json:"flushed"`
-	// LastFinalizedBucketEnd Provides the timestamp (in milliseconds since the epoch) of the end of
-	// the last bucket that was processed.
+	// LastFinalizedBucketEnd Provides the timestamp (in milliseconds since the epoch) of the end of the
+	// last bucket that was processed.
 	LastFinalizedBucketEnd *int `json:"last_finalized_bucket_end,omitempty"`
 }
 

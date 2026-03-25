@@ -33,7 +33,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
 )
 
-// RankVectorProperty type.
+// Technical preview
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/mapping/core.ts#L218-L225
 type RankVectorProperty struct {
@@ -843,6 +843,9 @@ func (s *RankVectorProperty) RankVectorPropertyCaster() *RankVectorProperty {
 }
 
 func (s *RankVectorProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

@@ -129,6 +129,9 @@ func (s *LikeDocument) LikeDocumentCaster() *LikeDocument {
 }
 
 func (s *LikeDocument) LikeCaster() *Like {
+	if s == nil {
+		return nil
+	}
 	o := Like(s)
 	return &o
 }

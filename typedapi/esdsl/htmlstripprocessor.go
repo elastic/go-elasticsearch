@@ -26,9 +26,8 @@ type _htmlStripProcessor struct {
 	v *types.HtmlStripProcessor
 }
 
-// Removes HTML tags from the field.
-// If the field is an array of strings, HTML tags will be removed from all
-// members of the array.
+// Removes HTML tags from the field. If the field is an array of strings, HTML
+// tags will be removed from all members of the array.
 func NewHtmlStripProcessor() *_htmlStripProcessor {
 
 	return &_htmlStripProcessor{v: types.NewHtmlStripProcessor()}

@@ -18,11 +18,10 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Get async ES|QL query results.
-// Get the current status and available results or stored results for an ES|QL
-// asynchronous query.
-// If the Elasticsearch security features are enabled, only the user who first
-// submitted the ES|QL query can retrieve the results using this API.
+// Get async ES|QL query results. Get the current status and available results
+// or stored results for an ES|QL asynchronous query. If the Elasticsearch
+// security features are enabled, only the user who first submitted the ES|QL
+// query can retrieve the results using this API.
 package asyncqueryget
 
 import (
@@ -81,11 +80,10 @@ func NewAsyncQueryGetFunc(tp elastictransport.Interface) NewAsyncQueryGet {
 	}
 }
 
-// Get async ES|QL query results.
-// Get the current status and available results or stored results for an ES|QL
-// asynchronous query.
-// If the Elasticsearch security features are enabled, only the user who first
-// submitted the ES|QL query can retrieve the results using this API.
+// Get async ES|QL query results. Get the current status and available results
+// or stored results for an ES|QL asynchronous query. If the Elasticsearch
+// security features are enabled, only the user who first submitted the ES|QL
+// query can retrieve the results using this API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-get
 func New(tp elastictransport.Interface) *AsyncQueryGet {
@@ -162,7 +160,7 @@ func (r AsyncQueryGet) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "esql.async_query_get")
+			ctx = instrument.Start(providedCtx, "esql.async_query_get")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -299,9 +297,8 @@ func (r *AsyncQueryGet) Header(key, value string) *AsyncQueryGet {
 	return r
 }
 
-// Id The unique identifier of the query.
-// A query ID is provided in the ES|QL async query API response for a query that
-// does not complete in the designated time.
+// Id The unique identifier of the query. A query ID is provided in the ES|QL async
+// query API response for a query that does not complete in the designated time.
 // A query ID is also provided when the request was submitted with the
 // `keep_on_completion` parameter set to `true`.
 // API Name: id
@@ -313,9 +310,9 @@ func (r *AsyncQueryGet) _id(id string) *AsyncQueryGet {
 }
 
 // DropNullColumns Indicates whether columns that are entirely `null` will be removed from the
-// `columns` and `values` portion of the results.
-// If `true`, the response will include an extra section under the name
-// `all_columns` which has the name of all the columns.
+// `columns` and `values` portion of the results. If `true`, the response will
+// include an extra section under the name `all_columns` which has the name of
+// all the columns.
 // API name: drop_null_columns
 func (r *AsyncQueryGet) DropNullColumns(dropnullcolumns bool) *AsyncQueryGet {
 	r.values.Set("drop_null_columns", strconv.FormatBool(dropnullcolumns))
@@ -341,12 +338,10 @@ func (r *AsyncQueryGet) KeepAlive(duration string) *AsyncQueryGet {
 	return r
 }
 
-// WaitForCompletionTimeout The period to wait for the request to finish.
-// By default, the request waits for complete query results.
-// If the request completes during the period specified in this parameter,
-// complete query results are returned.
-// Otherwise, the response returns an `is_running` value of `true` and no
-// results.
+// WaitForCompletionTimeout The period to wait for the request to finish. By default, the request waits
+// for complete query results. If the request completes during the period
+// specified in this parameter, complete query results are returned. Otherwise,
+// the response returns an `is_running` value of `true` and no results.
 // API name: wait_for_completion_timeout
 func (r *AsyncQueryGet) WaitForCompletionTimeout(duration string) *AsyncQueryGet {
 	r.values.Set("wait_for_completion_timeout", duration)
@@ -377,11 +372,9 @@ func (r *AsyncQueryGet) FilterPath(filterpaths ...string) *AsyncQueryGet {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *AsyncQueryGet) Human(human bool) *AsyncQueryGet {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -389,8 +382,8 @@ func (r *AsyncQueryGet) Human(human bool) *AsyncQueryGet {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *AsyncQueryGet) Pretty(pretty bool) *AsyncQueryGet {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

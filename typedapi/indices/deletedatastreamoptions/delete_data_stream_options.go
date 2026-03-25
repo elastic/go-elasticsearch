@@ -18,8 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Delete data stream options.
-// Removes the data stream options from a data stream.
+// Delete data stream options. Removes the data stream options from a data
+// stream.
 package deletedatastreamoptions
 
 import (
@@ -78,8 +78,8 @@ func NewDeleteDataStreamOptionsFunc(tp elastictransport.Interface) NewDeleteData
 	}
 }
 
-// Delete data stream options.
-// Removes the data stream options from a data stream.
+// Delete data stream options. Removes the data stream options from a data
+// stream.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream-options
 func New(tp elastictransport.Interface) *DeleteDataStreamOptions {
@@ -156,7 +156,7 @@ func (r DeleteDataStreamOptions) Perform(providedCtx context.Context) (*http.Res
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.delete_data_stream_options")
+			ctx = instrument.Start(providedCtx, "indices.delete_data_stream_options")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -355,11 +355,9 @@ func (r *DeleteDataStreamOptions) FilterPath(filterpaths ...string) *DeleteDataS
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteDataStreamOptions) Human(human bool) *DeleteDataStreamOptions {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -367,8 +365,8 @@ func (r *DeleteDataStreamOptions) Human(human bool) *DeleteDataStreamOptions {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteDataStreamOptions) Pretty(pretty bool) *DeleteDataStreamOptions {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

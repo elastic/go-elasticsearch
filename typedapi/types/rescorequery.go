@@ -35,9 +35,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/search/_types/rescoring.ts#L43-L65
 type RescoreQuery struct {
-	// Query The query to use for rescoring.
-	// This query is only run on the Top-K results returned by the `query` and
-	// `post_filter` phases.
+	// Query The query to use for rescoring. This query is only run on the Top-K results
+	// returned by the `query` and `post_filter` phases.
 	Query Query `json:"rescore_query"`
 	// QueryWeight Relative importance of the original query versus the rescore query.
 	QueryWeight *Float64 `json:"query_weight,omitempty"`

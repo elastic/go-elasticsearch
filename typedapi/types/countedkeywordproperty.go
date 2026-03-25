@@ -833,6 +833,9 @@ func (s *CountedKeywordProperty) CountedKeywordPropertyCaster() *CountedKeywordP
 }
 
 func (s *CountedKeywordProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

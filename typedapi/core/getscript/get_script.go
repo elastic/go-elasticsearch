@@ -18,8 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Get a script or search template.
-// Retrieves a stored script or search template.
+// Get a script or search template. Retrieves a stored script or search
+// template.
 package getscript
 
 import (
@@ -77,8 +77,8 @@ func NewGetScriptFunc(tp elastictransport.Interface) NewGetScript {
 	}
 }
 
-// Get a script or search template.
-// Retrieves a stored script or search template.
+// Get a script or search template. Retrieves a stored script or search
+// template.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script
 func New(tp elastictransport.Interface) *GetScript {
@@ -153,7 +153,7 @@ func (r GetScript) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "get_script")
+			ctx = instrument.Start(providedCtx, "get_script")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -299,10 +299,9 @@ func (r *GetScript) _id(id string) *GetScript {
 	return r
 }
 
-// MasterTimeout The period to wait for the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// It can also be set to `-1` to indicate that the request should never timeout.
+// MasterTimeout The period to wait for the master node. If the master node is not available
+// before the timeout expires, the request fails and returns an error. It can
+// also be set to `-1` to indicate that the request should never timeout.
 // API name: master_timeout
 func (r *GetScript) MasterTimeout(duration string) *GetScript {
 	r.values.Set("master_timeout", duration)
@@ -333,11 +332,9 @@ func (r *GetScript) FilterPath(filterpaths ...string) *GetScript {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetScript) Human(human bool) *GetScript {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -345,8 +342,8 @@ func (r *GetScript) Human(human bool) *GetScript {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetScript) Pretty(pretty bool) *GetScript {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -28,7 +28,8 @@ import (
 	"io"
 )
 
-// DiscoveryNodeCompact type.
+// Alternative representation of DiscoveryNode used in ml.get_job_stats and
+// ml.get_datafeed_stats
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/_types/DiscoveryNode.ts#L39-L48
 type DiscoveryNodeCompact struct {

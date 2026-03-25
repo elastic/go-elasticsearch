@@ -30,8 +30,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/synonyms/delete_synonym_rule/SynonymRuleDeleteResponse.ts#L22-L25
 type Response struct {
 	// ReloadAnalyzersDetails Updating synonyms in a synonym set can reload the associated analyzers in
-	// case refresh is set to true.
-	// This information is the analyzers reloading result.
+	// case refresh is set to true. This information is the analyzers reloading
+	// result.
 	ReloadAnalyzersDetails *types.ReloadResult `json:"reload_analyzers_details,omitempty"`
 	// Result The update operation result.
 	Result result.Result `json:"result"`

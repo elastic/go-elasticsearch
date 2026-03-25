@@ -18,8 +18,7 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Update a snapshot.
-// Updates certain properties of a snapshot.
+// Update a snapshot. Updates certain properties of a snapshot.
 package updatemodelsnapshot
 
 import (
@@ -87,8 +86,7 @@ func NewUpdateModelSnapshotFunc(tp elastictransport.Interface) NewUpdateModelSna
 	}
 }
 
-// Update a snapshot.
-// Updates certain properties of a snapshot.
+// Update a snapshot. Updates certain properties of a snapshot.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-model-snapshot
 func New(tp elastictransport.Interface) *UpdateModelSnapshot {
@@ -223,7 +221,7 @@ func (r UpdateModelSnapshot) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.update_model_snapshot")
+			ctx = instrument.Start(providedCtx, "ml.update_model_snapshot")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -362,11 +360,9 @@ func (r *UpdateModelSnapshot) FilterPath(filterpaths ...string) *UpdateModelSnap
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateModelSnapshot) Human(human bool) *UpdateModelSnapshot {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -374,8 +370,8 @@ func (r *UpdateModelSnapshot) Human(human bool) *UpdateModelSnapshot {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateModelSnapshot) Pretty(pretty bool) *UpdateModelSnapshot {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -397,8 +393,8 @@ func (r *UpdateModelSnapshot) Description(description string) *UpdateModelSnapsh
 }
 
 // If `true`, this snapshot will not be deleted during automatic cleanup of
-// snapshots older than `model_snapshot_retention_days`. However, this
-// snapshot will be deleted when the job is deleted.
+// snapshots older than `model_snapshot_retention_days`. However, this snapshot
+// will be deleted when the job is deleted.
 // API name: retain
 func (r *UpdateModelSnapshot) Retain(retain bool) *UpdateModelSnapshot {
 	// Initialize the request if it is not already initialized

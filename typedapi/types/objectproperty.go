@@ -875,6 +875,9 @@ func (s *ObjectProperty) ObjectPropertyCaster() *ObjectProperty {
 }
 
 func (s *ObjectProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

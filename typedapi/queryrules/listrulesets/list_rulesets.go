@@ -18,8 +18,7 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Get all query rulesets.
-// Get summarized information about the query rulesets.
+// Get all query rulesets. Get summarized information about the query rulesets.
 package listrulesets
 
 import (
@@ -69,8 +68,7 @@ func NewListRulesetsFunc(tp elastictransport.Interface) NewListRulesets {
 	}
 }
 
-// Get all query rulesets.
-// Get summarized information about the query rulesets.
+// Get all query rulesets. Get summarized information about the query rulesets.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-list-rulesets
 func New(tp elastictransport.Interface) *ListRulesets {
@@ -139,7 +137,7 @@ func (r ListRulesets) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "query_rules.list_rulesets")
+			ctx = instrument.Start(providedCtx, "query_rules.list_rulesets")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -315,11 +313,9 @@ func (r *ListRulesets) FilterPath(filterpaths ...string) *ListRulesets {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ListRulesets) Human(human bool) *ListRulesets {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -327,8 +323,8 @@ func (r *ListRulesets) Human(human bool) *ListRulesets {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ListRulesets) Pretty(pretty bool) *ListRulesets {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

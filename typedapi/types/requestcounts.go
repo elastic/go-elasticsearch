@@ -40,10 +40,9 @@ type RequestCounts struct {
 	// GetObject Number of get object requests (GCP, S3)
 	GetObject *int64 `json:"GetObject,omitempty"`
 	// InsertObject Number of insert object requests, including simple, multipart and resumable
-	// uploads. Resumable uploads
-	// can perform multiple http requests to insert a single object but they are
-	// considered as a single request
-	// since they are billed as an individual operation. (GCP)
+	// uploads. Resumable uploads can perform multiple http requests to insert a
+	// single object but they are considered as a single request since they are
+	// billed as an individual operation. (GCP)
 	InsertObject *int64 `json:"InsertObject,omitempty"`
 	// ListBlobs Number of List Blobs requests (Azure)
 	ListBlobs *int64 `json:"ListBlobs,omitempty"`

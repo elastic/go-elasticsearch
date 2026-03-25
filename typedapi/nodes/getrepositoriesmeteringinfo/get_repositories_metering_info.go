@@ -18,13 +18,12 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Get cluster repositories metering.
-// Get repositories metering information for a cluster.
-// This API exposes monotonically non-decreasing counters and it is expected
-// that clients would durably store the information needed to compute
-// aggregations over a period of time.
-// Additionally, the information exposed by this API is volatile, meaning that
-// it will not be present after node restarts.
+// Get cluster repositories metering. Get repositories metering information for
+// a cluster. This API exposes monotonically non-decreasing counters and it is
+// expected that clients would durably store the information needed to compute
+// aggregations over a period of time. Additionally, the information exposed by
+// this API is volatile, meaning that it will not be present after node
+// restarts.
 package getrepositoriesmeteringinfo
 
 import (
@@ -82,13 +81,12 @@ func NewGetRepositoriesMeteringInfoFunc(tp elastictransport.Interface) NewGetRep
 	}
 }
 
-// Get cluster repositories metering.
-// Get repositories metering information for a cluster.
-// This API exposes monotonically non-decreasing counters and it is expected
-// that clients would durably store the information needed to compute
-// aggregations over a period of time.
-// Additionally, the information exposed by this API is volatile, meaning that
-// it will not be present after node restarts.
+// Get cluster repositories metering. Get repositories metering information for
+// a cluster. This API exposes monotonically non-decreasing counters and it is
+// expected that clients would durably store the information needed to compute
+// aggregations over a period of time. Additionally, the information exposed by
+// this API is volatile, meaning that it will not be present after node
+// restarts.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-get-repositories-metering-info
 func New(tp elastictransport.Interface) *GetRepositoriesMeteringInfo {
@@ -165,7 +163,7 @@ func (r GetRepositoriesMeteringInfo) Perform(providedCtx context.Context) (*http
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "nodes.get_repositories_metering_info")
+			ctx = instrument.Start(providedCtx, "nodes.get_repositories_metering_info")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -334,11 +332,9 @@ func (r *GetRepositoriesMeteringInfo) FilterPath(filterpaths ...string) *GetRepo
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetRepositoriesMeteringInfo) Human(human bool) *GetRepositoriesMeteringInfo {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -346,8 +342,8 @@ func (r *GetRepositoriesMeteringInfo) Human(human bool) *GetRepositoriesMetering
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetRepositoriesMeteringInfo) Pretty(pretty bool) *GetRepositoriesMeteringInfo {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

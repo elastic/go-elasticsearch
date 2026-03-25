@@ -95,6 +95,9 @@ func (s *RussianStemTokenFilter) RussianStemTokenFilterCaster() *RussianStemToke
 }
 
 func (s *RussianStemTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

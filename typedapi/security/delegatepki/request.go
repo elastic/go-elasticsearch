@@ -34,9 +34,9 @@ type Request struct {
 	// base64url-encoded) of the certificate's DER encoding.
 	//
 	// The first element is the target certificate that contains the subject
-	// distinguished name that is requesting access.
-	// This may be followed by additional certificates; each subsequent certificate
-	// is used to certify the previous one.
+	// distinguished name that is requesting access. This may be followed by
+	// additional certificates; each subsequent certificate is used to certify the
+	// previous one.
 	X509CertificateChain []string `json:"x509_certificate_chain"`
 }
 

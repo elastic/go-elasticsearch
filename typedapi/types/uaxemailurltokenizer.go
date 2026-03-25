@@ -114,6 +114,9 @@ func (s *UaxEmailUrlTokenizer) UaxEmailUrlTokenizerCaster() *UaxEmailUrlTokenize
 }
 
 func (s *UaxEmailUrlTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

@@ -18,8 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Get aliases.
-// Retrieves information for one or more data stream or index aliases.
+// Get aliases. Retrieves information for one or more data stream or index
+// aliases.
 package getalias
 
 import (
@@ -79,8 +79,8 @@ func NewGetAliasFunc(tp elastictransport.Interface) NewGetAlias {
 	}
 }
 
-// Get aliases.
-// Retrieves information for one or more data stream or index aliases.
+// Get aliases. Retrieves information for one or more data stream or index
+// aliases.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-alias
 func New(tp elastictransport.Interface) *GetAlias {
@@ -188,7 +188,7 @@ func (r GetAlias) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_alias")
+			ctx = instrument.Start(providedCtx, "indices.get_alias")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -325,9 +325,8 @@ func (r *GetAlias) Header(key, value string) *GetAlias {
 	return r
 }
 
-// Name Comma-separated list of aliases to retrieve.
-// Supports wildcards (`*`).
-// To retrieve all aliases, omit this parameter or use `*` or `_all`.
+// Name Comma-separated list of aliases to retrieve. Supports wildcards (`*`). To
+// retrieve all aliases, omit this parameter or use `*` or `_all`.
 // API Name: name
 func (r *GetAlias) Name(name string) *GetAlias {
 	r.paramSet |= nameMask
@@ -337,9 +336,8 @@ func (r *GetAlias) Name(name string) *GetAlias {
 }
 
 // Index Comma-separated list of data streams or indices used to limit the request.
-// Supports wildcards (`*`).
-// To target all data streams and indices, omit this parameter or use `*` or
-// `_all`.
+// Supports wildcards (`*`). To target all data streams and indices, omit this
+// parameter or use `*` or `_all`.
 // API Name: index
 func (r *GetAlias) Index(index string) *GetAlias {
 	r.paramSet |= indexMask
@@ -349,8 +347,8 @@ func (r *GetAlias) Index(index string) *GetAlias {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *GetAlias) AllowNoIndices(allownoindices bool) *GetAlias {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -358,10 +356,9 @@ func (r *GetAlias) AllowNoIndices(allownoindices bool) *GetAlias {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *GetAlias) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetAlias {
 	tmp := []string{}
@@ -382,9 +379,8 @@ func (r *GetAlias) IgnoreUnavailable(ignoreunavailable bool) *GetAlias {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *GetAlias) MasterTimeout(duration string) *GetAlias {
 	r.values.Set("master_timeout", duration)
@@ -415,11 +411,9 @@ func (r *GetAlias) FilterPath(filterpaths ...string) *GetAlias {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetAlias) Human(human bool) *GetAlias {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -427,8 +421,8 @@ func (r *GetAlias) Human(human bool) *GetAlias {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetAlias) Pretty(pretty bool) *GetAlias {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

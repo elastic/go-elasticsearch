@@ -29,7 +29,8 @@ import (
 	"strconv"
 )
 
-// LongTermsAggregate type.
+// Result of a `terms` aggregation when the field is some kind of whole number
+// like a integer, long, or a date.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/aggregations/Aggregate.ts#L510-L515
 type LongTermsAggregate struct {

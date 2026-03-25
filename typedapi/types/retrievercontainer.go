@@ -24,13 +24,13 @@ package types
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/Retriever.ts#L29-L52
 type RetrieverContainer struct {
-	// Knn A retriever that replaces the functionality  of a knn search.
+	// Knn A retriever that replaces the functionality of a knn search.
 	Knn *KnnRetriever `json:"knn,omitempty"`
 	// Linear A retriever that supports the combination of different retrievers through a
 	// weighted linear combination.
 	Linear *LinearRetriever `json:"linear,omitempty"`
-	// Pinned A pinned retriever applies pinned documents to the underlying retriever.
-	// This retriever will rewrite to a PinnedQueryBuilder.
+	// Pinned A pinned retriever applies pinned documents to the underlying retriever. This
+	// retriever will rewrite to a PinnedQueryBuilder.
 	Pinned *PinnedRetriever `json:"pinned,omitempty"`
 	// Rescorer A retriever that re-scores only the results produced by its child retriever.
 	Rescorer *RescorerRetriever `json:"rescorer,omitempty"`

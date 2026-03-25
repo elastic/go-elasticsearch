@@ -136,6 +136,9 @@ func (s *LengthTokenFilter) LengthTokenFilterCaster() *LengthTokenFilter {
 }
 
 func (s *LengthTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

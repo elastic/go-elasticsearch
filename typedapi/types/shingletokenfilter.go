@@ -185,6 +185,9 @@ func (s *ShingleTokenFilter) ShingleTokenFilterCaster() *ShingleTokenFilter {
 }
 
 func (s *ShingleTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

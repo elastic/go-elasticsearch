@@ -110,6 +110,9 @@ func (s *EstonianAnalyzer) EstonianAnalyzerCaster() *EstonianAnalyzer {
 }
 
 func (s *EstonianAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

@@ -34,9 +34,10 @@ type Request struct {
 	// Aliases Aliases for the index.
 	Aliases map[string]types.Alias `json:"aliases,omitempty"`
 	// Mappings Mapping for fields in the index. If specified, this mapping can include:
-	// - Field names
-	// - Field data types
-	// - Mapping parameters
+	//
+	//   - Field names
+	//   - Field data types
+	//   - Mapping parameters
 	Mappings *types.TypeMapping `json:"mappings,omitempty"`
 	// Settings Configuration options for the index.
 	Settings *types.IndexSettings `json:"settings,omitempty"`

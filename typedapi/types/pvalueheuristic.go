@@ -34,9 +34,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/aggregations/bucket.ts#L820-L834
 type PValueHeuristic struct {
 	BackgroundIsSuperset *bool `json:"background_is_superset,omitempty"`
-	// NormalizeAbove Should the results be normalized when above the given value.
-	// Allows for consistent significance results at various scales.
-	// Note: `0` is a special value which means no normalization
+	// NormalizeAbove Should the results be normalized when above the given value. Allows for
+	// consistent significance results at various scales. Note: `0` is a special
+	// value which means no normalization
 	NormalizeAbove *int64 `json:"normalize_above,omitempty"`
 }
 

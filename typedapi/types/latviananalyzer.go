@@ -117,6 +117,9 @@ func (s *LatvianAnalyzer) LatvianAnalyzerCaster() *LatvianAnalyzer {
 }
 
 func (s *LatvianAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

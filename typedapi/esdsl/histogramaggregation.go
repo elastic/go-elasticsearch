@@ -27,8 +27,8 @@ type _histogramAggregation struct {
 }
 
 // A multi-bucket values source based aggregation that can be applied on numeric
-// values or numeric range values extracted from the documents.
-// It dynamically builds fixed size (interval) buckets over the values.
+// values or numeric range values extracted from the documents. It dynamically
+// builds fixed size (interval) buckets over the values.
 func NewHistogramAggregation() *_histogramAggregation {
 
 	return &_histogramAggregation{v: types.NewHistogramAggregation()}

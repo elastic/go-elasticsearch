@@ -27,9 +27,8 @@ type DataframeClassificationSummary struct {
 	// Accuracy Accuracy of predictions (per-class and overall).
 	Accuracy *DataframeClassificationSummaryAccuracy `json:"accuracy,omitempty"`
 	// AucRoc The AUC ROC (area under the curve of the receiver operating characteristic)
-	// score and optionally the curve.
-	// It is calculated for a specific class (provided as "class_name") treated as
-	// positive.
+	// score and optionally the curve. It is calculated for a specific class
+	// (provided as "class_name") treated as positive.
 	AucRoc *DataframeEvaluationSummaryAucRoc `json:"auc_roc,omitempty"`
 	// MulticlassConfusionMatrix Multiclass confusion matrix.
 	MulticlassConfusionMatrix *DataframeClassificationSummaryMulticlassConfusionMatrix `json:"multiclass_confusion_matrix,omitempty"`

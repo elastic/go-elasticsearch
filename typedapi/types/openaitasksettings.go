@@ -33,20 +33,15 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/_types/CommonTypes.ts#L1785-L1802
 type OpenAITaskSettings struct {
-	// Headers Specifies custom HTTP header parameters.
-	// For example:
-	// ```
+	// Headers Specifies custom HTTP header parameters. For example:
 	//
 	//	"headers":{
 	//	  "Custom-Header": "Some-Value",
 	//	  "Another-Custom-Header": "Another-Value"
 	//	}
-	//
-	// ```
 	Headers json.RawMessage `json:"headers,omitempty"`
 	// User For a `completion` or `text_embedding` task, specify the user issuing the
-	// request.
-	// This information can be used for abuse detection.
+	// request. This information can be used for abuse detection.
 	User *string `json:"user,omitempty"`
 }
 

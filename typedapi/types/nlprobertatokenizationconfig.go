@@ -31,7 +31,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/tokenizationtruncate"
 )
 
-// NlpRobertaTokenizationConfig type.
+// RoBERTa tokenization configuration options
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/_types/inference.ts#L191-L198
 type NlpRobertaTokenizationConfig struct {

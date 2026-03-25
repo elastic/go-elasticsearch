@@ -63,6 +63,9 @@ func (s *CustomNormalizer) CustomNormalizerCaster() *CustomNormalizer {
 }
 
 func (s *CustomNormalizer) NormalizerCaster() *Normalizer {
+	if s == nil {
+		return nil
+	}
 	o := Normalizer(s)
 	return &o
 }

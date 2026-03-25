@@ -58,19 +58,17 @@ type JobsRecord struct {
 	DataBuckets *string `json:"data.buckets,omitempty"`
 	// DataEarliestRecord The timestamp of the earliest chronologically input document.
 	DataEarliestRecord *string `json:"data.earliest_record,omitempty"`
-	// DataEmptyBuckets The number of buckets which did not contain any data.
-	// If your data contains many empty buckets, consider increasing your
-	// `bucket_span` or using functions that are tolerant to gaps in data such as
-	// mean, `non_null_sum` or `non_zero_count`.
+	// DataEmptyBuckets The number of buckets which did not contain any data. If your data contains
+	// many empty buckets, consider increasing your `bucket_span` or using functions
+	// that are tolerant to gaps in data such as mean, `non_null_sum` or
+	// `non_zero_count`.
 	DataEmptyBuckets *string `json:"data.empty_buckets,omitempty"`
 	// DataInputBytes The number of bytes of input data posted to the anomaly detection job.
 	DataInputBytes ByteSize `json:"data.input_bytes,omitempty"`
 	// DataInputFields The total number of fields in input documents posted to the anomaly detection
-	// job.
-	// This count includes fields that are not used in the analysis.
-	// However, be aware that if you are using a datafeed, it extracts only the
-	// required fields from the documents it retrieves before posting them to the
-	// job.
+	// job. This count includes fields that are not used in the analysis. However,
+	// be aware that if you are using a datafeed, it extracts only the required
+	// fields from the documents it retrieves before posting them to the job.
 	DataInputFields *string `json:"data.input_fields,omitempty"`
 	// DataInputRecords The number of input documents posted to the anomaly detection job.
 	DataInputRecords *string `json:"data.input_records,omitempty"`
@@ -86,39 +84,33 @@ type JobsRecord struct {
 	// DataLatestRecord The timestamp of the latest chronologically input document.
 	DataLatestRecord *string `json:"data.latest_record,omitempty"`
 	// DataMissingFields The number of input documents that are missing a field that the anomaly
-	// detection job is configured to analyze.
-	// Input documents with missing fields are still processed because it is
-	// possible that not all fields are missing.
+	// detection job is configured to analyze. Input documents with missing fields
+	// are still processed because it is possible that not all fields are missing.
 	// If you are using datafeeds or posting data to the job in JSON format, a high
-	// `missing_field_count` is often not an indication of data issues.
-	// It is not necessarily a cause for concern.
+	// `missing_field_count` is often not an indication of data issues. It is not
+	// necessarily a cause for concern.
 	DataMissingFields *string `json:"data.missing_fields,omitempty"`
 	// DataOutOfOrderTimestamps The number of input documents that have a timestamp chronologically preceding
 	// the start of the current anomaly detection bucket offset by the latency
-	// window.
-	// This information is applicable only when you provide data to the anomaly
-	// detection job by using the post data API.
-	// These out of order documents are discarded, since jobs require time series
-	// data to be in ascending chronological order.
+	// window. This information is applicable only when you provide data to the
+	// anomaly detection job by using the post data API. These out of order
+	// documents are discarded, since jobs require time series data to be in
+	// ascending chronological order.
 	DataOutOfOrderTimestamps *string `json:"data.out_of_order_timestamps,omitempty"`
 	// DataProcessedFields The total number of fields in all the documents that have been processed by
-	// the anomaly detection job.
-	// Only fields that are specified in the detector configuration object
-	// contribute to this count.
-	// The timestamp is not included in this count.
+	// the anomaly detection job. Only fields that are specified in the detector
+	// configuration object contribute to this count. The timestamp is not included
+	// in this count.
 	DataProcessedFields *string `json:"data.processed_fields,omitempty"`
 	// DataProcessedRecords The number of input documents that have been processed by the anomaly
-	// detection job.
-	// This value includes documents with missing fields, since they are nonetheless
-	// analyzed.
-	// If you use datafeeds and have aggregations in your search query, the
-	// `processed_record_count` is the number of aggregation results processed, not
-	// the number of Elasticsearch documents.
+	// detection job. This value includes documents with missing fields, since they
+	// are nonetheless analyzed. If you use datafeeds and have aggregations in your
+	// search query, the `processed_record_count` is the number of aggregation
+	// results processed, not the number of Elasticsearch documents.
 	DataProcessedRecords *string `json:"data.processed_records,omitempty"`
 	// DataSparseBuckets The number of buckets that contained few data points compared to the expected
-	// number of data points.
-	// If your data contains many sparse buckets, consider using a longer
-	// `bucket_span`.
+	// number of data points. If your data contains many sparse buckets, consider
+	// using a longer `bucket_span`.
 	DataSparseBuckets *string `json:"data.sparse_buckets,omitempty"`
 	// ForecastsMemoryAvg The average memory usage in bytes for forecasts related to the anomaly
 	// detection job.
@@ -156,22 +148,21 @@ type JobsRecord struct {
 	// ForecastsTimeTotal The total runtime in milliseconds for forecasts related to the anomaly
 	// detection job.
 	ForecastsTimeTotal *string `json:"forecasts.time.total,omitempty"`
-	// ForecastsTotal The number of individual forecasts currently available for the job.
-	// A value of one or more indicates that forecasts exist.
+	// ForecastsTotal The number of individual forecasts currently available for the job. A value
+	// of one or more indicates that forecasts exist.
 	ForecastsTotal *string `json:"forecasts.total,omitempty"`
 	// Id The anomaly detection job identifier.
 	Id *string `json:"id,omitempty"`
 	// ModelBucketAllocationFailures The number of buckets for which new entities in incoming data were not
-	// processed due to insufficient model memory.
-	// This situation is also signified by a `hard_limit: memory_status` property
-	// value.
+	// processed due to insufficient model memory. This situation is also signified
+	// by a `hard_limit: memory_status` property value.
 	ModelBucketAllocationFailures *string `json:"model.bucket_allocation_failures,omitempty"`
-	// ModelByFields The number of `by` field values that were analyzed by the models.
-	// This value is cumulative for all detectors in the job.
+	// ModelByFields The number of `by` field values that were analyzed by the models. This value
+	// is cumulative for all detectors in the job.
 	ModelByFields *string `json:"model.by_fields,omitempty"`
-	// ModelBytes The number of bytes of memory used by the models.
-	// This is the maximum value since the last time the model was persisted.
-	// If the job is closed, this value indicates the latest size.
+	// ModelBytes The number of bytes of memory used by the models. This is the maximum value
+	// since the last time the model was persisted. If the job is closed, this value
+	// indicates the latest size.
 	ModelBytes ByteSize `json:"model.bytes,omitempty"`
 	// ModelBytesExceeded The number of bytes over the high limit for memory usage at the last
 	// allocation failure.
@@ -182,15 +173,14 @@ type JobsRecord struct {
 	ModelCategorizedDocCount *string `json:"model.categorized_doc_count,omitempty"`
 	// ModelDeadCategoryCount The number of categories created by categorization that will never be
 	// assigned again because another category’s definition makes it a superset of
-	// the dead category.
-	// Dead categories are a side effect of the way categorization has no prior
-	// training.
+	// the dead category. Dead categories are a side effect of the way
+	// categorization has no prior training.
 	ModelDeadCategoryCount *string `json:"model.dead_category_count,omitempty"`
 	// ModelFailedCategoryCount The number of times that categorization wanted to create a new category but
-	// couldn’t because the job had hit its `model_memory_limit`.
-	// This count does not track which specific categories failed to be created.
-	// Therefore you cannot use this value to determine the number of unique
-	// categories that were missed.
+	// couldn’t because the job had hit its `model_memory_limit`. This count does
+	// not track which specific categories failed to be created. Therefore you
+	// cannot use this value to determine the number of unique categories that were
+	// missed.
 	ModelFailedCategoryCount *string `json:"model.failed_category_count,omitempty"`
 	// ModelFrequentCategoryCount The number of categories that match more than 1% of categorized documents.
 	ModelFrequentCategoryCount *string `json:"model.frequent_category_count,omitempty"`
@@ -200,11 +190,11 @@ type JobsRecord struct {
 	ModelMemoryLimit *string `json:"model.memory_limit,omitempty"`
 	// ModelMemoryStatus The status of the mathematical models.
 	ModelMemoryStatus *memorystatus.MemoryStatus `json:"model.memory_status,omitempty"`
-	// ModelOverFields The number of `over` field values that were analyzed by the models.
-	// This value is cumulative for all detectors in the job.
+	// ModelOverFields The number of `over` field values that were analyzed by the models. This
+	// value is cumulative for all detectors in the job.
 	ModelOverFields *string `json:"model.over_fields,omitempty"`
-	// ModelPartitionFields The number of `partition` field values that were analyzed by the models.
-	// This value is cumulative for all detectors in the job.
+	// ModelPartitionFields The number of `partition` field values that were analyzed by the models. This
+	// value is cumulative for all detectors in the job.
 	ModelPartitionFields *string `json:"model.partition_fields,omitempty"`
 	// ModelRareCategoryCount The number of categories that match just one categorized document.
 	ModelRareCategoryCount *string `json:"model.rare_category_count,omitempty"`

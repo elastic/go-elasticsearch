@@ -34,9 +34,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/snapshot/cleanup_repository/SnapshotCleanupRepositoryResponse.ts#L29-L37
 type CleanupRepositoryResults struct {
 	// DeletedBlobs The number of binary large objects (blobs) removed from the snapshot
-	// repository during cleanup operations.
-	// A non-zero value indicates that unreferenced blobs were found and
-	// subsequently cleaned up.
+	// repository during cleanup operations. A non-zero value indicates that
+	// unreferenced blobs were found and subsequently cleaned up.
 	DeletedBlobs int64 `json:"deleted_blobs"`
 	// DeletedBytes The number of bytes freed by cleanup operations.
 	DeletedBytes int64 `json:"deleted_bytes"`

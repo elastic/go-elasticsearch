@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// StringTermsAggregate type.
+// Result of a `terms` aggregation when the field is a string.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/aggregations/Aggregate.ts#L495-L500
 type StringTermsAggregate struct {

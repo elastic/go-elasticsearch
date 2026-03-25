@@ -42,12 +42,11 @@ type Request struct {
 	Input *types.WatcherInput `json:"input,omitempty"`
 	// Metadata Metadata JSON that will be copied into the history entries.
 	Metadata types.Metadata `json:"metadata,omitempty"`
-	// ThrottlePeriod The minimum time between actions being run.
-	// The default is 5 seconds.
-	// This default can be changed in the config file with the setting
-	// `xpack.watcher.throttle.period.default_period`.
-	// If both this value and the `throttle_period_in_millis` parameter are
-	// specified, Watcher uses the last parameter included in the request.
+	// ThrottlePeriod The minimum time between actions being run. The default is 5 seconds. This
+	// default can be changed in the config file with the setting
+	// `xpack.watcher.throttle.period.default_period`. If both this value and the
+	// `throttle_period_in_millis` parameter are specified, Watcher uses the last
+	// parameter included in the request.
 	ThrottlePeriod types.Duration `json:"throttle_period,omitempty"`
 	// ThrottlePeriodInMillis Minimum time in milliseconds between actions being run. Defaults to 5000. If
 	// both this value and the throttle_period parameter are specified, Watcher uses

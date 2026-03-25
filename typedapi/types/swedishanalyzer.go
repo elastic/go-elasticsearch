@@ -117,6 +117,9 @@ func (s *SwedishAnalyzer) SwedishAnalyzerCaster() *SwedishAnalyzer {
 }
 
 func (s *SwedishAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

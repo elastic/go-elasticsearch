@@ -29,18 +29,19 @@ import (
 	"strconv"
 )
 
-// FailureStoreLifecycle type.
+// The failure store lifecycle configures the data stream lifecycle
+// configuration for failure indices.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/_types/DataStreamFailureStore.ts#L56-L72
 type FailureStoreLifecycle struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
-	// for this time frame.
-	// Any time after this duration the document could be deleted.
-	// When empty, every document in this data stream will be stored indefinitely.
+	// for this time frame. Any time after this duration the document could be
+	// deleted. When empty, every document in this data stream will be stored
+	// indefinitely.
 	DataRetention Duration `json:"data_retention,omitempty"`
 	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
-	// data stream. A data stream lifecycle
-	// that's disabled (enabled: `false`) will have no effect on the data stream.
+	// data stream. A data stream lifecycle that's disabled (enabled: `false`) will
+	// have no effect on the data stream.
 	Enabled *bool `json:"enabled,omitempty"`
 }
 

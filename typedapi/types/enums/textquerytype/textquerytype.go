@@ -29,16 +29,29 @@ type TextQueryType struct {
 }
 
 var (
+
+	// Bestfields Finds documents that match any field, but uses the `_score` from the best
+	// field.
 	Bestfields = TextQueryType{"best_fields"}
 
+	// Mostfields Finds documents that match any field and combines the `_score` from each
+	// field.
 	Mostfields = TextQueryType{"most_fields"}
 
+	// Crossfields Treats fields with the same analyzer as though they were one big field. Looks
+	// for each word in any field.
 	Crossfields = TextQueryType{"cross_fields"}
 
+	// Phrase Runs a `match_phrase` query on each field and uses the `_score` from the best
+	// field.
 	Phrase = TextQueryType{"phrase"}
 
+	// Phraseprefix Runs a `match_phrase_prefix` query on each field and uses the `_score` from
+	// the best field.
 	Phraseprefix = TextQueryType{"phrase_prefix"}
 
+	// Boolprefix Creates a `match_bool_prefix` query on each field and combines the `_score`
+	// from each field.
 	Boolprefix = TextQueryType{"bool_prefix"}
 )
 

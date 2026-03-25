@@ -105,6 +105,9 @@ func (s *TermsPartition) TermsPartitionCaster() *TermsPartition {
 }
 
 func (s *TermsPartition) TermsIncludeCaster() *TermsInclude {
+	if s == nil {
+		return nil
+	}
 	o := TermsInclude(s)
 	return &o
 }

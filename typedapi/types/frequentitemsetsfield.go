@@ -32,12 +32,12 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/aggregations/bucket.ts#L1256-L1268
 type FrequentItemSetsField struct {
-	// Exclude Values to exclude.
-	// Can be regular expression strings or arrays of strings of exact terms.
+	// Exclude Values to exclude. Can be regular expression strings or arrays of strings of
+	// exact terms.
 	Exclude []string `json:"exclude,omitempty"`
 	Field   string   `json:"field"`
-	// Include Values to include.
-	// Can be regular expression strings or arrays of strings of exact terms.
+	// Include Values to include. Can be regular expression strings or arrays of strings of
+	// exact terms.
 	Include TermsInclude `json:"include,omitempty"`
 }
 

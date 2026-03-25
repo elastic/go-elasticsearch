@@ -931,6 +931,9 @@ func (s *DateRangeProperty) DateRangePropertyCaster() *DateRangeProperty {
 }
 
 func (s *DateRangeProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

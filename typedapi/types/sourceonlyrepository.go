@@ -104,6 +104,9 @@ func (s *SourceOnlyRepository) SourceOnlyRepositoryCaster() *SourceOnlyRepositor
 }
 
 func (s *SourceOnlyRepository) RepositoryCaster() *Repository {
+	if s == nil {
+		return nil
+	}
 	o := Repository(s)
 	return &o
 }

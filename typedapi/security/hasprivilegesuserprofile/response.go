@@ -28,13 +28,12 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/has_privileges_user_profile/Response.ts#L23-L38
 type Response struct {
-	// Errors The subset of the requested profile IDs for which an error
-	// was encountered. It does not include the missing profile IDs
-	// or the profile IDs of the users that do not have all the
-	// requested privileges. This field is absent if empty.
+	// Errors The subset of the requested profile IDs for which an error was encountered.
+	// It does not include the missing profile IDs or the profile IDs of the users
+	// that do not have all the requested privileges. This field is absent if empty.
 	Errors *types.HasPrivilegesUserProfileErrors `json:"errors,omitempty"`
-	// HasPrivilegeUids The subset of the requested profile IDs of the users that
-	// have all the requested privileges.
+	// HasPrivilegeUids The subset of the requested profile IDs of the users that have all the
+	// requested privileges.
 	HasPrivilegeUids []string `json:"has_privilege_uids"`
 }
 

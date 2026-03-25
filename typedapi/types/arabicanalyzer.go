@@ -117,6 +117,9 @@ func (s *ArabicAnalyzer) ArabicAnalyzerCaster() *ArabicAnalyzer {
 }
 
 func (s *ArabicAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

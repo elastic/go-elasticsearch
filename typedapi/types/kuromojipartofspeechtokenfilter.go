@@ -102,6 +102,9 @@ func (s *KuromojiPartOfSpeechTokenFilter) KuromojiPartOfSpeechTokenFilterCaster(
 }
 
 func (s *KuromojiPartOfSpeechTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }
